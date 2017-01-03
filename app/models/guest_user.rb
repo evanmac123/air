@@ -1,12 +1,12 @@
 class GuestUser < ActiveRecord::Base
   # Q: Why is GuestUser not a subclass of User?
-  # A: User is an overly fat model, and an old one, and I decided that some 
+  # A: User is an overly fat model, and an old one, and I decided that some
   # redundancy between GuestUser's and User's APIs was an OK cost to pay for
   # not dragging in a ton of old gnarly code from User.
   #
   # Plus, common behavior between this and User is good leverage to refactor
   # stuff out of User, which User could use.
-  
+
   belongs_to :demo
   has_many   :tile_completions, :as => :user, :dependent => :destroy
   has_many   :completed_tiles, source: :tile, through: :tile_completions
@@ -27,7 +27,7 @@ class GuestUser < ActiveRecord::Base
   def role
     "Guest"
   end
- 
+
   def name
     "Guest User [#{id}]"
   end
@@ -38,6 +38,10 @@ class GuestUser < ActiveRecord::Base
 
   def to_param
     "guestuser"
+  end
+
+  def remember_token
+    "token"
   end
 
   def to_ticket_progress_calculator
@@ -77,15 +81,16 @@ class GuestUser < ActiveRecord::Base
 
   def to_guest_user_hash # used to persist this guest's information to the next request
     {
-      :id => id
+      id: id,
+      demo_id: demo.try(:id)
     }
   end
 
   def convert_to_full_user!(name, email, password, location_name = nil)
     ConvertToFullUser.new({
-      pre_user: self, 
-      name: name, 
-      email: email, 
+      pre_user: self,
+      name: name,
+      email: email,
       password: password,
       location_name: location_name,
       converting_from_guest: true

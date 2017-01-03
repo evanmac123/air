@@ -5,7 +5,7 @@ feature "LeadContacts", js: true do
       admin = FactoryGirl.create(:site_admin)
       lead_contact = FactoryGirl.create(:lead_contact, organization_name: "Lead")
       campaign = FactoryGirl.create(:demo, name: "airbo.com Board", public_slug: "internal-validation")
-      tile = FactoryGirl.create(:tile, demo: campaign)
+      FactoryGirl.create(:tile, demo: campaign)
       Demo.stubs(:campaigns).returns(Demo.where(name: campaign.name))
 
       visit admin_sales_lead_contacts_path(as: admin)
@@ -35,19 +35,6 @@ feature "LeadContacts", js: true do
 
       within ".processed-leads" do
         expect(page).to have_content(lead_contact.name)
-      end
-
-      new_board_window = window_opened_by { click_link "customize board" }
-
-      within_window new_board_window do
-        expect(current_path).to eq("/client_admin/tiles")
-        expect(page).to have_content(tile.headline)
-      end
-
-      send_digest_window = window_opened_by { click_link "send digest email" }
-
-      within_window send_digest_window do
-        expect(current_path).to eq("/client_admin/share")
       end
     end
   end

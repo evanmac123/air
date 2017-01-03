@@ -5,7 +5,7 @@ feature 'Lightbox for guest users' do
     "Already a user? Sign in."
   end
 
-  let (:board) {FactoryGirl.create(:demo, :with_public_slug)}
+  let (:board) { FactoryGirl.create(:demo, :with_public_slug) }
 
   context 'When a guest in a board with active tiles', js: true do
     before do

@@ -1,0 +1,28 @@
+<div class="invite" id="invite_friends">
+  <div id="search_for_friends_to_invite">
+    <div id="invite_friends_top">
+      <h3 id="invite_your_friends_title">Invite</h3>
+      <p id="why_invite">Earn 5 points for each one that joins and gives you credit for recruiting them.</p>
+      <div id="points_per_referral">
+        <%= current_user.demo.game_referrer_bonus %>
+      </div>
+    </div>
+    <div id="invite_friends_middle">
+      <ul class="form-section">
+        <li class="form-label">
+          <%= label_tag :autocomplete,  "Who do you want to invite?" %>
+        </li>
+        <li class="form-input">
+          <%= text_field_tag :autocomplete, nil, :autocomplete => "off", placeholder: invite_friends_placeholder %>
+        </li>
+      </ul>
+      <div class="small_cap" id="autocomplete_status" style="width: 99%"></div>
+      <div id="potential_bonus_points" style="display: none;">0</div>
+    </div>
+    <div id="invite_friends_bottom">
+      <div id="suggestions">
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+</div>

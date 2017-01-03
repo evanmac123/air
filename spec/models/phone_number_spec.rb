@@ -10,7 +10,7 @@ describe "PhoneNumber" do
           "1.415.261.3077",
           "    141x52613+&+&077"
         ].each do |unnormalized_phone_number|
-          PhoneNumber.normalize(unnormalized_phone_number).should == "+14152613077"
+          expect(PhoneNumber.normalize(unnormalized_phone_number)).to eq("+14152613077")
         end
       end
     end
@@ -23,7 +23,7 @@ describe "PhoneNumber" do
           "415.261.3077",
           "     41x52613+&+&077     "
         ].each do |unnormalized_phone_number|
-          PhoneNumber.normalize(unnormalized_phone_number).should == "+14152613077"
+          expect(PhoneNumber.normalize(unnormalized_phone_number)).to eq("+14152613077")
         end
       end
     end
@@ -35,7 +35,7 @@ describe "PhoneNumber" do
           "            ",
           "\t\t\n\t\n"
         ].each do |unnormalized_phone_number|
-          PhoneNumber.normalize(unnormalized_phone_number).should == ""
+          expect(PhoneNumber.normalize(unnormalized_phone_number)).to eq("")
         end
       end
     end

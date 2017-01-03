@@ -1,4 +1,4 @@
-class ThumbnailsController < ApplicationController
+class ThumbnailsController < UserBaseController
   THUMBNAIL_POLL_DELAY = 5
 #TODO figure out if these actions need to be refactored now that the image
   #processing has been cleaned up.

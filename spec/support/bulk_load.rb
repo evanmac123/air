@@ -8,10 +8,10 @@ def expect_user_ids_in_queue(keyholder, user_ids_to_remove)
                          else
                            $redis.smembers(keyholder.redis_user_ids_to_remove_key)
                          end
-  user_ids_to_remove.map(&:to_s).sort.should == ids_queued_to_remove.map(&:to_s).sort
+  expect(user_ids_to_remove.map(&:to_s).sort).to eq(ids_queued_to_remove.map(&:to_s).sort)
 end
 
 def expect_user_ids_in_queue_and_object(keyholder, user_ids_to_remove)
   expect_user_ids_in_queue(keyholder, user_ids_to_remove)
-  keyholder.user_ids_to_remove.map(&:to_s).sort.should == user_ids_to_remove.map(&:to_s).sort
+  expect(keyholder.user_ids_to_remove.map(&:to_s).sort).to eq(user_ids_to_remove.map(&:to_s).sort)
 end

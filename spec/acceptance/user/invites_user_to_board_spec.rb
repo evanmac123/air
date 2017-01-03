@@ -39,7 +39,7 @@ feature 'User invites user to board', broken: true do
       it "should return user", js: true do
         autocomplete_status AUTOCOMPLETE_STATUS[:click]
         should_find_user @user0.name
-        found_users_count.should == 1
+        expect(found_users_count).to eq(1)
         should_have_invite_button @user0
       end
 
@@ -48,7 +48,7 @@ feature 'User invites user to board', broken: true do
           page.find(".single_click_invite").click
         end
 
-        pending "should send invitation", js: true, convert_to: "unit" do
+        skip "should send invitation", js: true, convert_to: "unit" do
           it "Another fucking unit test in an accpteance tests clothes"
           should_send_email @user0, @user, @demo1
         end
@@ -63,7 +63,7 @@ feature 'User invites user to board', broken: true do
       it "should return user without invite button", js: true do
         autocomplete_status AUTOCOMPLETE_STATUS[:click]
         should_find_user @user1.name
-        found_users_count.should == 1
+        expect(found_users_count).to eq(1)
         should_not_have_invite_button @user0
         expect_content "(already participating)"
       end
@@ -77,7 +77,7 @@ feature 'User invites user to board', broken: true do
       it "should not return user", js: true do
         autocomplete_status AUTOCOMPLETE_STATUS[:hm]
         should_find_no_user "Va Va Va Voom"
-        found_users_count.should == 0
+        expect(found_users_count).to eq(0)
       end
     end
   end
@@ -91,7 +91,7 @@ feature 'User invites user to board', broken: true do
       it "should return user", js: true do
         autocomplete_status AUTOCOMPLETE_STATUS[:click]
         should_find_user @user0.name
-        found_users_count.should == 1
+        expect(found_users_count).to eq(1)
         should_have_invite_button @user0
       end
 
@@ -114,7 +114,7 @@ feature 'User invites user to board', broken: true do
       it "should return user without invite button", js: true do
         autocomplete_status AUTOCOMPLETE_STATUS[:click]
         should_find_user @user1.name
-        found_users_count.should == 1
+        expect(found_users_count).to eq(1)
         should_not_have_invite_button @user1
         expect_content "(already participating)"
       end
@@ -128,7 +128,7 @@ feature 'User invites user to board', broken: true do
       it "should return user", js: true do
         autocomplete_status AUTOCOMPLETE_STATUS[:click]
         should_find_user @user8.email
-        found_users_count.should == 1
+        expect(found_users_count).to eq(1)
       end
 
       context "invite user" do
@@ -138,8 +138,8 @@ feature 'User invites user to board', broken: true do
         end
 
         it "should create potential user with entered email", js: true, convert_to_unit: true do
-          pending "this should be a unit test fuck!!@@!!!! this test hangs the entire suite!!!"
-          @potential_user.email.should == @user8.email
+          skip "this should be a unit test fuck!!@@!!!! this test hangs the entire suite!!!"
+          expect(@potential_user.email).to eq(@user8.email)
         end
 
         it "should send invitation", js: true do
@@ -156,7 +156,7 @@ feature 'User invites user to board', broken: true do
       it "should return card with email", js: true do
         autocomplete_status AUTOCOMPLETE_STATUS[:click]
         should_find_user "new@person.com"
-        found_users_count.should == 1
+        expect(found_users_count).to eq(1)
       end
 
       scenario "invite user", js: true do
@@ -170,17 +170,17 @@ feature 'User invites user to board', broken: true do
 
 
   def autocomplete_status status
-    page.find("#autocomplete_status").should have_content status
+    expect(page.find("#autocomplete_status")).to have_content status
   end
 
   def should_find_user name
     within ".single_suggestion" do
-      page.should have_content name
+      expect(page).to have_content name
     end
   end
 
   def should_find_no_user name
-    page.all(".single_suggestion", text: name).count.should == 0
+    expect(page.all(".single_suggestion", text: name).count).to eq(0)
   end
 
   def found_users_count
@@ -188,11 +188,11 @@ feature 'User invites user to board', broken: true do
   end
 
   def should_have_invite_button user
-    page.find("#invitee_id[value='#{user.id}']", visible: false).should be_present
+    expect(page.find("#invitee_id[value='#{user.id}']", visible: false)).to be_present
   end
 
   def should_not_have_invite_button user
-    page.all("#invitee_id[value='#{user.id}']").count.should == 0
+    expect(page.all("#invitee_id[value='#{user.id}']").count).to eq(0)
   end
 
   def should_send_email invitee, referrer, demo
@@ -200,7 +200,7 @@ feature 'User invites user to board', broken: true do
     crank_dj_clear
 
     open_email invitee.email
-    current_email.to_s.should have_content "#{referrer.name} invited you to"
-    current_email.to_s.should have_content " join the #{demo.name}"
+    expect(current_email.to_s).to have_content "#{referrer.name} invited you to"
+    expect(current_email.to_s).to have_content " join the #{demo.name}"
   end
 end

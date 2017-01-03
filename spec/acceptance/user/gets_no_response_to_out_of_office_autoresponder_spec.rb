@@ -25,10 +25,10 @@ feature 'Gets no response to out of office autoresponder' do
       end
     end
 
-    EmailCommand.all.length.should == out_of_office_subjects.length * out_of_office_bodies.length
-    EmailCommand.all.all? {|email_command| email_command.status == EmailCommand::Status::SILENT_SUCCESS}.should be_true
+    expect(EmailCommand.all.length).to eq(out_of_office_subjects.length * out_of_office_bodies.length)
+    expect(EmailCommand.all.all? {|email_command| email_command.status == EmailCommand::Status::SILENT_SUCCESS}).to be_truthy
 
     crank_dj_clear
-    ActionMailer::Base.deliveries.should be_empty
+    expect(ActionMailer::Base.deliveries).to be_empty
   end
 end

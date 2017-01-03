@@ -1,4 +1,4 @@
-class CurrentBoardsController < ApplicationController
+class CurrentBoardsController < UserBaseController
   def update
     is_admin = current_user.is_client_admin? || current_user.is_site_admin?
 

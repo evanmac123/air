@@ -14,7 +14,7 @@ describe ClientAdmin::TilesDigestNotificationsController do
       post :create, follow_up_day: 'Friday', digest: {follow_up_day: "Tuesday", digest_send_to: 'true'}
 
       follow_up = FollowUpDigestEmail.last
-      follow_up.user_ids_to_deliver_to.sort.should == expected_user_ids_to_deliver_to
+      expect(follow_up.user_ids_to_deliver_to.sort).to eq(expected_user_ids_to_deliver_to)
     end
   end
 end

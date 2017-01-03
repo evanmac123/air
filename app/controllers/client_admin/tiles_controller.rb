@@ -5,7 +5,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   include CustomResponder
 
   before_filter :get_demo
-  before_filter :load_tags, only: [:new, :edit, :update]
   before_filter :permit_params, only: [:create, :update]
 
   def index

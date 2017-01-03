@@ -1,15 +1,13 @@
 require 'spec_helper'
 
 describe Tile do
-  it { should belong_to(:demo) }
-  it { should belong_to(:creator) }
-  it { should have_many(:tile_tags) }
-  it { should have_many(:tile_viewings) }
-  it { should have_many(:user_viewers) }
-  it { should have_many(:guest_user_viewers) }
-  it { should ensure_inclusion_of(:status).in_array(Tile::STATUS) }
-
-  pending { should_have_valid_mime_type(Tile, :image_content_type) }
+  it { is_expected.to belong_to(:demo) }
+  it { is_expected.to belong_to(:creator) }
+  it { is_expected.to have_many(:tile_tags) }
+  it { is_expected.to have_many(:tile_viewings) }
+  it { is_expected.to have_many(:user_viewers) }
+  it { is_expected.to have_many(:guest_user_viewers) }
+  it { is_expected.to ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
   context "incomplete drafts" do
     it "it can be saved with just  headline" do
@@ -38,7 +36,7 @@ describe Tile do
 
     it "forbids updating activated_at when unarchiving tiles be default" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
-      expect(tile.activated_at_reset_allowed?).to be_false 
+      expect(tile.activated_at_reset_allowed?).to be_falsey
     end
 
     it "doesnt change activated_at if on un archival if not explicitly set" do
@@ -49,7 +47,7 @@ describe Tile do
     it "allows updating activated_at when unarchiving tiles when explicitly set" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
       tile.allow_activated_at_reset
-      expect(tile.activated_at_reset_allowed?).to be_true 
+      expect(tile.activated_at_reset_allowed?).to be_truthy
     end
 
     it "changes activated_it if the current status is DRAFT" do
@@ -62,15 +60,15 @@ describe Tile do
     it "allows activated_at reset if allow digest flag is true" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
       tile.handle_unarchived(Tile::ACTIVE, "true")
-      expect(tile.activated_at_reset_allowed?).to be_true 
-    end 
+      expect(tile.activated_at_reset_allowed?).to be_truthy
+    end
 
 
     it "prevents activated_at reset if allow digest flag is false" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE
       tile.handle_unarchived(Tile::ACTIVE, "false")
-      expect(tile.activated_at_reset_allowed?).to be_false
-    end 
+      expect(tile.activated_at_reset_allowed?).to be_falsey
+    end
 
   end
 
@@ -99,7 +97,7 @@ describe Tile do
       active  = FactoryGirl.create_list :tile, 4, demo: demo
       archive = FactoryGirl.create_list :tile, 2, demo: demo, status: Tile::ARCHIVE
 
-      demo.digest_tiles(nil).pluck(:id).sort.should == active.collect(&:id).sort
+      expect(demo.digest_tiles(nil).pluck(:id).sort).to eq(active.collect(&:id).sort)
     end
 
     it 'should return the correct tiles for each status type in the specified demo' do
@@ -139,10 +137,10 @@ describe Tile do
         FactoryGirl.create(:tile, demo: bad_demo, status: Tile::ACTIVE, activated_at: last_digest_sent_at + i.minutes).id
       end
 
-      demo.draft_tiles.pluck(:id).sort.should   == draft.sort
-      demo.archive_tiles.pluck(:id).sort.should == archive.sort
-      demo.active_tiles.pluck(:id).sort.should  == active.sort
-      demo.digest_tiles(demo.tile_digest_email_sent_at).pluck(:id).sort.should  == digest.sort
+      expect(demo.draft_tiles.pluck(:id).sort).to   eq(draft.sort)
+      expect(demo.archive_tiles.pluck(:id).sort).to eq(archive.sort)
+      expect(demo.active_tiles.pluck(:id).sort).to  eq(active.sort)
+      expect(demo.digest_tiles(demo.tile_digest_email_sent_at).pluck(:id).sort).to  eq(digest.sort)
     end
   end
 
@@ -176,16 +174,16 @@ describe Tile do
     time_1 = Time.zone.now
     Timecop.freeze(time_1)
     tile_1 = FactoryGirl.create :tile, status: Tile::ACTIVE
-    tile_1.activated_at.to_s.should == time_1.to_s
-    tile_1.archived_at.should be_nil
+    expect(tile_1.activated_at.to_s).to eq(time_1.to_s)
+    expect(tile_1.archived_at).to be_nil
 
     tile_2 = FactoryGirl.create :tile, status: Tile::ARCHIVE
-    tile_2.archived_at.to_s.should == time_1.to_s
-    tile_2.activated_at.should be_nil
+    expect(tile_2.archived_at.to_s).to eq(time_1.to_s)
+    expect(tile_2.activated_at).to be_nil
 
     tile_3 = FactoryGirl.create :tile, status: Tile::DRAFT
-    tile_3.activated_at.should be_nil
-    tile_3.archived_at.should be_nil
+    expect(tile_3.activated_at).to be_nil
+    expect(tile_3.archived_at).to be_nil
 
      #Don't forget to verify that we can override the time-stamp assignments with FactoryGirl.
      #Note: As per the sample output below (from a failing test) the time from the dbase contains
@@ -193,11 +191,11 @@ describe Tile do
      #expected: "2013-08-15" ; got: "2013-08-15 00:00:00 -0400"
 
     tile_4 = FactoryGirl.create :tile, status: Tile::ACTIVE, activated_at: Date.tomorrow
-    (tile_4.activated_at.to_s.split)[0].should == Date.tomorrow.to_s
+    expect((tile_4.activated_at.to_s.split)[0]).to eq(Date.tomorrow.to_s)
 
     tile_5 = FactoryGirl.create :tile, status: Tile::ARCHIVE
     tile_5.update_column(:archived_at,  Date.yesterday) #use set to skip callback that auto sets archived date
-    (tile_5.archived_at.to_s.split)[0].should == Date.yesterday.to_s
+    expect((tile_5.archived_at.to_s.split)[0]).to eq(Date.yesterday.to_s)
 
     #------------------------------------------------
 
@@ -207,12 +205,12 @@ describe Tile do
     Timecop.freeze(time_2)
 
     tile_1.update_attributes status: Tile::ARCHIVE
-    tile_1.activated_at.to_s.should == time_1.to_s
-    tile_1.archived_at.to_s.should == time_2.to_s
+    expect(tile_1.activated_at.to_s).to eq(time_1.to_s)
+    expect(tile_1.archived_at.to_s).to eq(time_2.to_s)
 
     tile_2.update_attributes status: Tile::ACTIVE
-    tile_2.activated_at.to_s.should == time_2.to_s
-    tile_2.archived_at.to_s.should == time_1.to_s
+    expect(tile_2.activated_at.to_s).to eq(time_2.to_s)
+    expect(tile_2.archived_at.to_s).to eq(time_1.to_s)
 
     #------------------------------------------------
 
@@ -222,10 +220,10 @@ describe Tile do
     Timecop.freeze(time_3)
 
     tile_1.status = Tile::ACTIVE
-    tile_1.archived_at.to_s.should == time_2.to_s
+    expect(tile_1.archived_at.to_s).to eq(time_2.to_s)
 
     tile_2.status = Tile::ARCHIVE
-    tile_2.activated_at.to_s.should == time_2.to_s
+    expect(tile_2.activated_at.to_s).to eq(time_2.to_s)
 
     Timecop.return
   end
@@ -240,8 +238,8 @@ describe Tile do
 
     it "looks good to the average user" do
       tiles = Tile.satisfiable_to_user(@leah)
-      tiles.count.should == 1
-      tiles.first.id.should == @mud_bath.id
+      expect(tiles.count).to eq(1)
+      expect(tiles.first.id).to eq(@mud_bath.id)
     end
   end
 
@@ -266,15 +264,15 @@ describe Tile do
       emails = [@reath.email, @lucy.email, @random_email]
       Tile.bulk_complete(@fun.id, @stretch.id, emails)
 
-      TileCompletion.count.should == 1
-      TileCompletion.first.user.should == @lucy
-      TileCompletion.first.tile_id.should == @stretch.id
+      expect(TileCompletion.count).to eq(1)
+      expect(TileCompletion.first.user).to eq(@lucy)
+      expect(TileCompletion.first.tile_id).to eq(@stretch.id)
     end
 
     it "does no completions if blank string sent" do
       emails = []
       Tile.bulk_complete(@fun.id, @stretch.id, emails)
-      TileCompletion.count.should == 0
+      expect(TileCompletion.count).to eq(0)
     end
   end
 
@@ -284,18 +282,18 @@ describe Tile do
         http_tile = FactoryGirl.create(:tile, link_address: "http://www.google.com")
         https_tile = FactoryGirl.create(:tile, link_address: "https://www.nsa.gov")
 
-        http_tile.reload.link_address.should == 'http://www.google.com'
-        https_tile.reload.link_address.should == 'https://www.nsa.gov'
+        expect(http_tile.reload.link_address).to eq('http://www.google.com')
+        expect(https_tile.reload.link_address).to eq('https://www.nsa.gov')
       end
     end
 
     context "if a URL is specified with no protocol" do
       it "should prepend HTTP" do
         tile = FactoryGirl.create(:tile, link_address: 'google.com')
-        tile.reload.link_address.should == 'http://google.com'
+        expect(tile.reload.link_address).to eq('http://google.com')
 
         tile.update_attributes(link_address: 'nsa.gov')
-        tile.reload.link_address.should == 'http://nsa.gov'
+        expect(tile.reload.link_address).to eq('http://nsa.gov')
       end
     end
 
@@ -304,8 +302,8 @@ describe Tile do
         nil_tile = FactoryGirl.create(:tile, link_address: nil)
         blank_tile = FactoryGirl.create(:tile, link_address: '')
 
-        nil_tile.reload.link_address.should be_nil
-        blank_tile.reload.link_address.should == ''
+        expect(nil_tile.reload.link_address).to be_nil
+        expect(blank_tile.reload.link_address).to eq('')
       end
     end
   end
@@ -318,8 +316,8 @@ describe Tile do
       tc1 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 0 )
       tc2 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
       tc3 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
-      tile.survey_chart.should == [{"answer"=>"Yes", "number"=>1, "percent"=>33.33},
-                                   {"answer"=>"No", "number"=>2, "percent"=>66.67}]
+      expect(tile.survey_chart).to eq([{"answer"=>"Yes", "number"=>1, "percent"=>33.33},
+                                   {"answer"=>"No", "number"=>2, "percent"=>66.67}])
     end
   end
 
@@ -336,7 +334,7 @@ describe Tile do
 
     it "should be normalized on creation" do
       tile = FactoryGirl.create(:multiple_choice_tile, image: File.open(Rails.root.join "spec/support/fixtures/tiles/cov'1.jpg"))
-      tile.image_file_name.should == "cov-1.jpg"
+      expect(tile.image_file_name).to eq("cov-1.jpg")
     end
 
     it "should be normalized on save if changed" do
@@ -344,7 +342,7 @@ describe Tile do
       tile.image = File.open(Rails.root.join "spec/support/fixtures/tiles/cov'1.jpg")
       tile.save!
 
-      tile.image_file_name.should == "cov-1.jpg"
+      expect(tile.image_file_name).to eq("cov-1.jpg")
     end
 
     it "should not be touched if the tile is saved for some other reason, but the filename is unchanged" do
@@ -353,7 +351,7 @@ describe Tile do
       tile.status = Tile::ACTIVE
       tile.save!
 
-      tile.reload.image_file_name.should == legacy_filename
+      expect(tile.reload.image_file_name).to eq(legacy_filename)
     end
   end
 end

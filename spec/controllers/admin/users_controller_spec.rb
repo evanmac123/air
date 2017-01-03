@@ -15,7 +15,7 @@ describe Admin::UsersController do
         put :update, demo_id: Demo.first.id, id: user.slug, user: { is_client_admin: true }
 
         expect(response.status).to eq(302)
-        expect(subject).to have_received(:ping).with("claimed account", {source: 'Site Admin'}, subject.current_user)
+        expect(subject).to have_received(:ping).with("claimed account", {source: 'Site Admin'}, subject.send(:current_user))
       end
     end
 
@@ -32,7 +32,7 @@ describe Admin::UsersController do
         put :update, demo_id: Demo.first.id, id: user.slug, user: {}
 
         expect(response.status).to eq(302)
-        expect(subject).to have_received(:ping).never.with("claimed account", {source: 'Site Admin'}, subject.current_user)
+        expect(subject).to have_received(:ping).never.with("claimed account", {source: 'Site Admin'}, subject.send(:current_user))
       end
     end
   end

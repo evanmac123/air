@@ -13,7 +13,7 @@ feature 'Client admin drags and drops tiles' do
 
   shared_examples_for 'Moves tile in one section' do |section, tiles_num, i1, i2|
     scenario "#{section} section. Move tile #{tiles_num - i1} on the place of #{tiles_num - i2}", js: true do
-      pending "Works in production fails in the test environment FIXME enventuall"
+      skip "Works in production fails in the test environment FIXME enventuall"
       create_tiles_for_sections section => tiles_num
       visit current_path #reload page
       tiles = demo.send(:"#{section}_tiles").to_a
@@ -23,14 +23,14 @@ feature 'Client admin drags and drops tiles' do
       wait_for_ajax
       tile_id = tiles[i1].id
       tiles.insert i2, tiles.delete_at(i1)
-      section_tile_headlines("##{section}").should == tiles.map(&:headline)
-      demo.reload.send(:"#{section}_tiles").should == tiles
+      expect(section_tile_headlines("##{section}")).to eq(tiles.map(&:headline))
+      expect(demo.reload.send(:"#{section}_tiles")).to eq(tiles)
     end
   end
 
   shared_examples_for 'Moves tile between sections' do |section1, num1, i1, section2, num2, i2|
     scenario "Move tile #{num1 - i1} from #{section1} to tile #{num2 - i2} in #{section2}", js: true do
-      pending "Works in production fails in the test environment FIXME enventually. Weird logic for tests. Tests should be simple to understand! No sends!!"
+      skip "Works in production fails in the test environment FIXME enventually. Weird logic for tests. Tests should be simple to understand! No sends!!"
       create_tiles_for_sections section1 => num1, section2 => num2
       tiles1 = demo.send(:"#{section1}_tiles").to_a
       tiles2 = demo.send(:"#{section2}_tiles").to_a
@@ -61,7 +61,7 @@ feature 'Client admin drags and drops tiles' do
       move_tile_between_sections tiles1[0], tiles2[i2]
 
       wait_for_ajax
-      section_tile_headlines("##{section1}").last.should == tiles1[i1 + 1].headline
+      expect(section_tile_headlines("##{section1}").last).to eq(tiles1[i1 + 1].headline)
     end
   end
 
@@ -92,7 +92,7 @@ feature 'Client admin drags and drops tiles' do
       end
 
       it "should not show modal if tile has no completions", js: true do
-        pending "Works in production fails in the test environment FIXME enventuall"
+        skip "Works in production fails in the test environment FIXME enventuall"
         visit current_path
         move_tile_between_sections @tiles1[@i1], @tiles2[@i2]
 

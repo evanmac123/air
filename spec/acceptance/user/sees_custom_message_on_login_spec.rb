@@ -8,9 +8,9 @@ feature "User Sees Custom Message On Login" do
     has_password(user, 'foobar')
 
     signin_as user, "foobar"
-    page.should have_content("Eat Yr Fuckin Raisins")
+    expect(page).to have_content("Eat Yr Fuckin Raisins")
 
     visit "/activity"
-    page.should_not have_content("Eat Yr Fuckin Raisins")
+    expect(page).not_to have_content("Eat Yr Fuckin Raisins")
   end
 end

@@ -13,12 +13,6 @@ RSpec.configure do |config|
 
   config.around(:each) do |example|
     if example.metadata[:driver]
-      Capybara.current_driver = example.metadata[:driver]
-    elsif example.metadata[:js]
-      Capybara.current_driver = :poltergeist
-    end
-
-    if Capybara.current_driver == :rack_test
       DatabaseCleaner.strategy = :transaction
     else
       DatabaseCleaner.strategy = :deletion, {pre_count: true}

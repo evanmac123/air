@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="large-8 columns">
+  <div class="large-7 columns">
     <div class="module personal_settings" id="about_user">
     	<h3>Change Picture</h3>
       <div class="module_inner settings_avatar">
@@ -18,18 +18,26 @@
       </div>
     </div>
 
-    <div class="module personal_settings" id="password_change">
+    <div class="personal_settings" id="password_change">
       <h3>Change Password</h3>
       <%= form_for current_user, :url => logged_in_user_password_path do |form| %>
-        <ul id="new_pass" class="module_inner">
-          <li><%= label_tag 'user_password', "New password" %></li>
-          <li><%= form.password_field :password %></li>
-        </ul>
-        <ul id="confirm_pass" class="module_inner">
-          <li><%= label_tag 'user_password_confirmation', "Confirm new password" %></li>
-          <li><%= form.password_field :password_confirmation %></li>
-        </ul>
-        <%= submit_tag 'Save', :class => 'button_norm', :id => 'save-password-settings' %>
+        <div class="row">
+          <div class="small-6 columns">
+            <div id="new_pass">
+              <%= label_tag 'user_password', "New password" %>
+              <%= form.password_field :password %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <div id="confirm_pass">
+              <%= label_tag 'user_password_confirmation', "Confirm new password" %>
+              <%= form.password_field :password_confirmation %>
+            </div>
+          </div>
+        </div>
+          <%= submit_tag 'Save', :class => 'button_norm', :id => 'save-password-settings' %>
       <% end %>
     </div>
 
@@ -54,7 +62,7 @@
     </div>
   </div>
 
-  <div class="large-4 columns">
+  <div class="large-5 columns">
     <div class="module other_settings" id="privacy_settings">
       <h3>Privacy</h3>
         <%= form_for current_user, :url => account_settings_path, html: {class: "custom"} do |form| %>
@@ -73,14 +81,14 @@
       <h3>Notification</h3>
       <% if current_user.new_phone_number_needs_verification? %>
         <div class="module_inner" id="settings_new_number_verification">
-          <%= form_for current_user, :url => phone_path, :method => :put do |form| %>
+          <%= form_for current_user, :url => account_phone_path, :method => :put do |form| %>
             <p><%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_obfuscated_phone}, please enter the validation code we sent to that number:" %></p>
             <%= form.text_field :new_phone_validation, :value => '' %>
             <%= submit_tag 'Verify new number', :class => 'button_norm' %>
           <% end %>
         </div>
       <% end %>
-      <%= form_for current_user, :url => account_path do |form| %>
+      <%= form_for current_user, url: account_path do |form| %>
         <div class="module_inner settings_number">
           <%= label_tag 'user_phone_number', "Mobile number" %>
           <%= form.text_field :phone_number, :value => current_user.phone_number.try(:as_obfuscated_phone) %>

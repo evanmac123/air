@@ -45,7 +45,6 @@ class User < ActiveRecord::Base
   has_many   :user_in_raffle_infos, as: :user
   has_many   :tile_viewings, :dependent => :destroy, as: :user
   has_many   :viewed_tiles, through: :tile_viewings, source: :tile
-  has_many   :parent_board_users
   has_many   :potential_users, foreign_key: "primary_user_id", dependent: :destroy
   has_one    :raffle, through: :demo
   has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
@@ -86,6 +85,7 @@ class User < ActiveRecord::Base
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters', :unless => :converting_from_guest
 
   validates_uniqueness_of :overflow_email, :allow_blank => true
+  validates_uniqueness_of :email
   validates :email, :with => :email_distinct_from_all_overflow_emails
   validates :overflow_email, :with => :overflow_email_distinct_from_all_emails
   validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter a valid email address"
@@ -183,6 +183,27 @@ class User < ActiveRecord::Base
   scope :non_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin <> ?', true, true) }
 
   scope :client_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin = ?', true, true) }
+
+  # TODO: Rewrite this method to use roles architecture and deprecate explore family:
+  ## def authorized?(role)
+  ##   self.roles.includes?(role)
+  ## end
+  def authorized_to?(page_class)
+    case page_class.to_sym
+    when :site_admin
+      is_site_admin
+    when :client_admin
+      is_site_admin || is_client_admin
+    when :explore_family
+      is_site_admin || is_client_admin_in_any_board
+    else
+      false
+    end
+  end
+
+  def end_user?
+    !is_client_admin && !is_site_admin
+  end
 
   def demo_id
     self.demo.try(&:id)
@@ -511,7 +532,7 @@ class User < ActiveRecord::Base
       email:                 is_client_admin ? email : nil,
       game:                  demo_id,
       organization:          organization_id,
-      account_creation_date: created_at.to_date,
+      account_creation_date: created_at.try(:to_date),
       joined_game_date:      accepted_invitation_at.try(:to_date),
       location:              location.try(:name),
       user_type:             highest_ranking_user_type,
@@ -772,7 +793,6 @@ class User < ActiveRecord::Base
     )
   end
 
-
   def follow_removed_message
     I18n.t(
       "activerecord.models.user.base_follow_message",
@@ -948,25 +968,8 @@ class User < ActiveRecord::Base
     referred_sms_text
   end
 
-  def authorized_to?(page_class)
-    case page_class.to_sym
-    when :site_admin
-      is_site_admin
-    when :client_admin
-      is_site_admin || is_client_admin
-    when :explore_family
-      is_site_admin || is_client_admin_in_any_board
-    else
-      false
-    end
-  end
-
   def to_ticket_progress_calculator
     TicketProgressCalculator.new(self)
-  end
-
-  def on_first_login
-    session_count == 1
   end
 
   def self.find_by_either_email(email)
@@ -1065,7 +1068,6 @@ class User < ActiveRecord::Base
     elsif (self.is_client_admin || self.is_site_admin)
       self.current_board_membership.update_attribute(:not_show_onboarding, true)
       self.get_started_lightbox_displayed = true
-      self.displayed_activity_page_admin_guide = true
       self.save!
       false
     else
@@ -1074,7 +1076,7 @@ class User < ActiveRecord::Base
   end
 
   def is_client_admin_in_any_board
-    is_client_admin || board_memberships.pluck(:is_client_admin).any?
+    is_client_admin || is_site_admin || board_memberships.pluck(:is_client_admin).any?
   end
 
   def can_switch_boards?
@@ -1143,22 +1145,8 @@ class User < ActiveRecord::Base
     demo_ids.length > 1
   end
 
-  def have_access_to_parent_board?(board)
-    return false unless is_site_admin
-    board = Demo.where(id: board).first unless board.is_a? Demo
-    board && board.is_parent
-  end
-
-  #FIXME this exact same code is implemented in Fake user behavior
   def display_get_started_lightbox
-    on_first_login \
-    && !get_started_lightbox_displayed \
-    && demo.tiles.active.present? \
-    && show_onboarding?
-  end
-
-  def is_parent_board_user?
-    false
+    !get_started_lightbox_displayed && demo.tiles.active.present?
   end
 
   def copy_active_tiles_from_demo(demo)

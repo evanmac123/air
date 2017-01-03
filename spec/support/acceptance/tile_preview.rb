@@ -44,18 +44,18 @@ module TilePreviewHelpers
 
     %w(correct_answer_index headline image_content_type link_address multiple_choice_answers points question supporting_content thumbnail_content_type type).each do |expected_same_field|
       Rails.logger.info("!! tile copy field : #{expected_same_field}")
-      copied_tile[expected_same_field].should == original_tile[expected_same_field]
+      expect(copied_tile[expected_same_field]).to eq(original_tile[expected_same_field])
     end
 
-    copied_tile.creator.name.should == copying_user.name
-    copied_tile.status.should == Tile::DRAFT
-    copied_tile.demo_id.should == copying_user.demo_id
-    copied_tile.is_public.should be_false
+    expect(copied_tile.creator.name).to eq(copying_user.name)
+    expect(copied_tile.status).to eq(Tile::DRAFT)
+    expect(copied_tile.demo_id).to eq(copying_user.demo_id)
+    expect(copied_tile.is_public).to be_falsey
 
-    copied_tile.image_updated_at.should be_present
-    copied_tile.thumbnail_updated_at.should be_present
-    copied_tile.image_file_name.should == original_tile.image_file_name
-    copied_tile.thumbnail_file_name.should == original_tile.thumbnail_file_name
+    expect(copied_tile.image_updated_at).to be_present
+    expect(copied_tile.thumbnail_updated_at).to be_present
+    expect(copied_tile.image_file_name).to eq(original_tile.image_file_name)
+    expect(copied_tile.thumbnail_file_name).to eq(original_tile.thumbnail_file_name)
   end
 
   def upvote_tutorial_content

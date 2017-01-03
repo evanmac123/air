@@ -11,7 +11,7 @@ feature 'Admin conducts raffle' do
       before do
         5.times{ FactoryGirl.create(:user, demo: @demo)}
         @admin = an_admin
-        @demo.users.map(&:tickets).sum.should be_zero
+        expect(@demo.users.map(&:tickets).sum).to be_zero
       end
 
       it "should say so", :js => true do
@@ -27,7 +27,7 @@ feature 'Admin conducts raffle' do
       before(:each) do
         @users = []
         5.times{|i| @users << FactoryGirl.create(:user, demo: @demo, name: "Dude #{i}", tickets: i * 3)}
-        @demo.users.map(&:tickets).sum.should == 30
+        expect(@demo.users.map(&:tickets).sum).to eq(30)
       end
 
       context "and no maximum ticket amount is specified" do

@@ -87,7 +87,7 @@ describe BulkLoad::UserRemover do
     end
 
     expected_result = users.map{|user| weird_user_prettyprinter(user.id)}.sort
-    result.sort.should == expected_result
+    expect(result.sort).to eq(expected_result)
   end
 
   it "should delete users in just the one board" do
@@ -101,7 +101,7 @@ describe BulkLoad::UserRemover do
     remover.remove!
     crank_dj_clear
 
-    User.where(id: user_ids).should be_empty
+    expect(User.where(id: user_ids)).to be_empty
   end
 
   it "should un-join users in multiple boards" do
@@ -109,8 +109,8 @@ describe BulkLoad::UserRemover do
     users = FactoryGirl.create_list(:user, 2)
     users.each {|user| user.add_board(board)}
     users.each do |user|
-      user.demo_ids.should have(2).ids
-      user.demo_ids.should include(board.id)
+      expect(user.demo_ids.size).to eq(2)
+      expect(user.demo_ids).to include(board.id)
     end
 
     user_ids = users.map(&:id)
@@ -120,11 +120,11 @@ describe BulkLoad::UserRemover do
     remover.remove!
     crank_dj_clear
 
-    User.where(id: user_ids).should have(2).users
+    expect(User.where(id: user_ids).size).to eq(2)
     users.each do |user|
       user.reload
-      user.demo_ids.should have(1).id
-      user.demo_ids.should_not include(board.id)
+      expect(user.demo_ids.size).to eq(1)
+      expect(user.demo_ids).not_to include(board.id)
     end
   end
 end

@@ -1,8 +1,8 @@
 class GuestUserResetsController < ApplicationController
-  prepend_before_filter :allow_guest_user
+  include AllowGuestUsersConcern
 
   def update
-    if current_user.is_guest?
+    if current_user && current_user.is_guest?
       current_user.points = 0
       current_user.tickets = 0
       current_user.get_started_lightbox_displayed = false
@@ -22,9 +22,9 @@ class GuestUserResetsController < ApplicationController
     render nothing: true
   end
 
-  protected
+  private
 
-  def find_current_board
-    current_user.demo
-  end
+    def find_board_for_guest
+      @demo ||= Demo.find(params[:user][:demo_id])
+    end
 end

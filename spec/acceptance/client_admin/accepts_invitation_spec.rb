@@ -29,16 +29,16 @@ feature "Client Admin Accepts Invitation" do
 
     ActionMailer::Base.deliveries.clear
     crank_dj_clear
-    ActionMailer::Base.deliveries.should be_empty # no validation code to email
+    expect(ActionMailer::Base.deliveries).to be_empty # no validation code to email
   end
 
   scenario "across boards" do
     original_board = @user.demo
     @other_board = FactoryGirl.create(:demo)
     @user.add_board(@other_board)
-    @user.demos.should have(2).demos
-    @user.demo.should == original_board
-    original_board.should_not == @other_board
+    expect(@user.demos.size).to eq(2)
+    expect(@user.demo).to eq(original_board)
+    expect(original_board).not_to eq(@other_board)
 
     visit invitation_url(@user.invitation_code, demo_id: @other_board.id)
     fill_in_required_invitation_fields
@@ -86,13 +86,13 @@ feature "Client Admin Accepts Invitation" do
 
   scenario "user sets password, with no confirmation needed" do
     visit invitation_url(@user.invitation_code)
-    fill_in "Choose a password", :with => "foofoo"
+    fill_in "Choose a password", with: "foofoo"
     click_button "Log in"
 
     click_link "Sign Out"
 
-    fill_in "session[email]", :with => @user.email
-    fill_in "session[password]", :with => 'foofoo'
+    fill_in "session[email]", with: @user.email
+    fill_in "session[password]", with: 'foofoo'
     click_button "Log In"
 
     should_be_on explore_path
@@ -117,7 +117,7 @@ feature "Client Admin Accepts Invitation" do
 
     crank_dj_clear
 
-    ActionMailer::Base.deliveries.should be_empty
+    expect(ActionMailer::Base.deliveries).to be_empty
   end
 
   scenario "User gets logged in only when accepting invitation, not when at acceptance form" do
@@ -133,7 +133,7 @@ feature "Client Admin Accepts Invitation" do
 
   context "when there is no client name specified for the demo" do
     before(:each) do
-      @user.demo.client_name.should_not be_present
+      expect(@user.demo.client_name).not_to be_present
     end
 
     it "should not say \"Sponsored by\"" do

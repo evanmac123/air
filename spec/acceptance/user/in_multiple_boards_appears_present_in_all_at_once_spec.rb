@@ -29,7 +29,7 @@ feature 'In multiple boards appears present in all at once' do
 
     headlines = boards.map{ |board| first_tile_headline(board) }
 
-    headlines.all? { |headline| emails_to_user.any? { |email_to_user| email_to_user.html_part.body.to_s.include?(headline)} }.should be_true
+    expect(headlines.all? { |headline| emails_to_user.any? { |email_to_user| email_to_user.html_part.body.to_s.include?(headline)} }).to be_truthy
   end
 
   def submit_button
@@ -42,27 +42,27 @@ feature 'In multiple boards appears present in all at once' do
       create_two_admins
       create_user
 
-      @user.demos.should have(2).demos
-      @user.demo.should == @first_board
+      expect(@user.demos.size).to eq(2)
+      expect(@user.demo).to eq(@first_board)
     end
 
     scenario 'appears in client admin search results for all demos', js: true do
       visit client_admin_users_path(as: @first_admin)
       click_link "Show everyone"
-      page.should have_content(USER_NAME)
+      expect(page).to have_content(USER_NAME)
 
       visit client_admin_users_path(as: @second_admin)
       click_link "Show everyone"
-      page.should have_content(USER_NAME)
+      expect(page).to have_content(USER_NAME)
     end
 
     scenario 'appears in site admin search results for all demos' do
       visit admin_demo_path(@first_board, as: an_admin)
       click_link "Everyone"
-      page.should have_content(USER_NAME)
+      expect(page).to have_content(USER_NAME)
       visit admin_demo_path(@second_board, as: an_admin)
       click_link "Everyone"
-      page.should have_content(USER_NAME)
+      expect(page).to have_content(USER_NAME)
     end
   end
 
@@ -81,13 +81,13 @@ feature 'In multiple boards appears present in all at once' do
       @second_friend.accept_friendship_from(@user)
 
       visit activity_path(as: @first_friend)
-      page.should have_content(USER_NAME)
+      expect(page).to have_content(USER_NAME)
 
       visit activity_path(as: @second_friend)
-      page.should have_content(USER_NAME)
+      expect(page).to have_content(USER_NAME)
 
       visit activity_path(as: @random_dude)
-      page.should_not have_content(USER_NAME)
+      expect(page).not_to have_content(USER_NAME)
     end
   end
 
@@ -109,7 +109,7 @@ feature 'In multiple boards appears present in all at once' do
       submit_button.click
 
       open_email(@user.email)
-      current_email.html_part.body.should include(first_tile_headline(@first_board))
+      expect(current_email.html_part.body).to include(first_tile_headline(@first_board))
       visit_in_email "Your New Tiles Are Here!"
       should_be_on activity_path
       expect_current_board_header @first_boardz
@@ -120,7 +120,7 @@ feature 'In multiple boards appears present in all at once' do
       submit_button.click
 
       open_email(@user.email)
-      current_email.html_part.body.should include(first_tile_headline(@second_board))
+      expect(current_email.html_part.body).to include(first_tile_headline(@second_board))
       visit_in_email "Your New Tiles Are Here!"
       should_be_on activity_path
       expect_current_board_header @second_board

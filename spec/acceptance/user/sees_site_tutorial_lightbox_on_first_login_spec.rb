@@ -34,7 +34,7 @@ feature "The site tutorial" do
     context "if there are no active tiles" do
       before do
         FactoryGirl.create(:tile, status: Tile::ARCHIVE, demo: user.demo)
-        user.demo.tiles.active.should be_empty
+        expect(user.demo.tiles.active).to be_empty
         visit activity_path(as: user)
       end
 

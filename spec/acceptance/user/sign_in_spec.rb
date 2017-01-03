@@ -45,7 +45,7 @@ feature 'Sign in' do
   end
 
   scenario "with SMS slug a.k.a username, case-insensitively" do
-    user.sms_slug.should be_present
+    expect(user.sms_slug).to be_present
     expect(user.sms_slug.capitalize).to_not eq(user.sms_slug)
 
     try_login_with user.sms_slug, "foobar"

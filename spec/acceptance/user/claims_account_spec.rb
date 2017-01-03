@@ -32,11 +32,11 @@ feature 'User claims account' do
   end
 
   def expect_contact_set(user)
-    user.reload.phone_number.should == "+14152613077"
+    expect(user.reload.phone_number).to eq("+14152613077")
   end
 
   def expect_contact_unset(user)
-    user.reload.phone_number.should_not == "+14152613077"
+    expect(user.reload.phone_number).not_to eq("+14152613077")
   end
 
   def clear_messages
@@ -50,22 +50,22 @@ feature 'User claims account' do
   def expect_referral_still_works
     clear_messages
     send_message "referrer"
-    @expected_user.reload.game_referrer.should == @expected_referrer
+    expect(@expected_user.reload.game_referrer).to eq(@expected_referrer)
     expect_reply "Got it, #{@expected_referrer.name} recruited you. Thanks for letting us know."
   end
 
   #FIXME this looks like a unit test to me.
   it "should not try to send a password reset message to an empty e-mail address" do
-    ActionMailer::Base.deliveries.should be_empty
+    expect(ActionMailer::Base.deliveries).to be_empty
 
     user = FactoryGirl.create(:user, email: nil, official_email: "yada@doo.com", claim_code: 'bob')
-    user.notification_method.should == 'email'
+    expect(user.notification_method).to eq('email')
     send_message "bob"
     crank_dj_clear
 
-    user.reload.should be_claimed
-    user.notification_method.should == 'sms'
-    ActionMailer::Base.deliveries.should be_empty
+    expect(user.reload).to be_claimed
+    expect(user.notification_method).to eq('sms')
+    expect(ActionMailer::Base.deliveries).to be_empty
   end
 
   context "when the contact in question is not associated with a user yet" do
@@ -86,7 +86,7 @@ feature 'User claims account' do
         send_message "bob"
         @expected_user.reload
 
-        @expected_user.should be_claimed
+        expect(@expected_user).to be_claimed
         expect_contact_set @expected_user
         expect_welcome_message
       end
@@ -111,26 +111,26 @@ feature 'User claims account' do
         it "should let the user try again" do
           clear_messages
           send_message "fred"
-          @other_user.reload.should be_claimed
+          expect(@other_user.reload).to be_claimed
           expect_welcome_message(@other_user)
         end
 
         it "should not re-claim that user" do
           @expected_user.reload
-          @expected_user.accepted_invitation_at.to_s.should == @original_claim_time.to_s
+          expect(@expected_user.accepted_invitation_at.to_s).to eq(@original_claim_time.to_s)
           expect_contact_unset @expected_user
         end
       end
 
       context "and that user has a twin in another demo with similar rules" do
         before(:each) do
-          @twin = FactoryGirl.create(:user, demo: @other_demo, email: '', official_email: "ladi@dadi.com", claim_code: 'bob')
+          @twin = FactoryGirl.create(:user, demo: @other_demo, email: 'email@email.com', official_email: "ladi@dadi.com", claim_code: 'bob')
         end
 
         it "should claim the correct account, depending where the incoming message goes to" do
           send_message_to_other_demo('bob')
-          @expected_user.reload.should_not be_claimed
-          @twin.reload.should be_claimed
+          expect(@expected_user.reload).not_to be_claimed
+          expect(@twin.reload).to be_claimed
         end
       end
     end
@@ -138,7 +138,7 @@ feature 'User claims account' do
     ['b ob', 'b. ob', '"bob"', 'B. Ob'].each do |claim_code_variation|
       scenario "#{claim_code_variation} is an acceptable variation on the claim code" do
         send_message claim_code_variation
-        @expected_user.reload.should be_claimed
+        expect(@expected_user.reload).to be_claimed
       end
     end
 
@@ -146,7 +146,7 @@ feature 'User claims account' do
       it "should reply with a sensible error message" do
         send_message "someotherguy"
 
-        @expected_user.reload.should_not be_claimed
+        expect(@expected_user.reload).not_to be_claimed
         expect_reply "I can't find you in my records. Did you claim your account yet? If not, send your first initial and last name (if you are John Smith, send \"jsmith\")."
       end
     end
@@ -161,14 +161,14 @@ feature 'User claims account' do
         send_message "bob"
         @expected_user.reload
 
-        @expected_user.should_not be_claimed
+        expect(@expected_user).not_to be_claimed
         expect_reply "Sorry, we need a little more information to figure out who you are. Please send your 5-digit home ZIP code."
 
         clear_messages
 
         send_message "02139"
         @expected_user.reload
-        @expected_user.should be_claimed
+        expect(@expected_user).to be_claimed
         expect_welcome_message
       end
 
@@ -195,13 +195,13 @@ feature 'User claims account' do
         it "should let the user try again" do
           clear_messages
           send_message "94110"
-          @other_user.reload.should be_claimed
+          expect(@other_user.reload).to be_claimed
           expect_welcome_message(@other_user)
         end
 
         it "should not re-claim that user" do
           @expected_user.reload
-          @expected_user.accepted_invitation_at.to_s.should == @original_claim_time.to_s
+          expect(@expected_user.accepted_invitation_at.to_s).to eq(@original_claim_time.to_s)
           expect_contact_unset @expected_user
         end
       end
@@ -216,7 +216,7 @@ feature 'User claims account' do
         it "should let them try again" do
           clear_messages
           send_message "02139"
-          @expected_user.reload.should be_claimed
+          expect(@expected_user.reload).to be_claimed
           expect_welcome_message
         end
 
@@ -239,7 +239,7 @@ feature 'User claims account' do
         it "should allow them to try another one" do
           clear_messages
           send_message "02139"
-          @expected_user.reload.should be_claimed
+          expect(@expected_user.reload).to be_claimed
           expect_welcome_message
         end
       end
@@ -257,7 +257,7 @@ feature 'User claims account' do
         send_message "bob"
         @expected_user.reload
 
-        @expected_user.should_not be_claimed
+        expect(@expected_user).not_to be_claimed
         expect_reply "Sorry, we need a little more information to figure out who you are. Please send your 5-digit home ZIP code."
 
         clear_messages
@@ -265,14 +265,14 @@ feature 'User claims account' do
         send_message "02139"
         @expected_user.reload
 
-        @expected_user.should_not be_claimed
+        expect(@expected_user).not_to be_claimed
         expect_reply "Sorry, we need a little more info to create your account. Please send your month & day of birth (format: MMDD)."
 
         clear_messages
         send_message "0910"
         @expected_user.reload
 
-        @expected_user.should be_claimed
+        expect(@expected_user).to be_claimed
       end
 
       it "should not break referring" do
@@ -301,13 +301,13 @@ feature 'User claims account' do
         it "should let the user try again" do
           clear_messages
           send_message "0911"
-          @other_user.reload.should be_claimed
+          expect(@other_user.reload).to be_claimed
           expect_welcome_message(@other_user)
         end
 
         it "should not re-claim that user" do
           @expected_user.reload
-          @expected_user.accepted_invitation_at.utc.to_s.should == @original_claim_time.utc.to_s
+          expect(@expected_user.accepted_invitation_at.utc.to_s).to eq(@original_claim_time.utc.to_s)
           expect_contact_unset @expected_user
         end
       end
@@ -325,10 +325,10 @@ feature 'User claims account' do
         end
 
         it "should allow the user to try again" do
-          @other_user.should_not be_claimed
+          expect(@other_user).not_to be_claimed
           clear_messages
           send_message "0911"
-          @other_user.reload.should be_claimed
+          expect(@other_user.reload).to be_claimed
           expect_welcome_message(@other_user)
         end
       end
@@ -343,7 +343,7 @@ feature 'User claims account' do
         context "and sends us something other than 4 characters" do
           before(:each) do
             send_message "SEP10th"
-            @expected_user.reload.should_not be_claimed
+            expect(@expected_user.reload).not_to be_claimed
           end
 
           it "should send an appropriate error message" do
@@ -354,14 +354,14 @@ feature 'User claims account' do
             clear_messages
 
             send_message "0910"
-            @expected_user.reload.should be_claimed
+            expect(@expected_user.reload).to be_claimed
           end
         end
 
         context "and sends us 4 characters, not all of which are digits" do
           before(:each) do
             send_message "O91O" # that's a capital O
-            @expected_user.reload.should_not be_claimed
+            expect(@expected_user.reload).not_to be_claimed
           end
 
           it "should send an appropriate error message" do
@@ -372,7 +372,7 @@ feature 'User claims account' do
             clear_messages
 
             send_message "0910"
-            @expected_user.reload.should be_claimed
+            expect(@expected_user.reload).to be_claimed
           end
         end
       end
@@ -393,7 +393,7 @@ feature 'User claims account' do
       it "should send back a sensible error message" do
         clear_messages
         send_message "0911"
-        @expected_user.reload.should_not be_claimed
+        expect(@expected_user.reload).not_to be_claimed
         expect_reply "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@airbo.com for help joining the game. Thank you!"
       end
 
@@ -401,7 +401,7 @@ feature 'User claims account' do
         send_message "0911"
         clear_messages
         send_message "0910"
-        @expected_user.reload.should be_claimed
+        expect(@expected_user.reload).to be_claimed
         expect_welcome_message
       end
     end
@@ -444,7 +444,7 @@ feature 'User claims account' do
       @expected_user = FactoryGirl.create(:user, demo: @default_demo, claim_code: 'sven')
 
       @evil_twin = FactoryGirl.create(:user, claim_code: 'sven')
-      @evil_twin.demo.should_not == @expected_user.demo
+      expect(@evil_twin.demo).not_to eq(@expected_user.demo)
 
       @ambiguous_user_1 = FactoryGirl.create(:user, demo: @default_demo, claim_code: 'duplicate')
       @ambiguous_user_2 = FactoryGirl.create(:user, demo: @default_demo, claim_code: 'duplicate')
@@ -467,15 +467,15 @@ feature 'User claims account' do
 
       clear_messages
       send_message 'duplicate'
-      @ambiguous_user_1.reload.should_not be_claimed
-      @ambiguous_user_2.reload.should_not be_claimed
+      expect(@ambiguous_user_1.reload).not_to be_claimed
+      expect(@ambiguous_user_2.reload).not_to be_claimed
       expect_reply "Sorry, we're having a little trouble, it looks like we'll have to get a human involved. Please contact support@airbo.com for help joining the game. Thank you!"
 
       clear_messages
-      [@expected_user, @evil_twin, @other_user].each{|u| u.should_not be_claimed}
+      [@expected_user, @evil_twin, @other_user].each{|u| expect(u).not_to be_claimed}
       send_message 'sven'
-      @expected_user.reload.should be_claimed
-      [@evil_twin, @other_user].each{|u| u.reload.should_not be_claimed}
+      expect(@expected_user.reload).to be_claimed
+      [@evil_twin, @other_user].each{|u| expect(u.reload).not_to be_claimed}
       expect_welcome_message
     end
   end

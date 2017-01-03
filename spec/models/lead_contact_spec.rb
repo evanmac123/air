@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe LeadContact do
-  it { should belong_to :user }
-  it { should belong_to :organization }
+  it { is_expected.to belong_to :user }
+  it { is_expected.to belong_to :organization }
 
-  it { should validate_presence_of :name}
-  it { should validate_presence_of :email}
-  it { should validate_presence_of :phone}
-  it { should validate_presence_of :organization_name}
-  it { should validate_presence_of :organization_size}
+  it { is_expected.to validate_presence_of :name}
+  it { is_expected.to validate_presence_of :email}
+  it { is_expected.to validate_presence_of :phone}
+  it { is_expected.to validate_presence_of :organization_name}
+  it { is_expected.to validate_presence_of :organization_size}
 
   it "parses phone number correctly before create" do
     lead_contact = FactoryGirl.create(:lead_contact, phone: "999-394-3940", status: "", organization_name: "MY COMPANY")
@@ -32,7 +32,7 @@ describe LeadContact do
 
         open_email 'team@airbo.com'
 
-        current_email.subject.should include('New Inbound Lead: Signup Request')
+        expect(current_email.subject).to include('New Inbound Lead: Signup Request')
         [
           'Lead Contact',
           'sales@leadco.com',
@@ -40,7 +40,7 @@ describe LeadContact do
           'Amex',
           '100-500 employees',
         ].each do |text_piece|
-          current_email.body.should include(text_piece)
+          expect(current_email.body).to include(text_piece)
         end
       end
     end

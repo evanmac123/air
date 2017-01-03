@@ -6,12 +6,12 @@ def should_have_valid_mime_type(klass, field)
   good_mime_types.each do |good_mime_type|
     model_object = klass.new(field => good_mime_type)
     model_object.valid?
-    model_object.errors[field].should be_empty
+    expect(model_object.errors[field]).to be_empty
   end
 
   bad_mime_types.each do |bad_mime_type|
     model_object = klass.new(field => bad_mime_type)
     model_object.valid?
-    model_object.errors[field].should include("that doesn't look like an image file. Please use a file with the extension .jpg, .jpeg, .gif, .bmp or .png.")
+    expect(model_object.errors[field]).to include("that doesn't look like an image file. Please use a file with the extension .jpg, .jpeg, .gif, .bmp or .png.")
   end
 end

@@ -7,13 +7,13 @@ describe User::SegmentationOperator do
       "does not equal" => User::NotEqualsOperator
     }.each do |operator_name, expected_class|
       it "should return #{expected_class} when called with \"#{operator_name}\"" do
-        User::SegmentationOperator.find_by_name(operator_name).should == expected_class
+        expect(User::SegmentationOperator.find_by_name(operator_name)).to eq(expected_class)
       end
     end
 
     context "with an invalid name" do
       it "should raise an error" do
-        lambda{User::SegmentationOperator.find_by_name('julienne')}.should raise_error(User::SegmentationOperatorError)
+        expect{User::SegmentationOperator.find_by_name('julienne')}.to raise_error(User::SegmentationOperatorError)
       end
     end
   end
@@ -45,14 +45,14 @@ all_types.each do |type|
         exact_record = User::SegmentationData.create("characteristics" => {characteristic.id.to_s => exact})
         high_record = User::SegmentationData.create("characteristics" => {characteristic.id.to_s => high})
 
-        User::SegmentationData.count.should == 3
+        expect(User::SegmentationData.count).to eq(3)
 
         query_result = operator_class.new([exact]).add_criterion_to_query(User::SegmentationData, characteristic.id.to_s).all
         [low_record, exact_record, high_record].each_with_index do |record, index|
           if match_senses[index]
-            query_result.should include(record)
+            expect(query_result).to include(record)
           else
-            query_result.should_not include(record)
+            expect(query_result).not_to include(record)
           end
         end
       end
@@ -65,11 +65,11 @@ def attempt_application(operator_class, applicable_type)
 end
 
 def expect_applicable_to(operator_class, applicable_type)
-  lambda{ attempt_application(operator_class, applicable_type)  }.should_not raise_error
+  expect{ attempt_application(operator_class, applicable_type)  }.not_to raise_error
 end
 
 def expect_not_applicable_to(operator_class, applicable_type)
-  lambda{ attempt_application(operator_class, applicable_type)  }.should raise_error(User::NonApplicableSegmentationOperatorError)
+  expect{ attempt_application(operator_class, applicable_type)  }.to raise_error(User::NonApplicableSegmentationOperatorError)
 end
 
 {

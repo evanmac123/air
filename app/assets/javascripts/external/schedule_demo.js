@@ -20,13 +20,7 @@ Airbo.ScheduleDemoModal = (function(){
   ;
 
   function modalPing(action, option){
-    $.post("/ping", {
-      event: 'Viewed HRM CTA Modal',
-      properties: {
-        action: action,
-        option: option
-      }
-    });
+    Airbo.Utils.ping('Viewed HRM CTA Modal', { action: action, option: option } );
   }
 
   function closeModalAfterRequestPing() {

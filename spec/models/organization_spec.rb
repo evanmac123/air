@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Organization do
   it "is valid when complete" do
     o = FactoryGirl.build(:organization, :complete)
-    expect(o.valid?).to be_true
+    expect(o.valid?).to be_truthy
   end
 
   context "customer start and and dates" do
@@ -37,14 +37,14 @@ describe Organization do
       it "is true if customer_end_date is greater than today" do
         new_today = Date.parse('2014-10-30')
         Timecop.freeze(new_today) do
-          expect(org.active).to  be_true
+          expect(org.active).to  be_truthy
         end
       end
 
       it "is false if customer_end_date is greater than today" do
         new_today = Date.parse('2018-10-30')
         Timecop.freeze(new_today) do
-          expect(org.active).to  be_false
+          expect(org.active).to  be_falsey
         end
       end
     end

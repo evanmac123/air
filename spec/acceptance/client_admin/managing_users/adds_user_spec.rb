@@ -15,7 +15,7 @@ feature 'Adds user' do
   end
 
   it "should work when all entered data is valid", js: true do
-    demo.users.count.should == 1 # just the admin
+    expect(demo.users.count).to eq(1) # just the admin
 
     fill_in_user_information
     click_button "Add User"
@@ -29,19 +29,19 @@ feature 'Adds user' do
   end
 
   it "should strip email", js: true do
-    demo.users.count.should == 1 # just the admin
+    expect(demo.users.count).to eq(1) # just the admin
 
     fill_in_user_information
     fill_in "user[email]",       :with => " jemsh@example.com   "
 
     click_button "Add User"
-    demo.users.reload.count.should == 2
+    expect(demo.users.reload.count).to eq(2)
     expect_new_user(demo, false)
-    newest_user(demo).demos.should have(1).demo
+    expect(newest_user(demo).demos.size).to eq(1)
   end
 
   it 'should make user with user role', js: true do
-    demo.users.count.should == 1 # just the admin
+    expect(demo.users.count).to eq(1) # just the admin
 
     fill_in_user_information
     select_role("User")
@@ -54,7 +54,7 @@ feature 'Adds user' do
   end
 
   it 'should make user with Admin role', js: true do
-    demo.users.count.should == 1 # just the admin
+    expect(demo.users.count).to eq(1) # just the admin
     fill_in_user_information
     select_role("Administrator")
     click_button "Add User"
@@ -78,8 +78,8 @@ feature 'Adds user' do
     end
 
     john_smiths = demo.reload.users.where(name: "John Smith")
-    john_smiths.length.should == 2
-    john_smiths[0].claim_code.should_not == john_smiths[1].claim_code
+    expect(john_smiths.length).to eq(2)
+    expect(john_smiths[0].claim_code).not_to eq(john_smiths[1].claim_code)
   end
 
   context "if we try to add an existing user" do
@@ -89,7 +89,7 @@ feature 'Adds user' do
 
       click_button "Add User"
 
-      page.should have_no_content("Email has already been taken.")
+      expect(page).to have_no_content("Email has already been taken.")
 
       #FIXME these two conditions should be tested in unit tests
       #-----expect_new_user(demo, false)
@@ -106,7 +106,7 @@ feature 'Adds user' do
 
     it "should have the correct board name in the invitation", js: true do
       user = FactoryGirl.create(:user, email: USER_EMAIL)
-      user.demo.should_not == demo
+      expect(user.demo).not_to eq(demo)
 
       fill_in_user_information
 
@@ -115,8 +115,8 @@ feature 'Adds user' do
       crank_dj_clear
 
       open_email user.email
-      current_email.to_s.should_not include(user.demo.name)
-      current_email.to_s.should include(demo.name)
+      expect(current_email.to_s).not_to include(user.demo.name)
+      expect(current_email.to_s).to include(demo.name)
     end
   end
 
@@ -148,12 +148,12 @@ feature 'Adds user' do
 
   def expect_new_user(demo, with_details=true)
     new_user = newest_user(demo)
-    new_user.email.should == "jemsh@example.com"
-    new_user.claim_code.should be_present
+    expect(new_user.email).to eq("jemsh@example.com")
+    expect(new_user.claim_code).to be_present
     expect_add_message new_user.name, new_user.claim_code, invitation_url(new_user.invitation_code, protocol: 'https')
 
     if with_details
-      new_user.name.should == "Jehosaphat Emshwiller"
+      expect(new_user.name).to eq("Jehosaphat Emshwiller")
     end
   end
 

@@ -24,13 +24,13 @@ describe BulkLoad::UserCreatorFromCsv do
  
   describe "#create_user" do
     it "should build and attempt to save a user" do
-      demo.users.count.should be_zero
+      expect(demo.users.count).to be_zero
       basic_creator.create_user(CSV.generate_line(basic_attributes))
 
-      demo.users.reload.count.should == 1
+      expect(demo.users.reload.count).to eq(1)
       user = demo.users.first
-      user.name.should == basic_attributes.first
-      user.email.should == basic_attributes.last
+      expect(user.name).to eq(basic_attributes.first)
+      expect(user.email).to eq(basic_attributes.last)
     end
 
     context "for an existing user" do
@@ -38,10 +38,10 @@ describe BulkLoad::UserCreatorFromCsv do
         demo.users.create!(name: "Jim Robinson", email: "bigjim@example.com")
         basic_creator.create_user(CSV.generate_line(basic_attributes))
 
-        demo.users.reload.count.should == 1 # as opposed to 2
+        expect(demo.users.reload.count).to eq(1) # as opposed to 2
         user = demo.users.first
-        user.name.should == basic_attributes.first
-        user.email.should == basic_attributes.last
+        expect(user.name).to eq(basic_attributes.first)
+        expect(user.email).to eq(basic_attributes.last)
       end
 
       it "should not overwrite their characteristics, when those characteristics are not in the schema" do
@@ -65,11 +65,11 @@ describe BulkLoad::UserCreatorFromCsv do
 
         creator.create_user(CSV.generate_line(attributes_with_most_characteristics))
 
-        demo.users.reload.count.should == 1
+        expect(demo.users.reload.count).to eq(1)
         user.reload
 
-        user.characteristics[number_characteristic.id].should == 1945
-        user.characteristics[boolean_characteristic.id].should == false # be_false returns true even when it's nil, wtf?
+        expect(user.characteristics[number_characteristic.id]).to eq(1945)
+        expect(user.characteristics[boolean_characteristic.id]).to eq(false) # be_false returns true even when it's nil, wtf?
       end
 
       it "should not try to set an email from the census, if the email in the census is in the user's overflow email, but should set the rest of the attributes" do
@@ -81,32 +81,32 @@ describe BulkLoad::UserCreatorFromCsv do
 
         creator.create_user(CSV.generate_line(attributes))
 
-        demo.users.reload.count.should == 1 # as opposed to 2
+        expect(demo.users.reload.count).to eq(1) # as opposed to 2
 
         user.reload
-        user.email.should == "jimmy@gmail.com"
-        user.overflow_email.should == "bigjim@example.com"
-        user.name.should == "Jim Smith"
+        expect(user.email).to eq("jimmy@gmail.com")
+        expect(user.overflow_email).to eq("bigjim@example.com")
+        expect(user.name).to eq("Jim Smith")
       end
     end
 
     it "should be able to set characteristics too" do
       creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema_with_characteristics, :email, 1)
 
-      demo.users.count.should be_zero
+      expect(demo.users.count).to be_zero
 
       creator.create_user(CSV.generate_line(attributes_with_characteristics))
 
-      demo.users.reload.count.should == 1
+      expect(demo.users.reload.count).to eq(1)
       user = demo.users.first
-      user.name.should == attributes_with_characteristics[0]
-      user.email.should == attributes_with_characteristics[1]
+      expect(user.name).to eq(attributes_with_characteristics[0])
+      expect(user.email).to eq(attributes_with_characteristics[1])
 
-      user.characteristics[discrete_characteristic.id].should == "bar"
-      user.characteristics[number_characteristic.id].should == 1945
-      user.characteristics[date_characteristic.id].should == Date.parse("2013-02-07")
-      user.characteristics[time_characteristic.id].should == Time.parse("2013-02-07 18:12:51 -0500")
-      user.characteristics[boolean_characteristic.id].should == false
+      expect(user.characteristics[discrete_characteristic.id]).to eq("bar")
+      expect(user.characteristics[number_characteristic.id]).to eq(1945)
+      expect(user.characteristics[date_characteristic.id]).to eq(Date.parse("2013-02-07"))
+      expect(user.characteristics[time_characteristic.id]).to eq(Time.parse("2013-02-07 18:12:51 -0500"))
+      expect(user.characteristics[boolean_characteristic.id]).to eq(false)
     end
 
     it "should allow locations to be set by name" do
@@ -116,15 +116,15 @@ describe BulkLoad::UserCreatorFromCsv do
 
       creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
 
-      demo.users.count.should be_zero
+      expect(demo.users.count).to be_zero
 
       creator.create_user(CSV.generate_line(attributes))
 
-      demo.users.reload.count.should == 1
+      expect(demo.users.reload.count).to eq(1)
       user = demo.users.first
-      user.name.should == attributes[0]
-      user.email.should == attributes[1]
-      user.location.should == boston_location
+      expect(user.name).to eq(attributes[0])
+      expect(user.email).to eq(attributes[1])
+      expect(user.location).to eq(boston_location)
     end
 
     it "should create locations on the fly if need be" do
@@ -133,55 +133,55 @@ describe BulkLoad::UserCreatorFromCsv do
 
       creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
 
-      demo.users.count.should be_zero
-      demo.locations.count.should be_zero
+      expect(demo.users.count).to be_zero
+      expect(demo.locations.count).to be_zero
 
       creator.create_user(CSV.generate_line(attributes))
 
-      demo.users.reload.count.should == 1
-      demo.locations.reload.count.should == 1
+      expect(demo.users.reload.count).to eq(1)
+      expect(demo.locations.reload.count).to eq(1)
 
       user = demo.users.first
-      user.name.should == attributes[0]
-      user.email.should == attributes[1]
-      user.location.should == demo.locations.first
+      expect(user.name).to eq(attributes[0])
+      expect(user.email).to eq(attributes[1])
+      expect(user.location).to eq(demo.locations.first)
     end
 
     context "when using email as the unique ID" do
       it "should downcase email in the input before trying to locate a user based on it" do
         user = FactoryGirl.create(:user, name: "John Q. Doe", email: "john@doe.com")
         user.add_board(demo)
-        demo.users.count.should == 1
+        expect(demo.users.count).to eq(1)
 
         creator = BulkLoad::UserCreatorFromCsv.new(demo.id, basic_schema, :email, 1)
         creator.create_user(CSV.generate_line(["John Doe", 'John@DoE.cOm']))
 
-        demo.users.count.should == 1
+        expect(demo.users.count).to eq(1)
         found_user = demo.users.first
-        found_user.name.should == 'John Doe'
-        found_user.email.should == 'john@doe.com'
+        expect(found_user.name).to eq('John Doe')
+        expect(found_user.email).to eq('john@doe.com')
       end
     end
 
     shared_examples_for "ignoring a match in another board" do
       it "should not add that user to this board" do
-        @other_user.reload.demo_ids.should have(1).board_id
-        @other_user.demo_ids.first.should_not == demo.id
+        expect(@other_user.reload.demo_ids.size).to eq(1)
+        expect(@other_user.demo_ids.first).not_to eq(demo.id)
       end
 
       it "should not try to update that user" do
         @other_user.reload
-        @other_user.name.should == 'John Doe'
-        @other_user.email.should == 'john@doe.com'
-        @other_user.employee_id.should == '12345'
+        expect(@other_user.name).to eq('John Doe')
+        expect(@other_user.email).to eq('john@doe.com')
+        expect(@other_user.employee_id).to eq('12345')
       end
 
       it "should try to create a separate user in the board we're loading into" do
         new_user = demo.users.find_by_employee_id('12345')
-        new_user.demo_ids.should == [demo.id]
-        new_user.name.should == 'John Smith'
-        new_user.email.should == 'john@smith.com'
-        new_user.employee_id.should == '12345'
+        expect(new_user.demo_ids).to eq([demo.id])
+        expect(new_user.name).to eq('John Smith')
+        expect(new_user.email).to eq('john@smith.com')
+        expect(new_user.employee_id).to eq('12345')
       end
     end
 
@@ -222,19 +222,19 @@ describe BulkLoad::UserCreatorFromCsv do
         end
 
         it "should add them to the board we're loading into" do
-          @other_user.reload.demo_ids.should have(2).ids
-          @other_user.demo_ids.should include(demo.id)
+          expect(@other_user.reload.demo_ids.size).to eq(2)
+          expect(@other_user.demo_ids).to include(demo.id)
         end
 
         it "should update them" do
           @other_user.reload
-          @other_user.name.should == 'John Smith'
-          @other_user.email.should == 'john@smith.com'
-          @other_user.employee_id.should == '12345'
+          expect(@other_user.name).to eq('John Smith')
+          expect(@other_user.email).to eq('john@smith.com')
+          expect(@other_user.employee_id).to eq('12345')
         end
 
         it "should not try to create a separate user" do
-          demo.user_ids.should include(@other_user.id)
+          expect(demo.user_ids).to include(@other_user.id)
         end
       end
     end
@@ -246,7 +246,7 @@ describe BulkLoad::UserCreatorFromCsv do
       creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
       creator.create_user(CSV.generate_line(attributes))
 
-      demo.users.first[attribute_name].should == expected_model_value
+      expect(demo.users.first[attribute_name]).to eq(expected_model_value)
     end
 
     context "should parse date of birth with some flexibility" do
@@ -287,7 +287,7 @@ describe BulkLoad::UserCreatorFromCsv do
             creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
             creator.create_user(CSV.generate_line(attributes))
 
-            demo.users.first.characteristics[boolean_characteristic.id].should be_true
+            expect(demo.users.first.characteristics[boolean_characteristic.id]).to be_truthy
           end
         end
 
@@ -299,7 +299,7 @@ describe BulkLoad::UserCreatorFromCsv do
             creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
             creator.create_user(CSV.generate_line(attributes))
 
-            demo.users.first.characteristics[boolean_characteristic.id].should be_false
+            expect(demo.users.first.characteristics[boolean_characteristic.id]).to be_falsey
           end
         end
       end
@@ -313,7 +313,7 @@ describe BulkLoad::UserCreatorFromCsv do
             creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
             creator.create_user(CSV.generate_line(attributes))
 
-            demo.users.first.characteristics[date_characteristic.id].should == Date.parse("2012-05-01")
+            expect(demo.users.first.characteristics[date_characteristic.id]).to eq(Date.parse("2012-05-01"))
           end
         end
       end

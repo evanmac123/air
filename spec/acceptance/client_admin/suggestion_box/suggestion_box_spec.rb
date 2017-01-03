@@ -19,12 +19,12 @@ feature 'Client uses suggestion box' do
       page.find("#single-tile-#{tile.id}.user_submitted").click
 
       within "#suggested_info" do
-        page.find(".header_text").text.should have_content("Submitted")
+        expect(page.find(".header_text").text).to have_content("Submitted")
       end
 
       items = menu_items.map(&:text)
-      items.should include("Accept")
-      items.should include("Ignore")
+      expect(items).to include("Accept")
+      expect(items).to include("Ignore")
     end
 
     scenario "accepts tile" do
@@ -36,10 +36,10 @@ feature 'Client uses suggestion box' do
         click_button "OK"
       end
       #this waits for the ajax to finish and the alert window to close
-      page.should_not have_css(".sweet-alert.visible")
+      expect(page).not_to have_css(".sweet-alert.visible")
       page.find("#draft_title").click
       within "#draft" do
-        page.should have_css("#single-tile-#{tile.id}")
+        expect(page).to have_css("#single-tile-#{tile.id}")
       end
     end
 
@@ -56,7 +56,7 @@ feature 'Client uses suggestion box' do
 
       scenario "should ignore tile" do
         within "#suggestion_box #single-tile-#{tile.id}" do
-          page.should have_content("Undo Ignore")
+          expect(page).to have_content("Undo Ignore")
         end
       end
 
@@ -66,7 +66,7 @@ feature 'Client uses suggestion box' do
         end
 
         within "#suggestion_box #single-tile-#{tile.id}" do
-          page.should_not have_content("Undo Ignore")
+          expect(page).not_to have_content("Undo Ignore")
         end
       end
     end

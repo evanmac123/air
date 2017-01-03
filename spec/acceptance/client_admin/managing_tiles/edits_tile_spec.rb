@@ -7,7 +7,7 @@ shared_examples_for "editing a tile" do
   end
 
   scenario 'should see the tile image before editing' do
-    page.find("img[src='#{@tile.reload.image}']").should be_present
+    expect(page.find("img[src='#{@tile.reload.image}']")).to be_present
   end
 
   scenario 'changing the image', js: true do
@@ -94,7 +94,7 @@ feature "Client admin edits tile" do
 
   context "multiple choice tile" do
     before do
-      pending
+      skip
       @tile = FactoryGirl.create :multiple_choice_tile
       crank_dj_clear
 
@@ -105,7 +105,7 @@ feature "Client admin edits tile" do
     it_should_behave_like "editing a tile"
 
     scenario "remembers the correct answer index", js: true do
-      page.find(".clicked_right_answer").should be_present
+      expect(page.find(".clicked_right_answer")).to be_present
     end
 
     scenario "changing the regular fields", js: true do
@@ -114,14 +114,14 @@ feature "Client admin edits tile" do
       click_button "Update tile"
 
       @tile.reload
-      @tile.image_credit.should == "by Me"
-      @tile.headline.should == "Ten pounds of cheese"
-      @tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
-      @tile.question.should == "Who rules?"
-      @tile.link_address.should == "http://example.co.uk"
+      expect(@tile.image_credit).to eq("by Me")
+      expect(@tile.headline).to eq("Ten pounds of cheese")
+      expect(@tile.supporting_content).to eq("Ten pounds of cheese. Yes? Or no?")
+      expect(@tile.question).to eq("Who rules?")
+      expect(@tile.link_address).to eq("http://example.co.uk")
 
-      @tile.multiple_choice_answers.should == ["it", "Eggs", "you", "me", "bob", "Add Answer Option"]
-      @tile.correct_answer_index.should == 2
+      expect(@tile.multiple_choice_answers).to eq(["it", "Eggs", "you", "me", "bob", "Add Answer Option"])
+      expect(@tile.correct_answer_index).to eq(2)
       should_be_on client_admin_tile_path(@tile)
       expect_content after_tile_save_message(hide_activate_link: true, action: "update")
     end

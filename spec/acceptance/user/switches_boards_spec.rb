@@ -6,11 +6,11 @@ feature 'Switches boards' do
     unexpected_tiles = Tile.all - expected_tiles
 
     expected_tiles.each do |expected_tile|
-      page.should have_content(expected_tile.headline)
+      expect(page).to have_content(expected_tile.headline)
     end
 
     unexpected_tiles.each do |unexpected_tile|
-      page.should_not have_content(unexpected_tile.headline)
+      expect(page).not_to have_content(unexpected_tile.headline)
     end
   end
 
@@ -35,9 +35,9 @@ feature 'Switches boards' do
       it "shows all non-current boards in the switch menu", js: true do
         open_board_menu
         within(board_menu_selector) do
-          page.should_not have_content(@first_board.name)
-          page.should have_content(@second_board.name)
-          page.should have_content(@third_board.name)
+          expect(page).not_to have_content(@first_board.name)
+          expect(page).to have_content(@second_board.name)
+          expect(page).to have_content(@third_board.name)
         end
       end
 
@@ -104,7 +104,7 @@ feature 'Switches boards' do
         visit activity_path(as: a_regular_user)
         open_board_menu
         within board_menu_selector do
-          page.should have_content("You haven't joined any other boards")
+          expect(page).to have_content("You haven't joined any other boards")
         end
       end
     end

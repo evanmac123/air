@@ -28,7 +28,7 @@ feature "User Accepts Invitation" do
       end
 
       it "welcomes them in das flash" do
-        page.should have_content "Welcome, Bob"
+        expect(page).to have_content "Welcome, Bob"
       end
     end
 
@@ -49,7 +49,7 @@ feature "User Accepts Invitation" do
     set_password_if_needed
     crank_dj_clear
 
-    ActionMailer::Base.deliveries.should be_empty
+    expect(ActionMailer::Base.deliveries).to be_empty
   end
 
   describe "is invited to other board" do
@@ -58,9 +58,9 @@ feature "User Accepts Invitation" do
         @original_board = @user.demo
         @other_board = FactoryGirl.create(:demo)
         @user.add_board(@other_board)
-        @user.demos.should have(2).demos
-        @user.demo.should == @original_board
-        @original_board.should_not == @other_board
+        expect(@user.demos.size).to eq(2)
+        expect(@user.demo).to eq(@original_board)
+        expect(@original_board).not_to eq(@other_board)
       end
 
       scenario "and user is signed in then it goes well" do
@@ -86,9 +86,9 @@ feature "User Accepts Invitation" do
         expect_current_board_header(@other_board)
         expect_content "Welcome"
 
-        @unclaimed_user.demos.should have(2).demos
-        @unclaimed_user.reload.demo.should == @other_board
-        original_board.should_not == @other_board
+        expect(@unclaimed_user.demos.size).to eq(2)
+        expect(@unclaimed_user.reload.demo).to eq(@other_board)
+        expect(original_board).not_to eq(@other_board)
       end
 
       scenario "and is invited to private board then he is not added to it" do
@@ -100,7 +100,7 @@ feature "User Accepts Invitation" do
         should_be_on activity_path
         expect_current_board_header(original_board)
 
-        @user.demos.should have(1).demo
+        expect(@user.demos.size).to eq(1)
       end
     end
   end

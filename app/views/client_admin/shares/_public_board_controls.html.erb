@@ -10,10 +10,7 @@
       <div class="private disengaged">Private</div>
     <% end %>
     <div class="switch small round">
-      <input data-checked= "<%= @board_is_public.to_s %>" id="public_button" name="switch-board" type="radio"></input>
-      <input data-checked="<%= !@board_is_public %>" id="private_button" name="switch-board" type="radio"></input>
-      <label class="for_private" for="public_button">&nbsp</label>
-      <label class="for_public" for="private_button">&nbsp</label>
+      <input id="public_switch" name="switch-board" type="radio" data-is-public="<%= @board_is_public %>"></input>
       <span class="switch_button"></span>
     </div>
     <% if @board_is_public %>
@@ -27,6 +24,3 @@
   </div>
   <br clear="all"/>
 </div>
-<% js_at_end do %>
-  window.publicBoardControls()
-<% end %>

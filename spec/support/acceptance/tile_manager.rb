@@ -16,7 +16,7 @@ module TileManagerHelpers
   end
 
   def expect_tile_placeholders(section_id, expected_count)
-    page.all("##{section_id} > .placeholder_container:not(.creation_placeholder)", visible: true).count.should == expected_count
+    expect(page.all("##{section_id} > .placeholder_container:not(.creation_placeholder)", visible: true).count).to eq(expected_count)
   end
 
   def expect_inactive_tile_placeholders(expected_count)
@@ -32,14 +32,14 @@ module TileManagerHelpers
   end
 
   def expect_page_to_be_locked
-    page.should have_css('.fa-lock', visible: true)
-    page.should have_content("Please create and post at least one tile to unlock this page.")
-    page.should have_link 'Go to Tiles Page', client_admin_tiles_path
+    expect(page).to have_css('.fa-lock', visible: true)
+    expect(page).to have_content("Please create and post at least one tile to unlock this page.")
+    expect(page).to have_link 'Go to Tiles Page', client_admin_tiles_path
   end
 
   def expect_link_to_have_lock_icon(container)
     within(container) do
-      page.should have_css('.fa-lock', visible: true)
+      expect(page).to have_css('.fa-lock', visible: true)
     end
   end
 

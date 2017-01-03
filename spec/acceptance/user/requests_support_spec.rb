@@ -33,7 +33,7 @@ feature 'User requests support' do
     crank_dj_clear
 
     open_email('support@airbo.com')
-    current_email.to_s.should include("Support requested by #{@user.name} of #{@demo.name} (#{@user.email}, #{@user.phone_number}")
-    current_email.to_s.gsub(/\s+/m, " ").should include("test 3 test 2 test 1")
+    expect(current_email.to_s).to include("Support requested by #{@user.name} of #{@demo.name} (#{@user.email}, #{@user.phone_number}")
+    expect(current_email.to_s.gsub(/\s+/m, " ")).to include("test 3 test 2 test 1")
   end
 end

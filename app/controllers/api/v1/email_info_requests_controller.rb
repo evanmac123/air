@@ -1,6 +1,4 @@
-class Api::V1::EmailInfoRequestsController < ApplicationController
-  skip_before_filter :authorize
-
+class Api::V1::EmailInfoRequestsController < Api::ApiController
   def create
     request = EmailInfoRequest.new(permitted_params)
     request.notify if request.save

@@ -15,6 +15,6 @@ describe "shared/_guest_conversion_lightbox.html.haml" do
 
   it "should display the location autocomplete if the board in question uses it" do
     render "shared/guest_conversion_lightbox", standard_locals
-    rendered.should_not include(location_placeholder_text)
+    expect(rendered).not_to include(location_placeholder_text)
   end
 end

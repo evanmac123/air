@@ -8,8 +8,7 @@ class SessionsController < Clearance::SessionsController
   end
 
   def create
-    @user = ::User.authenticate(params[:session][:email],
-                                params[:session][:password])
+    @user = clearance_authenticate(params)
 
     if @user.nil?
       flash_failure_after_create
@@ -20,7 +19,6 @@ class SessionsController < Clearance::SessionsController
         @user.move_to_new_demo(params[:demo_id])
       end
 
-      flash_success_after_create
       flash_login_announcement
       flash[:mp_track_logged_in] = "logged in"
       redirect_back_or(url_after_create)
@@ -52,12 +50,8 @@ class SessionsController < Clearance::SessionsController
 
   def flash_login_announcement
     if (login_announcement = @user.demo.login_announcement).present?
-      flash[:notice] = login_announcement
+      flash[:success] = login_announcement
     end
-  end
-
-  def flash_success_after_create
-    # No "Signed in" message
   end
 
   def flash_failure_after_create

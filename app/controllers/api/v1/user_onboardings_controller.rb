@@ -1,5 +1,5 @@
     #TODO remove this controller?
-class Api::V1::UserOnboardingsController < ApplicationController
+class Api::V1::UserOnboardingsController < UserBaseController
   def update
     @user_onboarding = UserOnboarding.find(params[:id])
     @user_onboarding.update_attributes(user_onboarding_params)

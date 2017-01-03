@@ -22,18 +22,18 @@ describe EmailCommandController do
 
     shared_examples_for "a success with a reply going back" do
       it "should return 'success' with a 200 status" do
-        response.status.should eql 200
-        response.body.should_not be_blank
-        response.body.should eql 'success'
-        response.content_type.should eql 'text/plain'
+        expect(response.status).to eql 200
+        expect(response.body).not_to be_blank
+        expect(response.body).to eql 'success'
+        expect(response.content_type).to eql 'text/plain'
       end
     end
 
     shared_examples_for "a silent success" do
       it "should return a blank response with a 201 status, indicating we have no reply to send to the user" do
-        response.status.should eql 201
-        response.body.should be_blank
-        response.content_type.should eq 'text/plain'
+        expect(response.status).to eql 201
+        expect(response.body).to be_blank
+        expect(response.content_type).to eq 'text/plain'
       end
     end
 
@@ -66,7 +66,7 @@ describe EmailCommandController do
 
         it "should leave the timestamp updated" do
           # the ridiculous things we have to do to deal with times in Ruby...
-          (Time.now - @user.reload.last_unmonitored_mailbox_response_at).to_i.should == 0
+          expect((Time.now - @user.reload.last_unmonitored_mailbox_response_at).to_i).to eq(0)
         end
       end
 
@@ -88,27 +88,27 @@ describe EmailCommandController do
 
         it "should have an appropriate non-monitored-email response, referring them to support" do
           open_email(@user.email)
-          current_email.to_s.should include("Sorry, you've replied to an unmonitored account. For assistance please contact support@airbo.com.")
+          expect(current_email.to_s).to include("Sorry, you've replied to an unmonitored account. For assistance please contact support@airbo.com.")
         end
 
         it "should reply-to set to support" do
           open_email(@user.email)
-          current_email.reply_to.should == %w(support@airbo.com)
+          expect(current_email.reply_to).to eq(%w(support@airbo.com))
         end
 
         it "should have the correct from address" do
           open_email(@user.email)
 
-          current_email.to_s.should include(%!From: Airbo <play@ourairbo.com>!)
-          current_email.from.should == %w(play@ourairbo.com)
+          expect(current_email.to_s).to include(%!From: Airbo <play@ourairbo.com>!)
+          expect(current_email.from).to eq(%w(play@ourairbo.com))
         end
 
         it "should have a good default from address when the email is not from a user we recognize" do
           EmailCommand.last.update_attributes(user_id: nil)
           open_email(@user.email)
 
-          current_email.to_s.should include(%!From: Airbo <play@ourairbo.com>!)
-          current_email.from.should == %w(play@ourairbo.com)
+          expect(current_email.to_s).to include(%!From: Airbo <play@ourairbo.com>!)
+          expect(current_email.from).to eq(%w(play@ourairbo.com))
         end
       end
     end

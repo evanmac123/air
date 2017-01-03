@@ -1,17 +1,6 @@
-# require Rails.root.join('app/presenters/tile_preview/intros_presenter')
+class Explore::TilePreviewsController < ExploreBaseController
+  prepend_before_filter :find_tile
 
-class Explore::TilePreviewsController < ApplicationController
-  skip_before_filter :authorize
-  before_filter :find_tile
-  before_filter :authorize_by_explore_token
-
-  before_filter :allow_guest_user
-  before_filter :login_as_guest_to_tile_board
-  before_filter :authorize_as_guest
-
-  layout "client_admin_layout"
-
-  include LoginByExploreToken
   include ExploreHelper
 
   def show
@@ -25,7 +14,8 @@ class Explore::TilePreviewsController < ApplicationController
              locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section] },
              layout: false
     else
-      render "show", layout: "single_tile_guest_layout" if  logged_in_as_guest?
+      # TODO: merge layouts for an explore that is open to all
+      render "show", layout: "single_tile_guest_layout" if  current_user.is_a?(GuestUser)
     end
   end
 
@@ -39,8 +29,8 @@ class Explore::TilePreviewsController < ApplicationController
       end
     end
 
-    def find_current_board
-      @tile.demo
+    def find_board_for_guest
+      @demo ||= @tile.demo
     end
 
     def get_sorted_explore_tiles
@@ -50,12 +40,10 @@ class Explore::TilePreviewsController < ApplicationController
     end
 
     def find_tile
-      @tile = Tile.explore.find(params[:id])
-    end
-
-    def login_as_guest_to_tile_board
-      if current_user.nil?
-        login_as_guest(@tile.demo)
+      begin
+        @tile ||= Tile.explore.find(params[:id])
+      rescue
+        not_found
       end
     end
 

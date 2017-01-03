@@ -26,7 +26,7 @@ describe PlotData do
     it "should fill actions for value_type: activity" do
       @value_type = "activity"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.send(:data_hash).should ==
+      expect(plot_data.send(:data_hash)).to eq(
         {
           "2015-09-18 00:00:00"=>3, "2015-09-18 01:00:00"=>0, "2015-09-18 02:00:00"=>0, "2015-09-18 03:00:00"=>0,
           "2015-09-18 04:00:00"=>0, "2015-09-18 05:00:00"=>0, "2015-09-18 06:00:00"=>0, "2015-09-18 07:00:00"=>0,
@@ -35,13 +35,14 @@ describe PlotData do
           "2015-09-18 16:00:00"=>0, "2015-09-18 17:00:00"=>0, "2015-09-18 18:00:00"=>0, "2015-09-18 19:00:00"=>0,
           "2015-09-18 20:00:00"=>0, "2015-09-18 21:00:00"=>0, "2015-09-18 22:00:00"=>0, "2015-09-18 23:00:00"=>10
         }
-      plot_data.values.should == [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 10]
+      )
+      expect(plot_data.values).to eq([3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 10])
     end
 
     it "should fill actions for value_type: cumulative" do
       @value_type = "cumulative"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.values.should == [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 19]
+      expect(plot_data.values).to eq([3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 19])
     end
   end
 
@@ -70,7 +71,7 @@ describe PlotData do
     it "should fill actions for value_type: activity" do
       @value_type = "activity"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.send(:data_hash).should ==
+      expect(plot_data.send(:data_hash)).to eq(
         {
           "2015-09-14 00:00:00"=>3,
           "2015-09-15 00:00:00"=>5,
@@ -78,13 +79,14 @@ describe PlotData do
           "2015-09-17 00:00:00"=>0,
           "2015-09-18 00:00:00"=>10
         }
-      plot_data.values.should == [3, 5, 1, 0, 10]
+      )
+      expect(plot_data.values).to eq([3, 5, 1, 0, 10])
     end
 
     it "should fill actions for value_type: cumulative" do
       @value_type = "cumulative"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.values.should == [3, 8, 9, 9, 19]
+      expect(plot_data.values).to eq([3, 8, 9, 9, 19])
     end
   end
 
@@ -114,19 +116,20 @@ describe PlotData do
     it "should fill actions for value_type: activity" do
       @value_type = "activity"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.send(:data_hash).should ==
+      expect(plot_data.send(:data_hash)).to eq(
         {
           "2015-09-07 00:00:00"=>3,
           "2015-09-14 00:00:00"=>8,
           "2015-09-21 00:00:00"=>8
         }
-      plot_data.values.should == [3, 8, 8]
+      )
+      expect(plot_data.values).to eq([3, 8, 8])
     end
 
     it "should fill actions for value_type: cumulative" do
       @value_type = "cumulative"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.values.should == [3, 11, 19]
+      expect(plot_data.values).to eq([3, 11, 19])
     end
   end
 
@@ -155,19 +158,20 @@ describe PlotData do
     it "should fill actions for value_type: activity" do
       @value_type = "activity"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.send(:data_hash).should ==
+      expect(plot_data.send(:data_hash)).to eq(
       {
         "2015-08-01 00:00:00"=>8,
         "2015-09-01 00:00:00"=>1,
         "2015-10-01 00:00:00"=>10
       }
-      plot_data.values.should == [8, 1, 10]
+      )
+      expect(plot_data.values).to eq([8, 1, 10])
     end
 
     it "should fill actions for value_type: cumulative" do
       @value_type = "cumulative"
       plot_data = PlotData.new @period, @action_query, @value_type
-      plot_data.values.should == [8, 9, 19]
+      expect(plot_data.values).to eq([8, 9, 19])
     end
   end
 end

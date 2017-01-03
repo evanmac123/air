@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TilePreviewsController do
+describe Explore::TilePreviewsController do
   describe 'GET show' do
     it "should construe an email_type parameter to mean we came here by clicking an email, and ping accordingly" do
       subject.stubs(:ping)
@@ -17,7 +17,7 @@ describe TilePreviewsController do
 
     it "should return 404 error if tile is not found" do
       get :show, id: 0
-      response.status.should == 404
+      expect(response.status).to eq(404)
     end
   end
 end

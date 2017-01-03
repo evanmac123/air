@@ -79,7 +79,7 @@ class MockS3
 
   class MockObjectCollection < Hash
     def delete_if
-      self.select{|k, v| yield v}.each {|k,v| v.delete}
+      self.select{|k, v| yield v}.each {|k,v| v.send(:delete)}
 
       self.reject!{|k,v| yield v}
     end

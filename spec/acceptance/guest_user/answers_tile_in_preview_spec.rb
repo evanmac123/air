@@ -12,7 +12,7 @@ feature "Guest user answering a tile in preview", js:true do
 
 
     click_link "Eggs"
-    page.should have_content("Correct!")
+    expect(page).to have_content("Correct!")
   end
 
   it "should not show success phrase if there is only one answer", js: true do
@@ -23,6 +23,6 @@ feature "Guest user answering a tile in preview", js:true do
 
 
     click_link "Eggs"
-    page.should_not have_content("Correct!")
+    expect(page).not_to have_content("Correct!")
   end
 end

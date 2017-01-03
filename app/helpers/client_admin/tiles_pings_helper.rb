@@ -6,8 +6,6 @@ module ClientAdmin::TilesPingsHelper
     end
   end
 
-
-
   def tile_status_updated_ping tile, action
     ping('Moved Tile in Manage', {action: action, tile_id: tile.id}, current_user)
   end
@@ -32,7 +30,6 @@ module ClientAdmin::TilesPingsHelper
     return unless tile.suggested?
     ping('Suggestion Box', {client_admin_action: "Tile Viewed", tile_id: tile.id}, current_user)
   end
-
 
   def tile_creation_ping_props tile, source
     {

@@ -34,6 +34,6 @@ module GuestUserConversionHelpers
   end
 
   def expect_conversion_form_header
-    page.should have_content("Create an account to interact with this tile and many others.")
+    expect(page).to have_content("Create an account to interact with this tile and many others.")
   end
 end

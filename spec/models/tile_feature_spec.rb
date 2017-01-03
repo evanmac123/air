@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe TileFeature do
-  it { should validate_presence_of :name}
-  it { should validate_uniqueness_of :name}
-  it { should validate_presence_of :rank}
-  it { should validate_uniqueness_of :rank}
+  it { is_expected.to validate_presence_of :name}
+  it { is_expected.to validate_uniqueness_of :name}
+  it { is_expected.to validate_presence_of :rank}
+  it { is_expected.to validate_uniqueness_of :rank}
 
   let(:tile_feature) { FactoryGirl.create(:tile_feature, active: true) }
 
@@ -16,7 +16,6 @@ describe TileFeature do
     expect(tile_feature.text_color).to eq(redis_params["text_color"])
     expect(tile_feature.header_copy).to eq(redis_params["header_copy"])
     expect(tile_feature.background_color).to eq(redis_params["background_color"])
-    expect(tile_feature.tile_ids).to eq(redis_params["tile_ids"].split(","))
   end
 
   def redis_params

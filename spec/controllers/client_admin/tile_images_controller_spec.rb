@@ -11,8 +11,8 @@ describe ClientAdmin::TileImagesController do
 
       sign_in_as(client_admin)
       get :index, page: 1
-      assigns(:tile_images).count.should == 18
-      assigns(:tile_images).map(&:id).should == TileImage.order{ created_at.desc }[35..52].map(&:id)
+      expect(assigns(:tile_images).count).to eq(18)
+      expect(assigns(:tile_images).map(&:id)).to eq(TileImage.order{ created_at.desc }[35..52].map(&:id))
     end
   end
 end

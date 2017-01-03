@@ -33,13 +33,9 @@
     @include font-bold;
   }
 }
-#flash_failure, .failure {
+#flash_notice, .notice, #flash_failure, .failure {
   background: $red;
   .flash-content a {border-color:lighten($red, 30%);}
-}
-#flash_notice, .notice {
-  background: $gray;
-  .flash-content a {border-color:lighten($gray, 30%);}
 }
 #flash_success, .success {
   background: $dark-green;

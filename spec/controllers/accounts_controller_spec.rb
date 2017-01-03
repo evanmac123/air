@@ -15,8 +15,8 @@ describe AccountsController do
       request.env['HTTP_REFERER'] = account_settings_path
       put :update, user: {phone_number: new_number}
 
-      flash[:failure].should include("Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com")
-      user.reload.phone_number.should == original_number
+      expect(flash[:failure]).to include("Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com")
+      expect(user.reload.phone_number).to eq(original_number)
     end
   end
 end

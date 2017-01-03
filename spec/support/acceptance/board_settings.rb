@@ -5,7 +5,7 @@ module BoardSettingsHelpers
   end
 
   def wait_for_board_modal
-    page.should have_content("Board Settings")
+    expect(page).to have_content("Board Settings")
   end
 
   def board_regular_user_controls_selector
@@ -34,7 +34,7 @@ module BoardSettingsHelpers
   end
 
   def wait_for_safety_modal
-    page.should have_content("Your account will be permanently deleted")
+    expect(page).to have_content("Your account will be permanently deleted")
   end
 
   def fill_in_safety_text_field(text)

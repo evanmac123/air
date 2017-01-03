@@ -1,7 +1,5 @@
 class SignupRequestsController < ApplicationController
-  skip_before_filter :authorize
-  before_filter :allow_guest_user
-  layout 'standalone', only: [:new]
+  layout 'standalone'
 
   def create
     lead_contact = LeadContact.new(lead_contact_params)

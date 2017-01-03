@@ -8,12 +8,7 @@ class TilesToolsSubnavPresenter
               to: :current_user
 
   def initialize(user)
-    @current_user = if user.is_parent_board_user?
-                      @is_parent_board_user = true
-                      user.original_user
-                    else
-                      user
-                    end
+    @current_user = user
   end
 
   def items_with_corrected_params
@@ -29,11 +24,7 @@ class TilesToolsSubnavPresenter
   end
 
   def tile_manager_nav_class
-    if @is_parent_board_user
-      'parent_board'
-    else
-      ''
-    end
+    ''
   end
 
   private

@@ -1,5 +1,5 @@
 module SessionHelpers
   def logged_out_message
-    "You've been logged out due to inactivity. If needed, create or reset your password."
+    "Please sign in or create an account to access this part of the site. If needed, create or reset your password."
   end
 end

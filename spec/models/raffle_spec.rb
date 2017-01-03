@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Raffle do
-  it { should have_many(:user_in_raffle_infos) }
-  it { should have_many(:user_winners) }
-  it { should have_many(:blacklisted_users) }
+  it { is_expected.to have_many(:user_in_raffle_infos) }
+  it { is_expected.to have_many(:user_winners) }
+  it { is_expected.to have_many(:blacklisted_users) }
 
   describe "#pick_winners" do
     before(:each) do
@@ -13,31 +13,31 @@ describe Raffle do
     end
 
     it "should have no winner or blacklisted user at the start" do
-      @raffle.winners.should == []
-      @raffle.blacklisted_users.should == []
+      expect(@raffle.winners).to eq([])
+      expect(@raffle.blacklisted_users).to eq([])
       arr1 = @raffle.demo.users.pluck(:email)
       arr2 = @users.map(&:email)
-      expect{arr1 & arr2 == arr1}.to be_true
+      expect(arr1.sort).to eq(arr2.sort)
     end
 
     it "should pick required number of winners" do
       @raffle.pick_winners 2
-      @raffle.winners.count.should == 2
-      @raffle.blacklisted_users.should == []
+      expect(@raffle.winners.count).to eq(2)
+      expect(@raffle.blacklisted_users).to eq([])
     end
 
     it "should put previous winners in blacklist" do
       @raffle.pick_winners 2
       old_winners_id = @raffle.reload.winners.pluck(:id)
       @raffle.pick_winners 2
-      @raffle.reload.blacklisted_users.pluck(:id).should == old_winners_id
+      expect(@raffle.reload.blacklisted_users.pluck(:id)).to eq(old_winners_id)
     end
 
     it "should not repeat winner" do
       @raffle.pick_winners 2
       old_winners = @raffle.reload.winners.dup
       @raffle.pick_winners 2
-      old_winners.should_not == @raffle.reload.winners
+      expect(old_winners).not_to eq(@raffle.reload.winners)
     end
   end
 end

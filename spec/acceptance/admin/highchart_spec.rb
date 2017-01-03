@@ -51,7 +51,7 @@ feature 'Highchart Plot' do
   # -------------------------------------------------
 
   background do
-  pending "Fails in test environment but works in production FIXME eventually"
+  skip "Fails in test environment but works in production FIXME eventually"
     bypass_modal_overlays(admin)
     visit client_admin_path(as: admin)
   end
@@ -70,23 +70,23 @@ feature 'Highchart Plot' do
     end
 
     def content_should_be(content)
-      page.should have_select 'chart_plot_content', selected: content
+      expect(page).to have_select 'chart_plot_content', selected: content
     end
 
     def interval_should_be(interval)
-      page.should have_select 'chart_interval', selected: interval
+      expect(page).to have_select 'chart_interval', selected: interval
     end
 
     def label_should_be(label)
-      page.should have_select 'chart_label_points', selected: label
+      expect(page).to have_select 'chart_label_points', selected: label
     end
 
     # -------------------------------------------------
 
     scenario 'Control Initialization and Retaining Values' do
       # Initial state
-      start_date_value.should == initial_start_date
-      end_date_value.should == initial_end_date
+      expect(start_date_value).to eq(initial_start_date)
+      expect(end_date_value).to eq(initial_end_date)
 
       content_should_be  'Both'
       interval_should_be 'Weekly'
@@ -103,15 +103,15 @@ feature 'Highchart Plot' do
       click_button 'Update chart'
 
       # Controls should reflect most-recent selections
-      start_date_value.should == start_date
-      end_date_value.should == end_date
+      expect(start_date_value).to eq(start_date)
+      expect(end_date_value).to eq(end_date)
 
       content_should_be 'Unique users'
       interval_should_be 'Daily'
       label_should_be 'Every other'
 
       # And finally, make sure page contains the highchart-button to save chart to an image file
-      page.should have_selector '.highcharts-button'
+      expect(page).to have_selector '.highcharts-button'
     end
 
     # -------------------------------------------------
@@ -120,10 +120,10 @@ feature 'Highchart Plot' do
     scenario 'Date Control Synchronization' do
       set_plot_interval 'Weekly'
       set_start_date(start_date)
-      end_date_value.should == initial_end_date
+      expect(end_date_value).to eq(initial_end_date)
 
       set_plot_interval 'Daily'
-      end_date_value.should  == initial_end_date
+      expect(end_date_value).to  eq(initial_end_date)
 
 =begin
       set_plot_interval 'Hourly'
@@ -137,7 +137,7 @@ feature 'Highchart Plot' do
 =end
       set_plot_interval 'Weekly'
       set_end_date(end_date)
-      start_date_value.should == start_date
+      expect(start_date_value).to eq(start_date)
     end
   end
 
@@ -199,10 +199,10 @@ feature 'Highchart Plot' do
       #  @valid_act_points.each { |y| act_labels.should_not have_content y }
       #end
       if boolean
-        page.should have_content 'Acts'
-        @valid_act_points.each { |y| page.should have_content y }
+        expect(page).to have_content 'Acts'
+        @valid_act_points.each { |y| expect(page).to have_content y }
       else
-        page.should_not have_content 'Acts'
+        expect(page).not_to have_content 'Acts'
         #@valid_act_points.each { |y| page.should_not have_content y }
       end
     end
@@ -217,10 +217,10 @@ feature 'Highchart Plot' do
       #end
       within '#my-chart' do
         if boolean
-          page.should have_content 'Users'
-          @valid_user_points.each { |y| page.should have_content y }
+          expect(page).to have_content 'Users'
+          @valid_user_points.each { |y| expect(page).to have_content y }
         else
-          page.should_not have_content 'Users'
+          expect(page).not_to have_content 'Users'
           #@valid_user_points.each { |y| page.should_not have_content y }
         end
       end
@@ -307,13 +307,13 @@ feature 'Highchart Plot' do
       #title.should have_content "Activity Levels"
       #subtitle.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Day"
 
-      page.should have_content "Activity Levels"
-      page.should have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} - By Day"
+      expect(page).to have_content "Activity Levels"
+      expect(page).to have_content "#{date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} - By Day"
 
       #legend.should have_content 'Acts'
       #legend.should have_content 'Users'
-      page.should have_content 'Acts'
-      page.should have_content 'Users'
+      expect(page).to have_content 'Acts'
+      expect(page).to have_content 'Users'
 
       # Make sure the day labels are correct (both content and format) and that days outside the range are not present
       #['Dec. 26', 'Dec. 30', 'Jan. 01', 'Jan. 15'].each { |day| x_axis.should     have_content day }
@@ -322,8 +322,8 @@ feature 'Highchart Plot' do
       # Many 0's exist for both acts and users
       #act_labels.should  have_content '0'
       #user_labels.should have_content '0'
-      page.should  have_content '0'
-      page.should have_content '0'
+      expect(page).to  have_content '0'
+      expect(page).to have_content '0'
 
       no_invalid_points_in_plot
 
@@ -406,7 +406,7 @@ feature 'Highchart Plot' do
 
       # Labels for 1..8
       #3.step(8, 1) { |y| act_labels.should have_content y.to_s }
-      3.step(8, 1) { |y| page.should have_content y.to_s }
+      3.step(8, 1) { |y| expect(page).to have_content y.to_s }
 
       set_label_points 'Every other'
       click_button 'Update chart'
@@ -414,7 +414,7 @@ feature 'Highchart Plot' do
       # Labels for 4, 6, 8 ; No labels for 3, 5, 7
       #4.step(8, 2) { |y| act_labels.should     have_content y.to_s }
       #3.step(8, 2) { |y| act_labels.should_not have_content y.to_s }
-      4.step(8, 2) { |y| page.should     have_content y.to_s }
+      4.step(8, 2) { |y| expect(page).to     have_content y.to_s }
       #3.step(8, 2) { |y| page.should_not have_content y.to_s }
 
       set_plot_content 'Unique users'
@@ -422,7 +422,7 @@ feature 'Highchart Plot' do
 
       # Labels for 1..4
       #1.step(4, 1) { |y| user_labels.should have_content y.to_s }
-      1.step(4, 1) { |y| page.should have_content y.to_s }
+      1.step(4, 1) { |y| expect(page).to have_content y.to_s }
 
       set_label_points 'Every other'
       click_button 'Update chart'
@@ -430,7 +430,7 @@ feature 'Highchart Plot' do
       # Labels for 2, 4 ; No labels for 1, 3
       #2.step(4, 2) { |y| user_labels.should     have_content y.to_s }
       #1.step(4, 2) { |y| user_labels.should_not have_content y.to_s }
-      2.step(4, 2) { |y| page.should     have_content y.to_s }
+      2.step(4, 2) { |y| expect(page).to     have_content y.to_s }
       #1.step(4, 2) { |y| page.should_not have_content y.to_s }
     end
 
@@ -539,19 +539,19 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       #title.should have_content "Activity Levels"
       #subtitle.should have_content "#{weekly_date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} : By Week"
-      page.should have_content "Activity Levels"
-      page.should have_content "#{weekly_date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} - By Week"
+      expect(page).to have_content "Activity Levels"
+      expect(page).to have_content "#{weekly_date_in_subtitle(start_date)} through #{date_in_subtitle(end_date)} - By Week"
 
       #legend.should have_content 'Acts'
       #legend.should have_content 'Users'
-      page.should have_content 'Acts'
-      page.should have_content 'Users'
+      expect(page).to have_content 'Acts'
+      expect(page).to have_content 'Users'
 
       # Make sure the day labels are correct (both content and format) and that days outside the range are not present
       #['Dec. 26', 'Dec. 30', 'Jan. 01', 'Jan. 15'].each { |day| x_axis.should     have_content day }
       #['Dec. 20', 'Dec. 24', 'Jan. 17', 'Jan. 18'].each { |day| x_axis.should_not have_content day }
-      ['Dec. 26', 'Dec. 30', 'Jan. 01', 'Jan. 15'].each { |day| page.should     have_content day }
-      ['Dec. 20', 'Dec. 24', 'Jan. 17', 'Jan. 18'].each { |day| page.should_not have_content day }
+      ['Dec. 26', 'Dec. 30', 'Jan. 01', 'Jan. 15'].each { |day| expect(page).to     have_content day }
+      ['Dec. 20', 'Dec. 24', 'Jan. 17', 'Jan. 18'].each { |day| expect(page).not_to have_content day }
 
       # Aren't any 0's in this plot
       #act_labels.should_not  have_content '0'
@@ -583,7 +583,7 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       # Labels for all values
       #@valid_act_points.each { |y| act_labels.should have_content y }
-      @valid_act_points.each { |y| page.should have_content y }
+      @valid_act_points.each { |y| expect(page).to have_content y }
 
       set_label_points 'Every other'
       click_button 'Update chart'
@@ -591,7 +591,7 @@ Su	Mo	Tu	We	Th	Fr	Sa
       # Labels for 6, 9 ; No labels for 5, 8
       #%w(6 9).each { |y| act_labels.should     have_content y }
       #%w(5 8).each { |y| act_labels.should_not have_content y }
-      %w(6 9).each { |y| page.should     have_content y }
+      %w(6 9).each { |y| expect(page).to     have_content y }
       #%w(5 8).each { |y| page.should_not have_content y }
 
       set_plot_content 'Unique users'
@@ -600,7 +600,7 @@ Su	Mo	Tu	We	Th	Fr	Sa
 
       # Labels for all values
       #@valid_user_points.each { |y| user_labels.should have_content y }
-      @valid_user_points.each { |y| page.should have_content y }
+      @valid_user_points.each { |y| expect(page).to have_content y }
 
       set_label_points 'Every other'
       click_button 'Update chart'
@@ -608,7 +608,7 @@ Su	Mo	Tu	We	Th	Fr	Sa
       # Labels for 2, 4 ; No labels for 1, 3
       #%w(2 4).each { |y| user_labels.should     have_content y }
       #%w(1 3).each { |y| user_labels.should_not have_content y }
-      %w(2 4).each { |y| page.should     have_content y }
+      %w(2 4).each { |y| expect(page).to     have_content y }
       #%w(1 3).each { |y| page.should_not have_content y }
     end
 =begin

@@ -23,27 +23,6 @@ feature 'User views tile' do
     @discover_fire.update_attributes(activated_at: Time.now)
   end
 
-  context "first tile hint" do
-    before(:each) do
-      setup_data
-      bypass_modal_overlays(@kendra)
-    end
-
-    scenario "should see first tile hint if there are completions", js:true do
-      signin_as(@kendra, 'milking')
-      expect(page).to have_content("This is the first Tile. We recommend clicking it to begin.")
-      click_link 'Got it', visible: false #TODO figure out why visible:false is required even though the link is visible visually
-
-      expect(page).to have_no_content("This is the first Tile. We recommend clicking it to begin.")
-    end
-
-    scenario "should not see first tile hint if user has completed tilese", js:true do
-      UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns true
-      signin_as(@kendra, 'milking')
-      expect(page).to have_no_content("This is the first Tile. We recommend clicking it to begin.")
-    end
-  end
-
   context "when there are tiles to be seen" do
     before(:each) do
       setup_data
@@ -53,6 +32,7 @@ feature 'User views tile' do
 
     scenario 'views tile image', js: true do
       # Click on the first tile, and it should take you to the tiles  path
+      click_link "Get started!"
       click_link 'discover fire'
       should_be_on tiles_path
 
@@ -63,7 +43,7 @@ feature 'User views tile' do
 
     context "when a tile has no attached link address" do
       before(:each) do
-        @make_toast.link_address.should be_blank
+        expect(@make_toast.link_address).to be_blank
       end
 
       scenario "it should not be wrapped in a link" do
@@ -71,7 +51,7 @@ feature 'User views tile' do
         toast_image = page.find("img[alt='make toast']")
         parent = page.find(:xpath, toast_image.path + "/..")
 
-        parent.tag_name.should_not == "a"
+        expect(parent.tag_name).not_to eq("a")
         parent.click
         should_be_on tiles_path
       end
@@ -81,10 +61,10 @@ feature 'User views tile' do
   context "when there are no tiles to be seen" do
     it "should show 4 placeholders" do
       user = FactoryGirl.create(:user, :claimed)
-      user.demo.tiles.should be_empty
+      expect(user.demo.tiles).to be_empty
 
       visit activity_path(as: user)
-      page.all(".placeholder_tile.tile_thumbnail").count.should == 4
+      expect(page.all(".placeholder_tile.tile_thumbnail").count).to eq(4)
     end
   end
 end

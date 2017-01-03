@@ -32,7 +32,7 @@ feature 'Sees all inactive tiles on a separate page' do
       tiles.each {|tile| expect_content tile.headline }
 
       tile_13 = FactoryGirl.create(:tile, :archived, demo: demo, headline: "Tile 13")
-      page_text.should_not include(tile_13.headline)
+      expect(page_text).not_to include(tile_13.headline)
     end
 
     it "should show second 12 tiles on second page" do
@@ -42,7 +42,7 @@ feature 'Sees all inactive tiles on a separate page' do
       (13..24).each{ |i| tiles_1 << FactoryGirl.create(:tile, :archived, demo: demo, headline: "Tile #{i}") }
       visit client_admin_inactive_tiles_path(as: client_admin, page: 2)
 
-      tiles_1.each {|tile| page_text.should_not include(tile.headline) }
+      tiles_1.each {|tile| expect(page_text).not_to include(tile.headline) }
       tiles_2.each {|tile| expect_content tile.headline }
     end
   end

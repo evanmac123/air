@@ -57,7 +57,7 @@ feature 'Submits payment information' do
   end
 
   def expect_stripe_called_with_happy_path_parameters
-    Stripe::Customer.should have_received(:create).with(
+    expect(Stripe::Customer).to have_received(:create).with(
       card:  VALID_STRIPE_CARD_PARAMETERS, 
       email: @client_admin.email, 
       description: "#{@client_admin.name} (#{@client_admin.email})"
@@ -65,7 +65,7 @@ feature 'Submits payment information' do
   end
 
   def expect_no_call_to_stripe
-    Stripe::Customer.should have_received(:create).never
+    expect(Stripe::Customer).to have_received(:create).never
   end
 
   def stripe_raises_card_error(error_message)
@@ -106,12 +106,12 @@ feature 'Submits payment information' do
     submit_valid_cc_entries
     billing_information = @client_admin.billing_information
 
-    billing_information.expiration_month.should == VALID_EXPIRATION_MONTH
-    billing_information.expiration_year.should  == VALID_EXPIRATION_YEAR
-    billing_information.last_4.should           == VALID_LAST_4
-    billing_information.issuer.should           == VALID_COMPANY
-    billing_information.customer_token.should   == DUMMY_CUSTOMER_TOKEN
-    billing_information.card_token.should       == DUMMY_CARD_TOKEN
+    expect(billing_information.expiration_month).to eq(VALID_EXPIRATION_MONTH)
+    expect(billing_information.expiration_year).to  eq(VALID_EXPIRATION_YEAR)
+    expect(billing_information.last_4).to           eq(VALID_LAST_4)
+    expect(billing_information.issuer).to           eq(VALID_COMPANY)
+    expect(billing_information.customer_token).to   eq(DUMMY_CUSTOMER_TOKEN)
+    expect(billing_information.card_token).to       eq(DUMMY_CARD_TOKEN)
   end
 
   scenario "normalizes the card number", js: true do
@@ -143,14 +143,14 @@ feature 'Submits payment information' do
     crank_dj_clear
 
     open_email(BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS)
-    current_email.should have_body_text("Joey Bananas (joey@example.com) submitted payment information to Stripe for the #{@client_admin.demo.name} (#{@client_admin.demo_id})")
+    expect(current_email).to have_body_text("Joey Bananas (joey@example.com) submitted payment information to Stripe for the #{@client_admin.demo.name} (#{@client_admin.demo_id})")
   end
 
   scenario 'sees a link back to the tiles page', js: true do
     submit_valid_cc_entries
 
-    page.should have_content("Payment Successful!")
-    page.should have_link("Back to Manage", client_admin_tiles_path)
+    expect(page).to have_content("Payment Successful!")
+    expect(page).to have_link("Back to Manage", client_admin_tiles_path)
   end
 
   context 'when they enter bad information' do
@@ -161,7 +161,7 @@ feature 'Submits payment information' do
         submit_card
 
         expect_no_call_to_stripe
-        page.should have_content("please enter a credit card number")
+        expect(page).to have_content("please enter a credit card number")
       end
 
       scenario 'to wit, a missing expiration', js: true do
@@ -170,7 +170,7 @@ feature 'Submits payment information' do
         submit_card
 
         expect_no_call_to_stripe
-        page.should have_content("please enter an expiration date")
+        expect(page).to have_content("please enter an expiration date")
       end
 
       scenario 'to wit, a missing CVC', js: true do
@@ -179,7 +179,7 @@ feature 'Submits payment information' do
         submit_card
 
         expect_no_call_to_stripe
-        page.should have_content("please enter the security code for this card")
+        expect(page).to have_content("please enter the security code for this card")
       end
 
       scenario 'to wit, a missing ZIP', js: true do
@@ -188,7 +188,7 @@ feature 'Submits payment information' do
         submit_card
 
         expect_no_call_to_stripe
-        page.should have_content("please enter the billing ZIP code for this card")
+        expect(page).to have_content("please enter the billing ZIP code for this card")
       end
     end
 
@@ -196,19 +196,19 @@ feature 'Submits payment information' do
       it 'passes along the message from that error', js: true do
         stripe_raises_card_error "You did it wrong."
         submit_valid_cc_entries
-        page.should have_content "you did it wrong"
+        expect(page).to have_content "you did it wrong"
       end
 
       it 'formats multiple-sentence Stripe errors properly', js: true do
         stripe_raises_card_error "You did it wrong. Ask someone else to show you. Or give up."
         submit_valid_cc_entries
-        page.should have_content "you did it wrong. Ask someone else to show you. Or give up"
+        expect(page).to have_content "you did it wrong. Ask someone else to show you. Or give up"
       end
 
       it "makes the errors a bit politer", js: true do
         stripe_raises_card_error "Your card was temporarily rejected. Try again in a little bit."
         submit_valid_cc_entries
-        page.should have_content "Please try again in a little bit"
+        expect(page).to have_content "Please try again in a little bit"
       end
     end
   end

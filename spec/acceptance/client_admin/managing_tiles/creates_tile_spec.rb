@@ -13,7 +13,7 @@ feature 'Creates tile' do
   end
 
   before do
-    pending
+    skip
     visit new_client_admin_tile_path(as: client_admin)
     choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
   end
@@ -21,23 +21,23 @@ feature 'Creates tile' do
   #TODO Clean up these tests they are bloated with a lot of unnecessary
   #assertions many of which should be pushed to unit tests.
   scenario 'by uploading an image and supplying some information', js: true do
-    demo.tiles.should be_empty
+    expect(demo.tiles).to be_empty
 
     create_good_tile
-    demo.tiles.reload.should have(1).tile
+    expect(demo.tiles.reload.size).to eq(1)
     new_tile = MultipleChoiceTile.last
-    new_tile.image_credit.should == "by Society"
-    new_tile.headline.should == "Ten pounds of cheese"
-    new_tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
-    new_tile.question.should == "Who rules?"
-    new_tile.link_address.should == "http://www.google.com/foobar"
-    new_tile.correct_answer_index.should == 2
-    new_tile.multiple_choice_answers.should == ["Me", "You", "Hipster", "Add Answer Option"]
-    new_tile.points.should == 18
-    new_tile.should be_draft
+    expect(new_tile.image_credit).to eq("by Society")
+    expect(new_tile.headline).to eq("Ten pounds of cheese")
+    expect(new_tile.supporting_content).to eq("Ten pounds of cheese. Yes? Or no?")
+    expect(new_tile.question).to eq("Who rules?")
+    expect(new_tile.link_address).to eq("http://www.google.com/foobar")
+    expect(new_tile.correct_answer_index).to eq(2)
+    expect(new_tile.multiple_choice_answers).to eq(["Me", "You", "Hipster", "Add Answer Option"])
+    expect(new_tile.points).to eq(18)
+    expect(new_tile).to be_draft
 
     expect_content after_tile_save_message
-    page.find("img[src$='#{new_tile.image}']").should be_present
+    expect(page.find("img[src$='#{new_tile.image}']")).to be_present
     %w(headline supporting_content question).each do |string|
       expect_content new_tile.send(string)
     end
@@ -45,21 +45,21 @@ feature 'Creates tile' do
     expect_content "18 POINTS"
     new_tile.multiple_choice_answers.each {|answer| expect_content answer}
 
-    new_tile.creator.should == client_admin
+    expect(new_tile.creator).to eq(client_admin)
 
-    new_tile.is_public.should be_false # by default
+    expect(new_tile.is_public).to be_falsey # by default
   end
 
   scenario "does not activate tile after creating it, thus the tile appears at the front of the draft tile list", js: true do
     create_existing_tiles(demo, Tile::DRAFT, 2)
 
     create_good_tile
-    Tile.last.should be_draft
+    expect(Tile.last).to be_draft
 
     visit tile_manager_page
 
-    draft_tab.should have_num_tiles(3)
-    draft_tab.should have_first_tile(Tile.last, Tile::DRAFT)
+    expect(draft_tab).to have_num_tiles(3)
+    expect(draft_tab).to have_first_tile(Tile.last, Tile::DRAFT)
   end
 
   scenario "should have active answer links in the preview", js: true do
@@ -74,7 +74,7 @@ feature 'Creates tile' do
 
   scenario "with incomplete data should give a gentle rebuff", js: true do
     click_create_button
-    demo.tiles.reload.should be_empty
+    expect(demo.tiles.reload).to be_empty
     expect_content "image is missing"
     expect_content "headline can't be blank"
     expect_content "supporting content can't be blank"
@@ -83,7 +83,7 @@ feature 'Creates tile' do
     select_correct_answer 1
     click_create_button
 
-    demo.tiles.reload.should be_empty
+    expect(demo.tiles.reload).to be_empty
     expect_content "image is missing"
     expect_content "headline can't be blank"
     expect_content "supporting content can't be blank"
@@ -99,7 +99,7 @@ feature 'Creates tile' do
     fill_in "Headline", with: ("x" * 76)
     click_button "Save tile"
 
-    demo.tiles.reload.should be_empty
+    expect(demo.tiles.reload).to be_empty
     expect_content "Sorry, we couldn't save this tile"
     expect_content "headline is too long"
   end
@@ -108,13 +108,13 @@ feature 'Creates tile' do
     fill_in_supporting_content("x" * 601)
     expect_content "-1 CHARACTERS"
     expect_content "Shorten the supporting content to save the Tile."
-    page.should have_selector("input[type=submit][value='Save tile'][disabled]")
+    expect(page).to have_selector("input[type=submit][value='Save tile'][disabled]")
 
     fill_in_supporting_content("x" * 600)
     expect_content "0 CHARACTERS"
     expect_no_content "Shorten the supporting content to save the Tile."
-    page.should_not have_selector("input[type=submit][value='Save tile'][disabled]")
-    page.should have_selector("input[type=submit][value='Save tile']")
+    expect(page).not_to have_selector("input[type=submit][value='Save tile'][disabled]")
+    expect(page).to have_selector("input[type=submit][value='Save tile']")
   end
 
   scenario "should see character (not byte) counters on each text field", js: true do
@@ -124,34 +124,34 @@ feature 'Creates tile' do
 
     2.times {click_add_answer}
 
-    page.all('.quiz_content .character-counter').should have(4).counter
+    expect(page.all('.quiz_content .character-counter').size).to eq(4)
   end
 
   scenario "should start with two answer fields, rather than one", js: true do
-    page.all(answer_link_selector).count.should == 2
+    expect(page.all(answer_link_selector).count).to eq(2)
   end
 
   scenario "with a survey", js: true do
-    demo.tiles.should be_empty
+    expect(demo.tiles).to be_empty
 
     fill_in_valid_form_entries(click_answer: 6, question_type: Tile::SURVEY)
     click_create_button
 
-    demo.tiles.reload.should have(1).tile
+    expect(demo.tiles.reload.size).to eq(1)
     new_tile = MultipleChoiceTile.last
-    new_tile.image_credit.should == "by Society"
-    new_tile.headline.should == "Ten pounds of cheese"
-    new_tile.supporting_content.should == "Ten pounds of cheese. Yes? Or no?"
-    new_tile.question.should == "Who rules?"
-    new_tile.link_address.should == "http://www.google.com/foobar"
-    new_tile.correct_answer_index.should == -1
-    new_tile.is_survey?.should == true
-    new_tile.multiple_choice_answers.should == ["Me", "You", "Hipster", "Add Answer Option"]
-    new_tile.points.should == 18
-    new_tile.should be_draft
+    expect(new_tile.image_credit).to eq("by Society")
+    expect(new_tile.headline).to eq("Ten pounds of cheese")
+    expect(new_tile.supporting_content).to eq("Ten pounds of cheese. Yes? Or no?")
+    expect(new_tile.question).to eq("Who rules?")
+    expect(new_tile.link_address).to eq("http://www.google.com/foobar")
+    expect(new_tile.correct_answer_index).to eq(-1)
+    expect(new_tile.is_survey?).to eq(true)
+    expect(new_tile.multiple_choice_answers).to eq(["Me", "You", "Hipster", "Add Answer Option"])
+    expect(new_tile.points).to eq(18)
+    expect(new_tile).to be_draft
 
     expect_content after_tile_save_message
-    page.find("img[src='#{new_tile.image}']").should be_present
+    expect(page.find("img[src='#{new_tile.image}']")).to be_present
     %w(headline supporting_content question).each do |string|
       expect_content new_tile.send(string)
     end
@@ -165,7 +165,7 @@ feature 'Creates tile' do
       fill_in_valid_form_entries
     end
 
-    pending "clear the image", js: true do
+    skip "clear the image", js: true do
       show_tile_image
       page.find(".clear_image").click
       show_tile_image_placeholder
@@ -212,30 +212,30 @@ feature 'Creates tile' do
   context "acting with question and answers" do
     scenario "choose type Action, subtype any", js: true do
       choose_question_type_and_subtype Tile::ACTION, Tile::TAKE_ACTION
-      page.all(answer_link_selector).should have(1).link
-      page.all(".choose_answer").should be_empty
-      page.all(".add_answer").should be_empty
+      expect(page.all(answer_link_selector).size).to eq(1)
+      expect(page.all(".choose_answer")).to be_empty
+      expect(page.all(".add_answer")).to be_empty
     end
 
     scenario "choose type Quiz, subtype true/false", js: true do
       choose_question_type_and_subtype Tile::QUIZ, Tile::TRUE_FALSE
-      page.all(answer_link_selector).should have(2).links
-      page.find(".choose_answer").text.should == "Correct answer not selected"
-      page.all(".add_answer").should be_empty
+      expect(page.all(answer_link_selector).size).to eq(2)
+      expect(page.find(".choose_answer").text).to eq("Correct answer not selected")
+      expect(page.all(".add_answer")).to be_empty
     end
 
     scenario "choose type Quiz, subtype multiple choice", js: true do
       choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
-      page.all(answer_link_selector).should have(2).links
-      page.find(".choose_answer").text.should == "Correct answer not selected"
-      page.find(".add_answer").text.should == "Add another answer"
+      expect(page.all(answer_link_selector).size).to eq(2)
+      expect(page.find(".choose_answer").text).to eq("Correct answer not selected")
+      expect(page.find(".add_answer").text).to eq("Add another answer")
     end
 
     scenario "choose type Survey, subtype multiple choice", js: true do
       choose_question_type_and_subtype Tile::SURVEY, Tile::MULTIPLE_CHOICE
-      page.all(answer_link_selector).should have(2).links
-      page.all(".choose_answer").should be_empty
-      page.find(".add_answer").text.should == "Add another answer"
+      expect(page.all(answer_link_selector).size).to eq(2)
+      expect(page.all(".choose_answer")).to be_empty
+      expect(page.find(".add_answer").text).to eq("Add another answer")
     end
 
     scenario "when i choose another type my answers and question on the old one are saved", js: true do
@@ -252,11 +252,11 @@ feature 'Creates tile' do
       choose_question_type_and_subtype Tile::SURVEY, Tile::MULTIPLE_CHOICE
 
       choose_question_type_and_subtype Tile::QUIZ, Tile::MULTIPLE_CHOICE
-      page.find(".tile_question").text.should == "What music do you like?"
-      page.all(".tile_multiple_choice_answer a")[0].text.should == "Pop"
-      page.all(".tile_multiple_choice_answer a")[1].text.should == "Rock"
-      page.all(".tile_multiple_choice_answer a")[2].text.should == "Sock"
-      page.find(".clicked_right_answer").text.should == "Sock"
+      expect(page.find(".tile_question").text).to eq("What music do you like?")
+      expect(page.all(".tile_multiple_choice_answer a")[0].text).to eq("Pop")
+      expect(page.all(".tile_multiple_choice_answer a")[1].text).to eq("Rock")
+      expect(page.all(".tile_multiple_choice_answer a")[2].text).to eq("Sock")
+      expect(page.find(".clicked_right_answer").text).to eq("Sock")
     end
 
     scenario "when i make tile with answer blanks and duplicates it is saved correct", js: true do
@@ -288,8 +288,8 @@ feature 'Creates tile' do
       click_create_button
 
       tile = Tile.last
-      tile.multiple_choice_answers.should == ["1", "2", "Add Answer Option"]
-      tile.correct_answer_index.should == 1
+      expect(tile.multiple_choice_answers).to eq(["1", "2", "Add Answer Option"])
+      expect(tile.correct_answer_index).to eq(1)
     end
   end
 
@@ -301,11 +301,11 @@ feature 'Creates tile' do
       click_create_button
 
       tile = Tile.last
-      tile.supporting_content.should == supporting_content
+      expect(tile.supporting_content).to eq(supporting_content)
 
       expect_content 'The origin of the domestic dog'
-      page.all(".tile_supporting_content b").count.should == 1
-      page.all(".tile_supporting_content a").count.should == 1
+      expect(page.all(".tile_supporting_content b").count).to eq(1)
+      expect(page.all(".tile_supporting_content a").count).to eq(1)
     end
   end
 end

@@ -13,19 +13,19 @@ feature "Find a lost user" do
     visit admin_path(as: an_admin)
     fill_in 'user_email', :with => @lost_email
     click_button 'Find'
-    current_path.should == edit_admin_demo_user_path(@lost.demo, @lost)
+    expect(current_path).to eq(edit_admin_demo_user_path(@lost.demo, @lost))
 
     # Using personal email
     visit admin_path(as: an_admin)
     fill_in 'user_email', :with => @lost_personal
     click_button 'Find'
-    current_path.should == edit_admin_demo_user_path(@lost.demo, @lost)
+    expect(current_path).to eq(edit_admin_demo_user_path(@lost.demo, @lost))
 
     # Using a nonexistent email
     visit admin_path(as: an_admin)
     fill_in 'user_email', :with => 'nonsense'
     click_button 'Find'
-    current_path.should == admin_path
-    page.should have_content "Could not find user with email 'nonsense'"
+    expect(current_path).to eq(admin_path)
+    expect(page).to have_content "Could not find user with email 'nonsense'"
   end
 end

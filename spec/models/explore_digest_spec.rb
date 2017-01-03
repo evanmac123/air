@@ -28,7 +28,7 @@ describe ExploreDigest do
     FactoryGirl.create_list(:tile, 2, is_public: false)
 
     explore_digest = ExploreDigest.create
-    params = { "features" => { "1" => { "tile_ids"=> Tile.pluck(:id).join(", ") } } }
+    params = { "features" => { "1" => { "tile_ids"=> Tile.pluck(:id).sort.join(", ") } } }
 
     explore_digest.post_to_redis(params["defaults"], params["features"])
 

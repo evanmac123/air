@@ -37,9 +37,9 @@ feature 'Client admin visits link from submitted tile notification' do
   end
 
   it "should show intro", js: true do
-    pending "This intro seems to be deactivated"
+    skip "This intro seems to be deactivated"
     visit submitted_tile_notifications_path demo_id: demo.id
-    current_path.should == client_admin_tiles_path
+    expect(current_path).to eq(client_admin_tiles_path)
     within intro_sel do
       expect_content intro_text
       click_link "Got it"

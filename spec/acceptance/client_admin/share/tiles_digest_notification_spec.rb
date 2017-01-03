@@ -42,10 +42,10 @@ feature 'Client admin and the digest email for tiles' do
 
   def expect_digest_to(recipient)
     digest_email = find_email(recipient)
-    digest_email.should_not be_nil
+    expect(digest_email).not_to be_nil
 
-    digest_email.from.should have(1).address
-    digest_email.from.first.should == demo.email
+    expect(digest_email.from.size).to eq(1)
+    expect(digest_email.from.first).to eq(demo.email)
   end
 
   def create_follow_up_emails
@@ -93,26 +93,6 @@ feature 'Client admin and the digest email for tiles' do
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
       expect_no_content follow_up_header_copy
     end
-
-    scenario 'Text is correct when follow-up emails are scheduled to be sent, and emails can be cancelled', js: true do
-      pending "Add a test with multiple follow ups to manage_follow_up_dist_spec and delete this test" 
-      accept_confirm do
-      create_follow_up_emails
-      visit client_admin_share_path(as: admin)
-
-      expect_follow_up_header
-      page.should contain 'Monday, July 01, 2013'
-      page.should contain 'Tuesday, July 02, 2013'
-      page.should contain 'Wednesday, July 03, 2013'
-
-      page.all(".cancel_button a").first.click
-
-
-      page.should_not contain 'Monday, July 01, 2013'
-      page.should contain 'Tuesday, July 02, 2013'
-      page.should contain 'Wednesday, July 03, 2013'
-      end
-    end
   end
 
   context 'Tiles exist for digest email' do
@@ -123,52 +103,11 @@ feature 'Client admin and the digest email for tiles' do
       expect_tiles_to_send_header
     end
 
-    it 'Form components are on the page and properly initialized', js: true do
-      pending "NONSENSE: this test makes no sense why are we testing static html????  This is aso broken... Bad js code."
-     on_day('10/14/2013') do  # Monday
-
-        create_tile
-        demo.update_attributes unclaimed_users_also_get_digest: true
-
-        visit client_admin_share_path(as: admin)
-
-        page.should have_send_to_selector('All Users')
-        page.should have_follow_up_selector('Thursday')
-        expect_character_counter_for '#digest_custom_message', 160
-        expect_character_counter_for '#digest_custom_headline', 75
-      end
-
-      on_day('10/18/2013') do  # Friday
-        create_tile
-        demo.update_attributes unclaimed_users_also_get_digest: false
-
-        visit client_admin_share_path(as: admin)
-
-        page.should have_send_to_selector('Activated Users')
-        page.should have_follow_up_selector('Tuesday')
-        expect_character_counter_for '#digest_custom_message', 160
-        expect_character_counter_for '#digest_custom_headline', 75
-      end
-    end
-
     scenario 'Text is correct when no follow-up emails are scheduled to be sent' do
       create_tile
       visit client_admin_share_path(as: admin)
 
       expect_no_content follow_up_header_copy
-    end
-
-
-    scenario 'The last-digest-email-sent-on date is correct' do
-      create_tile
-      visit client_admin_share_path(as: admin)
-
-      expect_no_content 'Last tiles sent on'
-
-      set_last_sent_on '7/4/2013'
-      visit client_admin_share_path(as: admin)
-
-      expect_content 'Last tiles sent on Thursday, July 04, 2013'
     end
 
     context "Clicking the 'Send' button" do
@@ -190,14 +129,14 @@ feature 'Client admin and the digest email for tiles' do
         on_day '7/6/2013' do
           visit client_admin_share_path(as: admin)
           expect_tiles_to_send_header
-          page.should_not contain 'No new tiles have been added'
+          expect(page).not_to contain 'No new tiles have been added'
 
           submit_button.click
           crank_dj_clear
 
           expect_digest_sent_content
-          page.should_not contain 'Tiles to be sent'
-          page.should contain 'No new Tiles to send. Go to Edit to post new Tiles.'
+          expect(page).not_to contain 'Tiles to be sent'
+          expect(page).to contain 'No new Tiles to send. Go to Edit to post new Tiles.'
         end
       end
 
@@ -236,13 +175,13 @@ feature 'Client admin and the digest email for tiles' do
             change_send_to('All Users')
             submit_button.click
             crank_dj_clear
-            all_emails.should have(7).emails  # The above 5 for this demo, and the 'client-admin' and the 'user' created at top of tests
+            expect(all_emails.size).to eq(7)  # The above 5 for this demo, and the 'client-admin' and the 'user' created at top of tests
 
             all_addresses.each do |address|
               expect_digest_to(address)
 
               open_email(address)
-              current_email.should have_content "Your New Tiles Are Here!"
+              expect(current_email).to have_content "Your New Tiles Are Here!"
               name = User.find_by_email(address).first_name
               if %w(site-admin@hengage.com wc@clark.com taj@mahal.com).include?(address)  # Claimed, non-client-admin user?
                 email_link = /tile_token/
@@ -263,8 +202,8 @@ feature 'Client admin and the digest email for tiles' do
 
               click_email_link_matching email_link
 
-              page.should have_content page_text_1
-              page.should have_content page_text_2
+              expect(page).to have_content page_text_1
+              expect(page).to have_content page_text_2
             end
           end
         end
@@ -275,7 +214,7 @@ feature 'Client admin and the digest email for tiles' do
             submit_button.click
             crank_dj_clear
 
-            all_emails.should have(4).emails  # 2 claimed users, the 'site-admin', and the 'client-admin' (created at top of tests)
+            expect(all_emails.size).to eq(4)  # 2 claimed users, the 'site-admin', and the 'client-admin' (created at top of tests)
 
             %w(client-admin@hengage.com wc@clark.com taj@mahal.com).each do |address|
               expect_digest_to(address)
@@ -294,7 +233,7 @@ feature 'Client admin and the digest email for tiles' do
 
             all_addresses.each do |address|
               open_email(address)
-              current_email.html_part.body.should include(buzzwordery)
+              expect(current_email.html_part.body).to include(buzzwordery)
             end
           end
         end
@@ -311,14 +250,8 @@ feature 'Client admin and the digest email for tiles' do
 
             all_addresses.each do |address|
               open_email(address)
-              current_email.subject.should == @custom_subject
+              expect(current_email.subject).to eq(@custom_subject)
             end
-          end
-
-          it "records the original subject in the followup", convert_to: "unit" do
-            pending "convert to unit test"
-            FollowUpDigestEmail.all.length.should == 1
-            FollowUpDigestEmail.first.original_digest_subject.should == "#{@custom_subject}"
           end
         end
 
@@ -330,15 +263,8 @@ feature 'Client admin and the digest email for tiles' do
 
             all_addresses.each do |address|
               open_email(address)
-              current_email.subject.should == "New Tiles"
+              expect(current_email.subject).to eq("New Tiles")
             end
-          end
-
-          it "creates a FollowUpDigestEmail with a nil original subject recorded", convert_to: "unit" do
-            pending "convert to unit test"
-            submit_button.click
-            FollowUpDigestEmail.all.length.should == 1
-            FollowUpDigestEmail.first.original_digest_subject.should be_nil
           end
         end
 
@@ -353,16 +279,9 @@ feature 'Client admin and the digest email for tiles' do
           it "uses that" do
             all_addresses.each do |address|
               open_email(address)
-              current_email.html_part.body.should contain(@custom_headline)
-              current_email.text_part.body.should contain(@custom_headline)
+              expect(current_email.html_part.body).to contain(@custom_headline)
+              expect(current_email.text_part.body).to contain(@custom_headline)
             end
-          end
-
-          it "records that headline in the followup", convert_to: "unit" do
-            pending "Should be unit test"
-
-            FollowUpDigestEmail.all.length.should == 1
-            FollowUpDigestEmail.first.original_digest_headline.should == @custom_headline
           end
         end
 
@@ -373,8 +292,8 @@ feature 'Client admin and the digest email for tiles' do
 
             all_addresses.each do |address|
               open_email(address)
-              current_email.html_part.body.should contain('Your New Tiles Are Here!')
-              current_email.text_part.body.should contain('Your New Tiles Are Here!')
+              expect(current_email.html_part.body).to contain('Your New Tiles Are Here!')
+              expect(current_email.text_part.body).to contain('Your New Tiles Are Here!')
             end
           end
         end
@@ -457,32 +376,32 @@ feature 'Client admin and the digest email for tiles' do
 
       crank_dj_clear
       address = admin.email
-      all_emails.should have(2).email
+      expect(all_emails.size).to eq(2)
 
       expect_digest_to(address)
       # digest
       open_email(address, with_subject: "[Test] Custom Subject")
-      current_email.should have_content "Your New Tiles Are Here!"
-      current_email.should have_content 'Custom Message'
-      current_email.should have_content 'Custom Subject'
+      expect(current_email).to have_content "Your New Tiles Are Here!"
+      expect(current_email).to have_content 'Custom Message'
+      expect(current_email).to have_content 'Custom Subject'
       # follow up
       open_email(address, with_subject: "[Test] Don't Miss: Custom Subject")
-      current_email.should have_content "Don't miss your new tiles"
-      current_email.should have_content 'Custom Message'
-      current_email.should have_content 'Custom Subject'
+      expect(current_email).to have_content "Don't miss your new tiles"
+      expect(current_email).to have_content 'Custom Message'
+      expect(current_email).to have_content 'Custom Subject'
 
       email_link = /acts/
       click_email_link_matching email_link
 
-      page.should have_content "Log In"
+      expect(page).to have_content "Log In"
       expect_content "REMEMBER ME"
     end
 
     it "should save entered text in digest form fields", js: true do
       visit client_admin_share_path(as: admin)
 
-      page.should have_field("Email subject", with: "Custom Subject")
-      page.should have_field("Intro message", with: "Custom Message")
+      expect(page).to have_field("Email subject", with: "Custom Subject")
+      expect(page).to have_field("Intro message", with: "Custom Message")
     end
   end
 end

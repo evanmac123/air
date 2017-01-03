@@ -10,7 +10,7 @@ class DisplayCategorizedTiles
 
     return result unless @maximum_tiles
 
-    result[:all_tiles_displayed] = false  # default variant. it will be changed later if wrong 
+    result[:all_tiles_displayed] = false  # default variant. it will be changed later if wrong
 
     length_not_completed = result[:not_completed_tiles].count
     length_completed = result[:completed_tiles].count
@@ -21,7 +21,7 @@ class DisplayCategorizedTiles
     elsif (length_not_completed + length_completed) > @maximum_tiles
       result[:completed_tiles] = result[:completed_tiles].first(@maximum_tiles - length_not_completed)
     else
-      result[:all_tiles_displayed] = true      
+      result[:all_tiles_displayed] = true
     end
     result
   end
@@ -30,7 +30,7 @@ class DisplayCategorizedTiles
 
   def satisfiable_tiles_categorized_to_user
     {
-      completed_tiles:      completed_tiles, 
+      completed_tiles:      completed_tiles,
       not_completed_tiles:  not_completed_tiles
     }
   end
@@ -42,11 +42,7 @@ class DisplayCategorizedTiles
   end
 
   def completed_tiles
-    @completed_tiles ||=  if @user.is_parent_board_user?
-                            active_completed_tiles
-                          else
-                            all_completed_tiles
-                          end
+    @completed_tiles ||=  all_completed_tiles
   end
 
   def all_completed_tiles

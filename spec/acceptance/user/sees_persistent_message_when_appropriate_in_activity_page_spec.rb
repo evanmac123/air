@@ -11,16 +11,16 @@ feature 'Sees persistent message when appropriate in activity page' do
   end
 
   def expect_persistent_message_in_get_started_lightbox(message = default_persistent_message)
-    within('#get_started_lightbox') {page.should have_content(message)}
+    within('#get_started_lightbox') {expect(page).to have_content(message)}
   end
 
   def expect_persistent_message_in_flash(message = default_persistent_message)
-    within('#flash') {page.should have_content(message)}
+    within('#flash') {expect(page).to have_content(message)}
   end
 
   def expect_no_persistent_message_in_flash(message = default_persistent_message)
     return unless page.first('#flash')
-    within('#flash') {page.should have_no_content(message)}
+    within('#flash') {expect(page).to have_no_content(message)}
   end
 
   shared_examples_for "raw HTML in the persistent message" do |outer_element_selector|
@@ -32,18 +32,7 @@ feature 'Sees persistent message when appropriate in activity page' do
       context "which, by default, is not supported" do
         it "should escape it" do
           visit activity_path(public_slug: @demo.public_slug)
-          within(outer_element_selector) { page.all('a', text: 'go here').should be_empty }
-        end
-      end
-
-      context "if switch for same is on" do
-        before do
-          @demo.update_attributes(allow_raw_in_persistent_message: true)
-        end
-
-        it "allows raw HTML in the persistent message in the flash" do
-          visit activity_path(public_slug: @demo.public_slug)
-          within(outer_element_selector) { page.all('a', text: 'go here').should be_present }
+          within(outer_element_selector) { expect(page.all('a', text: 'go here')).to be_empty }
         end
       end
     end
@@ -59,13 +48,13 @@ feature 'Sees persistent message when appropriate in activity page' do
       context "and there are no flashes" do
         it "shows it" do
           visit activity_path(public_slug: @demo.public_slug)
-          page.should have_content(@expected_message)
+          expect(page).to have_content(@expected_message)
         end
       end
 
       it "but not in other pages" do
         visit tiles_path(public_slug: @demo.public_slug)
-        page.should have_no_content(@expected_message)
+        expect(page).to have_no_content(@expected_message)
       end
 
       it_should_behave_like 'raw HTML in the persistent message', '#flash'
@@ -74,12 +63,12 @@ feature 'Sees persistent message when appropriate in activity page' do
     context "when the demo has no persistent message" do
       it "shows the default if no flashes are present" do
         visit activity_path(public_slug: @demo.public_slug)
-        page.should have_content(default_persistent_message)
+        expect(page).to have_content(default_persistent_message)
       end
 
       it "but not in other pages" do
         visit tiles_path(public_slug: @demo.public_slug)
-        page.should have_no_content(default_persistent_message)
+        expect(page).to have_no_content(default_persistent_message)
       end
     end
   end
@@ -92,7 +81,7 @@ feature 'Sees persistent message when appropriate in activity page' do
 
       visit activity_path(as: user)
       should_be_on activity_path
-      page.should have_no_css('#flash')
+      expect(page).to have_no_css('#flash')
     end
   end
 
@@ -105,25 +94,23 @@ feature 'Sees persistent message when appropriate in activity page' do
 
     it "should not show the persistent message in the flash", js: true do
       visit activity_path(public_slug: @demo.public_slug)
-      page.first('#get_started_lightbox', visible: true).should be_present
+      expect(page.first('#get_started_lightbox', visible: true)).to be_present
       expect_no_persistent_message_in_flash
     end
 
     it "should show the default persistent message in the get-started lightbox", js: true do
       visit activity_path(public_slug: @demo.public_slug)
-      page.first('#get_started_lightbox', visible: true).should be_present
+      expect(page.first('#get_started_lightbox', visible: true)).to be_present
       expect_persistent_message_in_get_started_lightbox
     end
 
     it "should show the custom persitent message in the get-started lightbox, if used", js: true do
       @demo.update_attributes(persistent_message: "how are you")
       visit activity_path(public_slug: @demo.public_slug)
-      page.first('#get_started_lightbox', visible: true).should be_present
+      expect(page.first('#get_started_lightbox', visible: true)).to be_present
       expect_persistent_message_in_get_started_lightbox("how are you")
     end
 
     it_should_behave_like 'raw HTML in the persistent message', '#get_started_lightbox'
   end
-
-  it "has the site admin set whether that is allowed"
 end

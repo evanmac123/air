@@ -18,7 +18,7 @@ class PotentialUser < ActiveRecord::Base
   end
 
   def invite_as_dependent(subject, body)
-    DependentUserMailer.delay.notify(self.id, subject, body)
+    DependentUserMailer.delay.notify(self, subject, body)
   end
 
   def email_with_name
@@ -27,6 +27,10 @@ class PotentialUser < ActiveRecord::Base
 
   def name
     ""
+  end
+  
+  def remember_token
+    "token"
   end
 
   def slug

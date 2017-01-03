@@ -36,8 +36,8 @@ feature "Client admin downloads tile stats" do
   scenario "should download" do
     visit download_link("interacted")
 
-    page.response_headers['Content-Type'].should =~ %r{text/csv}
-    page.response_headers['Content-Disposition'].should =~ report_name
+    expect(page.response_headers['Content-Type']).to match(%r{text/csv})
+    expect(page.response_headers['Content-Disposition']).to match(report_name)
   end
 
   scenario "should download 'Interacted' report" do
@@ -48,7 +48,7 @@ Name,Email,Views,Answer,Date
 VI User1,vi1@gmail.com,3,Yes,9/20/0015
 VI User2,vi2@gmail.com,10,No,8/20/0015
 CSV
-    page.body.should == expected_data
+    expect(page.body).to eq(expected_data)
   end
 
   scenario "should download 'Viewed Only' report" do
@@ -59,7 +59,7 @@ Name,Email,Views,Answer,Date
 VO User1,vo1@gmail.com,5,-,-
 VO User2,vo2@gmail.com,8,-,-
 CSV
-    page.body.should == expected_data
+    expect(page.body).to eq(expected_data)
   end
 
   scenario "should download 'Didnt view' report" do
@@ -71,7 +71,7 @@ Bo Diddley,test@sunni.ru,-,-,-
 DV User1,dv1@gmail.com,-,-,-
 DV User2,dv2@gmail.com,-,-,-
 CSV
-    page.body.should == expected_data
+    expect(page.body).to eq(expected_data)
   end
 
   scenario "should download 'All' report" do
@@ -87,7 +87,7 @@ VI User2,vi2@gmail.com,10,No,8/20/0015
 VO User1,vo1@gmail.com,5,-,-
 VO User2,vo2@gmail.com,8,-,-
 CSV
-    page.body.should == expected_data
+    expect(page.body).to eq(expected_data)
   end
 
 

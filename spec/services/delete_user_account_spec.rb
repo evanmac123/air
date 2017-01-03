@@ -24,7 +24,7 @@ describe DeleteUserAccount do
 
       it "should set #error_messages" do
         @deleter.delete!
-        @deleter.error_messages.should == ["you can't leave a paid board"]
+        expect(@deleter.error_messages).to eq(["you can't leave a paid board"])
       end
     end
   end

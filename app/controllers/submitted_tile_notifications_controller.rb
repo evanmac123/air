@@ -1,4 +1,4 @@
-class SubmittedTileNotificationsController < ApplicationController
+class SubmittedTileNotificationsController < UserBaseController
   def index
     demo = Demo.where(id: params[:demo_id]).first
 

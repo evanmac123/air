@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe TileCompletion do
-  it { should belong_to(:user) }
-  it { should belong_to(:tile) }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to belong_to(:tile) }
 
   it '#user_completed_any_tiles? should return true or false depending on whether or not a user has completed any of the tiles' do
     demo = FactoryGirl.create :demo
@@ -31,41 +31,51 @@ describe TileCompletion do
     tile_ids = Tile.pluck :id
 
     # Each user has completed two tiles
-    user_ids.each { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids).should be_true }
+    user_ids.each { |user_id| expect(TileCompletion.user_completed_any_tiles?(user_id, tile_ids)).to be_truthy }
 
     # Delete the first tile for each user
     [u_1_t_2, u_2_t_1, u_3_t_1].each &:destroy
 
     # Each user has completed one tile
-    user_ids.each { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids).should be_true }
+    user_ids.each { |user_id| expect(TileCompletion.user_completed_any_tiles?(user_id, tile_ids)).to be_truthy }
 
     u_1_t_3.destroy  # u_1 has not completed any tiles
     user_ids.each do |user_id|
       tile_completed = TileCompletion.user_completed_any_tiles?(user_id, tile_ids)
-      tile_completed.should(user_id == u_1.id ? be_false : be_true)
+
+      if user_id == u_1.id
+        expect(tile_completed).to eq(false)
+      else
+        expect(tile_completed).to eq(true)
+      end
     end
 
     u_2_t_3.destroy  # u_1 and u_2 have not completed any tiles
     user_ids.each do |user_id|
       tile_completed = TileCompletion.user_completed_any_tiles?(user_id, tile_ids)
-      tile_completed.should(user_id == u_3.id ? be_true : be_false)
+
+      if user_id == u_3.id
+        expect(tile_completed).to eq(true)
+      else
+        expect(tile_completed).to eq(false)
+      end
     end
 
     u_3_t_2.destroy  # u_1 and u_2 and u_3 have not completed any tiles
-    user_ids.each { |user_id| TileCompletion.user_completed_any_tiles?(user_id, tile_ids).should be_false }
+    user_ids.each { |user_id| expect(TileCompletion.user_completed_any_tiles?(user_id, tile_ids)).to be_falsey }
   end
 
   it "should change new creator's flag has_own_tile_completed to true" do
     client = FactoryGirl.create :client_admin
     user = FactoryGirl.create :user
-    client.has_own_tile_completed.should be_false
+    expect(client.has_own_tile_completed).to be_falsey
 
     tile = FactoryGirl.create :tile, creator_id: client.id
-    client.reload.has_own_tile_completed.should be_false
+    expect(client.reload.has_own_tile_completed).to be_falsey
 
     tc = FactoryGirl.create(:tile_completion, tile_id: tile.id, user: user)
-    client.reload.has_own_tile_completed.should be_true
-    client.has_own_tile_completed_displayed.should be_false
-    client.has_own_tile_completed_id.should eq(tile.id)
+    expect(client.reload.has_own_tile_completed).to be_truthy
+    expect(client.has_own_tile_completed_displayed).to be_falsey
+    expect(client.has_own_tile_completed_id).to eq(tile.id)
   end
 end
