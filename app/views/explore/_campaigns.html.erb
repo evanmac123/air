@@ -4,7 +4,7 @@
     <% campaigns.each do |campaign| %>
       <% cache campaign do %>
         <div class="carousel-cell tile_container" data-slug="<%= campaign.slug %>" data-name="<%= campaign.name %>">
-          <%= link_to "#", class: "campaign" do %>
+          <div class="campaign">
             <div class="campaign-cell" style="background-image: url('<%= campaign.cover_image.url %>')">
               <div class="campaign_shadow_overlay"></div>
               <div class="campaign_overlay"></div>
@@ -17,7 +17,7 @@
                 </div>
               </section>
             </div>
-          <% end %>
+          </div>
         </div>
       <% end %>
     <% end %>

@@ -83,7 +83,7 @@ class Tile < ActiveRecord::Base
   end
   scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
 
-  scope :explore, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
+  scope :explore, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]).order("updated_at DESC") }
 
   scope :ordered_for_explore, -> { order("explore_page_priority DESC NULLS LAST").order("id DESC") }
   scope :ordered_by_position, -> { order "position DESC" }
