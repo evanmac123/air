@@ -60,7 +60,6 @@ module Params
         :logo_content_type,
         :logo_file_size,
         :logo_updated_at,
-        :allow_raw_in_persistent_message,
         :everyone_can_make_tile_suggestions,
         :cover_message,
         :cover_image_file_name,
