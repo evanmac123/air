@@ -100,7 +100,6 @@ end
 group :test do
   gem 'simplecov'
   gem 'codeclimate-test-reporter', '~> 1.0.0'
-  gem 'cucumber-rails', require: false
   gem 'bourne'
   gem 'test_after_commit'
   gem 'capybara'
