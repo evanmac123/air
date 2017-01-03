@@ -25,34 +25,23 @@ Airbo.Utils.StandardModal = (function(){
         }
       , params
     ;
+
     function scrollModalToTop() {
       if(params.scrollOnOpen) {
         modal.scrollTop(0);
       }
     }
+
     function open() {
       modal.foundation("reveal", "open");
       scrollModalToTop();
     }
-    function closeModal() {
-      message = "Are you sure you want to stop editing this tile?" +
-                " Any changes you've made will be lost";
-      swal(
-        {
-          title: "",
-          text: message,
-          customClass: "airbo",
-          animation: false,
-          showCancelButton: true
-        },
 
-        function(isConfirm){
-          if (isConfirm) {
-            modal.foundation("reveal", "close");
-          }
-        }
-      );
+    function closeModal() {
+      var message = "Your changes have been autosaved. Click 'Cancel' to continuing editing this Tile or Ok to close the Tile Editor.";
+      Airbo.Utils.approve(message, modal.foundation.bind(modal, "reveal", "close"))
     }
+
     function close() {
       if(params.closeAlt){
         params.closeAlt();
@@ -62,9 +51,11 @@ Airbo.Utils.StandardModal = (function(){
         modal.foundation("reveal", "close");
       }
     }
+    
     function setContent(content) {
       modal.find("#modal_content").html(content);
     }
+
     function bodyScrollVisibility(show) {
       var overflow = "";
       var width = "";
