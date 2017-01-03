@@ -6,7 +6,7 @@ Airbo.TileFormValidator = (function(){
   var tileModalSelector = "#tile_form_modal"
     , conditionFunction
     , context = this
-   ;
+  ;
 
   var config= {
     debug: true,
@@ -32,13 +32,13 @@ Airbo.TileFormValidator = (function(){
     invalidHandler: function(form, validator) {
       /*
        * Scrolls first invalid element into view if visible
-      */
+       */
       var errors = validator.numberOfInvalids()
         , modal = $(tileModalSelector)
         , firstError = $(validator.errorList[0].element)
       ;
 
-      if (errors && modal.is(":visible")) {
+      if (errors && modal.is(":visible") && !forceValidation()) {
 
         if(firstError.is(":visible")) {
           modal.animate({
@@ -97,35 +97,41 @@ Airbo.TileFormValidator = (function(){
     return errorClass;
   }
 
+
+  function forceValidation(){
+    return $("#forcevalidation", form).length >  0 ?  true : false;
+  }
+
+  function formIsNotDraft(){
+    return $("#tile_builder_form_status").val() !=="draft"
+  }
+
   function isRequired(el){
     var form = $("#new_tile_builder_form");
 
-    if($("#tile_builder_form_status", form).val() ==="draft"){
-      return false;
-    }else{
-      return true;
-    }
+    return forceValidation() || formIsNotDraft();
+
   }
 
   function requiredIfImageMissing(){
     var form = $("#new_tile_builder_form")
       , image_url = $("#remote_media_url").val()
 
-    if(image_url === undefined || image_url === ""){
-      return true;
-    }
-    else{
-      return false;
-    }
+
+    return forceValidation() || image_url === undefined || image_url === "";
+
   }
+
 
   function hasLimit(){
     var form = $("#new_tile_builder_form");
-    if($("#tile_builder_form_status", form).val() ==="draft"){
-      return 9999999;
-    }else{
+
+    if(forceValidation() || $("#tile_builder_form_status", form).val() !=="draft"){
       return 700;
+    }else{
+      return 9999999;
     }
+
   }
 
   function init(formObj) {

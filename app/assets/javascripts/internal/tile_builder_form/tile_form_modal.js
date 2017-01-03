@@ -12,7 +12,7 @@ Airbo.TileFormModal = (function(){
   var modalObj = Airbo.Utils.StandardModal()
     , tileManager
     , validator
-    , form
+    , currform
     , imageLibrary
     , submitLink
   ;
@@ -47,9 +47,12 @@ Airbo.TileFormModal = (function(){
     return $.extend({"action": step}, $("#pseudo_tile_id").data("props"));
   }
 
-  function initFormElements() {
-    validator = Airbo.TileFormValidator.init(form);
+  function addForceValidation(){
+    currform.append("<input type='hidden' name='forcevalidation' id='forcevalidation'/>");
+  }
 
+  function initFormElements() {
+    validator = Airbo.TileFormValidator.init(currform);
     Airbo.TileImagesMgr.init();
     Airbo.TileImageCredit.init();
     Airbo.TilePointsSlider.init();
@@ -89,7 +92,7 @@ Airbo.TileFormModal = (function(){
   }
 
   function initEvents() {
-    form.on("click", pickImageSel, function(e){
+    currform.on("click", pickImageSel, function(e){
       e.preventDefault();
       Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("add image"));
       var libraryUrl = $("#image_uploader").data("libraryUrl");
@@ -98,10 +101,10 @@ Airbo.TileFormModal = (function(){
 
     submitLink.click(function(e){
       e.preventDefault();
-      form.submit();
+      currform.submit();
     });
 
-    form.submit(function(e) {
+    currform.submit(function(e) {
       e.preventDefault();
 
       var formObj = $(this);
@@ -116,8 +119,8 @@ Airbo.TileFormModal = (function(){
   }
 
   function initVars() {
-    form = $(formSel);
-    submitLink = form.find(".submit_tile_form");
+    currform = $(formSel);
+    submitLink = currform.find(".submit_tile_form");
   }
 
   function openModal(){
@@ -134,19 +137,19 @@ Airbo.TileFormModal = (function(){
   }
 
   function initAutoSave(){
-
-    $(form).on("change", function() {
-      if(form.valid()){
+    $(currform).on("change", function() {
+      if(currform.valid()){
         disablesubmitLink()
-        ajaxHandler.submit(form, autoSaveSuccess, $.noop);
+        ajaxHandler.submit(currform, autoSaveSuccess, $.noop);
       }
     });
 
   }
 
 
-
-
+  function removeForceValidation(){
+    $("#forcevalidation", currform).remove();
+  }
 
   function open(url) {
     $.ajax({
@@ -158,10 +161,13 @@ Airbo.TileFormModal = (function(){
         initVars();
         initEvents();
         initFormElements();
+        addForceValidation();
         modalObj.open();
         triggerMixpanelTileCreateDurationTracking();
+        currform.valid();
         initAutoSave();
-      },
+        removeForceValidation();
+      }.bind(self),
 
       error: function(jqXHR, textStatus, error){
         console.log(error);
