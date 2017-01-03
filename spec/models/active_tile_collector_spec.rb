@@ -21,18 +21,18 @@ describe ActiveTileCollector do
 
     it "returns true if tile viewing activity exists for date range" do
       @viewing.update_attribute(:created_at,  2.days.ago)
-      expect(@collector.collect.any?).to be_true
+      expect(@collector.collect.any?).to be_truthy
     end 
 
     it "returns true if tile completion activity exists for date range" do
       @completion.update_attribute(:created_at,  2.days.ago)
-      expect(@collector.collect.any?).to be_true
+      expect(@collector.collect.any?).to be_truthy
     end 
 
     it "is false if there is no completion or viewing activity for date range" do
       @viewing.update_attribute(:created_at,  2.weeks.ago)
       @completion.update_attribute(:created_at,  2.weeks.ago)
-      expect(@collector.collect.any?).to be_false
+      expect(@collector.collect.any?).to be_falsey
     end 
 
   end

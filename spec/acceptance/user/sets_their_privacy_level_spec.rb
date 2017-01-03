@@ -64,11 +64,11 @@ feature 'Sets their privacy level' do
 
   scenario "sets their privacy level in the settings page" do
     visit edit_account_settings_path(as: @user)
-    page.find('#user_privacy_level').value.should == 'connected'
+    expect(page.find('#user_privacy_level').value).to eq('connected')
 
     select 'Everybody', from: 'user[privacy_level]'
     click_button "Update privacy"
-    page.find('#user_privacy_level').value.should == 'everybody'
+    expect(page.find('#user_privacy_level').value).to eq('everybody')
   end
 
   scenario "privacy level change affects existing acts" do

@@ -11,6 +11,6 @@ describe "shared/header/_desktop_board_switcher.html.erb" do
 
     render "shared/header/desktop_board_switcher", user: user
 
-    rendered.should_not have_link("Create new board")
+    expect(rendered).not_to have_link("Create new board")
   end
 end

@@ -175,7 +175,6 @@ module ApplicationHelper
     number_to_percentage(num, opts)
   end
 
-
   def unescape_html html
     coder = HTMLEntities.new
     raw coder.decode("" + html + "")

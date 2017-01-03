@@ -10,7 +10,7 @@ feature 'User joining game shows as act' do
     has_password(@bob, 'foobar')
 
     mo_sms "+14152613077", "fred", demo.phone_number
-    @fred.reload.should be_claimed
+    expect(@fred.reload).to be_claimed
 
     signin_as @bob, 'foobar'
   end

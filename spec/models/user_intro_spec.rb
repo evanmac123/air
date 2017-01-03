@@ -20,12 +20,12 @@ describe UserIntro do
 
       activate_first_tile_hint
       # users with completions don't have feature
-      expect( $rollout.active?(FEATURE_NAME, user1) ).to be_false
-      expect( $rollout.active?(FEATURE_NAME, user2) ).to be_false
+      expect( $rollout.active?(FEATURE_NAME, user1) ).to be_falsey
+      expect( $rollout.active?(FEATURE_NAME, user2) ).to be_falsey
 
 
-      expect( $rollout.active?(FEATURE_NAME, user3) ).to be_true
-      expect( $rollout.active?(FEATURE_NAME, user4) ).to be_true
+      expect( $rollout.active?(FEATURE_NAME, user3) ).to be_truthy
+      expect( $rollout.active?(FEATURE_NAME, user4) ).to be_truthy
     end
 
     it "should activate for new users" do
@@ -34,8 +34,8 @@ describe UserIntro do
       user3 = FactoryGirl.create :user
       user4 = FactoryGirl.create :user
 
-      expect( $rollout.active?(FEATURE_NAME, user3) ).to be_true
-      expect( $rollout.active?(FEATURE_NAME, user4) ).to be_true
+      expect( $rollout.active?(FEATURE_NAME, user3) ).to be_truthy
+      expect( $rollout.active?(FEATURE_NAME, user4) ).to be_truthy
     end
   end
 

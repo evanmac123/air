@@ -8,7 +8,7 @@ feature "Site Admin works with Image Library" do
     expect_content "Image Library"
     attach_tile "tile_image[image]", tile_fixture_path('cov1.jpg')
     expect_content "Image was saved"
-    page.find_all(".tile_image_block img").length.should == 1
+    expect(page.find_all(".tile_image_block img").length).to eq(1)
 
   end
 
@@ -21,6 +21,6 @@ feature "Site Admin works with Image Library" do
     end
 
     expect_content "Image was destroyed"
-    page.all(tile_image_selector).count.should == 1
+    expect(page.all(tile_image_selector).count).to eq(1)
   end
 end

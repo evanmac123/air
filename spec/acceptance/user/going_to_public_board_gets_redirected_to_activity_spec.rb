@@ -13,7 +13,7 @@ feature 'Signed-in user going to a public board' do
   end
 
   it "should add this board to user boards and set it as current" do
-    @user.reload.demo.should == @board
+    expect(@user.reload.demo).to eq(@board)
   end
 
   it "should see flash message" do
@@ -22,10 +22,10 @@ feature 'Signed-in user going to a public board' do
 
   it "should be redirected to activity page of his board when he visits it" do
     visit public_board_path(@users_board.public_slug)
-    @user.reload.demo.should == @users_board
+    expect(@user.reload.demo).to eq(@users_board)
 
     visit public_board_path(@users_board.public_slug)
-    @user.reload.demo.should == @users_board
+    expect(@user.reload.demo).to eq(@users_board)
   end
 
   it "should see flash message" do

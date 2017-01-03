@@ -15,12 +15,12 @@ describe ClientAdmin::UsersController do
         post :create, user: {name: 'unused', email: 'john@doe.com', role: 'User'}
 
         existing_user.reload
-        existing_user.should have(2).board_memberships
+        expect(existing_user.board_memberships.size).to eq(2)
 
         new_board_membership = existing_user.board_memberships.where("demo_id != ?", original_board.id).first
-        new_board_membership.is_client_admin.should be_false
+        expect(new_board_membership.is_client_admin).to be_falsey
 
-        existing_user.is_client_admin.should be_true
+        expect(existing_user.is_client_admin).to be_truthy
       end
 
       it "should send appropriate pings" do

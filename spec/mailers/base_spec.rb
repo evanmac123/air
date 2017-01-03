@@ -8,7 +8,7 @@ describe ActionMailer::Base do
     end
 
     it "should not pass the error up the stack" do
-      lambda{DummyMailer.make_me_a_sandwich(@user.id).deliver}.should_not raise_error
+      expect{DummyMailer.make_me_a_sandwich(@user.id).deliver}.not_to raise_error
     end
   end
 end

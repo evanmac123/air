@@ -73,9 +73,9 @@ class FullSizeTilePresenter
   end
 
   def action_answer_class(answer_index)
-    if is_invitation_answer?(answer_index)
+    if is_invitation_answer?(answer_index) && user.is_a?(User)
       'invitation_answer'
-    elsif is_change_email_answer?(answer_index)
+    elsif is_change_email_answer?(answer_index) && user.is_a?(User)
       'change_email_answer'
     else
       ''

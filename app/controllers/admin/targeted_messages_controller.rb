@@ -1,4 +1,6 @@
 class Admin::TargetedMessagesController < AdminBaseController
+  include SegmentationConcern
+  
   FIELDS_TO_KEEP = %w(subject plain_text html_text sms_text)
 
   before_filter :find_demo_by_demo_id

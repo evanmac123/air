@@ -5,10 +5,6 @@ feature "visits sharable tile page", js: true do
 
   let!(:tile) { FactoryGirl.create(:multiple_choice_tile, is_sharable: true) }
 
-  def show_register_form?
-    true
-  end
-
   shared_examples_for 'gets registration form' do |name, selector|
     scenario "when clicks #{name}", js: true do
       page.find(selector).click
@@ -67,6 +63,6 @@ feature "visits sharable tile page", js: true do
   scenario "show 404 error for not sharable tile" do
     tile2 = FactoryGirl.create :multiple_choice_tile
     visit sharable_tile_path(tile2)
-    page.status_code.should be(404)
+    expect(page.status_code).to be(404)
   end
 end

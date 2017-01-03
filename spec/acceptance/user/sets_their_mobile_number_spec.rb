@@ -24,11 +24,11 @@ feature "User sets their mobile number on settings page" do
   end
 
   def expect_validation_field_visible
-    page.find('#user_new_phone_validation', visible: true).should be_present
+    expect(page.find('#user_new_phone_validation', visible: true)).to be_present
   end
 
   def expect_validation_field_not_visible
-    page.all('#user_new_phone_validation', visible: true).should be_empty
+    expect(page.all('#user_new_phone_validation', visible: true)).to be_empty
   end
 
   def expect_validation_sms(number, token)
@@ -43,7 +43,7 @@ feature "User sets their mobile number on settings page" do
   end
 
   it "displays the current number on the settings page" do
-    page.find("#user_phone_number").value.should == "(***)-***-1212"
+    expect(page.find("#user_phone_number").value).to eq("(***)-***-1212")
   end
 
   it "shows validation after the number's changed but before it's verified" do
@@ -64,7 +64,7 @@ feature "User sets their mobile number on settings page" do
     user.reload
     validate_new_number user.new_phone_validation
 
-    user.reload.phone_number.should == new_number
+    expect(user.reload.phone_number).to eq(new_number)
   end
 
   it "lets the user cancel the change by re-entering their current number" do
@@ -73,10 +73,10 @@ feature "User sets their mobile number on settings page" do
   end
 
   it "lets the user blank out their number without going through validation" do
-    pending "The UX for setting phone numbers for needs to be cleaned up and this test improved" 
+    skip "The UX for setting phone numbers for needs to be cleaned up and this test improved" 
     set_new_number('   ')
 
-    user.reload.phone_number.should be_blank
+    expect(user.reload.phone_number).to be_blank
     expect_content "You will no longer receive text messages from us."
     expect_validation_field_not_visible
     expect_no_content "() -"
@@ -85,7 +85,7 @@ feature "User sets their mobile number on settings page" do
 
   it "does nothing much if the user submits their current phone number" do
     set_new_number "415-555-1212"
-    user.reload.phone_number.should == old_number
+    expect(user.reload.phone_number).to eq(old_number)
     expect_validation_field_not_visible
   end
 
@@ -107,7 +107,7 @@ feature "User sets their mobile number on settings page" do
     it "should send the validation SMS from that number" do
       set_new_number
       crank_dj_clear
-      FakeTwilio::SMS.should have_sent_text_from("+18089871234", new_number)
+      expect(FakeTwilio::SMS).to have_sent_text_from("+18089871234", new_number)
     end
   end
 end

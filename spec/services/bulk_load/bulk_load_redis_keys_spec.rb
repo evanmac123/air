@@ -16,7 +16,7 @@ describe BulkLoad::BulkLoadRedisKeys do
   def self.expect_key(key_method, expected_key)
     describe "##{key_method}" do
       it "should return a key based on the S3 object key" do
-        dummy.send(key_method).should == expected_key
+        expect(dummy.send(key_method)).to eq(expected_key)
       end
     end
   end

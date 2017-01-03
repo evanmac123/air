@@ -20,7 +20,7 @@ describe EmailInfoRequest do
 
       open_email 'team@airbo.com'
 
-      current_email.subject.should include("Demo Request")
+      expect(current_email.subject).to include("Demo Request")
       [
         "Dude Duderson",
         "dude@bigco.com",
@@ -28,7 +28,7 @@ describe EmailInfoRequest do
         "Big Machines",
         "DEMO REQUEST",
       ].each do |text_piece|
-        current_email.body.should include(text_piece)
+        expect(current_email.body).to include(text_piece)
       end
     end
   end

@@ -1,4 +1,4 @@
-class SuggestedTilesController < ApplicationController
+class SuggestedTilesController < UserBaseController
   def new
     @tile_builder_form =  current_user.demo.m_tiles.build(status: Tile::USER_SUBMITTED, user_created: true)
     @user_side = true

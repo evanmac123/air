@@ -1,6 +1,4 @@
 class ClientAdmin::ReportsController < ClientAdminBaseController
-  skip_before_filter :authorize
-
   def show
     @demo = current_user.demo
     @chart_form = BoardStatsLineChartForm.new @demo, {action_type: params[:action_type]}

@@ -41,45 +41,45 @@ feature "User tries to friend someone" do
     click_button 'Search'
 
     page.find('div.follow-btn').click
-    page.should have_content "OK, you'll be connected with Sue Friend, pending their acceptance"
+    expect(page).to have_content "OK, you'll be connected with Sue Friend, pending their acceptance"
   end
 
   scenario "A correct friend-request email is sent", js: true  do
     deliver_and_open_email_for(friend)
 
-    current_email.should be_delivered_to(friend.email)
-    current_email.should be_delivered_from(friend.reply_email_address)
+    expect(current_email).to be_delivered_to(friend.email)
+    expect(current_email).to be_delivered_from(friend.reply_email_address)
 
-    current_email.should have_subject("#{user.name} wants to be your friend on Airbo")
+    expect(current_email).to have_subject("#{user.name} wants to be your friend on Airbo")
 
-    current_email.should have_body_text /Hi #{first_name(friend)}/
-    current_email.should have_body_text /#{user.name} has asked to be your connection on Airbo./
+    expect(current_email).to have_body_text /Hi #{first_name(friend)}/
+    expect(current_email).to have_body_text /#{user.name} has asked to be your connection on Airbo./
   end
 
   scenario "when the friend accepts the request, the user should get a notification email \
             see updated friend status, and actually be in a friendship", js: true  do
 
-    page.should_not have_content "is now connected with #{first_name(friend)}"
+    expect(page).not_to have_content "is now connected with #{first_name(friend)}"
 
     visit profile_page(user)
-    page.should have_content "No connections yet"
+    expect(page).to have_content "No connections yet"
 
     deliver_and_open_email_for(friend)
     accept_the_friendship
 
     visit profile_page(user)
-    page.should have_content "is now connected with #{first_name(friend)}"
+    expect(page).to have_content "is now connected with #{first_name(friend)}"
 
-    user.should be_friends_with friend
-    friend.should be_friends_with user
+    expect(user).to be_friends_with friend
+    expect(friend).to be_friends_with user
 
     deliver_and_open_email_for(user)
 
-    current_email.should be_delivered_to(user.email)
-    current_email.should be_delivered_from(user.reply_email_address)
+    expect(current_email).to be_delivered_to(user.email)
+    expect(current_email).to be_delivered_from(user.reply_email_address)
 
-    current_email.should have_subject("Message from Airbo")
-    current_email.should have_body_text /#{friend.name} has approved your connection request./
+    expect(current_email).to have_subject("Message from Airbo")
+    expect(current_email).to have_body_text /#{friend.name} has approved your connection request./
   end
 
   scenario "when the friend accepts the request, the user should get a notification email \
@@ -91,7 +91,7 @@ feature "User tries to friend someone" do
 
     deliver_and_open_email_for(user)
     see_new_connection
-    current_path.should == user_path(friend)
+    expect(current_path).to eq(user_path(friend))
     expect_content friend.name
     expect_content "Remove From Connections"
   end
@@ -100,7 +100,7 @@ feature "User tries to friend someone" do
     deliver_and_open_email_for(friend)
     accept_the_friendship
 
-    page.should have_content "OK, you are now connected with #{user.name}."
+    expect(page).to have_content "OK, you are now connected with #{user.name}."
   end
 
   scenario "A friend should see the appropriate flash notification message upon accepting the friendship twice", js: true  do
@@ -108,7 +108,7 @@ feature "User tries to friend someone" do
     accept_the_friendship
     accept_the_friendship
 
-    page.should have_content "You are already connected with #{user.name}."
+    expect(page).to have_content "You are already connected with #{user.name}."
   end
 
   scenario "A friend should see a flash error message and not become friends \
@@ -119,9 +119,9 @@ feature "User tries to friend someone" do
     link = links_in_email(current_email).find { |link| link =~ /accept/ }.chop
     visit request_uri(link)
 
-    page.should have_content "Invalid authenticity token. Connection operation cancelled."
+    expect(page).to have_content "Invalid authenticity token. Connection operation cancelled."
 
-    user.should_not be_friends_with friend
-    friend.should_not be_friends_with user
+    expect(user).not_to be_friends_with friend
+    expect(friend).not_to be_friends_with user
   end
 end

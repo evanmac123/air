@@ -22,11 +22,11 @@ describe PhonesController do
       end
 
       it "should not change the user's phone number" do
-        @user.reload.phone_number.should == old_phone_number
+        expect(@user.reload.phone_number).to eq(old_phone_number)
       end
 
       it "should have an appropriate error in the flash" do
-        flash[:failure].should include(subject.send :wrong_phone_validation_code_error)
+        expect(flash[:failure]).to include(subject.send :wrong_phone_validation_code_error)
       end
     end
   end

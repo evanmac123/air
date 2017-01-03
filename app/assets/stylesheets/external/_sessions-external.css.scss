@@ -1,7 +1,7 @@
 // Styles for Login/Signup external page
 body.external {
   background: $white;
-  .wrapper {margin-top:1em;}
+  .wrapper {margin-top: 0;}
   header{
     position:static;
     width:100%;
@@ -20,7 +20,7 @@ body.external {
     margin:0 auto;
     width:90%;
     max-width:32em;
-    font-size:1.25em; 
+    font-size:1.25em;
     p{padding:0 0 1em 0;}
   }
 }
@@ -28,10 +28,14 @@ body.external {
 .external-form-wrapper {
   // background:$white;
   @include form-group;
-  margin:0 auto 6em auto;
+  margin-top: 2em;
   padding:1em;
   // width:47%;
-  h1 {text-align: center;}
+  h1 {
+    text-align: center;
+    color: $text-color;
+  }
+
   p {padding:0 0 1em 0;}
   form {
     width:87%;
@@ -57,7 +61,7 @@ body.external {
     width: 87%;
     margin:1.5em auto 1em auto;
     font-size: 0.85em;
-    a { 
+    a {
       font-size: 1.0em !important;
     }
   }
@@ -130,7 +134,7 @@ body.invitations-show #session-wrapper {
   .field_with_errors input {border-color:$red;}
 }
 
-// Autocomplete suggestions 
+// Autocomplete suggestions
 #indented_to_match_inputs {
   #autocomplete_status {
     @include font-semibold;

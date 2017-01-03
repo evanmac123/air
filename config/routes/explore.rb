@@ -1,0 +1,9 @@
+resource :explore, only: [:show], controller: :explore do
+end
+
+namespace :explore do
+  resource  :copy_tile, only: [:create]
+  resources :tile_previews, only: [:show], path: "tile"
+  resources :campaigns, only: [:show]
+  resources :channels, only: [:show]
+end

@@ -5,10 +5,10 @@ include TileHelpers
 describe 'Follow-up email scheduled by delayed job' do
 
   def check_common_dj_attributes(dj_record)
-    dj_record.run_at.should == Date.today.midnight.advance(hours: 12)
+    expect(dj_record.run_at).to eq(Date.today.midnight.advance(hours: 12))
 
-    dj_record.handler.should include 'TilesDigestMailer'
-    dj_record.handler.should include ':notify_all_follow_up'
+    expect(dj_record.handler).to include 'TilesDigestMailer'
+    expect(dj_record.handler).to include ':notify_all_follow_up'
   end
 
   #----------------------------------------------------------------------------------
@@ -26,37 +26,37 @@ describe 'Follow-up email scheduled by delayed job' do
 
     # Shouldn't grab any followup's from yesterday or the following days
     TilesDigestMailer.notify_all_follow_up_from_delayed_job
-    Delayed::Job.count.should == 0
+    expect(Delayed::Job.count).to eq(0)
 
     Timecop.travel(Date.today + 1.day)
     TilesDigestMailer.notify_all_follow_up_from_delayed_job
-    Delayed::Job.count.should == 2
+    expect(Delayed::Job.count).to eq(2)
 
     Delayed::Job.all.each_with_index do |dj_record, i|
       check_common_dj_attributes(dj_record)
-      dj_record.handler.should include tomorrow[i].id.to_s
+      expect(dj_record.handler).to include tomorrow[i].id.to_s
     end
 
     Delayed::Job.destroy_all
 
     Timecop.travel(Date.today + 1.day)
     TilesDigestMailer.notify_all_follow_up_from_delayed_job
-    Delayed::Job.count.should == 3
+    expect(Delayed::Job.count).to eq(3)
 
     Delayed::Job.all.each_with_index do |dj_record, i|
       check_common_dj_attributes(dj_record)
-      dj_record.handler.should include day_after[i].id.to_s
+      expect(dj_record.handler).to include day_after[i].id.to_s
     end
 
     Delayed::Job.destroy_all
 
     Timecop.travel(Date.today + 1.day)
     TilesDigestMailer.notify_all_follow_up_from_delayed_job
-    Delayed::Job.count.should == 4
+    expect(Delayed::Job.count).to eq(4)
 
     Delayed::Job.all.each_with_index do |dj_record, i|
       check_common_dj_attributes(dj_record)
-      dj_record.handler.should include day_after_that[i].id.to_s
+      expect(dj_record.handler).to include day_after_that[i].id.to_s
     end
 
     Timecop.return
@@ -64,22 +64,22 @@ describe 'Follow-up email scheduled by delayed job' do
 
   it "should send the appropriate tiles the first time a digest is sent per demo too" do
     demo = FactoryGirl.create(:demo)
-    demo.tile_digest_email_sent_at.should be_nil
+    expect(demo.tile_digest_email_sent_at).to be_nil
 
     FactoryGirl.create :tile, headline: "Tile the first", status: Tile::ACTIVE, demo: demo
     FactoryGirl.create :tile, headline: "Tile the second", status: Tile::ACTIVE, demo: demo
 
-    demo.active_tiles.should have(2).tiles
+    expect(demo.active_tiles.size).to eq(2)
 
     FactoryGirl.create_list :user, 3, :claimed, demo: demo
 
     TilesDigestMailer.notify_all(demo, false, [demo.tiles.pluck(:id)], nil, nil, nil)
     crank_dj_clear
 
-    ActionMailer::Base.deliveries.should have(3).emails
+    expect(ActionMailer::Base.deliveries.size).to eq(3)
     ActionMailer::Base.deliveries.each do |mail|
-      mail.to_s.should contain("Tile the first")
-      mail.to_s.should contain("Tile the second")
+      expect(mail.to_s).to contain("Tile the first")
+      expect(mail.to_s).to contain("Tile the second")
     end
   end
 end

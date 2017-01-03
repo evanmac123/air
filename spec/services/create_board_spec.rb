@@ -12,9 +12,9 @@ describe CreateBoard do
         creator = CreateBoard.new("scooby-doo")
         creator.create
         b2 = creator.board
-        b2.name.should == "scooby-doo Board"
-        b2.public_slug.should == "scoobydoo"
-        b2.email.should == "scoobydoo2@ourairbo.com"
+        expect(b2.name).to eq("scooby-doo Board")
+        expect(b2.public_slug).to eq("scoobydoo")
+        expect(b2.email).to eq("scoobydoo2@ourairbo.com")
       end
     end
   end

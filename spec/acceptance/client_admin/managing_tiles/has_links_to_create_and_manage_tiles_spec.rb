@@ -7,11 +7,11 @@ feature 'there is a link to manage tiles from activity page' do
 
   scenario 'visible to a client admin' do
     visit activity_path(as: a_client_admin)
-    manage_tile_link.should be_present
+    expect(manage_tile_link).to be_present
   end
 
   scenario 'invisible to a non-admin user' do
     visit activity_path(as: a_regular_user)
-    manage_tile_link.should be_nil
+    expect(manage_tile_link).to be_nil
   end
 end

@@ -23,12 +23,12 @@ describe TileStatsChartForm do
         :"changed_field"=>"date_range_type"
       }
       form = TileStatsChartForm.new tile, params
-      form.action_type.should == "unique_views"
-      form.interval_type.should == "daily"
-      form.value_type.should == "cumulative"
-      form.date_range_type.should == "past_week"
-      form.start_date.should == "Aug 17, 2015"
-      form.end_date.should == "Aug 24, 2015"
+      expect(form.action_type).to eq("unique_views")
+      expect(form.interval_type).to eq("daily")
+      expect(form.value_type).to eq("cumulative")
+      expect(form.date_range_type).to eq("past_week")
+      expect(form.start_date).to eq("Aug 17, 2015")
+      expect(form.end_date).to eq("Aug 24, 2015")
     end
   end
 end

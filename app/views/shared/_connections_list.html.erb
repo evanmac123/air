@@ -1,0 +1,15 @@
+<% unless user.has_friends %>
+  <div>No connections yet</div>
+<% else %>
+  <%= render 'shared/scoreboard_headers' %>
+  <div id="friends_list">
+    <table class="scoreboard">
+      <%= render :partial => 'shared/single_friend', :collection => user.profile_page_friends_list %>
+    </table>
+  </div>
+  <div id="scoreboard_list" style="display: none;">
+    <table class="scoreboard">
+      <%= render :partial => 'shared/single_friend', :collection => user.scoreboard_friends_list_by_tickets %>
+    </table>
+  </div>
+<% end %>

@@ -20,18 +20,18 @@ feature 'Admin resets tickets for demo' do
 
   it "should drop the ticket count for all users in that demo to 0" do
     [@user1, @user2, @user3].each(&:reload)
-    [@user1, @user2, @user3].each {|user| user.tickets.should be_zero}
+    [@user1, @user2, @user3].each {|user| expect(user.tickets).to be_zero}
   end
 
   it "should not affect the ticket count of users in other demos" do
-    @other_demo_user.reload.tickets.should_not be_zero
+    expect(@other_demo_user.reload.tickets).not_to be_zero
   end
 
   it "should set the ticket threshold base of each affected user to its current point value" do
     [@user1, @user2, @user3].each(&:reload)
-    @user1.ticket_threshold_base.should == 104
-    @user2.ticket_threshold_base.should == 7
-    @user3.ticket_threshold_base.should == 59
-    [@user1, @user2, @user3].each{|user| user.to_ticket_progress_calculator.points_towards_next_threshold.should == 0}
+    expect(@user1.ticket_threshold_base).to eq(104)
+    expect(@user2.ticket_threshold_base).to eq(7)
+    expect(@user3.ticket_threshold_base).to eq(59)
+    [@user1, @user2, @user3].each{|user| expect(user.to_ticket_progress_calculator.points_towards_next_threshold).to eq(0)}
   end
 end

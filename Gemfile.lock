@@ -82,13 +82,14 @@ GEM
     aws-sdk-v1 (1.59.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
+    bcrypt (3.1.11)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bourne (1.4.0)
-      mocha (~> 0.13.2)
+    bourne (1.6.0)
+      mocha (~> 1.1)
     browser (0.4.1)
     bson (1.7.0)
     bson_ext (1.7.0)
@@ -121,11 +122,17 @@ GEM
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
-    clearance (0.16.3)
-      diesel (~> 0.1.5)
-      rails (>= 3.0)
+    clearance (1.15.1)
+      bcrypt
+      email_validator (~> 1.4)
+      rails (>= 3.1)
+    clearance-deprecated_password_strategies (1.10.1)
+      activesupport
+      clearance (>= 1.10)
     cliver (0.3.2)
     cocaine (0.4.2)
+    codeclimate-test-reporter (1.0.3)
+      simplecov
     coderay (1.1.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -160,9 +167,8 @@ GEM
       paperclip (>= 3.3)
     delighted (1.5.1)
       multi_json
-    diesel (0.1.5)
-      railties
-    diff-lcs (1.1.3)
+    diff-lcs (1.2.5)
+    docile (1.1.5)
     draper (1.3.1)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -171,6 +177,8 @@ GEM
     email_spec (1.4.0)
       launchy (~> 2.1)
       mail (~> 2.2)
+    email_validator (1.6.0)
+      activemodel
     erubis (2.7.0)
     escape (0.0.4)
     eventmachine (1.0.8)
@@ -319,7 +327,7 @@ GEM
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
-    metaclass (0.0.1)
+    metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile2 (2.1.0)
@@ -336,7 +344,7 @@ GEM
     mobvious-rails (0.1.2)
       activesupport
       mobvious
-    mocha (0.13.3)
+    mocha (1.2.1)
       metaclass (~> 0.0.1)
     mongoid (3.0.13)
       activemodel (~> 3.1)
@@ -433,7 +441,7 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     raindrops (0.10.0)
-    rake (10.5.0)
+    rake (12.0.0)
     rdoc (3.12.2)
       json (~> 1.4)
     redic (1.5.0)
@@ -468,17 +476,23 @@ GEM
       nokogiri
       roo (>= 2.0.0beta1, < 3)
       spreadsheet (> 0.9.0)
-    rspec-core (2.12.2)
-    rspec-expectations (2.12.1)
-      diff-lcs (~> 1.1.3)
-    rspec-mocks (2.12.2)
-    rspec-rails (2.12.0)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-rails (3.5.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 2.12.0)
-      rspec-expectations (~> 2.12.0)
-      rspec-mocks (~> 2.12.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
     ruby-ole (1.2.12)
     rubyzip (1.2.0)
     sanitize (4.0.0)
@@ -508,6 +522,11 @@ GEM
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
+    simplecov (0.12.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sinatra (1.3.3)
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
@@ -541,7 +560,7 @@ GEM
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
       rack (~> 1.0)
-    thor (0.19.1)
+    thor (0.19.4)
     thread_safe (0.3.5)
     tilt (1.4.1)
     time_difference (0.4.2)
@@ -600,7 +619,9 @@ DEPENDENCIES
   capybara-webkit
   carrierwave_direct
   chronic
-  clearance (~> 0.16.3)
+  clearance
+  clearance-deprecated_password_strategies
+  codeclimate-test-reporter (~> 1.0.0)
   coffee-rails
   colored
   counter_culture
@@ -651,7 +672,7 @@ DEPENDENCIES
   pry-rails
   pundit
   quiet_assets
-  rack
+  rack (~> 1.4.7)
   rack-mini-profiler
   rack-timeout
   rails (= 3.2.22.1)
@@ -662,14 +683,14 @@ DEPENDENCIES
   rollout
   roo
   roo-xls
-  rspec-mocks
-  rspec-rails
+  rspec-rails (~> 3.0)
   sanitize
   sass-rails
   selenium-webdriver
   sham_rack
   shoulda
   shoulda-matchers
+  simplecov
   sinatra
   skylight
   squeel

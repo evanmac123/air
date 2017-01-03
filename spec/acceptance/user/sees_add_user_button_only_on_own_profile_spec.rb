@@ -6,11 +6,11 @@ feature 'Sees add user button' do
   end
 
   def expect_add_user_button
-    add_user_buttons.should_not be_empty
+    expect(add_user_buttons).not_to be_empty
   end
 
   def expect_no_add_user_button
-    add_user_buttons.should be_empty
+    expect(add_user_buttons).to be_empty
   end
 
   before do

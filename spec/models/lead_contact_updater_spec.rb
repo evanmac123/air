@@ -55,11 +55,11 @@ describe LeadContactUpdater do
 
         open_email @lead_contact.email
 
-        current_email.subject.should include(
+        expect(current_email.subject).to include(
           'Thanks for reaching out to Airbo!'
         )
 
-        current_email.body.should include(
+        expect(current_email.body).to include(
          "Hello - Thank you so much for your interest in Airbo! At this time, we only provide accounts to HR professionals, but if you have any questions or would like to chat with an Account Executive, please feel free to reply to this email, and we'd be happy to connect."
         )
       end

@@ -9,10 +9,10 @@ describe Unsubscribe do
   end
 
   it "should generate a valid token" do
-    @token_karla.class.should == String
-    @token_karla.length.should == 40
-    EmailLink.validate_token(@karla, @token_karla).should be_true
-    EmailLink.validate_token(@naomi, @token_karla).should be_false
-    EmailLink.validate_token(@naomi, 'blah').should be_false
+    expect(@token_karla.class).to eq(String)
+    expect(@token_karla.length).to eq(40)
+    expect(EmailLink.validate_token(@karla, @token_karla)).to be_truthy
+    expect(EmailLink.validate_token(@naomi, @token_karla)).to be_falsey
+    expect(EmailLink.validate_token(@naomi, 'blah')).to be_falsey
   end
 end

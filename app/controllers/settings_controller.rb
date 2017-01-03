@@ -1,7 +1,4 @@
-class SettingsController < ApplicationController
-
-  before_filter :authorize_without_guest_checks
-
+class SettingsController < UserBaseController
   def edit
     @palette = current_user.demo.custom_color_palette
     @email = current_user.email

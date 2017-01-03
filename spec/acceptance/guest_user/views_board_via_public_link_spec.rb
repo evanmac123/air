@@ -7,24 +7,6 @@ feature "Guest user visits airbo" do
     @slug_tiles_path = "#{@slug_path}/tiles"
   end
 
-  context "first tile hint" do
-    before do
-      FactoryGirl.create(:tile, demo: @demo)
-    end
-    scenario "appears if there are no completions", js:true do
-      visit @slug_path
-      expect(page).to have_content("Click on the Tile to begin.")
-      click_link 'Got it', visible: false #TODO figure out why visble:false is required even though the link is visible visually
-      expect(page).to have_no_content("Click on the Tile to begin.")
-    end
-
-    scenario "should not see first tile hint if user has completed tilese", js:true do
-      UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns true
-      visit @slug_path
-      expect(page).to have_no_content("Click on the Tile to begin.")
-    end
-  end
-
   scenario 'successfully via any valid public link', js:true do
     {
       @slug_path =>  @slug_activity_path,

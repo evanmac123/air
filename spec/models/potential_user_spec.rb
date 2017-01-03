@@ -4,12 +4,12 @@ describe PotentialUser do
   let(:demo) { FactoryGirl.create :demo }
   let(:user) { FactoryGirl.create(:potential_user, email: "bill@jo.com", demo: demo, primary_user: nil) }
 
-  it { should belong_to(:demo) }
-  it { should belong_to(:game_referrer) }
-  it { should belong_to(:primary_user) }
-  it { should have_many(:peer_invitations) }
+  it { is_expected.to belong_to(:demo) }
+  it { is_expected.to belong_to(:game_referrer) }
+  it { is_expected.to belong_to(:primary_user) }
+  it { is_expected.to have_many(:peer_invitations) }
 
-  it { should validate_uniqueness_of(:invitation_code) }
+  it { is_expected.to validate_uniqueness_of(:invitation_code) }
 
   context "primary user is destroyed" do
     it "should also be destroyed" do
@@ -33,26 +33,26 @@ describe PotentialUser do
       end
 
       it "should copy name" do
-        @new_user.name.should == "Bill Jo"
+        expect(@new_user.name).to eq("Bill Jo")
       end
 
       it "should copy email" do
-        @new_user.email.should == user.email
+        expect(@new_user.email).to eq(user.email)
       end
 
       it "should generate some cancel_account_token" do
-        @new_user.cancel_account_token.should be_present
+        expect(@new_user.cancel_account_token).to be_present
       end
 
       it "should add new user to demo" do
-        @new_user.demo.should == user.demo
+        expect(@new_user.demo).to eq(user.demo)
       end
     end
 
     context "unhappy path" do
       it "should not save user without name" do
         user.convert_to_full_user! nil
-        User.count.should == 0
+        expect(User.count).to eq(0)
       end
     end
   end
@@ -71,24 +71,24 @@ describe PotentialUser do
       end
 
       it "sends invitation to user" do
-        Mailer.should     have_received(:invitation)
-        invitation.should have_received(:deliver)
+        expect(Mailer).to     have_received(:invitation)
+        expect(invitation).to have_received(:deliver)
       end
 
       it "should record a PeerInvitation" do
-        PeerInvitation.count.should == 1
+        expect(PeerInvitation.count).to eq(1)
 
         invitation = PeerInvitation.first
-        invitation.inviter.should == @inviter
-        invitation.invitee.should == user
-        invitation.demo.should == @inviter.demo
+        expect(invitation.inviter).to eq(@inviter)
+        expect(invitation.invitee).to eq(user)
+        expect(invitation.demo).to eq(@inviter.demo)
       end
     end
 
     context "user already has #{PeerInvitation::CUTOFF} invitations" do
       before(:each) do
         PeerInvitation::CUTOFF.times {FactoryGirl.create(:peer_invitation, invitee: user, demo: user.demo)}
-        user.reload.peer_invitations.count.should == PeerInvitation::CUTOFF
+        expect(user.reload.peer_invitations.count).to eq(PeerInvitation::CUTOFF)
 
         other_user = FactoryGirl.create(:user)
         user.is_invited_by(other_user)
@@ -96,11 +96,11 @@ describe PotentialUser do
       end
 
       it "should not send another invitation email" do
-        ActionMailer::Base.deliveries.should be_empty
+        expect(ActionMailer::Base.deliveries).to be_empty
       end
 
       it "should not record another PeerInvitation" do
-        user.reload.peer_invitations.count.should == PeerInvitation::CUTOFF
+        expect(user.reload.peer_invitations.count).to eq(PeerInvitation::CUTOFF)
       end
     end
   end

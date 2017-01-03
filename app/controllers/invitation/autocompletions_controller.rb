@@ -1,4 +1,4 @@
-class Invitation::AutocompletionsController < ApplicationController
+class Invitation::AutocompletionsController < UserBaseController
   def index
     text = params[:entered_text].strip.downcase
     demo = current_user.demo

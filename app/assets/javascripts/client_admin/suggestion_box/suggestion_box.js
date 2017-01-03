@@ -41,15 +41,8 @@ removeNewTileTip = function() {
 };
 
 ping = function(action) {
-  return $.post("/ping", {
-    event: 'Suggestion Box',
-    properties: {
-      client_admin_action: action
-    }
-  });
+  Airbo.Utils.ping('Suggestion Box', { client_admin_action: action } );
 };
-
-
 
 window.suggestionBox = function() {
   var acceptTile, acceptTileFromPreviewPage, acceptingTileVisibility, ignoreTile, insertIgnoredTile, insertUserSubmittedTile, prepareAccessModal, undoIgnoreTile, updateUserSubmittedTilesCounter;
@@ -72,5 +65,5 @@ $(function(){
   $(".tabs>li>a").on("click", function(){
     $(this).parents(".tabs").find("a").removeClass("selected");
     $(this).addClass("selected");
-  })
+  });
 });

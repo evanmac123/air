@@ -2,8 +2,8 @@
 <% content_for :status do %>
   <% if flash[:success].present? %>
     <%= flash[:success] %>
-  <% elsif flash[:notice].present? %>
-    <%= raw flash[:notice] %>
+  <% elsif flash[:failure].present? %>
+    <%= raw flash[:failure] %>
   <% else %>
     If you've lost your invitation e-mail, you can have it re-sent.
   <% end %>

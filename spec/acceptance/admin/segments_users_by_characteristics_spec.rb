@@ -325,14 +325,14 @@ feature "Admin segmentation" do
 
       User::SegmentationResults.create(owner_id: admin.id, explanation: "Rigged", found_user_ids: @reds.map(&:id))
       click_link "Download Users CSV"
-      page.response_headers['Content-Type'].should =~ %r{^text/csv}
+      expect(page.response_headers['Content-Type']).to match(%r{^text/csv})
       expect_no_content "<html>"
       expect_no_content "<head>"
       expect_no_content "<body>"
       expect_content "Name,Email,ID,Location,Employee ID"
 
       lines = page.body.split("\n")
-      @reds.each { |red| lines.should include(CSV.generate_line([red.name, red.email, red.id, red.location.name, red.employee_id]).strip) }
+      @reds.each { |red| expect(lines).to include(CSV.generate_line([red.name, red.email, red.id, red.location.name, red.employee_id]).strip) }
     end
   end
 
@@ -474,8 +474,8 @@ feature "Admin segmentation" do
     select "equals", :from => "segment_operator[0]"
 
     place_options = page.all('#segment_value_0 option').map(&:text)
-    demo_location_names.each{|demo_location_name| place_options.should include("#{demo_location_name} (AwesomeCo)")}
-    other_demo_location_names.each{|other_demo_location_name| place_options.should_not include("#{other_demo_location_name} (Dewey, Cheatem and Howe)")}
+    demo_location_names.each{|demo_location_name| expect(place_options).to include("#{demo_location_name} (AwesomeCo)")}
+    other_demo_location_names.each{|other_demo_location_name| expect(place_options).not_to include("#{other_demo_location_name} (Dewey, Cheatem and Howe)")}
     select "North Southerton (AwesomeCo)", :from => "segment_value[0]"
 
     click_button "Find segment"

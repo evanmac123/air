@@ -5,11 +5,11 @@ describe ClientAdmin::TileCompletionsController do
     forbidden_tile = FactoryGirl.create(:tile)
     client_admin = FactoryGirl.create(:client_admin)
 
-    forbidden_tile.demo_id.should_not == client_admin.demo_id
+    expect(forbidden_tile.demo_id).not_to eq(client_admin.demo_id)
 
     sign_in_as(client_admin)
     get :index, tile_id: forbidden_tile.id
 
-    response.should be_not_found
+    expect(response).to be_not_found
   end
 end

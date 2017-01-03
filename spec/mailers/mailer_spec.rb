@@ -17,7 +17,7 @@ describe Mailer do
 
     it 'should construct an email with the correct parts' do
       report.deliver
-      Mailer.should have_sent_email.from('play@ourairbo.com')
+      expect(Mailer).to have_sent_email.from('play@ourairbo.com')
                                    .to('buddy@guy.com')
                                    .with_part('text/csv', 'fake csv data')
     end

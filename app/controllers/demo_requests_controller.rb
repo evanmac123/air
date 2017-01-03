@@ -1,14 +1,9 @@
 class DemoRequestsController < ApplicationController
-  layout 'external'
-  skip_before_filter :authorize
-  before_filter :allow_guest_user
-  layout 'standalone', only: [:new]
+  layout 'standalone'
 
   def create
     request = EmailInfoRequest.create(permitted_params)
-
     request.notify
-
     redirect_to root_path(demo_request: true)
   end
 

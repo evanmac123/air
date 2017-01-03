@@ -1,3 +1,6 @@
+require "simplecov"
+SimpleCov.start
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 ENV["AWS_SECRET_ACCESS_KEY"] ||= "fake_key"
@@ -8,8 +11,7 @@ test_counter = 0
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'clearance/testing'
-require 'mocha/setup'
+require 'clearance/rspec'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
@@ -38,7 +40,7 @@ Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
   config.mock_with :mocha
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.example_status_persistence_file_path = "#{Rails.root}/spec/specs_with_statuses.txt"
   # config.fail_fast = true
 
   config.before(:all) do
@@ -47,12 +49,12 @@ RSpec.configure do |config|
     Delayed::Worker.delay_jobs = false
   end
 
-  config.before(:each) do
+  config.before(:each) do |example|
     Mixpanel::Tracker.stubs(:new).with(MIXPANEL_TOKEN, Mocha::ParameterMatchers::KindOf.new(Hash)).returns(FakeMixpanelTracker)
     FakeMixpanelTracker.clear_tracked_events
     path = example.metadata[:example_group][:file_path]
     test_counter +=1
-    full_example_description = "Starting #{self.example.description} "
+    full_example_description = "Starting #{RSpec.current_example} "
     Rails.logger.info("\n#{'-'*80}\n#{full_example_description} #{test_counter}--#{path}\n#{'-' * (full_example_description.length)}")
   end
 
@@ -65,7 +67,7 @@ RSpec.configure do |config|
   config.before(:each) do
     begin
       FakeTwilio.clear_messages
-    rescue NameError => e # quietly ignore if FakeTwilio not loaded
+    rescue NameError
     end
   end
 

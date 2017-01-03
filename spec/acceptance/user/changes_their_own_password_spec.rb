@@ -3,8 +3,8 @@ require 'acceptance/acceptance_helper'
 feature 'User changes their own password' do
   before(:each) do
     @user = FactoryGirl.create(:user, :claimed)
-    has_password @user, 'foobar'
-    signin_as @user, 'foobar'
+    has_password(@user, 'foobar')
+    signin_as(@user, 'foobar')
     visit edit_account_settings_path
   end
 
@@ -80,5 +80,4 @@ feature 'User changes their own password' do
   def click_save_password_button
     click_button "Save"
   end
-
 end

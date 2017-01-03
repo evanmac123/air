@@ -1,4 +1,6 @@
 class Admin::RafflesController < AdminBaseController
+  include SegmentationConcern
+  
   before_filter :find_demo_by_demo_id
 
   def show

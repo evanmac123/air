@@ -13,7 +13,7 @@ feature 'Starts over' do
   end
 
   def expect_no_start_over_button
-    page.all(start_over_button_selector, visible: true).should be_empty
+    expect(page.all(start_over_button_selector, visible: true)).to be_empty
   end
 
   def click_start_over_button
@@ -48,10 +48,10 @@ feature 'Starts over' do
 
       should_be_on public_activity_path(board.public_slug)
       guest_user = GuestUser.last
-      guest_user.tile_completions.should be_empty
-      guest_user.acts.should be_empty
-      guest_user.points.should be_zero
-      guest_user.tickets.should be_zero
+      expect(guest_user.tile_completions).to be_empty
+      expect(guest_user.acts).to be_empty
+      expect(guest_user.points).to be_zero
+      expect(guest_user.tickets).to be_zero
     end
 
     it "should not appear after being clicked", js: true do

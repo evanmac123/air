@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe Demo do
-  it { should have_many(:users) }
-  it { should have_many(:tiles) }
-  it { should have_many(:locations) }
-  it { should have_many(:characteristics) }
+  it { is_expected.to have_many(:users) }
+  it { is_expected.to have_many(:tiles) }
+  it { is_expected.to have_many(:locations) }
+  it { is_expected.to have_many(:characteristics) }
 
   it { should_have_valid_mime_type(Demo, :logo_content_type) }
 end
@@ -17,11 +17,11 @@ describe Demo, "#welcome_message" do
 
   context "when the demo has no custom welcome message" do
     before(:each) do
-      @demo.custom_welcome_message.should be_nil
+      expect(@demo.custom_welcome_message).to be_nil
     end
 
     it "should return a reasonable default" do
-      @demo.welcome_message(@user).should == "You've joined the #{@demo.name} game! @{reply here}"
+      expect(@demo.welcome_message(@user)).to eq("You've joined the #{@demo.name} game! @{reply here}")
     end
   end
 
@@ -31,7 +31,7 @@ describe Demo, "#welcome_message" do
     end
 
     it "should use that" do
-      @demo.welcome_message(@user).should == "Derp derp! Let's play! You are #{@user.sms_slug}, we are #{@demo.name}!"
+      expect(@demo.welcome_message(@user)).to eq("Derp derp! Let's play! You are #{@user.sms_slug}, we are #{@demo.name}!")
     end
   end
 end
@@ -44,7 +44,7 @@ describe Demo, ".alphabetical" do
   end
 
   it "finds all demos, sorted alphabetically" do
-    Demo.alphabetical.should == [@gillette, @red_sox]
+    expect(Demo.alphabetical).to eq([@gillette, @red_sox])
   end
 end
 
@@ -60,7 +60,7 @@ describe Demo, "#print_pending_friendships" do
     user1.befriend user4
     user4.accept_friendship_from user1
     expected = "#{demo.name} has 3 initiated connections, 1 of which have been accepted (33.333333333333336%)"
-    demo.print_pending_friendships.should == expected
+    expect(demo.print_pending_friendships).to eq(expected)
 
 
   end
@@ -70,16 +70,16 @@ describe Demo, "ticket fields" do
   context "when uses_tickets is set" do
     before(:each) do
       @demo = FactoryGirl.build_stubbed(:demo)
-      @demo.uses_tickets.should be_true
+      expect(@demo.uses_tickets).to be_truthy
       @demo.ticket_threshold = nil
     end
 
     it "should validate that ticket_threshold is set" do
-      @demo.should_not be_valid
-      @demo.errors.keys.should include(:ticket_threshold)
+      expect(@demo).not_to be_valid
+      expect(@demo.errors.keys).to include(:ticket_threshold)
 
       @demo.ticket_threshold = 5
-      @demo.should be_valid
+      expect(@demo).to be_valid
     end
   end
 end
@@ -89,7 +89,7 @@ describe Demo, "phone number" do
     @demo = FactoryGirl.build(:demo)
     @demo.phone_number = "(617) 555-1212"
     @demo.save
-    @demo.reload.phone_number.should == "+16175551212"
+    expect(@demo.reload.phone_number).to eq("+16175551212")
   end
 end
 
@@ -123,20 +123,20 @@ describe Demo, '#num_tile_completions' do
 
     num_tile_completions = demo.num_tile_completions
 
-    num_tile_completions[tile_1.id].should == 1
-    num_tile_completions[tile_3.id].should == 3
-    num_tile_completions[tile_5.id].should == 5
-    num_tile_completions[tile_7.id].should == 7
-    num_tile_completions[tile_9.id].should == 9
+    expect(num_tile_completions[tile_1.id]).to eq(1)
+    expect(num_tile_completions[tile_3.id]).to eq(3)
+    expect(num_tile_completions[tile_5.id]).to eq(5)
+    expect(num_tile_completions[tile_7.id]).to eq(7)
+    expect(num_tile_completions[tile_9.id]).to eq(9)
 
-    [tile_0, tile_00, tile_000].each { |tile| num_tile_completions[tile.id].should be_nil }
+    [tile_0, tile_00, tile_000].each { |tile| expect(num_tile_completions[tile.id]).to be_nil }
   end
 end
 
 describe Demo, '#create_public_slug!' do
   it "should generate a slug based on the name" do
     d = Demo.create(name: "J.P. Patrick & His 999 Associates, Inc")
-    d.reload.public_slug.should == "jp-patrick-his-999-associates-inc"
+    expect(d.reload.public_slug).to eq("jp-patrick-his-999-associates-inc")
   end
 
   it "should handle duplication nicely" do
@@ -144,15 +144,15 @@ describe Demo, '#create_public_slug!' do
     board_1 = Demo.create(name: name)
     board_2 = Demo.create(name: name + ' board') # an exact duplicate name isn't possible
 
-    board_1.public_slug.should be_present
-    board_2.public_slug.should be_present
-    board_1.public_slug.should_not == board_2.public_slug
+    expect(board_1.public_slug).to be_present
+    expect(board_2.public_slug).to be_present
+    expect(board_1.public_slug).not_to eq(board_2.public_slug)
   end
 
   it "should lop off the word \"board\" if it appears at the end of the slug" do
     d = Demo.create(name: "The Extremely Serious Corporation Board")
     d.create_public_slug!
-    d.reload.public_slug.should == "the-extremely-serious-corporation"
+    expect(d.reload.public_slug).to eq("the-extremely-serious-corporation")
   end
 end
 
@@ -160,11 +160,11 @@ end
 describe Demo, 'on create' do
   it 'should set the public slug' do
     d = FactoryGirl.create(:demo)
-    d.public_slug.should be_present
+    expect(d.public_slug).to be_present
   end
   
   it 'should be public' do
     d = FactoryGirl.create(:demo)
-    d.is_public?.should be_true    
+    expect(d.is_public?).to be_truthy    
   end
 end

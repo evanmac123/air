@@ -107,11 +107,11 @@ module RaffleHelpers
 
   def expect_raffle_progress percents
     percents *= 2 #convertion
-    page.should have_selector(".progress-" + percents.to_s)
+    expect(page).to have_selector(".progress-" + percents.to_s)
   end
 
   def expect_reffle_entries tickets
-    page.find("#raffle_entries").text.should == tickets.to_s
+    expect(page.find("#raffle_entries").text).to eq(tickets.to_s)
   end
 
   def click_raffle_info

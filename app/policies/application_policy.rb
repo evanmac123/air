@@ -1,49 +1,53 @@
-class ApplicationPolicy < Struct.new(:user, :record)
+class ApplicationPolicy
+  attr_reader :user, :record
 
-	def index?
-		false
-	end
+  def initialize(user, record)
+    @user = user
+    @record = record
+  end
 
-	def show?
-		scope.where(:id => record.id).exists?
-	end
+  def index?
+    false
+  end
 
-	def create?
-		false
-	end
+  def show?
+    scope.where(id: record.id).exists?
+  end
 
-	def new?
-		create?
-	end
+  def create?
+    false
+  end
 
-	def update?
-		false
-	end
+  def new?
+    create?
+  end
 
-	def edit?
-		update?
-	end
+  def update?
+    false
+  end
 
-	def destroy?
-		false
-	end
+  def edit?
+    update?
+  end
 
+  def destroy?
+    false
+  end
 
-	def scope
-		Pundit.policy_scope!(user, record.class)
-	end
+  def scope
+    Pundit.policy_scope!(user, record.class)
+  end
 
-	class Scope
-		attr_reader :user, :scope
+  class Scope
+    attr_reader :user, :scope
 
-		def initialize(user, scope)
-			@user = user
-			@scope = scope
-		end
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
 
-		def resolve
-			scope
-		end
-	end
+    def resolve
+      scope
+    end
+  end
 end
-

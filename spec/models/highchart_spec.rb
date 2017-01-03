@@ -59,13 +59,13 @@ describe 'A group of tests...' do
       # (Boundary hour got acts for +/- 1- and 2-minutes, while inner hours got just one act per hour)
       [start_boundary, start_boundary + 1.hour, start_boundary + 2.hours,
        end_boundary,   end_boundary - 1.hour,   end_boundary - 2.hours].each do |time|
-        act_points[time.hour % 24].should  == ((time == start_boundary or time == end_boundary) ? 2 : 1)
-        user_points[time.hour % 24].should == ((time == start_boundary or time == end_boundary) ? 2 : 1)
+        expect(act_points[time.hour % 24]).to  eq((time == start_boundary or time == end_boundary) ? 2 : 1)
+        expect(user_points[time.hour % 24]).to eq((time == start_boundary or time == end_boundary) ? 2 : 1)
       end
 
       # Make sure no other hours snuck into the grouping hash
-      act_points.keys.count.should  == 24
-      user_points.keys.count.should == 24
+      expect(act_points.keys.count).to  eq(24)
+      expect(user_points.keys.count).to eq(24)
     end
   end
 
@@ -107,22 +107,22 @@ describe 'A group of tests...' do
       num_acts  = act_points.values.sum
       num_users = user_points.values.sum
 
-      num_acts.should  == 8
-      num_users.should == 8
+      expect(num_acts).to  eq(8)
+      expect(num_users).to eq(8)
 
-      demo.acts.count.should == 16  # Make sure the bad acts were created
+      expect(demo.acts.count).to eq(16)  # Make sure the bad acts were created
 
       # Make sure each day contains the correct number of acts and users
       # (Boundary days got acts for +/- 1- and 2-minutes, while inner days got just one act per day)
       [start_boundary, start_boundary + 1.day, start_boundary + 2.days,
        end_boundary,   end_boundary - 1.day,   end_boundary - 2.days].each do |day|
-        act_points[day.to_date].should  == ((day == start_boundary or day == end_boundary) ? 2 : 1)
-        user_points[day.to_date].should == ((day == start_boundary or day == end_boundary) ? 2 : 1)
+        expect(act_points[day.to_date]).to  eq((day == start_boundary or day == end_boundary) ? 2 : 1)
+        expect(user_points[day.to_date]).to eq((day == start_boundary or day == end_boundary) ? 2 : 1)
       end
 
       # Make sure no other days snuck into the grouping hash
-      act_points.keys.count.should  == 23
-      user_points.keys.count.should == 23
+      expect(act_points.keys.count).to  eq(23)
+      expect(user_points.keys.count).to eq(23)
     end
   end
 
@@ -209,25 +209,25 @@ describe 'A group of tests...' do
       num_acts  = act_points.values.sum
       num_users = user_points.values.sum
 
-      num_acts.should  == 12
-      num_users.should == 12
+      expect(num_acts).to  eq(12)
+      expect(num_users).to eq(12)
 
-      demo.acts.count.should == 24  # Make sure the bad acts were created
+      expect(demo.acts.count).to eq(24)  # Make sure the bad acts were created
 
       postgres_adjusted_start_day = start_boundary - 1.day  # Postgresql considers weeks to start on Monday
 
-      act_points[postgres_adjusted_start_day].should  == 8
-      user_points[postgres_adjusted_start_day].should == 8
+      expect(act_points[postgres_adjusted_start_day]).to  eq(8)
+      expect(user_points[postgres_adjusted_start_day]).to eq(8)
 
-      act_points[postgres_adjusted_start_day + 3.weeks].should  == 4
-      user_points[postgres_adjusted_start_day + 3.weeks].should == 4
+      expect(act_points[postgres_adjusted_start_day + 3.weeks]).to  eq(4)
+      expect(user_points[postgres_adjusted_start_day + 3.weeks]).to eq(4)
 
       # Make sure no other weeks snuck into the grouping hash. (Should be Dec 24, Dec 31, Jan 7, Jan 14)
-      act_points.keys.count.should  == 4
-      user_points.keys.count.should == 4
+      expect(act_points.keys.count).to  eq(4)
+      expect(user_points.keys.count).to eq(4)
 
-      act_points.keys.each_with_index  { |day, i| day.should == postgres_adjusted_start_day + i.weeks }
-      user_points.keys.each_with_index { |day, i| day.should == postgres_adjusted_start_day + i.weeks }
+      act_points.keys.each_with_index  { |day, i| expect(day).to eq(postgres_adjusted_start_day + i.weeks) }
+      user_points.keys.each_with_index { |day, i| expect(day).to eq(postgres_adjusted_start_day + i.weeks) }
     end
   end
 end
@@ -387,8 +387,8 @@ describe 'Yet another group of tests...' do
       y_values.default = Y.new(0, 0)
 
       (day_1..day_6).each do |day|
-        act_points[day].should  == y_values[day].acts
-        user_points[day].should == y_values[day].users
+        expect(act_points[day]).to  eq(y_values[day].acts)
+        expect(user_points[day]).to eq(y_values[day].users)
       end
     end
   end
@@ -483,8 +483,8 @@ describe 'Yet another group of tests...' do
 
       # Can't just step up to 'week_6' because that is '8/25/2012' => Step up to the actual end date (just like the code does)
       (week_1..Highchart.convert_date('9/1/2012').end_of_day).step(7) do |week|
-        act_points[week].should  == y_values[week].acts
-        user_points[week].should == y_values[week].users
+        expect(act_points[week]).to  eq(y_values[week].acts)
+        expect(user_points[week]).to eq(y_values[week].users)
       end
     end
   end

@@ -24,12 +24,12 @@ feature "Client Admin Interacts With Share And Public Section" do
   end
 
   def wait_for_explore_to_activate
-    page.should have_css('.share_to_explore')
-    page.should have_no_css('.share_to_explore.disabled')
+    expect(page).to have_css('.share_to_explore')
+    expect(page).to have_no_css('.share_to_explore.disabled')
   end
 
   before do
-    pending
+    skip
     @client_admin = FactoryGirl.create(:client_admin)
   end
 
@@ -55,25 +55,25 @@ feature "Client Admin Interacts With Share And Public Section" do
     end
 
     it "should be turned off by default", js: true do
-      page.find('#sharable_tile_link_off')['checked'].should be_present
+      expect(page.find('#sharable_tile_link_off')['checked']).to be_present
     end
 
     it "should sharable link should be disabled", js: true do
-      page.find('#sharable_tile_link')['disabled'].should be_present
+      expect(page.find('#sharable_tile_link')['disabled']).to be_present
     end
 
     it "should change is_sharable attr and sharable link", js: true do
       sharable_link_switcher.click
 
-      page.find('#sharable_tile_link')['disabled'].should_not be_present
+      expect(page.find('#sharable_tile_link')['disabled']).not_to be_present
       wait_for_ajax
-      @tile.reload.is_sharable.should be_true
+      expect(@tile.reload.is_sharable).to be_truthy
 
       sharable_link_switcher.click
 
-      page.find('#sharable_tile_link')['disabled'].should be_present
+      expect(page.find('#sharable_tile_link')['disabled']).to be_present
       wait_for_ajax
-      @tile.reload.is_sharable.should be_false
+      expect(@tile.reload.is_sharable).to be_falsey
     end
   end
 
@@ -86,10 +86,10 @@ feature "Client Admin Interacts With Share And Public Section" do
       end
 
       scenario "#{name} turns sharable link if it is turned off", js: true do
-        page.find('#sharable_tile_link_on')['checked'].should be_present
-        page.find('#sharable_tile_link')['disabled'].should_not be_present
+        expect(page.find('#sharable_tile_link_on')['checked']).to be_present
+        expect(page.find('#sharable_tile_link')['disabled']).not_to be_present
         wait_for_ajax
-        @tile.reload.is_sharable.should be_true
+        expect(@tile.reload.is_sharable).to be_truthy
       end
     end
 
@@ -106,21 +106,21 @@ feature "Client Admin Interacts With Share And Public Section" do
 
       it "should open public section but not turn on share switcher", js: true do
         visit client_admin_tile_path(@tile, as: @client_admin)
-        page.should have_no_css('.share_to_explore', visible: true)
+        expect(page).to have_no_css('.share_to_explore', visible: true)
         open_public_section
-        page.should have_css('.share_to_explore', visible: true)
-        page.find('#share_on')['checked'].should_not be_present
+        expect(page).to have_css('.share_to_explore', visible: true)
+        expect(page.find('#share_on')['checked']).not_to be_present
       end
 
       context "when there are no tags" do
         it "should start in a disabled state and enable when a tag is entered", js: true do
           visit client_admin_tile_path(@tile, as: @client_admin)
           open_public_section
-          page.should have_css('.share_to_explore.disabled')
+          expect(page).to have_css('.share_to_explore.disabled')
 
           add_new_tile_tag('The Humpty Dance')
-          page.should have_css('.share_to_explore')
-          page.should have_no_css('.share_to_explore.disabled')
+          expect(page).to have_css('.share_to_explore')
+          expect(page).to have_no_css('.share_to_explore.disabled')
         end
       end
 
@@ -132,18 +132,18 @@ feature "Client Admin Interacts With Share And Public Section" do
         end
 
         it "should start in an enabled state and be disabled if all tags are removed", js: true do
-          page.should have_css('.share_to_explore')
-          page.should have_no_css('.share_to_explore.disabled')
+          expect(page).to have_css('.share_to_explore')
+          expect(page).to have_no_css('.share_to_explore.disabled')
 
           find('#share_off').trigger('click') # got to switch off sharing before you can remove the tag
           find('.tile_tags > li:first > .fa-times').click()
-          page.should have_css('.share_to_explore.disabled')
+          expect(page).to have_css('.share_to_explore.disabled')
         end
 
         it "should not allow the last tag to be removed if sharing is on", js: true do
           find('.tile_tags > li:first > .fa-times').click()
-          page.should have_css('.tile_tags li')
-          page.should have_css('.tag_alert', visible: true)
+          expect(page).to have_css('.tile_tags li')
+          expect(page).to have_css('.tag_alert', visible: true)
         end
       end
 
@@ -157,14 +157,14 @@ feature "Client Admin Interacts With Share And Public Section" do
           visit client_admin_tile_path(@tile, as: @client_admin)
           page.find('.share_to_explore').trigger('click')
 
-          page.should have_no_css('.share_to_explore.remove_from_explore')
-          page.should have_css('.share_to_explore', text: "Share To Explore")
+          expect(page).to have_no_css('.share_to_explore.remove_from_explore')
+          expect(page).to have_css('.share_to_explore', text: "Share To Explore")
         end
       end
 
       context "when the tile starts non-public" do
         before do
-          @tile.is_public.should be_false
+          expect(@tile.is_public).to be_falsey
         end
 
         it "should switch when toggled", js: true do
@@ -172,12 +172,12 @@ feature "Client Admin Interacts With Share And Public Section" do
           open_public_section
           add_new_tile_tag('The Humpty Dance')
 
-          page.should have_css('.share_to_explore', visible: true)
-          page.should have_no_css('.share_to_explore.disabled')
+          expect(page).to have_css('.share_to_explore', visible: true)
+          expect(page).to have_no_css('.share_to_explore.disabled')
 
           page.find('.share_to_explore').trigger('click')
 
-          page.should have_css('.share_to_explore.remove_from_explore', text: 'Remove From Explore')
+          expect(page).to have_css('.share_to_explore.remove_from_explore', text: 'Remove From Explore')
         end
       end
     end
@@ -193,12 +193,12 @@ feature "Client Admin Interacts With Share And Public Section" do
       open_public_section
 
       add_new_tile_tag('random tag')
-      find('.tile_tags > li').should have_content('random tag')
+      expect(find('.tile_tags > li')).to have_content('random tag')
 
       find('.tile_tags > li > .fa-times').click
-      page.should_not have_content('random tag')
+      expect(page).not_to have_content('random tag')
 
-      page.should_not have_css('.tile_tags > li')
+      expect(page).not_to have_css('.tile_tags > li')
     end
 
     scenario "displays similiar tags and add tag button if exactly same tag is not present", js: true do
@@ -227,9 +227,9 @@ feature "Client Admin Interacts With Share And Public Section" do
 
       wait_for_ajax
 
-      TileTag.last.title.should eq "tag"
-      TileTag.last.tiles.first.should == @tile
-      @tile.reload.is_public.should be_true
+      expect(TileTag.last.title).to eq "tag"
+      expect(TileTag.last.tiles.first).to eq(@tile)
+      expect(@tile.reload.is_public).to be_truthy
     end
 
     context "position on explore page" do
@@ -242,7 +242,7 @@ feature "Client Admin Interacts With Share And Public Section" do
       end
 
       scenario "should set max explore_page_priority for tile", js: true do
-        @tile.reload.explore_page_priority.should be_nil
+        expect(@tile.reload.explore_page_priority).to be_nil
 
         open_public_section
         add_new_tile_tag "tag"
@@ -252,7 +252,7 @@ feature "Client Admin Interacts With Share And Public Section" do
         expect_content "Success--thanks for sharing!"
         wait_for_ajax
 
-        @tile.reload.explore_page_priority.should == 4
+        expect(@tile.reload.explore_page_priority).to eq(4)
       end
 
       scenario "should set tile to the first position on explore page", js: true do
@@ -266,7 +266,7 @@ feature "Client Admin Interacts With Share And Public Section" do
         visit explore_path
         tiles_on_page = page.all(".headline .text").map(&:text)
         expected_tiles = [@tile.headline] + @explore_tiles.reverse.map(&:headline)
-        tiles_on_page.should == expected_tiles
+        expect(tiles_on_page).to eq(expected_tiles)
       end
     end
   end

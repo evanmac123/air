@@ -25,14 +25,14 @@ describe BulkLoad::UserCreatorFeeder do
       feeder.feed
 
       line_order = sequence('line_order')
-      lines.each {|line| mock_user_creator.should have_received(:create_user).with(line).in_sequence(line_order)}
+      lines.each {|line| expect(mock_user_creator).to have_received(:create_user).with(line).in_sequence(line_order)}
     end
 
     it "should log errors to some queue somewhere" do
       existing_user = FactoryGirl.create(:user)
       demo_id = existing_user.demo.id
       email = existing_user.email
-      email.should be_present
+      expect(email).to be_present
 
       schema = %w(name email)
 
@@ -47,9 +47,9 @@ describe BulkLoad::UserCreatorFeeder do
       feeder = BulkLoad::UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field, unique_id_index)
       feeder.feed
 
-      $redis.llen(feeder.redis_failed_load_queue_key).should == 2
-      $redis.rpop(feeder.redis_failed_load_queue_key).should == "Line 1: Error message 1"
-      $redis.rpop(feeder.redis_failed_load_queue_key).should == "Line 2: Error message 2"
+      expect($redis.llen(feeder.redis_failed_load_queue_key)).to eq(2)
+      expect($redis.rpop(feeder.redis_failed_load_queue_key)).to eq("Line 1: Error message 1")
+      expect($redis.rpop(feeder.redis_failed_load_queue_key)).to eq("Line 2: Error message 2")
     end
   end
 
@@ -57,19 +57,19 @@ describe BulkLoad::UserCreatorFeeder do
     it "should check the flag that the chopper is meant to set, as well as the length of the queue" do
       # queue empty but not signalled done yet from the chopper
       $redis.del(feeder.redis_all_lines_chopped_key)
-      feeder.should_not be_done
+      expect(feeder).not_to be_done
 
       # queue not empty and no signal from the chopper
       3.times {$redis.lpush(feeder.redis_load_queue_key, "hey")}
-      feeder.should_not be_done
+      expect(feeder).not_to be_done
 
       # chopper signals done, but we still have to work off some of the queue
       $redis.set(feeder.redis_all_lines_chopped_key, "done")
-      feeder.should_not be_done
+      expect(feeder).not_to be_done
 
       # chopper signals done and we've worked through the entire queue, we're done
       $redis.del(feeder.redis_load_queue_key)
-      feeder.should be_done
+      expect(feeder).to be_done
     end
   end
 end

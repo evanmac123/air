@@ -39,8 +39,8 @@ Few devisions:
 HTML
       options[:parameters][:supporting_content].strip!
       form = TileBuilderForm.new(demo, options)
-      form.create_tile.should be_true
-      form.tile.supporting_content.should == options[:parameters][:supporting_content]
+      expect(form.create_tile).to be_truthy
+      expect(form.tile.supporting_content).to eq(options[:parameters][:supporting_content])
     end
 
     xit "should not allow other tags or attributes" do
@@ -49,17 +49,17 @@ HTML
 HTML
       options[:parameters][:supporting_content].strip!
       form = TileBuilderForm.new(demo, options)
-      form.create_tile.should be_true
-      form.tile.supporting_content.should == "alert(\"Hello! My name is Lindsey Lohan\")"
+      expect(form.create_tile).to be_truthy
+      expect(form.tile.supporting_content).to eq("alert(\"Hello! My name is Lindsey Lohan\")")
 
       options[:parameters][:supporting_content] = <<HTML
 <html>
 HTML
       options[:parameters][:supporting_content].strip!
       form = TileBuilderForm.new(demo, options)
-      form.create_tile.should be_false
-      form.error_messages.should == "supporting content can't be blank."
-      form.tile.supporting_content.should == ""
+      expect(form.create_tile).to be_falsey
+      expect(form.error_messages).to eq("supporting content can't be blank.")
+      expect(form.tile.supporting_content).to eq("")
 
       options[:parameters][:supporting_content] = <<HTML
 <div id="id1" class="class2" style="color:red;">
@@ -68,8 +68,8 @@ Text
 HTML
       options[:parameters][:supporting_content].strip!
       form = TileBuilderForm.new(demo, options)
-      form.create_tile.should be_true
-      form.tile.supporting_content.should == "<div>\nText\n</div>"
+      expect(form.create_tile).to be_truthy
+      expect(form.tile.supporting_content).to eq("<div>\nText\n</div>")
     end
   end
 end

@@ -6,19 +6,19 @@ feature 'User gets invitation email' do
   def expect_email_content(expected_content)
     crank_dj_clear
     open_email(@user.email)
-    current_email.to_s.gsub(/\r\n/, "\n").should include(expected_content)
+    expect(current_email.to_s.gsub(/\r\n/, "\n")).to include(expected_content)
   end
 
   def expect_no_email_content(unexpected_content)
     crank_dj_clear
     open_email(@user.email)
-    current_email.to_s.gsub(/\r\n/, "\n").should_not include(unexpected_content)
+    expect(current_email.to_s.gsub(/\r\n/, "\n")).not_to include(unexpected_content)
   end
 
   def expect_subject(expected_subject)
     crank_dj_clear
     open_email(@user.email)
-    current_email.subject.should == expected_subject
+    expect(current_email.subject).to eq(expected_subject)
   end
 
   before(:each) do
@@ -40,7 +40,7 @@ feature 'User gets invitation email' do
 
   context "from a demo that has no reply email name set" do
     before(:each) do
-      @demo.custom_reply_email_name.should be_blank
+      expect(@demo.custom_reply_email_name).to be_blank
       @user.invite
     end
 

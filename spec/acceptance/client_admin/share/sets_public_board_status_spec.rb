@@ -32,7 +32,7 @@ feature "Client admin sets board's public status themself", js:true do
   end
 
   def expect_displayed_share_url(slug)
-    page.body.should match(share_url_regex(slug))
+    expect(page.body).to match(share_url_regex(slug))
   end
 
   def expect_on_engaged
@@ -73,7 +73,7 @@ feature "Client admin sets board's public status themself", js:true do
       within public_board_section do
         page.find('.fa-question-circle').trigger(:mouseover)
       end
-      page.should have_content "In a public board, anyone can participate using the Board Link. In a private board, only users you specifically add can participate, and the Board Link isn't active."
+      expect(page).to have_content "In a public board, anyone can participate using the Board Link. In a private board, only users you specifically add can participate, and the Board Link isn't active."
     end
   end
 

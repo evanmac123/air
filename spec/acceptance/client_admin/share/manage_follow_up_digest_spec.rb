@@ -53,7 +53,7 @@ feature "Client admin modifies the follow digest email", js: true do
     end
 
     scenario "cancels changes"  do
-     pending "need to implement cancel action in spec"
+     skip "need to implement cancel action in spec"
 
       within modal_form do
 

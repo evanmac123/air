@@ -11,32 +11,32 @@ describe FullSizeTilePresenter do
     it "should turn all-whitespace lines into HTML-safed non-breaking spaces" do
       tile = FactoryGirl.build_stubbed(:tile, supporting_content: "Line 1\n\nLine 2")
       presenter = FullSizeTilePresenter.new(tile, user, false, [], Browser.new)
-      presenter.supporting_content.should == "<p>Line 1</p><p>&nbsp;</p><p>Line 2</p>"
+      expect(presenter.supporting_content).to eq("<p>Line 1</p><p>&nbsp;</p><p>Line 2</p>")
     end
 
     it "should retain multiple spaces by turning them into non-breaking spaces" do
       tile = FactoryGirl.build_stubbed(:tile, supporting_content: "   Here  There   Everywhere")
       presenter = FullSizeTilePresenter.new(tile, user, false, [], Browser.new)
-      presenter.supporting_content.should == "<p>   Here  There   Everywhere</p>"
+      expect(presenter.supporting_content).to eq("<p>   Here  There   Everywhere</p>")
     end
 
     it "should escape tags in the supporting content" do
       tile = FactoryGirl.build_stubbed(:tile, supporting_content: "<script>alert('Bad evil!')</script>")
       presenter = FullSizeTilePresenter.new(tile, user, false, [], Browser.new)
-      presenter.supporting_content.should == "<p>&lt;script&gt;alert(&#x27;Bad evil!&#x27;)&lt;/script&gt;</p>"
+      expect(presenter.supporting_content).to eq("<p>&lt;script&gt;alert(&#x27;Bad evil!&#x27;)&lt;/script&gt;</p>")
     end
 
     it "should have styles for ie8" do
       tile = FactoryGirl.build_stubbed(:tile)
       browser = Browser.new(ua: ie8)
       presenter = FullSizeTilePresenter.new(tile, user, false, [], browser)
-      presenter.image_styles.should be_present
+      expect(presenter.image_styles).to be_present
     end
 
     it "should not have styles be default" do
       tile = FactoryGirl.build_stubbed(:tile)
       presenter = FullSizeTilePresenter.new(tile, user, false, [], Browser.new)
-      presenter.image_styles.should_not be_present
+      expect(presenter.image_styles).not_to be_present
     end
   end
 end

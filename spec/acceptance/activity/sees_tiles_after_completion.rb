@@ -12,14 +12,14 @@ feature "Sees tiles after completion" do
         visit activity_path(as: client_admin)
       end
       scenario 'show how to return to tile manager only once' do
-        page.should have_css('.joyride-tip-guide', visible: true)
-        page.should have_content('To return to the tile manager click Manage.')
+        expect(page).to have_css('.joyride-tip-guide', visible: true)
+        expect(page).to have_content('To return to the tile manager click Manage.')
         visit activity_path(as: client_admin)
-        page.should_not have_css('.joyride-tip-guide', visible: true)
+        expect(page).not_to have_css('.joyride-tip-guide', visible: true)
       end
       scenario 'clicking Got It button hides the popover' do
         click_link 'Got It'
-        page.should_not have_css('.joyride-tip-guide', visible: true)
+        expect(page).not_to have_css('.joyride-tip-guide', visible: true)
       end
     end
     context "sees completed tiles" do
@@ -29,7 +29,7 @@ feature "Sees tiles after completion" do
         visit activity_path(as: user)
       end
       scenario "shows completed tiles section" do
-        page.find('.completed').should have_content tile.headline
+        expect(page.find('.completed')).to have_content tile.headline
       end
     end
     context "sees active tiles" do
@@ -38,7 +38,7 @@ feature "Sees tiles after completion" do
         visit activity_path(as: user)
       end
       scenario "shows active tiles section" do
-        page.find('.not-completed').should have_content @tile.headline
+        expect(page.find('.not-completed')).to have_content @tile.headline
       end
     end
     context "sees tile completion history" do
@@ -50,7 +50,7 @@ feature "Sees tiles after completion" do
         visit activity_path(as: user)
       end
       scenario "should display tile in history even after it is deactivated" do
-        page.should have_css('div#feed_wrapper')
+        expect(page).to have_css('div#feed_wrapper')
       end
     end
     context "sees two types of tiles" do
@@ -62,15 +62,15 @@ feature "Sees tiles after completion" do
       end
       scenario "should display active tiles before completed tiles" do
 
-        page.should have_css('.completed')
-        page.should have_css('.not-completed')
+        expect(page).to have_css('.completed')
+        expect(page).to have_css('.not-completed')
         showing_completed = false
         page.all('div.tile_thumbnail').each do |elem|
           if elem.has_css?('.completed')
             showing_completed = true
           end
           if showing_completed
-            elem.should_not have_css('.not-completed')
+            expect(elem).not_to have_css('.not-completed')
           end
         end
       end
@@ -87,7 +87,7 @@ feature "Sees tiles after completion" do
         visit tiles_path(as: user)
       end
       scenario "allows to see tile that was last completed" do
-        page.should have_selector('a', 'clicked_right_answer')
+        expect(page).to have_selector('a', 'clicked_right_answer')
       end
     end
     context "sees not-completed tiles" do
@@ -96,7 +96,7 @@ feature "Sees tiles after completion" do
         visit tiles_path(as: user)
       end
       scenario "allows to see tile that was not completed" do
-        page.should have_selector('a', 'right_multiple_choice_answer')
+        expect(page).to have_selector('a', 'right_multiple_choice_answer')
       end
     end
     context "completes all active tiles" do
@@ -106,7 +106,7 @@ feature "Sees tiles after completion" do
       end
       scenario "should display message saying 'you’ve completed all of your tiles'", js: true do
         click_link "Eggs"
-        page.should have_content("You've finished all new tiles!")
+        expect(page).to have_content("You've finished all new tiles!")
       end
     end
   end
@@ -121,9 +121,9 @@ feature "Sees tiles after completion" do
     page.all(".tile_thumbnail_image").first.click
 
     page.find("#next").click
-    page.should have_no_content("You've completed all available tiles!")
+    expect(page).to have_no_content("You've completed all available tiles!")
 
     page.find("#next").click
-    page.should have_no_content("You've completed all available tiles!")
+    expect(page).to have_no_content("You've completed all available tiles!")
   end
 end

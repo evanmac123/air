@@ -34,7 +34,7 @@ feature 'User must have authorization to see admin pages' do
 
     it "can't go to site admin pages" do
       visit admin_path
-      should_be_on explore_path
+      should_be_on root_path
     end
 
     it "has no nav link to site admin pages" do
@@ -51,12 +51,12 @@ feature 'User must have authorization to see admin pages' do
 
     it "can't go to client admin pages" do
       visit client_admin_path
-      should_be_on activity_path
+      should_be_on root_path
     end
 
     it "can't go to site admin pages" do
       visit admin_path
-      should_be_on activity_path
+      should_be_on root_path
     end
 
     it "has no nav link to client admin pages" do

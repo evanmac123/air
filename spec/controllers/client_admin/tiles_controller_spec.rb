@@ -17,18 +17,6 @@ describe ClientAdmin::TilesController do
     end
   end
 
-  describe "GET new" do
-    it "sends new tile ping" do
-      subject.stubs(:ping)
-      client_admin = FactoryGirl.create(:client_admin)
-      sign_in_as(client_admin)
-
-      get :new
-
-      expect(subject).to have_received(:ping).with('Tiles Page', {action: 'Clicked Add New Tile'}, subject.current_user)
-    end
-  end
-
   def tile_builder_form
     {"status"=>"draft",
      "remote_media_type"=>"image/jpeg",

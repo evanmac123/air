@@ -1,8 +1,4 @@
-class Explore::ChannelsController < ClientAdminBaseController
-  include TileBatchHelper
-  include LoginByExploreToken
-  include ExploreHelper
-
+class Explore::ChannelsController < ExploreBaseController
   def show
     @channel = Channel.find_by_slug(params[:id])
     @tiles = @channel.tiles.page(params[:page]).per(28)

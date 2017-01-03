@@ -1,9 +1,7 @@
 #FIXME this entire logic needs to be completely rewritten. It is a utter cluster
 #fuck.
-class BoardsController < ApplicationController
+class BoardsController < UserBaseController
   layout 'external'
-  skip_before_filter :authorize
-  before_filter :allow_guest_user
   layout 'standalone', only: [:new]
 
   include NormalizeBoardName
@@ -15,7 +13,18 @@ class BoardsController < ApplicationController
   end
 
   def create
-    params[:as_existing] ? create_as_existing : create_as_guest
+    board_creator = CreateBoard.new(params[:board_name])
+    if board_creator.create
+      board = board_creator.board
+      current_user.add_board(board)
+      current_user.move_to_new_demo(board)
+      current_user.is_client_admin = true
+      current_user.save!
+      BoardCreatedNotificationMailer.delay_mail(:notify, current_user.id, board.id)
+      redirect_to client_admin_tiles_path
+    else
+      redirect_to :back
+    end
   end
 
   def update
@@ -40,73 +49,33 @@ class BoardsController < ApplicationController
     end
   end
 
-  protected
-
-  def create_as_existing
-    authorize
-    return if response.redirect? # auth failed
-
-    board_creator = CreateBoard.new(params[:board_name])
-    if board_creator.create
-      board = board_creator.board
-      current_user.add_board(board)
-      current_user.move_to_new_demo(board)
-      current_user.is_client_admin = true
-      current_user.save!
-      BoardCreatedNotificationMailer.delay_mail(:notify, current_user.id, board.id)
-      redirect_to client_admin_tiles_path
-    else
-      redirect_to :back
-    end
-  end
-
-  def create_as_guest
-    authorize_as_guest
-    login_as_guest(Demo.new) unless current_user.present?
-    @create_user_with_board = CreateUserWithBoard.new params.merge(pre_user: current_user)
-    success = @create_user_with_board.create
-    @user = @create_user_with_board.user
-    @board = @create_user_with_board.board
-
-    if success
-      sign_in(@user, 1)
-      render_success
-    else
-      render_failure(@create_user_with_board.set_errors)
-    end
-  end
-
   private
 
-  def render_success
-    respond_to do |format|
-      format.json { render json: {status: 'success'} }
-      format.html { redirect_to explore_path }
+    def render_success
+      respond_to do |format|
+        format.json { render json: {status: 'success'} }
+        format.html { redirect_to explore_path }
+      end
     end
-  end
 
-  def render_failure(set_errors)
-    respond_to do |format|
-      format.json { render json: {status: 'failure', errors: set_errors} }
-      format.html do
-        if params[:page_name] == "welcome"
-          redirect_to :controller => 'pages', \
-                      :action => 'show', \
-                      :id => "home", \
-                      flash: { failure: set_errors }
-        elsif params[:page_name] == "product"
-          redirect_to :controller => 'pages', \
-                      :action => 'product', \
-                      flash: { failure: set_errors }
-        else
-          flash[:failure] = set_errors
-          redirect_to "/join"
+    def render_failure(set_errors)
+      respond_to do |format|
+        format.json { render json: {status: 'failure', errors: set_errors} }
+        format.html do
+          if params[:page_name] == "welcome"
+            redirect_to :controller => 'pages', \
+                        :action => 'show', \
+                        :id => "home", \
+                        flash: { failure: set_errors }
+          elsif params[:page_name] == "product"
+            redirect_to :controller => 'pages', \
+                        :action => 'product', \
+                        flash: { failure: set_errors }
+          else
+            flash[:failure] = set_errors
+            redirect_to "/join"
+          end
         end
       end
     end
-  end
-
-  def find_current_board
-    Demo.new(is_public: true)
-  end
 end

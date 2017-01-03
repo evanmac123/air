@@ -19,8 +19,8 @@ feature 'Client expands draft section' do
   end
 
   it "works as expected", js: true do
-    page.all(tile_selector, visible: true).count.should == 6
+    expect(page.all(tile_selector, visible: true).count).to eq(6)
     page.find(".all_draft").click
-    page.all(tile_selector, visible: true).count.should == 7
+    expect(page.all(tile_selector, visible: true).count).to eq(7)
   end
 end

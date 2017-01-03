@@ -9,12 +9,12 @@ feature 'Sees when users were last uploaded' do
 
   context "when they never actually were" do
     before do
-      @demo.users_last_loaded.should be_nil
+      expect(@demo.users_last_loaded).to be_nil
     end
 
     it "shows something appropriate" do
       visit client_admin_users_path(as: @client_admin)
-      page.should have_no_content("Last added users")
+      expect(page).to have_no_content("Last added users")
     end
   end
 
@@ -25,7 +25,7 @@ feature 'Sees when users were last uploaded' do
 
     it "shows the date" do
       visit client_admin_users_path(as: @client_admin)
-      page.should have_content("Last added users on May 1, 2012")
+      expect(page).to have_content("Last added users on May 1, 2012")
     end
   end
 end

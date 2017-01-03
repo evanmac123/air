@@ -2,7 +2,7 @@
 require 'acceptance/acceptance_helper'
 feature "Contracts", js: true do
   before do
-    pending
+    skip
     @org = FactoryGirl.create(:organization, :complete)
   end
 
@@ -30,7 +30,7 @@ feature "Contracts", js: true do
       @parent = FactoryGirl.create(:contract, :complete, organization: @org)
     end
     scenario "creates a upgrade contract with mrr for organization" do
-      pending "this feature will be deprecated in a future release"
+      skip "this feature will be deprecated in a future release"
 
       begin_contract
       screenshot_and_save_page

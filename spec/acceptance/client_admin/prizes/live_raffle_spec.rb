@@ -11,25 +11,25 @@ feature 'Live raffle' do
   end
 
   scenario "edit raffle in live", js: true do
-    demo.raffle.status.should == Raffle::LIVE
+    expect(demo.raffle.status).to eq(Raffle::LIVE)
     click_edit_raffle
     fill_prize_form
     click_save_live_raffle
 
     raffle = demo.raffle.reload
-    raffle.starts_at.should == to_start_date(DateTime.now)
-    raffle.ends_at.should == to_end_date(DateTime.now + 7.days)
-    raffle.prizes.should == ["Prize2", "Prize3"]
-    raffle.other_info.should == "Other info"
+    expect(raffle.starts_at).to eq(to_start_date(DateTime.now))
+    expect(raffle.ends_at).to eq(to_end_date(DateTime.now + 7.days))
+    expect(raffle.prizes).to eq(["Prize2", "Prize3"])
+    expect(raffle.other_info).to eq("Other info")
   end
 
   scenario "cancel raffle", js: true do
     click_cancel_raffle
-    demo.reload.raffle.status.should == Raffle::SET_UP
+    expect(demo.reload.raffle.status).to eq(Raffle::SET_UP)
   end
 
   scenario "end early raffle", js: true do
     click_link_end_early
-    demo.reload.raffle.status.should == Raffle::PICK_WINNERS
+    expect(demo.reload.raffle.status).to eq(Raffle::PICK_WINNERS)
   end
 end

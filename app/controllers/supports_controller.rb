@@ -1,5 +1,4 @@
 class SupportsController < ApplicationController
-  skip_before_filter :authorize
   layout "support"
 
   def show

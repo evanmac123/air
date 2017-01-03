@@ -23,33 +23,36 @@ describe Query::TileQuery do
     end
 
     it "should return aggregated total tile viewings data" do
-      Query::TotalViews.new(tile, period).query.should ==
+      expect(Query::TotalViews.new(tile, period).query).to eq(
         {
           "2015-09-18 00:00:00"=>3,
           "2015-09-18 10:00:00"=>5,
           "2015-09-18 15:00:00"=>1,
           "2015-09-18 23:00:00"=>10
         }
+      )
     end
 
     it "should return aggregated unique tile viewings data" do
-      Query::UniqueViews.new(tile, period).query.should ==
+      expect(Query::UniqueViews.new(tile, period).query).to eq(
         {
           "2015-09-18 00:00:00"=>1,
           "2015-09-18 10:00:00"=>1,
           "2015-09-18 15:00:00"=>1,
           "2015-09-18 23:00:00"=>2
         }
+      )
     end
 
     it "should return aggregated tile completions data" do
-      Query::Interactions.new(tile, period).query.should ==
+      expect(Query::Interactions.new(tile, period).query).to eq(
         {
           "2015-09-18 00:00:00"=>1,
           "2015-09-18 10:00:00"=>1,
           "2015-09-18 15:00:00"=>1,
           "2015-09-18 23:00:00"=>2
         }
+      )
     end
   end
 
@@ -73,33 +76,36 @@ describe Query::TileQuery do
     end
 
     it "should return aggregated total tile viewings data" do
-      Query::TotalViews.new(tile, period).query.should ==
+      expect(Query::TotalViews.new(tile, period).query).to eq(
         {
           "2015-09-14 00:00:00"=>3,
           "2015-09-15 00:00:00"=>5,
           "2015-09-16 00:00:00"=>1,
           "2015-09-18 00:00:00"=>10
         }
+      )
     end
 
     it "should return aggregated unqie tile viewings data" do
-      Query::UniqueViews.new(tile, period).query.should ==
+      expect(Query::UniqueViews.new(tile, period).query).to eq(
         {
           "2015-09-14 00:00:00"=>1,
           "2015-09-15 00:00:00"=>1,
           "2015-09-16 00:00:00"=>1,
           "2015-09-18 00:00:00"=>2
         }
+      )
     end
 
     it "should return aggregated tile completions data" do
-      Query::Interactions.new(tile, period).query.should ==
+      expect(Query::Interactions.new(tile, period).query).to eq(
         {
           "2015-09-14 00:00:00"=>1,
           "2015-09-15 00:00:00"=>1,
           "2015-09-16 00:00:00"=>1,
           "2015-09-18 00:00:00"=>2
         }
+      )
     end
   end
 
@@ -136,30 +142,33 @@ describe Query::TileQuery do
     end
 
     it "should return aggregated total tile viewings data" do
-      Query::TotalViews.new(tile, period).query.should ==
+      expect(Query::TotalViews.new(tile, period).query).to eq(
         {
           "2015-09-07 00:00:00"=>3,
           "2015-09-14 00:00:00"=>8,
           "2015-09-21 00:00:00"=>8
         }
+      )
     end
 
     it "should return aggregated unique tile viewings data" do
-      Query::UniqueViews.new(tile, period).query.should ==
+      expect(Query::UniqueViews.new(tile, period).query).to eq(
         {
           "2015-09-07 00:00:00"=>1,
           "2015-09-14 00:00:00"=>3,
           "2015-09-21 00:00:00"=>1
         }
+      )
     end
 
     it "should return aggregated tile completions data" do
-      Query::Interactions.new(tile, period).query.should ==
+      expect(Query::Interactions.new(tile, period).query).to eq(
         {
           "2015-09-07 00:00:00"=>1,
           "2015-09-14 00:00:00"=>3,
           "2015-09-21 00:00:00"=>1
         }
+      )
     end
   end
 
@@ -183,30 +192,33 @@ describe Query::TileQuery do
     end
 
     it "should return aggregated total tile viewings data" do
-      Query::TotalViews.new(tile, period).query.should ==
+      expect(Query::TotalViews.new(tile, period).query).to eq(
         {
           "2015-08-01 00:00:00"=>8,
           "2015-09-01 00:00:00"=>1,
           "2015-10-01 00:00:00"=>10
         }
+      )
     end
 
     it "should return aggregated unique tile viewings data" do
-      Query::UniqueViews.new(tile, period).query.should ==
+      expect(Query::UniqueViews.new(tile, period).query).to eq(
         {
           "2015-08-01 00:00:00"=>2,
           "2015-09-01 00:00:00"=>1,
           "2015-10-01 00:00:00"=>2
         }
+      )
     end
 
     it "should return aggregated tile ineractions data" do
-      Query::Interactions.new(tile, period).query.should ==
+      expect(Query::Interactions.new(tile, period).query).to eq(
         {
           "2015-08-01 00:00:00"=>2,
           "2015-09-01 00:00:00"=>1,
           "2015-10-01 00:00:00"=>2
         }
+      )
     end
   end
 end

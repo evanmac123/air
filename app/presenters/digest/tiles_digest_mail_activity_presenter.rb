@@ -5,8 +5,7 @@ class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
   include ClientAdmin::TilesHelper
   include Rails.application.routes.url_helpers
 
-	def initialize(user, demo, beg_date, end_date)
-
+  def initialize(user, demo, beg_date, end_date)
 		@beg_date = beg_date
 		@end_date = end_date
 		super("Here is your board's activity from #{pretty_date_range}.")

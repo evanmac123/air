@@ -1,9 +1,4 @@
-class AccountsController < ApplicationController
-  skip_before_filter :authorize
-  before_filter :authorize_without_guest_checks
-  before_filter :initialize_flashes
-  after_filter :merge_flashes
-
+class AccountsController < UserBaseController
   def update
     phone_msg = update_phone_number
     current_user.attributes = params[:user].permit(:notification_method, :send_weekly_activity_report)
@@ -20,30 +15,30 @@ class AccountsController < ApplicationController
     redirect_to :back
   end
 
-  protected
+  private
 
-  def update_phone_number
-    submitted_number = params[:user].delete(:phone_number)
+    def update_phone_number
+      submitted_number = params[:user].delete(:phone_number)
 
-    if submitted_number.blank? && current_user.phone_number.present?
-      current_user.update_attributes(:phone_number => '')
-      current_user.cancel_new_phone_number
-      return "You will not longer receive text messages from us."
+      if submitted_number.blank? && current_user.phone_number.present?
+        current_user.update_attributes(:phone_number => '')
+        current_user.cancel_new_phone_number
+        return "You will not longer receive text messages from us."
+      end
+
+      normalized_phone_number = PhoneNumber.normalize submitted_number
+      if current_user.phone_number == normalized_phone_number
+        current_user.cancel_new_phone_number
+        return
+      end
+
+      current_user.new_phone_number = normalized_phone_number
+      current_user.generate_short_numerical_validation_token
+      if current_user.save
+        current_user.send_new_phone_validation_token
+        return "We have sent a verification code to #{current_user.new_phone_number.as_obfuscated_phone}. It will arrive momentarily. Please enter it into the Notification Preferences box below."
+      else
+        add_failure current_user.errors[:new_phone_number]
+      end
     end
-
-    normalized_phone_number = PhoneNumber.normalize submitted_number
-    if current_user.phone_number == normalized_phone_number
-      current_user.cancel_new_phone_number
-      return
-    end
-
-    current_user.new_phone_number = normalized_phone_number
-    current_user.generate_short_numerical_validation_token
-    if current_user.save
-      current_user.send_new_phone_validation_token
-      return "We have sent a verification code to #{current_user.new_phone_number.as_obfuscated_phone}. It will arrive momentarily. Please enter it into the Notification Preferences box below."
-    else
-      add_failure current_user.errors[:new_phone_number]
-    end
-  end
 end

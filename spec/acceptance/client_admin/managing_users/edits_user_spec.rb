@@ -25,19 +25,19 @@ feature 'Edits user' do
   end
 
   def expect_name(expected_name)
-    page.find("input#user_name").value.should == expected_name
+    expect(page.find("input#user_name").value).to eq(expected_name)
   end
 
   def expect_email(expected_email)
-    page.find("input#user_email").value.should == expected_email
+    expect(page.find("input#user_email").value).to eq(expected_email)
   end
 
   def expect_phone_number(expected_phone_number)
-    page.find("input#user_phone_number").value.should == expected_phone_number
+    expect(page.find("input#user_phone_number").value).to eq(expected_phone_number)
   end
 
   def expect_role(expected_role)
-    page.find('select.user-role-select').value.should == expected_role
+    expect(page.find('select.user-role-select').value).to eq(expected_role)
   end
 
   it "should update of the same attributes as creation" do
@@ -113,14 +113,14 @@ feature 'Edits user' do
 
   it "should show whether or not the user has joined" do
     user.update_attributes(accepted_invitation_at: nil)
-    user.should_not be_claimed
+    expect(user).not_to be_claimed
     visit(edit_client_admin_user_path(user, as: client_admin))
 
     expect_content "Joined: No"
     expect_no_content "Joined: Yes"
 
     user.update_attributes(accepted_invitation_at: Time.now)
-    user.should be_claimed
+    expect(user).to be_claimed
     visit(edit_client_admin_user_path(user, as: client_admin))
 
     expect_no_content "Joined: No"

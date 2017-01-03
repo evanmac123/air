@@ -29,7 +29,7 @@ feature "activity session tracking" do
   context "when a user signs in" do
     it "should log a new activity session" do
       do_real_login
-      FakeMixpanelTracker.should have_event_matching('Activity Session - New')
+      expect(FakeMixpanelTracker).to have_event_matching('Activity Session - New')
     end
   end
 
@@ -40,15 +40,15 @@ feature "activity session tracking" do
 
       Timecop.travel(threshold - 1)
       visit acts_path
-      FakeMixpanelTracker.should_not have_event_matching('Activity Session - New')
+      expect(FakeMixpanelTracker).not_to have_event_matching('Activity Session - New')
 
       Timecop.travel(threshold)
       visit acts_path
-      FakeMixpanelTracker.events_matching('Activity Session - New').should have(1).ping
+      expect(FakeMixpanelTracker.events_matching('Activity Session - New').size).to eq(1)
 
       Timecop.travel(threshold + 1)
       visit acts_path
-      FakeMixpanelTracker.events_matching('Activity Session - New').should have(2).pings
+      expect(FakeMixpanelTracker.events_matching('Activity Session - New').size).to eq(2)
     end
   end
 end

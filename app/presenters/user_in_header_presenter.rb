@@ -24,27 +24,21 @@ class UserInHeaderPresenter
               to: :current_user
 
   def initialize(user, public_tile_page, params, request)
-    @current_user = if user.is_parent_board_user?
-              user.original_user
-            else
-              user
-            end
+    @current_user = user
     @public_tile_page = public_tile_page
     @params = params
     @request = request
   end
 
   def home_path
-    if public_tile_page
-      "/"
-    elsif guest_for_tile_preview?
+    if guest_for_tile_preview?
       nil
-    elsif current_user.is_guest?
+    elsif current_user.is_guest? && !public_tile_page
       public_activity_path(current_user.demo.public_slug)
     elsif @request.cookies["user_onboarding"].present? && current_user.user_onboarding && !current_user.user_onboarding.completed
       user_onboarding_path(current_user.user_onboarding.id, return_onboarding: true)
     else
-      activity_path
+      root_path
     end
   end
 

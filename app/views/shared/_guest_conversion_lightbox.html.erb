@@ -1,4 +1,4 @@
-<% if user.is_guest? && !($rollout.active?(:suppress_conversion_modal, user.demo)) %>
+<% if user.is_guest? %>
   <div id="guest-conversion-modal" class="reveal-modal small" data-reveal aria-labelledby="guestConversionModal" aria-hidden="true" role="dialog">
     <h3>You're on a roll!</h3>
 
@@ -12,6 +12,7 @@
       <%= text_field_tag "user[email]" %>
       <%= label_tag "user[password]", "Password (six characters or more)" %>
       <%= password_field_tag "user[password]" %>
+      <%= hidden_field_tag "user[demo_id]", user.demo.id %>
 
       <%= render partial: "shared/button_with_spinner", locals: { button_id: "guest_user_conversion_button", button_classes: "", button_text: "Create Account" } %>
     <% end %>

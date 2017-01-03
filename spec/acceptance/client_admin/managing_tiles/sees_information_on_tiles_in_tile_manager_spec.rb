@@ -35,7 +35,7 @@ feature 'Sees helpful information in tile manager' do
   end
 
   before do
-    pending
+    skip
   end
 
   after do
@@ -45,12 +45,12 @@ feature 'Sees helpful information in tile manager' do
   context "for a tile in the archive that has never been activated", js: true do
     it "should say so" do
       tile = FactoryGirl.create(:tile, demo: demo, status: Tile::ARCHIVE)
-      tile.activated_at.should be_nil
-      tile.archived_at.should_not be_nil
+      expect(tile.activated_at).to be_nil
+      expect(tile.archived_at).not_to be_nil
 
       visit client_admin_tiles_path(as: client_admin)
 
-      activation_date(tile).should == "0"
+      expect(activation_date(tile)).to eq("0")
     end
   end
 
@@ -63,18 +63,18 @@ feature 'Sees helpful information in tile manager' do
     end
 
     it "should show the length of time that it was active", js: true do
-      activation_date(@tile).should == "7 days"
+      expect(activation_date(@tile)).to eq("7 days")
     end
 
     it "should show tile views", js: true do
-      total_views(@tile).should == 0
-      unique_views(@tile).should == 0
+      expect(total_views(@tile)).to eq(0)
+      expect(unique_views(@tile)).to eq(0)
 
       2.times { FactoryGirl.create :tile_viewing, tile: @tile }
       visit client_admin_tiles_path
 
-      total_views(@tile).should == 2
-      unique_views(@tile).should == 2
+      expect(total_views(@tile)).to eq(2)
+      expect(unique_views(@tile)).to eq(2)
     end
   end
 
@@ -88,7 +88,7 @@ feature 'Sees helpful information in tile manager' do
       end
 
       it "should show the length of time that it's been active", js: true do
-        activation_date(@tile).should == "7 days"
+        expect(activation_date(@tile)).to eq("7 days")
       end
     end
 
@@ -101,11 +101,11 @@ feature 'Sees helpful information in tile manager' do
       it "should have no views initially" do
         visit client_admin_tiles_path(as: client_admin)
 
-        total_views(@tile1).should == 0
-        total_views(@tile2).should == 0
+        expect(total_views(@tile1)).to eq(0)
+        expect(total_views(@tile2)).to eq(0)
 
-        unique_views(@tile1).should == 0
-        unique_views(@tile2).should == 0
+        expect(unique_views(@tile1)).to eq(0)
+        expect(unique_views(@tile2)).to eq(0)
       end
 
       it "should count user's views when he completes and views tiles", js: true do
@@ -121,10 +121,10 @@ feature 'Sees helpful information in tile manager' do
 
         visit client_admin_tiles_path(as: client_admin)
 
-        total_views(@tile2).should == 1
+        expect(total_views(@tile2)).to eq(1)
 
-        unique_views(@tile1).should == 1
-        unique_views(@tile2).should == 1
+        expect(unique_views(@tile1)).to eq(1)
+        expect(unique_views(@tile2)).to eq(1)
         #
         # => Views tiles
         #
@@ -140,11 +140,11 @@ feature 'Sees helpful information in tile manager' do
 
         visit client_admin_tiles_path
 
-        total_views(@tile1).should == 2
-        total_views(@tile2).should == 3
+        expect(total_views(@tile1)).to eq(2)
+        expect(total_views(@tile2)).to eq(3)
 
-        unique_views(@tile1).should == 1
-        unique_views(@tile2).should == 1
+        expect(unique_views(@tile1)).to eq(1)
+        expect(unique_views(@tile2)).to eq(1)
       end
 
       it "should count guest user's views when he views completed tiles", js: true do
@@ -177,11 +177,11 @@ feature 'Sees helpful information in tile manager' do
 
         visit client_admin_tiles_path(as: client_admin)
 
-        total_views(@tile1).should == 2
-        total_views(@tile2).should == 3
+        expect(total_views(@tile1)).to eq(2)
+        expect(total_views(@tile2)).to eq(3)
 
-        unique_views(@tile1).should == 1
-        unique_views(@tile2).should == 1
+        expect(unique_views(@tile1)).to eq(1)
+        expect(unique_views(@tile2)).to eq(1)
       end
     end
   end
@@ -206,10 +206,10 @@ feature 'Sees helpful information in tile manager' do
     end
 
     it "such as the number of users who have completed the tile" do
-      completions(@tile_1).should == 1
-      completions(@tile_2).should == 2
-      completions(@tile_3).should == 3
-      completions(@tile_4).should == 0
+      expect(completions(@tile_1)).to eq(1)
+      expect(completions(@tile_2)).to eq(2)
+      expect(completions(@tile_3)).to eq(3)
+      expect(completions(@tile_4)).to eq(0)
     end
   end
 end

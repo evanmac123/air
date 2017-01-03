@@ -21,7 +21,7 @@ describe BulkLoad::S3CensusChopper do
 
       expected_lines = File.read(test_file_path).lines.to_a[0, expected_count]
       expected_lines.each do |line|
-        $redis.rpop(key).should == line
+        expect($redis.rpop(key)).to eq(line)
       end
     end
 
@@ -37,16 +37,16 @@ describe BulkLoad::S3CensusChopper do
       chopper.feed_to_redis(lines_to_preview)
       stored_ids = $redis.smembers(chopper.redis_unique_ids_key)
       expected_ids = CSV.parse(File.read(test_file_path)).map{|row| row[1]}
-      stored_ids.sort.should == expected_ids.sort
+      expect(stored_ids.sort).to eq(expected_ids.sort)
     end
 
     it "should have some kind of way of indicating that it's done" do
-      $redis.get(chopper.redis_all_lines_chopped_key).should be_nil
+      expect($redis.get(chopper.redis_all_lines_chopped_key)).to be_nil
 
       chopper.feed_to_redis(1) do
       end
 
-      $redis.get(chopper.redis_all_lines_chopped_key).should be_present
+      expect($redis.get(chopper.redis_all_lines_chopped_key)).to be_present
     end
   end
 end

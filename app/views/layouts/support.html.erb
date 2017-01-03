@@ -14,10 +14,8 @@
     <%= stylesheet_link_tag 'app-support' %>
     <%= javascript_include_tag 'app-support' %>
 
-    <% unless @is_admin_page %>
-      <%= render 'shared/mixpanel' %>
-      <%= mp_track_page "Help Documentation" %>
-    <% end %>
+    <%= render 'shared/mixpanel' %>
+    <%= mp_track_page "Help Documentation" %>
 
   </head>
   <body class="<%= body_class %> external">

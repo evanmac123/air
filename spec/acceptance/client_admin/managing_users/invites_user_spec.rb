@@ -5,7 +5,7 @@ feature 'Invites user' do
     before do
       @user = FactoryGirl.create(:user)
       @client_admin = FactoryGirl.create(:client_admin, demo: @user.demo)
-      @user.should_not be_invited
+      expect(@user).not_to be_invited
     end
 
     context "when the user has an email address" do
@@ -14,7 +14,7 @@ feature 'Invites user' do
         click_link "Send invite"
 
         should_be_on edit_client_admin_user_path(@user)
-        @user.reload.should be_invited
+        expect(@user.reload).to be_invited
         expect_content "OK, we've just sent #{@user.name} an invitation."
       end
     end
@@ -45,21 +45,21 @@ feature 'Invites user' do
       click_button "Add User"
 
       new_user = @demo.users.order("created_at DESC").first
-      new_user.invited.should be_false
+      expect(new_user.invited).to be_falsey
       click_link "Next, send invite to Bob Jones"
 
-      new_user.reload.invited.should be_true
+      expect(new_user.reload.invited).to be_truthy
       expect_content "Success!"
       expect_no_content "Next, send invite to Bob Jones"
     end
 
     #FIXME this functionality is deprecated. Remove this test after confirming.
     #2016-07-26
-    pending "shouldn't be an option, if they have no email" do
+    skip "shouldn't be an option, if they have no email" do
       click_button "Add User"
 
       new_user = @demo.users.order("created_at DESC").first
-      new_user.invited.should be_false
+      expect(new_user.invited).to be_falsey
 
       expect_content "OK, we've added #{new_user.name}. They can join the game with the claim code #{new_user.claim_code.upcase}"
       expect_no_content "click here to invite them"
