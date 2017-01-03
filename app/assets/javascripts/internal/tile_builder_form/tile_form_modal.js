@@ -165,10 +165,12 @@ Airbo.TileFormModal = (function(){
         initVars();
         initEvents();
         initFormElements();
-        addForceValidation();
+        if(currform.data("tileid") !== null) {
+          addForceValidation();
+          currform.valid();
+        }
         modalObj.open();
         triggerMixpanelTileCreateDurationTracking();
-        currform.valid();
         initAutoSave();
         removeForceValidation();
       }.bind(self),
