@@ -7,6 +7,7 @@ Airbo.TileFormModal = (function(){
     , pickImageSel =".image_placeholder, .image_preview.show_shadows"
     , ajaxHandler = Airbo.AjaxResponseHandler
     , self
+    , saveable = false
   ;
 
   var modalObj = Airbo.Utils.StandardModal()
@@ -106,7 +107,8 @@ Airbo.TileFormModal = (function(){
       closeSticky: true,
       onOpenedEvent: function() {
         autosize.update( $('textarea') );
-      }
+      },
+      closeMessage: closeMessage.bind(self) ,
     });
   }
 
@@ -145,10 +147,29 @@ Airbo.TileFormModal = (function(){
         Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("save"));
         ajaxHandler.submit(formObj, submitSuccess, resetSubmit);
       }else{
+        saveable = false;
         validator.focusInvalid();
       }
     });
   }
+
+  function initAutoSave(){
+    var me = this;
+    $(currform).on("change", function() {
+
+      addAutoSave();
+      disablesubmitLink()
+      if(currform.valid()){
+        disablesubmitLink()
+        ajaxHandler.submit(currform, autoSaveSuccess.bind(me), resetSubmit);
+      }else{
+        saveable = false;
+        resetSubmit();
+      }
+    });
+
+  }
+
 
   function initVars() {
     currform = $(formSel);
@@ -170,23 +191,10 @@ Airbo.TileFormModal = (function(){
     updateThumbnail(data)
     enablesubmitLink();
     removeAutoSave();
+    saveable = true;
   }
 
-  function initAutoSave(){
-    var me = this;
-    $(currform).on("change", function() {
 
-      addAutoSave();
-      disablesubmitLink()
-      if(currform.valid()){
-        disablesubmitLink()
-        ajaxHandler.submit(currform, autoSaveSuccess.bind(me),resetSubmit);
-      }else{
-        resetSubmit();
-      }
-    });
-
-  }
 
 
 
@@ -202,6 +210,7 @@ Airbo.TileFormModal = (function(){
         initEvents();
         initFormElements();
         if(currform.data("tileid") !== null) {
+          saveable = true;
           addForceValidation();
           currform.valid();
         }
@@ -217,6 +226,16 @@ Airbo.TileFormModal = (function(){
     });
   }
 
+  function closeMessage(){
+    currform.valid();
+    if(saveable == true){
+      return "Your changes have been autosaved. Click 'Cancel' to continuing editing this Tile or Ok to close the Tile Editor.";
+    }else{
+      return "Are you sure you want to stop editing this Tile. All of your changes will be lost."
+    }
+
+  }
+
   function init(mgr) {
     self = this;
     initModalObj();
@@ -229,6 +248,7 @@ Airbo.TileFormModal = (function(){
     open: open,
     openModal: openModal,
     tileContainerSizes: tileContainerSizes,
-    modalId: modalId
+    modalId: modalId,
+    closeMessage, closeMessage
   }
 }());

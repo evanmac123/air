@@ -10,6 +10,7 @@ Airbo.Utils.StandardModal = (function(){
       , modalXSel
       , ajaxModalClass = "ajax_modal"
       , ajaxModalSel = "." + ajaxModalClass
+      , params
       , defaultParams = {
           useAjaxModal: false,
           closeSel: "",
@@ -21,9 +22,9 @@ Airbo.Utils.StandardModal = (function(){
           confirmOnClose: false,
           scrollOnOpen: true,
           smallModal: false,
-          modalClass: ""
+          modalClass: "",
+          closeMessage: function(){return "Are you sure"}
         }
-      , params
     ;
 
     function scrollModalToTop() {
@@ -38,8 +39,8 @@ Airbo.Utils.StandardModal = (function(){
     }
 
     function closeModal() {
-      var message = "Your changes have been autosaved. Click 'Cancel' to continuing editing this Tile or Ok to close the Tile Editor.";
-      Airbo.Utils.approve(message, modal.foundation.bind(modal, "reveal", "close"))
+     var msg = params.closeMessage();
+      Airbo.Utils.approve(msg, modal.foundation.bind(modal, "reveal", "close"))
     }
 
     function close() {
