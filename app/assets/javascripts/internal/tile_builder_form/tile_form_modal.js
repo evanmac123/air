@@ -51,6 +51,34 @@ Airbo.TileFormModal = (function(){
     currform.append("<input type='hidden' name='forcevalidation' id='forcevalidation'/>");
   }
 
+  function removeForceValidation(){
+    $("#forcevalidation", currform).remove();
+  }
+
+  function addAutoSave(){
+    addSavingIndicator();
+    currform.append("<input type='hidden' name='autosave' id='autosave'/>");
+  }
+
+  function removeAutoSave(){
+    removeSavingIndicator();
+    $("#autosave", currform).remove();
+  }
+
+  function resetSubmit(){
+    removeAutoSave();
+    enablesubmitLink();
+  }
+
+  function addSavingIndicator(){
+    submitLink.addClass("saving");
+  }
+
+
+  function removeSavingIndicator(){
+    submitLink.removeClass("saving");
+  }
+
   function initFormElements() {
     validator = Airbo.TileFormValidator.init(currform);
     Airbo.TileImagesMgr.init();
@@ -101,9 +129,10 @@ Airbo.TileFormModal = (function(){
 
     submitLink.click(function(e){
       e.preventDefault();
-      if($(e.target).attr("disabled") === "disabled"){
+      if($(this).attr("disabled") === "disabled"){
         return;
       }
+      addSavingIndicator();
       currform.submit();
     });
 
@@ -114,7 +143,7 @@ Airbo.TileFormModal = (function(){
       if(formObj.valid()){
         disablesubmitLink();
         Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("save"));
-        ajaxHandler.submit(formObj, submitSuccess, enablesubmitLink);
+        ajaxHandler.submit(formObj, submitSuccess, resetSubmit);
       }else{
         validator.focusInvalid();
       }
@@ -140,25 +169,27 @@ Airbo.TileFormModal = (function(){
 
     updateThumbnail(data)
     enablesubmitLink();
+    removeAutoSave();
   }
 
   function initAutoSave(){
     var me = this;
     $(currform).on("change", function() {
 
+      addAutoSave();
       disablesubmitLink()
       if(currform.valid()){
         disablesubmitLink()
-        ajaxHandler.submit(currform, autoSaveSuccess.bind(me), $.noop);
+        ajaxHandler.submit(currform, autoSaveSuccess.bind(me),resetSubmit);
+      }else{
+        resetSubmit();
       }
     });
 
   }
 
 
-  function removeForceValidation(){
-    $("#forcevalidation", currform).remove();
-  }
+
 
   function open(url) {
     $.ajax({

@@ -114,6 +114,10 @@
           content: '';
         }
         &[disabled] {
+          color: grey;
+        }
+
+        &.saving{
           @include button-with-spinner($n-blue);
         }
       }
