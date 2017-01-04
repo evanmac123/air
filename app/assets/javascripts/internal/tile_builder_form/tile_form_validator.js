@@ -54,6 +54,7 @@ Airbo.TileFormValidator = (function(){
     },
 
     messages: {
+      "tile_builder_form[headline]": headlineError,
       "tile_builder_form[question_subtype]": "Question option is required.",
       "tile_builder_form[correct_answer_index]": "Please select one choice as the correct answer.",
       "tile_builder_form[answers][]": "Please provide text for all answer options."
@@ -97,6 +98,10 @@ Airbo.TileFormValidator = (function(){
     return errorClass;
   }
 
+
+  function headlineError(f, s){
+    return "Headline is required";
+  }
 
   function forceValidation(){
     return $("#forcevalidation", form).length >  0 ?  true : false;
