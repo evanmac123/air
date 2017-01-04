@@ -16,46 +16,46 @@ describe Tile do
       tile = Tile.new
       tile.status = Tile::DRAFT
       tile.headline = "headliner"
-      expect(tile.valid?).to be_true
+      expect(tile.valid?).to be true
     end
     it "can be created with just  image" do
       tile = Tile.new
       tile.status = Tile::DRAFT
       tile.remote_media_url = "image.png"
-      expect(tile.valid?).to be_true
+      expect(tile.valid?).to be true
     end
 
     it "cannot be created if headline and image missing" do
       tile = Tile.new
       tile.headline = nil
       tile.remote_media_url = nil
-      expect(tile.valid?).to be_false
+      expect(tile.valid?).to be false
     end
 
 
     it "cannot set to active if incomplete" do
       tile  = FactoryGirl.create :tile, status: Tile::ACTIVE
       tile.remote_media_url = nil
-      expect(tile.valid?).to be_false
+      expect(tile.valid?).to be false
     end
 
     it "cannot be posted if missing image" do
       tile  = FactoryGirl.create :tile, status: Tile::DRAFT
       tile.remote_media_url = nil
       tile.status = Tile::ACTIVE 
-      expect(tile.save).to be_false
+      expect(tile.save).to be false
     end
 
     it "can be saved as draft if supporting content len > specfied max" do
       tile  = FactoryGirl.create :tile, status: Tile::DRAFT, supporting_content: LONG_TEXT
-      expect(tile.save).to be_true
+      expect(tile.save).to be true
     end
 
     it "cannot be posted if supporting content len > specfied max" do
       tile  = FactoryGirl.create :tile, status: Tile::DRAFT
       tile.supporting_content = LONG_TEXT
       tile.status = Tile::ACTIVE 
-      expect(tile.save).to be_false
+      expect(tile.save).to be false
     end
   end
 
