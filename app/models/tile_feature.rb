@@ -64,6 +64,14 @@ class TileFeature < ActiveRecord::Base
     rdb[:background_color].set(color)
   end
 
+  def channels
+    rdb[:channels].get
+  end
+
+  def channels=(channel_list)
+    rdb[:channels].set(channel_list)
+  end
+
   def get_tiles(tiles)
     if tile_ids
       grouped_tiles = tiles.where(id: tile_ids).group_by(&:id)

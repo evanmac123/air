@@ -37,6 +37,6 @@ class Admin::TileFeaturesController < AdminBaseController
     end
 
     def tile_feature_redis_params
-      params.require(:redis).permit(:custom_icon_url, :text_color, :header_copy, :background_color, :tile_ids)
+      params.require(:redis).permit(:custom_icon_url, :text_color, :header_copy, :background_color, :tile_ids, :channels)
     end
 end
