@@ -101,6 +101,9 @@ Airbo.TileFormModal = (function(){
 
     submitLink.click(function(e){
       e.preventDefault();
+      if($(e.target).attr("disabled") === "disabled"){
+        return;
+      }
       currform.submit();
     });
 
@@ -142,6 +145,8 @@ Airbo.TileFormModal = (function(){
   function initAutoSave(){
     var me = this;
     $(currform).on("change", function() {
+
+      disablesubmitLink()
       if(currform.valid()){
         disablesubmitLink()
         ajaxHandler.submit(currform, autoSaveSuccess.bind(me), $.noop);
