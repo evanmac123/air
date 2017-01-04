@@ -155,19 +155,20 @@ Airbo.TileFormModal = (function(){
 
   function initAutoSave(){
     var me = this;
-    $(currform).on("change", function() {
+    if(currform.data("suggested") === false){
+      $(currform).on("change", function() {
 
-      addAutoSave();
-      disablesubmitLink()
-      if(currform.valid()){
+        addAutoSave();
         disablesubmitLink()
-        ajaxHandler.submit(currform, autoSaveSuccess.bind(me), resetSubmit);
-      }else{
-        saveable = false;
-        resetSubmit();
-      }
-    });
-
+        if(currform.valid()){
+          disablesubmitLink()
+          ajaxHandler.submit(currform, autoSaveSuccess.bind(me), resetSubmit);
+        }else{
+          saveable = false;
+          resetSubmit();
+        }
+      });
+    }
   }
 
 

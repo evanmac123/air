@@ -55,7 +55,6 @@ Airbo.TileFormValidator = (function(){
     },
 
     messages: {
-      "tile_builder_form[headline]": headlineError,
       "tile_builder_form[question_subtype]": "Question option is required.",
       "tile_builder_form[correct_answer_index]": "Please select one choice as the correct answer.",
       "tile_builder_form[answers][]": "Please provide text for all answer options."
@@ -105,11 +104,11 @@ Airbo.TileFormValidator = (function(){
   }
 
   function forceValidation(){
-    return $("#forcevalidation", form).length >  0 ?  true : false;
+    return $("#forcevalidation").length >  0 ?  true : false;
   }
 
   function isAutoSaving(){
-    return $("#autosave", form).length >  0 ?  true : false;
+    return $("#autosave").length >  0 ?  true : false;
   }
 
   function formIsNotDraft(){
@@ -127,7 +126,7 @@ Airbo.TileFormValidator = (function(){
   function hasLimit(){
     var form = $("#new_tile_builder_form");
 
-    if(forceValidation() || $("#tile_builder_form_status", form).val() !=="draft"){
+    if(forceValidation() || $("#tile_builder_form_status").val() !=="draft"){
       return 700;
     }else{
       return 9999999;
@@ -139,9 +138,13 @@ Airbo.TileFormValidator = (function(){
  function initHeadlineValidator(){
    $.validator.addMethod("headLineValidator", function(value, element, params) {
      var image_url = $("#remote_media_url").val()
-
+     var form = $("#new_tile_builder_form");
      if(value !== "")
        return true
+
+     else if(form.data("suggested")==true && value === ""){
+       return false
+     }
      else{
        if (forceValidation() || image_url === undefined || image_url === "" && value==""){
          return false
