@@ -19,7 +19,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def tile_count
-    tiles.count
+    tiles.explore.count
   end
 
   def to_param

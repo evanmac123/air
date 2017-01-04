@@ -2,7 +2,8 @@ class Explore::TilePreviewsController < ExploreBaseController
   prepend_before_filter :find_tile
 
   def show
-    @tiles = get_sorted_explore_tiles
+    # TODO: Refactor out single tile view to separate action
+    @tiles = params[:tile_ids] ? get_sorted_explore_tiles : [@tile]
     @next_tile = next_explore_tile(1)
     @prev_tile = next_explore_tile(-1)
     schedule_mixpanel_pings(@tile)

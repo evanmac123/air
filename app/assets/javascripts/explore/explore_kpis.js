@@ -13,11 +13,6 @@ Airbo.ExploreKpis = (function(){
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
-  function tileSectionTabsPing(tab) {
-    var properties = $.extend({ action: "Clicked " + tab.text() }, currentUserData);
-    Airbo.Utils.ping("Explore page - Interaction", properties);
-  }
-
   function campaignClickedPing(topic) {
     var properties = $.extend({ action: "Clicked Campaign", campaign: topic.data("name"), board: topic.data("id") }, currentUserData);
     Airbo.Utils.ping("Explore page - Interaction", properties);
@@ -43,10 +38,6 @@ Airbo.ExploreKpis = (function(){
   }
 
   function bindKPIs() {
-    $(".explore_tiles_tab").on("click", function() {
-      tileSectionTabsPing($(this));
-    });
-
     $(".topic").on("click", function() {
       campaignClickedPing($(this));
     });
