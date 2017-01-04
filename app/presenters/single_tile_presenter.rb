@@ -5,6 +5,7 @@ class SingleTilePresenter < BasePresenter
             :thumbnail,
             :headline,
             :demo,
+            :tile_completions_count,
             to: :tile
 
   presents :tile
