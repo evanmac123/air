@@ -83,18 +83,18 @@ describe TileFeature do
   end
 
   context "tile collections in explore do not include featured tiles" do
-    it "excludes featured tiles in the Tile.verified_explore query" do
+    it "excludes featured tiles in the Tile.explore_without_featured_tiles query" do
       org = FactoryGirl.create(:organization, name: "Airbo")
       FactoryGirl.create_list(:tile, 10, organization: org, is_public: true)
 
-      expect(Tile.verified_explore.count).to eq(10)
+      expect(Tile.explore_without_featured_tiles.count).to eq(10)
 
       tile_feature = FactoryGirl.create(:tile_feature, active: true)
 
       tile_ids = Tile.limit(5).pluck(:id).join(",")
       tile_feature.dispatch_redis_updates({ tile_ids: tile_ids })
 
-      expect(Tile.verified_explore.count).to eq(5)
+      expect(Tile.explore_without_featured_tiles.count).to eq(5)
     end
   end
 end

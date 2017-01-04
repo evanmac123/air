@@ -1,21 +1,36 @@
-example_id                                                            | status  | run_time        |
---------------------------------------------------------------------- | ------- | --------------- |
-./spec/controllers/client_admin/tile_images_controller_spec.rb[1:1:1] | passed  | 7.04 seconds    |
-./spec/mailers/generic_mailer_spec.rb[1:1:1]                          | passed  | 1.14 seconds    |
-./spec/mailers/generic_mailer_spec.rb[1:1:2]                          | unknown |                 |
-./spec/mailers/generic_mailer_spec.rb[1:1:3]                          | unknown |                 |
-./spec/mailers/generic_mailer_spec.rb[1:1:4]                          | unknown |                 |
-./spec/mailers/generic_mailer_spec.rb[1:1:5]                          | unknown |                 |
-./spec/mailers/generic_mailer_spec.rb[1:1:6:1]                        | unknown |                 |
-./spec/mailers/generic_mailer_spec.rb[1:2:1]                          | unknown |                 |
-./spec/models/raffle_spec.rb[1:1]                                     | unknown |                 |
-./spec/models/raffle_spec.rb[1:2]                                     | unknown |                 |
-./spec/models/raffle_spec.rb[1:3]                                     | unknown |                 |
-./spec/models/raffle_spec.rb[1:4:1]                                   | passed  | 0.90651 seconds |
-./spec/models/raffle_spec.rb[1:4:2]                                   | unknown |                 |
-./spec/models/raffle_spec.rb[1:4:3]                                   | unknown |                 |
-./spec/models/raffle_spec.rb[1:4:4]                                   | unknown |                 |
-./spec/models/tile_completion_spec.rb[1:1]                            | unknown |                 |
-./spec/models/tile_completion_spec.rb[1:2]                            | unknown |                 |
-./spec/models/tile_completion_spec.rb[1:3]                            | passed  | 1.29 seconds    |
-./spec/models/tile_completion_spec.rb[1:4]                            | unknown |                 |
+example_id                                                                    | status  | run_time        |
+----------------------------------------------------------------------------- | ------- | --------------- |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:1:1:1]   | passed  | 26.06 seconds   |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:1:1:2:1] | passed  | 1.62 seconds    |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:1:1:3]   | passed  | 1.8 seconds     |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:1:1:4]   | passed  | 1.52 seconds    |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:2:1]     | passed  | 1.59 seconds    |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:3:1:1]   | passed  | 14.08 seconds   |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:3:2:1]   | passed  | 0.9567 seconds  |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:3:3:1]   | passed  | 0.80865 seconds |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:3:4:1]   | passed  | 0.68843 seconds |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:4:1:1]   | passed  | 1.47 seconds    |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:4:2:1]   | passed  | 1.17 seconds    |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:4:3:1]   | passed  | 0.87313 seconds |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:4:4:1]   | passed  | 0.82655 seconds |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:4:5:1]   | passed  | 0.79855 seconds |
+./spec/acceptance/explore/interacts_with_tile_preview_page_spec.rb[1:5:1]     | passed  | 1.63 seconds    |
+./spec/controllers/client_admin/tile_images_controller_spec.rb[1:1:1]         | passed  | 7.04 seconds    |
+./spec/mailers/generic_mailer_spec.rb[1:1:1]                                  | passed  | 1.14 seconds    |
+./spec/mailers/generic_mailer_spec.rb[1:1:2]                                  | unknown |                 |
+./spec/mailers/generic_mailer_spec.rb[1:1:3]                                  | unknown |                 |
+./spec/mailers/generic_mailer_spec.rb[1:1:4]                                  | unknown |                 |
+./spec/mailers/generic_mailer_spec.rb[1:1:5]                                  | unknown |                 |
+./spec/mailers/generic_mailer_spec.rb[1:1:6:1]                                | unknown |                 |
+./spec/mailers/generic_mailer_spec.rb[1:2:1]                                  | unknown |                 |
+./spec/models/raffle_spec.rb[1:1]                                             | unknown |                 |
+./spec/models/raffle_spec.rb[1:2]                                             | unknown |                 |
+./spec/models/raffle_spec.rb[1:3]                                             | unknown |                 |
+./spec/models/raffle_spec.rb[1:4:1]                                           | passed  | 0.90651 seconds |
+./spec/models/raffle_spec.rb[1:4:2]                                           | unknown |                 |
+./spec/models/raffle_spec.rb[1:4:3]                                           | unknown |                 |
+./spec/models/raffle_spec.rb[1:4:4]                                           | unknown |                 |
+./spec/models/tile_completion_spec.rb[1:1]                                    | unknown |                 |
+./spec/models/tile_completion_spec.rb[1:2]                                    | unknown |                 |
+./spec/models/tile_completion_spec.rb[1:3]                                    | passed  | 1.29 seconds    |
+./spec/models/tile_completion_spec.rb[1:4]                                    | unknown |                 |
