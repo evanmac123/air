@@ -9,7 +9,7 @@ FactoryGirl.define do
     question "Who loves ya, baby?"
     question_type Tile::QUIZ
     question_subtype Tile::MULTIPLE_CHOICE
-    remote_media_url "spec/support/fixtures/tiles/cov1.jpg"
+    remote_media_url "#{Rails.root}/spec/support/fixtures/tiles/cov1.jpg"
 
     trait :with_creator do
       association :creator, :factory => :user
