@@ -1,10 +1,8 @@
 class Explore::TilePreviewsController < ExploreBaseController
   prepend_before_filter :find_tile
 
-  include ExploreHelper
-
   def show
-    @tiles = params[:tile_ids] ? get_sorted_explore_tiles : Tile.explore.verified_explore
+    @tiles = get_sorted_explore_tiles
     @next_tile = next_explore_tile(1)
     @prev_tile = next_explore_tile(-1)
     schedule_mixpanel_pings(@tile)
@@ -23,10 +21,6 @@ class Explore::TilePreviewsController < ExploreBaseController
 
     def schedule_mixpanel_pings(tile)
       ping("Tile - Viewed in Explore", {tile_id: tile.id, section: params[:section]}, current_user)
-
-      if current_user.present?
-        email_clicked_ping(current_user)
-      end
     end
 
     def find_board_for_guest
