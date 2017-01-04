@@ -249,6 +249,6 @@ Airbo.TileFormModal = (function(){
     openModal: openModal,
     tileContainerSizes: tileContainerSizes,
     modalId: modalId,
-    closeMessage, closeMessage
+    closeMessage: closeMessage
   }
 }());
