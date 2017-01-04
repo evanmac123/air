@@ -59,7 +59,6 @@ gem 'sanitize'
 gem 'htmlentities'
 gem 'rack-mini-profiler', require: false
 gem 'unicorn'   # Some of our capybara webkit tests fail with thin, so we use unicorn
-gem 'newrelic_rpm'
 gem 'jquery-fileupload-rails'#
 gem 'acts_as_singleton'
 gem 'acts-as-taggable-on', '~> 3.5.0'
@@ -101,7 +100,6 @@ end
 group :test do
   gem 'simplecov'
   gem 'codeclimate-test-reporter', '~> 1.0.0'
-  gem 'cucumber-rails', require: false
   gem 'bourne'
   gem 'test_after_commit'
   gem 'capybara'

@@ -9,10 +9,7 @@ test: &test
   <<: *default
   database: health_test
 
-cucumber:
-  <<: *test
-
-production: 
+production:
   adapter: postgresql
   min_messages: warning
   database: production
