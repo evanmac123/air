@@ -107,13 +107,6 @@ ActiveRecord::Schema.define(:version => 20161219222303) do
     t.integer  "organization_id"
   end
 
-  create_table "blacklists", :force => true do |t|
-    t.integer  "raffle_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "board_memberships", :force => true do |t|
     t.boolean  "is_current",                       :default => true
     t.boolean  "is_client_admin",                  :default => false
