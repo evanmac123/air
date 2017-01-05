@@ -29,7 +29,7 @@ Airbo.TileThumbnail = (function() {
       Airbo.TileAction.confirmAcceptance(target);
     });
 
-    tileContainer.find(".edit_button a").click(function(e){
+    tileContainer.find(".edit_button a, .incomplete_button a").click(function(e){
       e.preventDefault();
       url = $(this).attr("href");
 

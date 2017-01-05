@@ -15,10 +15,11 @@
         <% end %>
       </li>
     <% end %>
-  <% if presenter.has_working_button? %>
-      <li class="edit_button">
-        <%= link_to edit_client_admin_tile_path(presenter), data:{action: "edit", "tile-id" => presenter.tile_id, status: presenter.status} do %>
-          <%= fa_icon 'wrench' %>
+
+    <% if presenter.has_incomplete_edit_button? %>
+      <li class="incomplete_button">
+        <%= link_to edit_client_admin_tile_path(presenter),  class: "button", data:{action: "edit", "tile-id" => presenter.tile_id, status: presenter.status} do %>
+          Edit
         <% end %>
       </li>
     <% end %>

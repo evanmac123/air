@@ -58,9 +58,20 @@ class SingleAdminTilePresenter < BasePresenter
     true
   end
 
+  def incomplete_label
+    content_tag :div, class: "activation_dates" do
+      content_tag :span,  class:'tile-created-at' do
+         s = content_tag :i, "",  class: 'fa fa-cog'
+         s+= "Incomplete"
+      end
+    end
+  end
+
   def activation_dates
-    if tile_status_matches? :active, :archive, :draft, :user_submitted, :ignored
+    if tile.is_fully_assembled? && tile_status_matches?(:active, :archive, :draft, :user_submitted, :ignored)
       content_tag :div, raw(timestamp), class: "activation_dates"
+    else
+      incomplete_label
     end
   end
 
@@ -80,8 +91,7 @@ class SingleAdminTilePresenter < BasePresenter
     tile_status_matches?(:archive, :draft) && tile.is_fully_assembled?
   end
 
-
-  def has_working_button?
+  def has_incomplete_edit_button?
     tile_status_matches?(:draft) && !tile.is_fully_assembled?
   end
 
@@ -112,7 +122,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def has_menu?
-    tile_status_matches? :draft, :active, :archive
+    tile_status_matches?(:draft, :active, :archive) && tile.is_fully_assembled?
   end
 
   def shows_creator?
