@@ -4,9 +4,8 @@ describe TileFeature do
   it { is_expected.to validate_presence_of :name}
   it { is_expected.to validate_uniqueness_of :name}
   it { is_expected.to validate_presence_of :rank}
-  it { is_expected.to validate_uniqueness_of :rank}
 
-  let(:tile_feature) { FactoryGirl.create(:tile_feature, active: true) }
+  let(:tile_feature) {FactoryGirl.create(:tile_feature, active: true)}
 
   it "assigns redis values given hash of parameters" do
     FactoryGirl.create_list(:tile, 6, is_public: true)
