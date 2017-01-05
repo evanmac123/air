@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170104222548) do
+ActiveRecord::Schema.define(:version => 20170105004320) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -153,7 +153,7 @@ ActiveRecord::Schema.define(:version => 20170104222548) do
 
   create_table "campaigns", :force => true do |t|
     t.integer  "demo_id"
-    t.string   "description"
+    t.text     "description"
     t.string   "cover_image_file_name"
     t.string   "cover_image_content_type"
     t.integer  "cover_image_file_size"
