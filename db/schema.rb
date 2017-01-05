@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161216212301) do
+ActiveRecord::Schema.define(:version => 20170104222548) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -950,6 +950,7 @@ ActiveRecord::Schema.define(:version => 20161216212301) do
     t.datetime "updated_at", :null => false
     t.boolean  "active"
     t.integer  "channel_id"
+    t.string   "slug"
   end
 
   add_index "tile_features", ["channel_id"], :name => "index_tile_features_on_channel_id"

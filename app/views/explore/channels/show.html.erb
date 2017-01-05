@@ -33,3 +33,45 @@
     </div>
   </section>
 </div>
+
+
+<section class="manage_section channel_container" id="<%= feature.name %>" style="background:<%= feature.background_color %>">
+  <div class="row">
+    <div class="large-12 columns">
+      <% if feature.custom_icon_url.present? %>
+        <%= image_tag feature.custom_icon_url, class: "recommended-tiles-custom-icon" %>
+        <h4 class="explore-headers non-link" style="color:<%= feature.text_color %>; margin-left:0"><%= feature.header_copy || "Recommended Tiles" %></h4>
+      <% else %>
+        <h4 class="explore-headers non-link" style="color:<%= feature.text_color %>"><%= feature.header_copy || "#{feature.name} Tiles" %></h4>
+      <% end %>
+      <div id="channel_tiles">
+        <div class="tile_wall_explore">
+          <% cache feature_tiles do %>
+            <%= render partial: 'explore/tiles', locals: { tiles: feature_tiles, section: feature.name } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="explore explore-show" data-channel-id="<%= @channel.id %>">
+  <div id="tile_wall_explore">
+    <section class="manage_section" id="channels">
+      <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
+    </section>
+    <%= render partial: 'explore/tile_feature', locals: { feature: @tile_feature } %>
+
+    <% unless @related_campaigns.empty? %>
+      <section class="manage_section" id="campaign_boards">
+        <%= render partial: 'explore/campaigns', locals: { campaigns: @related_campaigns, header: "Related Campaigns" } %>
+      </section>
+    <% end %>
+
+    <section class="manage_section" id="explore_tiles">
+      <%= render partial: 'explore/explore_tiles', locals: { tiles: @related_tiles, header: "Related Tiles" } %>
+    </section>
+  </div>
+</div>

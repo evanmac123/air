@@ -6,4 +6,5 @@ namespace :explore do
   resources :tile_previews, only: [:show], path: "tile"
   resources :campaigns, only: [:show]
   resources :channels, only: [:show]
+  resources :tile_features, only: [:show]
 end

@@ -10,7 +10,7 @@
 
 @import "mixins/green_paddle_switch";
 
-.client_admin-campaigns, .client_admin-channels {
+.explore-campaigns, .explore-channels, .explore-tile_features {
   .content {
     background: #fff;
     padding: 0;
@@ -22,6 +22,7 @@ body.explore, .explore {
     height: 100px;
     .channels {
       display: none;
+      @include flickity;
       @include channels;
     }
   }
@@ -34,6 +35,7 @@ body.explore, .explore {
   }
 
   .campaigns {
+    @include flickity;
     @include campaigns;
     background: transparent;
   }

@@ -1,6 +1,6 @@
 <div class="manage_section explore_tiles_section" id="verified_tiles">
   <div class="row">
-    <h4 class="explore-headers non-link">Explore Tiles</h4>
+    <h4 class="explore-headers non-link"><%= header %></h4>
     <div class="large-12 columns">
       <div class="endless_scroll_content_container tile_wall_explore" data-page="<%= params[:page] || 1 %>" data-count="<%= tiles.count %>" data-path="<%= explore_path %>">
         <% cache tiles do %>

@@ -1,14 +1,32 @@
 class TileFeature < ActiveRecord::Base
+  before_save :update_slug
+
   validates :name, presence: true, uniqueness: true
   validates :rank, presence: true, uniqueness: true
 
   scope :active, -> { where(active: true) }
   scope :ordered, -> { active.order(:rank) }
 
+  def to_param
+    self.slug
+  end
+
+  def update_slug
+    self.slug = name.parameterize
+  end
+
   def dispatch_redis_updates(redis_params)
     redis_params.each { |redis_key, value|
       self.send("#{redis_key}=", value) if value
     }
+  end
+
+  def related_tiles
+    Tile.explore.tagged_with(channels.split(","), on: :channels, any: true)
+  end
+
+  def related_campaigns
+    Campaign.tagged_with(channels.split(","), on: :channels, any: true)
   end
 
   def tile_ids=(tile_ids)
