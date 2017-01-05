@@ -11,7 +11,7 @@ Airbo.CampaignsCarousel = (function(){
       groupCells: true,
       wrapAround: true,
       pageDots: false,
-      draggable: false
+      draggable: false,
     });
 
     $carousel.on( 'staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {

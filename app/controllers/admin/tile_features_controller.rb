@@ -1,6 +1,6 @@
 class Admin::TileFeaturesController < AdminBaseController
   def index
-    @tile_features = TileFeature.scoped
+    @tile_features = TileFeature.order(:name)
   end
 
   def create
@@ -33,7 +33,7 @@ class Admin::TileFeaturesController < AdminBaseController
   private
 
     def tile_feature_ar_params
-      params.require(:tile_feature).permit(:name, :rank, :active)
+      params.require(:tile_feature).permit(:name, :rank, :active, :channel_list)
     end
 
     def tile_feature_redis_params

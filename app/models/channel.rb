@@ -32,7 +32,6 @@ class Channel < ActiveRecord::Base
   end
 
   def related_features
-    binding.pry
     TileFeature.tagged_with(self.name, on: :channels, any: true)
   end
 end
