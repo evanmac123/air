@@ -47,6 +47,19 @@
       color: #5c5c5c;
       padding: 6px;
     }
+    &.incomplete_button{
+      float: left;
+      .button {
+        background-color: red;
+        border-color: red;
+        opacity: .75;
+        &:hover{
+          background-color:red;
+          border-color: red;
+          opacity: .5;
+        }
+      }
+    }
     &.edit_button, &.more_button {
       width: 32px;
       height: 32px;
