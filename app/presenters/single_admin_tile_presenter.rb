@@ -95,7 +95,9 @@ class SingleAdminTilePresenter < BasePresenter
     tile_status_matches?(:draft) && !tile.is_fully_assembled?
   end
 
-
+  def has_incomplete_destroy_button?
+    tile_status_matches?(:draft) && !tile.is_fully_assembled?
+  end
 
    def has_edit_button?
      tile_status_matches?(:draft, :active, :archive) && tile.is_fully_assembled?

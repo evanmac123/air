@@ -38,6 +38,11 @@ Airbo.TileThumbnail = (function() {
       tileForm.open(url);
     });
 
+    tileContainer.find(".destroy_button a").click(function(e){
+      e.preventDefault();
+      Airbo.TileAction.confirmDeletion($(this));
+    });
+
     $("body").off("click", curTileContainerSelector + thumbLinkSel);
     $("body").on("click", curTileContainerSelector + thumbLinkSel, function(e){
       e.preventDefault();
