@@ -1,6 +1,7 @@
 Airbo 🎉
 ========
-[![Code Climate](https://codeclimate.com/repos/55e48aaee30ba07a20000264/badges/c3777803cac110be5c21/gpa.svg)](https://codeclimate.com/repos/55e48aaee30ba07a20000264/feed) [![Test Coverage](https://codeclimate.com/repos/55e48aaee30ba07a20000264/badges/c3777803cac110be5c21/coverage.svg)](https://codeclimate.com/repos/55e48aaee30ba07a20000264/coverage) [![Build Status](https://semaphoreci.com/api/v1/projects/ba420932-a062-4cec-916a-fedd904d027a/1029645/shields_badge.svg)](https://semaphoreci.com/airbo/hengage)
+[![Code Climate](https://codeclimate.com/repos/55e48aaee30ba07a20000264/badges/c3777803cac110be5c21/gpa.svg)](https://codeclimate.com/repos/55e48aaee30ba07a20000264/feed) [![Test Coverage](https://codeclimate.com/repos/55e48aaee30ba07a20000264/badges/c3777803cac110be5c21/coverage.svg)](https://codeclimate.com/repos/55e48aaee30ba07a20000264/coverage) [![Build Status](https://semaphoreci.com/api/v1/projects/ba420932-a062-4cec-916a-fedd904d027a/1029645/badge.svg)](https://semaphoreci.com/airbo/hengage)
+
 
 
 Laptop setup
