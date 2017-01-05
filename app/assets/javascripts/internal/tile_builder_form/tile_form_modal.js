@@ -237,7 +237,7 @@ Airbo.TileFormModal = (function(){
     if(saveable == true){
       return "Your changes have been autosaved. Click 'Cancel' to continuing editing this Tile or Ok to close the Tile Editor.";
     }else{
-      return "Are you sure you want to stop editing this Tile. All of your changes will be lost."
+      return "Are you sure you want to stop editing this Tile. It could not be autosaved. Any changes you've made will be lost."
     }
 
   }
