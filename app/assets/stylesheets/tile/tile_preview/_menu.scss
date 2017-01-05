@@ -98,7 +98,23 @@
   &.form_menu {
     left: 35px;
   }
-  &.explore_menu, &.form_menu, &.incomplete {
+  &.incomplete{
+    border: 1px solid #FF5656;
+    .preview_menu_item {
+      color:  #FF5656;
+      width: 100%;
+      a{
+        color: #FF5656;
+        &:hover {color: darken(#FF5656, 10%);}
+        &:before {
+          content: '';
+        }
+
+      }
+    }
+  }
+
+  &.explore_menu, &.form_menu {
     border: 1px solid $n-blue;
     .preview_menu_item {
       // border-left: 1px $n-blue  solid;
