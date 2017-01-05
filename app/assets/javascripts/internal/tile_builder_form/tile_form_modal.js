@@ -102,7 +102,7 @@ Airbo.TileFormModal = (function(){
     modalObj.init({
       modalId: modalId,
       useAjaxModal: true,
-      confirmOnClose: true,
+      confirmOnClose: false,
       modalClass: "bg-user-side",
       closeSticky: true,
       onOpenedEvent: function() {
@@ -158,14 +158,15 @@ Airbo.TileFormModal = (function(){
     var me = this;
     if(currform.data("suggested") === false){
       $(currform).on("change", function() {
-
         addAutoSave();
         disablesubmitLink()
         if(currform.valid()){
+          modalObj.setConfirmOnClose(false);
           disablesubmitLink()
           ajaxHandler.submit(currform, autoSaveSuccess.bind(me), resetSubmit);
         }else{
           saveable = false;
+          modalObj.setConfirmOnClose(true);
           resetSubmit();
         }
       });
@@ -215,6 +216,9 @@ Airbo.TileFormModal = (function(){
           saveable = true;
           addForceValidation();
           currform.valid();
+
+        }else{
+          modalObj.setConfirmOnClose(true);
         }
         modalObj.open();
         triggerMixpanelTileCreateDurationTracking();

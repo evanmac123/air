@@ -151,6 +151,11 @@ Airbo.Utils.StandardModal = (function(){
         $(modalXSel).addClass("stickable");
       }
     }
+
+    function setConfirmOnClose(val){
+      params.confirmOnClose = val;
+    }
+
     function init(userParams) {
       params = $.extend(defaultParams, userParams);
       makeModal();
@@ -161,6 +166,7 @@ Airbo.Utils.StandardModal = (function(){
      open: open,
      close: close,
      setContent: setContent,
+     setConfirmOnClose: setConfirmOnClose
      // scrollModalToTop: scrollModalToTop
     }
   }
