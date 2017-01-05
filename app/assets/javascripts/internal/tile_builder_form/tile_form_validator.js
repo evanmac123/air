@@ -37,9 +37,10 @@ Airbo.TileFormValidator = (function(){
       var errors = validator.numberOfInvalids()
         , modal = $(tileModalSelector)
         , firstError = $(validator.errorList[0].element)
+        , form = $(validator.currentForm);
       ;
 
-      if (errors && modal.is(":visible") && !forceValidation() && !isAutoSaving()) {
+      if (errors && modal.is(":visible") && !forceValidation(form) && !isAutoSaving(form)) {
 
         if(firstError.is(":visible")) {
           modal.animate({
@@ -103,12 +104,12 @@ Airbo.TileFormValidator = (function(){
     return "Headline is required";
   }
 
-  function forceValidation(){
-    return $("#forcevalidation").length >  0 ?  true : false;
+  function forceValidation(form){
+    return form.data("forcevalidation") === true
   }
 
-  function isAutoSaving(){
-    return $("#autosave").length >  0 ?  true : false;
+  function isAutoSaving(form){
+    return form.data("autosave") === true
   }
 
   function formIsNotDraft(){
@@ -118,7 +119,7 @@ Airbo.TileFormValidator = (function(){
   function isRequired(el){
     var form = $("#new_tile_builder_form");
 
-    return forceValidation() || formIsNotDraft();
+    return forceValidation(form) || formIsNotDraft();
 
   }
 
@@ -126,7 +127,7 @@ Airbo.TileFormValidator = (function(){
   function hasLimit(){
     var form = $("#new_tile_builder_form");
 
-    if(forceValidation() || $("#tile_builder_form_status").val() !=="draft"){
+    if(forceValidation(form) || $("#tile_builder_form_status").val() !=="draft"){
       return 700;
     }else{
       return 9999999;
@@ -136,9 +137,9 @@ Airbo.TileFormValidator = (function(){
 
 
  function initHeadlineValidator(){
+   var form = $("#new_tile_builder_form");
    $.validator.addMethod("headLineValidator", function(value, element, params) {
      var image_url = $("#remote_media_url").val()
-     var form = $("#new_tile_builder_form");
      if(value !== "")
        return true
 
@@ -146,14 +147,14 @@ Airbo.TileFormValidator = (function(){
        return false
      }
      else{
-       if (forceValidation() || image_url === undefined || image_url === "" && value==""){
+       if (forceValidation(form) || ((image_url === undefined || image_url === "") && value ==="")){
          return false
        }
        return true
      }
 
    }, function (params, element) {
-     return isAutoSaving() ? "Unable to autosave without headline or image present" : "This field is required";
+     return isAutoSaving(form) ? "Unable to autosave without headline or image present" : "This field is required";
    });
  }
 

@@ -49,21 +49,21 @@ Airbo.TileFormModal = (function(){
   }
 
   function addForceValidation(){
-    currform.append("<input type='hidden' name='forcevalidation' id='forcevalidation'/>");
+    currform.data("forcevalidation", true);
   }
 
   function removeForceValidation(){
-    $("#forcevalidation", currform).remove();
+    currform.data("forcevalidation", false);
   }
 
   function addAutoSave(){
     addSavingIndicator();
-    currform.append("<input type='hidden' name='autosave' id='autosave'/>");
+    currform.data("autosave", true);
   }
 
   function removeAutoSave(){
     removeSavingIndicator();
-    $("#autosave", currform).remove();
+    currform.data("autosave", false);
   }
 
   function resetSubmit(){
