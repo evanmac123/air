@@ -3,6 +3,7 @@ class TileFeature < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
   validates :rank, presence: true, uniqueness: true
+  acts_as_taggable_on :channels
 
   scope :active, -> { where(active: true) }
   scope :ordered, -> { active.order(:rank) }

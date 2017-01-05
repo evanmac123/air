@@ -15,6 +15,8 @@ class Explore::ChannelsController < ExploreBaseController
         lastBatch: params[:count] == @tiles.total_count.to_s
       }
     else
+      @related_features = @channel.related_features
+      @related_campaigns = @channel.related_campaigns
       @display_channels = Channel.display_channels(@channel.slug)
     end
   end

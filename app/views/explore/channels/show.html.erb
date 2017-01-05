@@ -4,74 +4,17 @@
       <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
     <% end %>
   </section>
-  <section class="manage_section" id="explore_tiles">
-    <div class="row explore-tiles-tabs">
-      <div class="explore-tiles-titles small-12 columns">
-          <span class="explore-sub-page-header"><%= @channel.name %></span>
-      </div>
-    </div>
-    <section class="campaign-description">
-      <div class="row collapse" >
-        <div class="columns small-12">
-          <h4><%= @channel.description %></h4>
-        </div>
-      </div>
-    </section>
-    <div class="manage_section explore_tiles_section" id="verified_tiles">
-      <div class="row">
-        <div class="large-12 columns">
-          <div class="endless_scroll_content_container tile_wall_explore" data-page="<%= params[:page] || 1 %>" data-count="<%= @tiles.count %>" data-path="<%= explore_channel_path(@channel) %>">
-            <% cache @tiles do %>
-              <%= render partial: 'explore/tiles', locals: {tiles: @tiles, section: "Channel" } %>
-            <% end %>
-          </div>
-          <div class="endless_scroll_loading text-center" style="display:none;">
-            <i class="fa fa-spinner fa-spin fa-3x text-center" style="color:#48BFFF;margin-top:30px;"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-
-<section class="manage_section channel_container" id="<%= feature.name %>" style="background:<%= feature.background_color %>">
-  <div class="row">
-    <div class="large-12 columns">
-      <% if feature.custom_icon_url.present? %>
-        <%= image_tag feature.custom_icon_url, class: "recommended-tiles-custom-icon" %>
-        <h4 class="explore-headers non-link" style="color:<%= feature.text_color %>; margin-left:0"><%= feature.header_copy || "Recommended Tiles" %></h4>
-      <% else %>
-        <h4 class="explore-headers non-link" style="color:<%= feature.text_color %>"><%= feature.header_copy || "#{feature.name} Tiles" %></h4>
-      <% end %>
-      <div id="channel_tiles">
-        <div class="tile_wall_explore">
-          <% cache feature_tiles do %>
-            <%= render partial: 'explore/tiles', locals: { tiles: feature_tiles, section: feature.name } %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<div class="explore explore-show" data-channel-id="<%= @channel.id %>">
-  <div id="tile_wall_explore">
-    <section class="manage_section" id="channels">
-      <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
-    </section>
-    <%= render partial: 'explore/tile_feature', locals: { feature: @tile_feature } %>
-
-    <% unless @related_campaigns.empty? %>
-      <section class="manage_section" id="campaign_boards">
-        <%= render partial: 'explore/campaigns', locals: { campaigns: @related_campaigns, header: "Related Campaigns" } %>
-      </section>
+  <% unless @related_features.empty? %>
+    <% @related_features.ordered.each do |feature| %>
+      <%= render partial: 'explore/tile_feature', locals: { feature: feature } %>
     <% end %>
-
-    <section class="manage_section" id="explore_tiles">
-      <%= render partial: 'explore/explore_tiles', locals: { tiles: @related_tiles, header: "Related Tiles" } %>
+  <% end %>
+  <% unless @related_campaigns.empty? %>
+    <section class="manage_section" id="campaign_boards">
+      <%= render partial: 'explore/campaigns', locals: { campaigns: @related_campaigns, header: "Related Campaigns" } %>
     </section>
-  </div>
+  <% end %>
+  <section class="manage_section" id="explore_tiles">
+    <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "Related Tiles" } %>
+  </section>
 </div>
