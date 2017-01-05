@@ -50,13 +50,12 @@
     &.incomplete_button{
       float: left;
       .button {
-        background-color: red;
-        border-color: red;
-        opacity: .65;
+        background-color: #ff5656;
+        border-color: #ff5656;
         &:hover{
-          background-color:red;
-          border-color: red;
-          opacity: .5;
+          background-color:#ff5656;
+          border-color: #ff5656;
+          opacity: .8;
         }
       }
     }
@@ -169,8 +168,7 @@
   border-top-left-radius: 3px;
   z-index: 1;
   &.incomplete{
-   color:red;
-   opacity: .65;
+   color:#ff5656;
   }
 }
 .tile_stats {
