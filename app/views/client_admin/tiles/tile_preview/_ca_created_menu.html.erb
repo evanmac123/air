@@ -1,11 +1,11 @@
 <ul class="tile_preview_menu <%= tile.status + '_menu' %>" >
-  <li class="preview_menu_item <%=tooltip_class%>" id="stat_toggle" title= '<%=tile_preview_status_change_tooltip tile %>'>
+  <li class="preview_menu_item tipsy" id="stat_toggle" title= '<%=tile_preview_status_change_tooltip tile %>'>
   <%=tile_preview_menu_status_item tile %>
   </li>
 
   <li class="preview_menu_item edit" >
     <%=link_to edit_client_admin_tile_path(tile),  data:{"tile-id" => tile.id, action: "edit", status: tile.status} do %>
-      <i class="fa <%=tile.is_fully_assembled? ? 'fa-pencil' : 'fa-wrench'%> fa-1x"></i>
+      <i class="fa fa-pencil fa-1x"></i>
       <span class="header_text">
         Edit
       </span>
@@ -30,7 +30,7 @@
       <%end%>
   </li>
 
-  <li class="preview_menu_item explore  <%=tooltip_class%>"  title='<%=share_via_explore tile %>'>
+  <li class="preview_menu_item explore tipsy"  title='<%=share_via_explore tile %>'>
     <%=link_to "#" do %>
       <i class="fa fa-rocket fa-1x"></i>
       <span class="header_text">
@@ -39,7 +39,7 @@
       <%end%>
   </li>
 
-  <li class="preview_menu_item link <%=tooltip_class%>" title='<%=tile_share_public_link_block tile%>' >
+  <li class="preview_menu_item link tipsy" title='<%=tile_share_public_link_block tile%>' >
     <%=link_to "#" do %>
       <i class="fa fa-link fa-1x"></i>
       <span class="header_text">
