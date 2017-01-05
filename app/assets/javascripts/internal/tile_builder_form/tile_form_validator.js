@@ -9,9 +9,15 @@ Airbo.TileFormValidator = (function(){
   ;
 
   var config= {
-    debug: true,
+    debug: false,
+    onfocusout: function(el, e){
+      if($(el).is("tile_builder_form[image_credit]")){
+        return false;
+      }
+      return true;
+    },
 
-    ignore: [],
+    ignore: ["tile_builder_form[image_credit]"],
 
     errorclass: "tile_builder_error",
 
@@ -140,6 +146,7 @@ Airbo.TileFormValidator = (function(){
    var form = $("#new_tile_builder_form");
    $.validator.addMethod("headLineValidator", function(value, element, params) {
      var image_url = $("#remote_media_url").val()
+
      if(value !== "")
        return true
 
