@@ -148,6 +148,7 @@ Airbo.TileFormModal = (function(){
         ajaxHandler.submit(formObj, submitSuccess, resetSubmit);
       }else{
         saveable = false;
+        removeSavingIndicator();
         validator.focusInvalid();
       }
     });
