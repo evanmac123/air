@@ -52,7 +52,7 @@
       .button {
         background-color: red;
         border-color: red;
-        opacity: .75;
+        opacity: .65;
         &:hover{
           background-color:red;
           border-color: red;
@@ -168,6 +168,10 @@
   border-radius: 0;
   border-top-left-radius: 3px;
   z-index: 1;
+  &.incomplete{
+   color:red;
+   opacity: .65;
+  }
 }
 .tile_stats {
   padding-top: 10px;

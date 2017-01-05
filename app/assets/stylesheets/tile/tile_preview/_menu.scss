@@ -98,7 +98,7 @@
   &.form_menu {
     left: 35px;
   }
-  &.explore_menu, &.form_menu {
+  &.explore_menu, &.form_menu, &.incomplete {
     border: 1px solid $n-blue;
     .preview_menu_item {
       // border-left: 1px $n-blue  solid;

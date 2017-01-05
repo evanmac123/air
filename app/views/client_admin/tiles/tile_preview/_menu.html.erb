@@ -6,8 +6,8 @@
     <%= render partial: "client_admin/tiles/tile_preview/ca_created_menu", locals:{tile: tile} %>
   <% else %>
 
-    <ul class="tile_preview_menu centered">
-      <li class="preview_menu_item edit" >
+    <ul class="tile_preview_menu incomplete">
+      <li class="preview_menu_item edit " >
         <%=link_to edit_client_admin_tile_path(tile),  data:{"tile-id" => tile.id, action: "edit", status: tile.status} do %>
         <i class="fa  fa-pencil  fa-1x"></i>
         <span class="header_text">
@@ -17,7 +17,6 @@
       </li>
 
     </ul>
-
   <% end %>
 <%end %>
 

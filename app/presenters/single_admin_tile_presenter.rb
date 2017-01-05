@@ -59,7 +59,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def incomplete_label
-    content_tag :div, class: "activation_dates" do
+    content_tag :div, class: "activation_dates incomplete" do
       content_tag :span,  class:'tile-created-at' do
          s = content_tag :i, "",  class: 'fa fa-cog'
          s+= "Incomplete"
