@@ -80,9 +80,6 @@ class SingleAdminTilePresenter < BasePresenter
     tile_status_matches?(:archive, :draft) && tile.is_fully_assembled?
   end
 
-  def has_disabled_activate_button?
-    tile_status_matches?(:draft) && !tile.is_fully_assembled?
-  end
 
   def has_working_button?
     tile_status_matches?(:draft) && !tile.is_fully_assembled?

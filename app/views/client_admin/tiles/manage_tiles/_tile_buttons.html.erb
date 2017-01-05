@@ -40,15 +40,7 @@
       </li>
     <% end %>
 
-    <% if presenter.has_disabled_activate_button? %>
-      <li >
-        <%= link_to status_change_client_admin_tile_path(presenter), class: "button  update_status disabled", data: {status: Tile::ACTIVE, "tile-id" => presenter.tile_id} do %>
-          <%= presenter.post_link_text %>
-        <% end %>
-      </li>
-    <% end %>
-
-
+  
 
 
     <% if presenter.has_ignore_button? %>
