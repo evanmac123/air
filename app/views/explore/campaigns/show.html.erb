@@ -5,7 +5,7 @@
     <% end %>
   </section>
   <section class="manage_section" id="explore_tiles">
-    <div class="row explore-tiles-tabs">
+    <div class="row">
       <div class="explore-tiles-titles small-12 columns">
           <span class="explore-sub-page-header"><%= @campaign.name %></span>
       </div>
@@ -20,11 +20,11 @@
     <div class="row">
       <div class="columns large-12">
         <div id="copy-all-tiles-button" class="button">
-          Copy all Tiles
+          Copy Campaign
         </div>
       </div>
     </div>
-    <div class="manage_section explore_tiles_section">
+    <div class="manage_section explore_tiles_section" style="margin-bottom:80px;">
       <div class="row">
         <div class="large-12 columns">
           <div class="tile_wall_explore">
@@ -35,5 +35,8 @@
         </div>
       </div>
     </div>
+  </section>
+  <section class="manage_section" id="campaign_boards" style="box-shadow:0 -5px 5px -5px #a8a8a8">
+    <%= render partial: 'explore/campaigns', locals: { campaigns: Campaign.exclude([@campaign.id]), header: "More Campaigns" } %>
   </section>
 </div>

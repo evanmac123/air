@@ -70,7 +70,7 @@ Airbo.CopyTileToBoard = (function(){
       }
     });
 
-    self.text("All Tiles Copied");
+    self.text("Campaign Copied");
     self.addClass("disabled green");
   }
 

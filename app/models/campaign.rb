@@ -14,6 +14,11 @@ class Campaign < ActiveRecord::Base
 
   default_scope order(:name)
 
+  def self.exclude(excluded_campaigns)
+    campaigns = Campaign.arel_table
+    Campaign.where(campaigns[:id].not_in(excluded_campaigns))
+  end
+
   def update_slug
     self.slug = name.parameterize
   end

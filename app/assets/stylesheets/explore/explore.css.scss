@@ -44,7 +44,7 @@ body.explore, .explore {
     font-size: 40px;
     color: $darker-gray;
     font-weight: 800;
-    border-bottom: 3px solid #48bfff;
+    margin-bottom: 0;
   }
 
   .campaign-row {
@@ -221,7 +221,7 @@ body.explore, .explore {
     }
 
     .explore-tiles-titles {
-      margin: 0 0 1.7em 1.3em;
+      margin: 0 0 0.5em 1.3em;
     }
 
     .copy-all-tiles {
