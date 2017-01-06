@@ -19,7 +19,7 @@ class BulkLoad::UserCreatorFeeder
 
   def feed
     while !done?
-      line = $redis.rpop(redis_load_queue_key)
+      line = $redis_bulk_upload.rpop(redis_load_queue_key)
       redo unless line
 
       @line_index += 1
@@ -27,14 +27,14 @@ class BulkLoad::UserCreatorFeeder
       user = user_creator.create_user(line)
 
       if user.invalid?
-        $redis.lpush(redis_failed_load_queue_key, line_error_message(user))
+        $redis_bulk_upload.lpush(redis_failed_load_queue_key, line_error_message(user))
       end
     end
   end
 
   def done?
-    $redis.get(redis_all_lines_chopped_key) == 'done' &&
-    $redis.llen(redis_load_queue_key) == 0
+    $redis_bulk_upload.get(redis_all_lines_chopped_key) == 'done' &&
+    $redis_bulk_upload.llen(redis_load_queue_key) == 0
   end
 
   protected

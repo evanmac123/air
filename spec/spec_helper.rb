@@ -62,6 +62,7 @@ RSpec.configure do |config|
     User::SegmentationData.delete_all
     User::SegmentationResults.delete_all
     $redis.flushdb
+    $redis_bulk_upload.flushdb
   end
 
   config.before(:each) do
