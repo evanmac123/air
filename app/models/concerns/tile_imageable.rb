@@ -34,11 +34,11 @@ module Concerns::TileImageable
       }.merge!(TILE_THUMBNAIL_OPTIONS)
 
     process_in_background :image,
-                          processing_image_url: :full_size_processing_image_fallback,
+                          processing_image_url: :processing_image_fallback,
                           priority:             TILE_IMAGE_PROCESSING_PRIORITY
 
     process_in_background :thumbnail,
-                          processing_image_url: :thumbnail_processing_image_fallback,
+                          processing_image_url: :processing_image_fallback,
                           priority:             TILE_IMAGE_PROCESSING_PRIORITY
 
 
@@ -46,14 +46,12 @@ module Concerns::TileImageable
 
   attr_accessor :image_from_library
 
-  def thumbnail_processing_image_fallback
-    remote_media_url || "missing-tile-img-thumb.png"
+  def processing_image_fallback
+    remote_media_url || IMAGE_PROCESSING_URL
   end
 
 
-  def full_size_processing_image_fallback
-    remote_media_url || "missing-tile-img-full.png"
-  end
+
 
 
   # need this function to set height of image place in ie8 while image is loading
