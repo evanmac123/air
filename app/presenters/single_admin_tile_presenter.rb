@@ -49,7 +49,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def thumbnail
-    tile.image.nil? ? nil? : tile.thumbnail
+    tile.image.nil? ? nil : tile.thumbnail
   end
 
   def completed_class
