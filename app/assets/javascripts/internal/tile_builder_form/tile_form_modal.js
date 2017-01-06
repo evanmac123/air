@@ -8,6 +8,7 @@ Airbo.TileFormModal = (function(){
     , ajaxHandler = Airbo.AjaxResponseHandler
     , self
     , saveable = false
+    , timer
   ;
 
   var modalObj = Airbo.Utils.StandardModal()
@@ -131,8 +132,8 @@ Airbo.TileFormModal = (function(){
 
     submitLink.click(function(e){
       e.preventDefault();
-      if($(this).attr("disabled") === "disabled"){
-        return;
+      if(timer){
+        clearTimeout(timer);
       }
       addSavingIndicator();
       currform.submit();
@@ -163,7 +164,9 @@ Airbo.TileFormModal = (function(){
         if(currform.valid()){
           modalObj.setConfirmOnClose(false);
           disablesubmitLink()
-          ajaxHandler.submit(currform, autoSaveSuccess.bind(me), resetSubmit);
+          timer = setTimeout(function(){
+            ajaxHandler.submit(currform, autoSaveSuccess.bind(me), resetSubmit);
+          }, 1000);
         }else{
           saveable = false;
           modalObj.setConfirmOnClose(true);
@@ -188,6 +191,7 @@ Airbo.TileFormModal = (function(){
   }
 
   function autoSaveSuccess(data){
+    clearTimeout(timer);
     currform.attr("action", data.updatePath);
     currform.attr("method", "PUT");
 
