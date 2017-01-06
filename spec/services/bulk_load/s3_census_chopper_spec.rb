@@ -17,11 +17,11 @@ describe BulkLoad::S3CensusChopper do
     def expect_lines_in_queue(key, expected_count)
       chopper.feed_to_redis(lines_to_preview)
 
-      expect($redis.llen(key)).to eq(expected_count)
+      expect($redis_bulk_upload.llen(key)).to eq(expected_count)
 
       expected_lines = File.read(test_file_path).lines.to_a[0, expected_count]
       expected_lines.each do |line|
-        expect($redis.rpop(key)).to eq(line)
+        expect($redis_bulk_upload.rpop(key)).to eq(line)
       end
     end
 
@@ -35,18 +35,18 @@ describe BulkLoad::S3CensusChopper do
 
     it "should extract the unique field of each line into a queue" do
       chopper.feed_to_redis(lines_to_preview)
-      stored_ids = $redis.smembers(chopper.redis_unique_ids_key)
+      stored_ids = $redis_bulk_upload.smembers(chopper.redis_unique_ids_key)
       expected_ids = CSV.parse(File.read(test_file_path)).map{|row| row[1]}
       expect(stored_ids.sort).to eq(expected_ids.sort)
     end
 
     it "should have some kind of way of indicating that it's done" do
-      expect($redis.get(chopper.redis_all_lines_chopped_key)).to be_nil
+      expect($redis_bulk_upload.get(chopper.redis_all_lines_chopped_key)).to be_nil
 
       chopper.feed_to_redis(1) do
       end
 
-      expect($redis.get(chopper.redis_all_lines_chopped_key)).to be_present
+      expect($redis_bulk_upload.get(chopper.redis_all_lines_chopped_key)).to be_present
     end
   end
 end
