@@ -19,7 +19,8 @@
 
 body.explore, .explore {
   .channel-row {
-    height: 100px;
+    height: 120px;
+    padding: 10px 20px;
     .channels {
       display: none;
       @include flickity;
@@ -34,10 +35,13 @@ body.explore, .explore {
     border-bottom: 3px solid #48bfff;
   }
 
-  .campaigns {
-    @include flickity;
-    @include campaigns;
-    background: transparent;
+  .campaign-row {
+    padding: 10px 15px;
+    .campaigns {
+      @include flickity;
+      @include campaigns;
+      background: transparent;
+    }
   }
 
   .explore-headers {

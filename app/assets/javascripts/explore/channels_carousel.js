@@ -6,7 +6,7 @@ Airbo.ChannelsCarousel = (function(){
 
     $carousel.fadeIn();
     $carousel.flickity({
-      cellAlign: 'center',
+      cellAlign: 'left',
       contain: true,
       groupCells: true,
       wrapAround: true,
