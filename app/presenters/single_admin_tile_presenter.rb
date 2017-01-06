@@ -12,6 +12,7 @@ class SingleAdminTilePresenter < BasePresenter
             :tile_completions_count,
             :original_creator,
             :demo,
+            :updated_at,
             :is_placeholder?,
             to: :tile
   attr_reader :tile, :tile_status, :tiles_grouped_ids
@@ -178,6 +179,7 @@ class SingleAdminTilePresenter < BasePresenter
       tile_completions_count,
       total_views,
       unique_views,
+      updated_at,
       @is_ie
     ].join('-')
   end
