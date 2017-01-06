@@ -26,7 +26,8 @@ class Tile < ActiveRecord::Base
   RSVP_TO_EVENT         = "RSVP to event".parameterize("_").freeze
   INVITE_SPOUSE         = "Invite Spouse".parameterize("_").freeze
   CHANGE_EMAIL         = "Change Email".parameterize("_").freeze
-
+  MAX_HEADLINE_LEN = 75
+  MAX_SUPPORTING_CONTENT_LEN = 700
   acts_as_taggable_on :channels
 
   belongs_to :demo
@@ -48,23 +49,29 @@ class Tile < ActiveRecord::Base
 
   before_validation :sanitize_supporting_content
   before_validation :sanitize_embed_video
-  before_validation :set_image_processing, if: :image_changed?
-  before_save :update_timestamps, if: :status_changed?
-  validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank"
-  validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", :on => :client_admin
-  validates_presence_of :question, :allow_blank => false, :message => "question can't be blank", :on => :client_admin
-  validates_inclusion_of :status, in: STATUS
-
-  #FIXME should be use a constant instead of magic numbers here.
-  validates_length_of :headline, maximum: 75, message: "headline is too long (maximum is 75 characters)"
-  validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: 700, message: "supporting content is too long (maximum is 600 characters)"
-
-  validates_presence_of :remote_media_url, message: "image is missing" , if: :requires_remote_media_url
+  before_validation :remove_images, if: :image_set_to_blank
 
   before_create :set_on_first_position
+  before_save :update_timestamps, if: :status_changed?
   before_save :ensure_protocol_on_link_address, :handle_suggested_tile_status_change
   before_save :set_image_credit_to_blank_if_default
+  before_save :set_image_processing, if: :image_changed?
   after_save :process_image, if: :image_changed?
+
+  validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank",  if: :state_is_anything_but_draft?
+  validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", if: :state_is_anything_but_draft?
+  validates_presence_of :question, :allow_blank => false, :message => "question can't be blank",  if: :state_is_anything_but_draft?
+  validates_presence_of :remote_media_url, message: "image is missing" , if: :state_is_anything_but_draft?
+  validates_inclusion_of :status, in: STATUS
+
+  validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
+  validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: MAX_SUPPORTING_CONTENT_LEN, message: "supporting content is too long (maximum is #{MAX_SUPPORTING_CONTENT_LEN} characters)"
+
+  def state_is_anything_but_draft?
+     status != DRAFT
+  end
+
+
 
   before_post_process :no_post_process_on_copy
 
@@ -133,6 +140,9 @@ class Tile < ActiveRecord::Base
     end
   end
 
+  def is_fully_assembled?
+    headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content.length < MAX_SUPPORTING_CONTENT_LEN
+  end
 
   def points= p
     write_attribute(:points, p.to_i)
@@ -313,9 +323,21 @@ class Tile < ActiveRecord::Base
 
   private
 
+  def image_set_to_blank
+    remote_media_url == ""
+  end
+
+  def remove_images
+    write_attribute(:remote_media_url, nil) 
+    image.destroy
+
+    # NOTE this destroy call is for consistency only. Paperclip is configured
+    # with preserve_files: true for thumbnails so that thumbnails are never
+    # deleted #see  TileImageable module for details
+    thumbnail.destroy 
+  end
+
   #FIXME the code around handling update status has gotten quite ugly
-
-
   def already_activated
     (status == ACTIVE || status==ARCHIVE) && activated_at.present?
   end
@@ -360,16 +382,11 @@ class Tile < ActiveRecord::Base
     end
   end
 
-  def requires_remote_media_url
-    is_brand_new_tile? || setting_empty_image?
-  end
-
-  def setting_empty_image?
-    self.persisted? && changed.include?("remote_media_url") && remote_media_url.blank?
-  end
-
-  def is_brand_new_tile?
-    self.new_record? && !image.present?
+  def set_image_processing
+    if remote_media_url.present?
+      self.thumbnail_processing = true
+      self.image_processing = true
+    end
   end
 
   def process_image
@@ -380,8 +397,4 @@ class Tile < ActiveRecord::Base
     changes.keys.include? "remote_media_url"
   end
 
-  def set_image_processing
-    self.thumbnail_processing = true
-    self.image_processing =  true
-  end
 end

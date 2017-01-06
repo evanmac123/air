@@ -29,13 +29,18 @@ Airbo.TileThumbnail = (function() {
       Airbo.TileAction.confirmAcceptance(target);
     });
 
-    tileContainer.find(".edit_button a").click(function(e){
+    tileContainer.find(".edit_button a, .incomplete_button a").click(function(e){
       e.preventDefault();
       url = $(this).attr("href");
 
       tileForm = Airbo.TileFormModal;
       tileForm.init(Airbo.TileManager);
       tileForm.open(url);
+    });
+
+    tileContainer.find(".destroy_button a").click(function(e){
+      e.preventDefault();
+      Airbo.TileAction.confirmDeletion($(this));
     });
 
     $("body").off("click", curTileContainerSelector + thumbLinkSel);

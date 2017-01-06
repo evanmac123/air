@@ -1,3 +1,6 @@
+/*
+ *TODO add this a proper utility module
+ */
 function lengthInBytes(string) {
   var result = 0;
   for(i = 0; i < string.length; i++) {

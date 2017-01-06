@@ -46,6 +46,7 @@
 <div class="row">
   <div class="large-12 columns">
     <div class="manage_section" id="draft">
+      <!--div class="draft-toggler"><label class="inline">Hide: </label> <a href="#" class="finished"><%#fa_icon "pencil"%>Complete</a> <a href="#" class="unfinished"><%#fa_icon "wrench"%> Pending</a> </div-->
       <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @draft_tiles.empty?, row_size: 6} %>
       <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @draft_tiles} %>
     </div>
@@ -60,7 +61,14 @@
 <% content_for :javascript do %>
   <script>
 
+
     $().ready(function(){
+
+      $(".draft-toggler a.unfinished").click(function(){
+        $(".tile_container.unfinished").hide();
+        Airbo.TileDragDropSort.updateTilesAndPlaceholdersAppearance();
+      })
+
       window.suggestionBox();
       window.userSubmittedTileIntro("<%= @user_submitted_tile_intro %>");
       window.suggestionsAccess();

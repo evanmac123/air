@@ -47,7 +47,19 @@
       color: #5c5c5c;
       padding: 6px;
     }
-    &.edit_button, &.more_button {
+    &.incomplete_button{
+      float: left;
+      .button {
+        background-color: #ff5656;
+        border-color: #ff5656;
+        &:hover{
+          background-color:#ff5656;
+          border-color: #ff5656;
+          opacity: .8;
+        }
+      }
+    }
+    &.edit_button, &.more_button, &.destroy_button {
       width: 32px;
       height: 32px;
       border: 1px solid $border-color;
@@ -155,6 +167,9 @@
   border-radius: 0;
   border-top-left-radius: 3px;
   z-index: 1;
+  &.incomplete{
+   color:#ff5656;
+  }
 }
 .tile_stats {
   padding-top: 10px;

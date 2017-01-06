@@ -3,7 +3,6 @@ class SingleAdminTilePresenter < BasePresenter
   include TileFooterTimestamper
   delegate  :id,
             :status,
-            :thumbnail,
             :headline,
             :active?,
             :total_views,
@@ -12,15 +11,16 @@ class SingleAdminTilePresenter < BasePresenter
             :tile_completions_count,
             :original_creator,
             :demo,
+            :updated_at,
             :is_placeholder?,
             to: :tile
-  attr_reader :tile, :type, :tiles_grouped_ids
+  attr_reader :tile, :tile_status, :tiles_grouped_ids
 
   presents :tile
 
   def initialize object,template, options
     super
-    @type = tile.status.to_sym
+    @tile_status = tile.status.to_sym
     @tiles_grouped_ids = options[:tile_ids]
     @format =  options[:format]||:html
   end
@@ -29,14 +29,27 @@ class SingleAdminTilePresenter < BasePresenter
     @tile_id ||= id
   end
 
-  def type? *types
-    if types.size == 0
+  def assembly_required?
+    !tile.is_fully_assembled?
+  end
+
+  def tile_status_matches? *statuses
+    if statuses.size == 0
       false
-    elsif types.size == 1
-      type == types.first
+    elsif statuses.size == 1
+      @tile_status == statuses.first
     else
-      types.any? {|t| t == type}
+      statuses.any? {|t| t == @tile_status}
     end
+  end
+
+
+  def completion_status
+    tile.is_fully_assembled? ? "finished" : "unfinished"
+  end
+
+  def thumbnail
+    tile.image.exists? ? tile.thumbnail : "missing-tile-img-thumb.png"
   end
 
   def completed_class
@@ -47,14 +60,25 @@ class SingleAdminTilePresenter < BasePresenter
     true
   end
 
+  def incomplete_label
+    content_tag :div, class: "activation_dates incomplete" do
+      content_tag :span,  class:'tile-created-at' do
+         s = content_tag :i, "",  class: 'fa fa-cog'
+         s+= "Incomplete"
+      end
+    end
+  end
+
   def activation_dates
-    if type? :active, :archive, :draft, :user_submitted, :ignored
+    if tile.is_fully_assembled? && tile_status_matches?(:active, :archive, :draft, :user_submitted, :ignored)
       content_tag :div, raw(timestamp), class: "activation_dates"
+    else
+      incomplete_label
     end
   end
 
   def has_tile_stats?
-    type? :active, :archive
+    tile_status_matches? :active, :archive
   end
 
   def show_tile_path
@@ -62,48 +86,57 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def has_archive_button?
-    type? :active
+    tile_status_matches? :active
   end
 
   def has_activate_button?
-    type? :archive, :draft
+    tile_status_matches?(:archive, :draft) && tile.is_fully_assembled?
   end
 
-  def post_link_text
-    'Post' + (type?(:archive) ? ' again' : '')
+  def has_incomplete_edit_button?
+    tile_status_matches?(:draft) && !tile.is_fully_assembled?
   end
 
-  def has_edit_button?
-   type? :draft, :active, :archive
+  def has_incomplete_destroy_button?
+    tile_status_matches?(:draft) && !tile.is_fully_assembled?
+  end
+
+   def has_edit_button?
+     tile_status_matches?(:draft, :active, :archive) && tile.is_fully_assembled?
   end
 
   def has_destroy_button?
-   type? :draft, :active, :archive
+   tile_status_matches? :draft, :active, :archive
   end
 
   def has_accept_button?
-    type? :user_submitted
+    tile_status_matches? :user_submitted
   end
 
   def has_ignore_button?
-    type? :user_submitted
+    tile_status_matches? :user_submitted
   end
 
   def has_copy_button?
-    type? :explore
+    tile_status_matches? :explore
   end
 
   def has_undo_ignore_button?
-    type? :ignored
+    tile_status_matches? :ignored
   end
 
   def has_menu?
-    type? :draft, :active, :archive
+    tile_status_matches?(:draft, :active, :archive) && tile.is_fully_assembled?
   end
 
   def shows_creator?
-    type? :user_submitted
+    tile_status_matches? :user_submitted
   end
+
+  def post_link_text
+    'Post' + (tile_status_matches?(:archive) ? ' again' : '')
+  end
+
 
   def timestamp
     @timestamp ||= footer_timestamp
@@ -141,12 +174,13 @@ class SingleAdminTilePresenter < BasePresenter
       'v2.ant',
       timestamp,
       thumbnail,
-      type,
+      tile_status,
       tile_id,
       headline,
       tile_completions_count,
       total_views,
       unique_views,
+      updated_at,
       @is_ie
     ].join('-')
   end

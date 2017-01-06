@@ -9,14 +9,12 @@
       <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
 
       <div class="media_placeholders">
-        <% if @tile_builder_form.demo.allow_embed_video || @tile_builder_form.embed_video.present? %>
         <div class="video_placeholder">
           <div class="icon_circle">
             <i class="fa fa-play"></i>
           </div>
           <label>Add Video</label>
         </div>
-        <% end %>
 
         <div class="image_placeholder">
           <div class="icon_circle">
