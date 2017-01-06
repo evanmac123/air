@@ -3,7 +3,6 @@ class SingleAdminTilePresenter < BasePresenter
   include TileFooterTimestamper
   delegate  :id,
             :status,
-            :thumbnail,
             :headline,
             :active?,
             :total_views,
@@ -49,7 +48,9 @@ class SingleAdminTilePresenter < BasePresenter
     tile.is_fully_assembled? ? "finished" : "unfinished"
   end
 
-
+  def thumbnail
+    tile.image.nil? ? nil? : tile.thumbnail
+  end
 
   def completed_class
     ""
