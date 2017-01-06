@@ -6,7 +6,7 @@ class BulkLoad::UserRetainer
   end
 
   def retain_user(user_id)
-    $redis.srem(redis_user_ids_to_remove_key, user_id.to_s)
+    $redis_bulk_upload.srem(redis_user_ids_to_remove_key, user_id.to_s)
   end
 
   attr_reader :object_key

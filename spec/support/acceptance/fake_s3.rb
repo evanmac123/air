@@ -113,6 +113,7 @@ class MockS3
     mock_s3.mount_file(object_key, uploaded_path, 50)
 
     $redis.flushdb
+    $redis_bulk_upload.flushdb
     object_key
   end
 

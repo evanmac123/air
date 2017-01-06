@@ -19,9 +19,9 @@ class BulkLoad::UserRemover
   def user_ids_to_remove
     # Contrary to our usual practice, we don't memoize this with an ivar.
     # This way we can remove individual user IDs via UserRetainer#retain_user by hitting
-    # $redis directly and not worry about having to keep our own ivar up to
-    # date with $redis.
-    cached = $redis.smembers(redis_user_ids_to_remove_key)
+    # $redis_bulk_upload directly and not worry about having to keep our own ivar up to
+    # date with $redis_bulk_upload.
+    cached = $redis_bulk_upload.smembers(redis_user_ids_to_remove_key)
     if cached.present?
       cached
     else
@@ -74,11 +74,11 @@ class BulkLoad::UserRemover
   end
 
   def cache_ids_to_remove_in_redis(ids)
-    ids.each {|id| $redis.sadd(redis_user_ids_to_remove_key, id) }
+    ids.each {|id| $redis_bulk_upload.sadd(redis_user_ids_to_remove_key, id) }
   end
 
   def unique_ids_to_keep
-    @unique_ids_to_keep ||= $redis.smembers(redis_unique_ids_key)
+    @unique_ids_to_keep ||= $redis_bulk_upload.smembers(redis_unique_ids_key)
   end
 
   def board

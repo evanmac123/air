@@ -6,7 +6,7 @@ feature 'site admin monitors bulk upload progress' do
   let(:object_key) {"fakefile.csv"}
 
   def set_fake_list(key, length)
-    length.times { $redis.lpush key, 'x' }
+    length.times { $redis_bulk_upload.lpush key, 'x' }
   end
 
   before do
