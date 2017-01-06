@@ -18,6 +18,18 @@
 }
 
 body.explore, .explore {
+  .manage_section {
+    position: relative;
+    color: $text-color;
+
+    h4 {
+      display: inline-block;
+      margin-bottom: 30px;
+      margin-left: 1em;
+      margin-top: 10px;
+    }
+  }
+
   .channel-row {
     height: 120px;
     padding: 10px 20px;
@@ -40,32 +52,34 @@ body.explore, .explore {
     .campaigns {
       @include flickity;
       @include campaigns;
+      .flickity-prev-next-button.next {
+        right: 20px;
+      }
+      .flickity-prev-next-button.previous {
+        left: 20px;
+      }
       background: transparent;
+    }
+    h4 {
+      margin-left: 0.4em;
     }
   }
 
   .explore-headers {
-    font-size: 25px;
+    font-size: 30px;
     color: $darker-gray;
-    &.non-link {
-    }
-  }
-
-  .explore-breadcrumbs {
-    background: #fff;
-    padding: 0 0 0 65px;
-    a, span, .spacer {
-      font-size: 18px;
-    }
-    a {
-      color: $n-blue;
-      &:hover{
-        text-decoration:underline;
+    &.link {
+      &:hover {
+        color: $n-blue;
+        cursor: pointer;
       }
-    }
-    color: $darker-gray;
-    .spacer{
-      padding: 0px 3px;
+      &:after {
+        font-family: FontAwesome;
+        top:0;
+        left:-5px;
+        padding-left:10px;
+        content: "\f105";
+      }
     }
   }
 
@@ -139,18 +153,6 @@ body.explore, .explore {
   }
   #footer {
     background: #fff;
-  }
-
-  .manage_section {
-    position: relative;
-    color: $text-color;
-
-    h4{
-      display: inline-block;
-      margin-bottom: 30px;
-      margin-left: 1em;
-      margin-top: 10px;
-    }
   }
 
   .explore-tiles-tabs {

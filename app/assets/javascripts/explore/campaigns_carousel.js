@@ -3,8 +3,8 @@ var Airbo = window.Airbo || {};
 Airbo.CampaignsCarousel = (function(){
   function init() {
     var $carousel = $('.flickity-campaigns-carousel');
+    var $campaign_sel = $('.campaign');
 
-    $carousel.fadeIn();
     $carousel.flickity({
       cellAlign: 'left',
       contain: true,
@@ -14,9 +14,10 @@ Airbo.CampaignsCarousel = (function(){
       draggable: false,
     });
 
-    $carousel.on( 'staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {
-      var slug = $(cellElement).data("slug");
-      var name = $(cellElement).data("name");
+    $campaign_sel.on( 'click', function( event ) {
+      var self = $(this).parents('.carousel-cell');
+      var slug = $(self).data("slug");
+      var name = $(self).data("name");
       var currentUserData = $("body").data("currentUser");
 
       var properties = $.extend({ action: "Clicked Campaign", campaign: name }, currentUserData);
