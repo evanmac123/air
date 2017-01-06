@@ -1,7 +1,7 @@
 var Airbo = window.Airbo || {Utils:{}};
 Airbo.Utils.Messages = {
 
-  incompleteTile: "This Tile is incomplete. Please add all required fields and fix any errors prior to posting."
+  incompleteTile: "This Tile is incomplete. Please add all required fields and fix any errors before posting."
 
 };
 
