@@ -161,7 +161,7 @@ Airbo.TileFormValidator = (function(){
      }
 
    }, function (params, element) {
-     return isAutoSaving(form) ? "Unable to autosave without headline or image present" : "This field is required";
+     return isAutoSaving(form) ? "" : "This field is required";
    });
  }
 

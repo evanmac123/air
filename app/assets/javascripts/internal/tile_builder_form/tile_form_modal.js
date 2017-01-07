@@ -217,6 +217,7 @@ Airbo.TileFormModal = (function(){
         initVars();
         initEvents();
         initFormElements();
+        debugger
         if(currform.data("tileid") !== null) {
           saveable = true;
           addForceValidation();
@@ -228,7 +229,6 @@ Airbo.TileFormModal = (function(){
         modalObj.open();
         triggerMixpanelTileCreateDurationTracking();
         initAutoSave();
-        removeForceValidation();
       }.bind(self),
 
       error: function(jqXHR, textStatus, error){
