@@ -141,7 +141,7 @@ class Tile < ActiveRecord::Base
   end
 
   def is_fully_assembled?
-    headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content.length < MAX_SUPPORTING_CONTENT_LEN
+    headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content_raw_text.length <= MAX_SUPPORTING_CONTENT_LEN
   end
 
   def points= p
@@ -320,6 +320,9 @@ class Tile < ActiveRecord::Base
     !(@making_copy)
   end
 
+  def supporting_content_raw_text
+    Nokogiri::HTML::Document.parse(supporting_content).text
+  end
 
   private
 
