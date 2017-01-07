@@ -108,6 +108,7 @@ Airbo.TileFormModal = (function(){
       closeSticky: true,
       onOpenedEvent: function() {
         autosize.update( $('textarea') );
+        $("#supporting_content_editor").keyup()
       },
       closeMessage: closeMessage.bind(self) ,
     });

@@ -11,7 +11,7 @@ describe BulkLoad::UserCreatorFeeder do
 
   before do
     # Pretend the chopper is done
-    $redis.set(feeder.redis_all_lines_chopped_key, "done")
+    $redis_bulk_upload.set(feeder.redis_all_lines_chopped_key, "done")
   end
 
   describe "#feed" do
@@ -20,7 +20,7 @@ describe BulkLoad::UserCreatorFeeder do
       mock_user_creator.stubs(:create_user).with(kind_of(String)).returns(stub("User", "invalid?" => false))
       BulkLoad::UserCreatorFromCsv.stubs(:new).returns(mock_user_creator)
 
-      $redis.lpush(feeder.redis_load_queue_key, lines)
+      $redis_bulk_upload.lpush(feeder.redis_load_queue_key, lines)
 
       feeder.feed
 
@@ -39,7 +39,7 @@ describe BulkLoad::UserCreatorFeeder do
       User.any_instance.stubs(:invalid?).returns(true)
       ActiveModel::Errors.any_instance.stubs(:full_messages).returns(["Error message 1"], ["Error message 2"])
 
-      $redis.lpush(feeder.redis_load_queue_key, [
+      $redis_bulk_upload.lpush(feeder.redis_load_queue_key, [
         CSV.generate_line(["John Smith","jsmith@example.com"]),
         CSV.generate_line(["Joe Blow", existing_user.email])
       ])
@@ -47,28 +47,28 @@ describe BulkLoad::UserCreatorFeeder do
       feeder = BulkLoad::UserCreatorFeeder.new(object_name, demo_id, schema, unique_id_field, unique_id_index)
       feeder.feed
 
-      expect($redis.llen(feeder.redis_failed_load_queue_key)).to eq(2)
-      expect($redis.rpop(feeder.redis_failed_load_queue_key)).to eq("Line 1: Error message 1")
-      expect($redis.rpop(feeder.redis_failed_load_queue_key)).to eq("Line 2: Error message 2")
+      expect($redis_bulk_upload.llen(feeder.redis_failed_load_queue_key)).to eq(2)
+      expect($redis_bulk_upload.rpop(feeder.redis_failed_load_queue_key)).to eq("Line 1: Error message 1")
+      expect($redis_bulk_upload.rpop(feeder.redis_failed_load_queue_key)).to eq("Line 2: Error message 2")
     end
   end
 
   describe "#done?" do
     it "should check the flag that the chopper is meant to set, as well as the length of the queue" do
       # queue empty but not signalled done yet from the chopper
-      $redis.del(feeder.redis_all_lines_chopped_key)
+      $redis_bulk_upload.del(feeder.redis_all_lines_chopped_key)
       expect(feeder).not_to be_done
 
       # queue not empty and no signal from the chopper
-      3.times {$redis.lpush(feeder.redis_load_queue_key, "hey")}
+      3.times {$redis_bulk_upload.lpush(feeder.redis_load_queue_key, "hey")}
       expect(feeder).not_to be_done
 
       # chopper signals done, but we still have to work off some of the queue
-      $redis.set(feeder.redis_all_lines_chopped_key, "done")
+      $redis_bulk_upload.set(feeder.redis_all_lines_chopped_key, "done")
       expect(feeder).not_to be_done
 
       # chopper signals done and we've worked through the entire queue, we're done
-      $redis.del(feeder.redis_load_queue_key)
+      $redis_bulk_upload.del(feeder.redis_load_queue_key)
       expect(feeder).to be_done
     end
   end
