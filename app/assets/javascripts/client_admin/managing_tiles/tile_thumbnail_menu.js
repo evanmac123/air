@@ -33,7 +33,7 @@ Airbo.TileThumbnailMenu = (function() {
         setMenuActiveState(origin, false);
       },
       functionReady: function(origin, tooltip){
-        $(".tile_thumbnail_menu .delete_tile").click(function(event){
+        $(".tile_thumbnail_menu .delete_tile, .tile_buttons .delete_tile").click(function(event){
           event.preventDefault();
           origin.tooltipster("hide");
           Airbo.TileAction.confirmDeletion($(this));

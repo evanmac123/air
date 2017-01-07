@@ -1,5 +1,5 @@
-body.client_admin-tiles-index,
-body.client_admin-inactive_tiles {
+.client_admin-tiles-index,
+.client_admin-inactive_tiles {
   //
   // => Draft section
   //
@@ -157,5 +157,26 @@ body.client_admin-inactive_tiles {
     padding-top: 10px;
     text-align: center;
     font-size: 17px;
+  }
+}
+
+.draft-toggler{
+  padding: 10px;
+  padding-top: 5px;
+  a {
+    font-size: 14px;
+    padding: 10px;
+   i.fa{
+     padding-right:3px;
+   }
+  }
+}
+
+.button.button{
+  &.disabled{
+   &:hover{
+     background: #a8a8a8;
+     border-color: #a8a8a8;
+   }
   }
 }

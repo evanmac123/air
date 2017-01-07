@@ -51,7 +51,7 @@ Airbo.TileAction = (function(){
     if(status !=="user_submitted" && status!=="ignored"){
       currTile.remove();
       $(newSection).prepend(newTile);
-      window.updateTilesAndPlaceholdersAppearance();
+      Airbo.TileDragDropSort.updateTilesAndPlaceholdersAppearance();
     }else{
       replaceTileContent(newTile, newTile.data("tile-container-id"));
       updateUserSubmittedTilesCounter();
@@ -141,13 +141,18 @@ Airbo.TileAction = (function(){
 
   function updateStatus(target){
     tile = tileByStatusChangeTriggerLocation(target);
+
     function closeAnyToolTips(){
       if((target).parents(".tooltipster-base").length > 0){
         $("li#stat_toggle").tooltipster("hide");
       }
     }
 
-    submitTileForUpadte(tile,target, closeAnyToolTips);
+    if(tile.hasClass("unfinished")){
+      Airbo.Utils.alert(Airbo.Utils.Messages.incompleteTile);
+    }else{
+      submitTileForUpadte(tile,target, closeAnyToolTips);
+    }
   }
   //
   // => Duplication
@@ -161,15 +166,13 @@ Airbo.TileAction = (function(){
         animation: false,
         showConfirmButton: false,
         html: true
-        // showCancelButton: true,
-        // cancelButtonText: "Edit Tile"
       }
     );
     swapModalButtons();
   }
 
   function swapModalButtons(){
-    // $("button.cancel").before($("button.confirm"));
+     $("button.cancel").before($("button.confirm"));
   }
 
   function afterDuplicationModal(tileId){

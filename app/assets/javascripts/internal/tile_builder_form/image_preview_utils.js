@@ -45,6 +45,7 @@ $(function() {
       function setFormFieldsForSelectedImage(url, type){
         remoteMediaUrl.val(url);
         remoteMediaType.val(type || "image");
+        remoteMediaUrl.change();
       }
 
 
@@ -59,6 +60,7 @@ $(function() {
         previewer.clearPreviewImage();
         library.clearSelectedImage();
         remoteMediaUrl.val(undefined);
+        remoteMediaUrl.change();
       }
 
       function showImagePreview(imgUrl, imgWidth, imgHeight){

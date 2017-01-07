@@ -9,6 +9,58 @@ describe Tile do
   it { is_expected.to have_many(:guest_user_viewers) }
   it { is_expected.to ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
+  context "incomplete drafts" do
+    let(:demo){Demo.new}
+    LONG_TEXT  =  "*" * (Tile::MAX_SUPPORTING_CONTENT_LEN + 1)
+    it "can be created with just  headline" do
+      tile = Tile.new
+      tile.status = Tile::DRAFT
+      tile.headline = "headliner"
+      expect(tile.valid?).to be true
+    end
+    it "can be created with just  image" do
+      tile = Tile.new
+      tile.status = Tile::DRAFT
+      tile.remote_media_url = "image.png"
+      expect(tile.valid?).to be true
+    end
+
+    it "cannot be created if headline and image missing" do
+      tile = Tile.new
+      tile.headline = nil
+      tile.remote_media_url = nil
+      expect(tile.valid?).to be false
+    end
+
+
+    it "cannot set to active if incomplete" do
+      tile  = FactoryGirl.create :tile, status: Tile::ACTIVE
+      tile.remote_media_url = nil
+      expect(tile.valid?).to be false
+    end
+
+    it "cannot be posted if missing image" do
+      tile  = FactoryGirl.create :tile, status: Tile::DRAFT
+      tile.remote_media_url = nil
+      tile.status = Tile::ACTIVE 
+      expect(tile.save).to be false
+    end
+
+    it "can be saved as draft if supporting content len > specfied max" do
+      tile  = FactoryGirl.create :tile, status: Tile::DRAFT, supporting_content: LONG_TEXT
+      expect(tile.save).to be true
+    end
+
+    it "cannot be posted if supporting content len > specfied max" do
+      tile  = FactoryGirl.create :tile, status: Tile::DRAFT
+      tile.supporting_content = LONG_TEXT
+      tile.status = Tile::ACTIVE 
+      expect(tile.save).to be false
+    end
+  end
+
+
+
   context "status and activated_at" do
 
     it "forbids updating activated_at when unarchiving tiles be default" do
@@ -16,7 +68,7 @@ describe Tile do
       expect(tile.activated_at_reset_allowed?).to be_falsey
     end
 
-    it "doesnt change activated_at if on un archival if not explicitly set" do
+    it "doesnt change activated_at on un-archival if not explicitly set" do
       tile  = FactoryGirl.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
       expect{tile.status=Tile::ACTIVE;tile.save}.to_not change{tile.activated_at}
     end
@@ -27,9 +79,9 @@ describe Tile do
       expect(tile.activated_at_reset_allowed?).to be_truthy
     end
 
-    it "changes activated_it if the current status is DRAFT" do
-      tile  = FactoryGirl.create :tile, status: Tile::DRAFT
-      expect{tile.status=Tile::ACTIVE;tile.save}.to change{tile.activated_at}
+    it "updates activated_at if the status changes from DRAFT to ACTIVE" do
+      tile = FactoryGirl.create :tile, status: Tile::DRAFT
+      expect{tile.status=Tile::ACTIVE; tile.save}.to change{tile.activated_at}
     end
   end
 
@@ -162,10 +214,10 @@ describe Tile do
     expect(tile_3.activated_at).to be_nil
     expect(tile_3.archived_at).to be_nil
 
-     #Don't forget to verify that we can override the time-stamp assignments with FactoryGirl.
-     #Note: As per the sample output below (from a failing test) the time from the dbase contains
-     #too much information for this test => just grab the first part of the date
-     #expected: "2013-08-15" ; got: "2013-08-15 00:00:00 -0400"
+    #Don't forget to verify that we can override the time-stamp assignments with FactoryGirl.
+    #Note: As per the sample output below (from a failing test) the time from the dbase contains
+    #too much information for this test => just grab the first part of the date
+    #expected: "2013-08-15" ; got: "2013-08-15 00:00:00 -0400"
 
     tile_4 = FactoryGirl.create :tile, status: Tile::ACTIVE, activated_at: Date.tomorrow
     expect((tile_4.activated_at.to_s.split)[0]).to eq(Date.tomorrow.to_s)
@@ -287,48 +339,16 @@ describe Tile do
 
   describe "#survey_chart" do
     it "should return array with right statistic" do
-      tile = FactoryGirl.create(:survey_tile, \
-                                question: "Do you belive in life after life", \
-                                multiple_choice_answers: ["Yes", "No"])
-      tc1 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 0 )
-      tc2 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
-      tc3 = FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
+      tile = FactoryGirl.create(:survey_tile, 
+                                question: "Do you belive in life after life", 
+                                multiple_choice_answers: ["Yes", "No"]
+                               )
+      FactoryGirl.create(:tile_completion, tile: tile, answer_index: 0 )
+      FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
+      FactoryGirl.create(:tile_completion, tile: tile, answer_index: 1 )
       expect(tile.survey_chart).to eq([{"answer"=>"Yes", "number"=>1, "percent"=>33.33},
-                                   {"answer"=>"No", "number"=>2, "percent"=>66.67}])
-    end
-  end
-
-  describe "image filenames" do
-    def legacy_filename
-      "Jerome_Smith.original.Screenshot-4.13.14.at.6.15.PM.png"
+                                       {"answer"=>"No", "number"=>2, "percent"=>66.67}])
     end
 
-    def make_legacy_tile
-      tile = FactoryGirl.create(:multiple_choice_tile)
-      tile.update_column(:image_file_name, legacy_filename) # No callbacks, no validations
-      tile
-    end
-
-    it "should be normalized on creation" do
-      tile = FactoryGirl.create(:multiple_choice_tile, image: File.open(Rails.root.join "spec/support/fixtures/tiles/cov'1.jpg"))
-      expect(tile.image_file_name).to eq("cov-1.jpg")
-    end
-
-    it "should be normalized on save if changed" do
-      tile = make_legacy_tile
-      tile.image = File.open(Rails.root.join "spec/support/fixtures/tiles/cov'1.jpg")
-      tile.save!
-
-      expect(tile.image_file_name).to eq("cov-1.jpg")
-    end
-
-    it "should not be touched if the tile is saved for some other reason, but the filename is unchanged" do
-      tile = make_legacy_tile
-
-      tile.status = Tile::ACTIVE
-      tile.save!
-
-      expect(tile.reload.image_file_name).to eq(legacy_filename)
-    end
   end
 end
