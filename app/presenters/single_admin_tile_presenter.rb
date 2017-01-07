@@ -49,7 +49,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def thumbnail
-    tile.image.exists? ? tile.thumbnail : "missing-tile-img-thumb.png"
+    tile.remote_media_url.present? ? tile.thumbnail : "missing-tile-img-thumb.png"
   end
 
   def completed_class
