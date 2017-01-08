@@ -42,10 +42,7 @@ Airbo.FinancialKpiChart = (function(){
       },
       xAxis: x_axis_params() ,
       yAxis: y_axis_params(),
-      series: [{
-        name: 'MRR',
-        data: chartData,
-      } ]
+      series: [chartData]
     });
   }
 
@@ -133,7 +130,7 @@ Airbo.FinancialKpiChart = (function(){
 
 
   function refreshChart(){
-    kpiChart.series[0].setData(chartData);
+    kpiChart.series[0].setData(chartData.data);
   }
 
 
@@ -143,13 +140,18 @@ Airbo.FinancialKpiChart = (function(){
 
   function prepareDataForChart(data){
     getDateSeries(data.from_date.values);
-    chartData = dates.map(
+    plotdata = dates.map(
       function(date,idx){ 
         return{
           x: date,
           y: parseInt(data.starting_mrr.values[idx])
         }
       });
+
+      chartData = {
+        name: "MRR",
+        data: plotdata
+      };
 
       tableData = { headers: converDates(), rows: getTableRows(data)};
   }
