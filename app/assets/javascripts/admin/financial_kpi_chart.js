@@ -2,11 +2,12 @@ var Airbo = window.Airbo || {};
 
 Airbo.FinancialKpiChart = (function(){
 
-  var chartData
+  var chartData = []
     , tableData
     , dates 
     , kpiChart
     , chartContainer = "#chart-container"
+    , datasets = {starting_mrr: {name: "MRR", data: []}, amt_booked: {name: "Amt Booked", data: []}}
   ;
 
 
@@ -42,7 +43,7 @@ Airbo.FinancialKpiChart = (function(){
       },
       xAxis: x_axis_params() ,
       yAxis: y_axis_params(),
-      series: [chartData]
+      series: chartData
     });
   }
 
@@ -130,7 +131,8 @@ Airbo.FinancialKpiChart = (function(){
 
 
   function refreshChart(){
-    kpiChart.series[0].setData(chartData.data);
+    kpiChart.series[0].setData(chartData[0].data);
+    kpiChart.series[0].update({name: chartData[0].name});
   }
 
 
@@ -138,23 +140,36 @@ Airbo.FinancialKpiChart = (function(){
     prepareDataForChart($(".chart-data").data("plotdata"));
   }
 
-  function prepareDataForChart(data){
-    getDateSeries(data.from_date.values);
-    plotdata = dates.map(
+  function getPlotPoints(data, kpi){
+    return dates.map(
       function(date,idx){ 
         return{
           x: date,
-          y: parseInt(data.starting_mrr.values[idx])
+          y: parseInt(data[kpi].values[idx])
         }
       });
-
-      chartData = {
-        name: "MRR",
-        data: plotdata
-      };
-
-      tableData = { headers: converDates(), rows: getTableRows(data)};
   }
+
+  function prepareDataForChart(data){
+    getDateSeries(data.from_date.values);
+    build_graph_series_data(data)
+
+    chartData[0] = datasets["starting_mrr"];
+
+    tableData = { headers: converDates(), rows: getTableRows(data)};
+  }
+
+  function build_graph_series_data(data){
+    Object.keys(datasets).forEach(function(kpi){
+      datasets[kpi].data = getPlotPoints(data, kpi)
+    });
+  }
+
+  function switchKpi(kpi){
+    chartData[0] = datasets["amt_booked"];
+    refreshChart();
+  }
+
 
   function getTableRows(data){
     return Object.keys(data).map(function (kpi) { 
