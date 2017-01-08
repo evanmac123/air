@@ -166,7 +166,7 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function switchKpi(kpi){
-    chartData[0] = datasets["amt_booked"];
+    chartData[0] = datasets[kpi];
     refreshChart();
   }
 
@@ -237,13 +237,19 @@ Airbo.FinancialKpiChart = (function(){
   }
 
 
+  function initSeriesSwitcher(){
+    $(".report-filter #metric_list").change(function(){
+      switchKpi($(this).find("option:selected").val())
+    });
+  }
+
 
   function init(){
     initVars();
     initChartDataFromDataAttributes();
     initChart(chartContainer);
     initForm();
-
+    initSeriesSwitcher();
     Airbo.Utils.KpiReportDateFilter.init();
     Airbo.Utils.StickyTable.init();
   }
