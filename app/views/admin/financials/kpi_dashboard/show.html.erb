@@ -42,7 +42,7 @@
   <div class="row">
     <div class="columns small-12 small-centered">
       <div id="financials-filter">
-        <%=render partial: "/admin/shared/date_range_form", locals:{path: admin_financials_kpi_dashboard_path} %>
+        <%=render partial: "/admin/shared/date_range_form", locals:{path: admin_financials_kpi_dashboard_path, metric_list: {"MRR" => "starting_mrr",  "ARR" =>"starting_arr" }} %>
       </div>
     </div>
   </div>
@@ -60,3 +60,10 @@
   </div>
 </div>
 
+<script>
+$(function(){
+  $("#metric_list").change(function(){
+    console.log($(this).find("option:selected").val());
+  })
+})
+</script>
