@@ -3,8 +3,9 @@ class Admin::ClientKpiReportsController < AdminBaseController
   before_filter :get_dates, only: [:show]
 
   def show
-    rep = Reporting::ClientKPIReport.new
-    @table_data = rep.get_data_by_date_and_interval @sdate,@edate, params[:interval] || Metrics::WEEKLY
+    @rep = Reporting::ClientKPIReport.new
+    @table_data = @rep.get_data_by_date_and_interval @sdate,@edate, params[:interval] || Metrics::WEEKLY
+    
     @dates = @table_data["from_date"]["values"]
     if request.xhr?
       render partial: "table_with_chart_data"

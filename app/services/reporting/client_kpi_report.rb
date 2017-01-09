@@ -1,7 +1,10 @@
 module Reporting
   class ClientKPIReport <KpiReportingBase
 
-      def default_date_range
+    #FIXME move this constant to common location to remove duplication
+    PAID_CLIENTS_DELIGHTED_TREND = 75029
+
+    def default_date_range
       edate = Date.today.beginning_of_week
       sdate = edate.advance(weeks: -5)
       [sdate, edate]
@@ -9,6 +12,10 @@ module Reporting
 
     def db_fields
       CustSuccessKpi.select(query_select_fields)
+    end
+
+    def curr_nps
+      curr_nps_data.nps
     end
 
     def sections
@@ -331,7 +338,9 @@ module Reporting
     end
 
     private
-
+    def curr_nps_data
+     @nps_data ||= Integrations::NetPromoterScore.get_metrics({trend: PAID_CLIENTS_DELIGHTED_TREND })
+    end
 
     def adjust_current_percent_by_count(percent_hash)
       percent_hash["percent"].to_i * percent_hash["count"].to_i
