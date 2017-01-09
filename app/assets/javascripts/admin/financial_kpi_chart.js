@@ -238,14 +238,13 @@ Airbo.FinancialKpiChart = (function(){
 
 
   function initSeriesSwitcher(){
-    $(".report-filter #metric_list").change(function(){
+    $("#metric_list").change(function(){
       switchKpi($(this).find("option:selected").val())
     });
   }
   
   function initDataSets(){
-    var kpiset = $(".report-filter #metric_list").data("kpis")
-    debugger
+    var kpiset = $("#metric_list").data("kpis")
     Object.keys(kpiset).forEach(function(kpi){
       datasets[kpi]={name: kpiset[kpi], data:[]};
     });

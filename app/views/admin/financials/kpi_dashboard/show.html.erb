@@ -40,10 +40,16 @@
   </div>
 
   <div class="row">
-    <div class="columns small-12 small-centered">
-      <div id="financials-filter">
-        <%=render partial: "/admin/shared/date_range_form", locals:{path: admin_financials_kpi_dashboard_path, metric_list: FinancialsReporterService.chart_series_names} %>
+    <div class="report-filter-container">
+      <div class="columns small-9 ">
+        <%=render partial: "/admin/shared/date_range_form", locals:{path: admin_financials_kpi_dashboard_path} %>
       </div>
+      <div class="columns small-3">
+        <%= form_tag "", method: :get,  class: "custom report-filter" do %>
+          <%= select_tag :metric_list, options_for_select(FinancialsReporterService.chart_series_names), { id: "metric_list", class: "interval_custom_drop", data:{kpis: FinancialsReporterService.chart_series_names.invert }} %>
+        <%end%>
+      </div>
+
     </div>
   </div>
  
