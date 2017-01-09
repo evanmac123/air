@@ -1,6 +1,55 @@
 <div class="kpi-dashboard customer-success">
 
   <div class="row">
+    <div class="columns small-12">
+      <p>
+      <div class="row title_block">
+        <div class="small-3 columns centered">
+          <div class="activity-header total-arr">
+            <h1 class="header-number" data-kpi="totalArr">
+              <%= number_with_delimiter(82, :delimiter => ',') %>
+            </h1>
+            <span class="header-unit">
+              NPS 
+            </span>
+          </div>
+        </div>
+        <div class="small-3 columns centered">
+          <div class="activity-header total-mrr">
+            <h1 class="header-number" data-kpi="totalMrr">
+              <%= number_with_delimiter(100, :delimiter => ',') %>
+            </h1>
+            <span class="header-unit">
+              Customer Engagement
+            </span>
+          </div>
+        </div>
+        <div class="small-3 columns centered">
+          <div class="activity-header total-customers">
+            <h1 class="header-number" data-kpi="totalCustomers">
+              <%= number_with_delimiter(50, :delimiter => ',') %>
+            </h1>
+            <span class="header-unit">
+             Explore Engagement 
+            </span>
+          </div>
+        </div>
+
+        <div class="small-3 columns centered">
+          <div class="activity-header total-customers">
+            <h1 class="header-number" data-kpi="totalCustomers">
+              <%= number_with_delimiter(45, :delimiter => ',') %>
+            </h1>
+            <span class="header-unit">
+              New Tiles Added 
+            </span>
+          </div>
+        </div>
+      </div>
+      </p>
+    </div>
+  </div>
+  <div class="row">
     <div class="columns small-12 small-centered">
       <div>
         <%=render partial: "/admin/shared/date_range_form", locals:{path: admin_client_kpi_report_path} %>
