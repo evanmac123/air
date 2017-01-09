@@ -11,7 +11,7 @@ module Reporting
 
         m = CustSuccessKpi.new
 
-        m.paid_net_promoter_score = kpi.paid_net_promoter_score.nps
+        m.paid_net_promoter_score = kpi.get_paid_net_promoter_score.nps
         m.paid_net_promoter_score_response_count = kpi.paid_net_promoter_score.response_count
         m.total_paid_orgs = kpi.total_paid_orgs
         m.unique_org_with_activity_sessions = kpi.org_unique_activity_sessions
