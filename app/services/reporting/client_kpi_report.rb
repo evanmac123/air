@@ -35,6 +35,7 @@ module Reporting
         ],
         "Planning" => [
           "percent_paid_orgs_view_tile_in_explore",
+          "unique_orgs_that_viewed_tiles_in_explore",
           "total_tiles_viewed_in_explore_by_paid_orgs",
           "paid_client_admins_who_viewed_tiles_in_explore",
           "tiles_viewed_per_paid_client_admin"
@@ -237,6 +238,14 @@ module Reporting
           css: "kpi-tooltip",
           hint: "Avg Tiles Copied Per Org that Copied",
           indent: 1,
+        },
+
+        "unique_orgs_that_viewed_tiles_in_explore" =>{
+          label: "Customers",
+          type: "num",
+          css: "kpi-tooltip",
+          hint: "Unique organizations engaged in Explore",
+          indent: 0,
         },
         "orgs_that_posted_tiles" =>{
           label: "Orgs That Posted Tiles",

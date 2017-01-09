@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170105004320) do
+ActiveRecord::Schema.define(:version => 20170109224048) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -301,6 +301,7 @@ ActiveRecord::Schema.define(:version => 20170105004320) do
     t.integer  "orgs_that_created_tiles_from_scratch"
     t.integer  "average_tiles_created_from_scratch_per_org_that_created"
     t.string   "interval"
+    t.integer  "unique_orgs_that_viewed_tiles_in_explore"
   end
 
   create_table "custom_color_palettes", :force => true do |t|
@@ -950,7 +951,6 @@ ActiveRecord::Schema.define(:version => 20170105004320) do
     t.datetime "updated_at", :null => false
     t.boolean  "active"
     t.integer  "channel_id"
-    t.string   "slug"
   end
 
   add_index "tile_features", ["channel_id"], :name => "index_tile_features_on_channel_id"
