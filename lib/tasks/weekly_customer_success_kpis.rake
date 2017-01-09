@@ -3,8 +3,8 @@ namespace :admin do
     namespace :customer_success do
       desc "Runs the weekly customer_success"
 
-      task :build_daily => [:environment, :renewals] do
-        Reporing::CustomerSuccessKpiBuilder.build_current_week
+      task :build_daily => [:environment] do
+        Reporting::CustomerSuccessKpiBuilder.build_current_week
         Reporting::CustomerSuccessKpiBuilder.build_current_month
       end
 
