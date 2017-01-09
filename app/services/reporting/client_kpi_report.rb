@@ -78,7 +78,7 @@ module Reporting
           type: "num",
           hint: "Rolling 90 days",
           indent: 0,
-          css: "hilite kpi-tooltip"
+          css: " kpi-tooltip"
         },
         "paid_net_promoter_score_response_count" => {
           label: "Responses",
@@ -91,7 +91,7 @@ module Reporting
           type: "pct 0",
           hint: "",
           indent: 0,
-          css: "hilite"
+          css: ""
         },
         "unique_org_with_activity_sessions" =>{
           label: "Engaged ",
@@ -111,7 +111,7 @@ module Reporting
           type: "pct 0",
           hint: "",
           indent: 0,
-          css: "hilite"
+          css: ""
         },
         "unique_client_admin_with_activity_sessions" =>{
           label: "Engaged",
@@ -147,35 +147,35 @@ module Reporting
           type: "pct 0",
           hint: "% of Paid Organizations that viewed a Tile in Airbo Explore",
           indent: 0,
-          css: "hilite kpi-tooltip"
+          css: " kpi-tooltip"
         },
         "total_tiles_viewed_in_explore_by_paid_orgs" => {
           label: "Total Tile Views",
           type: "num",
           hint: "Total # of Tiles viewed in Explore by Paid Organizations",
           css: "kpi-tooltip",
-          indent: 1
+          indent: 0
         },
         "paid_client_admins_who_viewed_tiles_in_explore" => {
-          label: "Client Admins",
+          label: "Unique Tile Views",
           type: "num",
           hint: "# of client admins that viewed Tiles",
           css: "kpi-tooltip",
-          indent: 2
+          indent: 1
         },
         "tiles_viewed_per_paid_client_admin" => {
-          label: " Per Client Admin",
+          label: "Avg Tile Views",
           type: "num",
           hint: "# of Tile Views per Paid Client Admin",
           css: "kpi-tooltip",
-          indent: 2
+          indent: 1
         },
         "percent_orgs_that_added_tiles" => {
           label: "Tile Creation Engagement",
           type: "pct 0",
           hint: "% of Paid Organizations that added a tile",
           indent: 0,
-          css: "hilite kpi-tooltip"
+          css: " kpi-tooltip"
         },
         "total_tiles_added_by_paid_client_admin" => {
           label: "New Tiles Added",
