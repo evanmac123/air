@@ -42,7 +42,7 @@
   <div class="row">
     <div class="columns small-12 small-centered">
       <div id="financials-filter">
-        <%=render partial: "/admin/shared/date_range_form", locals:{path: admin_financials_kpi_dashboard_path, metric_list: {"MRR" => "starting_mrr",  "Amt Booked" =>"amt_booked" }} %>
+        <%=render partial: "/admin/shared/date_range_form", locals:{path: admin_financials_kpi_dashboard_path, metric_list: FinancialsReporterService.chart_series_names} %>
       </div>
     </div>
   </div>

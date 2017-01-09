@@ -7,7 +7,7 @@ Airbo.FinancialKpiChart = (function(){
     , dates 
     , kpiChart
     , chartContainer = "#chart-container"
-    , datasets = {starting_mrr: {name: "MRR", data: []}, amt_booked: {name: "Amt Booked", data: []}}
+    , datasets = {}
   ;
 
 
@@ -242,9 +242,17 @@ Airbo.FinancialKpiChart = (function(){
       switchKpi($(this).find("option:selected").val())
     });
   }
-
+  
+  function initDataSets(){
+    var kpiset = $(".report-filter #metric_list").data("kpis")
+    debugger
+    Object.keys(kpiset).forEach(function(kpi){
+      datasets[kpi]={name: kpiset[kpi], data:[]};
+    });
+  }
 
   function init(){
+    initDataSets();
     initVars();
     initChartDataFromDataAttributes();
     initChart(chartContainer);

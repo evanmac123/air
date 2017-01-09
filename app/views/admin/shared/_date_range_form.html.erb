@@ -2,10 +2,10 @@
 <%= form_tag path, method: :get,  class: "custom report-filter" do %>
   <div class="report-filter-container">
     <%if metric_list%>
-    <div class="columns small-3">
-      <%= select_tag :metric_list, options_for_select(metric_list), { id: "metric_list", class: "interval_custom_drop" } %>
-    </div>
-  <%end%>
+      <div class="columns small-3">
+        <%= select_tag :metric_list, options_for_select(metric_list), { id: "metric_list", class: "interval_custom_drop", data:{kpis: FinancialsReporterService.chart_series_names.invert }} %>
+      </div>
+    <%end%>
     <div class="columns small-3">
       <%= select_tag :interval, options_for_select({"Weekly" => "weekly",  "Monthly" =>"monthly" }), { class: "interval_custom_drop" } %>
     </div>
@@ -21,6 +21,5 @@
       </div>
     </div>
     <button class="button">Submit</button>
-  <!--/div-->
-
+  </div>
 <%end%>
