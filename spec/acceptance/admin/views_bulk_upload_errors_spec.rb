@@ -7,7 +7,7 @@ feature "site admin sees list of bulk upload errors" do
 
   it "should display the list of bulk upload errors" do
     errors = 1.upto(10).map{|index| "Line #{index}: data was nonsensical"}
-    errors.each {|error| $redis.lpush(redis_failed_load_queue_key, error)}
+    errors.each {|error| $redis_bulk_upload.lpush(redis_failed_load_queue_key, error)}
 
     visit admin_bulk_upload_errors_path(object_key: object_key, as: an_admin)
 

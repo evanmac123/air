@@ -109,27 +109,7 @@ var Airbo = {
 
     },
 
-    approve: function (text, cb) {
-      swal(
-        {
-          title: "",
-          text: text,
-          cancelButtonText: "Cancel",
-          animation: false,
-          customClass: "airbo",
-          closeOnConfirm: true,
-          showCancelButton: true,
-          closeOnCancel: true
-        },
-
-        function(isConfirm){
-          if (isConfirm) {
-
-            cb &&cb();
-          }
-        }
-      );
-    },
+    
 
     flashMsg: function (xhr, defaultMsg){
       return xhr.getResponseHeader("X-Message") || defaultMsg;

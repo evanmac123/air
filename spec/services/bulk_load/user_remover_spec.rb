@@ -8,7 +8,7 @@ describe BulkLoad::UserRemover do
   let(:object_key) {"some_file.csv"}
 
   def load_employee_ids_to_keep_into_redis
-    $redis.sadd(redis_unique_ids_key, employee_ids_to_keep)
+    $redis_bulk_upload.sadd(redis_unique_ids_key, employee_ids_to_keep)
   end
 
   def weird_user_prettyprinter(user_id)

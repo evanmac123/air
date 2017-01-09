@@ -10,6 +10,7 @@ Airbo.Utils.StandardModal = (function(){
       , modalXSel
       , ajaxModalClass = "ajax_modal"
       , ajaxModalSel = "." + ajaxModalClass
+      , params
       , defaultParams = {
           useAjaxModal: false,
           closeSel: "",
@@ -21,38 +22,27 @@ Airbo.Utils.StandardModal = (function(){
           confirmOnClose: false,
           scrollOnOpen: true,
           smallModal: false,
-          modalClass: ""
+          modalClass: "",
+          closeMessage: function(){return "Are you sure"}
         }
-      , params
     ;
+
     function scrollModalToTop() {
       if(params.scrollOnOpen) {
         modal.scrollTop(0);
       }
     }
+
     function open() {
       modal.foundation("reveal", "open");
       scrollModalToTop();
     }
-    function closeModal() {
-      message = "Are you sure you want to stop editing this tile?" +
-                " Any changes you've made will be lost";
-      swal(
-        {
-          title: "",
-          text: message,
-          customClass: "airbo",
-          animation: false,
-          showCancelButton: true
-        },
 
-        function(isConfirm){
-          if (isConfirm) {
-            modal.foundation("reveal", "close");
-          }
-        }
-      );
+    function closeModal() {
+     var msg = params.closeMessage();
+      Airbo.Utils.approve(msg, modal.foundation.bind(modal, "reveal", "close"))
     }
+
     function close() {
       if(params.closeAlt){
         params.closeAlt();
@@ -62,9 +52,11 @@ Airbo.Utils.StandardModal = (function(){
         modal.foundation("reveal", "close");
       }
     }
+    
     function setContent(content) {
       modal.find("#modal_content").html(content);
     }
+
     function bodyScrollVisibility(show) {
       var overflow = "";
       var width = "";
@@ -159,6 +151,11 @@ Airbo.Utils.StandardModal = (function(){
         $(modalXSel).addClass("stickable");
       }
     }
+
+    function setConfirmOnClose(val){
+      params.confirmOnClose = val;
+    }
+
     function init(userParams) {
       params = $.extend(defaultParams, userParams);
       makeModal();
@@ -169,6 +166,7 @@ Airbo.Utils.StandardModal = (function(){
      open: open,
      close: close,
      setContent: setContent,
+     setConfirmOnClose: setConfirmOnClose
      // scrollModalToTop: scrollModalToTop
     }
   }

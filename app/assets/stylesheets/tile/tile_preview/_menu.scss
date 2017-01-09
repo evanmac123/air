@@ -38,6 +38,9 @@
     width: 16%;
     a {
       padding: 11px 20px;
+      .disabled & {
+       cursor: not-allowed;
+      }
     }
     &#suggested_info{
      width: 50%;
@@ -95,6 +98,22 @@
   &.form_menu {
     left: 35px;
   }
+  &.incomplete{
+    border: 1px solid #FF5656;
+    .preview_menu_item {
+      color:  #FF5656;
+      width: 100%;
+      a{
+        color: #FF5656;
+        &:hover {color: darken(#FF5656, 10%);}
+        &:before {
+          content: '';
+        }
+
+      }
+    }
+  }
+
   &.explore_menu, &.form_menu {
     border: 1px solid $n-blue;
     .preview_menu_item {
@@ -111,6 +130,10 @@
           content: '';
         }
         &[disabled] {
+          color: grey;
+        }
+
+        &.saving{
           @include button-with-spinner($n-blue);
         }
       }

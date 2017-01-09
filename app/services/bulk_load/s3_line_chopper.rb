@@ -14,6 +14,7 @@ class BulkLoad::S3LineChopper
       buffer += chunk
 
       buffer.lines.each do |line|
+        # TODO: This regex comparision does not work if the line only has a carriage return (\r), which has been happening in Kate's test excel files.  We need to evaluate how to do this better.
         if line =~ /\n$/
           block.call(line)
           buffer = ""

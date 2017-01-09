@@ -1,0 +1,22 @@
+<% if presenter.has_tile_stats? %>
+  <div class="tile_stats" data-href="<%=client_admin_tile_tile_stats_path(presenter)%>">
+  <div class="unique_views stat_action has-tip tip-bottom" data-tooltip = '<%= true%>'  data-href="<%=client_admin_tile_tile_stats_path(presenter, action_type: 'unique_views')%>" title="Unique Views">
+      <%= fa_icon 'users' %>
+      <%= presenter.unique_views %>
+    </div>
+    <div class="views stat_action has-tip tip-bottom" data-tooltip=<%=true%> data-href="<%=client_admin_tile_tile_stats_path(presenter, action_type: 'total_views')%>" title="Total Views">
+      <%= fa_icon 'eye' %>
+      <%= presenter.total_views %>
+    </div>
+    <div class="completions stat_action has-tip tip-bottom" data-tooltip="<%=true%>" data-href="<%=client_admin_tile_tile_stats_path(presenter, action_type: 'interactions') %>" title="Interactions">
+      <%= fa_icon 'check' %>
+      <%= presenter.tile_completions_count %>
+    </div>
+  </div>
+  <% if presenter.shows_creator? && presenter.has_creator? %>
+    <div class="creator">
+      By:
+      <%= presenter.creator %>
+    </div>
+  <% end %>
+<% end %>

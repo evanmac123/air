@@ -25,16 +25,11 @@ Airbo.TilePreviewModal = (function(){
   }
   function prepareToolTip(origin, content){
     initSharing();
-
-    $(".preview_menu_item .update_status").click(function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      target = $(this);
-      Airbo.TileAction.updateStatus(target);
-    });
+    initStatusUpdate()
   }
+
   function initPreviewMenuTooltips(){
-    $(".tipsy").tooltipster({
+    $(".tipsy:not(.disabled)").tooltipster({
       theme: "tooltipster-shadow",
       interactive: true,
       position: "bottom",
@@ -43,6 +38,14 @@ Airbo.TilePreviewModal = (function(){
       trigger: "click"
     });
   }
+
+  function initDisabled(){
+    $(".tipsy.disabled").click(function(){
+      Airbo.Utils.alert(Airbo.Utils.Messages.incompleteTile);
+    });
+  }
+
+
   function initStickyPreviewMenu() {
     Airbo.StickyMenu.init(self);
   }
@@ -69,12 +72,6 @@ Airbo.TilePreviewModal = (function(){
       Airbo.TileAction.makeDuplication($(this));
     });
 
-    $(".preview_menu_item .update_status").click(function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      target = $(this);
-      Airbo.TileAction.updateStatus(target);
-    });
 
     $(".preview_menu_item .accept").click(function(e){
       e.preventDefault();
@@ -82,7 +79,20 @@ Airbo.TilePreviewModal = (function(){
       target = $(this);
       Airbo.TileAction.confirmAcceptance(target);
     });
+
+    initDisabled();
   }
+
+
+  function initStatusUpdate(){
+    $(".preview_menu_item .update_status").click(function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      target = $(this);
+      Airbo.TileAction.updateStatus(target);
+    });
+  }
+
   function initPreviewElements() {
     Airbo.TileCarouselPage.init();
     initPreviewMenuTooltips();

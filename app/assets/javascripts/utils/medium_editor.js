@@ -162,6 +162,7 @@ Airbo.Utils.mediumEditor = (function() {
         var val = obj.html();
         var re = new RegExp( /(<p><br><\/p>)+$/g);
         field.val( val.replace(re, "") );
+        field.change();
       });
 
 

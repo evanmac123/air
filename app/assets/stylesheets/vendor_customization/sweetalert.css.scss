@@ -26,13 +26,7 @@
      color: inherit;
     }
   }
-  .sa-button-container {
-    padding-right: 85px;
-    overflow: visible;
-  }
-  .sa-confirm-button-container {
-    float: right;
-  }
+ 
 
   input[type='checkbox']{
     display: inline;
@@ -45,9 +39,7 @@
   }
 
   button{
-    margin-top: 15px;
-    margin-left: 10px;
-    float: right;
+
     &.cancel {
       @include light-button($n-blue);
     }

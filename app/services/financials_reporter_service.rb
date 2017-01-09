@@ -141,134 +141,162 @@ class FinancialsReporterService
         },
         "starting_mrr" => {
           label: "Starting",
+          series: "Starting MRR",
           type:"money",
           indent: 0
         },
         "added_mrr" => {
           label: "Added",
+          series: "Added MRR",
           type: "money",
           indent: 0
         },
 
         "upgrade_mrr"  => {
           label: "Upgrades",
+          series: "Upgrade MRR",
           type: "money",
           indent: 1
         },
 
         "new_cust_mrr" => {
           label: "New Customers",
+          series: "New Cusomer MRR",
           type: "money",
           indent: 1
         },
 
         "churned_mrr" => {
           label: "Churned MRR",
+          series: "Churned MRR",
           type: "money",
           indent: 0
         },
         "downgrade_mrr" => {
           label: "Downgrades",
+          series: "Downgrade MRR",
           type: "money",
           indent: 1
         },
         "churned_customer_mrr" => {
           label: "Lost Customers",
+          series: "Lost Customer MRR",
           type: "money",
           indent: 1
         },
         "net_changed_mrr" => {
           label: "Net Change",
+          series: "Net Change MRR",
           type: "money",
           indent: 0
         } ,
         "current_mrr" => {
           label: "Ending",
+          series: "Ending MRR",
           type: "money",
           indent: 0
         } ,
         "starting_customers" => {
           label: "Starting",
+          series: "Starting Customers",
           type: "num",
           indent: 0
         } ,
         "added_customers" => {
           label: "Added",
+          series: "Added Customers",
           type: "num"
         } ,
         "churned_customers" => {
           label: "Churned",
+          series: "Churned Customers",
           type: "num",
           indent: 0
         } ,
         "net_change_customers" => {
           label: "Net Change",
+          series: "Net Change Customers",
           type: "num",
           indent: 0
         } ,
         "current_customers" => {
           label: "Ending",
+          series: "Customers",
           type: "num",
           indent: 0
         } ,
         "possible_churn_customers" => {
           label: "Customers",
+          series: "Possible Churn Customers",
           type: "num",
           indent: 1
         } ,
         "possible_churn_mrr" => {
           label: "MRR",
+          series: "Possible Churn MRR",
           type: "money",
           indent: 1
         } ,
         "churned_customers" => {
           label: "Customers",
+          series: "Churned Customers",
           type: "num",
           indent: 1
         } ,
         "churned_mrr" => {
           label: "MRR",
+          series: "Churned MRR",
           type: "money",
           indent: 1
         } ,
         "percent_churned_customers" => {
           label: "Customers",
+          series: "% Churned Customers",
           type: "pct",
           indent: 1
         } ,
         "percent_churned_mrr" => {
           label: "MRR",
+          series: "% Churned MRR",
           type: "pct 0",
           indent: 1
         } ,
         "net_churned_mrr" => {
           label: "Net Churned Rate",
+          series: "Net Churned MRR %",
           type: "pct",
           indent: 0
         } ,
         "added_customer_amt_booked" => {
           label: "New Customer",
+          series: "New Customer Amt Booked",
           type: "money",
           indent: 0
         },
         "renewal_amt_booked" => {
           label: "Renewals",
+          series: "Renewal Amt Booked",
           type: "money",
           indent: 0
         } ,
         "upgrade_amt_booked" => {
           label: "Upgrades",
+          series: "Upgrade Amt Booked",
           type: "money",
           indent: 0
         } ,
         "amt_booked" => {
           label: "Total",
+          series: "Amt Booked",
           type: "money",
           indent: 0
         } ,
       }
     end
 
+    def chart_series_names
+      kpi_fields.inject({}){|h, (k,v)| h[v[:series]]=k if v[:series]; h}
+    end
 
     def query_select_fields
       kpi_fields.keys.join(",")

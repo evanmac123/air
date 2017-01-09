@@ -103,7 +103,7 @@ setCompressedSectionClass = function(action) {
   } else {
     section().addClass(compressedSectionClass());
   }
-  return window.updateTileVisibilityIn(selectedBlockName());
+  Airbo.TileDragDropSort.updateTileVisibilityIn(selectedBlockName());
 };
 
 sectionIsCompressed = function() {
