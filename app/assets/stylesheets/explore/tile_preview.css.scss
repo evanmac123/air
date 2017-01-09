@@ -83,6 +83,7 @@
   }
 
   .creator {
+    margin-bottom: 12px;
     .company_logo {
       height: 30px;
       &.default_logo {
@@ -94,17 +95,11 @@
       padding-left: 10px;
     }
   }
-  .related-channel-tags {
-    h4 {
-      font-size: 14px;
-    }
 
-    .tag {
-      padding: 2px 5px;
-      margin-right: 10px;
-      line-height: 35px;
-      font-size: 14px;
-      @include app-button($med-gray);
-    }
+  .explore-tag {
+    border-radius: 0;
+    padding: 5px;
+    margin-bottom: 4px;
+    text-transform: lowercase;
   }
 }

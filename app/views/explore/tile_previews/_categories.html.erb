@@ -1,5 +1,5 @@
 <div class="related-channel-tags">
   <% tile.channel_list.each do |channel| %>
-    <%= link_to channel, explore_channel_path(id: channel), class: "tag white bg-blue" %>
+    <%= link_to channel, explore_channel_path(id: channel), class: "button outlined gray explore-tag" %>
   <% end %>
 </div>
