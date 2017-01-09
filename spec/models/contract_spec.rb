@@ -27,6 +27,15 @@ describe Contract do
   end
 
   describe "renew" do
+
+    it "sets the renewal date on the current contract" do
+      sdate = Date.new(2014,1,1)
+      edate = Date.new(2014,12,31)
+      c = FactoryGirl.build(:contract, :complete, start_date: sdate, end_date: edate)
+      d = c.renew
+      expect(c.renewed_on).to eq Date.today
+    end
+
     context "first and last day of month" do
       it "sets proper start and end for annaul contracts" do
         sdate = Date.new(2014,1,1)
