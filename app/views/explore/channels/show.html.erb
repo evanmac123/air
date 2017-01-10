@@ -4,6 +4,7 @@
       <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
     <% end %>
   </section>
+  <%= render partial: 'explore/channel_header', locals: { channel: @channel } %>
   <% unless @related_features.empty? %>
     <% @related_features.ordered.each do |feature| %>
       <%= render partial: 'explore/tile_feature', locals: { feature: feature } %>
