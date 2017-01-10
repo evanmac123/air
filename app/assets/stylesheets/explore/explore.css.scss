@@ -252,7 +252,8 @@ body.explore, .explore {
       margin-left: 0;
     }
     .channel-description {
-      margin-top: 0;
+      margin-top: 10px;
+      margin-bottom: 10px;
       font-size: 20px;
     }
     &:after{
@@ -263,16 +264,16 @@ body.explore, .explore {
       position: absolute;
       bottom: -4px;
     };
+    .explore-tag {
+      background-color: rgba(76,76,76,0.6);
+      color: $off-white;
+      font-size: 22px;
+      border-radius: 0;
+      padding: 5px;
+      margin-bottom: 4px;
+      margin-top: 0;
+      text-transform: lowercase;
+    }
   }
 
-  .explore-tag {
-    background-color: rgba(76,76,76,0.6);
-    color: $off-white;
-    font-size: 22px;
-    border-radius: 0;
-    padding: 5px;
-    margin-bottom: 4px;
-    margin-top: 0;
-    text-transform: lowercase;
-  }
 }
