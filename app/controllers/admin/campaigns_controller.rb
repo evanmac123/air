@@ -5,7 +5,7 @@ class Admin::CampaignsController < AdminBaseController
   end
 
   def edit
-    @campaign = Campaign.find(params[:id])
+    @campaign = Campaign.find_by_slug(params[:id])
     @demos = Demo.select([:name, :id]).airbo
   end
 
@@ -25,7 +25,7 @@ class Admin::CampaignsController < AdminBaseController
   end
 
   def update
-    @campaign = Campaign.find(params[:id])
+    @campaign = Campaign.find_by_slug(params[:id])
 
     if @campaign.update_attributes(campaign_params)
       redirect_to admin_campaigns_path
