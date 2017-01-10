@@ -25,6 +25,6 @@ class Explore::ChannelsController < ExploreBaseController
 
     def virtual_channel
       name = params[:id].split("-").join(" ").humanize
-      Channel.new(name: name)
+      Channel.new(name: name, slug: name.parameterize)
     end
 end
