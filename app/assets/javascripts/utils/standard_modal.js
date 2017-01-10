@@ -40,7 +40,7 @@ Airbo.Utils.StandardModal = (function(){
 
     function closeModal() {
      var msg = params.closeMessage();
-      Airbo.Utils.approve(msg, modal.foundation.bind(modal, "reveal", "close"))
+      Airbo.Utils.approve(msg, modal.foundation.bind(modal, "reveal", "close"));
     }
 
     function close() {
@@ -52,7 +52,7 @@ Airbo.Utils.StandardModal = (function(){
         modal.foundation("reveal", "close");
       }
     }
-    
+
     function setContent(content) {
       modal.find("#modal_content").html(content);
     }
