@@ -133,6 +133,14 @@ class Tile < ActiveRecord::Base
     self.save
   end
 
+  def organization_slug
+    organization ? organization.slug : "airbo"
+  end
+
+  def organization_name
+    organization ? organization.name : "airbo"
+  end
+
   def handle_unarchived new_status, redigest
     if status == ARCHIVE && new_status == ACTIVE && redigest=="true"
       allow_activated_at_reset
@@ -319,13 +327,13 @@ class Tile < ActiveRecord::Base
   end
 
   def remove_images
-    write_attribute(:remote_media_url, nil) 
+    write_attribute(:remote_media_url, nil)
     image.destroy
 
     # NOTE this destroy call is for consistency only. Paperclip is configured
     # with preserve_files: true for thumbnails so that thumbnails are never
     # deleted #see  TileImageable module for details
-    thumbnail.destroy 
+    thumbnail.destroy
   end
 
   #FIXME the code around handling update status has gotten quite ugly

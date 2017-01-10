@@ -1,5 +1,6 @@
 class Organization < ActiveRecord::Base
   serialize :roles, Array
+  before_save :update_slug
 
   has_many :contracts
   has_many :demos, autosave: true
@@ -17,6 +18,13 @@ class Organization < ActiveRecord::Base
 
   scope :name_order, ->{order("LOWER(name)")}
 
+  def update_slug
+    self.slug = name.parameterize
+  end
+
+  def to_param
+    self.slug
+  end
 
   def self.as_customer
     joins(:contracts).uniq
@@ -130,7 +138,7 @@ class Organization < ActiveRecord::Base
     TimeDifference.between(customer_start_date, customer_end_date).in_months
   end
 
-  
+
 
   private
 
