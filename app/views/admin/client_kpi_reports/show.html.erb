@@ -4,17 +4,17 @@
     <div class="columns small-12">
       <p>
       <div class="row title_block">
-        <div class="small-3 columns centered">
+        <div class="small-3 columns">
           <div class="activity-header total-arr">
             <h1 class="header-number" data-kpi="totalArr">
               <%= number_with_delimiter(@rep.curr_nps, :delimiter => ',') %>
             </h1>
             <span class="header-unit">
-              NPS 
+              Net Promoter Score
             </span>
           </div>
         </div>
-        <div class="small-3 columns centered">
+        <div class="small-3 columns">
           <div class="activity-header total-mrr">
             <h1 class="header-number" data-kpi="totalMrr">
               <%= number_with_delimiter(100, :delimiter => ',') %>
@@ -24,7 +24,7 @@
             </span>
           </div>
         </div>
-        <div class="small-3 columns centered">
+        <div class="small-3 columns">
           <div class="activity-header total-customers">
             <h1 class="header-number" data-kpi="totalCustomers">
               <%= number_with_delimiter(50, :delimiter => ',') %>
@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <div class="small-3 columns centered">
+        <div class="small-3 columns">
           <div class="activity-header total-customers">
             <h1 class="header-number" data-kpi="totalCustomers">
               <%= number_with_delimiter(45, :delimiter => ',') %>
