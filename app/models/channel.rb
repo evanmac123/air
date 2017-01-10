@@ -24,7 +24,7 @@ class Channel < ActiveRecord::Base
   end
 
   def tiles
-    @tiles ||= Tile.explore.tagged_with(self.name).uniq
+    @tiles ||= Tile.explore_without_featured_tiles.tagged_with(self.name).uniq
   end
 
   def related_campaigns

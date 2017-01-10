@@ -12,7 +12,7 @@
     <% end %>
 
     <section class="manage_section" id="explore_tiles">
-      <%= render partial: 'explore/explore_tiles', locals: { tiles: @related_tiles, header: "Related Tiles" } %>
+      <%= render partial: 'explore/explore_tiles', locals: { tiles: @related_tiles, header: "Related Tiles", more_tiles_path: explore_tile_feature_path(@tile_feature) } %>
     </section>
   </div>
 </div>

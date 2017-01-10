@@ -2,7 +2,7 @@
   <div class="row">
     <h4 class="explore-headers non-link"><%= header %></h4>
     <div class="large-12 columns">
-      <div class="endless_scroll_content_container tile_wall_explore" data-page="<%= params[:page] || 1 %>" data-count="<%= tiles.count %>" data-path="<%= explore_path %>">
+      <div class="endless_scroll_content_container tile_wall_explore" data-page="<%= params[:page] || 1 %>" data-count="<%= tiles.count %>" data-path="<%= more_tiles_path %>">
         <% cache tiles do %>
           <%= render partial: 'explore/tiles', locals: { tiles: tiles, section: "Explore" } %>
         <% end %>

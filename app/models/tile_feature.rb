@@ -23,7 +23,7 @@ class TileFeature < ActiveRecord::Base
   end
 
   def related_tiles
-    Tile.explore.tagged_with(channels.split(","), on: :channels, any: true)
+    Tile.explore_without_featured_tiles.tagged_with(channels.split(","), on: :channels, any: true)
   end
 
   def related_campaigns
