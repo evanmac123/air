@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   extend User::Queries
   extend ValidImageMimeTypes
 
+  acts_as_taggable_on :channels
+
   belongs_to :organization
   belongs_to :location
   belongs_to :game_referrer, :class_name => "User"
