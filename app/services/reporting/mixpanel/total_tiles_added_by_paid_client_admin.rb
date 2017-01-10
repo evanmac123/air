@@ -9,7 +9,7 @@ module Reporting
 
           event: "Tile - New",
           type: "general",
-          where: %Q|(properties["user_type"] == "client admin") and (properties["board_type"] == "Paid") and properties["organization"] != "#{AIRBO_ORG_ID}"|,
+          where: where_condition ,
           on: 'properties["tile_source"]',
         })
       end

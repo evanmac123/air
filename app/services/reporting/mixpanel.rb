@@ -120,6 +120,10 @@ module Reporting
       end
 
       private
+      
+      def where_condition
+        %Q|(properties["user_type"] == "client admin") and (properties["board_type"] == "Paid") and properties["organization"] != "#{AIRBO_ORG_ID}"|
+      end
 
       def date_format d
         d.strftime "%Y-%m-%d"
