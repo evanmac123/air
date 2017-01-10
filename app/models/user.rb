@@ -987,7 +987,7 @@ class User < ActiveRecord::Base
 
   def highest_ranking_user_type
     return "site admin" if self.is_site_admin
-    return "client admin" if self.is_client_admin
+    return "client admin" if current_board_membership.is_client_admin
     "ordinary user"
   end
 
