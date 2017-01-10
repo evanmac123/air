@@ -1,11 +1,20 @@
 class ExploreController < ExploreBaseController
   include TileBatchHelper
-  include ExploreHelper
 
   def show
-    find_tiles_and_campaigns
-    @path_for_more_content = explore_path
+    @tiles = Tile.explore_without_featured_tiles.page(params[:page]).per(28)
 
-    render_partial_if_requested
+    if request.xhr?
+      content = render_to_string(
+                  partial: "explore/tiles",
+                  locals: { tiles: @tiles, section: "Explore" })
+
+      render json: {
+        success:   true,
+        content:   content,
+        added:     @tiles.count,
+        lastBatch: params[:count] == @tiles.total_count.to_s
+      }
+    end
   end
 end

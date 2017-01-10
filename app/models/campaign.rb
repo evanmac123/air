@@ -3,6 +3,7 @@ class Campaign < ActiveRecord::Base
   validates :name, uniqueness: true, presence: true
 
   belongs_to :demo
+  has_many :tiles, through: :demo
   acts_as_taggable_on :channels
 
   has_attached_file :cover_image,
@@ -11,13 +12,22 @@ class Campaign < ActiveRecord::Base
       default_style: :explore,
     }
 
-  scope :alphabetical, -> { order(:name) }
+  default_scope order(:name)
 
-  # def to_param
-  #   self.slug
-  # end
+  def self.exclude(excluded_campaigns)
+    campaigns = Campaign.arel_table
+    Campaign.where(campaigns[:id].not_in(excluded_campaigns))
+  end
 
   def update_slug
     self.slug = name.parameterize
+  end
+
+  def tile_count
+    tiles.explore.count
+  end
+
+  def to_param
+    self.slug
   end
 end

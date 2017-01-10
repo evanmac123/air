@@ -26,4 +26,12 @@ class Channel < ActiveRecord::Base
   def tiles
     @tiles ||= Tile.explore.tagged_with(self.name).uniq
   end
+
+  def related_campaigns
+    Campaign.tagged_with(self.name, on: :channels, any: true)
+  end
+
+  def related_features
+    TileFeature.tagged_with(self.name, on: :channels, any: true)
+  end
 end

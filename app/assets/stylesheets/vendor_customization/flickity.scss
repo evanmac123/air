@@ -1,0 +1,8 @@
+@mixin flickity() {
+  .flickity-prev-next-button:disabled {
+    display: none;
+  }
+  .carousel-cell {
+    cursor: pointer;
+  }
+}

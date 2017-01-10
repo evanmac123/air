@@ -145,6 +145,9 @@
     &.yellow {
       @include button-outlined-color($text-color: $n-yellow, $hover-color: $off-white);
     }
+    &.gray {
+      @include button-outlined-color($text-color: rgba(76,76,76,0.6), $hover-color: $off-white);
+    }
   }
 
   &.outlined-alt {

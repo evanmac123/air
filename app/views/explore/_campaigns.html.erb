@@ -1,17 +1,25 @@
-<div class="row">
-  <div class="large-12 columns">
-    <h4 class="explore-headers non-link">Airbo Campaigns</h4>
-    <div class="manage_section" id="campaigns">
-      <div class="campaigns campaign-wall-explore">
-        <%= render partial: 'explore/campaign_block', locals: { campaigns: @campaigns } %>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="large-12 columns">
-    <div class="more-airbo-campaigns">
-      <%= render partial: 'explore/campaigns_show_more_link', locals: {path_for_more_campaigns: @path_for_more_content, all_campaigns_displayed: @all_campaigns, campaign_count: @campaigns.count, target_selector: "#campaigns .campaign-wall-explore"} %>
-    </div>
+<div class="row campaign-row">
+  <h4 class="explore-headers non-link"><%= header %></h4>
+  <div class="campaigns flickity-campaigns-carousel">
+    <% campaigns.each do |campaign| %>
+      <% cache campaign do %>
+        <div class="carousel-cell tile_container" data-slug="<%= campaign.slug %>" data-name="<%= campaign.name %>">
+          <div class="campaign">
+            <div class="campaign-cell" style="background-image: url('<%= campaign.cover_image.url %>')">
+              <div class="campaign_shadow_overlay"></div>
+              <div class="campaign_overlay"></div>
+              <section class="board-name">
+                <h3 class="title"><%= campaign.name %></h3>
+              </section>
+              <section class="cover-footer">
+                <div class="num-tiles subtitle">
+                  <%="#{campaign.tile_count} Tiles"%>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>

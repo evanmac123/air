@@ -4,31 +4,26 @@ class TilePublicForm
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
-  attr_accessor :tile, :parameters
-  validate :main_objects_all_valid
+  attr_accessor :tile, :params
 
-  def initialize(tile, parameters = {})
+  def initialize(tile, params = {})
     @tile = tile
-    @parameters = parameters
+    @params = params
     @is_public_initial = is_public
   end
 
   def save
     set_tile_public_params
-    set_tile_taggings
-    save_tile if valid?
+    set_channels
+    tile.save
   end
 
   def channels
-    @tile.channels
+    @tile.channel_list
   end
 
-  def tile_tags
-    @tile_tags ||= begin
-      tile_tag_ids = (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids].split(',')) ||
-        (@tile && @tile.tile_taggings.map(&:tile_tag_id)) || []
-      TileTag.where(id: tile_tag_ids)
-    end
+  def set_channels
+    @tile.channel_list = params[:channels]
   end
 
   def is_public
@@ -43,55 +38,9 @@ class TilePublicForm
     false
   end
 
-  protected
+  private
 
-  def tile_became_public
-    is_public && !@is_public_initial
-  end
-
-  def save_tile
-    Tile.transaction do
-      if tile.save(context: :client_admin) && tile_became_public
-        Tile.reorder_explore_page_tiles!([tile.id])
-      end
+    def set_tile_public_params
+      tile.is_public = params[:is_public] if params[:is_public].present?
     end
-  end
-
-  def set_tile_public_params
-    tile.is_public = parameters[:is_public] if parameters[:is_public].present?
-  end
-
-  def tile_tag_ids
-    @tile_tag_ids ||= (@parameters && @parameters[:tile_tag_ids] && @parameters[:tile_tag_ids]) ||
-      (@tile && @tile.tile_taggings.map(&:tile_tag_id).join(',')) || ''
-  end
-
-  def set_tile_taggings
-
-    if parameters[:tile_tag_ids].present?
-      tile_tag_ids = parameters[:tile_tag_ids].split(',').map(&:to_i)
-      new_tile_tag_ids = tile_tag_ids
-      if tile.persisted?
-        existing_tile_tag_ids = @tile.tile_taggings.map(&:tile_tag_id)
-        new_tile_tag_ids = tile_tag_ids - existing_tile_tag_ids
-      end
-
-      #only keep the new and non-removed tile taggings
-      associated_tile_taggings = tile.tile_taggings.where(tile_tag_id: tile_tag_ids)
-      new_tile_tag_ids.each do |tile_tag_id|
-        associated_tile_taggings << tile.tile_taggings.build(tile_tag_id: tile_tag_id)
-      end
-      tile.tile_taggings = associated_tile_taggings
-    else
-      tile.tile_taggings = []
-    end
-  end
-
-  def main_objects_all_valid
-    if tile.is_public? &&
-        tile.tile_taggings.size < 1 &&
-        tile.tile_tags.size < 1
-      errors.add(:base, 'at least one tag must exist for public tile')
-    end
-  end
 end

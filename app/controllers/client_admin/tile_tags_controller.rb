@@ -1,58 +1,51 @@
 class ClientAdmin::TileTagsController < ClientAdminBaseController
+  # TODO: this controller is awful.  Rewrite completely.
   def index
     respond_to do |format|
-      @tags = TileTag.order(:title)
+      @tags = ActsAsTaggableOn::Tag.order(:name)
       format.js do
-        render :inline => search_results_as_json
+        render inline: search_results_as_json
       end
     end
   end
 
-  def add
-    tag = TileTag.find_or_create_by_title(normalized_title)
-    render :json => tag.id
-  end
-    
-  protected
+  private
 
-  def normalized_title
-    params[:term].strip.gsub(/\s+/, ' ')
-  end
-  
-  def search_results_as_json
-
-
-
-    visible_tags = current_user.is_site_admin? ? TileTag.scoped : Topic.where(name: "Other").first.tile_tags
-
-    tags = visible_tags.tag_name_like(normalized_title).order(:title).limit(10)
-
-    result = tags.map{|tag| search_result(tag)}
-    if tags.empty? || visible_tags.have_tag(normalized_title).nil?
-      result += add_tag(normalized_title) 
+    def normalized_title
+      params[:term].strip.gsub(/\s+/, ' ')
     end
-    result.to_json
-  end
 
-  def search_result(tag)
-    {
-      label: ERB::Util.h(tag.title), 
-      value: {
-        id: tag.id,
-        found: true,
-      }
-    } 
-  end
+    def search_results_as_json
+      tags = search(normalized_title).order(:name).limit(10)
+      result = tags.map { |tag| search_result(tag) }
+      result += add_tag(normalized_title)
 
-  def add_tag(normalized_title)
-    label = ERB::Util.h(%{Tag doesn't exist. Click to add.})
-    [{
-        label: label,
+      result.to_json
+    end
+
+    def search_result(tag)
+      {
+        label: ERB::Util.h(tag.name),
         value: {
-          found: false,
-          name: normalized_title,
-          url:   add_client_admin_tile_tags_url(normalized_title)
+          name: tag.name,
+          found: true,
         }
-      }]
-  end
+      }
+    end
+
+    def add_tag(normalized_title)
+      label = ERB::Util.h(%{Add new tag})
+      [{
+          label: label,
+          value: {
+            found: false,
+            name: normalized_title,
+            url:   add_client_admin_tile_tags_url(normalized_title)
+          }
+        }]
+    end
+
+    def search(tag)
+      @tags.where("name ILIKE ?", "%#{tag}%")
+    end
 end

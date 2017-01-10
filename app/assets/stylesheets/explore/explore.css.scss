@@ -6,10 +6,11 @@
 @import './tile/tile_thumbnail/tiles_thumbnails_small_with_controls';
 @import './tile/tile_thumbnail/tiles_thumbnails_transition';
 @import './mixins/channels';
+@import './vendor_customization/flickity';
 
 @import "mixins/green_paddle_switch";
 
-.client_admin-campaigns, .client_admin-channels {
+.explore-campaigns, .explore-channels, .explore-tile_features {
   .content {
     background: #fff;
     padding: 0;
@@ -17,10 +18,24 @@
 }
 
 body.explore, .explore {
+  .manage_section {
+    position: relative;
+    color: $text-color;
+
+    h4 {
+      display: inline-block;
+      margin-bottom: 30px;
+      margin-left: 1em;
+      margin-top: 10px;
+    }
+  }
+
   .channel-row {
-    height: 100px;
+    height: 120px;
+    padding: 10px 20px;
     .channels {
       display: none;
+      @include flickity;
       @include channels;
     }
   }
@@ -29,36 +44,42 @@ body.explore, .explore {
     font-size: 40px;
     color: $darker-gray;
     font-weight: 800;
-    border-bottom: 3px solid #48bfff;
+    margin-bottom: 0;
   }
 
-  .campaigns {
-    @include campaigns;
-    background: transparent;
+  .campaign-row {
+    padding: 10px 15px;
+    .campaigns {
+      @include flickity;
+      @include campaigns;
+      .flickity-prev-next-button.next {
+        right: 20px;
+      }
+      .flickity-prev-next-button.previous {
+        left: 20px;
+      }
+      background: transparent;
+    }
+    h4 {
+      margin-left: 0.4em;
+    }
   }
 
   .explore-headers {
-    font-size: 25px;
+    font-size: 30px;
     color: $darker-gray;
-    &.non-link {
-    }
-  }
-
-  .explore-breadcrumbs {
-    background: #fff;
-    padding: 0 0 0 65px;
-    a, span, .spacer {
-      font-size: 18px;
-    }
-    a {
-      color: $n-blue;
-      &:hover{
-        text-decoration:underline;
+    &.link {
+      &:hover {
+        color: $n-blue;
+        cursor: pointer;
       }
-    }
-    color: $darker-gray;
-    .spacer{
-      padding: 0px 3px;
+      &:after {
+        font-family: FontAwesome;
+        top:0;
+        left:-5px;
+        padding-left:10px;
+        content: "\f105";
+      }
     }
   }
 
@@ -134,18 +155,6 @@ body.explore, .explore {
     background: #fff;
   }
 
-  .manage_section {
-    position: relative;
-    color: $text-color;
-
-    h4{
-      display: inline-block;
-      margin-bottom: 30px;
-      margin-left: 1em;
-      margin-top: 10px;
-    }
-  }
-
   .explore-tiles-tabs {
     z-index: 2;
   }
@@ -159,6 +168,10 @@ body.explore, .explore {
   .channel_container, #campaign_boards, #explore_tiles {
     background: #fff;
     padding: 2em 0 0 0;
+  }
+
+  #campaign_boards {
+    padding-bottom: 20px;
   }
 
   .channel_container {
@@ -208,7 +221,7 @@ body.explore, .explore {
     }
 
     .explore-tiles-titles {
-      margin: 0 0 1.7em 1.3em;
+      margin: 0 0 0.5em 1.3em;
     }
 
     .copy-all-tiles {

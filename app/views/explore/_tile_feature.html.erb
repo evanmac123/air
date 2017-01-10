@@ -1,10 +1,16 @@
-<% if feature_tiles ||= feature.get_tiles(@explore_tiles) %>
+<% if feature_tiles ||= feature.get_tiles(Tile.scoped) %>
   <section class="manage_section channel_container" id="<%= feature.name %>" style="background:<%= feature.background_color %>">
     <div class="row">
       <div class="large-12 columns">
         <% if feature.custom_icon_url.present? %>
           <%= image_tag feature.custom_icon_url, class: "recommended-tiles-custom-icon" %>
-          <h4 class="explore-headers non-link" style="color:<%= feature.text_color %>; margin-left:0"><%= feature.header_copy || "Recommended Tiles" %></h4>
+          <% if show_feature_related_content_link?(feature) %>
+            <%= link_to explore_tile_feature_path(feature) do %>
+              <h4 class="explore-headers link" style="color:<%= feature.text_color %>; margin-left:0"><%= feature.header_copy || "Recommended Tiles" %></h4>
+            <% end %>
+          <% else %>
+            <h4 class="explore-headers non-link" style="color:<%= feature.text_color %>; margin-left:0"><%= feature.header_copy || "Recommended Tiles" %></h4>
+          <% end %>
         <% else %>
           <h4 class="explore-headers non-link" style="color:<%= feature.text_color %>"><%= feature.header_copy || "#{feature.name} Tiles" %></h4>
         <% end %>

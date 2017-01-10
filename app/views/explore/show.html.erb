@@ -6,9 +6,9 @@
     <%= render partial: 'explore/tile_feature', locals: { feature: feature } %>
   <% end %>
   <section class="manage_section" id="campaign_boards">
-    <%= render partial: 'explore/campaigns' %>
+    <%= render partial: 'explore/campaigns', locals: { campaigns: Campaign.all, header: "Airbo Campaigns" } %>
   </section>
   <section class="manage_section" id="explore_tiles">
-    <%= render partial: 'explore/explore_tiles' %>
+    <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "Explore Tiles" } %>
   </section>
 </div>

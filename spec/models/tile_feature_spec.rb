@@ -4,9 +4,8 @@ describe TileFeature do
   it { is_expected.to validate_presence_of :name}
   it { is_expected.to validate_uniqueness_of :name}
   it { is_expected.to validate_presence_of :rank}
-  it { is_expected.to validate_uniqueness_of :rank}
 
-  let(:tile_feature) { FactoryGirl.create(:tile_feature, active: true) }
+  let(:tile_feature) {FactoryGirl.create(:tile_feature, active: true)}
 
   it "assigns redis values given hash of parameters" do
     FactoryGirl.create_list(:tile, 6, is_public: true)
@@ -83,18 +82,18 @@ describe TileFeature do
   end
 
   context "tile collections in explore do not include featured tiles" do
-    it "excludes featured tiles in the Tile.verified_explore query" do
+    it "excludes featured tiles in the Tile.explore_without_featured_tiles query" do
       org = FactoryGirl.create(:organization, name: "Airbo")
       FactoryGirl.create_list(:tile, 10, organization: org, is_public: true)
 
-      expect(Tile.verified_explore.count).to eq(10)
+      expect(Tile.explore_without_featured_tiles.count).to eq(10)
 
       tile_feature = FactoryGirl.create(:tile_feature, active: true)
 
       tile_ids = Tile.limit(5).pluck(:id).join(",")
       tile_feature.dispatch_redis_updates({ tile_ids: tile_ids })
 
-      expect(Tile.verified_explore.count).to eq(5)
+      expect(Tile.explore_without_featured_tiles.count).to eq(5)
     end
   end
 end

@@ -1,6 +1,6 @@
 class Admin::TileFeaturesController < AdminBaseController
   def index
-    @tile_features = TileFeature.scoped
+    @tile_features = TileFeature.order(:name)
   end
 
   def create
@@ -15,8 +15,7 @@ class Admin::TileFeaturesController < AdminBaseController
 
   def update
     @tile_features = TileFeature.scoped
-    @tile_feature = TileFeature.find(params[:id])
-
+    @tile_feature = TileFeature.find_by_slug(params[:id])
     if @tile_feature.update_attributes(tile_feature_ar_params)
       @tile_feature.dispatch_redis_updates(tile_feature_redis_params)
     else
@@ -33,10 +32,10 @@ class Admin::TileFeaturesController < AdminBaseController
   private
 
     def tile_feature_ar_params
-      params.require(:tile_feature).permit(:name, :rank, :active)
+      params.require(:tile_feature).permit(:name, :rank, :active, :channel_list, :show_related_content_link)
     end
 
     def tile_feature_redis_params
-      params.require(:redis).permit(:custom_icon_url, :text_color, :header_copy, :background_color, :tile_ids)
+      params.require(:redis).permit(:custom_icon_url, :text_color, :header_copy, :background_color, :tile_ids, :channels)
     end
 end
