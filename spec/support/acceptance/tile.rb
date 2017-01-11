@@ -462,11 +462,11 @@ module TileHelpers
   end
 
     def img_file1
-      "engage_new.gif"
+      "cov1.jpg"
     end
 
     def img_file2
-      "engage_new_2.gif"
+      "cov2.jpg"
     end
 
 end
