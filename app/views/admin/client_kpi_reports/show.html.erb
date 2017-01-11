@@ -30,7 +30,7 @@
               <%= number_with_delimiter(50, :delimiter => ',') %>
             </h1>
             <span class="header-unit">
-             Explore Engagement 
+              Explore Engagement 
             </span>
           </div>
         </div>
@@ -50,26 +50,33 @@
     </div>
   </div>
   <div class="row">
-    <div class="columns small-12 small-centered">
-      <div>
+    <div class="report-filter-container">
+      <div class="columns small-8">
         <%=render partial: "/admin/shared/date_range_form", locals:{path: admin_client_kpi_report_path} %>
       </div>
-
-      <div class="tabular-data">
-        <%if @dates.present? %>
-          <%= render "table_with_chart_data" %>
-        <%else%>
-          <div class="row">
-            <div class="columns large-12">
-              <h2>
-                No data has been collected for the selected time frame
-              </h2>
-            </div>
-          </div>
+      <div class="columns small-4">
+        <%= form_tag "", method: :get,  class: "custom report-filter" do %>
+          <%= select_tag :metric_list, options_for_select(Reporting::ClientKPIReport.chart_series_names), { id: "metric_list", class: "interval_custom_drop", data:{kpis: Reporting::ClientKPIReport.chart_series_names.invert }} %>
         <%end%>
       </div>
-
     </div>
   </div>
 
+
+
+  <div class="tabular-data">
+    <%if @dates.present? %>
+      <%= render "table_with_chart_data" %>
+    <%else%>
+      <div class="row">
+        <div class="columns large-12">
+          <h2>
+            No data has been collected for the selected time frame
+          </h2>
+        </div>
+      </div>
+    <%end%>
+  </div>
+
 </div>
+
