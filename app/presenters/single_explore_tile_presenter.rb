@@ -35,7 +35,8 @@ class SingleExploreTilePresenter < BasePresenter
       headline,
       copied?,
       @is_ie,
-      section
+      section,
+      current_user.is_a?(GuestUser)
     ].join('-')
   end
 end
