@@ -25,6 +25,28 @@ feature "Client admin creates tiles", js: true do
       expect(page).to have_selector("#tile_point_value", text: "10")
     end
 
+    context "autosave" do
+      scenario "create with only headline" do
+        click_link "Add New Tile"
+        page.find("#tile_builder_form_headline").set("Ten pounds of cheese")
+        page.find("body").click
+        page.find(".close-reveal-modal").click
+        within ".tile_container.unfinished" do
+          expect(page).to  have_content "Ten pounds of cheese"
+        end
+      end
+
+      pending "create with only image" do
+        click_link "Add New Tile"
+        fake_upload_image img_file1
+        page.find("body").click
+        page.find(".close-reveal-modal").click
+        page.find(".tile_container.unfinished")
+        within ".tile_container.unfinished" do
+          expect(page).to  have_content "Incomplete"
+        end
+      end
+    end
   end
 
   context "existing tile" do
