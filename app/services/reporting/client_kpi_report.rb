@@ -49,23 +49,23 @@ module Reporting
           "paid_client_admins_who_viewed_tiles_in_explore",
           "tiles_viewed_per_paid_client_admin"
         ],
-        "Creation" => [
-          "percent_orgs_that_added_tiles",
-          "total_tiles_added_by_paid_client_admin",
-          "unique_orgs_that_added_tiles",
+        #"Creation" => [
+          #"percent_orgs_that_added_tiles",
+          #"total_tiles_added_by_paid_client_admin",
+          #"unique_orgs_that_added_tiles",
 
-          "percent_of_added_tiles_from_copy",
-          "percent_of_added_tiles_from_scratch",
+          #"percent_of_added_tiles_from_copy",
+          #"percent_of_added_tiles_from_scratch",
 
-          "total_tiles_added_from_copy_by_paid_client_admin",
-          "unique_orgs_that_copied_tiles",
-          "average_tiles_copied_per_org_that_copied",
+          #"total_tiles_added_from_copy_by_paid_client_admin",
+          #"unique_orgs_that_copied_tiles",
+          #"average_tiles_copied_per_org_that_copied",
 
-          "tiles_created_from_scratch",
-          "orgs_that_created_tiles_from_scratch",
-          "average_tiles_created_from_scratch_per_org_that_created",
-          "average_tile_creation_time"
-        ],
+          #"tiles_created_from_scratch",
+          #"orgs_that_created_tiles_from_scratch",
+          #"average_tiles_created_from_scratch_per_org_that_created",
+          #"average_tile_creation_time"
+        #],
 
         #"Engagement" => [
           #"percent_joined_current",
