@@ -633,7 +633,7 @@ DEPENDENCIES
   historyjs-rails
   htmlentities
   humanize_boolean
-  intercom
+  intercom (~> 2.4.2)
   intercom-rails
   jquery-fileupload-rails
   jquery-rails
@@ -694,7 +694,7 @@ DEPENDENCIES
   wice_grid!
 
 RUBY VERSION
-   ruby 2.1.9p490
+   ruby 2.0.0p648
 
 BUNDLED WITH
    1.13.7
