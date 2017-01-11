@@ -17,13 +17,15 @@
         </div>
       </div>
     </section>
-    <div class="row">
-      <div class="columns large-12">
-        <div id="copy-all-tiles-button" class="button">
-          Copy Campaign
+    <% unless current_user.is_a?(GuestUser) %>
+      <div class="row">
+        <div class="columns large-12">
+          <div id="copy-all-tiles-button" class="button">
+            Copy Campaign
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
     <div class="manage_section explore_tiles_section" style="margin-bottom:80px;">
       <div class="row">
         <div class="large-12 columns">
