@@ -6,7 +6,7 @@ Airbo.FinancialKpiChart = (function(){
     , tableData
     , dates 
     , kpiChart
-    , chartContainer = "#chart-container"
+    , chartContainer = ".kpis-graph"
     , datasets = {}
   ;
 
@@ -268,7 +268,7 @@ Airbo.FinancialKpiChart = (function(){
 }());
 
 $(function(){
-  if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".financial-kpis-graph")){
+  if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".kpis-graph")){
     Airbo.FinancialKpiChart.init();
   }
 });
