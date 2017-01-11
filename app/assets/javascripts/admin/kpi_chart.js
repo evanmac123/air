@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.FinancialKpiChart = (function(){
+Airbo.KpiChart = (function(){
 
   var chartData = []
     , tableData
@@ -269,6 +269,6 @@ Airbo.FinancialKpiChart = (function(){
 
 $(function(){
   if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".kpis-graph")){
-    Airbo.FinancialKpiChart.init();
+    Airbo.KpiChart.init();
   }
 });
