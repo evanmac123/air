@@ -1,5 +1,5 @@
 @import "./mixins/burger";
-.sales-top-bar {
+.public-nav-bar {
   .burger-icon {
     @include burger;
   }
