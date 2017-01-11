@@ -1,0 +1,18 @@
+<div class="explore explore-show">
+  <div id="tile_wall_explore">
+    <section class="manage_section" id="channels">
+      <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
+    </section>
+    <%= render partial: 'explore/tile_feature', locals: { feature: @tile_feature } %>
+
+    <% unless @related_campaigns.empty? %>
+      <section class="manage_section" id="campaign_boards">
+        <%= render partial: 'explore/campaigns', locals: { campaigns: @related_campaigns, header: "Related Campaigns" } %>
+      </section>
+    <% end %>
+
+    <section class="manage_section" id="explore_tiles">
+      <%= render partial: 'explore/explore_tiles', locals: { tiles: @related_tiles, header: "Related Tiles", more_tiles_path: explore_tile_feature_path(@tile_feature) } %>
+    </section>
+  </div>
+</div>

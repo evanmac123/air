@@ -106,6 +106,7 @@ Airbo.TilePreviewModal = (function(){
     initPreviewElements();
     modalObj.open();
   }
+
   function initModalObj() {
     modalObj.init({
       modalId: modalId,
@@ -114,6 +115,9 @@ Airbo.TilePreviewModal = (function(){
       closeSticky: true,
       onOpenedEvent: function() {
         arrowsObj.position();
+      },
+      onClosedEvent: function() {
+        $(".tipsy").tooltipster("hide");
       }
     });
   }
@@ -127,7 +131,8 @@ Airbo.TilePreviewModal = (function(){
   return {
     init: init,
     open: open,
+    close: close,
     tileContainerSizes: tileContainerSizes,
     modalId: modalId
-  }
+  };
 }());

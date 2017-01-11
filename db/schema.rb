@@ -947,10 +947,12 @@ ActiveRecord::Schema.define(:version => 20170109224048) do
   create_table "tile_features", :force => true do |t|
     t.integer  "rank"
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.boolean  "active"
     t.integer  "channel_id"
+    t.string   "slug"
+    t.boolean  "show_related_content_link", :default => false
   end
 
   add_index "tile_features", ["channel_id"], :name => "index_tile_features_on_channel_id"

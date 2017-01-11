@@ -84,42 +84,6 @@ body.client_admin-tiles.client_admin-tiles-index {
           width: 100%;
           border: none;
           border-bottom: 1px solid #DDD;
-
-          &::-webkit-input-placeholder:after {
-            content: " (Required)";
-          }
-
-          &::-moz-placeholder:after  { /* Firefox 18- */
-            content: " (Required)";
-          }
-
-          &::-moz-placeholder:after {  /* Firefox 19+ */
-            content: " (Required)";
-          }
-
-          &:-ms-input-placeholder:after {
-            content: " (Required)";
-          }
-
-          &.highlighted {
-            background-color: #ffedeb;
-            &::-webkit-input-placeholder:after {
-              color: #ed8980;
-            }
-
-            &::-moz-placeholder:after  { /* Firefox 18- */
-              color: #ed8980;
-            }
-
-            &::-moz-placeholder:after {  /* Firefox 19+ */
-              color: #ed8980;
-            }
-
-            &:-ms-input-placeholder:after {
-              color: #ed8980;
-            }
-          }
-
         }
 
         .tile_tags{
@@ -133,7 +97,7 @@ body.client_admin-tiles.client_admin-tiles-index {
         }
       }
 
-      .share_to_explore{
+      .share_to_explore {
         float:none;
         padding: 0em 0.5em;
         margin-top: 0px;
@@ -145,7 +109,7 @@ body.client_admin-tiles.client_admin-tiles-index {
         text-transform: uppercase;
         font-weight: bold;
         font-size: 12px;
-        @include light-button($sky-blue);
+        @include light-button($n-blue);
         display: block;
         text-transform: uppercase;
         font-weight: bold;
@@ -317,7 +281,7 @@ body.client_admin-tiles.client_admin-tiles-index {
       }
 
       .share_via_explore{
-        background: $sky-blue;
+        background: $n-blue;
         cursor: pointer;
         .fa-rocket, .explore_title{
           display: inline-block;
@@ -389,7 +353,7 @@ body.client_admin-tiles.client_admin-tiles-index {
 
     $share_to_explore_width: 195px;
     .share_to_explore{
-      @include light-button($sky-blue);
+      @include light-button($n-blue);
       margin-right: 8px;
       &.disabled {
         @include light-button($light-gray);
@@ -464,11 +428,11 @@ body.client_admin-tiles.client_admin-tiles-index {
         font-size: 0.9em;
 
         &.highlighted {
-          border-color: $sky-blue;
+          border-color: $n-blue;
         }
       }
       .tile_tags{
-        color: $sky-blue;
+        color: $n-blue;
         margin: 4px 0px;
         width: 100%;
         li{
@@ -480,8 +444,8 @@ body.client_admin-tiles.client_admin-tiles-index {
           border-radius: 5px;
           font-size: 10px;
           a {
-            color: $sky-blue;
-            padding-left: 5px;
+            color: $n-blue;
+            padding-right: 2px;
           }
         }
       }
@@ -495,7 +459,7 @@ body.client_admin-tiles.client_admin-tiles-index {
 
     #successful_share {
       font-size: 13px;
-      color: $sky-blue;
+      color: $n-blue;
       margin: 4px 0;
       display: none;
       width: $share_to_explore_width;

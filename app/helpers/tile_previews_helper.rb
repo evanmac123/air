@@ -136,28 +136,17 @@ module TilePreviewsHelper
     raw s
   end
 
-  def share_via_explore tile
-    has_tags_class = tile.tile_tags.present? ? "has_tags" : ""
-    s= form_for TilePublicForm.new(tile), url: update_explore_settings_client_admin_tile_path(tile), method: :put, remote: true, html: {id: "public_tile_form"} do |f|
-      render 'client_admin/tiles/tile_preview/public_section', form: f, has_tags_class: has_tags_class
-    end
-    raw s
+  def share_via_explore(tile)
+    render 'client_admin/tiles/tile_preview/public_section', tile: tile
   end
 
   def share_to_explore_css_config tile
-    copy_switch_classes = %w(switch tiny round allow_copy)
-
     share_to_explore_classes = %w(share_to_explore)
-    share_to_explore_classes << "disabled" unless tile.tile_tags.present?
     share_to_explore_classes << "remove_from_explore" if tile.is_public
 
     h = {}
 
-    h[:copy_switch_classes] = copy_switch_classes
     h[:share_to_explore_classes] = share_to_explore_classes
-
-    #h[:add_tag_class] = tile.tile_tags.present? ? "" : "highlighted"
-    h[:share_to_explore_text] = tile.is_public ? "Remove" : "Share"
     h
   end
 

@@ -1,30 +1,30 @@
-<div class="explore" data-campaign-id="<%= @board.id %>">
+<div class="explore" data-campaign-id="<%= @campaign.id %>">
   <section class="manage_section" id="channels">
     <% cache @display_channels do %>
       <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
     <% end %>
   </section>
   <section class="manage_section" id="explore_tiles">
-    <div class="row explore-tiles-tabs">
+    <div class="row">
       <div class="explore-tiles-titles small-12 columns">
-          <span class="explore-sub-page-header"><%= @board.topic_board.topic_name %></span>
+          <span class="explore-sub-page-header"><%= @campaign.name %></span>
       </div>
     </div>
     <section class="campaign-description">
       <div class="row collapse" >
         <div class="columns small-12">
-          <h4><%= @board.cover_message %></h4>
+          <h4><%= @campaign.description %></h4>
         </div>
       </div>
     </section>
     <div class="row">
       <div class="columns large-12">
         <div id="copy-all-tiles-button" class="button">
-          Copy all Tiles
+          Copy Campaign
         </div>
       </div>
     </div>
-    <div class="manage_section explore_tiles_section">
+    <div class="manage_section explore_tiles_section" style="margin-bottom:80px;">
       <div class="row">
         <div class="large-12 columns">
           <div class="tile_wall_explore">
@@ -35,5 +35,8 @@
         </div>
       </div>
     </div>
+  </section>
+  <section class="manage_section" id="campaign_boards" style="box-shadow:0 -5px 5px -5px #a8a8a8">
+    <%= render partial: 'explore/campaigns', locals: { campaigns: Campaign.exclude([@campaign.id]), header: "More Campaigns" } %>
   </section>
 </div>

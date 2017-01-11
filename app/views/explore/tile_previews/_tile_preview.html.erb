@@ -17,7 +17,6 @@
     <%=render partial: 'share_bar', locals: {tile: tile} %>
   <div class="bg-white center bar_for_preview align_left offset_top">
     <%=render partial: 'creator', locals: { tile: tile } %>
-    <%# TODO: Put new tags here after implementation @weilandia %>
-    <%#= render partial: 'categories', locals: { tile: tile } %>
+    <%= render partial: 'categories', locals: { tile: tile } %>
   </div>
 </div>
