@@ -3,7 +3,7 @@ class ExploreBaseController < ApplicationController
 
   prepend_before_filter :authenticate
 
-  layout "client_admin_layout"
+  layout "explore_layout"
 
   def authenticate
     return true if authenticate_by_explore_token
@@ -60,8 +60,7 @@ class ExploreBaseController < ApplicationController
     end
 
     def guest_user_allowed?
-      return true if params[:controller] == 'explore/tile_previews' && params[:action].in?(%w(show))
-      return false
+      return true
     end
 
     def find_board_for_guest

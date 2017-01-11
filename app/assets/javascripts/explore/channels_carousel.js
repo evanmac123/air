@@ -16,17 +16,19 @@ Airbo.ChannelsCarousel = (function(){
 
     $carousel.on( 'staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {
       var slug = $(cellElement).data("slug");
-      var name = $(cellElement).data("name");
-      var currentUserData = $("body").data("currentUser");
+      if (slug) {
+        var name = $(cellElement).data("name");
+        var currentUserData = $("body").data("currentUser");
 
-      var properties = $.extend({ action: "Clicked Channel", channel: name }, currentUserData);
+        var properties = $.extend({ action: "Clicked Channel", channel: name }, currentUserData);
 
-      Airbo.Utils.ping("Explore page - Interaction", properties);
+        Airbo.Utils.ping("Explore page - Interaction", properties);
 
-      if (slug === "explore") {
-        window.location = "/explore";
-      } else {
-        window.location = "/explore/channels/" + slug;
+        if (slug === "explore") {
+          window.location = "/explore";
+        } else {
+          window.location = "/explore/channels/" + slug;
+        }
       }
     });
   }

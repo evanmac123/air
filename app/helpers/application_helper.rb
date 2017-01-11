@@ -1,6 +1,10 @@
 module ApplicationHelper
   include Mobvious::Rails::Helper
 
+  def get_navbar_link_class(path)
+    return "active" if request.path == path
+  end
+
   def default_avatar_tag(user, options={})
     image_tag user.avatar.url, :alt => user.name, :class => "user_avatar #{options[:class]}"
   end

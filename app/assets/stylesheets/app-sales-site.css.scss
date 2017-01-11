@@ -1,0 +1,92 @@
+@import "./mixins/burger";
+.sales-top-bar {
+  .burger-icon {
+    @include burger;
+  }
+  .toggle-topbar {
+    cursor: pointer;
+    right: 1%;
+    top: 30%;
+    &.is-active .burger-icon {
+      top: 50%;
+      @include burger-to-cross;
+    }
+  }
+
+  .top-bar {
+    height: 55px;
+    background: #fff;
+    box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #B3B3B3;
+    z-index: 999;
+    ul {
+      background-color:white;
+    }
+    .top-bar-section {
+      ul {
+        background-color:white;
+        text-align: right;
+      }
+
+      ul li {
+        margin-right: 12px;
+        margin-left: 12px;
+      }
+      ul li>a {
+      padding-top: 15px;
+      padding-left: 0;
+      padding-right: 0;
+      background-color:white;
+      color: #4c4c4c;
+      font-size: 14px;
+      line-height: 25px;
+        &:hover {
+          background-color:white;
+          border-bottom: 2px solid #4face0;
+        }
+      }
+      .active {
+        border-bottom: 2px solid #4face0;
+      }
+    }
+    .name {
+      height: 55px;
+      background: #fff;
+    }
+    .name img {
+      height:35px;
+      margin-top:5px;
+      margin-bottom:3px;
+      margin-right: 20px;
+      margin-left:5em;
+    }
+    &:not(.expanded) {
+      ul.right {
+        margin-right:5em;
+      }
+    }
+    &.expanded {
+      height: auto;
+      background: transparent;
+      ul li>a {
+        padding-top: 5px;
+        padding-right: 3px;
+        background-color:white;
+        color: #4c4c4c;
+        font-size: 14px;
+        line-height: 15px;
+          &:hover {
+            color:#4face0;
+            border-bottom: none;
+          }
+        }
+      .active {
+        display: none;
+      }
+    }
+    @media screen and (max-width: 59em) {
+      .name img {
+        margin-left:0;
+      }
+    }
+  }
+}
