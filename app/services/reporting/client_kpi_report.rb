@@ -1,6 +1,9 @@
 module Reporting
   class ClientKPIReport <KpiReportingBase
 
+    WEEKLY="weekly"
+    MONTHLY="monthly"
+
     #FIXME move this constant to common location to remove duplication
     PAID_CLIENTS_DELIGHTED_TREND = 75029
 
@@ -14,9 +17,11 @@ module Reporting
       CustSuccessKpi.select(query_select_fields)
     end
 
-    def curr_nps
-      curr_nps_data.nps
+    def current_by_period(period=WEEKLY)
+      @curr ||= CustSuccessKpi.by_period(period).last
     end
+
+ 
 
     def self.chart_series_names
       self.new.chart_series_names
