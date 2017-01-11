@@ -151,11 +151,10 @@ Airbo.KpiChart = (function(){
   }
 
   function prepareDataForChart(data){
+    var kpi = $("#metric_list").find("option:selected").val();
     getDateSeries(data.from_date.values);
     build_graph_series_data(data)
-
-    chartData[0] = datasets["starting_mrr"];
-
+    chartData[0] = datasets[kpi];
     tableData = { headers: converDates(), rows: getTableRows(data)};
   }
 
