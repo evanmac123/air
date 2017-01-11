@@ -1,6 +1,6 @@
 source 'https://www.rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.9'
 
 gem 'rails', '=3.2.22.1'
 gem 'rack', '~> 1.4.7'
@@ -52,7 +52,8 @@ gem 'browser'
 gem 'squeel'
 gem 'draper', '~> 1.3'
 gem 'strong_parameters'
-gem 'intercom', '~>2.4.2'
+gem 'intercom-rails'
+gem 'intercom'
 gem 'counter_culture'
 gem 'css_splitter', :git => 'https://github.com/theairbo/css_splitter.git' #Allow customization of MAX_SELECTORS_DEFAULT via environment variable
 gem 'sanitize'
