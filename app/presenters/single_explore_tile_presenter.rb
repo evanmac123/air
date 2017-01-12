@@ -27,11 +27,10 @@ class SingleExploreTilePresenter < BasePresenter
     explore_tile_preview_path(tile)
   end
 
-  def user_type
-    if current_user.end_user? || current_user.is_a?(GuestUser)
-      "explore_guest"
-    else
-      "explore_user"
+  # TODO: refactor inline style and mange cache for guests
+  def explore_tile_button_display
+    if current_user.is_a?(GuestUser) || current_user.end_user?
+      "none"
     end
   end
 
@@ -43,8 +42,7 @@ class SingleExploreTilePresenter < BasePresenter
       headline,
       copied?,
       @is_ie,
-      section,
-      user_type
+      section
     ].join('-')
   end
 end
