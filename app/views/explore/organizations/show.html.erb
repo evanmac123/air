@@ -4,7 +4,7 @@
       <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
     <% end %>
   </section>
-  <%= render partial: 'explore/org_profile', locals: { organization: @organization } %>
+  <%#= render partial: 'explore/org_profile', locals: { organization: @organization } %>
 
   <section class="manage_section" id="explore_tiles">
     <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "Tiles by #{@organization.name}", more_tiles_path: explore_organization_path(@organization) } %>
