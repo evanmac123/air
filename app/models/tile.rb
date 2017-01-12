@@ -1,6 +1,8 @@
 class Tile < ActiveRecord::Base
   include Concerns::TileImageable
 
+  searchkick settings: {number_of_shards: 1, number_of_replicas: 1}
+
   ACTIVE  = 'active'.freeze
   ARCHIVE = 'archive'.freeze
   DRAFT   = 'draft'.freeze

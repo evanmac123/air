@@ -75,6 +75,8 @@ gem 'humanize_boolean'
 gem 'delighted'
 gem 'skylight'
 gem 'airbrake', '~> 5.4'
+
+gem 'searchkick'
 #
 # Gems used only for assets and not required
 # in production environments by default.
