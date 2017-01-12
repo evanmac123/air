@@ -17,7 +17,7 @@
         </div>
       </div>
     </section>
-    <% unless current_user.is_a?(GuestUser) %>
+    <% unless current_user.is_a?(GuestUser) || current_user.end_user? %>
       <div class="row">
         <div class="columns large-12">
           <div id="copy-all-tiles-button" class="button">

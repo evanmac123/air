@@ -16,7 +16,7 @@ class SingleExploreTilePresenter < BasePresenter
   end
 
   def copied?
-    if current_user.is_a?(GuestUser)
+    if current_user.is_a?(GuestUser) || current_user.end_user?
       false
     else
       $redis.sismember("Demo:#{current_user.try(:demo_id)}:copies", id)
