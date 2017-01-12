@@ -23,7 +23,6 @@
 //= require internal/flashes
 //= require internal/offcanvas_menu
 //= require internal/board_switch_dropdown
-//= require internal_and_external/intercom_setup
 //= require internal/tile_manager/tile_polling
 //= require ./internal/byte_counter
 //= require  ../../../vendor/assets/javascripts/jquery.tablesorter.min.js
@@ -41,4 +40,3 @@
 //= require ../../../vendor/assets/javascripts/chosen.jquery.min
 //= require ../../../vendor/assets/javascripts/external/modernizr
 //
-

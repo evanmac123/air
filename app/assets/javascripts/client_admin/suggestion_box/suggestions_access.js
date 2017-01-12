@@ -259,5 +259,4 @@ window.suggestionsAccess = function(withModalEvents) {
       return "You haven't saved your changes.";
     }
   });
-  return bindIntercomOpen(".contact_airbo");
 };

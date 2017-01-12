@@ -6,4 +6,3 @@
 //= require ./internal_and_external/autocomplete.js
 //= require ./external/textscroll.js
 //= require internal/flashes
-//= require internal_and_external/intercom_setup

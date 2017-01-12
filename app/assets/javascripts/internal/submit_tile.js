@@ -65,7 +65,6 @@ infoIcon = function() {
 };
 
 window.submitTileModal = function() {
-  bindIntercomOpen(askUsSel());
   closeBtn().click(function(e) {
     e.preventDefault();
     return modal().foundation('reveal', 'close');

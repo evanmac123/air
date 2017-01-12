@@ -7,7 +7,6 @@
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
 //= require_tree ../../../vendor/assets/javascripts/external/
 //= require application
-//= require internal_and_external/intercom_setup
 //= require ./internal_and_external/underscore-min
 //= require internal/flashes
 //= require ./external/prefilled_input.js
