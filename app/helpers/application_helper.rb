@@ -1,6 +1,10 @@
 module ApplicationHelper
   include Mobvious::Rails::Helper
 
+  def get_navbar_link_class(path)
+    return "active" if request.path == path
+  end
+
   def default_avatar_tag(user, options={})
     image_tag user.avatar.url, :alt => user.name, :class => "user_avatar #{options[:class]}"
   end
@@ -106,10 +110,6 @@ module ApplicationHelper
         yield
       end
     end
-  end
-
-  def use_intercom?
-    Rails.env.production? || Rails.env.staging? || ENV['INTERCOM']
   end
 
   def ie9_or_older?

@@ -545,6 +545,20 @@ class User < ActiveRecord::Base
     }
   end
 
+  def intercom_user_id_with_env
+    id.to_s + "-" + Rails.env
+  end
+
+  def intercom_data
+    {
+      demo: demo_id,
+      organization: organization_id,
+      user_type: highest_ranking_user_type,
+      board_type: (demo.try(:is_paid) ? "Paid" : "Free"),
+      client_admin: is_client_admin?
+    }
+  end
+
   def add_board(board_or_board_id, is_current = false)
     board_id = board_or_board_id.kind_of?(Demo) ? board_or_board_id.id : board_or_board_id
     return if self.in_board?(board_id)

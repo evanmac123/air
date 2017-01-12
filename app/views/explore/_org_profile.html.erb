@@ -1,0 +1,14 @@
+<section class="manage_section channel_container channel_header">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="org-profile">
+        <h4 class="explore-sub-page-header"><%= organization.name %></h4>
+        <% unless organization.internal %>
+          <p class="explore-org-stats">Customer since <%= organization.created_at.strftime("%B %Y") %></p>
+        <% end %>
+        <p class="explore-org-stats"><span class="stat"><%= organization.rdb[:total_tiles_created].get %></span> tiles created</p>
+        <p class="explore-org-stats"><span class="stat"><%= organization.rdb[:total_tile_viewings].get %></span> tiles viewed</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -4,6 +4,7 @@
       <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
     <% end %>
   </section>
+  <%= render partial: 'explore/channel_header', locals: { channel: @channel } %>
   <% unless @related_features.empty? %>
     <% @related_features.ordered.each do |feature| %>
       <%= render partial: 'explore/tile_feature', locals: { feature: feature } %>
@@ -15,6 +16,6 @@
     </section>
   <% end %>
   <section class="manage_section" id="explore_tiles">
-    <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "Related Tiles", more_tiles_path: explore_channel_path(@channel) } %>
+    <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "", more_tiles_path: explore_channel_path(@channel) } %>
   </section>
 </div>

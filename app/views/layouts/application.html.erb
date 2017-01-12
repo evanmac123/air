@@ -18,7 +18,6 @@
     <%= stylesheet_link_tag 'internal/internal_ie8' %>
   <![endif]-->
 
-  <%= javascript_include_tag "https://api.intercom.io/api/js/library.js" %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag 'app-internal' %>
   <%= javascript_include_tag 'file-uploader' unless browser.ie8? %>
@@ -52,7 +51,6 @@
 
   <%= render partial: "shared/tiles/form/embed_video_modal" %>
   <%= render :partial => 'shared/modals/modals' %>
-  <%= render 'shared/intercom' %>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
 
   <div id='gradient-triangle'></div>

@@ -26,6 +26,7 @@ class SessionsController < Clearance::SessionsController
   end
 
   def destroy
+    IntercomRails::ShutdownHelper::intercom_shutdown_helper(cookies)
     sign_out
     redirect_to(url_after_destroy)
   end

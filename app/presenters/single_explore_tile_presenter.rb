@@ -16,22 +16,10 @@ class SingleExploreTilePresenter < BasePresenter
   end
 
   def copied?
-    $redis.sismember("Demo:#{current_user.try(:demo_id)}:copies", id)
+    current_user.rdb[:copies].sismember(id) > 0
   end
 
   def show_tile_path
     explore_tile_preview_path(tile)
-  end
-
-  def cache_key
-    @cache_key ||= [
-      self.class,
-      thumbnail,
-      id,
-      headline,
-      copied?,
-      @is_ie,
-      section
-    ].join('-')
   end
 end

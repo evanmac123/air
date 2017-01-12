@@ -1,5 +1,6 @@
 class AdminBaseController < UserBaseController
   before_filter :strip_smart_punctuation!
+  skip_after_filter :intercom_rails_auto_include
 
   layout 'admin'
 

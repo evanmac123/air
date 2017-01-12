@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170109224048) do
+ActiveRecord::Schema.define(:version => 20170112195629) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -705,6 +705,8 @@ ActiveRecord::Schema.define(:version => 20170109224048) do
     t.boolean  "is_hrm",        :default => false
     t.string   "roles"
     t.string   "size_estimate"
+    t.string   "slug"
+    t.boolean  "internal",      :default => false
   end
 
   add_index "organizations", ["name"], :name => "index_organizations_on_name"

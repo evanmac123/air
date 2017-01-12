@@ -50,6 +50,10 @@ class UserInHeaderPresenter
     demo.logo.url
   end
 
+  def end_user?
+    current_user.is_a?(User) && current_user.end_user?
+  end
+
   def show_board_switcher?
     boards_to_switch_to.present? &&
     boards_to_switch_to.length > 1 &&

@@ -18,7 +18,6 @@ function bindOffcanvasMenu(boardSwitchingAllowed) {
     {
       breakpoint: 'small',
       enter: function() {
-        window.intercomDisabled = true;
         jPM.on();
         desktop_user_menu().show();
         desktop_admin_menu().show();

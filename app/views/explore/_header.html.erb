@@ -1,0 +1,40 @@
+<div class="public-nav-bar sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: large">
+    <ul class="title-area">
+      <li class="name">
+        <a href="<%= explore_path %>" style="margin-top:7px;margin-bottom:7px"><%= image_tag 'logo_standard.png' %></a>
+      </li>
+       <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+      <li class="toggle-topbar" id="menuButton"><div><span class="burger-icon"></span></div></li>
+    </ul>
+    <section class="top-bar-section">
+      <ul class="left">
+        <li>
+          <%= link_to "Home", get_navbar_link(root_path), class: get_navbar_link_class(root_path) %>
+        </li>
+        <li>
+          <%= link_to "Airbo Explore", get_navbar_link(explore_path), class: get_navbar_link_class(explore_path) %>
+        </li>
+        <li>
+          <%= link_to "Success Stories", get_navbar_link(case_studies_path), class: get_navbar_link_class(case_studies_path) %>
+        </li>
+        <li>
+          <%= link_to "Learn More", get_navbar_link(new_demo_request_path), class: get_navbar_link_class(new_demo_request_path) %>
+        </li>
+      </ul>
+
+      <ul class="right">
+        <li>
+          <%= link_to "Sign In", sign_in_path %>
+        </li>
+      </ul>
+    </section>
+  </nav>
+</div>
+<script>
+  var menuButton = document.getElementById('menuButton');
+  menuButton.addEventListener('click', function (e) {
+    menuButton.classList.toggle('is-active');
+    e.preventDefault();
+  });
+</script>

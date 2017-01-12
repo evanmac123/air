@@ -16,9 +16,7 @@
         <% end %>
         <div id="channel_tiles">
           <div class="tile_wall_explore">
-            <% cache feature_tiles do %>
-              <%= render partial: 'explore/tiles', locals: { tiles: feature_tiles, section: feature.name } %>
-            <% end %>
+            <%= render partial: 'explore/tiles', locals: { tiles: feature_tiles, section: feature.name } %>
           </div>
         </div>
       </div>

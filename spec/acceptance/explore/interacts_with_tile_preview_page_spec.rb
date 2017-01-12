@@ -68,20 +68,6 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "copies tile"
   end
 
-  context "as User", js: true do
-    before do
-      @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
-
-      @user = FactoryGirl.create(:claimed_user)
-
-      visit explore_tile_preview_path(@original_tile, as: @user)
-    end
-
-    it "should let user copy tile" do
-      expect(page).to have_link("Copy to Board")
-    end
-  end
-
   context "as Nobody", js: true  do
     before do
       UserIntro.any_instance.stubs(:explore_intro_seen).returns(true)
@@ -91,10 +77,10 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     context "when I click on See How It Works" do
-      it "should redirect to demo_requests/new" do
+      it "should redirect to explore" do
         click_link "See How It Works"
 
-        expect(current_path).to eq(new_demo_request_path)
+        expect(current_path).to eq(explore_path)
       end
     end
 
@@ -139,18 +125,18 @@ feature "interacts with a tile from the explore-preview page" do
     end
 
     context "when I click on Explore" do
-      it "should redirect to demo_requests/new" do
+      it "should redirect to explore" do
         click_link "Explore"
 
-        expect(current_path).to eq(new_demo_request_path)
+        expect(current_path).to eq(explore_path)
       end
     end
 
     context "when I click on See How It Works" do
-      it "should redirect to demo_requests/new" do
+      it "should redirect to explore" do
         click_link "See How It Works"
 
-        expect(current_path).to eq(new_demo_request_path)
+        expect(current_path).to eq(explore_path)
       end
     end
 

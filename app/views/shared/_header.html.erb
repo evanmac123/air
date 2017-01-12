@@ -20,9 +20,6 @@
       <%= render 'shared/header/user_info', user: user %>
     <% else # user.is_guest? == true %>
       <%= render 'shared/header/save_progress', user: user %>
-      <div class="large-6 columns" id="guest-intercom-wrapper">
-        <%= render 'shared/header/open_intercom_button', user: user %>
-      </div>
     <% end %>
   </div> <!-- end of topbar -->
 

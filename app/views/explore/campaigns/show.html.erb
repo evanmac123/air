@@ -17,20 +17,20 @@
         </div>
       </div>
     </section>
-    <div class="row">
-      <div class="columns large-12">
-        <div id="copy-all-tiles-button" class="button">
-          Copy Campaign
+    <% unless current_user.is_a?(GuestUser) || current_user.end_user? %>
+      <div class="row">
+        <div class="columns large-12">
+          <div id="copy-all-tiles-button" class="button">
+            Copy Campaign
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
     <div class="manage_section explore_tiles_section" style="margin-bottom:80px;">
       <div class="row">
         <div class="large-12 columns">
           <div class="tile_wall_explore">
-            <% cache @tiles do %>
-              <%= render partial: 'explore/tiles', locals: {tiles: @tiles, section: "Campaign Tile" } %>
-            <% end %>
+            <%= render partial: 'explore/tiles', locals: {tiles: @tiles, section: "Campaign Tile" } %>
           </div>
         </div>
       </div>

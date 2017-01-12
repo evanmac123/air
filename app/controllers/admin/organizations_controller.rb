@@ -11,6 +11,7 @@ class Admin::OrganizationsController < AdminBaseController
 
   def show
   end
+
   def import
     importer = OrganizationImporter.new(FileUploadWrapper.new(params[:file]))
     org = nil
@@ -60,7 +61,7 @@ class Admin::OrganizationsController < AdminBaseController
   private
 
   def find_organization
-    @organization = Organization.find(params[:id])
+    @organization = Organization.find_by_slug(params[:id])
   end
 
   def organization_params

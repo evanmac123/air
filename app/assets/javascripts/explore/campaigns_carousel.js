@@ -11,20 +11,21 @@ Airbo.CampaignsCarousel = (function(){
       groupCells: true,
       wrapAround: true,
       pageDots: false,
-      draggable: false,
+      draggable: true,
     });
 
-    $campaign_sel.on( 'click', function( event ) {
-      var self = $(this).parents('.carousel-cell');
-      var slug = $(self).data("slug");
-      var name = $(self).data("name");
-      var currentUserData = $("body").data("currentUser");
+    $carousel.on( 'staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {
+      var slug = $(cellElement).data("slug");
+      if (slug) {
+        var name = $(cellElement).data("name");
+        var currentUserData = $("body").data("currentUser");
 
-      var properties = $.extend({ action: "Clicked Campaign", campaign: name }, currentUserData);
+        var properties = $.extend({ action: "Clicked Campaign", campaign: name }, currentUserData);
 
-      Airbo.Utils.ping("Explore page - Interaction", properties);
+        Airbo.Utils.ping("Explore page - Interaction", properties);
 
-      window.location = "/explore/campaigns/" + slug;
+        window.location = "/explore/campaigns/" + slug;
+      }
     });
   }
 
