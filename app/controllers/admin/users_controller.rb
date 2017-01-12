@@ -60,6 +60,7 @@ class Admin::UsersController < AdminBaseController
       end
       ping_if_made_client_admin(@user, client_admin_changed)
       flash[:success] = "User updated."
+      redirect_to admin_demo_path(@demo)
     else
       edit
       flash[:failure] = "Couldn't update user: #{@user.errors.full_messages.join(', ')}"
