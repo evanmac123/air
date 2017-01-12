@@ -8,7 +8,7 @@ module Reporting
         opts.merge!({
           event: "Tile - Viewed in Explore",
           type: "unique",
-          where: %Q|properties["organization"] != "#{AIRBO_ORG_ID}" and ("client admin" in properties["user_type"]) and (defined (properties["user_type"])) and (properties["board_type"] == "Paid")|,
+          where: where_condition,
           on: 'string(properties["organization"])',
         })
       end

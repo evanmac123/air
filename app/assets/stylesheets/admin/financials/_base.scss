@@ -22,14 +22,25 @@
       font-size: 18px;
     }
   }
-  .total-arr{
+
+  &.customer-success{
+    .header-unit {
+      padding-left: 12px;
+    }
+  }
+
+  .total-arr, .yellow-box{
     background-color: $n-yellow;
   }
-  .total-customers{
+  .total-customers, .green-box{
     background-color: $n-green;
   }
-  .total-mrr{
+  .total-mrr, .purple-box{
     background-color: $n-purple;
+  }
+
+  .blue-box{
+    background-color: $n-blue;
   }
 
   .separator{

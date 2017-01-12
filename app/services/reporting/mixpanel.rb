@@ -119,7 +119,17 @@ module Reporting
         }
       end
 
-      private
+
+      def where_condition
+        %Q|(properties["user_type"] == "client admin") and (properties["board_type"] == "Paid") #{excluded_orgs}|
+      end
+
+      def excluded_orgs
+        ignore = MIXPANEL_EXCLUDED_ORGS.split(",").map do |id|
+          %Q|string(properties["organization"]) != "#{id}"|
+        end.join(" and ")
+        "and (#{ignore})"
+      end
 
       def date_format d
         d.strftime "%Y-%m-%d"

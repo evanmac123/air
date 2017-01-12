@@ -301,6 +301,7 @@ ActiveRecord::Schema.define(:version => 20170112195629) do
     t.integer  "orgs_that_created_tiles_from_scratch"
     t.integer  "average_tiles_created_from_scratch_per_org_that_created"
     t.string   "interval"
+    t.integer  "unique_orgs_that_viewed_tiles_in_explore"
   end
 
   create_table "custom_color_palettes", :force => true do |t|

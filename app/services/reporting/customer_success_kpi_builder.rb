@@ -11,7 +11,7 @@ module Reporting
 
         m = CustSuccessKpi.new
 
-        m.paid_net_promoter_score = kpi.paid_net_promoter_score.nps
+        m.paid_net_promoter_score = kpi.get_paid_net_promoter_score.nps
         m.paid_net_promoter_score_response_count = kpi.paid_net_promoter_score.response_count
         m.total_paid_orgs = kpi.total_paid_orgs
         m.unique_org_with_activity_sessions = kpi.org_unique_activity_sessions
@@ -27,6 +27,7 @@ module Reporting
         m.total_tiles_copied = kpi.total_tiles_added_from_copy
         m.tiles_created_from_scratch = kpi.total_tiles_added_from_scratch
         m.orgs_that_created_tiles_from_scratch = kpi.orgs_that_created_tiles_from_scratch
+        m.unique_orgs_that_viewed_tiles_in_explore = kpi.unique_organizations_with_viewed_tiles_in_explore
         m.unique_orgs_that_copied_tiles = kpi.unique_orgs_that_copied_tiles
         m.total_tiles_added_from_scratch_by_paid_client_admin = kpi.total_tiles_added_from_scratch
         m.total_tiles_added_from_copy_by_paid_client_admin = kpi.total_tiles_added_from_copy

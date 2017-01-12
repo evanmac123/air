@@ -1,13 +1,14 @@
 <div>
   <div class="row ">
     <div class="large-12 columns">
+      <div class="chart-data" data-plotdata ="<%=@table_data.to_json%>"> </div>
       <div class="table-container">
         <table class="kpi sticky">
           <thead>
             <tr>
-              <td>&nbsp;</td>
+              <th>&nbsp;</th>
               <%@dates.each do |date| %>
-                <td><%=simple_format_by_type "date", date%></td>
+                <th><%=simple_format_by_type "date", date%></th>
               <%end%>
             </tr>
           </thead>

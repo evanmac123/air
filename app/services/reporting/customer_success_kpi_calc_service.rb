@@ -18,7 +18,7 @@ module Reporting
 
 
     def get_paid_net_promoter_score
-      @nps = Integrations::NetPromoterScore.get_metrics({ trend: PAID_CLIENTS_DELIGHTED_TREND })
+      @nps = Integrations::NetPromoterScore.get_metrics({ until: @curr_interval_start.to_time.to_i, trend: PAID_CLIENTS_DELIGHTED_TREND })
     end
 
     def paid_net_promoter_score

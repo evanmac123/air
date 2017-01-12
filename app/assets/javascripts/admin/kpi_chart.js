@@ -1,12 +1,12 @@
 var Airbo = window.Airbo || {};
 
-Airbo.FinancialKpiChart = (function(){
+Airbo.KpiChart = (function(){
 
   var chartData = []
     , tableData
     , dates 
     , kpiChart
-    , chartContainer = "#chart-container"
+    , chartContainer = ".kpis-graph"
     , datasets = {}
   ;
 
@@ -151,11 +151,10 @@ Airbo.FinancialKpiChart = (function(){
   }
 
   function prepareDataForChart(data){
+    var kpi = $("#metric_list").find("option:selected").val();
     getDateSeries(data.from_date.values);
     build_graph_series_data(data)
-
-    chartData[0] = datasets["starting_mrr"];
-
+    chartData[0] = datasets[kpi];
     tableData = { headers: converDates(), rows: getTableRows(data)};
   }
 
@@ -268,7 +267,7 @@ Airbo.FinancialKpiChart = (function(){
 }());
 
 $(function(){
-  if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".financial-kpis-graph")){
-    Airbo.FinancialKpiChart.init();
+  if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".kpis-graph")){
+    Airbo.KpiChart.init();
   }
 });

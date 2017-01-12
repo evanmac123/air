@@ -1,26 +1,88 @@
 <div class="kpi-dashboard customer-success">
 
   <div class="row">
-    <div class="columns small-12 small-centered">
-      <div>
+    <div class="columns small-12">
+      <p>
+      <div class="row title_block">
+        <div class="small-3 columns">
+          <div class="activity-header blue-box">
+            <h1 class="header-number" >
+              <%= number_with_delimiter(@rep.current_by_period.paid_net_promoter_score, :delimiter => ',') %>
+            </h1>
+            <span class="header-unit">
+              Net Promoter Score
+            </span>
+          </div>
+        </div>
+        <div class="small-3 columns">
+          <div class="activity-header purple-box">
+            <h1 class="header-number" >
+              <%= number_with_delimiter(@rep.current_by_period.unique_org_with_activity_sessions, :delimiter => ',') %>
+            </h1>
+            <span class="header-unit">
+              Customer Engagement
+            </span>
+          </div>
+        </div>
+        <div class="small-3 columns">
+          <div class="activity-header yellow-box">
+            <h1 class="header-number" >
+              <%= number_with_delimiter(@rep.current_by_period.unique_orgs_that_viewed_tiles_in_explore, :delimiter => ',') %>
+            </h1>
+            <span class="header-unit">
+              Explore Engagement 
+            </span>
+          </div>
+        </div>
+
+        <div class="small-3 columns">
+          <div class="activity-header green-box">
+            <h1 class="header-number">
+              <%= number_with_delimiter(@rep.current_by_period.total_tiles_added_by_paid_client_admin, :delimiter => ',') %>
+            </h1>
+            <span class="header-unit">
+              New Tiles Added 
+            </span>
+          </div>
+        </div>
+      </div>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="report-filter-container">
+      <div class="columns small-8">
         <%=render partial: "/admin/shared/date_range_form", locals:{path: admin_client_kpi_report_path} %>
       </div>
-
-      <div class="tabular-data">
-        <%if @dates.present? %>
-          <%= render "table_with_chart_data" %>
-        <%else%>
-          <div class="row">
-            <div class="columns large-12">
-              <h2>
-                No data has been collected for the selected time frame
-              </h2>
-            </div>
-          </div>
+      <div class="columns small-4">
+        <%= form_tag "", method: :get,  class: "custom report-filter" do %>
+          <%= select_tag :metric_list, options_for_select(Reporting::ClientKPIReport.chart_series_names), { id: "metric_list", class: "interval_custom_drop", data:{kpis: Reporting::ClientKPIReport.chart_series_names.invert }} %>
         <%end%>
       </div>
-
     </div>
   </div>
 
+  <div class="row">
+    <div class="columns small-12">
+      <p>
+      <div class="kpis-graph" id="chart-container" style="width:100%; height:400px;" ></div>
+      </p>
+    </div>
+  </div>
+
+  <div class="tabular-data">
+    <%if @dates.present? %>
+      <%= render "table_with_chart_data" %>
+    <%else%>
+      <div class="row">
+        <div class="columns large-12">
+          <h2>
+            No data has been collected for the selected time frame
+          </h2>
+        </div>
+      </div>
+    <%end%>
+  </div>
+
 </div>
+
