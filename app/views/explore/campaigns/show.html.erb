@@ -30,9 +30,7 @@
       <div class="row">
         <div class="large-12 columns">
           <div class="tile_wall_explore">
-            <% cache @tiles do %>
-              <%= render partial: 'explore/tiles', locals: {tiles: @tiles, section: "Campaign Tile" } %>
-            <% end %>
+            <%= render partial: 'explore/tiles', locals: {tiles: @tiles, section: "Campaign Tile" } %>
           </div>
         </div>
       </div>
