@@ -20,7 +20,7 @@ class Admin::ChannelsController < AdminBaseController
   end
 
   def index
-    @channels = Channel.scoped
+    @channels = Channel.order(:name)
   end
 
   def create
@@ -36,9 +36,9 @@ class Admin::ChannelsController < AdminBaseController
   end
 
   private
-  
+
     def channel_params
-      params.require(:channel).permit(:name, :image, :active, :image_header)
+      params.require(:channel).permit(:name, :image, :active, :image_header, :description)
     end
 
     def render_success
