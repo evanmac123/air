@@ -18,7 +18,7 @@ class Explore::CopyTilesController < ClientAdminBaseController
   private
 
     def store_copy_in_redis(tile_id)
-      current_user.demo.rdb[:copies].sadd(tile_id)
+      current_user.rdb[:copies].sadd(tile_id)
     end
 
     def tag_user_with_channels(channel_list)
