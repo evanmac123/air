@@ -68,20 +68,6 @@ feature "interacts with a tile from the explore-preview page" do
     it_should_behave_like "copies tile"
   end
 
-  context "as User", js: true do
-    before do
-      @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
-
-      @user = FactoryGirl.create(:claimed_user)
-
-      visit explore_tile_preview_path(@original_tile, as: @user)
-    end
-
-    it "should let user copy tile" do
-      expect(page).to have_link("Copy to Board")
-    end
-  end
-
   context "as Nobody", js: true  do
     before do
       UserIntro.any_instance.stubs(:explore_intro_seen).returns(true)
