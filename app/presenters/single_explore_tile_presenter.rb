@@ -27,6 +27,14 @@ class SingleExploreTilePresenter < BasePresenter
     explore_tile_preview_path(tile)
   end
 
+  def user_type
+    if current_user.end_user? || current_user.is_a?(GuestUser)
+      "explore_guest"
+    else
+      "explore_user"
+    end
+  end
+
   def cache_key
     @cache_key ||= [
       self.class,
@@ -36,7 +44,7 @@ class SingleExploreTilePresenter < BasePresenter
       copied?,
       @is_ie,
       section,
-      current_user.is_a?(GuestUser)
+      user_type
     ].join('-')
   end
 end
