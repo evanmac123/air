@@ -54,7 +54,11 @@ Then you'll need to create a database user (Postgres keeps its own lists of user
 
 It will ask if the new user should be a superuser: say yes. Again, this is fine for a development machine but not a production server.
 
-####  Use  [RBENV](https://github.com/rbenv/rbenv) if you have need to support multiple ruby versions *
+####  Use  [RBENV](https://github.com/rbenv/rbenv) or [CHRUBY](https://medium.com/@heidar/switching-from-rbenv-to-postmodern-s-ruby-install-and-chruby-f0daa24b36e6#.hl85swk6r) if you have need to support multiple ruby versions *
+
+If opting for chruby with ruby-install, you can install ruby 2.0.0 with this command:
+
+    ruby-install -M https://cache.ruby-lang.org/pub/ruby ruby 2.0.0-p645
 
 Aliases for faster workflow
 ---------------------------
@@ -94,6 +98,7 @@ Create your development and test databases. (Note: Two distinct steps: 1 for dev
     rake db:create
 
 Load the development database:
+
     rake db:schema:load
 
 Prepare the test database:
