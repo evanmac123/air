@@ -11,14 +11,15 @@ class Organization < ActiveRecord::Base
   has_many :users
   has_one :onboarding, autosave: true
 
-  validates :name, presence: true, uniqueness: {case_sensitive: false}
+  validates :name, presence: true
 
   accepts_nested_attributes_for :boards
   accepts_nested_attributes_for :users
 
-  scope :name_order, ->{order("LOWER(name)")}
+  scope :name_order, -> { order(:name) }
 
   def update_slug
+    self.name = name.downcase.strip
     self.slug = name.parameterize
   end
 
