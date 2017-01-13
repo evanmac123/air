@@ -68,6 +68,19 @@ body.explore, .explore {
   .explore-headers {
     font-size: 25px;
     color: $darker-gray;
+    &.link {
+      &:hover {
+        color: $n-blue;
+        cursor: pointer;
+      }
+      &:after {
+        font-family: FontAwesome;
+        top:0;
+        left:-5px;
+        padding-left:10px;
+        content: "\f105";
+      }
+    }
   }
 
   #copy-all-tiles-button {
