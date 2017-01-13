@@ -641,7 +641,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def join_game(reply_mode=:string)
+  def join_board(reply_mode=:string)
     mark_as_claimed
     finish_claim(reply_mode)
   end
