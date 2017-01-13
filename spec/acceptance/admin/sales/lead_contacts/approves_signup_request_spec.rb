@@ -18,10 +18,10 @@ feature 'Admin aproves a signup request', js: true do
       click_button organization.name
 
       click_button "Approve"
-      
+
       within "div.approved-leads" do
         expect(page).to have_content(lead_contact.name)
-        expect(page).to have_content("Client")
+        expect(page).to have_content("client")
         expect(page).to_not have_content("Fake Client")
       end
     end
