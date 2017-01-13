@@ -19,7 +19,6 @@ class Organization < ActiveRecord::Base
   scope :name_order, -> { order(:name) }
 
   def update_slug
-    self.name = name.downcase.strip
     self.slug = name.parameterize
   end
 
