@@ -29,8 +29,9 @@ The following instructions are for an Ubuntu system; some slight modifications m
 6. libpq-dev
 7. nodejs
 8. ImageMagick
-9. pgadmin3 (Optional: PostgreSQL GUI admin tool)
-10. curl (Optional: If using RVM - see below)
+9. elasticsearch
+10. pgadmin3 (Optional: PostgreSQL GUI admin tool)
+11. curl (Optional: If using RVM - see below)
 
 Since the _Package Manager_ is used to install these packages they might not be as up-to-date as needed.
 If this is the case you will need to go to the appropriate site to get the latest and greatest version.

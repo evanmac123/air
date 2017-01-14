@@ -61,6 +61,11 @@ class TilesController < ApplicationController
     end
   end
 
+  # def search
+  #   @tiles = SearchTiles.new('health insurance', current_organization).tiles
+  #   @tiles = SearchTiles.new('health insurance', current_organization, custom_options).tiles # see custom options that can be passed here: https://github.com/ankane/searchkick#queries
+  # end
+
   private
 
     def find_start_tile
