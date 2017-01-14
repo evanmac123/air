@@ -10,6 +10,8 @@ when 'test'
   $redis_bulk_upload = Redis.new(host: 'localhost', port: 6379, db: 10)
 end
 
+$redis.client.logger = Rails.logger
+
 Nest.class_eval do
   def initialize(key, redis = $redis)
     super(key.to_param)

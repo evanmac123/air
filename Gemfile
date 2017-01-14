@@ -123,6 +123,8 @@ end
 
 group :development do
   gem 'thin'
+  gem 'foreman'
+  gem 'awesome_print'
   gem 'quiet_assets'
   gem 'letter_opener'
   gem 'better_errors'

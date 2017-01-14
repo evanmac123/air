@@ -145,7 +145,7 @@ Running the app
 
 To run the app locally:
 
-    rails s
+    script/airbo_dev_up
 
 Running the tests
 -----------------
