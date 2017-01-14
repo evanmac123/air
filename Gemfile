@@ -68,6 +68,7 @@ gem 'redis'
 gem 'redis-rails'
 gem 'nest'
 
+gem 'oj' #faster JSON generation
 gem 'roo'
 gem 'roo-xls'
 gem 'addressable'
@@ -124,6 +125,7 @@ end
 group :development do
   gem 'thin'
   gem 'foreman'
+  gem 'lograge'
   gem 'awesome_print'
   gem 'quiet_assets'
   gem 'letter_opener'
