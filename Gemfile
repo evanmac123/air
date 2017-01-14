@@ -68,6 +68,9 @@ gem 'redis'
 gem 'redis-rails'
 gem 'nest'
 
+gem 'oj'
+gem 'lograge'
+
 gem 'roo'
 gem 'roo-xls'
 gem 'addressable'
