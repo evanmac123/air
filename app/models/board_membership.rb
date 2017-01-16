@@ -63,6 +63,7 @@ class BoardMembership < ActiveRecord::Base
     self.save!
 
     load_updated_board_dependent_attributes
+    self
   end
 
   private

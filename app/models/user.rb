@@ -559,10 +559,12 @@ class User < ActiveRecord::Base
     }
   end
 
-  def add_board(board_or_board_id, is_current = false)
+  def add_board(board_or_board_id, is_current = false, opts = {})
     board_id = board_or_board_id.kind_of?(Demo) ? board_or_board_id.id : board_or_board_id
+
     return if self.in_board?(board_id)
-    self.board_memberships.create(demo_id: board_id, is_current: is_current)
+    board_membership_attrs = { demo_id: board_id, is_current: is_current } .merge(opts)
+    self.board_memberships.create(board_membership_attrs)
     reload
     schedule_segmentation_update(true)
   end
@@ -757,28 +759,16 @@ class User < ActiveRecord::Base
   def move_to_new_demo(new_demo_or_id)
     new_demo = new_demo_or_id.kind_of?(Demo) ? new_demo_or_id : Demo.find(new_demo_or_id)
 
-    Demo.transaction do
-      unless member_of_demo?(new_demo)
-        if is_site_admin
-          add_board(new_demo)
-        else
-          return false
-        end
+    unless member_of_demo?(new_demo)
+      if is_site_admin
+        add_board(new_demo)
+      else
+        return false
       end
-
-      # We denormalize a little here, rather than delegate to the board
-      # memberships, in the interest of backwards compatibility. Some of
-      # the attributes we're messing with here are relevant to client
-      # admin authorization, so we want to keep using the proven code for
-      # that.
-      current_board_membership.set_not_current
-      set_current_board_membership(new_demo)
-
-      self.save!
     end
 
-    board_memberships.reload
-    true
+    current_board_membership.set_not_current
+    set_current_board_membership(new_demo)
   end
 
   def set_current_board_membership(demo)
