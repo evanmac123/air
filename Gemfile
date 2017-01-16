@@ -68,6 +68,9 @@ gem 'redis'
 gem 'redis-rails'
 gem 'nest'
 
+gem 'oj'
+gem 'lograge'
+
 gem 'roo'
 gem 'roo-xls'
 gem 'addressable'
@@ -123,6 +126,8 @@ end
 
 group :development do
   gem 'thin'
+  gem 'foreman'
+  gem 'awesome_print'
   gem 'quiet_assets'
   gem 'letter_opener'
   gem 'better_errors'
