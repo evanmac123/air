@@ -771,17 +771,19 @@ class User < ActiveRecord::Base
       # the attributes we're messing with here are relevant to client
       # admin authorization, so we want to keep using the proven code for
       # that.
-      save_current_board_dependent_attributes
-      board_memberships.current.each{|board_membership| board_membership.update_attributes(is_current: false)}
-      new_board_membership = board_memberships.where(demo_id: new_demo.id).first
-      new_board_membership.update_attributes(is_current:true)
-      load_updated_board_dependent_attributes(new_board_membership)
+      current_board_membership.set_not_current
+      set_current_board_membership(new_demo)
 
       self.save!
     end
 
     board_memberships.reload
     true
+  end
+
+  def set_current_board_membership(demo)
+    board_membership = board_memberships.where(demo_id: demo.id).first
+    board_membership.set_as_current
   end
 
   def befriend(other, mixpanel_properties={})
@@ -1313,26 +1315,6 @@ class User < ActiveRecord::Base
   def update_associated_act_privacy_levels
     # See Act for an explanation of why we denormalize privacy_level onto it.
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
-  end
-
-  # See note in #move_to_new_demo for why these next two exist.
-  FIELDS_ON_A_BOARD_BY_BOARD_BASIS = %w(is_client_admin points tickets ticket_threshold_base location_id displayed_tile_post_guide displayed_tile_success_guide allowed_to_make_tile_suggestions)
-  def save_current_board_dependent_attributes
-   _current_board_membership = current_board_membership
-    FIELDS_ON_A_BOARD_BY_BOARD_BASIS.each do |field|
-      current_value = self.send(field)
-      _current_board_membership.send("#{field}=", current_value)
-    end
-
-    _current_board_membership.save!
-  end
-
-  def load_updated_board_dependent_attributes(new_board_membership)
-     FIELDS_ON_A_BOARD_BY_BOARD_BASIS.each do |field|
-      current_value = new_board_membership.send(field)
-      send("#{field}=", current_value)
-    end
-    save!
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)

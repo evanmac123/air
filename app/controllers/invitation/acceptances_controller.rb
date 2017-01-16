@@ -23,7 +23,7 @@ class Invitation::AcceptancesController < ApplicationController
       @html_body_action_name = "show"
       render "/invitations/show" and return
     end
-    binding.pry
+
     unless @user.accepted_invitation_at
       @user.join_board(:silent)
       @user.credit_game_referrer @user.game_referrer_id

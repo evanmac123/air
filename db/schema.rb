@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170113001452) do
+ActiveRecord::Schema.define(:version => 20170116204700) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -119,12 +119,11 @@ ActiveRecord::Schema.define(:version => 20170113001452) do
     t.datetime "created_at",                                          :null => false
     t.datetime "updated_at",                                          :null => false
     t.boolean  "not_show_onboarding",              :default => false
-    t.boolean  "displayed_tile_post_guide",        :default => false
-    t.boolean  "displayed_tile_success_guide",     :default => false
     t.boolean  "digest_muted",                     :default => false
     t.boolean  "followup_muted",                   :default => false
     t.boolean  "send_weekly_activity_report",      :default => true
     t.boolean  "allowed_to_make_tile_suggestions", :default => false, :null => false
+    t.datetime "accepted_invitation_at"
   end
 
   add_index "board_memberships", ["demo_id"], :name => "index_board_memberships_on_demo_id"
