@@ -29,7 +29,7 @@ class BulkLoad::UserCreatorFromCsv
       user.schedule_segmentation_update(true)
     else
       user = User.create(new_user_attributes)
-      user.add_board(@demo_id, true) if user.persisted?
+      user.add_board(@demo_id, { is_current: true }) if user.persisted?
     end
 
     user
@@ -92,7 +92,7 @@ class BulkLoad::UserCreatorFromCsv
 
   def existing_or_new_location_id(location_name)
     location = Location.where(demo_id: @demo_id, name: location_name).first
-    location ||= Location.create(demo_id: @demo_id, name: location_name)    
+    location ||= Location.create(demo_id: @demo_id, name: location_name)
     location.id
   end
 

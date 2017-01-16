@@ -75,7 +75,7 @@ feature 'Edits user' do
   end
 
   it "should set user with role if user's current board isn't this one" do
-    user.add_board(demo2, true)
+    user.add_board(demo2, { is_current: true })
 
     visit(edit_client_admin_user_path(user, as: client_admin))
     page.find('select.user-role-select').select 'Administrator'

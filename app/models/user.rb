@@ -559,11 +559,12 @@ class User < ActiveRecord::Base
     }
   end
 
-  def add_board(board_or_board_id, is_current = false, opts = {})
+  def add_board(board_or_board_id, opts = { is_current: false })
     board_id = board_or_board_id.kind_of?(Demo) ? board_or_board_id.id : board_or_board_id
 
     return if self.in_board?(board_id)
-    board_membership_attrs = { demo_id: board_id, is_current: is_current } .merge(opts)
+
+    board_membership_attrs = { demo_id: board_id }.merge(opts)
     self.board_memberships.create(board_membership_attrs)
     reload
     schedule_segmentation_update(true)
@@ -766,7 +767,7 @@ class User < ActiveRecord::Base
         return false
       end
     end
-
+    binding.pry
     current_board_membership.set_not_current
     set_current_board_membership(new_demo)
   end
@@ -833,7 +834,7 @@ class User < ActiveRecord::Base
     !(self.claimed?)
   end
 
-  def add_flash_for_next_request!(body, flash_status)
+  def flash_for_next_request!(body, flash_status)
     _flash_status = flash_status.to_sym
     new_flashes = self.flashes_for_next_request || {}
     new_flashes[flash_status] ||= []
@@ -1316,7 +1317,7 @@ class User < ActiveRecord::Base
 
   private
 
-  def self.add_joining_to_activity_stream(user)
+  def self.joining_to_activity_stream(user)
     Act.create!(
       :user            => user,
       :text            => 'joined!',
@@ -1324,8 +1325,8 @@ class User < ActiveRecord::Base
     )
   end
 
-  def add_joining_to_activity_stream
-    self.class.add_joining_to_activity_stream(self)
+  def joining_to_activity_stream
+    self.class.joining_to_activity_stream(self)
   end
 
   def self.passwords_dont_match_error_message

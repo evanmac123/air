@@ -1,5 +1,6 @@
 class CurrentBoardsController < UserBaseController
   def update
+    binding.pry
     current_board_membership = current_user.move_to_new_demo(params[:board_id])
     is_admin = current_board_membership.is_client_admin || current_user.is_site_admin?
 

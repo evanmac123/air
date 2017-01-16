@@ -80,7 +80,6 @@ class BoardMembership < ActiveRecord::Base
         current_value = self.send(field)
         user.send("#{field}=", current_value)
       end
-
       user.save!
     end
     ####
