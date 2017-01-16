@@ -69,6 +69,8 @@ gem 'redis-rails'
 gem 'nest'
 
 gem 'oj' #faster JSON generation
+gem 'lograge'
+
 gem 'roo'
 gem 'roo-xls'
 gem 'addressable'
@@ -99,6 +101,7 @@ group :development, :test do
   gem 'steak'
   gem 'pry-rails'
 	gem 'pry-byebug'
+  gem 'awesome_print'
 end
 
 group :test do
@@ -125,8 +128,6 @@ end
 group :development do
   gem 'thin'
   gem 'foreman'
-  gem 'lograge'
-  gem 'awesome_print'
   gem 'quiet_assets'
   gem 'letter_opener'
   gem 'better_errors'
