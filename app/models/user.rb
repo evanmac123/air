@@ -767,7 +767,7 @@ class User < ActiveRecord::Base
         return false
       end
     end
-    binding.pry
+
     current_board_membership.set_not_current
     set_current_board_membership(new_demo)
   end
