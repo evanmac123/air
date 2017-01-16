@@ -59,14 +59,14 @@ class BoardMembership < ActiveRecord::Base
 
   def set_as_current
     self.is_current = true
-    set_accepted_invitation_at
+    set_joined_board_at
     self.save!
 
     load_updated_board_dependent_attributes
   end
 
   private
-
+    ####These are methods designed to faciliate backwards compatibility with moving to BMs.  They are lazy and should be removed:
     def set_current_board_dependent_attributes
       FIELDS_ON_A_BOARD_BY_BOARD_BASIS.each do |field|
         current_value = user.send(field)
@@ -82,10 +82,11 @@ class BoardMembership < ActiveRecord::Base
 
       user.save!
     end
+    ####
 
-    def set_accepted_invitation_at
-      unless accepted_invitation_at
-        self.accepted_invitation_at = Time.now
+    def set_joined_board_at
+      unless joined_board_at
+        self.joined_board_at = Time.now
       end
     end
 end

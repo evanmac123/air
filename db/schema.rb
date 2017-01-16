@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(:version => 20170116204700) do
     t.boolean  "followup_muted",                   :default => false
     t.boolean  "send_weekly_activity_report",      :default => true
     t.boolean  "allowed_to_make_tile_suggestions", :default => false, :null => false
-    t.datetime "accepted_invitation_at"
+    t.datetime "joined_board_at"
   end
 
   add_index "board_memberships", ["demo_id"], :name => "index_board_memberships_on_demo_id"
