@@ -214,6 +214,10 @@ feature 'Client admin and the digest email for tiles' do
 
         scenario 'Demo where only claimed users should get digests' do
           on_day '7/6/2013' do
+            admin.demo.users.claimed.each do |user|
+              user.current_board_membership.update_attributes(joined_board_at: Time.now)
+            end
+
             change_send_to('Activated Users')
             submit_button.click
             crank_dj_clear

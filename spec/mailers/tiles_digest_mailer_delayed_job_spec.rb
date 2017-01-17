@@ -71,7 +71,11 @@ describe 'Follow-up email scheduled by delayed job' do
 
     expect(demo.active_tiles.size).to eq(2)
 
-    FactoryGirl.create_list :user, 3, :claimed, demo: demo
+    FactoryGirl.create_list(:user, 3, :claimed, demo: demo)
+
+    demo.users.claimed.each do |user|
+      user.current_board_membership.update_attributes(joined_board_at: Time.now)
+    end
 
     TilesDigestMailer.notify_all(demo, false, [demo.tiles.pluck(:id)], nil, nil, nil)
     crank_dj_clear

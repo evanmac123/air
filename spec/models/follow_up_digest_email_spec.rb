@@ -30,7 +30,7 @@ describe FollowUpDigestEmail do
 
   context "Sending follow emails" do
 
-    before  do 
+    before  do
       @demo = FactoryGirl.create(:demo)
 
       @muted = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
@@ -58,14 +58,18 @@ describe FollowUpDigestEmail do
       FactoryGirl.create(:tile_completion, user: @user3, tile: @tiles[1], created_at: 2.weeks.ago)
 
       @fu = FollowUpDigestEmail.new(
-        original_digest_headline: "headline", 
-        send_on: 1.hour.from_now, 
-        unclaimed_users_also_get_digest: false, 
+        original_digest_headline: "headline",
+        send_on: 1.hour.from_now,
+        unclaimed_users_also_get_digest: false,
         tile_ids: @tiles.map(&:id)
       )
 
       @fu.demo= @demo
       @fu.save
+
+      User.claimed.each do |user|
+        user.current_board_membership.update_attributes(joined_board_at: Time.now)
+      end
     end
 
     context "claimed" do
@@ -91,10 +95,10 @@ describe FollowUpDigestEmail do
       describe "#recipients" do
         it "mails all non muted recipients" do
           expect(@fu.recipients).to match_array [@user4.id, @user5.id, @user6.id]
-        end 
+        end
       end
 
-      describe "#trigger_deliveries" do 
+      describe "#trigger_deliveries" do
         it "mails all recipients with no tile completions for the current digest tiles" do
           TilesDigestMailer.stubs(:delay).returns TilesDigestMailer
           TilesDigestMailer.expects(:notify_one).at_most(5)

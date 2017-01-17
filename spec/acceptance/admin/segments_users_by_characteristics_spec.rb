@@ -39,7 +39,7 @@ feature "Admin segmentation" do
     end
 
     [@reds, @blues, @greens].each{|user_group| user_group.map(&:save)}
-    
+
   end
 
   def expect_discrete_operators_to_not_be_present(characteristic_name)
@@ -741,46 +741,6 @@ feature "Admin segmentation" do
     expect_content "Users in this segment: 4"
     click_link "Show users"
     @demo.users.claimed.each {|claimed_user| expect_user_content(claimed_user)}
-  end
-
-  it 'can display large numbers of users', :js => true do
-    # We need a large number of IDs to expose the problem caused by trying to
-    # jam them all into the URI, but creating 1000Users in the DB for this
-    # test takes unfeasibly long. So we cheat. And the amount of trouble we
-    # have to go to to cheat is illustrative of why we don't more often.
-
-    @demo = FactoryGirl.create(:demo)
-    highest_user_id = User.count > 0 ? User.order("id DESC").last.id : 0
-    first_fake_id = highest_user_id + 1
-    fake_ids = (first_fake_id..first_fake_id + 999).to_a
-    Demo.any_instance.stubs(:user_ids).returns(fake_ids)
-
-    unsaved_users = []
-    1000.times do |i|
-      unsaved_user = FactoryGirl.build(:user, :demo => @demo)
-      unsaved_user.stubs(:id).returns(fake_ids[i])
-      unsaved_user.stubs(:slug).returns("jimearljones_#{fake_ids[i]}")
-      unsaved_users << unsaved_user
-    end
-    spot_check_users = [unsaved_users[0], unsaved_users[500], unsaved_users[999]]
-
-    fake_arel = Object.new
-    fake_arel.stubs(:where).returns(unsaved_users)
-    Demo.any_instance.stubs(:users).returns(unsaved_users)
-    %w(alphabetical where claimed with_phone_number with_game_referrer).each do |method_name|
-      unsaved_users.stubs(method_name.to_s).returns(unsaved_users)
-    end
-
-
-    visit admin_demo_path(@demo, as: an_admin)
-
-    click_link "Segment users"
-    click_button "Find segment"
-    expect_content "Users in this segment: 1000"
-
-    click_link "Show users"
-
-    spot_check_users.each { |user| expect_user_content user }
   end
 
   it 'should have a proper link from somewhere' do
