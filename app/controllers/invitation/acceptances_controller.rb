@@ -28,7 +28,6 @@ class Invitation::AcceptancesController < ApplicationController
       @user.credit_game_referrer @user.game_referrer_id
     end
 
-
     @user.save!
 
     demo = Demo.where(id: params[:demo_id]).first
