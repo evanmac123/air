@@ -172,6 +172,10 @@ feature 'Client admin and the digest email for tiles' do
                   The tile links should sign in claimed, *non-client-admin* users to the
                   Activities page, while whisking others to where they belong" do
           on_day '7/6/2013' do
+            admin.demo.users.claimed.each do |user|
+              user.board_memberships.each { |bm| bm.update_attributes(joined_board_at: Time.now) }
+            end
+
             change_send_to('All Users')
             submit_button.click
             crank_dj_clear

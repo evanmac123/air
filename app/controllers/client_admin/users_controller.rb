@@ -179,7 +179,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   end
 
   def count_total_users
-    @total_user_count = current_user.demo.users.claimed.where(is_site_admin: false).count
+    @total_user_count = current_user.demo.claimed_user_count
   end
 
   def ping_if_made_client_admin(user, was_changed)

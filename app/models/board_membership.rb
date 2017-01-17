@@ -31,6 +31,10 @@ class BoardMembership < ActiveRecord::Base
     end
   end
 
+  def self.claimed
+    where("joined_board_at IS NOT NULL")
+  end
+
   def self.current
     where(is_current: true)
   end
