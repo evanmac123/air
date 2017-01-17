@@ -55,10 +55,6 @@ module User::Queries
     joins(:board_memberships).where(board_memberships: { demo_id: demo_id }).where(board_memberships: { joined_board_at: nil })
   end
 
-  def unclaimed_on_board_membership
-    joins(:board_memberships).where(board_membership: { joined_board_at: nil })
-  end
-
   def get_users_where_like(text, demo, attribute, user_to_exempt = nil)
     users = demo.users.where("#{attribute} ILIKE ?", "%" + text + "%")
     users = users.where('users.id != ?', user_to_exempt.id) if user_to_exempt
