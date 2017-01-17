@@ -566,6 +566,7 @@ class User < ActiveRecord::Base
 
     board_membership_attrs = { demo_id: board_id }.merge(opts)
     self.board_memberships.create(board_membership_attrs)
+
     reload
     schedule_segmentation_update(true)
   end
@@ -1317,7 +1318,7 @@ class User < ActiveRecord::Base
 
   private
 
-  def self.joining_to_activity_stream(user)
+  def self.add_joining_to_activity_stream(user)
     Act.create!(
       :user            => user,
       :text            => 'joined!',
@@ -1325,8 +1326,8 @@ class User < ActiveRecord::Base
     )
   end
 
-  def joining_to_activity_stream
-    self.class.joining_to_activity_stream(self)
+  def add_joining_to_activity_stream
+    self.class.add_joining_to_activity_stream(self)
   end
 
   def self.passwords_dont_match_error_message

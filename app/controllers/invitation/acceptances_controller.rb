@@ -6,7 +6,6 @@ class Invitation::AcceptancesController < ApplicationController
   layout "external"
 
   def update
-    # Set this as true so presence of name is validated
     @user.attributes = permitted_params.user
 
     @user.password = @user.password_confirmation = params[:user][:password]
@@ -29,16 +28,19 @@ class Invitation::AcceptancesController < ApplicationController
       @user.credit_game_referrer @user.game_referrer_id
     end
 
+
     @user.save!
 
     demo = Demo.where(id: params[:demo_id]).first
     if demo
       add_user_to_board_if_allowed(demo)
+      @user.reload
     end
 
     sign_in(@user, params[:remember_me])
-    flash[:success] = "Welcome, #{@user.first_name}!"
-    if @user.is_client_admin || @user.is_site_admin
+    flash[:success] = "Welcome, #{current_user.first_name}!"
+
+    if current_user.is_client_admin || current_user.is_site_admin
       redirect_to explore_path
     else
       redirect_to activity_path
