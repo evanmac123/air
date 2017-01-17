@@ -10,7 +10,6 @@
      OpenStruct.new(:values => @plot_data.map{|x|x.round(2)}, :max_value => @plot_data.max)
    end
 
-
    def self.model_name
      ActiveModel::Name.new(BoardStatsLineChartForm)
    end
@@ -41,7 +40,7 @@
    end
 
    def activations
-     @new_chart ? "" : @board.users.claimed.count
+     @new_chart ? "" : @board.claimed_user_count
    end
 
    def actions_taken
@@ -49,7 +48,7 @@
    end
 
    def users_joined
-     @claimed ||= @board.users.claimed.count
+     @claimed ||= @board.claimed_user_count
    end
 
    def total_employee_visits
@@ -65,7 +64,7 @@
    end
 
    def user_activation_pct
-     (100.00 * users_joined/@board.users.count).round(0)
+     (100.00 * users_joined/@board.users.non_site_admin.count).round(0)
    end
 
    private

@@ -3,8 +3,6 @@ require 'csv'
 class ClientAdmin::TilesReportsController < ClientAdminBaseController
   def show
     demo = current_user.demo
-    num_claimed_users = demo.claimed_user_count
-
     # Returns a hash of { tile_id: num_completions } => set default value of 0 => "no users have completed this tile"
     num_tile_completions = demo.num_tile_completions
     num_tile_completions.default = 0

@@ -5,8 +5,8 @@ module User::Queries
 
   def in_canonical_ranking_order
     order("points DESC, name ASC")
-  end  
-  
+  end
+
   def with_phone_number
     where("phone_number IS NOT NULL AND phone_number != ''")
   end
@@ -20,7 +20,7 @@ module User::Queries
   end
 
   def name_like(text)
-    where("name ILIKE ?", "%" + text + "%")  
+    where("name ILIKE ?", "%" + text + "%")
   end
 
   def wants_email
@@ -47,12 +47,20 @@ module User::Queries
     where(:accepted_invitation_at => nil)
   end
 
+  def claimed_on_board_membership(demo_id)
+    joins(:board_memberships).where(board_memberships: { demo_id: demo_id }).where("board_memberships.joined_board_at IS NOT NULL")
+  end
+
+  def unclaimed_on_board_membership(demo_id)
+    joins(:board_memberships).where(board_memberships: { demo_id: demo_id }).where(board_memberships: { joined_board_at: nil })
+  end
+
   def get_users_where_like(text, demo, attribute, user_to_exempt = nil)
     users = demo.users.where("#{attribute} ILIKE ?", "%" + text + "%")
     users = users.where('users.id != ?', user_to_exempt.id) if user_to_exempt
     users
   end
-  
+
   def get_claimed_users_where_like(text, demo, attribute)
     get_users_where_like(text, demo, attribute).claimed
   end

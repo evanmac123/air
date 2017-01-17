@@ -182,6 +182,8 @@ class User < ActiveRecord::Base
 
   has_alphabetical_column :name
 
+  scope :non_site_admin, -> { where(is_site_admin: false) }
+
   scope :non_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin <> ?', true, true) }
 
   scope :client_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin = ?', true, true) }

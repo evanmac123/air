@@ -69,6 +69,7 @@ feature 'Uploads file to fake bulk uploader' do
     3.times do
       user = FactoryGirl.create(:user, :claimed)
       user.add_board(@client_admin.demo)
+      user.move_to_new_demo(@client_admin.demo)
     end
 
     2.times do

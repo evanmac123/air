@@ -188,7 +188,11 @@ class Demo < ActiveRecord::Base
   #FIXME WTF?  this is idiotic why not rename for the fucking variable OMG!!!!!
   # Note that 'unclaimed_users_also_get_digest' is a param passed to this method, not the demo's attribute of the same name
   def users_for_digest(unclaimed_users_also_get_digest)
-    unclaimed_users_also_get_digest ? users : users.claimed
+    unclaimed_users_also_get_digest ? users : claimed_users
+  end
+
+  def claimed_users
+    users.claimed_on_board_membership(self.id)
   end
 
   # Returns the number of users who have completed each of the tiles for this demo in a hash
@@ -264,7 +268,7 @@ class Demo < ActiveRecord::Base
   end
 
   def claimed_user_count
-    users.claimed.where(is_site_admin: false).count
+    claimed_users.non_site_admin.count
   end
 
   def claimed_user_with_phone_fraction
