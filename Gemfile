@@ -68,7 +68,6 @@ gem 'redis'
 gem 'redis-rails'
 gem 'nest'
 
-gem 'oj' #faster JSON generation
 gem 'lograge'
 
 gem 'roo'
