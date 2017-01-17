@@ -33,7 +33,7 @@ feature 'Manages board settings' do
       @boards = [@user.demo, FactoryGirl.create(:demo)]
 
       @boards.each do |board|
-        @user.add_board(board)
+        @user.add_board(board, { is_current: false, is_client_admin: true })
         @user.move_to_new_demo(board)
         @user.is_client_admin = true
         @user.save!
@@ -43,6 +43,7 @@ feature 'Manages board settings' do
     it "should show admin controls for each such board", js: true do
       visit activity_path(as: @user)
       open_board_settings
+
       @boards.each do |board|
         within(board_admin_controls_selector) do
           expect_content(board.name.upcase)

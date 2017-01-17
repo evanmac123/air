@@ -11,7 +11,7 @@ module AccountClaimer
       User.claimed.where("email ILIKE ?", @from.like_escape).first
     end
     
-    def attributes_to_join_game_with
+    def attributes_to_join_board_with
       super.merge(:email => @from)
     end
 

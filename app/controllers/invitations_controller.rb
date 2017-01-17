@@ -23,7 +23,6 @@ class InvitationsController < ApplicationController
       @invalid_email = true
       render "invalid_email"
     end
-
   end
 
   def show

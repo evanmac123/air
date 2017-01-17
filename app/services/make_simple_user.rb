@@ -31,7 +31,7 @@ class MakeSimpleUser
   def create
     user_saved = user.save
     if user_saved
-      user.add_board(demo.id, is_new_user)
+      user.add_board(demo.id, { is_current: is_new_user })
       set_role
       user.generate_unique_claim_code! unless user.claim_code.present?
 

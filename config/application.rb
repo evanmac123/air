@@ -20,7 +20,7 @@ module Health
     config.generators do |generate|
       generate.test_framework :rspec
     end
-    
+
     ##Lograge
     config.lograge.enabled = true
 

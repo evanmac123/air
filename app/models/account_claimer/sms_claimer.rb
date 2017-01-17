@@ -10,7 +10,7 @@ module AccountClaimer
       User.claimed.where(:phone_number => @from).first
     end
 
-    def attributes_to_join_game_with
+    def attributes_to_join_board_with
       super.merge(:phone_number => @from)
     end
 

@@ -33,7 +33,7 @@ class ConvertToFullUser
 
         @converted_user.save!
       end
-      @converted_user.add_board(demo.id, true)
+      @converted_user.add_board(demo.id, { is_current: true })
       @converted_user.reload
       @converted_user.send_conversion_email
       @converted_user
@@ -52,7 +52,7 @@ class ConvertToFullUser
     set_common_data_for_user
 
     if @converted_user.save
-      @converted_user.add_board(@pre_user.demo_id, true)
+      @converted_user.add_board(@pre_user.demo_id, { is_current: true })
       copy_data_from_guest
       @converted_user
     else

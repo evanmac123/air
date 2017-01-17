@@ -559,10 +559,14 @@ class User < ActiveRecord::Base
     }
   end
 
-  def add_board(board_or_board_id, is_current = false)
+  def add_board(board_or_board_id, opts = { is_current: false })
     board_id = board_or_board_id.kind_of?(Demo) ? board_or_board_id.id : board_or_board_id
+
     return if self.in_board?(board_id)
-    self.board_memberships.create(demo_id: board_id, is_current: is_current)
+
+    board_membership_attrs = { demo_id: board_id }.merge(opts)
+    self.board_memberships.create(board_membership_attrs)
+
     reload
     schedule_segmentation_update(true)
   end
@@ -641,7 +645,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def join_game(reply_mode=:string)
+  def join_board(reply_mode=:string)
     mark_as_claimed
     finish_claim(reply_mode)
   end
@@ -757,31 +761,21 @@ class User < ActiveRecord::Base
   def move_to_new_demo(new_demo_or_id)
     new_demo = new_demo_or_id.kind_of?(Demo) ? new_demo_or_id : Demo.find(new_demo_or_id)
 
-    Demo.transaction do
-      unless member_of_demo?(new_demo)
-        if is_site_admin
-          add_board(new_demo)
-        else
-          return false
-        end
+    unless member_of_demo?(new_demo)
+      if is_site_admin
+        add_board(new_demo)
+      else
+        return false
       end
-
-      # We denormalize a little here, rather than delegate to the board
-      # memberships, in the interest of backwards compatibility. Some of
-      # the attributes we're messing with here are relevant to client
-      # admin authorization, so we want to keep using the proven code for
-      # that.
-      save_current_board_dependent_attributes
-      board_memberships.current.each{|board_membership| board_membership.update_attributes(is_current: false)}
-      new_board_membership = board_memberships.where(demo_id: new_demo.id).first
-      new_board_membership.update_attributes(is_current:true)
-      load_updated_board_dependent_attributes(new_board_membership)
-
-      self.save!
     end
 
-    board_memberships.reload
-    true
+    current_board_membership.set_not_current
+    set_current_board_membership(new_demo)
+  end
+
+  def set_current_board_membership(demo)
+    board_membership = board_memberships.where(demo_id: demo.id).first
+    board_membership.set_as_current
   end
 
   def befriend(other, mixpanel_properties={})
@@ -841,7 +835,7 @@ class User < ActiveRecord::Base
     !(self.claimed?)
   end
 
-  def add_flash_for_next_request!(body, flash_status)
+  def flash_for_next_request!(body, flash_status)
     _flash_status = flash_status.to_sym
     new_flashes = self.flashes_for_next_request || {}
     new_flashes[flash_status] ||= []
@@ -1313,26 +1307,6 @@ class User < ActiveRecord::Base
   def update_associated_act_privacy_levels
     # See Act for an explanation of why we denormalize privacy_level onto it.
     Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
-  end
-
-  # See note in #move_to_new_demo for why these next two exist.
-  FIELDS_ON_A_BOARD_BY_BOARD_BASIS = %w(is_client_admin points tickets ticket_threshold_base location_id displayed_tile_post_guide displayed_tile_success_guide allowed_to_make_tile_suggestions)
-  def save_current_board_dependent_attributes
-   _current_board_membership = current_board_membership
-    FIELDS_ON_A_BOARD_BY_BOARD_BASIS.each do |field|
-      current_value = self.send(field)
-      _current_board_membership.send("#{field}=", current_value)
-    end
-
-    _current_board_membership.save!
-  end
-
-  def load_updated_board_dependent_attributes(new_board_membership)
-     FIELDS_ON_A_BOARD_BY_BOARD_BASIS.each do |field|
-      current_value = new_board_membership.send(field)
-      send("#{field}=", current_value)
-    end
-    save!
   end
 
   def self.claimable_by_first_name_and_claim_code(claim_string)

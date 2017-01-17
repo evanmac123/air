@@ -21,7 +21,6 @@ class ClientAdminBaseController < UserBaseController
       user_onboarding = UserOnboarding.where(auth_hash: cookies[:user_onboarding]).first
       if user_onboarding && !user_onboarding.completed
         sign_in(user_onboarding.user)
-        refresh_activity_session(current_user)
         redirect_to user_onboarding_path(current_user.user_onboarding.id, return_onboarding: true)
         return true
       else

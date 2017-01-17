@@ -28,7 +28,7 @@ module AccountClaimer
 
         if @user
           if @user.unclaimed?
-            @user.mark_as_claimed(attributes_to_join_game_with)
+            @user.mark_as_claimed(attributes_to_join_board_with)
             @user.forgot_password!
             welcome_message = @user.finish_claim
             after_joining_hook
@@ -53,7 +53,7 @@ module AccountClaimer
       input.gsub("@\{claim_information\}", @normalized_claim_information)
     end
 
-    def attributes_to_join_game_with
+    def attributes_to_join_board_with
       {:channel => channel_name}
     end
 
