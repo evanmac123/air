@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="columns small-10">
+    <div class="panel">
+      <%= form_for([:admin, case_study]) do |f| %>
+        <div id="response_explanation">
+        </div>
+        <br>
+        <div class="row image-row">
+          <div class="large-6 columns">
+            <%= f.label :client_name, "Client Name" %>
+            <%= f.text_field :client_name %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :description, "Description"  %>
+            <%= f.text_area :description %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :logo, "Logo"  %>
+            <%= f.file_field :logo %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :cover_image, "Cover Image"  %>
+            <%= f.file_field :cover_image %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :pdf, "Pdf"  %>
+            <%= f.file_field :pdf %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-2 columns">
+            <%= f.submit "Save", class: "button" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

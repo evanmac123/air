@@ -4,6 +4,7 @@ namespace :admin do
 
   resources :channels
   resources :campaigns
+  resources :case_studies, except: :show
 
   resources :tile_features, only: [:index, :create, :update, :destroy, :new]
 

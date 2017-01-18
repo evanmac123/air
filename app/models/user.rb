@@ -763,16 +763,18 @@ class User < ActiveRecord::Base
   def move_to_new_demo(new_demo_or_id)
     new_demo = new_demo_or_id.kind_of?(Demo) ? new_demo_or_id : Demo.find(new_demo_or_id)
 
-    unless member_of_demo?(new_demo)
-      if is_site_admin
-        add_board(new_demo)
-      else
-        return false
+    Demo.transaction do
+      unless member_of_demo?(new_demo)
+        if is_site_admin
+          add_board(new_demo)
+        else
+          return false
+        end
       end
-    end
 
-    current_board_membership.set_not_current
-    set_current_board_membership(new_demo)
+      current_board_membership.set_not_current
+      set_current_board_membership(new_demo)
+    end
   end
 
   def set_current_board_membership(demo)
