@@ -17,7 +17,7 @@ describe ClientAdminSearch do
   end
 
   describe '#my_tiles' do
-    it 'calls Tile.search with the correct options' do
+    it 'calls Tile.search with the correct options (scoped to the current board/demo)' do
       Tile.stubs(:search)
 
       service.my_tiles
@@ -37,6 +37,42 @@ describe ClientAdminSearch do
       correct_options = { fields: [:header, :supporting_content], where: { is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE] }  }
 
       expect(Tile).to have_received(:search).with(query, correct_options)
+    end
+  end
+
+  describe '#campaigns' do
+    it 'calls Campaign.where with the correct filter (based on the explore tiles present)' do
+      fake_results = mock("Campaign")
+      fake_results.stubs(:all).returns([])
+      Campaign.stubs(:where).returns(fake_results)
+
+      fake_tile = mock("Tile")
+      fake_tile.stubs(:demo_id).returns(demo.id)
+      service.stubs(:explore_tiles).returns([fake_tile])
+
+      service.campaigns
+
+      correct_filter = { demo_id: [demo.id] }
+
+      expect(Campaign).to have_received(:where).with(correct_filter)
+    end
+  end
+
+  describe '#organizations' do
+    it 'calls Organization.where with the correct filter (based on the explore tiles present)' do
+      fake_results = mock("Organization")
+      fake_results.stubs(:all).returns([])
+      Organization.stubs(:where).returns(fake_results)
+
+      fake_tile = mock("Tile")
+      fake_tile.stubs(:demo_id).returns(demo.id)
+      service.stubs(:explore_tiles).returns([fake_tile])
+
+      service.organizations
+
+      correct_filter = { id: [demo.organization.id] }
+
+      expect(Organization).to have_received(:where).with(correct_filter)
     end
   end
 

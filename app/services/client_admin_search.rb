@@ -14,6 +14,15 @@ class ClientAdminSearch
     @explore_tiles ||= Tile.search(formatted_query, explore_tiles_options)
   end
 
+  def campaigns
+    @campaigns ||= Campaign.where(demo_id: demo_ids_from_explore_tiles).all
+    # @campaigns ||= Campaign.where(demo_id: demo_id).all
+  end
+
+  def organizations
+    @organizations ||= Organization.where(id: organization_ids_from_explore_tiles).all
+  end
+
   private
 
   def formatted_query
@@ -47,6 +56,15 @@ class ClientAdminSearch
       },
       fields: default_fields
     }
+  end
+
+  def demo_ids_from_explore_tiles
+    @demo_ids_from_explore_tiles ||= explore_tiles.map(&:demo_id)
+  end
+
+
+  def organization_ids_from_explore_tiles
+    @organization_ids_from_explore_tiles ||= Demo.where(id: demo_ids_from_explore_tiles).pluck(:organization_id)
   end
 
 end
