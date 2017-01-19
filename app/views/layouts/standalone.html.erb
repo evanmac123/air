@@ -37,8 +37,9 @@
 
     <%= yield %>
 
-    <%= render partial: "acts/public_board/schedule_demo_modal" %>
-    <%= render :partial => 'shared/modals/modals' %>
+    <div class="modals">
+      <%= render partial: "acts/public_board/schedule_demo_modal" %>
+    </div>
 
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>

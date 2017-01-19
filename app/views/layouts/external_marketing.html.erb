@@ -36,7 +36,8 @@
       <%= render "shared/request_demo" %>
     </div>
 
-    <%= render :partial => 'shared/modals/modals' %>
+    <div class="modals"></div>
+
     <%= javascript_include_tag 'jquery.lightbox_me' %>
     <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
   </body>

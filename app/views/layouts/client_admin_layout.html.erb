@@ -47,8 +47,10 @@
   </div>
 
   <%= yield :lightbox %>
-  <%= render partial: "shared/tiles/form/embed_video_modal" %>
-  <%= render :partial => 'shared/modals/modals' %>
+
+  <div class="modals">
+    <%= render partial: "shared/tiles/form/embed_video_modal" %>
+  </div>
   <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
   <div id='gradient-triangle'></div>
   <%= javascript_include_tag 'rem.min.js' %>
