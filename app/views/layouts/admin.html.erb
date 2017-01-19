@@ -14,9 +14,9 @@
   <body class="<%= body_class %>">
 
     <%= render 'shared/admin/header' %>
+    <%=render "admin/site_admin_nav"%>
     <div id="admin-layout-wrapper" class="toggled">
       <%= render 'shared/admin_flashes' %>
-      <%=render "admin/site_admin_nav"%>
       <%= render 'shared/offcanvas_menu_signedin' %>
         <%= yield %>
 

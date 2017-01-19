@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="columns small-12">
+    <h3>Case Studies</h3>
+    <br>
+    <%= link_to "New", new_admin_case_study_path, class: "button"  %>
+  </div>
+</div>
+<% unless @case_studies.empty? %>
+  <div class="row">
+    <div class="columns small-12">
+      <div class="panel">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Client Name</th>
+              <th>Updated At</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @case_studies.each do |case_study| %>
+              <tr class="resource-row">
+                <td><%= case_study.client_name %></td>
+                <td><%= case_study.updated_at.to_formatted_s(:short) %></td>
+                <td><%= link_to "Edit", edit_admin_case_study_path(case_study) %></td>
+                <td><%= link_to "Delete", admin_case_study_path(case_study), method: :delete %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>

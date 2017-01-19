@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="columns small-12">
+    <h3><%= @case_study.client_name %> Case Study</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="columns small-2">
+    <%= link_to "All Case Studies", admin_case_studies_path, class: "button"  %>
+  </div>
+</div>
+<%= render "case_study_form", case_study: @case_study %>
