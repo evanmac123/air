@@ -11,28 +11,18 @@ feature 'Clicking through digest from another board when claimed and logged out'
     @user.add_board(@other_board)
 
     @user.invite(nil, demo_id: @other_board.id)
-    crank_dj_clear
 
     open_email("johnny@heythere.co.uk")
+  end
+
+  scenario 'gets logged in as user' do
+    visit_in_email "Start"
+    expect_current_board_header @other_board
+  end
+
+  scenario 'does not get logged in as client admin' do
+    @user.update_attributes(is_client_admin:true)
     visit_in_email "Start"
     expect_content logged_out_message
-  end
-
-  scenario 'ends up there after login' do
-    fill_in "session[email]", with: "johnny@heythere.co.uk"
-    fill_in "session[password]", with: "foobar"
-    click_button "Log In"
-    expect_current_board_header @other_board
-  end
-
-  scenario 'ends up there after screwing up the login once and then doing it right' do
-    fill_in "session[email]", with: "johnny@heythere.co.uk"
-    fill_in "session[password]", with: ("foobar" + "derpderp")
-    click_button "Log In"
-
-    fill_in "session[email]", with: "johnny@heythere.co.uk"
-    fill_in "session[password]", with: "foobar"
-    click_button "Log In"
-    expect_current_board_header @other_board
   end
 end
