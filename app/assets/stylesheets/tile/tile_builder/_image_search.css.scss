@@ -1,0 +1,18 @@
+paging{
+  display:none;
+}
+#img{
+}
+
+#images{
+  height:100%; 
+  position: relative;
+  overflow: scroll; 
+  }
+.cell{
+  padding: 5px;
+  min-height: 100px;
+  max-width: 300px;
+  display: inline-block;
+}
+
