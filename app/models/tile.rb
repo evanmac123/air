@@ -1,7 +1,7 @@
 class Tile < ActiveRecord::Base
   include Concerns::TileImageable
 
-  searchkick word_start: [:header, :supporting_content, :tag_titles], settings: {number_of_shards: 1, number_of_replicas: 1}
+  searchkick word_start: [:headline, :supporting_content, :tag_titles], settings: {number_of_shards: 1, number_of_replicas: 1}
 
   ACTIVE  = 'active'.freeze
   ARCHIVE = 'archive'.freeze

@@ -31,7 +31,7 @@ class ClientAdminSearch
   end
 
   def default_fields
-    [:header, :supporting_content, :tag_titles]
+    [:headline, :supporting_content, :tag_titles]
   end
   
   def default_match
