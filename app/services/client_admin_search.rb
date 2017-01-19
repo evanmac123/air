@@ -33,6 +33,10 @@ class ClientAdminSearch
   def default_fields
     [:header, :supporting_content, :tag_titles]
   end
+  
+  def default_match
+    :word_start
+  end
 
   def demo_id
     demo.id
@@ -43,7 +47,8 @@ class ClientAdminSearch
       where: {
         demo_id: demo_id
       },
-      fields: default_fields
+      fields: default_fields, 
+      match: default_match
     }
   end
 
@@ -53,7 +58,8 @@ class ClientAdminSearch
         is_public: true,
         status: [Tile::ACTIVE, Tile::ARCHIVE]
       },
-      fields: default_fields
+      fields: default_fields,
+      match: default_match
     }
   end
 

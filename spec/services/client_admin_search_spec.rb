@@ -22,7 +22,7 @@ describe ClientAdminSearch do
 
       service.my_tiles
 
-      correct_options = { fields: [:header, :supporting_content, :tag_titles], where: { demo_id: demo.id }  }
+      correct_options = { fields: [:header, :supporting_content, :tag_titles], where: { demo_id: demo.id }, match: :word_start  }
 
       expect(Tile).to have_received(:search).with(query, correct_options)
     end
@@ -34,7 +34,7 @@ describe ClientAdminSearch do
 
       service.explore_tiles
 
-      correct_options = { fields: [:header, :supporting_content, :tag_titles], where: { is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE] }  }
+      correct_options = { fields: [:header, :supporting_content, :tag_titles], where: { is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE] }, match: :word_start }
 
       expect(Tile).to have_received(:search).with(query, correct_options)
     end
