@@ -16,7 +16,6 @@ class ClientAdminSearch
 
   def campaigns
     @campaigns ||= Campaign.where(demo_id: demo_ids_from_explore_tiles).all
-    # @campaigns ||= Campaign.where(demo_id: demo_id).all
   end
 
   def organizations
@@ -32,7 +31,7 @@ class ClientAdminSearch
   end
 
   def default_fields
-    [:header, :supporting_content]
+    [:header, :supporting_content, :tag_titles]
   end
 
   def demo_id

@@ -22,7 +22,7 @@ describe ClientAdminSearch do
 
       service.my_tiles
 
-      correct_options = { fields: [:header, :supporting_content], where: { demo_id: demo.id }  }
+      correct_options = { fields: [:header, :supporting_content, :tag_titles], where: { demo_id: demo.id }  }
 
       expect(Tile).to have_received(:search).with(query, correct_options)
     end
@@ -34,7 +34,7 @@ describe ClientAdminSearch do
 
       service.explore_tiles
 
-      correct_options = { fields: [:header, :supporting_content], where: { is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE] }  }
+      correct_options = { fields: [:header, :supporting_content, :tag_titles], where: { is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE] }  }
 
       expect(Tile).to have_received(:search).with(query, correct_options)
     end
@@ -87,8 +87,8 @@ describe ClientAdminSearch do
     end
 
     describe '#default_fields' do
-      it 'defaults to headline and supporting_content' do
-        expect(service.send(:default_fields)).to eql([:header, :supporting_content])
+      it 'defaults to headline, supporting_content, and tag_titles' do
+        expect(service.send(:default_fields)).to eql([:header, :supporting_content, :tag_titles])
       end
     end
   end
