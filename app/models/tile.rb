@@ -323,6 +323,10 @@ class Tile < ActiveRecord::Base
     Nokogiri::HTML::Document.parse(supporting_content).text
   end
 
+  def search_data
+    serializable_hash.merge(tag_titles: tile_tags.pluck(:title).join(', '))
+  end
+
   private
 
   def image_set_to_blank

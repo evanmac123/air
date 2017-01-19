@@ -351,4 +351,27 @@ describe Tile do
     end
 
   end
+
+  describe '#search_data for songkick' do
+    let(:user) {FactoryGirl.create(:user) }
+    let(:demo) { FactoryGirl.create(:demo) }
+    let(:tile) { FactoryGirl.create(:multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true) }
+
+    context 'no tags on tile' do
+      it 'should return a serializable hash of a tile object plus an empty string tags key/value' do
+        expect(tile.search_data).to eql(tile.serializable_hash.merge(tag_titles: ''))
+      end
+    end
+
+    context 'tags on tile' do
+      let(:tag1) { FactoryGirl.create(:tile_tag) }
+      let(:tag2) { FactoryGirl.create(:tile_tag) }
+      let(:tile_with_tags) { FactoryGirl.create(:tile, :public, tile_tags: [tag1, tag2]) }
+
+      it 'should return a serializable hash of a tile object plus tags containing comma separated tags' do
+        expect(tile_with_tags.search_data).to eql(tile_with_tags.serializable_hash.merge(tag_titles: "#{tag1.title}, #{tag2.title}"))
+      end
+    end
+
+  end
 end
