@@ -81,14 +81,21 @@ class InvitationsController < ApplicationController
 
     def invitation_to_board_already_accepted
       if @user.claimed?
-        if current_user
-          if @demo.present? && current_user.in_board?(@demo)
-            current_user.move_to_new_demo(@demo)
-          end
+        if user_can_login_to_already_accepted_board? && @demo.present?
+          sign_in(@user, :remember_me)
+          current_user.move_to_new_demo(@demo)
           redirect_to activity_path
         else
           require_login
         end
+      end
+    end
+
+    def user_can_login_to_already_accepted_board?
+      if current_user == @user || !@user.is_client_admin_in_any_board
+        return true
+      else
+        return false
       end
     end
 

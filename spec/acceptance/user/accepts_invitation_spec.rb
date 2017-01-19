@@ -69,11 +69,6 @@ feature "User Accepts Invitation" do
         should_be_on activity_path
         expect_current_board_header(@other_board)
       end
-
-      scenario "and user is not signed in then he comes to sign in page" do
-        visit invitation_url(@user.invitation_code, demo_id: @other_board.id)
-        should_be_on sign_in_path
-      end
     end
 
     describe "if user is not in the board" do
