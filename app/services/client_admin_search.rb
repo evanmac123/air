@@ -1,17 +1,20 @@
 class ClientAdminSearch
-  attr_accessor :query, :demo
+  PER_PAGE = 8.freeze
 
-  def initialize(query, demo)
+  attr_accessor :query, :demo, :options
+
+  def initialize(query, demo, options = {})
     self.query = query
     self.demo = demo
+    self.options = options
   end
 
-  def my_tiles
-    @my_tiles ||= Tile.search(formatted_query, my_tiles_options)
+  def my_tiles(page=1)
+    unpaginated_my_tiles.records.page(page).per(per_page)
   end
 
-  def explore_tiles
-    @explore_tiles ||= Tile.search(formatted_query, explore_tiles_options)
+  def explore_tiles(page=1)
+    unpaginated_explore_tiles.records.page(page).per(per_page)
   end
 
   def campaigns
@@ -63,13 +66,24 @@ class ClientAdminSearch
     }
   end
 
-  def demo_ids_from_explore_tiles
-    @demo_ids_from_explore_tiles ||= explore_tiles.map(&:demo_id)
+  def unpaginated_my_tiles
+    @unpaginated_my_tiles ||= Tile.search(formatted_query, my_tiles_options)
   end
 
+  def unpaginated_explore_tiles
+    @unpaginated_explore_tiles ||= Tile.search(formatted_query, explore_tiles_options)
+  end
+
+  def demo_ids_from_explore_tiles
+    @demo_ids_from_explore_tiles ||= unpaginated_explore_tiles.map(&:demo_id)
+  end
 
   def organization_ids_from_explore_tiles
     @organization_ids_from_explore_tiles ||= Demo.where(id: demo_ids_from_explore_tiles).pluck(:organization_id)
+  end
+
+  def per_page
+    options[:per_page] || PER_PAGE
   end
 
 end

@@ -4,7 +4,8 @@ describe ClientAdminSearch do
   let(:query) { 'health insurance' }
   let(:demo) { FactoryGirl.create(:demo) }
 
-  let(:service) { ClientAdminSearch.new(query, demo) }
+  let(:options) { { per_page: 2 } } # low per_page to make testing easier
+  let(:service) { ClientAdminSearch.new(query, demo, options) }
 
   describe 'initiailzes' do
     it 'sets query' do
@@ -14,29 +15,51 @@ describe ClientAdminSearch do
     it 'sets demo (board)' do
       expect(service.demo).to eql(demo)
     end
+
+    it 'sets options' do
+      expect(service.options).to eql(options)
+    end
   end
 
   describe '#my_tiles' do
-    it 'calls Tile.search with the correct options (scoped to the current board/demo)' do
-      Tile.stubs(:search)
+    let(:tile) { FactoryGirl.create(:tile, demo: demo) }
+    let(:tile2) { FactoryGirl.create(:tile, demo: demo) }
+    let(:tile3) { FactoryGirl.create(:tile, demo: demo) }
 
-      service.my_tiles
+    before do
+      tile.save!
+      tile2.save!
+      tile3.save!
+    end
 
-      correct_options = { fields: [:headline, :supporting_content, :tag_titles], where: { demo_id: demo.id }, match: :word_start  }
+    it 'grabs records from elasticsearch and paginates on them' do
+      unpaginated_my_tiles = mock("unpaginated_my_tiles")
+      unpaginated_my_tiles.stubs(:records).returns(Tile)
+      service.stubs(:unpaginated_my_tiles).returns(unpaginated_my_tiles)
 
-      expect(Tile).to have_received(:search).with(query, correct_options)
+      expect(service.my_tiles.count).to eql(2) # page 1
+      expect(service.my_tiles(2).count).to eql(1) # page 2
     end
   end
 
   describe '#explore_tiles' do
-    it 'calls Tile.search with the "public" options' do
-      Tile.stubs(:search)
+    let(:tile) { FactoryGirl.create(:tile, :public) }
+    let(:tile2) { FactoryGirl.create(:tile, :public) }
+    let(:tile3) { FactoryGirl.create(:tile, :public) }
 
-      service.explore_tiles
+    before do
+      tile.save!
+      tile2.save!
+      tile3.save!
+    end
 
-      correct_options = { fields: [:headline, :supporting_content, :tag_titles], where: { is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE] }, match: :word_start }
+    it 'grabs records from elasticsearch and paginates on them' do
+      unpaginated_explore_tiles = mock("unpaginated_explore_tiles")
+      unpaginated_explore_tiles.stubs(:records).returns(Tile.explore)
+      service.stubs(:unpaginated_explore_tiles).returns(unpaginated_explore_tiles)
 
-      expect(Tile).to have_received(:search).with(query, correct_options)
+      expect(service.explore_tiles.count).to eql(2) # page 1
+      expect(service.explore_tiles(2).count).to eql(1) # page 2
     end
   end
 
@@ -48,7 +71,7 @@ describe ClientAdminSearch do
 
       fake_tile = mock("Tile")
       fake_tile.stubs(:demo_id).returns(demo.id)
-      service.stubs(:explore_tiles).returns([fake_tile])
+      service.stubs(:unpaginated_explore_tiles).returns([fake_tile])
 
       service.campaigns
 
@@ -66,7 +89,7 @@ describe ClientAdminSearch do
 
       fake_tile = mock("Tile")
       fake_tile.stubs(:demo_id).returns(demo.id)
-      service.stubs(:explore_tiles).returns([fake_tile])
+      service.stubs(:unpaginated_explore_tiles).returns([fake_tile])
 
       service.organizations
 
@@ -91,5 +114,30 @@ describe ClientAdminSearch do
         expect(service.send(:default_fields)).to eql([:headline, :supporting_content, :tag_titles])
       end
     end
+
+    describe '#unpaginated_my_tiles' do
+      it 'calls Tile.search with the correct options (scoped to the current board/demo)' do
+        Tile.stubs(:search)
+
+        service.send(:unpaginated_my_tiles)
+
+        correct_options = { fields: [:headline, :supporting_content, :tag_titles], where: { demo_id: demo.id }, match: :word_start  }
+
+        expect(Tile).to have_received(:search).with(query, correct_options)
+      end
+    end
+
+    describe '#unpaginated_explore_tiles' do
+      it 'calls Tile.search with the "public" options' do
+        Tile.stubs(:search)
+
+        service.send(:unpaginated_explore_tiles)
+
+        correct_options = { fields: [:headline, :supporting_content, :tag_titles], where: { is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE] }, match: :word_start }
+
+        expect(Tile).to have_received(:search).with(query, correct_options)
+      end
+    end
+
   end
 end
