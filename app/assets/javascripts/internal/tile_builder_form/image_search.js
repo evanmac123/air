@@ -27,7 +27,6 @@ Airbo.ImageSearcher = (function(){
 
   function resultsHandler(data,status,xhr){
     var html = "" ;
-
     if(grid === undefined){
       grid = $("#images");
     }else{
@@ -88,8 +87,3 @@ Airbo.ImageSearcher = (function(){
   };
 }())
 
-$(function(){
-  if($("#search-form").length>0){
-    Airbo.ImageSearcher.init();
-  }
-});
