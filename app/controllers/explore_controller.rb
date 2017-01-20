@@ -21,8 +21,6 @@ class ExploreController < ExploreBaseController
   private
 
     def set_intro_slides
-      @show_explore_onboarding = true
-
       unless current_user.is_a?(User) || cookies[:airbo_explore]
         cookies[:airbo_explore] = Time.now
         @show_explore_onboarding = true
