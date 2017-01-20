@@ -303,7 +303,7 @@ body.explore, .explore {
       width: 100%;
     }
     img {
-      height: 15em;
+      height: 9em;
       width: auto;
     }
     h2 {
@@ -311,16 +311,20 @@ body.explore, .explore {
     }
     p {
       margin: 0.5em 0;
-      font-size: 18px;
+      font-size: 17px;
     }
 
     @media (max-width : 480px) {
       img {
-        height: 7em;
+        height: 5em;
         width: auto;
       }
     }
 
+  }
+  #exploreOnboardingModal {
+    top: 90px;
+    z-index: 98;
   }
 
 
