@@ -1,5 +1,5 @@
 class ExploreController < ExploreBaseController
-  include TileBatchHelper
+  before_filter :set_intro_slides
 
   def show
     @tiles = Tile.explore_without_featured_tiles.page(params[:page]).per(28)
@@ -17,4 +17,13 @@ class ExploreController < ExploreBaseController
       }
     end
   end
+
+  private
+
+    def set_intro_slides
+      unless current_user.is_a?(User) || cookies[:airbo_explore]
+        cookies[:airbo_explore] = Time.now
+        @show_explore_onboarding = true
+      end
+    end
 end

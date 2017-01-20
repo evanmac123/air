@@ -297,4 +297,31 @@ body.explore, .explore {
     }
   }
 
+  .flickity-explore-oboarding-carousel{
+    display: none;
+    .carousel-cell {
+      width: 100%;
+    }
+    img {
+      height: 15em;
+      width: auto;
+    }
+    h2 {
+      margin-bottom: 0;
+    }
+    p {
+      margin: 0.5em 0;
+      font-size: 18px;
+    }
+
+    @media (max-width : 480px) {
+      img {
+        height: 7em;
+        width: auto;
+      }
+    }
+
+  }
+
+
 }
