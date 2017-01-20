@@ -121,7 +121,7 @@ describe ClientAdminSearch do
 
         service.send(:unpaginated_my_tiles)
 
-        correct_options = { fields: [:headline, :supporting_content, :tag_titles], where: { demo_id: demo.id }, match: :word_start  }
+        correct_options = { fields: [:headline, :supporting_content, :tag_titles], where: { demo_id: demo.id }, match: :word_start, operator: 'or' }
 
         expect(Tile).to have_received(:search).with(query, correct_options)
       end
@@ -133,7 +133,7 @@ describe ClientAdminSearch do
 
         service.send(:unpaginated_explore_tiles)
 
-        correct_options = { fields: [:headline, :supporting_content, :tag_titles], where: { is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE] }, match: :word_start }
+        correct_options = { fields: [:headline, :supporting_content, :tag_titles], where: { is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE] }, match: :word_start, operator: 'or' }
 
         expect(Tile).to have_received(:search).with(query, correct_options)
       end

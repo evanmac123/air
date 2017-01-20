@@ -51,7 +51,8 @@ class ClientAdminSearch
         demo_id: demo_id
       },
       fields: default_fields, 
-      match: default_match
+      match: default_match,
+      operator: 'or'
     }
   end
 
@@ -62,7 +63,8 @@ class ClientAdminSearch
         status: [Tile::ACTIVE, Tile::ARCHIVE]
       },
       fields: default_fields,
-      match: default_match
+      match: default_match,
+      operator: 'or'
     }
   end
 
