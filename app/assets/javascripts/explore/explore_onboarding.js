@@ -8,7 +8,8 @@ Airbo.ExploreOnboarding = (function(){
       imagesLoaded: true,
       percentPosition: false,
       contain: true,
-      pageDots: false
+      pageDots: false,
+      prevNextButtons: false
     });
 
 
