@@ -14,11 +14,11 @@ Airbo.Utils.StandardModal = (function(){
   return function(){
     var modalTemplate = '<div class="reveal-modal standard_modal">' +
       '<div class="modal_container">' +
-      '<a class="close-reveal-modal"><i class="fa fa-times fa-2x"></i></a>'+
-      '<div id="modal_content">' +
+      '<div class="modal_header">' +
+      '<a class="close-reveal-modal"><i class="fa fa-times fa-2x"></i></a>' +
       '</div>' +
-      '</div>' +
-      '</div>' ; 
+      '<div class="modal_content"></div>' +
+      '</div></div>'; 
 
     var dynamicModal = $(modalTemplate);
 
@@ -74,7 +74,7 @@ Airbo.Utils.StandardModal = (function(){
     }
 
     function setContent(content) {
-      modal.find("#modal_content").html(content);
+      modal.find(".modal_content").html(content);
     }
 
     function bodyScrollVisibility(show) {
