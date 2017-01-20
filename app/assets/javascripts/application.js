@@ -3,9 +3,10 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require autosize
+//= require masonry.pkgd.min.js
+//= require imagesloaded.pkgd.min.js
 //= require airbo
 //= require_tree ./utils
-
 //=require ./internal/tile_manager/first_tile_hint
 
 
