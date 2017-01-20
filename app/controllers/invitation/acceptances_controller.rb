@@ -37,11 +37,11 @@ class Invitation::AcceptancesController < ApplicationController
     end
 
     sign_in(@user, params[:remember_me])
-    flash[:success] = "Welcome, #{current_user.first_name}!"
 
     if current_user.is_client_admin || current_user.is_site_admin
-      redirect_to explore_path
+      redirect_to explore_path(show_explore_onboarding: true)
     else
+      flash[:success] = "Welcome, #{current_user.first_name}!"
       redirect_to activity_path
     end
   end
