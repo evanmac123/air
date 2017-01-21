@@ -22,7 +22,6 @@ feature "Client Admin Accepts Invitation" do
     click_button "Log in"
 
     should_be_on explore_path
-    expect_content "Welcome, #{@user.first_name}!"
 
     visit activity_path
     expect_content "#{@user.name} joined"
@@ -55,7 +54,6 @@ feature "Client Admin Accepts Invitation" do
     click_button "Log in"
 
     should_be_on explore_path
-    expect_content "Welcome, #{@user.first_name}!"
 
     visit activity_path
     expect_content "#{@user.name} joined"
@@ -69,7 +67,6 @@ feature "Client Admin Accepts Invitation" do
     click_button "Log in"
 
     should_be_on explore_path
-    expect_content "Welcome, #{@user.first_name}!"
 
     visit activity_path
     expect_content "10 pts #{@user.name} joined"
