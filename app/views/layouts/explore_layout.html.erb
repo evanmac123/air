@@ -30,7 +30,7 @@
 <body class="<%= body_class %> client_admin_main" style="-webkit-overflow-scrolling: touch; overflow:visible; " data-current-user="<%= current_user.data_for_mixpanel.to_json %>" data-ip="<%= request.remote_ip %>">
 
   <% if current_user.is_a?(GuestUser) %>
-    <%= render 'explore/header' %>
+    <%= render 'shared/public_header' %>
   <% else %>
     <%= render 'shared/header' %>
   <% end %>
