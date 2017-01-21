@@ -310,7 +310,12 @@ body {
   position: static;
   height:100%;
   width:100%;
-  .row {max-width:$large-desktop;}
+  .row {
+    max-width:$large-desktop;
+    &.full{
+      max-width:none;
+    }
+  }
 
 }
 // img {border:0; margin:0; padding:0;}

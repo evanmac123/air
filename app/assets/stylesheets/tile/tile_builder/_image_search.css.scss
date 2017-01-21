@@ -1,18 +1,41 @@
-paging{
-  display:none;
-}
+
+
 #img{
 }
 
 #images{
-  height:100%; 
-  position: relative;
-  overflow: scroll; 
-  }
-.cell{
-  padding: 5px;
-  min-height: 100px;
-  max-width: 300px;
-  display: inline-block;
+
 }
 
+.cell{
+  padding: 5px;
+  display: inline-block;
+  max-width: 225px; 
+}
+
+
+.image-search-container{
+  background-color:#2e2e2e;
+  margin-top:83px;
+  padding:10px;
+  border-radius: 3px;
+  .search-form-container{
+    #search-form{
+      width: 80%;
+      display: inline-block;
+    }
+
+    .pages-nav{
+      display: inline-block;
+      margin-left: 5px;
+      .paging{
+        padding: 3px;
+        display: none;
+      }
+    }
+  }
+  .results{
+    height: 900px;
+    overflow: scroll;
+  }
+}
