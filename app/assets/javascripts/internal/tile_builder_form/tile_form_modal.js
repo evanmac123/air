@@ -107,6 +107,7 @@ Airbo.TileFormModal = (function(){
       closeSticky: true,
       onOpenedEvent: function() {
         autosize.update( $('textarea') );
+        $(".modal_container").addClass("full");
         $("#supporting_content_editor").keyup()
       },
       closeMessage: closeMessage.bind(self) ,
@@ -176,7 +177,7 @@ Airbo.TileFormModal = (function(){
 
   function initVars() {
     currform = $(formSel);
-    submitLink = currform.find(".submit_tile_form");
+    submitLink = $(".submit_tile_form");
   }
 
   function openModal(){
