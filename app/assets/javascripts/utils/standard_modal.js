@@ -28,8 +28,6 @@ Airbo.Utils.StandardModal = (function(){
       , modalContainer
       , modalContent
       , modalXSel
-      , ajaxModalClass = "ajax_modal"
-      , ajaxModalSel = "." + ajaxModalClass
       , params
       , defaultParams = {
           useAjaxModal: false,
