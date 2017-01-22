@@ -5,9 +5,9 @@
   border-radius: $border-radius;
   border-bottom: 1px solid #dcdcdc;
   overflow: hidden;
-  position: absolute;
+  /*position: absolute;*/
   top: 0;
-  left: 78px;
+  /*left: 78px;*/
   &.sticky.sticky {
     position: fixed;
     z-index: 1;

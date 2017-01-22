@@ -21,12 +21,18 @@ Airbo.TileImageUploader = (function(){
   function directUploadCompleted(data,file, filepath){
     updateHiddenImageFields();
     setFormFieldsForSelectedImage(filepath, file.type);
+    remoteMediaUrl.change();
+  }
+
+  function libraryImageSelected(url, imgWidth, imgHeight, id){
+    updateHiddenImageFields();
+    setFormFieldsForSelectedImage(url, imgTypeFromFilename(url));
+    showImagePreview(url, imgWidth, imgHeight);
   }
 
   function setFormFieldsForSelectedImage(url, type){
     remoteMediaUrl.val(url);
     remoteMediaType.val(type || "image");
-    remoteMediaUrl.change();
   }
 
   function updateHiddenImageFields() {
@@ -90,7 +96,8 @@ Airbo.TileImageUploader = (function(){
   return {
     init: init,
     remoteMediaUrl: getRemoteMediaURL,
-    removeImage: removeImage
+    removeImage: removeImage,
+    setFormFieldsForSelectedImage: setFormFieldsForSelectedImage
   };
 
 }());

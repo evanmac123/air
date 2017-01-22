@@ -1,8 +1,10 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ImageSearcher = (function(){
-  var self = this;
-  var grid;
+  var self = this
+    , grid
+    , missingImage = $("#images").data("missing");
+  ;
 
   function togglePaging(pages){
     if(pages.nextPage !== undefined){
@@ -27,15 +29,15 @@ Airbo.ImageSearcher = (function(){
 
   function resultsHandler(data,status,xhr){
     var html = "" ;
-    if(grid === undefined){
-      grid = $("#images");
-    }else{
+    var msnry = Masonry.data( $('#images')[0] )
+    if(msnry !== undefined){
       grid.masonry("destroy");
       grid.empty();
     }
 
     data.items.forEach(function(item){
-      var img = "<img src='" + item.link + "'/>"
+      var link = item.link
+        , img = "<img src='" + link + "'/>"
         , item = "<div class='cell'>" + img + "</div>"
       ;
 
@@ -44,14 +46,14 @@ Airbo.ImageSearcher = (function(){
     });
 
     grid.html($(html));
-
+    initImageError();
     grid.imagesLoaded(function(){
       doMasonry();
       grid.masonry("layout");
     });
-
     togglePaging(data.queries); 
   }
+
   function initPaging(){
     $(".paging").click(function(event){
       event.preventDefault();
@@ -77,9 +79,25 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
+  function initImageError(){
+    $(".results img").on("error", function(event){
+      $(this).attr("src", $("#images").data("missing"));
+    });
+  }
+
+  function initImagePreview(){
+    $("body").on("click",".results img", function(event){
+      var img = $(this);
+      var props= {url: $(this).attr("src"),h:img.height, w: img.width};
+      $.Topic("image-selected").publish(props); 
+    });
+  }
+
   function init(){
+    grid = $("#images");
     initSearchForm()
     initPaging();
+    initImagePreview();
   }
 
   return {
