@@ -40,9 +40,6 @@ Airbo.TileImagePreviewer = (function(){
     $('#upload_preview').attr("src", imageUrl);
   };
 
-  function showFileName(file){
-    $("#uploaded_image_file").text(file.name).addClass("file_selected")
-  }
 
   function init(mgr){
     imgPreview= $('.image_preview');
@@ -52,7 +49,6 @@ Airbo.TileImagePreviewer = (function(){
   return {
     init: init,
     setPreviewImage: setPreviewImage,
-    showFileName: showFileName,
     clearPreviewImage: clearPreviewImage
   };
 
