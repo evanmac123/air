@@ -84,6 +84,7 @@ Airbo.TileFormModal = (function(){
   function initFormElements() {
     validator = Airbo.TileFormValidator.init(currform);
     Airbo.TileImageUploader.init();
+    Airbo.TileImagePreviewer.init() 
     Airbo.TileImageCredit.init();
     Airbo.TilePointsSlider.init();
     Airbo.TileQuestionBuilder.init();
