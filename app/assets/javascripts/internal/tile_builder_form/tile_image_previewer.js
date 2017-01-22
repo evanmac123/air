@@ -31,6 +31,7 @@ Airbo.TileImagePreviewer = (function(){
     imgPreview.removeClass('show_placeholder').addClass('show_shadows');
   };
 
+  
 
   function setPreviewImage(imageUrl, imgWidth, imgHeight) {
     width = 600;
@@ -42,6 +43,15 @@ Airbo.TileImagePreviewer = (function(){
 
 
   function init(mgr){
+    $.Topic('image-selected').subscribe( function(imgProps){
+      setPreviewImage(imgProps.url, imgProps.w, imgProps.h);
+    } );
+
+
+    $.Topic('image-cleared').subscribe( function(){
+      clearPreviewImage();
+    });
+
     imgPreview= $('.image_preview');
     return this;
   }
