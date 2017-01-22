@@ -2,7 +2,6 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileImageUploader = (function(){
   var initialized
-    , previewer
     , noImage
     , imageContainer
     , remoteMediaUrl
@@ -38,18 +37,17 @@ Airbo.TileImageUploader = (function(){
   function removeImage(){
     updateHiddenImageFields();
     noImage.val('true');
-    previewer.clearPreviewImage();
+    notifyImageCleared() 
     remoteMediaUrl.val(undefined);
     remoteMediaUrl.change();
   }
 
-  function showImagePreview(imgUrl, imgWidth, imgHeight){
-    previewer.setPreviewImage(imgUrl, imgWidth, imgHeight);
-    $("#remote_media_url").focusout();
+  function notifyImageCleared(){
+    $.Topic("image-cleared").publish(); 
   }
 
-  function showFileName(file){
-    previewer.showFileName(file);
+  function notifyImageUploaded(imgUrl, imgWidth, imgHeight){
+    $.Topic("image-selected").publish({url: imgUrl, h: imgHeight, w: imgWidth});
   }
 
   function initClearImage(){
@@ -72,15 +70,18 @@ Airbo.TileImageUploader = (function(){
   }
 
   function init(libraryModal){
+
+    $.Topic('image-selected').subscribe( function(imgProps){
+      setFormFieldsForSelectedImage(imgProps.url);
+    });
+
     initjQueryObjects();
     initClearImage();
 
-    previewer = Airbo.TileImagePreviewer.init(this)
 
     Airbo.DirectToS3ImageUploader.init( {
-      processed: showImagePreview,
+      processed: notifyImageUploaded,
       done: directUploadCompleted,
-      added: showFileName,
     });
 
     return this;
@@ -88,9 +89,6 @@ Airbo.TileImageUploader = (function(){
 
   return {
     init: init,
-    showImagePreview: showImagePreview,
-    showFileName: showFileName,
-    directUploadCompleted: directUploadCompleted,
     remoteMediaUrl: getRemoteMediaURL,
     removeImage: removeImage
   };
