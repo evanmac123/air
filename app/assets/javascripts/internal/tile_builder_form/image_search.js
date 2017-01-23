@@ -3,7 +3,8 @@ var Airbo = window.Airbo || {};
 Airbo.ImageSearcher = (function(){
   var self = this
     , grid
-    , missingImage = $("#images").data("missing");
+    , missingImage = $("#images").data("missing")
+    , searchFormSel = ".search-form"
   ;
 
   function togglePaging(pages){
@@ -57,13 +58,13 @@ Airbo.ImageSearcher = (function(){
   function initPaging(){
     $(".paging").click(function(event){
       event.preventDefault();
-      $("#search-form").find("input[name='start']").val($(this).data("start"));
-      $("#search-form").submit();
+     searchForm.find("input[name='start']").val($(this).data("start"));
+      searchForm.submit();
     })
   }
 
   function initSearchForm(){
-    $("#search-form").submit(function(event){
+    searchForm.submit(function(event){
       event.preventDefault();
       var form = $(this);
       var $grid;
@@ -95,6 +96,7 @@ Airbo.ImageSearcher = (function(){
 
   function init(){
     grid = $("#images");
+    searchForm = $(searchFormSel);
     initSearchForm()
     initPaging();
     initImagePreview();
