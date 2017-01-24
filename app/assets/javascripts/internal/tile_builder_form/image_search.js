@@ -47,7 +47,6 @@ Airbo.ImageSearcher = (function(){
     });
 
     grid.html($(html));
-    initImageError();
     grid.imagesLoaded(function(){
       doMasonry();
       grid.masonry("layout");
