@@ -7,6 +7,38 @@ Airbo.ImageSearcher = (function(){
     , searchFormSel = ".search-form"
   ;
 
+
+  var resultHandlers = {
+    google: function(data){
+      var html = "" ;
+      data.items.forEach(function(item){
+        var link = item.link
+          , img = "<img src='" + link + "'/>"
+          , item = "<div class='cell'>" + img + "</div>"
+        ;
+
+        html += item;
+      });
+
+      togglePaging(data.queries); 
+      return html;
+    }, 
+    pixabay: function(data){
+      var html = "" ;
+      if (parseInt(data.totalHits) > 0)
+
+        data.hits.forEach(function(item, i){
+          var link = item.pageUrl
+            , img = "<img src='" + link + "'/>"
+            , item = "<div class='cell'>" + img + "</div>"
+          ;
+
+          html += item;
+        });
+    }
+
+  }
+
   function togglePaging(pages){
     if(pages.nextPage !== undefined){
       next = pages.nextPage[0];
@@ -28,30 +60,22 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
-  function resultsHandler(data,status,xhr){
-    var html = "" ;
+  function processResults(data,status,xhr){
     var msnry = Masonry.data( $('#images')[0] )
+
+    handler = this.provider;
+
     if(msnry !== undefined){
       grid.masonry("destroy");
       grid.empty();
     }
 
-    data.items.forEach(function(item){
-      var link = item.link
-        , img = "<img src='" + link + "'/>"
-        , item = "<div class='cell'>" + img + "</div>"
-      ;
-
-      html += item;
-
-    });
-
+    var html = handler(data);
     grid.html($(html));
     grid.imagesLoaded(function(){
       doMasonry();
       grid.masonry("layout");
     });
-    togglePaging(data.queries); 
   }
 
   function initPaging(){
@@ -66,14 +90,17 @@ Airbo.ImageSearcher = (function(){
     searchForm.submit(function(event){
       event.preventDefault();
       var form = $(this);
-      var $grid;
+      var  ctx = {
+        provider: resultHandlers[form.data("provider")]
+      };
+
       $.ajax({
         url: form.attr("action"),
         type: form.attr("method"),
         data: form.serialize(),
-        dataType: "json"
+        dataType: "json",
       })
-      .done(resultsHandler.bind(self))
+      .done(processResults.bind(ctx))
       .fail(function(){
       })
     });
@@ -101,8 +128,13 @@ Airbo.ImageSearcher = (function(){
     initImagePreview();
   }
 
+
+
+
   return {
     init: init
   };
+
+
 }())
 
