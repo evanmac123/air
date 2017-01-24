@@ -60,6 +60,18 @@
   </div>
 </div>
 
+<form class="search-form" id="pixabay" action="https://pixabay.com/api" method="get" data-provider="pixabay">
+  <input type="hidden" name="q" placeholder="Search Pixabay">
+  <input type="hidden" name="key" value="4337186-a27022dbe5bff9e52d585220c">
+  <input type="hidden" name="safesearch" value="true" >
+</form>
+<form class="search-form" id="google" action="https://www.googleapis.com/customsearch/v1" method="get" data-provider="google">
+  <input type="hidden" name="q" placeholder="Search Google">
+  <input type="hidden" name="cx" value="004488840723124487961:c1pog2ja4xo" >
+  <input type="hidden" name="searchType" value="image">
+  <input type="hidden" name="key" value="AIzaSyDTHuWwhoHn0inHrAPEHn5MUOsCz98pVcg">
+  <input type="hidden" name="start" value="1">
+</form>
 
 <%= s3_uploader_form post: client_admin_tiles_url, as: "tile_builder_form[upload_url]", style: "visibility:hidden;height:0px;width:0px" do %>
   <%= file_field_tag :file, id:"media_file" %>
