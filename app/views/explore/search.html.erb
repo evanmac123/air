@@ -1,4 +1,9 @@
 <div id="tile_wall_explore">
+  <%= form_tag search_explore_path, method: :get do%>
+    <h4>Search</h5>
+    <%= text_field_tag :q, params[:q] %>
+    <%= submit_tag 'Search' %>
+  <% end %>
   <section class="manage_section" id="my_tiles">
     <%= render partial: 'explore/explore_tiles', locals: { tiles: @service.my_tiles, header: 'My Tiles', more_tiles_path: '/IMPLEMENT' } %>
   </section>
@@ -13,6 +18,5 @@
 
   <section class="manage_section" id="organization_boards">
     <%= render partial: 'explore/organizations', locals: { organizations: @service.organizations, header: 'Organizations' } %>
-    <h3>Organizations</h3>
   </section>
 </div>

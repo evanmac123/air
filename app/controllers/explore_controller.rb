@@ -39,7 +39,7 @@ class ExploreController < ExploreBaseController
 
     current_board = current_user.demo
 
-    @service = ClientAdminSearch.new('health insurance', current_board)
+    @service = ClientAdminSearch.new(params[:q], current_board)
   end
 
   private
