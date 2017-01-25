@@ -19,7 +19,6 @@ class ExploreController < ExploreBaseController
   end
 
   def search
-    render text: 'hi'
   end
 
   private
