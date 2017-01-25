@@ -1,5 +1,5 @@
 class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
-  ACTIVITY_EMAIL = "weekly_activity_v".freeze
+  ACTIVITY_EMAIL = "weekly_activity_report".freeze
   ACTIVITY_DIGEST_HEADING = "Weekly Activity Report".freeze
 
   include ClientAdmin::TilesHelper
@@ -24,7 +24,6 @@ class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
   def email_heading
     @custom_headline.present? ? @custom_headline : standard_email_heading
   end
-
 
 	def pretty_date_range
 		"#{@beg_date.strftime('%A, %B %d')} to #{@end_date.strftime('%A, %B %d')}"

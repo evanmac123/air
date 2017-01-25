@@ -26,8 +26,7 @@ class InvitationsController < ApplicationController
   end
 
   def show
-    @user = User.find_by_invitation_code(params[:id])
-    @user = PotentialUser.search_by_invitation_code(params[:id]) unless @user
+    @user = find_user
 
     if @user
       @referrer = get_referrer
@@ -42,6 +41,10 @@ class InvitationsController < ApplicationController
 
   private
 
+    def find_user
+      User.find_by_invitation_code(params[:id]) || PotentialUser.search_by_invitation_code(params[:id])
+    end
+
     def get_referrer
       if params[:referrer_id]
         User.find(params[:referrer_id])
@@ -52,9 +55,7 @@ class InvitationsController < ApplicationController
 
     def send_pings
       set_invitation_email_type_for_ping
-      @user.ping_page('invitation acceptance')
       email_clicked_ping(@user)
-      record_mixpanel_ping @user
     end
 
     def process_invitation
@@ -137,17 +138,11 @@ class InvitationsController < ApplicationController
       redirect_to activity_path
     end
 
-    def record_mixpanel_ping user
-      if params[:referrer_id].present?
-        ping('User - New', {source: "User - Friend Invitation"}, user)
-      end
-    end
-
     def set_invitation_email_type_for_ping
-      invitation_email_type = if params[:email_type].present? # digest or follow up
-        if params[:email_type] == "digest_old_v" || params[:email_type] == "digest_new_v"
+      invitation_email_type = if params[:email_type].present?
+        if params[:email_type] == "tile_digest"
           "Digest email"
-        elsif params[:email_type] == "follow_old_v" || params[:email_type] == "follow_new_v"
+        elsif params[:email_type] == "follow_up_digest"
           "Follow-up"
         end
       elsif params[:referrer_id].present? # friend invitation

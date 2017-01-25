@@ -1,6 +1,6 @@
 class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
-  DIGEST_EMAIL = "digest_new_v".freeze
-  FOLLOWUP_EMAIL = "follow_new_v".freeze
+  DIGEST_EMAIL = "tile_digest".freeze
+  FOLLOWUP_EMAIL = "follow_up_digest".freeze
 
   include ClientAdmin::TilesHelper
   include Rails.application.routes.url_helpers
