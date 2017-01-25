@@ -1,21 +1,45 @@
 <div id="tile_wall_explore">
   <section class="manage_section" id="my_tiles">
     <h3>My Tiles</h3> 
+    <ul>
+      <% @service.my_tiles.each do |tile| %>
+        <li><%= tile.headline %></li>
+      <% end %>
+    </ul>
+
     <%#= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "Explore Tiles", more_tiles_path: explore_path } %>
   </section>
 
   <section class="manage_section" id="explore_tiles">
     <h3>Explore Tiles</h3> 
+    <ul>
+      <% @service.explore_tiles.each do |tile| %>
+        <li><%= tile.headline %></li>
+      <% end %>
+    </ul>
+
     <%#= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "Explore Tiles", more_tiles_path: explore_path } %>
   </section>
 
   <section class="manage_section" id="campaign_boards">
     <h3>Airbo Campaigns</h3>
+    <ul>
+      <% @service.campaigns.each do |campaign| %>
+        <li><%= campaign.name %></li>
+      <% end %>
+    </ul>
+
     <%#= render partial: 'explore/campaigns', locals: { campaigns: Campaign.all, header: "Airbo Campaigns" } %>
   </section>
 
   <section class="manage_section" id="organization_boards">
     <h3>Organizations</h3>
+    <ul>
+      <% @service.organizations.each do |organization| %>
+        <li><%= organization.name %></li>
+      <% end %>
+    </ul>
+
     <%#= render partial: 'explore/campaigns', locals: { campaigns: Campaign.all, header: "Airbo Campaigns" } %>
   </section>
 </div>
