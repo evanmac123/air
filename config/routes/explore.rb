@@ -1,4 +1,7 @@
 resource :explore, only: [:show], controller: :explore do
+  member do
+    get 'search'
+  end
 end
 
 namespace :explore do

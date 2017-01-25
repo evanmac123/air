@@ -18,6 +18,10 @@ class ExploreController < ExploreBaseController
     end
   end
 
+  def search
+    render text: 'hi'
+  end
+
   private
 
     def set_intro_slides
