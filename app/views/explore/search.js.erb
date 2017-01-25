@@ -1,0 +1,7 @@
+// my tiles - when clicking more
+$('#my-tiles').append('<%= escape_javascript render partial: 'explore/tiles', locals: { tiles: @my_tiles, section: 'Explore' } %>')
+$('#more-my-tiles').replaceWith('<%= escape_javascript link_to 'More', search_explore_path(q: params[:q], my_tiles_page: @my_tiles.current_page + 1), remote: true, id: 'more-my-tiles' %>')
+
+// explore tiles - when clicking more
+$('#explore-tiles').append('<%= escape_javascript render partial: 'explore/tiles', locals: { tiles: @explore_tiles, section: 'Explore' } %>')
+$('#more-explore-tiles').replaceWith('<%= escape_javascript link_to 'More', search_explore_path(q: params[:q], explore_tiles_page: @explore_tiles.current_page + 1), remote: true, id: 'more-explore-tiles' %>')
