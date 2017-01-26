@@ -165,11 +165,6 @@ FactoryGirl.define do
     association :tile
   end
 
-  factory :tile_tag do
-    association :topic
-    sequence(:title) {|n| "Tile Tag #{n}"}
-  end
-
   factory :topic do
     sequence(:name) {|n| "Good Topic #{n}"}
   end
