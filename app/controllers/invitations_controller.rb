@@ -1,4 +1,5 @@
 class InvitationsController < ApplicationController
+  include SalesAquisitionConcern
   layout 'external'
 
   def new
@@ -34,8 +35,7 @@ class InvitationsController < ApplicationController
       send_pings
       process_invitation
     else
-      flash[:failure] = "That page doesn't exist."
-      redirect_to root_path
+      require_login
     end
   end
 
@@ -85,7 +85,8 @@ class InvitationsController < ApplicationController
         if user_can_login_to_already_accepted_board? && @demo.present?
           sign_in(@user, :remember_me)
           current_user.move_to_new_demo(@demo)
-          redirect_to activity_path
+          notify_sales(:notify_sales_return, @user) if params[:new_lead]
+          redirect_to redirect_path
         else
           require_login
         end
@@ -95,6 +96,8 @@ class InvitationsController < ApplicationController
     def user_can_login_to_already_accepted_board?
       if current_user == @user || !@user.is_client_admin_in_any_board
         return true
+      elsif params[:new_lead] && @demo.is_paid == false
+        return true
       else
         return false
       end
@@ -102,7 +105,9 @@ class InvitationsController < ApplicationController
 
     def accept_unclaimed_user
       if @user.unclaimed?
-        unless @user.is_client_admin || @user.is_site_admin
+        unless require_password_creation
+          notify_sales(:notify_sales_activated, @user) if params[:new_lead]
+
           redirect_to generate_password_invitation_acceptance_path(
             user_id: @user.id,
             demo_id: @demo.try(:id),
@@ -113,6 +118,11 @@ class InvitationsController < ApplicationController
           render 'show'
         end
       end
+    end
+
+    def require_password_creation
+      return false if params[:new_lead]
+      @user.is_client_admin || @user.is_site_admin
     end
 
     def accept_claimed_user_to_new_board
@@ -136,6 +146,14 @@ class InvitationsController < ApplicationController
       session[:potential_user_id] = @user.id
       @user.update_attribute :game_referrer_id, @referrer.try(:id)
       redirect_to activity_path
+    end
+
+    def redirect_path
+      if current_user.is_client_admin
+        explore_path(show_explore_onboarding: true)
+      else
+        activity_path
+      end
     end
 
     def set_invitation_email_type_for_ping
