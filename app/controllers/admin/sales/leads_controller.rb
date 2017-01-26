@@ -1,5 +1,5 @@
 class Admin::Sales::LeadsController < AdminBaseController
-  include SalesAquisitionConcern
+  include SalesAcquisitionConcern
 
   def index
     @leads = current_leads

@@ -2,7 +2,7 @@ require 'file_upload_wrapper'
 require 'custom_responder'
 class Admin::OrganizationsController < AdminBaseController
   include CustomResponder
-  include SalesAquisitionConcern
+  include SalesAcquisitionConcern
 
   before_filter :find_organization, only: [:edit, :show, :update, :destroy]
 

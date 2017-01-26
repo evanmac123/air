@@ -1,4 +1,4 @@
-module SalesAquisitionConcern
+module SalesAcquisitionConcern
   def notify_sales(notification_type, user)
     send(notification_type, user)
   end
@@ -17,7 +17,7 @@ module SalesAquisitionConcern
 
     def ping_lead_activation(user)
       user.rdb[:invite_link_click_count].set(1)
-      event = 'Aquisition - Activated via invite link'
+      event = 'Acquisition - Activated via invite link'
       ping_parameters = { link_click_count: user.rdb[:invite_link_click_count].get }
 
       ping(event, ping_parameters, user)
@@ -25,7 +25,7 @@ module SalesAquisitionConcern
 
     def ping_lead_return_via_invite_link(user)
       user.rdb[:invite_link_click_count].incr
-      event = 'Aquisition - Clicked invite link subsequent time'
+      event = 'Acquisition - Clicked invite link subsequent time'
       ping_parameters = { link_click_count: user.rdb[:invite_link_click_count].get }
 
       ping(event, ping_parameters, user)
@@ -38,7 +38,7 @@ module SalesAquisitionConcern
     end
 
     def new_lead_ping(user)
-      event = 'Aquisition - New organization created'
+      event = 'Acquisition - New organization created'
       ping_parameters = { }
 
       ping(event, ping_parameters, user)

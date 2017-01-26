@@ -1,5 +1,5 @@
 class InvitationsController < ApplicationController
-  include SalesAquisitionConcern
+  include SalesAcquisitionConcern
   layout 'external'
 
   def new
