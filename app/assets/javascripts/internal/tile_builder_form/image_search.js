@@ -129,27 +129,6 @@ Airbo.ImageSearcher = (function(){
     })
   }
 
-
-  function initSearchForm(){
-    searchForm.submit(function(event){
-      event.preventDefault();
-      var form = $(this);
-      var  ctx = {
-        provider: resultHandlers[form.data("provider")]
-      };
-
-      $.ajax({
-        url: form.attr("action"),
-        type: form.attr("method"),
-        data: form.serialize(),
-        dataType: "json",
-      })
-      .done(processResults.bind(ctx))
-      .fail(function(){
-      })
-    });
-  }
-
   function initImageSearchBar(){
     $("#search-bar").keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which)
@@ -195,7 +174,6 @@ Airbo.ImageSearcher = (function(){
     grid = $("#images");
     searchForm = $(searchFormSel);
     initImageSearchBar()
-    initSearchForm()
     initPaging();
     initImagePreview();
   }
