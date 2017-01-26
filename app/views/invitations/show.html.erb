@@ -39,22 +39,22 @@
 </div>
 <div class="row">
   <div class="external-form-wrapper small-12 large-6 large-centered columns">
-    <%= form_tag(invitation_acceptance_path) do %>
-      <%= hidden_field_tag "user[id]", @user.id %>
-      <%= hidden_field_tag "user[demo_id]", params[:demo_id] %>
-      <%= hidden_field_tag "user[invitation_code]", @user.invitation_code %>
-      <%= hidden_field_tag "user[game_referrer_id]", @user.game_referrer_id %>
+    <%= form_for @user, :url => invitation_acceptance_path(:user_id => @user.id), :html => {:autocomplete => :off, :id => "signup-form"}, :builder => FancyFormBuilder do |f| %>
+      <%= hidden_field_tag "demo_id", params[:demo_id] %>
+      <%= hidden_field_tag "invitation_code", @user.invitation_code %>
       <div id="all-inputs">
         <div class="form-ul-section">
-          <% label_tag "user[password]", "Choose a password" %>
-          <%= text_field_tag "user[password]" %>
+          <%= f.fancy_password_field :password, :label_text => "Please choose a password to begin", :value => @user.password %>
         </div>
         <ul class="form-section signup-submit">
           <div class="orange-btn">
-            <%= submit_tag "Log in", style: 'float: left;',  id: 'join_the_game_link' %>
+            <%= f.submit "Log in", :style => 'float: left;',  :id => 'join_the_game_link' %>
           </div>
         </ul>
       </div>
+      <% if @user.game_referrer_id %>
+        <%= f.hidden_field :game_referrer_id %>
+      <% end %>
     <% end %>
     <div id="t-and-c-notice">
       By submitting this form or using this site, you are agreeing to the

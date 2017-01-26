@@ -11,10 +11,13 @@
       <%= label_tag "General Invitation URL"%>
       <p style="margin-top:0"><%= invitation_url(@user.invitation_code) %></p>
       <%= label_tag "Sales Invitation URL"%>
-      <p style="margin-top:0"><%= invitation_url(@user.invitation_code) %></p>
       <% if @user.demo %>
-        <%= label_tag "Demo"%>
-        <p style="margin-top:0"><%= link_to(@user.demo.name, current_board_path(board_id: @user.demo.id, admin_view_board: true), target: "_blank") %></p>
+        <p style="margin-top:0"><%= invitation_url(@user.invitation_code, { demo_id: @user.demo.id, new_lead: true }) %></p>
+        <%= label_tag "Current Demo (User view)"%>
+        <p style="margin-top:0"><%= link_to(@user.demo.name, current_board_path(board_id: @user.demo.id, admin_view_board: true), method: :put, target: "_blank") %></p>
+        <p style="margin-top:0"><%= link_to("Edit Demo", admin_demo_path(@user.demo), target: "_blank") %></p>
+      <% else %>
+        <p style="margin-top:0">ERROR: This user has no current board. Notify Customer Success.</p>
       <% end %>
     </fieldset>
   </div>
@@ -55,7 +58,7 @@
         <div class="row">
           <div class="columns small-6">
             <%= f.label :date_of_birth %>
-            <%= f.date_select :date_of_birth %>
+            <%= f.date_select :date_of_birth, include_blank: true %>
           </div>
         </div>
         <div class="row">
