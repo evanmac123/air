@@ -24,7 +24,7 @@
             <%= link_to(lead.organization.name, admin_organization_path(lead.organization), target: "_blank") %>
           </td>
           <td>
-            <%= link_to(lead.demo.id, current_board_path(board_id: lead.demo.id, admin_view_board: true), target: "_blank") %>
+            <%= link_to(lead.demo.id, current_board_path(board_id: lead.demo.id, admin_view_board: true), method: :put, target: "_blank") %>
           </td>
           <td>
             <%= lead.rdb[:invite_link_click_count].get %>
