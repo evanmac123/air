@@ -1,0 +1,65 @@
+<% disabled_style = "color: grey; background: #ddd;" %>
+<% optional_style = "background: white;" %>
+<% content_for(:javascript) do %>
+  <script>
+
+    var erroredFields = $('.field_with_errors input');
+    if(erroredFields.length > 0) {
+      erroredFields.first().focus();
+    }
+
+
+  </script>
+<% end %>
+<div class="row">
+  <div class="columns large-12">
+    <% if flash[:failure].present? %>
+      <%= flash[:failure] %>
+    <% else %>
+      <% welcome_text = "Welcome, #{@user.first_name}" %>
+      <% if @user.invitation_requested_via_sms? %>
+        <div class="welcome-message">
+          <h2>
+            <%= welcome_text %>
+          </h2>
+          <p class="explanation">We just need a few details from you so we can get started.</p>
+        </div>
+      <% else %>
+        <div class="welcome-message">
+          <h2>
+            <%= welcome_text %>
+          </h2>
+          <p class="explanation hidden">
+            <span>Just set a password, and you're ready to go</span>
+          </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="external-form-wrapper small-12 large-6 large-centered columns">
+    <%= form_tag(invitation_acceptance_path) do %>
+      <%= hidden_field_tag "user[id]", @user.id %>
+      <%= hidden_field_tag "user[demo_id]", params[:demo_id] %>
+      <%= hidden_field_tag "user[invitation_code]", @user.invitation_code %>
+      <%= hidden_field_tag "user[game_referrer_id]", @user.game_referrer_id %>
+      <div id="all-inputs">
+        <div class="form-ul-section">
+          <% label_tag "user[password]", "Choose a password" %>
+          <%= text_field_tag "user[password]" %>
+        </div>
+        <ul class="form-section signup-submit">
+          <div class="orange-btn">
+            <%= submit_tag "Log in", style: 'float: left;',  id: 'join_the_game_link' %>
+          </div>
+        </ul>
+      </div>
+    <% end %>
+    <div id="t-and-c-notice">
+      By submitting this form or using this site, you are agreeing to the
+      <%= link_to('terms and conditions', terms_path, target: '_blank') + '.' %>
+    </div>
+  </div>
+</div>
+<%= javascript_include_tag 'external/join' %>
