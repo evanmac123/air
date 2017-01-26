@@ -31,13 +31,18 @@ Airbo.TileImagePreviewer = (function(){
     imgPreview.removeClass('show_placeholder').addClass('show_shadows');
   };
 
-  
 
   function setPreviewImage(imageUrl, imgWidth, imgHeight) {
-    width = 600;
-    fullHeight = parseInt( imgHeight * width / imgWidth );
+    var width = 600
+      , fullHeight
+    ;
+
+    if(imgWidth && imgHeight){
+      fullHeight = parseInt( imgHeight * width / imgWidth );
+      imgPreview.addClass("loading").css("height", fullHeight);
+    }
+
     showShadows();
-    imgPreview.addClass("loading").css("height", fullHeight);
     $('#upload_preview').attr("src", imageUrl);
   };
 
