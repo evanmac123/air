@@ -13,11 +13,11 @@ Airbo.ImageSearcher = (function(){
       var html = "" ;
       data.items.forEach(function(item){
         var link = item.link
-          , img = "<img src='" + link + "'/>"
-          , item = "<div class='cell'>" + img + "</div>"
+          , img = "<img style='height:150px' src='" + link + "'/>"
+          , cell = "<div class='cell'>" + img + "</div>"
         ;
 
-        html += item;
+        html += cell;
       });
 
       togglePaging(data.queries); 
@@ -30,14 +30,63 @@ Airbo.ImageSearcher = (function(){
         data.hits.forEach(function(item, i){
           var link = item.pageUrl
             , img = "<img src='" + link + "'/>"
-            , item = "<div class='cell'>" + img + "</div>"
+            , cell = "<div class='cell'>" + img + "</div>"
           ;
 
-          html += item;
+          html += cell;
         });
-    }
+        return html;
+    },
 
+    flickr: function(data){
+      var links = getFlickrImageUrls(data.photos.photo)
+        , thumbnails = buildImages(links)
+        , groups = buildGroups(thumbnails)
+        , html = ""
+      ;
+
+      html = groups.reduce(function(val,currGrp,i,arr){
+        return val +  "<div class='cell-group'>" + currGrp.join("") + "</div>";
+      }, "")
+
+      return html;
+    }
   }
+
+  function buildGroups(thumbnails){
+    var i , j
+      , groups = []
+      , groupSize = 12
+    ;
+
+    for (i=0,j=thumbnails.length; i<j; i+=groupSize) {
+      groups.push(thumbnails.slice(i,i+groupSize))
+    }
+    return groups;
+  }
+
+  function buildImages(links){
+    return  links.map(function(link, i){
+      return "<img src='" + link + "'/>"
+    });
+  }
+
+  function getFlickrImageUrls(photos){
+    var urls = [] 
+      , flickrImageUrlTemplate = "https://farm{farm}.staticflickr.com/{server}/{id}_{secret}_q.jpg"
+    ;
+
+    photos.forEach(function(photo){
+      urls.push(
+        flickrImageUrlTemplate.replace(/\{(.*?)\}/g, function(match, token) {
+          return photo[token];
+        })
+      );
+    });
+    return urls;
+  }
+
+
 
   function togglePaging(pages){
     if(pages.nextPage !== undefined){
@@ -51,40 +100,31 @@ Airbo.ImageSearcher = (function(){
     }
   }
 
-  function doMasonry(){
-    grid.masonry({
-      itemSelector: '.cell',
-      isAnimated: true,
-      gutter: 20,
-      fitWidth: true
+
+
+  function doFlikity(){
+    grid.flickity({
+      imagesLoaded: true,
+      pageDots: false,
     });
+    grid.flickity('resize')
   }
 
   function processResults(data,status,xhr){
-    var msnry = Masonry.data( $('#images')[0] )
-
     handler = this.provider;
-
-    if(msnry !== undefined){
-      grid.masonry("destroy");
-      grid.empty();
-    }
-
     var html = handler(data);
     grid.html($(html));
-    grid.imagesLoaded(function(){
-      doMasonry();
-      grid.masonry("layout");
-    });
+    doFlikity();
   }
 
   function initPaging(){
     $(".paging").click(function(event){
       event.preventDefault();
-     searchForm.find("input[name='start']").val($(this).data("start"));
+      searchForm.find("input[name='start']").val($(this).data("start"));
       searchForm.submit();
     })
   }
+
 
   function initSearchForm(){
     searchForm.submit(function(event){
@@ -107,26 +147,26 @@ Airbo.ImageSearcher = (function(){
   }
 
   function initImageSearchBar(){
-    $("#image-search").keypress(function(event){
+    $("#search-bar").keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which)
-        , form =$("#google.search-form")
-        , ctx = {
-      provider: resultHandlers[form.data("provider")]
-        };
-
-      if(keycode == '13'){
-
-        form.find("input[name=q]").val($(this).val());
-        $.ajax({
-          url: form.attr("action"),
-          type: form.attr("method"),
-          data: form.serialize(),
-          dataType: "json",
-        })
-        .done(processResults.bind(ctx))
-        .fail(function(){
-        })
-      }
+        , form =$("#flickr.search-form")
+        , ctx = {}
+        , searchField = 'input[name=' + form.data("search-field") +']'
+      ;
+        if(keycode == '13'){
+          ctx.provider = resultHandlers[form.data("provider")]
+         
+          form.find(searchField).val($(this).val());
+          $.ajax({
+            url: form.attr("action"),
+            type: form.attr("method"),
+            data: form.serialize(),
+            dataType: "json",
+          })
+          .done(processResults.bind(ctx))
+          .fail(function(){
+          })
+        }
 
 
     });
