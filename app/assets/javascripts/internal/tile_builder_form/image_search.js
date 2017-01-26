@@ -39,11 +39,15 @@ Airbo.ImageSearcher = (function(){
     },
 
     flickr: function(data){
-      var links = getFlickrImageUrls(data.photos.photo)
-        , thumbnails = buildImages(links)
-        , groups = buildGroups(thumbnails)
+      var urls = getFlickrImageUrls(data.photos.photo)
         , html = ""
+        , thumbnails
+        , groups
       ;
+
+      thumbnails = buildImages(urls);
+
+      groups = buildGroups(thumbnails) ;
 
       html = groups.reduce(function(val,currGrp,i,arr){
         return val +  "<div class='cell-group'>" + currGrp.join("") + "</div>";
@@ -59,15 +63,15 @@ Airbo.ImageSearcher = (function(){
       , groupSize = 12
     ;
 
-    for (i=0,j=thumbnails.length; i<j; i+=groupSize) {
-      groups.push(thumbnails.slice(i,i+groupSize))
+    for (i=0,j=thumbnails.length; i<j; i += groupSize) {
+      groups.push(thumbnails.slice(i, i + groupSize))
     }
     return groups;
   }
 
-  function buildImages(links){
-    return  links.map(function(link, i){
-      return "<img src='" + link + "'/>"
+  function buildImages(images){
+    return  images.map(function(image, i){
+      return "<img src='" + image.thumbnail + "' data-preview='" + image.preview + "'/>"
     });
   }
 
@@ -138,7 +142,6 @@ Airbo.ImageSearcher = (function(){
       ;
         if(keycode == '13'){
           ctx.provider = resultHandlers[form.data("provider")]
-         
           form.find(searchField).val($(this).val());
           $.ajax({
             url: form.attr("action"),
@@ -150,8 +153,6 @@ Airbo.ImageSearcher = (function(){
           .fail(function(){
           })
         }
-
-
     });
   }
 
@@ -165,7 +166,7 @@ Airbo.ImageSearcher = (function(){
   function initImagePreview(){
     $("body").on("click","#images img", function(event){
       var img = $(this);
-      var props= {url: $(this).attr("src"),h:img.height, w: img.width};
+      var props= {url: $(this).data("preview")};
       $.Topic("image-selected").publish(props); 
     });
   }
