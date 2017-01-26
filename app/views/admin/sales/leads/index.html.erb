@@ -1,0 +1,23 @@
+<div class="leads-container">
+  <div class="row">
+    <ul class="tab">
+      <li>
+        <a href="#" id="my-leads-link" class="tablinks" data-target="myLeads">
+          My Leads <span class="badge"><%= @my_leads.count %></span>
+        </a>
+      </li>
+      <li>
+        <a href="#" id="all-leads-link" class="tablinks" data-target="allLeads">
+          All Leads <span class="badge"><%= @leads.count %></span>
+        </a>
+      </li>
+    </ul>
+
+    <div id="myLeads" class="my-leads tabcontent">
+      <%= render 'leads_table', leads: @my_leads %>
+    </div>
+    <div id="allLeads" class="all-leads tabcontent">
+      <%= render 'leads_table', leads: @leads %>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe Admin::UsersController do
   describe "PUT update" do
+    before(:each) do
+      request.env["HTTP_REFERER"] = "goes back"
+    end
+
     context "admin status is updated" do
       it "updates user and sends ping" do
         subject.stubs(:ping)
