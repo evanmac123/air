@@ -2,24 +2,17 @@
   <h4 class="explore-headers non-link"><%= header %></h4>
   <div class="organizations flickity-organizations-carousel">
     <% organizations.each do |organization| %>
-      <% cache organization do %>
-        <div class="carousel-cell tile_container" data-slug="<%= organization.slug %>" data-name="<%= organization.name %>">
-          <div class="organization">
-            <div class="organization-cell" style="background-image: url('<%= 'IMPLEMENT' %>')">
-              <div class="organization_shadow_overlay"></div>
-              <div class="organization_overlay"></div>
-              <section class="board-name">
-                <h3 class="title"><%= organization.name %></h3>
-              </section>
-              <section class="cover-footer">
-                <div class="num-tiles subtitle">
-                  <%="#{organization.tiles.count} Tiles"%>
-                </div>
-              </section>
-            </div>
+      <div class="carousel-cell tile_container" data-slug="<%= organization.slug %>" data-name="<%= organization.name %>">
+        <div class="organization">
+          <div class="organization-cell" style="background-image: url('<%= organization.logo.present? ? organization.logo.url : organization.oldest_demo.try(:logo) %>')">
+            <div class="organization_shadow_overlay"></div>
+            <div class="organization_overlay"></div>
+            <section class="board-name">
+              <h3 class="title"><%= organization.name %></h3>
+            </section>
           </div>
         </div>
-      <% end %>
+      </div>
     <% end %>
   </div>
 </div>

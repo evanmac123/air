@@ -18,6 +18,12 @@ class Organization < ActiveRecord::Base
 
   scope :name_order, -> { order(:name) }
 
+  has_attached_file :logo,
+    {
+      styles: { medium: '300x300' },
+      default_style: :medium
+    }
+
   def update_slug
     self.slug = name.parameterize
   end
@@ -138,7 +144,9 @@ class Organization < ActiveRecord::Base
     TimeDifference.between(customer_start_date, customer_end_date).in_months
   end
 
-
+  def oldest_demo
+    @oldest_demo ||= demos.order('created_at ASC').first
+  end
 
   private
 
