@@ -73,15 +73,19 @@ Airbo.ImageSearcher = (function(){
 
   function getFlickrImageUrls(photos){
     var urls = [] 
-      , flickrImageUrlTemplate = "https://farm{farm}.staticflickr.com/{server}/{id}_{secret}_q.jpg"
+      , flickrImageUrlTemplate = "https://farm{farm}.staticflickr.com/{server}/{id}_{secret}"
     ;
 
     photos.forEach(function(photo){
-      urls.push(
-        flickrImageUrlTemplate.replace(/\{(.*?)\}/g, function(match, token) {
-          return photo[token];
-        })
-      );
+      var base = flickrImageUrlTemplate.replace(/\{(.*?)\}/g, function(match, token) {
+        return photo[token];
+      });
+
+      urls.push({
+        thumbnail: base + "_q.jpg",
+        preview: base + "_c.jpg" 
+      });
+
     });
     return urls;
   }
@@ -180,7 +184,7 @@ Airbo.ImageSearcher = (function(){
   }
 
   function initImagePreview(){
-    $("body").on("click",".results img", function(event){
+    $("body").on("click","#images img", function(event){
       var img = $(this);
       var props= {url: $(this).attr("src"),h:img.height, w: img.width};
       $.Topic("image-selected").publish(props); 
