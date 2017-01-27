@@ -1,5 +1,5 @@
 var Airbo = window.Airbo || {};
-
+//TODO clean this up to remove any deprecated functionality
 Airbo.EmbedVideo = (function() {
   var modalObj = Airbo.Utils.StandardModal()
     , modalId = "embed_video_modal"
@@ -48,7 +48,7 @@ Airbo.EmbedVideo = (function() {
       removeVideo();
     });
 
-    $(".video_placeholder").click(function() {
+    $(".video_placeholder, .img-menu-item.video ").click(function() {
       //TODO add ping to 
       modalObj.open();
     });
@@ -68,12 +68,14 @@ Airbo.EmbedVideo = (function() {
       submitVideo.prop("disabled", blockSubmit);
       $(".embed_video_err").toggle(blockSubmit);
     });
+
     $("#embed_video_field").bind('keyup', function(e){
       if(e.keyCode == 8) { // backspace
         $(this).val("");
         submitVideo.prop("disabled", true);
       }
     });
+
     submitVideo.click(function() {
       var embedCode = $("#embed_video_field").val();
       addVideo( embedCode );
@@ -93,9 +95,11 @@ Airbo.EmbedVideo = (function() {
       }
     });
   }
+
   function initVars() {
     submitVideo = $(submitVideoSel);
   }
+
   function initForm() {
     if( $("#tile_builder_form_embed_video").val().length > 0 ) {
       $("#image_uploader").hide();
@@ -103,6 +107,7 @@ Airbo.EmbedVideo = (function() {
     }
     initFormEvents();
   }
+
   function init() {
     if( modalInitialized ) return;
     modalInitialized = true;
