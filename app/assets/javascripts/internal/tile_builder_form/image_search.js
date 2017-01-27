@@ -160,7 +160,7 @@ Airbo.ImageSearcher = (function(){
 
   function buildPlaceholders(){
     var html= "<div class='cell-group'>" 
-    for(var i=0; i<12; i++){
+    for(var i=0; i<4; i++){
       html+= "<div class='thumb-placeholder'></div>";
     }
     grid.html( $(html + "</div>"));
@@ -174,15 +174,19 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
-  function initHideSearch(){
+  function initToggleSearch(){
     $("body").on("click", ".hide-search", function(event){
       $(".image-search-container").slideUp();
+    })
+
+    $("body").on("click", ".show-search", function(event){
+      $(".image-search-container").slideDown();
     })
   }
 
   function init(){
     grid = $("#images");
-    initHideSearch();
+    initToggleSearch();
     searchForm = $(searchFormSel);
     initImageSearchBar()
     initPaging();
