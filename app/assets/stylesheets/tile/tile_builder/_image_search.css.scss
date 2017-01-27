@@ -35,21 +35,29 @@
     margin: auto;
     width: 90%;
 
-    #search-bar{
+    .search-bar{
+      border: 1px solid $n-blue;
+      padding: 5px;
+      border-radius: 15px;
+      i{
+        color: $n-blue;
+      }
+    }
+    .search-input{
+      margin-left: 5px;
       height:30px;
       padding: 5px;
       display: inline-block;
-      border: 1px solid $n-blue;
+      width: 80%;
     }
-    .pages-nav{
-      display: inline-block;
-      margin-left: 5px;
-      .paging{
-        padding: 3px;
-        display: none;
-      }
-    }
+  
   }
+  .hide-search{
+    display: inline-block;
+    float: right;
+    color: $n-blue;
+  }
+
   .flickity-prev-next-button.next {
     right: -50px;
   }

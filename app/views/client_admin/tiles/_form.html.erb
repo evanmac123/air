@@ -32,7 +32,10 @@
             <%= render '/shared/tiles/form/image_preview', form: f %>
             <div class="image-search-container">
               <div class="search-controls">
-                <input type="text" id="search-bar" placeholder="search">
+                <a href="#" class="hide-search"> Hide <i class="fa fa-angle-up fa-1x" aria-hidden="true"></i></a>
+                <span class="search-bar">
+                  <i class="fa fa-search fa-1x" aria-hidden="true"></i><input type="text" class="search-input" placeholder="Search images">
+                </span>
               </div>
               <div class="images-wrapper">
               <div id="images" data-missing='<%=asset_path("images/missing-tile-img-thumb.png")%>'></div>

@@ -145,7 +145,7 @@ Airbo.ImageSearcher = (function(){
   }
 
   function initImageSearchBar(){
-    $("#search-bar").keypress(function(event){
+    $(".search-input").keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which)
         , form =$("#flickr.search-form")
         , ctx = {}
@@ -190,8 +190,15 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
+  function initHideSearch(){
+    $("body").on("click", ".hide-search", function(event){
+      $(".image-search-container").slideUp();
+    })
+  }
+
   function init(){
     grid = $("#images");
+    initHideSearch();
     searchForm = $(searchFormSel);
     initImageSearchBar()
     initPaging();
