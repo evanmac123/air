@@ -57,7 +57,7 @@ Airbo.TileImagePreviewer = (function(){
       setPreviewImage(imgProps.url, imgProps.w, imgProps.h);
     } );
 
-    $('.menu-tooltip').tooltipster();
+    $('.menu-tooltip').tooltipster({theme: 'tooltipster-shadow'});
     return this;
   }
 
