@@ -151,14 +151,6 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
-
-
-  function initImageError(){
-    $(".results img").on("error", function(event){
-      $(this).attr("src", $("#images").data("missing"));
-    });
-  }
-
   function buildPlaceholders(){
     var html= "<div class='cell-group'>" 
     for(var i=0; i<4; i++){
