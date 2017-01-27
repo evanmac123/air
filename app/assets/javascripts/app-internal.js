@@ -23,8 +23,6 @@
 //= require jquery.tooltipster.min
 //= require ./external/schedule_demo
 //= require ./external/request_form
-//= require masonry.pkgd.min.js
-//= require imagesloaded.pkgd.min.js
 
 $(document).ready(function() {
   $('.settings-edit').foundation();
