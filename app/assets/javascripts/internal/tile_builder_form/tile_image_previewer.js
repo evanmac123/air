@@ -11,53 +11,52 @@ var Airbo = window.Airbo || {};
 
 
 Airbo.TileImagePreviewer = (function(){
-  var imageMgr, imgPreview;
+  var  remoteMediaUrlSelector = '#remote_media_url'
+    , remoteMediaTypeSelector = '#remote_media_type'
+    , clearImage
+    , clearImageSelector = '.img-menu-item.clear'
+  ;
+
 
   function removeImageCredit() {
     $('.image_credit_view').text('').trigger('keyup').trigger('focusout');
   };
 
-  function clearPreviewImage(){
-    showPlaceholder();
-    removeImageCredit();
-    $("#uploaded_image_file").text("Pick an image").removeClass("file_selected")
-  }
-
-  function showPlaceholder() {
-    imgPreview.removeClass('show_shadows').addClass('show_placeholder');
-  };
-
-  function showShadows() {
-    imgPreview.removeClass('show_placeholder').addClass('show_shadows');
-  };
-
 
   function setPreviewImage(imageUrl, imgWidth, imgHeight) {
-    var width = 600
-      , fullHeight
-    ;
-
-    if(imgWidth && imgHeight){
-      fullHeight = parseInt( imgHeight * width / imgWidth );
-      imgPreview.addClass("loading").css("height", fullHeight);
-    }
-
-    showShadows();
     $('#upload_preview').attr("src", imageUrl);
   };
 
+  function removeImage(){
+    $("#upload_preview").attr("src","/assets/missing-tile-img-full.png") 
+    removeImageCredit();
+    remoteMediaUrl.val('');
+    remoteMediaUrl.change();
+  }
+
+  function initDom(){
+    clearImage = $(clearImageSelector);
+    remoteMediaUrl = $(remoteMediaUrlSelector);
+    remoteMediaType = $(remoteMediaTypeSelector);
+  }
+
+
+
+  function initClearImage(){
+    clearImage.click(function(event) {
+      removeImage();
+      event.stopPropagation();
+    });
+  }
 
   function init(mgr){
+    initDom();
+    initClearImage();
+
     $.Topic('image-selected').subscribe( function(imgProps){
       setPreviewImage(imgProps.url, imgProps.w, imgProps.h);
     } );
 
-
-    $.Topic('image-cleared').subscribe( function(){
-      clearPreviewImage();
-    });
-
-    imgPreview= $('.image_preview');
     $('.menu-tooltip').tooltipster();
     return this;
   }
@@ -65,7 +64,6 @@ Airbo.TileImagePreviewer = (function(){
   return {
     init: init,
     setPreviewImage: setPreviewImage,
-    clearPreviewImage: clearPreviewImage
   };
 
 })();
