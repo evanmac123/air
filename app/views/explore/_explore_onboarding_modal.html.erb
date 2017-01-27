@@ -7,7 +7,7 @@
             <% if current_user.is_a?(User) %>
               <h2><%= t('views.explore.onboarding.slide_1.header', name: current_user.first_name.try(:capitalize)) %></h2>
             <% else %>
-              <h2><%= t('views.explore.onboarding.slide_1.header', name: "there") %></h2>
+              <h2><%= t('views.explore.onboarding.slide_1.header_guest') %></h2>
             <% end %>
             <p><%= t('views.explore.onboarding.slide_1.body') %></p>
             <br>
