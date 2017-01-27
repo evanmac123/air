@@ -110,7 +110,7 @@ Airbo.ImageSearcher = (function(){
 
 
 
-  function doFlikity(){
+  function doFlickity(){
     grid.flickity({
       imagesLoaded: true,
       pageDots: false,
@@ -121,9 +121,20 @@ Airbo.ImageSearcher = (function(){
   function processResults(data,status,xhr){
     handler = this.provider;
     var html = handler(data);
-    grid.html($(html));
-    doFlikity();
+    presentData(html);
   }
+
+  function presentData(html){
+    if(grid.data('flickity') == undefined){
+      grid.html($(html));
+      doFlickity();
+    }else{
+      grid.flickity('remove', grid.flickity('getCellElements'))
+      grid.flickity('append', $(html));
+    }
+  }
+
+
 
   function initPaging(){
     $(".paging").click(function(event){
