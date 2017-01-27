@@ -4,6 +4,7 @@ Airbo.TileImageUploader = (function(){
   var initialized
     , remoteMediaUrl
     , remoteMediaType
+
     , remoteMediaUrlSelector = '#remote_media_url'
     , remoteMediaTypeSelector = '#remote_media_type'
   ;
@@ -28,6 +29,7 @@ Airbo.TileImageUploader = (function(){
   }
 
 
+
   function notifyImageUploaded(imgUrl, imgWidth, imgHeight){
     $.Topic("image-selected").publish({url: imgUrl, h: imgHeight, w: imgWidth});
   }
@@ -36,6 +38,7 @@ Airbo.TileImageUploader = (function(){
   function initDom(){
     remoteMediaUrl = $(remoteMediaUrlSelector);
     remoteMediaType = $(remoteMediaTypeSelector);
+
   }
 
   function getRemoteMediaURL(){
@@ -49,6 +52,7 @@ Airbo.TileImageUploader = (function(){
     });
 
     initDom();
+
 
 
     Airbo.DirectToS3ImageUploader.init( {

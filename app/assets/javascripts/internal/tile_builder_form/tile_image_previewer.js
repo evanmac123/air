@@ -16,8 +16,6 @@ Airbo.TileImagePreviewer = (function(){
     , clearImage
     , clearImageSelector = '.img-menu-item.clear'
   ;
-
-
   function removeImageCredit() {
     $('.image_credit_view').text('').trigger('keyup').trigger('focusout');
   };
@@ -53,11 +51,13 @@ Airbo.TileImagePreviewer = (function(){
     initDom();
     initClearImage();
 
+
     $.Topic('image-selected').subscribe( function(imgProps){
       setPreviewImage(imgProps.url, imgProps.w, imgProps.h);
     } );
 
     $('.menu-tooltip').tooltipster({theme: 'tooltipster-shadow'});
+
     return this;
   }
 

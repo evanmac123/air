@@ -24,6 +24,7 @@
 //= require ./external/schedule_demo
 //= require ./external/request_form
 
+
 $(document).ready(function() {
   $('.settings-edit').foundation();
 

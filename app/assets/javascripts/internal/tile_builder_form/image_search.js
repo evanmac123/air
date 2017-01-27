@@ -152,6 +152,7 @@ Airbo.ImageSearcher = (function(){
   }
 
 
+
   function initImageError(){
     $(".results img").on("error", function(event){
       $(this).attr("src", $("#images").data("missing"));
@@ -170,6 +171,7 @@ Airbo.ImageSearcher = (function(){
     $("body").on("click","#images img", function(event){
       var img = $(this);
       var props= {url: $(this).data("preview")};
+
       $.Topic("image-selected").publish(props); 
     });
   }
@@ -196,11 +198,9 @@ Airbo.ImageSearcher = (function(){
 
 
 
-
   return {
     init: init
   };
-
 
 }())
 
