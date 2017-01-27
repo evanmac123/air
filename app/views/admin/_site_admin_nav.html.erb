@@ -1,108 +1,110 @@
-<div class="row">
-  <div class="columns small-12">
-    <nav class="top-bar hide-for-small">
-      <section class="top-bar-section">
-        <!-- Right Nav Section -->
+<header class="admin-sub-header">
+  <div class="row">
+    <div class="columns small-12">
+      <nav class="top-bar hide-for-small">
+        <section class="top-bar-section">
+          <!-- Right Nav Section -->
 
-        <ul class="left">
-          <li class="name">
-            <%= link_to "Admin Home", admin_path %>
-          </li>
-        </ul>
-        <ul class="leftl">
-          <li class="has-dropdown not-click">
-            <a href="#">Content</a>
-            <ul class="dropdown">
-              <li>
-                <%= link_to 'Image Library', admin_tile_images_path %>
-              </li>
-              <li>
-                <%= link_to 'Explore Digests', admin_explore_digests_path %>
-              </li>
-              <li>
-                <%= link_to 'New Explore Digest', new_admin_explore_digest_path %>
-              </li>
-              <li>
-                <%= link_to 'Tile Features', admin_tile_features_path  %>
-              </li>
-              <li>
-                <%= link_to 'Channels', admin_channels_path  %>
-              </li>
-              <li>
-                <%= link_to 'Campaigns', admin_campaigns_path  %>
-              </li>
-              <li>
-                <%= link_to 'Case Studies', admin_case_studies_path  %>
-              </li>
-            </ul>
-          </li>
-          <li class="has-dropdown not-click">
-            <a href="#">Customer Success</a>
-            <ul class="dropdown">
-              <li>
-                <%= link_to 'Organizations', admin_organizations_path  %>
-              </li>
-              <li>
-                <%= link_to 'Boards', admin_demos_path  %>
-              </li>
-              <li>
-                <%= link_to 'Board Matcher', admin_unmatched_boards_path  %>
-              </li>
-              <li>
-                <%= link_to 'Library/Onboarding Boards', admin_topic_boards_path  %>
-              </li>
-            </ul>
-          </li>
-          <li class="has-dropdown not-click">
-            <a href="#">Sales</a>
-            <ul class="dropdown">
-              <li>
-                <%= link_to 'New Organization', new_admin_organization_path  %>
-              </li>
-              <li>
-                <%= link_to 'My Leads', admin_sales_leads_path  %>
-              </li>
-              <li>
-                <%= link_to 'Inbound Leads', admin_sales_lead_contacts_path  %>
-              </li>
-            </ul>
-          </li>
-          <li class="has-dropdown not-click">
-            <a href="#">Product</a>
-            <ul class="dropdown">
-              <li>
-                <%= link_to 'Style Guide', admin_reference_style_guide_path  %>
-              </li>
-              <li>
-                <%= link_to 'Edit Support Page', edit_admin_support_path %>
-              </li>
-            </ul>
-          </li>
-          <li class="has-dropdown not-click">
-            <a href="#">KPIs</a>
-            <ul class="dropdown">
-              <li>
-                <%= link_to 'Customer Success', admin_client_kpi_report_path %>
-              </li>
-              <li>
-                <%= link_to 'Financial', admin_financials_kpi_dashboard_path %>
-              </li>
-            </ul>
-          </li>
+          <ul class="left">
+            <li class="name">
+              <%= link_to "Admin Home", admin_path %>
+            </li>
+          </ul>
+          <ul class="leftl">
+            <li class="has-dropdown not-click">
+              <a href="#">Content</a>
+              <ul class="dropdown">
+                <li>
+                  <%= link_to 'Image Library', admin_tile_images_path %>
+                </li>
+                <li>
+                  <%= link_to 'Explore Digests', admin_explore_digests_path %>
+                </li>
+                <li>
+                  <%= link_to 'New Explore Digest', new_admin_explore_digest_path %>
+                </li>
+                <li>
+                  <%= link_to 'Tile Features', admin_tile_features_path  %>
+                </li>
+                <li>
+                  <%= link_to 'Channels', admin_channels_path  %>
+                </li>
+                <li>
+                  <%= link_to 'Campaigns', admin_campaigns_path  %>
+                </li>
+                <li>
+                  <%= link_to 'Case Studies', admin_case_studies_path  %>
+                </li>
+              </ul>
+            </li>
+            <li class="has-dropdown not-click">
+              <a href="#">Customer Success</a>
+              <ul class="dropdown">
+                <li>
+                  <%= link_to 'Organizations', admin_organizations_path  %>
+                </li>
+                <li>
+                  <%= link_to 'Boards', admin_demos_path  %>
+                </li>
+                <li>
+                  <%= link_to 'Board Matcher', admin_unmatched_boards_path  %>
+                </li>
+                <li>
+                  <%= link_to 'Library/Onboarding Boards', admin_topic_boards_path  %>
+                </li>
+              </ul>
+            </li>
+            <li class="has-dropdown not-click">
+              <a href="#">Sales</a>
+              <ul class="dropdown">
+                <li>
+                  <%= link_to 'New Organization', new_admin_organization_path  %>
+                </li>
+                <li>
+                  <%= link_to 'My Leads', admin_sales_leads_path  %>
+                </li>
+                <li>
+                  <%= link_to 'Inbound Leads', admin_sales_lead_contacts_path  %>
+                </li>
+              </ul>
+            </li>
+            <li class="has-dropdown not-click">
+              <a href="#">Product</a>
+              <ul class="dropdown">
+                <li>
+                  <%= link_to 'Style Guide', admin_reference_style_guide_path  %>
+                </li>
+                <li>
+                  <%= link_to 'Edit Support Page', edit_admin_support_path %>
+                </li>
+              </ul>
+            </li>
+            <li class="has-dropdown not-click">
+              <a href="#">KPIs</a>
+              <ul class="dropdown">
+                <li>
+                  <%= link_to 'Customer Success', admin_client_kpi_report_path %>
+                </li>
+                <li>
+                  <%= link_to 'Financial', admin_financials_kpi_dashboard_path %>
+                </li>
+              </ul>
+            </li>
 
-          <li class="has-dropdown not-click">
-            <a href="#">Financials</a>
-            <ul class="dropdown">
-              <li>
-                <%= link_to 'Contracts', admin_contracts_path  %>
-              </li>
-              <li>
-                <%= link_to 'Billings', admin_billings_path %>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </section>
-    </nav>
+            <li class="has-dropdown not-click">
+              <a href="#">Financials</a>
+              <ul class="dropdown">
+                <li>
+                  <%= link_to 'Contracts', admin_contracts_path  %>
+                </li>
+                <li>
+                  <%= link_to 'Billings', admin_billings_path %>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </nav>
+    </div>
   </div>
-</div>
+</header>

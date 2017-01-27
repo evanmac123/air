@@ -6,6 +6,10 @@
   }
 }
 
+.admin-sub-header {
+  background: #000;
+}
+
 .channels {
   @include channels;
 }

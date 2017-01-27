@@ -26,3 +26,6 @@ en:
     explore:
       organizations:
         failure_when_org_not_found: "It looks like that organization could not be found."
+    admin:
+      organizations:
+        flash_destroy: "%{name} deleted."
