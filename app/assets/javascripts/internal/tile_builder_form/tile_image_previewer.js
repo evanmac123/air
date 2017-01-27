@@ -58,8 +58,8 @@ Airbo.TileImagePreviewer = (function(){
     });
 
     imgPreview= $('.image_preview');
-    return this;
     $('.menu-tooltip').tooltipster();
+    return this;
   }
 
   return {
