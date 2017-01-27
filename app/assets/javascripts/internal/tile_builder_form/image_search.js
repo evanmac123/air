@@ -94,22 +94,6 @@ Airbo.ImageSearcher = (function(){
     return urls;
   }
 
-
-
-  function togglePaging(pages){
-    if(pages.nextPage !== undefined){
-      next = pages.nextPage[0];
-      $("#next").data("start",next.startIndex).show(); 
-    }
-
-    if(pages.previousPage !== undefined){
-      prev = pages.previousPage[0];
-      $("#prev").data("start",prev.startIndex).show(); 
-    }
-  }
-
-
-
   function doFlickity(){
     grid.flickity({
       imagesLoaded: true,
