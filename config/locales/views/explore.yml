@@ -6,7 +6,7 @@ en:
         close: Get Started
         slide_1:
           header: Hi %{name}, Welcome to Airbo!
-          header_guest: Kate!
+          header_guest: Hi There, Welcome to Airbo!
           body: Employee communications made fun and simple
         slide_2:
           header: Visual and Interactive
