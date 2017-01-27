@@ -65,7 +65,9 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   def destroy
-
+    @organization.destroy
+    flash[:success] = t('controllers.admin.organizations.flash_destroy', name: @organization.name)
+    redirect_to admin_path
   end
 
   private

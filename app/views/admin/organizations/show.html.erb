@@ -9,7 +9,7 @@
           <td><%= @organization.is_hrm.humanize %></td>
         </tr>
         <tr>
-          <td colspan="2"> 
+          <td colspan="2">
             <%=link_to "Edit this organization", edit_admin_organization_path(@organization)%>
           </td>
         </tr>
@@ -36,3 +36,11 @@
     </div>
   </div>
 </div>
+
+<%= form_tag admin_organization_path(@organization), method: :delete do %>
+  <div class="row">
+    <div class="columns small-12">
+      <%= submit_tag 'Delete Organization', confirm: "Are you sure you would like to delete the #{@organization.name} organization?", class: "button red" %>
+    </div>
+  </div>
+<% end %>

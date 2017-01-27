@@ -3,8 +3,8 @@ class Organization < ActiveRecord::Base
   before_save :update_slug
 
   has_many :contracts
-  has_many :demos, autosave: true
-  has_many :lead_contacts
+  has_many :demos, autosave: true, dependent: :destroy
+  has_many :lead_contacts, dependent: :destroy
   has_many :boards, class_name: :Demo, autosave: true
   has_many :tiles, through: :boards
   has_many :board_memberships, through: :boards
