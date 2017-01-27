@@ -4,7 +4,11 @@
         <div class="carousel-cell">
           <div class="text-center">
             <%= image_tag "explore/onboarding_slide_1.png" %>
-            <h2><%= t('views.explore.onboarding.slide_1.header', name: current_user.first_name.try(:capitalize)) %></h2>
+            <% if current_user.is_a?(User) %>
+              <h2><%= t('views.explore.onboarding.slide_1.header', name: current_user.first_name.try(:capitalize)) %></h2>
+            <% else %>
+              <h2><%= t('views.explore.onboarding.slide_1.header', name: "there") %></h2>
+            <% end %>
             <p><%= t('views.explore.onboarding.slide_1.body') %></p>
             <br>
             <a href="#" class="button next-onboarding-slide"><%= t('views.explore.onboarding.next_slide') %></a>
