@@ -1,7 +1,7 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 Airbo.Utils.EndlessScroll = (function(){
-  function init(content_container) {
+  function init(content_container, bindCallback) {
     var approachingBottomOfPage,
         isLoadingNextPage,
         minCount,
@@ -56,6 +56,7 @@ Airbo.Utils.EndlessScroll = (function(){
             lastBatch = data.lastBatch;
             isLoadingNextPage = false;
             lastLoadAt = new Date();
+            bindCallback();
 
             if (lastBatch === true) {
               viewMore.hide();
@@ -79,11 +80,3 @@ Airbo.Utils.EndlessScroll = (function(){
   };
 
 }());
-
-$(function(){
-  if( $('.endless_scroll_content_container').length > 0 ) {
-    $('.endless_scroll_content_container').each(function(index, container) {
-      Airbo.Utils.EndlessScroll.init($(container));
-    });
-  }
-});
