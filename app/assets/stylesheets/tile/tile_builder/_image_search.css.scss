@@ -3,14 +3,24 @@
   width: 600px;
   height:450px;
   padding: 20px 40px;
+  #images{
+    min-height:390px;
+  }
 }
 
 .cell-group{
   width:100%;
-  img {
+  img, .thumb-placeholder {
     height: 130px;
     width: 130px;
     padding: 2px;
+  }
+  .thumb-placeholder{
+    height: 125px;
+    width: 125px;
+    border: 1px dashed #DDD;
+    margin: 2px;
+    display: inline-block;
   }
 }
 

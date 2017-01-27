@@ -174,6 +174,14 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
+  function buildPlaceholders(){
+    var html= "<div class='cell-group'>" 
+    for(var i=0; i<12; i++){
+      html+= "<div class='thumb-placeholder'></div>";
+    }
+    grid.html( $(html + "</div>"));
+  }
+
   function initImagePreview(){
     $("body").on("click","#images img", function(event){
       var img = $(this);
@@ -188,6 +196,7 @@ Airbo.ImageSearcher = (function(){
     initImageSearchBar()
     initPaging();
     initImagePreview();
+    buildPlaceholders();
   }
 
 
