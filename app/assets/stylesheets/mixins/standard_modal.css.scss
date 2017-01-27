@@ -18,9 +18,6 @@
     max-width: $container-width;
     padding-top: 0px;
     margin: auto;
-    &.full{
-      max-width: none;
-    }
   }
   .close-reveal-modal {
     position: fixed;
