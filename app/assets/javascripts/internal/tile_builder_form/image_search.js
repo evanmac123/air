@@ -104,7 +104,7 @@ Airbo.ImageSearcher = (function(){
   }
 
   function processResults(data,status,xhr){
-    $(".image-search-container").slideDown();
+    showSearchResults();
     handler = this.provider;
     var html = handler(data);
     presentData(html);
@@ -120,19 +120,45 @@ Airbo.ImageSearcher = (function(){
     }
   }
 
-
-
-  function initPaging(){
-    $(".paging").click(function(event){
-      event.preventDefault();
-      searchForm.find("input[name='start']").val($(this).data("start"));
-      searchForm.submit();
-    })
+  function showVisualContentPanel(){
+    $(".visual-content-container").slideDown();
   }
 
+  function showSearchResults() {
+    showImageWrapper();
+    showVisualContentPanel();
+  }
 
+  function hideImageWrapper(){
+    $(".images-wrapper").hide();
+  }
 
-  function initImageSearchBar(){
+  function showImageWrapper(){
+    $(".images-wrapper").show();
+  }
+
+  function showEmbedVideo(){
+    $(".embed-video-container").show();
+  }
+
+  function hideEmbedVideo(){
+    $(".embed-video-container").hide();
+  }
+
+  function hideVisualContentPanel(){
+    $(".visual-content-container").slideup();
+    hideimagewrapper();
+    hideEmbedVideo();
+  }
+
+  function resetSearchInput(){
+    $(".search-input").val("").animate({width:'0px'}, 600, "linear")
+  }
+
+  function resetEmbedVideo(){
+    $("#embed_video_field").val("");
+  }
+  function initTriggerImageSearch(){
     $(".search-input").keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which)
         , form =$("#flickr.search-form")
@@ -155,6 +181,36 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
+  function initShowSearchInput(){
+    $("body").on("click", ".show-search", function(event){
+      hideEmbedVideo();
+      resetEmbedVideo();
+     $(".search-input").animate({width:'200px'}, 600, "linear")
+    })
+  }
+
+  function initShowVideoPanel(){
+    $("body").on("click", ".img-menu-item.video", function(event){
+      hideImageWrapper();
+      resetSearchInput();
+      showEmbedVideo();
+      showVisualContentPanel();
+    });
+  }
+
+  function initHideVisualContent(){
+    $("body").on("click", ".hide-search", function(event){
+      resetSearchInput();
+      hideVisualContentPanel();
+    });
+  }
+
+  function initVisualContent(){
+    initHideVisualContent();
+    initShowVideoPanel();
+    initShowSearchInput();
+  }
+
 
   function initImagePreview(){
     $("body").on("click","#images img", function(event){
@@ -165,25 +221,11 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
-  function initToggleSearch(){
-    $("body").on("click", ".hide-search", function(event){
-
-      $(".search-input").val("").animate({width:'0px'}, 600, "linear")
-      $(".image-search-container").slideUp();
-    })
-
-    $("body").on("click", ".show-search", function(event){
-      $(".search-input").animate({width:'200px'}, 600, "linear")
-    })
-  }
-
-
   function init(){
     grid = $("#images");
-    initToggleSearch();
+    initVisualContent();
     searchForm = $(searchFormSel);
-    initImageSearchBar()
-    initPaging();
+    initTriggerImageSearch()
     initImagePreview();
   }
 

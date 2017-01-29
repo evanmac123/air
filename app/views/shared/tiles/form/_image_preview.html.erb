@@ -5,59 +5,68 @@
     <%= form.text_field :remote_media_url, id: "remote_media_url", style: "display:none" , data:{proxyid: "image_uploader", "video-image" => image_path("video.png")} %>
     <% image_class = tile_image_present(@tile_builder_form.remote_media_url) ? "present" : "missing" %>
 
+
+
+
+
     <div class="intro-tipsy image_preview <%= image_class %> loading" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
       <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
 
-        <div class="shadow_overlay"></div>
+      <div class="shadow_overlay"></div>
 
-        <div class="image_credit ">
-          <% if ie9_or_older? %>
-            <div class="image_credit_view">
-              <%= @tile_builder_form.image_credit %>
-            </div>
-          <% else %>
-            <div class="image_credit_view no_outline" contenteditable="true">
-              <%= @tile_builder_form.image_credit%>
-            </div>
-            <%= form.text_area :image_credit %>
-          <% end %>
-        </div>
+      <div class="image_credit ">
+        <% if ie9_or_older? %>
+          <div class="image_credit_view">
+            <%= @tile_builder_form.image_credit %>
+          </div>
+        <% else %>
+          <div class="image_credit_view no_outline" contenteditable="true">
+            <%= @tile_builder_form.image_credit%>
+          </div>
+          <%= form.text_area :image_credit %>
+        <% end %>
+      </div>
 
-        <div class="image-menu"> 
-          <ul>
+      <div class="image-menu"> 
+        <ul>
+          <li>
+            <span class="img-menu-item  show-search menu-tooltip" title="Search">
+              <i class="fa fa-search fa-1x" aria-hidden="true"></i>
+              <input type="text" class="search-input" >
+            </span>
+          </li>
+
+          <li>
+            <span class="img-menu-item upload menu-tooltip" id="uploader_trigger" title="Upload image" >
+              <i class="fa fa-cloud-upload fa-1x"></i></li>
+            </span>
             <li>
-              <span class="img-menu-item  menu-tooltip" title="Search">
-                <i class="fa fa-search show-search fa-1x" aria-hidden="true"></i>
-                <input type="text" class="search-input" >
+              <span class="img-menu-item video menu-tooltip" title="Embed video" >
+                <i class="fa fa-video-camera fa-1x"></i>
               </span>
             </li>
-
             <li>
-              <span class="img-menu-item upload menu-tooltip" id="uploader_trigger" title="Upload image" >
-                <i class="fa fa-cloud-upload fa-1x"></i></li>
+              <span class="img-menu-item clear menu-tooltip"  title="Remove image">
+                <i class="fa fa-eraser fa-1x"></i>
               </span>
-              <li>
-                <span class="img-menu-item video menu-tooltip" title="Embed video" >
-                  <i class="fa fa-video-camera fa-1x"></i>
-                </span>
-              </li>
-              <li>
-                <span class="img-menu-item clear menu-tooltip"  title="Remove image">
-                  <i class="fa fa-eraser fa-1x"></i>
-                </span>
-              </li>
-          </ul>
-        </div>
-    </div>
-    <div class="image-search-container">
-      <div class="search-controls">
-        <a href="#" class="hide-search"> Hide <i class="fa fa-angle-up fa-1x" aria-hidden="true"></i></a>
+            </li>
+        </ul>
       </div>
+    </div>
+    <div class="visual-content-container">
+      <a href="#" class="hide-search"> Hide <i class="fa fa-angle-up fa-1x" aria-hidden="true"></i></a>
       <div class="images-wrapper">
         <div id="images"></div>
       </div>
-    </div>
 
+      <div class="embed-video-container">
+        <%= form.text_area :embed_video, rows: 7, placeholder: "Paste video embed code from Vimeo, Youtube, Wistia or Kaltura" %>
+        <label class="err embed_video_err" style="display:none;">
+          Can't save video. Wrong format.
+        </label>
+        <%= link_to "How video works", "https://www.airbo.com/support#AddaVideo", class: "righty gray-5", target: "_blank" %>
+      </div>
+    </div>
   </div>
 
   <% if ie9_or_older? %>
@@ -69,6 +78,7 @@
 
 <% end %>
 <%#TODO figure out better browser detection procedure %>
+
 <% if ie9_or_older? %>
   <% js_at_end do %>
     $(document).ready(function() {
