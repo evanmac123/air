@@ -93,10 +93,6 @@ Airbo.TileFormModal = (function(){
     Airbo.ImageSearcher.init();
     Airbo.StickyMenu.init(self);
     Airbo.EmbedVideo.initForm();
-
-    $("#upload_preview").on("load", function(){
-      $(".image_preview").removeClass("loading").attr("style", ""); // remove height
-    });
   }
 
   function initModalObj() {
@@ -108,7 +104,6 @@ Airbo.TileFormModal = (function(){
       closeSticky: true,
       onOpenedEvent: function() {
         autosize.update( $('textarea') );
-        $(".modal_container").addClass("full");
         $("#supporting_content_editor").keyup()
       },
       closeMessage: closeMessage.bind(self) ,
