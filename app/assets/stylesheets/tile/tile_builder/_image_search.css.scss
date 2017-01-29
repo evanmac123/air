@@ -22,21 +22,23 @@
   }
 }
 
-.image-hover-menu{
-  padding-top: 20px;
+.image-menu{
   position: absolute;
-  bottom: 5px;
+  bottom: 10px;
   left: 10px;
-  opacity: 0;
+  opacity: 1;
+  li{
+    display: inline-block;
+  }
 
   .img-menu-item{
     padding:5px;
     border: 1px solid #fff;
     border-radius: 5px;
     color: #fff;
-    display: inline-block;
     font-size: 1.15em;
     cursor: pointer;
+    display: inline-block;
   }
 }
 
@@ -50,6 +52,20 @@
       opacity:1;
     }
   }
+}
+
+input[type=text].search-input{
+  margin-left: 5px;
+  height:30px;
+  padding: 5px;
+  width: 0px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: white;
+  width: 0px;
+  height: 18px;
 }
 
 .image-search-container{
@@ -68,15 +84,6 @@
         color: $n-blue;
       }
     }
-
-    .search-input{
-      margin-left: 5px;
-      height:30px;
-      padding: 5px;
-      display: inline-block;
-      width: 80%;
-    }
-
   }
 
   .hide-search{

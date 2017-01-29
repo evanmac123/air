@@ -99,10 +99,12 @@ Airbo.ImageSearcher = (function(){
       imagesLoaded: true,
       pageDots: false,
     });
+    grid.flickity('unbindDrag');
     grid.flickity('resize')
   }
 
   function processResults(data,status,xhr){
+    $(".image-search-container").slideDown();
     handler = this.provider;
     var html = handler(data);
     presentData(html);
@@ -128,6 +130,8 @@ Airbo.ImageSearcher = (function(){
     })
   }
 
+
+
   function initImageSearchBar(){
     $(".search-input").keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which)
@@ -151,13 +155,6 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
-  function buildPlaceholders(){
-    var html= "<div class='cell-group'>" 
-    for(var i=0; i<4; i++){
-      html+= "<div class='thumb-placeholder'></div>";
-    }
-    grid.html( $(html + "</div>"));
-  }
 
   function initImagePreview(){
     $("body").on("click","#images img", function(event){
@@ -170,13 +167,16 @@ Airbo.ImageSearcher = (function(){
 
   function initToggleSearch(){
     $("body").on("click", ".hide-search", function(event){
+
+      $(".search-input").val("").animate({width:'0px'}, 600, "linear")
       $(".image-search-container").slideUp();
     })
 
     $("body").on("click", ".show-search", function(event){
-      $(".image-search-container").slideDown();
+      $(".search-input").animate({width:'200px'}, 600, "linear")
     })
   }
+
 
   function init(){
     grid = $("#images");
@@ -185,7 +185,6 @@ Airbo.ImageSearcher = (function(){
     initImageSearchBar()
     initPaging();
     initImagePreview();
-    buildPlaceholders();
   }
 
 

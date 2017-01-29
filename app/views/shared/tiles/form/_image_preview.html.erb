@@ -23,19 +23,35 @@
           <% end %>
         </div>
 
-      <ul class="image-hover-menu">
-        <li  class="img-menu-item show-search menu-tooltip" title="Search"><i class="fa fa-search fa-1x"></i></li>
-        <li class="img-menu-item  menu-tooltip" id="uploader_trigger" title="Upload your own image" ><i class="fa fa-cloud-upload fa-1x"></i></li>
-        <li class="img-menu-item video menu-tooltip" title="Embed a video link"><i class="fa fa-video-camera fa-1x"></i></li>
-        <li class="img-menu-item clear menu-tooltip"  title="Remove the image"><i class="fa fa-eraser fa-1x"></i></li>
-      </ul>
+        <div class="image-menu"> 
+          <ul>
+            <li>
+              <span class="img-menu-item  menu-tooltip" title="Search">
+                <i class="fa fa-search show-search fa-1x" aria-hidden="true"></i>
+                <input type="text" class="search-input" >
+              </span>
+            </li>
+
+            <li>
+              <span class="img-menu-item upload menu-tooltip" id="uploader_trigger" title="Upload image" >
+                <i class="fa fa-cloud-upload fa-1x"></i></li>
+              </span>
+              <li>
+                <span class="img-menu-item video menu-tooltip" title="Embed video" >
+                  <i class="fa fa-video-camera fa-1x"></i>
+                </span>
+              </li>
+              <li>
+                <span class="img-menu-item clear menu-tooltip"  title="Remove image">
+                  <i class="fa fa-eraser fa-1x"></i>
+                </span>
+              </li>
+          </ul>
+        </div>
     </div>
     <div class="image-search-container">
       <div class="search-controls">
         <a href="#" class="hide-search"> Hide <i class="fa fa-angle-up fa-1x" aria-hidden="true"></i></a>
-        <span class="search-bar">
-          <i class="fa fa-search fa-1x" aria-hidden="true"></i><input type="text" class="search-input" placeholder="Search images">
-        </span>
       </div>
       <div class="images-wrapper">
         <div id="images"></div>
