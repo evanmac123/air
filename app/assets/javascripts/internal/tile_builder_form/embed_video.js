@@ -48,7 +48,7 @@ Airbo.EmbedVideo = (function() {
       removeVideo();
     });
 
-    $(".video_placeholder, .img-menu-item.video ").click(function() {
+    $(".video_placeholder").click(function() {
       //TODO add ping to 
       modalObj.open();
     });
