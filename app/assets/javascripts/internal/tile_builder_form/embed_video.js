@@ -48,10 +48,7 @@ Airbo.EmbedVideo = (function() {
       removeVideo();
     });
 
-    $(".video_placeholder").click(function() {
-      //TODO add ping to 
-      modalObj.open();
-    });
+  
   }
   function getValidCode(text) {
     text = $(text).filter("iframe").prop('outerHTML') || $(text).find("iframe").prop('outerHTML');
@@ -59,6 +56,10 @@ Airbo.EmbedVideo = (function() {
   }
   function initModalEvents() {
     // modal events
+
+  }
+
+  function initPaste(){
     $("#embed_video_field").bind('input', function() {
       var embedCode =  getValidCode( $(this).val() );
       var blockSubmit = embedCode == undefined;
@@ -69,21 +70,23 @@ Airbo.EmbedVideo = (function() {
       $(".embed_video_err").toggle(blockSubmit);
     });
 
+  }
+
+  function initClear(){
+
     $("#embed_video_field").bind('keyup', function(e){
       if(e.keyCode == 8) { // backspace
         $(this).val("");
         submitVideo.prop("disabled", true);
       }
     });
-
-    submitVideo.click(function() {
-      var embedCode = $("#embed_video_field").val();
-      addVideo( embedCode );
-      $(this).prop("disabled", true);
-
-      modalObj.close();
-    });
   }
+
+  function accetpEmbedCode(){
+    var embedCode = $("#embed_video_field").val();
+    addVideo( embedCode );
+  }
+
   function initModalObj() {
     modalObj.init({
       modalId: modalId,
