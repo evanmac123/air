@@ -59,7 +59,7 @@ class FinancialsCalcService
   end
 
   def churned_customers
-    @churned_customers ||=starting_customers - retained_customers
+    @churned_customers ||=starting_customers - current_customers
   end
 
   def churned_customer_count
