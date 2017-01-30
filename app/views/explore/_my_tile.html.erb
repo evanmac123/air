@@ -1,54 +1,8 @@
-<div class="draft_overlay">
-  <div class="overlay_message">
-    <%= fa_icon "ban" %>
-  </div>
-</div>
-<div class="row draft-and-suggested-tiles">
-  <div class="large-12 columns">
-  <ul class="tabs">
-    <li id="draft_title"><a href="#" class="for-draft selected">Draft</a>
-      <%= link_to new_client_admin_tile_path(path: :via_index), id: 'add_new_tile', data:{action: "new"}, class: " righty button  icon" do %>
-        <%= fa_icon "plus" %>
-        <span>Add New Tile</span>
-      <% end %>
-    </li>
-    <%if  policy(:board).tile_suggestion_enabled?%>
-      <li id="suggestion_box_title">
-        <a href="#" class="">Suggestion Box
-          <span class="num-items">
-            (<%= @user_submitted_tiles_counter %>)
-          </span>
-        </a>
-        <ul id="suggestion_box_sub_menu" class="margin-right-5pct horizontal righty gray-5 hidden">
-          <li class="">
-            <a href="#" id="manage_access" class="mini-text">
-              <i class="fa fa-users"></i>
-              Manage Access
-            </a>
-          </li>
-          <li >
-            <a href="#" class="mini-text help"><i class="fa fa-info-circle"></i>
-              Help
-            </a>
-          </li>
-        </ul>
-      </li>
-    <%end%>
-
-
-  </ul>
-
-
-
-
-
-</div>
 <div class="row">
   <div class="large-12 columns">
     <div class="manage_section" id="draft">
       <!--div class="draft-toggler"><label class="inline">Hide: </label> <a href="#" class="finished"><%#fa_icon "pencil"%>Complete</a> <a href="#" class="unfinished"><%#fa_icon "wrench"%> Pending</a> </div-->
-      <%#= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @draft_tiles.empty?, row_size: 6} %>
-      <%#= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @draft_tiles} %>
+      <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: [tile]} %>
     </div>
     <div class="manage_section hidden" id="suggestion_box">
       <%#= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @suggested_tiles.empty?, row_size: 6} %>
