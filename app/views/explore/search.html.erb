@@ -13,6 +13,13 @@
           <div class="large-12 columns">
             <div id="my-tiles">
               <%= render partial: 'explore/tiles', locals: { tiles: @my_tiles, section: 'Explore' } %>
+
+              <% @my_tiles.each do |tile| %>
+                <% present( tile, SingleExploreTilePresenter, {is_ie: browser.ie?, section: 'My Tiles' }) do |presenter| %>
+                  <%= render 'explore/my_tile', presenter: presenter, tile: tile %>
+                <% end %>
+              <% end %>
+
             </div>
 
             <%= render partial: 'explore/search_more_link', locals: { tiles: @my_tiles, tiles_type: :my_tiles, q: params[:q] } %>
