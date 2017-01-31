@@ -1,28 +1,17 @@
 <%= form.hidden_field :remote_media_url, id: "remote_media_url", data:{proxyid: "image_uploader", "video-image" => image_path("video.png")} %>
 <%= content_tag :div, class: "builder_content #{'ie9' if ie9_or_older?}" do %>
-  <div class="video_section hidden">
-    <div class="error_no_video">
-      Loading your video... please wait.
-      </br>
-      If the video doesn't display after a couple of seconds, then the embed link you pasted may be invalid. <br>
-      Please click the “X” below and try again with a different link
-    </div>
+  <div class="video_section">
     <div class="video_frame_block">
       <%= unescape_html(@tile_builder_form.embed_video) %>
     </div>
-    <div class="clear_video has-tip tip-top">
-      <i class="fa fa-times fa-2x"></i>
-    </div>
   </div>
 
-  <div id="image_uploader" class="intro-tipsy content_sections"  data-library-url=<%=client_admin_tile_images_path %> >
+  <div id="image_uploader" class="intro-tipsy content_sections">
     <% image_class = tile_image_present(@tile_builder_form.remote_media_url) ? "present" : "missing" %>
 
     <div class="intro-tipsy image_preview <%= image_class %> loading" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
       <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
-
       <div class="shadow_overlay"></div>
-
       <div class="image_credit ">
         <% if ie9_or_older? %>
           <div class="image_credit_view">
@@ -35,8 +24,7 @@
           <%= form.text_area :image_credit %>
         <% end %>
       </div>
-
-      <div class="image-menu"> 
+      <div class="image-menu">
         <ul>
           <li>
             <span class="img-menu-item  show-search menu-tooltip" title="Search">
@@ -62,22 +50,27 @@
         </ul>
       </div>
     </div>
-    <div class="visual-content-container">
-      <a href="#" class="hide-search"> Hide <i class="fa fa-angle-up fa-1x" aria-hidden="true"></i></a>
-      <div class="images-wrapper">
-        <div id="images"></div>
-      </div>
+  </div>
+  <div class="visual-content-container">
+    <a href="#" class="hide-search"> Hide <i class="fa fa-angle-up fa-1x" aria-hidden="true"></i></a>
+    <div class="images-wrapper">
+      <div id="images"></div>
+    </div>
 
-      <div class="embed-video-container">
-        <%= form.text_area :embed_video, rows: 7, placeholder: "Paste video embed code from Vimeo, Youtube, Wistia or Kaltura" %>
-        <label class="err embed_video_err" style="display:none;">
-          Can't save video. Wrong format.
-        </label>
-        <%= link_to "How video works", "https://www.airbo.com/support#AddaVideo", class: "righty gray-5", target: "_blank" %>
+    <div class="embed-video-container">
+      <%= link_to "Help with video embed?", "https://www.airbo.com/support#AddaVideo", class: "video-help righty gray-5", target: "_blank" %>
+      <%= form.text_area :embed_video, rows: 7, placeholder: "Paste video embed code from Vimeo, Youtube, Wistia or Kaltura" %>
+      <label class="err embed_video_err" style="display:none;">
+        Can't save video. Wrong format.
+      </label>
+      <div class="video_url_error hidden">
+        Trying to load your video, please wait...
+        <p>
+        If the video doesn't display after a couple of seconds, then the embed link you pasted may be invalid. Please delete the link and try again.
+        </p>
       </div>
     </div>
   </div>
-
   <% if ie9_or_older? %>
     <div class="content_sections tile_builder_section">
       <%= form.label :image_credit %>

@@ -39,6 +39,35 @@ Airbo.TileVisualPreviewMgr = (function(){
     $(".visual-content-container").slideDown();
   }
 
+
+  function showVideoPreview(){
+    $(".video_section").show();
+  }
+
+  function hideVideoPreview(){
+    $(".video_section").hide();
+  }
+
+
+  function resetSearchInput(){
+    $(".search-input").val("").animate({width:'0px'}, 600, "linear")
+  }
+
+  function openSearch(){
+    $(".search-input").animate({width:'200px'}, 600, "linear")
+  }
+
+  function toggleOffVideo(){
+    hideEmbedVideo();
+    resetEmbedVideo();
+  }
+
+
+  function showSearchResults() {
+    showImageWrapper();
+    showVisualContentPanel();
+  }
+
   function initShowVideoPanel(){
     $("body").on("click", ".img-menu-item.video", function(event){
       hideImageWrapper();
@@ -46,14 +75,6 @@ Airbo.TileVisualPreviewMgr = (function(){
       showEmbedVideo();
       showVisualContentPanel();
     });
-  }
-
-  function showImages(){
-
-  }
-  function showSearchResults() {
-    showImageWrapper();
-    showVisualContentPanel();
   }
 
   function initVisualContent(){
@@ -68,13 +89,13 @@ Airbo.TileVisualPreviewMgr = (function(){
     });
 
     $.Topic("video-added").subscribe( function(){
-      toggleVideoSection(true)
+      $(".video_section").show();
       $("#image_uploader").hide();
     });
 
     $.Topic("video-removed").subscribe( function(){
       $("#image_uploader").show();
-      toggleVideoSection(false)
+      hideVideoPreview();
     });
 
     initPreviewByType();
@@ -82,40 +103,12 @@ Airbo.TileVisualPreviewMgr = (function(){
     initShowSearchInput();
   }
 
-  function resetSearchInput(){
-    $(".search-input").val("").animate({width:'0px'}, 600, "linear")
-  }
-
-  function openSearch(){
-    $(".search-input").animate({width:'200px'}, 600, "linear")
-  }
-
-
   function initPreviewByType(){
     if( $("#tile_builder_form_embed_video").val().length > 0 ) {
       $("#image_uploader").hide();
-      toggleVideoSection(true);
+      showVideoPreview()
     }
     autosize( $("#embed_video_field") );
-  }
-
-  function toggleOffVideo(){
-      hideEmbedVideo();
-      resetEmbedVideo();
-  }
-
-  function toggleVideoSection(show) {
-    if(show) {
-      $(".video_section").removeClass("hidden");
-      setTimeout(function(){
-        $(".error_no_video").show();
-      }, 1000);
-    } else {
-      $(".video_section").addClass("hidden");
-      setTimeout(function(){
-        $(".error_no_video").hide();
-      }, 1000);
-    }
   }
 
   function initShowSearchInput(){
@@ -126,7 +119,6 @@ Airbo.TileVisualPreviewMgr = (function(){
   }
   return {
     init: init,
-    showImages, showImages,
   }
 }());
 

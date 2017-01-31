@@ -6,21 +6,13 @@
   overflow: hidden;
 }
 
+
 .video_section {
   position: relative;
+  display: none;
   width: 100%;
   padding-top: 57%;
   background: $gray-6;
-  .error_no_video {
-    color: $n-red2;
-    position: absolute;
-    top: 28%;
-    text-align: center;
-    line-height: 42px;
-    padding: 30px;
-    font-size: 20px;
-    display: none;
-  }
   iframe {
     width: 100%;
     position: absolute;
@@ -91,3 +83,14 @@
     font-size: 75%;
   }
 }
+
+.video_url_error {
+  color: $n-red2;
+  display: none;
+  line-height: 1.5em;
+}
+
+.video-help{
+ margin-bottom:10px;
+}
+
