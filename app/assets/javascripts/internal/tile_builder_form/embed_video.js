@@ -1,12 +1,6 @@
 var Airbo = window.Airbo || {};
 //TODO clean this up to remove any deprecated functionality
 Airbo.EmbedVideo = (function() {
-  var modalObj = Airbo.Utils.StandardModal()
-    , modalId = "embed_video_modal"
-    , submitVideoSel = "#submit_embed_video"
-    , submitVideo
-    , modalInitialized = false
-  ;
   function toggleVideoSection(show) {
     if(show) {
       $(".video_section").removeClass("hidden");
