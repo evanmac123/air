@@ -147,7 +147,7 @@ header {
     border:1px $toggled-menu-bg solid;
     display: none;
     position: absolute;
-    top:3.45em;
+    top:3.47em;
     z-index:5;
     a, #no_other_boards {
       color:$light-gray;
@@ -186,8 +186,8 @@ header {
 
   // Board switch menu
   #board_switch {
-    height: $header-total-height;
-    max-height:$header-total-height;
+    height: 49px;
+    max-height:49px;
     position: relative;
     padding-left: 1em;
     padding-right: 1em;
@@ -206,6 +206,20 @@ header {
       font-size: 0.8rem;
       font-weight: 400;
       color: $text-color;
+    }
+    .board_switch_header {
+      color:$med-gray;
+      padding-top: 0.7em;
+      &:after {
+        color:$med-gray;
+        content:"\25BE";
+        font-size:1.45em;
+        padding-left: 5px;
+      }
+      &:hover {
+        color:$gray;
+        &:after{color:$gray;}
+      }
     }
     p {
       margin: 0;
