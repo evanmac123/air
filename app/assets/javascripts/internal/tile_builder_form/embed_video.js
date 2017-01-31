@@ -24,9 +24,7 @@ Airbo.EmbedVideo = (function() {
     var videoImage = $("#remote_media_url").data("video-image");
     $("#remote_media_url").val(videoImage);
   }
-  function removeVideoImage() {
-    Airbo.TileImagesMgr.removeImage(); // image with video icon
-  }
+
   function addVideo(embedCode) {
     $(".video_frame_block").html(embedCode);
     $("#image_uploader").hide();
@@ -54,10 +52,7 @@ Airbo.EmbedVideo = (function() {
     text = $(text).filter("iframe").prop('outerHTML') || $(text).find("iframe").prop('outerHTML');
     return text;
   }
-  function initModalEvents() {
-    // modal events
 
-  }
 
   function initPaste(){
     $("#embed_video_field").bind('input', function() {
@@ -87,17 +82,6 @@ Airbo.EmbedVideo = (function() {
     addVideo( embedCode );
   }
 
-  function initModalObj() {
-    modalObj.init({
-      modalId: modalId,
-      smallModal: true,
-      onClosedEvent: function() {
-        $("#embed_video_field").val("");
-        $(".embed_video_err").hide();
-        Airbo.TileFormModal.openModal();
-      }
-    });
-  }
 
   function initVars() {
     submitVideo = $(submitVideoSel);
@@ -112,12 +96,7 @@ Airbo.EmbedVideo = (function() {
   }
 
   function init() {
-    if( modalInitialized ) return;
-    modalInitialized = true;
 
-    initVars();
-    initModalObj();
-    initModalEvents();
     autosize( $("#embed_video_field") );
   }
   return {
