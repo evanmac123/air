@@ -92,7 +92,6 @@ Airbo.TileFormModal = (function(){
     Airbo.Utils.mediumEditor.init();
     Airbo.ImageSearcher.init();
     Airbo.StickyMenu.init(self);
-    Airbo.EmbedVideo.initForm();
   }
 
   function initModalObj() {
