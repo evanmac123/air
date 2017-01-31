@@ -4,6 +4,15 @@
     <div class="video_frame_block">
       <%= unescape_html(@tile_builder_form.embed_video) %>
     </div>
+    <div class="image-menu">
+      <ul>
+        <li>
+          <span class="video-menu-item clear menu-tooltip"  title="Remove image">
+            <i class="fa fa-eraser fa-1x"></i>
+          </span>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div id="image_uploader" class="intro-tipsy content_sections">
@@ -35,18 +44,19 @@
 
           <li>
             <span class="img-menu-item upload menu-tooltip" id="uploader_trigger" title="Upload image" >
-              <i class="fa fa-cloud-upload fa-1x"></i></li>
+              <i class="fa fa-cloud-upload fa-1x"></i>
             </span>
-            <li>
-              <span class="img-menu-item video menu-tooltip" title="Embed video" >
-                <i class="fa fa-video-camera fa-1x"></i>
-              </span>
-            </li>
-            <li>
-              <span class="img-menu-item clear menu-tooltip"  title="Remove image">
-                <i class="fa fa-eraser fa-1x"></i>
-              </span>
-            </li>
+          </li>
+          <li>
+            <span class="img-menu-item video menu-tooltip" title="Embed video" >
+              <i class="fa fa-video-camera fa-1x"></i>
+            </span>
+          </li>
+          <li>
+            <span class="img-menu-item clear menu-tooltip"  title="Remove image">
+              <i class="fa fa-eraser fa-1x"></i>
+            </span>
+          </li>
         </ul>
       </div>
     </div>

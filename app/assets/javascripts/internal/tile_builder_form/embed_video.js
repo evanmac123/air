@@ -28,6 +28,7 @@ Airbo.EmbedVideo = (function() {
     $(".video_frame_block").html("");
     $("#remote_media_url").val("");
     $("#tile_builder_form_embed_video").val("");
+    $("#upload_preview").attr("src","/assets/missing-tile-img-full.png") 
     $.Topic("video-removed").publish();
   }
 
@@ -65,7 +66,7 @@ Airbo.EmbedVideo = (function() {
   }
 
   function initClearVideo() {
-    $("body").on("click", ".clear_video", function() {
+    $("body").on("click", ".video-menu-item.clear ", function() {
       removeVideo();
     });
   }

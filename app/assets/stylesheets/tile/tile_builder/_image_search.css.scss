@@ -69,7 +69,7 @@
   }
 }
 
-.image-menu{
+.image-menu, .video-menu{
   position: absolute;
   bottom: 10px;
   left: 10px;
@@ -78,7 +78,7 @@
     display: inline-block;
   }
 
-  .img-menu-item{
+  .img-menu-item, .video-menu-item{
     padding:5px;
     border: 1px solid #fff;
     border-radius: 5px;
