@@ -12,8 +12,6 @@
         <%= render 'shared/header/user_options', user: user %>
         <%= render 'shared/header/board_switch_toggler', user: user %>
         <%= render 'shared/header/desktop_board_switcher', user: user %>
-        <%= render 'shared/header/board_settings_toggle', user: user %>
-        <%= render partial: 'shared/header/copy_board' %>
         <%= render 'shared/header/mobile_admin_options', user: user %>
       </nav>
 
@@ -31,5 +29,3 @@
 <% if user.show_login_modal? %>
   <%= render "shared/header/login_modal", user: user %>
 <% end %>
-
-<%= render 'shared/board_settings/modal', user: user %>
