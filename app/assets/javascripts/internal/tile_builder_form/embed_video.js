@@ -20,6 +20,7 @@ Airbo.EmbedVideo = (function() {
       }, 1000);
     }
   }
+
   function addVideoImage() {
     var videoImage = $("#remote_media_url").data("video-image");
     $("#remote_media_url").val(videoImage);
@@ -30,24 +31,21 @@ Airbo.EmbedVideo = (function() {
     $("#image_uploader").hide();
     toggleVideoSection(true);
     addVideoImage();
-
-    $("#tile_builder_form_embed_video").val(embedCode);
   }
+
   function removeVideo() {
-    removeVideoImage();
     $("#image_uploader").show();
     toggleVideoSection(false);
     $(".video_frame_block").html("");
     $("#tile_builder_form_embed_video").val("");
   }
+
   function initFormEvents() {
-    // form events
     $(".clear_video").click(function() {
       removeVideo();
     });
-
-  
   }
+
   function getValidCode(text) {
     text = $(text).filter("iframe").prop('outerHTML') || $(text).find("iframe").prop('outerHTML');
     return text;
@@ -55,36 +53,29 @@ Airbo.EmbedVideo = (function() {
 
 
   function initPaste(){
-    $("#embed_video_field").bind('input', function() {
-      var embedCode =  getValidCode( $(this).val() );
-      var blockSubmit = embedCode == undefined;
-      if( !blockSubmit ) {
-        $(this).val(embedCode);
+    $("body").on('input',"#tile_builder_form_embed_video", function() {
+      var code = getValidCode($(this).val());
+      if( code == undefined){
+        $(".embed_video_err").toggle(true);
+      }else{
+        addVideo(code);
       }
-      submitVideo.prop("disabled", blockSubmit);
-      $(".embed_video_err").toggle(blockSubmit);
-    });
 
+    });
   }
 
   function initClear(){
-
-    $("#embed_video_field").bind('keyup', function(e){
+    $("#tile_builder_form_embed_video").bind('keyup', function(e){
       if(e.keyCode == 8) { // backspace
         $(this).val("");
-        submitVideo.prop("disabled", true);
       }
     });
   }
 
-  function accetpEmbedCode(){
-    var embedCode = $("#embed_video_field").val();
-    addVideo( embedCode );
-  }
 
-
-  function initVars() {
-    submitVideo = $(submitVideoSel);
+  function initDom(){
+    initPaste();
+    initClear();
   }
 
   function initForm() {
@@ -97,6 +88,7 @@ Airbo.EmbedVideo = (function() {
 
   function init() {
 
+    initDom();
     autosize( $("#embed_video_field") );
   }
   return {

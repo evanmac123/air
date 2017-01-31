@@ -104,10 +104,10 @@ Airbo.ImageSearcher = (function(){
   }
 
   function processResults(data,status,xhr){
-    showSearchResults();
     handler = this.provider;
     var html = handler(data);
     presentData(html);
+    $.Topic("image-results-added").publish();
   }
 
   function presentData(html){
@@ -120,44 +120,8 @@ Airbo.ImageSearcher = (function(){
     }
   }
 
-  function showVisualContentPanel(){
-    $(".visual-content-container").slideDown();
-  }
 
-  function showSearchResults() {
-    showImageWrapper();
-    showVisualContentPanel();
-  }
 
-  function hideImageWrapper(){
-    $(".images-wrapper").hide();
-  }
-
-  function showImageWrapper(){
-    $(".images-wrapper").show();
-  }
-
-  function showEmbedVideo(){
-    $(".embed-video-container").show();
-  }
-
-  function hideEmbedVideo(){
-    $(".embed-video-container").hide();
-  }
-
-  function hideVisualContentPanel(){
-    $(".visual-content-container").slideup();
-    hideimagewrapper();
-    hideEmbedVideo();
-  }
-
-  function resetSearchInput(){
-    $(".search-input").val("").animate({width:'0px'}, 600, "linear")
-  }
-
-  function resetEmbedVideo(){
-    $("#embed_video_field").val("");
-  }
   function initTriggerImageSearch(){
     $(".search-input").keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which)
@@ -181,38 +145,8 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
-  function initShowSearchInput(){
-    $("body").on("click", ".show-search", function(event){
-      hideEmbedVideo();
-      resetEmbedVideo();
-     $(".search-input").animate({width:'200px'}, 600, "linear")
-    })
-  }
 
-  function initShowVideoPanel(){
-    $("body").on("click", ".img-menu-item.video", function(event){
-      hideImageWrapper();
-      resetSearchInput();
-      showEmbedVideo();
-      showVisualContentPanel();
-    });
-  }
-
-  function initHideVisualContent(){
-    $("body").on("click", ".hide-search", function(event){
-      resetSearchInput();
-      hideVisualContentPanel();
-    });
-  }
-
-  function initVisualContent(){
-    initHideVisualContent();
-    initShowVideoPanel();
-    initShowSearchInput();
-  }
-
-
-  function initImagePreview(){
+  function initPreviewSelectedImage(){
     $("body").on("click","#images img", function(event){
       var img = $(this);
       var props= {url: $(this).data("preview")};
@@ -222,14 +156,12 @@ Airbo.ImageSearcher = (function(){
   }
 
   function init(){
+    Airbo.TileVisualPreviewMgr.init();
     grid = $("#images");
-    initVisualContent();
     searchForm = $(searchFormSel);
     initTriggerImageSearch()
-    initImagePreview();
+    initPreviewSelectedImage();
   }
-
-
 
   return {
     init: init
