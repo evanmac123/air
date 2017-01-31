@@ -1,13 +1,22 @@
+<%= form.hidden_field :remote_media_url, id: "remote_media_url", data:{proxyid: "image_uploader", "video-image" => image_path("video.png")} %>
 <%= content_tag :div, class: "builder_content #{'ie9' if ie9_or_older?}" do %>
+  <div class="video_section hidden">
+    <div class="error_no_video">
+      Loading your video... please wait.
+      </br>
+      If the video doesn't display after a couple of seconds, then the embed link you pasted may be invalid. <br>
+      Please click the “X” below and try again with a different link
+    </div>
+    <div class="video_frame_block">
+      <%= unescape_html(@tile_builder_form.embed_video) %>
+    </div>
+    <div class="clear_video has-tip tip-top">
+      <i class="fa fa-times fa-2x"></i>
+    </div>
+  </div>
 
   <div id="image_uploader" class="intro-tipsy content_sections"  data-library-url=<%=client_admin_tile_images_path %> >
-
-    <%= form.text_field :remote_media_url, id: "remote_media_url", style: "display:none" , data:{proxyid: "image_uploader", "video-image" => image_path("video.png")} %>
     <% image_class = tile_image_present(@tile_builder_form.remote_media_url) ? "present" : "missing" %>
-
-
-
-
 
     <div class="intro-tipsy image_preview <%= image_class %> loading" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
       <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
@@ -60,7 +69,7 @@
       </div>
 
       <div class="embed-video-container">
-        <%= form.text_area :embed_video_field, rows: 7, placeholder: "Paste video embed code from Vimeo, Youtube, Wistia or Kaltura" %>
+        <%= form.text_area :embed_video, rows: 7, placeholder: "Paste video embed code from Vimeo, Youtube, Wistia or Kaltura" %>
         <label class="err embed_video_err" style="display:none;">
           Can't save video. Wrong format.
         </label>
