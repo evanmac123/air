@@ -4,37 +4,41 @@
         <div class="carousel-cell">
           <div class="text-center">
             <%= image_tag "explore/onboarding_slide_1.png" %>
-            <h2>The Bulletin Board, Reinvented</h2>
-            <p>Airbo makes employee communications engaging.</p>
+            <% if current_user.is_a?(User) %>
+              <h2><%= t('views.explore.onboarding.slide_1.header', name: current_user.first_name.try(:capitalize)) %></h2>
+            <% else %>
+              <h2><%= t('views.explore.onboarding.slide_1.header_guest') %></h2>
+            <% end %>
+            <p><%= t('views.explore.onboarding.slide_1.body') %></p>
             <br>
-            <a href="#" class="button next-onboarding-slide">Continue</a>
+            <a href="#" class="button next-onboarding-slide"><%= t('views.explore.onboarding.next_slide') %></a>
           </div>
         </div>
         <div class="carousel-cell">
           <div class="text-center">
             <%= image_tag "explore/onboarding_slide_2.png" %>
-            <h2>Post what you want employees to read or do.</h2>
-            <p>It's short, visual, and interactive so employees read and take action.</p>
+            <h2><%= t('views.explore.onboarding.slide_2.header') %></h2>
+            <p><%= t('views.explore.onboarding.slide_2.body') %></p>
             <br>
-            <a href="#" class="button next-onboarding-slide">Continue</a>
+            <a href="#" class="button next-onboarding-slide"><%= t('views.explore.onboarding.next_slide') %></a>
           </div>
         </div>
         <div class="carousel-cell">
           <div class="text-center">
             <%= image_tag "explore/onboarding_slide_3.png" %>
-            <h2>No more Dense HR Emails.</h2>
-            <p>Notify employees of new content with an attention-grabbing email.</p>
+            <h2><%= t('views.explore.onboarding.slide_3.header') %></h2>
+            <p><%= t('views.explore.onboarding.slide_3.body') %></p>
             <br>
-            <a href="#" class="button next-onboarding-slide">Continue</a>
+            <a href="#" class="button next-onboarding-slide"><%= t('views.explore.onboarding.next_slide') %></a>
           </div>
         </div>
         <div class="carousel-cell">
           <div class="text-center">
             <%= image_tag "explore/onboarding_slide_4.png" %>
-            <h2>Spend less time creating content.</h2>
-            <p>Browse hundreds of examples and get weekly suggestions.</p>
+            <h2><%= t('views.explore.onboarding.slide_4.header') %></h2>
+            <p><%= t('views.explore.onboarding.slide_4.body') %></p>
             <br>
-            <a href="#" class="button close-onboarding">Get Started</a>
+            <a href="#" class="button close-onboarding"><%= t('views.explore.onboarding.close') %></a>
           </div>
         </div>
     </div>

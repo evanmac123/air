@@ -10,6 +10,7 @@ namespace :admin do
 
   resources :historical_metrics, only: [:create]
   namespace :sales do
+    resources :leads, only: [:index]
     resources :lead_contacts, only: [:index, :edit, :update, :create, :destroy] do
       resources :invites, only: [:new]
       resources :tiles, only: [:index]

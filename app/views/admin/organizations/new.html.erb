@@ -45,11 +45,11 @@
             <legend>Board</legend>
             <br>
             <%= f.fields_for :boards, @board do |board| %>
-              <%= board.label :name, "Name" %>
+              <%= board.label :name, "Name (defaults to organization name)" %>
               <%= board.text_field :name %>
 
-              <%= label_tag :copy_board, "Copy tiles from Airbo board?" %>
-              <%= select_tag :copy_board, options_from_collection_for_select(Demo.joins(:organization).where(organization: { name: "Airbo" } ), :id,  :name), include_blank: true, class: "airbo-chosen-select" %>
+              <%= label_tag :copy_board, "Choose Board to copy Tiles from" %>
+              <%= select_tag :copy_board, options_from_collection_for_select(Demo.joins(:organization).where(organization: { name: "Airbo" } ), :id,  :name, @default_board_id), class: "airbo-chosen-select" %>
             <% end %>
             <br>
           </fieldset>

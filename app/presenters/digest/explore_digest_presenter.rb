@@ -3,7 +3,7 @@ class ExploreDigestPresenter < TilesDigestMailBasePresenter
   include EmailHelper
 
   EXPLORE_TITLE = "Explore digest".freeze
-  EXPLORE_EMAIL = "explore_v_1".freeze
+  EXPLORE_EMAIL = "explore_digest".freeze
 
   attr_reader :email_heading
 

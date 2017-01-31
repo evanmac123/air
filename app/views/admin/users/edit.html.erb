@@ -1,15 +1,134 @@
 <div class="row">
   <div class="columns small-12">
-    <h3>Edit User: <%= @user.email %></h3>
-    <div class="row">
-      <div class="columns small-6">
-        <fieldset>
-          <legend>Invitation URL</legend>
-          <%= invitation_url(@user.invitation_code) %>
-        </fieldset>
-        <br>
-        <%= render partial: 'form' %>
-      </div>
-    </div>
+    <h3><b><%= @user.name %></b> | <%= @user.id %></h3>
   </div>
 </div>
+<div class="row">
+  <div class="columns small-12">
+    <fieldset>
+      <legend>Helpful links</legend>
+      <br>
+      <%= label_tag "General Invitation URL"%>
+      <p style="margin-top:0"><%= invitation_url(@user.invitation_code) %></p>
+      <%= label_tag "Sales Invitation URL"%>
+      <% if @user.demo %>
+        <p style="margin-top:0"><%= invitation_url(@user.invitation_code, { demo_id: @user.demo.id, new_lead: true }) %></p>
+        <%= label_tag "Current Demo (User view)"%>
+        <p style="margin-top:0"><%= link_to(@user.demo.name, current_board_path(board_id: @user.demo.id, admin_view_board: true), method: :put, target: "_blank") %></p>
+        <p style="margin-top:0"><%= link_to("Edit Demo", admin_demo_path(@user.demo), target: "_blank") %></p>
+      <% else %>
+        <p style="margin-top:0">ERROR: This user has no current board. Notify Customer Success.</p>
+      <% end %>
+    </fieldset>
+  </div>
+</div>
+<%= form_for @user, url: admin_demo_user_path(@user.demo, @user) do |f| %>
+  <div class="row">
+    <div class="columns small-12">
+      <fieldset>
+        <legend>Demographics</legend>
+        <br>
+        <div class="row">
+
+          <div class="columns small-6">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
+          <div class="columns small-6">
+            <%= f.label :email %>
+            <%= f.text_field :email %>
+          </div>
+          <div class="columns small-6">
+            <%= f.label :phone_number %>
+            <%= f.text_field :phone_number %>
+          </div>
+          <div class="columns small-6">
+            <%= f.label :zip_code %>
+            <%= f.text_field :zip_code %>
+          </div>
+          <div class="columns small-6">
+            <%= f.label :claim_code %>
+            <%= f.text_field :claim_code %>
+          </div>
+          <div class="columns small-6">
+            <%= f.label :is_client_admin %>
+            <%= f.check_box :is_client_admin %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="columns small-6">
+            <%= f.label :date_of_birth %>
+            <%= f.date_select :date_of_birth, include_blank: true %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="columns small-6">
+            <%= f.submit "Update User", class: "button" %>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+<% end %>
+<div class="row">
+  <div class="columns small-12">
+    <fieldset>
+      <legend>Tile Management</legend>
+      <%= button_to "Reset tiles for this user in #{@user.demo.name}",  admin_reset_tiles_path(:demo_id => @user.demo, :user_id => @user.id), :method => :delete, class: "button" %>
+    </fieldset>
+  </div>
+</div>
+<div class="row">
+  <div class="columns small-12">
+    <fieldset>
+      <legend>Characteristics</legend>
+      <%= form_tag admin_demo_user_characteristics_path(@user.demo, @user), method: :put do %>
+        <div id="agnostic-characteristics">
+          <h3>Demo-agnostic characteristics</h3>
+          <%= characteristic_inputs @agnostic_characteristics, @user %>
+        </div>
+
+        <div id="specific-characteristics">
+          <h3>Demo-specific characteristics</h3>
+          <%= characteristic_inputs @demo_specific_characteristics, @user %>
+        </div>
+
+        <%= submit_tag "Set characteristics", class: "button" %>
+      <% end %>
+    </fieldset>
+  </div>
+</div>
+
+<%= semantic_form_for @user, :url => admin_demo_user_path(@user.demo, @user) do |f| %>
+  <div class="row">
+    <div class="columns small-12">
+      <fieldset>
+        <legend>Move User To A Different Demo</legend>
+        <p>If you move this user, any actions they did under the original demo will still exist in the database, but won't show up until such time as you move them back to that original demo.</p>
+        <%= f.input :demo, collection: @demos, label_method: :name, include_blank: false %>
+        <%= f.submit 'Move User', class: "button" %>
+      </fieldset>
+    </div>
+  </div>
+<% end %>
+
+<%= form_tag admin_demo_user_path(@user.demo, @user), :method => :delete do %>
+  <div class="row">
+    <div class="columns small-12">
+      <fieldset>
+        <legend>Delete User</legend>
+        <div class="row">
+          <div class="columns small-12">
+            Deleting users is <strong>irrevocable</strong>. There is <strong>no undo</strong>. All the history we have on this user (activities, friendships, everything) will be <strong>gone forever</strong> if you push this button.
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="columns small-12">
+            <%= submit_tag 'Destroy user', :confirm => "Don't say I didn't warn you. Are you sure you want to delete #{@user.name}?", class: "button red" %>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+<% end %>

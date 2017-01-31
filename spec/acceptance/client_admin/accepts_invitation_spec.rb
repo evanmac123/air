@@ -9,7 +9,7 @@ feature "Client Admin Accepts Invitation" do
   end
 
   def fill_in_required_invitation_fields
-    fill_in("Choose a password", :with => 'whatwhat')
+    fill_in("user_password", with: 'whatwhat')
   end
 
   def expect_terms_and_conditions_language
@@ -25,10 +25,6 @@ feature "Client Admin Accepts Invitation" do
 
     visit activity_path
     expect_content "#{@user.name} joined"
-
-    ActionMailer::Base.deliveries.clear
-    crank_dj_clear
-    expect(ActionMailer::Base.deliveries).to be_empty # no validation code to email
   end
 
   scenario "across boards" do
@@ -83,13 +79,13 @@ feature "Client Admin Accepts Invitation" do
 
   scenario "user sets password, with no confirmation needed" do
     visit invitation_url(@user.invitation_code)
-    fill_in "Choose a password", with: "foofoo"
+    fill_in_required_invitation_fields
     click_button "Log in"
 
     click_link "Sign Out"
 
     fill_in "session[email]", with: @user.email
-    fill_in "session[password]", with: 'foofoo'
+    fill_in "session[password]", with: 'whatwhat'
     click_button "Log In"
 
     should_be_on explore_path
@@ -144,5 +140,25 @@ feature "Client Admin Accepts Invitation" do
     expect_terms_and_conditions_language
     click_link "terms and conditions"
     should_be_on terms_path
+  end
+
+  it "should not require a password if the user is a new lead" do
+    visit invitation_url(@user.invitation_code, { new_lead: true })
+    should_be_on(explore_path)
+  end
+
+  it "should notify sales if a new lead activates" do
+    visit invitation_url(@user.invitation_code, { new_lead: true })
+
+    expect(ActionMailer::Base.deliveries.count).to eq(1)
+    expect(ActionMailer::Base.deliveries.first.to).to eq(["sales@airbo.com"])
+  end
+
+  it "should notify sales if a new lead revisits the invitation link" do
+    visit invitation_url(@user.invitation_code, { new_lead: true, demo_id: @user.demo.id })
+    visit invitation_url(@user.invitation_code, { new_lead: true, demo_id: @user.demo.id })
+
+    expect(ActionMailer::Base.deliveries.count).to eq(2)
+    expect(ActionMailer::Base.deliveries.last.body.include?("Visit Count: 2")).to eq(true)
   end
 end

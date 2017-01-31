@@ -11,7 +11,6 @@ describe InvitationsController do
 
       get :show, id: user.invitation_code, demo_id: inviter.demo.id, referrer_id: inviter.id
 
-      expect(subject).to have_received(:record_mixpanel_ping).with(subject.send(:current_user))
       expect(subject).to have_received(:email_clicked_ping).with(subject.send(:current_user))
     end
   end

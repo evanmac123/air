@@ -82,6 +82,7 @@ Airbo.CopyTileToBoard = (function(){
 
   return {
     init: init,
+    bindThumbnailCopyButton: bindThumbnailCopyButton
   };
 }());
 

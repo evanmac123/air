@@ -56,15 +56,19 @@ class Contract < ActiveRecord::Base
   end
 
   def self.active_mrr_today
-   active.sum(&:calc_mrr)
+    active_as_of_today.sum(&:calc_mrr)
   end
 
   def self.active_arr_today
-    active.sum(&:calc_mrr) * 12
+    active_as_of_today.sum(&:calc_mrr) * 12
   end
 
   def self.delinquent_mrr_as_of_date d
     delinquent_as_of(d).sum(&:calc_mrr) 
+  end
+
+  def self.active_as_of_today
+    active_as_of_date(Date.today)
   end
 
 
@@ -81,7 +85,7 @@ class Contract < ActiveRecord::Base
   end
 
   def self.active_not_expiring_during_period sdate, edate
-    current_as_of(sdate).where("start_date <= ? and end_date >= ?", sdate, edate)
+    current_as_of(sdate).where("start_date <= ? and end_date > ?", sdate, edate)
   end
 
   def self.added_during_period sdate, edate

@@ -1,0 +1,19 @@
+en:
+  views:
+    explore:
+      onboarding:
+        next_slide: Continue
+        close: Get Started
+        slide_1:
+          header: Hi %{name}, Welcome to Airbo!
+          header_guest: Hi There, Welcome to Airbo!
+          body: Employee communications made fun and simple
+        slide_2:
+          header: Visual and Interactive
+          body: Like a reinvented bulletin board
+        slide_3:
+          header: Drive Participation
+          body: Market content using attention-grabbing email
+        slide_4:
+          header: Your Content Assistant
+          body: Browse best practice examples and get weekly suggestions
