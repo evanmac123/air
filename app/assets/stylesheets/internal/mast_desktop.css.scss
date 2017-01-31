@@ -207,6 +207,20 @@ header {
       font-weight: 400;
       color: $text-color;
     }
+    .board_switch_header {
+      color:$med-gray;
+
+      &:after {
+        color:$med-gray;
+        content:"\25BE";
+        font-size:1.45em;
+        padding-left: 5px;
+      }
+      &:hover {
+        color:$gray;
+        &:after{color:$gray;}
+      }
+    }
     p {
       margin: 0;
     }
