@@ -175,7 +175,7 @@ class FinancialsCalcService
       upgrade_amt_booked: upgrade_amt_booked,
       from_date: sdate,
       to_date: edate,
-    }
+    }.to_json
   end
 
 end
