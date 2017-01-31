@@ -59,7 +59,7 @@ class FinancialsCalcService
   end
 
   def churned_customers
-    @churned_customers ||=starting_customers - retained_customers
+    @churned_customers ||=starting_customers - current_customers
   end
 
   def churned_customer_count
@@ -146,6 +146,36 @@ class FinancialsCalcService
 
   def renewal_amt_booked
     retained_customers.sum{|o|o.contracts.booked_during_period(sdate, edate)} - upgrade_amt_booked
+  end
+
+  def to_json
+    {
+      starting_mrr: starting_mrr,
+      added_mrr: added_mrr,
+      upgrade_mrr: upgrade_mrr,
+      new_cust_mrr: new_customer_mrr,
+      churned_mrr: churned_mrr,
+      downgrade_mrr: downgrade_mrr,
+      churned_customer_mrr: churned_customer_mrr,
+      net_changed_mrr: net_changed_mrr,
+      net_churned_mrr: net_churned_mrr,
+      current_mrr: current_mrr,
+      possible_churn_mrr: possible_churn_mrr,
+      percent_churned_mrr: percent_churned_mrr,
+      starting_customers: starting_customer_count,
+      added_customers: added_customer_count,
+      churned_customers: churned_customer_count,
+      net_change_customers: net_change_in_customers,
+      current_customers: current_customer_count,
+      possible_churn_customers: possible_churn_customer_count,
+      percent_churned_customers: percent_churned_customers,
+      amt_booked: amt_booked,
+      added_customer_amt_booked: added_customer_amt_booked,
+      renewal_amt_booked: renewal_amt_booked,
+      upgrade_amt_booked: upgrade_amt_booked,
+      from_date: sdate,
+      to_date: edate,
+    }
   end
 
 end

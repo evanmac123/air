@@ -60,6 +60,7 @@ class FinancialKpiBuilder
       end
     end
 
+
     def build_monthly_historicals(from_date=nil)
       if has_data?
         sdate = min_start(from_date).beginning_of_month
@@ -72,6 +73,33 @@ class FinancialKpiBuilder
         end
       end
     end
+
+    def build_projection start_date, periods, interval
+      if has_data?
+        step_by = interval == Metrics::MONTHLY ? :months : :weeks
+
+        sdate, edate = interval_end_points(start_date,interval)
+        stop_date = start_date.advance({step_by => periods})
+
+        while  sdate < stop_date do 
+          k = "kpi:projections:#{interval}:#{sdate}"
+          f = FinancialsCalcService.new(sdate, edate)
+          m = Nest.new(k)
+          m.set(f.to_json)
+          sdate = sdate.advance({step_by => 1})
+          ignore, edate = interval_end_points(sdate, interval)
+        end
+      end
+    end
+
+    def interval_end_points date, interval
+      if (interval == Metrics::MONTHLY)
+        [date.beginning_of_month, date.end_of_month]
+      else
+        [date.beginning_of_week, date.end_of_week]
+      end
+    end
+
 
     def min_start(date)
       date || Contract.min_activity_date

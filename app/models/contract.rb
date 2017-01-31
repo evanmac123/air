@@ -81,7 +81,7 @@ class Contract < ActiveRecord::Base
   end
 
   def self.active_not_expiring_during_period sdate, edate
-    current_as_of(sdate).where("start_date <= ? and end_date >= ?", sdate, edate)
+    current_as_of(sdate).where("start_date <= ? and end_date > ?", sdate, edate)
   end
 
   def self.added_during_period sdate, edate
