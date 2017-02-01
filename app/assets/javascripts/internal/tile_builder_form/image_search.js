@@ -123,25 +123,25 @@ Airbo.ImageSearcher = (function(){
 
 
   function initTriggerImageSearch(){
-    $(".search-input").keypress(function(event){
-      var keycode = (event.keyCode ? event.keyCode : event.which)
-        , form =$("#flickr.search-form")
+    $(".show-search").click(function(event){
+      var  form =$("#flickr.search-form")
         , ctx = {}
-        , searchField = 'input[name=' + form.data("search-field") +']'
+        , apiSearchField = 'input[name=' + form.data("search-field") +']'
+        , searchText = $(".search-input").val();
       ;
-        if(keycode == '13'){
-          ctx.provider = resultHandlers[form.data("provider")]
-          form.find(searchField).val($(this).val());
-          $.ajax({
-            url: form.attr("action"),
-            type: form.attr("method"),
-            data: form.serialize(),
-            dataType: "json",
-          })
-          .done(processResults.bind(ctx))
-          .fail(function(){
-          })
-        }
+
+      ctx.provider = resultHandlers[form.data("provider")]
+      form.find(apiSearchField).val(searchText);
+
+      $.ajax({
+        url: form.attr("action"),
+        type: form.attr("method"),
+        data: form.serialize(),
+        dataType: "json",
+      })
+      .done(processResults.bind(ctx))
+      .fail(function(){
+      })
     });
   }
 

@@ -81,7 +81,6 @@ Airbo.TileVisualPreviewMgr = (function(){
   function initVisualContent(){
     initHideVisualContent();
     initShowVideoPanel();
-    initShowSearchInput();
   }
 
   function init(){
@@ -102,7 +101,6 @@ Airbo.TileVisualPreviewMgr = (function(){
 
     initPreviewByType();
     initVisualContent();
-    initShowSearchInput();
   }
 
   function initPreviewByType(){
@@ -112,21 +110,7 @@ Airbo.TileVisualPreviewMgr = (function(){
     }
   }
 
-  function initShowSearchInput(){
-    $("body").on("click", ".show-search", function(event){
 
-      event.stopImmediatePropagation();
-      if($(event.target).is(".search-input")){
-        return
-      }
-      toggleOffVideo();
-      if($(".search-input").hasClass("isOpen")){
-        resetSearchInput();
-      }else{
-        openSearch();
-      }
-    })
-  }
   return {
     init: init,
   }

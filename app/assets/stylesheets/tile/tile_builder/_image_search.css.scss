@@ -81,19 +81,16 @@
   }
 }
 
-
-
 input[type=text].search-input{
-  float: right; 
+  float: left; 
   height:30px;
   padding: 5px;
   padding-right: 0px;
-  width: 0px;
+  width: 200px;
+  height: 18px;
   margin: 0;
   background: transparent;
   border: none;
   color: white;
-  width: 0px;
-  height: 18px;
 }
 
