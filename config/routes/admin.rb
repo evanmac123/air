@@ -1,7 +1,7 @@
 resource :admin, :only => :show
 
 namespace :admin do
-
+  resource  :sales, only: [:show]
   resources :channels
   resources :campaigns
   resources :case_studies, except: :show

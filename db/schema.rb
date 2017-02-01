@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170118194904) do
+ActiveRecord::Schema.define(:version => 20170126215357) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -372,6 +372,16 @@ ActiveRecord::Schema.define(:version => 20170118194904) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "demo_roles", :force => true do |t|
+    t.integer  "demo_id"
+    t.integer  "role_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "demo_roles", ["demo_id"], :name => "index_demo_roles_on_demo_id"
+  add_index "demo_roles", ["role_id"], :name => "index_demo_roles_on_role_id"
+
   create_table "demos", :force => true do |t|
     t.string   "name",                                                 :default => "",                :null => false
     t.datetime "created_at"
@@ -719,14 +729,18 @@ ActiveRecord::Schema.define(:version => 20170118194904) do
     t.string   "sales_channel"
     t.boolean  "churned"
     t.text     "churn_reason"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.boolean  "is_hrm",        :default => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.boolean  "is_hrm",            :default => false
     t.string   "roles"
     t.string   "size_estimate"
     t.string   "slug"
-    t.boolean  "internal",      :default => false
-    t.integer  "demos_count",   :default => 0,     :null => false
+    t.boolean  "internal",          :default => false
+    t.integer  "demos_count",       :default => 0,     :null => false
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   add_index "organizations", ["name"], :name => "index_organizations_on_name"
@@ -826,6 +840,12 @@ ActiveRecord::Schema.define(:version => 20170118194904) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "delayed_job_id"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "rule_values", :force => true do |t|
