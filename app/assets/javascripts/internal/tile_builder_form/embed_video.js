@@ -7,25 +7,43 @@ Airbo.EmbedVideo = (function() {
     $(".endless_scroll_loading").show();
     $(".video_frame_block").html(embedCode);
     timer = waitForVideoLoad();
-    $(".video_frame_block iframe").on("load", function(){
-      $(".endless_scroll_loading").hide();
+    $(".video_frame_block iframe").on("load", function(event){
+      hideLoader(); 
       clearTimeout(timer);
       $.Topic("video-added").publish();
     });
   }
 
-  function waitForVideoLoad(){
-    return setTimeout(showError, 5000);
-  }
 
-  function showError(){
-
+  function hideLoader(){
     $(".endless_scroll_loading").hide();
-    $(".video_url_error").show();
   }
 
-  function hideError(){
-    $(".video_url_error").hide();
+  function waitForVideoLoad(){
+    return setTimeout(showUnloadableError, 5000);
+  }
+
+  function showUnloadableError(){
+    hideLoader();
+    $(".unloadable").show();
+  }
+
+  function hideUnloadableError(){
+    $(".unloadable").hide();
+  }
+
+  function hideErrors(){
+    hideLoader();
+    hideUnloadableError();
+    hideUnparsableError();
+  }
+
+  function showUnparsableError(){
+    $(".unparsable").show();
+  }
+
+  function hideUnparsableError(){
+    $(".unparsable").hide();
   }
 
   function removeVideo() {
@@ -33,12 +51,17 @@ Airbo.EmbedVideo = (function() {
     $("#remote_media_url").val("");
     $("#tile_builder_form_embed_video").val("");
     $("#upload_preview").attr("src","/assets/missing-tile-img-full.png") 
+    hideErrors();
     $.Topic("video-removed").publish();
   }
 
   function getValidCode(text) {
-    text = $(text).filter("iframe").prop('outerHTML') || $(text).find("iframe").prop('outerHTML');
-    return text;
+    try{
+      text = $(text).filter("iframe").prop('outerHTML') || $(text).find("iframe").prop('outerHTML');
+      return text;
+    }catch(e){
+      return undefined;
+    }
   }
 
   function initPaste(){
@@ -49,7 +72,7 @@ Airbo.EmbedVideo = (function() {
         code = getValidCode(val)
 
         if(code == undefined){
-          $(".embed_video_err").toggle(true);
+          showUnparsableError();
         }
         else{
           addVideo(code);
@@ -63,7 +86,7 @@ Airbo.EmbedVideo = (function() {
       if(e.keyCode == 8) {
         $(this).val("");
         removeVideo();
-        hideError();
+        hideErrors();
         clearTimeout(timer);
       }
     });

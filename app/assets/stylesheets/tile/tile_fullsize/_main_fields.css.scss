@@ -7,32 +7,6 @@
 }
 
 
-.video_section {
-  position: relative;
-  display: none;
-  width: 100%;
-  padding-top: 57%;
-  background: $gray-6;
-  iframe {
-    width: 100%;
-    position: absolute;
-    height: 100%;
-    top: 0;
-  }
-  .clear_video {
-    display: block;
-    position: absolute;
-    bottom: 3px;
-    left: 18px;
-    i {
-      color: $white;
-      &:hover, &:focus {
-        cursor: pointer;
-        color: $red;
-      }
-    }
-  }
-}
 
 .tile_headline, #tile_builder_form_headline, #tile_builder_form_embed_video {
   font-size: 25px;
@@ -84,7 +58,38 @@
   }
 }
 
-.video_url_error {
+/*
+TODO move to tile media file
+*/
+
+.video_section {
+  position: relative;
+  display: none;
+  width: 100%;
+  padding-top: 57%;
+  background: $gray-6;
+  iframe {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 0;
+  }
+  .clear_video {
+    display: block;
+    position: absolute;
+    bottom: 3px;
+    left: 18px;
+    i {
+      color: $white;
+      &:hover, &:focus {
+        cursor: pointer;
+        color: $red;
+      }
+    }
+  }
+}
+
+.video-error{
   color: $n-red2;
   display: none;
   line-height: 1.5em;

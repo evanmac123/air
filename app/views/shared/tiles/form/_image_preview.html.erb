@@ -82,10 +82,10 @@
         <%= link_to "Help with video embed?", "https://www.airbo.com/support#AddaVideo", target: "_blank" %>
       </div>
       <%= form.text_area :embed_video, rows: 7, placeholder: "Paste video embed code from Vimeo, Youtube, Wistia or Kaltura" %>
-      <label class="err embed_video_err" style="display:none;">
-        Can't save video. Wrong format.
-      </label>
-      <div class="video_url_error hidden">
+      <div class="unparsable video-error" >
+        The link you've entered is invalid. Please try again with a valid video embed link. Click the help link to see instructions for embedding video.
+      </div>
+      <div class="unloadable video-error">
         Unable to load your video.The embed link you pasted may be invalid. Please delete the link and try again with a different link.
       </div>
       <div class="endless_scroll_loading text-center">
