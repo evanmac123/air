@@ -49,23 +49,24 @@ module Reporting
           "paid_client_admins_who_viewed_tiles_in_explore",
           "tiles_viewed_per_paid_client_admin"
         ],
-        #"Creation" => [
-          #"percent_orgs_that_added_tiles",
-          #"total_tiles_added_by_paid_client_admin",
-          #"unique_orgs_that_added_tiles",
 
-          #"percent_of_added_tiles_from_copy",
-          #"percent_of_added_tiles_from_scratch",
+        "Creation" => [
+          "percent_orgs_that_added_tiles",
+          "total_tiles_added_by_paid_client_admin",
+          "unique_orgs_that_added_tiles",
 
-          #"total_tiles_added_from_copy_by_paid_client_admin",
-          #"unique_orgs_that_copied_tiles",
-          #"average_tiles_copied_per_org_that_copied",
+          "percent_of_added_tiles_from_copy",
+          "percent_of_added_tiles_from_scratch",
 
-          #"tiles_created_from_scratch",
-          #"orgs_that_created_tiles_from_scratch",
-          #"average_tiles_created_from_scratch_per_org_that_created",
-          #"average_tile_creation_time"
-        #],
+          "total_tiles_added_from_copy_by_paid_client_admin",
+          "unique_orgs_that_copied_tiles",
+          "percent_orgs_that_copied_tiles",
+          "average_tiles_copied_per_org_that_copied",
+
+          "tiles_created_from_scratch",
+          "orgs_that_created_tiles_from_scratch",
+          "average_tiles_created_from_scratch_per_org_that_created",
+        ],
 
         #"Engagement" => [
           #"percent_joined_current",
@@ -213,10 +214,10 @@ module Reporting
           css: " kpi-tooltip"
         },
         "total_tiles_added_by_paid_client_admin" => {
-          label: "New Tiles Added",
-          series: "New Tiles Added",
+          label: "Total Tiles Added",
+          series: "Total Tiles Added",
           type: "num",
-          hint: "# Total Tiles Added by Paid Client Admins",
+          hint: "# Total Tiles Copied or Created by Paid Client Admins",
           css: "kpi-tooltip",
           indent: 0
         },
@@ -224,7 +225,7 @@ module Reporting
           label: "Customers",
           series: "# Customers That Added Tiles",
           type: "num",
-          hint: "# of customers that added Tiles",
+          hint: "# of customers that copied or created Tiles",
           css: "kpi-tooltip",
           indent: 1
         },
@@ -248,7 +249,7 @@ module Reporting
           label: "Copied",
           series: "% Customers That Copied Tiles",
           type: "pct 0",
-          hint: "% of New Tiles that were copied from Explore",
+          hint: "% Customers That Copied Tiles",
           css: "kpi-tooltip",
           indent: 1,
         },
@@ -285,28 +286,28 @@ module Reporting
         },
         "orgs_that_posted_tiles" =>{
           label: "Orgs That Posted Tiles",
-          #series: "# Customers That Posted Tiles",
+          series: "# Customers That Posted Tiles",
           type: "num",
           hint: "",
           indent: 0,
         },
         "percent_of_orgs_that_posted_tiles" =>{
           label: "% of Orgs That Posted Tiles",
-          #series: "% Customers That Posted Tiles",
+          series: "% Customers That Posted Tiles",
           type: "pct 0",
           hint: "",
           indent: 0,
         },
         "total_tiles_posted" =>{
           label: "Total Tiles Posted",
-          #series: "Total Tiles Posted",
+          series: "Total Tiles Posted",
           type: "num",
           hint: "",
           indent: 0,
         },
         "average_tiles_posted_per_organization_that_posted" =>{
           label: "Average Tiles Posted Per Organization That Posted Tiles",
-          #series: "Avg # Tiles Posted per Customer",
+          series: "Avg # Tiles Posted per Customer",
           type: "num",
           hint: "",
           indent: 0,
