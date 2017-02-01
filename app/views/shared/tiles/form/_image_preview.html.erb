@@ -18,7 +18,7 @@
   <div id="image_uploader" class="intro-tipsy content_sections">
     <% image_class = tile_image_present(@tile_builder_form.remote_media_url) ? "present" : "missing" %>
 
-    <div class="intro-tipsy image_preview <%= image_class %> loading" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
+    <div class="intro-tipsy image_preview limited-height <%= image_class %>" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
       <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
       <div class="shadow_overlay"></div>
       <div class="image_credit ">
@@ -42,11 +42,7 @@
             </span>
           </li>
 
-          <li>
-            <span class="img-menu-item  expand menu-tooltip" title="Expand">
-              <i class="fa fa-expand" aria-hidden="true"></i>
-            </span>
-          </li>
+        
           <li>
             <span class="img-menu-item upload menu-tooltip" id="uploader_trigger" title="Upload image" >
               <i class="fa fa-cloud-upload fa-1x"></i>
@@ -60,6 +56,12 @@
           <li>
             <span class="img-menu-item clear menu-tooltip"  title="Remove image">
               <i class="fa fa-eraser fa-1x"></i>
+            </span>
+          </li>
+          <li>
+            <span class="img-menu-item expand-contract menu-tooltip" title="Expand">
+              <i class="fa fa-expand fa-1x" aria-hidden="true"></i>
+              <i class="fa fa-compress fa-1x" aria-hidden="true"></i>
             </span>
           </li>
         </ul>

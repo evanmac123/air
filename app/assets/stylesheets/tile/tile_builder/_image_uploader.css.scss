@@ -62,3 +62,27 @@
   }
 }
 
+.limited-height{
+ max-height:500px;
+}
+.image-menu, .video-menu{
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  opacity: 1;
+  li{
+    display: inline-block;
+  }
+
+  .img-menu-item, .video-menu-item{
+    padding:5px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1.15em;
+    cursor: pointer;
+    display: inline-block;
+  }
+}
+
+

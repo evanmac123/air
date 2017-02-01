@@ -36,6 +36,7 @@ Airbo.TileImagePreviewer = (function(){
     clearImage = $(clearImageSelector);
     remoteMediaUrl = $(remoteMediaUrlSelector);
     remoteMediaType = $(remoteMediaTypeSelector);
+    initExpand();
   }
 
 
@@ -45,6 +46,23 @@ Airbo.TileImagePreviewer = (function(){
       removeImage();
       event.stopPropagation();
     });
+  }
+
+  function initExpand(){
+
+    $(".img-menu-item .fa-compress").hide();
+
+    $(".img-menu-item .fa-expand").click(function(){
+       $(".image_preview").removeClass("limited-height");
+       $(this).hide();
+       $(".img-menu-item .fa-compress").show();
+    })
+
+    $(".img-menu-item .fa-compress").click(function(){
+       $(".image_preview").addClass("limited-height");
+       $(".img-menu-item .fa-expand").show();
+       $(this).hide();
+    })
   }
 
   function init(mgr){
