@@ -50,7 +50,7 @@ Airbo.TileVisualPreviewMgr = (function(){
 
 
   function resetSearchInput(){
-    $(".search-input").val("").removeClass("isOpen").animate({width:'0px'}, 500, "linear")
+    $(".search-input").val("");
   }
 
   function openSearch(){
