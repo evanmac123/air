@@ -32,8 +32,11 @@ module SalesAcquisitionConcern
     end
 
     def set_new_lead_for_sales(user)
+      org = user.organization
       current_user.rdb[:sales][:leads].sadd(user.id)
       Organization.rdb[:sales][:leads].sadd(user.id)
+      current_user.rdb[:sales][:active_orgs_in_sales].sadd(org.id)
+      Organization.rdb[:sales][:active_orgs_in_sales].sadd(org.id)
       new_lead_ping(user)
     end
 
@@ -45,12 +48,12 @@ module SalesAcquisitionConcern
     end
 
     def current_leads
-      users = Organization.rdb[:sales][:leads].smembers
-      User.joins(:organization).where(id: users)
+      orgs = Organization.rdb[:sales][:active_orgs_in_sales].smembers
+      Organization.joins(:users).where(id: orgs)
     end
 
     def my_leads
-      users = current_user.rdb[:sales][:leads].smembers
-      User.joins(:organization).where(id: users)
+      orgs = current_user.rdb[:sales][:active_orgs_in_sales].smembers
+      Organization.joins(:users).where(id: orgs)
     end
 end
