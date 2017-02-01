@@ -104,10 +104,10 @@ Airbo.ImageSearcher = (function(){
   }
 
   function processResults(data,status,xhr){
+    $.Topic("image-results-added").publish();
     handler = this.provider;
     var html = handler(data);
     presentData(html);
-    $.Topic("image-results-added").publish();
   }
 
   function presentData(html){
