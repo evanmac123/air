@@ -50,12 +50,12 @@ Airbo.TileVisualPreviewMgr = (function(){
 
 
   function resetSearchInput(){
-    $(".search-input").val("").animate({width:'0px'}, 500, "linear")
+    $(".search-input").val("").removeClass("isOpen").animate({width:'0px'}, 500, "linear")
   }
 
   function openSearch(){
     $(".search-input").animate({width:'200px'}, 500, "linear", function(){
-      $(".search-input").focus();
+      $(".search-input").addClass("isOpen").focus();
     });
   }
 
@@ -114,8 +114,17 @@ Airbo.TileVisualPreviewMgr = (function(){
 
   function initShowSearchInput(){
     $("body").on("click", ".show-search", function(event){
+
+      event.stopImmediatePropagation();
+      if($(event.target).is(".search-input")){
+        return
+      }
       toggleOffVideo();
-      openSearch();
+      if($(".search-input").hasClass("isOpen")){
+        resetSearchInput();
+      }else{
+        openSearch();
+      }
     })
   }
   return {
