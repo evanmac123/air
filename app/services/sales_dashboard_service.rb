@@ -7,7 +7,7 @@ class SalesDashboardService
 
   def lead_activation_rate_by_user
     if users_in_sales_by_sales_person.count > 0
-      activated_users_in_sales_by_sales_person.count.to_i / users_in_sales_by_sales_person.count
+      activated_users_in_sales_by_sales_person.count.to_f / users_in_sales_by_sales_person.count
     else
       0
     end
@@ -15,7 +15,7 @@ class SalesDashboardService
 
   def lead_activation_rate
     if users_in_sales.count > 0
-      activated_users_in_sales.count.to_i / users_in_sales.count
+      activated_users_in_sales.count.to_f / users_in_sales.count
     else
       0
     end
