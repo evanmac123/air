@@ -2,9 +2,9 @@
   <table>
     <thead>
       <tr>
+        <th>Organization</th>
         <th>Name</th>
         <th>Email</th>
-        <th>Organization</th>
         <th>Demo Id</th>
         <th>Invite Link Click Count</th>
         <th>Days Since Created</th>
@@ -13,29 +13,31 @@
     </thead>
     <tbody>
       <% leads.each do |lead| %>
-        <tr id="<%= lead.id %>">
-          <td>
-            <%= link_to(lead.name, edit_admin_demo_user_path(lead.demo, lead), target: "_blank") %>
-          </td>
-          <td>
-            <%= lead.email %>
-          </td>
-          <td>
-            <%= link_to(lead.organization.name, admin_organization_path(lead.organization), target: "_blank") %>
-          </td>
-          <td>
-            <%= link_to(lead.demo.id, current_board_path(board_id: lead.demo.id, admin_view_board: true), method: :put, target: "_blank") %>
-          </td>
-          <td>
-            <%= lead.rdb[:invite_link_click_count].get %>
-          </td>
-          <td>
-            <%= time_ago_in_words(lead.created_at) %>
-          </td>
-          <td>
-            <%= time_ago_in_words(lead.accepted_invitation_at) if lead.accepted_invitation_at %>
-          </td>
-        </tr>
+        <% lead.users.each do |user| %>
+          <tr id="<%= lead.id %>">
+            <td>
+              <%= link_to(lead.name, admin_organization_path(lead), target: "_blank") %>
+            </td>
+            <td>
+              <%= link_to(user.name, edit_admin_demo_user_path(user.demo, user), target: "_blank") %>
+            </td>
+            <td>
+              <%= user.email %>
+            </td>
+            <td>
+              <%= link_to(user.demo.id, current_board_path(board_id: user.demo.id, admin_view_board: true), method: :put, target: "_blank") %>
+            </td>
+            <td>
+              <%= user.rdb[:invite_link_click_count].get %>
+            </td>
+            <td>
+              <%= time_ago_in_words(user.created_at) %>
+            </td>
+            <td>
+              <%= time_ago_in_words(user.accepted_invitation_at) if user.accepted_invitation_at %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>

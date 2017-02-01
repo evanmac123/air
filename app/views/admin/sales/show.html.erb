@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="columns small-12">
+    <h3>Sales Dashboard</h3>
+    <h3>Total lead activation rate: <%= number_to_percentage(@dashboard.lead_activation_rate * 100, precision: 2)%></h3>
+    <h3>Lead activation rate for <%= current_user.name %>: <%= number_to_percentage(@dashboard.lead_activation_rate_by_user * 100, precision: 2)%></h3>
+    <br>
+    <h3>Leads activated: <%= @dashboard.activated_users_in_sales.count %></h3>
+    <h3>Leads activated for <%= current_user.name %>: <%= @dashboard.activated_users_in_sales_by_sales_person.count %></h3>
+    <br>
+    <h3>Leads not activated: <%= @dashboard.users_in_sales.count - @dashboard.activated_users_in_sales.count %></h3>
+    <h3>Leads not activated for <%= current_user.name %>: <%= @dashboard.users_in_sales_by_sales_person.count - @dashboard.activated_users_in_sales_by_sales_person.count %></h3>
+  </div>
+</div>
