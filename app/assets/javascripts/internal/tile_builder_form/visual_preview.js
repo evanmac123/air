@@ -12,6 +12,7 @@ Airbo.TileVisualPreviewMgr = (function(){
 
   function showEmbedVideo(){
     $(".embed-video-container").show();
+   $("#tile_builder_form_embed_video").focus();
   }
 
   function hideEmbedVideo(){
@@ -22,11 +23,9 @@ Airbo.TileVisualPreviewMgr = (function(){
     $(".visual-content-container").slideUp();
     hideImageWrapper();
     hideEmbedVideo();
+    $(".hide-search").hide();
   }
 
-  function resetEmbedVideo(){
-    $("#embed_video_field").val("");
-  }
 
   function initHideVisualContent(){
     $("body").on("click", ".hide-search", function(event){
@@ -36,6 +35,7 @@ Airbo.TileVisualPreviewMgr = (function(){
   }
 
   function showVisualContentPanel(){
+    $(".hide-search").show();
     $(".visual-content-container").slideDown();
   }
 
@@ -50,16 +50,17 @@ Airbo.TileVisualPreviewMgr = (function(){
 
 
   function resetSearchInput(){
-    $(".search-input").val("").animate({width:'0px'}, 600, "linear")
+    $(".search-input").val("").animate({width:'0px'}, 500, "linear")
   }
 
   function openSearch(){
-    $(".search-input").animate({width:'200px'}, 600, "linear")
+    $(".search-input").animate({width:'200px'}, 500, "linear", function(){
+      $(".search-input").focus();
+    });
   }
 
   function toggleOffVideo(){
     hideEmbedVideo();
-    resetEmbedVideo();
   }
 
 
@@ -108,7 +109,6 @@ Airbo.TileVisualPreviewMgr = (function(){
       $("#image_uploader").hide();
       showVideoPreview()
     }
-    autosize( $("#embed_video_field") );
   }
 
   function initShowSearchInput(){

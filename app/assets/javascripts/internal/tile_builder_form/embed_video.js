@@ -13,7 +13,7 @@ Airbo.EmbedVideo = (function() {
   }
 
   function waitForVideoLoad(){
-    return setTimeout(showError, 2000);
+    return setTimeout(showError, 4000);
   }
 
   function showError(){
