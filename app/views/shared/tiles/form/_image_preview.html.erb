@@ -4,7 +4,7 @@
     <div class="video_frame_block">
       <%= unescape_html(@tile_builder_form.embed_video) %>
     </div>
-    <div class="image-menu">
+    <div class="video-menu">
       <ul>
         <li>
           <span class="video-menu-item clear menu-tooltip"  title="Remove image">
@@ -13,6 +13,7 @@
         </li>
       </ul>
     </div>
+   
   </div>
 
   <div id="image_uploader" class="intro-tipsy content_sections">
@@ -86,6 +87,9 @@
       </label>
       <div class="video_url_error hidden">
         Unable to load your video.The embed link you pasted may be invalid. Please delete the link and try again with a different link.
+      </div>
+      <div class="endless_scroll_loading text-center">
+        <i class="fa fa-spinner fa-spin fa-2x text-center" ></i>
       </div>
     </div>
   </div>

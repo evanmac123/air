@@ -46,6 +46,12 @@
 .embed-video-container{
   display: none;
   margin: 40px;
+  .endless_scroll_loading{
+    display: none;
+    .fa-spinner{
+      color:#48BFFF;
+    }
+  }
 }
 
 .images-wrapper{

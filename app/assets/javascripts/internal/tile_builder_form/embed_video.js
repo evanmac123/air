@@ -4,9 +4,11 @@ Airbo.EmbedVideo = (function() {
   var timer;
 
   function addVideo(embedCode) {
+    $(".endless_scroll_loading").show();
     $(".video_frame_block").html(embedCode);
     timer = waitForVideoLoad();
     $(".video_frame_block iframe").on("load", function(){
+      $(".endless_scroll_loading").hide();
       clearTimeout(timer);
       $.Topic("video-added").publish();
     });
@@ -17,6 +19,8 @@ Airbo.EmbedVideo = (function() {
   }
 
   function showError(){
+
+    $(".endless_scroll_loading").hide();
     $(".video_url_error").show();
   }
 

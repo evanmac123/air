@@ -90,6 +90,7 @@ Airbo.TileVisualPreviewMgr = (function(){
     });
 
     $.Topic("video-added").subscribe( function(){
+      hideVisualContentPanel()
       $(".video_section").show();
       $("#image_uploader").hide();
     });
