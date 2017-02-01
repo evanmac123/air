@@ -372,16 +372,6 @@ ActiveRecord::Schema.define(:version => 20170126215357) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "demo_roles", :force => true do |t|
-    t.integer  "demo_id"
-    t.integer  "role_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "demo_roles", ["demo_id"], :name => "index_demo_roles_on_demo_id"
-  add_index "demo_roles", ["role_id"], :name => "index_demo_roles_on_role_id"
-
   create_table "demos", :force => true do |t|
     t.string   "name",                                                 :default => "",                :null => false
     t.datetime "created_at"
@@ -840,12 +830,6 @@ ActiveRecord::Schema.define(:version => 20170126215357) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "delayed_job_id"
-  end
-
-  create_table "roles", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "rule_values", :force => true do |t|
