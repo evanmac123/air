@@ -1,5 +1,5 @@
 class Organization < ActiveRecord::Base
-  serialize :roles, Array
+  resourcify
   before_save :update_slug
 
   has_many :contracts

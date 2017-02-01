@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   extend User::Queries
   extend ValidImageMimeTypes
 
+  rolify strict: true
   acts_as_taggable_on :channels
 
   belongs_to :organization
