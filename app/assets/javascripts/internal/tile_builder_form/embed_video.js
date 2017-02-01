@@ -6,14 +6,14 @@ Airbo.EmbedVideo = (function() {
   function addVideo(embedCode) {
     $(".video_frame_block").html(embedCode);
     timer = waitForVideoLoad();
-    $(".video_frame_block iframe").load(function(){
+    $(".video_frame_block iframe").on("load", function(){
       clearTimeout(timer);
       $.Topic("video-added").publish();
     });
   }
 
   function waitForVideoLoad(){
-    return setTimeout(showError, 4000);
+    return setTimeout(showError, 5000);
   }
 
   function showError(){
