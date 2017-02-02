@@ -1,9 +1,9 @@
 var Airbo = {
   init:  function(){
 
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    $("body").bind("ajaxSend", function(elm, xhr, settings){
+      if (settings.crossDomain === false) {
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
       }
     });
 

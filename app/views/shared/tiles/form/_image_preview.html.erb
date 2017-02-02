@@ -1,50 +1,98 @@
+<%= form.hidden_field :remote_media_url, id: "remote_media_url", data:{proxyid: "image_uploader", "video-image" => image_path("video.png")} %>
 <%= content_tag :div, class: "builder_content #{'ie9' if ie9_or_older?}" do %>
-
-  <div id="image_uploader" class="intro-tipsy content_sections"  data-library-url=<%=client_admin_tile_images_path %> >
-
-    <%= form.text_field :remote_media_url, id: "remote_media_url", style: "display:none" , data:{proxyid: "image_uploader", "video-image" => image_path("video.png")} %>
-    <% image_class = tile_image_present(@tile_builder_form.remote_media_url) ? "show_shadows" : "show_placeholder" %>
-
-    <div class="intro-tipsy image_preview <%= image_class %> loading" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
-      <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
-
-      <div class="media_placeholders">
-        <div class="video_placeholder">
-          <div class="icon_circle">
-            <i class="fa fa-play"></i>
-          </div>
-          <label>Add Video</label>
-        </div>
-
-        <div class="image_placeholder">
-          <div class="icon_circle">
-            <i class="fa fa-camera"></i>
-          </div>
-          <label id="uploaded_image_file">Add Image</label>
-        </div>
-      </div>
-      <div class="shadows">
-        <div class="shadow_overlay"></div>
-        <div class="clear_image has-tip tip-top" data-tooltip title="Remove the image">
-          <i class="fa fa-times fa-2x"></i>
-        </div>
-        <div class="image_credit ">
-          <% if ie9_or_older? %>
-            <div class="image_credit_view">
-              <%= @tile_builder_form.image_credit %>
-            </div>
-          <% else %>
-            <div class="image_credit_view no_outline" contenteditable="true">
-              <%= @tile_builder_form.image_credit%>
-            </div>
-            <%= form.text_area :image_credit %>
-          <% end %>
-        </div>
-      </div>
+  <div class="video_section">
+    <div class="video_frame_block">
+      <%= unescape_html(@tile_builder_form.embed_video) %>
     </div>
-
+    <div class="video-menu">
+      <ul>
+        <li>
+          <span class="video-menu-item clear menu-tooltip"  title="Remove image">
+            <i class="fa fa-trash fa-1x"></i>
+          </span>
+        </li>
+      </ul>
+    </div>
+   
   </div>
 
+  <div id="image_uploader" class="intro-tipsy content_sections">
+    <% image_class = tile_image_present(@tile_builder_form.remote_media_url) ? "present" : "missing" %>
+
+    <div class="intro-tipsy image_preview limited-height <%= image_class %>" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
+      <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
+      <div class="shadow_overlay"></div>
+      <div class="image_credit ">
+        <% if ie9_or_older? %>
+          <div class="image_credit_view">
+            <%= @tile_builder_form.image_credit %>
+          </div>
+        <% else %>
+          <div class="image_credit_view no_outline" contenteditable="true">
+            <%= @tile_builder_form.image_credit%>
+          </div>
+          <%= form.text_area :image_credit %>
+        <% end %>
+      </div>
+      <div class="image-menu">
+        <ul>
+          <li>
+            <span class="img-menu-item search" title="Search">
+              <i class="fa fa-search fa-1x show-search" aria-hidden="true"></i>
+              <input type="text" class="search-input" placeholder="Search images">
+            </span>
+          </li>
+
+        
+          <li>
+            <span class="img-menu-item upload menu-tooltip" id="uploader_trigger" title="Upload image" >
+              <i class="fa fa-cloud-upload fa-1x"></i>
+            </span>
+          </li>
+          <li>
+            <span class="img-menu-item video menu-tooltip" title="Embed video" >
+              <i class="fa fa-video-camera fa-1x"></i>
+            </span>
+          </li>
+          <li>
+            <span class="img-menu-item clear menu-tooltip"  title="Remove image">
+              <i class="fa fa-trash fa-1x"></i>
+            </span>
+          </li>
+          <li>
+            <span class="img-menu-item expand-contract menu-tooltip" title="Expand">
+              <i class="fa fa-expand fa-1x" aria-hidden="true"></i>
+              <i class="fa fa-compress fa-1x" aria-hidden="true"></i>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="hide-search gray-5">
+    <a href="#" > Hide <sup><i class="fa fa-angle-up fa-1x" aria-hidden="true"></i></sup></a>
+  </div>
+  <div class="visual-content-container">
+    <div class="images-wrapper">
+      <div id="images"></div>
+    </div>
+
+    <div class="embed-video-container">
+      <div class="video-help">
+        <%= link_to "Help with video embed?", "https://www.airbo.com/support#AddaVideo", target: "_blank" %>
+      </div>
+      <%= form.text_area :embed_video, rows: 7, placeholder: "Paste video embed code from Vimeo, Youtube, Wistia or Kaltura" %>
+      <div class="unparsable video-error" >
+        The link you've entered is invalid. Please try again with a valid video embed code. Click the help section above to see instructions for embedding video.
+      </div>
+      <div class="unloadable video-error">
+        Unable to load your video.The embed link you pasted may be invalid. Please delete the link and try again with a different link.
+      </div>
+      <div class="endless_scroll_loading text-center">
+        <i class="fa fa-spinner fa-spin fa-2x text-center" ></i>
+      </div>
+    </div>
+  </div>
   <% if ie9_or_older? %>
     <div class="content_sections tile_builder_section">
       <%= form.label :image_credit %>
@@ -54,6 +102,7 @@
 
 <% end %>
 <%#TODO figure out better browser detection procedure %>
+
 <% if ie9_or_older? %>
   <% js_at_end do %>
     $(document).ready(function() {

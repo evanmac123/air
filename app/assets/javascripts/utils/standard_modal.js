@@ -1,15 +1,33 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
+
+
 Airbo.Utils.StandardModal = (function(){
+  /* ******* NOTE ********************************
+   * This modal template introduces a small bit of duplicaiton between the erb
+   * templates and javascript. The fragment below is identlical to the modal erb
+   * template for the form
+   * ******************************************************************
+   *
+   */
   return function(){
+    var modalTemplate = '<div class="reveal-modal standard_modal">' +
+      '<div class="modal_container">' +
+      '<div class="modal_header">' +
+      '<a class="close-reveal-modal"><i class="fa fa-times fa-2x"></i></a>' +
+      '</div>' +
+      '<div class="modal_content"></div>' +
+      '</div></div>'; 
+
+    var dynamicModal = $(modalTemplate);
+
+
     var modal
       , modalSel
       , modalContainer
       , modalContent
       , modalXSel
-      , ajaxModalClass = "ajax_modal"
-      , ajaxModalSel = "." + ajaxModalClass
       , params
       , defaultParams = {
           useAjaxModal: false,
@@ -54,7 +72,7 @@ Airbo.Utils.StandardModal = (function(){
     }
 
     function setContent(content) {
-      modal.find("#modal_content").html(content);
+      modal.find(".modal_content").html(content);
     }
 
     function bodyScrollVisibility(show) {
@@ -133,8 +151,7 @@ Airbo.Utils.StandardModal = (function(){
       modal = $(modalSel);
       // make ajax modal
       if(params.useAjaxModal && modal.length == 0) {
-        modal = $(ajaxModalSel).clone();
-        modal.removeClass(ajaxModalClass);
+        modal = $(dynamicModal).clone();
         modal.appendTo( $(".modals") );
         modal.attr("id", modalId);
       }

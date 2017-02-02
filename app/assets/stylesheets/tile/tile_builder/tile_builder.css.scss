@@ -1,10 +1,11 @@
 #images_modal{
-  @import "image_library";
 }
-#tile_form_modal {
+
   .err {
     color: $n-red2;
   }
+
+  @import "image_search";
   form.new_tile_builder_form {
     @import "main_inputs";
     @import "image_uploader";
@@ -12,11 +13,11 @@
     @import "slider";
     @import "ie9";
     .character-counter {
-      margin-top: -25px;
+      margin-top: -15px;
     }
   }
   .tile_form_holder {
-    margin-top: 83px;
+    margin-top: 44px;
   }
   .tile_holder {
     background: white;
@@ -50,4 +51,3 @@
     margin-bottom: 40px;
     line-height: 43px;
   }
-}

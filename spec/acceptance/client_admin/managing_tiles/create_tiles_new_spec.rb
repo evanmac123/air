@@ -29,7 +29,6 @@ feature "Client admin creates tiles", js: true do
       scenario "create with only headline" do
         click_link "Add New Tile"
         page.find("#tile_builder_form_headline").set("Ten pounds of cheese")
-        page.find("body").click
         page.find(".close-reveal-modal").click
         within ".tile_container.unfinished" do
           expect(page).to  have_content "Ten pounds of cheese"
@@ -39,7 +38,6 @@ feature "Client admin creates tiles", js: true do
       pending "create with only image" do
         click_link "Add New Tile"
         fake_upload_image img_file1
-        page.find("body").click
         page.find(".close-reveal-modal").click
         page.find(".tile_container.unfinished")
         within ".tile_container.unfinished" do
@@ -92,7 +90,7 @@ feature "Client admin creates tiles", js: true do
 
 
   def click_create_button
-    page.find("#new_tile_builder_form .submit_tile_form").click
+    page.find(".submit_tile_form").click
   end
 
   def fill_in_tile_form_entries options = {}

@@ -24,12 +24,13 @@
   }
 }
 input[type="text"],textarea, .text-input {
-  border: none;
-  display: block;
-  margin-bottom:0;
-  padding: 0;
-  width:100%;
-  background: transparent;
+  &.tile-form{
+    border: none;
+    display: block;
+    margin-bottom:0;
+    padding: 0;
+    background: transparent;
+  }
 }
 textarea {
   resize: none;

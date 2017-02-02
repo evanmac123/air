@@ -83,20 +83,15 @@ Airbo.TileFormModal = (function(){
 
   function initFormElements() {
     validator = Airbo.TileFormValidator.init(currform);
-    Airbo.TileImagesMgr.init();
+    Airbo.TileImageUploader.init();
+    Airbo.TileImagePreviewer.init() 
     Airbo.TileImageCredit.init();
     Airbo.TilePointsSlider.init();
     Airbo.TileQuestionBuilder.init();
     Airbo.TileSuportingContentTextManager.init();
     Airbo.Utils.mediumEditor.init();
-    imageLibraryModal = Airbo.ImageLibraryModal;
-    imageLibraryModal.init(Airbo.TileFormModal);
+    Airbo.ImageSearcher.init();
     Airbo.StickyMenu.init(self);
-    Airbo.EmbedVideo.initForm();
-
-    $("#upload_preview").on("load", function(){
-      $(".image_preview").removeClass("loading").attr("style", ""); // remove height
-    });
   }
 
   function initModalObj() {
@@ -126,9 +121,6 @@ Airbo.TileFormModal = (function(){
   function initEvents() {
     currform.on("click", pickImageSel, function(e){
       e.preventDefault();
-      Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("add image"));
-      var libraryUrl = $("#image_uploader").data("libraryUrl");
-      imageLibraryModal.open(libraryUrl);
     });
 
     submitLink.click(function(e){
@@ -180,7 +172,7 @@ Airbo.TileFormModal = (function(){
 
   function initVars() {
     currform = $(formSel);
-    submitLink = currform.find(".submit_tile_form");
+    submitLink = $(".submit_tile_form");
   }
 
   function openModal(){
