@@ -1,7 +1,10 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreOnboarding = (function(){
+  var currentUserData;
+
   function init() {
+    currentUserData = $("body").data("currentUser");
     var $carousel = $('.flickity-explore-oboarding-carousel');
 
     $carousel.flickity({
@@ -26,6 +29,7 @@ Airbo.ExploreOnboarding = (function(){
   function bindNextOnboardingSlide() {
     $(".next-onboarding-slide").on("click", function(e) {
       e.preventDefault();
+      pingSlideComplete("next_slide", $(this));
       $('.flickity-explore-oboarding-carousel').flickity('next');
     });
   }
@@ -33,8 +37,15 @@ Airbo.ExploreOnboarding = (function(){
   function bindCloseOnboarding() {
     $(".close-onboarding").on("click", function(e) {
       e.preventDefault();
+      pingSlideComplete("complete", $(this));
       $('#exploreOnboardingModal').foundation('reveal', 'close');
     });
+  }
+
+  function pingSlideComplete(action, button) {
+    var properties = $.extend({ action: action, slide: button.data("slide") }, currentUserData);
+
+    Airbo.Utils.ping("Explore page - Onboarding", properties);
   }
 
   return {

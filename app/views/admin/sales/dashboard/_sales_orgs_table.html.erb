@@ -27,7 +27,7 @@
               <td><%= number_to_percentage(org.user_activation_rate, precision: 2) %></td>
               <td><%= @dashboard.number_of_visits_from_org(org) %></td>
               <td><%= @dashboard.manager_of_org(org) %></td>
-              <td><%= link_to("Details", "#", class: "sales-org-details") %></td>
+              <td><%= link_to("Details", admin_organization_path(org), target: "_blank") %></td>
             </tr>
           <% end %>
         </tbody>
