@@ -13,7 +13,7 @@ Airbo.ImageSearcher = (function(){
       var html = "" ;
       data.items.forEach(function(item){
         var link = item.link
-          , img = "<img style='height:150px' src='" + link + "'/>"
+          , img = "<img style='height:150px' data-flickity-lazyload='" + link + "'/>"
           , cell = "<div class='cell'>" + img + "</div>"
         ;
 
