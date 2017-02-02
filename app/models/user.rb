@@ -469,7 +469,7 @@ class User < ActiveRecord::Base
   end
 
   def first_name
-    name.split.first
+    name.split.first.capitalize
   end
 
   def send_new_phone_validation_token

@@ -4,10 +4,12 @@
   <%= image_tag tile.demo.logo(:thumb), class: "company_logo #{is_default_logo ? 'default_logo' : ''}" %>
   <!-- </div> -->
   <span class="creator_name">
-    Tile 
+    Tile
     <% if tile.creator %>
-      by <%= tile.creator.try(:name) %> 
+      by <%= tile.creator.try(:name) %>
     <% end %>
-    of <%= tile.demo.name %>
+    <% if tile.organization %>
+      at <%= link_to "#{tile.organization.name.titleize}", explore_organization_path(tile.organization) %>
+    <% end %>
   </span>
 </div>
