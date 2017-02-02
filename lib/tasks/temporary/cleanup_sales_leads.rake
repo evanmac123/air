@@ -1,21 +1,13 @@
 namespace :admin do
   desc "Cleanup sales leads"
-  task sales_leads: :environment do
-    ["eamonn.culliton@airbo.com", "marco.schneiderman@airbo.com"].each { |admin|
-      admin = User.find_by_email(admin)
-      all_leads = Organization.rdb[:sales][:leads].smembers
-      all_leads.each { |lead|
-        user = User.find_by_id(lead)
-        if user && user.organization
-          org = user.organization
-          puts "Adding #{org.name} as lead in Redis"
-          Organization.rdb[:sales][:active_orgs_in_sales].sadd(org.id)
-          if admin.rdb[:sales][:leads].smembers.include?(lead)
-            puts "Adding #{org.name} as #{admin.name}'s lead in Redis"
-            admin.rdb[:sales][:active_orgs_in_sales].sadd(org.id)
-          end
-        end
-      }
+  task sales_orgs: :environment do
+    ["eamonn-admin@airbo.com", "marco-admin@airbo.com"].each { |admin|
+      redis_orgs = admin.rdb[:sales][:active_orgs_in_sales].smembers
+      orgs = Organization.where(id:  redis_orgs)
+
+      orgs.each do |o|
+        admin.add_role(:sales, o)
+      end
     }
   end
 end
