@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
 
   rolify strict: true
   acts_as_taggable_on :channels
+  acts_as_taggable_on :sales_paths
 
   belongs_to :organization
   belongs_to :location
@@ -211,6 +212,13 @@ class User < ActiveRecord::Base
     organization.track_channels(channel_list) if organization
     self.save
   end
+
+##Experiment to quickly gather analytics on what leads are looking at:
+  def add_path_to_sales_tracking(path)
+    sales_path_list.add(path)
+    self.save
+  end
+##
 
   def end_user?
     !is_client_admin && !is_site_admin

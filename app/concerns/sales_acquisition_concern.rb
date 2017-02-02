@@ -37,15 +37,4 @@ module SalesAcquisitionConcern
 
       ping(event, ping_parameters, user)
     end
-
-#deprecate for new role based identification:
-    def current_leads
-      orgs = Organization.rdb[:sales][:active_orgs_in_sales].smembers
-      Organization.joins(:users).where(id: orgs)
-    end
-
-    def my_leads
-      orgs = current_user.rdb[:sales][:active_orgs_in_sales].smembers
-      Organization.joins(:users).where(id: orgs)
-    end
 end

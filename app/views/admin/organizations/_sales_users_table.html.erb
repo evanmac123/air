@@ -9,6 +9,7 @@
       <th>Days Since Created</th>
       <th>Days Since Activated</th>
       <th>Interests</th>
+      <th>Paths</th>
     </tr>
   </thead>
   <tbody>
@@ -32,8 +33,11 @@
         <td width="100">
           <%= time_ago_in_words(user.accepted_invitation_at) if user.accepted_invitation_at %>
         </td>
-        <td>
+        <td width="250">
           <%= user.channel_list.join(", ") %>
+        </td>
+        <td width="250">
+          <%= user.sales_path_list.join(", ") %>
         </td>
       </tr>
     <% end %>
