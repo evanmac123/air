@@ -212,8 +212,8 @@ Airbo.KpiChart = (function(){
     $(".report-filter").submit(function(event){
       event.preventDefault(); 
       kpiChart.showLoading();
-      Airbo.Utils.KpiReportDateFilter.adjustDateRanges();
       Airbo.AjaxResponseHandler.submit($(this), refreshWithHTML, submitFailure, "html");
+      $.Topic("report-date-form-submitted").publish();
     })
   }
 
