@@ -1,46 +1,26 @@
 
 <div class="row">
-  <div class="columns small-12 small-centered">
-    <h1 class ="text-left"><%= @organization.name %></h1>
-    <table class="first-column-header">
-      <tbody>
-        <tr>
-          <th>Is HRM</th>
-          <td><%= @organization.is_hrm.humanize %></td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <%=link_to "Edit this organization", edit_admin_organization_path(@organization)%>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <hr/>
-  </div>
-</div>
-
-<div class="row">
   <div class="columns small-12">
-    <div id="tabs">
-      <ul class="tabs">
-        <li><a href="#tab-1" >Boards</a></li>
-        <li><a href="#tab-2">Contracts</a></li>
-      </ul>
-      <div id="tab-1" class="tab">
-        <%= render "org_boards", boards: @organization.boards %>
-      </div>
+    <h1 class ="text-left"><%= @organization.name %></h1>
+    <fieldset>
+      <legend>Info</legend>
+      <%=link_to "Edit this organization", edit_admin_organization_path(@organization)%>
+    </fieldset>
+    <br>
+    <fieldset>
+      <legend>Sales Data</legend>
+    </fieldset>
+    <fieldset>
+      <legend>Boards</legend>
+      <%= render "org_boards", boards: @organization.boards %>
+    </fieldset>
+    <fieldset>
+      <legend>Contracts</legend>
+      <%= render "cust_contracts", organization: @organization %>
+    </fieldset>
 
-      <div id="tab-2" class="tab">
-        <%= render "cust_contracts", organization: @organization %>
-      </div>
-    </div>
+    <%= form_tag admin_organization_path(@organization), method: :delete do %>
+      <%= submit_tag 'Delete Organization', confirm: "Are you sure you would like to delete the #{@organization.name} organization?", class: "button red" %>
+    <% end %>
   </div>
 </div>
-
-<%= form_tag admin_organization_path(@organization), method: :delete do %>
-  <div class="row">
-    <div class="columns small-12">
-      <%= submit_tag 'Delete Organization', confirm: "Are you sure you would like to delete the #{@organization.name} organization?", class: "button red" %>
-    </div>
-  </div>
-<% end %>
