@@ -138,6 +138,19 @@ class Organization < ActiveRecord::Base
     TimeDifference.between(customer_start_date, customer_end_date).in_months
   end
 
+  def user_activation_rate
+    if users.count.nonzero?
+      (activated_users.count.to_f / users.count) * 100
+    else
+      0
+    end
+  end
+
+  def activated_users
+    arel_users = User.arel_table
+    users.non_site_admin.where(arel_users[:accepted_invitation_at].not_eq(nil))
+  end
+
 
 
   private

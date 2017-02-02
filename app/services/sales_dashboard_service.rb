@@ -1,51 +1,66 @@
 class SalesDashboardService
-  attr_reader :user
+  attr_reader :sales_team
 
-  def initialize(user = nil)
-    @user = user
+  def initialize
+    @sales_team = User.with_role(:sales, :any).uniq
   end
 
-  def lead_activation_rate_by_user
-    if users_in_sales_by_sales_person.count > 0
-      activated_users_in_sales_by_sales_person.count.to_f / users_in_sales_by_sales_person.count
+  def org_activation_percent(user = nil)
+    if sales_orgs(user).count.nonzero?
+      (activated_sales_orgs_count / sales_orgs(user).count) * 100
     else
-      0
+      sales_orgs(user).count
     end
   end
 
-  def lead_activation_rate
-    if users_in_sales.count > 0
-      activated_users_in_sales.count.to_f / users_in_sales.count
-    else
-      0
+  def sales_orgs(user = nil)
+    Organization.with_role(:sales, user)
+  end
+
+  def first_activated_user_from_org(org)
+    users = User.arel_table
+    org.users.non_site_admin.where(users[:accepted_invitation_at].not_eq(nil)).order(:created_at).limit(1).first
+  end
+
+  def org_activated?(org)
+    first_activated_user_from_org(org).present?
+  end
+
+  def org_activated_at(org)
+    if user = first_activated_user_from_org(org)
+      user.accepted_invitation_at.strftime("%b %e, %Y")
     end
   end
 
-  def org_ids_in_sales_by_user
-    user.rdb[:sales][:active_orgs_in_sales].smembers
+  def number_of_visits_from_org(org)
+    org.users.non_site_admin.map { |user|
+      user.rdb[:invite_link_click_count].get.to_i
+    }.inject(:+)
   end
 
-  def org_ids_in_sales
-    Organization.rdb[:sales][:active_orgs_in_sales].smembers
+  def total_visits_from_sales
+    @_total_visits_from_sales ||= sales_orgs.map { |org|
+      number_of_visits_from_org(org)
+    }.inject(:+)
   end
 
-  def users_in_sales
-    @users_in_sales ||= User.joins(:organization).where(is_site_admin: false).where(organization: { id: org_ids_in_sales } )
+  def manager_of_org(org)
+    sales_team.with_role(:sales, org).pluck(:name).join(",")
   end
 
-  def users_in_sales_by_sales_person
-    @users_in_sales_by_sales_person ||= User.joins(:organization).where(is_site_admin: false).where(organization: { id: org_ids_in_sales_by_user } )
-  end
+  private
 
-  def activated_users_in_sales
-    users_in_sales.where(user_arel_table[:accepted_invitation_at].not_eq(nil))
-  end
+    def activated_sales_orgs_count(user = nil)
+      activated_sales_orgs(user).count.to_f
+    end
 
-  def activated_users_in_sales_by_sales_person
-    users_in_sales_by_sales_person.where(user_arel_table[:accepted_invitation_at].not_eq(nil))
-  end
+    def activated_sales_orgs(user = nil)
+      users = User.arel_table
+      sales_orgs(user).joins(:users).where(users: { is_site_admin: false}).where(users[:accepted_invitation_at].not_eq(nil)).uniq
+    end
 
-  def user_arel_table
-    User.arel_table
-  end
+    def unactivated_sales_orgs(user = nil)
+      organization = Organization.arel_table
+      sales_orgs(user).where(organization[:id].not_eq(activated_sales_orgs.pluck(:id)))
+    end
 end
