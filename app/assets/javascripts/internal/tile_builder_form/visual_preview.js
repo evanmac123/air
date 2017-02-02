@@ -26,6 +26,25 @@ Airbo.TileVisualPreviewMgr = (function(){
     $(".hide-search").hide();
   }
 
+  function hideVideoErrors(){
+    hideLoader();
+    hideUnloadableError();
+    hideUnparsableError();
+  }
+
+  function hideLoader(){
+    $(".endless_scroll_loading").hide();
+  }
+
+  function hideUnparsableError(){
+    $(".unparsable").hide();
+  }
+
+  function hideUnloadableError(){
+    $(".unloadable").hide();
+  }
+
+
 
   function initHideVisualContent(){
     $("body").on("click", ".hide-search", function(event){
@@ -76,6 +95,7 @@ Airbo.TileVisualPreviewMgr = (function(){
       hideImageWrapper();
       resetSearchInput();
       showEmbedVideo();
+      hideVideoErrors();
       showVisualContentPanel();
     });
   }
@@ -99,6 +119,14 @@ Airbo.TileVisualPreviewMgr = (function(){
     $.Topic("video-removed").subscribe( function(){
       $("#image_uploader").show();
       hideVideoPreview();
+    });
+
+
+    $.Topic("inititiating-image-search").subscribe( function(){
+      $("#remote_media_url").val("");
+      $("#tile_builder_form_embed_video").val("");
+      hideVideoPreview();
+      hideEmbedVideo();
     });
 
     initPreviewByType();

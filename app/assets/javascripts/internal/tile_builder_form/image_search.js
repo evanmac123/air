@@ -120,6 +120,14 @@ Airbo.ImageSearcher = (function(){
     }
   }
 
+
+  function hideVisualContentPanel(){
+    $(".visual-content-container").slideUp();
+    hideImageWrapper();
+    hideEmbedVideo();
+    $(".hide-search").hide();
+  }
+
   function executeSearch(){
     var  form =$("#flickr.search-form")
       , ctx = {}
@@ -131,8 +139,8 @@ Airbo.ImageSearcher = (function(){
     // Do this here to clear the video preview in case the user entered a bad an
     // invalid embed code is now seeing url like "www.youtube.com?blah"
 
-    $("#remote_media_url").val("");
-    $("#tile_builder_form_embed_video").val("");
+
+    $.Topic("inititiating-image-search").publish();
 
     ctx.provider = resultHandlers[form.data("provider")]
     form.find(apiSearchField).val(searchText);
