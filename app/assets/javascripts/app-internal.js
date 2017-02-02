@@ -24,6 +24,7 @@
 //= require ./external/schedule_demo
 //= require ./external/request_form
 
+//= require ../../../vendor/assets/javascripts/flickity.pkgd.min.js
 
 $(document).ready(function() {
   $('.settings-edit').foundation();
