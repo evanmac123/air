@@ -26,6 +26,22 @@ module Reporting
       container
     end
 
+    def chart_series_names
+      self.class.chart_series_names
+    end
+
+    def self.grouped_chart_series_names
+      instance = self.new
+      opts = instance.chart_series_names
+      inverse_opts = opts.invert
+      grouped_opts = {}
+      instance.sections.map do |name, keys|
+        grp =inverse_opts.slice(*keys)
+        grouped_opts[name]=grp.invert.to_a
+      end
+      grouped_opts.to_a
+    end
+
     def raw_data sdate, edate, interval=Metrics::WEEKLY
       sdate, edate = interval== Metrics::WEEKLY ? [sdate.beginning_of_week, edate.end_of_week] : [sdate.beginning_of_month, edate.end_of_month]
       db_fields.by_date_range_and_interval(sdate, edate, interval)
