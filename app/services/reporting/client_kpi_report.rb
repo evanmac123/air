@@ -389,54 +389,5 @@ module Reporting
     end
 
     private
-    def curr_nps_data
-     @nps_data ||= Integrations::NetPromoterScore.get_metrics({trend: PAID_CLIENTS_DELIGHTED_TREND })
-    end
-
-    def adjust_current_percent_by_count(percent_hash)
-      percent_hash["percent"].to_i * percent_hash["count"].to_i
-    end
-
-    def calculate_percent_joined_for_demo(demo)
-      (joined_users_count(demo) / total_users_count(demo)).round(2)
-    end
-
-    def calculate_percent_joined_for_key(percent_hash, demo_percent)
-
-      total = adjust_current_percent_by_count(percent_hash) + demo_percent
-      population = percent_hash["count"].to_i + 1
-
-      (total / population).round(2)
-    end
-
-    def total_users_count(demo)
-      demo.users.count
-    end
-
-    def joined_users_count(demo)
-      demo.users.where(User.arel_table[:accepted_invitation_at].not_eq(nil)).count.to_f
-    end
-
-    def set_percent_by_days_since_launch(days_since_launch)
-      date = Date.today - days_since_launch.days
-      scope = demos.includes(:users).where(launch_date: date)
-      key = days_since_launch
-
-      scope.each { |demo|
-        percent_hash = $redis.hgetall("reporting:client_kpis:percent_joined:#{key}")
-
-        demo_percent = calculate_percent_joined_for_demo(demo)
-        new_percent = calculate_percent_joined_for_key(percent_hash, demo_percent)
-      }
-    end
-
-    def set_current_percent
-      scope = User.select([:id, :accepted_invitation_at]).joins(:demo).where(demo: { is_paid: true } )
-
-      joined_users = scope.where(User.arel_table[:accepted_invitation_at].not_eq(nil))
-
-      percent = (joined_users.count.to_f / scope.count).round(2)
-
-    end
   end
 end
