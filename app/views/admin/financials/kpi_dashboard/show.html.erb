@@ -46,7 +46,7 @@
       </div>
       <div class="columns small-3">
         <%= form_tag "", method: :get,  class: "custom report-filter" do %>
-          <%= select_tag :metric_list, options_for_select(@rep.chart_series_names), { id: "metric_list", class: "no-custom airbo-chosen-select", data:{kpis: @rep.chart_series_names.invert }} %>
+          <%= select_tag :metric_list, grouped_options_for_select(@rep.grouped_chart_series_names), { id: "metric_list", class: "no-custom airbo-chosen-select", data:{kpis: @rep.chart_series_names.invert }} %>
         <%end%>
       </div>
 

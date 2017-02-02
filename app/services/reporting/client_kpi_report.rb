@@ -17,8 +17,8 @@ module Reporting
       @curr ||= CustSuccessKpi.by_period(period).last
     end
 
-    def self.chart_series_names
-      self.new.chart_series_names
+    def chart_series_names
+      chart_series_names
     end
 
     def sections

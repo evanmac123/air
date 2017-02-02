@@ -26,16 +26,12 @@ module Reporting
       container
     end
 
-    def chart_series_names
-      self.class.chart_series_names
-    end
 
-    def self.grouped_chart_series_names
-      instance = self.new
-      opts = instance.chart_series_names
+    def grouped_chart_series_names
+      opts = chart_series_names
       inverse_opts = opts.invert
       grouped_opts = {}
-      instance.sections.map do |name, keys|
+      sections.map do |name, keys|
         grp =inverse_opts.slice(*keys)
         grouped_opts[name]=grp.invert.to_a
       end
