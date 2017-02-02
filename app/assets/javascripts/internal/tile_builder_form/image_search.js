@@ -120,29 +120,39 @@ Airbo.ImageSearcher = (function(){
     }
   }
 
+  function executeSearch(){
+    var  form =$("#flickr.search-form")
+      , ctx = {}
+      , apiSearchField = 'input[name=' + form.data("search-field") +']'
+      , searchText = $(".search-input").val();
+    ;
+
+    ctx.provider = resultHandlers[form.data("provider")]
+    form.find(apiSearchField).val(searchText);
+
+    $.ajax({
+      url: form.attr("action"),
+      type: form.attr("method"),
+      data: form.serialize(),
+      dataType: "json",
+    })
+    .done(processResults.bind(ctx))
+    .fail(function(){
+    })
+  }
 
 
   function initTriggerImageSearch(){
     $(".show-search").click(function(event){
-      var  form =$("#flickr.search-form")
-        , ctx = {}
-        , apiSearchField = 'input[name=' + form.data("search-field") +']'
-        , searchText = $(".search-input").val();
-      ;
-
-      ctx.provider = resultHandlers[form.data("provider")]
-      form.find(apiSearchField).val(searchText);
-
-      $.ajax({
-        url: form.attr("action"),
-        type: form.attr("method"),
-        data: form.serialize(),
-        dataType: "json",
-      })
-      .done(processResults.bind(ctx))
-      .fail(function(){
-      })
+      executeSearch();
     });
+
+    $(".search-input").keypress(function(event){
+      var keycode = (event.keyCode ? event.keyCode : event.which)
+      if(keycode == '13'){
+        executeSearch();
+      }
+    })
   }
 
 
