@@ -127,6 +127,13 @@ Airbo.ImageSearcher = (function(){
       , searchText = $(".search-input").val();
     ;
 
+    //TODO this should be handled centrally inside the visual preview module
+    // Do this here to clear the video preview in case the user entered a bad an
+    // invalid embed code is now seeing url like "www.youtube.com?blah"
+
+    $("#remote_media_url").val("");
+    $("#tile_builder_form_embed_video").val("");
+
     ctx.provider = resultHandlers[form.data("provider")]
     form.find(apiSearchField).val(searchText);
 
