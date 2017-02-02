@@ -1,5 +1,7 @@
 class Organization < ActiveRecord::Base
   resourcify
+  acts_as_taggable_on :channels
+
   before_save :update_slug
 
   has_many :contracts
@@ -24,6 +26,15 @@ class Organization < ActiveRecord::Base
 
   def to_param
     self.slug
+  end
+
+  def is_in_sales?
+    roles.pluck(:name).include?("sales")
+  end
+
+  def track_channels(channels)
+    channel_list.add(channels)
+    self.save
   end
 
   def self.as_customer

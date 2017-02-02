@@ -1,4 +1,3 @@
-
 <div class="row">
   <div class="columns small-12">
     <h1 class ="text-left"><%= @organization.name %></h1>
@@ -7,8 +6,21 @@
       <%=link_to "Edit this organization", edit_admin_organization_path(@organization)%>
     </fieldset>
     <br>
+    <% if @organization.is_in_sales? %>
+      <fieldset>
+        <legend>Sales Data</legend>
+        <%= render "sales_users_table", { users: @organization.users } %>
+      </fieldset>
+    <% end %>
     <fieldset>
-      <legend>Sales Data</legend>
+      <legend>Customer Success</legend>
+      <% if @organization.channel_list.present? %>
+        <% @organization.channel_list.each do |channel| %>
+          <%= link_to channel, explore_channel_path(id: channel.parameterize), target: "_blank", class: "button outlined gray explore-tag", style: "border-radius: 0; padding: 5px; margin-bottom: 4px; text-transform: lowercase;" %>
+        <% end %>
+      <% else %>
+        <p>No interests yet.</p>
+      <% end %>
     </fieldset>
     <fieldset>
       <legend>Boards</legend>

@@ -206,6 +206,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def track_channels(channels)
+    channel_list.add(channels)
+    organization.track_channels(channel_list) if organization
+    self.save
+  end
+
   def end_user?
     !is_client_admin && !is_site_admin
   end

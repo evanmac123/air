@@ -1,4 +1,6 @@
 class Explore::ChannelsController < ExploreBaseController
+  include ExploreConcern
+
   def show
     @channel = Channel.find_by_slug(params[:id]) || virtual_channel
     @tiles = @channel.tiles.page(params[:page]).per(28)
@@ -15,6 +17,7 @@ class Explore::ChannelsController < ExploreBaseController
         lastBatch: params[:count] == @tiles.total_count.to_s
       }
     else
+      track_user_channels(@channel.name)
       @related_features = @channel.related_features
       @related_campaigns = @channel.related_campaigns
       @display_channels = Channel.display_channels(@channel.slug)
