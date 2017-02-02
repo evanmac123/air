@@ -30,6 +30,8 @@ Airbo.TileVisualPreviewMgr = (function(){
   function initHideVisualContent(){
     $("body").on("click", ".hide-search", function(event){
       resetSearchInput();
+
+      $.Topic("media-input-hidden").publish();
       hideVisualContentPanel();
     });
   }

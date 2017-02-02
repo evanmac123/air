@@ -18,6 +18,14 @@ Airbo.EmbedVideo = (function() {
     });
   }
 
+  function initHideListener(){
+    $.Topic("media-input-hidden").subscribe( function(){
+      if($(".unparsable").is(":visible")){
+        $("#remote_media_url").val("");
+        $("#tile_builder_form_embed_video").val("");
+      }
+    });
+  }
 
   function hideLoader(){
     $(".endless_scroll_loading").hide();
@@ -51,9 +59,9 @@ Airbo.EmbedVideo = (function() {
   }
 
   function removeVideo() {
-    $(".video_frame_block").html("");
     $("#remote_media_url").val("");
     $("#tile_builder_form_embed_video").val("");
+    $(".video_frame_block").html("");
     $("#upload_preview").attr("src","/assets/missing-tile-img-full.png") 
     hideErrors();
     $.Topic("video-removed").publish();
@@ -106,6 +114,7 @@ Airbo.EmbedVideo = (function() {
     initPaste();
     initClearCode();
     initClearVideo();
+    initHideListener();
   }
 
 
