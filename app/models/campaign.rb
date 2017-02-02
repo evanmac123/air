@@ -30,4 +30,8 @@ class Campaign < ActiveRecord::Base
   def to_param
     self.slug
   end
+
+  def related_channels
+    Channel.where(name: self.channel_list)
+  end
 end

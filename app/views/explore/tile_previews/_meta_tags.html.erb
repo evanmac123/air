@@ -6,7 +6,7 @@
   <!-- special Pinterest meta tags -->
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Airbo" />
-  <% tile.tile_tags.each do |tag| %>
+  <% tile.channel_list do |tag| %>
     <meta property="article:tag" content="<%= tag.title %>" />
   <% end %>
   <!-- Twitter meta tags -->
