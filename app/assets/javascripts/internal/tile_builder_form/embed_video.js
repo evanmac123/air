@@ -6,6 +6,10 @@ Airbo.EmbedVideo = (function() {
   function addVideo(embedCode) {
     $(".endless_scroll_loading").show();
     $(".video_frame_block").html(embedCode);
+
+    
+    $("#remote_media_url").val("/assets/video.png");
+
     timer = waitForVideoLoad();
     $(".video_frame_block iframe").on("load", function(event){
       hideLoader(); 
