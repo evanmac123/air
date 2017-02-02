@@ -11,7 +11,7 @@ class Organization < ActiveRecord::Base
   has_many :users
   has_one :onboarding, autosave: true
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   accepts_nested_attributes_for :boards
   accepts_nested_attributes_for :users

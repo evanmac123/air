@@ -36,8 +36,7 @@ class Demo < ActiveRecord::Base
 
   validates_inclusion_of :join_type, :in => JOIN_TYPES
 
-  validates_uniqueness_of :name
-  validates_presence_of :name
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   validates_uniqueness_of :public_slug
   validates_presence_of :public_slug, on: :update

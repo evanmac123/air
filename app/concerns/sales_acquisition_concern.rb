@@ -31,22 +31,14 @@ module SalesAcquisitionConcern
       ping(event, ping_parameters, user)
     end
 
-    def set_new_lead_for_sales(user)
-      org = user.organization
-      current_user.rdb[:sales][:leads].sadd(user.id)
-      Organization.rdb[:sales][:leads].sadd(user.id)
-      current_user.rdb[:sales][:active_orgs_in_sales].sadd(org.id)
-      Organization.rdb[:sales][:active_orgs_in_sales].sadd(org.id)
-      new_lead_ping(user)
-    end
-
-    def new_lead_ping(user)
+    def ping_new_lead_for_sales(user)
       event = 'Acquisition - New organization created'
       ping_parameters = { }
 
       ping(event, ping_parameters, user)
     end
 
+#deprecate for new role based identification:
     def current_leads
       orgs = Organization.rdb[:sales][:active_orgs_in_sales].smembers
       Organization.joins(:users).where(id: orgs)
