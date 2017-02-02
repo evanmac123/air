@@ -218,24 +218,6 @@ Airbo.KpiChart = (function(){
   }
 
 
-  function setStartDateForRange(){
-    var interval = $("#interval option:selected").val()
-      , range = $("#date_range option:selected").val()
-      , sdate
-    ;
- 
-    if(range !=="-1"){
-      sdate = startDateFromTimeStamp(range);
-      if(interval === "monthly"){
-        sdate = Airbo.Utils.Dates.firstDayOfMonth(sdate);
-      }else{
-        sdate = Airbo.Utils.Dates.firstDayOfWeek(sdate);
-      }
-      $("input[name='sdate']").val(extractDateStringFromISO(sdate));
-    }
-  }
-
-
   function initSeriesSwitcher(){
     $("#metric_list").change(function(){
       switchKpi($(this).find("option:selected").val())
