@@ -258,6 +258,7 @@ Airbo.KpiChart = (function(){
     initSeriesSwitcher();
     Airbo.Utils.KpiReportDateFilter.init();
     Airbo.Utils.StickyTable.init();
+    Airbo.Utils.initChosen();
   }
 
 

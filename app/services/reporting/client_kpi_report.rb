@@ -21,10 +21,21 @@ module Reporting
       @curr ||= CustSuccessKpi.by_period(period).last
     end
 
- 
 
     def self.chart_series_names
       self.new.chart_series_names
+    end
+
+    def self.grouped_chart_series_names
+      instance = self.new
+      opts = instance.chart_series_names
+      inverse_opts = opts.invert
+      grouped_opts = {}
+      instance.sections.map do |name, keys|
+        grp =inverse_opts.slice(*keys)
+        grouped_opts[name]=grp.invert.to_a
+      end
+      grouped_opts.to_a
     end
 
     def sections

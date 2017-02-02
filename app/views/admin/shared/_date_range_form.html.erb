@@ -1,12 +1,12 @@
 
 <%= form_tag path, method: :get,  class: "custom report-filter" do %>
         <div class="columns small-3">
-      <%= select_tag :interval, options_for_select({"Weekly" => "weekly",  "Monthly" =>"monthly" }), { class: "interval_custom_drop" } %>
+      <%= select_tag :interval, options_for_select({"Weekly" => "weekly",  "Monthly" =>"monthly" }), { class: "no-custom airbo-chosen-select " } %>
     </div>
 
     <div class="columns small-4 end">
       <span class="builtin-date-range" >
-        <%= select_tag :date_range, options_for_select(FinancialsReporterService::REPORT_DATE_RANGE_TYPES, FinancialsReporterService::REPORT_DATE_RANGE_TYPES["Past 30 days"]), { class: "date_range_custom_drop"} %>
+        <%= select_tag :date_range, options_for_select(FinancialsReporterService::REPORT_DATE_RANGE_TYPES, FinancialsReporterService::REPORT_DATE_RANGE_TYPES["Past 30 days"]), { class: "no-custom airbo-chosen-select "} %>
       </span>
       <div class="custom-date-range" style="display:none">
         <%= text_field_tag :sdate, @sdate, class: "pickadate", data: {value: simple_date_format_Y_d_m(@sdate)} %>
