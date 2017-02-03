@@ -14,9 +14,7 @@ feature 'Creates draft tile' do
 
   it "should open form", js: true do
     submit_tile_btn.click
-    within form do
-      expect_content "Save Tile"
-    end
+    expect_content "Save Tile"
   end
 
   it "should let them submit tile", js: true do

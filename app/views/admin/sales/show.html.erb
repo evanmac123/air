@@ -1,0 +1,45 @@
+<div class="sales-dashboard kpi-dashboard">
+
+  <div class="row">
+    <div class="columns small-12">
+      <p>
+      <div class="row title_block">
+        <div class="small-4 columns">
+          <div class="activity-header blue-box">
+            <h1 class="header-number" >
+              <%= number_to_percentage(@dashboard.org_activation_percent, precision: 2) %>
+            </h1>
+            <span class="header-unit">
+              Organization Activation Rate
+            </span>
+          </div>
+        </div>
+        <div class="small-4 columns">
+          <div class="activity-header purple-box">
+            <h1 class="header-number" >
+              <%= number_with_delimiter(@dashboard.total_visits_from_sales, :delimiter => ',') %>
+            </h1>
+            <span class="header-unit">
+              Total Visits From Sales Links
+            </span>
+          </div>
+        </div>
+        <div class="small-4 columns">
+          <div class="activity-header yellow-box">
+            <h1 class="header-number" >
+              <%= number_with_delimiter(@dashboard.sales_orgs.count, :delimiter => ',') %>
+            </h1>
+            <span class="header-unit">
+              Organizations Invited
+            </span>
+          </div>
+        </div>
+      </div>
+      </p>
+    </div>
+  </div>
+
+  <div class="tabular-data">
+    <%= render partial: "admin/sales/dashboard/sales_orgs_table" %>
+  </div>
+</div>

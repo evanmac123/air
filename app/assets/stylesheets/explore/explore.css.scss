@@ -30,6 +30,16 @@ body.explore, .explore {
     }
   }
 
+  .explore-tag {
+    border-radius: 0;
+    padding: 5px;
+    margin-bottom: 4px;
+    text-transform: lowercase;
+    &.explore-tag-campaign {
+      margin-top: 6px;
+    }
+  }
+
   .channel-row {
     height: 120px;
     padding: 10px 20px;
@@ -270,17 +280,6 @@ body.explore, .explore {
       position: absolute;
       bottom: -5px;
     };
-    .explore-tag {
-      background-color: rgba(76,76,76,0.6);
-      color: $off-white;
-      font-size: 22px;
-      border-radius: 0;
-      padding: 5px;
-      margin-bottom: 4px;
-      margin-top: 0;
-      margin-left: 0.5em;
-      text-transform: lowercase;
-    }
   }
 
   .org-profile {

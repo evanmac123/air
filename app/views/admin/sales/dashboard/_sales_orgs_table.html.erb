@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="large-12 columns">
+    <div class="chart-data"> </div>
+    <div class="table-container">
+      <table class="kpi">
+        <thead>
+          <tr>
+            <th>Organization</th>
+            <th>Activated?</th>
+            <th>Activated At</th>
+            <th>Created At</th>
+            <th>User Count</th>
+            <th>Activation Rate</th>
+            <th>User Visits</th>
+            <th>Manager</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @dashboard.sales_orgs.each do |org| %>
+            <tr class="activated-<%= @dashboard.org_activated?(org) %>">
+              <td><%= link_to(org.name, admin_organization_path(org), target: "_blank") %></td>
+              <td><%= @dashboard.org_activated?(org) %></td>
+              <td><%= @dashboard.org_activated_at(org) %></td>
+              <td><%= org.created_at.strftime("%b %e, %Y") %></td>
+              <td><%= org.users.non_site_admin.count %></td>
+              <td><%= number_to_percentage(org.user_activation_rate, precision: 2) %></td>
+              <td><%= @dashboard.number_of_visits_from_org(org) %></td>
+              <td><%= @dashboard.manager_of_org(org) %></td>
+              <td><%= link_to("Details", admin_organization_path(org), target: "_blank") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

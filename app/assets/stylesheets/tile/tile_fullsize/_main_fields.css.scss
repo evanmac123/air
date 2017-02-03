@@ -6,44 +6,10 @@
   overflow: hidden;
 }
 
-.video_section {
-  position: relative;
-  width: 100%;
-  padding-top: 57%;
-  background: $gray-6;
-  .error_no_video {
-    color: $n-red2;
-    position: absolute;
-    top: 28%;
-    text-align: center;
-    line-height: 42px;
-    padding: 30px;
-    font-size: 20px;
-    display: none;
-  }
-  iframe {
-    width: 100%;
-    position: absolute;
-    height: 100%;
-    top: 0;
-  }
-  .clear_video {
-    display: block;
-    position: absolute;
-    bottom: 3px;
-    left: 18px;
-    i {
-      color: $white;
-      &:hover, &:focus {
-        cursor: pointer;
-        color: $red;
-      }
-    }
-  }
-}
+
 
 .tile_headline, #tile_builder_form_headline, #tile_builder_form_embed_video {
-  font-size: 28px;
+  font-size: 25px;
   color:$dark-gray;
   line-height:1.35em;
   padding-top:.5em;
@@ -91,3 +57,45 @@
     font-size: 75%;
   }
 }
+
+/*
+TODO move to tile media file
+*/
+
+.video_section {
+  position: relative;
+  display: none;
+  width: 100%;
+  padding-top: 57%;
+  background: $gray-6;
+  iframe {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 0;
+  }
+  .clear_video {
+    display: block;
+    position: absolute;
+    bottom: 3px;
+    left: 18px;
+    i {
+      color: $white;
+      &:hover, &:focus {
+        cursor: pointer;
+        color: $red;
+      }
+    }
+  }
+}
+
+.video-error{
+  color: $n-red2;
+  display: none;
+  line-height: 1.5em;
+}
+
+.video-help{
+ margin-bottom:10px;
+}
+

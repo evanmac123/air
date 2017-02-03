@@ -1,0 +1,45 @@
+<table>
+  <p>Users:</p>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Demo Id</th>
+      <th>Invite Link Click Count</th>
+      <th>Days Since Created</th>
+      <th>Days Since Activated</th>
+      <th>Interests</th>
+      <th>Paths</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.each do |user| %>
+      <tr id="<%= user.id %>">
+        <td width="150">
+          <%= link_to(user.name, edit_admin_demo_user_path(user.demo, user), target: "_blank") %>
+        </td>
+        <td width="150">
+          <%= user.email %>
+        </td>
+        <td width="50">
+          <%= link_to(user.demo.id, current_board_path(board_id: user.demo.id, admin_view_board: true), method: :put, target: "_blank") %>
+        </td>
+        <td width="150">
+          <%= user.rdb[:invite_link_click_count].get %>
+        </td>
+        <td width="100">
+          <%= time_ago_in_words(user.created_at) %>
+        </td>
+        <td width="100">
+          <%= time_ago_in_words(user.accepted_invitation_at) if user.accepted_invitation_at %>
+        </td>
+        <td width="250">
+          <%= user.channel_list.join(", ") %>
+        </td>
+        <td width="250">
+          <%= user.sales_path_list.join(", ") %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

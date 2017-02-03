@@ -471,6 +471,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     retriable (1.4.1)
+    rolify (5.1.0)
     rollout (2.0.0)
       redis
     roo (2.5.1)
@@ -690,6 +691,7 @@ DEPENDENCIES
   rails_12factor
   redis
   redis-rails
+  rolify
   rollout
   roo
   roo-xls

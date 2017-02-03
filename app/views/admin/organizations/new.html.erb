@@ -1,8 +1,11 @@
 <div class="row">
   <div class="columns small-12">
-    <h3>New Organization</h3>
     <div class="row">
-      <div class="columns small-6 small">
+      <h3>New Organization</h3>
+    </div>
+
+    <div class="row">
+      <div class="columns small-6 ">
         <%= form_for([:admin, @organization]) do |f| %>
           <% if @organization.errors.any? %>
             <div id="error_explanation">
@@ -15,47 +18,15 @@
             <br>
           <% end %>
 
-          <fieldset>
-            <legend>Organization</legend>
-            <br>
-            <%= f.label :name, "Name" %>
+
+          <div class="row">
+            <%= f.label :name %>
             <%= f.text_field :name %>
-            <br>
-          </fieldset>
+          </div>
           <br>
-          <fieldset>
-            <legend>First Client Admin</legend>
-            <br>
-            <%= f.fields_for :users, @user do |user| %>
-              <%= user.label :name, "Name" %>
-              <%= user.text_field :name %>
-
-              <%= user.label :email, "Email" %>
-              <%= user.text_field :email %>
-              <%= user.hidden_field :password, value: "password" %>
-              <%= user.hidden_field :is_client_admin, value: true %>
-
-              <%= f.label :is_hrm, "Is HRM?", class:"inline" %>
-              <%= f.check_box :is_hrm , class: "inline"%>
-            <% end %>
-            <br>
-          </fieldset>
-          <br>
-          <fieldset>
-            <legend>Board</legend>
-            <br>
-            <%= f.fields_for :boards, @board do |board| %>
-              <%= board.label :name, "Name (defaults to organization name)" %>
-              <%= board.text_field :name %>
-
-              <%= label_tag :copy_board, "Choose Board to copy Tiles from" %>
-              <%= select_tag :copy_board, options_from_collection_for_select(Demo.joins(:organization).where(organization: { name: "Airbo" } ), :id,  :name, @default_board_id), class: "airbo-chosen-select" %>
-            <% end %>
-            <br>
-          </fieldset>
-          <br>
-          <br>
-          <%= f.submit "Submit",  class: "button"%>
+          <div class="row">
+            <%= f.submit "Submit",  class: "button"%>
+          </div>
         <% end %>
       </div>
     </div>

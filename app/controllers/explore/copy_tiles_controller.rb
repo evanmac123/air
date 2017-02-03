@@ -1,5 +1,6 @@
 class Explore::CopyTilesController < ClientAdminBaseController
   include ClientAdmin::TilesPingsHelper
+  include ExploreConcern
 
   def create
     tile = Tile.explore.where(id: params[:tile_id]).first
@@ -7,6 +8,8 @@ class Explore::CopyTilesController < ClientAdminBaseController
     schedule_tile_creation_ping(copy, "Explore Page")
     tag_user_with_channels(tile.channel_list)
     store_copy_in_redis(params[:tile_id])
+    track_user_channels(tile.channel_list)
+
     render json: {
       success: true,
       editTilePath: edit_client_admin_tile_path(copy),

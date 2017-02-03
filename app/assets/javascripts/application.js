@@ -3,9 +3,10 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require autosize
+//= require masonry.pkgd.min.js
+//= require imagesloaded.pkgd.min.js
 //= require airbo
 //= require_tree ./utils
-
 //=require ./internal/tile_manager/first_tile_hint
 
 
@@ -27,6 +28,30 @@ function isIE() {
 
 (function($){
   $(function(){
+    jQuery.Topic = (function(  ) {
+
+      var topics = {};
+
+      return function( id ){
+        var callbacks
+          , topic = id && topics[ id ]
+        ;
+        if ( !topic ) {
+          callbacks = jQuery.Callbacks();
+          topic = {
+            publish: callbacks.fire,
+            subscribe: callbacks.add,
+            unsubscribe: callbacks.remove
+          };
+          if ( id ) {
+            topics[ id ] = topic;
+          }
+        }
+        return topic;
+      }
+    })();
+
+
     Airbo.init();
   });
 

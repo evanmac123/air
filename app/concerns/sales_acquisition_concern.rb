@@ -31,26 +31,10 @@ module SalesAcquisitionConcern
       ping(event, ping_parameters, user)
     end
 
-    def set_new_lead_for_sales(user)
-      current_user.rdb[:sales][:leads].sadd(user.id)
-      Organization.rdb[:sales][:leads].sadd(user.id)
-      new_lead_ping(user)
-    end
-
-    def new_lead_ping(user)
+    def ping_new_lead_for_sales(user)
       event = 'Acquisition - New organization created'
       ping_parameters = { }
 
       ping(event, ping_parameters, user)
-    end
-
-    def current_leads
-      users = Organization.rdb[:sales][:leads].smembers
-      User.joins(:organization).where(id: users)
-    end
-
-    def my_leads
-      users = current_user.rdb[:sales][:leads].smembers
-      User.joins(:organization).where(id: users)
     end
 end

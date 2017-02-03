@@ -2,6 +2,10 @@ class ClientAdminBaseController < UserBaseController
   prepend_before_filter :authenticate
   before_filter :set_is_client_admin_action
 
+  ##Experiment to quickly gather analytics on what leads are looking at:
+  before_filter :track_sales_page_views
+  ##
+
   layout "client_admin_layout"
 
   def authenticate
@@ -48,4 +52,12 @@ class ClientAdminBaseController < UserBaseController
     def set_is_client_admin_action
       @is_client_admin_action = true
     end
+
+    ##Experiment to quickly gather analytics on what leads are looking at:
+    def track_sales_page_views
+      if current_user.is_a?(User) && current_user.organization.try(:is_in_sales?)
+        current_user.delay.add_path_to_sales_tracking(request.path)
+      end
+    end
+    ##
 end

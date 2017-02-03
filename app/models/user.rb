@@ -22,7 +22,9 @@ class User < ActiveRecord::Base
   extend User::Queries
   extend ValidImageMimeTypes
 
+  rolify strict: true
   acts_as_taggable_on :channels
+  acts_as_taggable_on :sales_paths
 
   belongs_to :organization
   belongs_to :location
@@ -204,6 +206,19 @@ class User < ActiveRecord::Base
       false
     end
   end
+
+  def track_channels(channels)
+    channel_list.add(channels)
+    organization.track_channels(channel_list) if organization
+    self.save
+  end
+
+##Experiment to quickly gather analytics on what leads are looking at:
+  def add_path_to_sales_tracking(path)
+    sales_path_list.add(path)
+    self.save
+  end
+##
 
   def end_user?
     !is_client_admin && !is_site_admin
@@ -468,7 +483,7 @@ class User < ActiveRecord::Base
   end
 
   def first_name
-    name.split.first
+    name.split.first.capitalize
   end
 
   def send_new_phone_validation_token

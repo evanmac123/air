@@ -10,6 +10,20 @@ class Admin::OrganizationsController < AdminBaseController
     @organizations = Organization.name_order
   end
 
+  def new
+    @organization = Organization.new
+  end
+
+  def create
+    @organization = Organization.new(organization_params)
+    if @organization.save
+      flash[:success] = t('controllers.admin.organizations.flash_create', name: @organization.name)
+      redirect_to admin_organizations_path
+    else
+      render :new
+    end
+  end
+
   def show
   end
 
@@ -23,34 +37,7 @@ class Admin::OrganizationsController < AdminBaseController
     redirect_to admin_organizations_path
   end
 
-
-  def new
-    @organization = Organization.new
-    @default_board_id = default_sales_board
-    @user = @organization.users.build
-    @board = @organization.boards.build
-  end
-
   def edit
-  end
-
-  #We should move this to an Orgs controller namespace under Sales:
-  def create
-    @organization = Organization.new(organization_params)
-    board = @organization.boards.first
-    update_board_name(board)
-
-    if @organization.save
-      user = @organization.users.first
-      copy_tiles_to_board(board)
-      link_board_and_user(user, board)
-      current_user.move_to_new_demo(board)
-      flash[:success] = "Invitation URL for #{user.name}: #{ invitation_url(user.invitation_code, { demo_id: current_user.demo_id, new_lead: true })}"
-      set_new_lead_for_sales(user)
-      redirect_to explore_path
-    else
-      render :new
-    end
   end
 
   def update
@@ -77,26 +64,6 @@ class Admin::OrganizationsController < AdminBaseController
     end
 
     def organization_params
-      params.require(:organization).permit(:churn_reason, :name, :is_hrm, :num_employees, :sales_channel, demos_attributes: [:name], users_attributes: [:name, :email, :password, :is_client_admin], boards_attributes: [:name])
-    end
-
-    def update_board_name(board)
-      if board.name.empty?
-        board.name = @organization.name
-      end
-    end
-
-    def link_board_and_user(user, board)
-      user.board_memberships.create(demo: board)
-    end
-
-    def copy_tiles_to_board(board)
-      unless params[:copy_board].empty?
-        CopyBoard.new(board, Demo.find(params[:copy_board])).copy_active_tiles_from_board
-      end
-    end
-
-    def default_sales_board
-      Demo.find_by_name("HR Bulletin Board").try(:id)
+      params.require(:organization).permit(:name)
     end
 end

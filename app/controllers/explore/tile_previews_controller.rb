@@ -1,4 +1,6 @@
 class Explore::TilePreviewsController < ExploreBaseController
+  include ExploreConcern
+
   prepend_before_filter :find_tile
 
   def show

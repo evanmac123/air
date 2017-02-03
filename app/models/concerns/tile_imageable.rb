@@ -4,6 +4,8 @@ module Concerns::TileImageable
 
   IMAGE_PROCESSING_URL =  ActionController::Base.helpers.asset_path('resizing_gears_fullsize.gif')
   TILE_IMAGE_PROCESSING_PRIORITY = -10
+  MISSING_THUMBNAIL = "missing-tile-img-thumb.png"
+  MISSING_PREVIEW = "missing-tile-img-full.png"
 
   included do
 
@@ -15,7 +17,7 @@ module Concerns::TileImageable
         # aspect ratio."
         styles:         {:viewer => ["666>", :png]},
         default_style:  :viewer,
-        default_url:    "missing-tile-img-full.png",
+        default_url:    MISSING_PREVIEW,
       }.merge!(TILE_IMAGE_OPTIONS)
 
     has_attached_file :thumbnail,
@@ -25,7 +27,7 @@ module Concerns::TileImageable
           email_digest: ["190x160#", :png]
         },
         default_style:  :carousel,
-        default_url:    "missing-tile-img-thumb.png",
+        default_url:    MISSING_THUMBNAIL,
         preserve_files: true  # preserve old attachments on update and delete. WHY?
                               # to fix next scenario: CA sends digest email
                               # but then changes an image in some tile.

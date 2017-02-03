@@ -1,7 +1,7 @@
 resource :admin, :only => :show
 
 namespace :admin do
-
+  resource  :sales, only: [:show]
   resources :channels
   resources :campaigns
   resources :case_studies, except: :show
@@ -10,6 +10,7 @@ namespace :admin do
 
   resources :historical_metrics, only: [:create]
   namespace :sales do
+    resources :organizations, only: [:new, :create]
     resources :leads, only: [:index]
     resources :lead_contacts, only: [:index, :edit, :update, :create, :destroy] do
       resources :invites, only: [:new]
