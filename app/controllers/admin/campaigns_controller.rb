@@ -26,11 +26,11 @@ class Admin::CampaignsController < AdminBaseController
 
   def update
     @campaign = Campaign.find_by_slug(params[:id])
-
     if @campaign.update_attributes(campaign_params)
       redirect_to admin_campaigns_path
     else
-      flash.now[:failure] = @campaign.errors.full_messages.join(", ")
+      @demos = Demo.select([:name, :id]).airbo
+      flash.now[:failure] = "Channels may be invalid." + @campaign.errors.full_messages.join(", ")
       render :edit
     end
   end

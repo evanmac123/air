@@ -32,6 +32,6 @@ class Campaign < ActiveRecord::Base
   end
 
   def related_channels
-    Channel.where(name: self.channel_list)
+    Channel.where(slug: self.channel_list.map(&:parameterize))
   end
 end
