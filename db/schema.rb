@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170126215357) do
+ActiveRecord::Schema.define(:version => 20170201212423) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -722,7 +722,6 @@ ActiveRecord::Schema.define(:version => 20170126215357) do
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
     t.boolean  "is_hrm",            :default => false
-    t.string   "roles"
     t.string   "size_estimate"
     t.string   "slug"
     t.boolean  "internal",          :default => false
@@ -831,6 +830,17 @@ ActiveRecord::Schema.define(:version => 20170126215357) do
     t.datetime "updated_at",     :null => false
     t.integer  "delayed_job_id"
   end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
+  add_index "roles", ["name"], :name => "index_roles_on_name"
 
   create_table "rule_values", :force => true do |t|
     t.string   "value"
@@ -1377,5 +1387,12 @@ ActiveRecord::Schema.define(:version => 20170126215357) do
   add_index "users", ["spouse_id"], :name => "index_users_on_spouse_id"
   add_index "users", ["ssn_hash"], :name => "index_users_on_ssn_hash"
   add_index "users", ["zip_code"], :name => "index_users_on_zip_code"
+
+  create_table "users_roles", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
+
+  add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
 
 end

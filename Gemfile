@@ -80,6 +80,7 @@ gem 'skylight'
 gem 'airbrake', '~> 5.4'
 
 gem 'searchkick'
+gem 'rolify'
 #
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,6 +1,6 @@
 class Channel < ActiveRecord::Base
   before_save :update_slug
-  validates :name, uniqueness: true, presence: true
+  validates :name, uniqueness: { case_sensitive: false }, presence: true
 
   has_attached_file :image,
     {

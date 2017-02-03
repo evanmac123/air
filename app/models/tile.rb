@@ -103,6 +103,10 @@ class Tile < ActiveRecord::Base
   alias_attribute :unique_views, :unique_viewings_count
   alias_attribute :interactions, :tile_completions_count
 
+  def airbo?
+    organization.name == "Airbo"
+  end
+
 
   # Dynamically define 'status?' instance methods  and scopes
   # TODO consider refactoring to remove metaprogramming here. prob not needed

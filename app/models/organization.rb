@@ -1,5 +1,7 @@
 class Organization < ActiveRecord::Base
-  serialize :roles, Array
+  resourcify
+  acts_as_taggable_on :channels
+
   before_save :update_slug
 
   has_many :contracts
@@ -11,7 +13,7 @@ class Organization < ActiveRecord::Base
   has_many :users
   has_one :onboarding, autosave: true
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   accepts_nested_attributes_for :boards
   accepts_nested_attributes_for :users
@@ -24,6 +26,15 @@ class Organization < ActiveRecord::Base
 
   def to_param
     self.slug
+  end
+
+  def is_in_sales?
+    roles.pluck(:name).include?("sales")
+  end
+
+  def track_channels(channels)
+    channel_list.add(channels)
+    self.save
   end
 
   def self.as_customer
@@ -136,6 +147,19 @@ class Organization < ActiveRecord::Base
 
   def life_time
     TimeDifference.between(customer_start_date, customer_end_date).in_months
+  end
+
+  def user_activation_rate
+    if users.count.nonzero?
+      (activated_users.count.to_f / users.count) * 100
+    else
+      0
+    end
+  end
+
+  def activated_users
+    arel_users = User.arel_table
+    users.non_site_admin.where(arel_users[:accepted_invitation_at].not_eq(nil))
   end
 
 
