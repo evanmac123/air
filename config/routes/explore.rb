@@ -1,10 +1,7 @@
-resource :explore, only: [:show], controller: :explore do
-  member do
-    get 'search'
-  end
-end
+resource :explore, only: [:show], controller: :explore
 
 namespace :explore do
+  resource  :search, only: [:show]
   resources :organizations, only: [:show]
   resource  :copy_tile, only: [:create]
   resources :tile_previews, only: [:show], path: "tile"

@@ -1,0 +1,13 @@
+<section class="manage_section contextual_tiles_container <%= container %>" style="margin-top:30px;">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="<%= container %>" data-page="<%= 1 %>" data-count="<%= tiles.count %>">
+        <% tiles.each do |tile| %>
+          <% present(tile, presenter, { is_ie: browser.ie?, referrer: :contextual_tiles }) do |presenter| %>
+            <%= render presenter.partial, presenter: presenter, tile: tile %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

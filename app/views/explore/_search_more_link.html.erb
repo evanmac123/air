@@ -1,6 +1,0 @@
-<% unless tiles.last_page? %>
-  <p id="more-<%= tiles_type.to_s.dasherize %>">
-    <%= link_to "More #{tiles.next_page}", search_explore_path(q: q, "#{tiles_type}_page" => tiles.next_page), remote: true %>
-  </p>
-<% end %>
-

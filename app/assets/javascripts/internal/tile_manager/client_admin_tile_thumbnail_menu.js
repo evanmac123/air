@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileThumbnailMenu = (function() {
+Airbo.ClientAdminTileThumbnailMenu = (function() {
   var tileCreator;
 
   function setMenuActiveState(origin, active) {
@@ -13,13 +13,15 @@ Airbo.TileThumbnailMenu = (function() {
     }
   }
 
-  function initMoreBtn(menu_button){
-    menu_button.tooltipster({
+  function init(tile){
+    var menuButton = tile.find(".more_button");
+
+    menuButton.tooltipster({
       theme: "tooltipster-shadow tooltipster-thumbnail-menu",
       interactive: true,
       position: "bottom",
       content: function(){
-        encodedMenu = menu_button.data('title');
+        encodedMenu = menuButton.data('title');
         decodedMenu = Airbo.Utils.htmlDecode(encodedMenu);
         return $(decodedMenu);
       },
@@ -36,28 +38,19 @@ Airbo.TileThumbnailMenu = (function() {
         $(".tile_thumbnail_menu .delete_tile, .tile_buttons .delete_tile").click(function(event){
           event.preventDefault();
           origin.tooltipster("hide");
-          Airbo.TileAction.confirmDeletion($(this));
+          Airbo.ClientAdminTileActions.confirmDeletion($(this), tile, false);
         });
 
         $(".tile_thumbnail_menu .duplicate_tile").click(function(e){
           e.preventDefault();
           origin.tooltipster("hide");
-          Airbo.TileAction.makeDuplication($(this));
+          Airbo.ClientAdminTileActions.makeDuplication($(this), false);
         });
       }
     });
   }
-  function init() {
-    // tileCreator = AirboTileCreator;
 
-    // $(".more_button").each(function(){
-    //   initMoreBtn($(this));
-    // });
-    return this;
-  }
   return {
-    init: init,
-    initMoreBtn: initMoreBtn
+    init: init
   };
-
 }());

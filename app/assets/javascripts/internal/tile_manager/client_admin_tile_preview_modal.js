@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TilePreviewModal = (function(){
+Airbo.ClientAdminTilePreviewModal = (function(){
   var modalId = "tile_preview_modal"
     , self
   ;
@@ -25,7 +25,7 @@ Airbo.TilePreviewModal = (function(){
   }
   function prepareToolTip(origin, content){
     initSharing();
-    initStatusUpdate()
+    initStatusUpdate();
   }
 
   function initPreviewMenuTooltips(){
@@ -102,7 +102,6 @@ Airbo.TilePreviewModal = (function(){
     initEvents();
   }
   function open(preview) {
-    debugger
     modalObj.setContent(preview);
     initPreviewElements();
     modalObj.open();

@@ -1,0 +1,5 @@
+<div class="explore-search-results has-tile-thumnails">
+  <% if @my_tiles.present? %>
+    <%= render 'shared/tiles/display_contextual_tiles', { tiles: @my_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter } %>
+  <% end %>
+</div>

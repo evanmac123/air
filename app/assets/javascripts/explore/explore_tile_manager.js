@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.ExploreTileManager = (function(){
   function initEvents() {
-    $("body").on("click", ".tile_thumb_link", function(e){
+    $("body").on("click", ".tile_thumb_link_explore", function(e){
       e.preventDefault();
       var tileIds = getTileIds(this);
 
