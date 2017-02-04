@@ -22,7 +22,7 @@ class Explore::SearchesController < ExploreBaseController
 
     current_board = current_user.demo
 
-    service = ClientAdminSearch.new(params[:q], current_board)
+    service = ClientAdminSearch.new(params[:query], current_board)
     @my_tiles = service.my_tiles(params[:my_tiles_page])
     @explore_tiles = service.explore_tiles(params[:explore_tiles_page])
 

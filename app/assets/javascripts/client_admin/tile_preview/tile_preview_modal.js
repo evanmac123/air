@@ -102,7 +102,6 @@ Airbo.TilePreviewModal = (function(){
     initEvents();
   }
   function open(preview) {
-    debugger
     modalObj.setContent(preview);
     initPreviewElements();
     modalObj.open();

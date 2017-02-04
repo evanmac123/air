@@ -36,7 +36,7 @@ class ClientAdminSearch
   def default_fields
     [:headline, :supporting_content, :tag_titles]
   end
-  
+
   def default_match
     :word_start
   end
@@ -50,7 +50,7 @@ class ClientAdminSearch
       where: {
         demo_id: demo_id
       },
-      fields: default_fields, 
+      fields: default_fields,
       match: default_match,
       operator: 'or'
     }
