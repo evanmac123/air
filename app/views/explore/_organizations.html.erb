@@ -1,0 +1,7 @@
+<div class="row organization-row">
+  <div class="flickity-organizations-carousel">
+    <% organizations.each do |organization| %>
+      <%= render 'shared/organization_card', organization: organization %>
+    <% end %>
+  </div>
+</div>

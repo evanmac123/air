@@ -1,4 +1,4 @@
-<div class="organization-card">
+<div class="carousel-cell organization-card" data-slug="<%= organization.slug %>">
   <div class="organization-logo">
     <%= image_tag(organization.logo.url) %>
   </div>
@@ -6,7 +6,7 @@
     <h3><%= organization.name %></h3>
   </div>
   <div class="organization-stats">
-    <span class="stat">Customer since <%= organization.created_at.strftime("%B %Y") %></span>
+    <span class="stat">Customer since <%= organization.created_at.strftime("%Y") %></span>
   </div>
   <div class="organization-visit-profile">
     <%= link_to "View Profile", explore_organization_path(organization), class: "button" %>

@@ -19,6 +19,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :users
 
   scope :name_order, -> { order(:name) }
+  scope :featured, -> { where(featured: true) }
 
   has_attached_file :logo,
     {
