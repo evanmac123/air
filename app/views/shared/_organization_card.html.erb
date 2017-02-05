@@ -9,6 +9,6 @@
     <span class="stat">Customer since <%= organization.created_at.strftime("%Y") %></span>
   </div>
   <div class="organization-visit-profile">
-    <%= link_to "View Profile", explore_organization_path(organization), class: "button" %>
+    <%= link_to "View Profile", explore_organization_path(organization), class: "button visit-organization-link", data: { id: organization.id, name: organization.name } %>
   </div>
 </div>

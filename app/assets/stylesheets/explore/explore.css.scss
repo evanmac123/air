@@ -78,8 +78,14 @@ body.explore, .explore {
   }
 
   .organization-row {
-    padding: 10px 15px;
+    padding: 10px 15px 35px 15px;
     @include flickity;
+    .carousel-cell {
+      cursor: auto;
+    }
+    .flickity-organizations-carousel {
+      display: none;
+    }
     .flickity-prev-next-button.next {
       right: 20px;
     }
@@ -200,7 +206,7 @@ body.explore, .explore {
 
   .channel_container, #campaign_boards, #explore_tiles {
     background: #fff;
-    padding: 2em 0 0 0;
+    padding: 1em 0 0 0;
   }
 
   .channel_container {
@@ -217,7 +223,7 @@ body.explore, .explore {
     z-index: 1;
   }
 
-  #organizations {}
+  #organizations { }
 
   #channel_tiles {
     padding-left: 10px;

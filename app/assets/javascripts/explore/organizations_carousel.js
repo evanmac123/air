@@ -3,6 +3,7 @@ var Airbo = window.Airbo || {};
 Airbo.OrganizationsCarousel = (function(){
   function init() {
     var $carousel = $('.flickity-organizations-carousel');
+    $carousel.fadeIn();
     var $organization_sel = $('.organization');
 
     $carousel.flickity({
@@ -14,18 +15,14 @@ Airbo.OrganizationsCarousel = (function(){
       draggable: true,
     });
 
-    $carousel.on( 'staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {
-      var slug = $(cellElement).data("slug");
-      if (slug) {
-        var name = $(cellElement).data("name");
-        var currentUserData = $("body").data("currentUser");
+    $(".visit-organization-link").on("click", function(e) {
+      var name = $(this).data("name");
+      var id = $(this).data("id");
+      var currentUserData = $("body").data("currentUser");
 
-        var properties = $.extend({ action: "Clicked Organization", organization: name }, currentUserData);
+      var properties = $.extend({ action: "Clicked Organization", organization: name, organization_id: id}, currentUserData);
 
-        Airbo.Utils.ping("Explore page - Interaction", properties);
-
-        window.location = "/explore/organizations/" + slug;
-      }
+      Airbo.Utils.ping("Explore page - Interaction", properties);
     });
   }
 
