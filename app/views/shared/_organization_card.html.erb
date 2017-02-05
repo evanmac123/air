@@ -1,15 +1,14 @@
 <div class="organization-card">
   <div class="organization-logo">
     <%= image_tag(organization.logo.url) %>
-    <div class="organization-name">
-      <h3><%= organization.name %></h3>
-    </div>
-    <div class="organization-stats">
-      <span class="stat"><%= number_with_delimiter(organization.rdb[:total_tiles_created].get) %> Tiles</span>
-      <span class="stat"><%= number_with_delimiter(organization.rdb[:total_tile_viewings].get) %>  Views</span>
-    </div>
-    <div class="organization-visit-profile">
-      <%= link_to "Visit Profile", explore_organization_path(organization), class: "button" %>
-    </div>
+  </div>
+  <div class="organization-name">
+    <h3><%= organization.name %></h3>
+  </div>
+  <div class="organization-stats">
+    <span class="stat">Customer since <%= organization.created_at.strftime("%B %Y") %></span>
+  </div>
+  <div class="organization-visit-profile">
+    <%= link_to "View Profile", explore_organization_path(organization), class: "button" %>
   </div>
 </div>
