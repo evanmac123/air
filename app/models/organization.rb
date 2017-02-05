@@ -20,6 +20,12 @@ class Organization < ActiveRecord::Base
 
   scope :name_order, -> { order(:name) }
 
+  has_attached_file :logo,
+    {
+      styles: { small: "x60>", medium: "x120>" },
+      default_style: :small
+    }
+
   def update_slug
     self.slug = name.parameterize
   end

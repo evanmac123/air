@@ -3,6 +3,7 @@
     <h1 class ="text-left"><%= @organization.name %></h1>
     <fieldset>
       <legend>Info</legend>
+      <%= render 'shared/organization_card', organization: @organization %>
       <%=link_to "Edit this organization", edit_admin_organization_path(@organization)%>
     </fieldset>
     <br>
