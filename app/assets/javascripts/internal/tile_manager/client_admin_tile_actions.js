@@ -8,6 +8,12 @@ Airbo.ClientAdminTileActions = (function(){
   //
   // => Duplication
   //
+  function updateStatus(target){
+    Airbo.TileAction.updateStatus(target);
+  }
+  //
+  // => Duplication
+  //
   function swapModalButtons(){
      $("button.cancel").before($("button.confirm"));
   }
@@ -122,5 +128,6 @@ Airbo.ClientAdminTileActions = (function(){
   return {
     makeDuplication: makeDuplication,
     confirmDeletion: confirmDeletion,
+    updateStatus: updateStatus,
   };
 }());
