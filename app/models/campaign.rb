@@ -42,4 +42,8 @@ class Campaign < ActiveRecord::Base
   def formatted_sources
     sources.split(",").map(&:strip).in_groups_of(2)
   end
+
+  def active_tiles
+    tiles.explore.active
+  end
 end
