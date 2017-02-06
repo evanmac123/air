@@ -9,6 +9,9 @@
 @import './vendor_customization/flickity';
 
 @import "mixins/green_paddle_switch";
+@import './mixins/organization-card';
+@import './mixins/how-to-use-card';
+
 
 .explore-campaigns, .explore-channels, .explore-tile_features, .explore-organizations {
   .content {
@@ -69,6 +72,32 @@ body.explore, .explore {
         left: 20px;
       }
       background: transparent;
+    }
+    h4 {
+      margin-left: 0.4em;
+    }
+  }
+
+  .organization-row {
+    padding: 10px 15px 35px 15px;
+    @include flickity;
+    .carousel-cell {
+      cursor: auto;
+    }
+    .flickity-organizations-carousel {
+      display: none;
+    }
+    .flickity-prev-next-button.next {
+      right: 20px;
+    }
+    .flickity-prev-next-button.previous {
+      left: 20px;
+    }
+    .flickity-prev-next-button {
+      background: transparent;
+    }
+    .organization-card {
+      @include organization-card;
     }
     h4 {
       margin-left: 0.4em;
@@ -176,13 +205,9 @@ body.explore, .explore {
     }
   }
 
-  .channel_container, #campaign_boards, #explore_tiles {
+  .channel_container, #campaign_boards, #explore_tiles, .explore_content {
     background: #fff;
-    padding: 2em 0 0 0;
-  }
-
-  #campaign_boards {
-    padding-bottom: 20px;
+    padding: 1em 0 0 0;
   }
 
   .channel_container {
@@ -195,8 +220,11 @@ body.explore, .explore {
 
   #campaign_boards {
     box-shadow: 0px 1px 6px 1.2px $med-gray;
+    padding-bottom: 20px;
     z-index: 1;
   }
+
+  #organizations { }
 
   #channel_tiles {
     padding-left: 10px;
@@ -247,10 +275,19 @@ body.explore, .explore {
     margin-bottom: 0;
   }
 
-  .campaign-description {
+  .campaign-profile {
+    .content-section-header {
+      margin: 0.5em 1.3em;
+      font-size: 14px;
+      font-weight: 300;
+      color: #a8a8a8;
+      border-bottom: 1px solid #a8a8a8;
+      p {
+        margin: 0.5em 0;
+      }
+    }
     h4 {
       color: $darker-gray;
-      padding: 0 18px;
       margin-top: 10px;;
       margin-bottom: 15px;
       font-size: 18px;
@@ -324,6 +361,37 @@ body.explore, .explore {
   #exploreOnboardingModal {
     top: 90px;
     z-index: 98;
+  }
+
+  .campaign-profile {
+    margin-bottom: 20px;
+    .how-to-use-card {
+      @include how-to-use-card;
+    }
+    .info-point {
+      margin: 15px 2em;
+      li:before {
+        font-family: 'FontAwesome';
+        margin:0 5px 0 -15px;
+        color: $darker-gray;
+      }
+      &.tiles {
+        li:before {
+          content: '\f24d';
+        }
+      }
+      &.duration {
+        li:before {
+          content: '\f017';
+        }
+      }
+      i {
+        margin-right: 5px;
+      }
+    }
+    .campaign-source {
+      margin-bottom: 0;
+    }
   }
 
 

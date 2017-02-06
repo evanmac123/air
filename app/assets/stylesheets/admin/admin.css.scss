@@ -1,4 +1,9 @@
 @import './mixins/channels';
+@import './mixins/organization-card';
+
+.organization-card {
+  @include organization-card;
+}
 
 .admin-table {
   th {

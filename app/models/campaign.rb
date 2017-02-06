@@ -34,4 +34,12 @@ class Campaign < ActiveRecord::Base
   def related_channels
     Channel.where(slug: self.channel_list.map(&:parameterize))
   end
+
+  def formatted_instructions
+    instructions.split("\n")
+  end
+
+  def formatted_sources
+    sources.split(",").map(&:strip).in_groups_of(2)
+  end
 end
