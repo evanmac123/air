@@ -1,0 +1,17 @@
+<%=form_tag admin_user_migrators_path do%>
+  <label>
+    From Board:
+    <%=select_tag :from,  options_from_collection_for_select(@demos, :id, :name), class: "airbo-chosen-select" %> 
+  </label>
+
+  <label>
+    To Board:
+    <%=select_tag :to,  options_from_collection_for_select(@demos, :id, :name), class: "airbo-chosen-select"%> 
+  </label>
+
+  <label>
+    User Ids:
+    <%=text_area_tag :user_ids%> 
+  </label>
+  <%=submit_tag "Click to show results", class:"button"%>
+<%end%>

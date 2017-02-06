@@ -1,16 +1,28 @@
 class Admin::UserMigratorsController < AdminBaseController
+  def index
+    @demos = Demo.scoped.order("name asc").all
+  end
 
+  def new
+    @demos = Demo.scoped.order("name asc").all
+  end
 
   def create
-    migrator = UserBoardMigrator.new(params[:user_ids], params[:from], params[to]) 
-    @summary  = migrator.execute(params[:commit])
-    if @summary.commmitted?
+    ids = params[:user_ids].gsub(/[\r\n]/, "").split(",").map(&:to_i)
+    migrator = UserBoardMigrator.new(ids, params[:from], params[:to])
+
+    @summary = migrator.execute(params[:perform])
+
+    if @summary.perform.nil?
+      render :edit
     else
+      flash[:success]="User points successfully migrated";
+     render :show
     end
   end
 
-  def edit
-       
+  def show
+
   end
 
 end

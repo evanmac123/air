@@ -1,33 +1,31 @@
 class UserBoardMigrator
 
-  Summary = Struct.new(:from, :to, :results)
+  Summary = Struct.new(:from, :to, :from_id, :to_id, :perform, :user_ids, :results)
 
   attr_accessor :summary, :from_bm, :from_bms, :to_bm, :to_bms
 
   def initialize user_ids, from, to
-    @users = User.where("id in (?)", user_ids)
+    @ids = user_ids
+    @users = User.where("id in (?)", @ids).order("id asc")
     @from_board = Demo.find(from)
     @to_board = Demo.find(to)
-    @from_bms = @from_board.board_memberships.where("user_id in (?)", user_ids).all
-    @to_bms = @to_board.board_memberships.where("user_id in (?)", user_ids).all
+    @from_bms = @from_board.board_memberships.where("user_id in (?)",@ids).all
+    @to_bms = @to_board.board_memberships.where("user_id in (?)", @ids).all
+
     setup_summary
   end
 
 
 
-  def execute commit=false
-    #@summary.commit = commit
-
+  def execute perform=false
+    @summary.perform = perform
     @users.each do|user|
-
       from_bm = from_bms.select{|u|u.user_id == user.id}.first
       to_bm = to_bms.select{|u|u.user_id == user.id}.first || user.board_memberships.build(demo: @to_board)
-      from_points  = from_bm.nil? ? 0 : from_bm.points #can user not be in the board?
-      to_points  = to_bm.points
 
       calculate_points user, from_bm, to_bm
 
-      if commit
+      if perform
         User.transaction do
           to_bm.save
           user.save
@@ -35,8 +33,7 @@ class UserBoardMigrator
         end
       end
     end
-
-    return @summary
+    @summary
   end
 
   def calculate_points user, from, to
@@ -48,6 +45,7 @@ class UserBoardMigrator
     to.points = user.points 
 
     add_to_confirmation_report({
+      id: user.id, 
       user: user.name, 
       starting_user_points: starting_user_points,
       from_board_points: starting_from_points, 
@@ -59,6 +57,9 @@ class UserBoardMigrator
 
   def setup_summary
     @summary = Summary.new
+    @summary.user_ids = @ids.join(",")
+    @summary.from_id = @from_board.id 
+    @summary.to_id = @to_board.id
     @summary.from = @from_board.name
     @summary.to = @to_board.name
     @summary.results = []
