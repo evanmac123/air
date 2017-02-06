@@ -2,11 +2,10 @@ FactoryGirl.define do
   #USER
 
 
-  # factory :board_membership do
-  #   demo { FactoryGirl.create :demo }
-  #   user { FactoryGirl.create :user, demo: demo }
-  #   association :location
-  # end
+   factory :board_membership do
+     demo
+     user
+   end
 
   #DEMO
   factory :demo do
