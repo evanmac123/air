@@ -23,6 +23,8 @@ describe UserBoardMigrator do
           @users_b << FactoryGirl.create(:user, name: name, points: point, demo: @board_b)
         end
 
+        @john = @users_a.select{|u|u.name =="john"}.first
+        @paul = @users_a.select{|u|u.name =="paul"}.first
         @board_a_bms = @board_a.board_memberships
         @bard_b_bms= @board_b.board_memberships
         @migrator  = UserBoardMigrator.new(@users_a.map(&:id), @board_a.id, @board_b.id)
@@ -50,6 +52,7 @@ describe UserBoardMigrator do
         expect(@migrator.summary.results).to eq(
           [
             {
+              :id => @john.id,
               :user=>"john",
               :starting_user_points=>50,
               :from_board_points=>0,
@@ -58,6 +61,7 @@ describe UserBoardMigrator do
               :to_board_points=>50
             },
             {
+              :id => @paul.id,
               :user=>"paul",
               :starting_user_points=>75,
               :from_board_points=>0,
@@ -82,6 +86,7 @@ describe UserBoardMigrator do
 
         @john = @users_a.select{|u|u.name =="john"}.first
         @paul = @users_a.select{|u|u.name =="paul"}.first
+        @timothy = @users_a.select{|u|u.name =="timothy"}.first
 
         FactoryGirl.create(:board_membership,user: @john, demo: @board_b, points: 0)
         FactoryGirl.create(:board_membership,user: @paul, demo: @board_b, points: 25)
@@ -113,6 +118,7 @@ describe UserBoardMigrator do
         expect(@migrator.summary.results).to eq(
           [
             {
+              :id => @john.id,
               :user=>"john",
               :starting_user_points=>50,
               :from_board_points=>0,
@@ -121,6 +127,7 @@ describe UserBoardMigrator do
               :to_board_points=>50
             },
             {
+              :id => @paul.id,
               :user=>"paul",
               :starting_user_points=>75,
               :from_board_points=>0,
@@ -129,6 +136,7 @@ describe UserBoardMigrator do
               :to_board_points=>100
             } ,
             {
+              :id => @timothy.id,
               :user=>"timothy",
               :starting_user_points=>20,
               :from_board_points=>0,
@@ -136,9 +144,48 @@ describe UserBoardMigrator do
               :final_user_points=>20,
               :to_board_points=>20
             }
-
-
           ])
+      end
+      context "and user has points in both boards and on itself" do
+
+        it "populates summary with correct values" do
+          bm = BoardMembership.where(user: @paul, demo: @board_a).first
+          bm.points = 10
+          bm.save
+
+          @migrator  = UserBoardMigrator.new(@users_a.map(&:id), @board_a.id, @board_b.id)
+          @migrator.execute(true)
+          expect(@migrator.summary.results).to eq(
+            [
+              {
+                :id => @john.id,
+                :user=>"john",
+                :starting_user_points=>50,
+                :from_board_points=>0,
+                :to_board_starting_points=>0,
+                :final_user_points=>50,
+                :to_board_points=>50
+              },
+              {
+                :id => @paul.id,
+                :user=>"paul",
+                :starting_user_points=>75,
+                :from_board_points=>10,
+                :to_board_starting_points=>25,
+                :final_user_points=>110,
+                :to_board_points=>110
+              } ,
+              {
+                :id => @timothy.id,
+                :user=>"timothy",
+                :starting_user_points=>20,
+                :from_board_points=>0,
+                :to_board_starting_points=>0,
+                :final_user_points=>20,
+                :to_board_points=>20
+              }
+            ])
+        end
       end
     end
 
