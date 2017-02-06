@@ -6,16 +6,48 @@ Airbo.ClientAdminTileActions = (function(){
       editSelector        = ".edit_button a";
 
   //
-  // => Duplication
+  // => Update Status
   //
-  function updateStatus(target){
-    Airbo.TileAction.updateStatus(target);
+  function updateStatus(target) {
+    tile = Airbo.TileAction.tileByStatusChangeTriggerLocation(target);
+
+    function closeAnyToolTips() {
+      if ((target).parents(".tooltipster-base").length > 0) {
+        $("li#stat_toggle").tooltipster("hide");
+      }
+    }
+
+    if (tile.hasClass("unfinished")){
+      Airbo.Utils.alert(Airbo.Utils.Messages.incompleteTile);
+    } else {
+      submitTileForUpadte(tile,target, closeAnyToolTips);
+    }
+  }
+
+  function submitTileForUpadte(tile,target, postProcess ){
+    var newStatus = target.data("status");
+    var data = { "update_status": { "status": newStatus, "allowRedigest": false } };
+
+    function submit() {
+      $.ajax({
+        url: target.data("url") || target.attr("href"),
+        type: "put",
+        data: data,
+        dataType: "html",
+        success: function(data, status,xhr){
+          debugger
+          Airbo.TileAction.closeModal( $(tileModalSelector) );
+          Airbo.TileAction.postProcess();
+          Airbo.ClientAdminTileThumbnail.init( $(data).data("tile-container-id") );
+        }
+      });
+    }
   }
   //
   // => Duplication
   //
   function swapModalButtons(){
-     $("button.cancel").before($("button.confirm"));
+    $("button.cancel").before($("button.confirm"));
   }
 
   function processingDuplicationModal() {

@@ -1,5 +1,10 @@
-<div class="explore-search-results has-tile-thumnails">
-  <% if @my_tiles.present? %>
-    <%= render 'shared/tiles/display_contextual_tiles', { tiles: @my_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter } %>
+<div class="explore explore-search-results has-tile-thumnails">
+  <div class="row">
+    <div class="columns small-12">
+      <h4 class="explore-headers search-results-description"><span>Search results for "<%= params[:query] %>"</span></h4>
+    </div>
+  </div>
+  <% if @search_service.draft_tiles.present? %>
+    <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.draft_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter, section: "draft" } %>
   <% end %>
 </div>

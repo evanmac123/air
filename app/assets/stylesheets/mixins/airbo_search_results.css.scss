@@ -1,0 +1,9 @@
+@mixin airbo_search_results() {
+  .search-results-description {
+    margin:20px;
+    span {
+      border-bottom: 1px solid $n-blue;
+      padding-bottom: 5px;
+    }
+  }
+}

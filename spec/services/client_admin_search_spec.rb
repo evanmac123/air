@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe ClientAdminSearch do
+describe AirboSearch do
   let(:query) { 'health insurance' }
   let(:demo) { FactoryGirl.create(:demo) }
 
   let(:options) { { per_page: 2 } } # low per_page to make testing easier
-  let(:service) { ClientAdminSearch.new(query, demo, options) }
+  let(:service) { AirboSearch.new(query, demo, options) }
 
   describe 'initiailzes' do
     it 'sets query' do
@@ -103,7 +103,7 @@ describe ClientAdminSearch do
     describe '#formatted_query' do
       context 'user query is blank' do
         it 'formats to *' do
-          service = ClientAdminSearch.new('  ', demo)
+          service = AirboSearch.new('  ', demo)
           expect(service.send(:formatted_query)).to eql('*')
         end
       end

@@ -6,6 +6,7 @@
 @import './tile/tile_thumbnail/tiles_thumbnails_small_with_controls';
 @import './tile/tile_thumbnail/tiles_thumbnails_transition';
 @import './mixins/channels';
+@import './mixins/airbo_search_results';
 @import './vendor_customization/flickity';
 
 @import "mixins/green_paddle_switch";
@@ -18,6 +19,10 @@
 }
 
 body.explore, .explore {
+  &.explore-search-results {
+    @include airbo_search_results;
+  }
+
   .manage_section {
     position: relative;
     color: $text-color;

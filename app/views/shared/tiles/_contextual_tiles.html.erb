@@ -1,0 +1,5 @@
+<% tiles.each do |tile| %>
+  <% present(tile, presenter, { is_ie: browser.ie?, referrer: :contextual_tiles }) do |presenter| %>
+    <%= render presenter.partial, presenter: presenter, tile: tile %>
+  <% end %>
+<% end %>

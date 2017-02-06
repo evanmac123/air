@@ -13,7 +13,7 @@ Airbo.ClientAdminTileThumbnailMenu = (function() {
     }
   }
 
-  function init(tile){
+  function init(tile) {
     var menuButton = tile.find(".more_button");
 
     menuButton.tooltipster({
