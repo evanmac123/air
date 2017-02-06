@@ -1,0 +1,13 @@
+<div class="how-to-use-card">
+  <div class="header">
+    <span>How to use this Campaign</span>
+  </div>
+  <div class="list">
+    <dl>
+      <% campaign.formatted_instructions.each_with_index do |instruction, i| %>
+        <dt><span class="instruction-header">Step <%= i + 1 %><span></dt>
+        <dd><%= instruction %></dd>
+      <% end %>
+    </dl>
+  </div>
+</div>
