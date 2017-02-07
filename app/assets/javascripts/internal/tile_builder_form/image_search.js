@@ -20,7 +20,7 @@ Airbo.ImageSearcher = (function(){
   function processResults(data,status,xhr){
     $.Topic("image-results-added").publish();
     handler = this.provider;
-    var html = handler(data);
+    var html = handler.handle(data);
     presentData(html);
   }
 

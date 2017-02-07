@@ -4,7 +4,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesPingsHelper
   include CustomResponder
 
-  before_filter :get_demo
+  before_filter :get_demo, :set_image_providers
   before_filter :permit_params, only: [:create, :update]
 
   def index
@@ -260,6 +260,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def get_demo
     @demo = current_user.demo
+  end
+
+  def set_image_providers
+    @image_providers = ENV['IMAGE_PROVIDERS'].split(",").to_json
   end
 
   def get_tile
