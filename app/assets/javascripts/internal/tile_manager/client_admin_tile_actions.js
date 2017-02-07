@@ -10,7 +10,6 @@ Airbo.ClientAdminTileActions = (function(){
   //
   function updateStatus(target) {
     tile = Airbo.TileAction.tileByStatusChangeTriggerLocation(target);
-
     function closeAnyToolTips() {
       if ((target).parents(".tooltipster-base").length > 0) {
         $("li#stat_toggle").tooltipster("hide");
@@ -24,24 +23,21 @@ Airbo.ClientAdminTileActions = (function(){
     }
   }
 
-  function submitTileForUpadte(tile,target, postProcess ){
+  function submitTileForUpadte(tile, target, postProcess ){
     var newStatus = target.data("status");
     var data = { "update_status": { "status": newStatus, "allowRedigest": false } };
 
-    function submit() {
-      $.ajax({
-        url: target.data("url") || target.attr("href"),
-        type: "put",
-        data: data,
-        dataType: "html",
-        success: function(data, status,xhr){
-          debugger
-          Airbo.TileAction.closeModal( $(tileModalSelector) );
-          Airbo.TileAction.postProcess();
-          Airbo.ClientAdminTileThumbnail.init( $(data).data("tile-container-id") );
-        }
-      });
-    }
+    $.ajax({
+      url: target.data("url") || target.attr("href"),
+      type: "put",
+      data: $.extend(data, { from_search: true }),
+      dataType: "html",
+      success: function(data, status,xhr){
+        $(tileModalSelector).foundation("reveal", "close");
+        tile.replaceWith(data);
+        Airbo.ClientAdminTileThumbnail.init( $(data).data("tile-container-id"));
+      }
+    });
   }
   //
   // => Duplication

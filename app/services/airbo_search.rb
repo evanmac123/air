@@ -18,22 +18,8 @@ class AirboSearch
     load_records!(records_to_load)
   end
 
-  def draft_tiles
-    if admin_search
-      unpaginated_user_draft_tiles.records.page(options[:page]).per(per_page)
-    end
-  end
-
-  def active_tiles
-    if user_search
-      unpaginated_user_active_tiles.records.page(options[:page]).per(per_page)
-    end
-  end
-
-  def archive_tiles
-    if user_search
-      unpaginated_user_archive_tiles.records.page(options[:page]).per(per_page)
-    end
+  def user_tiles
+    unpaginated_user_tiles.records.page(options[:page]).per(per_page)
   end
 
   def explore_tiles
@@ -94,7 +80,8 @@ class AirboSearch
         },
         fields: default_fields,
         match: default_match,
-        operator: 'or'
+        operator: 'or',
+        order: {_score: :desc}
       }
     end
 
@@ -106,34 +93,23 @@ class AirboSearch
         },
         fields: default_fields,
         match: default_match,
-        operator: 'or'
+        operator: 'or',
+        order: {_score: :desc}
       }
     end
 
     def load_all_records
-      unpaginated_user_draft_tiles
-      unpaginated_user_active_tiles
-      unpaginated_user_archive_tiles
+      unpaginated_user_tiles
       unpaginated_explore_tiles
       campaigns
       organizations
     end
 
-    def unpaginated_user_draft_tiles
+    def unpaginated_user_tiles
       if admin_search
-        @unpaginated_user_draft_tiles ||= Tile.search(formatted_query, user_tiles_options("draft"))
-      end
-    end
-
-    def unpaginated_user_active_tiles
-      if user_search
-        @unpaginated_user_active_tiles ||= Tile.search(formatted_query, user_tiles_options("active"))
-      end
-    end
-
-    def unpaginated_user_archive_tiles
-      if user_search
-        @unpaginated_user_archive_tiles ||= Tile.search(formatted_query, user_tiles_options("archive"))
+        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options(["draft", "active", "archive"]))
+      elsif user_search
+        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options(["active", "archive"]))
       end
     end
 

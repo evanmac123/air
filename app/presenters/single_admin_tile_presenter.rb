@@ -83,13 +83,13 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def status_marker
-    if options[:from_search] == true
+    if from_search?
       content_tag :div, status, class: "status_marker #{status}"
     end
   end
 
   def has_tile_stats?
-    tile_status_matches?(:active, :archive) || options[:from_search] == true
+    tile_status_matches?(:active, :archive) || from_search?
   end
 
   def show_tile_path
@@ -180,6 +180,10 @@ class SingleAdminTilePresenter < BasePresenter
 
   def to_param
     @to_param ||= tile.to_param
+  end
+
+  def from_search?
+    options[:from_search] == true || options[:from_search] == "true"
   end
 
 

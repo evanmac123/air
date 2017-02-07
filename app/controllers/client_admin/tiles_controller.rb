@@ -127,9 +127,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def status_change
     @tile = get_tile
-
     @tile.update_status(params[:update_status])
-    presenter = present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?})
+
+    presenter = present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?, from_search: params[:from_search]})
     render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
   end
 

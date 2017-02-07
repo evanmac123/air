@@ -5,8 +5,8 @@
     </div>
   </div>
   <div class="manage-section">
-    <% if @search_service.draft_tiles.present? %>
-      <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.draft_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter } %>
+    <% if @search_service.user_tiles.present? %>
+      <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.user_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter } %>
     <% end %>
   </div>
 </div>

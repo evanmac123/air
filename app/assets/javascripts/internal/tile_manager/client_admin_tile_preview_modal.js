@@ -1,13 +1,12 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ClientAdminTilePreviewModal = (function(){
-  var modalId = "tile_preview_modal"
-    , self
-  ;
-  var modalObj = Airbo.Utils.StandardModal()
-    , arrowsObj = Airbo.TilePreivewArrows()
-    , tileManager
-  ;
+  var modalId = "tile_preview_modal",
+      self,
+      modalObj = Airbo.Utils.StandardModal(),
+      arrowsObj = Airbo.TilePreivewArrows(),
+      tileManager;
+
   function tileContainerSizes() {
     tileContainer = $(".tile_full_image")[0];
     if( !tileContainer ) {
@@ -49,10 +48,8 @@ Airbo.ClientAdminTilePreviewModal = (function(){
   function initStickyPreviewMenu() {
     Airbo.StickyMenu.init(self);
   }
+
   function initEvents() {
-    // FIXME
-    // there are same events in Airbo.TileThumbnail (edit, update, delete, duplicate)
-    // reason: i want to have object, its elements and its events in one place
     $(".preview_menu_item.edit a").click(function(e){
       e.preventDefault();
       url = $(this).attr("href");
@@ -69,7 +66,7 @@ Airbo.ClientAdminTilePreviewModal = (function(){
 
     $(".preview_menu_item .duplicate_tile").click(function(event){
       event.preventDefault();
-      Airbo.TileAction.makeDuplication($(this));
+      Airbo.ClientAdminTileActions.makeDuplication($(this));
     });
 
 
@@ -89,7 +86,7 @@ Airbo.ClientAdminTilePreviewModal = (function(){
       e.preventDefault();
       e.stopPropagation();
       target = $(this);
-      Airbo.TileAction.updateStatus(target);
+      Airbo.ClientAdminTileActions.updateStatus(target);
     });
   }
 
