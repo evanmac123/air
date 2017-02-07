@@ -16,7 +16,7 @@ private
   def h
     @template
   end
-  
+
   def method_missing(*args, &block)
     @template.send(*args, &block)
   end

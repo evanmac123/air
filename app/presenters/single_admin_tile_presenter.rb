@@ -186,7 +186,6 @@ class SingleAdminTilePresenter < BasePresenter
     options[:from_search] == true || options[:from_search] == "true"
   end
 
-
   def cache_key
     @cache_key ||= [
       self.class,

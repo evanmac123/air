@@ -10,12 +10,15 @@ class SingleTilePresenter < BasePresenter
 
   presents :tile
 
+  attr_reader :options
+
   def initialize(object, template, options)
     super
     @type = options[:type] # explore or user
     @public_slug = options[:public_slug]
     @completed = options[:completed]
     @user_onboarding = options[:user_onboarding]
+    @options = options
   end
 
   def tile_id
@@ -33,7 +36,13 @@ class SingleTilePresenter < BasePresenter
   def status
     type
   end
- 
+
+  def status_marker
+    if from_search?
+      content_tag :div, status, class: "status_marker #{status}"
+    end
+  end
+
   def tile_status
     type
   end
@@ -72,7 +81,9 @@ class SingleTilePresenter < BasePresenter
     end
   end
 
-
+  def from_search?
+    options[:from_search] == true || options[:from_search] == "true"
+  end
 
   def cache_key
     @cache_key ||= [
