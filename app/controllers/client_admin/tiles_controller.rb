@@ -290,9 +290,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     [success, failure]
   end
 
-
-
   def render_tile_string
+    if request.referrer.include?("explore")
+      tile_presenter.options[:from_search] = true
+    end
+
     render_to_string(
                      partial: 'client_admin/tiles/manage_tiles/single_tile',
                      locals: { presenter:  tile_presenter}
@@ -310,10 +312,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def render_tile_preview_string
     render_to_string(action: 'show', layout:false)
   end
-
-
-
-
 
   def set_after_save_flash(new_tile)
     flash[:success] ="Tile #{params[:action] || 'create' }d! We're resizing the graphics, which usually takes less than a minute."
@@ -338,7 +336,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       action: params[:action]
     }
   end
-
 
   def render_preview_and_single
     prepTilePreview

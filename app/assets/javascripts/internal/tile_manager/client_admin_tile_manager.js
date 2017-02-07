@@ -2,12 +2,8 @@ var Airbo = window.Airbo || {};
 
 Airbo.ClientAdminTileManager = (function(){
 
-  function initVars() {
-    tileThumbnail = Airbo.ClientAdminTileThumbnail.init(this);
-  }
-
   function init() {
-    initVars();
+    Airbo.TileManager.init("search", Airbo.ClientAdminTileThumbnail);
     Airbo.TileStatsModal.init();
   }
 

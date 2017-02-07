@@ -38,7 +38,12 @@ Airbo.TileManager = (function(){
       section.prepend(tile); //Add tile to section
       Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
     }
-    tileThumbnail.initTile(data.tileId);
+
+    if (tileThumbnail) {
+      tileThumbnail.initTile(data.tileId);
+    } else {
+      Airbo.ClientAdminTileThumbnail.initTile(tile);
+    }
   }
 
   function updateSections(data) {
@@ -57,13 +62,13 @@ Airbo.TileManager = (function(){
     });
   }
 
-  function initVars() {
-    tileThumbnail = Airbo.TileThumbnail.init(this);
+  function initVars(thumbNail) {
+    tileThumbnail = thumbNail.init(this);
   }
 
-  function init(type) {
+  function init(type, thumbNail) {
     managerType = type;
-    initVars();
+    initVars(thumbNail);
     initEvents();
   }
   return {
@@ -71,7 +76,7 @@ Airbo.TileManager = (function(){
     updateTileSection: updateTileSection,
     updateSections: updateSections,
     getManagerType: getManagerType
-  }
+  };
 }());
 
 $(function(){
@@ -84,6 +89,7 @@ $(function(){
     } else {
       manageType = "archived";
     }
-    Airbo.TileManager.init(manageType);
+
+    Airbo.TileManager.init(manageType, Airbo.TileThumbnail);
   }
 });
