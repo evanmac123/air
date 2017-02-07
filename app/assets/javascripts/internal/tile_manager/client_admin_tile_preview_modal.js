@@ -4,7 +4,7 @@ Airbo.ClientAdminTilePreviewModal = (function(){
   var modalId = "tile_preview_modal",
       self,
       modalObj = Airbo.Utils.StandardModal(),
-      arrowsObj = Airbo.TilePreivewArrows(),
+      arrowsObj,
       tileManager;
 
   function tileContainerSizes() {
@@ -120,6 +120,7 @@ Airbo.ClientAdminTilePreviewModal = (function(){
   }
   function init(AirboTileManager){
     self = this;
+    arrowsObj = Airbo.TilePreivewArrows();
     initModalObj();
     arrowsObj.init(self, {buttonSize: 40, offset: 20});
     tileManager = AirboTileManager;
