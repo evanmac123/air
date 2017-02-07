@@ -291,7 +291,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def render_tile_string
-    if request.referrer.include?("explore")
+    if from_search?
       tile_presenter.options[:from_search] = true
     end
 
@@ -346,5 +346,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       preview: render_tile_preview_string,
       updatePath: client_admin_tile_path(@tile)
     }
+  end
+
+  def from_search?
+    request.referrer && request.referrer.include?("explore")
   end
 end
