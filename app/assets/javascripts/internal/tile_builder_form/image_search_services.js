@@ -51,7 +51,9 @@ var PixabayImageHandler = Object.create(ImageSearchService)
   , GoogleImageHandler =  Object.create(ImageSearchService)
 ;
 
-
+PixabayImageHandler.name = "pixabay";
+FlickrImageHandler.name = "flickr";
+GoogleImageHandler.name = "google";
 
 //pixabay
 
@@ -61,7 +63,7 @@ PixabayImageHandler.buildThumbnails = function(data){
 
   if (this.results > 0){
     thumbnails =  data.hits.map(function(item, i){
-      return "<img src='" + item.previewURL  + "' data-preview='" + item.webformatURL +"'/>"
+      return "<img src1='" + item.previewURL  + "' data-flickity-lazyload='" + item.previewURL +     "' data-preview='" + item.webformatURL +"'/>"
     });
   }
   return thumbnails;

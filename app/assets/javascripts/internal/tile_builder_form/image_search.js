@@ -7,6 +7,8 @@ Airbo.ImageSearcher = (function(){
     , searchFormSel = ".search-form"
     , page = 0
     , flickityObj
+    , imageProviderList
+    , imageProviders
   ;
 
 
@@ -50,12 +52,12 @@ Airbo.ImageSearcher = (function(){
     $(".hide-search").hide();
   }
 
-  function executeSearch(services){
-    services.forEach(function(service){
-      var form =$("#"+ service + ".search-form")
+  function executeSearch(){
+    imageProviders.forEach(function(service){
+      var form =$("#"+ service.name + ".search-form")
         , apiSearchField = 'input[name=' + form.data("search-field") +']'
         , searchText = $(".search-input").val()
-        , ctx = {provider:  ImageSearchService.getProvider(service)} // create context binding for the ajax success handler
+        , ctx = {provider:  service} // create context binding for the ajax success handler
       ;
 
       $.Topic("inititiating-image-search").publish();
@@ -83,7 +85,7 @@ Airbo.ImageSearcher = (function(){
       var keycode = (event.keyCode ? event.keyCode : event.which) ;
 
       if(keycode == '13'){
-        executeSearch($(this).data('services') || "pixabay");
+        executeSearch();
       }
     })
   }
@@ -98,12 +100,23 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
+
+  function loadImageProviders(){
+    imageProviderList = $(".search-input").data('services');
+
+    imageProviders = imageProviderList.map(function(service){
+      return ImageSearchService.getProvider(service);
+    });
+  }
+
+
   function init(){
     Airbo.TileVisualPreviewMgr.init();
     grid = $("#images");
     searchForm = $(searchFormSel);
     initTriggerImageSearch()
     initPreviewSelectedImage();
+    loadImageProviders();
   }
 
   return {
