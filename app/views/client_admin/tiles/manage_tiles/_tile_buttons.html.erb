@@ -28,7 +28,7 @@
   <% if presenter.has_incomplete_destroy_button? %>
       <li class="destroy_button">
         <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile", data: {"tile-id" => presenter.tile_id}  do %>
- 
+
           <%= fa_icon 'trash' %>
         <% end %>
       </li>
@@ -51,9 +51,6 @@
         <% end %>
       </li>
     <% end %>
-
-  
-
 
     <% if presenter.has_ignore_button? %>
       <li class="ignore_button">

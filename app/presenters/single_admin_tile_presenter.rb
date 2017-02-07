@@ -82,8 +82,14 @@ class SingleAdminTilePresenter < BasePresenter
     end
   end
 
+  def status_marker
+    if options[:from_search] == true
+      content_tag :div, status, class: "status_marker #{status}"
+    end
+  end
+
   def has_tile_stats?
-    tile_status_matches? :active, :archive
+    tile_status_matches?(:active, :archive) || options[:from_search] == true
   end
 
   def show_tile_path
@@ -110,7 +116,7 @@ class SingleAdminTilePresenter < BasePresenter
     tile_status_matches?(:draft) && !tile.is_fully_assembled?
   end
 
-   def has_edit_button?
+  def has_edit_button?
      tile_status_matches?(:draft, :active, :archive) && tile.is_fully_assembled?
   end
 
