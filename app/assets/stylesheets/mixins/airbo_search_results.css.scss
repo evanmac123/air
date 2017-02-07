@@ -9,4 +9,11 @@
   .search-results-section {
     margin-left:20px;
   }
+  .show-more-tiles-button {
+    margin-top: 25px;
+    &:after {
+      font-family: "FontAwesome";
+      content: " \f107";
+    }
+  }
 }

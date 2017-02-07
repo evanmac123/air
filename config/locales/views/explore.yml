@@ -17,3 +17,5 @@ en:
         slide_4:
           header: Your Content Assistant
           body: Browse best practice examples and get weekly suggestions
+      searches:
+        show_more_tiles_button: Show more Tiles

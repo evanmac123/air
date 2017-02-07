@@ -1,9 +1,16 @@
-<section class="manage_section contextual_tiles_container <%= container %>" style="margin-top:30px;">
-  <div class="row">
+<section class="manage_section contextual_tiles_container <%= container %>" style="margin-top:30px;" data-page="<%= tiles.current_page %>" data-count="<%= tiles.count %>" data-query="<%= params[:query] %>" data-section="<%= container %>" data-more-tiles-path="<%= show_more_path %>">
+  <div class="row tiles-row">
     <div class="large-12 columns">
-      <div class="<%= container %>" data-page="<%= 1 %>" data-count="<%= tiles.count %>">
+      <div class="<%= container %> tile-grid">
         <%= render "shared/tiles/contextual_tiles", { presenter: presenter, tiles: tiles } %>
       </div>
     </div>
   </div>
+  <% if show_more_button == true %>
+    <div class="row">
+      <div class="columns small-12 text-center">
+        <%= render 'shared/button_with_spinner', { button_classes: "show-more-tiles-button", button_id: "more-#{container}", button_text: I18n.t('views.explore.searches.show_more_tiles_button') } %>
+      </div>
+    </div>
+  <% end %>
 </section>

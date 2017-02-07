@@ -6,7 +6,7 @@
   </div>
   <div class="manage-section">
     <% if @search_service.user_tiles.present? %>
-      <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.user_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter } %>
+      <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.user_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter, show_more_button: true, show_more_path: explore_search_path({ section: 'client_admin_tiles' }) } %>
     <% end %>
   </div>
 </div>

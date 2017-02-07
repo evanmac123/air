@@ -9,18 +9,18 @@ class AirboSearch
   # @campaigns = service.campaigns
   # @organizations = service.organizations
 
-  def initialize(query, user, options)
+  def initialize(query, user, options = {})
     @query = query
     @user = user
     @demo = get_demo
     @options = options
   end
 
-  def user_tiles(page = options[:page])
+  def user_tiles(page = 1)
     unpaginated_user_tiles.records.page(page).per(per_page)
   end
 
-  def explore_tiles(page = options[:page])
+  def explore_tiles(page = 1)
     if explore_search
       unpaginated_explore_tiles.records.page(page).per(per_page)
     end
@@ -39,18 +39,6 @@ class AirboSearch
   end
 
   private
-
-    def records_to_load
-      options[:records_to_load] || :all
-    end
-
-    def load_records!(records_to_load)
-      if records_to_load == :all
-        load_all_records
-      else
-        send(records_to_load)
-      end
-    end
 
     def formatted_query
       return '*' if query.blank?
