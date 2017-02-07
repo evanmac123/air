@@ -1,0 +1,59 @@
+@mixin how-to-use-card(){
+  width:270px;
+  min-height: 300px;
+  border: 1px solid #a8a8a8;
+  margin: 10px;
+  position: relative;
+  .header {
+    height: 30px;
+    text-align: center;
+    background: #a8a8a8;
+    color: #fff;
+    font-weight: 600;
+    padding: 8px;
+  }
+  .list {
+    padding: 10px;
+    dt {
+      font-weight: 700;
+      margin-bottom: 10px;
+      .instruction-header {
+        padding-bottom: 1px;
+        border-bottom: 1px solid $n-blue;
+      }
+    }
+    dd {
+      margin-left: 0;
+      margin-bottom: 15px;
+    }
+  }
+  .organization-name {
+    height: 4.4em;
+    margin-top: 20px;
+    overflow: hidden;
+    h3 {
+      margin: 0 10px;
+      font-weight: 600;
+      line-height: 1.1em;
+      font-size: 22px;
+    }
+  }
+  .organization-stats {
+    margin: 10px;
+    span {
+      line-height: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      color: $med-gray;
+    }
+  }
+  .organization-visit-profile {
+    position: absolute;
+    bottom: 0;
+    margin: 10px;
+    width: 90%;
+    a {
+      width: 100%;
+    }
+  }
+}

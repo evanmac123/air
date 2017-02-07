@@ -70,10 +70,10 @@ module Reporting
       include Db
 
       before do
-        #t = Time.local(2016, 02, 28, 23, 0, 0)  #FIXME this fails for Feb 28, 2016 at after 11pm  WTF?????
-        #Timecop.freeze(t)
+        t = Time.zone.local(2016, 02, 5, 20, 0, 0)  #FIXME this fails for Feb 28, 2016 at after 11pm  WTF?????
+        Timecop.freeze(t)
         setup_data
-        @tar = TileActivity.new(@demo.id, 8.weeks.ago, Time.now, "week")
+        @tar = TileActivity.new(@demo.id, 8.weeks.ago, Time.zone.now, "week")
       end
 
 
