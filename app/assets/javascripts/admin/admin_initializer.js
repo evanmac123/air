@@ -63,6 +63,7 @@ Airbo.SiteAdminInitializer = ( function(){
     initKpiTooltips();
     initPickadate();
     initZurbFoundation();
+    Airbo.Utils.initChosen();
   }
 
 

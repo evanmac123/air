@@ -1,0 +1,13 @@
+<%=render partial: 'summary'%>
+<div class="row">
+  <div class="columns large-12 large-centered">
+    <%=form_tag admin_user_migrators_path do%>
+      <%=hidden_field_tag :from, @summary.from_id %> 
+      <%=hidden_field_tag :to,  @summary.to_id%> 
+      <%=hidden_field_tag :user_ids, @summary.user_ids%> 
+      <%=hidden_field_tag :perform, true%> 
+      <%=submit_tag "Confirm Migration", class: "button"%>
+      <p class="err"> Note confirming this transaction will remove the selected users from <%=@summary.from%></p>
+    <%end%>
+  </div>
+</div>
