@@ -14,6 +14,7 @@ Airbo.ImageSearcher = (function(){
 
   function doFlickity(){
     grid.flickity({
+      lazyLoad: true,
       pageDots: false,
     });
 
@@ -22,8 +23,10 @@ Airbo.ImageSearcher = (function(){
     grid.flickity('unbindDrag');
 
     grid.on( 'select.flickity', function( event, progress ) {
-      console.log("index " + flickityObj.selectedIndex)
-    })
+      if(flickityObj.selectedIndex == flickityObj.cells.length -1){
+        console.log("last page");
+      }
+    });
   }
 
   function processResults(data,status,xhr){
@@ -77,10 +80,6 @@ Airbo.ImageSearcher = (function(){
   }
 
   function initTriggerImageSearch(){
-    $(".show-search").click(function(event){
-      executeSearch();
-    });
-
     $(".search-input").keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which) ;
 
