@@ -26,14 +26,7 @@ Airbo.TileQuestionBuilder = (function(){
 
   var DEFAULT_QUESTION_IDENTIFIER="Action-read_tile";  //TODO This is a quick hack make configurable in future
 
-  function initSubType() {
-
-    $("body").on("click", subtypeSelector, function(){
-      handleSubTypeSelection($(this).attr("id"));
-    });
-  }
-
-  function handleSubTypeSelection(identifier){
+   function handleSubTypeSelection(identifier){
 
     var obj = {}
     obj.subtypeId = identifier;
@@ -143,29 +136,6 @@ Airbo.TileQuestionBuilder = (function(){
     $(sliderSelector).css("display", "block");
   }
 
-  function initQuestionLostFocus(){
-    $('body').click(function(event) {
-      //FIXME hak hack hack WTF!!!!
-      if(tileBuilderForm.length>0) {
-        if(!$(event.target).attr("data-dropdown")){
-          closeMenuDropDowns();
-        }
-        if($(".tile_types li.selected.subtype").length > 0){
-          tryTurnOffEditAnswer(event.target);
-        }
-      }
-
-    });
-  }
-
-  function initRemoveAnswer(){
-    $("body").on("click", delAnswerSelector, function(event){
-      if( $("#new_tile_builder_form").find(".tile_multiple_choice_answer").length > 1 ) {
-        $(this).parents(multipleChoiceAnswerSelector).remove();
-      }
-    });
-  }
-
 
   function closeMenuDropDowns(){
     $(dropdownSelector).each(function() {
@@ -173,76 +143,9 @@ Airbo.TileQuestionBuilder = (function(){
     });
   }
 
-  function initQuestionTypeMenus(){
-    $("body").on("click", typeSelector, function(event){
-     closeMenuDropDowns();
-      $(this).addClass("open");
-    });
-  }
 
-  function rebindEvents() {
-    $("#tile_builder_form_question").bind('input propertychange', function() {
-      saveQuestionChanges(this);
-    });
 
-    $(".answer-field.answer-part").bind('input propertychange', function() {
-      saveAnswerChanges(this);
-    });
 
-    $(".tile_question").click(function() {
-      turnOnEditQuestion(this);
-    });
-
-    $(".tile_multiple_choice_answer a").click(function(event) {
-     event.preventDefault();
-      turnOnEditAnswer(this);
-    });
-
-    var initialAnswerField = $('.answer_option').eq(0);
-
-    $('.add_answer').click(function(e) {
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      addNewAnswer();
-    });
-
-    $('.answer-field').keydown(function openNextAnswerOnTab(e) {
-      code = e.keyCode || e.which;
-      next_answer = $(this).closest(".tile_multiple_choice_answer").next(".tile_multiple_choice_answer");
-      if (code == '9') {
-        if(next_answer.length > 0){
-          next_answer.find("a").click();
-          return false;
-        }else{
-          turnOffEditAnswer($(this).closest(".tile_multiple_choice_answer"));
-        }
-      }
-    });
-
-    $('#tile_builder_form_question').keydown(function openFirstAnswerOnTab(e) {
-      code = e.keyCode || e.which;
-      if (code == '9') {
-        $(".multiple_choice_group").find(".tile_multiple_choice_answer").first().find("a:first").click();
-        return false;
-      }
-    });
-  }
-
-  function turnRadioGreen() {
-    $('.option_radio').unbind();
-    $('.option_radio').click(function() {
-      var radioButton = $(this).find('input:radio');
-      if($(this).hasClass('option_selected')){
-        $('.option_radio').removeClass('option_selected');
-        radioButton.prop('checked', false);
-      }else {
-        $('.option_radio').removeClass('option_selected');
-        radioButton.attr('checked','true');
-        $(this).addClass('option_selected');
-      }
-      markRightAnswer(this);
-    });
-  };
   //
   //  => Functions
   //
@@ -457,43 +360,6 @@ Airbo.TileQuestionBuilder = (function(){
     });
   }
 
-  function initTileQuestion(){
-    $("body").on("blur", "#tile_builder_form_question", function(event){
-      //FIXME hack to get this fucking horrible code to work.
-      var question =$(this);
-      if((question.val().trim() ==="")){
-        question.valid();
-      }else{
-        turnOffEditQuestion();
-      }
-    });
-  }
-
-  function initTileAnswer(){
-    $("body").on("blur", "input[name='tile_builder_form[answers][]']", function(event){
-
-      var answer =$(this);
-      var container = $(answer).parents(".tile_multiple_choice_answer");
-      var answerText = container.find(".answer_text");
-      if((answer.val().trim() ==="")){
-        answer.focus();
-        answer.valid(); //trigger jquery validate functionality
-        answer.val("Add Answer Option");
-        saveAnswerChanges(answer);
-        turnOnEditAnswer(answerText);
-
-      }else{
-        $("li.subtype").removeAttr("disabled")
-        turnOffEditAnswer();  //FIXME needs a selector
-      }
-
-    });
-  }
-
-
-
-
-
   function makeAnswerGreen(radio) {
     answer_show = $(radio).closest(".tile_multiple_choice_answer").find("a");
     if(!$(answer_show).is($(".clicked_right_answer"))){
@@ -557,10 +423,145 @@ Airbo.TileQuestionBuilder = (function(){
     tileTypes=  tileTextContainer.data('tileTypes');
   }
 
+  function turnRadioGreen() {
+    $('.option_radio').unbind();
+    $('.option_radio').click(function() {
+      var radioButton = $(this).find('input:radio');
+      if($(this).hasClass('option_selected')){
+        $('.option_radio').removeClass('option_selected');
+        radioButton.prop('checked', false);
+      }else {
+        $('.option_radio').removeClass('option_selected');
+        radioButton.attr('checked','true');
+        $(this).addClass('option_selected');
+      }
+      markRightAnswer(this);
+    });
+  };
+
+  function rebindEvents() {
+    $("#tile_builder_form_question").bind('input propertychange', function() {
+      saveQuestionChanges(this);
+    });
+
+    $(".answer-field.answer-part").bind('input propertychange', function() {
+      saveAnswerChanges(this);
+    });
+
+    $(".tile_question").click(function() {
+      turnOnEditQuestion(this);
+    });
+
+    $(".tile_multiple_choice_answer a").click(function(event) {
+     event.preventDefault();
+      turnOnEditAnswer(this);
+    });
+
+    var initialAnswerField = $('.answer_option').eq(0);
+
+    $('.add_answer').click(function(e) {
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      addNewAnswer();
+    });
+
+    $('.answer-field').keydown(function openNextAnswerOnTab(e) {
+      code = e.keyCode || e.which;
+      next_answer = $(this).closest(".tile_multiple_choice_answer").next(".tile_multiple_choice_answer");
+      if (code == '9') {
+        if(next_answer.length > 0){
+          next_answer.find("a").click();
+          return false;
+        }else{
+          turnOffEditAnswer($(this).closest(".tile_multiple_choice_answer"));
+        }
+      }
+    });
+
+    $('#tile_builder_form_question').keydown(function openFirstAnswerOnTab(e) {
+      code = e.keyCode || e.which;
+      if (code == '9') {
+        $(".multiple_choice_group").find(".tile_multiple_choice_answer").first().find("a:first").click();
+        return false;
+      }
+    });
+  }
+
+  function initTileQuestion(){
+    $("body").on("blur", "#tile_builder_form_question", function(event){
+      //FIXME hack to get this fucking horrible code to work.
+      var question =$(this);
+      if((question.val().trim() ==="")){
+        question.valid();
+      }else{
+        turnOffEditQuestion();
+      }
+    });
+  }
+
+  function initTileAnswer(){
+    $("body").on("blur", "input[name='tile_builder_form[answers][]']", function(event){
+
+      var answer =$(this);
+      var container = $(answer).parents(".tile_multiple_choice_answer");
+      var answerText = container.find(".answer_text");
+      if((answer.val().trim() ==="")){
+        answer.focus();
+        answer.valid(); //trigger jquery validate functionality
+        answer.val("Add Answer Option");
+        saveAnswerChanges(answer);
+        turnOnEditAnswer(answerText);
+
+      }else{
+        $("li.subtype").removeAttr("disabled")
+        turnOffEditAnswer();  //FIXME needs a selector
+      }
+
+    });
+  }
+
   function initJQueryObjects(){
     tileTextContainer = $(tileTextContainerSelector);
     tileBuilderForm = $(tileBuilderFormSelector);
   }
+
+  function initQuestionLostFocus(){
+    $('body').click(function(event) {
+      //FIXME hak hack hack WTF!!!!
+      if(tileBuilderForm.length>0) {
+        if(!$(event.target).attr("data-dropdown")){
+          closeMenuDropDowns();
+        }
+        if($(".tile_types li.selected.subtype").length > 0){
+          tryTurnOffEditAnswer(event.target);
+        }
+      }
+
+    });
+  }
+
+ function initSubType() {
+    $("body").on("click", subtypeSelector, function(){
+      handleSubTypeSelection($(this).attr("id"));
+    });
+  }
+
+
+  function initRemoveAnswer(){
+    $("body").on("click", delAnswerSelector, function(event){
+      if( $("#new_tile_builder_form").find(".tile_multiple_choice_answer").length > 1 ) {
+        $(this).parents(multipleChoiceAnswerSelector).remove();
+      }
+    });
+  }
+
+  function initQuestionTypeMenus(){
+    $("body").on("click", typeSelector, function(event){
+     closeMenuDropDowns();
+      $(this).addClass("open");
+    });
+  }
+
 
   function init (){
 
