@@ -56,9 +56,10 @@ var PixabayImageHandler = Object.create(ImageSearchService)
 //pixabay
 
 PixabayImageHandler.buildThumbnails = function(data){
-  var thumbnails = [];
+  var thumbnails = [] ;
+  this.results = parseInt(data.totalHits)
 
-  if (parseInt(data.totalHits) > 0){
+  if (this.results > 0){
     thumbnails =  data.hits.map(function(item, i){
       return "<img src='" + item.previewURL  + "' data-preview='" + item.webformatURL +"'/>"
     });

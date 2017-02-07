@@ -5,16 +5,23 @@ Airbo.ImageSearcher = (function(){
     , grid
     , missingImage = $("#images").data("missing")
     , searchFormSel = ".search-form"
+    , page = 0
+    , flickityObj
   ;
 
 
   function doFlickity(){
     grid.flickity({
-      imagesLoaded: true,
       pageDots: false,
     });
+
+    flickityObj = grid.data('flickity')
+
     grid.flickity('unbindDrag');
-    grid.flickity('resize')
+
+    grid.on( 'select.flickity', function( event, progress ) {
+      console.log("index " + flickityObj.selectedIndex)
+    })
   }
 
   function processResults(data,status,xhr){
@@ -25,13 +32,14 @@ Airbo.ImageSearcher = (function(){
   }
 
   function presentData(html){
-    if(grid.data('flickity') == undefined){
+    if(flickityObj == undefined){
       grid.html($(html));
       doFlickity();
     }else{
       grid.flickity('remove', grid.flickity('getCellElements'))
       grid.flickity('append', $(html));
     }
+    console.log("length" + flickityObj.cells.length)
   }
 
 
@@ -65,7 +73,6 @@ Airbo.ImageSearcher = (function(){
       })
     });
   }
-
 
   function initTriggerImageSearch(){
     $(".show-search").click(function(event){
@@ -104,4 +111,5 @@ Airbo.ImageSearcher = (function(){
   };
 
 }())
+
 
