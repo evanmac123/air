@@ -14,17 +14,15 @@ class AirboSearch
     @user = user
     @demo = get_demo
     @options = options
-
-    load_records!(records_to_load)
   end
 
-  def user_tiles
-    unpaginated_user_tiles.records.page(options[:page]).per(per_page)
+  def user_tiles(page = options[:page])
+    unpaginated_user_tiles.records.page(page).per(per_page)
   end
 
-  def explore_tiles
+  def explore_tiles(page = options[:page])
     if explore_search
-      unpaginated_explore_tiles.records.page(options[:page]).per(per_page)
+      unpaginated_explore_tiles.records.page(page).per(per_page)
     end
   end
 
@@ -81,7 +79,6 @@ class AirboSearch
         fields: default_fields,
         match: default_match,
         operator: 'or',
-        order: {_score: :desc}
       }
     end
 
@@ -94,22 +91,14 @@ class AirboSearch
         fields: default_fields,
         match: default_match,
         operator: 'or',
-        order: {_score: :desc}
       }
-    end
-
-    def load_all_records
-      unpaginated_user_tiles
-      unpaginated_explore_tiles
-      campaigns
-      organizations
     end
 
     def unpaginated_user_tiles
       if admin_search
-        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options(["draft", "active", "archive"]))
+        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE]))
       elsif user_search
-        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options(["active", "archive"]))
+        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::ACTIVE, Tile::ARCHIVE]))
       end
     end
 
