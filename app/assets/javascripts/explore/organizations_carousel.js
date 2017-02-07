@@ -8,11 +8,10 @@ Airbo.OrganizationsCarousel = (function(){
 
     $carousel.flickity({
       cellAlign: 'center',
-      contain: false,
       groupCells: 4,
       wrapAround: true,
       pageDots: false,
-      draggable: true,
+      draggable: true
     });
 
     $(".visit-organization-link").on("click", function(e) {
