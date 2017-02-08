@@ -1,13 +1,15 @@
 <div class="search-bar">
-  <%= form_tag explore_search_path, method: :get, class: "" do %>
   <div class="large-4 columns">
-    <div class="search-bar-wrapper">
-      <%= text_field_tag(
-      :query, nil,
-      placeholder: "Search",
-      class: "search-bar-input"
-        ) %>
-      </div>
+    <%= form_tag explore_search_path, method: :get, id: "airbo-search" do %>
+    <span class="search-bar-wrapper">
+        <%= text_field_tag(
+        :query, nil,
+        placeholder: "Search",
+        class: "search-bar-input"
+          ) %>
+        <i id="nav-bar-search-submit" class="fa fa-search fa-1x" aria-hidden="true"></i>
+        <i id="nav-bar-search-submit-loading" class="fa fa-spinner fa-1x" aria-hidden="true" style="display:none;"></i>
+      </span>
+      <% end %>
     </div>
-    <% end %>
 </div>

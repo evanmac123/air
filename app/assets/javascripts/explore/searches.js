@@ -35,7 +35,44 @@ Airbo.Search = (function(){
     Airbo.Utils.ButtonSpinner.reset($(this));
   }
 
+  function bindSearchSubmit() {
+    $("#nav-bar-search-submit").on("click", function(e) {
+      e.preventDefault();
+      $(this).closest("form").submit();
+    });
+
+    $("#airbo-search").submit(function(e) {
+      var form = $(this);
+
+      validateForm(form);
+
+      if (form.valid()) {
+        $(this).children(".search-bar-wrapper").removeClass("error");
+        return true;
+      } else {
+        e.preventDefault();
+        $(this).children(".search-bar-wrapper").addClass("error");
+      }
+    });
+
+    $(".search-bar-input").on("focusout", function(e) {
+      $(this).closest(".search-bar-wrapper").removeClass("error");
+    });
+  }
+
+  function validateForm(form) {
+    form.validate({
+      rules: {
+        query: "required",
+      },
+      errorPlacement: function(error) {
+        return true;
+      }
+    });
+  }
+
   function init() {
+    bindSearchSubmit();
     bindMoreTilesButtons();
   }
 
