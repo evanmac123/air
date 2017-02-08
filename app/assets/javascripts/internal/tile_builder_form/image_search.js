@@ -9,7 +9,7 @@ Airbo.ImageSearcher = (function(){
     , flickityObj
     , imageProviderList
     , imageProviders
-    , NO_RESULTS = '<p class="err msg"><i class="fa fa-frown-o"></i> Sorry. No Results found for your search. Please try again</p>'
+    , NO_RESULTS = '<p class="err msg"><i class="fa fa-frown-o"></i> Sorry, no images found for your search. Please try a different search.</p>'
   ;
 
 
