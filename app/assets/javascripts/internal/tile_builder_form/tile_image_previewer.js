@@ -81,7 +81,6 @@ Airbo.TileImagePreviewer = (function(){
 
   return {
     init: init,
-    setPreviewImage: setPreviewImage,
   };
 
 })();
