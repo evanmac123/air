@@ -25,7 +25,6 @@ Airbo.ImageSearcher = (function(){
 
     grid.on( 'select.flickity', function( event, progress ) {
       if(flickityObj.selectedIndex == flickityObj.cells.length -1){
-        console.log("last page");
       }
     });
   }
@@ -40,18 +39,20 @@ Airbo.ImageSearcher = (function(){
   }
 
   function presentData(html){
+    var isflickity = grid.data('flickity') !== undefined;
     if(html===undefined){
+      if(isflickity){
+        grid.flickity('destroy');
+      }
       grid.html(NO_RESULTS);
     }else{
-
-      if(grid.data('flickity') === undefined){
-        grid.html($(html));
-        doFlickity();
-      }else{
+      if(isflickity){
         grid.flickity('remove', grid.flickity('getCellElements'))
         grid.flickity('append', $(html));
+      }else{
+        grid.html($(html));
+        doFlickity();
       }
-      console.log("length" + flickityObj.cells.length);
     }
   }
 
