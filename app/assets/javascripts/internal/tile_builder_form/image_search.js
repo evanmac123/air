@@ -44,7 +44,7 @@ Airbo.ImageSearcher = (function(){
       grid.html(NO_RESULTS);
     }else{
 
-      if(flickityObj === undefined){
+      if(grid.data('flickity') === undefined){
         grid.html($(html));
         doFlickity();
       }else{
