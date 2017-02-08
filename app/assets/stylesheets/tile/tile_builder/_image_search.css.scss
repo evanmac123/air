@@ -124,3 +124,13 @@ input[type=text].search-input{
     }
   }
 }
+
+.no-results{
+  background-color: #fbeeed;
+  border-color: #f7d8dd;
+  padding: 5px;
+  .msg{
+   font-size: 18px;
+   text-align: center;
+  }
+}
