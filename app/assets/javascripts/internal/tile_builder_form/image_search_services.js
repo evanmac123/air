@@ -63,10 +63,14 @@ GoogleImageHandler.name = "google";
 PixabayImageHandler.buildThumbnails = function(data){
   var thumbnails = [] ;
   this.results = parseInt(data.totalHits)
+  function getAltSize(item){
+    return item.webformatURL.replace("_640", "_180")
+  }
 
   if (this.results > 0){
     thumbnails =  data.hits.map(function(item, i){
-      return "<img src1='" + item.previewURL  + "' data-flickity-lazyload='" + item.previewURL +     "' data-preview='" + item.webformatURL +"'/>"
+
+      return "<div class='img-wrap'><img src1='" + item.previewURL  + "' data-flickity-lazyload='" + getAltSize(item) +     "' data-preview='" + item.webformatURL +"'/></div>"
     });
   }
   return thumbnails;
@@ -78,7 +82,7 @@ PixabayImageHandler.buildThumbnails = function(data){
 FlickrImageHandler.buildThumbnails = function(data){
   var images = this.getImageUrls(data.photos.photo)
   return  images.map(function(image, i){
-    return "<img src='" + image.thumbnail + "' data-preview='" + image.preview + "'/>"
+    return "<img src='" + image.thumbnail + "' data-preview='" + image.preview + "'/></div>"
   });
 }
 
