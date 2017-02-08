@@ -157,10 +157,10 @@ Airbo.TileFormModal = (function(){
     if(currform.data("suggested") === false){
       $(currform).on("change", function() {
         addAutoSave();
-        disablesubmitLink()
+        disablesubmitLink();
         if(currform.valid()){
           modalObj.setConfirmOnClose(false);
-          disablesubmitLink()
+          disablesubmitLink();
           timer = setTimeout(function(){
             ajaxHandler.submit(currform, autoSaveSuccess.bind(me), resetSubmit);
           }, 1000);
@@ -192,7 +192,7 @@ Airbo.TileFormModal = (function(){
     currform.attr("action", data.updatePath);
     currform.attr("method", "PUT");
 
-    updateThumbnail(data)
+    updateThumbnail(data);
     enablesubmitLink();
     removeAutoSave();
     saveable = true;

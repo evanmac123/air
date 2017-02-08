@@ -207,8 +207,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
 
   def prepTilePreview
-    @prev, @next = @demo.bracket @tile
-    @show_share_section_intro = show_share_section_intro
+    unless from_search?
+      @prev, @next = @demo.bracket @tile
+      @show_share_section_intro = show_share_section_intro
+    end
   end
 
 
