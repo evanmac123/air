@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminTilePreviewModal = (function(){
+Airbo.SearchTilePreviewModal = (function(){
   var modalId = "tile_preview_modal",
       self,
       modalObj = Airbo.Utils.StandardModal(),
@@ -66,7 +66,7 @@ Airbo.ClientAdminTilePreviewModal = (function(){
 
     $(".preview_menu_item .duplicate_tile").click(function(event){
       event.preventDefault();
-      Airbo.ClientAdminTileActions.makeDuplication($(this));
+      Airbo.SearchTileActions.makeDuplication($(this));
     });
 
 
@@ -86,7 +86,7 @@ Airbo.ClientAdminTilePreviewModal = (function(){
       e.preventDefault();
       e.stopPropagation();
       target = $(this);
-      Airbo.ClientAdminTileActions.updateStatus(target);
+      Airbo.SearchTileActions.updateStatus(target);
     });
   }
 

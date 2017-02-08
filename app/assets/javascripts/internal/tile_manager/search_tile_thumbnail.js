@@ -1,16 +1,16 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminTileThumbnail = (function() {
+Airbo.SearchTileThumbnail = (function() {
   var tileManager,
       thumbnailMenu,
       thumbLinkSel = "a.tile_thumb_link_client_admin";
 
   function initTile(tile) {
-    Airbo.ClientAdminTileThumbnailMenu.init(tile);
+    Airbo.SearchTileThumbnailMenu.init(tile);
 
     tile.find(".update_status").click(function(e){
       e.preventDefault();
-      Airbo.ClientAdminTileActions.updateStatus($(this));
+      Airbo.SearchTileActions.updateStatus($(this));
     });
 
     tile.find(".accept").click(function(e){
@@ -48,7 +48,7 @@ Airbo.ClientAdminTileThumbnail = (function() {
         url: $(this).attr("href") ,
         data: { partial_only: true, tile_ids: tileIds },
         success: function(data, status, xhr){
-          var tilePreview = Airbo.ClientAdminTilePreviewModal;
+          var tilePreview = Airbo.SearchTilePreviewModal;
           tilePreview.init();
           tilePreview.open(data);
         },

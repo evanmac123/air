@@ -42,7 +42,7 @@ Airbo.TileManager = (function(){
     if (tileThumbnail) {
       tileThumbnail.initTile(data.tileId);
     } else {
-      Airbo.ClientAdminTileThumbnail.initTile(tile);
+      Airbo.SearchTileThumbnail.initTile(tile);
     }
   }
 

@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminTileThumbnailMenu = (function() {
+Airbo.SearchTileThumbnailMenu = (function() {
   var tileCreator;
 
   function setMenuActiveState(origin, active) {
@@ -38,13 +38,13 @@ Airbo.ClientAdminTileThumbnailMenu = (function() {
         $(".tile_thumbnail_menu .delete_tile, .tile_buttons .delete_tile").click(function(event){
           event.preventDefault();
           origin.tooltipster("hide");
-          Airbo.ClientAdminTileActions.confirmDeletion($(this), tile, false);
+          Airbo.SearchTileActions.confirmDeletion($(this), tile, false);
         });
 
         $(".tile_thumbnail_menu .duplicate_tile").click(function(e){
           e.preventDefault();
           origin.tooltipster("hide");
-          Airbo.ClientAdminTileActions.makeDuplication($(this), false);
+          Airbo.SearchTileActions.makeDuplication($(this), false);
         });
       }
     });

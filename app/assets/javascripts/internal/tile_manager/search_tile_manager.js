@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminTileManager = (function(){
+Airbo.SearchTileManager = (function(){
 
   function init() {
     var userType = $(".explore-search-results").data().userType;
@@ -8,7 +8,7 @@ Airbo.ClientAdminTileManager = (function(){
     if (userType == "user") {
       Airbo.UserTileSearch.init();
     } else {
-      Airbo.TileManager.init("search", Airbo.ClientAdminTileThumbnail);
+      Airbo.TileManager.init("search", Airbo.SearchTileThumbnail);
       Airbo.TileStatsModal.init();
     }
   }

@@ -344,11 +344,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       tileId: @tile.id,
       tile: render_tile_string,
       preview: render_tile_preview_string,
-      updatePath: client_admin_tile_path(@tile)
+      updatePath: client_admin_tile_path(@tile),
+      fromSearch: from_search?
     }
   end
 
   def from_search?
-    request.referrer && request.referrer.include?("explore")
+    request.referrer && request.referrer.include?("explore/search")
   end
 end

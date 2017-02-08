@@ -84,7 +84,7 @@ Airbo.TileFormModal = (function(){
   function initFormElements() {
     validator = Airbo.TileFormValidator.init(currform);
     Airbo.TileImageUploader.init();
-    Airbo.TileImagePreviewer.init() 
+    Airbo.TileImagePreviewer.init();
     Airbo.TileImageCredit.init();
     Airbo.TilePointsSlider.init();
     Airbo.TileQuestionBuilder.init();
@@ -103,17 +103,21 @@ Airbo.TileFormModal = (function(){
       closeSticky: true,
       onOpenedEvent: function() {
         autosize.update( $('textarea') );
-        $("#supporting_content_editor").keyup()
+        $("#supporting_content_editor").keyup();
       },
       closeMessage: closeMessage.bind(self) ,
     });
   }
 
   function submitSuccess(data) {
-
     tileManager.updateSections(data);
+    var tilePreview;
+    if (data.fromSearch === true) {
+      tilePreview = Airbo.SearchTilePreviewModal;
+    } else {
+      tilePreview = Airbo.TilePreviewModal;
+    }
 
-    var tilePreview = Airbo.TilePreviewModal;
     tilePreview.init();
     tilePreview.open(data.preview);
   }

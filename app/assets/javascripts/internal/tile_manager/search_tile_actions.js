@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminTileActions = (function(){
+Airbo.SearchTileActions = (function(){
   var tileWrapperSelector = ".tile_container",
       tileModalSelector   = "#tile_preview_modal",
       editSelector        = ".edit_button a";
@@ -35,7 +35,7 @@ Airbo.ClientAdminTileActions = (function(){
       success: function(data, status,xhr){
         $(tileModalSelector).foundation("reveal", "close");
         tile.replaceWith(data);
-        Airbo.ClientAdminTileThumbnail.init( $(data).data("tile-container-id"));
+        Airbo.SearchTileThumbnail.init( $(data).data("tile-container-id"));
       }
     });
   }
