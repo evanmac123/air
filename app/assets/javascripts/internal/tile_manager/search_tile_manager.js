@@ -13,6 +13,10 @@ Airbo.SearchTileManager = (function(){
     }
   }
 
+  function updateSections() {
+    
+  }
+
   return {
     init: init,
   };

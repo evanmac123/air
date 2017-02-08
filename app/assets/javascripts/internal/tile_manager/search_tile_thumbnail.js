@@ -34,10 +34,6 @@ Airbo.SearchTileThumbnail = (function() {
   }
 
   function initEvents() {
-    clientAdminTiles().each(function() {
-      initTile($(this));
-    });
-
     $("body").on("click", ".tile_thumb_link_client_admin", function(e){
       e.preventDefault();
       var tileIds = Airbo.TileThumbnailManagerBase.getTileIdsInContainer(this);
@@ -60,7 +56,15 @@ Airbo.SearchTileThumbnail = (function() {
     });
   }
 
+  function initTiles() {
+    clientAdminTiles().each(function() {
+      $(this).unbind();
+      initTile($(this));
+    });
+  }
+
   function init(AirboTileManager) {
+    initTiles();
     initEvents();
   }
 
@@ -70,6 +74,7 @@ Airbo.SearchTileThumbnail = (function() {
 
   return {
     init: init,
-    initTile: initTile
+    initTile: initTile,
+    initTiles: initTiles
   };
 }());
