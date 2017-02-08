@@ -9,6 +9,16 @@ module ApplicationHelper
     image_tag user.avatar.url, :alt => user.name, :class => "user_avatar #{options[:class]}"
   end
 
+  def get_user_type(user)
+    if user.nil? || user.is_a?(GuestUser)
+      "guest"
+    elsif user.end_user?
+      "user"
+    elsif user.is_client_admin? || user.is_site_admin?
+      "client_admin"
+    end
+  end
+
   def avatar_96(user)
     content_tag("div", :class => 'avatar_image') do
       default_avatar_tag(user, :class => "size-96")

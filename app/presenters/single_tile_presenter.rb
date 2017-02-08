@@ -25,6 +25,10 @@ class SingleTilePresenter < BasePresenter
     @tile_id ||= id
   end
 
+  def partial
+    'client_admin/tiles/manage_tiles/single_tile'
+  end
+
   #this method is redundant as to_param is notset for Tile, so it just returns id
   def to_param
     @to_param ||= tile.to_param
@@ -39,7 +43,15 @@ class SingleTilePresenter < BasePresenter
 
   def status_marker
     if from_search?
-      content_tag :div, status, class: "status_marker #{status}"
+      content_tag :div, display_status, class: "status_marker #{display_status}"
+    end
+  end
+
+  def display_status
+    if completed_class == "completed"
+      "completed"
+    else
+      "unanswered"
     end
   end
 
@@ -73,11 +85,11 @@ class SingleTilePresenter < BasePresenter
     false
   end
 
-  def show_tile_path
+  def show_tile_path(params = {})
     if user_onboarding
       user_onboarding_tile_path(user_onboarding, tile)
     else
-      @public_slug ? public_tile_path(@public_slug, tile) : tile_path(tile)
+      @public_slug ? public_tile_path(@public_slug, tile) : tile_path(tile, params)
     end
   end
 

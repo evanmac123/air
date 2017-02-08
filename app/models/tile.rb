@@ -103,6 +103,16 @@ class Tile < ActiveRecord::Base
   alias_attribute :unique_views, :unique_viewings_count
   alias_attribute :interactions, :tile_completions_count
 
+  def self.not_completed
+    tiles = Tile.arel_table
+
+    where(tiles[:id].not_in(completed.pluck(:id)))
+  end
+
+  def self.completed
+    joins(:completed_tiles)
+  end
+
   def airbo?
     organization.name == "Airbo"
   end

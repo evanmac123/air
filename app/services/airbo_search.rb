@@ -1,5 +1,6 @@
 class AirboSearch
-  PER_PAGE = 8.freeze
+  ADMIN_PER_PAGE = 8.freeze
+  USER_PER_PAGE = 12.freeze
 
   attr_accessor :query, :user, :demo, :options
 
@@ -105,7 +106,15 @@ class AirboSearch
     end
 
     def per_page
-      options[:per_page] || PER_PAGE
+      options[:per_page] || per_page_by_user
+    end
+
+    def per_page_by_user
+      if admin_search
+        ADMIN_PER_PAGE
+      else
+        USER_PER_PAGE
+      end
     end
 
     def admin_search

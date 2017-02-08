@@ -1,0 +1,26 @@
+@mixin airbo_search() {
+  &.explore-search-user {
+    .content {
+      background: $tile-wall-bg;
+    }
+  }
+
+  .explore-search-results {
+    .search-activity-feed {
+      background: #fff;
+    }
+    .search-results-description {
+      margin:20px;
+      span {
+        border-bottom: 1px solid $n-blue;
+        padding-bottom: 5px;
+      }
+    }
+    .search-results-section {
+      margin-left:20px;
+    }
+    .show-more-tiles-button {
+      margin: 25px;
+    }
+  }
+}

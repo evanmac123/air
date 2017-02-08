@@ -44,6 +44,8 @@ class Explore::SearchesController < ExploreBaseController
       when "client_admin_tiles"
         { tiles_to_render: "user_tiles", presenter_to_render: SingleAdminTilePresenter }
       when "explore_tiles"
+      when "user_tiles"
+        { tiles_to_render: "user_tiles", presenter_to_render: SingleTilePresenter }
       end
     end
 

@@ -191,6 +191,14 @@
     border: 1px solid $n-pink;
     color: $n-pink;
   }
+  &.completed {
+    border: 1px solid $n-green;
+    color: $n-green;
+  }
+  &.unanswered {
+    border: 1px solid $n-yellow;
+    color: $n-yellow;
+  }
 }
 .tile_stats {
   padding-top: 10px;
