@@ -36,10 +36,15 @@ Airbo.ImageSearcher = (function(){
 
     $.Topic("image-results-added").publish();
     presentData(html);
+
+    Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==undefined)});
   }
 
   function presentData(html){
-    var isflickity = grid.data('flickity') !== undefined;
+    var isflickity = grid.data('flickity') !== undefined
+      , hasResults
+    ;
+
     if(html===undefined){
       if(isflickity){
         grid.flickity('destroy');
@@ -54,6 +59,7 @@ Airbo.ImageSearcher = (function(){
         doFlickity();
       }
     }
+
   }
 
 
@@ -63,9 +69,8 @@ Airbo.ImageSearcher = (function(){
       var form =$("#"+ service.name + ".search-form")
         , apiSearchField = 'input[name=' + form.data("search-field") +']'
         , searchText = $(".search-input").val()
-        , ctx = {provider:  service} // create context binding for the ajax success handler
+        , ctx = {provider:  service, search: searchText} // create context binding for the ajax success handler
       ;
-      
       $.Topic("inititiating-image-search").publish();
 
       form.find(apiSearchField).val(searchText);
