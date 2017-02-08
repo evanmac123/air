@@ -9,6 +9,7 @@ Airbo.ImageSearcher = (function(){
     , flickityObj
     , imageProviderList
     , imageProviders
+    , NO_RESULTS = '<div class="no-results">No Results found for your search. Please try again</div>'
   ;
 
 
@@ -30,21 +31,28 @@ Airbo.ImageSearcher = (function(){
   }
 
   function processResults(data,status,xhr){
+    var handler = this.provider
+      , html = handler.handle(data)
+    ;
+
     $.Topic("image-results-added").publish();
-    handler = this.provider;
-    var html = handler.handle(data);
     presentData(html);
   }
 
   function presentData(html){
-    if(flickityObj == undefined){
-      grid.html($(html));
-      doFlickity();
+    if(html===undefined){
+      grid.html(NO_RESULTS);
     }else{
-      grid.flickity('remove', grid.flickity('getCellElements'))
-      grid.flickity('append', $(html));
+
+      if(flickityObj === undefined){
+        grid.html($(html));
+        doFlickity();
+      }else{
+        grid.flickity('remove', grid.flickity('getCellElements'))
+        grid.flickity('append', $(html));
+      }
+      console.log("length" + flickityObj.cells.length);
     }
-    console.log("length" + flickityObj.cells.length)
   }
 
 
@@ -62,7 +70,7 @@ Airbo.ImageSearcher = (function(){
         , searchText = $(".search-input").val()
         , ctx = {provider:  service} // create context binding for the ajax success handler
       ;
-
+      
       $.Topic("inititiating-image-search").publish();
 
       form.find(apiSearchField).val(searchText);

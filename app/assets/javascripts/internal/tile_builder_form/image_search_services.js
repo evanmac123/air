@@ -1,5 +1,4 @@
 var ImageSearchService = {
-
   buildGroups: function (thumbnails){
     var i
       , j
@@ -21,13 +20,15 @@ var ImageSearchService = {
   },
 
   handle: function(data){
-    var html = "" 
-      , thumbnails
+    var groups
+      , thumbnails = this.buildThumbnails(data)
     ;
 
-    thumbnails = this.buildThumbnails(data)
-    groups = this.buildGroups(thumbnails) ;
-    return this.buildHtml(groups);
+    if(thumbnails.length > 0){
+      groups = this.buildGroups(thumbnails) ;
+      return this.buildHtml(groups);
+    }
+    return undefined;
   },
 
   getProvider: function(name){
@@ -35,14 +36,16 @@ var ImageSearchService = {
 
     switch(name){
       case "flickr":
-      service = FlickrImageHandler;
+        service = FlickrImageHandler;
       break;
       case "pixabay":
-      service = PixabayImageHandler;
+        service = PixabayImageHandler;
       break;
     }
     return service;
-  }
+  },
+
+  totalImages: 0
 
 };
 
