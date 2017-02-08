@@ -32,6 +32,7 @@ Airbo.Search = (function(){
     var tileGrid = tilesContainer.children(".tiles-row").children().children(".tile-grid");
 
     tileGrid.append(data.content);
+    Airbo.SearchTileManager.init();
     Airbo.Utils.ButtonSpinner.reset($(this));
   }
 

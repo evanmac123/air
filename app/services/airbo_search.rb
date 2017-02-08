@@ -4,12 +4,6 @@ class AirboSearch
 
   attr_accessor :query, :user, :demo, :options
 
-  # @user_tiles = service.user_tiles(params[:user_tiles_page])
-  # @explore_tiles = service.explore_tiles(params[:explore_tiles_page])
-  #
-  # @campaigns = service.campaigns
-  # @organizations = service.organizations
-
   def initialize(query, user, options = {})
     @query = query
     @user = user
@@ -36,6 +30,16 @@ class AirboSearch
   def organizations
     if admin_search
       @organizations ||= Organization.where(id: organization_ids_from_explore_tiles).all
+    end
+  end
+
+  def has_results?
+    if admin_search
+      user_tiles.present? || explore_tiles.present?
+    elsif user_search
+      user_tiles.present?
+    elsif explore_search
+      explore_tiles.present?
     end
   end
 
