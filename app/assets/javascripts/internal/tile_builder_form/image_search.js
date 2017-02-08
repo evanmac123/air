@@ -56,12 +56,6 @@ Airbo.ImageSearcher = (function(){
   }
 
 
-  function hideVisualContentPanel(){
-    $(".visual-content-container").slideUp();
-    hideImageWrapper();
-    hideEmbedVideo();
-    $(".hide-search").hide();
-  }
 
   function executeSearch(){
     imageProviders.forEach(function(service){
@@ -88,6 +82,10 @@ Airbo.ImageSearcher = (function(){
   }
 
   function initTriggerImageSearch(){
+    $(".show-search").click(function(event){
+      executeSearch();
+    });
+
     $(".search-input").keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which) ;
 
