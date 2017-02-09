@@ -4,14 +4,24 @@
       <h4 class="explore-headers search-results-description"><span>Search results for "<%= params[:query] %>"</span></h4>
     </div>
   </div>
-  <div class="manage-section">
-    <% if @search_service.user_tiles.present? && current_user.end_user? %>
-      <%= render "end_user_search_results", { tiles: @search_service.user_tiles, container: 'user_tiles',  presenter: SingleTilePresenter, opts: { show_more_button: true, show_more_path: explore_search_path({ section: 'user_tiles' }) } } %>
-    <% elsif @search_service.user_tiles.present? %>
-      <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.user_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter, opts: { show_more_button: true, show_more_path: explore_search_path({ section: 'client_admin_tiles' }) } } %>
-    <% end %>
+  <div id="searchTabs">
+    <ul>
+      <span><%= link_to "My Tiles", "#myTiles", class:"searchTabLink" %></span>
+      <span><%= link_to "Explore Tiles", "#exploreTiles", class:"searchTabLink" %></span>
+    </ul>
+    <div id="myTiles" class="searchTab">
+      <div class="manage-section">
+        <% if @search_service.user_tiles.present? && current_user.end_user? %>
+          <%= render "end_user_search_results", { tiles: @search_service.user_tiles, container: 'user_tiles',  presenter: SingleTilePresenter, opts: { show_more_button: true, show_more_path: explore_search_path({ section: 'user_tiles' }) } } %>
+        <% elsif @search_service.user_tiles.present? %>
+          <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.user_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter, opts: { show_more_button: true, show_more_path: explore_search_path({ section: 'client_admin_tiles' }) } } %>
+        <% end %>
+      </div>
+    </div>
+    <div id="exploreTiles" class="searchTab">
+      <% if @search_service.explore_tiles.present? %>
+        <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.explore_tiles, container: 'explore_tiles', presenter: SingleExploreTilePresenter, opts: { show_more_button: true, show_more_path: explore_search_path({ section: 'explore_tiles' }) } } %>
+      <% end %>
+    </div>
   </div>
-  <% if @search_service.explore_tiles.present? %>
-    <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.explore_tiles, container: 'explore_tiles', presenter: SingleExploreTilePresenter, opts: { show_more_button: true, show_more_path: explore_search_path({ section: 'explore_tiles' }) } } %>
-  <% end %>
 </div>

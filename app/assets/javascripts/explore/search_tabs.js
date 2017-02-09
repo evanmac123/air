@@ -1,19 +1,19 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
-Airbo.Utils.TabWidget = (function(){
+Airbo.SearchTabs = (function(){
   function initTabs(){
-    $('#tabs .tab').hide();
-    $('#tabs div.tab:first').show();
-    $('#tabs ul li:first a').addClass('selected');
+    $('.searchTab').hide();
+    $('.searchTab:first').show();
+    $('.searchTabLink:first').addClass('selected');
   }
 
   function initTabToggle(){
-    $('#tabs ul li a').click(function(){
-      $('#tabs ul li a').removeClass('selected');
+    $('.searchTabLink').click(function(){
+      $('.searchTabLink').removeClass('selected');
       $(this).addClass('selected');
       var currentTab = $(this).attr('href');
-      $('#tabs .tab').hide();
+      $('.searchTab').hide();
       $(currentTab).show();
       return false;
     });
@@ -27,9 +27,4 @@ Airbo.Utils.TabWidget = (function(){
   return {
     init: init
   };
-
 }());
-
-$(function(){
-  Airbo.Utils.TabWidget.init();
-});
