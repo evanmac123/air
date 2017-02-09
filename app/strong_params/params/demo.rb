@@ -77,7 +77,8 @@ module Params
           :dependent_board_email_body,
           :custom_color_palette_attributes,
           :alt_subject_enabled,
-          :allow_embed_video
+          :allow_embed_video,
+          :guest_user_conversion_modal
         ]
       end
 
