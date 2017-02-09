@@ -46,7 +46,7 @@ Airbo.Utils.EndlessScroll = (function(){
 
         $.ajax({
           url: path,
-          data: { page: page, count: count },
+          data: content_container.data(),
           method: 'GET',
           dataType: 'json',
           success: function(data) {

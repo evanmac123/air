@@ -33,7 +33,7 @@ Airbo.Search = (function(){
 
     tileGrid.append(data.content);
 
-    Airbo.SearchTileThumbnail.initTiles()
+    Airbo.SearchTileThumbnail.initTiles();
     Airbo.Utils.ButtonSpinner.reset($(this));
   }
 

@@ -1,6 +1,6 @@
 class AirboSearch
-  ADMIN_PER_PAGE = 8.freeze
-  USER_PER_PAGE = 12.freeze
+  ADMIN_PER_PAGE = 32
+  USER_PER_PAGE = 12
 
   attr_accessor :query, :user, :demo, :options
 
