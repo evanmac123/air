@@ -5,157 +5,87 @@ Airbo.ImageSearcher = (function(){
     , grid
     , missingImage = $("#images").data("missing")
     , searchFormSel = ".search-form"
+    , page = 0
+    , flickityObj
+    , imageProviderList
+    , imageProviders
+    , NO_RESULTS = '<p class="err msg"><i class="fa fa-frown-o"></i> Sorry, no images found for your search. Please try a different search.</p>'
   ;
 
 
-  var resultHandlers = {
-    google: function(data){
-      var html = "" ;
-      data.items.forEach(function(item){
-        var link = item.link
-          , img = "<img style='height:150px' data-flickity-lazyload='" + link + "'/>"
-          , cell = "<div class='cell'>" + img + "</div>"
-        ;
-
-        html += cell;
-      });
-
-      togglePaging(data.queries); 
-      return html;
-    }, 
-    pixabay: function(data){
-      var html = "" ;
-      if (parseInt(data.totalHits) > 0)
-
-        data.hits.forEach(function(item, i){
-          var link = item.pageUrl
-            , img = "<img src='" + link + "'/>"
-            , cell = "<div class='cell'>" + img + "</div>"
-          ;
-
-          html += cell;
-        });
-        return html;
-    },
-
-    flickr: function(data){
-      var urls = getFlickrImageUrls(data.photos.photo)
-        , html = ""
-        , thumbnails
-        , groups
-      ;
-
-      thumbnails = buildImages(urls);
-
-      groups = buildGroups(thumbnails) ;
-
-      html = groups.reduce(function(val,currGrp,i,arr){
-        return val +  "<div class='cell-group'>" + currGrp.join("") + "</div>";
-      }, "")
-
-      return html;
-    }
-  }
-
-  function buildGroups(thumbnails){
-    var i , j
-      , groups = []
-      , groupSize = 12
-    ;
-
-    for (i=0,j=thumbnails.length; i<j; i += groupSize) {
-      groups.push(thumbnails.slice(i, i + groupSize))
-    }
-    return groups;
-  }
-
-  function buildImages(images){
-    return  images.map(function(image, i){
-      return "<img src='" + image.thumbnail + "' data-preview='" + image.preview + "'/>"
-    });
-  }
-
-  function getFlickrImageUrls(photos){
-    var urls = [] 
-      , flickrImageUrlTemplate = "https://farm{farm}.staticflickr.com/{server}/{id}_{secret}"
-    ;
-
-    photos.forEach(function(photo){
-      var base = flickrImageUrlTemplate.replace(/\{(.*?)\}/g, function(match, token) {
-        return photo[token];
-      });
-
-      urls.push({
-        thumbnail: base + "_q.jpg",
-        preview: base + "_c.jpg" 
-      });
-
-    });
-    return urls;
-  }
-
   function doFlickity(){
     grid.flickity({
-      imagesLoaded: true,
+      lazyLoad: true,
       pageDots: false,
     });
+
+    flickityObj = grid.data('flickity')
+
     grid.flickity('unbindDrag');
-    grid.flickity('resize')
+
+    grid.on( 'select.flickity', function( event, progress ) {
+      if(flickityObj.selectedIndex == flickityObj.cells.length -1){
+      }
+    });
   }
 
   function processResults(data,status,xhr){
+    var handler = this.provider
+      , html = handler.handle(data)
+    ;
+
     $.Topic("image-results-added").publish();
-    handler = this.provider;
-    var html = handler(data);
     presentData(html);
+
+    Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==undefined)});
   }
 
   function presentData(html){
-    if(grid.data('flickity') == undefined){
-      grid.html($(html));
-      doFlickity();
-    }else{
-      grid.flickity('remove', grid.flickity('getCellElements'))
-      grid.flickity('append', $(html));
-    }
-  }
-
-
-  function hideVisualContentPanel(){
-    $(".visual-content-container").slideUp();
-    hideImageWrapper();
-    hideEmbedVideo();
-    $(".hide-search").hide();
-  }
-
-  function executeSearch(){
-    var  form =$("#flickr.search-form")
-      , ctx = {}
-      , apiSearchField = 'input[name=' + form.data("search-field") +']'
-      , searchText = $(".search-input").val();
+    var isflickity = grid.data('flickity') !== undefined
+      , hasResults
     ;
 
-    //TODO this should be handled centrally inside the visual preview module
-    // Do this here to clear the video preview in case the user entered a bad an
-    // invalid embed code is now seeing url like "www.youtube.com?blah"
+    if(html===undefined){
+      if(isflickity){
+        grid.flickity('destroy');
+      }
+      grid.html(NO_RESULTS);
+    }else{
+      if(isflickity){
+        grid.flickity('remove', grid.flickity('getCellElements'))
+        grid.flickity('append', $(html));
+      }else{
+        grid.html($(html));
+        doFlickity();
+      }
+    }
 
-
-    $.Topic("inititiating-image-search").publish();
-
-    ctx.provider = resultHandlers[form.data("provider")]
-    form.find(apiSearchField).val(searchText);
-
-    $.ajax({
-      url: form.attr("action"),
-      type: form.attr("method"),
-      data: form.serialize(),
-      dataType: "json",
-    })
-    .done(processResults.bind(ctx))
-    .fail(function(){
-    })
   }
 
+
+
+  function executeSearch(){
+    imageProviders.forEach(function(service){
+      var form =$("#"+ service.name + ".search-form")
+        , apiSearchField = 'input[name=' + form.data("search-field") +']'
+        , searchText = $(".search-input").val()
+        , ctx = {provider:  service, search: searchText} // create context binding for the ajax success handler
+      ;
+      $.Topic("inititiating-image-search").publish();
+
+      form.find(apiSearchField).val(searchText);
+
+      $.ajax({
+        url: form.attr("action"),
+        type: form.attr("method"),
+        data: form.serialize(),
+        dataType: "json",
+      })
+      .done(processResults.bind(ctx))
+      .fail(function(){
+      })
+    });
+  }
 
   function initTriggerImageSearch(){
     $(".show-search").click(function(event){
@@ -163,7 +93,8 @@ Airbo.ImageSearcher = (function(){
     });
 
     $(".search-input").keypress(function(event){
-      var keycode = (event.keyCode ? event.keyCode : event.which)
+      var keycode = (event.keyCode ? event.keyCode : event.which) ;
+
       if(keycode == '13'){
         executeSearch();
       }
@@ -180,12 +111,23 @@ Airbo.ImageSearcher = (function(){
     });
   }
 
+
+  function loadImageProviders(){
+    imageProviderList = $(".search-input").data('services');
+
+    imageProviders = imageProviderList.map(function(service){
+      return ImageSearchService.getProvider(service);
+    });
+  }
+
+
   function init(){
     Airbo.TileVisualPreviewMgr.init();
     grid = $("#images");
     searchForm = $(searchFormSel);
     initTriggerImageSearch()
     initPreviewSelectedImage();
+    loadImageProviders();
   }
 
   return {
@@ -193,4 +135,5 @@ Airbo.ImageSearcher = (function(){
   };
 
 }())
+
 

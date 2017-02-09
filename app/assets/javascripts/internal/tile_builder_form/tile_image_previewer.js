@@ -26,7 +26,7 @@ Airbo.TileImagePreviewer = (function(){
   };
 
   function removeImage(){
-    $("#upload_preview").attr("src","/assets/missing-tile-img-full.png") 
+    $("#upload_preview").attr("src","/assets/missing-search-image.png") 
     removeImageCredit();
     remoteMediaUrl.val('');
     remoteMediaUrl.change();
@@ -81,7 +81,6 @@ Airbo.TileImagePreviewer = (function(){
 
   return {
     init: init,
-    setPreviewImage: setPreviewImage,
   };
 
 })();

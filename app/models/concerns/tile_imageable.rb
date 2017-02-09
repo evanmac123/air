@@ -5,7 +5,7 @@ module Concerns::TileImageable
   IMAGE_PROCESSING_URL =  ActionController::Base.helpers.asset_path('resizing_gears_fullsize.gif')
   TILE_IMAGE_PROCESSING_PRIORITY = -10
   MISSING_THUMBNAIL = "missing-tile-img-thumb.png"
-  MISSING_PREVIEW = "missing-tile-img-full.png"
+  MISSING_PREVIEW = "missing-search-image.png"
 
   included do
 
