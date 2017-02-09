@@ -277,7 +277,7 @@ body.explore, .explore {
 
   .campaign-profile {
     .content-section-header {
-      margin: 0.5em 1.3em;
+      margin: 0.6em 1.3em;
       font-size: 14px;
       font-weight: 300;
       color: #a8a8a8;
@@ -285,6 +285,13 @@ body.explore, .explore {
       p {
         margin: 0.5em 0;
       }
+    }
+    #copy-all-tiles-button {
+      margin: 55px 0 20px 18px;
+      width: 96%;
+    }
+    .related-channel-tags {
+      margin-top: 5px;
     }
     h4 {
       color: $darker-gray;

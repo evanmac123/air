@@ -37,6 +37,6 @@ class Admin::CampaignsController < AdminBaseController
 
   private
     def campaign_params
-      params.require(:campaign).permit(:name, :description, :demo_id, :cover_image, :channel_list, :active, :sources, :instructions, :duration)
+      params.require(:campaign).permit(:name, :description, :demo_id, :cover_image, :channel_list, :active, :sources, :instructions, :duration, :duration_description)
     end
 end

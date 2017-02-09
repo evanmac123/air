@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170205014802) do
+ActiveRecord::Schema.define(:version => 20170208235645) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20170205014802) do
     t.text     "instructions"
     t.integer  "duration"
     t.text     "sources"
+    t.string   "duration_description"
   end
 
   add_index "campaigns", ["demo_id"], :name => "index_campaigns_on_demo_id"
