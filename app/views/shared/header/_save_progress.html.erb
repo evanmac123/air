@@ -9,9 +9,11 @@
     <%= link_to "Sign In", new_session_path, id: 'sign_in_button' %>
   <% end %>
 
-  <% if session[:display_start_over_button] %>
-    <%= link_to "Start Over", guest_user_reset_path({ user: { demo_id: user.demo_id } }), id: 'guest_user_start_over_button', method: :put  %>
-  <% else %>
-    <%= link_to "Start Over", guest_user_reset_path({ user: { demo_id: user.demo_id } }), id: 'guest_user_start_over_button', style: 'display:none', method: :put %>
+  <% if guest_user_conversion_modal?(user) %>
+    <% if session[:display_start_over_button] %>
+      <%= link_to "Start Over", guest_user_reset_path({ user: { demo_id: user.demo_id } }), id: 'guest_user_start_over_button', method: :put  %>
+    <% else %>
+      <%= link_to "Start Over", guest_user_reset_path({ user: { demo_id: user.demo_id } }), id: 'guest_user_start_over_button', style: 'display:none', method: :put %>
+    <% end %>
   <% end %>
 </div>
