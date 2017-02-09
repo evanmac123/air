@@ -19,6 +19,10 @@ class SingleExploreTilePresenter < BasePresenter
     current_user.rdb[:copies].sismember(id) > 0
   end
 
+  def partial
+    'explore/single_explore_tile'
+  end
+
   def show_tile_path
     explore_tile_preview_path(tile)
   end

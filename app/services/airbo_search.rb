@@ -115,7 +115,7 @@ class AirboSearch
 
     def per_page_by_user
       if admin_search
-        ADMIN_PER_PAGE
+        100
       else
         USER_PER_PAGE
       end
