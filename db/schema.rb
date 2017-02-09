@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170208235645) do
+ActiveRecord::Schema.define(:version => 20170209205642) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -447,6 +447,7 @@ ActiveRecord::Schema.define(:version => 20170208235645) do
     t.boolean  "allow_embed_video",                                    :default => true
     t.integer  "organization_id"
     t.date     "launch_date"
+    t.boolean  "guest_user_conversion_modal",                          :default => true
   end
 
   add_index "demos", ["organization_id"], :name => "index_demos_on_organization_id"
