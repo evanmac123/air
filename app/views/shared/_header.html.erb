@@ -14,7 +14,9 @@
         <%= render 'shared/header/desktop_board_switcher', user: user %>
         <%= render 'shared/header/mobile_admin_options', user: user %>
       </nav>
-      <%= render 'shared/search_bar' %>
+      <% if current_user.is_client_admin || current_user.is_site_admin %>
+        <%= render 'shared/search_bar' %>
+      <% end %>
 
       <%= render 'shared/header/user_info', user: user %>
     <% else # user.is_guest? == true %>
