@@ -50,11 +50,11 @@ Airbo.LeadContactValidations = (function(){
 
       var validCharactersRegex = /^[a-z][- a-z]*[- ]{1}[- a-z]*[a-z]$/i;
       function fullname_valid(value) {
-          return validCharactersRegex.test(value);
+        return validCharactersRegex.test(value);
       }
 
       $.validator.addMethod("custom_fullname", function(value, element) {
-          return fullname_valid(value);
+        return fullname_valid(value);
       }, "Please enter a first and last name.");
 
       var form = $(this).parent();
@@ -128,15 +128,15 @@ Airbo.LeadContactValidations = (function(){
 
       function valid_board_name(value, element) {
         var board_names = JSON.parse($('#board_names').val());
-        return !board_names.includes(value);
+        return board_names.indexOf(value) === -1;
       }
 
       $.validator.addMethod("custom_fullname", function(value, element) {
-          return fullname_valid(value);
+        return fullname_valid(value);
       }, "Please enter a first and last name.");
 
       $.validator.addMethod("board_name_taken", function(value, element) {
-          return valid_board_name(value);
+        return valid_board_name(value);
       }, "This board name is already taken.");
 
 

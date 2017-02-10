@@ -122,12 +122,12 @@ Airbo.LeadContact = (function(){
 
   function chooseCorrectTab() {
     var status = $('#status').val();
-    if (status.includes("approved")) {
+    if (/approved/i.test(status)) {
       $(".tablinks").removeClass("active");
       $("#approved-leads-link").addClass("active");
       $(".tabcontent").hide();
       $("#approvedLeads").show();
-    } else if (status.includes("processed")) {
+    } else if (/processed/i.test(status)) {
       $(".tablinks").removeClass("active");
       $("#processed-leads-link").addClass("active");
       $(".tabcontent").hide();
