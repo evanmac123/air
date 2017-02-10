@@ -1,5 +1,5 @@
 <div class="row">
-  <div class = "columns small-10 admin-tile-campaign" data-campaign = "<%= campaign.id %>">
+  <div class = "columns small-11 admin-tile-campaign" data-campaign = "<%= campaign.id %>">
     <div class="panel">
       <%= form_for([:admin, campaign]) do |f| %>
         <div id="response_explanation">
@@ -10,37 +10,53 @@
             <%= f.label :name, "Name" %>
             <%= f.text_field :name, placeholder: "Wellness" %>
           </div>
-        </div>
-        <div class="row">
-          <div class="small-6 columns">
-            <%= f.label :description, "Description"  %>
-            <%= f.text_area :description %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-6 columns">
-            <%= f.label :channel_tag_list, "Channel Tags (comma separated tags)" %>
-            <%= f.text_area :channel_list, value: f.object.channels.join(", ") %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-6 columns">
+          <div class="large-6 columns">
             <%= f.label :cover_image, "Cover Image"  %>
             <%= f.file_field :cover_image, { id: "file_input" } %>
           </div>
         </div>
         <div class="row">
-          <div class="small-6 columns">
-            <%= f.label :demo_id, "Board" %>
-            <%= f.select :demo_id, options_from_collection_for_select(demos, :id,  :name, f.object.demo_id), {include_blank: true}, class: "airbo-chosen-select" %>
+          <div class="large-6 columns">
+            <%= f.label :description, "Description"  %>
+            <%= f.text_area :description %>
+          </div>
+          <div class="large-6 columns">
+            <%= f.label :channel_tag_list, "Channel Tags (comma separated tags)" %>
+            <%= f.text_area :channel_list, value: f.object.channels.join(", ") %>
           </div>
         </div>
         <div class="row">
+          <div class="large-6 columns">
+            <%= f.label :instructions, "Instructions (Each instruction separated by a new line)"  %>
+            <%= f.text_area :instructions %>
+          </div>
+          <div class="large-6 columns">
+            <%= f.label :sources, "Sources (Example: source 1, link 1, source 2, link 2, source 3, link 3)" %>
+            <%= f.text_area :sources %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.label :duration, "Duration in weeks" %>
+            <%= f.number_field :duration %>
+          </div>
+          <div class="large-6 columns">
+            <%= f.label :duration_description, "Duration description" %>
+            <%= f.text_field :duration_description, placeholder: "Defaults to 'Recommended duration: {duration} weeks'" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.label :demo_id, "Board" %>
+            <%= f.select :demo_id, options_from_collection_for_select(demos, :id,  :name, f.object.demo_id), {include_blank: true}, class: "airbo-chosen-select" %>
+          </div>
           <div class="small-6 columns">
             <%= f.label :active, "Active?" %>
             <%= f.check_box :active %>
           </div>
-          <div class="large-2 large-offset-6 columns" style="text-align:right">
+        </div>
+        <div class="row">
+          <div class="large-2 columns">
             <%= f.submit "Save", class: "button" %>
           </div>
         </div>

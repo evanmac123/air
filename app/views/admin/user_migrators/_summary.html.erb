@@ -1,0 +1,37 @@
+
+<div class="row">
+  <div class="columns large-12 large-centered">
+    <h2>Users Board Points Migration Manager </h2> 
+    <h4>From: <strong><%="#{@summary.from} (#{@summary.from_id})"%></strong> To:  <strong><%="#{@summary.to} (#{@summary.to_id})"%></strong></h4>
+  </div>
+</div>
+<div class="row">
+  <div class="columns large-12 large-centered">
+    <table>
+      <thead>
+        <tr>
+          <th>User Id</th>
+          <th>Name</th>
+          <th>User Current Points</th>
+          <th>Points on Board <%=@summary.from_id%></th>
+          <th>Points on Board <%=@summary.to_id%></th>
+          <th>New Board <%=@summary.to_id%> Total</th>
+          <th>New User Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%@summary.results.each do|result| %>
+          <tr>
+            <td> <%=result[:id]%></td>
+            <td class="name"> <%=result[:user]%></td>
+            <td> <%=result[:starting_user_points]%></td>
+            <td> <%=result[:from_board_points]%></td>
+            <td> <%=result[:to_board_starting_points]%></td>
+            <td class="final"> <%=result[:to_board_points]%></td>
+            <td class="final"> <%=result[:final_user_points]%></td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170201212423) do
+ActiveRecord::Schema.define(:version => 20170209205642) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -162,6 +162,10 @@ ActiveRecord::Schema.define(:version => 20170201212423) do
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
     t.string   "slug"
+    t.text     "instructions"
+    t.integer  "duration"
+    t.text     "sources"
+    t.string   "duration_description"
   end
 
   add_index "campaigns", ["demo_id"], :name => "index_campaigns_on_demo_id"
@@ -443,6 +447,7 @@ ActiveRecord::Schema.define(:version => 20170201212423) do
     t.boolean  "allow_embed_video",                                    :default => true
     t.integer  "organization_id"
     t.date     "launch_date"
+    t.boolean  "guest_user_conversion_modal",                          :default => true
   end
 
   add_index "demos", ["organization_id"], :name => "index_demos_on_organization_id"
@@ -730,6 +735,7 @@ ActiveRecord::Schema.define(:version => 20170201212423) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.boolean  "featured"
   end
 
   add_index "organizations", ["name"], :name => "index_organizations_on_name"

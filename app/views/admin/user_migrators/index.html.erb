@@ -1,0 +1,26 @@
+<h1> User Migrator</h1>
+<div class="row">
+
+  <div class="columns large-6 large-centered">
+
+    <%=form_tag admin_user_migrators_path do%>
+      <label>
+        From Board:
+        <%=text_field_tag :from%> 
+      </label>
+
+      <label>
+        To Board:
+        <%=text_field_tag :to%> 
+      </label>
+
+      <label>
+        User Ids:
+        <%=text_field_tag :user_ids%> 
+      </label>
+     <%=submit_tag "Submit"%>
+    <%end%>
+
+  </div>
+
+</div>

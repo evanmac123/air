@@ -39,11 +39,9 @@
           <li>
             <span class="img-menu-item search" title="Search">
               <i class="fa fa-search fa-1x show-search" aria-hidden="true"></i>
-              <input type="text" class="search-input" placeholder="Search images">
+              <input type="text" class="search-input" placeholder="Search images", data-services='<%=@image_providers%>'>
             </span>
           </li>
-
-        
           <li>
             <span class="img-menu-item upload menu-tooltip" id="uploader_trigger" title="Upload image" >
               <i class="fa fa-cloud-upload fa-1x"></i>
@@ -75,6 +73,8 @@
   <div class="visual-content-container">
     <div class="images-wrapper">
       <div id="images"></div>
+      <h5 class="attribution"><a href="http://www.pixabay.com" target="_blank">Powered by<%=image_tag "pixabay_logo.svg", class:"pixabay"%></a></h5>
+
     </div>
 
     <div class="embed-video-container">

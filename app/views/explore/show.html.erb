@@ -1,12 +1,17 @@
 <div id="tile_wall_explore">
   <section class="manage_section" id="channels">
-    <%= render partial: 'explore/channels', locals: { channels: Channel.display_channels('explore') } %>
+    <%= render partial: 'explore/channels', locals: { channels: @channels } %>
   </section>
-  <% TileFeature.ordered.each do |feature| %>
+  <% @tile_features.each do |feature| %>
     <%= render partial: 'explore/tile_feature', locals: { feature: feature } %>
   <% end %>
+  <% if @featured_organizations.present? %>
+    <section class="manage_section channel_container" id="organizations">
+      <%= render partial: 'explore/organizations', locals: { organizations: Organization.featured, header: "Organizations" } %>
+    </section>
+  <% end %>
   <section class="manage_section" id="campaign_boards">
-    <%= render partial: 'explore/campaigns', locals: { campaigns: Campaign.all, header: "Airbo Campaigns" } %>
+    <%= render partial: 'explore/campaigns', locals: { campaigns: @campaigns, header: "Airbo Campaigns" } %>
   </section>
   <section class="manage_section" id="explore_tiles">
     <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "Explore Tiles", more_tiles_path: explore_path } %>

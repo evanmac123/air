@@ -1,5 +1,5 @@
 class ExploreController < ExploreBaseController
-  before_filter :set_intro_slides
+  before_filter :set_initial_objects
 
   def show
     @tiles = Tile.explore_without_featured_tiles.page(params[:page]).per(28)
@@ -19,6 +19,16 @@ class ExploreController < ExploreBaseController
   end
 
   private
+
+    def set_initial_objects
+      unless request.xhr?
+        set_intro_slides
+        @tile_features = TileFeature.ordered
+        @campaigns = Campaign.all
+        @featured_organizations = Organization.featured
+        @channels = Channel.display_channels('explore')
+      end
+    end
 
     def set_intro_slides
       if show_slides?

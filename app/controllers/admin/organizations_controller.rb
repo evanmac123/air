@@ -18,7 +18,7 @@ class Admin::OrganizationsController < AdminBaseController
     @organization = Organization.new(organization_params)
     if @organization.save
       flash[:success] = t('controllers.admin.organizations.flash_create', name: @organization.name)
-      redirect_to admin_organizations_path
+      redirect_to admin_organization_path(@organization)
     else
       render :new
     end
@@ -45,7 +45,7 @@ class Admin::OrganizationsController < AdminBaseController
 
     if @organization.save
       flash[:success] = "#{@organization.name} has been updated."
-      redirect_to admin_path
+      redirect_to admin_organization_path(@organization)
     else
       render :edit
     end
@@ -64,6 +64,6 @@ class Admin::OrganizationsController < AdminBaseController
     end
 
     def organization_params
-      params.require(:organization).permit(:name)
+      params.require(:organization).permit(:name, :logo, :num_employees, :featured)
     end
 end

@@ -1,0 +1,50 @@
+@mixin organization-card(){
+  width:230px;
+  height: 260px;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border: 1px solid rgba(0,0,0,0.05);
+  margin: 10px;
+  text-align: center;
+  position: relative;
+  &:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+  .organization-logo {
+    height: 70px;
+    overflow: hidden;
+    img {
+      margin-top: 20px;
+      max-width: 200px;
+    }
+  }
+  .organization-name {
+    height: 4.4em;
+    margin-top: 20px;
+    overflow: hidden;
+    h3 {
+      margin: 0 10px;
+      font-weight: 600;
+      line-height: 1.1em;
+      font-size: 22px;
+    }
+  }
+  .organization-stats {
+    margin: 10px;
+    span {
+      line-height: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      color: $med-gray;
+    }
+  }
+  .organization-visit-profile {
+    position: absolute;
+    bottom: 0;
+    margin: 10px;
+    width: 90%;
+    a {
+      width: 100%;
+    }
+  }
+}
