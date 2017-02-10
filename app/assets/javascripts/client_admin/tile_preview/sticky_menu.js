@@ -6,7 +6,7 @@ Airbo.StickyMenu = (function(){
     var previewMenu = modal.find('.tile_preview_menu');
     modal.scroll(function() {
       if (modal.scrollTop() > 55) {
-        var leftOffset = getSizes(container);;
+        var leftOffset = getSizes(container);
         previewMenu.addClass('sticky').css("left", leftOffset);
       } else {
         previewMenu.removeClass('sticky').css("left", "");
@@ -18,7 +18,7 @@ Airbo.StickyMenu = (function(){
     if (container.tileContainerSizes().left > 0) {
       return container.tileContainerSizes().left;
     } else {
-      var holderSize = $('.tile_holder').outerWidth();
+      var holderSize = $('.tile_holder').last().outerWidth();
       var modalSize = $('#tile_preview_modal').outerWidth();
       return (modalSize - holderSize) / 2;
     }

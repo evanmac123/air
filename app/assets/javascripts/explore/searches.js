@@ -111,8 +111,13 @@ $(function(){
   if( $(".explore-search-results").length > 0 ) {
     Airbo.Search.init();
     Airbo.SearchTabs.init();
+
     $(".search.tile-grid.explore_tiles").each(function(index, container) {
       Airbo.Search.loadResourcesInBackground($(container), Airbo.CopyTileToBoard.bindThumbnailCopyButton);
+    });
+
+    $(".search.tile-grid.client_admin_tiles").each(function(index, container) {
+      Airbo.Search.loadResourcesInBackground($(container), Airbo.SearchTileThumbnail.initTiles);
     });
   }
 });

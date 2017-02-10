@@ -54,7 +54,7 @@ Airbo.Utils.EndlessScroll = (function(){
             if (lastBatch === true) {
               viewMore.hide();
             }
-            
+
             content_container.data("page", page);
             content_container.data("count", count + data.added);
             content_container.append(data.content);
