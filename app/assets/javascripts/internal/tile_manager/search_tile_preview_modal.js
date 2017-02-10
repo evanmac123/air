@@ -8,7 +8,7 @@ Airbo.SearchTilePreviewModal = (function(){
       tileManager;
 
   function tileContainerSizes() {
-    tileContainer = $(".tile_full_image")[0];
+    tileContainer = $(".tile_holder")[0];
     if( !tileContainer ) {
       return null;
     }

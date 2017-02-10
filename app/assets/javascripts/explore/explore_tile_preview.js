@@ -106,7 +106,7 @@ Airbo.GuestExploreTilePreview = (function(){
   return {
     init: init,
     open: open
-  }
+  };
 }());
 
 $(document).ready(function(){
