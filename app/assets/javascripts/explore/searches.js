@@ -73,13 +73,36 @@ Airbo.Search = (function(){
     });
   }
 
+  function loadResourcesInBackground(content_container, bindCallback) {
+    var path = content_container.data("path");
+
+    var count = content_container.data("count");
+
+    var page = parseInt(content_container.data("page")) || 0;
+    page++;
+
+    $.ajax({
+      url: path,
+      data: $.extend(content_container.data(), { page: page }),
+      method: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        content_container.data("page", page);
+        content_container.data("count", count + data.added);
+        content_container.append(data.content);
+        bindCallback();
+      }
+    });
+  }
+
   function init() {
     bindSearchSubmit();
     bindMoreTilesButtons();
   }
 
   return {
-    init: init
+    init: init,
+    loadResourcesInBackground: loadResourcesInBackground
   };
 
 }());
@@ -88,5 +111,8 @@ $(function(){
   if( $(".explore-search-results").length > 0 ) {
     Airbo.Search.init();
     Airbo.SearchTabs.init();
+    $(".search.tile-grid.explore_tiles").each(function(index, container) {
+      Airbo.Search.loadResourcesInBackground($(container), Airbo.CopyTileToBoard.bindThumbnailCopyButton);
+    });
   }
 });
