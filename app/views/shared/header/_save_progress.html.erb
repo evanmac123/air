@@ -1,15 +1,19 @@
 <div id="save_progress" class="large-4 columns" style="<%= user.guest_user_header_button_style %>">
   <% if @public_tile_page %>
     <%= link_to "Learn More", new_demo_request_path, id: "save_progress_button" %>
-  <% else %>
+  <% elsif guest_user_conversion_modal?(user) %>
     <%= link_to "Save Progress", "#", id: "save_progress_button", class: "open_save_progress_form", data: { "reveal-id" => "guest-conversion-modal" } %>
   <% end %>
 
-  <%= link_to "Sign In", new_session_path, id: 'sign_in_button' %>
+  <% if guest_user_conversion_modal?(user) %>
+    <%= link_to "Sign In", new_session_path, id: 'sign_in_button' %>
+  <% end %>
 
-  <% if session[:display_start_over_button] %>
-    <%= link_to "Start Over", guest_user_reset_path({ user: { demo_id: user.demo_id } }), id: 'guest_user_start_over_button', method: :put  %>
-  <%else%>
-    <%= link_to "Start Over", guest_user_reset_path({ user: { demo_id: user.demo_id } }), id: 'guest_user_start_over_button', style: 'display:none', method: :put %>
+  <% if guest_user_conversion_modal?(user) %>
+    <% if session[:display_start_over_button] %>
+      <%= link_to "Start Over", guest_user_reset_path({ user: { demo_id: user.demo_id } }), id: 'guest_user_start_over_button', method: :put  %>
+    <% else %>
+      <%= link_to "Start Over", guest_user_reset_path({ user: { demo_id: user.demo_id } }), id: 'guest_user_start_over_button', style: 'display:none', method: :put %>
+    <% end %>
   <% end %>
 </div>

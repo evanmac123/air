@@ -1,15 +1,15 @@
 @mixin how-to-use-card(){
   width:270px;
   min-height: 300px;
-  border: 1px solid #a8a8a8;
+  border: 1px solid $med-gray;
   margin: 10px;
   position: relative;
   .header {
     height: 30px;
     text-align: center;
-    background: #a8a8a8;
+    background: $med-gray;
     color: #fff;
-    font-weight: 600;
+    font-weight: 400;
     padding: 8px;
   }
   .list {

@@ -43,11 +43,12 @@
   <input type="hidden" name="method" value="flickr.photos.search">
   <input type="hidden" name="text">
   <input type="hidden" name="sort" value="relevance">
-  <input type="hidden" name="license" value="7,9,10">
+  <input type="hidden" name="license" value="<%=ENV['FLICKR_LICENSES']%>">
   <input type="hidden" name="format"  value="json">
   <input type="hidden" name="per_page"  value="480">
   <input type="hidden" name="extras"  value="license">
   <input type="hidden" name="nojsoncallback"  value="1">
+  <input type="hidden" name="is_gallery"  value="1">
   <input type="hidden" name="api_key" value="<%=ENV['FLICKR_KEY']%>">
 </form>
 
@@ -55,6 +56,9 @@
   <input type="hidden" name="q" placeholder="Search Pixabay" >
   <input type="hidden" name="key" value="<%=ENV['PIXABAY_KEY']%>">
   <input type="hidden" name="safesearch" value="true">
+  <input type="hidden" name="per_page" value="200">
+  <input type="hidden" name="image_type" value="photo">
+ 
 </form>
 
 <form class="search-form" id="google" action="https://www.googleapis.com/customsearch/v1" method="get" data-provider="google" data-search-field='q'>

@@ -1,4 +1,4 @@
-<section class="manage_section" id="explore_tiles">
+<section class="manage_section campaign-profile" id="explore_tiles">
   <div class="row">
     <div class="explore-tiles-titles large-12 columns">
         <span class="explore-sub-page-header"><%= campaign.name %></span>
@@ -25,14 +25,16 @@
             <p>Campaign info</p>
           </div>
           <div class="row">
-            <div class="columns small-6">
+            <div class="columns small-12">
               <div class="info-point duration">
                 <ul>
-                  <li><%= "Recommended duration: #{pluralize(campaign.duration, 'week')}" %></li>
+                  <li>
+                    <%= campaign_formatted_duration(campaign) %>
+                  </li>
                 </ul>
               </div>
             </div>
-            <div class="columns small-6">
+            <div class="columns small-12">
               <div class="info-point tiles">
                 <ul>
                   <li><%= "#{campaign.active_tiles.count} Tiles" %></li>
@@ -41,35 +43,33 @@
             </div>
           </div>
         </div>
-        <div class="content-section">
-          <div class="content-section-header">
-            <p>Campaign sources</p>
+        <% if campaign.sources.present? %>
+          <div class="content-section">
+            <div class="content-section-header">
+              <p>Campaign sources</p>
+            </div>
+            <ul>
+              <% campaign.formatted_sources.each do |s| %>
+                <li>
+                  <% if s[1].present? %>
+                    <h4 class="campaign-source"><%= link_to s[0], s[1], target: "_blank" %></h4>
+                  <% else %>
+                    <h4 class="campaign-source"><%= s[0] %></h4>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
           </div>
-          <ul>
-            <% campaign.formatted_sources.each do |s| %>
-              <li>
-                <% if s[1].present? %>
-                  <h4 class="campaign-source"><%= link_to s[0], s[1], target: "_blank" %></h4>
-                <% else %>
-                  <h4 class="campaign-source"><%= s[0] %></h4>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+        <% end %>
+        <% unless current_user.is_a?(GuestUser) || current_user.end_user? %>
+          <div id="copy-all-tiles-button" class="large button">
+            Copy Campaign
+          </div>
+        <% end %>
       </div>
       <div class="columns large-4">
         <%= render "how_to_use_card", campaign: campaign %>
       </div>
     </div>
-    <% unless current_user.is_a?(GuestUser) || current_user.end_user? %>
-      <div class="row">
-        <div class="columns large-12">
-          <div id="copy-all-tiles-button" class="button">
-            Copy Campaign
-          </div>
-        </div>
-      </div>
-    <% end %>
   </section>
 </section>

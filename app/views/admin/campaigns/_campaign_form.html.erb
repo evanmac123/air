@@ -41,16 +41,22 @@
             <%= f.number_field :duration %>
           </div>
           <div class="large-6 columns">
-            <%= f.label :demo_id, "Board" %>
-            <%= f.select :demo_id, options_from_collection_for_select(demos, :id,  :name, f.object.demo_id), {include_blank: true}, class: "airbo-chosen-select" %>
+            <%= f.label :duration_description, "Duration description" %>
+            <%= f.text_field :duration_description, placeholder: "Defaults to 'Recommended duration: {duration} weeks'" %>
           </div>
         </div>
         <div class="row">
+          <div class="large-6 columns">
+            <%= f.label :demo_id, "Board" %>
+            <%= f.select :demo_id, options_from_collection_for_select(demos, :id,  :name, f.object.demo_id), {include_blank: true}, class: "airbo-chosen-select" %>
+          </div>
           <div class="small-6 columns">
             <%= f.label :active, "Active?" %>
             <%= f.check_box :active %>
           </div>
-          <div class="large-2 large-offset-6 columns" style="text-align:right">
+        </div>
+        <div class="row">
+          <div class="large-2 columns">
             <%= f.submit "Save", class: "button" %>
           </div>
         </div>

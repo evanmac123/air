@@ -18,10 +18,6 @@ Airbo.TileImageUploader = (function(){
     remoteMediaUrl.change();
   }
 
-  function libraryImageSelected(url, imgWidth, imgHeight, id){
-    setFormFieldsForSelectedImage(url, imgTypeFromFilename(url));
-    showImagePreview(url, imgWidth, imgHeight);
-  }
 
   function setFormFieldsForSelectedImage(url, type){
     remoteMediaUrl.val(url);
@@ -29,31 +25,29 @@ Airbo.TileImageUploader = (function(){
   }
 
 
-
   function notifyImageUploaded(imgUrl, imgWidth, imgHeight){
     $.Topic("image-selected").publish({url: imgUrl, h: imgHeight, w: imgWidth});
   }
 
-
   function initDom(){
     remoteMediaUrl = $(remoteMediaUrlSelector);
     remoteMediaType = $(remoteMediaTypeSelector);
-
+    initImageSelectedListener();
   }
 
   function getRemoteMediaURL(){
     return remoteMediaUrl.val();
   }
 
-  function init(libraryModal){
-
+  function initImageSelectedListener(){
     $.Topic('image-selected').subscribe( function(imgProps){
       setFormFieldsForSelectedImage(imgProps.url);
     });
+  }
+
+  function init(libraryModal){
 
     initDom();
-
-
 
     Airbo.DirectToS3ImageUploader.init( {
       processed: notifyImageUploaded,

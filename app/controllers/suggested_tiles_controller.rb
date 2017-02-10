@@ -1,5 +1,7 @@
 class SuggestedTilesController < UserBaseController
   def new
+
+    @image_providers = ENV['IMAGE_PROVIDERS'].split(",").to_json
     @tile_builder_form =  current_user.demo.m_tiles.build(status: Tile::USER_SUBMITTED, user_created: true)
     @user_side = true
     render partial: "client_admin/tiles/form", layout: false and return

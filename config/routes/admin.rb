@@ -1,6 +1,7 @@
 resource :admin, :only => :show
 
 namespace :admin do
+  resources :user_migrators
   resource  :sales, only: [:show]
   resources :channels
   resources :campaigns

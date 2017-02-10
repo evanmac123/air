@@ -11,6 +11,7 @@ class SalesOrganizationCreator
 
   def create!
     update_board_name(board)
+    set_sales_defaults
     if @organization.save
       setup_sales_org
     end
@@ -23,6 +24,10 @@ class SalesOrganizationCreator
   end
 
   private
+
+    def set_sales_defaults
+      board.guest_user_conversion_modal = false
+    end
 
     def setup_sales_org
       copy_tiles_to_board(board)
