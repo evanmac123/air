@@ -18,12 +18,9 @@
         <% end %>
       </div>
     </div>
-    <div id="exploreTiles" class="searchTab">
+    <div id="exploreTiles" class="searchTab tile_wall_explore">
       <% if @search_service.explore_tiles.present? %>
-        <section class="manage_section" id="explore_tiles">
-          <%= render partial: 'explore/explore_tiles', locals: { tiles: @search_service.explore_tiles, header: "Related Tiles", more_tiles_path: explore_search_path({ section: 'explore_tiles' }) } %>
-        </section>
-
+        <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.explore_tiles, container: 'explore_tiles', presenter: SingleExploreTilePresenter, opts: { show_more_button: false, endless_scroll: true, show_more_path: explore_search_path({ section: 'explore_tiles' }), feature: "search" } } %>
       <% end %>
     </div>
   </div>

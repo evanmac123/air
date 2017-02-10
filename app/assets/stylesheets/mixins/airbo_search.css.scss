@@ -23,4 +23,15 @@
       margin: 25px;
     }
   }
+  .explore_tiles {
+    .tile-wrapper {
+      .tile_buttons {
+        top: 277px;
+        opacity: 1;
+        a {
+          @extend .tiny;
+        }
+      }
+    }
+  }
 }

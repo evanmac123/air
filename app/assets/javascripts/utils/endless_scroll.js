@@ -46,21 +46,21 @@ Airbo.Utils.EndlessScroll = (function(){
 
         $.ajax({
           url: path,
-          data: content_container.data(),
+          data: $.extend(content_container.data(), { page: page }),
           method: 'GET',
           dataType: 'json',
           success: function(data) {
-            content_container.data("page", page);
-            content_container.data("count", count + data.added);
-            content_container.append(data.content);
             lastBatch = data.lastBatch;
-            isLoadingNextPage = false;
-            lastLoadAt = new Date();
-            bindCallback();
-
             if (lastBatch === true) {
               viewMore.hide();
             }
+            
+            content_container.data("page", page);
+            content_container.data("count", count + data.added);
+            content_container.append(data.content);
+            isLoadingNextPage = false;
+            lastLoadAt = new Date();
+            bindCallback();
           }
         });
       }

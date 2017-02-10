@@ -4,4 +4,12 @@ $(function(){
       Airbo.Utils.EndlessScroll.init($(container), Airbo.SearchTileThumbnail.initTiles());
     });
   }
+
+  $(function(){
+    if( $(".search.tile-grid.explore_tiles").length > 0 ) {
+      $(".search.tile-grid.explore_tiles").each(function(index, container) {
+        Airbo.Utils.EndlessScroll.init($(container), Airbo.CopyTileToBoard.bindThumbnailCopyButton);
+      });
+    }
+  });
 });

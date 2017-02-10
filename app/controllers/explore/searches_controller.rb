@@ -19,19 +19,20 @@ class Explore::SearchesController < ExploreBaseController
     # # customize number of results per page
     # search = AirboSearch.new('health insurance', demo, { per_page: 24 })
     # @my_tiles_page_2 = search.my_tiles(2)
-
     @search_service = AirboSearch.new(params[:query], current_user)
 
     if request.xhr? && params[:section]
+      partial = params[:tilesContainer] || 'shared/tiles/contextual_tiles'
+
       content = render_to_string(
-                  partial: 'shared/tiles/contextual_tiles',
+                  partial: partial,
                   locals: { tiles: tiles_to_render, presenter: presenter_to_render })
 
       render json: {
         success:   true,
         content:   content,
         added:     tiles_to_render.count,
-        lastBatch: params[:count] == tiles_to_render.total_count.to_s,
+        lastBatch: last_batch?,
         page: params[:page]
       }
     end
@@ -44,6 +45,7 @@ class Explore::SearchesController < ExploreBaseController
       when "client_admin_tiles"
         { tiles_to_render: "user_tiles", presenter_to_render: SingleAdminTilePresenter }
       when "explore_tiles"
+        { tiles_to_render: "explore_tiles", presenter_to_render: SingleExploreTilePresenter }
       when "user_tiles"
         { tiles_to_render: "user_tiles", presenter_to_render: SingleTilePresenter }
       end
@@ -55,5 +57,9 @@ class Explore::SearchesController < ExploreBaseController
 
     def presenter_to_render
       search_section[:presenter_to_render]
+    end
+
+    def last_batch?
+      params[:count].to_i + tiles_to_render.count == tiles_to_render.total_count
     end
 end
