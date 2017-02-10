@@ -158,7 +158,6 @@ Airbo.LeadContact = (function(){
 
 $(function(){
   if ($(".lead-contacts-container").length > 0) {
-    Airbo.Utils.ES6Polyfills.init();
     Airbo.LeadContact.init();
   }
 });
