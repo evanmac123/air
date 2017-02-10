@@ -1,4 +1,5 @@
 //= require application
+//= require es6/es6_polyfills.js
 //= require jquery.ui.datepicker
 //= require jquery.ui.autocomplete
 //= require jquery.ui.tabs
@@ -39,4 +40,3 @@
 //= require ./admin/channels
 //= require ../../../vendor/assets/javascripts/chosen.jquery.min
 //= require ../../../vendor/assets/javascripts/external/modernizr
-//
