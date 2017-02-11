@@ -11,7 +11,7 @@
           <%end%>
         </tr>
       </thead>
-      <%FinancialsReporterService.sections.each do |section_label, fields| %>
+      <%@rep.sections.each do |section_label, fields| %>
         <tbody>
           <tr class="separator">
             <th><%=section_label%></th>
