@@ -1,8 +1,6 @@
 class Tile < ActiveRecord::Base
   include Concerns::TileImageable
 
-  searchkick word_start: [:headline, :supporting_content, :tag_titles], settings: {number_of_shards: 1, number_of_replicas: 1}
-
   ACTIVE  = 'active'.freeze
   ARCHIVE = 'archive'.freeze
   DRAFT   = 'draft'.freeze
@@ -102,6 +100,16 @@ class Tile < ActiveRecord::Base
   alias_attribute :total_views, :total_viewings_count
   alias_attribute :unique_views, :unique_viewings_count
   alias_attribute :interactions, :tile_completions_count
+
+  searchkick word_start: [:tag_titles]
+  def search_data
+    extra_data = {
+      tag_titles: tile_tags.pluck(:title).join(', '),
+      organization_name: organization.try(:name)
+    }
+
+    serializable_hash.merge(extra_data)
+  end
 
   def self.not_completed
     tiles = Tile.arel_table
@@ -335,10 +343,6 @@ class Tile < ActiveRecord::Base
 
   def supporting_content_raw_text
     Nokogiri::HTML::Document.parse(supporting_content).text
-  end
-
-  def search_data
-    serializable_hash.merge(tag_titles: tile_tags.pluck(:title).join(', '))
   end
 
   private

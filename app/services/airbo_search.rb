@@ -52,7 +52,7 @@ class AirboSearch
     end
 
     def default_fields
-      [:headline, :supporting_content, :tag_titles]
+      ["headline^10", :supporting_content, :tag_titles, :organization, :question]
     end
 
     def default_match
@@ -70,8 +70,8 @@ class AirboSearch
           status:  tile_status
         },
         fields: default_fields,
-        match: default_match,
-        operator: 'or',
+        track: search_tracking_data,
+        operator: "or"
       }
     end
 
@@ -82,8 +82,8 @@ class AirboSearch
           status: [Tile::ACTIVE, Tile::ARCHIVE]
         },
         fields: default_fields,
-        match: default_match,
-        operator: 'or',
+        track: search_tracking_data,
+        operator: "or"
       }
     end
 
@@ -136,6 +136,14 @@ class AirboSearch
     def get_demo
       if user_search
         user.demo
+      end
+    end
+
+    def search_tracking_data
+      if user.is_a?(User)
+        { user_id: user.id, user_email: user.email }
+      elsif user.is_a?(GuestUser)
+        {}
       end
     end
 end

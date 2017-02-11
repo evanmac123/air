@@ -188,6 +188,7 @@ header {
   #board_switch {
     height: 49px;
     max-height:49px;
+    width: 90%;
     position: relative;
     padding-left: 1em;
     padding-right: 1em;
@@ -223,12 +224,15 @@ header {
     }
     p {
       margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
-  #board_switch, .other_boards, .other_boards a, #no_other_boards {
-    width: 20em;
-    max-width: 20em;
+  .other_boards, .other_boards a, #no_other_boards {
+    width: 100%;
+    right: 0;
   }
 
   .board_switch_dropdown, .mobile_board_link {

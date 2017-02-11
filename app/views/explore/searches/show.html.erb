@@ -1,4 +1,4 @@
-<div class="explore explore-search-results explore-search-results-<%= get_user_type(current_user) %> has-tile-thumnails" data-user-type="<%= get_user_type(current_user) %>">
+<div class="explore explore-search-results explore-search-results-<%= get_user_type(current_user) %> has-tile-thumnails" data-user-type="<%= get_user_type(current_user) %>" data-query="<%= params[:query] %>">
   <div class="row">
     <div class="columns small-12">
       <h4 class="explore-headers search-results-description"><span>Search results for "<%= params[:query] %>"</span></h4>
@@ -10,8 +10,8 @@
         <ul>
           <span><%= link_to "My Tiles", "#myTiles", class:"first searchTabLink" %></span>
           <span><%= link_to "Explore Tiles", "#exploreTiles", class:"searchTabLink" %></span>
-          <span><%= link_to "Campaigns", "#campaigns", class:"searchTabLink" %></span>
-          <span><%= link_to "Organizations", "#organizations", class:"last searchTabLink" %></span>
+          <span><%= link_to "Campaigns", "#campaigns", class:"last searchTabLink" %></span>
+          <!-- <span><%#= link_to "Organizations", "#organizations", class:"last searchTabLink" %></span> -->
         </ul>
       </div>
     </div>
@@ -33,8 +33,8 @@
       <% end %>
     </div>
     <div id="campaigns" class="searchTab tile_wall_explore">
-      <% if 1 == 2 %>
-
+      <% if @search_service.campaigns.present? %>
+        <%= render 'explore/campaigns/campaign_grid', campaigns: @search_service.campaigns %>
       <% else %>
         <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.campaigns_html", query: params[:query], path: link_to("Airbo Explore", explore_path)) %></p>
       <% end %>

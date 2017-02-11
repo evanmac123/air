@@ -2,24 +2,6 @@ var Airbo = window.Airbo || {};
 
 Airbo.Search = (function(){
 
-  function bindMoreTilesButtons() {
-    $(".show-more-tiles-button").each(function() {
-      bindMoreTilesButton($(this));
-    });
-  }
-
-  function bindMoreTilesButton(button) {
-    button.on("click", function(e) {
-      e.preventDefault();
-      Airbo.Utils.ButtonSpinner.trigger($(this));
-      var tilesContainer = $(this).closest(".contextual_tiles_container");
-      var params = tilesContainer.data();
-      params.page++;
-
-      $.get(params.moreTilesPath, params, addMoreTiles.bind(this));
-    });
-  }
-
   function addMoreTiles(data) {
     var tilesContainer = $(this).closest(".contextual_tiles_container");
     tilesContainer.data("count", tilesContainer.data("count") + data.added);
@@ -97,7 +79,6 @@ Airbo.Search = (function(){
 
   function init() {
     bindSearchSubmit();
-    bindMoreTilesButtons();
   }
 
   return {

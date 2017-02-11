@@ -1,4 +1,7 @@
 @mixin airbo_search() {
+  .campaigns {
+    @include campaign_grid;
+  }
   &.explore-search-user {
     .content {
       background: $tile-wall-bg;
