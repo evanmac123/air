@@ -29,7 +29,7 @@
   </div>
 <% end %>
 
-<% if user.is_client_admin || user.is_site_admin && navbar == 0 %>
+<% if navbar == 0 && user.is_client_admin || user.is_site_admin %>
   <% navbar += 1 %>
   <% if user.show_search_bar? %>
     <%= render 'shared/search_bar', column_count: 5 %>
