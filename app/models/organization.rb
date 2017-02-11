@@ -27,12 +27,6 @@ class Organization < ActiveRecord::Base
       default_style: :small
     }
 
-  has_attached_file :logo,
-    {
-      styles: { medium: '300x300' },
-      default_style: :medium
-    }
-
   def update_slug
     self.slug = name.parameterize
   end

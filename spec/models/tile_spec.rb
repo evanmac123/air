@@ -42,7 +42,7 @@ describe Tile do
     it "cannot be posted if missing image" do
       tile  = FactoryGirl.create :tile, status: Tile::DRAFT
       tile.remote_media_url = nil
-      tile.status = Tile::ACTIVE 
+      tile.status = Tile::ACTIVE
       expect(tile.save).to be false
     end
 
@@ -54,7 +54,7 @@ describe Tile do
     it "cannot be posted if supporting content len > specfied max" do
       tile  = FactoryGirl.create :tile, status: Tile::DRAFT
       tile.supporting_content = LONG_TEXT
-      tile.status = Tile::ACTIVE 
+      tile.status = Tile::ACTIVE
       expect(tile.save).to be false
     end
   end
@@ -339,8 +339,8 @@ describe Tile do
 
   describe "#survey_chart" do
     it "should return array with right statistic" do
-      tile = FactoryGirl.create(:survey_tile, 
-                                question: "Do you belive in life after life", 
+      tile = FactoryGirl.create(:survey_tile,
+                                question: "Do you belive in life after life",
                                 multiple_choice_answers: ["Yes", "No"]
                                )
       FactoryGirl.create(:tile_completion, tile: tile, answer_index: 0 )
@@ -359,7 +359,7 @@ describe Tile do
 
     context 'no tags on tile' do
       it 'should return a serializable hash of a tile object plus an empty string tags key/value' do
-        expect(tile.search_data).to eql(tile.serializable_hash.merge(tag_titles: ''))
+        expect(tile.search_data).to eql(tile.serializable_hash.merge({ tag_titles: "", organization_name: tile.organization.try(:name)}))
       end
     end
 
@@ -369,7 +369,7 @@ describe Tile do
       let(:tile_with_tags) { FactoryGirl.create(:tile, :public, tile_tags: [tag1, tag2]) }
 
       it 'should return a serializable hash of a tile object plus tags containing comma separated tags' do
-        expect(tile_with_tags.search_data).to eql(tile_with_tags.serializable_hash.merge(tag_titles: "#{tag1.title}, #{tag2.title}"))
+        expect(tile_with_tags.search_data).to eql(tile_with_tags.serializable_hash.merge({ tag_titles: "#{tag1.title}, #{tag2.title}", organization_name: tile_with_tags.organization.try(:name)}))
       end
     end
 

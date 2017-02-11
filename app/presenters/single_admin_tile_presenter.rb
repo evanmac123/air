@@ -27,7 +27,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def partial
-    'client_admin/tiles/manage_tiles/single_tile'
+    'client_admin/tiles/manage_tiles/new_single_tile'
   end
 
   def tile_id

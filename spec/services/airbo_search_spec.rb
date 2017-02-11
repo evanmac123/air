@@ -112,19 +112,7 @@ describe AirboSearch do
 
     describe '#default_fields' do
       it 'defaults to headline, supporting_content, and tag_titles' do
-        expect(service.send(:default_fields)).to eql([:headline, :supporting_content, :tag_titles])
-      end
-    end
-
-    describe '#unpaginated_explore_tiles' do
-      it 'calls Tile.search with the "public" options' do
-        Tile.stubs(:search)
-
-        service.send(:unpaginated_explore_tiles)
-
-        correct_options = { fields: [:headline, :supporting_content, :tag_titles], where: { is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE] }, match: :word_start, operator: 'or' }
-
-        expect(Tile).to have_received(:search).with(query, correct_options)
+        expect(service.send(:default_fields)).to eql(["headline^10", :supporting_content, :tag_titles, :organization, :question])
       end
     end
 
