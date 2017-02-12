@@ -54,7 +54,7 @@ class AirboSearch
     end
 
     def default_fields
-      ["headline^10", :supporting_content, :tag_titles, :organization]
+      ["headline^10", :supporting_content, :tag_titles, :organization_name]
     end
 
     def default_match
