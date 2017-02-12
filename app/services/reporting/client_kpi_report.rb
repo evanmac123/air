@@ -13,18 +13,12 @@ module Reporting
       [sdate, edate]
     end
 
-    def db_fields
-      CustSuccessKpi.select(query_select_fields)
-    end
-
     def current_by_period(period=WEEKLY)
       @curr ||= CustSuccessKpi.by_period(period).last
     end
 
- 
-
-    def self.chart_series_names
-      self.new.chart_series_names
+    def chart_series_names
+      chart_series_names
     end
 
     def sections
@@ -49,23 +43,24 @@ module Reporting
           "paid_client_admins_who_viewed_tiles_in_explore",
           "tiles_viewed_per_paid_client_admin"
         ],
-        #"Creation" => [
-          #"percent_orgs_that_added_tiles",
-          #"total_tiles_added_by_paid_client_admin",
-          #"unique_orgs_that_added_tiles",
 
-          #"percent_of_added_tiles_from_copy",
-          #"percent_of_added_tiles_from_scratch",
+        "Creation" => [
+          "percent_orgs_that_added_tiles",
+          "total_tiles_added_by_paid_client_admin",
+          "unique_orgs_that_added_tiles",
 
-          #"total_tiles_added_from_copy_by_paid_client_admin",
-          #"unique_orgs_that_copied_tiles",
-          #"average_tiles_copied_per_org_that_copied",
+          "percent_of_added_tiles_from_copy",
+          "percent_of_added_tiles_from_scratch",
 
-          #"tiles_created_from_scratch",
-          #"orgs_that_created_tiles_from_scratch",
-          #"average_tiles_created_from_scratch_per_org_that_created",
-          #"average_tile_creation_time"
-        #],
+          "total_tiles_added_from_copy_by_paid_client_admin",
+          "unique_orgs_that_copied_tiles",
+          "percent_orgs_that_copied_tiles",
+          "average_tiles_copied_per_org_that_copied",
+
+          "tiles_created_from_scratch",
+          "orgs_that_created_tiles_from_scratch",
+          "average_tiles_created_from_scratch_per_org_that_created",
+        ],
 
         #"Engagement" => [
           #"percent_joined_current",
@@ -213,10 +208,10 @@ module Reporting
           css: " kpi-tooltip"
         },
         "total_tiles_added_by_paid_client_admin" => {
-          label: "New Tiles Added",
-          series: "New Tiles Added",
+          label: "Total Tiles Added",
+          series: "Total Tiles Added",
           type: "num",
-          hint: "# Total Tiles Added by Paid Client Admins",
+          hint: "# Total Tiles Copied or Created by Paid Client Admins",
           css: "kpi-tooltip",
           indent: 0
         },
@@ -224,7 +219,7 @@ module Reporting
           label: "Customers",
           series: "# Customers That Added Tiles",
           type: "num",
-          hint: "# of customers that added Tiles",
+          hint: "# of customers that copied or created Tiles",
           css: "kpi-tooltip",
           indent: 1
         },
@@ -248,7 +243,7 @@ module Reporting
           label: "Copied",
           series: "% Customers That Copied Tiles",
           type: "pct 0",
-          hint: "% of New Tiles that were copied from Explore",
+          hint: "% Customers That Copied Tiles",
           css: "kpi-tooltip",
           indent: 1,
         },
@@ -285,28 +280,28 @@ module Reporting
         },
         "orgs_that_posted_tiles" =>{
           label: "Orgs That Posted Tiles",
-          #series: "# Customers That Posted Tiles",
+          series: "# Customers That Posted Tiles",
           type: "num",
           hint: "",
           indent: 0,
         },
         "percent_of_orgs_that_posted_tiles" =>{
           label: "% of Orgs That Posted Tiles",
-          #series: "% Customers That Posted Tiles",
+          series: "% Customers That Posted Tiles",
           type: "pct 0",
           hint: "",
           indent: 0,
         },
         "total_tiles_posted" =>{
           label: "Total Tiles Posted",
-          #series: "Total Tiles Posted",
+          series: "Total Tiles Posted",
           type: "num",
           hint: "",
           indent: 0,
         },
         "average_tiles_posted_per_organization_that_posted" =>{
           label: "Average Tiles Posted Per Organization That Posted Tiles",
-          #series: "Avg # Tiles Posted per Customer",
+          series: "Avg # Tiles Posted per Customer",
           type: "num",
           hint: "",
           indent: 0,
@@ -389,55 +384,10 @@ module Reporting
       }
     end
 
+    def db_fields
+      CustSuccessKpi.select(query_select_fields)
+    end
+
     private
-    def curr_nps_data
-     @nps_data ||= Integrations::NetPromoterScore.get_metrics({trend: PAID_CLIENTS_DELIGHTED_TREND })
-    end
-
-    def adjust_current_percent_by_count(percent_hash)
-      percent_hash["percent"].to_i * percent_hash["count"].to_i
-    end
-
-    def calculate_percent_joined_for_demo(demo)
-      (joined_users_count(demo) / total_users_count(demo)).round(2)
-    end
-
-    def calculate_percent_joined_for_key(percent_hash, demo_percent)
-
-      total = adjust_current_percent_by_count(percent_hash) + demo_percent
-      population = percent_hash["count"].to_i + 1
-
-      (total / population).round(2)
-    end
-
-    def total_users_count(demo)
-      demo.users.count
-    end
-
-    def joined_users_count(demo)
-      demo.users.where(User.arel_table[:accepted_invitation_at].not_eq(nil)).count.to_f
-    end
-
-    def set_percent_by_days_since_launch(days_since_launch)
-      date = Date.today - days_since_launch.days
-      scope = demos.includes(:users).where(launch_date: date)
-      key = days_since_launch
-
-      scope.each { |demo|
-        percent_hash = $redis.hgetall("reporting:client_kpis:percent_joined:#{key}")
-
-        demo_percent = calculate_percent_joined_for_demo(demo)
-        new_percent = calculate_percent_joined_for_key(percent_hash, demo_percent)
-      }
-    end
-
-    def set_current_percent
-      scope = User.select([:id, :accepted_invitation_at]).joins(:demo).where(demo: { is_paid: true } )
-
-      joined_users = scope.where(User.arel_table[:accepted_invitation_at].not_eq(nil))
-
-      percent = (joined_users.count.to_f / scope.count).round(2)
-
-    end
   end
 end

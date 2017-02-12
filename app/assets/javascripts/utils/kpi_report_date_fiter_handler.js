@@ -60,10 +60,17 @@ Airbo.Utils.KpiReportDateFilter = (function(){
       customRange.hide();
       builtinRange.show();
 
-      $(".date_range_custom_drop a.current").text(range);
+        $("#date_range_chosen .chosen-single span").text(range);
+      $.Topic("report-date-form-submitted").subscribe(function(){
+        $("#date_range").val('').trigger("chosen:updated");
+        $("#date_range_chosen .chosen-single span").text(range);
+      });
     });
   }
 
+  function setRange(range){
+    $("#date_range_chosen .chosen-single span").text(range);
+  }
 
   function initDateRangeFilters(){
 

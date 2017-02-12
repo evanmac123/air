@@ -39,4 +39,3 @@
 //= require ./admin/channels
 //= require ../../../vendor/assets/javascripts/chosen.jquery.min
 //= require ../../../vendor/assets/javascripts/external/modernizr
-//

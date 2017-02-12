@@ -124,7 +124,7 @@ var Airbo = {
 
 
     initChosen: function(opts){
-      var config = $.extend({}, {selector: ".airbo-chosen-select" }, opts);
+      var config = $.extend({}, {disable_search_threshold: 10, selector: ".airbo-chosen-select" }, opts);
       $(config.selector).chosen(config);
     },
 

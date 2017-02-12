@@ -15,19 +15,16 @@
     height: 31px;
   }
 
-  .dropdown a.current {
-    padding: 8px 12px;
+  .chosen-container.chosen-container-single{
+    padding: 3px;
     font-size: 13px;
-    height: 31px;
-    line-height: 1.5em;
+    width: 100%;
   }
 
 
-  ul.menu li, .dropdown ul li {
-    padding: 8px 12px;
-    font-size: 13px;
-    height: 31px;
-    line-height: 1.5em;
+  .custom-date-done.button{
+    line-height:13px;
+    display: inline-block;
   }
 
   .report-filter-container{
