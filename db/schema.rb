@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170209205642) do
+ActiveRecord::Schema.define(:version => 20170210231521) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -876,6 +876,23 @@ ActiveRecord::Schema.define(:version => 20170209205642) do
 
   add_index "rules", ["demo_id"], :name => "index_rules_on_demo_id"
   add_index "rules", ["goal_id", "primary_tag_id"], :name => "index_rules_on_goal_id_and_primary_tag_id"
+
+  create_table "searchjoy_searches", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "search_type"
+    t.string   "query"
+    t.string   "normalized_query"
+    t.integer  "results_count"
+    t.datetime "created_at"
+    t.integer  "convertable_id"
+    t.string   "convertable_type"
+    t.datetime "converted_at"
+  end
+
+  add_index "searchjoy_searches", ["convertable_id", "convertable_type"], :name => "index_searchjoy_searches_on_convertable_id_and_convertable_type"
+  add_index "searchjoy_searches", ["created_at"], :name => "index_searchjoy_searches_on_created_at"
+  add_index "searchjoy_searches", ["search_type", "created_at"], :name => "index_searchjoy_searches_on_search_type_and_created_at"
+  add_index "searchjoy_searches", ["search_type", "normalized_query", "created_at"], :name => "index_searchjoy_searches_on_search_type_and_normalized_query_an"
 
   create_table "suggestions", :force => true do |t|
     t.string   "value",      :default => "", :null => false

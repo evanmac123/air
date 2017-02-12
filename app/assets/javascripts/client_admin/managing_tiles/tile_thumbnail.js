@@ -62,6 +62,7 @@ Airbo.TileThumbnail = (function() {
       });
     });
   }
+
   function initEvents(){
     tileIds = $(".tile_container:not(.placeholder_container)").map(function(){
       return $(this).data("tile-container-id");
@@ -72,12 +73,14 @@ Airbo.TileThumbnail = (function() {
       initTile( this );
     });
   }
+
   function init(AirboTileManager) {
     tileManager = AirboTileManager;
     thumbnailMenu = Airbo.TileThumbnailMenu.init(tileManager);
     initEvents();
     return this;
   }
+  
   return {
     init: init,
     initTile: initTile

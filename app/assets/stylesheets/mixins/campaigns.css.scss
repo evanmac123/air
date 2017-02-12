@@ -1,3 +1,69 @@
+@mixin campaign_grid() {
+  .campaign {
+    height: 20em;
+  }
+  .campaign_container {
+    height: 20em;
+    &:hover {
+      .campaign_shadow_overlay{
+        opacity: 1;
+      }
+    }
+
+    .campaign_shadow_overlay {
+      position: absolute;
+      top:0;
+      left:0;
+      height:100%;
+      width:100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      &:after {
+        content:"Open";
+        color: #fff;
+        display: block;
+        margin-top:8.2em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+    }
+    .cover-footer{
+      position:absolute;
+      bottom:17px;
+      h2{
+        font-weight: bold;
+        font-size:14px;
+      }
+    }
+    .title {
+      padding: 20px;
+      max-width: 2000px;
+      font-size: 18px;
+      color: $white;
+      line-height: 1.5;
+      position: relative;
+
+      font-weight:normal;
+      text-align:left;
+      margin:0;
+    }
+
+    .subtitle {
+      padding: 20px;
+      padding-bottom: 0;
+      font-size: 13px;
+      color: $white;
+      margin-top: 5px;
+      line-height:1.5;
+      text-align: left;
+      margin-bottom:0px;
+      &.num-tiles{
+        font-size: 12px;
+      }
+    }
+  }
+}
+
 @mixin campaigns(){
     background-color:#f9f9f9;
     h2{

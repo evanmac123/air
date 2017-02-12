@@ -1,0 +1,19 @@
+<section class="manage_section contextual_tiles_container <%= container %>" style="margin-top:30px;" data-page="<%= tiles.current_page %>" data-count="<%= tiles.count %>" data-query="<%= params[:query] %>" data-section="<%= container %>" data-more-tiles-path="<%= opts[:show_more_path] %>">
+  <div class="row tiles-row">
+    <div class="large-12 columns">
+      <div class="<%= container %> tile-grid">
+        <%= render "shared/tiles/contextual_tiles", { presenter: presenter, tiles: tiles.not_completed, opts: {} } %>
+      </div>
+    </div>
+  </div>
+  <% if opts[:show_more_button] == true && !tiles.last_page? %>
+    <div class="row acts-index acts">
+      <div class="columns small-12 text-center">
+        <%= render 'shared/button_with_spinner', { button_classes: "show-more-tiles-button", button_id: "more-#{container}", button_text: "#{I18n.t('views.explore.searches.show_more_tiles_button')} <i class='fa fa-angle-down' aria-hidden='true' id='show_more_tiles_down_arrow'></i>".html_safe  } %>
+      </div>
+    </div>
+  <% end %>
+</section>
+<section class="search-activity-feed">
+  <%= render "acts/activity_feed" %>
+</section>

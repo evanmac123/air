@@ -3,6 +3,7 @@ var Airbo = window.Airbo || {};
 Airbo.OrganizationsCarousel = (function(){
   function init() {
     var $carousel = $('.flickity-organizations-carousel');
+
     $carousel.fadeIn();
     var $organization_sel = $('.organization');
 

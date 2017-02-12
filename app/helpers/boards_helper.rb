@@ -1,10 +1,6 @@
 module BoardsHelper
   include ActionView::Helpers::TextHelper
 
-  def truncate_name_for_switcher(name)
-    truncate name, length: 50
-  end
-
   def creation_source params
     if params[:controller] == "explore/tile_previews"
       "Explore"

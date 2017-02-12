@@ -16,7 +16,11 @@ private
   def h
     @template
   end
-  
+
+  def from_search?
+    false
+  end
+
   def method_missing(*args, &block)
     @template.send(*args, &block)
   end

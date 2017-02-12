@@ -2,7 +2,7 @@
   <%= content_tag :div, class: "tile_thumbnail", id: "single-tile-#{presenter.id}", data: {"tile_id" =>"#{presenter.id}"} do %>
     <div class="tile-wrapper">
       <% cache tile do %>
-        <%= link_to presenter.show_tile_path, class:'tile_thumb_link', data:{action: "show", tile_id: presenter.id, section: presenter.section} do %>
+        <%= link_to presenter.show_tile_path, class:'tile_thumb_link_explore', data:{action: "show", tile_id: presenter.id, section: presenter.section} do %>
           <div class="tile_thumbnail_image">
             <%= image_tag presenter.thumbnail %>
           </div>

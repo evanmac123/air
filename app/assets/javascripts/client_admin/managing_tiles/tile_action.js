@@ -324,6 +324,7 @@ Airbo.TileAction = (function(){
     confirmDeletion: confirmDeletion,
     confirmAcceptance: confirmAcceptance,
     movePing: movePing,
-    confirmUnarchive: confirmUnarchive
-  }
+    confirmUnarchive: confirmUnarchive,
+    tileByStatusChangeTriggerLocation: tileByStatusChangeTriggerLocation
+  };
 }());

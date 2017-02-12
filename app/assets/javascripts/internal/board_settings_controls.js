@@ -42,7 +42,7 @@ function bindBoardSettingsControls() {
   });
 
   /*$('#board_settings').on('opened', function(event) {
-    
+
   });*/
 
   $('#board_settings .board_name').keypress(function(event) {
@@ -78,7 +78,6 @@ function bindBoardSettingsControls() {
           controlSection.find('.board_saved').show();
           controlSection.find('.board_save_error').hide();
           boardSwitchLink.text(data.updatedBoardName);
-          currentBoardName.text(data.truncatedUpdatedBoardName);
         } else {
           controlSection.find('.board_save_error').text(data.message);
         }

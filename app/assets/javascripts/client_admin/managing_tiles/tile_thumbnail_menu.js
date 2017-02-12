@@ -39,8 +39,8 @@ Airbo.TileThumbnailMenu = (function() {
           Airbo.TileAction.confirmDeletion($(this));
         });
 
-        $(".tile_thumbnail_menu .duplicate_tile").click(function(event){
-          event.preventDefault();
+        $(".tile_thumbnail_menu .duplicate_tile").click(function(e){
+          e.preventDefault();
           origin.tooltipster("hide");
           Airbo.TileAction.makeDuplication($(this));
         });
@@ -58,5 +58,6 @@ Airbo.TileThumbnailMenu = (function() {
   return {
     init: init,
     initMoreBtn: initMoreBtn
-  }
+  };
+
 }());

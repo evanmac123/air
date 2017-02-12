@@ -10,16 +10,23 @@ class SingleTilePresenter < BasePresenter
 
   presents :tile
 
+  attr_reader :options
+
   def initialize(object, template, options)
     super
     @type = options[:type] # explore or user
     @public_slug = options[:public_slug]
     @completed = options[:completed]
     @user_onboarding = options[:user_onboarding]
+    @options = options
   end
 
   def tile_id
     @tile_id ||= id
+  end
+
+  def partial
+    'client_admin/tiles/manage_tiles/single_tile'
   end
 
   #this method is redundant as to_param is notset for Tile, so it just returns id
@@ -33,7 +40,21 @@ class SingleTilePresenter < BasePresenter
   def status
     type
   end
- 
+
+  def status_marker
+    if from_search?
+      content_tag :div, display_status, class: "status_marker #{display_status}"
+    end
+  end
+
+  def display_status
+    if completed_class == "completed"
+      "completed"
+    else
+      "unanswered"
+    end
+  end
+
   def tile_status
     type
   end
@@ -64,15 +85,17 @@ class SingleTilePresenter < BasePresenter
     false
   end
 
-  def show_tile_path
+  def show_tile_path(params = {})
     if user_onboarding
       user_onboarding_tile_path(user_onboarding, tile)
     else
-      @public_slug ? public_tile_path(@public_slug, tile) : tile_path(tile)
+      @public_slug ? public_tile_path(@public_slug, tile) : tile_path(tile, params)
     end
   end
 
-
+  def from_search?
+    options[:from_search] == true || options[:from_search] == "true"
+  end
 
   def cache_key
     @cache_key ||= [

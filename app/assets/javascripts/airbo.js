@@ -1,3 +1,5 @@
+
+
 var Airbo = {
   init:  function(){
 
@@ -109,7 +111,7 @@ var Airbo = {
 
     },
 
-    
+
 
     flashMsg: function (xhr, defaultMsg){
       return xhr.getResponseHeader("X-Message") || defaultMsg;
@@ -133,7 +135,7 @@ var Airbo = {
           , dayOfmonth = curr.getDate()
           , dayOfWeek = curr.getDay()
           , adjustment = dayOfmonth - dayOfWeek
-          , firstday = new Date(curr.setDate(adjustment +1)) 
+          , firstday = new Date(curr.setDate(adjustment +1))
         ;
         return firstday;
       },

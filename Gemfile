@@ -80,6 +80,7 @@ gem 'skylight'
 gem 'airbrake', '~> 5.4'
 
 gem 'searchkick'
+gem 'searchjoy'
 gem 'rolify'
 #
 # Gems used only for assets and not required

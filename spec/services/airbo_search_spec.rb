@@ -1,11 +1,12 @@
 require 'spec_helper'
 
-describe ClientAdminSearch do
+describe AirboSearch do
   let(:query) { 'health insurance' }
-  let(:demo) { FactoryGirl.create(:demo) }
+  let(:user) { FactoryGirl.create(:client_admin) }
+  let(:demo) { user.demos.first }
 
   let(:options) { { per_page: 2 } } # low per_page to make testing easier
-  let(:service) { ClientAdminSearch.new(query, demo, options) }
+  let(:service) { AirboSearch.new(query, user, options) }
 
   describe 'initiailzes' do
     it 'sets query' do
@@ -21,7 +22,7 @@ describe ClientAdminSearch do
     end
   end
 
-  describe '#my_tiles' do
+  describe '#user_tiles' do
     let(:tile) { FactoryGirl.create(:tile, demo: demo) }
     let(:tile2) { FactoryGirl.create(:tile, demo: demo) }
     let(:tile3) { FactoryGirl.create(:tile, demo: demo) }
@@ -33,12 +34,12 @@ describe ClientAdminSearch do
     end
 
     it 'grabs records from elasticsearch and paginates on them' do
-      unpaginated_my_tiles = mock("unpaginated_my_tiles")
-      unpaginated_my_tiles.stubs(:records).returns(Tile)
-      service.stubs(:unpaginated_my_tiles).returns(unpaginated_my_tiles)
+      unpaginated_user_tiles = mock("unpaginated_user_tiles")
+      unpaginated_user_tiles.stubs(:records).returns(Tile)
+      service.stubs(:unpaginated_user_tiles).returns(unpaginated_user_tiles)
 
-      expect(service.my_tiles.count).to eql(2) # page 1
-      expect(service.my_tiles(2).count).to eql(1) # page 2
+      expect(service.user_tiles.count).to eql(2) # page 1
+      expect(service.user_tiles(2).count).to eql(1) # page 2
     end
   end
 
@@ -60,24 +61,6 @@ describe ClientAdminSearch do
 
       expect(service.explore_tiles.count).to eql(2) # page 1
       expect(service.explore_tiles(2).count).to eql(1) # page 2
-    end
-  end
-
-  describe '#campaigns' do
-    it 'calls Campaign.where with the correct filter (based on the explore tiles present)' do
-      fake_results = mock("Campaign")
-      fake_results.stubs(:all).returns([])
-      Campaign.stubs(:where).returns(fake_results)
-
-      fake_tile = mock("Tile")
-      fake_tile.stubs(:demo_id).returns(demo.id)
-      service.stubs(:unpaginated_explore_tiles).returns([fake_tile])
-
-      service.campaigns
-
-      correct_filter = { demo_id: [demo.id] }
-
-      expect(Campaign).to have_received(:where).with(correct_filter)
     end
   end
 
@@ -103,7 +86,7 @@ describe ClientAdminSearch do
     describe '#formatted_query' do
       context 'user query is blank' do
         it 'formats to *' do
-          service = ClientAdminSearch.new('  ', demo)
+          service = AirboSearch.new('  ', user, {})
           expect(service.send(:formatted_query)).to eql('*')
         end
       end
@@ -111,31 +94,7 @@ describe ClientAdminSearch do
 
     describe '#default_fields' do
       it 'defaults to headline, supporting_content, and tag_titles' do
-        expect(service.send(:default_fields)).to eql([:headline, :supporting_content, :tag_titles])
-      end
-    end
-
-    describe '#unpaginated_my_tiles' do
-      it 'calls Tile.search with the correct options (scoped to the current board/demo)' do
-        Tile.stubs(:search)
-
-        service.send(:unpaginated_my_tiles)
-
-        correct_options = { fields: [:headline, :supporting_content, :tag_titles], where: { demo_id: demo.id }, match: :word_start, operator: 'or' }
-
-        expect(Tile).to have_received(:search).with(query, correct_options)
-      end
-    end
-
-    describe '#unpaginated_explore_tiles' do
-      it 'calls Tile.search with the "public" options' do
-        Tile.stubs(:search)
-
-        service.send(:unpaginated_explore_tiles)
-
-        correct_options = { fields: [:headline, :supporting_content, :tag_titles], where: { is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE] }, match: :word_start, operator: 'or' }
-
-        expect(Tile).to have_received(:search).with(query, correct_options)
+        expect(service.send(:default_fields)).to eql(["headline^10", :supporting_content, :tag_titles, :organization_name])
       end
     end
 
