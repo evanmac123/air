@@ -112,7 +112,7 @@ describe AirboSearch do
 
     describe '#default_fields' do
       it 'defaults to headline, supporting_content, and tag_titles' do
-        expect(service.send(:default_fields)).to eql(["headline^10", :supporting_content, :tag_titles, :organization, :question])
+        expect(service.send(:default_fields)).to eql(["headline^10", :supporting_content, :tag_titles, :organization])
       end
     end
 

@@ -1,7 +1,5 @@
 <!-- start of new admin navigation that needs to be gated off later -->
-<% navbar = 0 %>
-<% if user.can_submit_tile? && navbar == 0  %>
-  <% navbar += 1 %>
+<% if user.can_submit_tile? %>
   <% if user.show_search_bar? %>
     <%= render 'shared/search_bar', column_count: 4 %>
   <% end %>
@@ -13,10 +11,8 @@
       <%= default_avatar_tag user, :id => :top_avatar, :class => "avatar48" %>
     </div>
   </div>
-<% end %>
 
-<% if user.end_user? && navbar == 0 %>
-  <% navbar += 1 %>
+<% elsif user.end_user? %>
   <% if user.show_search_bar? %>
     <%= render 'shared/search_bar', column_count: 5 %>
   <% end %>
@@ -27,10 +23,8 @@
       <%= default_avatar_tag user, :id => :top_avatar, :class => "avatar48" %>
     </div>
   </div>
-<% end %>
 
-<% if navbar == 0 && (user.is_client_admin || user.is_site_admin) %>
-  <% navbar += 1 %>
+<% elsif user.is_client_admin || user.is_site_admin %>
   <% if user.show_search_bar? %>
     <%= render 'shared/search_bar', column_count: 5 %>
   <% end %>

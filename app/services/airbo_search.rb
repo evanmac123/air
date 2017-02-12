@@ -23,7 +23,9 @@ class AirboSearch
 
   def campaigns
     if admin_search
-      @campaigns ||= Campaign.where(demo_id: demo_ids_from_explore_tiles).all
+      campaign = Campaign.arel_table
+
+      @campaigns ||= Campaign.where(campaign[:demo_id].in(demo_ids_from_explore_tiles).or(campaign[:name].matches("%#{query}%")))
     end
   end
 
@@ -52,7 +54,7 @@ class AirboSearch
     end
 
     def default_fields
-      ["headline^10", :supporting_content, :tag_titles, :organization, :question]
+      ["headline^10", :supporting_content, :tag_titles, :organization]
     end
 
     def default_match
@@ -71,7 +73,8 @@ class AirboSearch
         },
         fields: default_fields,
         track: search_tracking_data,
-        operator: "or"
+        operator: "or",
+        misspellings: false
       }
     end
 
@@ -83,7 +86,8 @@ class AirboSearch
         },
         fields: default_fields,
         track: search_tracking_data,
-        operator: "or"
+        operator: "or",
+        misspellings: false
       }
     end
 
