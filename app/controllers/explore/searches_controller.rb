@@ -20,7 +20,7 @@ class Explore::SearchesController < ExploreBaseController
     # search = AirboSearch.new('health insurance', demo, { per_page: 24 })
     # @my_tiles_page_2 = search.my_tiles(2)
     @search_service = AirboSearch.new(params[:query], current_user)
-    
+
     if request.xhr? && params[:section]
       partial = params[:tilesContainer] || 'shared/tiles/contextual_tiles'
 
