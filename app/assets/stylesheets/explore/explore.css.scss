@@ -376,11 +376,20 @@ body.explore, .explore {
     z-index: 98;
   }
 
+  .campaign-description {
+    h4 {
+      margin-left: 35px;
+      font-size: 18px;
+      line-height: 1.5em;
+    }
+  }
+
   .campaign-profile {
     margin-bottom: 20px;
     .how-to-use-card {
       @include how-to-use-card;
     }
+
     .info-point {
       margin: 15px 2em;
       li:before {
