@@ -24,21 +24,42 @@ Airbo.SearchTileActions = (function(){
   }
 
   function submitTileForUpadte(tile, target, postProcess ){
+    var currentStatus = tile.data().status;
     var newStatus = target.data("status");
     var data = { "update_status": { "status": newStatus, "allowRedigest": false } };
 
-    $.ajax({
-      url: target.data("url") || target.attr("href"),
-      type: "put",
-      data: $.extend(data, { from_search: true }),
-      dataType: "html",
-      success: function(data, status,xhr){
-        $(tileModalSelector).foundation("reveal", "close");
-        tile.replaceWith(data);
-        Airbo.SearchTileThumbnail.init( $(data).data("tile-container-id"));
-      }
-    });
+    function isRepostingArchivedTile(){
+     return currentStatus === "archive";
+    }
+
+    function submit(){
+      $.ajax({
+        url: target.data("url") || target.attr("href"),
+        type: "put",
+        data: $.extend(data, { from_search: true }),
+        dataType: "html",
+        success: function(data, status,xhr){
+          $(tileModalSelector).foundation("reveal", "close");
+          tile.replaceWith(data);
+          Airbo.SearchTileThumbnail.init( $(data).data("tile-container-id"));
+        }
+      });
+    }
+
+    if (isRepostingArchivedTile()) {
+      Airbo.TileAction.confirmUnarchive(function(isConfirm){
+        if (isConfirm) {
+          if(Airbo.Utils.userIsSiteAdmin()){
+            data.update_status.redigest = $(".sweet-alert input#digestable").is(':checked');
+          }
+          submit();
+        }
+      });
+    } else{
+      submit();
+    }
   }
+
   //
   // => Duplication
   //

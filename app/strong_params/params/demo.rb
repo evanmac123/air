@@ -75,10 +75,12 @@ module Params
           :dependent_board_id,
           :dependent_board_email_subject,
           :dependent_board_email_body,
-          :custom_color_palette_attributes,
           :alt_subject_enabled,
           :allow_embed_video,
-          :guest_user_conversion_modal
+          :guest_user_conversion_modal,
+          custom_color_palette_attributes: [
+            :enabled, :enable_reset, :content_background_reset, :tile_progress_background_reset, :tile_progress_all_tiles_text_reset, :tile_progress_completed_tiles_text_reset, :primary_color, :static_text_color
+          ]
         ]
       end
 
