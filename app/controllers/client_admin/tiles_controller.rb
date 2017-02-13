@@ -57,7 +57,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def update
-    binding.pry
     @tile = get_tile
     if params[:update_status]
       update_status
