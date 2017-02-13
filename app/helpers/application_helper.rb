@@ -19,6 +19,12 @@ module ApplicationHelper
     end
   end
 
+  def non_site_admin(user)
+    if user.nil? || user.is_a?(GuestUser) || !user.is_site_admin
+      true
+    end
+  end
+
   def avatar_96(user)
     content_tag("div", :class => 'avatar_image') do
       default_avatar_tag(user, :class => "size-96")
