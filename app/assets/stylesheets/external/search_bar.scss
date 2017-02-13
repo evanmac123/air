@@ -24,4 +24,9 @@
       background: transparent;
     }
   }
+  .airbo-search-input-button {
+    &:hover {
+      color: $n-blue;
+    }
+  }
 }
