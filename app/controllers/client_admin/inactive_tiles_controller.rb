@@ -1,5 +1,5 @@
 class ClientAdmin::InactiveTilesController < ClientAdminBaseController
-  PER_PAGE = 12.freeze
+  PER_PAGE = 16.freeze
   def index
     @demo = current_user.demo
     @raw_tiles = current_user.demo.archive_tiles.page(params[:page]).per(PER_PAGE)

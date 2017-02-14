@@ -23,23 +23,23 @@ feature 'Sees all inactive tiles on a separate page' do
     should_be_on client_admin_inactive_tiles_path
   end
 
-  context "should show 12 tiles per page" do
-    it "should show first 12 tiles on first page" do
+  context "should show 16 tiles per page" do
+    it "should show first 16 tiles on first page" do
       tiles = []
-      12.times { |i| tiles << FactoryGirl.create(:tile, :archived, demo: demo, headline: "Tile #{i}") }
+      16.times { |i| tiles << FactoryGirl.create(:tile, :archived, demo: demo, headline: "Tile #{i}") }
       visit client_admin_inactive_tiles_path(as: client_admin)
 
       tiles.each {|tile| expect_content tile.headline }
 
-      tile_13 = FactoryGirl.create(:tile, :archived, demo: demo, headline: "Tile 13")
-      expect(page_text).not_to include(tile_13.headline)
+      tile_17 = FactoryGirl.create(:tile, :archived, demo: demo, headline: "Tile 17")
+      expect(page_text).not_to include(tile_17.headline)
     end
 
-    it "should show second 12 tiles on second page" do
+    it "should show second 16 tiles on second page" do
       tiles_2 = []
-      (1..12).each { |i| tiles_2 << FactoryGirl.create(:tile, :archived, demo: demo, headline: "Tile #{i}") }
+      (1..16).each { |i| tiles_2 << FactoryGirl.create(:tile, :archived, demo: demo, headline: "Tile #{i}") }
       tiles_1 = []
-      (13..24).each{ |i| tiles_1 << FactoryGirl.create(:tile, :archived, demo: demo, headline: "Tile #{i}") }
+      (17..32).each{ |i| tiles_1 << FactoryGirl.create(:tile, :archived, demo: demo, headline: "Tile #{i}") }
       visit client_admin_inactive_tiles_path(as: client_admin, page: 2)
 
       tiles_1.each {|tile| expect(page_text).not_to include(tile.headline) }

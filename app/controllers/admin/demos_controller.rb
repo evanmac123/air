@@ -33,7 +33,9 @@ class Admin::DemosController < AdminBaseController
   end
 
   def update
-    if @demo.update_attributes(permitted_params.demo)
+    @demo.assign_attributes(permitted_params.demo)
+
+    if @demo.save
       if request.xhr?
         head :ok
       else

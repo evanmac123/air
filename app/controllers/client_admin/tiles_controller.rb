@@ -130,7 +130,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile.update_status(params[:update_status])
 
     presenter = present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?, from_search: params[:from_search]})
-    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
+    render partial: partial_to_render, locals: { presenter: presenter}
   end
 
   def update_explore_settings
@@ -161,6 +161,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     tiles.sort_by{|t| t.position}.reverse
   end
 
+  def partial_to_render
+    if params[:from_search] == "true"
+      'client_admin/tiles/manage_tiles/new_single_tile'
+    else
+      'client_admin/tiles/manage_tiles/single_tile'
+    end
+  end
   def permit_params
     params.require(:tile_builder_form).permit!
   end

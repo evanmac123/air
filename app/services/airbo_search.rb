@@ -73,7 +73,6 @@ class AirboSearch
         },
         fields: default_fields,
         track: search_tracking_data,
-        operator: "or",
         misspellings: false
       }
     end
@@ -86,7 +85,6 @@ class AirboSearch
         },
         fields: default_fields,
         track: search_tracking_data,
-        operator: "or",
         misspellings: false
       }
     end
