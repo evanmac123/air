@@ -23,40 +23,19 @@
               Campaigns <span class="result-count"><%= "(#{@search_service.campaigns.count})" %>
             <% end %>
           </span>
-          <!-- <span><%#= link_to "Organizations", "#organizations", class:"last searchTabLink" %></span> -->
         </ul>
       </div>
     </div>
     <div id="myTiles" class="searchTab">
       <div class="manage-section">
-
-        <% if @search_service.user_tiles.present? %>
-          <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.user_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter, opts: { show_more_button: false, endless_scroll: true, show_more_path: explore_search_path({ section: 'client_admin_tiles' }), feature: "search" } } %>
-        <% else %>
-          <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.my_tiles_html", query: params[:query]) %></p>
-        <% end %>
+        <%= render "explore/searches/my_tiles", { search_service: @search_service} %>
       </div>
     </div>
     <div id="exploreTiles" class="searchTab tile_wall_explore">
-      <% if @search_service.explore_tiles.present? %>
-        <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.explore_tiles, container: 'explore_tiles', presenter: SingleExploreTilePresenter, opts: { show_more_button: false, endless_scroll: true, show_more_path: explore_search_path({ section: 'explore_tiles' }), feature: "search" } } %>
-      <% else %>
-        <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.explore_tiles_html", query: params[:query], path: link_to("Airbo Explore", explore_path)) %></p>
-      <% end %>
+      <%= render "explore/searches/explore_tiles", { search_service: @search_service} %>
     </div>
     <div id="campaigns" class="searchTab tile_wall_explore">
-      <% if @search_service.campaigns.present? %>
-        <%= render 'explore/campaigns/campaign_grid', campaigns: @search_service.campaigns %>
-      <% else %>
-        <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.campaigns_html", query: params[:query], path: link_to("Airbo Explore", explore_path)) %></p>
-      <% end %>
-    </div>
-    <div id="organizations" class="searchTab tile_wall_explore">
-      <% if 1 == 2 %>
-
-      <% else %>
-        <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.organizations_html", query: params[:query], path: link_to("Airbo Explore", explore_path)) %>
-      <% end %>
+      <%= render "explore/searches/campaigns", { search_service: @search_service} %>
     </div>
   </div>
 </div>
