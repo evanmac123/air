@@ -2,6 +2,7 @@ var Airbo = window.Airbo || {}
 
 Airbo.TileVisualPreviewMgr = (function(){
 
+
   function hideImageWrapper(){
     $(".images-wrapper").hide();
   }
@@ -36,6 +37,11 @@ Airbo.TileVisualPreviewMgr = (function(){
     $(".endless_scroll_loading").hide();
   }
 
+  function showLoader(){
+    $(".endless_scroll_loading").show();
+  }
+
+
   function hideUnparsableError(){
     $(".unparsable").hide();
   }
@@ -43,7 +49,6 @@ Airbo.TileVisualPreviewMgr = (function(){
   function hideUnloadableError(){
     $(".unloadable").hide();
   }
-
 
 
   function initHideVisualContent(){
@@ -86,8 +91,8 @@ Airbo.TileVisualPreviewMgr = (function(){
 
 
   function showSearchResults() {
-    showImageWrapper();
     showVisualContentPanel();
+    showImageWrapper();
   }
 
   function initShowVideoPanel(){
@@ -105,9 +110,10 @@ Airbo.TileVisualPreviewMgr = (function(){
     initShowVideoPanel();
   }
 
+
   function init(){
     $.Topic("image-results-added").subscribe( function(){
-      showSearchResults();
+      hideLoader();
     });
 
     $.Topic("video-added").subscribe( function(){
@@ -127,6 +133,8 @@ Airbo.TileVisualPreviewMgr = (function(){
       $("#tile_builder_form_embed_video").val("");
       hideVideoPreview();
       hideEmbedVideo();
+      showSearchResults();
+      showLoader(); 
     });
 
     initPreviewByType();
