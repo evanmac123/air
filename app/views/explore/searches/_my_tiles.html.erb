@@ -1,0 +1,7 @@
+<div class="manage-section">
+  <% if search_service.user_tiles.present? %>
+    <%= render 'shared/tiles/display_contextual_tiles', { tiles: search_service.user_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter, opts: { show_more_button: false, endless_scroll: true, show_more_path: explore_search_path({ section: 'client_admin_tiles' }), feature: "search" } } %>
+  <% else %>
+    <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.my_tiles_html", query: params[:query]) %></p>
+  <% end %>
+</div>

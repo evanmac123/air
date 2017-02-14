@@ -19,9 +19,23 @@ Airbo.SearchTabs = (function(){
     });
   }
 
+  function initMoreTabToggle(){
+    $('.searchMoreTabLink').click(function(){
+      $('.searchTabLink').removeClass('selected');
+      var newTab = $(this).data('tabId');
+      $(newTab).addClass('selected');
+      var currentTab = $(this).attr('href');
+      $('.searchTab').hide();
+      $('body').scrollTop(0);
+      $(currentTab).show();
+      return false;
+    });
+  }
+
   function init(){
     initTabs();
     initTabToggle();
+    initMoreTabToggle();
   }
 
   return {

@@ -22,24 +22,6 @@ describe AirboSearch do
     end
   end
 
-  describe '#organizations' do
-    it 'calls Organization.where with the correct filter (based on the explore tiles present)' do
-      fake_results = mock("Organization")
-      fake_results.stubs(:all).returns([])
-      Organization.stubs(:where).returns(fake_results)
-
-      fake_tile = mock("Tile")
-      fake_tile.stubs(:demo_id).returns(demo.id)
-      service.stubs(:unpaginated_explore_tiles).returns([fake_tile])
-
-      service.organizations
-
-      correct_filter = { id: [demo.organization.id] }
-
-      expect(Organization).to have_received(:where).with(correct_filter)
-    end
-  end
-
   describe 'private methods' do
     describe '#formatted_query' do
       context 'user query is blank' do
@@ -52,9 +34,8 @@ describe AirboSearch do
 
     describe '#default_fields' do
       it 'defaults to headline, supporting_content, and tag_titles' do
-        expect(service.send(:default_fields)).to eql(["headline^10", :supporting_content, :tag_titles, :organization_name])
+        expect(service.send(:default_fields)).to eql(["headline^10", "supporting_content^8", :channel_list, :organization_name])
       end
     end
-
   end
 end

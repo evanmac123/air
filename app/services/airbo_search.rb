@@ -1,6 +1,7 @@
 class AirboSearch
   ADMIN_PER_PAGE = 20
   USER_PER_PAGE = 12
+  OVERVIEW_LIMIT = 3 #index value
 
   attr_accessor :query, :user, :demo, :options
 
@@ -12,53 +13,46 @@ class AirboSearch
   end
 
   def user_tiles(page = 1)
-    unpaginated_user_tiles(page)
+    if admin_search
+      @user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE], page))
+    elsif user_search
+      @user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::ACTIVE, Tile::ARCHIVE], page))
+    end
   end
 
   def explore_tiles(page = 1)
     if explore_search
-      unpaginated_explore_tiles(page)
+      @explore_tiles ||= Tile.search(formatted_query, explore_tiles_options(page))
     end
   end
 
   def campaigns
     if admin_search
-      campaign = Campaign.arel_table
-
-      @campaigns ||= Campaign.where(campaign[:demo_id].in(demo_ids_from_explore_tiles).or(campaign[:name].matches("%#{query}%")))
+      @campaigns ||= Campaign.search(query, { order: [_score: :desc, created_at: :desc] })
     end
   end
 
-  def organizations
-    if admin_search
-      @organizations ||= Organization.where(id: organization_ids_from_explore_tiles).all
-    end
+  def total_result_count
+    user_tiles.total_count + explore_tiles.total_count + campaigns.total_count
   end
 
-  def has_results?
-    if admin_search
-      user_tiles.present? || explore_tiles.present?
-    elsif user_search
-      user_tiles.present?
-    elsif explore_search
-      explore_tiles.present?
-    end
+  def overview_limit
+    OVERVIEW_LIMIT
+  end
+
+  def tiles_present?
+    user_tiles.present? || explore_tiles.present? || campaigns.present?
   end
 
   private
 
     def formatted_query
       return '*' if query.blank?
-
       query
     end
 
     def default_fields
-      ["headline^10", :supporting_content, :tag_titles, :organization_name]
-    end
-
-    def default_match
-      :word_start
+      ["headline^10", "supporting_content^8", :channel_list, :organization_name]
     end
 
     def demo_id
@@ -71,13 +65,8 @@ class AirboSearch
           demo_id: demo_id,
           status:  tile_status
         },
-        fields: default_fields,
         track: search_tracking_data,
-        misspellings: false,
-        order: [_score: :desc, created_at: :desc],
-        page: page,
-        per_page: per_page
-      }
+      }.merge(default_tile_options(page))
     end
 
     def explore_tiles_options(page)
@@ -85,37 +74,17 @@ class AirboSearch
         where: {
           is_public: true,
           status: [Tile::ACTIVE, Tile::ARCHIVE]
-        },
+        }
+      }.merge(default_tile_options(page))
+    end
+
+    def default_tile_options(page)
+      {
         fields: default_fields,
-        track: search_tracking_data,
-        misspellings: false,
         order: [_score: :desc, created_at: :desc],
         page: page,
         per_page: per_page
       }
-    end
-
-    def unpaginated_user_tiles(page)
-      if admin_search
-        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE], page))
-      elsif user_search
-        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::ACTIVE, Tile::ARCHIVE], page))
-      end
-    end
-
-    # TODO: This page default is to facilitate performant campaign loads, although it will only load campaigns related to the first batch of tiles. We should index campaings and stop doing this nonsense.
-    def unpaginated_explore_tiles(page = 1)
-      if explore_search
-        @unpaginated_explore_tiles ||= Tile.search(formatted_query, explore_tiles_options(page))
-      end
-    end
-
-    def demo_ids_from_explore_tiles
-      @demo_ids_from_explore_tiles ||= unpaginated_explore_tiles.map(&:demo_id)
-    end
-
-    def organization_ids_from_explore_tiles
-      @organization_ids_from_explore_tiles ||= Demo.where(id: demo_ids_from_explore_tiles).pluck(:organization_id)
     end
 
     def per_page
@@ -131,7 +100,7 @@ class AirboSearch
     end
 
     def admin_search
-      user_search && user.is_client_admin || user.is_site_admin
+      user_search && (user.is_client_admin || user.is_site_admin)
     end
 
     def user_search

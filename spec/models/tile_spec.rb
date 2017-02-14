@@ -359,17 +359,18 @@ describe Tile do
 
     context 'no tags on tile' do
       it 'should return a serializable hash of a tile object plus an empty string tags key/value' do
-        expect(tile.search_data).to eql(tile.serializable_hash.merge({ tag_titles: "", organization_name: tile.organization.try(:name)}))
+        expect(tile.search_data).to eql(tile.serializable_hash.merge({ channel_list: [], organization_name: tile.organization.try(:name)}))
       end
     end
 
     context 'tags on tile' do
-      let(:tag1) { FactoryGirl.create(:tile_tag) }
-      let(:tag2) { FactoryGirl.create(:tile_tag) }
-      let(:tile_with_tags) { FactoryGirl.create(:tile, :public, tile_tags: [tag1, tag2]) }
+      let(:tile_with_channels) { FactoryGirl.create(:tile, :public) }
 
       it 'should return a serializable hash of a tile object plus tags containing comma separated tags' do
-        expect(tile_with_tags.search_data).to eql(tile_with_tags.serializable_hash.merge({ tag_titles: "#{tag1.title}, #{tag2.title}", organization_name: tile_with_tags.organization.try(:name)}))
+        tile_with_channels.channel_list.add("wellness")
+        tile_with_channels.save
+
+        expect(tile_with_channels.search_data).to eql(tile_with_channels.serializable_hash.merge({ channel_list: ["wellness"], organization_name: tile_with_channels.organization.try(:name)}))
       end
     end
 
