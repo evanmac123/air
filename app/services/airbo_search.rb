@@ -36,6 +36,14 @@ class AirboSearch
     user_tiles.total_count + explore_tiles.total_count + campaigns.total_count
   end
 
+  def overview_limit
+    OVERVIEW_LIMIT
+  end
+
+  def tiles_present?
+    user_tiles.present? || explore_tiles.present? || campaigns.present?
+  end
+
   private
 
     def formatted_query

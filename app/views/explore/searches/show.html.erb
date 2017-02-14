@@ -9,22 +9,30 @@
       <div class="columns small-12 search-options">
         <ul>
           <span>
-            <%= link_to "#myTiles", class:"first searchTabLink" do %>
+            <%= link_to "#allResults", class:"first searchTabLink" do %>
+              All Results <span class="result-count"><%= "(#{@search_service.total_result_count})" %>
+            <% end %>
+          </span>
+          <span>
+            <%= link_to "#myTiles", class:"searchTabLink", id: "myTilesTab" do %>
               My Tiles <span class="result-count"><%= "(#{@search_service.user_tiles.total_count})" %>
             <% end %>
           </span>
           <span>
-            <%= link_to "#exploreTiles", class:"searchTabLink" do %>
+            <%= link_to "#exploreTiles", class:"searchTabLink", id: "exploreTilesTab" do %>
               Explore Tiles <span class="result-count"><%= "(#{@search_service.explore_tiles.total_count})" %>
             <% end %>
           </span>
           <span>
-            <%= link_to "#campaigns", class:"last searchTabLink" do %>
+            <%= link_to "#campaigns", class:"last searchTabLink", id: "campaignsTab" do %>
               Campaigns <span class="result-count"><%= "(#{@search_service.campaigns.count})" %>
             <% end %>
           </span>
         </ul>
       </div>
+    </div>
+    <div id="allResults" class="searchTab">
+      <%= render 'explore/searches/search_overview', search_service: @search_service %>
     </div>
     <div id="myTiles" class="searchTab">
       <div class="manage-section">

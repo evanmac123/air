@@ -19,6 +19,7 @@ en:
           body: Browse best practice examples and get weekly suggestions
       searches:
         show_more_tiles_button: Show more Tiles
+        no_results_html: "Sorry, we couldn't find any Tiles related to <span class='query'>%{query}</span>.<br>Try another search or browse Tiles in %{path}."
         no_results:
           explore_tiles_html: "Sorry, we couldnt find any Explore Tiles related to <span class='query'>%{query}</span>. Try another search or browse Tiles in %{path}."
           organizations_html: "Sorry, we couldnt find any organizations related to <span class='query'>%{query}</span>. Try another search or see featured organizations in %{path}."
