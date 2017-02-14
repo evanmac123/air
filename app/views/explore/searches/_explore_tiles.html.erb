@@ -1,0 +1,5 @@
+<% if search_service.explore_tiles.present? %>
+  <%= render 'shared/tiles/display_contextual_tiles', { tiles: search_service.explore_tiles, container: 'explore_tiles', presenter: SingleExploreTilePresenter, opts: { show_more_button: false, endless_scroll: true, show_more_path: explore_search_path({ section: 'explore_tiles' }), feature: "search" } } %>
+<% else %>
+  <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.explore_tiles_html", query: params[:query], path: link_to("Airbo Explore", explore_path)) %></p>
+<% end %>
