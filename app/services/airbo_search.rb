@@ -12,12 +12,12 @@ class AirboSearch
   end
 
   def user_tiles(page = 1)
-    unpaginated_user_tiles.records.page(page).per(per_page)
+    unpaginated_user_tiles(page)
   end
 
   def explore_tiles(page = 1)
     if explore_search
-      unpaginated_explore_tiles.records.page(page).per(per_page)
+      unpaginated_explore_tiles(page)
     end
   end
 
@@ -65,7 +65,7 @@ class AirboSearch
       demo.id
     end
 
-    def user_tiles_options(tile_status)
+    def user_tiles_options(tile_status, page)
       {
         where: {
           demo_id: demo_id,
@@ -73,11 +73,14 @@ class AirboSearch
         },
         fields: default_fields,
         track: search_tracking_data,
-        misspellings: false
+        misspellings: false,
+        order: [_score: :desc, created_at: :desc],
+        page: page,
+        per_page: per_page
       }
     end
 
-    def explore_tiles_options
+    def explore_tiles_options(page)
       {
         where: {
           is_public: true,
@@ -85,21 +88,25 @@ class AirboSearch
         },
         fields: default_fields,
         track: search_tracking_data,
-        misspellings: false
+        misspellings: false,
+        order: [_score: :desc, created_at: :desc],
+        page: page,
+        per_page: per_page
       }
     end
 
-    def unpaginated_user_tiles
+    def unpaginated_user_tiles(page)
       if admin_search
-        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE]))
+        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE], page))
       elsif user_search
-        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::ACTIVE, Tile::ARCHIVE]))
+        @unpaginated_user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::ACTIVE, Tile::ARCHIVE], page))
       end
     end
 
-    def unpaginated_explore_tiles
+    # TODO: This page default is to facilitate performant campaign loads, although it will only load campaigns related to the first batch of tiles. We should index campaings and stop doing this nonsense.
+    def unpaginated_explore_tiles(page = 1)
       if explore_search
-        @unpaginated_explore_tiles ||= Tile.search(formatted_query, explore_tiles_options)
+        @unpaginated_explore_tiles ||= Tile.search(formatted_query, explore_tiles_options(page))
       end
     end
 
