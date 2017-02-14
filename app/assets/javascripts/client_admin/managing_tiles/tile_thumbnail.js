@@ -74,7 +74,7 @@ Airbo.TileThumbnail = (function() {
   }
   function init(AirboTileManager) {
     tileManager = AirboTileManager;
-    thumbnailMenu = Airbo.TileThumbnailMenu.init(tileManager);
+    thumbnailMenu = Airbo.TileThumbnailMenu.init();
     initEvents();
     return this;
   }

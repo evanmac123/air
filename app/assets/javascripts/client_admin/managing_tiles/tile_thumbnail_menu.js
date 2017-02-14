@@ -1,7 +1,30 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileThumbnailMenu = (function() {
-  var tileCreator;
+  var tileCreator
+    , instances
+  ;
+
+  function closeToolTips(){
+    instances = $.tooltipster.instances();
+    $.each(instances, function(i, instance){
+      instance.close();
+    });
+  }
+
+  function initTileActions(){
+    $("body").on("click", ".tile_thumbnail_menu .delete_tile, .tile_buttons .delete_tile", function(event){
+      event.preventDefault();
+      closeToolTips();
+      Airbo.TileAction.confirmDeletion($(this));
+    });
+
+    $("body").on("click", ".tile_thumbnail_menu .duplicate_tile", function(event){
+      event.preventDefault();
+      closeToolTips();
+      Airbo.TileAction.makeDuplication($(this));
+    });
+  }
 
   function setMenuActiveState(origin, active) {
     if(active) {
@@ -18,41 +41,30 @@ Airbo.TileThumbnailMenu = (function() {
       theme: "tooltipster-shadow tooltipster-thumbnail-menu",
       interactive: true,
       position: "bottom",
-      content: function(){
-        encodedMenu = menu_button.data('title');
-        decodedMenu = Airbo.Utils.htmlDecode(encodedMenu);
-        return $(decodedMenu);
-      },
+      side:"top",
       trigger: "click",
       autoClose: true,
-      functionBefore: function(origin, continueTooltip){
-        setMenuActiveState(origin, true);
-        continueTooltip();
-      },
-      functionAfter: function(origin){
-        setMenuActiveState(origin, false);
-      },
-      functionReady: function(origin, tooltip){
-        $(".tile_thumbnail_menu .delete_tile, .tile_buttons .delete_tile").click(function(event){
-          event.preventDefault();
-          origin.tooltipster("hide");
-          Airbo.TileAction.confirmDeletion($(this));
-        });
 
-        $(".tile_thumbnail_menu .duplicate_tile").click(function(event){
-          event.preventDefault();
-          origin.tooltipster("hide");
-          Airbo.TileAction.makeDuplication($(this));
-        });
+      functionInit: function(instance, helper){
+        var content = $(helper.origin).find('.tooltip-content').detach();
+        instance.content(content);
+      },
+
+      functionBefore: function(instance, helper){
+        setMenuActiveState($(helper.origin), true);
+      },
+
+      functionAfter: function(instance, helper){
+        setMenuActiveState($(helper.origin), false);
+      },
+
+      functionReady: function(instance, helper){
       }
     });
   }
   function init() {
-    // tileCreator = AirboTileCreator;
 
-    // $(".more_button").each(function(){
-    //   initMoreBtn($(this));
-    // });
+    initTileActions();
     return this;
   }
   return {

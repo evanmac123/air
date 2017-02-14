@@ -1,7 +1,11 @@
 <% if presenter.has_tile_buttons? %>
   <ul class="tile_buttons">
     <% if presenter.has_menu? %>
-      <li class="more_button"  data-title="<%= CGI::escapeHTML tile_thumbnail_menu(presenter) %>">
+      <li class="more_button"  >
+        <%=tile_thumbnail_menu(presenter)%>
+        <span></span>
+        <span></span>
+        <span></span>
       </li>
     <% end %>
 
