@@ -14,6 +14,17 @@ class Campaign < ActiveRecord::Base
 
   default_scope order(:name)
 
+  searchkick word_start: [:channel_list, :tile_headlines], settings: { number_of_shards: 1, number_of_replicas: 1 }
+  def search_data
+    extra_data = {
+      channel_list: channel_list,
+      tile_headlines: tiles.pluck(:headline),
+      tile_content: tiles.pluck(:supporting_content)
+    }
+
+    serializable_hash.merge(extra_data)
+  end
+
   def self.exclude(excluded_campaigns)
     campaigns = Campaign.arel_table
     Campaign.where(campaigns[:id].not_in(excluded_campaigns))
