@@ -20,7 +20,7 @@
 //= require jquery.ui.autocomplete
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min.js
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.jscroll
-//= require jquery.tooltipster.min
+//= require tooltipster/tooltipster.core.min
 //= require ./external/schedule_demo
 //= require ./external/request_form
 

@@ -2,8 +2,8 @@
 *= require ../../../vendor/assets/stylesheets/tablesorter/themes/blue/style
 *= require pickadate/classic
 *= require pickadate/classic.date
-*= require tooltipster/tooltipster
-*= require tooltipster/themes/tooltipster-shadow
+*= require tooltipster/tooltipster.bundle.min
+*= require tooltipster/themes/tooltipster-sideTip-shadow.min
 *= require chosen
 *= require jquery-ui/jquery-ui-1.8.10.custom
 */

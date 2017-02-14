@@ -34,7 +34,7 @@
 //= require internal/create_new_board
 //= require internal/validate_new_board
 //= require ../../../vendor/assets/javascripts/intro.min
-//= require jquery.tooltipster.min
+//= require tooltipster/tooltipster.bundle.min
 //= require ./external/placeholder_ie.js
 //= require internal/offcanvas_menu
 //= require internal/board_switch_dropdown

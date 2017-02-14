@@ -3,7 +3,7 @@
 //= require jquery.ui.autocomplete
 //= require jquery.ui.tabs
 //= require mobvious-rails
-//= require jquery.tooltipster.min
+//= require tooltipster/tooltipster.core.min
 //= require jquery.ba-throttle-debounce.min.js
 //= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
 //= require ../../../vendor/assets/javascripts/internal/jRespond.min
