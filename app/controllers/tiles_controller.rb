@@ -17,13 +17,14 @@ class TilesController < ApplicationController
   def index
     @demo ||= current_user.demo
     @palette = @demo.custom_color_palette
+    @current_user = current_user
     if params[:partial_only]
-      @current_user = current_user
-
       render_tile_wall_as_partial
+    elsif params[:from_search] == "true"
+      @start_tile = Tile.find_by_id(params[:tile_id])
+      @current_tile_ids = params[:tile_ids].split(", ")
     else
       @in_public_board = params[:public_slug].present?
-      @current_user = current_user
 
       @start_tile = find_start_tile
 
@@ -56,30 +57,10 @@ class TilesController < ApplicationController
       elsif params[:user_onboarding_id]
         redirect_to tiles_path({ user_onboarding: params[:user_onboarding_id] })
       else
-        redirect_to tiles_path
+        redirect_to tiles_path({ tile_ids: params[:tile_ids], from_search: params[:from_search], tile_id: params[:id]})
       end
     end
   end
-
-  # def search
-  #   # basics
-  #   search = ClientAdminSearch.new('health insurance', demo)
-  #   @my_tiles = search.my_tiles
-  #   @explore_tiles = search.explore_tiles
-  #   @campaigns = search.campaigns
-  #   @organizations = search.organizations
-  # 
-  #   # pagination
-  #   search = ClientAdminSearch.new('health insurance', demo)
-  #   @my_tiles_page_1 = search.my_tiles
-  #   @my_tiles_page_2 = search.my_tiles(2)
-  #   @my_tiles_page_7 = search.my_tiles(7)
-  #   @explore_tiles_page_3 = search.explore_tiles(3)
-  #
-  #   # customize number of results per page
-  #   search = ClientAdminSearch.new('health insurance', demo, { per_page: 24 })
-  #   @my_tiles_page_2 = search.my_tiles(2)
-  # end
 
   private
 

@@ -6,11 +6,12 @@
 @import './tile/tile_thumbnail/tiles_thumbnails_small_with_controls';
 @import './tile/tile_thumbnail/tiles_thumbnails_transition';
 @import './mixins/channels';
+@import './mixins/airbo_search';
 @import './vendor_customization/flickity';
-
-@import "mixins/green_paddle_switch";
 @import './mixins/organization-card';
 @import './mixins/how-to-use-card';
+@import "./internal/dashboard.css.scss";
+@import "./internal/scoreboard.css.scss";
 
 
 .explore-campaigns, .explore-channels, .explore-tile_features, .explore-organizations {
@@ -20,7 +21,12 @@
   }
 }
 
+.explore-search {
+  @include airbo_search;
+}
+
 body.explore, .explore {
+
   .manage_section {
     position: relative;
     color: $text-color;
@@ -370,11 +376,20 @@ body.explore, .explore {
     z-index: 98;
   }
 
+  .campaign-description {
+    h4 {
+      margin-left: 35px;
+      font-size: 18px;
+      line-height: 1.5em;
+    }
+  }
+
   .campaign-profile {
     margin-bottom: 20px;
     .how-to-use-card {
       @include how-to-use-card;
     }
+
     .info-point {
       margin: 15px 2em;
       li:before {

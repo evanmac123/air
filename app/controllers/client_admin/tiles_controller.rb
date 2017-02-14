@@ -127,10 +127,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def status_change
     @tile = get_tile
-
     @tile.update_status(params[:update_status])
-    presenter = present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?})
-    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: presenter}
+
+    presenter = present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?, from_search: params[:from_search]})
+    render partial: partial_to_render, locals: { presenter: presenter}
   end
 
   def update_explore_settings
@@ -161,6 +161,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     tiles.sort_by{|t| t.position}.reverse
   end
 
+  def partial_to_render
+    if params[:from_search] == "true"
+      'client_admin/tiles/manage_tiles/new_single_tile'
+    else
+      'client_admin/tiles/manage_tiles/single_tile'
+    end
+  end
   def permit_params
     params.require(:tile_builder_form).permit!
   end
@@ -207,8 +214,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
 
   def prepTilePreview
-    @prev, @next = @demo.bracket @tile
-    @show_share_section_intro = show_share_section_intro
+    unless from_search?
+      @prev, @next = @demo.bracket @tile
+      @show_share_section_intro = show_share_section_intro
+    end
   end
 
 
@@ -294,9 +303,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     [success, failure]
   end
 
-
-
   def render_tile_string
+    if from_search?
+      tile_presenter.options[:from_search] = true
+    end
+
     render_to_string(
                      partial: 'client_admin/tiles/manage_tiles/single_tile',
                      locals: { presenter:  tile_presenter}
@@ -314,10 +325,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def render_tile_preview_string
     render_to_string(action: 'show', layout:false)
   end
-
-
-
-
 
   def set_after_save_flash(new_tile)
     flash[:success] ="Tile #{params[:action] || 'create' }d! We're resizing the graphics, which usually takes less than a minute."
@@ -343,7 +350,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     }
   end
 
-
   def render_preview_and_single
     prepTilePreview
     render json: {
@@ -351,7 +357,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       tileId: @tile.id,
       tile: render_tile_string,
       preview: render_tile_preview_string,
-      updatePath: client_admin_tile_path(@tile)
+      updatePath: client_admin_tile_path(@tile),
+      fromSearch: from_search?
     }
+  end
+
+  def from_search?
+    request.referrer && request.referrer.include?("explore/search")
   end
 end

@@ -84,7 +84,7 @@ Airbo.TileFormModal = (function(){
   function initFormElements() {
     validator = Airbo.TileFormValidator.init(currform);
     Airbo.TileImageUploader.init();
-    Airbo.TileImagePreviewer.init() 
+    Airbo.TileImagePreviewer.init();
     Airbo.TileImageCredit.init();
     Airbo.TilePointsSlider.init();
     Airbo.TileQuestionBuilder.init();
@@ -103,17 +103,21 @@ Airbo.TileFormModal = (function(){
       closeSticky: true,
       onOpenedEvent: function() {
         autosize.update( $('textarea') );
-        $("#supporting_content_editor").keyup()
+        $("#supporting_content_editor").keyup();
       },
       closeMessage: closeMessage.bind(self) ,
     });
   }
 
   function submitSuccess(data) {
-
     tileManager.updateSections(data);
+    var tilePreview;
+    if (data.fromSearch === true) {
+      tilePreview = Airbo.SearchTilePreviewModal;
+    } else {
+      tilePreview = Airbo.TilePreviewModal;
+    }
 
-    var tilePreview = Airbo.TilePreviewModal;
     tilePreview.init();
     tilePreview.open(data.preview);
   }
@@ -153,10 +157,10 @@ Airbo.TileFormModal = (function(){
     if(currform.data("suggested") === false){
       $(currform).on("change", function() {
         addAutoSave();
-        disablesubmitLink()
+        disablesubmitLink();
         if(currform.valid()){
           modalObj.setConfirmOnClose(false);
-          disablesubmitLink()
+          disablesubmitLink();
           timer = setTimeout(function(){
             ajaxHandler.submit(currform, autoSaveSuccess.bind(me), resetSubmit);
           }, 1000);
@@ -188,7 +192,7 @@ Airbo.TileFormModal = (function(){
     currform.attr("action", data.updatePath);
     currform.attr("method", "PUT");
 
-    updateThumbnail(data)
+    updateThumbnail(data);
     enablesubmitLink();
     removeAutoSave();
     saveable = true;

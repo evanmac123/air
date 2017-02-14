@@ -90,7 +90,7 @@ Airbo.ExploreTilePreview = (function(){
     open: open,
     tileContainerSizes: tileContainerSizes,
     modalId: modalId
-  }
+  };
 }());
 
 Airbo.GuestExploreTilePreview = (function(){
@@ -106,7 +106,7 @@ Airbo.GuestExploreTilePreview = (function(){
   return {
     init: init,
     open: open
-  }
+  };
 }());
 
 $(document).ready(function(){

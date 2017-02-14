@@ -1,0 +1,20 @@
+<section class="manage_section contextual_tiles_container <%= container %>" style="margin-top:30px;">
+  <div class="row tiles-row">
+    <div class="large-12 columns">
+      <div class="<%= container %> <%= opts[:feature] %> tile-grid endless_scroll_content_container" data-page="<%= tiles.current_page %>" data-count="<%= tiles.count %>" data-section="<%= container %>" data-query="<%= params[:query] %>" data-path="<%= opts[:show_more_path] %>">
+        <%= render "shared/tiles/contextual_tiles", { presenter: presenter, tiles: tiles, opts: opts } %>
+      </div>
+      <div class="endless_scroll_loading text-center" style="display:none;">
+        <i class="fa fa-spinner fa-spin fa-3x text-center" style="color:#48BFFF;margin-top:30px;"></i>
+      </div>
+    </div>
+  </div>
+
+  <% if opts[:show_more_button] == true && !tiles.last_page? %>
+    <div class="row">
+      <div class="columns small-12 text-center">
+        <%= render 'shared/button_with_spinner', { button_classes: "show-more-tiles-button", button_id: "more-#{container}", button_text: I18n.t('views.explore.searches.show_more_tiles_button') } %>
+      </div>
+    </div>
+  <% end %>
+</section>

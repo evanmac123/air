@@ -171,6 +171,35 @@
    color:#ff5656;
   }
 }
+.status_marker {
+  position: absolute;
+  top: 282px;
+  font-size: 14px;
+  right: 7px;
+  border-radius: 0;
+  z-index: 1;
+  padding: 4px;
+  &.draft {
+    border: 1px solid $n-yellow;
+    color: $n-yellow;
+  }
+  &.active {
+    border: 1px solid $n-green;
+    color: $n-green;
+  }
+  &.archive {
+    border: 1px solid $n-pink;
+    color: $n-pink;
+  }
+  &.completed {
+    border: 1px solid $n-green;
+    color: $n-green;
+  }
+  &.unanswered {
+    border: 1px solid $n-yellow;
+    color: $n-yellow;
+  }
+}
 .tile_stats {
   padding-top: 10px;
   cursor: pointer;

@@ -90,19 +90,23 @@ Airbo.TileAction = (function(){
         data: data,
         dataType: "html",
         success: function(data, status,xhr){
-          closeModal( $(tileModalSelector) );
-          moveTile(tile, data);
-          postProcess();
-          Airbo.TileThumbnail.initTile( $(data).data("tile-container-id") );
+          if (window.location.pathname.indexOf("inactive_tiles") > 0) {
+            tile.hide();
+          } else {
+            closeModal( $(tileModalSelector) );
+            moveTile(tile, data);
+            postProcess();
+            Airbo.TileThumbnail.initTile( $(data).data("tile-container-id") );
 
-          var tileId = $(data).data("tile-container-id");
-          var status = $(data).data("status");
-          movePing(tileId, status, "Clicked button to move");
+            var tileId = $(data).data("tile-container-id");
+            var status = $(data).data("status");
+            movePing(tileId, status, "Clicked button to move");
+          }
         }
       });
     }
 
-    if(isRepostingArchivedTile()){
+    if (isRepostingArchivedTile()){
       confirmUnarchive(function(isConfirm){
         if (isConfirm) {
           if(Airbo.Utils.userIsSiteAdmin()){
@@ -110,8 +114,8 @@ Airbo.TileAction = (function(){
           }
           submit();
         }
-      })
-    }else{
+      });
+    } else{
       submit();
     }
 
@@ -231,7 +235,7 @@ Airbo.TileAction = (function(){
   function loadLastArchiveTile() {
     var archiveSection = $(".manage_section#archive");
     var placeholders = tilePlaceholdersInSection( archiveSection );
-    if(placeholders.length == 0 ) {
+    if(placeholders.length === 0 ) {
       return;
     }
     var tiles = notTilePlaceholdersInSection( archiveSection );
@@ -324,6 +328,7 @@ Airbo.TileAction = (function(){
     confirmDeletion: confirmDeletion,
     confirmAcceptance: confirmAcceptance,
     movePing: movePing,
-    confirmUnarchive: confirmUnarchive
-  }
+    confirmUnarchive: confirmUnarchive,
+    tileByStatusChangeTriggerLocation: tileByStatusChangeTriggerLocation
+  };
 }());

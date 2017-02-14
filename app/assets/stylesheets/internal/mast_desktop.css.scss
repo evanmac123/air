@@ -147,7 +147,7 @@ header {
     border:1px $toggled-menu-bg solid;
     display: none;
     position: absolute;
-    top:3.45em;
+    top:3.47em;
     z-index:5;
     a, #no_other_boards {
       color:$light-gray;
@@ -168,7 +168,7 @@ header {
     z-index: 5000; // so it goes over top of the image picker in the new tiles page
 
     a, #no_other_boards {
-      width: 22em;
+      width: 20em;
       padding-left: 1.1em;
     }
 
@@ -186,8 +186,9 @@ header {
 
   // Board switch menu
   #board_switch {
-    height: $header-total-height;
-    max-height:$header-total-height;
+    height: 49px;
+    max-height:49px;
+    width: 90%;
     position: relative;
     padding-left: 1em;
     padding-right: 1em;
@@ -207,14 +208,31 @@ header {
       font-weight: 400;
       color: $text-color;
     }
+    .board_switch_header {
+      color:$med-gray;
+      padding-top: 0.7em;
+      &:after {
+        color:$med-gray;
+        content:"\25BE";
+        font-size:1.45em;
+        padding-left: 5px;
+      }
+      &:hover {
+        color:$gray;
+        &:after{color:$gray;}
+      }
+    }
     p {
       margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
-  #board_switch, .other_boards, .other_boards a, #no_other_boards {
-    width: 25em;
-    max-width: 25em;
+  .other_boards, .other_boards a, #no_other_boards {
+    width: 100%;
+    right: 0;
   }
 
   .board_switch_dropdown, .mobile_board_link {

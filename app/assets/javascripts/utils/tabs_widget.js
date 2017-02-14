@@ -1,7 +1,7 @@
-var Airbo = window.Airbo || {}
+var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
-Airbo.Utils.TabWidget = (function(){  
+Airbo.Utils.TabWidget = (function(){
   function initTabs(){
     $('#tabs .tab').hide();
     $('#tabs div.tab:first').show();
@@ -16,7 +16,7 @@ Airbo.Utils.TabWidget = (function(){
       $('#tabs .tab').hide();
       $(currentTab).show();
       return false;
-    }); 
+    });
   }
 
   function init(){
@@ -32,4 +32,4 @@ Airbo.Utils.TabWidget = (function(){
 
 $(function(){
   Airbo.Utils.TabWidget.init();
-})
+});

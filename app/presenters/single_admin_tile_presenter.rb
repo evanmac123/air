@@ -14,7 +14,7 @@ class SingleAdminTilePresenter < BasePresenter
             :updated_at,
             :is_placeholder?,
             to: :tile
-  attr_reader :tile, :tile_status, :tiles_grouped_ids
+  attr_reader :tile, :tile_status, :tiles_grouped_ids, :options
 
   presents :tile
 
@@ -23,6 +23,11 @@ class SingleAdminTilePresenter < BasePresenter
     @tile_status = tile.status.to_sym
     @tiles_grouped_ids = options[:tile_ids]
     @format =  options[:format]||:html
+    @options = options
+  end
+
+  def partial
+    'client_admin/tiles/manage_tiles/new_single_tile'
   end
 
   def tile_id
@@ -77,12 +82,22 @@ class SingleAdminTilePresenter < BasePresenter
     end
   end
 
+  def status_marker
+    if from_search?
+      content_tag :div, status, class: "status_marker #{status}"
+    end
+  end
+
   def has_tile_stats?
-    tile_status_matches? :active, :archive
+    tile_status_matches?(:active, :archive) || from_search?
   end
 
   def show_tile_path
-    client_admin_tile_path(tile)
+    if options[:referrer] == :contextual_tiles
+      client_admin_tile_preview_path(tile)
+    else
+      client_admin_tile_path(tile)
+    end
   end
 
   def has_archive_button?
@@ -101,7 +116,7 @@ class SingleAdminTilePresenter < BasePresenter
     tile_status_matches?(:draft) && !tile.is_fully_assembled?
   end
 
-   def has_edit_button?
+  def has_edit_button?
      tile_status_matches?(:draft, :active, :archive) && tile.is_fully_assembled?
   end
 
@@ -167,6 +182,9 @@ class SingleAdminTilePresenter < BasePresenter
     @to_param ||= tile.to_param
   end
 
+  def from_search?
+    options[:from_search] == true || options[:from_search] == "true"
+  end
 
   def cache_key
     @cache_key ||= [

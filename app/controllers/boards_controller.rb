@@ -40,7 +40,6 @@ class BoardsController < UserBaseController
       render json: {
         success: true,
         updatedBoardName: @new_board_name,
-        truncatedUpdatedBoardName: truncate_name_for_switcher(@new_board_name)
       }
     else
       render json: {success: false, message: "Sorry, that board name is already taken."}

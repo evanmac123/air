@@ -1,0 +1,32 @@
+.search-bar {
+  .search-bar-wrapper {
+    padding:0;
+    width: 100%;
+    border-radius: 3px;
+    font-size: 1.15em;
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #dddddd;
+    margin-top: 5px;
+    margin-bottom: 4px;
+    &.error {
+      border-color: transparentize($n-pink, .5);
+    }
+
+    .search-bar-input {
+      padding: 0.5em;
+      padding-right: 0px;
+      width: 90%;
+      height: 100%;
+      font-size: 16px;
+      margin: 0;
+      border: none;
+      background: transparent;
+    }
+  }
+  .airbo-search-input-button {
+    &:hover {
+      color: $n-blue;
+    }
+  }
+}

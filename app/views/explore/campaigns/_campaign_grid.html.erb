@@ -1,0 +1,23 @@
+<div class="all_tile_thumbnails campaigns row">
+    <% campaigns.each do |campaign| %>
+      <%= content_tag :div,  class: "tile_container" do %>
+        <%=content_tag :div, class: "tile_thumbnail campaign" do %>
+          <div class="tile-wrapper">
+            <%= link_to explore_campaign_path(campaign) do %>
+              <div class="campaign_container" style="background-image: url('<%= campaign.cover_image.url %>')">
+                <div class="campaign_shadow_overlay"></div>
+                <section class="board-name">
+                  <h3 class="title"><%= campaign.name %></h3>
+                </section>
+                <section class="cover-footer">
+                  <div class="num-tiles subtitle">
+                    <%="#{campaign.tile_count} Tiles"%>
+                  </div>
+                </section>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+  <% end %>
+</div>

@@ -59,6 +59,7 @@ Airbo.TileThumbnailMenu = (function() {
       },
 
       functionReady: function(instance, helper){
+
       }
     });
   }
@@ -70,5 +71,6 @@ Airbo.TileThumbnailMenu = (function() {
   return {
     init: init,
     initMoreBtn: initMoreBtn
-  }
+  };
+
 }());

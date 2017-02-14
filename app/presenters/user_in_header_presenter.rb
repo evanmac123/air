@@ -21,6 +21,7 @@ class UserInHeaderPresenter
               :email,
               :can_make_tile_suggestions?,
               :is_client_admin,
+              :is_site_admin,
               to: :current_user
 
   def initialize(user, public_tile_page, params, request)
@@ -147,12 +148,15 @@ class UserInHeaderPresenter
   end
 
   def can_submit_tile?
-    (can_make_tile_suggestions? || is_client_admin) &&
+    (can_make_tile_suggestions? || is_client_admin || current_user.is_site_admin) &&
       ["acts", "tiles"].include?(request[:controller]) &&
       !request.original_url.include?("client_admin") &&
       !request.original_url.include?("explore")
   end
 
+  def show_search_bar?
+    is_site_admin
+  end
 
   protected
 

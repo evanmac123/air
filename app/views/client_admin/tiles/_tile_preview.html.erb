@@ -4,9 +4,9 @@
   <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, show_client_admin_menu: show_client_admin_menu, menu_type: menu_type} %>
   <div class='viewer'>
 
-    <% if show_client_admin_menu %>
+    <% if show_client_admin_menu && @prev && @next %>
       <%= link_to "" , client_admin_tile_path(@prev), :id => "prev_tile", class: "button_arrow prev_tile", data:{action: "show", tile_id: @prev} %>
-  
+
       <%= link_to "",  client_admin_tile_path(@next) , :id => "next_tile", class: "button_arrow next_tile", data:{action: "show", tile_id: @next} %>
     <% end %>
     <div id="slideshow">

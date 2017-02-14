@@ -1,0 +1,62 @@
+<div class="explore explore-search-results explore-search-results-<%= get_user_type(current_user) %> has-tile-thumnails" data-user-type="<%= get_user_type(current_user) %>" data-query="<%= params[:query] %>">
+  <div class="row">
+    <div class="columns small-12">
+      <h4 class="explore-headers search-results-description"><span>Search results for "<%= params[:query] %>"</span></h4>
+    </div>
+  </div>
+  <div id="searchTabs">
+    <div class="row">
+      <div class="columns small-12 search-options">
+        <ul>
+          <span>
+            <%= link_to "#myTiles", class:"first searchTabLink" do %>
+              My Tiles <span class="result-count"><%= "(#{@search_service.user_tiles.total_count})" %>
+            <% end %>
+          </span>
+          <span>
+            <%= link_to "#exploreTiles", class:"searchTabLink" do %>
+              Explore Tiles <span class="result-count"><%= "(#{@search_service.explore_tiles.total_count})" %>
+            <% end %>
+          </span>
+          <span>
+            <%= link_to "#campaigns", class:"last searchTabLink" do %>
+              Campaigns <span class="result-count"><%= "(#{@search_service.campaigns.count})" %>
+            <% end %>
+          </span>
+          <!-- <span><%#= link_to "Organizations", "#organizations", class:"last searchTabLink" %></span> -->
+        </ul>
+      </div>
+    </div>
+    <div id="myTiles" class="searchTab">
+      <div class="manage-section">
+
+        <% if @search_service.user_tiles.present? %>
+          <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.user_tiles, container: 'client_admin_tiles', presenter: SingleAdminTilePresenter, opts: { show_more_button: false, endless_scroll: true, show_more_path: explore_search_path({ section: 'client_admin_tiles' }), feature: "search" } } %>
+        <% else %>
+          <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.my_tiles_html", query: params[:query]) %></p>
+        <% end %>
+      </div>
+    </div>
+    <div id="exploreTiles" class="searchTab tile_wall_explore">
+      <% if @search_service.explore_tiles.present? %>
+        <%= render 'shared/tiles/display_contextual_tiles', { tiles: @search_service.explore_tiles, container: 'explore_tiles', presenter: SingleExploreTilePresenter, opts: { show_more_button: false, endless_scroll: true, show_more_path: explore_search_path({ section: 'explore_tiles' }), feature: "search" } } %>
+      <% else %>
+        <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.explore_tiles_html", query: params[:query], path: link_to("Airbo Explore", explore_path)) %></p>
+      <% end %>
+    </div>
+    <div id="campaigns" class="searchTab tile_wall_explore">
+      <% if @search_service.campaigns.present? %>
+        <%= render 'explore/campaigns/campaign_grid', campaigns: @search_service.campaigns %>
+      <% else %>
+        <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.campaigns_html", query: params[:query], path: link_to("Airbo Explore", explore_path)) %></p>
+      <% end %>
+    </div>
+    <div id="organizations" class="searchTab tile_wall_explore">
+      <% if 1 == 2 %>
+
+      <% else %>
+        <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.organizations_html", query: params[:query], path: link_to("Airbo Explore", explore_path)) %>
+      <% end %>
+    </div>
+  </div>
+</div>

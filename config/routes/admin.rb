@@ -1,6 +1,9 @@
 resource :admin, :only => :show
 
 namespace :admin do
+  constraints Clearance::Constraints::SignedIn.new { |user| user.is_site_admin } do
+    mount Searchjoy::Engine, at: "searchjoy"
+  end
   resources :user_migrators
   resource  :sales, only: [:show]
   resources :channels

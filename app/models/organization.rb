@@ -156,6 +156,10 @@ class Organization < ActiveRecord::Base
     TimeDifference.between(customer_start_date, customer_end_date).in_months
   end
 
+  def oldest_demo
+    @oldest_demo ||= demos.order('created_at ASC').first
+  end
+
   def user_activation_rate
     if users.count.nonzero?
       (activated_users.count.to_f / users.count) * 100
@@ -169,21 +173,18 @@ class Organization < ActiveRecord::Base
     users.non_site_admin.where(arel_users[:accepted_invitation_at].not_eq(nil))
   end
 
-
-
   private
 
-  def create_default_board_membership
-    if users.first && demos.first
-      bm = BoardMembership.new
-      bm.user = users.first
-      bm.demo = demos.first
-      bm.save
+    def create_default_board_membership
+      if users.first && demos.first
+        bm = BoardMembership.new
+        bm.user = users.first
+        bm.demo = demos.first
+        bm.save
+      end
     end
-  end
 
-  def ordered_contracts
-    contracts.order("start_date asc")
-  end
-
+    def ordered_contracts
+      contracts.order("start_date asc")
+    end
 end
