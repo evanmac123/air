@@ -27,13 +27,17 @@ class AirboSearch
   end
 
   def campaigns
-    if admin_search
+    if explore_search
       @campaigns ||= Campaign.search(query, { order: [_score: :desc, created_at: :desc] })
     end
   end
 
   def total_result_count
-    user_tiles.total_count + explore_tiles.total_count + campaigns.total_count
+    [user_tiles, explore_tiles, campaigns].map { |col| get_count(results) }.sum
+  end
+
+  def get_count(results)
+    results ? results.total_count : 0
   end
 
   def overview_limit

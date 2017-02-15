@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="columns small-12">
+    <p class="explore-headers search-results-description">Search results for "<%= params[:query] %>"</p>
+  </div>
+</div>
+<div id="searchTabs">
+  <div class="row">
+    <div class="columns small-12 search-options">
+      <%= link_to "#allResults", class:"first searchTabLink" do %>
+        All Results <span class="result-count"><%= "(#{search_service.total_result_count})" %>
+      <% end %>
+
+      <%= link_to "#exploreTiles", class:"searchTabLink", id: "exploreTilesTab" do %>
+        Explore Tiles <span class="result-count"><%= "(#{search_service.explore_tiles.total_count})" %>
+      <% end %>
+
+      <%= link_to "#campaigns", class:"last searchTabLink", id: "campaignsTab" do %>
+        Campaigns <span class="result-count"><%= "(#{search_service.campaigns.count})" %>
+      <% end %>
+    </div>
+  </div>
+  <div id="allResults" class="searchTab">
+    <%= render 'explore/searches/search_overview', search_service: search_service %>
+  </div>
+  <div id="exploreTiles" class="searchTab tile_wall_explore">
+    <%= render "explore/searches/explore_tiles", { search_service: search_service} %>
+  </div>
+  <div id="campaigns" class="searchTab tile_wall_explore">
+    <%= render "explore/searches/campaigns", { search_service: search_service} %>
+  </div>
+</div>
