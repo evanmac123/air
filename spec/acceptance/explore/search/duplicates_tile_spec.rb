@@ -14,6 +14,7 @@ feature 'Client admin duplicates tile' do
   end
 
   before do
+    skip
     FactoryGirl.create(:campaign)
     visit explore_search_path(as: client_admin, query: "*")
   end
