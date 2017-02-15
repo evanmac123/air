@@ -155,7 +155,11 @@ class UserInHeaderPresenter
   end
 
   def show_search_bar?
-    is_site_admin
+    is_site_admin || rolled_out_to_user?(current_user)
+  end
+
+  def rolled_out_to_user?(user)
+    user.is_client_admin && ENV["ORG_IDS_ROLLOUT_SEARCH"].to_s.split(",").map(&:to_i).include?(user.organization_id)
   end
 
   protected

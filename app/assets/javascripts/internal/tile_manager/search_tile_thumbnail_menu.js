@@ -3,6 +3,13 @@ var Airbo = window.Airbo || {};
 Airbo.SearchTileThumbnailMenu = (function() {
   var tileCreator;
 
+  function closeToolTips(){
+    instances = $.tooltipster.instances();
+    $.each(instances, function(i, instance){
+      instance.close();
+    });
+  }
+
   function setMenuActiveState(origin, active) {
     if(active) {
       origin.addClass("active");
@@ -20,30 +27,33 @@ Airbo.SearchTileThumbnailMenu = (function() {
       theme: "tooltipster-shadow tooltipster-thumbnail-menu",
       interactive: true,
       position: "bottom",
-      content: function(){
-        encodedMenu = menuButton.data('title');
-        decodedMenu = Airbo.Utils.htmlDecode(encodedMenu);
-        return $(decodedMenu);
-      },
+      side:"top",
       trigger: "click",
       autoClose: true,
-      functionBefore: function(origin, continueTooltip){
-        setMenuActiveState(origin, true);
-        continueTooltip();
+
+      functionInit: function(instance, helper){
+        var content = $(helper.origin).find('.tooltip-content').detach();
+        instance.content(content);
       },
-      functionAfter: function(origin){
-        setMenuActiveState(origin, false);
+
+      functionBefore: function(instance, helper){
+        setMenuActiveState($(helper.origin), true);
       },
-      functionReady: function(origin, tooltip){
+
+      functionAfter: function(instance, helper){
+        setMenuActiveState($(helper.origin), false);
+      },
+
+      functionReady: function(instance, helper){
         $(".tile_thumbnail_menu .delete_tile, .tile_buttons .delete_tile").click(function(event){
           event.preventDefault();
-          origin.tooltipster("hide");
+          closeToolTips();
           Airbo.SearchTileActions.confirmDeletion($(this), tile, false);
         });
 
         $(".tile_thumbnail_menu .duplicate_tile").click(function(e){
           e.preventDefault();
-          origin.tooltipster("hide");
+          closeToolTips();
           Airbo.SearchTileActions.makeDuplication($(this), false);
         });
       }
