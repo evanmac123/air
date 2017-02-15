@@ -1,9 +1,8 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileThumbnailMenu = (function() {
-  var tileCreator
-    , instances
-  ;
+  var tileCreator,
+      instances;
 
   function closeToolTips(){
     instances = $.tooltipster.instances();
