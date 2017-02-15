@@ -48,7 +48,6 @@ Airbo.ExploreTilePreview = (function(){
       useAjaxModal: true,
       closeSticky: true,
       onOpenedEvent: function() {
-        // initEvents();
         arrowsObj.position();
       }
     });
@@ -109,7 +108,7 @@ Airbo.GuestExploreTilePreview = (function(){
   };
 }());
 
-$(document).ready(function(){
+$(function(){
   if( $(".explore_menu").length > 0 ) {
     var preview = Airbo.ExploreTilePreview.init(true);
     preview.open();
