@@ -4,8 +4,7 @@ Airbo.ExploreTileManager = (function(){
   function initEvents() {
     $("body").on("click", ".tile_thumb_link_explore", function(e){
       e.preventDefault();
-      var tileIds = getTileIds(this);
-
+      var tileIds = getNeighboringTileIds(this);
       $.ajax({
         type: "GET",
         dataType: "html",
@@ -24,11 +23,8 @@ Airbo.ExploreTileManager = (function(){
     });
   }
 
-  function getTileIds(self) {
-    var tiles = $(self).parents(".tile_container").siblings(".tile_container").andSelf();
-    return $.makeArray(tiles).map(function(tile) {
-      return $(tile).data("tile-container-id");
-    });
+  function getNeighboringTileIds(self) {
+    return Airbo.TileThumbnailManagerBase.getNeighboringTileIdsInContainer(self);
   }
 
   function init() {

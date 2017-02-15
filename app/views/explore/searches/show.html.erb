@@ -1,34 +1,27 @@
 <div class="explore explore-search-results explore-search-results-<%= get_user_type(current_user) %> has-tile-thumnails" data-user-type="<%= get_user_type(current_user) %>" data-query="<%= params[:query] %>">
   <div class="row">
     <div class="columns small-12">
-      <h4 class="explore-headers search-results-description"><span>Search results for "<%= params[:query] %>"</span></h4>
+      <p class="explore-headers search-results-description">Search results for "<%= params[:query] %>"</p>
     </div>
   </div>
   <div id="searchTabs">
     <div class="row">
       <div class="columns small-12 search-options">
-        <ul>
-          <span>
-            <%= link_to "#allResults", class:"first searchTabLink" do %>
-              All Results <span class="result-count"><%= "(#{@search_service.total_result_count})" %>
-            <% end %>
-          </span>
-          <span>
-            <%= link_to "#myTiles", class:"searchTabLink", id: "myTilesTab" do %>
-              My Tiles <span class="result-count"><%= "(#{@search_service.user_tiles.total_count})" %>
-            <% end %>
-          </span>
-          <span>
-            <%= link_to "#exploreTiles", class:"searchTabLink", id: "exploreTilesTab" do %>
-              Explore Tiles <span class="result-count"><%= "(#{@search_service.explore_tiles.total_count})" %>
-            <% end %>
-          </span>
-          <span>
-            <%= link_to "#campaigns", class:"last searchTabLink", id: "campaignsTab" do %>
-              Campaigns <span class="result-count"><%= "(#{@search_service.campaigns.count})" %>
-            <% end %>
-          </span>
-        </ul>
+        <%= link_to "#allResults", class:"first searchTabLink" do %>
+          All Results <span class="result-count"><%= "(#{@search_service.total_result_count})" %>
+        <% end %>
+
+        <%= link_to "#myTiles", class:"searchTabLink", id: "myTilesTab" do %>
+          My Tiles <span class="result-count"><%= "(#{@search_service.user_tiles.total_count})" %>
+        <% end %>
+
+        <%= link_to "#exploreTiles", class:"searchTabLink", id: "exploreTilesTab" do %>
+          Explore Tiles <span class="result-count"><%= "(#{@search_service.explore_tiles.total_count})" %>
+        <% end %>
+
+        <%= link_to "#campaigns", class:"last searchTabLink", id: "campaignsTab" do %>
+          Campaigns <span class="result-count"><%= "(#{@search_service.campaigns.count})" %>
+        <% end %>
       </div>
     </div>
     <div id="allResults" class="searchTab">

@@ -10,7 +10,6 @@
 
   .search-overview-header {
     color: #5f5f5f;
-    font-weight: bold;
     margin-left: 20px;
     &.campaigns {
       margin-bottom: 0;
@@ -34,10 +33,8 @@
     }
     .search-results-description {
       margin:20px;
-      span {
-        border-bottom: 1px solid $n-blue;
-        padding-bottom: 5px;
-      }
+      border-bottom: 1px solid $n-blue;
+      display:inline-block;
     }
     .search-results-section {
       margin-left:20px;
@@ -93,6 +90,26 @@
     a {
       font-weight: 600;
       text-decoration: underline;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .tile_stats {
+      display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .search-options {
+      margin: 0;
+    }
+    .searchTabLink {
+      display: inline-block;
+      min-width: 97%;
+      margin: 5px;
+      &.first, &.last {
+        border-radius: 0;
+      }
     }
   }
 }
