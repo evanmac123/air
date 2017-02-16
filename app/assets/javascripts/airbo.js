@@ -10,12 +10,23 @@ var Airbo = {
     });
 
     this.currentUser = this.Utils.currentUser();
-
   },
 
   Utils: {
     userIsSiteAdmin: function(){
      return Airbo.currentUser && Airbo.currentUser.user_type === "site admin";
+    },
+
+    userIsClientAdmin: function() {
+      return Airbo.currentUser && Airbo.currentUser.user_type === "client admin";
+    },
+
+    userIsEndUser: function() {
+      return this.currentUser() && this.currentUser().user_type === "ordinary user";
+    },
+
+    userIsGuest: function() {
+      return Airbo.currentUser && Airbo.currentUser.user_type === "guest";
     },
 
     userNotSiteAdmin: function(){
@@ -25,6 +36,10 @@ var Airbo = {
 
     currentUser: function(){
        return $("body").data("current-user");
+    },
+
+    intercomUser: function(){
+       return $("body").data("intercom-user");
     },
 
     supportsFeatureByPresenceOfSelector: function(identifier){
