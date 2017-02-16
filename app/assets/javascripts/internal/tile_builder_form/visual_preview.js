@@ -11,12 +11,12 @@ Airbo.TileVisualPreviewMgr = (function(){
   }
 
   function showEmbedVideo(){
-    $(".embed-video-container").show();
+    $(".embed-video-container").addClass("present").show();
     $("#tile_builder_form_embed_video").focus();
   }
 
   function hideEmbedVideo(){
-    $(".embed-video-container").hide();
+    $(".embed-video-container").removeClass("present").hide();
   }
 
   function showVideoPreview(){
@@ -59,11 +59,18 @@ Airbo.TileVisualPreviewMgr = (function(){
     $(".unloadable").hide();
   }
 
+  function emptyImages(){
+   var grid = $("#images")
+   if(grid.data('flickity')){
+     grid.flickity('destroy');
+   }
+   grid.empty();
+  }
+
   function hideVisualContentPanel(){
     $(".visual-content-container").slideUp();
     hideImageWrapper();
     hideEmbedVideo();
-    $(".hide-search").hide();
   }
 
   function hideVideoErrors(){
@@ -75,7 +82,6 @@ Airbo.TileVisualPreviewMgr = (function(){
 
 
   function showVisualContentPanel(){
-    $(".hide-search").show();
     $(".visual-content-container").slideDown();
   }
 
@@ -93,6 +99,7 @@ Airbo.TileVisualPreviewMgr = (function(){
   function initShowVideoPanel(){
     $("body").on("click", ".img-menu-item.video", function(event){
       hideImageWrapper();
+      emptyImages();
       resetSearchInput();
       showEmbedVideo();
       hideVideoErrors();
@@ -103,6 +110,15 @@ Airbo.TileVisualPreviewMgr = (function(){
   function initVisualContent(){
     initHideVisualContent();
     initShowVideoPanel();
+  }
+
+  function showMediaPanelCloseButton(){
+    $(".hide-media-panel-button").show();
+  }
+
+
+  function hideMediaPanelCloseButton(){
+    $(".hide-media-panel-button").hide();
   }
 
   function initCustomEventsSubscriber(){
@@ -135,11 +151,18 @@ Airbo.TileVisualPreviewMgr = (function(){
 
     $.Topic("video-removed").subscribe( function(){
       $("#image_uploader").show();
+      hideLoader();
       hideVideoPreview();
     });
 
     $.Topic("video-link-parse-error").subscribe(function(){
+      hideLoader();
       showUnparsableError();
+    });
+
+
+    $.Topic("media-request-done").subscribe(function(){
+      showMediaPanelCloseButton();
     });
 
     $.Topic("inititiating-image-search").subscribe( function(){
@@ -160,7 +183,7 @@ Airbo.TileVisualPreviewMgr = (function(){
   }
 
   function initHideVisualContent(){
-    $("body").on("click", ".hide-search", function(event){
+    $("body").on("click", ".hide-media-panel-button", function(event){
       resetSearchInput();
       hideVisualContentPanel();
 
