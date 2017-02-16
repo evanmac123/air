@@ -68,9 +68,11 @@ Airbo.TileVisualPreviewMgr = (function(){
   }
 
   function hideVisualContentPanel(){
+    var dest = jQuery('.image_preview').offset().top;
     $(".visual-content-container").slideUp();
     hideImageWrapper();
     hideEmbedVideo();
+    $('.reveal-modal').animate({ scrollTop: 0 }, 700);
   }
 
   function hideVideoErrors(){
