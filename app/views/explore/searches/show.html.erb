@@ -2,6 +2,7 @@
   <% if get_user_type(current_user) === "client_admin" %>
     <%= render 'explore/searches/client_admin_show', search_service: @search_service %>
   <% elsif get_user_type(current_user) === "user" %>
+    <%= render 'explore/searches/user_show', search_service: @search_service %>
   <% else %>
     <%= render 'explore/searches/guest_show', search_service: @search_service %>
   <% end %>

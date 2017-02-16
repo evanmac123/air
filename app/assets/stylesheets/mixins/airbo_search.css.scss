@@ -3,7 +3,7 @@
     @include campaign_grid;
   }
   &.explore-search-user {
-    .content {
+    .core, .content {
       background: $tile-wall-bg;
     }
   }

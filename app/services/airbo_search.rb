@@ -1,6 +1,6 @@
 class AirboSearch
   ADMIN_PER_PAGE = 20
-  USER_PER_PAGE = 12
+  USER_PER_PAGE = 20
   OVERVIEW_LIMIT = 3 #index value
 
   attr_accessor :query, :user, :demo, :options
@@ -13,10 +13,14 @@ class AirboSearch
   end
 
   def user_tiles(page = 1)
+    if user_search
+      @user_tiles ||= demo.tiles.search(formatted_query, user_tiles_options([Tile::ACTIVE], page))
+    end
+  end
+
+  def client_admin_tiles(page = 1)
     if admin_search
-      @user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE], page))
-    elsif user_search
-      @user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::ACTIVE, Tile::ARCHIVE], page))
+      @client_admin_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE], page))
     end
   end
 
@@ -33,11 +37,7 @@ class AirboSearch
   end
 
   def total_result_count
-    [user_tiles, explore_tiles, campaigns].map { |col| get_count(results) }.sum
-  end
-
-  def get_count(results)
-    results ? results.total_count : 0
+    [user_tiles, client_admin_tiles, explore_tiles, campaigns].map { |results| get_count(results) }.sum
   end
 
   def overview_limit
@@ -49,6 +49,10 @@ class AirboSearch
   end
 
   private
+
+    def get_count(results)
+      results ? results.total_count : 0
+    end
 
     def formatted_query
       return '*' if query.blank?
@@ -64,6 +68,16 @@ class AirboSearch
     end
 
     def user_tiles_options(tile_status, page)
+      {
+        where: {
+          demo_id: demo_id,
+          status:  tile_status
+        },
+        track: search_tracking_data,
+      }.merge(default_tile_options(page))
+    end
+
+    def client_admin_tiles_options(tile_status, page)
       {
         where: {
           demo_id: demo_id,
@@ -104,11 +118,11 @@ class AirboSearch
     end
 
     def admin_search
-      user_search && (user.is_client_admin || user.is_site_admin)
+      user.is_a?(User) && (user.is_client_admin || user.is_site_admin)
     end
 
     def user_search
-      user.is_a?(User)
+      user.is_a?(User) && user.end_user?
     end
 
     def explore_search
@@ -116,7 +130,7 @@ class AirboSearch
     end
 
     def get_demo
-      if user_search
+      if user.is_a?(User)
         user.demo
       end
     end
