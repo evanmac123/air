@@ -67,18 +67,13 @@
       </div>
     </div>
   </div>
-  <div class="hide-search gray-5">
-    <a href="#" > Hide <sup><i class="fa fa-angle-up fa-1x" aria-hidden="true"></i></sup></a>
-  </div>
   <div class="visual-content-container">
-
     <div class="endless_scroll_loading text-center">
       <i class="fa fa-spinner fa-spin fa-2x text-center" ></i>
     </div>
     <div class="images-wrapper">
       <div id="images"></div>
-      <h5 class="attribution"><a href="http://www.pixabay.com" target="_blank">Powered by<%=image_tag "pixabay_logo.svg", class:"pixabay"%></a></h5>
-
+      <h6 class="attribution"><a href="http://www.pixabay.com" target="_blank">Powered by<%=image_tag "pixabay_logo.svg", class:"pixabay"%></a></h6>
     </div>
 
     <div class="embed-video-container">
@@ -89,9 +84,12 @@
       <div class="unparsable video-error" >
         The link you've entered is invalid. Please try again with a valid video embed code. Click the help section above to see instructions for embedding video.
       </div>
-      <div class="unloadable video-error">
-        Unable to load your video.The embed link you pasted may be invalid. Please delete the link and try again with a different link.
-      </div>
+        <div class="unloadable video-error">
+          Unable to load your video. The embed link you pasted may be invalid. Please delete the link and try again with a different link.
+        </div>
+    </div>
+    <div class="hide-media-panel-button">
+      <a href="#" class="button"> Done </a>
     </div>
   </div>
   <% if ie9_or_older? %>

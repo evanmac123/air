@@ -36,8 +36,8 @@ Airbo.ImageSearcher = (function(){
 
     $.Topic("image-results-added").publish();
     presentData(html);
-
-    Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==undefined)});
+$.Topic("media-request-done").publish();
+Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==undefined)});
   }
 
   function presentData(html){
@@ -61,6 +61,9 @@ Airbo.ImageSearcher = (function(){
     }
 
   }
+
+ 
+ 
 
 
 
