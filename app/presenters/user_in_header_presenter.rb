@@ -155,7 +155,7 @@ class UserInHeaderPresenter
   end
 
   def show_search_bar?
-    is_site_admin || rolled_out_to_user?(current_user)
+    is_site_admin || is_client_admin
   end
 
   def rolled_out_to_user?(user)
