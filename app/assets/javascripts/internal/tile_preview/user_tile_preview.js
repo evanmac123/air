@@ -126,7 +126,7 @@ Airbo.UserTilePreview =(function(){
      $.ajax({
       type: "GET",
       url: url,
-      data: params,
+      data: $.extend(params),
       success: cb
     });
   }
@@ -324,7 +324,6 @@ Airbo.UserTilePreview =(function(){
    pointValue = configObj.data("point-value");
    config = $(".user_container").data("config");
    storageKey = config.key;
-
    initNextTileParams();
    setUpAnswers();
    Airbo.Utils.ExternalLinkHandler.init();
@@ -338,8 +337,7 @@ Airbo.UserTilePreview =(function(){
 
   function bindTileCarouselNavigationButtons() {
     $("body").on('click', '#next, #prev', function(event) {
-      var target = $(event.target)
-      ;
+      var target = $(event.target);
       event.preventDefault();
       grayoutTile();
       getTileByNavigation(target);

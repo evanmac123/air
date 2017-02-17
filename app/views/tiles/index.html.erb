@@ -1,7 +1,9 @@
 <%content_for :head do%>
-<%= javascript_include_tag 'jquery.lightbox_me' %>
+  <%= javascript_include_tag 'jquery.lightbox_me' %>
 <%end%>
-<%= render partial: 'shared/tiles/user_progress', locals: { as_null:false, raffle: current_user.demo.raffle } %>
+<div class="acts-index">
+  <%= render partial: 'shared/tiles/user_progress', locals: { as_null:false, raffle: current_user.demo.raffle } %>
+</div>
 <% if @all_tiles_done %>
   <%= render 'all_tiles_done' %>
 <% else %>

@@ -50,14 +50,11 @@ class DisplayCategorizedTiles
     _user_type = @user.class.to_s
     _demo_id = @demo.id
 
-    Tile
-      .joins{tile_completions}
-      .where do
+    Tile.joins{tile_completions}.where do
         (tile_completions.user_id == _user_id) &
         (tile_completions.user_type == _user_type) &
         (demo_id == _demo_id)
-      end
-      .order{tile_completions.id.desc}
+      end.order{tile_completions.id.desc}
   end
 
   def active_completed_tiles

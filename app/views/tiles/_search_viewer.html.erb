@@ -1,0 +1,7 @@
+<div class="container row">
+  <div class="viewer" data-from-search="<%= params[:from_search] %>">
+    <div id="slideshow">
+      <%= render partial: 'full_size_tile', locals:{ tile: @start_tile} %>
+    </div>
+  </div>
+</div>
