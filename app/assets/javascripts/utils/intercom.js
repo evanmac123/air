@@ -27,9 +27,11 @@ Airbo.OpenIntercom = (function(){
     // and we want to wait on that until the user actually tries to open
     // Intercom.
     var currentUser = Airbo.Utils.currentUser();
-    window._intercomSettings = $.extend(window.intercomSettings, Airbo.Utils.intercomUser(), {
+    $.extend(window.intercomSettings, {
       hide_default_launcher: true
     });
+
+    window._intercomSettings = $.extend({}, window.intercomSettings, Airbo.Utils.intercomUser());
   }
 
   return {
