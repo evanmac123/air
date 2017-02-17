@@ -9,7 +9,7 @@ FactoryGirl.define do
     question "Who loves ya, baby?"
     question_type Tile::QUIZ
     question_subtype Tile::MULTIPLE_CHOICE
-    remote_media_url "#{Rails.root}/spec/support/fixtures/tiles/cov1.jpg"
+    remote_media_url "/images/cov1.jpg"
 
     trait :with_creator do
       association :creator, :factory => :user
@@ -65,8 +65,8 @@ FactoryGirl.define do
   end
 
   factory :client_created_tile, parent: :tile do
-    image {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1.jpg")}
-    thumbnail {File.open(Rails.root.join "spec/support/fixtures/tiles/cov1_thumbnail.jpg")}
+    image {File.open("#{Rails.root}/spec/support/fixtures/tiles/cov1.jpg")}
+    thumbnail {File.open("#{Rails.root}/spec/support/fixtures/tiles/cov1_thumbnail.jpg")}
     image_credit "by Human"
   end
 
