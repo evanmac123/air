@@ -71,6 +71,16 @@ class GuestUser < ActiveRecord::Base
     }
   end
 
+  def intercom_data
+    {
+      user_id: id,
+      name: "Guest User",
+      user_hash: OpenSSL::HMAC.hexdigest('sha256', ENV["INTERCOM_API_SECRET"], id.to_s)
+    }
+  end
+
+
+
   def highest_ranking_user_type
     "guest"
   end

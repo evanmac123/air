@@ -558,7 +558,7 @@ class User < ActiveRecord::Base
       is_test_user:          !!(is_test_user), # remember, the !! normalized nil to false
       board_type:            (demo.try(:is_paid) ? "Paid" : "Free"),
       first_time_user:       false,
-      days_since_activated:  days_since_activated,
+      days_since_activated:  days_since_activated
     }
   end
 
@@ -568,11 +568,13 @@ class User < ActiveRecord::Base
 
   def intercom_data
     {
+      user_id: id,
+      name: name,
+      email: email,
       demo: demo_id,
       organization: organization_id,
-      user_type: highest_ranking_user_type,
       board_type: (demo.try(:is_paid) ? "Paid" : "Free"),
-      client_admin: is_client_admin?
+      user_hash: OpenSSL::HMAC.hexdigest('sha256', ENV["INTERCOM_API_SECRET"], id.to_s)
     }
   end
 
