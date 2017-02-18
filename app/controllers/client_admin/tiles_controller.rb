@@ -162,12 +162,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def partial_to_render
-    if params[:from_search] == "true"
-      'client_admin/tiles/manage_tiles/new_single_tile'
-    else
-      'client_admin/tiles/manage_tiles/single_tile'
-    end
+    'client_admin/tiles/manage_tiles/no_cache_single_tile'
   end
+
   def permit_params
     params.require(:tile_builder_form).permit!
   end
@@ -309,13 +306,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
 
     render_to_string(
-                     partial: 'client_admin/tiles/manage_tiles/single_tile',
+                     partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile',
                      locals: { presenter:  tile_presenter}
                     )
   end
 
   def render_single_tile
-    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: tile_presenter}
+    render partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals: { presenter: tile_presenter}
   end
 
   def tile_presenter
