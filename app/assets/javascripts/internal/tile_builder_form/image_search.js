@@ -104,8 +104,18 @@ Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==
     })
   }
 
+  function initSearchFocus(){
+    $(".search-input").focusin(function(event){
+      $(this).parents(".search").addClass("focused");
+    })
 
-  function initPreviewSelectedImage(){
+
+    $(".search-input").focusout(function(event){
+      $(this).parents(".search").removeClass("focused");
+    })
+  }
+
+   function initPreviewSelectedImage(){
     $("body").on("click","#images img", function(event){
       var img = $(this);
       var props= {url: $(this).data("preview")};
@@ -131,6 +141,7 @@ Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==
     initTriggerImageSearch()
     initPreviewSelectedImage();
     loadImageProviders();
+    initSearchFocus();
   }
 
   return {

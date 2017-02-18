@@ -107,8 +107,7 @@
 
 input[type=text].search-input{
   float: left; 
-  height:30px;
-  padding: 5px;
+  padding: 0;
   padding-right: 0px;
   width: 200px;
   height: 18px;
@@ -122,6 +121,7 @@ input[type=text].search-input{
 .limited-height{
   max-height:500px;
 }
+
 .image-menu, .video-menu{
   position: absolute;
   bottom: 10px;
@@ -135,6 +135,7 @@ input[type=text].search-input{
     &.clear, &.expand-contract{
       display: none;
     }
+
   }
 
   .img-menu-item, .video-menu-item{
@@ -147,13 +148,15 @@ input[type=text].search-input{
     border: 1px solid #fff;
 
     i {
-      color: #5c5c5c;
       color: $n-blue;
+    }
+
+    &.focused{
+      border: 1px solid #15adff;
     }
 
     &:hover {
       i {
-        color: #262626;
         color: #15adff
       }
     }
@@ -179,3 +182,4 @@ input[type=text].search-input{
    text-align: center;
   }
 }
+
