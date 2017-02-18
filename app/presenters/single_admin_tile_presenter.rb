@@ -27,7 +27,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def partial
-    'client_admin/tiles/manage_tiles/new_single_tile'
+    'client_admin/tiles/manage_tiles/no_cache_single_tile'
   end
 
   def tile_id
@@ -199,7 +199,7 @@ class SingleAdminTilePresenter < BasePresenter
       total_views,
       unique_views,
       updated_at,
-      @is_ie
+      @is_ie,
     ].join('-')
   end
 
