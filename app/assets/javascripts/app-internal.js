@@ -9,7 +9,7 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
 //= require_self
 //= require_tree ./internal
-//= require_tree ./explore
+//= require ./explore/searches
 //= require ./client_admin/tile_preview/image_loading_placeholder
 //= require ./client_admin/tile_preview/tile_carousel
 //= require ./client_admin/tile_preview/sticky_menu
