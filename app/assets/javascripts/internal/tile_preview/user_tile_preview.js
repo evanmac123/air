@@ -112,6 +112,8 @@ Airbo.UserTilePreview =(function(){
           var tileId = $('.tile_holder').data('currentTileId');
           var thumbnailSel = '#single-tile-' + tileId;
           $(thumbnailSel).removeClass('not-completed').addClass('completed');
+          $('#slideshow').parents('.container').remove();
+          $('.user-results').show();
         }
       };
       $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(handler);
