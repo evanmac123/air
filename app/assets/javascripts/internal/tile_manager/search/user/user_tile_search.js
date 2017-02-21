@@ -2,6 +2,10 @@ var Airbo = window.Airbo || {};
 
 Airbo.UserTileSearch = (function(){
   function init() {
+    initTileThumbnails();
+  }
+
+  function initTileThumbnails() {
     $(".tile_thumb_link").unbind();
     $(".tile_thumb_link").on("click", function(e) {
       e.preventDefault();
@@ -19,6 +23,12 @@ Airbo.UserTileSearch = (function(){
   function renderSearchTile(data) {
     $('.user-results').hide();
     $('#tileViewer').append(data.tile_content);
+    Airbo.UserTilePreview.init(true);
+    $('.back-to-search-results').on("click", function(e) {
+      e.preventDefault();
+      $(this).parents('.container').remove();
+      $('.user-results').show();
+    });
   }
 
   function getNeighboringTileIds(self) {

@@ -42,9 +42,9 @@ class SingleTilePresenter < BasePresenter
   end
 
   def status_marker
-    if from_search?
-      content_tag :div, display_status, class: "status_marker #{display_status}"
-    end
+    # if from_search?
+    #   content_tag :div, display_status, class: "status_marker #{display_status}"
+    # end
   end
 
   def display_status

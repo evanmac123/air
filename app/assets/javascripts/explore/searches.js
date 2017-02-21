@@ -102,7 +102,7 @@ $(function(){
     });
 
     $(".search.tile-grid.user_tiles").each(function(index, container) {
-      Airbo.Search.loadResourcesInBackground($(container), Airbo.UserTileSearch.init());
+      Airbo.Search.loadResourcesInBackground($(container), Airbo.UserTileSearch.init);
     });
   }
 });
