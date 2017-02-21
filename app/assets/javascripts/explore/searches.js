@@ -89,8 +89,9 @@ Airbo.Search = (function(){
 }());
 
 $(function(){
+  Airbo.Search.init();
+
   if( $(".explore-search-results").length > 0 ) {
-    Airbo.Search.init();
     Airbo.SearchTabs.init();
 
     $(".search.tile-grid.explore_tiles").each(function(index, container) {
