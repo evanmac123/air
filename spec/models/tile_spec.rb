@@ -32,7 +32,15 @@ describe Tile do
       expect(tile.valid?).to be false
     end
 
+    it "is invalid in type is quiz with no correct answer " do
+      tile  = FactoryGirl.build(:tile, question_type: Tile::QUIZ, question_subtype: Tile::MULTIPLE_CHOICE, correct_answer_index: -1)
+      expect(tile.valid?).to be false
+    end
 
+   it "is isn't fully assembeld is quiz with no correct answer " do
+      tile  = FactoryGirl.create(:tile, status: Tile::DRAFT, question_type: Tile::QUIZ, question_subtype: Tile::MULTIPLE_CHOICE, correct_answer_index: -1)
+      expect(tile.is_fully_assembled?).to be false
+    end
     it "cannot set to active if incomplete" do
       tile  = FactoryGirl.create :tile, status: Tile::ACTIVE
       tile.remote_media_url = nil
