@@ -155,7 +155,20 @@ class UserInHeaderPresenter
   end
 
   def show_search_bar?
-    true
+    if user.is_a?(User) && (user.is_client_admin || user.is_site_admin)
+      true
+    elsif user.is_a?(GuestUser)
+      true
+    elsif user.end_user? && rollout_to_end_user?(user.demo_id)
+      true
+    else
+      false
+    end
+  end
+
+  ORGS_TO_ROLL_OUT_END_USER_SEARCH = [37]
+  def rollout_to_end_user?(demo_id)
+    Demo.select(:id).joins(:organization).where(organization: { id: ORGS_TO_ROLL_OUT_END_USER_SEARCH }).pluck(:id).include?(demo_id)
   end
 
   protected
