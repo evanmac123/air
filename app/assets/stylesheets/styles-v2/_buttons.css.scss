@@ -129,6 +129,10 @@
     @include button-color($n-red2);
   }
   &.white {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 11px 20px;
+
     &, &[disabled], &[disabled]:hover, &[disabled]:active {
       color: $n-blue;
       background-color: $n-white;
@@ -138,7 +142,6 @@
       &:hover {
         color: darken($n-blue, 10%);
         background-color: lighten($n-white, 10%);
-        border-color: darken($n-blue, 10%);
       }
       &:active {
         color: darken($n-blue, 10%);

@@ -117,4 +117,8 @@
 .back-to-search-results {
   width: 81.5%;
   margin-bottom: 20px;
+  &:before {
+    font-family: 'FontAwesome';
+    content: '\f104 \00a0'
+  }
 }

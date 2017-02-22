@@ -3,6 +3,8 @@
 <%end%>
 <%= render partial: 'shared/tiles/user_progress', locals: { as_null:false, raffle: current_user.demo.raffle, opts: { from_search: true } } %>
 <% if search_service.tiles_present? %>
+  <div id="tileViewer" class="tile_previews tile_previews-show" style="display:none;">
+  </div>
   <div class="user-results">
     <div class="row">
       <div class="columns small-12">
@@ -12,8 +14,6 @@
       </div>
     </div>
     <%= render 'shared/tiles/display_contextual_tiles', { tiles: search_service.user_tiles, container: 'user_tiles', presenter: SingleTilePresenter, opts: { show_more_button: false, endless_scroll: true, show_more_path: explore_search_path({ section: 'user_tiles' }), feature: "search" } } %>
-  </div>
-  <div id="tileViewer" class="tile_previews tile_previews-show">
   </div>
 <% else %>
   <section class="manage_section">

@@ -26,6 +26,6 @@ module AuthorizePublicBoardsConcern
   end
 
   def more_tiles_request
-    params[:controller] == "tiles" && params[:action].in?(%w(index))
+    request.xhr? && params[:controller] == "tiles" && params[:action].in?(%w(index))
   end
 end

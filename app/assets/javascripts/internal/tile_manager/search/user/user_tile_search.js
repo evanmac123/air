@@ -21,14 +21,19 @@ Airbo.UserTileSearch = (function(){
   }
 
   function renderSearchTile(data) {
-    $('.user-results').hide();
-    $('#tileViewer').append(data.tile_content);
+    var scroll = $(window).scrollTop();
+    $('.user-results').fadeOut();
+    $(window).scrollTop(0);
+    $('#tileViewer').append(data.tile_content).fadeIn('slow');
     Airbo.UserTilePreview.init(true);
     $('.back-to-search-results').on("click", function(e) {
       e.preventDefault();
+      $('#tileViewer').fadeOut();
       $(this).parents('.container').remove();
-      $('.user-results').show();
+      $('.user-results').fadeIn();
+      $(window).scrollTop(scroll);
     });
+
   }
 
   function getNeighboringTileIds(self) {

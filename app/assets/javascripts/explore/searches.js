@@ -19,6 +19,16 @@ Airbo.Search = (function(){
     Airbo.Utils.ButtonSpinner.reset($(this));
   }
 
+  function bindSearchBarFocus() {
+    $('.search-bar-input').focus( function() {
+      $('.search-bar-wrapper').addClass('focus');
+    });
+
+    $('.search-bar-input').blur( function() {
+      $('.search-bar-wrapper').removeClass('focus');
+    });
+  }
+
   function bindSearchSubmit() {
     $("#nav-bar-search-submit").on("click", function(e) {
       e.preventDefault();
@@ -79,6 +89,7 @@ Airbo.Search = (function(){
 
   function init() {
     bindSearchSubmit();
+    bindSearchBarFocus();
   }
 
   return {
