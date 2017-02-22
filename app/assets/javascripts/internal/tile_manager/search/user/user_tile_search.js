@@ -1,6 +1,7 @@
 var Airbo = window.Airbo || {};
 
 Airbo.UserTileSearch = (function(){
+  var scroll;
   function init() {
     initTileThumbnails();
   }
@@ -21,19 +22,29 @@ Airbo.UserTileSearch = (function(){
   }
 
   function renderSearchTile(data) {
-    var scroll = $(window).scrollTop();
+    scroll = $(window).scrollTop();
     $('.user-results').fadeOut();
     $(window).scrollTop(0);
     $('#tileViewer').append(data.tile_content).fadeIn('slow');
     Airbo.UserTilePreview.init(true);
     $('.back-to-search-results').on("click", function(e) {
       e.preventDefault();
-      $('#tileViewer').fadeOut();
-      $(this).parents('.container').remove();
-      $('.user-results').fadeIn();
-      $(window).scrollTop(scroll);
+      fadeOutTilePreview();
     });
+  }
 
+  function closeTileViewAfterAnswer() {
+    var tileId = $('.tile_holder').data('currentTileId');
+    var thumbnailSel = '#single-tile-' + tileId;
+    $(thumbnailSel).removeClass('not-completed').addClass('completed');
+    fadeOutTilePreview();
+  }
+
+  function fadeOutTilePreview() {
+    $('#tileViewer').fadeOut();
+    $('#slideshow').parents('.container').remove();
+    $('.user-results').fadeIn();
+    $(window).scrollTop(scroll);
   }
 
   function getNeighboringTileIds(self) {
@@ -42,6 +53,7 @@ Airbo.UserTileSearch = (function(){
 
 
   return {
-    init: init
+    init: init,
+    closeTileViewAfterAnswer: closeTileViewAfterAnswer
   };
 }());

@@ -98,7 +98,7 @@ Airbo.UserTilePreview =(function(){
       var result = mergeReturnedDataWithLocal(data);
 
       var handler = function() {
-        if (this.Airbo.UserTilePreview.fromSearch !== true) {
+        if (Airbo.UserTilePreview.fromSearch !== true) {
           if (result.all_tiles_done === true) {
             $('.content .container.row').replaceWith(result.tile_content);
             showOrHideStartOverButton(data.show_start_over_button === true);
@@ -109,11 +109,7 @@ Airbo.UserTilePreview =(function(){
             ungrayoutTile();
           }
         } else {
-          var tileId = $('.tile_holder').data('currentTileId');
-          var thumbnailSel = '#single-tile-' + tileId;
-          $(thumbnailSel).removeClass('not-completed').addClass('completed');
-          $('#slideshow').parents('.container').remove();
-          $('.user-results').show();
+          Airbo.UserTileSearch.closeTileViewAfterAnswer();
         }
       };
       $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(handler);
