@@ -174,7 +174,7 @@ class Tile < ActiveRecord::Base
   end
 
   def is_fully_assembled?
-    headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content_raw_text.length <= MAX_SUPPORTING_CONTENT_LEN && multiple_choice_has_a_correct_answer?
+    headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content_raw_text.length <= MAX_SUPPORTING_CONTENT_LEN && has_correct_answer_selected?
   end
 
   def points= p
@@ -349,13 +349,17 @@ class Tile < ActiveRecord::Base
   private
 
   def multiple_choice_question
-    if( not multiple_choice_has_a_correct_answer?)
+    unless( has_correct_answer_selected?)
       errors.add(:base, "Please select correct answer")
     end
   end
 
-  def multiple_choice_has_a_correct_answer?
-    question_type == QUIZ && correct_answer_index != -1
+  def has_correct_answer_selected?
+    if(question_type == QUIZ)
+      correct_answer_index != -1 
+    else
+      true
+    end
   end
 
 
