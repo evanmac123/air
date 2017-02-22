@@ -158,6 +158,8 @@ body.explore, .explore {
   .channel_container, #explore_tiles {
     .tile-wrapper {
       .tile_buttons {
+        width: auto;
+        right: 8px;
         opacity: 1;
         a {
           @extend .tiny;

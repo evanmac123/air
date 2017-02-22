@@ -11,55 +11,13 @@ Airbo.TileVisualPreviewMgr = (function(){
   }
 
   function showEmbedVideo(){
-    $(".embed-video-container").show();
-   $("#tile_builder_form_embed_video").focus();
+    $(".embed-video-container").addClass("present").show();
+    $("#tile_builder_form_embed_video").focus();
   }
 
   function hideEmbedVideo(){
-    $(".embed-video-container").hide();
+    $(".embed-video-container").removeClass("present").hide();
   }
-
-  function hideVisualContentPanel(){
-    $(".visual-content-container").slideUp();
-    hideImageWrapper();
-    hideEmbedVideo();
-    $(".hide-search").hide();
-  }
-
-  function hideVideoErrors(){
-    hideLoader();
-    hideUnloadableError();
-    hideUnparsableError();
-  }
-
-  function hideLoader(){
-    $(".endless_scroll_loading").hide();
-  }
-
-  function hideUnparsableError(){
-    $(".unparsable").hide();
-  }
-
-  function hideUnloadableError(){
-    $(".unloadable").hide();
-  }
-
-
-
-  function initHideVisualContent(){
-    $("body").on("click", ".hide-search", function(event){
-      resetSearchInput();
-
-      $.Topic("media-input-hidden").publish();
-      hideVisualContentPanel();
-    });
-  }
-
-  function showVisualContentPanel(){
-    $(".hide-search").show();
-    $(".visual-content-container").slideDown();
-  }
-
 
   function showVideoPreview(){
     $(".video_section").show();
@@ -80,19 +38,70 @@ Airbo.TileVisualPreviewMgr = (function(){
     });
   }
 
+  function hideLoader(){
+    $(".endless_scroll_loading").hide();
+  }
+
+  function showLoader(){
+    $(".endless_scroll_loading").show();
+  }
+
+
+  function hideUnparsableError(){
+    $(".unparsable").hide();
+  }
+
+  function showUnparsableError(){
+    $(".unparsable").show();
+  }
+
+  function hideUnloadableError(){
+    $(".unloadable").hide();
+  }
+
+  function emptyImages(){
+   var grid = $("#images")
+   if(grid.data('flickity')){
+     grid.flickity('destroy');
+   }
+   grid.empty();
+  }
+
+  function hideVisualContentPanel(){
+    var dest = jQuery('.image_preview').offset().top;
+    $(".visual-content-container").slideUp();
+    hideImageWrapper();
+    hideEmbedVideo();
+    $('.reveal-modal').animate({ scrollTop: 0 }, 700);
+  }
+
+  function hideVideoErrors(){
+    hideLoader();
+    hideUnloadableError();
+    hideUnparsableError();
+  }
+
+
+
+  function showVisualContentPanel(){
+    $(".visual-content-container").slideDown();
+  }
+
+
   function toggleOffVideo(){
     hideEmbedVideo();
   }
 
 
   function showSearchResults() {
-    showImageWrapper();
     showVisualContentPanel();
+    showImageWrapper();
   }
 
   function initShowVideoPanel(){
     $("body").on("click", ".img-menu-item.video", function(event){
       hideImageWrapper();
+      emptyImages();
       resetSearchInput();
       showEmbedVideo();
       hideVideoErrors();
@@ -105,32 +114,67 @@ Airbo.TileVisualPreviewMgr = (function(){
     initShowVideoPanel();
   }
 
-  function init(){
+  function showMediaPanelCloseButton(){
+    $(".hide-media-panel-button").show();
+  }
+
+
+  function hideMediaPanelCloseButton(){
+    $(".hide-media-panel-button").hide();
+  }
+
+  function initCustomEventsSubscriber(){
+
     $.Topic("image-results-added").subscribe( function(){
-      showSearchResults();
+      hideLoader();
     });
 
     $.Topic("video-added").subscribe( function(){
       hideVisualContentPanel()
+      hideLoader();
       $(".video_section").show();
       $("#image_uploader").hide();
     });
 
+    $.Topic("video-link-entered").subscribe(function(){
+      showLoader(); 
+    });
+
+    $.Topic("video-link-cleared").subscribe(function(){
+      hideVideoErrors()
+    })
+
+
+    $.Topic("video-load-error").subscribe(function(){
+      hideLoader();
+      $(".unloadable").show();
+    });
+
+
     $.Topic("video-removed").subscribe( function(){
       $("#image_uploader").show();
+      hideLoader();
       hideVideoPreview();
     });
 
+    $.Topic("video-link-parse-error").subscribe(function(){
+      hideLoader();
+      showUnparsableError();
+    });
+
+
+    $.Topic("media-request-done").subscribe(function(){
+      showMediaPanelCloseButton();
+    });
 
     $.Topic("inititiating-image-search").subscribe( function(){
       $("#remote_media_url").val("");
       $("#tile_builder_form_embed_video").val("");
       hideVideoPreview();
       hideEmbedVideo();
+      showSearchResults();
+      showLoader(); 
     });
-
-    initPreviewByType();
-    initVisualContent();
   }
 
   function initPreviewByType(){
@@ -138,6 +182,25 @@ Airbo.TileVisualPreviewMgr = (function(){
       $("#image_uploader").hide();
       showVideoPreview()
     }
+  }
+
+  function initHideVisualContent(){
+    $("body").on("click", ".hide-media-panel-button", function(event){
+      resetSearchInput();
+      hideVisualContentPanel();
+
+      if($(".unparsable").is(":visible")){
+        $("#remote_media_url").val("");
+        $("#tile_builder_form_embed_video").val("");
+      }
+
+    });
+  }
+
+  function init(){
+    initCustomEventsSubscriber();
+    initPreviewByType();
+    initVisualContent();
   }
 
 
