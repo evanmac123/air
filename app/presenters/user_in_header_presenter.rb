@@ -166,9 +166,9 @@ class UserInHeaderPresenter
     end
   end
 
-  ORGS_TO_ROLL_OUT_END_USER_SEARCH = [37]
+  ORGS_TO_ROLL_OUT_END_USER_SEARCH = ["Airbo"]
   def rollout_to_end_user?(demo_id)
-    Demo.select(:id).joins(:organization).where(organization: { id: ORGS_TO_ROLL_OUT_END_USER_SEARCH }).pluck(:id).include?(demo_id)
+    Demo.select(:id).joins(:organization).where(organization: { name: ORGS_TO_ROLL_OUT_END_USER_SEARCH }).pluck(:id).include?(demo_id)
   end
 
   protected
