@@ -1,6 +1,6 @@
 module AuthorizePublicBoardsConcern
   def guest_user?
-    guest_user if find_board_for_guest || single_tile_request
+    guest_user if find_board_for_guest || single_tile_request || more_tiles_request
   end
 
   def find_board_for_guest
@@ -23,5 +23,9 @@ module AuthorizePublicBoardsConcern
 
   def single_tile_request
     params[:controller] == "tiles" && params[:action].in?(%w(show))
+  end
+
+  def more_tiles_request
+    params[:controller] == "tiles" && params[:action].in?(%w(index))
   end
 end
