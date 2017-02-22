@@ -1,4 +1,7 @@
 en:
+  defaults:
+    links:
+      back_to_your_board: "Back to your Board"
   number:
     human:
       decimal_units:

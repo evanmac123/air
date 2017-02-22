@@ -16,6 +16,14 @@
     }
   }
 
+  .back_to_your_board_link {
+    margin-left: 20px;
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   .searchMoreTabLink {
     margin: 1em;
     margin-bottom: 0;
@@ -33,7 +41,6 @@
     }
     .search-results-description {
       margin:20px;
-      border-bottom: 1px solid $n-blue;
       display:inline-block;
     }
     .search-results-section {
