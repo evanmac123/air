@@ -44,4 +44,23 @@ module TilesHelper
       "Return to homepage"
     end
   end
+
+  def tile_completed?(tile, execute_query = true)
+    if execute_query
+      @tile_completions ||= current_user.tile_completions.pluck(:tile_id)
+      @tile_completions.include?(tile.id)
+    end
+  end
+
+  def display_tile_for_search(tile)
+    if do_not_display_unanswered_archived_tiles(tile)
+      return false
+    else
+      return true
+    end
+  end
+
+  def do_not_display_unanswered_archived_tiles(tile)
+    current_user.end_user? && tile.archived? && !tile_completed?(tile)
+  end
 end
