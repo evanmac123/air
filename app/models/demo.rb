@@ -90,6 +90,17 @@ class Demo < ActiveRecord::Base
 
   attr_accessor :unlink
 
+  ###ROLLOUT
+    def has_end_user_search
+      rdb[:has_end_user_search].get == "true"
+    end
+
+    def has_end_user_search=(bool)
+      rdb[:has_end_user_search].set(bool)
+    end
+  ###
+
+
   def self.paid
     where(is_paid: true)
   end

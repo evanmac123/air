@@ -155,20 +155,15 @@ class UserInHeaderPresenter
   end
 
   def show_search_bar?
-    if user.is_a?(User) && (user.is_client_admin || user.is_site_admin)
+    if current_user.is_a?(User) && (current_user.is_client_admin || current_user.is_site_admin)
       true
-    elsif user.is_a?(GuestUser)
+    elsif current_user.is_a?(GuestUser)
       true
-    elsif user.end_user? && rollout_to_end_user?(user.demo_id)
+    elsif current_user.end_user? && current_user.demo.has_end_user_search
       true
     else
       false
     end
-  end
-
-  ORGS_TO_ROLL_OUT_END_USER_SEARCH = ["Airbo"]
-  def rollout_to_end_user?(demo_id)
-    Demo.select(:id).joins(:organization).where(organization: { name: ORGS_TO_ROLL_OUT_END_USER_SEARCH }).pluck(:id).include?(demo_id)
   end
 
   protected
