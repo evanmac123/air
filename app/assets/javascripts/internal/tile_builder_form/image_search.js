@@ -36,8 +36,8 @@ Airbo.ImageSearcher = (function(){
 
     $.Topic("image-results-added").publish();
     presentData(html);
-
-    Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==undefined)});
+$.Topic("media-request-done").publish();
+Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==undefined)});
   }
 
   function presentData(html){
@@ -61,6 +61,9 @@ Airbo.ImageSearcher = (function(){
     }
 
   }
+
+ 
+ 
 
 
 
@@ -101,8 +104,18 @@ Airbo.ImageSearcher = (function(){
     })
   }
 
+  function initSearchFocus(){
+    $(".search-input").focusin(function(event){
+      $(this).parents(".search").addClass("focused");
+    })
 
-  function initPreviewSelectedImage(){
+
+    $(".search-input").focusout(function(event){
+      $(this).parents(".search").removeClass("focused");
+    })
+  }
+
+   function initPreviewSelectedImage(){
     $("body").on("click","#images img", function(event){
       var img = $(this);
       var props= {url: $(this).data("preview")};
@@ -128,6 +141,7 @@ Airbo.ImageSearcher = (function(){
     initTriggerImageSearch()
     initPreviewSelectedImage();
     loadImageProviders();
+    initSearchFocus();
   }
 
   return {

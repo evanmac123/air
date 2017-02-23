@@ -37,7 +37,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
   context "tile with empty stats" do
     before do
-      @tile = FactoryGirl.create :tile, status: Tile::ACTIVE, demo: demo, question: "Is survey table present?"
+      @tile = FactoryGirl.create :tile, status: Tile::ACTIVE, demo: demo, question: "Is survey table present?", correct_answer_index: 0
       open_stats(@tile)
     end
 

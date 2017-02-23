@@ -28,11 +28,12 @@
   $border-hover: #636363;
   position:absolute;
   top: 8px;
-  right: 8px;
-  width: calc(100% - 8px);
+
+
+
   li {
     display: inline-block;
-    float: right;
+    float: left;
     width: auto;
     cursor: pointer;
     margin-left: 5px;
@@ -59,6 +60,9 @@
         }
       }
     }
+    &.destroy_button {
+     margin-left: 45px;
+    }
     &.edit_button, &.more_button, &.destroy_button {
       width: 32px;
       height: 32px;
@@ -70,6 +74,7 @@
         border-color: $border-hover;
       }
     }
+
     &.more_button {
       padding-top: 13px;
       span {
@@ -98,6 +103,8 @@
     }
   }
 }
+
+
 .tooltipster-thumbnail-menu {
   .tooltipster-content {
     padding: 13px 14px;
@@ -257,3 +264,16 @@
     }
   }
 }
+
+#active_tiles,  {
+  .tile_buttons {
+    margin-left: 25%;
+  }
+}
+
+#archived_tiles {
+  .tile_buttons {
+    margin-left: 17%;
+  }
+}
+

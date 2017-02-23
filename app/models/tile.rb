@@ -62,6 +62,7 @@ class Tile < ActiveRecord::Base
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", if: :state_is_anything_but_draft?
   validates_presence_of :question, :allow_blank => false, :message => "question can't be blank",  if: :state_is_anything_but_draft?
   validates_presence_of :remote_media_url, message: "image is missing" , if: :state_is_anything_but_draft?
+  validate :multiple_choice_question, if: :state_is_anything_but_draft?
   validates_inclusion_of :status, in: STATUS
 
   validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
@@ -173,7 +174,7 @@ class Tile < ActiveRecord::Base
   end
 
   def is_fully_assembled?
-    headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content_raw_text.length <= MAX_SUPPORTING_CONTENT_LEN
+    headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content_raw_text.length <= MAX_SUPPORTING_CONTENT_LEN && has_correct_answer_selected?
   end
 
   def points= p
@@ -346,6 +347,21 @@ class Tile < ActiveRecord::Base
   end
 
   private
+
+  def multiple_choice_question
+    unless( has_correct_answer_selected?)
+      errors.add(:base, "Please select correct answer")
+    end
+  end
+
+  def has_correct_answer_selected?
+    if(question_type == QUIZ)
+      correct_answer_index != -1 
+    else
+      true
+    end
+  end
+
 
   def image_set_to_blank
     remote_media_url == ""

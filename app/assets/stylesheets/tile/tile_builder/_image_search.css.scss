@@ -3,12 +3,13 @@
 }
 
 
-.hide-search{
+.hide-search, .hide-media-panel-button{
   display: none;
-  margin: 10px 40px;
+  margin: 15px 40px;
   text-align: center;
-  a {
-    color: #a8a8a8;
+  clear: both;
+  .button {
+    width: 100%;
   }
 }
 
@@ -18,7 +19,12 @@
   display:none;
   border-bottom: 2px dashed #f3f3f3;
 
-
+  .endless_scroll_loading{
+    display: none;
+    .fa-spinner{
+      color:#48BFFF;
+    }
+  }
 
   .flickity-prev-next-button{
     border: none;
@@ -40,13 +46,12 @@
 
 .embed-video-container{
   display: none;
-  margin: 40px;
-  .endless_scroll_loading{
-    display: none;
-    .fa-spinner{
-      color:#48BFFF;
-    }
-  }
+  margin: 20px 40px;
+
+}
+
+.embed-video-container.present ~ .hide-media-panel-button{
+  display:block;
 }
 
 .images-wrapper{
@@ -54,21 +59,28 @@
   padding: 20px 40px;
   display: none;
   #images{
-    
+
   }
 }
 
-.attribution{
+.images-wrapper > .attribution{
   float: right;
+  margin: 5px 0;
+  display: none;
   a{
     color: inherit;
   }
- img.pixabay{
-   margin-left: 5px;
-   width:70px;
- }
+
+  img.pixabay{
+    margin-left: 5px;
+    width: 70px;
+  }
+
 }
 
+.flickity-enabled + .attribution {
+  display: block;
+}
 
 .cell-group{
   width:100%;
@@ -95,8 +107,7 @@
 
 input[type=text].search-input{
   float: left; 
-  height:30px;
-  padding: 5px;
+  padding: 0;
   padding-right: 0px;
   width: 200px;
   height: 18px;
@@ -110,6 +121,7 @@ input[type=text].search-input{
 .limited-height{
   max-height:500px;
 }
+
 .image-menu, .video-menu{
   position: absolute;
   bottom: 10px;
@@ -117,6 +129,13 @@ input[type=text].search-input{
   opacity: 1;
   li{
     display: inline-block;
+  }
+
+  .img-menu-item {
+    &.clear, &.expand-contract{
+      display: none;
+    }
+
   }
 
   .img-menu-item, .video-menu-item{
@@ -129,14 +148,26 @@ input[type=text].search-input{
     border: 1px solid #fff;
 
     i {
-      color: #5c5c5c;
+      color: $n-blue;
+    }
+
+    &.focused{
+      border: 1px solid #15adff;
     }
 
     &:hover {
-
-      border: 1px solid #999;
       i {
-        color: #262626;
+        color: #15adff
+      }
+    }
+  }
+}
+
+.image_preview.present {
+  .image-menu {
+    .img-menu-item {
+      &.clear, &.expand-contract{
+        display: inline-block;
       }
     }
   }
@@ -151,3 +182,4 @@ input[type=text].search-input{
    text-align: center;
   }
 }
+

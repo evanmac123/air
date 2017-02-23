@@ -13,8 +13,9 @@ var Airbo = window.Airbo || {};
 Airbo.TileImagePreviewer = (function(){
   var  remoteMediaUrlSelector = '#remote_media_url'
     , remoteMediaTypeSelector = '#remote_media_type'
-    , clearImage
     , clearImageSelector = '.img-menu-item.clear'
+    , imagePreviewSelector = '.image_preview'
+    , clearImage
   ;
   function removeImageCredit() {
     $('.image_credit_view').text('').trigger('keyup').trigger('focusout');
@@ -23,10 +24,12 @@ Airbo.TileImagePreviewer = (function(){
 
   function setPreviewImage(imageUrl, imgWidth, imgHeight) {
     $('#upload_preview').attr("src", imageUrl);
+    $(imagePreviewSelector).addClass("present");
   };
 
   function removeImage(){
     $("#upload_preview").attr("src","/assets/missing-search-image.png") 
+    $(imagePreviewSelector).removeClass("present");
     removeImageCredit();
     remoteMediaUrl.val('');
     remoteMediaUrl.change();
