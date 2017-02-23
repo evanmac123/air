@@ -1,6 +1,6 @@
 class AirboSearch
   ADMIN_PER_PAGE = 20
-  USER_PER_PAGE = 12
+  USER_PER_PAGE = 20
   OVERVIEW_LIMIT = 3 #index value
 
   attr_accessor :query, :user, :demo, :options
@@ -13,10 +13,14 @@ class AirboSearch
   end
 
   def user_tiles(page = 1)
+    if user_search
+      @user_tiles ||= demo.tiles.search(formatted_query, user_tiles_options([Tile::ACTIVE], page))
+    end
+  end
+
+  def client_admin_tiles(page = 1)
     if admin_search
-      @user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE], page))
-    elsif user_search
-      @user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::ACTIVE, Tile::ARCHIVE], page))
+      @client_admin_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE], page))
     end
   end
 
@@ -27,13 +31,13 @@ class AirboSearch
   end
 
   def campaigns
-    if admin_search
+    if explore_search
       @campaigns ||= Campaign.search(query, { order: [_score: :desc, created_at: :desc] })
     end
   end
 
   def total_result_count
-    user_tiles.total_count + explore_tiles.total_count + campaigns.total_count
+    [user_tiles, client_admin_tiles, explore_tiles, campaigns].map { |results| get_count(results) }.sum
   end
 
   def overview_limit
@@ -44,7 +48,26 @@ class AirboSearch
     user_tiles.present? || explore_tiles.present? || campaigns.present?
   end
 
+  def track_initial_search
+    tracking = Searchjoy::Search.new(
+      search_type: search_type_tracking,
+      query: query,
+      results_count: total_result_count,
+    )
+
+    #Quick fix to SearchJoy incompatibility with Rails 3.2 mass asignment.  Explore alternate options.
+    tracking.user_id = user_id_tracking,
+    tracking.demo_id = demo_id_tracking,
+    tracking.user_email = user_email_tracking
+
+    tracking.save
+  end
+
   private
+
+    def get_count(results)
+      results ? results.total_count : 0
+    end
 
     def formatted_query
       return '*' if query.blank?
@@ -64,8 +87,16 @@ class AirboSearch
         where: {
           demo_id: demo_id,
           status:  tile_status
-        },
-        track: search_tracking_data,
+        }
+      }.merge(default_tile_options(page))
+    end
+
+    def client_admin_tiles_options(tile_status, page)
+      {
+        where: {
+          demo_id: demo_id,
+          status:  tile_status
+        }
       }.merge(default_tile_options(page))
     end
 
@@ -100,11 +131,11 @@ class AirboSearch
     end
 
     def admin_search
-      user_search && (user.is_client_admin || user.is_site_admin)
+      user.is_a?(User) && (user.is_client_admin || user.is_site_admin)
     end
 
     def user_search
-      user.is_a?(User)
+      user.is_a?(User) && user.end_user?
     end
 
     def explore_search
@@ -112,16 +143,40 @@ class AirboSearch
     end
 
     def get_demo
-      if user_search
+      if user.is_a?(User)
         user.demo
       end
     end
 
-    def search_tracking_data
+    def search_type_tracking
       if user.is_a?(User)
-        { user_id: user.id, user_email: user.email }
-      elsif user.is_a?(GuestUser)
-        {}
+        if user.end_user?
+          "User Search"
+        elsif user.is_site_admin
+          "SA Search"
+        else
+          "CA Search"
+        end
+      else
+        "Guest Search"
+      end
+    end
+
+    def user_id_tracking
+      if user.is_a?(User)
+        user.id
+      end
+    end
+
+    def demo_id_tracking
+      if user.is_a?(User)
+        user.demo_id
+      end
+    end
+
+    def  user_email_tracking
+      if user.is_a?(User)
+        user.email
       end
     end
 end

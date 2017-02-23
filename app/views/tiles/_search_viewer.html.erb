@@ -1,0 +1,8 @@
+<div class="container row">
+  <div class="viewer" data-from-search="<%= params[:from_search] %>">
+    <div id="slideshow">
+      <%= link_to "Back to search results", "#", class: "button back-to-search-results white", style: "margin-bottom:20px;" %>
+      <%= render partial: 'full_size_tile', locals:{ tile: @start_tile} %>
+    </div>
+  </div>
+</div>

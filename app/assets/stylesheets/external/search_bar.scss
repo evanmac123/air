@@ -12,6 +12,9 @@
     &.error {
       border-color: transparentize($n-pink, .5);
     }
+    &.focus {
+      border-color: $n-blue;
+    }
 
     .search-bar-input {
       padding: 0.5em;

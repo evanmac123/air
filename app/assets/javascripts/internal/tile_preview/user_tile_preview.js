@@ -98,17 +98,19 @@ Airbo.UserTilePreview =(function(){
       var result = mergeReturnedDataWithLocal(data);
 
       var handler = function() {
-        if (result.all_tiles_done === true) {
-          $('.content .container.row').replaceWith(result.tile_content);
-          showOrHideStartOverButton(data.show_start_over_button === true);
+        if (Airbo.UserTilePreview.fromSearch !== true) {
+          if (result.all_tiles_done === true) {
+            $('.content .container.row').replaceWith(result.tile_content);
+            showOrHideStartOverButton(data.show_start_over_button === true);
+          } else {
+            $('#slideshow').html(result.tile_content);
+            initTile();
+            showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
+            ungrayoutTile();
+          }
         } else {
-          $('#slideshow').html(result.tile_content);
-          initTile();
-          showOrHideStartOverButton($('#slideshow .tile_holder').data('show-start-over') === true);
-          ungrayoutTile();
-
+          Airbo.UserTileSearch.closeTileViewAfterAnswer();
         }
-
       };
       $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(handler);
     };
@@ -216,7 +218,7 @@ Airbo.UserTilePreview =(function(){
       tile_type: tileType
     };
     if( tileType == "Spouse Invite" ) {
-      pingParams["sent_invite"] = $(event.target).hasClass("invitation_answer");
+      pingParams.sent_invite = $(event.target).hasClass("invitation_answer");
     }
     Airbo.Utils.ping('Tile - Completed', pingParams);
   }
@@ -228,7 +230,7 @@ Airbo.UserTilePreview =(function(){
 
     if (isRemote()){
       postTileCompletionPing(event);
-      var response = $.ajax({
+        response = $.ajax({
           type: "POST",
           url: $(event.target).attr('href'),
           headers: { 'X-CSRF-Token': findCsrfToken() },
@@ -283,7 +285,7 @@ Airbo.UserTilePreview =(function(){
    var tileCompletionPosted = postTileCompletion(event),
        grayedOutAndScrolled = grayoutAndScroll(event);
 
-   $.when( tileCompletionPosted,grayedOutAndScrolled).then(function(xhr, res) {
+   $.when(tileCompletionPosted, grayedOutAndScrolled).then(function(xhr, res) {
      getTileAfterAnswer(xhr[2].responseText);
    });
  }
@@ -346,8 +348,8 @@ Airbo.UserTilePreview =(function(){
     });
   }
 
-
-  function init(){
+  function init(fromSearch){
+    this.fromSearch = fromSearch;
     bindTileCarouselNavigationButtons();
     initTile();
   }

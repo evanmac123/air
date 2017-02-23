@@ -19,6 +19,16 @@ Airbo.Search = (function(){
     Airbo.Utils.ButtonSpinner.reset($(this));
   }
 
+  function bindSearchBarFocus() {
+    $('.search-bar-input').focus( function() {
+      $('.search-bar-wrapper').addClass('focus');
+    });
+
+    $('.search-bar-input').blur( function() {
+      $('.search-bar-wrapper').removeClass('focus');
+    });
+  }
+
   function bindSearchSubmit() {
     $("#nav-bar-search-submit").on("click", function(e) {
       e.preventDefault();
@@ -79,6 +89,7 @@ Airbo.Search = (function(){
 
   function init() {
     bindSearchSubmit();
+    bindSearchBarFocus();
   }
 
   return {
@@ -89,8 +100,9 @@ Airbo.Search = (function(){
 }());
 
 $(function(){
+  Airbo.Search.init();
+
   if( $(".explore-search-results").length > 0 ) {
-    Airbo.Search.init();
     Airbo.SearchTabs.init();
 
     $(".search.tile-grid.explore_tiles").each(function(index, container) {
@@ -99,6 +111,10 @@ $(function(){
 
     $(".search.tile-grid.client_admin_tiles").each(function(index, container) {
       Airbo.Search.loadResourcesInBackground($(container), Airbo.SearchTileThumbnail.initTiles);
+    });
+
+    $(".search.tile-grid.user_tiles").each(function(index, container) {
+      Airbo.Search.loadResourcesInBackground($(container), Airbo.UserTileSearch.init);
     });
   }
 });

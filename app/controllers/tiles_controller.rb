@@ -43,7 +43,9 @@ class TilesController < ApplicationController
   end
 
   def show
-    if params[:partial_only]
+    if params[:from_search]
+      render_search_tile_viewer
+    elsif params[:partial_only]
       new_tile_was_rendered = render_new_tile
       if new_tile_was_rendered
         schedule_viewed_tile_ping(current_tile)
@@ -85,6 +87,13 @@ class TilesController < ApplicationController
 
     def first_id
       satisfiable_tiles.first.try(:id)
+    end
+
+    def render_search_tile_viewer
+      @start_tile = Tile.find(params[:id])
+      render json: {
+        tile_content: render_to_string("tiles/_search_viewer",  layout: false),
+      }
     end
 
     def render_new_tile
@@ -130,7 +139,20 @@ class TilesController < ApplicationController
     end
 
     def current_tile
-      @tile ||= Tile.find(current_tile_id)
+      if params[:fromSearch] == "true"
+        current_tile_for_search
+      else
+        @tile ||= Tile.find(current_tile_id)
+      end
+    end
+
+    def current_tile_for_search
+      neighboring_tiles = params[:previous_tile_ids].split(",")
+      if params[:offset] == "1"
+        Tile.find(neighboring_tiles[-1])
+      else
+        Tile.find(neighboring_tiles[0])
+      end
     end
 
 

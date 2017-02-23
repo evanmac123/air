@@ -13,3 +13,11 @@ $(function(){
     });
   }
 });
+
+$(function(){
+  if( $(".search.tile-grid.user_tiles").length > 0 ) {
+    $(".search.tile-grid.user_tiles").each(function(index, container) {
+      Airbo.Utils.EndlessScroll.init($(container), Airbo.UserTileSearch.init);
+    });
+  }
+});

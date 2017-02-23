@@ -71,6 +71,7 @@ module Health
       app-external.js
       app-landing.js
       app-pages.js
+      app-search.js
       app-client-admin.js
       for-modern-browsers.js
       file-uploader.js

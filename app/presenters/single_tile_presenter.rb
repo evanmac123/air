@@ -26,7 +26,7 @@ class SingleTilePresenter < BasePresenter
   end
 
   def partial
-    'client_admin/tiles/manage_tiles/single_tile'
+    'client_admin/tiles/manage_tiles/no_cache_single_tile'
   end
 
   #this method is redundant as to_param is notset for Tile, so it just returns id
@@ -42,9 +42,9 @@ class SingleTilePresenter < BasePresenter
   end
 
   def status_marker
-    if from_search?
-      content_tag :div, display_status, class: "status_marker #{display_status}"
-    end
+    # if from_search?
+    #   content_tag :div, display_status, class: "status_marker #{display_status}"
+    # end
   end
 
   def display_status

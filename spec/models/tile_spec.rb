@@ -365,6 +365,14 @@ describe Tile do
     let(:demo) { FactoryGirl.create(:demo) }
     let(:tile) { FactoryGirl.create(:multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true) }
 
+    it 'should be indexed', elasticsearch: true do
+      FactoryGirl.create(:tile, headline: "Food")
+
+      Tile.reindex
+
+      expect(Tile.search("food").records.length).to eq(1)
+    end
+
     context 'no tags on tile' do
       it 'should return a serializable hash of a tile object plus an empty string tags key/value' do
         expect(tile.search_data).to eql(tile.serializable_hash.merge({ channel_list: [], organization_name: tile.organization.try(:name)}))
@@ -381,6 +389,5 @@ describe Tile do
         expect(tile_with_channels.search_data).to eql(tile_with_channels.serializable_hash.merge({ channel_list: ["wellness"], organization_name: tile_with_channels.organization.try(:name)}))
       end
     end
-
   end
 end

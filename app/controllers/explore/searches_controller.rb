@@ -18,6 +18,8 @@ class Explore::SearchesController < ExploreBaseController
         lastBatch: last_batch?,
         page: params[:page]
       }
+    else
+      @search_service.track_initial_search
     end
   end
 
@@ -26,7 +28,7 @@ class Explore::SearchesController < ExploreBaseController
     def search_section
       case params[:section]
       when "client_admin_tiles"
-        { tiles_to_render: "user_tiles", presenter_to_render: SingleAdminTilePresenter }
+        { tiles_to_render: "client_admin_tiles", presenter_to_render: SingleAdminTilePresenter }
       when "explore_tiles"
         { tiles_to_render: "explore_tiles", presenter_to_render: SingleExploreTilePresenter }
       when "user_tiles"

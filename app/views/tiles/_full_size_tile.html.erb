@@ -12,7 +12,6 @@
   "key" => tile.storage_key
    } do %>
 
-
   <div class="<%=tile_class(tile)%>">
     <div class="video_section" style="display:<%= tile.show_video? ? 'block' : 'none' %>">
       <%= unescape_html(tile.embed_video) %>
@@ -48,7 +47,7 @@
  </div>
 
  <%end%>
-<%= render 'tiles/copy_button', tile: tile if show_copy_button%>
+<%= render 'tiles/copy_button', tile: tile if show_copy_button %>
 
 <% tile.adjacent_tile_image_urls.each do |adjacent_tile_image_url| %>
   <%= javascript_tag do %>

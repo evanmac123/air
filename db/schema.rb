@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170210231521) do
+ActiveRecord::Schema.define(:version => 20170223005709) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -887,6 +887,8 @@ ActiveRecord::Schema.define(:version => 20170210231521) do
     t.integer  "convertable_id"
     t.string   "convertable_type"
     t.datetime "converted_at"
+    t.integer  "demo_id"
+    t.string   "user_email"
   end
 
   add_index "searchjoy_searches", ["convertable_id", "convertable_type"], :name => "index_searchjoy_searches_on_convertable_id_and_convertable_type"

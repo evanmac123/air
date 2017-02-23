@@ -35,7 +35,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def tile_count
-    tiles.explore.count
+    active_tiles.count
   end
 
   def to_param
