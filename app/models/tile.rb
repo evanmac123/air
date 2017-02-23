@@ -167,6 +167,10 @@ class Tile < ActiveRecord::Base
     organization ? organization.name : "airbo"
   end
 
+  def archived?
+    status == Tile::ARCHIVE
+  end
+
   def handle_unarchived new_status, redigest
     if status == ARCHIVE && new_status == ACTIVE && redigest=="true"
       allow_activated_at_reset
