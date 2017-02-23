@@ -136,10 +136,20 @@ class AirboSearch
     end
 
     def search_tracking_data
+      tracking_data = {}
       if user.is_a?(User)
-        { user_id: user.id, user_email: user.email }
-      elsif user.is_a?(GuestUser)
-        {}
+        tracking_data.merge!({ user_id: user.id, user_email: user.email })
+        if user.end_user?
+          tracking_data.merge!({ search_type: "User Search" })
+        elsif user.is_site_admin
+          tracking_data.merge!({ search_type: "SA Search" })
+        else
+          tracking_data.merge!({ search_type: "CA Search" })
+        end
+      else
+        tracking_data.merge!({ search_type: "Guest Search" })
       end
+
+      tracking_data
     end
 end
