@@ -49,7 +49,7 @@ class AirboSearch
   end
 
   def track_initial_search
-    tracking = Searchjoy::Search.create(
+    tracking = Searchjoy::Search.new(
       search_type: search_type_tracking,
       query: query,
       results_count: total_result_count,
