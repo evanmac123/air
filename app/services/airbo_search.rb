@@ -48,6 +48,21 @@ class AirboSearch
     user_tiles.present? || explore_tiles.present? || campaigns.present?
   end
 
+  def track_initial_search
+    tracking = Searchjoy::Search.create(
+      search_type: search_type_tracking,
+      query: query,
+      results_count: total_result_count,
+    )
+
+    #Quick fix to SearchJoy incompatibility with Rails 3.2 mass asignment.  Explore alternate options.
+    tracking.user_id = user_id_tracking,
+    tracking.demo_id = demo_id_tracking,
+    tracking.user_email = user_email_tracking
+
+    tracking.save
+  end
+
   private
 
     def get_count(results)
@@ -72,8 +87,7 @@ class AirboSearch
         where: {
           demo_id: demo_id,
           status:  tile_status
-        },
-        track: search_tracking_data,
+        }
       }.merge(default_tile_options(page))
     end
 
@@ -82,8 +96,7 @@ class AirboSearch
         where: {
           demo_id: demo_id,
           status:  tile_status
-        },
-        track: search_tracking_data,
+        }
       }.merge(default_tile_options(page))
     end
 
@@ -135,21 +148,35 @@ class AirboSearch
       end
     end
 
-    def search_tracking_data
-      tracking_data = {}
+    def search_type_tracking
       if user.is_a?(User)
-        tracking_data.merge!({ user_id: user.id, user_email: user.email })
         if user.end_user?
-          tracking_data.merge!({ search_type: "User Search" })
+          "User Search"
         elsif user.is_site_admin
-          tracking_data.merge!({ search_type: "SA Search" })
+          "SA Search"
         else
-          tracking_data.merge!({ search_type: "CA Search" })
+          "CA Search"
         end
       else
-        tracking_data.merge!({ search_type: "Guest Search" })
+        "Guest Search"
       end
+    end
 
-      tracking_data
+    def user_id_tracking
+      if user.is_a?(User)
+        user.id
+      end
+    end
+
+    def demo_id_tracking
+      if user.is_a?(User)
+        user.demo_id
+      end
+    end
+
+    def  user_email_tracking
+      if user.is_a?(User)
+        user.email
+      end
     end
 end

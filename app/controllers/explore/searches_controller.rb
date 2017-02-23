@@ -18,6 +18,8 @@ class Explore::SearchesController < ExploreBaseController
         lastBatch: last_batch?,
         page: params[:page]
       }
+    else
+      @search_service.track_initial_search
     end
   end
 
