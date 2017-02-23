@@ -282,6 +282,10 @@ class Tile < ActiveRecord::Base
     ReorderExplorePageTiles.new(tile_ids).reorder
   end
 
+  def self.displayable_tiles_select_clause
+    [:id, :headline, :demo_id, :tile_completions_count, :thumbnail_file_name, :thumbnail_content_type, :thumbnail_file_size, :thumbnail_updated_at, :position]
+  end
+
   def right_tile
     self_position = self.position
     Tile.where(demo: self.demo)
@@ -356,7 +360,7 @@ class Tile < ActiveRecord::Base
 
   def has_correct_answer_selected?
     if(question_type == QUIZ)
-      correct_answer_index != -1 
+      correct_answer_index != -1
     else
       true
     end

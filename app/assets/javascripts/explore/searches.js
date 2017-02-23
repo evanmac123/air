@@ -112,9 +112,5 @@ $(function(){
     $(".search.tile-grid.client_admin_tiles").each(function(index, container) {
       Airbo.Search.loadResourcesInBackground($(container), Airbo.SearchTileThumbnail.initTiles);
     });
-
-    $(".search.tile-grid.user_tiles").each(function(index, container) {
-      Airbo.Search.loadResourcesInBackground($(container), Airbo.UserTileSearch.init);
-    });
   }
 });

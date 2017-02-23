@@ -44,4 +44,11 @@ module TilesHelper
       "Return to homepage"
     end
   end
+
+  def tile_completed?(tile, execute_query = true)
+    if execute_query
+      @tile_completions ||= current_user.tile_completions.pluck(:tile_id)
+      @tile_completions.include?(tile.id)
+    end
+  end
 end
