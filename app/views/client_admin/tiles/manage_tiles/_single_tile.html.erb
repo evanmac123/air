@@ -1,26 +1,3 @@
 <% cache [__FILE__, 'v11.ant', presenter.cache_key] do %>
-  <%= content_tag :div,  class: "tile_container #{presenter.completion_status} #{presenter.tile_status}",  data: {"tile-container-id" =>"#{presenter.tile_id}", "status" => presenter.status, "has_completions" => presenter.tile_completions_count > 0, "assembly_required" => presenter.assembly_required?} do %>
-     
-    <%=content_tag :div, class: "tile_thumbnail #{presenter.tile_status} #{presenter.completed_class}", id: "single-tile-#{presenter.tile_id}", data: { tile_id: presenter.tile_id, from_search: presenter.from_search? } do %>
-      <div class="tile-wrapper">
-        <%= link_to presenter.show_tile_path, class:'tile_thumb_link tile_thumb_link_client_admin' , data:{action: "show", tile_id: presenter.tile_id} do %>
-          <div class="tile_thumbnail_image">
-            <%= image_tag presenter.thumbnail %>
-          </div>
-          <%= presenter.activation_dates %>
-          <%= presenter.status_marker %>
-          <div class="headline">
-            <div class="text">
-              <%= presenter.headline %>
-            </div>
-          </div>
-        <% end %>
-        <div class="tile_overlay"></div>
-        <div class="shadow_overlay">
-        <%= render partial: 'client_admin/tiles/manage_tiles/tile_buttons', locals: { presenter: presenter } %>
-        </div>
-      </div>
-      <%= render partial: 'client_admin/tiles/manage_tiles/tile_stats', locals: { presenter: presenter } %>
-    <% end %>
-  <% end %>
+  <%=render partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals:{presenter: presenter}%>
 <% end %>

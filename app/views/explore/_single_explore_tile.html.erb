@@ -1,4 +1,4 @@
-<%= content_tag :div,  class: "tile_container",  data: {"tile-container-id" => "#{presenter.id}"} do %>
+<%= content_tag :div,  class: "tile_container explore",  data: {"tile-container-id" => "#{presenter.id}"} do %>
   <%= content_tag :div, class: "tile_thumbnail", id: "single-tile-#{presenter.id}", data: {"tile_id" =>"#{presenter.id}"} do %>
     <div class="tile-wrapper">
       <% cache tile do %>
