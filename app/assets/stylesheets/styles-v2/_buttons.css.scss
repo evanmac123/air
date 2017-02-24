@@ -114,7 +114,7 @@
 }
 
 //FIXME remove specificity hack
-.button.button {
+.button {
   @include button;
   // &. {
   //   @include button-color($gray-4);

@@ -138,7 +138,7 @@ ul.tabs {
       margin-right: 0;
     }
 
-    a {
+    a:not(.button) {
       @include ease(0.1s);
       border-bottom: 3px solid transparent;
       color: inherit;
