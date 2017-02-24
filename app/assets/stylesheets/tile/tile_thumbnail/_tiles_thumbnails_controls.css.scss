@@ -26,8 +26,10 @@
 .tile_buttons {
   $border-color: #999;
   $border-hover: #636363;
-  position:absolute;
-  top: 8px;
+
+  width: auto;
+  position: relative;
+  margin-top: 8px;
 
   li {
     display: inline-block;
@@ -60,27 +62,33 @@
       &.active, &:hover {
         border-color: $border-hover;
       }
-    }
-    &.more_button {
-      padding-top: 13px;
-      span {
-        display: block;
-        float: left;
-        width: 4px;
-        height: 4px;
-        border-radius: 3px;
-        margin-left: 2px;
-        background: #5c5c5c;
-        &:first-child {
-          margin-left: 6px;
-        }
+
+      &.destroy {
+        margin-left: 45px;
       }
-      &.active, &:hover {
+
+      &.more {
+        padding-top: 13px;
         span {
-          background: #262626;
+          display: block;
+          float: left;
+          width: 4px;
+          height: 4px;
+          border-radius: 3px;
+          margin-left: 2px;
+          background: #5c5c5c;
+          &:first-child {
+            margin-left: 6px;
+          }
+        }
+        &.active, &:hover {
+          span {
+            background: #262626;
+          }
         }
       }
     }
+
     &.ignore_button, &.accept_button {
       a {
         padding-left: 12px;
@@ -90,6 +98,25 @@
   }
 }
 
+.archive, .active{
+  .tile_buttons{
+    float: right;
+    margin-right: 11px;
+  }
+}
+
+.incomplete_button{
+  float: left;
+  .button {
+    background-color: #ff5656;
+    border-color: #ff5656;
+    &:hover{
+      background-color:#ff5656;
+      border-color: #ff5656;
+      opacity: .8;
+    }
+  }
+}
 
 .tooltipster-thumbnail-menu {
   .tooltipster-content {
@@ -161,7 +188,7 @@
   border-top-left-radius: 3px;
   z-index: 1;
   &.incomplete{
-   color:#ff5656;
+    color:#ff5656;
   }
 }
 .status_marker {
@@ -251,36 +278,8 @@
   }
 }
 
-.tile_container{
-  &.active  {
-    .tile_buttons {
-      margin-left: 25%;
-    }
-  }
-
-  &.archive {
-    .tile_buttons {
-      margin-left: 17%;
-    }
-  }
-}
 
 
-.pill.destroy {
-  margin-left: 45px;
-}
 
-.incomplete_button{
-  float: left;
-  .button {
-    background-color: #ff5656;
-    border-color: #ff5656;
-    &:hover{
-      background-color:#ff5656;
-      border-color: #ff5656;
-      opacity: .8;
-    }
-  }
-}
 
 

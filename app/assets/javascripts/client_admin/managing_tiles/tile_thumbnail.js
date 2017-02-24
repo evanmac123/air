@@ -13,7 +13,7 @@ Airbo.TileThumbnail = (function() {
     // FIXME
     // there are same events in Airbo.TilePreviewModal (edit, update, delete, duplicate)
     // reason: i want to have object, its elements and its events in one place
-    thumbnailMenu.initMoreBtn(tileContainer.find(".more_button"));
+    thumbnailMenu.initMoreBtn(tileContainer.find(".pill.more"));
 
     tileContainer.find(".update_status").click(function(e){
       e.preventDefault();

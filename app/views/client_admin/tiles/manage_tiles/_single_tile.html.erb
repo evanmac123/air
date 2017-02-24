@@ -14,10 +14,11 @@
               <%= presenter.headline %>
             </div>
           </div>
-          <div class="shadow_overlay"></div>
-          <div class="tile_overlay"></div>
         <% end %>
+        <div class="tile_overlay"></div>
+        <div class="shadow_overlay">
         <%= render partial: 'client_admin/tiles/manage_tiles/tile_buttons', locals: { presenter: presenter } %>
+        </div>
       </div>
       <%= render partial: 'client_admin/tiles/manage_tiles/tile_stats', locals: { presenter: presenter } %>
     <% end %>

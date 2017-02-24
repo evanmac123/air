@@ -2,7 +2,7 @@ replaceMovedTile = function(tile_id, updated_tile_container){
   tile = $("#single-tile-" + tile_id).closest(".tile_container");
   tile.replaceWith(updated_tile_container);
   tile = $("#single-tile-" + tile_id).closest(".tile_container");
-  Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".more_button"));
+  Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".pill.more"));
 };
 
 updateShareTilesNumber = function(number){

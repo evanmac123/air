@@ -21,7 +21,7 @@ Airbo.SearchTileThumbnailMenu = (function() {
   }
 
   function init(tile) {
-    var menuButton = tile.find(".more_button");
+    var menuButton = tile.find(".pill.more");
 
     menuButton.tooltipster({
       theme: "tooltipster-shadow tooltipster-thumbnail-menu",
