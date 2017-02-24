@@ -25,7 +25,6 @@
       </li>
     <% end %>
 
-
     <% if presenter.has_ignore_button? %>
       <li class="ignore_button">
 
@@ -53,7 +52,7 @@
     <% end %>
 
     <% if presenter.has_edit_button? %>
-      <li class="edit_button">
+      <li class="edit_button pill">
         <%= link_to edit_client_admin_tile_path(presenter), data:{action: "edit", "tile-id" => presenter.tile_id, status: presenter.status} do %>
           <%= fa_icon 'pencil' %>
         <% end %>
@@ -61,7 +60,7 @@
     <% end %>
 
     <% if presenter.has_incomplete_destroy_button? %>
-      <li class="destroy_button">
+      <li class="destroy pill">
         <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile", data: {"tile-id" => presenter.tile_id}  do %>
 
           <%= fa_icon 'trash' %>
@@ -70,7 +69,7 @@
     <% end %>
 
     <% if presenter.has_menu? %>
-      <li class="more_button"  >
+      <li class="more_button pill"  >
         <%= tile_thumbnail_menu(presenter) %>
         <span></span>
         <span></span>
