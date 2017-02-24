@@ -251,17 +251,17 @@
   }
 }
 
-.tile_container.draft  {
-  .tile_buttons {
-    &.unfinished{
+.tile_container{
+  &.active  {
+    .tile_buttons {
+      margin-left: 25%;
     }
-
   }
-}
 
-#archived_tiles {
-  .tile_buttons {
-    margin-left: 17%;
+  &.archive {
+    .tile_buttons {
+      margin-left: 17%;
+    }
   }
 }
 
