@@ -22,6 +22,9 @@
     height: 100%;
   }
 }
+
+
+
 // Default buttons
 .tile_buttons {
   $border-color: #999;
@@ -98,7 +101,7 @@
   }
 }
 
-.archive, .active{
+.archive, .active, .explore{
   .tile_buttons{
     float: right;
     margin-right: 11px;
@@ -114,6 +117,28 @@
       background-color:#ff5656;
       border-color: #ff5656;
       opacity: .8;
+    }
+  }
+}
+
+.tile_container.explore{
+  .tile_buttons{
+    opacity: 1;
+    position: absolute;
+    top: 277px;
+    right: 8px;
+    margin: auto;
+    a {
+      @extend .tiny;
+    }
+  }
+
+}
+
+.channel_container{
+  .tile_container.explore{
+    .tile_buttons {
+      top: 86%;
     }
   }
 }
@@ -159,6 +184,7 @@
     display: block;
   }
 }
+
 .tile-wrapper {
   &:hover, &.active_menu {
     .shadow_overlay, .tile_buttons {
@@ -166,6 +192,10 @@
     }
   }
 }
+
+
+
+
 // Tile stats
 %stat_item {
   border-radius: 3px;
@@ -258,6 +288,7 @@
     text-transform: none;
   }
 }
+
 .client_admin_main {
   .tooltip.tip-bottom { // tip is used in tile stats
     $tooltip-bg: #000;
@@ -277,9 +308,4 @@
     }
   }
 }
-
-
-
-
-
 

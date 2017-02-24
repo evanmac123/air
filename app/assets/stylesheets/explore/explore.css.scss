@@ -155,40 +155,13 @@ body.explore, .explore {
     }
   }
 
-  .channel_container, #explore_tiles {
-    .tile-wrapper {
-      .tile_buttons {
-        width: auto;
-        right: 8px;
-        opacity: 1;
-        a {
-          @extend .tiny;
-        }
-      }
-    }
-  }
-
   .channel_container {
-    .tile-wrapper {
-      .tile_buttons {
-        top: 86%;
-      }
-    }
-
     .recommended-tiles-custom-icon {
       float: left;
       width: 50px;
       height: 50px;
       padding: 5px;
       margin-left: 0.5em;
-    }
-  }
-
-  #explore_tiles {
-    .tile-wrapper {
-      .tile_buttons {
-        top: 277px;
-      }
     }
   }
 
