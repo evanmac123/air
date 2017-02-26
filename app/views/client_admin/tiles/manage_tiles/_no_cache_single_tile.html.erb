@@ -1,3 +1,4 @@
+
 <%= content_tag :div,  class: "tile_container #{presenter.completion_status} #{presenter.tile_status}",  data: {"tile-container-id" =>"#{presenter.tile_id}", "status" => presenter.status, "has_completions" => presenter.tile_completions_count > 0, "assembly_required" => presenter.assembly_required?} do %>
 
   <%=content_tag :div, class: "tile_thumbnail #{presenter.tile_status} #{presenter.completed_class}", id: "single-tile-#{presenter.tile_id}", data: { tile_id: presenter.tile_id, from_search: presenter.from_search? } do %>
@@ -13,13 +14,13 @@
             <%= presenter.headline %>
           </div>
         </div>
+        <%if presenter.class == SingleTilePresenter%>
+          <%= render partial: "client_admin/tiles/manage_tiles/thumbnail_overlays",  locals:{presenter: presenter} %>
+        <%end%>
       <% end %>
-      <div class="shadow_overlay">
-        <%= render partial: 'client_admin/tiles/manage_tiles/tile_buttons', locals: { presenter: presenter } %>
-      </div>
-      <div class="tile_overlay">
-      </div>
-    </div>
+        <%if presenter.class == SingleAdminTilePresenter%>
+          <%= render partial: "client_admin/tiles/manage_tiles/thumbnail_overlays",  locals:{presenter: presenter} %>
+        <%end%>
     <%= render partial: 'client_admin/tiles/manage_tiles/tile_stats', locals: { presenter: presenter } %>
   <% end %>
 <% end %>
