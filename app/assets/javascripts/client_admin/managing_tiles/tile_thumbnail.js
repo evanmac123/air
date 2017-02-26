@@ -76,7 +76,7 @@ Airbo.TileThumbnail = (function() {
 
       //return immediately if tooltipser is triggered since we want to let it  
       //do its own handling and not do the preview
-      if($(e.target).is(".pill.more")){
+      if($(e.target).is(".pill.more") || $(e.target).is("span.dot")){
         return;
       }
 
