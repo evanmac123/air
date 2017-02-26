@@ -80,7 +80,9 @@ Airbo.TileAction = (function(){
     var data ={"update_status": {"status": newStatus, "allowRedigest": false}};
 
     function isRepostingArchivedTile(){
-     return target.parents("#archive.manage_section").length>0;
+     //return target.parents("#archive.manage_section").length>0;
+
+     return target.data("action") === "unarchive";
     }
 
     function submit(){

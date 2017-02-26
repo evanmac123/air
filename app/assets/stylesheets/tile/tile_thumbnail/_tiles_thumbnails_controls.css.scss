@@ -1,5 +1,6 @@
 .tile_thumbnail {
   .shadow_overlay {
+    cursor: pointer;
     background: rgba(255, 255, 255, 0.92);
     height:12em;
     width:100%;
@@ -15,6 +16,8 @@
     }
   }
   .tile_overlay {
+    pointer-events:none;
+    cursor: pointer;
     position: absolute;
     top:0;
     left:0;
@@ -145,6 +148,7 @@
 
 .tooltipster-thumbnail-menu {
   .tooltipster-content {
+    visibility:hidden;
     padding: 13px 14px;
   }
   .tile_thumbnail_menu {

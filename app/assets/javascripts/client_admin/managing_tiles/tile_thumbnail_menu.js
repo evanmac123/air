@@ -35,8 +35,12 @@ Airbo.TileThumbnailMenu = (function() {
     }
   }
 
+  function initToolTipMenu(){
+    initMoreBtn();
+  }
+
   function initMoreBtn(menu_button){
-    menu_button.tooltipster({
+     $(".more.pill").tooltipster({
       theme: "tooltipster-shadow tooltipster-thumbnail-menu",
       interactive: true,
       position: "bottom",
@@ -50,6 +54,7 @@ Airbo.TileThumbnailMenu = (function() {
       },
 
       functionBefore: function(instance, helper){
+        instance.content().css({visibility: 'visible'});
         setMenuActiveState($(helper.origin), true);
       },
 
@@ -58,12 +63,12 @@ Airbo.TileThumbnailMenu = (function() {
       },
 
       functionReady: function(instance, helper){
-
       }
     });
   }
-  function init() {
 
+  function init() {
+    initToolTipMenu();
     initTileActions();
     return this;
   }

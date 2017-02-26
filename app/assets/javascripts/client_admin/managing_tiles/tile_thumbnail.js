@@ -4,52 +4,89 @@ Airbo.TileThumbnail = (function() {
   var tileManager
     , thumbnailMenu
     , curTileContainerSelector
-    , tileContainer
+    , tileContainer = ".tile_container:not(.placeholder_container)"
+    , buttons = tileContainer + " .tile_buttons a.button"
+    , pills = tileContainer + " .tile_buttons a.pill"
     , thumbLinkSel = " .tile-wrapper a.tile_thumb_link"
   ;
-  function initTile(tileId) {
-    curTileContainerSelector = ".tile_container[data-tile-container-id='" + tileId + "']";
-    tileContainer = $(curTileContainerSelector);
-    // FIXME
-    // there are same events in Airbo.TilePreviewModal (edit, update, delete, duplicate)
-    // reason: i want to have object, its elements and its events in one place
-    thumbnailMenu.initMoreBtn(tileContainer.find(".pill.more"));
 
-    tileContainer.find(".update_status").click(function(e){
+  function initTileToolTipTip(){
+    Airbo.TileThumbnailMenu.init();
+
+ 
+  }
+
+
+  function initActions(){
+    $("body").on("click", ".tile_container .tile_buttons a", function(e){
       e.preventDefault();
-      e.stopPropagation();
-      target = $(this);
-      Airbo.TileAction.updateStatus(target);
+      e.stopImmediatePropagation();
+      var link = $(this);
+      switch(link.data("action")){
+        case "edit":
+        handleEdit(link)
+        break;
+
+        case "post":
+        case "archive":
+        case "unarchive":
+        case "ignore":
+        case "unignore":
+        handleUpdate(link)
+        break;
+
+        case "delete":
+          handleDelete(link);
+        break;
+
+
+        case "accept":
+          handleAccept(link)
+        break;
+      }
     });
+  }
 
-    tileContainer.find(".accept").click(function(e){
+  function handleUpdate(link){
+    Airbo.TileAction.updateStatus(link);
+  }
+
+  function handleAccept(link){ 
+    Airbo.TileAction.confirmAcceptance(link);
+  }
+
+  function handleDelete(link){ 
+    Airbo.TileAction.confirmDeletion(link);
+  }
+
+  function handleEdit(link){
+    tileForm = Airbo.TileFormModal;
+    tileForm.init(Airbo.TileManager);
+    tileForm.open(link.attr("href"));
+  }
+
+  function initPreview(){
+    $("body").on("click", ".tile_container .tile_thumb_link, .tile_container .shadow_overlay", function(e){
+      var self = $(this)
+        ,   link
+      ;
+
       e.preventDefault();
-      e.stopPropagation();
-      target = $(this);
-      Airbo.TileAction.confirmAcceptance(target);
-    });
 
-    tileContainer.find(".edit_button a, .incomplete_button a").click(function(e){
-      e.preventDefault();
-      url = $(this).attr("href");
+      if($(e.target).is(".pill.more")){
+        return;
+      }
 
-      tileForm = Airbo.TileFormModal;
-      tileForm.init(Airbo.TileManager);
-      tileForm.open(url);
-    });
+      if((self).is(".tile_thumb_link")){
+        link = target;
+      }else{
+        link = target.siblings(".tile_thumb_link");
+      }
 
-    tileContainer.find(".destroy_button a").click(function(e){
-      e.preventDefault();
-      Airbo.TileAction.confirmDeletion($(this));
-    });
-
-    $("body").off("click", curTileContainerSelector + thumbLinkSel);
-    $("body").on("click", curTileContainerSelector + thumbLinkSel, function(e){
-      e.preventDefault();
       $.ajax({
         type: "GET",
         dataType: "html",
-        url: $(this).attr("href") ,
+        url: link.attr("href") ,
         success: function(data, status,xhr){
           var tilePreview = Airbo.TilePreviewModal;
           tilePreview.init();
@@ -61,6 +98,19 @@ Airbo.TileThumbnail = (function() {
         }
       });
     });
+  }
+
+  function initTiles(tileId) {
+initPreview()
+    initActions();
+    initTileToolTipTip();
+    //initToolTipActions();
+
+
+  }
+
+  function initTile(){
+
   }
 
   function initEvents(){
@@ -75,9 +125,14 @@ Airbo.TileThumbnail = (function() {
   }
 
   function init(AirboTileManager) {
+    //$("body").on("click", " .tile_thumb_link", function(event){
+      //event.preventDefault();
+      //debugger
+    //})
     tileManager = AirboTileManager;
-    thumbnailMenu = Airbo.TileThumbnailMenu.init();
-    initEvents();
+    //thumbnailMenu = Airbo.TileThumbnailMenu.init();
+    //initEvents();
+    initTiles();
     return this;
   }
   

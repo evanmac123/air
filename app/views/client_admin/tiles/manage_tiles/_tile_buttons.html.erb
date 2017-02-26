@@ -4,22 +4,30 @@
     <% if presenter.has_activate_button? %>
       <li class="activate_button">
 
-        <%= link_to status_change_client_admin_tile_path(presenter), class: "button  update_status", data: {status: Tile::ACTIVE, "tile-id" => presenter.tile_id} do %>
+        <%= link_to status_change_client_admin_tile_path(presenter), class: "button  update_status", data: { action: "post", status: Tile::ACTIVE, "tile-id " => presenter.tile_id} do %>
           <%= presenter.post_link_text %>
         <% end %>
       </li>
     <% end %>
     <% if presenter.has_archive_button? %>
       <li class="archive_button">
-        <%= link_to status_change_client_admin_tile_path(presenter), class: "button update_status", data: {status: Tile::ARCHIVE, "tile-id" => presenter.tile_id} do %>
+        <%= link_to status_change_client_admin_tile_path(presenter), class: "button update_status", data: {action: "archive", status: Tile::ARCHIVE, "tile-id" => presenter.tile_id} do %>
           Archive
+        <% end %>
+      </li>
+    <% end %>
+
+   <% if presenter.has_unarchive_button? %>
+      <li class="archive_button">
+        <%= link_to status_change_client_admin_tile_path(presenter), class: "button update_status", data: {action: "unarchive", status: Tile::ACTIVE, "tile-id" => presenter.tile_id} do %>
+         Post Again 
         <% end %>
       </li>
     <% end %>
 
     <% if presenter.has_accept_button? %>
       <li class="accept_button">
-        <%= link_to status_change_client_admin_tile_path(presenter), class: "accept button ",  data: {status: Tile::DRAFT, "tile-id" => presenter.tile_id } do %>
+        <%= link_to status_change_client_admin_tile_path(presenter), class: "accept button ",  data: {action: "accept", status: Tile::DRAFT, "tile-id" => presenter.tile_id } do %>
           Accept
         <% end %>
       </li>
@@ -28,7 +36,7 @@
     <% if presenter.has_ignore_button? %>
       <li class="ignore_button">
 
-        <%= link_to status_change_client_admin_tile_path(presenter), class:"update_status button  outlined", data: {status:Tile::IGNORED, "tile-id" => presenter.tile_id} do %>
+        <%= link_to status_change_client_admin_tile_path(presenter), class:"update_status button outlined", data: {action: "ignore", status:Tile::IGNORED, "tile-id" => presenter.tile_id} do %>
           Ignore
         <% end %>
       </li>
@@ -37,7 +45,7 @@
     <% if presenter.has_undo_ignore_button? %>
       <li class="undo_ignore_button">
 
-        <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status button  outlined", data: {status: Tile::USER_SUBMITTED, "tile-id" => presenter.tile_id} do %>
+        <%= link_to status_change_client_admin_tile_path(presenter), class: "update_status button  outlined", data: {action: "unignore", status: Tile::USER_SUBMITTED, "tile-id" => presenter.tile_id} do %>
           Undo Ignore
         <% end %>
       </li>
@@ -45,7 +53,7 @@
 
     <% if presenter.has_incomplete_edit_button? %>
       <li class="incomplete_button">
-        <%= link_to edit_client_admin_tile_path(presenter),  class: "button", data:{action: "edit", "tile-id" => presenter.tile_id, status: presenter.status} do %>
+        <%= link_to edit_client_admin_tile_path(presenter),  class: "button edit", data:{action: "edit", "tile-id" => presenter.tile_id, status: presenter.status} do %>
           Edit
         <% end %>
       </li>
@@ -53,7 +61,7 @@
 
     <% if presenter.has_edit_button? %>
       <li class="edit_button pill">
-        <%= link_to edit_client_admin_tile_path(presenter), data:{action: "edit", "tile-id" => presenter.tile_id, status: presenter.status} do %>
+        <%= link_to edit_client_admin_tile_path(presenter), class: "edit",  data:{action: "edit", "tile-id" => presenter.tile_id, status: presenter.status} do %>
           <%= fa_icon 'pencil' %>
         <% end %>
       </li>
@@ -61,7 +69,7 @@
 
     <% if presenter.has_incomplete_destroy_button? %>
       <li class="destroy pill">
-        <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile", data: {"tile-id" => presenter.tile_id}  do %>
+        <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile", data: { action: "delete", "tile-id" => presenter.tile_id}  do %>
 
           <%= fa_icon 'trash' %>
         <% end %>
@@ -69,7 +77,7 @@
     <% end %>
 
     <% if presenter.has_menu? %>
-      <li class="pill more"  >
+      <li class="pill more" >
         <%= tile_thumbnail_menu(presenter) %>
         <span></span>
         <span></span>
