@@ -11,7 +11,7 @@ feature 'Activates or edits tile from preview page', js:true do
       @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
       visit client_admin_tiles_path(as: @client_admin)
       within "#active_tiles" do
-        page.find("#single-tile-#{@tile.id} .tile-wrapper a.tile_thumb_link").click
+        page.find("#single-tile-#{@tile.id}").click
       end
 
       page.find("#stat_toggle").click
@@ -35,7 +35,7 @@ feature 'Activates or edits tile from preview page', js:true do
       @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
       visit client_admin_tiles_path(as: @client_admin)
       within "#archived_tiles" do
-        page.find("#single-tile-#{@tile.id} .tile-wrapper a.tile_thumb_link").click
+        page.find("#single-tile-#{@tile.id}").click
       end
       page.find("#stat_toggle").click
     end
@@ -60,7 +60,7 @@ feature 'Activates or edits tile from preview page', js:true do
       @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
       visit client_admin_tiles_path(as: @client_admin)
       within "#draft.manage_section" do
-        page.find("#single-tile-#{@tile.id} .tile-wrapper a.tile_thumb_link").click
+        page.find("#single-tile-#{@tile.id}").click
       end
       page.find("#stat_toggle").click
     end
