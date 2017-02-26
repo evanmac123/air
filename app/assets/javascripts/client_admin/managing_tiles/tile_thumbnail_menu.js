@@ -40,7 +40,8 @@ Airbo.TileThumbnailMenu = (function() {
   }
 
   function initMoreBtn(menu_button){
-     $(".more.pill").tooltipster({
+    var selector =  menu_button || ".more.pill";
+     $(selector).tooltipster({
       theme: "tooltipster-shadow tooltipster-thumbnail-menu",
       interactive: true,
       position: "bottom",

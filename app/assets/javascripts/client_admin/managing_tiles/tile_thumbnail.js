@@ -81,9 +81,9 @@ Airbo.TileThumbnail = (function() {
       }
 
       if((self).is(".tile_thumb_link")){
-        link = target;
+        link = self;
       }else{
-        link = target.siblings(".tile_thumb_link");
+        link = self.siblings(".tile_thumb_link");
       }
 
       $.ajax({
@@ -107,9 +107,6 @@ Airbo.TileThumbnail = (function() {
 initPreview()
     initActions();
     initTileToolTipTip();
-    //initToolTipActions();
-
-
   }
 
   function initTile(){
@@ -128,13 +125,7 @@ initPreview()
   }
 
   function init(AirboTileManager) {
-    //$("body").on("click", " .tile_thumb_link", function(event){
-      //event.preventDefault();
-      //debugger
-    //})
     tileManager = AirboTileManager;
-    //thumbnailMenu = Airbo.TileThumbnailMenu.init();
-    //initEvents();
     initTiles();
     return this;
   }

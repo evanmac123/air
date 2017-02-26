@@ -49,6 +49,8 @@ Airbo.TileManager = (function(){
     } else {
       Airbo.SearchTileThumbnail.initTile(tile);
     }
+
+    Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".pill.more"));
   }
 
   function updateSections(data) {

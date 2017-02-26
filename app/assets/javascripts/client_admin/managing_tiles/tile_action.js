@@ -56,6 +56,8 @@ Airbo.TileAction = (function(){
       replaceTileContent(newTile, newTile.data("tile-container-id"));
       updateUserSubmittedTilesCounter();
     }
+
+    Airbo.TileThumbnailMenu.initMoreBtn(newTile.find(".pill.more"));
   }
 
   function updateUserSubmittedTilesCounter() {
@@ -80,8 +82,6 @@ Airbo.TileAction = (function(){
     var data ={"update_status": {"status": newStatus, "allowRedigest": false}};
 
     function isRepostingArchivedTile(){
-     //return target.parents("#archive.manage_section").length>0;
-
      return target.data("action") === "unarchive";
     }
 
@@ -98,8 +98,6 @@ Airbo.TileAction = (function(){
             closeModal( $(tileModalSelector) );
             moveTile(tile, data);
             postProcess();
-            Airbo.TileThumbnail.initTile( $(data).data("tile-container-id") );
-
             var tileId = $(data).data("tile-container-id");
             var status = $(data).data("status");
             movePing(tileId, status, "Clicked button to move");
@@ -324,6 +322,7 @@ Airbo.TileAction = (function(){
     );
     swapModalButtons();
   }
+
   return {
     updateStatus: updateStatus,
     makeDuplication: makeDuplication,
