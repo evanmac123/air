@@ -18,9 +18,10 @@
           <%= render partial: "client_admin/tiles/manage_tiles/thumbnail_overlays",  locals:{presenter: presenter} %>
         <%end%>
       <% end %>
-        <%if presenter.class == SingleAdminTilePresenter%>
-          <%= render partial: "client_admin/tiles/manage_tiles/thumbnail_overlays",  locals:{presenter: presenter} %>
-        <%end%>
+      <%if presenter.class == SingleAdminTilePresenter%>
+        <%= render partial: "client_admin/tiles/manage_tiles/thumbnail_overlays",  locals:{presenter: presenter} %>
+      <%end%>
+    </div>
     <%= render partial: 'client_admin/tiles/manage_tiles/tile_stats', locals: { presenter: presenter } %>
   <% end %>
 <% end %>
