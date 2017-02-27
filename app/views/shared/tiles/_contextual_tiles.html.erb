@@ -1,6 +1,7 @@
-<% completed_tiles = current_user.tile_completions.pluck(:tile_id) %>
 <% tiles.each do |tile| %>
-  <% present(tile, presenter, { is_ie: browser.ie?, referrer: :contextual_tiles, from_search: true, completed: completed_tiles.include?(tile.id) }) do |presenter| %>
-    <%= render presenter.partial, presenter: presenter, tile: tile %>
+  <% if display_tile_for_search(tile) %>
+    <% present(tile, presenter, { is_ie: browser.ie?, referrer: :contextual_tiles, from_search: true, completed: tile_completed?(tile, current_user.end_user?) }) do |presenter| %>
+      <%= render presenter.partial, presenter: presenter, tile: tile %>
+    <% end %>
   <% end %>
 <% end %>

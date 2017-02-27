@@ -220,6 +220,14 @@ class User < ActiveRecord::Base
   end
 ##
 
+  def displayable_tiles(select_clause = Tile.displayable_tiles_select_clause)
+    tile_arel = Tile.arel_table
+
+    user_tile_completions = demo.tiles.select(:id).joins(:tile_completions).where(tile_completions: { user_id: id })
+
+    demo.tiles.select(select_clause).where(tile_arel[:status].eq([Tile::ACTIVE]).or(tile_arel[:id].in(user_tile_completions.pluck(:id)))).order(:position)
+  end
+
   def end_user?
     !is_client_admin && !is_site_admin
   end

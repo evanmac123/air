@@ -13,7 +13,7 @@
         <h3 class="explore-headers search-results-description">Search results for "<%= params[:query] %>"</h3>
       </div>
     </div>
-    <%= render 'shared/tiles/display_contextual_tiles', { tiles: search_service.user_tiles, container: 'user_tiles', presenter: SingleTilePresenter, opts: { show_more_button: false, endless_scroll: true, show_more_path: explore_search_path({ section: 'user_tiles' }), feature: "search" } } %>
+    <%= render 'shared/tiles/display_contextual_tiles', { tiles: search_service.user_tiles, container: 'user_tiles', presenter: SingleTilePresenter, opts: { show_more_button: false, endless_scroll: true, show_more_path: explore_search_path({ section: 'user_tiles' }), feature: "search", tiles_partial: "shared/tiles/contextual_tiles" } } %>
   </div>
 <% else %>
   <section class="manage_section">

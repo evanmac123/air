@@ -1,6 +1,6 @@
 class AirboSearch
-  ADMIN_PER_PAGE = 20
-  USER_PER_PAGE = 20
+  ADMIN_PER_PAGE = 28
+  USER_PER_PAGE = 32
   OVERVIEW_LIMIT = 3 #index value
 
   attr_accessor :query, :user, :demo, :options
@@ -14,7 +14,7 @@ class AirboSearch
 
   def user_tiles(page = 1)
     if user_search
-      @user_tiles ||= demo.tiles.search(formatted_query, user_tiles_options([Tile::ACTIVE], page))
+      @user_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::ACTIVE, Tile::ARCHIVE], page))
     end
   end
 

@@ -21,6 +21,11 @@
   }
 }
 
+.endless_scroll_loading {
+  width: 100%;
+  display: inline-block;
+}
+
 .explore-search {
   @include airbo_search;
 }
