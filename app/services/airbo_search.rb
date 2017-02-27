@@ -45,7 +45,7 @@ class AirboSearch
   end
 
   def tiles_present?
-    user_tiles.present? || explore_tiles.present? || campaigns.present?
+    user_tiles.present? || client_admin_tiles.present? || explore_tiles.present? || campaigns.present?
   end
 
   def track_initial_search
