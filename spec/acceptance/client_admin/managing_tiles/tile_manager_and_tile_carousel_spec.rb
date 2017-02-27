@@ -51,7 +51,6 @@ feature 'Ensure carousel are in synch', js: true do
 
   def check_carousel_and_viewer(active_tile_headlines_order, carousel_tile)
     expect(carousel_content).to eq(active_tile_headlines_order)
-    binding.pry
     click_carousel_tile(carousel_tile)
     click_next_button
 
