@@ -5,6 +5,7 @@ describe ClientAdmin::TilesController do
     it "should ping Mixpanel when a tile is created" do
       subject.stubs(:ping)
       subject.stubs(:schedule_tile_creation_ping)
+      Tile.any_instance.stubs(:process_image)
       demo = FactoryGirl.create(:demo)
       client_admin = FactoryGirl.create(:client_admin, demo: demo)
 
@@ -21,7 +22,7 @@ describe ClientAdmin::TilesController do
     {"status"=>"draft",
      "remote_media_type"=>"image/jpeg",
      "image_from_library"=>"",
-     "remote_media_url"=>"https://hengage-tiles-development.s3.amazonaws.com/uploads/bd567e01a6077ceb72bed5fc0cdfa31a/avatar.jpg",
+     "remote_media_url"=>"http://some/remote/s3/image",
      "image_credit"=>"",
      "embed_video"=>"",
      "headline"=>"TEST",
