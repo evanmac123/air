@@ -28,16 +28,21 @@ feature 'Client uses suggestion box' do
     end
 
     scenario "accepts tile" do
-      within ".user_submitted" do
+      within ".tile_container .user_submitted" do
         page.find(".tile-wrapper").hover
       end
+
       click_link "Accept"
+
       within ".sweet-alert.visible" do
         click_button "OK"
       end
+
       #this waits for the ajax to finish and the alert window to close
       expect(page).not_to have_css(".sweet-alert.visible")
+
       page.find("#draft_title").click
+
       within "#draft" do
         expect(page).to have_css("#single-tile-#{tile.id}")
       end
@@ -46,7 +51,7 @@ feature 'Client uses suggestion box' do
     context "Ignored Tile" do
 
       before  do
-        within ".user_submitted" do
+        within ".tile_container .user_submitted" do
           page.find(".tile-wrapper").hover
         end
         within "#suggestion_box #single-tile-#{tile.id}" do
@@ -84,6 +89,5 @@ feature 'Client uses suggestion box' do
   def intro_tooltip
     page.find(".tile_preview_intro")
   end
-
 
 end
