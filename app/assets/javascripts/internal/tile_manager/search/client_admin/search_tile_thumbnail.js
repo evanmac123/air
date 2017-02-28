@@ -34,17 +34,32 @@ Airbo.SearchTileThumbnail = (function() {
   }
 
   function initEvents() {
-    $("body").on("click", ".tile_thumb_link_client_admin", function(e){
+    $("body").on("click", ".tile_container .tile_thumb_link, .tile_container .shadow_overlay", function(e){
+      var self = $(this)
+        ,   link
+      ;
+
       e.preventDefault();
-      var tileIds = Airbo.TileThumbnailManagerBase.getTileIdsInContainer(this);
+
+
+      //return immediately if tooltipser is triggered since we want to let it  
+      //do its own handling and not do the preview
+      if($(e.target).is(".pill.more") || $(e.target).is("span.dot")){
+        return;
+      }
+
+      if((self).is(".tile_thumb_link")){
+        link = self;
+      }else{
+        link = self.siblings(".tile_thumb_link");
+      }
 
       $.ajax({
         type: "GET",
         dataType: "html",
-        url: $(this).attr("href") ,
-        data: { partial_only: true, tile_ids: tileIds },
-        success: function(data, status, xhr){
-          var tilePreview = Airbo.SearchTilePreviewModal;
+        url: link.attr("href") ,
+        success: function(data, status,xhr){
+          var tilePreview = Airbo.TilePreviewModal;
           tilePreview.init();
           tilePreview.open(data);
         },
