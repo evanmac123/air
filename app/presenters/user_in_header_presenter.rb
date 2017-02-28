@@ -147,19 +147,20 @@ class UserInHeaderPresenter
     muted_digest_boards.include?(board)
   end
 
-  def can_submit_tile?
+  def can_submit_tile?(browser)
+    return false if browser.ie8?
     (can_make_tile_suggestions? || is_client_admin || current_user.is_site_admin) &&
       ["acts", "tiles"].include?(request[:controller]) &&
       !request.original_url.include?("client_admin") &&
       !request.original_url.include?("explore")
   end
 
-  def show_search_bar?
+  def show_search_bar?(browser)
     if current_user.is_a?(User) && (current_user.is_client_admin || current_user.is_site_admin)
       true
     elsif current_user.is_a?(GuestUser)
       true
-    elsif current_user.end_user? && current_user.demo.has_end_user_search
+    elsif current_user.end_user? && current_user.demo.has_end_user_search && !browser.ie8?
       true
     else
       false
