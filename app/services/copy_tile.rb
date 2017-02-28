@@ -1,5 +1,5 @@
 class CopyTile
-  def initialize(new_demo, copying_user)
+  def initialize(new_demo, copying_user = nil)
     @new_demo = new_demo
     @copying_user = copying_user
   end
@@ -20,7 +20,7 @@ class CopyTile
       mark_tile_as_copied_by_user
       @tile.save
     end
-    @copy.remote_media_url= @tile.image.url(:original)
+    @copy.remote_media_url = @tile.image.url(:original)
     @copy.is_cloned = true
     @copy.save
     @copy
@@ -37,8 +37,6 @@ class CopyTile
       "points",
       "question",
       "supporting_content",
-      "image",
-      "thumbnail",
       "use_old_line_break_css",
       "question_type",
       "question_subtype"
