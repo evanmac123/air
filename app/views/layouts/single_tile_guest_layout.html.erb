@@ -19,7 +19,9 @@
 
   <div class="row">
     <div class="center header">
-      <%=image_tag "landing/logo-blue.png"%>
+      <%= link_to root_path do %>
+        <%= image_tag "landing/logo-blue.png"%>
+      <% end %>
       <span class="see_airbo_block righty">
         Want to see more?
         <%= link_to "Explore.", explore_path %>

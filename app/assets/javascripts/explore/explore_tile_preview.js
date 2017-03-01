@@ -12,6 +12,7 @@ Airbo.ExploreTilePreview = (function(){
     tile_id = $("[data-current-tile-id]").data("current-tile-id");
     Airbo.Utils.ping('Explore page - Interaction', {action: action, tile_id: tile_id});
   }
+
   function tileContainerSizes() {
     tileContainer = $(".tile_full_image")[0];
     if( !tileContainer ) {
@@ -19,17 +20,17 @@ Airbo.ExploreTilePreview = (function(){
     }
     return tileContainer.getBoundingClientRect();
   }
+
   function initEvents() {
     Airbo.StickyMenu.init(self);
     Airbo.CopyTileToBoard.init();
+    Airbo.ImageLoadingPlaceholder.init();
 
     $('.right_multiple_choice_answer').one("click", function(event) {
       event.preventDefault();
       $("#next_tile").trigger("click");
       ping("Clicked Answer");
     });
-
-    Airbo.ImageLoadingPlaceholder.init();
   }
 
   function open(preview) {
@@ -40,39 +41,22 @@ Airbo.ExploreTilePreview = (function(){
     Airbo.TileCarouselPage.init();
     initEvents();
   }
+
   function initModalObj() {
     modalObj.init({
       modalId: modalId,
       modalClass: "tile_previews explore-tile_previews tile_previews-show explore-tile_previews-show bg-user-side",
       useAjaxModal: true,
-      closeSticky: true,
-      onOpenedEvent: function() {
-        arrowsObj.position();
-      }
-    });
-  }
-  function initFakeModalObj() {
-    modalObj = Airbo.Utils.FakeModal();
-    modalObj.init({
-      containerSel: ".content",
-      onOpenedEvent: function() {
-        arrowsObj.position();
-      }
+      closeSticky: true
     });
   }
 
-  function init(fakeModal) {
+  function init() {
     self = this;
-    if(fakeModal) {
-      initFakeModalObj();
-    } else {
-      initModalObj();
-    }
-    //move this to explore_tileManager!
-
-    // initEvents();
+    initModalObj();
     return self;
   }
+
   return {
     init: init,
     open: open,
@@ -81,28 +65,19 @@ Airbo.ExploreTilePreview = (function(){
   };
 }());
 
-Airbo.GuestExploreTilePreview = (function(){
-  function open() {
-
-  }
+Airbo.GuestExploreTile = (function(){
   function init() {
-    Airbo.ShareLink.init();
     Airbo.TileCarouselPage.init();
     Airbo.ImageLoadingPlaceholder.init();
     return this;
   }
   return {
-    init: init,
-    open: open
+    init: init
   };
 }());
 
 $(function(){
-  if( $(".explore_menu").length > 0 ) {
-    var preview = Airbo.ExploreTilePreview.init(true);
-    preview.open();
-  }
   if( $(".single_tile_guest_layout").length > 0 ) {
-    Airbo.GuestExploreTilePreview.init();
+    Airbo.GuestExploreTile.init();
   }
 });
