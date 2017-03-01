@@ -68,8 +68,9 @@ Airbo.ExploreTilePreview = (function(){
   };
 }());
 
-Airbo.GuestExploreTile = (function(){
+Airbo.ExploreTileNonModal = (function(){
   function init() {
+    Airbo.ShareLink.init();
     Airbo.TileCarouselPage.init();
     Airbo.ImageLoadingPlaceholder.init();
     return this;
@@ -80,7 +81,7 @@ Airbo.GuestExploreTile = (function(){
 }());
 
 $(function(){
-  if( $(".single_tile_guest_layout").length > 0 ) {
-    Airbo.GuestExploreTile.init();
+  if( $(".single_tile_guest_layout, .explore-tile_previews-show").length > 0 ) {
+    Airbo.ExploreTileNonModal.init();
   }
 });
