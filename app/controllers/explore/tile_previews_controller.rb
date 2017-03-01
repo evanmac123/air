@@ -5,12 +5,12 @@ class Explore::TilePreviewsController < ExploreBaseController
 
   def show
     # TODO: Refactor out single tile view to separate action
-    @tiles = params[:tile_ids] ? get_sorted_explore_tiles : [@tile]
-    @next_tile = next_explore_tile(1)
-    @prev_tile = next_explore_tile(-1)
     schedule_mixpanel_pings(@tile)
 
     if request.xhr?
+      @next_tile = params[:next_tile] || @tile
+      @prev_tile = params[:prev_tile] || @tile
+
       render partial: "explore/tile_previews/tile_preview",
              locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section] },
              layout: false

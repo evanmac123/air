@@ -81,6 +81,8 @@ Airbo.ExploreTilePreview = (function(){
       },
     });
 
+    debugger
+
     // initEvents();
     return self;
   }
