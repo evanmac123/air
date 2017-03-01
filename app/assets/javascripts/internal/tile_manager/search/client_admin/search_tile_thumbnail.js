@@ -5,91 +5,109 @@ Airbo.SearchTileThumbnail = (function() {
       thumbnailMenu,
       thumbLinkSel = "a.tile_thumb_link_client_admin";
 
-  function initTile(tile) {
-    Airbo.SearchTileThumbnailMenu.init(tile);
+  function initTileToolTip(){
+   Airbo.SearchTileThumbnailMenu.init();
+  }
 
-    tile.find(".update_status").click(function(e){
+  function initActions(){
+    $("body").on("click", ".tile_container .tile_buttons a", function(e){
       e.preventDefault();
-      Airbo.SearchTileActions.updateStatus($(this));
-    });
+      e.stopImmediatePropagation();
+      var link = $(this);
+      switch(link.data("action")){
+        case "edit":
+        handleEdit(link)
+        break;
 
-    tile.find(".accept").click(function(e){
-      e.preventDefault();
-      Airbo.TileAction.confirmAcceptance($(this));
-    });
+        case "post":
+        case "archive":
+        case "unarchive":
+        case "ignore":
+        case "unignore":
+        handleUpdate(link)
+        break;
 
-    tile.find(".edit_button a, .incomplete_button a").click(function(e){
-      e.preventDefault();
-      url = $(this).attr("href");
+        case "delete":
+          handleDelete(link);
+        break;
 
-      tileForm = Airbo.TileFormModal;
-      tileForm.init(Airbo.TileManager);
-      tileForm.open(url);
-    });
 
-    tile.find(".destroy_button a").click(function(e){
-      e.preventDefault();
-      Airbo.TileAction.confirmDeletion($(this));
+        case "accept":
+          handleAccept(link)
+        break;
+      }
     });
   }
 
-  function initEvents() {
-    $("body").on("click", ".tile_container .tile_thumb_link, .tile_container .shadow_overlay", function(e){
-      var self = $(this)
-        ,   link
-      ;
+  function handleUpdate(link){
+    Airbo.SearchTileActions.updateStatus(link);
+  }
 
+  function handleAccept(link){ 
+    Airbo.SearchTileActions.confirmAcceptance(link);
+  }
+
+  function handleDelete(link){ 
+    Airbo.SearchTileActions.confirmDeletion(link);
+  }
+
+  function handleEdit(link){
+    tileForm = Airbo.TileFormModal;
+    tileForm.init(Airbo.SearchTileManager);
+    tileForm.open(link.attr("href"));
+  }
+
+  function getPreview(url){
+    $.ajax({
+      type: "GET",
+      dataType: "html",
+      url: url ,
+      success: function(data, status,xhr){
+        var tilePreview = Airbo.SearchTilePreviewModal;
+        tilePreview.init();
+        tilePreview.open(data);
+      },
+
+      error: function(jqXHR, textStatus, error){
+        console.log(error);
+      }
+    });
+  }
+
+  function initPreview() {
+    initExploreTilePreview();
+    initMyTilePreview();
+  }
+
+
+  function initMyTilePreview(){
+    $("body").on("click", ".tile_container:not(.explore) .shadow_overlay", function(e){
       e.preventDefault();
 
-
-      //return immediately if tooltipser is triggered since we want to let it  
-      //do its own handling and not do the preview
       if($(e.target).is(".pill.more") || $(e.target).is("span.dot")){
         return;
       }
+      var link = $(this).siblings(".tile_thumb_link");
+      getPreview(link.attr("href"));
 
-      if((self).is(".tile_thumb_link")){
-        link = self;
-      }else{
-        link = self.siblings(".tile_thumb_link");
-      }
-
-      $.ajax({
-        type: "GET",
-        dataType: "html",
-        url: link.attr("href") ,
-        success: function(data, status,xhr){
-          var tilePreview = Airbo.TilePreviewModal;
-          tilePreview.init();
-          tilePreview.open(data);
-        },
-
-        error: function(jqXHR, textStatus, error){
-          console.log(error);
-        }
-      });
     });
   }
 
-  function initTiles() {
-    clientAdminTiles().each(function() {
-      $(this).unbind();
-      initTile($(this));
+  function initExploreTilePreview(){
+    $("body").on("click", ".tile_container.explore .tile_thumb_link_explore", function(e){
+      e.preventDefault();
+      getPreview($(this).attr("href"));
     });
   }
+
 
   function init(AirboTileManager) {
-    initTiles();
-    initEvents();
-  }
-
-  function clientAdminTiles() {
-    return $(".client_admin_tiles  .tile_container:not(.placeholder_container)");
+    initPreview()
+    initActions();
+    initTileToolTip();
   }
 
   return {
     init: init,
-    initTile: initTile,
-    initTiles: initTiles
   };
 }());
