@@ -15,7 +15,6 @@ Airbo.Search = (function(){
 
     tileGrid.append(data.content);
 
-    Airbo.SearchTileThumbnail.initTiles();
     Airbo.Utils.ButtonSpinner.reset($(this));
   }
 
@@ -110,7 +109,7 @@ $(function(){
     });
 
     $(".search.tile-grid.client_admin_tiles").each(function(index, container) {
-      Airbo.Search.loadResourcesInBackground($(container), Airbo.SearchTileThumbnail.initTiles);
+      Airbo.Search.loadResourcesInBackground($(container), $.noop);
     });
   }
 });
