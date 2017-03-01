@@ -2,15 +2,11 @@ var Airbo = window.Airbo || {};
 
 Airbo.TilePreivewArrows = (function(){
   return function(){
-    var clientAdmintileNavLeft = ".tile_preview_container .viewer  #prev",
-    clientAdmintileNavRight = ".tile_preview_container .viewer #next",
-    exploreTileNavLeft = ".button_arrow.prev_tile",
-    exploreTileNavRight = ".button_arrow.next_tile",
-    tileNavRight = [clientAdmintileNavRight, exploreTileNavRight].join(", "),
-    tileNavLeft = [clientAdmintileNavLeft, exploreTileNavLeft].join(", "),
-    tileNavSelector = [tileNavRight, tileNavLeft].join(", "),
-    exploreNav = [exploreTileNavLeft, exploreTileNavRight].join(", "),
-    clientAdminNav = [clientAdmintileNavLeft, clientAdmintileNavRight].join(", "),
+    var exploreNav = ".explore_next_prev",
+    clientAdminNav = ".button_arrow:not(.explore_next_prev)",
+    tileNavRight = ".next_tile",
+    tileNavLeft = ".prev_tile",
+    tileNavSelector = ".button_arrow",
     tilePreview,
     defaultParams = {
       buttonSize: 100,

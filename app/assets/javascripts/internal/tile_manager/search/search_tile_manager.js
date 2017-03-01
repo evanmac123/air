@@ -41,8 +41,8 @@ Airbo.SearchTileManager = (function(){
   }
 
   function updateSections(data) {
-    var tile = data.tile
-    replaceTileContent(tile, data.tileId)
+    var tile = data.tile;
+    replaceTileContent(tile, data.tileId);
   }
 
   return {

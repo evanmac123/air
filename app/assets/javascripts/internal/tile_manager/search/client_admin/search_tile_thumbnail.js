@@ -16,7 +16,7 @@ Airbo.SearchTileThumbnail = (function() {
       var link = $(this);
       switch(link.data("action")){
         case "edit":
-        handleEdit(link)
+          handleEdit(link);
         break;
 
         case "post":
@@ -24,7 +24,7 @@ Airbo.SearchTileThumbnail = (function() {
         case "unarchive":
         case "ignore":
         case "unignore":
-        handleUpdate(link)
+          handleUpdate(link);
         break;
 
         case "delete":
@@ -33,7 +33,7 @@ Airbo.SearchTileThumbnail = (function() {
 
 
         case "accept":
-          handleAccept(link)
+          handleAccept(link);
         break;
       }
     });
@@ -43,11 +43,11 @@ Airbo.SearchTileThumbnail = (function() {
     Airbo.SearchTileActions.updateStatus(link);
   }
 
-  function handleAccept(link){ 
+  function handleAccept(link){
     Airbo.SearchTileActions.confirmAcceptance(link);
   }
 
-  function handleDelete(link){ 
+  function handleDelete(link){
     Airbo.SearchTileActions.confirmDeletion(link);
   }
 
@@ -61,6 +61,7 @@ Airbo.SearchTileThumbnail = (function() {
     $.ajax({
       type: "GET",
       dataType: "html",
+      data: { from_search: true },
       url: url ,
       success: function(data, status,xhr){
         var tilePreview = Airbo.SearchTilePreviewModal;
@@ -102,7 +103,7 @@ Airbo.SearchTileThumbnail = (function() {
 
 
   function init(AirboTileManager) {
-    initPreview()
+    initPreview();
     initActions();
     initTileToolTip();
   }

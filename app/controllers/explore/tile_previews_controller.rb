@@ -8,8 +8,10 @@ class Explore::TilePreviewsController < ExploreBaseController
     schedule_mixpanel_pings(@tile)
 
     if request.xhr?
-      @next_tile = params[:next_tile] || @tile
-      @prev_tile = params[:prev_tile] || @tile
+      unless params[:from_search]
+        @next_tile = params[:next_tile] || @tile
+        @prev_tile = params[:prev_tile] || @tile
+      end
 
       render partial: "explore/tile_previews/tile_preview",
              locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section] },
@@ -31,22 +33,11 @@ class Explore::TilePreviewsController < ExploreBaseController
       @demo ||= @tile.demo
     end
 
-    def get_sorted_explore_tiles
-      ids = params[:tile_ids].map(&:to_i)
-      default_sorting = Tile.where(id: ids).group_by(&:id)
-      ids.map { |id| default_sorting[id].first }
-    end
-
     def find_tile
       begin
         @tile ||= Tile.explore.find(params[:id])
       rescue
         not_found
       end
-    end
-
-    def next_explore_tile(offset)
-      next_tile = @tiles[@tiles.index(@tile).to_i + offset] || @tiles.first
-      next_tile || @tile
     end
 end
