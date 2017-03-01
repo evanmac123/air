@@ -29,14 +29,30 @@ Airbo.ExploreTileManager = (function(){
       success: function(data, status, xhr){
         tilePreview.init();
         tilePreview.open(data);
-        debugger
-        
+        initArrows(tilePreview);
       },
 
       error: function(jqXHR, textStatus, error){
         console.log(error);
       }
     });
+  }
+
+  function initArrows(tilePreview) {
+    arrowsObj = Airbo.TilePreivewArrows();
+    arrowsObj.init(tilePreview, {
+      buttonSize: 40,
+      offset: 20,
+      afterNext: function() {
+        ping("Clicked arrow to next tile");
+      },
+      afterPrev: function() {
+        ping("Clicked arrow to previous tile");
+      },
+    });
+
+    arrowsObj.initEvents();
+    arrowsObj.position();
   }
 
   function nextTile(tile) {

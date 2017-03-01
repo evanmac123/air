@@ -38,7 +38,6 @@ Airbo.ExploreTilePreview = (function(){
 
     Airbo.ShareLink.init();
     Airbo.TileCarouselPage.init();
-    arrowsObj.initEvents();
     initEvents();
   }
   function initModalObj() {
@@ -69,17 +68,6 @@ Airbo.ExploreTilePreview = (function(){
     } else {
       initModalObj();
     }
-    arrowsObj = Airbo.TilePreivewArrows();
-    arrowsObj.init(this, {
-      buttonSize: 40,
-      offset: 20,
-      afterNext: function() {
-        ping("Clicked arrow to next tile");
-      },
-      afterPrev: function() {
-        ping("Clicked arrow to previous tile");
-      },
-    });
     //move this to explore_tileManager!
 
     // initEvents();
