@@ -20,7 +20,6 @@ Airbo.SearchTileThumbnailMenu = (function() {
     }
   }
 
-
   function initTileActions(){
     $("body").on("click", ".tile_thumbnail_menu .delete_tile, .tile_buttons .delete_tile", function(event){
       event.preventDefault();
