@@ -5,6 +5,7 @@ Airbo.ExploreTilePreview = (function(){
       modalId = "explore_tile_preview",
       arrowsObj,
       introShowed = false,
+      arrowsObj,
       self;
 
   function ping(action) {
@@ -25,6 +26,7 @@ Airbo.ExploreTilePreview = (function(){
     Airbo.StickyMenu.init(self);
     Airbo.CopyTileToBoard.init();
     Airbo.ImageLoadingPlaceholder.init();
+    arrowsObj.initEvents();
 
     $('.right_multiple_choice_answer').one("click", function(event) {
       event.preventDefault();
@@ -43,7 +45,6 @@ Airbo.ExploreTilePreview = (function(){
 
     //This handles issue where the onboarding modal css interferes with the tile modal css.
     $(".reveal-modal").css("top", 0);
-
   }
 
   function initModalObj() {
@@ -55,9 +56,15 @@ Airbo.ExploreTilePreview = (function(){
     });
   }
 
+  function positionArrows() {
+    arrowsObj.position();
+  }
+
   function init() {
     self = this;
     initModalObj();
+    arrowsObj = Airbo.TilePreivewArrows();
+    arrowsObj.init(this, { buttonSize: 40, offset: 20 });
     return self;
   }
 
@@ -65,7 +72,8 @@ Airbo.ExploreTilePreview = (function(){
     init: init,
     open: open,
     tileContainerSizes: tileContainerSizes,
-    modalId: modalId
+    modalId: modalId,
+    positionArrows: positionArrows
   };
 }());
 

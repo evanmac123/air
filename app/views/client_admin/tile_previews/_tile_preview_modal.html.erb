@@ -2,8 +2,8 @@
   <%= render partial: 'client_admin/tiles/tile_preview/menu', locals: {tile: @tile, show_client_admin_menu: true, menu_type: "client_admin_created"} %>
   <div class='viewer'>
     <% if prev_tile && next_tile %>
-      <%= link_to "", client_admin_tile_preview_path(prev_tile, tag: tag, section: section), id: "prev_tile", class: "button_arrow prev_tile explore_next_prev", data: { action: "show", tile_id: prev_tile } %>
-      <%= link_to "", client_admin_tile_preview_path(next_tile, tag: tag, section: section), id: "next_tile", class: "button_arrow next_tile explore_next_prev", data: { action: "show", tile_id: next_tile } %>
+      <%= link_to "", client_admin_tile_preview_path(prev_tile), id: "prev_tile", class: "button_arrow prev_tile explore_next_prev", data: { action: "show", tile_id: prev_tile } %>
+      <%= link_to "", client_admin_tile_preview_path(next_tile), id: "next_tile", class: "button_arrow next_tile explore_next_prev", data: { action: "show", tile_id: next_tile } %>
     <% end %>
 
     <div id="slideshow">

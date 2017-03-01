@@ -92,7 +92,6 @@ Airbo.SearchTileThumbnail = (function() {
     return Airbo.TileThumbnailManagerBase.prevTile(tile);
   }
 
-
   function initPreview() {
     initExploreTilePreview();
     initMyTilePreview();
@@ -106,8 +105,7 @@ Airbo.SearchTileThumbnail = (function() {
         return;
       }
       var link = $(this).siblings(".tile_thumb_link");
-      getPreview($(this).attr('href'), $(this).data('tileId'));
-
+      getPreview(link.attr('href'), link.data('tileId'));
     });
   }
 
