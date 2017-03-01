@@ -104,7 +104,7 @@ Airbo.TileThumbnail = (function() {
   }
 
   function initTiles(tileId) {
-initPreview()
+    initPreview()
     initActions();
     initTileToolTipTip();
   }

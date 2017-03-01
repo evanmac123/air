@@ -263,10 +263,8 @@ Airbo.TileAction = (function(){
     function postProcess(){
       var isArchiveSection = tile.data("status") == "archive";
       tile.remove();
-      // if(Airbo.TileManager.getManagerType() == "main") {
       Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
       updateShowMoreDraftTilesButton();
-      // }
       if(isArchiveSection) {
         loadLastArchiveTile();
       }
