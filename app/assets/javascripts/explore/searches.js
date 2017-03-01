@@ -110,7 +110,7 @@ $(function(){
     });
 
     $(".search.tile-grid.client_admin_tiles").each(function(index, container) {
-      Airbo.Search.loadResourcesInBackground($(container), Airbo.SearchTileThumbnail.initTiles);
+      Airbo.Search.loadResourcesInBackground($(container), Airbo.SearchTileThumbnail.init);
     });
   }
 });

@@ -21,8 +21,8 @@ Airbo.SearchTileThumbnailMenu = (function() {
   }
 
   function init(tile) {
-    var menuButton = tile.find(".pill.more:not(.tooltipstered)");
-
+  
+    var menuButton = $(".pill.more:not(.tooltipstered)");
     menuButton.tooltipster({
       theme: "tooltipster-shadow tooltipster-thumbnail-menu",
       interactive: true,
