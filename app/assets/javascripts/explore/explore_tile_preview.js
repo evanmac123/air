@@ -80,8 +80,7 @@ Airbo.ExploreTilePreview = (function(){
         ping("Clicked arrow to previous tile");
       },
     });
-
-    debugger
+    //move this to explore_tileManager!
 
     // initEvents();
     return self;

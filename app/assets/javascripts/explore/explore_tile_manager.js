@@ -29,6 +29,8 @@ Airbo.ExploreTileManager = (function(){
       success: function(data, status, xhr){
         tilePreview.init();
         tilePreview.open(data);
+        debugger
+        
       },
 
       error: function(jqXHR, textStatus, error){
