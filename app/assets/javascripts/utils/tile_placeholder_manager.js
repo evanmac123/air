@@ -74,6 +74,8 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
         return 9999;
       }
     } else if (section === "archive") {
+      //TODO Delete reference to getManagerType
+
       if( Airbo.TileManager.getManagerType() == "main" ){
         return numberInRow(section);
       } else {
