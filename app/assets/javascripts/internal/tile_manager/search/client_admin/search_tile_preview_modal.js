@@ -96,8 +96,12 @@ Airbo.SearchTilePreviewModal = (function(){
     Airbo.ImageLoadingPlaceholder.init();
     initStickyPreviewMenu();
     arrowsObj.initEvents();
+    Airbo.CopyTileToBoard.init();
+    Airbo.ShareLink.init();
+
     initEvents();
   }
+
   function open(preview) {
     modalObj.setContent(preview);
     initPreviewElements();
@@ -110,17 +114,19 @@ Airbo.SearchTilePreviewModal = (function(){
       useAjaxModal: true,
       modalClass: "bg-user-side",
       closeSticky: true,
-      onOpenedEvent: function() {
-        arrowsObj.position();
-      },
       onClosedEvent: function() {
         $(".tipsy").tooltipster("hide");
       }
     });
   }
+
+  function positionArrows() {
+    arrowsObj.position();
+  }
+
   function init(AirboTileManager){
     self = this;
-    arrowsObj = Airbo.TilePreivewArrows();
+    arrowsObj = Airbo.SearchTilePreviewArrows();
     initModalObj();
     arrowsObj.init(self, {buttonSize: 40, offset: 20});
     tileManager = AirboTileManager;
@@ -131,6 +137,7 @@ Airbo.SearchTilePreviewModal = (function(){
     open: open,
     close: close,
     tileContainerSizes: tileContainerSizes,
-    modalId: modalId
+    modalId: modalId,
+    positionArrows: positionArrows
   };
 }());

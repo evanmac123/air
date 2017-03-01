@@ -57,16 +57,21 @@ Airbo.SearchTileThumbnail = (function() {
     tileForm.open(link.attr("href"));
   }
 
-  function getPreview(url){
+  function getPreview(link, id){
+    var tile = tileContainerByDataTileId(id);
+    var next = nextTile(tile).data('tileContainerId');
+    var prev = prevTile(tile).data('tileContainerId');
+
     $.ajax({
       type: "GET",
       dataType: "html",
-      data: { from_search: true },
-      url: url ,
+      data: { partial_only: true, from_search: true, next_tile: next, prev_tile: prev },
+      url: link,
       success: function(data, status,xhr){
         var tilePreview = Airbo.SearchTilePreviewModal;
         tilePreview.init();
         tilePreview.open(data);
+        tilePreview.positionArrows();
       },
 
       error: function(jqXHR, textStatus, error){
@@ -74,6 +79,19 @@ Airbo.SearchTileThumbnail = (function() {
       }
     });
   }
+
+  function tileContainerByDataTileId(id){
+    return  $(".tile_container[data-tile-container-id=" + id + "]");
+  }
+
+  function nextTile(tile) {
+    return Airbo.TileThumbnailManagerBase.nextTile(tile);
+  }
+
+  function prevTile(tile) {
+    return Airbo.TileThumbnailManagerBase.prevTile(tile);
+  }
+
 
   function initPreview() {
     initExploreTilePreview();
@@ -84,20 +102,19 @@ Airbo.SearchTileThumbnail = (function() {
   function initMyTilePreview(){
     $("body").on("click", ".tile_container:not(.explore) .shadow_overlay", function(e){
       e.preventDefault();
-
       if($(e.target).is(".pill.more") || $(e.target).is("span.dot")){
         return;
       }
       var link = $(this).siblings(".tile_thumb_link");
-      getPreview(link.attr("href"));
+      getPreview($(this).attr('href'), $(this).data('tileId'));
 
     });
   }
 
   function initExploreTilePreview(){
-    $("body").on("click", ".tile_container.explore .tile_thumb_link_explore", function(e){
+    $("body").on("click", ".tile_container.explore .tile_thumb_link_explore", function(e) {
       e.preventDefault();
-      getPreview($(this).attr("href"));
+      getPreview($(this).attr('href'), $(this).data('tileId'));
     });
   }
 
@@ -110,5 +127,6 @@ Airbo.SearchTileThumbnail = (function() {
 
   return {
     init: init,
+    getPreview: getPreview
   };
 }());

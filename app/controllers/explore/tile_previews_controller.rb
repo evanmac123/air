@@ -4,15 +4,11 @@ class Explore::TilePreviewsController < ExploreBaseController
   prepend_before_filter :find_tile
 
   def show
-    # TODO: Refactor out single tile view to separate action
     schedule_mixpanel_pings(@tile)
 
     if request.xhr?
-      unless params[:from_search]
-        @next_tile = params[:next_tile] || @tile
-        @prev_tile = params[:prev_tile] || @tile
-      end
-
+      @next_tile = params[:next_tile] || @tile.id
+      @prev_tile = params[:prev_tile] || @tile.id
       render partial: "explore/tile_previews/tile_preview",
              locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section] },
              layout: false
@@ -25,7 +21,12 @@ class Explore::TilePreviewsController < ExploreBaseController
   private
 
     def schedule_mixpanel_pings(tile)
-      ping("Tile - Viewed in Explore", {tile_id: tile.id, section: params[:section]}, current_user)
+      if params[:from_search]
+        ping("Tile - Viewed in Search", { tile_id: tile.id, tile_type: "Explore" }, current_user)
+      else
+        ping("Tile - Viewed in Explore", {tile_id: tile.id, section: params[:section]}, current_user)
+      end
+
       email_clicked_ping(current_user) if current_user
     end
 

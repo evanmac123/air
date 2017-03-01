@@ -43,6 +43,7 @@ Airbo.ExploreTilePreview = (function(){
 
     //This handles issue where the onboarding modal css interferes with the tile modal css.
     $(".reveal-modal").css("top", 0);
+
   }
 
   function initModalObj() {
