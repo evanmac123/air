@@ -19,7 +19,7 @@
 <% else %>
   <% do_not_display = true %>
 <% end %>
-<% button_class = drop_friend ? 'button outlined' : 'button' %>
+<% button_class = drop_friend ? 'button outlined stop-following-btn' : 'button follow-btn' %>
 <% submit_tag_id = "update_friendship_with_" + user.sms_slug %>
 <% unless do_not_display %>
   <div class="follow_buttons">
