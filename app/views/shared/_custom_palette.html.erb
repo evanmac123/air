@@ -22,6 +22,22 @@
   color: <%=@primary_color%>
 }
 
+#this_is_me * {
+  color: <%=@primary_color%>
+}
+
+.tight_bar .completed_bubble {
+  background: <%=@primary_color%>
+}
+
+.single_suggestion:hover {
+  border-color: <%=@primary_color%>;
+}
+
+.single_suggestion div.info div.bit:first-child {
+  color: <%=@primary_color%>;
+}
+
 .tiles.tiles-index .viewer a#prev,
 .tiles.tiles-index .viewer a#next,
 .tile_previews.tile_previews-show .viewer a#prev,
@@ -48,11 +64,39 @@
   border-left: 2em solid #f7f7f7;
 }
 
+.button, .button:not([disabled]):hover, .button:not([disabled]):focus, .button:not([disabled]):active {
+  <%=@solid_filled_styles%>
+  <%=@solid_hover_styles%>
+}
+
+.button.button.outlined {
+  border-color:<%=@primary_color%>;
+  color:<%=@primary_color%>;
+}
+
+.button.button.outlined:hover, .button.button.outlined:focus, .button.button.outlined:active {
+  border-color: <%=@primary_color%>;
+  background-color: <%=@primary_color%>;
+  color: <%=@palette.content_background_reset%>;
+}
+
+.name-of-user {
+  color:<%=@primary_color%>;
+}
+
+.follow-btn {
+  <%=@solid_filled_styles%>
+  <%=@solid_hover_styles%>
+}
+
 
 h3, h4, h5, label {
   color:  <%=@palette.static_text_color %>;
 }
 
+input[type=text]:focus {
+  border-color: <%=@primary_color%>;
+}
 
 body.tiles.tiles-index .core,
 body.tiles.tiles-index .content,
