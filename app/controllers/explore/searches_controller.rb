@@ -20,6 +20,8 @@ class Explore::SearchesController < ExploreBaseController
       }
     else
       @search_service.track_initial_search
+
+      ping("Search", { query: params[:query]}, current_user)
     end
   end
 

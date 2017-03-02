@@ -90,6 +90,8 @@ class TilesController < ApplicationController
     end
 
     def render_search_tile_viewer
+      ping("Tile - Viewed in Search", { tile_id: params[:id], tile_type: "User" }, current_user)
+
       @start_tile = Tile.find(params[:id])
       render json: {
         tile_content: render_to_string("tiles/_search_viewer",  layout: false),

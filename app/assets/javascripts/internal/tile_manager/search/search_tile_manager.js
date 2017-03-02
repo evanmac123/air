@@ -21,10 +21,9 @@ Airbo.SearchTileManager = (function(){
     if (userType == "user") {
       Airbo.UserTileSearch.init();
     } else {
+      Airbo.SearchTileThumbnail.init();
       Airbo.TileStatsModal.init();
     }
-
-    Airbo.SearchTileThumbnail.init();
   }
 
   function replaceTileContent(tile, id){
