@@ -12,31 +12,38 @@
 /* ------------------ */
 .act .avatar43 .points {
   border-color:  #dfdfdf;
-  color: #dfdfdf; 
+  color: #dfdfdf;
+}
+.act .act-details .user a {
+  color: <%=@primary_color%>
 }
 
-.tiles.tiles-index .viewer a#prev, 
-.tiles.tiles-index .viewer a#next, 
-.tile_previews.tile_previews-show .viewer a#prev, 
+#scoreboard-module a {
+  color: <%=@primary_color%>
+}
+
+.tiles.tiles-index .viewer a#prev,
+.tiles.tiles-index .viewer a#next,
+.tile_previews.tile_previews-show .viewer a#prev,
 .tile_previews.tile_previews-show .viewer a#next {
   background: #e3e3e3;
   border-color: #ddd;
 }
 
-.tiles.tiles-index .viewer a#prev:hover, 
-.tiles.tiles-index .viewer a#next:hover, 
-.tile_previews.tile_previews-show .viewer a#prev:hover, 
+.tiles.tiles-index .viewer a#prev:hover,
+.tiles.tiles-index .viewer a#next:hover,
+.tile_previews.tile_previews-show .viewer a#prev:hover,
 .tile_previews.tile_previews-show .viewer a#next:hover {
   background: #ccc;
   border-color: #ccc;
 }
-.tiles.tiles-index .viewer a#prev:after, 
+.tiles.tiles-index .viewer a#prev:after,
 .tile_previews.tile_previews-show .viewer a#prev:after{
  border-right: 2em solid #f7f7f7;
 
 }
 
-.tiles.tiles-index .viewer a#next:after, 
+.tiles.tiles-index .viewer a#next:after,
 .tile_previews.tile_previews-show .viewer a#next:after{
   border-left: 2em solid #f7f7f7;
 }
@@ -47,11 +54,11 @@ h3, h4, h5, label {
 }
 
 
-body.tiles.tiles-index .core, 
-body.tiles.tiles-index .content, 
-body.suggested_tiles-new .core, 
-body.suggested_tiles-new .content, 
-body.suggested_tiles-show .core, 
+body.tiles.tiles-index .core,
+body.tiles.tiles-index .content,
+body.suggested_tiles-new .core,
+body.suggested_tiles-new .content,
+body.suggested_tiles-show .core,
 body.suggested_tiles-show .content,
 body.acts-index .user_container,
 #tile_wall{
@@ -63,34 +70,34 @@ body.acts-index .user_container,
 
 /* Tile Show */
 /* ------------------ */
-body.tiles.tiles-index .tile_holder .tile_quiz .tile_multiple_choice_answer .clicked_right_answer { 
+body.tiles.tiles-index .tile_holder .tile_quiz .tile_multiple_choice_answer .clicked_right_answer {
   background: <%=@primary_color%> !important;
   border-color: <%=@primary_color%> !important;
 }
 
-body.acts-index #user_progress #tile_section #tile_progress_bar, 
+body.acts-index #user_progress #tile_section #tile_progress_bar,
 body.tiles-index #user_progress #tile_section #tile_progress_bar{
   background: <%=@palette.tile_progress_background_reset %>;
   box-shadow: none;
 }
 
-body.tiles-index #user_progress .progress_header, 
+body.tiles-index #user_progress .progress_header,
 body.acts-index #user_progress .progress_header {
   background: <%=@palette.tile_progress_background_reset %>;
  color: <%=@palette.static_text_color %>
 }
 
-body.tiles-index #user_progress, 
+body.tiles-index #user_progress,
 body.acts-index #user_progress {
  color: <%=@palette.static_text_color %>
 }
 
-body.tiles-index #user_progress #tile_section #tile_progress_bar #all_tiles, 
+body.tiles-index #user_progress #tile_section #tile_progress_bar #all_tiles,
 body.acts-index #user_progress #tile_section #tile_progress_bar #all_tiles {
   color: <%=@palette.tile_progress_all_tiles_text_reset %>;
 }
 
-body.tiles-index #user_progress #tile_section #tile_progress_bar #completed_tiles , 
+body.tiles-index #user_progress #tile_section #tile_progress_bar #completed_tiles ,
 body.acts-index #user_progress #tile_section #tile_progress_bar #completed_tiles{
 
   color: <%=@palette.tile_progress_completed_tiles_text_reset %>;
@@ -98,34 +105,34 @@ body.acts-index #user_progress #tile_section #tile_progress_bar #completed_tiles
 
 /* Prizes and Raffles */
 /* ------------------ */
-body.tiles-index .prize_box .tickets_row, 
-body.acts-index .prize_box .tickets_row, 
+body.tiles-index .prize_box .tickets_row,
+body.acts-index .prize_box .tickets_row,
 body.client_admin-prizes .prize_box .tickets_row {
 
   background: <%=@primary_color%>;
 }
 
 
-body.tiles-index #user_progress #raffle_section.round_bar, 
+body.tiles-index #user_progress #raffle_section.round_bar,
 body.acts-index #user_progress #raffle_section.round_bar{
   background: <%=@primary_color%>;
 }
 
-body.tiles-index #user_progress #raffle_section.round_bar .progress-radial .overlay, 
+body.tiles-index #user_progress #raffle_section.round_bar .progress-radial .overlay,
 body.acts-index #user_progress #raffle_section.round_bar .progress-radial .overlay{
 color: <%=@primary_color%>;
 
 }
 
 
-body.tiles-index .prize_box .prizes_container .prize_row .icon_container, 
-body.acts-index .prize_box .prizes_container .prize_row .icon_container, 
+body.tiles-index .prize_box .prizes_container .prize_row .icon_container,
+body.acts-index .prize_box .prizes_container .prize_row .icon_container,
 body.client_admin-prizes .prize_box .prizes_container .prize_row .icon_container{
   color: <%=@primary_color%>;
 }
 
-body.tiles-index .prize_box .other_info_row .close_modal, 
-body.acts-index .prize_box .other_info_row .close_modal, 
+body.tiles-index .prize_box .other_info_row .close_modal,
+body.acts-index .prize_box .other_info_row .close_modal,
 body.client_admin-prizes .prize_box .other_info_row .close_modal{
   color: <%=@primary_color%>;
   border-color: <%=@primary_color%>;
@@ -133,7 +140,7 @@ body.client_admin-prizes .prize_box .other_info_row .close_modal{
 
 
 body.settings input[type="submit"], #search #find_button{
-  background: <%=@primary_color%>; 
+  background: <%=@primary_color%>;
   border-color: <%=@primary_color%>;
 }
 
@@ -142,7 +149,7 @@ body.settings input[type="submit"]:hover, #search #find_button:hover{
 <%=@solid_hover_styles%>
 }
 
-body.tiles-index #user_progress #raffle_section.round_bar .progress-radial, 
+body.tiles-index #user_progress #raffle_section.round_bar .progress-radial,
 body.acts-index #user_progress #raffle_section.round_bar .progress-radial{
   color: <%=@primary_color%>
 }
@@ -196,7 +203,7 @@ body .find_users:hover {
 <%=@solid_hover_styles%>
 }
 
-#tile_wall #tile_links .show_more_tiles:after,  
+#tile_wall #tile_links .show_more_tiles:after,
 #tile_wall #tile_links .show_more_tiles:before{
   border-color: <%=@primary_color%>;
 }
@@ -206,7 +213,7 @@ body .find_users:hover {
 }
 
 
-body.tiles-index #user_progress #total_section #total_points, 
+body.tiles-index #user_progress #total_section #total_points,
 body.acts-index #user_progress #total_section #total_points {
 
 color: <%=@primary_color%>;
@@ -217,11 +224,11 @@ body.tiles-index #user_progress #completed_tiles, body.acts-index #user_progress
 background: <%=@primary_color%>;
 }
 
-body.tile.tile-show .tile_holder .tile_quiz .tile_points_bar .earnable_points, 
-body.tile.tile-show .tile_holder .tile_quiz .tile_types .earnable_points, 
-body.tile_previews-show .tile_holder .tile_quiz .tile_points_bar .earnable_points, 
-body.tile_previews-show .tile_holder .tile_quiz .tile_types .earnable_points, 
-body.tiles.tiles-index .tile_holder .tile_quiz .tile_points_bar .earnable_points, 
+body.tile.tile-show .tile_holder .tile_quiz .tile_points_bar .earnable_points,
+body.tile.tile-show .tile_holder .tile_quiz .tile_types .earnable_points,
+body.tile_previews-show .tile_holder .tile_quiz .tile_points_bar .earnable_points,
+body.tile_previews-show .tile_holder .tile_quiz .tile_types .earnable_points,
+body.tiles.tiles-index .tile_holder .tile_quiz .tile_points_bar .earnable_points,
 body.tiles.tiles-index .tile_holder .tile_quiz .tile_types .earnable_points{
 
 background: <%=@primary_color%>;
