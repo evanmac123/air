@@ -143,13 +143,6 @@ Airbo.SearchTileActions = (function(){
 
       if (renderPlaceHolder) {
         // Impelment in when we fully refactor
-        // if(Airbo.TileManager.getManagerType() == "main") {
-        // Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
-        // updateShowMoreDraftTilesButton();
-        // // }
-        // if(isArchiveSection) {
-        //   loadLastArchiveTile();
-        // }
       }
     }
 

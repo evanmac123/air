@@ -87,7 +87,7 @@ Airbo.CopyTileToBoard = (function(){
 }());
 
 $(function(){
-  if( $(".tile_wall_explore").length > 0 ) {
+  if( $(".tile_wall_explore, .explore-tile_previews-show").length > 0 ) {
     Airbo.CopyTileToBoard.init();
   }
 });

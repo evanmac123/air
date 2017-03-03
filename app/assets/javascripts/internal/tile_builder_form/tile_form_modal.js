@@ -110,14 +110,16 @@ Airbo.TileFormModal = (function(){
   }
 
   function submitSuccess(data) {
-    tileManager.updateSections(data);
-    var tilePreview;
+    var mgr = getTileManager(),
+    tilePreview;
+
     if (data.fromSearch === true) {
       tilePreview = Airbo.SearchTilePreviewModal;
     } else {
       tilePreview = Airbo.TilePreviewModal;
     }
 
+    mgr.updateSections(data);
     tilePreview.init();
     tilePreview.open(data.preview);
   }
@@ -171,6 +173,10 @@ Airbo.TileFormModal = (function(){
         }
       });
     }
+  }
+
+  function getTileManager(){
+    return tileManager;
   }
 
 

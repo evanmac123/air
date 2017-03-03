@@ -1,10 +1,8 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TilePreivewArrows = (function(){
+Airbo.SearchTilePreviewArrows = (function(){
   return function(){
-    var exploreNav = ".explore_next_prev",
-    clientAdminNav = ".button_arrow:not(.explore_next_prev)",
-    tileNavRight = ".next_tile",
+    var tileNavRight = ".next_tile",
     tileNavLeft = ".prev_tile",
     tileNavSelector = ".button_arrow",
     tilePreview,
@@ -26,36 +24,12 @@ Airbo.TilePreivewArrows = (function(){
     }
 
     function initEvents() {
-      $(clientAdminNav).click(function(e){
-        e.preventDefault();
-        if( $(this)[0] == $(tileNavLeft)[0] ) {
-          params.afterPrev();
-        } else if( $(this)[0] == $(tileNavRight)[0] ) {
-          params.afterNext();
-        }
-        var link = $(this);
-        $.ajax({
-          type: "GET",
-          dataType: "html",
-          url: link.attr("href"),
-          data: { partial_only: true },
-          success: function(data, status, xhr) {
-            tilePreview.open(data);
-            position();
-          },
-
-          error: function(jqXHR, textStatus, error){
-            console.log(error);
-          }
-        });
-      });
-
-      $(exploreNav).click(function(e) {
+      $(tileNavSelector).click(function(e) {
         e.preventDefault();
         var id = $(this).data('tileId');
         var path = $(this).attr('href');
 
-        Airbo.ExploreTileManager.getExploreTile(path, id);
+        Airbo.SearchTileThumbnail.getPreview(path, id);
       });
     }
 

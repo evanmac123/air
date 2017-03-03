@@ -24,6 +24,10 @@ class GuestUser < ActiveRecord::Base
     true
   end
 
+  def end_user?
+    false
+  end
+
   def role
     "Guest"
   end

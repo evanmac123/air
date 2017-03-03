@@ -1,6 +1,6 @@
 .explore-tile_previews.explore-tile_previews-show {
   .tile_preview_block {
-    padding-top: 32px;
+    padding-top: 0;
   }
 
   &.single_tile_guest_layout {
@@ -37,15 +37,14 @@
     box-shadow: none;
     border-radius: 0;
     overflow: hidden;
+    width: 600px;
+    margin-top: 50px;
   }
 
   .viewer {
     margin: auto;
   }
 
-  .tile_holder {
-    width: 600px;
-  }
   .share_bar{
     background: $white;
     margin-top: 10px;

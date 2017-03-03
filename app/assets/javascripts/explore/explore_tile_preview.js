@@ -12,6 +12,7 @@ Airbo.ExploreTilePreview = (function(){
     tile_id = $("[data-current-tile-id]").data("current-tile-id");
     Airbo.Utils.ping('Explore page - Interaction', {action: action, tile_id: tile_id});
   }
+
   function tileContainerSizes() {
     tileContainer = $(".tile_full_image")[0];
     if( !tileContainer ) {
@@ -19,17 +20,18 @@ Airbo.ExploreTilePreview = (function(){
     }
     return tileContainer.getBoundingClientRect();
   }
+
   function initEvents() {
     Airbo.StickyMenu.init(self);
     Airbo.CopyTileToBoard.init();
+    Airbo.ImageLoadingPlaceholder.init();
+    arrowsObj.initEvents();
 
     $('.right_multiple_choice_answer').one("click", function(event) {
       event.preventDefault();
       $("#next_tile").trigger("click");
       ping("Clicked Answer");
     });
-
-    Airbo.ImageLoadingPlaceholder.init();
   }
 
   function open(preview) {
@@ -38,64 +40,43 @@ Airbo.ExploreTilePreview = (function(){
 
     Airbo.ShareLink.init();
     Airbo.TileCarouselPage.init();
-    arrowsObj.initEvents();
     initEvents();
+
+    //This handles issue where the onboarding modal css interferes with the tile modal css.
+    $(".reveal-modal").css("top", 0);
   }
+
   function initModalObj() {
     modalObj.init({
       modalId: modalId,
       modalClass: "tile_previews explore-tile_previews tile_previews-show explore-tile_previews-show bg-user-side",
       useAjaxModal: true,
-      closeSticky: true,
-      onOpenedEvent: function() {
-        arrowsObj.position();
-      }
-    });
-  }
-  function initFakeModalObj() {
-    modalObj = Airbo.Utils.FakeModal();
-    modalObj.init({
-      containerSel: ".content",
-      onOpenedEvent: function() {
-        arrowsObj.position();
-      }
+      closeSticky: true
     });
   }
 
-  function init(fakeModal) {
+  function positionArrows() {
+    arrowsObj.position();
+  }
+
+  function init() {
     self = this;
-    if(fakeModal) {
-      initFakeModalObj();
-    } else {
-      initModalObj();
-    }
+    initModalObj();
     arrowsObj = Airbo.TilePreivewArrows();
-    arrowsObj.init(this, {
-      buttonSize: 40,
-      offset: 20,
-      afterNext: function() {
-        ping("Clicked arrow to next tile");
-      },
-      afterPrev: function() {
-        ping("Clicked arrow to previous tile");
-      },
-    });
-
-    // initEvents();
+    arrowsObj.init(this, { buttonSize: 40, offset: 20 });
     return self;
   }
+
   return {
     init: init,
     open: open,
     tileContainerSizes: tileContainerSizes,
-    modalId: modalId
+    modalId: modalId,
+    positionArrows: positionArrows
   };
 }());
 
-Airbo.GuestExploreTilePreview = (function(){
-  function open() {
-
-  }
+Airbo.ExploreTileNonModal = (function(){
   function init() {
     Airbo.ShareLink.init();
     Airbo.TileCarouselPage.init();
@@ -103,17 +84,12 @@ Airbo.GuestExploreTilePreview = (function(){
     return this;
   }
   return {
-    init: init,
-    open: open
+    init: init
   };
 }());
 
 $(function(){
-  if( $(".explore_menu").length > 0 ) {
-    var preview = Airbo.ExploreTilePreview.init(true);
-    preview.open();
-  }
-  if( $(".single_tile_guest_layout").length > 0 ) {
-    Airbo.GuestExploreTilePreview.init();
+  if( $(".single_tile_guest_layout, .explore-tile_previews-show").length > 0 ) {
+    Airbo.ExploreTileNonModal.init();
   }
 });

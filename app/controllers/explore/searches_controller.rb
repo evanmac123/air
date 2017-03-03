@@ -20,10 +20,18 @@ class Explore::SearchesController < ExploreBaseController
       }
     else
       @search_service.track_initial_search
+      get_theme
+      ping("Search", { query: params[:query]}, current_user)
     end
   end
 
   private
+
+    def get_theme
+      if current_user.end_user?
+        @palette = current_user.demo.custom_color_palette
+      end
+    end
 
     def search_section
       case params[:section]

@@ -23,7 +23,7 @@ feature 'User sees acts in profile' do
       expect_content "did k"
       expect_no_content "did a"
 
-      click_link "More"
+      find("#see-more").click
       expect_content "did k"
       expect_content "did a"
     end
@@ -41,7 +41,7 @@ feature 'User sees acts in profile' do
         expect_no_content "did k"
         expect_no_content "did a"
 
-        click_link "More"
+        find("#see-more").click
         expect_no_content "did k"
         expect_no_content "did a"
       end
@@ -57,7 +57,7 @@ feature 'User sees acts in profile' do
           expect_content "did k"
           expect_no_content "did a"
 
-          click_link "More"
+          find("#see-more").click
           expect_content "did k"
           expect_content "did a"
         end
@@ -74,7 +74,7 @@ feature 'User sees acts in profile' do
         expect_content "did k"
         expect_no_content "did a"
 
-        click_link "More"
+        find("#see-more").click
         expect_content "did k"
         expect_content "did a"
       end

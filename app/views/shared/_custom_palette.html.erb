@@ -1,6 +1,6 @@
 <meta name="custom-palette">
 <%@primary_color = @palette.primary_color%>
-<% @solid_filled_styles = "background: #{@primary_color}; border-color: #{@primary_color}; color: white;" %>
+<% @solid_filled_styles = "background: #{@primary_color}; border-color: #{@primary_color}; color: white;opacity:1;" %>
 <% @solid_hover_styles = "opacity: .80;" %>
 <% @unfilled_styles = "border-color: #{@primary_color}; color: #{@primary_color};" %>
 
@@ -12,33 +12,129 @@
 /* ------------------ */
 .act .avatar43 .points {
   border-color:  #dfdfdf;
-  color: #dfdfdf; 
+  color: #dfdfdf;
+}
+.act .act-details .user a {
+  color: <%=@primary_color%>
+}
+.search-bar .search-bar-wrapper.focus {
+  border-color: <%=@primary_color%>
 }
 
-.tiles.tiles-index .viewer a#prev, 
-.tiles.tiles-index .viewer a#next, 
-.tile_previews.tile_previews-show .viewer a#prev, 
+.search-bar .airbo-search-input-button:hover {
+  color: <%=@primary_color%>
+}
+
+#t-and-c-notice a {
+  color: <%=@primary_color%>
+}
+
+#flash_success {
+  background-color: <%=@primary_color%>
+}
+
+header #guest_user_start_over_button, header #guest_user_start_over_button[disabled], header #sign_in_button, header #sign_in_button[disabled], header #save_progress_button, header #save_progress_button[disabled], .start_lightbox #lightbox_get_started_button, .start_lightbox #lightbox_get_started_button[disabled] {
+  border-color:<%=@primary_color%>;
+  color:<%=@primary_color%>;
+}
+
+#guest_user_start_over_button[disabled]:hover, header #guest_user_start_over_button:not([disabled]):active, header #guest_user_start_over_button:not([disabled]):focus, header #guest_user_start_over_button:not([disabled]):hover, header #save_progress_button:not([disabled]):focus, #save_progress_button[disabled]:hover, #save_progress_button[disabled]:active, header #save_progress_button:not([disabled]):hover, #sign_in_button[disabled]:hover, #sign_in_button[disabled]:active, header #sign_in_button:not([disabled]):hover, .start_lightbox #lightbox_get_started_button:not([disabled]):hover, .start_lightbox #lightbox_get_started_button[disabled]:hover, .start_lightbox #lightbox_get_started_button[disabled]:active {
+  border-color: <%=@primary_color%>;
+  background-color: <%=@primary_color%>;
+  opacity: 1;
+  color: <%=@palette.content_background_reset%>;
+}
+
+.tiles.tiles-index a#prev:not([disabled]):active, .tiles.tiles-index a#prev:not([disabled]):focus, .tiles.tiles-index a#next:not([disabled]):active, .tiles.tiles-index a#next:not([disabled]):focus {
+  background-color: <%=@primary_color%>;
+  border-color: <%=@primary_color%>;
+}
+
+.close-reveal-modal:hover {
+  color: <%=@primary_color%>;
+}
+
+.start_lightbox a {
+  color: <%=@primary_color%>;
+}
+
+#scoreboard-module a {
+  color: <%=@primary_color%>
+}
+
+#this_is_me * {
+  color: <%=@primary_color%>
+}
+
+.tight_bar .completed_bubble {
+  background: <%=@primary_color%>
+}
+
+.single_suggestion:hover {
+  border-color: <%=@primary_color%>;
+}
+
+.single_suggestion div.info div.bit:first-child {
+  color: <%=@primary_color%>;
+}
+
+.tiles.tiles-index .viewer a#prev,
+.tiles.tiles-index .viewer a#next,
+.tile_previews.tile_previews-show .viewer a#prev,
 .tile_previews.tile_previews-show .viewer a#next {
   background: #e3e3e3;
   border-color: #ddd;
 }
 
-.tiles.tiles-index .viewer a#prev:hover, 
-.tiles.tiles-index .viewer a#next:hover, 
-.tile_previews.tile_previews-show .viewer a#prev:hover, 
+.core {
+  background-color:
+}
+
+.tiles.tiles-index .viewer a#prev:hover,
+.tiles.tiles-index .viewer a#next:hover,
+.tile_previews.tile_previews-show .viewer a#prev:hover,
 .tile_previews.tile_previews-show .viewer a#next:hover {
   background: #ccc;
   border-color: #ccc;
 }
-.tiles.tiles-index .viewer a#prev:after, 
+.tiles.tiles-index .viewer a#prev:after,
 .tile_previews.tile_previews-show .viewer a#prev:after{
  border-right: 2em solid #f7f7f7;
 
 }
 
-.tiles.tiles-index .viewer a#next:after, 
+.tiles.tiles-index .viewer a#next:after,
 .tile_previews.tile_previews-show .viewer a#next:after{
   border-left: 2em solid #f7f7f7;
+}
+
+.button {
+  <%=@solid_filled_styles%>
+}
+.button:not([disabled]):hover, .button:not([disabled]):focus, .button:not([disabled]):active {
+  <%=@solid_filled_styles%>
+  <%=@solid_hover_styles%>
+}
+
+.button.button.outlined {
+  border-color:<%=@primary_color%>;
+  background-color: transparent;
+  color:<%=@primary_color%>;
+}
+
+.button.button.outlined:hover, .button.button.outlined:focus, .button.button.outlined:active {
+  border-color: <%=@primary_color%>;
+  background-color: <%=@primary_color%>;
+  opacity: 1;
+  color: <%=@palette.content_background_reset%>;
+}
+
+.name-of-user {
+  color:<%=@primary_color%>;
+}
+
+.follow-btn {
+  <%=@solid_filled_styles%>
 }
 
 
@@ -46,14 +142,19 @@ h3, h4, h5, label {
   color:  <%=@palette.static_text_color %>;
 }
 
+input[type=file]:focus, input[type=password]:focus, input[type=text]:focus {
+  border-color: <%=@primary_color%>;
+}
 
-body.tiles.tiles-index .core, 
-body.tiles.tiles-index .content, 
-body.suggested_tiles-new .core, 
-body.suggested_tiles-new .content, 
-body.suggested_tiles-show .core, 
+body.tiles.tiles-index .core,
+body.tiles.tiles-index .content,
+body.suggested_tiles-new .core,
+body.suggested_tiles-new .content,
+body.suggested_tiles-show .core,
 body.suggested_tiles-show .content,
 body.acts-index .user_container,
+.explore-search.explore-search-user .core, .explore-search.explore-search-user .content,
+.explore-search-user .user_container,
 #tile_wall{
   background: <%=@palette.content_background_reset %>;
 }
@@ -63,69 +164,87 @@ body.acts-index .user_container,
 
 /* Tile Show */
 /* ------------------ */
-body.tiles.tiles-index .tile_holder .tile_quiz .tile_multiple_choice_answer .clicked_right_answer { 
+body.tiles.tiles-index .tile_holder .tile_quiz .tile_multiple_choice_answer .clicked_right_answer, .explore-search-user .tile_holder .tile_quiz .tile_multiple_choice_answer .clicked_right_answer {
   background: <%=@primary_color%> !important;
   border-color: <%=@primary_color%> !important;
 }
 
-body.acts-index #user_progress #tile_section #tile_progress_bar, 
+body.acts-index #user_progress #tile_section #tile_progress_bar,
+.explore-search-user #user_progress #tile_section #tile_progress_bar,
 body.tiles-index #user_progress #tile_section #tile_progress_bar{
   background: <%=@palette.tile_progress_background_reset %>;
   box-shadow: none;
 }
 
-body.tiles-index #user_progress .progress_header, 
+body.tiles-index #user_progress .progress_header,
+.explore-search-user #user_progress .progress_header,
 body.acts-index #user_progress .progress_header {
   background: <%=@palette.tile_progress_background_reset %>;
  color: <%=@palette.static_text_color %>
 }
 
-body.tiles-index #user_progress, 
+.explore-search .back_to_your_board_link {
+  color: <%=@primary_color%>;
+}
+
+body.tiles-index #user_progress,
+.explore-search-user #user_progress,
 body.acts-index #user_progress {
  color: <%=@palette.static_text_color %>
 }
 
-body.tiles-index #user_progress #tile_section #tile_progress_bar #all_tiles, 
+body.tiles-index #user_progress #tile_section #tile_progress_bar #all_tiles,
+.explore-search-user #user_progress #tile_section #tile_progress_bar #all_tiles,
 body.acts-index #user_progress #tile_section #tile_progress_bar #all_tiles {
   color: <%=@palette.tile_progress_all_tiles_text_reset %>;
 }
 
-body.tiles-index #user_progress #tile_section #tile_progress_bar #completed_tiles , 
+body.tiles-index #user_progress #tile_section #tile_progress_bar #completed_tiles,
+.explore-search-user #user_progress #tile_section #tile_progress_bar #completed_tiles,
 body.acts-index #user_progress #tile_section #tile_progress_bar #completed_tiles{
 
   color: <%=@palette.tile_progress_completed_tiles_text_reset %>;
 }
 
+.explore-search-user .fa-spinner:before {
+  color: <%=@primary_color%>;;
+}
+
 /* Prizes and Raffles */
 /* ------------------ */
-body.tiles-index .prize_box .tickets_row, 
-body.acts-index .prize_box .tickets_row, 
+body.tiles-index .prize_box .tickets_row,
+body.acts-index .prize_box .tickets_row,
+.explore-search-user .prize_box .tickets_row,
 body.client_admin-prizes .prize_box .tickets_row {
 
   background: <%=@primary_color%>;
 }
 
 
-body.tiles-index #user_progress #raffle_section.round_bar, 
+body.tiles-index #user_progress #raffle_section.round_bar,
+.explore-search-user #user_progress #raffle_section.round_bar,
 body.acts-index #user_progress #raffle_section.round_bar{
   background: <%=@primary_color%>;
 }
 
-body.tiles-index #user_progress #raffle_section.round_bar .progress-radial .overlay, 
+body.tiles-index #user_progress #raffle_section.round_bar .progress-radial .overlay,
+.explore-search-user #user_progress #raffle_section.round_bar .progress-radial .overlay,
 body.acts-index #user_progress #raffle_section.round_bar .progress-radial .overlay{
 color: <%=@primary_color%>;
 
 }
 
 
-body.tiles-index .prize_box .prizes_container .prize_row .icon_container, 
-body.acts-index .prize_box .prizes_container .prize_row .icon_container, 
+body.tiles-index .prize_box .prizes_container .prize_row .icon_container,
+.explore-search-user .prize_box .prizes_container .prize_row .icon_container,
+body.acts-index .prize_box .prizes_container .prize_row .icon_container,
 body.client_admin-prizes .prize_box .prizes_container .prize_row .icon_container{
   color: <%=@primary_color%>;
 }
 
-body.tiles-index .prize_box .other_info_row .close_modal, 
-body.acts-index .prize_box .other_info_row .close_modal, 
+body.tiles-index .prize_box .other_info_row .close_modal,
+.explore-search-user .prize_box .other_info_row .close_modal,
+body.acts-index .prize_box .other_info_row .close_modal,
 body.client_admin-prizes .prize_box .other_info_row .close_modal{
   color: <%=@primary_color%>;
   border-color: <%=@primary_color%>;
@@ -133,22 +252,43 @@ body.client_admin-prizes .prize_box .other_info_row .close_modal{
 
 
 body.settings input[type="submit"], #search #find_button{
-  background: <%=@primary_color%>; 
+  background: <%=@primary_color%>;
   border-color: <%=@primary_color%>;
 }
 
-body.settings input[type="submit"]:hover, #search #find_button:hover{
-<%=@solid_filled_styles%>
-<%=@solid_hover_styles%>
+body.settings input[type="submit"]:not([disabled]):active, body.settings input[type="submit"]:not([disabled]):focus, body.settings input[type="submit"]:not([disabled]):hover, body.settings input[type="submit"]:hover, #search #find_button:hover{
+  <%=@solid_filled_styles%>
+  <%=@solid_hover_styles%>
 }
 
-body.tiles-index #user_progress #raffle_section.round_bar .progress-radial, 
+body.tiles-index #user_progress #raffle_section.round_bar .progress-radial,
+.explore-search-user #user_progress #raffle_section.round_bar .progress-radial,
 body.acts-index #user_progress #raffle_section.round_bar .progress-radial{
   color: <%=@primary_color%>
 }
 
 #submit_tile {
-<%=@unfilled_styles%>
+  <%=@unfilled_styles%>
+}
+
+#submit_tile:not([disabled]):active, #submit_tile:not([disabled]):focus, #submit_tile:not([disabled]):hover {
+  border-color: <%=@primary_color%>;
+  background-color: <%=@primary_color%>;
+  color: <%=@palette.content_background_reset%>;
+}
+
+.follow_buttons .follow-btn {
+  <%=@solid_filled_styles%>
+  color: <%=@palette.content_background_reset%>;
+}
+
+.follow_buttons .follow-btn:not([disabled]):hover {
+  <%=@solid_filled_styles%>
+  <%=@solid_hover_styles%>
+}
+
+#following a {
+  color: <%=@primary_color%>
 }
 
 body .find_users {
@@ -156,7 +296,7 @@ body .find_users {
 }
 
 #tile_wall #tile_links .show_more_tiles {
-<%=@solid_filled_styles%>
+  <%=@solid_filled_styles%>
 }
 
 #tile_wall #tile_links .show_more_tiles:hover {
@@ -196,7 +336,7 @@ body .find_users:hover {
 <%=@solid_hover_styles%>
 }
 
-#tile_wall #tile_links .show_more_tiles:after,  
+#tile_wall #tile_links .show_more_tiles:after,
 #tile_wall #tile_links .show_more_tiles:before{
   border-color: <%=@primary_color%>;
 }
@@ -205,26 +345,34 @@ body .find_users:hover {
   border-bottom-color: <%=@primary_color%>;
 }
 
+.button.white, .button.white[disabled], .button.white[disabled]:hover, .button.white[disabled]:active, .button.white:not([disabled]):hover {
+  border-color:<%=@primary_color%>;
+  color:<%=@primary_color%>;
+}
 
-body.tiles-index #user_progress #total_section #total_points, 
+
+body.tiles-index #user_progress #total_section #total_points,
+.explore-search-user #user_progress #total_section #total_points,
 body.acts-index #user_progress #total_section #total_points {
 
 color: <%=@primary_color%>;
 }
 
-body.tiles-index #user_progress #completed_tiles, body.acts-index #user_progress #completed_tiles {
+body.tiles-index #user_progress #completed_tiles, .explore-search-user #user_progress #completed_tiles,
+body.acts-index #user_progress #completed_tiles {
 
 background: <%=@primary_color%>;
 }
 
-body.tile.tile-show .tile_holder .tile_quiz .tile_points_bar .earnable_points, 
-body.tile.tile-show .tile_holder .tile_quiz .tile_types .earnable_points, 
-body.tile_previews-show .tile_holder .tile_quiz .tile_points_bar .earnable_points, 
-body.tile_previews-show .tile_holder .tile_quiz .tile_types .earnable_points, 
-body.tiles.tiles-index .tile_holder .tile_quiz .tile_points_bar .earnable_points, 
-body.tiles.tiles-index .tile_holder .tile_quiz .tile_types .earnable_points{
+.tile.tile-show .tile_holder .tile_quiz .tile_points_bar .earnable_points,
+.tile.tile-show .tile_holder .tile_quiz .tile_points_bar .earnable_points,
+.tile.tile-show .tile_holder .tile_quiz .tile_types .earnable_points,
+.tile_previews-show .tile_holder .tile_quiz .tile_points_bar .earnable_points,
+.tile_previews-show .tile_holder .tile_quiz .tile_types .earnable_points,
+.tiles.tiles-index .tile_holder .tile_quiz .tile_points_bar .earnable_points,
+.tiles.tiles-index .tile_holder .tile_quiz .tile_types .earnable_points{
 
-background: <%=@primary_color%>;
+  background: <%=@primary_color%>;
 }
 
 
