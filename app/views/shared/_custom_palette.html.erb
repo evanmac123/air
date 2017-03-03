@@ -18,6 +18,34 @@
   color: <%=@primary_color%>
 }
 
+#t-and-c-notice a {
+  color: <%=@primary_color%>
+}
+
+#flash_success {
+  background-color: <%=@primary_color%>
+}
+
+header #guest_user_start_over_button, header #guest_user_start_over_button[disabled], header #sign_in_button, header #sign_in_button[disabled], header #save_progress_button, header #save_progress_button[disabled], .start_lightbox #lightbox_get_started_button, .start_lightbox #lightbox_get_started_button[disabled] {
+  border-color:<%=@primary_color%>;
+  color:<%=@primary_color%>;
+}
+
+#guest_user_start_over_button[disabled]:hover, header #guest_user_start_over_button:not([disabled]):active, header #guest_user_start_over_button:not([disabled]):focus, header #guest_user_start_over_button:not([disabled]):hover, header #save_progress_button:not([disabled]):focus, #save_progress_button[disabled]:hover, #save_progress_button[disabled]:active, header #save_progress_button:not([disabled]):hover, #sign_in_button[disabled]:hover, #sign_in_button[disabled]:active, header #sign_in_button:not([disabled]):hover, .start_lightbox #lightbox_get_started_button:not([disabled]):hover, .start_lightbox #lightbox_get_started_button[disabled]:hover, .start_lightbox #lightbox_get_started_button[disabled]:active {
+  border-color: <%=@primary_color%>;
+  background-color: <%=@primary_color%>;
+  opacity: 1;
+  color: <%=@palette.content_background_reset%>;
+}
+
+.close-reveal-modal:hover {
+  color: <%=@primary_color%>;
+}
+
+.start_lightbox a {
+  color: <%=@primary_color%>;
+}
+
 #scoreboard-module a {
   color: <%=@primary_color%>
 }
