@@ -37,6 +37,8 @@ class CopyTile
       "points",
       "question",
       "supporting_content",
+      "image",
+      "thumbnail",
       "use_old_line_break_css",
       "question_type",
       "question_subtype"
