@@ -32,8 +32,26 @@ Airbo.TileThumbnailManagerBase = (function(){
     });
   }
 
+  var nextTile = function(tile) {
+    if (tile.next().length > 0) {
+      return tile.next();
+    } else {
+      return tile.siblings().first();
+    }
+  };
+
+  var prevTile = function(tile) {
+    if (tile.prev().length > 0) {
+      return tile.prev();
+    } else {
+      return tile.siblings().last();
+    }
+  };
+
   return {
     getTileIdsInContainer: getTileIdsInContainer,
-    getNeighboringTileIdsInContainer: getNeighboringTileIdsInContainer
+    getNeighboringTileIdsInContainer: getNeighboringTileIdsInContainer,
+    nextTile: nextTile,
+    prevTile: prevTile
   };
 }());

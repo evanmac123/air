@@ -1,4 +1,11 @@
 /* -- Large tile viewer -- */
+.tile.tiles-index {
+  .tile_holder {
+    font-size:1em;
+    margin:0 auto;
+  }
+}
+
 .tiles.tiles-index,
 .tile_previews.tile_previews-show,
 .explore-tile_previews.explore-tile_previews-show,
@@ -7,13 +14,10 @@
   .content .row {max-width:70em;}
   .tile_holder {
     font-size:1em;
-    margin:0 auto;
-
   }
-
-    #slideshow {
-      padding-top: 0rem;
-    }
+  #slideshow {
+    padding-top: 0rem;
+  }
   // Large Prev and Next buttons
   .viewer {
     position:relative;

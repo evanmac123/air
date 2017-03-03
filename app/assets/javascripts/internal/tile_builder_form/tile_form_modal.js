@@ -110,9 +110,8 @@ Airbo.TileFormModal = (function(){
   }
 
   function submitSuccess(data) {
-    var mgr = getTileManager()
-      , tilePreview
-    ;
+    var mgr = getTileManager(),
+    tilePreview;
 
     if (data.fromSearch === true) {
       tilePreview = Airbo.SearchTilePreviewModal;

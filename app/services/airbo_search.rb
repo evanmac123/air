@@ -1,3 +1,4 @@
+
 class AirboSearch
   ADMIN_PER_PAGE = 28
   USER_PER_PAGE = 32

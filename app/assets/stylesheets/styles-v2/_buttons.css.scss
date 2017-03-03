@@ -10,7 +10,7 @@
       background-color: lighten($bg-color, 5%);
       border-color: lighten($bg-color, 5%);
     }
-    &:active {
+    &:active, &:focus {
       color: $text-color;
       background-color: darken($bg-color, 5%);
       border-color: darken($bg-color, 5%);
@@ -102,18 +102,11 @@
   background-image: none;
   outline: none !important;
   @include ease(0.2s);
-    &:active, &:hover, &:focus {
-      box-shadow: none;
-    }
-
-    // &[disabled] {
-    //   cursor: default;
-    //   opacity: 0.85;
-    //   display:none;
-    // }
+  &:active, &:hover, &:focus {
+    box-shadow: none;
+  }
 }
 
-//FIXME remove specificity hack
 .button {
   @include button;
   // &. {

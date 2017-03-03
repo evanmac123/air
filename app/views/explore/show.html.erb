@@ -5,7 +5,7 @@
   <% @tile_features.each do |feature| %>
     <%= render partial: 'explore/tile_feature', locals: { feature: feature } %>
   <% end %>
-  <% if @featured_organizations.present? %>
+  <% if @featured_organizations.present? && false %>
     <section class="manage_section channel_container" id="organizations">
       <%= render partial: 'explore/organizations', locals: { organizations: Organization.featured, header: "Organizations" } %>
     </section>

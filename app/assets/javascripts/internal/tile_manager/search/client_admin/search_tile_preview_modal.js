@@ -4,8 +4,7 @@ Airbo.SearchTilePreviewModal = (function(){
   var modalId = "tile_preview_modal",
       self,
       modalObj = Airbo.Utils.StandardModal(),
-      arrowsObj,
-      tileManager;
+      arrowsObj;
 
   function tileContainerSizes() {
     tileContainer = $(".tile_holder")[0];
@@ -96,34 +95,39 @@ Airbo.SearchTilePreviewModal = (function(){
     Airbo.ImageLoadingPlaceholder.init();
     initStickyPreviewMenu();
     arrowsObj.initEvents();
+    Airbo.CopyTileToBoard.init();
+    Airbo.ShareLink.init();
+
     initEvents();
   }
+
   function open(preview) {
     modalObj.setContent(preview);
     initPreviewElements();
     modalObj.open();
   }
 
-  function initModalObj() {
+  function initModalObj(modalClass) {
     modalObj.init({
       modalId: modalId,
       useAjaxModal: true,
-      modalClass: "bg-user-side",
+      modalClass: modalClass,
       closeSticky: true,
-      onOpenedEvent: function() {
-        arrowsObj.position();
-      },
       onClosedEvent: function() {
         $(".tipsy").tooltipster("hide");
       }
     });
   }
-  function init(AirboTileManager){
+
+  function positionArrows() {
+    arrowsObj.position();
+  }
+
+  function init(modalClass){
     self = this;
-    arrowsObj = Airbo.TilePreivewArrows();
-    initModalObj();
+    arrowsObj = Airbo.SearchTilePreviewArrows();
+    initModalObj(modalClass);
     arrowsObj.init(self, {buttonSize: 40, offset: 20});
-    tileManager = AirboTileManager;
     return this;
   }
   return {
@@ -131,6 +135,7 @@ Airbo.SearchTilePreviewModal = (function(){
     open: open,
     close: close,
     tileContainerSizes: tileContainerSizes,
-    modalId: modalId
+    modalId: modalId,
+    positionArrows: positionArrows
   };
 }());

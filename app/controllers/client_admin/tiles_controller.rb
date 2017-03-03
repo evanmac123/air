@@ -128,6 +128,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def status_change
     @tile = get_tile
     @tile.update_status(params[:update_status])
+    ping("Tile - Status Change", { tile_id: @tile.id, status: @tile.status, "Current URL" => request.referrer }, current_user)
 
     presenter = present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?, from_search: params[:from_search]})
     render partial: partial_to_render, locals: { presenter: presenter}
