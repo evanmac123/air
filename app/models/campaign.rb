@@ -39,7 +39,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def to_param
-    self.slug
+    [id, name.parameterize].join("-")
   end
 
   def related_channels

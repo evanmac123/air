@@ -3,7 +3,7 @@
   <div class="campaigns flickity-campaigns-carousel">
     <% campaigns.each do |campaign| %>
       <% cache campaign do %>
-        <div class="carousel-cell tile_container" data-slug="<%= campaign.slug %>" data-name="<%= campaign.name %>">
+        <div class="carousel-cell tile_container" data-slug="<%= campaign.slug %>" data-name="<%= campaign.name %>" data-id="<%= campaign.id %>" data-path="<%= explore_campaign_path(campaign) %>">
           <div class="campaign">
             <div class="campaign-cell" style="background-image: url('<%= campaign.cover_image.url %>')">
               <div class="campaign_shadow_overlay"></div>

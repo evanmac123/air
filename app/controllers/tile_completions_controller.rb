@@ -6,7 +6,7 @@ class TileCompletionsController < ApplicationController
 
   def create
     unless current_user.in_board?(@tile.demo_id)
-      not_found
+      not_found('flashes.failure_cannot_complete_tile_in_different_board')
       return false
     end
 

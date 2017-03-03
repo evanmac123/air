@@ -10,7 +10,7 @@ class FriendshipsController < UserBaseController
 
     @user = User.find_by_slug(params[:user_id])
     unless current_user.has_board_in_common_with(@user)
-      not_found
+      not_found('flashes.failure_friendships_need_common_board')
       return false
     end
 

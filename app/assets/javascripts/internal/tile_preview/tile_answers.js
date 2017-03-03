@@ -33,7 +33,7 @@ Airbo.TileAnswers = (function(){
   };
   function disableRightAnswers() {
     $(rightAnswerSel).unbind();
-    $(rightAnswerSel).one("click", function(event) {
+    $(rightAnswerSel).on("click", function(event) {
       event.preventDefault();
     });
   }

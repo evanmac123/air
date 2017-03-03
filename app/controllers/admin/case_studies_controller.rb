@@ -4,7 +4,7 @@ class Admin::CaseStudiesController < AdminBaseController
   end
 
   def edit
-    @case_study = CaseStudy.find_by_slug(params[:id])
+    @case_study = find_case_study
   end
 
   def index
@@ -23,7 +23,7 @@ class Admin::CaseStudiesController < AdminBaseController
   end
 
   def update
-    @case_study = CaseStudy.find_by_slug(params[:id])
+    @case_study = find_case_study
 
     if @case_study.update_attributes(campaign_params)
       redirect_to admin_case_studies_path
@@ -37,5 +37,9 @@ class Admin::CaseStudiesController < AdminBaseController
 
     def case_study_params
       params.require(:case_study).permit(:client_name, :description, :cover_image, :logo, :pdf)
+    end
+
+    def find_case_study
+      CaseStudy.find(params[:id].to_i)
     end
 end

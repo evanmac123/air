@@ -2,7 +2,7 @@ class Explore::ChannelsController < ExploreBaseController
   include ExploreConcern
 
   def show
-    @channel = Channel.find_by_slug(params[:id]) || virtual_channel
+    @channel = find_channel
     @tiles = @channel.tiles.page(params[:page]).per(28)
 
     if request.xhr?
@@ -29,5 +29,9 @@ class Explore::ChannelsController < ExploreBaseController
     def virtual_channel
       name = params[:id].split("-").join(" ").humanize
       Channel.new(name: name, slug: name.parameterize)
+    end
+
+    def find_channel
+      Channel.find_by_id(params[:id].to_i) || virtual_channel
     end
 end
