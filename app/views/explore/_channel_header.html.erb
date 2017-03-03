@@ -3,7 +3,7 @@
     <div class="large-12 columns">
       <span class="explore-sub-page-header"><%= channel.name %></span>
       <% if channel.description %>
-        <p class="channel-description"><%= channel.description %></p>
+        <p class="channel-description"><%= channel.description.html_safe %></p>
       <% end %>
     </div>
   </div>
