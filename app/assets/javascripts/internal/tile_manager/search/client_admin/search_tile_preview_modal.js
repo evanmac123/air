@@ -4,8 +4,7 @@ Airbo.SearchTilePreviewModal = (function(){
   var modalId = "tile_preview_modal",
       self,
       modalObj = Airbo.Utils.StandardModal(),
-      arrowsObj,
-      tileManager;
+      arrowsObj;
 
   function tileContainerSizes() {
     tileContainer = $(".tile_holder")[0];
@@ -108,11 +107,11 @@ Airbo.SearchTilePreviewModal = (function(){
     modalObj.open();
   }
 
-  function initModalObj() {
+  function initModalObj(modalClass) {
     modalObj.init({
       modalId: modalId,
       useAjaxModal: true,
-      modalClass: "bg-user-side",
+      modalClass: modalClass,
       closeSticky: true,
       onClosedEvent: function() {
         $(".tipsy").tooltipster("hide");
@@ -124,12 +123,11 @@ Airbo.SearchTilePreviewModal = (function(){
     arrowsObj.position();
   }
 
-  function init(AirboTileManager){
+  function init(modalClass){
     self = this;
     arrowsObj = Airbo.SearchTilePreviewArrows();
-    initModalObj();
+    initModalObj(modalClass);
     arrowsObj.init(self, {buttonSize: 40, offset: 20});
-    tileManager = AirboTileManager;
     return this;
   }
   return {

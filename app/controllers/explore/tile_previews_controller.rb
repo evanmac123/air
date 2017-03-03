@@ -5,7 +5,6 @@ class Explore::TilePreviewsController < ExploreBaseController
 
   def show
     schedule_mixpanel_pings(@tile)
-
     if request.xhr?
       @next_tile = params[:next_tile] || @tile.id
       @prev_tile = params[:prev_tile] || @tile.id

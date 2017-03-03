@@ -5,7 +5,6 @@ Airbo.ExploreTilePreview = (function(){
       modalId = "explore_tile_preview",
       arrowsObj,
       introShowed = false,
-      arrowsObj,
       self;
 
   function ping(action) {
