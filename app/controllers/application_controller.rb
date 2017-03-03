@@ -76,10 +76,10 @@ class ApplicationController < ActionController::Base
       @permitted_params ||= PermittedParams.new(params, current_user)
     end
 
-    def not_found
+    def not_found(flash_message = 'flashes.failure_resource_not_found')
       respond_to do |format|
         format.html {
-          flash[:failure] = I18n.t('defaults.resource_not_found')
+          flash[:failure] = I18n.t(flash_message)
           redirect_to root_path
         }
         format.any { head :not_found }

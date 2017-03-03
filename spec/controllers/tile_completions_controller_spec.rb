@@ -13,7 +13,7 @@ describe TileCompletionsController do
     sign_in_as user
     post :create, tile_id: tile.id
 
-    expect(response).to be_not_found
+    expect(response.request.flash[:failure]).to eq(I18n.t('flashes.failure_cannot_complete_tile_in_different_board'))
     expect(TileCompletion.count).to eq(0)
   end
 end
