@@ -19,6 +19,6 @@ class CaseStudy < ActiveRecord::Base
   end
 
   def to_param
-    self.slug
+    [id, client_name.parameterize].join("-")
   end
 end

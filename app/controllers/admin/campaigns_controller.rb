@@ -5,7 +5,7 @@ class Admin::CampaignsController < AdminBaseController
   end
 
   def edit
-    @campaign = Campaign.find_by_slug(params[:id])
+    @campaign = find_campaign
     @demos = Demo.select([:name, :id]).airbo
   end
 
@@ -25,7 +25,7 @@ class Admin::CampaignsController < AdminBaseController
   end
 
   def update
-    @campaign = Campaign.find_by_slug(params[:id])
+    @campaign = find_campaign
     if @campaign.update_attributes(campaign_params)
       redirect_to admin_campaigns_path
     else
@@ -38,5 +38,9 @@ class Admin::CampaignsController < AdminBaseController
   private
     def campaign_params
       params.require(:campaign).permit(:name, :description, :demo_id, :cover_image, :channel_list, :active, :sources, :instructions, :duration, :duration_description)
+    end
+
+    def find_campaign
+      Campaign.find(params[:id].to_i)
     end
 end

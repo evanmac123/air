@@ -16,7 +16,7 @@ class Channel < ActiveRecord::Base
   end
 
   def to_param
-    self.slug
+    [id, name.parameterize].join("-")
   end
 
   def update_slug

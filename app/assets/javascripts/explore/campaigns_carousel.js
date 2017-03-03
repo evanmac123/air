@@ -15,6 +15,7 @@ Airbo.CampaignsCarousel = (function(){
     });
 
     $carousel.on( 'staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {
+      var path = $(cellElement).data("path");
       var slug = $(cellElement).data("slug");
       if (slug) {
         var name = $(cellElement).data("name");
@@ -24,7 +25,7 @@ Airbo.CampaignsCarousel = (function(){
 
         Airbo.Utils.ping("Explore page - Interaction", properties);
 
-        window.location = "/explore/campaigns/" + slug;
+        window.location = path;
       }
     });
   }

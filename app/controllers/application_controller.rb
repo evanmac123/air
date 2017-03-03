@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActionController::RoutingError, with: :not_found
+
   before_filter :authorize!
   before_filter :refresh_activity_session
 
@@ -74,6 +77,13 @@ class ApplicationController < ActionController::Base
     end
 
     def not_found
-      render file: "#{Rails.root}/public/404", status: :not_found, layout: false, formats: [:html]
+      respond_to do |format|
+        format.html {
+          flash[:failure] = I18n.t('defaults.resource_not_found')
+          redirect_to root_path
+        }
+        format.any { head :not_found }
+      end
     end
+
 end

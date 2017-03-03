@@ -1,5 +1,6 @@
 en:
   defaults:
+    resource_not_found: Sorry, what you were looking for could not be found.
     links:
       back_to_your_board: "Back to your Board"
   number:
