@@ -118,6 +118,7 @@ header #guest_user_start_over_button, header #guest_user_start_over_button[disab
 
 .button.button.outlined {
   border-color:<%=@primary_color%>;
+  background-color: transparent;
   color:<%=@primary_color%>;
 }
 
@@ -141,7 +142,7 @@ h3, h4, h5, label {
   color:  <%=@palette.static_text_color %>;
 }
 
-input[type=text]:focus {
+input[type=file]:focus, input[type=password]:focus, input[type=text]:focus {
   border-color: <%=@primary_color%>;
 }
 
@@ -255,9 +256,9 @@ body.settings input[type="submit"], #search #find_button{
   border-color: <%=@primary_color%>;
 }
 
-body.settings input[type="submit"]:hover, #search #find_button:hover{
-<%=@solid_filled_styles%>
-<%=@solid_hover_styles%>
+body.settings input[type="submit"]:not([disabled]):active, body.settings input[type="submit"]:not([disabled]):focus, body.settings input[type="submit"]:not([disabled]):hover, body.settings input[type="submit"]:hover, #search #find_button:hover{
+  <%=@solid_filled_styles%>
+  <%=@solid_hover_styles%>
 }
 
 body.tiles-index #user_progress #raffle_section.round_bar .progress-radial,
