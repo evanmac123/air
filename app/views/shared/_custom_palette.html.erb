@@ -38,6 +38,11 @@ header #guest_user_start_over_button, header #guest_user_start_over_button[disab
   color: <%=@palette.content_background_reset%>;
 }
 
+.tiles.tiles-index a#prev:not([disabled]):active, .tiles.tiles-index a#prev:not([disabled]):focus, .tiles.tiles-index a#next:not([disabled]):active, .tiles.tiles-index a#next:not([disabled]):focus {
+  background-color: <%=@primary_color%>;
+  border-color: <%=@primary_color%>;
+}
+
 .close-reveal-modal:hover {
   color: <%=@primary_color%>;
 }
