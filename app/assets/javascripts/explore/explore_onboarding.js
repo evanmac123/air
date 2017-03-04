@@ -1,13 +1,16 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreOnboarding = (function(){
-  var currentUserData;
+  var currentUserData
+    , flkty
+    , carousel
+  ;
 
   function init() {
     currentUserData = $("body").data("currentUser");
-    var $carousel = $('.flickity-explore-oboarding-carousel');
+    carousel = $('.flickity-explore-oboarding-carousel');
 
-    $carousel.flickity({
+    carousel.flickity({
       imagesLoaded: true,
       percentPosition: false,
       contain: true,
@@ -15,15 +18,23 @@ Airbo.ExploreOnboarding = (function(){
       prevNextButtons: false
     });
 
+    flkty = carousel.data("flickity");
 
     $('#exploreOnboardingModal').bind('opened', function() {
-      $carousel.fadeIn().flickity('resize');
+      carousel.fadeIn().flickity('resize');
     });
 
     bindNextOnboardingSlide();
     bindCloseOnboarding();
 
     $('#exploreOnboardingModal').foundation('reveal', 'open');
+    initOnboardingNavListener();
+  }
+
+  function initOnboardingNavListener(){
+    carousel.on( 'select.flickity', function() {
+      console.log( 'Flickity select ' + flkty.selectedIndex )
+    })
   }
 
   function bindNextOnboardingSlide() {
