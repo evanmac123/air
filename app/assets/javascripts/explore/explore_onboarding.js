@@ -4,12 +4,30 @@ Airbo.ExploreOnboarding = (function(){
   var currentUserData
     , flkty
     , carousel
+    , tileModal= Airbo.Utils.StandardModal()
+    , onboardingModalSelect = '#exploreOnboardingModal'
+    , onboardingModal
   ;
 
   function init() {
     currentUserData = $("body").data("currentUser");
-    carousel = $('.flickity-explore-oboarding-carousel');
+    onboardingModal = $('#exploreOnboardingModal');
+    initCarousel();
 
+    onboardingModal.bind('opened', function() {
+      carousel.fadeIn().flickity('resize');
+    });
+
+    openOnboardingModal()
+    initOnboardingNavListener();
+  }
+
+  function openOnboardingModal(){
+    onboardingModal.foundation('reveal', 'open');
+  }
+
+  function initCarousel(){
+    carousel = $('.flickity-explore-oboarding-carousel');
     carousel.flickity({
       imagesLoaded: true,
       percentPosition: false,
@@ -20,15 +38,36 @@ Airbo.ExploreOnboarding = (function(){
 
     flkty = carousel.data("flickity");
 
-    $('#exploreOnboardingModal').bind('opened', function() {
-      carousel.fadeIn().flickity('resize');
-    });
-
     bindNextOnboardingSlide();
     bindCloseOnboarding();
 
-    $('#exploreOnboardingModal').foundation('reveal', 'open');
-    initOnboardingNavListener();
+  }
+
+  function initTileModal() {
+   tileModal.init({
+      modalId: "explore_tile_preview",
+      modalClass: "tile_previews explore-tile_previews tile_previews-show explore-tile_previews-show bg-user-side",
+      useAjaxModal: true,
+      closeSticky: true
+    });
+  }
+
+  function getTileConent(){
+   $.ajax({
+      type: "GET",
+      dataType: "html",
+      url: link,
+      data: { partial_only: true, next_tile: next, prev_tile: prev },
+      success: function(data, status, xhr){
+        tilePreview.init();
+        tilePreview.open(data);
+        tilePreview.positionArrows();
+      },
+
+      error: function(jqXHR, textStatus, error){
+        console.log(error);
+      }
+    });
   }
 
   function initOnboardingNavListener(){
