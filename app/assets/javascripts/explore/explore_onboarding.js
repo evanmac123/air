@@ -12,14 +12,19 @@ Airbo.ExploreOnboarding = (function(){
   function init() {
     currentUserData = $("body").data("currentUser");
     onboardingModal = $('#exploreOnboardingModal');
-    initCarousel();
+    initTileModal()
 
+    initCarousel();
     onboardingModal.bind('opened', function() {
       carousel.fadeIn().flickity('resize');
     });
 
-    openOnboardingModal()
-    initOnboardingNavListener();
+   xhr = getTileConent();
+   debugger
+   xhr.then(function(){
+     openOnboardingModal()
+     initOnboardingNavListener();
+   });
   }
 
   function openOnboardingModal(){
@@ -53,21 +58,19 @@ Airbo.ExploreOnboarding = (function(){
   }
 
   function getTileConent(){
-   $.ajax({
+    var tile = $(".tile_thumb_link_explore").first();
+    return $.ajax({
       type: "GET",
       dataType: "html",
-      url: link,
-      data: { partial_only: true, next_tile: next, prev_tile: prev },
-      success: function(data, status, xhr){
-        tilePreview.init();
-        tilePreview.open(data);
-        tilePreview.positionArrows();
-      },
-
-      error: function(jqXHR, textStatus, error){
-        console.log(error);
-      }
+      url: tile.attr("href"),
+      data: { partial_only: true},
     });
+  }
+
+  function handleTileContent(){
+    tilePreview.init();
+    tilePreview.open(data);
+    tilePreview.positionArrows();
   }
 
   function initOnboardingNavListener(){
