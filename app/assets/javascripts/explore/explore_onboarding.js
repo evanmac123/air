@@ -11,7 +11,7 @@ Airbo.ExploreOnboarding = (function(){
   ;
 
   function init() {
-    self= this;
+    self = this;
     currentUserData = $("body").data("currentUser");
     onboardingModal = $('#exploreOnboardingModal');
     initTileModal()
@@ -55,6 +55,8 @@ Airbo.ExploreOnboarding = (function(){
       }
     });
   }
+
+
 
   function getDemoTile(){
     var xhr = getTileConent();
