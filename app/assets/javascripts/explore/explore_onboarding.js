@@ -38,7 +38,7 @@ Airbo.ExploreOnboarding = (function(){
 
   function showTile(){
     tileModal.open();
-    Airbo.StickyMenu.init(self);
+    Airbo.StickyMenu.init(tileModal);
     Airbo.ImageLoadingPlaceholder.init();
     Airbo.TileAnswers.init()
   }
