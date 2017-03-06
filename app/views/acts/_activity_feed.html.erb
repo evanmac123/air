@@ -1,27 +1,17 @@
 <div class="row">
   <div id="feed_wrapper" class="large-4 columns">
     <div class="feeds module">
-
       <h3 id="feeds_title">Activity</h3>
-
-
-
       <% if @acts.present? %>
         <ul id="user-acts">
-          <%= render :partial => "shared/act", :collection => @acts, :as => :act %>
+          <%= render partial: "acts/feed", locals: { opts: { acts: @acts } } %>
         </ul>
-
-        <% if @show_more_acts_btn %>
-          <%= render 'shared/see_more' %>
-
-
-          <% js_at_end do %>
-            bindSeeMoreActs('<%= acts_path(format: :js) %>', <%= @acts.length %>)
-          <% end %>
-        <% end %>
-
       <% else %>
-        <%= render :partial => "acts/example_act" %>
+        <%= render partial: "acts/example_act" %>
+      <% end %>
+
+      <% if @show_more_acts_btn %>
+        <%= render partial: "acts/see_more_btn", locals: { opts: { next_page: @acts.next_page, per_page: 5} } %>
       <% end %>
     </div>
   </div>
@@ -37,5 +27,4 @@
       <%= render(partial: "acts/invite_your_friends") unless current_user.is_guest? %>
     </div>
   </div>
-
 </div>

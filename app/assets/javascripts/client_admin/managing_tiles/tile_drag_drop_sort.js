@@ -26,7 +26,7 @@ Airbo.TileDragDropSort = (function(){
     tolerance: "pointer",
     placeholder: "tile_container",
     handle: ".tile-wrapper",
- 
+
     update: function(event, ui) {
       var section, tile;
       section = $(this);
@@ -89,7 +89,7 @@ Airbo.TileDragDropSort = (function(){
         if ($("#active").sortable("option", "disabled")) {
           showDraftBlockedOverlay(true, $("#active") );
           Airbo.Utils.alert(Airbo.Utils.Messages.incompleteTile);
- 
+
         }
       }
     });
@@ -429,4 +429,3 @@ if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".client_admin-tiles-index"))
   Airbo.TileDragDropSort.init();
  window.expandDraftSectionOrSuggestionBox();
 })
-

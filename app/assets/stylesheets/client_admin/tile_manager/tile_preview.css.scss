@@ -426,6 +426,7 @@ body.client_admin-tiles.client_admin-tiles-index, .client_admin_tilesexplore-sea
         width: 220px;
         height: 30px;
         font-size: 0.9em;
+        margin-bottom: 0;
 
         &.highlighted {
           border-color: $n-blue;
@@ -439,7 +440,7 @@ body.client_admin-tiles.client_admin-tiles-index, .client_admin_tilesexplore-sea
           margin-right: 5px;
           margin-top: 5px;
           display: inline-block;
-          padding: 0px 6px 3px 6px;
+          padding: 1px 6px 0 6px;
           border: 1px solid;
           border-radius: 5px;
           font-size: 10px;

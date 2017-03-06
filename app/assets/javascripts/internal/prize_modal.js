@@ -4,12 +4,10 @@ function bindPrizeModal(showStart, showFinish, publicSlug) {
       $(".prize_header .end_date").css("display", "none");
       $(".prize_header").css("text-align", "center");
       showRaffleBox("Prize Period Finished!", "Ok");
-      prizeModalPing("Saw Prize Modal");
     } else if(showStart) {
       if( $("#get_started_lightbox").length === 0 && $('#activity-joyride').length === 0 ){
       // not display prize and get started box simultaneously
         showRaffleBox("New Prize!");
-        prizeModalPing("Saw Prize Modal");
       }else{
         window.showRaffleAfterLightbox = true;
       }
@@ -33,12 +31,7 @@ function bindPrizeModal(showStart, showFinish, publicSlug) {
   });
   $("#raffle_data").click(function(){
     showRaffleBox("Prize");
-    prizeModalPing("Clicked Prize Info");
   });
-
-  function prizeModalPing(event){
-    Airbo.Utils.ping(event, { action: "Clicked Start", public_slug: publicSlug } );
-  }
 
   function showRaffleBox(header, button_text){
     button_text = typeof button_text !== 'undefined' ? button_text : "Start";
@@ -71,6 +64,5 @@ function bindPrizeModal(showStart, showFinish, publicSlug) {
     $(".content").css("background", "");
   }
 
-  window.prizeModalPing = prizeModalPing;
   window.showRaffleBox = showRaffleBox;
 }

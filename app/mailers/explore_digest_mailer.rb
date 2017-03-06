@@ -11,8 +11,6 @@ class ExploreDigestMailer < BaseTilesDigestMailer
 
     subject = get_subject
 
-    ping_on_digest_email(@presenter.email_type, @user, subject)
-
     mail to: @user.email_with_name,
       from: @presenter.from_email,
       subject: subject

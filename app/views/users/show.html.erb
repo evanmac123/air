@@ -39,14 +39,12 @@
       <% else %>
         <ul id="user-acts">
           <li class="act-shim"></li>
-          <%= render :partial => 'shared/act', :collection => @acts, :as => :act %>
+          <%= render partial: "acts/feed", locals: { opts: { acts: @acts } } %>
         </ul>
       <% end %>
-      <%= render 'shared/see_more' %>
+      <% if @show_more_acts_btn %>
+        <%= render partial: "acts/see_more_btn", locals: { opts: { next_page: @acts.next_page, per_page: 10} } %>
+      <% end %>
     </div>
   </div>
-
-  <% js_at_end do %>
-    bindSeeMoreActs('<%= user_acts_path(@user) %>', <%= @acts.length %>)
-  <% end %>
 </div>

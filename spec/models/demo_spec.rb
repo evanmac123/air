@@ -49,7 +49,7 @@ describe Demo, ".alphabetical" do
 end
 
 describe Demo, "#print_pending_friendships" do
-  it "tells us how many friendships have been initiated and accepted" do 
+  it "tells us how many friendships have been initiated and accepted" do
     demo = FactoryGirl.create(:demo)
     user1 = FactoryGirl.create(:user, :demo => demo)
     user2 = FactoryGirl.create(:user, :demo => demo)
@@ -61,8 +61,6 @@ describe Demo, "#print_pending_friendships" do
     user4.accept_friendship_from user1
     expected = "#{demo.name} has 3 initiated connections, 1 of which have been accepted (33.333333333333336%)"
     expect(demo.print_pending_friendships).to eq(expected)
-
-
   end
 end
 
@@ -162,9 +160,9 @@ describe Demo, 'on create' do
     d = FactoryGirl.create(:demo)
     expect(d.public_slug).to be_present
   end
-  
+
   it 'should be public' do
     d = FactoryGirl.create(:demo)
-    expect(d.is_public?).to be_truthy    
+    expect(d.is_public?).to be_truthy
   end
 end

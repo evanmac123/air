@@ -5,9 +5,7 @@ namespace :client_admin do
   resources :tile_previews, only: [:show]
 
 
-  resource :reports do
-    post "/temporary_create", to: "reports#temporary_create"
-  end
+  resource :reports, only: [:show, :create]
 
   resources :board_stats_grids, :only => [:index] do
     collection do

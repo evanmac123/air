@@ -25,7 +25,7 @@ describe Invitation::DependentUserInvitationsController do
         it "should be successful" do
           post :create, dependent_user_invitation: {subject: "Join Us", body: "Yep"}
 
-          expect(response).to be_unprocessable
+          expect(response.body).to match(/User already in Board./)
         end
       end
     end

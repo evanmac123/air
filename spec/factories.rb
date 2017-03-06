@@ -2,10 +2,6 @@ FactoryGirl.define do
   #USER
 
 
-   factory :board_membership do
-     demo
-     user
-   end
 
   #DEMO
   factory :demo do

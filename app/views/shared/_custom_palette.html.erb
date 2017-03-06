@@ -10,6 +10,11 @@
 
 /* Basic Styles */
 /* ------------------ */
+
+.no_invitation {
+  color: <%=@primary_color%>
+}
+
 .act .avatar43 .points {
   border-color:  #dfdfdf;
   color: #dfdfdf;
@@ -22,10 +27,6 @@
 }
 
 .search-bar .airbo-search-input-button:hover {
-  color: <%=@primary_color%>
-}
-
-#recent-activity a {
   color: <%=@primary_color%>
 }
 
@@ -47,11 +48,6 @@ header #guest_user_start_over_button, header #guest_user_start_over_button[disab
   background-color: <%=@primary_color%>;
   opacity: 1;
   color: <%=@palette.content_background_reset%>;
-}
-
-.tiles.tiles-index a#prev:not([disabled]):active, .tiles.tiles-index a#prev:not([disabled]):focus, .tiles.tiles-index a#next:not([disabled]):active, .tiles.tiles-index a#next:not([disabled]):focus {
-  background-color: <%=@primary_color%>;
-  border-color: <%=@primary_color%>;
 }
 
 .close-reveal-modal:hover {
@@ -86,30 +82,56 @@ header #guest_user_start_over_button, header #guest_user_start_over_button[disab
 .tiles.tiles-index .viewer a#next,
 .tile_previews.tile_previews-show .viewer a#prev,
 .tile_previews.tile_previews-show .viewer a#next {
-  background: #e3e3e3;
-  border-color: #ddd;
-}
-
-.core {
-  background-color:
+  color: <%=@primary_color%>;
+  border-color: <%=@primary_color%>;
 }
 
 .tiles.tiles-index .viewer a#prev:hover,
 .tiles.tiles-index .viewer a#next:hover,
 .tile_previews.tile_previews-show .viewer a#prev:hover,
 .tile_previews.tile_previews-show .viewer a#next:hover {
-  background: #ccc;
-  border-color: #ccc;
-}
-.tiles.tiles-index .viewer a#prev:after,
-.tile_previews.tile_previews-show .viewer a#prev:after{
- border-right: 2em solid #f7f7f7;
-
+  border-color: <%=@primary_color%>;
+  background-color: <%=@primary_color%>;
+  opacity: 1;
+  color: <%=@palette.content_background_reset%>;
 }
 
-.tiles.tiles-index .viewer a#next:after,
-.tile_previews.tile_previews-show .viewer a#next:after{
-  border-left: 2em solid #f7f7f7;
+
+@media only screen and (min-width: 500px) {
+  .tiles.tiles-index a#prev:not([disabled]):active, .tiles.tiles-index a#prev:not([disabled]):focus, .tiles.tiles-index a#next:not([disabled]):active, .tiles.tiles-index a#next:not([disabled]):focus {
+    background-color: <%=@primary_color%>;
+    border-color: <%=@primary_color%>;
+  }
+
+  .tiles.tiles-index .viewer a#prev,
+  .tiles.tiles-index .viewer a#next,
+  .tile_previews.tile_previews-show .viewer a#prev,
+  .tile_previews.tile_previews-show .viewer a#next {
+    background: #e3e3e3;
+    border-color: #ddd;
+  }
+
+  .tiles.tiles-index .viewer a#prev:hover,
+  .tiles.tiles-index .viewer a#next:hover,
+  .tile_previews.tile_previews-show .viewer a#prev:hover,
+  .tile_previews.tile_previews-show .viewer a#next:hover {
+    background: #ccc;
+    border-color: #ccc;
+  }
+  .tiles.tiles-index .viewer a#prev:after,
+  .tile_previews.tile_previews-show .viewer a#prev:after{
+   border-right: 2em solid #f7f7f7;
+
+  }
+
+  .tiles.tiles-index .viewer a#next:after,
+  .tile_previews.tile_previews-show .viewer a#next:after{
+    border-left: 2em solid #f7f7f7;
+  }
+}
+
+.core {
+  background-color:
 }
 
 .button {
@@ -220,10 +242,12 @@ body.tiles-index .prize_box .tickets_row,
 body.acts-index .prize_box .tickets_row,
 .explore-search-user .prize_box .tickets_row,
 body.client_admin-prizes .prize_box .tickets_row {
-
   background: <%=@primary_color%>;
 }
 
+body.tiles-index #user_progress #raffle_section.round_bar .progress-radial, body.acts-index #user_progress #raffle_section.round_bar .progress-radial {
+  background-color: <%=@palette.static_text_color %>;
+}
 
 body.tiles-index #user_progress #raffle_section.round_bar,
 .explore-search-user #user_progress #raffle_section.round_bar,
@@ -234,8 +258,15 @@ body.acts-index #user_progress #raffle_section.round_bar{
 body.tiles-index #user_progress #raffle_section.round_bar .progress-radial .overlay,
 .explore-search-user #user_progress #raffle_section.round_bar .progress-radial .overlay,
 body.acts-index #user_progress #raffle_section.round_bar .progress-radial .overlay{
-color: <%=@primary_color%>;
+  color: <%=@primary_color%>;
+}
 
+@media only screen and (max-width: 500px) {
+  body.tiles-index #user_progress #raffle_section.round_bar,
+  .explore-search-user #user_progress #raffle_section.round_bar,
+  body.acts-index #user_progress #raffle_section.round_bar{
+    background: transparent;
+  }
 }
 
 

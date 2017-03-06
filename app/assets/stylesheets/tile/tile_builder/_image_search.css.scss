@@ -106,7 +106,7 @@
 }
 
 input[type=text].search-input{
-  float: left; 
+  float: left;
   padding: 0;
   padding-right: 0px;
   width: 200px;
@@ -120,6 +120,10 @@ input[type=text].search-input{
 
 .limited-height{
   max-height:500px;
+}
+
+#remote_media_url-error {
+  float: left;
 }
 
 .image-menu, .video-menu{
@@ -182,4 +186,3 @@ input[type=text].search-input{
    text-align: center;
   }
 }
-

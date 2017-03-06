@@ -2,7 +2,6 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
   before_filter :find_raffle
 
   def index
-    ping_page("Manage - Prizes", current_user)
   end
 
   def save_draft

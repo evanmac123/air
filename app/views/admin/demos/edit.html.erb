@@ -1,7 +1,21 @@
-<div class='admin'>
-  <h2 class="first"><%= link_to "Admin", admin_path %> » Edit <%= @demo.name %></h2>
-
-  <p class="explanation"><%= translate('.edit_explanation', :default => "Edit the %{name} demo", :name => @demo.name) %></p>
-
+<div class="admin-demo">
+  <div class="row">
+    <div class="columns large-12">
+      <h2 class="text-left"><%= link_to @demo.name, admin_demo_path(@demo) %></h2>
+    </h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="columns large-12">
+      <fieldset>
+        <legend>General Info</legend>
+        <table class="stats first-column-header">
+          <tbody>
+            <tr><th>Organization</th><td class="blue"><%= link_to @demo.organization_name, admin_organization_path(@demo.organization) %></td></tr>
+          </tbody>
+        </table>
+      </fieldset>
+    </div>
+  </div>
   <%= render 'admin/demos/form', :demo => @demo %>
 </div>

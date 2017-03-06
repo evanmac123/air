@@ -200,8 +200,8 @@ class Demo < ActiveRecord::Base
     unclaimed_users_also_get_digest ? users : claimed_users
   end
 
-  def claimed_users
-    users.claimed_on_board_membership(self.id)
+  def claimed_users(excluded_uids: [])
+    users.claimed_on_board_membership(self.id, excluded_uids)
   end
 
   # Returns the number of users who have completed each of the tiles for this demo in a hash

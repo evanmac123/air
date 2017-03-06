@@ -23,11 +23,11 @@ class ExploreDigestPresenter < TilesDigestMailBasePresenter
     EXPLORE_EMAIL
   end
 
-  def general_site_url
+  def general_site_url(requested_tile_id: nil)
     if Rails.env.development? or Rails.env.test?
-      'http://localhost:3000' + explore_path(explore_token: @explore_token, email_type: email_type)
+      'http://localhost:3000' + explore_path(explore_token: @explore_token, email_type: email_type, requested_tile_id: requested_tile_id)
     else
-      explore_url(explore_token: @explore_token, email_type: email_type, host: email_link_host, protocol: email_link_protocol)
+      explore_url(explore_token: @explore_token, email_type: email_type, host: email_link_host, protocol: email_link_protocol, requested_tile_id: requested_tile_id)
     end
   end
 

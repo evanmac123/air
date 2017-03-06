@@ -2,7 +2,6 @@ class UnsubscribesController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @token = params[:token]
-    @user.ping_page 'unsubscribe'
     render :layout => 'external'
   end
 

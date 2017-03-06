@@ -64,7 +64,8 @@ Airbo.TileFormValidator = (function(){
     messages: {
       "tile_builder_form[question_subtype]": "Question option is required.",
       "tile_builder_form[correct_answer_index]": "Please select one choice as the correct answer.",
-      "tile_builder_form[answers][]": "Please provide text for all answer options."
+      "tile_builder_form[answers][]": "Please provide text for all answer options.",
+      "tile_builder_form[remote_media_url]": "Please add an image.",
     },
 
     errorPlacement: function(error, element) {
@@ -73,6 +74,9 @@ Airbo.TileFormValidator = (function(){
       }
       else if( element.attr("name")=="tile_builder_form[correct_answer_index]"){
         $(".after_answers").prepend(error);
+      }
+      else if( element.attr("name")=="tile_builder_form[remote_media_url]"){
+        $(".image-menu").prepend(error);
       }
       else if( element.attr("name")=="tile_builder_form[answers][]"){
         element.parents(".multiple_choice_group").append(error);
