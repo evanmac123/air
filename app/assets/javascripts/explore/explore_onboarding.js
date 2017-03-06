@@ -5,7 +5,6 @@ Airbo.ExploreOnboarding = (function(){
     , flkty
     , carousel
     , tileModal= Airbo.Utils.StandardModal()
-    , onboardingModalSelect = '#exploreOnboardingModal'
     , onboardingModal
     , tileContent
     , self;
