@@ -10,12 +10,12 @@ class CopyTile
     end
   end
 
-  def copy_tile(tile, mark_tile_as_copied = true)
+  def copy_tile(tile, mark_tile_as_copied, status = Tile::DRAFT)
     @tile = tile
     @copy =tile.class.new
 
     copy_tile_data
-    set_new_data_for_copy
+    set_new_data_for_copy(status)
     if mark_tile_as_copied
       mark_tile_as_copied_by_user
       @tile.save
@@ -47,8 +47,8 @@ class CopyTile
     end
   end
 
-  def set_new_data_for_copy
-    @copy.status = Tile::DRAFT
+  def set_new_data_for_copy(status)
+    @copy.status = status
     @copy.original_creator = @tile.creator || @tile.original_creator
     @copy.original_created_at = @tile.created_at || @tile.original_created_at
     @copy.demo = @new_demo

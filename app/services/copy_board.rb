@@ -10,7 +10,7 @@ class CopyBoard
     tile_copier = CopyTile.new(new_board)
 
     board_template.active_tiles.reverse.each do |tile|
-      tile_copier.copy_tile(tile, false)
+      tile_copier.copy_tile(tile, false, Tile::ACTIVE)
     end
   end
 end
