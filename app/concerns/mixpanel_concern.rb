@@ -23,9 +23,6 @@ module MixpanelConcern
   alias_method_chain :ping, :device_type
 
   def email_clicked_ping(user)
-    # We rig the timestamp here so that, if this ping is present, and there's
-    # also a new activity session, this ping always appears before the activity
-    # session ping.
     if params[:email_type].present?
       email_ping_text = BaseTilesDigestMailer.digest_types_for_mixpanel[params[:email_type]]
       rack_timestamp = request.env['rack.timestamp']

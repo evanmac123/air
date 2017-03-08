@@ -7,7 +7,7 @@ feature 'Sets email mask for board' do
 
     visit edit_admin_demo_path(demo, as: an_admin)
     fill_in "Email mask", with: "Awesomeville Corp"
-    click_button "Update Game"
+    click_button "Update Board"
 
     expect(demo.reload.custom_reply_email_name).to eq("Awesomeville Corp")
   end

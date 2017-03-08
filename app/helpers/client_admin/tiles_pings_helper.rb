@@ -1,6 +1,5 @@
 module ClientAdmin::TilesPingsHelper
   def record_index_ping
-    ping_page('Manage - Tiles', current_user)
     if params[:show_suggestion_box].present?
       ping('Suggestion Box', {client_admin_action: "Suggestion Box Opened"}, current_user)
     end

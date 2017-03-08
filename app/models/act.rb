@@ -23,8 +23,6 @@ class Act < ActiveRecord::Base
   after_create do
     user.update_last_acted_at
     user.update_points(points, self.creation_channel) if points
-
-    schedule_mixpanel_ping
   end
 
   scope :recent, lambda {|max| order('created_at DESC').limit(max)}
@@ -60,33 +58,27 @@ class Act < ActiveRecord::Base
     where(:demo_id => user.demo_id)
   end
 
-  def self.displayable_to_user(viewing_user, board, limit, offset)
+  def self.displayable_to_user(viewing_user, board, page, per_page=5)
     if viewing_user.is_site_admin
       # Site admins get to see anything they please.
-      return where(demo_id: board.id).limit(limit).offset(offset).order("created_at DESC")
+      return where(demo_id: board.id).order("created_at DESC").page(page).per(per_page)
     end
 
     if viewing_user.is_guest?
       # And guests get to see their own only.
-      return where(demo_id: board.id, user_id: viewing_user.id, user_type: 'GuestUser').limit(limit).offset(offset).order("created_at DESC")
+      return where(demo_id: board.id, user_id: viewing_user.id, user_type: 'GuestUser').order("created_at DESC").page(page).per(per_page)
     end
 
     friends = viewing_user.accepted_friends.where("users.privacy_level != 'nobody'")
     viewable_user_ids = friends.pluck(:id) + [viewing_user.id]
-    board.acts.where("hidden ='f' and (user_id in (?) or privacy_level='everybody')", viewable_user_ids).order("created_at desc").limit(limit).offset(offset)
+    board.acts.where("hidden ='f' and (user_id in (?) or privacy_level='everybody')", viewable_user_ids).order("created_at desc").page(page).per(per_page)
   end
 
-  def self.for_profile(viewing_user, _offset=0)
-    displayable_to_user(viewing_user, viewing_user.demo, 10, _offset)
+  def self.for_profile(viewing_user)
+    displayable_to_user(viewing_user, viewing_user.demo, 1, 10)
   end
 
   protected
-
-  def schedule_mixpanel_ping
-    unless user.name == Tutorial.example_search_name
-      TrackEvent.ping('acted', data_for_mixpanel, self.user)
-    end
-  end
 
   def data_for_mixpanel
     {

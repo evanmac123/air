@@ -1,6 +1,4 @@
 module ActsHelper
-  ACT_BATCH_SIZE = 5
-
   def set_modals_and_intros
     unless current_user.is_a?(PotentialUser)
       @display_get_started_lightbox = current_user.display_get_started_lightbox
@@ -33,10 +31,10 @@ module ActsHelper
     end
   end
 
-  def find_requested_acts(demo)
-    offset = params[:offset].present? ? params[:offset].to_i : 0
-    acts = Act.displayable_to_user(current_user, demo, ACT_BATCH_SIZE, offset).all
-    @show_more_acts_btn = (acts.length == ACT_BATCH_SIZE)
+  def find_requested_acts(demo, per_page)
+    page = params[:page] || 1
+    acts = Act.displayable_to_user(current_user, demo, page, per_page)
+    @show_more_acts_btn = !acts.last_page?
     acts
   end
 

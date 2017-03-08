@@ -1,6 +1,6 @@
 <div class="activity-graph">
   <div class="demo_chart_section">
-    <%= form_for chart_form, url: temporary_create_client_admin_reports_path, html: { class: "custom" } do |f| %>
+    <%= form_for chart_form, url: client_admin_reports_path, html: { class: "custom" } do |f| %>
       <div class="actions_column">
         <% chart_form.action_types.each do |action_type| %>
           <div class="action_type_block <%= f.object.action_type_class(action_type) %>">

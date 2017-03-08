@@ -7,19 +7,27 @@ class ActsController < ApplicationController
   prepend_before_filter :authenticate
 
   def index
-    current_user.ping_page('activity feed')
     @demo ||= current_user.demo
-    @acts = find_requested_acts(@demo)
-    @palette = @demo.custom_color_palette
-
-    set_modals_and_intros
-
-    @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size)
-
-    decide_if_tiles_can_be_done(@displayable_categorized_tiles[:not_completed_tiles])
+    @acts = find_requested_acts(@demo, params[:per_page] || 5)
 
     if request.xhr?
-      render partial: 'shared/more_acts', locals: { acts: @acts }
+      content = render_to_string(
+                  partial: "acts/feed",
+                  locals: { opts: { acts: @acts } })
+
+      render json: {
+        success:   true,
+        content:   content,
+        lastPage:  @acts.last_page?
+      }
+    else
+      @palette = @demo.custom_color_palette
+
+      set_modals_and_intros
+
+      @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size)
+
+      decide_if_tiles_can_be_done(@displayable_categorized_tiles[:not_completed_tiles])
     end
   end
 

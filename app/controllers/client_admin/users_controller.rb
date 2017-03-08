@@ -12,7 +12,6 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   PAGE_SIZE = 50
 
   def index
-    ping_page("Manage - Users", current_user)
     respond_to do |format|
       @demo = current_user.demo
       format.html do

@@ -27,7 +27,9 @@ feature "User tries to friend someone" do
 
   let(:demo)    { FactoryGirl.create :demo }
   let(:user)    { FactoryGirl.create :user, :claimed, demo: demo, name: 'Joe User'   }
-  let!(:friend) { FactoryGirl.create(:user, :claimed, demo: demo, name: 'Sue Friend').reload }
+  let(:friend) { FactoryGirl.create(:user, :claimed, name: 'Sue Friend')}
+  let!(:board_membership) { FactoryGirl.create(:board_membership, :claimed, user: friend, demo: demo)}
+
 
   before(:each) do
     bypass_modal_overlays(user)

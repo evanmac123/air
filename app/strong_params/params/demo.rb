@@ -78,6 +78,7 @@ module Params
           :alt_subject_enabled,
           :allow_embed_video,
           :guest_user_conversion_modal,
+          :launch_date,
           custom_color_palette_attributes: [
             :enabled, :enable_reset, :content_background_reset, :tile_progress_background_reset, :tile_progress_all_tiles_text_reset, :tile_progress_completed_tiles_text_reset, :primary_color, :static_text_color
           ]

@@ -23,7 +23,7 @@ feature 'User sees acts in profile' do
       expect_content "did k"
       expect_no_content "did a"
 
-      find("#see-more").click
+      find("#see-more-acts").click
       expect_content "did k"
       expect_content "did a"
     end
@@ -40,10 +40,6 @@ feature 'User sees acts in profile' do
         visit user_path(@user)
         expect_no_content "did k"
         expect_no_content "did a"
-
-        find("#see-more").click
-        expect_no_content "did k"
-        expect_no_content "did a"
       end
 
       context "but they are a site admin" do
@@ -57,7 +53,7 @@ feature 'User sees acts in profile' do
           expect_content "did k"
           expect_no_content "did a"
 
-          find("#see-more").click
+          find("#see-more-acts").click
           expect_content "did k"
           expect_content "did a"
         end
@@ -74,7 +70,7 @@ feature 'User sees acts in profile' do
         expect_content "did k"
         expect_no_content "did a"
 
-        find("#see-more").click
+        find("#see-more-acts").click
         expect_content "did k"
         expect_content "did a"
       end

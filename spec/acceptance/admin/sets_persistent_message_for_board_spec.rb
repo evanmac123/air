@@ -11,7 +11,7 @@ feature 'Admin sets persistent message for board' do
 
     message = "This is the funnest possible thing"
     fill_in_persistent_message(message)
-    click_button "Update Game"
+    click_button "Update Board"
 
     expect(board.reload.persistent_message).to eq(message)
   end
