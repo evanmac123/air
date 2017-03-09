@@ -25,6 +25,13 @@ feature "Explore", js: true do
 
   context "when user visits explore" do
 
+    scenario "should see onboarding" do
+      pending "not implemented"
+      fail
+    end
+
+
+
     context "tile_features" do
       scenario "should only display active tile_features with tiles" do
         within "section#tile_feature_1" do
