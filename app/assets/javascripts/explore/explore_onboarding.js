@@ -14,10 +14,9 @@ Airbo.ExploreOnboarding = (function(){
     self = this;
     currentUserData = $("body").data("currentUser");
     onboardingModal = $('#exploreOnboardingModal');
-    initTileModal()
-    getDemoTile();
-
+    initOnboarding();
   }
+
 
   function initOnboarding(){
     initCarousel();
@@ -27,48 +26,23 @@ Airbo.ExploreOnboarding = (function(){
     openOnboardingModal()
   }
 
-  function initOnboardingNavListener(){
-    carousel.on( 'select.flickity', function() {
-      if(flkty.selectedIndex === 2){
-
-        showTile();;
-      }
-    })
-  }
-
-  function showTile(){
-    tileModal.open();
-    Airbo.StickyMenu.init(tileModal);
-    Airbo.ImageLoadingPlaceholder.init();
-    Airbo.TileAnswers.init()
-  }
-
-  function initTileModal() {
-    tileModal.init({
-      modalId: "onboarding_tile_preview",
-      modalClass: "tile_previews explore-tile_previews tile_previews-show explore-tile_previews-show in-onboarding bg-user-side",
-      useAjaxModal: true,
-      closeSticky: true,
-      onClosedEvent: function(){
-        tileModal= undefined;
-        onboardingModal.foundation('reveal', 'open');
-      }
-    });
-  }
-
-
-
-  function getDemoTile(){
-    var xhr = getTileConent();
-    xhr.then(function(data){
-      tileModal.setContent(data);
-      initOnboarding();
-      initOnboardingNavListener();
-    });
-  }
-
   function openOnboardingModal(){
     onboardingModal.foundation('reveal', 'open');
+  }
+
+  function bindCorrectTileAnswerClick(){
+    $('.right_multiple_choice_answer').on("click", function(event) {
+      event.preventDefault();
+      $('html, body').animate({ scrollTop: $("#exploreOnboardingModal").offset().top }, 250);
+      setTimeout(function(){
+
+        $('body').on('click', '.clicked_right_answer', function(event) {
+          $('.flickity-explore-oboarding-carousel').flickity('next');
+        });
+
+        $('.flickity-explore-oboarding-carousel').flickity('next');
+      }, 250);
+    });
   }
 
   function initCarousel(){
@@ -78,29 +52,30 @@ Airbo.ExploreOnboarding = (function(){
       percentPosition: false,
       contain: true,
       pageDots: false,
-      prevNextButtons: false
+      prevNextButtons: false,
+      adaptiveHeight: true,
     });
 
     flkty = carousel.data("flickity");
-
+    initTileNavigationListener();
     bindNextOnboardingSlide();
     bindCloseOnboarding();
-
   }
 
+  function initTileNavigationListener(){
+    carousel.on( 'select.flickity', function() {
+      var index = flkty.selectedIndex;
+      if(index == 2){
+        Airbo.ImageLoadingPlaceholder.init();
+        Airbo.TileAnswers.init();
+        bindCorrectTileAnswerClick();
+      }
 
-
-  function getTileConent(){
-    var tile = $(".tile_thumb_link_explore").first();
-    return $.ajax({
-      type: "GET",
-      dataType: "html",
-      url: tile.attr("href"),
-      data: { partial_only: true},
+      if(index == 3){
+        $(".icon--order-success").show();
+      }
     });
   }
-
-
 
 
   function bindNextOnboardingSlide() {
