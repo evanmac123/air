@@ -9,7 +9,7 @@ describe CopyTile do
     end
 
     it "should copy tile" do
-      tile = @copy_tile_service.copy_tile(@original_tile)
+      tile = @copy_tile_service.copy_tile(@original_tile, true)
       attr_list.each do |attr_name|
         expect(tile.send(attr_name)).to eq(@original_tile.send(attr_name))
       end
@@ -18,7 +18,7 @@ describe CopyTile do
     it "should set copied tile to first place in drafts" do
       demo = @copying_user.demo
       FactoryGirl.create_list(:tile, 3, demo: demo)
-      tile = @copy_tile_service.copy_tile(@original_tile)
+      tile = @copy_tile_service.copy_tile(@original_tile, true)
       expect(demo.draft_tiles.first.id).to eq(tile.id)
     end
   end
