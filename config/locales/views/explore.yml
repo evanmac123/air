@@ -7,14 +7,20 @@ en:
         slide_1:
           header: "Hi %{name}, Welcome to Airbo "
           header_guest: Hi There, Welcome to Airbo
-          body: We reinvented the bulletin board to make employee communications simple and fun.
+          body: We reinvented the bulletin board to make employee communications simple and more fun
         slide_2:
-          header: Visually engaging and interactive
-          body:  Airbo uses Tiles to capture attention and keep employees informed.
+          header: Visually Engaging and Interactive
+          body:  Airbo Tiles capture employees' attention to keep them informed and engaged
         slide_3:
-          header: Drive Participation
-          body: Market content using attention-grabbing emails
+          header: Easy to Create Easy to Use
+          body: Don't take our word for it, try it yourself
         slide_4:
+          header: Congratulations
+          body: You've just completed your first Tile
+        slide_5:
+          header: Drive Participation
+          body: Market content using attention-grabbing email
+        slide_6:
           header: Your Content Assistant
           body: Browse best practice examples and get weekly suggestions
       searches:
