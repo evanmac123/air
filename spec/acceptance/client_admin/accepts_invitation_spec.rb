@@ -5,6 +5,7 @@ feature "Client Admin Accepts Invitation" do
 
   before(:each) do
     @demo = @demo = FactoryGirl.create :demo, :activated
+    FactoryGirl.create(:tile, is_public:true ) #create at least one explore tile for new onboarding
     @user = FactoryGirl.create :user, is_client_admin: true, demo: @demo
   end
 
