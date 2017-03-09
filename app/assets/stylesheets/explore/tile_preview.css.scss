@@ -112,3 +112,58 @@
     display:none;
   }
 }
+
+
+.onboarding-tile{
+  background-color:#d9dfe9;
+  padding:10px;
+  margin:1em auto;
+  width:450px;
+}
+
+.responsive-tile-wrapper {
+  .tile_image img{
+    margin: auto;
+    display:block;
+  }
+
+  .tile_image {
+    width:100%;
+  }
+
+  .tile_multiple_choice_answer a{
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 400;
+    color: white;
+    display: block;
+    font-size: 0.75em !important;
+    line-height: 1em;
+    padding: 10px;
+    white-space: normal;
+    text-transform: none;
+    width: 100%;
+  }
+
+  .tile_quiz .tile_question.content_sections{
+    font-weight: 500;
+    font-size: 0.75em;
+    line-height: 1.0em;
+    padding-top: 1.5em;
+    padding-bottom: 1em ;
+  }
+
+  .tile_holder .tile_quiz .tile_points_bar{
+    height: 35px;
+  }
+
+  .tile_holder .tile_quiz .tile_points_bar .earnable_points{
+    padding: 5px 15px;
+    height:35px;
+  }
+
+  .tile_holder .tile_quiz .tile_points_bar .earnable_points{
+    font-size: 0.35em;
+  }
+
+}
