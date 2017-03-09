@@ -72,10 +72,14 @@
 
 .icon--order-success svg path {
     -webkit-animation: checkmark 0.25s ease-in-out 0.7s backwards;
-    animation: checkmark 0.25s ease-in-out 0.7s backwards
+    animation: checkmark 0.25s ease-in-out 0.7s backwards;
+    -webkit-animation-delay: 1s; 
+    animation-delay: 1s;
 }
 
 .icon--order-success svg circle {
     -webkit-animation: checkmark-circle 0.6s ease-in-out backwards;
-    animation: checkmark-circle 0.6s ease-in-out backwards
+    animation: checkmark-circle 0.6s ease-in-out backwards animation-delay 1s;
+    -webkit-animation-delay: 1s; 
+    animation-delay: 1s;
 }
