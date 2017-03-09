@@ -1,5 +1,6 @@
 class UsersController < UserBaseController
   prepend_before_filter :authenticate
+  include ActsHelper
 
   USER_LIMIT = 50
   MINIMUM_SEARCH_STRING_LENGTH = 3
@@ -12,15 +13,12 @@ class UsersController < UserBaseController
 
     if @search_string
       @search_string = @search_string.downcase.strip.gsub(/\s+/, ' ')
-
-      @other_users = User.claimed.demo_mates(current_user).alphabetical.name_like(@search_string)
+      @other_users = current_user.demo.claimed_users(excluded_uids: [current_user.id]).alphabetical.name_like(@search_string)
       @users_cropped = USER_LIMIT if @other_users.length > USER_LIMIT
       @other_users = @other_users[0, USER_LIMIT]
 
       @search_link_text = "refining your search"
     end
-
-    current_user.ping_page('user directory', :game => current_user.demo.name)
   end
 
   def show
@@ -34,7 +32,7 @@ class UsersController < UserBaseController
       return
     end
 
-    @acts = @user.acts.for_profile(current_user)
+    @acts = find_requested_acts(current_user.demo, 10)
 
     @viewing_self = signed_in? && current_user == @user
     @viewing_other = signed_in? && current_user != @user
@@ -48,12 +46,6 @@ class UsersController < UserBaseController
 
     if @pending_friends.present?
       @display_pending_friendships = true if @viewing_self || current_user.is_site_admin
-    end
-
-    if @viewing_self
-      current_user.ping_page 'own profile'
-    elsif @viewing_other
-      current_user.ping_page("profile for someone else", {:viewed_person => @user.name, :viewed_person_id => @user.id})
     end
   end
 

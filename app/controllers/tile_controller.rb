@@ -17,7 +17,7 @@ class TileController < ApplicationController
     def find_tile
       @tile = Tile.where(id: params[:id], is_sharable: true).first
       unless @tile
-        not_found
+        not_found('flashes.failure_tile_not_public')
         return
       end
     end

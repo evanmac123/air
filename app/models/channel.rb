@@ -16,7 +16,7 @@ class Channel < ActiveRecord::Base
   end
 
   def to_param
-    self.slug
+    [id, name.parameterize].join("-")
   end
 
   def update_slug
@@ -24,7 +24,7 @@ class Channel < ActiveRecord::Base
   end
 
   def tiles
-    @tiles ||= Tile.explore_without_featured_tiles.tagged_with(self.name).uniq
+    @tiles ||= Tile.explore_without_featured_tiles(related_features).tagged_with(self.name).uniq
   end
 
   def related_campaigns
@@ -32,6 +32,6 @@ class Channel < ActiveRecord::Base
   end
 
   def related_features
-    TileFeature.tagged_with(self.name, on: :channels, any: true)
+    @related_features ||= TileFeature.tagged_with(self.name, on: :channels, any: true)
   end
 end

@@ -226,11 +226,11 @@ class Tile < ActiveRecord::Base
   end
 
   def copy_inside_demo new_demo, copying_user
-    CopyTile.new(new_demo, copying_user).copy_tile self, false
+    CopyTile.new(new_demo, copying_user).copy_tile(self, false)
   end
 
   def copy_to_new_demo(new_demo, copying_user)
-    CopyTile.new(new_demo, copying_user).copy_tile self
+    CopyTile.new(new_demo, copying_user).copy_tile(self, true)
   end
 
   def find_new_first_position
@@ -241,14 +241,20 @@ class Tile < ActiveRecord::Base
     TileViewing.add(self, user) if user
   end
 
-  def self.featured_tile_ids
-    TileFeature.active.flat_map(&:tile_ids).compact
+  def self.featured_tile_ids(related_features)
+    if related_features.present?
+      tile_features = TileFeature.where(id: related_features.pluck(:id))
+    else
+      tile_features = TileFeature.scoped
+    end
+
+    tile_features.active.flat_map(&:tile_ids).compact
   end
 
-  def self.explore_without_featured_tiles
+  def self.explore_without_featured_tiles(related_features = nil)
     tiles_table = Arel::Table.new(:tiles)
 
-    explore.where(tiles_table[:id].not_in(featured_tile_ids))
+    explore.where(tiles_table[:id].not_in(featured_tile_ids(related_features)))
   end
 
   def self.displayable_categorized_to_user(user, maximum_tiles)

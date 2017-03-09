@@ -17,7 +17,7 @@ describe Explore::TilePreviewsController do
 
     it "should return 404 error if tile is not found" do
       get :show, id: 0
-      expect(response.status).to eq(404)
+      expect(response.request.flash[:failure]).to eq(I18n.t('flashes.failure_resource_not_found'))
     end
   end
 end

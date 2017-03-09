@@ -14,7 +14,6 @@ class ClientAdmin::SharesController < ClientAdminBaseController
 
     digest_sent_modal
 
-    ping_page("Manage - Share Page", current_user)
     prepend_view_path 'client_admin/users'
   end
 

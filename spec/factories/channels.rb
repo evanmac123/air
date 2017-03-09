@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :channel do
-    name "MyString"
-    image ""
+    sequence(:name) { |n| "Channel_#{n}" }
   end
 end

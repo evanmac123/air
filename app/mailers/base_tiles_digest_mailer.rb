@@ -34,8 +34,4 @@ class BaseTilesDigestMailer < ActionMailer::Base
     def tiles_by_position
       Tile.where(id: @tile_ids).ordered_by_position
     end
-
-    def ping_on_digest_email(email_type, user, subject = nil)
-      TrackEvent.ping( "Email Sent", {email_type: BaseTilesDigestMailer.digest_types_for_mixpanel[email_type], subject_line: subject}, user )
-    end
 end

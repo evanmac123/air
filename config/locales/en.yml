@@ -24,7 +24,11 @@ en:
       next: "&rsaquo;"
       truncate: "..."
   flashes:
+      failure_resource_not_found: Sorry, what you were looking for could not be found.
       failure_when_not_signed_in_html: "Please sign in or create an account to access this part of the site. If needed, <a href='/passwords/new'>create or reset your password</a>."
+      failure_tile_not_public: "Sorry, the Tile you're looking for is not public."
+      failure_friendships_need_common_board: "Sorry, you can only connect with people who are in the same Board."
+      failure_cannot_complete_tile_in_different_board: "Sorry, the Tile could not be completed. Try moving into the correct Board."
   controllers:
     explore:
       organizations:

@@ -37,7 +37,6 @@ window.getStartedLightbox = function(){
     onClose: function(){
       if( window.showRaffleAfterLightbox === true ) {
         showRaffleBox("New Prize!");
-        prizeModalPing("Saw Prize Modal");
       }
     }
   });

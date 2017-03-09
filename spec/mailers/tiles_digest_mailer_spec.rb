@@ -23,10 +23,6 @@ describe 'Digest email' do
     demo.digest_tiles(nil).pluck(:id)
   end
 
-  before(:each) do
-    TilesDigestMailer.stubs(:ping_on_digest_email)
-  end
-
   describe 'Delivery' do
     subject { TilesDigestMailer.notify_one(demo.id, claimed_user.id, tile_ids, 'New Tiles', false, nil, nil) }
 
@@ -269,7 +265,7 @@ describe '#notify_all_follow_up' do
   it "should not deliver to users who did not get the original digest" do
     demo = FactoryGirl.create(:demo)
     users_to_deliver_to = FactoryGirl.create_list(:user, 2, demo: demo)
-    users_to_not_deliver_to = FactoryGirl.create_list(:user, 2, demo: demo)
+    _users_to_not_deliver_to = FactoryGirl.create_list(:user, 2, demo: demo)
 
     follow_up = FollowUpDigestEmail.create!(demo_id: demo.id, tile_ids: [], send_on: Date.today, unclaimed_users_also_get_digest: true, user_ids_to_deliver_to: users_to_deliver_to.map(&:id))
     TilesDigestMailer.notify_all_follow_up follow_up.id
@@ -374,20 +370,5 @@ describe '#notify_all_follow_up' do
 
     expect(ActionMailer::Base.deliveries.size).to eq(1)
     expect(ActionMailer::Base.deliveries.map(&:to).flatten.first).to eq(unmuted_user.email)
-  end
-end
-
-describe "#notify_one" do
-
-  # NOTE: MIXPANEL testing implementation for unit testing pings with Bourne spies.  Still would rather move ALL pings client side with client side tests.
-  it "should schedule a ping that the mail has been sent" do
-    TrackEvent.stubs(:ping)
-
-    user = FactoryGirl.create(:user)
-    tile = FactoryGirl.create(:tile)
-
-    TilesDigestMailer.notify_one(user.demo.id, user.id, [tile.id], 'New Tiles', false, nil, nil)
-
-    assert_received(TrackEvent, :ping) { |expect| expect.with("Email Sent", anything, anything) }
   end
 end

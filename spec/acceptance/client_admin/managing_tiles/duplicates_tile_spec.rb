@@ -62,7 +62,6 @@ feature 'Client admin duplicates tile' do
   # => Helpers
   #
   def more_btn
-    binding.pry
     show_thumbnail_buttons = "$('.tile_buttons').css('opacity', '1')"
     page.execute_script show_thumbnail_buttons
     find(".more.pill")

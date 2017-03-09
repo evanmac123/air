@@ -14,7 +14,7 @@ class SalesDashboardService
   end
 
   def sales_orgs(user = nil)
-    Organization.with_role(:sales, user)
+    Organization.with_role(:sales, user).order(:created_at).reverse_order
   end
 
   def first_activated_user_from_org(org)
@@ -35,13 +35,13 @@ class SalesDashboardService
   def number_of_visits_from_org(org)
     org.users.non_site_admin.map { |user|
       user.rdb[:invite_link_click_count].get.to_i
-    }.inject(:+)
+    }.compact.inject(:+)
   end
 
   def total_visits_from_sales
     @_total_visits_from_sales ||= sales_orgs.map { |org|
       number_of_visits_from_org(org)
-    }.inject(:+)
+    }.compact.inject(:+)
   end
 
   def manager_of_org(org)

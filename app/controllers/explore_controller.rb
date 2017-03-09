@@ -6,8 +6,8 @@ class ExploreController < ExploreBaseController
     @tile =  onboarding_tile || @tiles.first
     if request.xhr?
       content = render_to_string(
-                  partial: "explore/tiles",
-                  locals: { tiles: @tiles, section: "Explore" })
+        partial: "explore/tiles",
+        locals: { tiles: @tiles, section: "Explore" })
 
       render json: {
         success:   true,
@@ -35,7 +35,7 @@ class ExploreController < ExploreBaseController
   end
 
   def set_intro_slides
-    if show_slides?
+    if show_slides? && params[:requested_tile_id].nil?
       cookies[:airbo_explore] = Time.now
       @show_explore_onboarding = true
     end

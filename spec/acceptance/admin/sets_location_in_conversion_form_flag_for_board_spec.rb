@@ -17,7 +17,7 @@ feature "Admin sets whether board displays the location autocomplete elements in
     @demo.update_attributes(use_location_in_conversion: true)
     visit edit_admin_demo_path(@demo, as: an_admin)
     uncheck_use_location_in_conversion
-    click_button "Update Game"
+    click_button "Update Board"
     
     expect(@demo.reload.use_location_in_conversion).to be_falsey
   end
@@ -27,7 +27,7 @@ feature "Admin sets whether board displays the location autocomplete elements in
 
     visit edit_admin_demo_path(@demo, as: an_admin)
     check_use_location_in_conversion
-    click_button "Update Game"
+    click_button "Update Board"
     
     expect(@demo.reload.use_location_in_conversion).to be_truthy
   end
