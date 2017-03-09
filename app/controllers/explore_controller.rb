@@ -3,7 +3,7 @@ class ExploreController < ExploreBaseController
 
   def show
     @tiles = Tile.explore_without_featured_tiles.page(params[:page]).per(28)
-    @tile =  demo_tile || @tiles.first
+    @tile =  onboarding_tile || @tiles.first
     if request.xhr?
       content = render_to_string(
                   partial: "explore/tiles",
@@ -20,8 +20,8 @@ class ExploreController < ExploreBaseController
 
   private
 
-  def demo_tile
-
+  def onboarding_tile
+    Tile.where(id: ENV['ONBOARDING_TILE_ID']).first
   end
 
   def set_initial_objects
