@@ -39,7 +39,7 @@ Airbo.ExploreOnboarding = (function(){
       pingSlideComplete("completed_tile", btn);
 
       setTimeout(function(){
-        $('html, body').animate({ scrollTop: $("#exploreOnboardingModal").offset().top }, 550);
+        $('html, body').animate({ scrollTop: $("#exploreOnboardingModal").offset().top - 90 }, 550);
         $('body').on('click', '.clicked_right_answer', function(event) {
           $('.flickity-explore-oboarding-carousel').flickity('next');
         });
