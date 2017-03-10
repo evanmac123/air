@@ -33,8 +33,12 @@ Airbo.ExploreOnboarding = (function(){
   function bindCorrectTileAnswerClick(){
     $('.right_multiple_choice_answer').on("click", function(event) {
       event.preventDefault();
-      setTimeout(function(){
+      var btn = $(this);
 
+      btn.data("slide", 3);
+      pingSlideComplete("completed_tile", btn);
+
+      setTimeout(function(){
         $('html, body').animate({ scrollTop: $("#exploreOnboardingModal").offset().top }, 550);
         $('body').on('click', '.clicked_right_answer', function(event) {
           $('.flickity-explore-oboarding-carousel').flickity('next');
