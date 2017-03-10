@@ -47,7 +47,7 @@ Airbo.ExploreTileManager = (function(){
   }
 
   function launchTileIfRequested() {
-    var requestedTile = $("body.explore").data().requestedTile;
+    var requestedTile = $("body.explore").data("requestedTile");
 
     if (requestedTile) {
       getExploreTile("/explore/tile/" + requestedTile, requestedTile);
