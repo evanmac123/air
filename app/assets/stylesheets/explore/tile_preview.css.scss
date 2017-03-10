@@ -125,6 +125,7 @@
   .tile_image img{
     margin: auto;
     display:block;
+
   }
 
   .tile_image {
@@ -145,12 +146,8 @@
     width: 100%;
   }
 
-  .tile_quiz .tile_question.content_sections{
-    font-weight: 500;
-    font-size: 0.75em;
-    line-height: 1.0em;
-    padding-top: 1.5em;
-    padding-bottom: 1em ;
+  .tile_holder{
+    margin:inherit;
   }
 
   .tile_holder .tile_quiz .tile_points_bar{
@@ -166,4 +163,12 @@
     font-size: 0.35em;
   }
 
+
+  .tile_quiz .tile_question.content_sections{
+    font-weight: 500;
+    font-size: 0.75em;
+    line-height: 1.0em;
+    padding-top: 1.5em;
+    padding-bottom: 1em ;
+  }
 }

@@ -331,10 +331,6 @@ body.explore, .explore {
     .carousel-cell {
       width: 100%;
     }
-    img {
-      height: 9em;
-      width: auto;
-    }
     h2 {
       margin-bottom: 0;
     }
@@ -343,12 +339,7 @@ body.explore, .explore {
       font-size: 17px;
     }
 
-    @media (max-width : 480px) {
-      img {
-        height: 5em;
-        width: auto;
-      }
-    }
+ 
 
   }
   #exploreOnboardingModal {
@@ -397,4 +388,17 @@ body.explore, .explore {
   }
 
 
+}
+
+.flickity-explore-oboarding-carousel{
+  img.header-image{
+    height: 9em;
+    width: auto;
+  }
+  @media (max-width : 480px) {
+    img.header0-image {
+      height: 5em;
+      width: auto;
+    }
+  }
 }

@@ -3,7 +3,7 @@
     <div class="flickity-explore-oboarding-carousel">
       <div class="carousel-cell">
         <div class="text-center">
-          <%= image_tag "explore/onboarding_slide_welcome.png" %>
+          <%= image_tag "explore/onboarding_slide_welcome.png" , class: "header-image" %>
           <% if current_user.is_a?(User) %>
             <h2><%= t('views.explore.onboarding.slide_1.header', name: current_user.first_name.try(:capitalize)) %></h2>
           <% else %>
@@ -16,7 +16,7 @@
       </div>
       <div class="carousel-cell">
         <div class="text-center">
-          <%= image_tag "explore/onboarding_slide_board.png" %>
+          <%= image_tag "explore/onboarding_slide_board.png" , class: "header-image" %>
           <h2><%= t('views.explore.onboarding.slide_2.header') %></h2>
           <p><%= t('views.explore.onboarding.slide_2.body') %></p>
           <br>
@@ -38,7 +38,7 @@
 
       <div class="carousel-cell">
         <div class="text-center">
-          <%= image_tag "explore/onboarding_slide_rocket.png" %>
+          <%= image_tag "explore/onboarding_slide_rocket.png", class: "header-image" %>
           <div class="check-placeholder">
             <div class="icon icon--order-success svg">
               <svg xmlns="http://www.w3.org/2000/svg" width="72px" height="72px">
@@ -58,7 +58,7 @@
 
       <div class="carousel-cell">
         <div class="text-center">
-          <%= image_tag "explore/onboarding_slide_participation.png" %>
+          <%= image_tag "explore/onboarding_slide_participation.png", class: "header-image" %>
           <h2><%= t('views.explore.onboarding.slide_5.header') %></h2>
           <p><%= t('views.explore.onboarding.slide_5.body') %></p>
           <br>
@@ -68,15 +68,13 @@
 
       <div class="carousel-cell">
         <div class="text-center">
-          <%= image_tag "explore/onboarding_slide_assistant.png" %>
+          <%= image_tag "explore/onboarding_slide_assistant.png" , class: "header-image" %>
           <h2><%= t('views.explore.onboarding.slide_6.header') %></h2>
           <p><%= t('views.explore.onboarding.slide_6.body') %></p>
           <br>
           <a href="#" class="button close-onboarding" data-slide="5"><%= t('views.explore.onboarding.close') %></a>
         </div>
       </div>
-
-  
 
     </div>
   </div>
