@@ -71,7 +71,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   end
 
   def destroy
-    @user.destroy
+    @user.delay.destroy
     redirect_to client_admin_users_path
   end
 
