@@ -5,6 +5,7 @@ Airbo.EmbedVideo = (function() {
   function addVideo(embedCode) {
     $(".video_frame_block").html(embedCode);
     $("#remote_media_url").val("/assets/video.png");
+    $("#media_source").val("video-upload");
     timer = waitForVideoLoad();
     $(".video_frame_block iframe").on("load", function(event){
       clearTimeout(timer);
@@ -28,7 +29,7 @@ Airbo.EmbedVideo = (function() {
     $("#remote_media_url").val("");
     $("#tile_builder_form_embed_video").val("");
     $(".video_frame_block").html("");
-    $("#upload_preview").attr("src","/assets/missing-tile-img-full.png") 
+    $("#upload_preview").attr("src","/assets/missing-tile-img-full.png");
     $.Topic("video-removed").publish();
   }
 

@@ -1,82 +1,46 @@
 <div class="explore-onboarding">
   <div id="exploreOnboardingModal" class="reveal-modal medium" data-reveal aria-labelledby="exploreOnboardingModal" aria-hidden="true" role="dialog">
     <div class="flickity-explore-oboarding-carousel">
-      <div class="carousel-cell">
-        <div class="text-center">
-          <%= image_tag "explore/onboarding_slide_welcome.png" , class: "header-image" %>
-          <% if current_user.is_a?(User) %>
-            <h2><%= t('views.explore.onboarding.slide_1.header', name: current_user.first_name.try(:capitalize)) %></h2>
-          <% else %>
-            <h2><%= t('views.explore.onboarding.slide_1.header_guest') %></h2>
-          <% end %>
-          <p><%= t('views.explore.onboarding.slide_1.body') %></p>
-          <br>
-          <a href="#" class="button next-onboarding-slide" data-slide="1"><%= t('views.explore.onboarding.next_slide') %></a>
-        </div>
-      </div>
-      <div class="carousel-cell">
-        <div class="text-center">
-          <%= image_tag "explore/onboarding_slide_board.png" , class: "header-image" %>
-          <h2><%= t('views.explore.onboarding.slide_2.header') %></h2>
-          <p><%= t('views.explore.onboarding.slide_2.body') %></p>
-          <br>
-          <a href="#" class="button next-onboarding-slide" data-slide="2"><%= t('views.explore.onboarding.next_slide') %></a>
-        </div>
-      </div>
-
-      <div class="carousel-cell">
-        <div class="text-center">
-          <h2><%= t('views.explore.onboarding.slide_3.header') %></h2>
-          <p><%= t('views.explore.onboarding.slide_3.body') %></p>
-        </div>
-        <div class="onboarding-tile">
-          <div class="responsive-tile-wrapper" >
-            <%=render partial: "/tiles/responsive_tile"%>
+        <div class="carousel-cell">
+          <div class="text-center">
+            <%= image_tag "explore/onboarding_slide_1.png" %>
+            <% if current_user.is_a?(User) %>
+              <h2><%= t('views.explore.onboarding.slide_1.header', name: current_user.first_name.try(:capitalize)) %></h2>
+            <% else %>
+              <h2><%= t('views.explore.onboarding.slide_1.header_guest') %></h2>
+            <% end %>
+            <p><%= t('views.explore.onboarding.slide_1.body') %></p>
+            <br>
+            <a href="#" class="button next-onboarding-slide" data-slide="1"><%= t('views.explore.onboarding.next_slide') %></a>
           </div>
         </div>
-      </div>
-
-      <div class="carousel-cell">
-        <div class="text-center">
-          <%= image_tag "explore/onboarding_slide_rocket.png", class: "header-image" %>
-          <div class="check-placeholder">
-            <div class="icon icon--order-success svg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="72px" height="72px">
-                <g fill="none" stroke="#8EC343" stroke-width="2">
-                <circle cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;"></circle>
-                <path d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;"></path>
-                </g>
-              </svg>
-            </div>
+        <div class="carousel-cell">
+          <div class="text-center">
+            <%= image_tag "explore/onboarding_slide_2.png" %>
+            <h2><%= t('views.explore.onboarding.slide_2.header') %></h2>
+            <p><%= t('views.explore.onboarding.slide_2.body') %></p>
+            <br>
+            <a href="#" class="button next-onboarding-slide" data-slide="2"><%= t('views.explore.onboarding.next_slide') %></a>
           </div>
-          <h2><%= t('views.explore.onboarding.slide_4.header') %></h2>
-          <p><%= t('views.explore.onboarding.slide_4.body') %></p>
-          <br>
-          <a href="#" class="button next-onboarding-slide" data-slide="4"><%= t('views.explore.onboarding.next_slide') %></a>
         </div>
-      </div>
-
-      <div class="carousel-cell">
-        <div class="text-center">
-          <%= image_tag "explore/onboarding_slide_participation.png", class: "header-image" %>
-          <h2><%= t('views.explore.onboarding.slide_5.header') %></h2>
-          <p><%= t('views.explore.onboarding.slide_5.body') %></p>
-          <br>
-          <a href="#" class="button next-onboarding-slide" data-slide="6"><%= t('views.explore.onboarding.next_slide') %></a>
+        <div class="carousel-cell">
+          <div class="text-center">
+            <%= image_tag "explore/onboarding_slide_3.png" %>
+            <h2><%= t('views.explore.onboarding.slide_3.header') %></h2>
+            <p><%= t('views.explore.onboarding.slide_3.body') %></p>
+            <br>
+            <a href="#" class="button next-onboarding-slide" data-slide="3"><%= t('views.explore.onboarding.next_slide') %></a>
+          </div>
         </div>
-      </div>
-
-      <div class="carousel-cell">
-        <div class="text-center">
-          <%= image_tag "explore/onboarding_slide_assistant.png" , class: "header-image" %>
-          <h2><%= t('views.explore.onboarding.slide_6.header') %></h2>
-          <p><%= t('views.explore.onboarding.slide_6.body') %></p>
-          <br>
-          <a href="#" class="button close-onboarding" data-slide="5"><%= t('views.explore.onboarding.close') %></a>
+        <div class="carousel-cell">
+          <div class="text-center">
+            <%= image_tag "explore/onboarding_slide_4.png" %>
+            <h2><%= t('views.explore.onboarding.slide_4.header') %></h2>
+            <p><%= t('views.explore.onboarding.slide_4.body') %></p>
+            <br>
+            <a href="#" class="button close-onboarding" data-slide="4"><%= t('views.explore.onboarding.close') %></a>
+          </div>
         </div>
-      </div>
-
     </div>
   </div>
 </div>
-

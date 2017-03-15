@@ -3,11 +3,11 @@ class ExploreController < ExploreBaseController
 
   def show
     @tiles = Tile.explore_without_featured_tiles.page(params[:page]).per(28)
-    @tile =  onboarding_tile || @tiles.first
+
     if request.xhr?
       content = render_to_string(
-        partial: "explore/tiles",
-        locals: { tiles: @tiles, section: "Explore" })
+                  partial: "explore/tiles",
+                  locals: { tiles: @tiles, section: "Explore" })
 
       render json: {
         success:   true,
@@ -20,32 +20,28 @@ class ExploreController < ExploreBaseController
 
   private
 
-  def onboarding_tile
-    Tile.where(id: ENV['ONBOARDING_TILE_ID']).first
-  end
-
-  def set_initial_objects
-    unless request.xhr?
-      set_intro_slides
-      @tile_features = TileFeature.ordered
-      @campaigns = Campaign.all
-      @featured_organizations = Organization.featured
-      @channels = Channel.display_channels('explore')
+    def set_initial_objects
+      unless request.xhr?
+        set_intro_slides
+        @tile_features = TileFeature.ordered
+        @campaigns = Campaign.all
+        @featured_organizations = Organization.featured
+        @channels = Channel.display_channels('explore')
+      end
     end
-  end
 
-  def set_intro_slides
-    if show_slides? && params[:requested_tile_id].nil?
-      cookies[:airbo_explore] = Time.now
-      @show_explore_onboarding = true
+    def set_intro_slides
+      if show_slides? && params[:requested_tile_id].nil?
+        cookies[:airbo_explore] = Time.now
+        @show_explore_onboarding = true
+      end
     end
-  end
 
-  def show_slides?
-    if current_user.is_a?(User)
-      params[:show_explore_onboarding]
-    else
-      !cookies[:airbo_explore]
+    def show_slides?
+      if current_user.is_a?(User)
+        params[:show_explore_onboarding]
+      else
+        !cookies[:airbo_explore]
+      end
     end
-  end
 end

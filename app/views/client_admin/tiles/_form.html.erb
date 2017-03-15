@@ -19,7 +19,7 @@
     <%= form_for @tile_builder_form, as: :tile_builder_form, url: form_url, html: { id: "new_tile_builder_form", class: "new_tile_builder_form",  data:{suggested: !!@user_side,  tileid: @tile_builder_form.id}} do |f| %>
       <%= f.hidden_field :status %>
       <%= f.hidden_field :remote_media_type,  id: "remote_media_type" %>
-      <%= f.hidden_field :image_from_library, id: "image_from_library"%>
+      <%= f.hidden_field :media_source, id: "media_source"%>
       <%= hidden_field_tag :pseudo_tile_id %>
 
 

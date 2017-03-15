@@ -28,6 +28,10 @@ class Tile < ActiveRecord::Base
   CHANGE_EMAIL         = "Change Email".parameterize("_").freeze
   MAX_HEADLINE_LEN = 75
   MAX_SUPPORTING_CONTENT_LEN = 700
+  IMAGE_UPLOAD = "image-upload"
+  IMAGE_SEARCH = "image-search"
+  VIDEO_UPLOAD = "video-upload"
+
   acts_as_taggable_on :channels
 
   belongs_to :demo

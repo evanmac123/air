@@ -65,7 +65,7 @@ Airbo.TileAction = (function(){
     $("#user_submitted_tiles_counter").html(submittedTile.length);
   }
 
-  function movePing(tileId, status, action){
+  function movePing(tile, status, action){
     var mess = {
       "active": "Posted",
       "draft": "Drafted",
@@ -74,7 +74,7 @@ Airbo.TileAction = (function(){
       "ignored": "Ignored"
     };
 
-    Airbo.Utils.ping("Tile " + mess[status], {action: action, tile_id: tileId});
+    Airbo.Utils.ping("Tile " + mess[status], {action: action, tile_id:  $(tile).data("tile-container-id"), media_source: $(tile).data("mediaSource")});
   }
 
   function submitTileForUpadte(tile,target, postProcess ){
@@ -92,15 +92,14 @@ Airbo.TileAction = (function(){
         data: data,
         dataType: "html",
         success: function(data, status,xhr){
+          var updatedTile = $(data);
           if (window.location.pathname.indexOf("inactive_tiles") > 0) {
             tile.hide();
           } else {
             closeModal( $(tileModalSelector) );
-            moveTile(tile, data);
+            moveTile(tile, updatedTile);
             postProcess();
-            var tileId = $(data).data("tile-container-id");
-            var status = $(data).data("status");
-            movePing(tileId, status, "Clicked button to move");
+            movePing(updatedTile, updatedTile.data("status"), "Clicked button to move");
           }
         }
       });
