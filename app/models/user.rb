@@ -578,6 +578,7 @@ class User < ActiveRecord::Base
       id:                    id,
       email:                 is_client_admin ? email : nil,
       game:                  demo_id,
+      users_in_board:        demo.try(:users_count) || 0,
       organization:          organization_id,
       account_creation_date: created_at.try(:to_date),
       joined_game_date:      accepted_invitation_at.try(:to_date),
@@ -1046,7 +1047,7 @@ class User < ActiveRecord::Base
 
   def highest_ranking_user_type
     return "site admin" if self.is_site_admin
-    return "client admin" if current_board_membership.is_client_admin
+    return "client admin" if current_board_membership && current_board_membership.is_client_admin
     "ordinary user"
   end
 
