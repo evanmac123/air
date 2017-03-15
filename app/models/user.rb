@@ -34,12 +34,11 @@ class User < ActiveRecord::Base
 
   # Use destroy strategy to allow callbacks to run for these relations
   # ------------------------------------------------------------------
-  has_many   :potential_users, foreign_key: "primary_user_id", dependent: :destroy
-
   has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id, dependent: :destroy
-  has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
+  has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user, dependent: :destroy
 
   has_many   :board_memberships, dependent: :destroy
+  has_many   :potential_users, foreign_key: "primary_user_id", dependent: :destroy
   # Use delete strategy for direct unshared simple relations with no additional cleanup
   # required prevents callbacks and records being instantiated
   # ------------------------------------------------------------------

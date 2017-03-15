@@ -3,7 +3,7 @@ class PotentialUser < ActiveRecord::Base
   belongs_to :game_referrer, class_name: "User"
   belongs_to :primary_user, class_name: "User"
 
-  has_many   :peer_invitations, as: :invitee, dependent: :nullify
+  has_many   :peer_invitations, as: :invitee, dependent: :delete_all
   has_one :user_intro, as: :userable, dependent: :delete
 
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
