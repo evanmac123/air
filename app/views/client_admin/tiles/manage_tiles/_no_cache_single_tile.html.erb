@@ -1,5 +1,5 @@
 
-<%= content_tag :div,  class: "tile_container #{presenter.completion_status} #{presenter.tile_status}",  data: {"tile-container-id" =>"#{presenter.tile_id}", "status" => presenter.status, "has_completions" => presenter.tile_completions_count > 0, "assembly_required" => presenter.assembly_required?} do %>
+<%= content_tag :div,  class: "tile_container #{presenter.completion_status} #{presenter.tile_status}",  data: {"tile-container-id" =>"#{presenter.tile_id}", "status" => presenter.status, "media_source" => presenter.media_source,  "has_completions" => presenter.tile_completions_count > 0, "assembly_required" => presenter.assembly_required?} do %>
 
   <%=content_tag :div, class: "tile_thumbnail #{presenter.tile_status} #{presenter.completed_class}", id: "single-tile-#{presenter.tile_id}", data: { tile_id: presenter.tile_id, from_search: presenter.from_search? } do %>
     <div class="tile-wrapper">

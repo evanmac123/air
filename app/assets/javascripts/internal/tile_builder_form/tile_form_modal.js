@@ -86,6 +86,7 @@ Airbo.TileFormModal = (function(){
     Airbo.TileImageUploader.init();
     Airbo.TileImagePreviewer.init();
     Airbo.TileImageCredit.init();
+    Airbo.TileImageFormFields.init();
     Airbo.TilePointsSlider.init();
     Airbo.TileQuestionBuilder.init();
     Airbo.TileSuportingContentTextManager.init();
@@ -125,19 +126,31 @@ Airbo.TileFormModal = (function(){
   }
 
   function initEvents() {
+    initImageClick();
+    initSubmitButtonClick();
+    initFormSubmit();
+  }
+
+  function initSubmitButtonClick(){
+    submitLink.click(
+      $.debounce(1000, function(e){
+        e.preventDefault();
+        if(timer){
+          clearTimeout(timer);
+        }
+        addSavingIndicator();
+        currform.submit();
+      })
+    );
+  }
+
+  function initImageClick(){
     currform.on("click", pickImageSel, function(e){
       e.preventDefault();
     });
+  }
 
-    submitLink.click(function(e){
-      e.preventDefault();
-      if(timer){
-        clearTimeout(timer);
-      }
-      addSavingIndicator();
-      currform.submit();
-    });
-
+  function initFormSubmit(){
     currform.submit(function(e) {
       e.preventDefault();
 

@@ -1,86 +1,30 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreOnboarding = (function(){
-  var currentUserData
-    , flkty
-    , carousel
-    , tileModal= Airbo.Utils.StandardModal()
-    , onboardingModal
-    , tileContent
-    , self;
-  ;
+  var currentUserData;
 
   function init() {
-    self = this;
     currentUserData = $("body").data("currentUser");
-    onboardingModal = $('#exploreOnboardingModal');
-    initOnboarding();
-  }
+    var $carousel = $('.flickity-explore-oboarding-carousel');
 
-
-  function initOnboarding(){
-    initCarousel();
-    onboardingModal.bind('opened', function() {
-      carousel.fadeIn().flickity('resize');
-    });
-    openOnboardingModal()
-  }
-
-  function openOnboardingModal(){
-    onboardingModal.foundation('reveal', 'open');
-  }
-
-  function bindCorrectTileAnswerClick(){
-    $('.right_multiple_choice_answer').on("click", function(event) {
-      event.preventDefault();
-      var btn = $(this);
-
-      btn.data("slide", 3);
-      pingSlideComplete("completed_tile", btn);
-
-      setTimeout(function(){
-        $('html, body').animate({ scrollTop: $("#exploreOnboardingModal").offset().top - 90 }, 550);
-        $('body').on('click', '.clicked_right_answer', function(event) {
-          $('.flickity-explore-oboarding-carousel').flickity('next');
-        });
-
-        $('.flickity-explore-oboarding-carousel').flickity('next');
-      }, 1000);
-    });
-  }
-
-  function initCarousel(){
-    carousel = $('.flickity-explore-oboarding-carousel');
-    carousel.flickity({
+    $carousel.flickity({
       imagesLoaded: true,
       percentPosition: false,
       contain: true,
       pageDots: false,
-      prevNextButtons: false,
-      adaptiveHeight: true,
+      prevNextButtons: false
     });
 
-    flkty = carousel.data("flickity");
-    initTileNavigationListener();
+
+    $('#exploreOnboardingModal').bind('opened', function() {
+      $carousel.fadeIn().flickity('resize');
+    });
+
     bindNextOnboardingSlide();
     bindCloseOnboarding();
+
+    $('#exploreOnboardingModal').foundation('reveal', 'open');
   }
-
-  function initTileNavigationListener(){
-    carousel.on( 'select.flickity', function() {
-      var index = flkty.selectedIndex;
-      if(index == 2){
-        Airbo.ImageLoadingPlaceholder.init();
-        Airbo.TileAnswers.init();
-        bindCorrectTileAnswerClick();
-      }
-
-      if(index == 3){
-        $(".icon--order-success").show();
-      }
-    });
-  }
-
 
   function bindNextOnboardingSlide() {
     $(".next-onboarding-slide").on("click", function(e) {
@@ -94,12 +38,8 @@ Airbo.ExploreOnboarding = (function(){
     $(".close-onboarding").on("click", function(e) {
       e.preventDefault();
       pingSlideComplete("complete", $(this));
-      closeOnboarding();
+      $('#exploreOnboardingModal').foundation('reveal', 'close');
     });
-  }
-
-  function closeOnboarding(){
-    $('#exploreOnboardingModal').foundation('reveal', 'close');
   }
 
   function pingSlideComplete(action, button) {
