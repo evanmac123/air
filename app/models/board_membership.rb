@@ -3,7 +3,7 @@ class BoardMembership < ActiveRecord::Base
   FIELDS_ON_A_BOARD_BY_BOARD_BASIS = %w(is_client_admin points tickets ticket_threshold_base location_id allowed_to_make_tile_suggestions)
 
   belongs_to :user
-  belongs_to :demo, counter_cache: true
+  belongs_to :demo, counter_cache: :users_count
   belongs_to :location
 
 	scope :admins, -> { where(:is_client_admin => true) }
