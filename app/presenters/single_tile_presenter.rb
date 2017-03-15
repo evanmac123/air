@@ -6,6 +6,7 @@ class SingleTilePresenter < BasePresenter
             :headline,
             :demo,
             :tile_completions_count,
+            :media_source,
             to: :tile
 
   presents :tile

@@ -63,7 +63,6 @@ Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==
   }
 
  
- 
 
 
 
@@ -121,6 +120,7 @@ Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==
       var props= {url: $(this).data("preview")};
 
       $.Topic("image-selected").publish(props); 
+      $.Topic("image-done").publish(props.url,"png", "image-search");
     });
   }
 

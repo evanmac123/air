@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170317152023) do
+ActiveRecord::Schema.define(:version => 20170321220826) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -309,8 +309,8 @@ ActiveRecord::Schema.define(:version => 20170317152023) do
     t.float    "percent_retained_post_activation_60_days"
     t.float    "percent_retained_post_activation_120_days"
     t.float    "average_tile_creation_time"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.datetime "created_at",                                                             :null => false
+    t.datetime "updated_at",                                                             :null => false
     t.date     "report_date"
     t.date     "from_date"
     t.date     "to_date"
@@ -332,6 +332,9 @@ ActiveRecord::Schema.define(:version => 20170317152023) do
     t.integer  "average_tiles_created_from_scratch_per_org_that_created"
     t.string   "interval"
     t.integer  "unique_orgs_that_viewed_tiles_in_explore"
+    t.integer  "tiles_with_image_search",                                 :default => 0
+    t.integer  "tiles_with_image_upload",                                 :default => 0
+    t.integer  "tiles_with_video_upload",                                 :default => 0
   end
 
   create_table "custom_color_palettes", :force => true do |t|
@@ -1157,6 +1160,7 @@ ActiveRecord::Schema.define(:version => 20170317152023) do
     t.string   "remote_media_type"
     t.boolean  "use_old_line_break_css",  :default => false
     t.text     "embed_video",             :default => "",    :null => false
+    t.string   "media_source"
   end
 
   add_index "tiles", ["activated_at"], :name => "index_tiles_on_activated_at"

@@ -2,6 +2,7 @@
 //= require jquery.effects.highlight
 //= require jquery_ujs
 //= require mobvious-rails
+//= require jquery.ba-throttle-debounce.min.js
 //= require ../../../vendor/assets/javascripts/intro.min
 //= require_tree ../../../vendor/assets/javascripts/external/
 //= require_tree ../../../vendor/assets/javascripts/internal/.

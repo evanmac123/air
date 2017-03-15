@@ -62,6 +62,11 @@ module Reporting
           "average_tiles_created_from_scratch_per_org_that_created",
         ],
 
+        "Tile Media Source" => [
+          "tiles_with_image_search", 
+          "tiles_with_image_upload",
+          "tiles_with_video_upload"
+        ]
         #"Engagement" => [
           #"percent_joined_current",
           #"percent_joined_30_days",
@@ -324,6 +329,30 @@ module Reporting
         "average_tiles_created_from_scratch_per_org_that_created" => {
           label: "Average",
           series: "Avg # Tiles From Scratch per Customer ",
+          type: "num",
+          hint: "",
+          indent: 1
+        },
+
+        "tiles_with_image_search" => {
+          label: "Image Search",
+          series: "Num Tiles Posted Where Image From Search",
+          type: "num",
+          hint: "",
+          indent: 1
+        },
+
+     "tiles_with_image_upload" => {
+          label: "Image Upload",
+          series: "Num Tiles Posted Where Image From Upload",
+          type: "num",
+          hint: "",
+          indent: 1
+        },
+
+     "tiles_with_video_upload" => {
+          label: "Video Upload",
+          series: "Num Tiles Posted Where Image From Upload",
           type: "num",
           hint: "",
           indent: 1

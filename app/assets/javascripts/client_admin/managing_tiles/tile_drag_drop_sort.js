@@ -128,7 +128,7 @@ Airbo.TileDragDropSort = (function(){
       moveComfirmationModal(tile);
     } else if (isTileMoved(tile, "draft", "active")) {
       id = findTileId(tile);
-      Airbo.TileAction.movePing(id, "active", "Dragged tile to move");
+      Airbo.TileAction.movePing(tile, "active", "Dragged tile to move");
     }
   }
 
