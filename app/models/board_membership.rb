@@ -47,6 +47,7 @@ class BoardMembership < ActiveRecord::Base
     includes(:demo).order("demos.tile_last_posted_at DESC")
   end
 
+  #TODO figure a better way to handle this
   def update_or_destroy_user
     if user.board_memberships.empty?
       user.destroy

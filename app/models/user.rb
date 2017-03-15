@@ -30,37 +30,55 @@ class User < ActiveRecord::Base
   belongs_to :location
   belongs_to :game_referrer, :class_name => "User"
   belongs_to :spouse, :class_name => "User"
+  belongs_to :primary_user, class_name: "User"
 
-  has_one    :lead_contact, dependent: :destroy
-  has_one    :user_onboarding, dependent: :destroy
-  has_many   :acts, :dependent => :destroy, :as => :user
-  has_many   :friendships, :dependent => :destroy
-  has_many   :tile_completions, :dependent => :destroy, :as => :user
-  has_many   :completed_tiles, source: :tile, through: :tile_completions
-  has_many   :unsubscribes, :dependent => :destroy
-  has_many   :user_tile_copies, dependent: :destroy
-  has_many   :user_tile_likes, dependent: :destroy
+  # Use destroy strategy to allow callbacks to run for these relations
+  # ------------------------------------------------------------------
   has_many   :potential_users, foreign_key: "primary_user_id", dependent: :destroy
-  has_many   :board_memberships, dependent: :destroy
-  has_many   :tile_viewings, :dependent => :destroy, as: :user
-  has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id, dependent: :destroy
 
+  has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id, dependent: :destroy
+  has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
+
+  # Use delete strategy for direct unshared simple relations with no additional cleanup
+  # required prevents callbacks and records being instantiated
+  # ------------------------------------------------------------------
+
+  has_one    :lead_contact, dependent: :delete
+  has_one    :user_onboarding, dependent: :delete
+  has_one    :billing_information, dependent: :delete
+  has_one    :user_intro, as: :userable, dependent: :delete #FIXME this is confusing since we have an intros method below
+  has_one    :user_settings_change_log, dependent: :delete
+
+  has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id, dependent: :delete_all
+  has_many   :user_in_raffle_infos, as: :user, dependent: :delete_all
+  has_many   :acts, :as => :user, :dependent => :delete_all
+  has_many   :friendships, :dependent => :delete_all
+  has_many   :unsubscribes, :dependent => :delete_all
+  has_many   :board_memberships, dependent: :delete_all
+
+  # Use nullify (default) strategy because these relations are shared by other objects
+  # --------------------------------------------------------------------------------------
+
+  has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", as: :invitee, dependent: :nullify
+  has_many   :tiles, :foreign_key => :creator_id, dependent: :nullify
+  has_many   :tile_completions, :as => :user, :dependent => :nullify
+  has_many   :tile_viewings, as: :user, :dependent => :nullify
+  has_many   :user_tile_copies, dependent: :nullify
+  has_many   :user_tile_likes, dependent: :nullify
+
+
+  # Indirect relationships don't require a deletion strategy
+  # --------------------------------------------------------
+  has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
+  has_one    :demo, through: :current_board_membership
+  has_one    :raffle, through: :demo
+
+  has_many   :completed_tiles, source: :tile, through: :tile_completions
   has_many   :viewed_tiles, through: :tile_viewings, source: :tile
   has_many   :demos, through: :board_memberships
   has_many   :creator_tile_completions, source: :tile_completions, through: :tiles
   has_many   :friends, :through => :friendships
-  has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", as: :invitee
-  has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id
-  has_many   :tiles, :foreign_key => :creator_id
-  has_many   :user_in_raffle_infos, as: :user
-  has_one    :raffle, through: :demo
-  has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
-  has_one    :demo, through: :current_board_membership
-  has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user
-  has_one    :billing_information
-  has_one    :user_intro, as: :userable #FIXME this is confusing since we have an intros method below
-  has_one    :user_settings_change_log
-  belongs_to :primary_user, class_name: "User"
+
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique, :normalized_new_phone_number_not_taken_by_board
   validate :new_phone_number_has_valid_number_of_digits
