@@ -1,6 +1,38 @@
 require 'spec_helper'
 
 describe Organization do
+  describe "#reindex_tiles" do
+    it "triggers on save" do
+      organization = FactoryGirl.create(:organization)
+
+      organization.expects(:reindex_tiles)
+
+      organization.name = "New Name"
+      organization.save
+    end
+
+    it "reindexes tiles when the org name changes" do
+      organization = FactoryGirl.create(:organization)
+      demo = FactoryGirl.create(:demo, organization: organization)
+      _tiles = FactoryGirl.create_list(:tile, 2, demo: demo)
+
+      organization.tiles.expects(:reindex)
+
+      organization.name = "New Name"
+      organization.save
+    end
+
+    it "does not reindex tiles when the org name does not change" do
+      organization = FactoryGirl.create(:organization)
+      demo = FactoryGirl.create(:demo, organization: organization)
+      _tiles = FactoryGirl.create_list(:tile, 2, demo: demo)
+
+      organization.tiles.expects(:reindex).never
+
+      organization.save
+    end
+  end
+
   it "is valid when complete" do
     o = FactoryGirl.build(:organization, :complete)
     expect(o.valid?).to be_truthy
@@ -51,13 +83,13 @@ describe Organization do
 
     describe "life_time" do
       it "equals totalmonths of contracts" do
-        expect(org.life_time).to  eq 36 
+        expect(org.life_time).to  eq 36
       end
     end
   end
 
   context "active and churned" do
-    before do 
+    before do
       @client = FactoryGirl.create(:organization, :complete)
       @client2 = FactoryGirl.create(:organization, :complete)
       @client3 = FactoryGirl.create(:organization, :complete)
@@ -114,7 +146,7 @@ describe Organization do
       Timecop.travel(Time.now + 3.hours)
 
       demo2.save!
-    
+
       Timecop.return
 
       expect(organization.oldest_demo).to eql(demo)

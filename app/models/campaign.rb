@@ -14,7 +14,8 @@ class Campaign < ActiveRecord::Base
 
   default_scope order(:name)
 
-  searchkick word_start: [:channel_list, :tile_headlines], settings: { number_of_shards: 1, number_of_replicas: 1 }
+  searchkick word_start: [:channel_list, :tile_headlines], callbacks: :async, settings: { number_of_shards: 1, number_of_replicas: 1 }
+
   def search_data
     extra_data = {
       channel_list: channel_list,

@@ -18,5 +18,5 @@ Airbo.ImageLoadingPlaceholder = (function(){
   }
   return {
     init: init
-  }
+  };
 }());

@@ -1,5 +1,5 @@
-module CustomResponder 
- 
+module CustomResponder
+
   DEF_FORM_PARTIAL_NAME = "form"
 
   def self.included(base)
@@ -56,7 +56,7 @@ module CustomResponder
       if block_given?
         yield
       else
-        head :ok, :location => location  
+        head :ok, :location => location
       end
     else
       flash[:notice]= resp

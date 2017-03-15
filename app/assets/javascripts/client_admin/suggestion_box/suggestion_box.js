@@ -61,7 +61,6 @@ window.suggestionBox = function() {
 };
 
 $(function(){
-
   $(".tabs>li>a").on("click", function(){
     $(this).parents(".tabs").find("a").removeClass("selected");
     $(this).addClass("selected");

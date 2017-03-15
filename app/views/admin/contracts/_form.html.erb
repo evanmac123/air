@@ -130,10 +130,15 @@
 
           <div class="row">
             <label id="calc_rev_label" class="disabled"><%="Calculated #{@contract.alt_revenue_basis} Recurring Revenue "%></label>
-            <%=text_field_tag "rev",@contract.calculated_rr,  id: "calculated_revenue", readonly: "readonly",  class:"disabled" %> 
+            <%=text_field_tag "rev",@contract.calculated_rr,  id: "calculated_revenue", readonly: "readonly",  class:"disabled" %>
           </div>
 
-             </div>
+          <div class="row">
+            <%= f.label :organization_id, "Organization" %>
+            <%= f.collection_select :organization_id, Organization.id_and_name, :id, :name %> 
+          </div>
+
+        </div>
       </div>
       <div class="row">
         <%= f.label :notes %>
@@ -141,7 +146,7 @@
       </div>
       <div class="actions">
         <div class="righty">
-        <%= f.submit "Submit", class: "button"  %> 
+        <%= f.submit "Submit", class: "button"  %>
         <%=link_to "Cancel", admin_contracts_path,  class: "button outlined"  %>
         </div>
       </div>
