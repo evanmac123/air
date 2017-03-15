@@ -236,6 +236,26 @@ module ClientAdmin::TilesHelper
     end
   end
 
+  def hide_suggestion_box_sub_menu
+    if params[:show_suggestion_box] != "true"
+      "hidden"
+    end
+  end
+
+  def draft_tab_class(section)
+    if draft_tab_selected(section) || suggestion_box_tab_selected(section)
+      "selected"
+    end
+  end
+
+  def draft_tab_selected(section)
+    section == "draft" && params[:show_suggestion_box] != "true"
+  end
+
+  def suggestion_box_tab_selected(section)
+    section == "suggestion_box" && params[:show_suggestion_box] == "true"
+  end
+
   def tile_thumbnail_menu(presenter)
     render(partial: 'client_admin/tiles/manage_tiles/tile_thumbnail_menu', locals: {presenter: presenter})
   end

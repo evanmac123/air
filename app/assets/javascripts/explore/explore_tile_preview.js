@@ -89,7 +89,7 @@ Airbo.ExploreTileNonModal = (function(){
 }());
 
 $(function(){
-  if( $(".single_tile_guest_layout").length > 0 ) {
+  if( $(".single_tile_guest_layout, .explore-tile_previews-show").length > 0 ) {
     Airbo.ExploreTileNonModal.init();
   }
 });

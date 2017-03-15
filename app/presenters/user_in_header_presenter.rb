@@ -156,14 +156,8 @@ class UserInHeaderPresenter
   end
 
   def show_search_bar?(browser)
-    if current_user.is_a?(User) && (current_user.is_client_admin || current_user.is_site_admin)
-      true
-    elsif current_user.is_a?(GuestUser)
-      true
-    elsif current_user.end_user? && current_user.demo.has_end_user_search && !browser.ie8?
-      true
-    else
-      false
+    unless browser.ie8?
+      return true
     end
   end
 

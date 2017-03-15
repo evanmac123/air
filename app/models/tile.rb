@@ -102,7 +102,7 @@ class Tile < ActiveRecord::Base
   alias_attribute :unique_views, :unique_viewings_count
   alias_attribute :interactions, :tile_completions_count
 
-  searchkick word_start: [:channel_list, :headline], settings: { number_of_shards: 1, number_of_replicas: 1 }
+  searchkick word_start: [:channel_list, :headline], callbacks: :async, settings: { number_of_shards: 1, number_of_replicas: 1 }
   def search_data
     extra_data = {
       channel_list: channel_list,

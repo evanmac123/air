@@ -27,6 +27,18 @@ class Organization < ActiveRecord::Base
       default_style: :small
     }
 
+  after_commit :reindex_tiles
+
+  def self.id_and_name
+    select([:id, :name])
+  end
+
+  def reindex_tiles
+    if self.previous_changes.key?("name")
+      tiles.reindex
+    end
+  end
+
   def update_slug
     self.slug = name.parameterize
   end
