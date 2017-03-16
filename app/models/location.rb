@@ -1,6 +1,6 @@
 class Location < ActiveRecord::Base
   belongs_to :demo
-  has_many :users
+  has_many :users, dependent: :nullify
 
   has_alphabetical_column :name
 

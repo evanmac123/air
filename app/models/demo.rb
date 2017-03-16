@@ -6,33 +6,34 @@ class Demo < ActiveRecord::Base
   JOIN_TYPES = %w(pre-populated self-inviting public).freeze
 
   belongs_to :organization, counter_cache: true
+  belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id
 
-  has_one  :campaign, dependent: :destroy
-  has_one  :topic_board, dependent: :destroy
-  has_one  :onboarding
-  has_many :guest_users
-  has_many :board_memberships, dependent: :destroy
-  has_many :users, through: :board_memberships
-  has_many :acts
-  has_many :tiles, :dependent => :destroy
-  has_many :potential_users
+  has_one  :campaign, dependent: :delete
+  has_one  :topic_board, dependent: :delete
+  has_one  :onboarding, dependent: :delete
+  has_one :claim_state_machine, dependent: :delete
+  has_one :custom_invitation_email, dependent: :delete
+  has_one :raffle, dependent: :delete
+  has_one :custom_color_palette, dependent: :delete
+
   # NOTE m_tiles is an unfortunate hack to compensate for shitty code implementation of MultipleChoiceTile
   has_many :m_tiles, :dependent => :destroy, class_name: 'MultipleChoiceTile'
+  has_many :board_memberships, dependent: :destroy
+  has_many :tiles, :dependent => :destroy
   has_many :locations, :dependent => :destroy
-  has_many :characteristics, :dependent => :destroy
-  has_many :peer_invitations
-  has_many :push_messages
 
+  has_many :guest_users, dependent: :delete_all
+  has_many :potential_users, dependent: :delete_all
+  has_many :peer_invitations, dependent: :delete_all
+  has_many :characteristics, :dependent => :delete_all
+  has_many :push_messages, dependent: :delete_all
+  has_many :acts, dependent: :delete_all
+  has_many :follow_up_digest_emails, dependent: :delete_all
+
+  has_many :users, through: :board_memberships
   has_many :tile_completions, through: :tiles
   has_many :tile_viewings, through: :tiles
 
-  has_many :follow_up_digest_emails
-
-  has_one :claim_state_machine
-  has_one :custom_invitation_email
-  has_one :raffle
-  has_one :custom_color_palette
-  belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id, dependent: :destroy
 
   validates_inclusion_of :join_type, :in => JOIN_TYPES
 
