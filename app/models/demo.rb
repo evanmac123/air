@@ -17,10 +17,9 @@ class Demo < ActiveRecord::Base
   has_one :custom_color_palette, dependent: :delete
 
   # NOTE m_tiles is an unfortunate hack to compensate for shitty code implementation of MultipleChoiceTile
-  has_many :m_tiles, :dependent => :destroy, class_name: 'MultipleChoiceTile'
-  has_many :board_memberships, dependent: :destroy
-  has_many :tiles, :dependent => :destroy
-  has_many :locations, :dependent => :destroy
+  has_many :m_tiles, :dependent => :destroy, class_name: 'MultipleChoiceTile', :delete_all
+  has_many :board_memberships, dependent: :delete_all
+  has_many :tiles, :dependent => :delete_all
 
   has_many :guest_users, dependent: :delete_all
   has_many :potential_users, dependent: :delete_all
@@ -30,6 +29,7 @@ class Demo < ActiveRecord::Base
   has_many :acts, dependent: :delete_all
   has_many :follow_up_digest_emails, dependent: :delete_all
 
+  has_many :locations, :dependent => :destroy
   has_many :users, through: :board_memberships
   has_many :tile_completions, through: :tiles
   has_many :tile_viewings, through: :tiles
@@ -466,8 +466,6 @@ class Demo < ActiveRecord::Base
   end
 
   protected
-
-
 
   def unless_within(cutoff_time, last_done_time)
     if last_done_time.nil? || cutoff_time >= last_done_time
