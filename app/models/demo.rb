@@ -17,7 +17,7 @@ class Demo < ActiveRecord::Base
   has_one :custom_color_palette, dependent: :delete
 
   # NOTE m_tiles is an unfortunate hack to compensate for shitty code implementation of MultipleChoiceTile
-  has_many :m_tiles, :dependent => :destroy, class_name: 'MultipleChoiceTile', :delete_all
+  has_many :m_tiles, :dependent => :destroy, class_name: 'MultipleChoiceTile', dependent: :delete_all
   has_many :board_memberships, dependent: :delete_all
   has_many :tiles, :dependent => :delete_all
 
