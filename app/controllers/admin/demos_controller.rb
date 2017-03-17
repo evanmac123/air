@@ -2,7 +2,7 @@ class Admin::DemosController < AdminBaseController
   before_filter :find_demo_by_id, :only => [:show, :edit, :update]
 
   def index
-    @demos = Demo.list
+    @demos = Demo.active.list
   end
 
   def new
