@@ -1,6 +1,6 @@
 class CurrentBoardsController < UserBaseController
   def update
-    if current_user.in_board?(params[:board_id])
+    if current_user.is_site_admin || current_user.in_board?(params[:board_id])
       update_current_board
     else
       sign_out && require_login
