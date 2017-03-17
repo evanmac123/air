@@ -49,7 +49,8 @@ class Admin::DemosController < AdminBaseController
   end
 
   def destroy
-    board = Demo.find(params[:id]).delay.destroy
+    board = Demo.find(params[:id])
+    board.set_for_delete
     flash[:success] = "#{board.name} successfully scheduled for deletion"
     redirect_to admin_demos_path
   end

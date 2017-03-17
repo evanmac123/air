@@ -55,7 +55,7 @@ class Demo < ActiveRecord::Base
 
   scope :name_order, ->{order("LOWER(name)")}
   scope :airbo, -> { joins(:organization).where(organization: {name: "Airbo"}) }
-
+  scope :active, ->{where(marked_for_deletion: false)}
   has_alphabetical_column :name
 
   has_attached_file :logo,
@@ -458,6 +458,11 @@ class Demo < ActiveRecord::Base
     else
       "enterprise"
     end
+  end
+
+  def set_for_delete
+    write_attribute(:marked_for_deletion, true)
+    self.delay.destroy
   end
 
   protected

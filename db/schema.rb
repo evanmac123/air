@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170315131502) do
+ActiveRecord::Schema.define(:version => 20170317152023) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -449,6 +449,7 @@ ActiveRecord::Schema.define(:version => 20170315131502) do
     t.date     "launch_date"
     t.boolean  "guest_user_conversion_modal",                          :default => true
     t.integer  "users_count"
+    t.boolean  "marked_for_deletion",                                  :default => false
   end
 
   add_index "demos", ["organization_id"], :name => "index_demos_on_organization_id"
