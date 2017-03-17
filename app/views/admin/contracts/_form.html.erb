@@ -135,7 +135,7 @@
 
           <div class="row">
             <%= f.label :organization_id, "Organization" %>
-            <%= f.collection_select :organization_id, Organization.id_and_name, :id, :name %> 
+            <%= f.collection_select :organization_id, Organization.id_and_name.order(:name), :id, :name %>
           </div>
 
         </div>

@@ -27,16 +27,8 @@ class Organization < ActiveRecord::Base
       default_style: :small
     }
 
-  after_commit :reindex_tiles
-
   def self.id_and_name
     select([:id, :name])
-  end
-
-  def reindex_tiles
-    if self.previous_changes.key?("name")
-      tiles.reindex
-    end
   end
 
   def update_slug
@@ -141,11 +133,11 @@ class Organization < ActiveRecord::Base
   end
 
   def customer_start_date
-    @cust_start ||=ordered_contracts.first.try(:start_date)
+    @cust_start ||= contracts.order(:start_date).first.try(:start_date)
   end
 
   def customer_end_date
-    @cust_end ||= ordered_contracts.last.try(:end_date)
+    @cust_end ||= contracts.order(:end_date).last.try(:end_date)
   end
 
   def active
@@ -194,9 +186,5 @@ class Organization < ActiveRecord::Base
         bm.demo = demos.first
         bm.save
       end
-    end
-
-    def ordered_contracts
-      contracts.order("start_date asc")
     end
 end
