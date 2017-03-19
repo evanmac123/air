@@ -461,7 +461,7 @@ class Demo < ActiveRecord::Base
   end
 
   def set_for_delete
-    write_attribute(:marked_for_deletion, true)
+    update_column(:marked_for_deletion, true)
     self.delay.destroy
   end
 
