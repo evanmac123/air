@@ -14,6 +14,7 @@ class BoardDeletionJob
    FollowUpDigestEmail.where(demo_id: @demo_id).delete_all
    PeerInvitation.where(demo_id: @demo_id).delete_all
    PushMessage.where(demo_id: @demo_id).delete_all
+   Demo.where(demo_id: @demo_id).delete
   end
 
   def nullify_shared_objects
