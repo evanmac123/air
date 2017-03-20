@@ -462,7 +462,7 @@ class Demo < ActiveRecord::Base
 
   def set_for_delete
     update_column(:marked_for_deletion, true)
-    self.delay.destroy
+    BoardDeletionJob.new(self.id).perform
   end
 
   protected
