@@ -70,8 +70,8 @@ class Admin::UsersController < AdminBaseController
 
   def destroy
     demo = @user.demo
-    @user.destroy
-    flash[:success] = "All records on #{@user.name} destroyed"
+    @user.delay.destroy
+    flash[:success] = "User #{@user.name} has been marked for deletion. The deletion may take  few minutes to complete"
     redirect_to admin_demo_path(demo)
   end
 

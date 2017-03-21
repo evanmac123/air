@@ -72,6 +72,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def destroy
     @user.delay.destroy
+    flash[:success] = "User #{@user.name} has been marked for deletion. The deletion may take  few minutes to complete"
     redirect_to client_admin_users_path
   end
 
