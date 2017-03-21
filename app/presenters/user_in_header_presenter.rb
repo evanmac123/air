@@ -110,9 +110,9 @@ class UserInHeaderPresenter
   def boards_to_switch_to
     return if is_not_user?
     if current_user.is_site_admin
-      @boards_to_switch_to ||= Demo.select([:name, :id]).alphabetical
+      @boards_to_switch_to ||= Demo.active.select([:name, :id]).alphabetical
     else
-      @boards_to_switch_to ||= current_user.demos.alphabetical
+      @boards_to_switch_to ||= current_user.demos.active.alphabetical
     end
   end
 

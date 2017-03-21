@@ -2,7 +2,7 @@ class Admin::DemosController < AdminBaseController
   before_filter :find_demo_by_id, :only => [:show, :edit, :update]
 
   def index
-    @demos = Demo.list
+    @demos = Demo.active.list
   end
 
   def new
@@ -49,8 +49,9 @@ class Admin::DemosController < AdminBaseController
   end
 
   def destroy
-    board = Demo.find(params[:id]).destroy
-    flash[:success] = "#{board.name} deleted"
+    board = Demo.find(params[:id])
+    board.set_for_delete
+    flash[:success] = "#{board.name} successfully scheduled for deletion"
     redirect_to admin_demos_path
   end
 

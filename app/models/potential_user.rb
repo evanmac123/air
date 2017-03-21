@@ -2,11 +2,13 @@ class PotentialUser < ActiveRecord::Base
   belongs_to :demo
   belongs_to :game_referrer, class_name: "User"
   belongs_to :primary_user, class_name: "User"
-  has_many   :peer_invitations, as: :invitee
+
+  has_many   :peer_invitations, as: :invitee, dependent: :delete_all
+  has_one :user_intro, as: :userable, dependent: :delete
+
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
   validates_uniqueness_of :invitation_code
   before_create :set_invitation_code
-  has_one :user_intro, as: :userable
 
   include CancelAccountToken
   include User::FakeUserBehavior

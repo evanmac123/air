@@ -35,16 +35,17 @@ class Tile < ActiveRecord::Base
   belongs_to :original_creator, class_name: 'User'
 
   has_one :organization, through: :demo
-  has_many :tile_completions, :dependent => :destroy
-  has_many :completed_tiles, source: :tile, through: :tile_completions
-  has_many :tile_taggings, dependent: :destroy
-  has_many :tile_tags, through: :tile_taggings
-  has_many :user_tile_copies, dependent: :destroy
-  has_many :user_tile_likes, dependent: :destroy
-  has_many :tile_viewings, dependent: :destroy
-  has_many :user_viewers, through: :tile_viewings, source: :user, source_type: 'User'
-  has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: 'GuestUser'
 
+  has_many :tile_completions, :dependent => :nullify
+  has_many :tile_viewings, dependent: :nullify
+  has_many :tile_taggings, dependent: :nullify
+  has_many :user_tile_copies, dependent: :nullify
+  has_many :user_tile_likes, dependent: :nullify
+
+  has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: 'GuestUser'
+  has_many :completed_tiles, source: :tile, through: :tile_completions
+  has_many :user_viewers, through: :tile_viewings, source: :user, source_type: 'User'
+  has_many :tile_tags, through: :tile_taggings
   has_alphabetical_column :headline
 
   before_validation :sanitize_supporting_content

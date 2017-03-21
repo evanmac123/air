@@ -3,7 +3,7 @@ class BoardMembership < ActiveRecord::Base
   FIELDS_ON_A_BOARD_BY_BOARD_BASIS = %w(is_client_admin points tickets ticket_threshold_base location_id allowed_to_make_tile_suggestions)
 
   belongs_to :user
-  belongs_to :demo
+  belongs_to :demo, counter_cache: :users_count
   belongs_to :location
 
 	scope :admins, -> { where(:is_client_admin => true) }
@@ -47,6 +47,7 @@ class BoardMembership < ActiveRecord::Base
     includes(:demo).order("demos.tile_last_posted_at DESC")
   end
 
+  #TODO figure a better way to handle this
   def update_or_destroy_user
     if user.board_memberships.empty?
       user.destroy

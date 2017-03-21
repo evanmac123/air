@@ -1,6 +1,6 @@
 class Raffle < ActiveRecord::Base
   belongs_to :demo
-  has_many :user_in_raffle_infos, dependent: :destroy
+  has_many :user_in_raffle_infos, dependent: :delete_all
   has_many :blacklisted_users, through: :user_in_raffle_infos, source: :user, source_type: "User", :conditions => "in_blacklist = true"
   has_many :user_winners, through: :user_in_raffle_infos, source: :user, source_type: "User", :conditions => "is_winner = true"
   serialize :prizes, Array
