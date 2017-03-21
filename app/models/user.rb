@@ -37,7 +37,6 @@ class User < ActiveRecord::Base
   has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id, dependent: :destroy
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user, dependent: :destroy
 
-  has_many   :board_memberships, dependent: :destroy
   has_many   :potential_users, foreign_key: "primary_user_id", dependent: :destroy
   # Use delete strategy for direct unshared simple relations with no additional cleanup
   # required prevents callbacks and records being instantiated
@@ -54,6 +53,7 @@ class User < ActiveRecord::Base
   has_many   :acts, :as => :user, :dependent => :delete_all
   has_many   :friendships, :dependent => :delete_all
   has_many   :unsubscribes, :dependent => :delete_all
+  has_many   :board_memberships, dependent: :delete_all
 
   # Use nullify (default) strategy because these relations are shared by other objects
   # --------------------------------------------------------------------------------------
