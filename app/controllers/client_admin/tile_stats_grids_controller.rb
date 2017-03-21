@@ -2,11 +2,11 @@ class ClientAdmin::TileStatsGridsController < ClientAdminBaseController
   def index
     @tile = Tile.find(params[:tile_id])
     grid_builder = TileStatsGrid.new(@tile, params["grid_type"], params[:answer_filter])
-    @tile_stats_grid = initialize_grid *grid_builder.args
+    
+    @tile_stats_grid = initialize_grid(*grid_builder.args)
     @current_grid = grid_builder.query_type
 
     export_grid_if_requested('tile_stats_grid' => 'grid') do
-      # if the request is not a CSV export request
       render json: { grid: grid_to_string, success: true }
     end
   end

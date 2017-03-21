@@ -47,19 +47,19 @@ class GridQuery::TileActions
     end
 
     def all
-      users_viewings_subquery = TileViewing.users_viewings(tile.id)
-      users_completions_subquery = TileCompletion.where(tile_id: tile.id, user_type: 'User')
+      users_viewings_subquery = TileViewing.users_viewings(tile.id).to_sql
+      users_completions_subquery = TileCompletion.where(tile_id: tile.id, user_type: 'User').to_sql
 
       tile.demo.users.
         joins do
           "LEFT JOIN (" +
-           users_completions_subquery.to_sql +
+           users_completions_subquery +
           ") AS tile_completions " +
           "ON tile_completions.user_id = users.id"
         end.
         joins do
           "LEFT JOIN (" +
-           users_viewings_subquery.to_sql +
+           users_viewings_subquery +
           ") AS tile_viewings " +
           "ON tile_viewings.user_id = users.id"
         end.

@@ -18,7 +18,7 @@ Airbo.Utils.StandardModal = (function(){
       '<a class="close-reveal-modal"><i class="fa fa-times fa-2x"></i></a>' +
       '</div>' +
       '<div class="modal_content"></div>' +
-      '</div></div>'; 
+      '</div></div>';
 
     var dynamicModal = $(modalTemplate);
 

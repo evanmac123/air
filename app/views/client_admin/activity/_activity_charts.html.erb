@@ -32,7 +32,7 @@
         </div>
         <%= f.hidden_field :changed_field %>
 
-        <%= high_chart('board_chart', chart) %>
+        <%= high_chart('board_chart', chart) if chart %>
       </div>
     <% end %>
   </div>

@@ -2,20 +2,18 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileStatsModal = (function(){
   // Selectors
-  var tileStatsLinkSel = ".tile_stats .stat_action"
-    , modalId = "tile_stats_modal"
-    , modalObj = Airbo.Utils.StandardModal()
-    ;
-
-  var chart
-    , grid
-    ;
+  var tileStatsLinkSel = ".tile_stats .stat_action",
+      modalId = "tile_stats_modal",
+      modalObj = Airbo.Utils.StandardModal(),
+      chart,
+      grid;
 
   function ajaxResponse(){
     return function (data){
       modalObj.setContent(data.page);
-      reloadComponents();
       modalObj.open();
+      reloadComponents();
+      Airbo.TileStatsGrid.gridRequest($(".tile_grid_section").data("updateLink"));
     };
   }
 

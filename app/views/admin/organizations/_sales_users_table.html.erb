@@ -9,7 +9,6 @@
       <th>Days Since Created</th>
       <th>Days Since Activated</th>
       <th>Interests</th>
-      <th>Paths</th>
     </tr>
   </thead>
   <tbody>
@@ -35,9 +34,6 @@
         </td>
         <td width="250">
           <%= user.channel_list.join(", ") %>
-        </td>
-        <td width="250">
-          <%= user.sales_path_list.join(", ") %>
         </td>
       </tr>
     <% end %>
