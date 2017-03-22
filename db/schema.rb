@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170321220826) do
+ActiveRecord::Schema.define(:version => 20170322200057) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1026,8 +1026,8 @@ ActiveRecord::Schema.define(:version => 20170321220826) do
   end
 
   add_index "tile_completions", ["created_at"], :name => "index_tile_completions_on_created_at"
-  add_index "tile_completions", ["tile_id"], :name => "index_task_suggestions_on_task_id"
-  add_index "tile_completions", ["tile_id"], :name => "index_tile_completions_on_tile_id"
+  add_index "tile_completions", ["tile_id", "user_id", "user_type"], :name => "index_tile_completions_on_tile_id_and_user_id_and_user_type"
+  add_index "tile_completions", ["tile_id", "user_type"], :name => "index_tile_completions_on_tile_id_and_user_type"
   add_index "tile_completions", ["user_id"], :name => "index_task_suggestions_on_user_id"
   add_index "tile_completions", ["user_type"], :name => "index_tile_completions_on_user_type"
 
@@ -1105,7 +1105,8 @@ ActiveRecord::Schema.define(:version => 20170321220826) do
 
   add_index "tile_viewings", ["created_at"], :name => "index_tile_viewings_on_created_at"
   add_index "tile_viewings", ["tile_id", "user_id", "user_type"], :name => "index_tile_viewings_on_tile_and_user", :unique => true
-  add_index "tile_viewings", ["tile_id"], :name => "index_tile_viewings_on_tile_id"
+  add_index "tile_viewings", ["tile_id", "user_type"], :name => "index_tile_viewings_on_tile_id_and_user_type"
+  add_index "tile_viewings", ["user_id"], :name => "index_tile_viewings_on_user_id"
 
   create_table "tiles", :force => true do |t|
     t.integer  "demo_id"
