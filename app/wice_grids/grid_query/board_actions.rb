@@ -45,21 +45,19 @@ class GridQuery::BoardActions
           users_viewings_subquery.to_sql +
           ") AS board_tile_viewings " +
           "ON board_tile_viewings.user_id = users.id"
-        end.
-        joins do
+        end.joins do
           "LEFT JOIN (" +
-           users_completions_subquery.to_sql +
+          users_completions_subquery.to_sql +
           ") AS tile_completions " +
           "ON tile_completions.user_id = users.id AND tile_completions.tile_id = board_tile_viewings.tile_id"
-        end.
-        select(
-          "users.id AS user_id, \
-           users.name AS user_name, \
-           users.email AS user_email, \
-           board_tile_viewings.views AS tile_views, \
-           board_tile_viewings.updated_at AS tile_views_updated_at, \
-           board_tile_viewings.headline AS tile_headline, \
-           tile_completions.created_at AS completion_date"
-        )
+       end.select(
+        "users.id AS user_id, \
+        users.name AS user_name, \
+        users.email AS user_email, \
+        board_tile_viewings.views AS tile_views, \
+        board_tile_viewings.updated_at AS tile_views_updated_at, \
+        board_tile_viewings.headline AS tile_headline, \
+        tile_completions.created_at AS completion_date"
+       )
     end
 end

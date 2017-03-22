@@ -29,7 +29,7 @@ class BoardStatsGrid
       name: 'board_stats_grid',
       order: 'board_tile_viewings.updated_at',
       order_direction: 'desc',
-      per_page: 40,
+      per_page: 30,
       enable_export_to_csv: true,
       csv_file_name: "board_stats_report_#{DateTime.now.strftime("%d_%m_%y")}"
     }

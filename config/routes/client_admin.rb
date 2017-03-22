@@ -5,7 +5,7 @@ namespace :client_admin do
   resources :tile_previews, only: [:show]
 
 
-  resource :reports, only: [:show, :create]
+  resource :board_stats_chart, only: [:show]
 
   resources :board_stats_grids, :only => [:index] do
     collection do

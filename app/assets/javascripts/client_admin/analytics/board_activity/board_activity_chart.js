@@ -43,6 +43,11 @@ Airbo.BoardActivityChart = (function(){
     };
   }
 
+  function showChartLoading() {
+    $(".chart_column").hide();
+    $(".chart-load-wheel").show();
+  }
+
   function submitForm(){
     form.ajaxSubmit({
       success: formResponse(),
@@ -87,9 +92,12 @@ Airbo.BoardActivityChart = (function(){
         return;
       }else{
         changedFiled.val(input.attr("name").match(/\[(.*)\]/)[1]);
+
+        showChartLoading();
         submitForm();
       }
     });
+
     $(document).on("click", doneBtnSel, function(e){
       e.preventDefault();
 
