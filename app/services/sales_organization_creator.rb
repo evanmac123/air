@@ -10,8 +10,9 @@ class SalesOrganizationCreator
   end
 
   def create!
-    update_board_name(board)
+    update_board_name_and_email(board)
     set_sales_defaults
+    link_board_and_user(user, board)
     if @organization.save
       setup_sales_org
     end
@@ -30,10 +31,9 @@ class SalesOrganizationCreator
     end
 
     def setup_sales_org
-      copy_tiles_to_board(board)
-      link_board_and_user(user, board)
       creator.move_to_new_demo(board)
       add_sales_role_to_org
+      copy_tiles_to_board(board)
     end
 
     def add_sales_role_to_org
@@ -48,23 +48,21 @@ class SalesOrganizationCreator
       organization.users.first || organization.users.build
     end
 
-    def update_board_name(board)
+    def update_board_name_and_email(board)
       if board.name.empty?
         board.name = @organization.name
       end
+
+      board.email = board.name.parameterize + "@ourairbo.com"
     end
 
     def link_board_and_user(user, board)
-      user.board_memberships.create(demo: board)
+      user.board_memberships.build(demo: board)
     end
 
     def copy_tiles_to_board(board)
       unless copy_board.nil? || copy_board.empty?
-        CopyBoard.new(board, Demo.find(copy_board)).copy_active_tiles_from_board
+        CopyBoard.new(board, Demo.find(copy_board)).delay.copy_active_tiles_from_board
       end
-    end
-
-    def default_sales_board
-      Demo.find_by_name("HR Bulletin Board").try(:id)
     end
 end

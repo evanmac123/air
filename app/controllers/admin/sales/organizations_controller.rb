@@ -3,6 +3,7 @@ class Admin::Sales::OrganizationsController < AdminBaseController
 
   def new
     @sales_organization_creator = SalesOrganizationCreator.new(current_user)
+    @default_board_id = default_sales_board
   end
 
   def create
@@ -25,5 +26,9 @@ class Admin::Sales::OrganizationsController < AdminBaseController
 
     def flash_create_success(user)
       t('controllers.admin.sales.organizations.flash_create', name: user.name, invitation_url: invitation_url(user.invitation_code, { demo_id: current_user.demo_id, new_lead: true }))
+    end
+
+    def default_sales_board
+      Demo.where(name: "HR Bulletin Board").first.try(:id)
     end
 end
