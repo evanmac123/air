@@ -24,7 +24,6 @@ class User < ActiveRecord::Base
 
   rolify strict: true
   acts_as_taggable_on :channels
-  acts_as_taggable_on :sales_paths
 
   belongs_to :organization
   belongs_to :location
@@ -231,13 +230,6 @@ class User < ActiveRecord::Base
     organization.track_channels(channel_list) if organization
     self.save
   end
-
-##Experiment to quickly gather analytics on what leads are looking at:
-  def add_path_to_sales_tracking(path)
-    sales_path_list.add(path)
-    self.save
-  end
-##
 
   def displayable_tiles(select_clause = Tile.displayable_tiles_select_clause)
     tile_arel = Tile.arel_table
@@ -571,7 +563,6 @@ class User < ActiveRecord::Base
   end
 
   def data_for_mixpanel
-    # FIXME: Overwriting distinct_id here is removing built-in mixpanel functionality that facilitates easy funnels.  We need to alias the mixpanel id to user id.
     {
       distinct_id:           mixpanel_distinct_id,
       id:                    id,
@@ -579,11 +570,10 @@ class User < ActiveRecord::Base
       game:                  demo_id,
       users_in_board:        demo.try(:users_count) || 0,
       organization:          organization_id,
+      organization_roles:    organization.try(:role_names),
       account_creation_date: created_at.try(:to_date),
       joined_game_date:      accepted_invitation_at.try(:to_date),
-      location:              location.try(:name),
       user_type:             highest_ranking_user_type,
-      is_test_user:          !!(is_test_user), # remember, the !! normalized nil to false
       board_type:            (demo.try(:is_paid) ? "Paid" : "Free"),
       first_time_user:       false,
       days_since_activated:  days_since_activated

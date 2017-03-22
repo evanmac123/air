@@ -27,6 +27,10 @@ class Organization < ActiveRecord::Base
       default_style: :small
     }
 
+  def role_names
+    roles.pluck(:name)
+  end
+
   def self.id_and_name
     select([:id, :name])
   end

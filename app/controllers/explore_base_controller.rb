@@ -1,10 +1,6 @@
 class ExploreBaseController < ApplicationController
   include AllowGuestUsersConcern
 
-  ##Experiment to quickly gather analytics on what leads are looking at:
-  before_filter :track_sales_page_views
-  ##
-
   prepend_before_filter :authenticate
 
   layout "explore_layout"
@@ -70,12 +66,4 @@ class ExploreBaseController < ApplicationController
     def find_board_for_guest
       Demo.new
     end
-
-    ##Experiment to quickly gather analytics on what leads are looking at:
-    def track_sales_page_views
-      if current_user.is_a?(User) && current_user.organization.try(:is_in_sales?)
-        current_user.delay.add_path_to_sales_tracking(request.path)
-      end
-    end
-    ##
 end

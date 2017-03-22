@@ -1,20 +1,16 @@
 class ClientAdminBaseController < UserBaseController
   prepend_before_filter :authenticate
-  before_filter :set_is_client_admin_action
-
-  ##Experiment to quickly gather analytics on what leads are looking at:
-  before_filter :track_sales_page_views
-  ##
 
   layout "client_admin_layout"
 
   def authenticate
+    return true if current_user
     return true if authenticate_by_onboarding_auth_hash
   end
 
   def authorized?
-    return true if authorize_onboarding
     return true if current_user.authorized_to?(:client_admin)
+    return true if authorize_onboarding
     return false
   end
 
@@ -42,22 +38,7 @@ class ClientAdminBaseController < UserBaseController
     end
 
     def load_locations
+      # TODO: deprecate
       @locations = current_user.demo.locations.alphabetical
     end
-
-    def param_path
-      @param_path ||= params[:path].nil? ? :undefined : params[:path]
-    end
-
-    def set_is_client_admin_action
-      @is_client_admin_action = true
-    end
-
-    ##Experiment to quickly gather analytics on what leads are looking at:
-    def track_sales_page_views
-      if current_user.is_a?(User) && current_user.organization.try(:is_in_sales?)
-        current_user.delay.add_path_to_sales_tracking(request.path)
-      end
-    end
-    ##
 end

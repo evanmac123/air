@@ -104,7 +104,8 @@ Airbo.TileStatsGrid = (function(){
   }
 
   return {
-    init: init
+    init: init,
+    gridRequest: gridRequest
   };
 }());
 

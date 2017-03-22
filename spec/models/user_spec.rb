@@ -1084,15 +1084,6 @@ describe User, "#not_in_any_paid_boards?" do
 end
 
 describe User, "#data_for_mixpanel" do
-  it "should include the user's is_test_user flag, normalized to false in case of nil" do
-    user1 = FactoryGirl.build(:user, created_at: Time.now)
-    user2 = FactoryGirl.build(:user, is_test_user: false, created_at: Time.now)
-    user3 = FactoryGirl.build(:user, is_test_user: true, created_at: Time.now)
-
-    expect(user1.data_for_mixpanel[:is_test_user]).to eq(false)
-    expect(user2.data_for_mixpanel[:is_test_user]).to eq(false)
-    expect(user3.data_for_mixpanel[:is_test_user]).to eq(true)
-  end
 
   it "should include a user's email address only if they're a client admin" do
     peon = FactoryGirl.build(:user, email: 'peon@example.com', created_at: Time.now)

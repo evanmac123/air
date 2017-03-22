@@ -19,6 +19,11 @@ body.client_admin-tile_stats, #tile_stats_modal {
     .highcharts-button {
       display: none;
     }
+    .chart-load-wheel {
+      color: $n-blue;
+      margin-left: 6.5em;
+      margin-top: 2em;
+    }
   }
 
   .action_type_block {
