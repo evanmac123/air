@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170322200057) do
+ActiveRecord::Schema.define(:version => 20170323203745) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1171,6 +1171,31 @@ ActiveRecord::Schema.define(:version => 20170322200057) do
   add_index "tiles", ["is_copyable"], :name => "index_tiles_on_is_copyable"
   add_index "tiles", ["is_public"], :name => "index_tiles_on_is_public"
   add_index "tiles", ["status"], :name => "index_tiles_on_status"
+
+  create_table "tiles_digest_tiles", :force => true do |t|
+    t.integer  "tiles_digest_id"
+    t.integer  "tile_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "tiles_digest_tiles", ["tile_id"], :name => "index_tiles_digest_tiles_on_tile_id"
+  add_index "tiles_digest_tiles", ["tiles_digest_id"], :name => "index_tiles_digest_tiles_on_tiles_digest_id"
+
+  create_table "tiles_digests", :force => true do |t|
+    t.integer  "demo_id"
+    t.integer  "sender_id"
+    t.integer  "recipient_count", :default => 0
+    t.text     "custom_headline"
+    t.text     "custom_message"
+    t.text     "subject"
+    t.text     "alt_subject"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "tiles_digests", ["demo_id"], :name => "index_tiles_digests_on_demo_id"
+  add_index "tiles_digests", ["sender_id"], :name => "index_tiles_digests_on_sender_id"
 
   create_table "timed_bonus", :force => true do |t|
     t.datetime "expires_at",                    :null => false
