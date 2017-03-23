@@ -10,8 +10,18 @@ Airbo.ImageSearcher = (function(){
     , imageProviderList
     , imageProviders
     , NO_RESULTS = '<p class="err msg"><i class="fa fa-frown-o"></i> Sorry, no images found for your search. Please try a different search.</p>'
+    , remoteMediaUrl
   ;
 
+  function initDom(){
+    remoteMediaUrl = $('#remote_media_url');
+  }
+
+  function setFormFieldsForSelectedImage(url, type, source){
+    remoteMediaUrl.val(url);
+    $('#remote_media_type').val(type || "image");
+    $("#media_source").val(source);
+  }
 
   function doFlickity(){
     grid.flickity({
@@ -36,8 +46,8 @@ Airbo.ImageSearcher = (function(){
 
     $.Topic("image-results-added").publish();
     presentData(html);
-$.Topic("media-request-done").publish();
-Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==undefined)});
+    $.Topic("media-request-done").publish();
+    Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==undefined)});
   }
 
   function presentData(html){
@@ -120,6 +130,7 @@ Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==
       var props= {url: $(this).data("preview")};
 
       $.publish("image-selected", props); 
+      setFormFieldsForSelectedImage(props.url,"png", "image-search")
     });
   }
 
@@ -134,6 +145,7 @@ Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==
 
 
   function init(){
+    initDom();
     Airbo.TileVisualPreviewMgr.init();
     grid = $("#images");
     searchForm = $(searchFormSel);

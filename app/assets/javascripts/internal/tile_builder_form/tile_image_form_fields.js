@@ -3,6 +3,7 @@ var Airbo = window.Airbo || {}
 Airbo.TileImageFormFields = (function(){
   var  remoteMediaUrl
     , remoteMediaType
+    , mediasource
   ;
 
   function initDom(){
@@ -14,8 +15,10 @@ Airbo.TileImageFormFields = (function(){
   function setFormFieldsForSelectedImage(url, type, source){
     remoteMediaUrl.val(url);
     remoteMediaType.val(type || "image");
-    remoteMediaUrl.change();
     mediaSource.val(source);
+    if(source !=="image-search"){
+      remoteMediaUrl.change();
+    }
   }
 
   function initImageSelectedListener(){
