@@ -113,6 +113,21 @@ module Reporting
       calc_avg(total_tiles_viewed_in_explore, unique_client_admin_with_viewed_tiles_in_explore)
     end
 
+    def get_tiles_posted_by_media_source
+      @tiles_posted_by_media_source = Reporting::Mixpanel::TotalTilesPostedByMediaSource.new(opts)
+    end
+
+    def tiles_with_image_upload
+      @tiles_posted_by_media_source.get_count_by_segment(Tile::IMAGE_UPLOAD, @curr_interval_key)
+    end
+
+    def tiles_with_video_upload
+      @tiles_posted_by_media_source.get_count_by_segment(Tile::VIDEO_UPLOAD, @curr_interval_key)
+    end
+
+    def tiles_with_image_search
+      @tiles_posted_by_media_source.get_count_by_segment(Tile::IMAGE_SEARCH, @curr_interval_key)
+    end
 
     def get_tiles_added_by_paid_client_admins
       @tiles_added_by_paid_client_admins = Reporting::Mixpanel::TotalTilesAddedByPaidClientAdmin.new(opts)
@@ -266,6 +281,7 @@ module Reporting
       get_orgs_that_posted_tiles
       get_total_tiles_posted
       get_avg_tile_creation_time
+      get_tiles_posted_by_media_source
     end
 
     #----------Utility Methods

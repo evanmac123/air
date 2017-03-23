@@ -12,7 +12,6 @@ Airbo.ImageSearcher = (function(){
     , NO_RESULTS = '<p class="err msg"><i class="fa fa-frown-o"></i> Sorry, no images found for your search. Please try a different search.</p>'
   ;
 
-
   function doFlickity(){
     grid.flickity({
       lazyLoad: true,
@@ -36,8 +35,8 @@ Airbo.ImageSearcher = (function(){
 
     $.Topic("image-results-added").publish();
     presentData(html);
-$.Topic("media-request-done").publish();
-Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==undefined)});
+    $.Topic("media-request-done").publish();
+    Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==undefined)});
   }
 
   function presentData(html){
@@ -63,7 +62,6 @@ Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==
   }
 
  
- 
 
 
 
@@ -82,7 +80,7 @@ Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==
         url: form.attr("action"),
         type: form.attr("method"),
         data: form.serialize(),
-        dataType: "json",
+        dataType: "json"
       })
       .done(processResults.bind(ctx))
       .fail(function(){
@@ -119,8 +117,7 @@ Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==
     $("body").on("click","#images img", function(event){
       var img = $(this);
       var props= {url: $(this).data("preview")};
-
-      $.Topic("image-selected").publish(props); 
+      $.publish("image-selected", props); 
     });
   }
 

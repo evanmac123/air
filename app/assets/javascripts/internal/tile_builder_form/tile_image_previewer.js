@@ -68,14 +68,16 @@ Airbo.TileImagePreviewer = (function(){
     })
   }
 
+  function initImageSelectedListener(){
+    $.subscribe('image-selected', function(event, imgProps){
+      setPreviewImage(imgProps.url, imgProps.w, imgProps.h);
+    });
+  }
+
   function init(mgr){
     initDom();
     initClearImage();
-
-
-    $.Topic('image-selected').subscribe( function(imgProps){
-      setPreviewImage(imgProps.url, imgProps.w, imgProps.h);
-    });
+    initImageSelectedListener();
 
     $('.menu-tooltip').tooltipster({theme: 'tooltipster-shadow'});
 

@@ -33,6 +33,11 @@ module Reporting
         m.total_tiles_added_from_copy_by_paid_client_admin = kpi.total_tiles_added_from_copy
         m.orgs_that_posted_tiles = kpi.orgs_that_posted_tiles
         m.total_tiles_posted = kpi.total_tiles_posted
+
+        m.tiles_with_image_search = kpi.tiles_with_image_search
+        m.tiles_with_image_upload = kpi.tiles_with_image_upload
+        m.tiles_with_video_upload = kpi.tiles_with_video_upload
+
         m.average_tiles_created_from_scratch_per_org_that_created = kpi.average_tiles_created_from_scratch_per_org_that_created
         m.average_tile_creation_time = kpi.avg_tile_creation_time
         m.average_tiles_copied_per_org_that_copied = kpi.average_tiles_copied_per_org_that_copied
