@@ -16,20 +16,25 @@ Airbo.TileImageFormFields = (function(){
     remoteMediaUrl.val(url);
     remoteMediaType.val(type || "image");
     mediaSource.val(source);
-    if(source !=="image-search"){
-      remoteMediaUrl.change();
-    }
   }
 
   function initImageSelectedListener(){
-    $.subscribe('image-done',function(e, url, type, source){
+    $.subscribe('image-selected',function(event, imgProps){
+      setFormFieldsForSelectedImage(imgProps.url);
+    });
+  }
+
+  function initImageDoneListener(){
+    $.subscribe('image-done',function(event, url, type, source){
       setFormFieldsForSelectedImage(url, type, source)
+      remoteMediaUrl.change();
     });
   }
 
   function init(){
     initDom();
     initImageSelectedListener();
+    initImageDoneListener();
   }
 
   return {
