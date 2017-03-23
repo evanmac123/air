@@ -1,10 +1,8 @@
-resource :client_admin, :only => :show
-
 namespace :client_admin do
   resource :segmentation
   resources :tile_previews, only: [:show]
 
-
+  resource :reporting, only: [:show]
   resource :board_stats_chart, only: [:show]
 
   resources :board_stats_grids, :only => [:index] do

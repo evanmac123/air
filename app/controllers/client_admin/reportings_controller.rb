@@ -1,4 +1,4 @@
-class ClientAdminsController < ClientAdminBaseController
+class ClientAdmin::ReportingsController < ClientAdminBaseController
 
   def show
     @board = current_user.demo

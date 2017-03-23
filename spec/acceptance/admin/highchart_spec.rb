@@ -53,7 +53,7 @@ feature 'Highchart Plot' do
   background do
   skip "Fails in test environment but works in production FIXME eventually"
     bypass_modal_overlays(admin)
-    visit client_admin_path(as: admin)
+    visit client_admin_reporting_path(as: admin)
   end
 
 

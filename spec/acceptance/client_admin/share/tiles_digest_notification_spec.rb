@@ -120,8 +120,8 @@ feature 'Client admin and the digest email for tiles' do
         visit client_admin_share_path(as: admin)
         submit_button.click
         expect_digest_sent_content
-        click_link "Activity"
-        should_be_on client_admin_path
+        click_link "Reporting"
+        should_be_on client_admin_reporting_path
       end
 
       scenario "A confirmation message in modal is displayed,

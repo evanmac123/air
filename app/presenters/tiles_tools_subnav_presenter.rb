@@ -93,9 +93,9 @@ class TilesToolsSubnavPresenter
             },
             {
               item_id: "board_activity",
-              link: client_admin_path,
+              link: client_admin_reporting_path,
               icon: "line-chart",
-              text: "Activity"
+              text: "Reporting"
             },
             {
               item_id: "prizes_nav",
@@ -128,6 +128,6 @@ class TilesToolsSubnavPresenter
     end
 
     def list_of_blocked_items
-     ["Share", "Activity", "Prizes", "Users"]
+     ["Share", "Reporting", "Prizes", "Users"]
     end
 end
