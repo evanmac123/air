@@ -14,11 +14,11 @@ Airbo.TileImageUploader = (function(){
   }
 
   function directUploadCompleted(data,file, filepath){
-    $.Topic("image-done").publish(filepath, file.type, "image-upload");
+    $.publish("image-done", filepath, file.type, "image-upload")
   }
 
   function notifyImageUploaded(imgUrl, imgWidth, imgHeight){
-   $.Topic("image-selected").publish({url: imgUrl, h: imgHeight, w: imgWidth});
+   $.publish("image-selected", {url: imgUrl, h: imgHeight, w: imgWidth});
   }
 
 

@@ -119,8 +119,7 @@ Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==
       var img = $(this);
       var props= {url: $(this).data("preview")};
 
-      $.Topic("image-selected").publish(props); 
-      $.Topic("image-done").publish(props.url,"png", "image-search");
+      $.publish("image-selected", props); 
     });
   }
 

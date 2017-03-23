@@ -19,7 +19,7 @@ Airbo.TileImageFormFields = (function(){
   }
 
   function initImageSelectedListener(){
-    $.Topic('image-done').subscribe( function(url, type, source){
+    $.subscribe('image-done',function(e, url, type, source){
       setFormFieldsForSelectedImage(url, type, source)
     });
   }

@@ -82,6 +82,8 @@ Airbo.TileFormModal = (function(){
   }
 
   function initFormElements() {
+    $.unsubscribe("image-selected"); 
+    $.unsubscribe("image-done"); 
     validator = Airbo.TileFormValidator.init(currform);
     Airbo.TileImageUploader.init();
     Airbo.TileImagePreviewer.init();

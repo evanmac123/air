@@ -72,8 +72,7 @@ Airbo.TileImagePreviewer = (function(){
     initDom();
     initClearImage();
 
-
-    $.Topic('image-selected').subscribe( function(imgProps){
+    $.subscribe('image-selected', function(event, imgProps){
       setPreviewImage(imgProps.url, imgProps.w, imgProps.h);
     });
 

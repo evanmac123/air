@@ -27,7 +27,6 @@ function isIE() {
 }
 
 (function($){
-  $(function(){
     jQuery.Topic = (function(  ) {
 
       var topics = {};
@@ -51,8 +50,26 @@ function isIE() {
       }
     })();
 
+    (function($) {
 
-    Airbo.init();
-  });
+      var o = $({});
+
+      $.subscribe = function() {
+        o.on.apply(o, arguments);
+      };
+
+      $.unsubscribe = function() {
+        o.off.apply(o, arguments);
+      };
+
+      $.publish = function() {
+        o.trigger.apply(o, arguments);
+      };
+
+    }(jQuery));
+
+    $(function(){
+      Airbo.init();
+    });
 
 })(jQuery);
