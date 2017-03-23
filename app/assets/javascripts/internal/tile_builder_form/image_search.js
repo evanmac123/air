@@ -128,7 +128,6 @@ Airbo.ImageSearcher = (function(){
     $("body").on("click","#images img", function(event){
       var img = $(this);
       var props= {url: $(this).data("preview")};
-
       $.publish("image-selected", props); 
       setFormFieldsForSelectedImage(props.url,"png", "image-search")
     });
