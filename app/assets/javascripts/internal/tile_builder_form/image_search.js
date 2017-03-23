@@ -80,7 +80,7 @@ Airbo.ImageSearcher = (function(){
         url: form.attr("action"),
         type: form.attr("method"),
         data: form.serialize(),
-        dataType: "json",
+        dataType: "json"
       })
       .done(processResults.bind(ctx))
       .fail(function(){
