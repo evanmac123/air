@@ -1,4 +1,3 @@
-@import 'partials/activity_grid';
 @import 'partials/chart';
 .analytics-v1 {
   #client-admin-demo-analytics {
@@ -40,9 +39,6 @@
     .stats_page {
       max-width: 1007px;
       padding: 20px 40px 50px 40px;
-    }
-    .pagination {
-      background-color: transparent;
     }
   }
 }
