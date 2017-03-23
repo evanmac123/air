@@ -26,6 +26,23 @@ function isIE() {
   }
 }
 
+(function($) {
+  var o = $({});
+
+  $.subscribe = function() {
+    o.on.apply(o, arguments);
+  };
+
+  $.unsubscribe = function() {
+    o.off.apply(o, arguments);
+  };
+
+  $.publish = function() {
+    o.trigger.apply(o, arguments);
+  };
+
+}(jQuery));
+
 (function($){
     jQuery.Topic = (function(  ) {
 
@@ -49,27 +66,8 @@ function isIE() {
         return topic;
       }
     })();
-
-    (function($) {
-
-      var o = $({});
-
-      $.subscribe = function() {
-        o.on.apply(o, arguments);
-      };
-
-      $.unsubscribe = function() {
-        o.off.apply(o, arguments);
-      };
-
-      $.publish = function() {
-        o.trigger.apply(o, arguments);
-      };
-
-    }(jQuery));
-
-    $(function(){
-      Airbo.init();
-    });
-
 })(jQuery);
+
+$(function(){
+  Airbo.init();
+});
