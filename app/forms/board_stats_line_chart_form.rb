@@ -18,6 +18,10 @@
      ['unique_tile_views', 'unique_tile_interactions'] #'total_employee_visits']
    end
 
+   def self.interval_types_select_list
+     ['monthly', 'weekly', 'daily'].collect {|name| [ name.capitalize, name ] }
+   end
+
    def report_interval
      period.time_unit
    end
