@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="columns large-12">
+    <h2 class="first">
+      <%= link_to "Admin", admin_path %> »
+      <%= link_to @demo.name, admin_demo_path(@demo) %> » Bulk User Deletion
+    </h2>
+    <%=form_tag admin_demo_bulk_user_deletions_path, id: "admin_bulk_user_delete" do%>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Count</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Client Admins</td> <td><%=@users.detect{|group|group.is_client_admin==true}.try(:count) || 0%></td>
+            <td><%=check_box_tag "client_admins" %>
+          </tr>
+          <tr>
+            <td>Ordnary Users</td> <td><%=@users.detect{|group|group.is_client_admin==false}.try(:count) || 0%></td>
+            <td><%=check_box_tag "ordinary_users" %>
+          </tr>
+        </tbody>
+        <table>
+          <%=submit_tag "Delete Selected Users", class:"button outline red danger"%>
+        <%end%>
+  </div>
+</div>

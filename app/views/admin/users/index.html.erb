@@ -1,11 +1,57 @@
-<h2 class="first">
-  <%= link_to "Admin", admin_path %> »
-  <%= link_to @demo.name, admin_demo_path(@demo) %> » 
-  Users starting with <%= params[:starts_with] %>
-</h2>
+<div class="row">
+  <div class="columns large-12">
+    <h2 class="first">
+      <%= link_to "Admin", admin_path %> »
+      <%= link_to @demo.name, admin_demo_path(@demo) %> » 
+      Users starting with <%= params[:starts_with] %>
+  </h2>
+  </div>
+</div>
 
-<%= render 'admin/demos/user_paginator', :demo => @demo %>
+<div class="row">
+  <div class="columns large-12">
+    <%= render 'admin/demos/user_paginator', :demo => @demo %>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Email</th>
+          <th>Location</th>
+          <th>Invitation Code</th>
+          <th>Send Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%@users.each do|user| %>
+          <tr>
+            <td>
+              <%=user.id%>
+            </td>
+            <td>
+             <%= link_to user.name, edit_admin_demo_user_path(user.demo, user) %>
+            </td>
+            <td>
+             <%= user.highest_ranking_user_type%>
+            </td>
+            <td>
+              <%=user.email%>
+            </td>
+            <td>
+              <%=user.location.try(:name)%>
+            </td>
+            <td>
+              <%=invitation_url(user.invitation_code) %>
+            </td>
+            <td>
+              <%= link_to user.invited? ? "Re-send invitation" : "Invite", admin_user_invitations_path(user),
+                :method => :post, :remote => true %>
 
-<ul id="demo-users">
-  <%= render :partial => 'admin/users/user', :collection => @users %>
-</ul>
+            </td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div
