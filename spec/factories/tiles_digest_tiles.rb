@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :tiles_digest_tile do
-    tiles_digest nil
     tile nil
+    tiles_digest nil
   end
 end

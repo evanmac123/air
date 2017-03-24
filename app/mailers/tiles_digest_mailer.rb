@@ -27,9 +27,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
     end
   end
 
-  def notify_all(demo, unclaimed_users_also_get_digest, tile_ids, custom_headline, custom_message, subject, alt_subject=nil)
-    user_ids = demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
-
+  def notify_all(demo, user_ids, tile_ids, custom_headline, custom_message, subject, alt_subject=nil)
     user_ids.reject! do |user_id|
       BoardMembership.where(demo_id: demo.id, user_id: user_id, digest_muted: true).first.present?
     end
@@ -41,18 +39,17 @@ class TilesDigestMailer < BaseTilesDigestMailer
   end
 
   def notify_all_follow_up(followup_id)
-
     followup = FollowUpDigestEmail.find followup_id
     followup.trigger_deliveries
     followup.destroy
   end
 
   def resolve_subject subject, alt_subject, idx
-      unless alt_subject
-        subject
-      else
-         idx.even? ? alt_subject : subject
-      end
+    unless alt_subject
+      subject
+    else
+       idx.even? ? alt_subject : subject
+    end
   end
 
   private

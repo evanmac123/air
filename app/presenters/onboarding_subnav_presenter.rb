@@ -39,7 +39,7 @@ class OnboardingSubnavPresenter
       item_id: "board_activity",
       link: user_onboarding.id ? onboarding_activity_path(user_onboarding) : "#",
       icon: "line-chart",
-      text: "Reporting"
+      text: "Activity"
     },
     {
       item_id: "share_airbo",

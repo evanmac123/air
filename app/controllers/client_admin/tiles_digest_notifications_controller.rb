@@ -23,7 +23,7 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
   end
 
   def digest_sent_type
-    if params[:digest_type] == "test_digest" 
+    if params[:digest_type] == "test_digest"
       if @tiles_digest_form.with_follow_up?
         "test_digest_and_follow_up"
       else

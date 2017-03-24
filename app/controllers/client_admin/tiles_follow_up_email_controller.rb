@@ -16,7 +16,7 @@ class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
 
 
   def update
-    if params[:now].present? 
+    if params[:now].present?
       @follow_up_email.trigger_deliveries
       @follow_up_email.destroy
       js_flash SEND_NOW_SUCCESS
@@ -26,7 +26,6 @@ class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
       js_flash SAVE_SUCCESS
       render json: update_response
     end
-
   end
 
   def destroy
@@ -54,11 +53,11 @@ class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
   end
 
   def update_response
-    @follow_up_email.as_json(root: false, only: [:original_digest_subject,  :send_on])
+    @follow_up_email.as_json(root: false, only: [:subject,  :send_on])
   end
 
   def permitted_params
-    params.require(:follow_up_digest_email).permit(:original_digest_subject, :send_on)
+    params.require(:follow_up_digest_email).permit(:subject, :send_on)
   end
 
   def js_flash msg

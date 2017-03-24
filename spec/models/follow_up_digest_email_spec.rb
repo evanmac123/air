@@ -25,13 +25,12 @@ describe FollowUpDigestEmail do
     end
   end
 
-
-
-
   context "Sending follow emails" do
 
     before  do
       @demo = FactoryGirl.create(:demo)
+      @sender = FactoryGirl.create(:client_admin, demo: @demo)
+      @sender.board_memberships.first.update_attributes(followup_muted: true)
 
       @muted = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
 
@@ -57,15 +56,6 @@ describe FollowUpDigestEmail do
       FactoryGirl.create(:tile_completion, user: @user2, tile: @tiles[0], created_at: 2.weeks.ago)
       FactoryGirl.create(:tile_completion, user: @user3, tile: @tiles[1], created_at: 2.weeks.ago)
 
-      @fu = FollowUpDigestEmail.new(
-        original_digest_headline: "headline",
-        send_on: 1.hour.from_now,
-        unclaimed_users_also_get_digest: false,
-        tile_ids: @tiles.map(&:id)
-      )
-
-      @fu.demo= @demo
-      @fu.save
 
       User.claimed.each do |user|
         user.current_board_membership.update_attributes(joined_board_at: Time.now)
@@ -74,7 +64,13 @@ describe FollowUpDigestEmail do
 
     context "claimed" do
       before do
-        @fu.user_ids_to_deliver_to = users_including_unclaimed(false)
+        digest = @demo.tiles_digests.create(sender: @sender, headline: "headline", tile_ids: @tiles.map(&:id), include_unclaimed_users: false)
+
+        @fu = digest.build_follow_up_digest_email(
+          send_on: 1.hour.from_now,
+          user_ids_to_deliver_to: users_including_unclaimed(false)
+        )
+
         @fu.save
       end
 
@@ -87,8 +83,13 @@ describe FollowUpDigestEmail do
 
     context "All users" do
       before do
-        @fu.user_ids_to_deliver_to = users_including_unclaimed(true)
-        @fu.unclaimed_users_also_get_digest = true
+        digest = @demo.tiles_digests.create(sender: @sender, headline: "headline", tile_ids: @tiles.map(&:id), include_unclaimed_users: true)
+
+        @fu = digest.build_follow_up_digest_email(
+          send_on: 1.hour.from_now,
+          user_ids_to_deliver_to: users_including_unclaimed(true)
+        )
+
         @fu.save
       end
 
@@ -104,18 +105,26 @@ describe FollowUpDigestEmail do
           TilesDigestMailer.expects(:notify_one).at_most(5)
           @fu.trigger_deliveries
         end
+
+        it "marks tiles_digest.followup_delivered as true" do
+          TilesDigestMailer.stubs(:delay).returns TilesDigestMailer
+
+          expect(@fu.tiles_digest.followup_delivered).to be false
+
+          @fu.trigger_deliveries
+
+          expect(@fu.tiles_digest.followup_delivered).to be true
+        end
       end
 
     end
   end
 
   def users_including_unclaimed include_unclaimed
-    #NOTE use this goofy method to avoid hardcoding the #user_ids_to_deliver_to
-    #field on the model. Technically we could just hard code the values based on
-    #the thing scenario we are testing claimed vs unclaimed and just user
-    #User.all or User.claimed but this way we use the exact method as in the
-    #current code implementation
-    @demo.users_for_digest(include_unclaimed).pluck(:id)
+    if include_unclaimed
+      @demo.users.pluck(:id)
+    else
+      @demo.claimed_users.pluck(:id)
+    end
   end
-
 end

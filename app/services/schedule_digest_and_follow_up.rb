@@ -20,36 +20,28 @@ class ScheduleDigestAndFollowUp
   end
 
   def schedule!
-    send_digest
-    schedule_followup
-    update_demo
-    schedule_digest_sent_ping
+    if create_and_deliver_digest
+      update_demo
+      schedule_digest_sent_ping
+    end
   end
 
   private
 
-    def send_digest
-      TilesDigestMailer.delay.notify_all(demo,
-                                          unclaimed_users_also_get_digest,
-                                          tile_ids,
-                                          custom_headline,
-                                          custom_message,
-                                          digest_subject,
-                                          alt_custom_subject)
-    end
+    def create_and_deliver_digest
+      digest = TilesDigest.dispatch({
+        demo: demo,
+        include_unclaimed_users: unclaimed_users_also_get_digest,
+        headline: custom_headline,
+        message: custom_message,
+        subject: custom_subject,
+        alt_subject: alt_custom_subject,
+        sender: current_user,
+      })
 
-    def schedule_followup
-      return if follow_up_days_index == 0
-
-      FollowUpDigestEmail.create!(
-        demo_id:  demo.id,
-        tile_ids: tile_ids,
-        send_on:  Date.today + follow_up_days_index.days,
-        unclaimed_users_also_get_digest: unclaimed_users_also_get_digest,
-        original_digest_subject: follow_up_digest_subject,
-        original_digest_headline: custom_headline,
-        user_ids_to_deliver_to: user_ids_to_deliver_to
-      )
+      if digest.persisted?
+        digest.deliver(follow_up_days_index)
+      end
     end
 
     def update_demo
@@ -73,27 +65,6 @@ class ScheduleDigestAndFollowUp
         },
         current_user
       )
-    end
-
-    def cutoff_time
-      demo.tile_digest_email_sent_at
-    end
-
-    def tile_ids
-      @tile_ids ||= demo.digest_tiles(cutoff_time).pluck(:id)
-    end
-
-    def digest_subject
-      custom_subject || "New Tiles"
-    end
-
-    #TODO this should be done in the before_validation  filter
-    def follow_up_digest_subject
-      custom_subject || "Your New Tiles"
-    end
-
-    def user_ids_to_deliver_to
-      demo.users_for_digest(unclaimed_users_also_get_digest).pluck(:id)
     end
 
     def follow_up_days_index

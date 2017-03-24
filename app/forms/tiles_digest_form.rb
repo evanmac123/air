@@ -53,14 +53,15 @@ class TilesDigestForm
   def schedule_digest_and_followup!
     schedule_digest_and_followup = ScheduleDigestAndFollowUp.new(
       demo: demo,
+      current_user: current_user,
       unclaimed_users_also_get_digest: unclaimed_users_also_get_digest,
       custom_headline: custom_headline,
       custom_message: custom_message,
       custom_subject: custom_subject,
       alt_custom_subject: alt_custom_subject,
-      follow_up_day: follow_up_day,
-      current_user: current_user
+      follow_up_day: follow_up_day
     )
+
     schedule_digest_and_followup.schedule!
   end
 

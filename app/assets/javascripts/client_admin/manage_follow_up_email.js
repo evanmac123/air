@@ -181,7 +181,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
     $.ajax({
       type: meth,
       url: url,
-      data: data 
+      data: data
     })
     .done(success)
     .fail(fail)
@@ -197,8 +197,8 @@ Airbo.DigestEmailFollowUpManager = (function(){
 
   function update(data){
     var date = $.datepicker.parseDate("yy-mm-dd", data["send_on"]),
-      subject = Airbo.Utils.truncate(data["original_digest_subject"], 50)
-    ; 
+      subject = Airbo.Utils.truncate(data["subject"], 50)
+    ;
     currRow.find("td.subject>span").text(subject);
     currRow.find("td.send_on").text($.datepicker.formatDate("DD, MM d, yy",date));
   }
@@ -219,5 +219,3 @@ Airbo.DigestEmailFollowUpManager = (function(){
 $(function(){
   Airbo.DigestEmailFollowUpManager.init();
 })
-
-
