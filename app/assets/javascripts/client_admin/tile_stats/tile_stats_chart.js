@@ -43,11 +43,12 @@ Airbo.TileStatsChart = (function(){
   }
 
   function submitForm(){
-    $(".displayed-chart").replaceWith('<i class="chart-load-wheel fa fa-spinner fa-spin fa-3x fa-fw"></i>');
     form.ajaxSubmit({
       success: formResponse(),
       dataType: 'json'
     });
+    
+    $(".displayed-chart").replaceWith('<i class="chart-load-wheel fa fa-spinner fa-spin fa-3x fa-fw"></i>');
   }
 
   function initVars(){
