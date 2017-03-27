@@ -1,0 +1,32 @@
+@mixin tabs-component($active-color, $static-color, $border-color) {
+  .tabs-component {
+    display: inline-block;
+    margin: 0;
+    li {
+      &:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border-right: none;
+      }
+      &:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-left: none;
+      }
+      cursor: pointer;
+      text-align: center;
+    	height: 36px;
+    	font-size: 14px;
+    	line-height: 1.57;
+      padding: 7px 12px;
+      margin: 0;
+      color: $active-color;
+      border: solid 1px $border-color;
+      &.tabs-component-active {
+        background-color: $active-color;
+	      border-color: $active-color;
+        color: $static-color;
+      }
+    }
+  }
+}

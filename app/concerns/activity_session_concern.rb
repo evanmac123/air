@@ -7,7 +7,8 @@ module ActivitySessionConcern
     time = request.env['rack.timestamp'] || Time.now.to_i
 
     if idle_period(time) >= ACTIVITY_SESSION_THRESHOLD
-      ping('Activity Session - New', { time: time }, current_user)
+      send_activity_session_ping(time)
+      set_eager_caches
     end
 
     set_last_session_activity(time)
@@ -32,4 +33,18 @@ module ActivitySessionConcern
       session[:guest_user_id] = user.id
     end
   end
+
+  private
+
+    def send_activity_session_ping(time)
+      unless current_user.is_site_admin
+        ping('Activity Session - New', { time: time }, current_user)
+      end
+    end
+
+    def set_eager_caches
+      if current_user.is_client_admin_in_any_board
+        BoardMetricsGenerator.delay.update_metrics_caches_for_users_boards(current_user)
+      end
+    end
 end

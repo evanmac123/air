@@ -36,12 +36,6 @@ class OnboardingSubnavPresenter
       text: "My Airbo"
     },
     {
-      item_id: "board_activity",
-      link: user_onboarding.id ? onboarding_activity_path(user_onboarding) : "#",
-      icon: "line-chart",
-      text: "Activity"
-    },
-    {
       item_id: "share_airbo",
       link: "",
       icon: "share-alt",

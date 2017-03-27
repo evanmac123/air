@@ -21,8 +21,6 @@ resources :user_onboardings, only: [:show, :create] do
   resources :tiles, only: [:show]
 end
 
-get "myairbo/:id/activity" => "user_onboardings#activity", as: :onboarding_activity
-
 resources :tiles, :only => [:index, :show]
 resources :tile, :only => [:show], as: "sharable_tile"
 resources :tile_completions, :only => [:create]

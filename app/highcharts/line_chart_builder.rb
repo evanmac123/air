@@ -21,6 +21,7 @@ class LineChartBuilder
   end
 
   protected
+
     def chart_params
       {
         backgroundColor: @background_color,
@@ -61,14 +62,9 @@ JS
         title: {
           text: nil
         },
-        type: 'datetime',
         lineWidth: 0,
-        dateTimeLabelFormats: {
-        	day: "%b %d",
-        	week: "%b %d",
-        	month: '%b %Y',
-        	year: '%Y'
-        },
+        type: 'datetime',
+
         offset: 10,
         labels: {
           align: 'center',
@@ -76,12 +72,26 @@ JS
             color: '#a8a8a8',
             'font-weight' => 700
           },
-          useHTML: true
+          useHTML: true,
+          format: date_label_format
         },
         tickColor: 'white',
         maxPadding: 0.04,
         minPadding: 0.04
       }
+    end
+
+    def date_label_format
+      case period.time_unit
+      when 'day', 'week'
+        '{value: %b %d}'
+      when 'month'
+        '{value: %b %Y}'
+      when 'quarter'
+        '{value: %Q}'
+      when 'year'
+        '{value: %Y}'
+      end
     end
 
     def y_axis_params
@@ -131,9 +141,17 @@ JS
           padding: 8,
           fontSize: 13
         },
-        headerFormat: "<div style='color:#0489d1;'>{point.key}</div>",
+        headerFormat: point_tooltip_header_format,
         pointFormatter: point_formatter.js_code
       }
+    end
+
+    def point_tooltip_header_format
+      if period.time_unit == "quarter"
+        "<div style='color:#0489d1;'>{point.key: %Q}</div>"
+      else
+        "<div style='color:#0489d1;'>{point.key}</div>"
+      end
     end
 
     def point_formatter

@@ -39,13 +39,10 @@ module Reporting
       arr.reduce(data){|slice, key| slice[key]}
     end
 
-
     private
-
 
     def defaults
       { beg_date:3.months.ago, end_date:Date.today, interval:"week"}
-
     end
 
     def do_user_activation
@@ -144,7 +141,6 @@ module Reporting
    end
 
     def do_tile_activity
-
       partition = data[:tile_activity]
       activity = Reporting::Db::TileActivity.new(demo,start, finish_date, interval)
 
@@ -161,7 +157,6 @@ module Reporting
       end
     end
 
-
     def populate_stats res, kpi
       timestamp= Date.parse(res.interval)
       return if timestamp < start.to_date
@@ -171,18 +166,20 @@ module Reporting
       period[:total] = res.cumulative_count.to_i
     end
 
-
-
-
     def initialize_report_data_hash
       prepare_empty_hash
       init_intervals
     end
 
     def init_intervals
-      period = "#{interval}s".to_sym
+      if interval == "quarter"
+        step = { months: 3 }
+      else
+        step = { "#{interval}s".to_sym => 1 }
+      end
 
-      r = RailsDateRange.new(start, finish_date).every({period => 1})
+      r = RailsDateRange.new(start, finish_date).every(step)
+
       r.each do |timestamp|
         d = timestamp.to_date
         data[:intervals] << d
@@ -190,8 +187,6 @@ module Reporting
         init_activity d
       end
     end
-
-
 
     def prepare_empty_hash
       data[:user]={
@@ -233,7 +228,6 @@ module Reporting
     end
 
     def init_activity d
-
       activity = data[:tile_activity]
       activity[:posts][d]={current:0, total:0}
       activity[:views][d]={current:0, total:0}
@@ -241,8 +235,5 @@ module Reporting
       activity[:views_pct][d]={current:0, total:0}
       activity[:completions_pct][d]={current:0, total:0}
     end
-
-
-
   end
 end

@@ -93,9 +93,9 @@ class TilesToolsSubnavPresenter
             },
             {
               item_id: "board_activity",
-              link: client_admin_reporting_path,
+              link: client_admin_reports_path,
               icon: "line-chart",
-              text: "Activity"
+              text: "Reports"
             },
             {
               item_id: "prizes_nav",

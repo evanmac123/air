@@ -1,0 +1,15 @@
+<div class="container chart-group-container">
+  <div class="row">
+    <div class="small-12 columns">
+      <div id="<%= opts[:chart_id] %>" class="chart-container" style="width:100%;margin: 0 auto" data-chart-types="<%= opts[:chart_types] %>" data-series-names="<%= opts[:series_names] %>" data-chart-template="<%= opts[:chart_template] %>" data-chart-type="<%= opts[:chart_class] %>" data-interval-type="<%= opts[:starting_interval] %>" data-path="<%= opts[:data_path] %>" data-requested-series-list="<%= opts[:series_list] %>" data-title="<%= opts[:title] %>" data-subtitle="<%= opts[:subtitle] %>" data-no-data-message='<%= opts[:no_data_message] %>' data-chart-header-color="#33445c" data-chart-sub-header-color="#5a6c7a" data-color-list="<%= opts[:color_list]%>">
+      </div>
+    </div>
+  </div>
+  <div class="row chart-controls-group" style="display:none;">
+    <ul class="inline-list chart-interval-opts tabs-component" data-chart-target="#<%= opts[:chart_id] %>">
+      <% opts[:intervals].each_with_index do |interval, i| %>
+        <li class="chart-interval-change <%= tabs_component_active(interval, opts[:starting_interval]) %>" data-interval="<%= interval %>"><%= interval.capitalize %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

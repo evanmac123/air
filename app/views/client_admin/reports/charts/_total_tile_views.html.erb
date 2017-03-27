@@ -1,0 +1,13 @@
+<%= render partial: 'client_admin/reports/charts/chart_base',
+  locals: { opts:
+    {
+      chart_id: "board-total-tile-views",
+      chart_class: "Charts::BoardTotalTileViewsChart", starting_interval: "month",
+      data_path: api_charts_path,
+      series_list: ["primary_data"],
+      title: "Total Views",
+      no_data_message: nil,
+      intervals: ["quarter", "month", "week"]
+    }
+  }
+%>

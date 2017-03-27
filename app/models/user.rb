@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
 
   MISSING_AVATAR_PATH = "/assets/avatars/thumb/missing.png"
   TAKEN_PHONE_NUMBER_ERR_MSG = "Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com"
-  UNMONITORED_MAILBOX_RESPONSE_THRESHOLD = ENV['UNMONITORED_MAILBOX_RESPONSE_THRESHOLD'].try(:to_i) || 3600 # seconds
 
   include Clearance::User
   include User::Segmentation
@@ -1200,11 +1199,6 @@ class User < ActiveRecord::Base
 
   def copy_active_tiles_from_demo(demo)
     CopyTile.new(self.demo, self).copy_active_tiles_from_demo(demo)
-  end
-
-  def too_soon_for_another_unmonitored_mailbox_reminder?
-    return false if self.last_unmonitored_mailbox_response_at.nil?
-    Time.now - self.last_unmonitored_mailbox_response_at < UNMONITORED_MAILBOX_RESPONSE_THRESHOLD
   end
 
   def update_allowed_to_make_tile_suggestions value, demo

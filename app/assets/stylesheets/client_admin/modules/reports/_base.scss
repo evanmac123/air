@@ -1,0 +1,25 @@
+@import 'mixins/graphs';
+@import 'mixins/airbo-layout-defaults';
+@import 'mixins/tabs-component';
+@import 'mixins/card-component';
+@import 'mixins/toolbar-inline-list-component';
+
+.client_admin-reports {
+  @include airbo-layout-defaults();
+  @include card-component($dark-blue, $primary-gray);
+  @include graphs();
+
+  .card-component {
+    @include tabs-component($dark-blue, $white, $primary-gray);
+    .card-content {
+      min-height: 521px;
+      .chart-controls-group {
+        text-align: center;
+      }
+    }
+  }
+
+  .date-switch-toolbar {
+    @include toolbar-inline-list-component($white, $primary-gray, $dark-blue, $n-blue)
+  }
+}

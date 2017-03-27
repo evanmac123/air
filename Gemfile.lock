@@ -285,7 +285,7 @@ GEM
       multi_xml (>= 0.5.2)
     humanize_boolean (0.0.2)
       i18n
-    i18n (0.7.0)
+    i18n (0.8.1)
     inflecto (0.0.2)
     intercom (2.4.2)
       json
@@ -312,8 +312,7 @@ GEM
     kgio (2.7.4)
     launchy (2.4.3)
       addressable (~> 2.3)
-    lazy_high_charts (1.5.4)
-      bundler (>= 1.0)
+    lazy_high_charts (1.5.6)
       hash-deep-merge
     letter_opener (1.4.1)
       launchy (~> 2.2)
@@ -413,7 +412,7 @@ GEM
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.4.7)
-    rack-cache (1.6.1)
+    rack-cache (1.7.0)
       rack (>= 0.4)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
@@ -453,7 +452,7 @@ GEM
       json (~> 1.4)
     redic (1.5.0)
       hiredis
-    redis (3.3.2)
+    redis (3.3.3)
     redis-actionpack (3.2.4)
       actionpack (~> 3.2.0)
       redis-rack (~> 1.4.4)
@@ -660,6 +659,7 @@ DEPENDENCIES
   foreman
   formtastic
   google_drive
+  groupdate
   haml-rails
   high_voltage
   historyjs-rails

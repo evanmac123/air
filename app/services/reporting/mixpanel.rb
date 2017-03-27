@@ -8,7 +8,7 @@ module Reporting
     end
 
     module MixpanelUnsegmentedResult
-      def by_reporting_period 
+      def by_reporting_period
         series.each do |date|
           values.each do |event, data|
             @summary_by_date[date] = data[date]
@@ -59,7 +59,7 @@ module Reporting
       attr_reader :from, :to
 
       def initialize options
-        @summary_by_date = {} 
+        @summary_by_date = {}
         @options = options.dup
         @params = configure(get_date_range_config).with_indifferent_access
         @mixpanel = AirboMixpanelClient.new

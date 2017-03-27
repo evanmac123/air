@@ -1,7 +1,7 @@
 require 'mixpanel_client'
 class AirboMixpanelClient
   def initialize
-    @client ||= Mixpanel::Client.new( api_key: ENV['MIXPANEL_API_KEY'],  api_secret: ENV['MIXPANEL_API_SECRET'])
+    @client ||= $mixpanel_client
   end
 
   def request endpoint, params

@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="large-12 columns">
+    <%= render partial: 'client_admin/reports/charts/chart_base',
+    locals: { opts:
+      {
+        chart_id: "board-tiles-created",
+        chart_class: "Charts::BoardTilesCreatedChart", starting_interval: "month",
+        data_path: api_charts_path,
+        series_list: ["suggestion_box_created", "explore_created", "client_admin_created"],
+        title: "Tiles Created by Source",
+        subtitle: "",
+        no_data_message: link_to("Post a tile", client_admin_tiles_path) + " to view this graph.",
+        intervals: ["quarter", "month", "week"],
+        chart_template: "stackedBarGraph",
+        series_names: ["Suggestion Box", "Explore", "Created"],
+        color_list: ["#48bfff", "#ffb748", "#4fd4c0"],
+      }
+    }
+    %>
+  </div>
+</div>

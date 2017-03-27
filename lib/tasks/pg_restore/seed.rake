@@ -15,9 +15,42 @@ namespace :pg_restore do
       }
 
       tile_image_ids = tile_images.pluck(:id)
+      tiles_to_update = []
+
+      Demo.airbo.each { |demo|
+        demo.tiles.each { |tile|
+          tiles_to_update << tile.id
+        }
+      }
+
+      #adds images to Take5
+      Demo.find_by_id(222).tiles.each { |tile|
+        tiles_to_update << tile.id
+      }
 
       Tile.explore.each { |tile|
-        ImageProcessJob.new(tile.id, tile_image_ids.sample).perform
+        tiles_to_update << tile.id
+      }
+
+      puts "Updating #{tiles_to_update.uniq.count} Tiles..."
+
+      tiles_to_update.uniq.each { |tile_id|
+        puts "Adding image for Tile #{tile_id}"
+        ImageProcessJob.new(tile_id, tile_image_ids.sample).perform
+      }
+
+      Channel.all.each { |channel|
+        puts "Adding image for Channel #{channel.id}"
+        channel.image = URI.parse(URI.encode("https://unsplash.it/200/400/?random"))
+        channel.save
+      }
+
+      Campaign.all.each { |campaign|
+        puts "Adding image for Campaign #{campaign.id}"
+
+        campaign.cover_image = URI.parse(URI.encode("https://unsplash.it/300/400/?random&blur"))
+
+        campaign.save
       }
     end
   end
