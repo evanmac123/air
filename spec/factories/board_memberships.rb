@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :board_membership do
     demo
-    user
+    user factory: :user
 
     trait :claimed do
       joined_board_at Time.now

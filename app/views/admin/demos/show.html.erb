@@ -78,6 +78,9 @@
       <fieldset>
         <legend>Users</legend>
         <%= render 'user_paginator', :demo => @demo  %>
+        <p>
+        <%=link_to "Bulk User Deletion", admin_demo_bulk_user_deletions_path(@demo)%>
+        </p>
       </fieldset>
     </div>
   </div>

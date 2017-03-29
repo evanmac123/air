@@ -37,5 +37,6 @@
 //= require ./admin/delete_board_modal
 //= require ./admin/explore_digest
 //= require ./admin/channels
+//= require ./admin/bulk_user_deletion_form
 //= require ../../../vendor/assets/javascripts/chosen.jquery.min
 //= require ../../../vendor/assets/javascripts/external/modernizr
