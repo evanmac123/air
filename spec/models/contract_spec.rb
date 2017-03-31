@@ -49,12 +49,12 @@ describe Contract do
 
   it "it changes mrr if arr changes" do
     c = FactoryGirl.create(:contract, :complete, :custom_valid )
-    expect{c.arr=12000}.to change{c.mrr}
+    expect{c.arr=12000;c.save}.to change{c.mrr}
   end
 
   it "it changes arr if mrr changes" do
     c = FactoryGirl.create(:contract, :complete, :custom_valid, arr:nil, mrr:1000 )
-    expect{c.mrr=500}.to change{c.arr}
+    expect{c.mrr=500;c.save}.to change{c.arr}
   end
 
   describe "renew" do
