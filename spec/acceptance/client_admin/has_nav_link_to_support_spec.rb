@@ -13,7 +13,7 @@ feature 'Has nav link to support' do
   # only.
 
   scenario 'with the correct URL' do
-    visit(client_admin_path(as: a_client_admin))
+    visit(client_admin_reporting_path(as: a_client_admin))
 
     within tile_manager_nav do
       expect(page.find(desk_link_selector).text).to eq(desk_link_text)

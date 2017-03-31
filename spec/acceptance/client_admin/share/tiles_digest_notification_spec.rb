@@ -49,9 +49,20 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def create_follow_up_emails
-    @follow_up_1 = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: [1, 2], send_on: Date.new(2013, 7, 1)
-    @follow_up_2 = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: [1, 2], send_on: Date.new(2013, 7, 2)
-    @follow_up_3 = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: [1, 2], send_on: Date.new(2013, 7, 3)
+    digest_1 = TilesDigest.create(demo: user.demo, tile_ids: [1, 2], sender: admin)
+    @follow_up_1 = digest_1.create_follow_up_digest_email(
+      send_on: Date.new(2013, 7, 1)
+    )
+
+    digest_2 = TilesDigest.create(demo: user.demo, tile_ids: [1, 2], sender: admin)
+    @follow_up_1 = digest_2.create_follow_up_digest_email(
+      send_on: Date.new(2013, 7, 2)
+    )
+
+    digest_3 = TilesDigest.create(demo: user.demo, tile_ids: [1, 2], sender: admin)
+    @follow_up_1 = digest_3.create_follow_up_digest_email(
+      send_on: Date.new(2013, 7, 3)
+    )
   end
 
   def expect_tiles_to_send_header
@@ -121,7 +132,7 @@ feature 'Client admin and the digest email for tiles' do
         submit_button.click
         expect_digest_sent_content
         click_link "Activity"
-        should_be_on client_admin_path
+        should_be_on client_admin_reporting_path
       end
 
       scenario "A confirmation message in modal is displayed,

@@ -16,7 +16,7 @@ feature 'Client admin sees basic stats on dashboard' do
 
     it "should include the number of claimed users" do
       #TODO complete this test spec with more assertions about the page
-      visit client_admin_path
+      visit client_admin_reporting_path
       within ".total-users" do
         expect_content "5 Employees Activated"
       end

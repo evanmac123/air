@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe ScheduleDigestAndFollowUp do
   it "schedules digest and follow up" do
-    ScheduleDigestAndFollowUp.any_instance.stubs(:send_digest)
     TrackEvent.stubs(:ping)
     FollowUpDigestEmail.stubs(:create!)
 
@@ -11,14 +10,14 @@ describe ScheduleDigestAndFollowUp do
     expect(instance.demo.unclaimed_users_also_get_digest).to eq(true)
     expect(instance.demo.tile_digest_email_sent_at).to eq(nil)
 
+    TilesDigest.any_instance.expects(:deliver).returns(true)
+
     instance.schedule!
 
     expect(instance.demo.unclaimed_users_also_get_digest).to eq(false)
     expect(instance.demo.tile_digest_email_sent_at).to_not eq(nil)
 
     assert_received(TrackEvent, :ping) { |expect| expect.with('Digest - Sent', anything, anything) }
-    assert_received(ScheduleDigestAndFollowUp.any_instance, :send_digest)
-    assert_received(FollowUpDigestEmail, :create!)
   end
 
   def params

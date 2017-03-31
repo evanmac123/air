@@ -7,8 +7,8 @@ feature 'User must have authorization to see admin pages' do
     end
 
     it "can go to client admin pages" do
-      visit client_admin_path
-      should_be_on client_admin_path
+      visit client_admin_reporting_path
+      should_be_on client_admin_reporting_path
     end
 
     it "can go to site admin pages" do
@@ -28,8 +28,8 @@ feature 'User must have authorization to see admin pages' do
     end
 
     it "can go to client admin pages" do
-      visit client_admin_path
-      should_be_on client_admin_path
+      visit client_admin_reporting_path
+      should_be_on client_admin_reporting_path
     end
 
     it "can't go to site admin pages" do
@@ -50,7 +50,7 @@ feature 'User must have authorization to see admin pages' do
     end
 
     it "can't go to client admin pages" do
-      visit client_admin_path
+      visit client_admin_reporting_path
       should_be_on root_path
     end
 

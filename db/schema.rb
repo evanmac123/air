@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170321220826) do
+ActiveRecord::Schema.define(:version => 20170324212354) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -511,18 +511,15 @@ ActiveRecord::Schema.define(:version => 20170321220826) do
   end
 
   create_table "follow_up_digest_emails", :force => true do |t|
-    t.integer  "demo_id"
-    t.text     "tile_ids"
     t.date     "send_on"
-    t.boolean  "unclaimed_users_also_get_digest"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.string   "original_digest_subject"
-    t.string   "original_digest_headline"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.text     "user_ids_to_deliver_to"
+    t.integer  "tiles_digest_id"
+    t.text     "subject"
   end
 
-  add_index "follow_up_digest_emails", ["demo_id"], :name => "index_follow_up_digest_emails_on_demo_id"
+  add_index "follow_up_digest_emails", ["tiles_digest_id"], :name => "index_follow_up_digest_emails_on_tiles_digest_id"
 
   create_table "former_friendships", :force => true do |t|
     t.integer  "user_id"
@@ -1026,8 +1023,8 @@ ActiveRecord::Schema.define(:version => 20170321220826) do
   end
 
   add_index "tile_completions", ["created_at"], :name => "index_tile_completions_on_created_at"
-  add_index "tile_completions", ["tile_id"], :name => "index_task_suggestions_on_task_id"
-  add_index "tile_completions", ["tile_id"], :name => "index_tile_completions_on_tile_id"
+  add_index "tile_completions", ["tile_id", "user_id", "user_type"], :name => "index_tile_completions_on_tile_id_and_user_id_and_user_type"
+  add_index "tile_completions", ["tile_id", "user_type"], :name => "index_tile_completions_on_tile_id_and_user_type"
   add_index "tile_completions", ["user_id"], :name => "index_task_suggestions_on_user_id"
   add_index "tile_completions", ["user_type"], :name => "index_tile_completions_on_user_type"
 
@@ -1105,7 +1102,8 @@ ActiveRecord::Schema.define(:version => 20170321220826) do
 
   add_index "tile_viewings", ["created_at"], :name => "index_tile_viewings_on_created_at"
   add_index "tile_viewings", ["tile_id", "user_id", "user_type"], :name => "index_tile_viewings_on_tile_and_user", :unique => true
-  add_index "tile_viewings", ["tile_id"], :name => "index_tile_viewings_on_tile_id"
+  add_index "tile_viewings", ["tile_id", "user_type"], :name => "index_tile_viewings_on_tile_id_and_user_type"
+  add_index "tile_viewings", ["user_id"], :name => "index_tile_viewings_on_user_id"
 
   create_table "tiles", :force => true do |t|
     t.integer  "demo_id"
@@ -1170,6 +1168,35 @@ ActiveRecord::Schema.define(:version => 20170321220826) do
   add_index "tiles", ["is_copyable"], :name => "index_tiles_on_is_copyable"
   add_index "tiles", ["is_public"], :name => "index_tiles_on_is_public"
   add_index "tiles", ["status"], :name => "index_tiles_on_status"
+
+  create_table "tiles_digest_tiles", :force => true do |t|
+    t.integer  "tile_id"
+    t.integer  "tiles_digest_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "tiles_digest_tiles", ["tile_id"], :name => "index_tiles_digest_tiles_on_tile_id"
+  add_index "tiles_digest_tiles", ["tiles_digest_id"], :name => "index_tiles_digest_tiles_on_tiles_digest_id"
+
+  create_table "tiles_digests", :force => true do |t|
+    t.integer  "demo_id"
+    t.integer  "sender_id"
+    t.datetime "cutoff_time"
+    t.integer  "recipient_count",         :default => 0
+    t.text     "headline"
+    t.text     "message"
+    t.text     "subject"
+    t.text     "alt_subject"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.boolean  "include_unclaimed_users"
+    t.boolean  "delivered",               :default => false
+    t.boolean  "followup_delivered",      :default => false
+  end
+
+  add_index "tiles_digests", ["demo_id"], :name => "index_tiles_digests_on_demo_id"
+  add_index "tiles_digests", ["sender_id"], :name => "index_tiles_digests_on_sender_id"
 
   create_table "timed_bonus", :force => true do |t|
     t.datetime "expires_at",                    :null => false

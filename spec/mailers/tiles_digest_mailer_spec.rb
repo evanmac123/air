@@ -217,12 +217,11 @@ describe '#notify_all' do
     user = FactoryGirl.create(:user)
     user.add_board(demo)
     user.board_memberships.find_by_demo_id(demo.id).update_attributes(digest_muted: true)
+    user_ids = demo.users.pluck(:id)
 
-    crank_dj_clear
     ActionMailer::Base.deliveries.clear
 
-    TilesDigestMailer.notify_all(demo, true, [], nil, "a custom message", "a subject")
-    crank_dj_clear
+    TilesDigestMailer.notify_all(demo, user_ids, [], nil, "a custom message", "a subject")
 
     expect(ActionMailer::Base.deliveries).to be_empty
   end
@@ -231,6 +230,7 @@ end
 describe '#notify_all_follow_up' do
   it 'should be delivered only to users who did no tiles' do
     demo = FactoryGirl.create :demo
+    sender = FactoryGirl.create(:client_admin, demo: demo)
 
     john   = FactoryGirl.create :claimed_user, demo: demo, name: 'John',   email: 'john@beatles.com'
     paul   = FactoryGirl.create :user,         demo: demo, name: 'Paul',   email: 'paul@beatles.com'
@@ -241,7 +241,9 @@ describe '#notify_all_follow_up' do
     tile_ids = tiles.collect(&:id)
     user_ids = [john, paul, george, ringo].map(&:id)
 
-    follow_up = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: tile_ids, unclaimed_users_also_get_digest: true, send_on: Date.today, user_ids_to_deliver_to: user_ids, original_digest_subject: "Your New Tiles"
+    digest = TilesDigest.create(demo: demo, sender: sender, tile_ids: tile_ids)
+
+    follow_up = digest.create_follow_up_digest_email(send_on: Date.today, user_ids_to_deliver_to: user_ids, subject: "Your New Tiles")
 
     FactoryGirl.create :tile_completion, user: john,  tile: tiles[0]
     FactoryGirl.create :tile_completion, user: john,  tile: tiles[1]
@@ -264,32 +266,42 @@ describe '#notify_all_follow_up' do
 
   it "should not deliver to users who did not get the original digest" do
     demo = FactoryGirl.create(:demo)
+    sender = FactoryGirl.create(:client_admin, demo: demo)
+
     users_to_deliver_to = FactoryGirl.create_list(:user, 2, demo: demo)
     _users_to_not_deliver_to = FactoryGirl.create_list(:user, 2, demo: demo)
 
-    follow_up = FollowUpDigestEmail.create!(demo_id: demo.id, tile_ids: [], send_on: Date.today, unclaimed_users_also_get_digest: true, user_ids_to_deliver_to: users_to_deliver_to.map(&:id))
+    digest = TilesDigest.create(demo: demo, sender: sender, tile_ids: [])
+
+    follow_up = digest.create_follow_up_digest_email(send_on: Date.today, user_ids_to_deliver_to: users_to_deliver_to.map(&:id))
+
     TilesDigestMailer.notify_all_follow_up follow_up.id
-    crank_dj_clear
+
     delivery_addresses = ActionMailer::Base.deliveries.map(&:to).flatten.sort
     expect(delivery_addresses).to eq(users_to_deliver_to.map(&:email).sort)
   end
 
   context "when a custom subject is used in the original" do
     it "should base the subject on that" do
+      sender = FactoryGirl.create(:client_admin)
+
       custom_original_digest_subject = "Et tu, Brute?"
 
       user = FactoryGirl.create(:claimed_user)
       expect(user.email).to be_present
 
       tile = FactoryGirl.create(:tile, demo: user.demo)
-      follow_up = FactoryGirl.create :follow_up_digest_email,
-        demo: user.demo, tile_ids: [tile.id], send_on: Date.today,
-        original_digest_subject: custom_original_digest_subject,
+
+      digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id], subject: custom_original_digest_subject)
+
+      follow_up = digest.create_follow_up_digest_email(
+        send_on: Date.today,
         user_ids_to_deliver_to: [user.id]
+      )
 
       ActionMailer::Base.deliveries.clear
+
       TilesDigestMailer.notify_all_follow_up follow_up.id
-      crank_dj_clear
 
       open_email(user.email)
       expect(current_email.subject).to eq("Don't Miss: #{custom_original_digest_subject}")
@@ -298,38 +310,46 @@ describe '#notify_all_follow_up' do
 
   context "when a custom subject is not used in the original" do
     it "should have a reasonable default" do
-      skip "This needs to be fixed in the before_validation filter of the FollowUpDigestEmail"
+      sender = FactoryGirl.create(:client_admin)
+
       user = FactoryGirl.create(:claimed_user)
       expect(user.email).to be_present
 
       tile = FactoryGirl.create(:tile, demo: user.demo)
 
+      digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id])
 
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo,
-         tile_ids: [tile.id],send_on: Date.today, user_ids_to_deliver_to: [user.id]
+      follow_up = digest.create_follow_up_digest_email(
+        send_on: Date.today,
+        user_ids_to_deliver_to: [user.id],
+      )
 
       ActionMailer::Base.deliveries.clear
       TilesDigestMailer.notify_all_follow_up follow_up.id
-      crank_dj_clear
 
       open_email(user.email)
-      expect(current_email.subject).to eq("Don't Miss Your New Tiles")
+      expect(current_email.subject).to eq("Don't Miss: Your New Tiles")
     end
   end
 
   context "when a custom headline is used in the original" do
     it "should use the same for the followup" do
+      sender = FactoryGirl.create(:client_admin)
+
       user = FactoryGirl.create(:claimed_user)
       expect(user.email).to be_present
 
       tile = FactoryGirl.create(:tile, demo: user.demo)
-      follow_up = FactoryGirl.create :follow_up_digest_email, demo: user.demo,
-        tile_ids: [tile.id],
-        send_on: Date.today, original_digest_headline: 'Kneel before Zod', user_ids_to_deliver_to: [user.id]
+
+      digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id], headline: 'Kneel before Zod')
+
+      follow_up = digest.create_follow_up_digest_email(
+        send_on: Date.today,
+        user_ids_to_deliver_to: [user.id],
+      )
 
       ActionMailer::Base.deliveries.clear
       TilesDigestMailer.notify_all_follow_up follow_up.id
-      crank_dj_clear
 
       open_email(user.email)
       expect(current_email.html_part).to contain('Kneel before Zod')
@@ -339,16 +359,22 @@ describe '#notify_all_follow_up' do
 
   context "when a custom headline is not used in the original" do
     it "should have a reasonable default" do
+      sender = FactoryGirl.create(:client_admin)
+
       user = FactoryGirl.create(:claimed_user)
       expect(user.email).to be_present
 
       tile = FactoryGirl.create(:tile, demo: user.demo)
-      follow_up = FactoryGirl.create :follow_up_digest_email,
-        demo: user.demo, tile_ids: [tile.id], send_on: Date.today, user_ids_to_deliver_to: [user.id]
+
+      digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id])
+
+      follow_up = digest.create_follow_up_digest_email(
+        send_on: Date.today,
+        user_ids_to_deliver_to: [user.id],
+      )
 
       ActionMailer::Base.deliveries.clear
       TilesDigestMailer.notify_all_follow_up follow_up.id
-      crank_dj_clear
 
       open_email(user.email)
       expect(current_email.html_part).to contain("Don't miss your new tiles")
@@ -357,16 +383,21 @@ describe '#notify_all_follow_up' do
   end
 
   it 'should not send to a user with followups muted' do
+    sender = FactoryGirl.create(:client_admin)
     unmuted_user = FactoryGirl.create(:user, :claimed)
     muted_user   = FactoryGirl.create(:user, :claimed)
     followup_board = FactoryGirl.create(:demo)
     [unmuted_user, muted_user].each {|user| user.add_board(followup_board)}
     muted_user.board_memberships.where(demo_id: followup_board.id).first.update_attributes(followup_muted: true)
 
-    follow_up = FactoryGirl.create :follow_up_digest_email, demo: followup_board, tile_ids: [], send_on: Date.today, user_ids_to_deliver_to: [unmuted_user.id, muted_user.id]
+    digest = TilesDigest.create(demo: followup_board, sender: sender, tile_ids: [])
+
+    follow_up = digest.create_follow_up_digest_email(
+      send_on: Date.today,
+      user_ids_to_deliver_to: [unmuted_user.id, muted_user.id],
+    )
 
     TilesDigestMailer.notify_all_follow_up follow_up.id
-    crank_dj_clear
 
     expect(ActionMailer::Base.deliveries.size).to eq(1)
     expect(ActionMailer::Base.deliveries.map(&:to).flatten.first).to eq(unmuted_user.email)

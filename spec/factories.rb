@@ -87,10 +87,6 @@ FactoryGirl.define do
     state 'accepted'
   end
 
-  factory :email_command do
-    status EmailCommand::Status::UNKNOWN_EMAIL
-  end
-
   factory :incoming_sms do
   end
 

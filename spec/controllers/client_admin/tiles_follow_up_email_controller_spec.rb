@@ -5,7 +5,14 @@ describe ClientAdmin::TilesFollowUpEmailController do
     it "should delete follow up email " do
       demo = FactoryGirl.create(:demo)
       client_admin = FactoryGirl.create(:client_admin, demo: demo)
-      followup = FactoryGirl.create :follow_up_digest_email, demo: demo, tile_ids: [1, 2], send_on: Date.new(2013, 7, 1)
+      tile = FactoryGirl.create(:tile, demo: demo)
+      digest = TilesDigest.create(demo: demo, sender: client_admin)
+      digest.tiles << tile
+
+      followup = digest.create_follow_up_digest_email(
+      send_on: Date.new(2013, 7, 1),
+      user_ids_to_deliver_to: [client_admin.id]
+      )
 
       sign_in_as(client_admin)
 

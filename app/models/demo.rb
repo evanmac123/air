@@ -27,7 +27,8 @@ class Demo < ActiveRecord::Base
   has_many :characteristics, :dependent => :delete_all
   has_many :push_messages, dependent: :delete_all
   has_many :acts, dependent: :delete_all
-  has_many :follow_up_digest_emails, dependent: :delete_all
+  has_many :tiles_digests, dependent: :delete_all
+  has_many :follow_up_digest_emails, through: :tiles_digests
 
   has_many :locations, :dependent => :destroy
   has_many :users, through: :board_memberships
@@ -195,12 +196,6 @@ class Demo < ActiveRecord::Base
     tiles.digest(self, cutoff_time)
   end
 
-  #FIXME WTF?  this is idiotic why not rename for the fucking variable OMG!!!!!
-  # Note that 'unclaimed_users_also_get_digest' is a param passed to this method, not the demo's attribute of the same name
-  def users_for_digest(unclaimed_users_also_get_digest)
-    unclaimed_users_also_get_digest ? users : claimed_users
-  end
-
   def claimed_users(excluded_uids: [])
     users.claimed_on_board_membership(self.id, excluded_uids)
   end
@@ -260,7 +255,7 @@ class Demo < ActiveRecord::Base
   end
 
   def reply_email_address(include_name = true)
-    email_name, email_address = if self.email
+    email_name, email_address = if self.email.present?
                     [self.reply_email_name, self.email]
                   else
                     ['Airbo', 'play@ourairbo.com']

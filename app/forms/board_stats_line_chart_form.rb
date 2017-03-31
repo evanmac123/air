@@ -18,6 +18,10 @@
      ['unique_tile_views', 'unique_tile_interactions'] #'total_employee_visits']
    end
 
+   def self.interval_types_select_list
+     ['monthly', 'weekly', 'daily'].collect {|name| [ name.capitalize, name ] }
+   end
+
    def report_interval
      period.time_unit
    end
@@ -36,15 +40,19 @@
    end
 
    def unique_tile_views
-     @new_chart ? "" : @board.tile_viewings.count
+     @board.tiles.sum(:unique_viewings_count)
+   end
+
+   def unique_tile_interactions
+     @board.tiles.sum(:tile_completions_count)
+   end
+
+   def actions_taken
+     @board.tiles.sum(:tile_completions_count) + @board.tiles.sum(:total_viewings_count)
    end
 
    def activations
      @new_chart ? "" : @board.claimed_user_count
-   end
-
-   def actions_taken
-     @board.tile_completions.count + @board.tile_viewings.count
    end
 
    def users_joined
@@ -55,25 +63,23 @@
      @new_chart ? "" : life_time_sessions
    end
 
-   def unique_tile_interactions
-     @new_chart ? "" : @board.tile_completions.count
-   end
-
    def tiles_posted
       @board.tiles.active.count
    end
 
    def user_activation_pct
-     (100.00 * users_joined/@board.users.non_site_admin.count).round(0)
+     if users_joined > 0
+       (100.00 * users_joined/@board.users.non_site_admin.count).round(0)
+     else
+       0
+     end
    end
 
    private
 
-
    def build_null_data
      @plot_data = [0]
    end
-
 
    def series_key
       case action_type
