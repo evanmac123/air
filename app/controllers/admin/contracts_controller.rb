@@ -98,7 +98,7 @@ class Admin::ContractsController < AdminBaseController
 
   def set_parent_org
     if params[:organization_id]
-      @parent_org = Organization.where(id:  params[:organization_id]).first
+      @parent_org = Organization.where(slug:  params[:organization_id]).first
     end
   end
 
