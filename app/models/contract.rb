@@ -211,7 +211,7 @@ class Contract < ActiveRecord::Base
   private
 
   def revenue_changed?
-    changes.keys && ["arr", "mrr"]
+    (changes.keys & ["arr", "mrr"]).any?
   end
 
   def set_revenue
