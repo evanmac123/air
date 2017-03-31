@@ -59,7 +59,7 @@ module CustomResponder
         head :ok, :location => location
       end
     else
-      flash[:notice]= resp
+      flash[:success]= resp
       respond_with(resource, location: location)
     end
   end

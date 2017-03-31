@@ -26,6 +26,37 @@ describe Contract do
     expect(c.valid?).to be_truthy
   end
 
+  it "it should always set mrr if arr is set explicitly" do
+    c = FactoryGirl.create(:contract,:complete, :custom_valid, mrr: nil )
+    expect(c.mrr).to_not be_nil
+  end
+
+  it "it should always set arr if mrr is set explicitly" do
+    c = FactoryGirl.create(:contract,:complete, :custom_valid, mrr: 1000, arr: nil )
+    expect(c.arr).to_not be_nil
+  end
+
+  it "it does not update mrr or arr unless either changes  " do
+    c = FactoryGirl.create(:contract, :complete, :custom_valid )
+    c.name = "renamed"
+    c.start_date = 1.year.ago
+    c.end_date = Date.yesterday
+    c.name = "Herby"
+    c.expects(:mrr=).never
+    c.expects(:arr=).never
+    c.save
+  end
+
+  it "it changes mrr if arr changes" do
+    c = FactoryGirl.create(:contract, :complete, :custom_valid )
+    expect{c.arr=12000;c.save}.to change{c.mrr}
+  end
+
+  it "it changes arr if mrr changes" do
+    c = FactoryGirl.create(:contract, :complete, :custom_valid, arr:nil, mrr:1000 )
+    expect{c.mrr=500;c.save}.to change{c.arr}
+  end
+
   describe "renew" do
 
     it "sets the renewal date on the current contract" do
