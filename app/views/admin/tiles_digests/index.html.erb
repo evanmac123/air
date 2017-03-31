@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="columns small-12">
+    <h3>Tiles Digests</h3>
+  </div>
+</div>
+<% if @tiles_digests.present? %>
+  <div class="row">
+    <div class="columns small-12">
+      <div class="panel">
+        <table class="sortable tablesorter admin-table">
+          <thead>
+            <tr>
+              <th>Board Name</th>
+              <th>Tiles Digest Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @tiles_digests.each do |digest| %>
+              <tr class="resource-row">
+                <td><%= digest[0] %></td>
+                <td><%= digest[1] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>
