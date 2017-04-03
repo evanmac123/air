@@ -21,6 +21,12 @@ describe CopyTile do
       tile = @copy_tile_service.copy_tile(@original_tile, true)
       expect(demo.draft_tiles.first.id).to eq(tile.id)
     end
+
+    it "should set the creation source as :explore" do
+      tile = @copy_tile_service.copy_tile(@original_tile, true)
+
+      expect(tile.creation_source).to eq(:explore_created)
+    end
   end
   #
   # => Helpers

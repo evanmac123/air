@@ -14,6 +14,7 @@ class UserTileBuilderForm < TileBuilderForm
 	def build_tile
 		super
 		tile.user_created = true
+    tile.creation_source = :suggestion_box_created
 	end
 
   def submit_button_text

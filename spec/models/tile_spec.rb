@@ -390,4 +390,55 @@ describe Tile do
       end
     end
   end
+
+  describe "#creation_source" do
+    let(:tile) { FactoryGirl.create(:tile) }
+    context "client_admin" do
+      it "defaults to client_admin_created" do
+        expect(tile.creation_source).to eq(:client_admin_created)
+      end
+
+      it "maps enum 0 to client_admin_created" do
+        res = tile.update_attributes(creation_source: 0)
+
+        expect(res).to be true
+        expect(tile.creation_source).to eq(:client_admin_created)
+      end
+
+      it "accepts :client_admin_created as valid entry" do
+        res = tile.update_attributes(creation_source: :client_admin_created)
+
+        expect(res).to be true
+        expect(tile.creation_source).to eq(:client_admin_created)
+      end
+    end
+
+    context "explore" do
+      it "maps enum 1 to explore_created" do
+        tile.update_attributes(creation_source: 1)
+
+        expect(tile.creation_source).to eq(:explore_created)
+      end
+
+      it "accepts :explore_created as valid entry" do
+        tile.update_attributes(creation_source: :explore_created)
+
+        expect(tile.creation_source).to eq(:explore_created)
+      end
+    end
+
+    context "suggestion_box" do
+      it "maps enum 2 to suggestion_box_created" do
+        tile.update_attributes(creation_source: 2)
+
+        expect(tile.creation_source).to eq(:suggestion_box_created)
+      end
+
+      it "accepts :suggestion_box_created as valid entry" do
+        tile.update_attributes(creation_source: :suggestion_box_created)
+
+        expect(tile.creation_source).to eq(:suggestion_box_created)
+      end
+    end
+  end
 end
