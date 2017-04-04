@@ -1,5 +1,5 @@
 require "spec_helper"
-# FIXME we don't use this form object any more
+# FIXME we don't use this form object any more -- It's actually used for the user_tile_builder_form...
 describe TileBuilderForm do
   let!(:demo) { FactoryGirl.create(:demo) }
   let!(:user) { FactoryGirl.create(:client_admin) }

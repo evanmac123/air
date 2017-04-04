@@ -55,6 +55,7 @@ class CopyTile
     @copy.demo = @new_demo
     @copy.creator = @copying_user
     @copy.position = @copy.find_new_first_position
+    @copy.creation_source = :explore_created
   end
 
   def mark_tile_as_copied_by_user

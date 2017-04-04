@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170324212354) do
+ActiveRecord::Schema.define(:version => 20170403190010) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1159,6 +1159,7 @@ ActiveRecord::Schema.define(:version => 20170324212354) do
     t.boolean  "use_old_line_break_css",  :default => false
     t.text     "embed_video",             :default => "",    :null => false
     t.string   "media_source"
+    t.integer  "creation_source_cd",      :default => 0
   end
 
   add_index "tiles", ["activated_at"], :name => "index_tiles_on_activated_at"

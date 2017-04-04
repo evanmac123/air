@@ -26,6 +26,7 @@ feature 'Creates draft tile' do
       expect(page).to  have_content "Ten pounds of cheese"
       expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?"
       expect(page).to  have_content "Who rules?"
+      expect(Tile.last.creation_source).to eq(:suggestion_box_created)
     end
   end
 

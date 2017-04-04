@@ -82,6 +82,7 @@ gem 'airbrake', '~> 5.4'
 gem 'searchkick'
 gem 'searchjoy'
 gem 'rolify'
+gem 'simple_enum', '~> 1.6.9'
 #
 # Gems used only for assets and not required
 # in production environments by default.

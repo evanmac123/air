@@ -34,6 +34,9 @@ class Tile < ActiveRecord::Base
 
   acts_as_taggable_on :channels
 
+  #enum column: creation_source_cd
+  as_enum :creation_source, client_admin_created: 0, explore_created: 1, suggestion_box_created: 2
+
   belongs_to :demo
   belongs_to :creator, class_name: 'User'
   belongs_to :original_creator, class_name: 'User'
