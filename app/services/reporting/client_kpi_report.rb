@@ -62,21 +62,6 @@ module Reporting
           "average_tiles_created_from_scratch_per_org_that_created",
         ],
 
-        "Tile Media Source" => [
-          "tiles_with_image_search", 
-          "tiles_with_image_upload",
-          "tiles_with_video_upload"
-        ]
-        #"Engagement" => [
-          #"percent_joined_current",
-          #"percent_joined_30_days",
-          #"percent_joined_60_days",
-          #"percent_joined_120_days",
-          #"percent_retained_post_activation_30_days",
-          #"percent_retained_post_activation_60_days",
-          #"percent_retained_post_activation_120_days"
-        #],
-
       }
     end
 
