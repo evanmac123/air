@@ -9,7 +9,7 @@
   <td class="user-name">
     <%= link_to single_friend.name[0,max_name_length], user_path(single_friend) %>
   </td>
-  <%if @demo.live_raffle.present?%>
+  <%if @demo && @demo.live_raffle.present?%>
     <td class="user-tickets">
       <%= single_friend.tickets %>
     </td>

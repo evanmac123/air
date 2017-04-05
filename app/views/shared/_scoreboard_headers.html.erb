@@ -14,7 +14,7 @@
     <div id="sort_by_first_name"></div>
   </div>
 
-  <%if @demo.live_raffle.present?%>
+  <%if @demo and  @demo.live_raffle.present?%>
     <div class="<%= points_active %>" id="userlevel_header">
       <div class="inline small_cap">Tickets</div>
       <div id="sort_by_points"></div>
