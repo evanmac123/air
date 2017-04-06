@@ -1,0 +1,25 @@
+<%
+  if controller.controller_name == "users"
+    name_active = 'active'
+  else
+    points_active = 'active'
+  end
+%>
+
+<!-- scoreboard_headers are 'relative' for ie7
+-->
+<div class="relative" id="scoreboard_headers">
+  <div class="<%= name_active %>" id="username_header">
+    <div class="inline small_cap">Name</div>
+    <div id="sort_by_first_name"></div>
+  </div>
+
+  <%if @demo and  @demo.live_raffle.present?%>
+    <div class="<%= points_active %>" id="userlevel_header">
+      <div class="inline small_cap">Tickets</div>
+      <div id="sort_by_points"></div>
+    </div>
+    <div id="userprogress_header"></div>
+  <%end%>
+</div>
+

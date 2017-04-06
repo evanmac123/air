@@ -14,6 +14,7 @@ class Demo < ActiveRecord::Base
   has_one :claim_state_machine, dependent: :delete
   has_one :custom_invitation_email, dependent: :delete
   has_one :raffle, dependent: :delete
+  has_one :live_raffle, class_name: "Raffle", conditions: "status = '#{Raffle::LIVE}' and starts_at <= '#{Time.zone.now.to_time}'"
   has_one :custom_color_palette, dependent: :delete
 
   # NOTE m_tiles is an unfortunate hack to compensate for shitty code implementation of MultipleChoiceTile
