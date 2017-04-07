@@ -30,6 +30,7 @@ gem 'google_drive'
 gem 'time_difference'
 gem 'cache_digests'
 gem 'activerecord-collection_cache_key'
+gem 'groupdate'
 
 gem 'jquery-rails'
 gem 'jquery-validation-rails'

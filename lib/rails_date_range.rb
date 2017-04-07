@@ -9,7 +9,7 @@ class RailsDateRange < Range
     foo_compare = self.exclude_end? ? :< : :<=
 
     arr = []
-    while c_date.send( foo_compare, finish_time) do 
+    while c_date.send( foo_compare, finish_time) do
       arr << c_date
       c_date = c_date.advance(step)
     end

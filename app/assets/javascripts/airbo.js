@@ -1,5 +1,3 @@
-
-
 var Airbo = {
   init:  function(){
 
@@ -44,6 +42,11 @@ var Airbo = {
 
     supportsFeatureByPresenceOfSelector: function(identifier){
       return $(identifier).length > 0;
+    },
+
+    //replicating above so we can move to shorter version below
+    nodePresent: function(node) {
+      return $(node).length > 0;
     },
 
     isOldIE: function(){

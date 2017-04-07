@@ -1,1 +1,1 @@
-//= require ../../../vendor/assets/javascripts/highcharts.js
+//= require_tree ../../../vendor/assets/javascripts/highcharts

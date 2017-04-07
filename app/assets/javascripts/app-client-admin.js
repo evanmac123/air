@@ -3,8 +3,8 @@
 //= require_tree ./explore
 //= require_tree ../../../vendor/assets/javascripts/external/
 
-//= require highcharts/highcharts
-//= require highcharts/modules/exporting
+//= require_tree ../../../vendor/assets/javascripts/highcharts
+//= require vendor_customization/highcharts
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.payment
 //= require ../../../vendor/assets/javascripts/client_admin/jquery-dialog.min

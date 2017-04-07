@@ -1,3 +1,0 @@
-class BoardStatsChart < LineChartBuilder
-
-end

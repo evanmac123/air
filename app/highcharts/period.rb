@@ -9,6 +9,10 @@ class Period
 
   def point_interval
     case @interval_type
+    when 'yearly'
+      1.year
+    when 'quarterly'
+      3.months
     when 'monthly'
       1.month
     when 'weekly'
@@ -21,7 +25,10 @@ class Period
   end
 
   def point_interval_unit
-    if @interval_type == 'monthly'
+    case @interval_type
+    when 'yearly'
+      "year"
+    when 'monthly'
       "month"
     else
       nil
@@ -30,6 +37,10 @@ class Period
 
   def time_unit
     case @interval_type
+    when 'yearly'
+      "year"
+    when 'quarterly'
+      "quarter"
     when 'monthly'
       "month"
     when 'weekly'
@@ -87,6 +98,10 @@ class Period
       if time_unit == 'week'
         date.send(:"beginning_of_#{time_unit}")
       elsif time_unit == 'month'
+        date.send(:"beginning_of_#{time_unit}")
+      elsif time_unit == 'quarter'
+        date.send(:"beginning_of_#{time_unit}")
+      elsif time_unit == 'year'
         date.send(:"beginning_of_#{time_unit}")
       else
         date

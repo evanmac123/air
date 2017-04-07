@@ -50,6 +50,8 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do |example|
+    ApplicationController.any_instance.stubs(:set_eager_caches).returns(true)
+
     Mixpanel::Tracker.stubs(:new).with(MIXPANEL_TOKEN, Mocha::ParameterMatchers::KindOf.new(Hash)).returns(FakeMixpanelTracker)
     FakeMixpanelTracker.clear_tracked_events
     path = example.metadata[:example_group][:file_path]

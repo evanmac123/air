@@ -1,0 +1,17 @@
+<%= render partial: 'client_admin/reports/charts/chart_base',
+  locals: { opts:
+    {
+      chart_id: "board-grouped-tile-activity",
+      chart_class: "Charts::BoardGroupedTileActivityChart", starting_interval: "month",
+      data_path: api_charts_path,
+      series_list: ["total_tile_interactions", "unique_tile_views", "total_tile_views"],
+      title: "Tile Participation",
+      subtitle: "Number of employees that viewed Tiles and interacted with them. If Total Views is higher than Unique Views, it means that some employees viewed Tiles multiple times.",
+      no_data_message: nil,
+      intervals: ["quarter", "month", "week"],
+      chart_template: "groupedBarGraph",
+      series_names: ["Interactions", "Unique Views", "Total Views"],
+      color_list: ["#4fd4c0", "#ffb748", "#b6a9f1"],
+    }
+  }
+%>

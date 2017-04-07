@@ -2,14 +2,7 @@ namespace :client_admin do
   resource :segmentation
   resources :tile_previews, only: [:show]
 
-  resource :reporting, only: [:show]
-  resource :board_stats_chart, only: [:show]
-
-  resources :board_stats_grids, :only => [:index] do
-    collection do
-      get 'new_completions_count'
-    end
-  end
+  resource :reports, only: [:show]
 
   resources :users, only: [:index, :create, :edit, :update, :destroy] do
     resource :invitation, :only => :create

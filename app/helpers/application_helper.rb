@@ -1,6 +1,18 @@
 module ApplicationHelper
   include Mobvious::Rails::Helper
 
+  def current_demo_id
+    current_user.demo_id
+  end
+
+  def current_demo
+    current_user.demo
+  end
+
+  def current_demo_created_at
+    current_demo.try(:created_at)
+  end
+
   def get_navbar_link_class(path)
     return "active" if request.path == path
   end

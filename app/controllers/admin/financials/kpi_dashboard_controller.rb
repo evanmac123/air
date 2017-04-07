@@ -6,6 +6,7 @@ class Admin::Financials::KpiDashboardController < AdminBaseController
     @table_data = @rep.get_data_by_date_and_interval @sdate,@edate, params[:interval] || Metrics::WEEKLY
     @dates = @table_data["from_date"]["values"] || []
     @totals= FinancialsReporterService.totals
+
     if request.xhr?
       #render json: {totals: @totals, tableData: @table_data}
       render partial: "table_with_chart_data"
@@ -23,4 +24,3 @@ class Admin::Financials::KpiDashboardController < AdminBaseController
 
 
 end
-

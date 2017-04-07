@@ -14,7 +14,7 @@ feature 'Client Admin navigates site with tile manager navbar' do
       'Edit'   => "client_admin_tiles_path",
       'Preview'   => "activity_path",
       'Share' => 'client_admin_share_path',
-      'Activity' => 'client_admin_reporting_path',
+      'Reports' => 'client_admin_reports_path',
       'Prizes' => 'client_admin_prizes_path',
       'Users' => 'client_admin_users_path'
     }.each do |link_text, page_path_code|
