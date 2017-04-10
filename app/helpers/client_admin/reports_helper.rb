@@ -18,7 +18,7 @@ module ClientAdmin::ReportsHelper
   private
 
     def demo_launch
-      current_demo.launch_date.try(:to_time) || current_demo.created_at
+      current_demo.created_at
     end
 
     def past_twelve_months
