@@ -21,23 +21,23 @@ class Query::BoardUniqueLoginActivity < Query::BoardQuery
   def jql_script
     %Q|
     function timeBucket() {
-      if (\"#{time_unit}\" == \"quarter\") {
+      if ("#{time_unit}" == "quarter") {
         return mixpanel.quarterly_time_buckets;
-      } else if (\"#{time_unit}\" == \"month\") {
+      } else if ("#{time_unit}" == "month") {
         return mixpanel.monthly_time_buckets;
-      } else if (\"#{time_unit}\" == \"week\") {
+      } else if ("#{time_unit}" == "week") {
         return mixpanel.weekly_time_buckets;
         }
       }
 
       function main() {
         return Events({
-          from_date: \"#{start_date}\",
-          to_date: \"#{end_date}\",
+          from_date: "#{start_date}",
+          to_date: "#{end_date}",
           event_selectors: [
             {
-              event: \"Activity Session - New\",
-              selector: 'properties[\"game\"] == ' + #{board.id}
+              event: "Activity Session - New",
+              selector: 'properties["game"] == #{board.id} and properties["user_type"] != "site admin" and properties["user_type"] != "guest"'
             }
           ]
         })
