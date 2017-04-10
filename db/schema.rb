@@ -107,13 +107,6 @@ ActiveRecord::Schema.define(:version => 20170403190010) do
     t.integer  "organization_id"
   end
 
-  create_table "blacklists", :force => true do |t|
-    t.integer  "raffle_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "board_memberships", :force => true do |t|
     t.boolean  "is_current",                       :default => true
     t.boolean  "is_client_admin",                  :default => false
@@ -495,13 +488,6 @@ ActiveRecord::Schema.define(:version => 20170403190010) do
     t.string   "source"
   end
 
-  create_table "experiments", :force => true do |t|
-    t.string   "name"
-    t.integer  "counter",    :default => 0
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-  end
-
   create_table "explore_digests", :force => true do |t|
     t.boolean  "approved",     :default => false
     t.datetime "created_at",                      :null => false
@@ -839,13 +825,6 @@ ActiveRecord::Schema.define(:version => 20170403190010) do
     t.string   "segment_query_columns"
     t.string   "segment_query_operators"
     t.string   "segment_query_values"
-  end
-
-  create_table "raffle_winners", :force => true do |t|
-    t.integer  "raffle_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "raffles", :force => true do |t|
@@ -1467,17 +1446,6 @@ ActiveRecord::Schema.define(:version => 20170403190010) do
   add_index "users", ["spouse_id"], :name => "index_users_on_spouse_id"
   add_index "users", ["ssn_hash"], :name => "index_users_on_ssn_hash"
   add_index "users", ["zip_code"], :name => "index_users_on_zip_code"
-
-  create_table "users_in_raffles", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "raffle_id"
-    t.boolean  "start_showed"
-    t.boolean  "finish_showed"
-    t.boolean  "in_blacklist"
-    t.boolean  "is_winner"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
 
   create_table "users_roles", :id => false, :force => true do |t|
     t.integer "user_id"
