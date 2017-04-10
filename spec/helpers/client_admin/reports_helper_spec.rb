@@ -24,16 +24,7 @@ describe ClientAdmin::ReportsHelper do
   end
 
   describe "#demo_launch" do
-    it "returns Demo.launch_date.to_time if launch_date" do
-      Timecop.freeze(Time.now)
-      demo = FactoryGirl.build(:demo, launch_date: 1.year.ago)
-
-      helper.stubs(:current_demo).returns(demo)
-
-      expect(helper.send(:demo_launch)).to eq(1.year.ago)
-    end
-
-    it "return Demo.created_at if no launch date" do
+    it "returns Demo.created_at" do
       Timecop.freeze(Time.now)
       demo = FactoryGirl.create(:demo)
 
