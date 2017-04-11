@@ -47,7 +47,7 @@ Airbo.Utils.Highcharts.Tooltip = (function(){
     var body = "";
     var percentColumnType = $chart.data("tooltipPercentColumnType");
 
-    $.each(data.points, function(i, pointData) {
+    $.each(data.points.reverse(), function(i, pointData) {
       body += tooltipTableRow(pointData, "point", percentColumnType);
     });
 

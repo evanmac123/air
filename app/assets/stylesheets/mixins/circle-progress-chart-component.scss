@@ -1,0 +1,45 @@
+@mixin circle-progress-chart-component($fill-color, $label-color) {
+  .circle-chart-block-grid-container {
+    padding: 20px 0;
+    margin:auto;
+  }
+
+  .circle-progress-chart-wrapper {
+    position: relative;
+    min-height: 140px;
+    .circle-progress-chart {
+      width: 140px;
+      margin: auto;
+    }
+    .label-container {
+      width:100%;
+      position: absolute;
+      top: 31%;
+      text-align: center;
+      &.no-graphic {
+        top: 24.5%;
+        .num {
+          font-size: 32px;
+        }
+      }
+      .num {
+        font-size: 23px;
+        font-weight: bold;
+        color: $label-color;
+      }
+      .divider {
+        height:1px;
+        background-color:$fill-color;
+        border-bottom:1px solid $fill-color;
+        width: 62px;
+        margin: 12px auto;
+      }
+      .label {
+        font-weight: 300;
+        color: $label-color;
+        margin-top: 13px;
+        font-size: 14px;
+      }
+    }
+  }
+}

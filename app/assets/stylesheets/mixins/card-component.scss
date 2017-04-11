@@ -1,4 +1,4 @@
-@mixin card-component($header-background-color, $border-color ) {
+@mixin card-component($header-background-color, $border-color, $default-header-content-height: 212px) {
   .card-component {
     border: solid 1px $border-color;
     overflow: hidden;
@@ -17,6 +17,7 @@
       }
       .card-header-content {
         padding: 16px;
+        min-height: $default-header-content-height;
       }
     }
     .card-body {

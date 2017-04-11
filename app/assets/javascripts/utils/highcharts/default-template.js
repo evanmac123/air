@@ -10,8 +10,23 @@ Airbo.Utils.Highcharts.defaultTemplate = function($chart){
   return {
     chart: {
       type: 'line',
-      height: 450,
+      height: 460,
+      marginTop: 100,
       spacingBottom: 60
+    },
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxWidth: 768
+          },
+          chartOptions: {
+            subtitle: {
+              text: null
+            }
+          }
+        }
+      ]
     },
     loading: {
       style: {
@@ -19,17 +34,31 @@ Airbo.Utils.Highcharts.defaultTemplate = function($chart){
       }
     },
     exporting: {
-      enabled: false
+      enabled: false,
+      buttons: {
+        contextButton: {
+          menuItems: null,
+          onclick: function () {
+            this.exportChart();
+          }
+        }
+      }
     },
     title: {
       text: $chart.data("title"),
       align: "left",
-      style: { "color": $chart.data("chartHeaderColor"), "font-weight": "bold", "padding-bottom": "15px" }
+      style: {
+        color: $chart.data("chartHeaderColor"),
+        fontWeight: "bold"
+      }
     },
     subtitle: {
       text: $chart.data("subtitle"),
       align: "left",
-      style: { "color": $chart.data("chartSubHeaderColor"), "font-size": "16px", "padding-bottom": "15px", "margin": "0" }
+      style: {
+        color: $chart.data("chartSubHeaderColor"),
+        fontSize: "16px"
+      }
     },
     xAxis: {
       type: 'datetime',

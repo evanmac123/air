@@ -5,14 +5,14 @@
       {
         chart_id: "board-cumulative-login-activity",
         chart_class: "Charts::BoardUniqueLoginActivityDigestsChart", starting_interval: "month",
-        data_path: api_charts_path,
+        data_path: api_client_admin_charts_path,
         series_list: ["cumulative_login_activity", "cumulative_digests_sent"],
         title: "Cumulative User Logins To Date",
-        subtitle: "Illustrates monthly growth in Users that you've engaged year to date.",
+        subtitle: "Overall user growth and total Tile Emails sent.",
         no_data_message: nil,
         intervals: ["quarter", "month", "week"],
         chart_template: "loginActivityTilesDigest",
-        series_names: ["Total Logins", "Tiles Digests Sent"],
+        series_names: ["Total Logins", "Tile Emails Sent"],
         color_list: ["#48bfff", "#33445c"],
         chart_types: ["line", "column"]
       }

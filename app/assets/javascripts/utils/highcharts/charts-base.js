@@ -19,7 +19,7 @@ Airbo.Utils.HighchartsBase = (function(){
   }
 
   function loadingContent() {
-    return '<i class="app-load-wheel fa fa-2x fa-spinner fa-spin fa-fw"></i>';
+    return '<i class="fa fa-2x fa-spinner fa-spin fa-fw"></i>';
   }
 
   function noDataMessage($chart) {

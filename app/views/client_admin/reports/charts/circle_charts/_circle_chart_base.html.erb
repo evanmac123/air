@@ -1,0 +1,8 @@
+<div id="<%= opts[:id]%>-wrapper" class="circle-progress-chart-wrapper data-container" data-target="#<%= opts[:id] %>" data-report-attribute="<%= opts[:report_attribute] %>" data-number-format="<%= opts[:num_class] %>" data-show-graph="<%= opts[:show_graph] %>" data-graph-fill-percent="<%= opts[:graph_fill_percent] %>" data-graph-color="<%= opts[:color] %>">
+  <div class="circle-progress-chart" id="<%= opts[:id] %>" data-color="<%= opts[:color] %>"></div>
+  <div class="label-container <%= opts[:label_class] %>">
+    <div class="num <%= opts[:num_class] %>"><%= opts[:placeholder] %></div>
+    <div class="divider" style="background-color:<%= opts[:color] %>; border-color:<%= opts[:color] %>"></div>
+    <div class="label"><%= opts[:metric] %></div>
+  </div>
+</div>

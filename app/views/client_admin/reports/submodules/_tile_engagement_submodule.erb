@@ -1,0 +1,12 @@
+<%= render partial: "client_admin/reports/submodules/submodule_base", locals: {
+  opts: {
+    id: "tile-engagement-submodule",
+    path: api_client_admin_reports_path,
+    report: "Reports::TileEngagementBoardReport",
+    partials: [
+      'client_admin/reports/charts/circle_charts/interactions_circle_chart',
+      'client_admin/reports/charts/circle_charts/unique_views_circle_chart',
+      'client_admin/reports/charts/circle_charts/total_views_circle_chart'
+    ]
+  }
+} %>
