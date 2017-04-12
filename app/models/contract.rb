@@ -161,8 +161,8 @@ class Contract < ActiveRecord::Base
   end
 
   def renew
-    self.renewed_on = Date.today
     dup = self.dup
+    self.renewed_on = Date.today
     dup.start_date = end_date.advance(days:1)
     dup.end_date = new_end_date(end_date)
     dup.date_booked = dup.start_date
