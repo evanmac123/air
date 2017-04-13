@@ -1,4 +1,4 @@
 class Admin::ReferenceController < AdminBaseController
-  def style_guide
+  def styleguide
   end
 end

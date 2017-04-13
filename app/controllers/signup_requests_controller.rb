@@ -5,10 +5,13 @@ class SignupRequestsController < ApplicationController
     lead_contact = LeadContact.new(lead_contact_params)
 
     if user_valid(lead_contact) && lead_contact.save
-      redirect_to root_path(signup_request: true)
+      flash[:success] = "Thanks for signing up! Someone from our team will reach out to you in the next 24 hours to get you set up."
+      redirect_to root_path
     else
       LeadContactNotifier.duplicate_signup_request(lead_contact).deliver
-      redirect_to root_path(failed_signup_request: true)
+
+      flash[:info] = "An Airbo account has already been requested with your email or phone number. Someone from our team will reach out to you shortly."
+      redirect_to root_path
     end
   end
 

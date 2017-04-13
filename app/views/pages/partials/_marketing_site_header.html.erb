@@ -1,0 +1,13 @@
+<header class="marketing-site-header">
+  <a href="#" class="logo"><%= image_tag("marketing_site/logo.svg", alt: "Airbo") %></a>
+  <nav class="menu">
+    <ul>
+      <li class="active"><%= link_to "Home", "#" %></li>
+      <li><%= link_to "Explore", explore_path %></a></li>
+      <li><%= link_to "Case Studies", case_studies_path %></a></li>
+      <li class="item-demo"><%= link_to "Request Demo", new_demo_request_path %></a></li>
+      <li><%= link_to "Sign In", sign_in_path %></li>
+    </ul>
+  </nav>
+	<button class="btn-menu"><span></span><span></span><span></span></button>
+</header>

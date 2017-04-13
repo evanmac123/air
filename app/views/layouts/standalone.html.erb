@@ -13,7 +13,6 @@
     <%= javascript_include_tag 'app-landing' %>
     <%= stylesheet_link_tag 'app-landing' %>
 
-    <%= render 'pages/optimizely_marketing' %>
     <%= render "shared/opengraph_meta_tags" %>
     <%= render 'shared/mixpanel' %>
 
@@ -31,7 +30,6 @@
 
   </head>
   <body class="<%= body_pages_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
-    <%= render 'pages/qualaroo_marketing' %>
     <%= render 'shared/flashes' %>
 
     <%= yield %>

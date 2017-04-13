@@ -14,12 +14,10 @@
 //= require ./external/category
 //= require ./external/marketing_page_pings
 //= require ./external/marketing_page
-//= require ./external/marketing_page_modals
 //= require ./external/signup_requests
 
 $(function(){
   $(document).foundation();
   Airbo.MarketingPagePings.init();
   Airbo.MarketingPage.init();
-  Airbo.LandingModals.init();
 });

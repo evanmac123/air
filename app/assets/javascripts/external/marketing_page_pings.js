@@ -48,3 +48,9 @@ Airbo.MarketingPagePings = (function(){
     demoRequestPings: demoRequestPings
   };
 }());
+
+$(function(){
+  if (Airbo.Utils.nodePresent(".pages-home")) {
+    Airbo.MarketingPagePings.init();
+  }
+});

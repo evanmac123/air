@@ -1,0 +1,43 @@
+<div class="feature-group ft-topics" id="ipnav-topics">
+  <div class="feature-head">
+    <h2><%= t('.header') %></h2>
+    <h5><%= t('.subheader') %></h5>
+  </div>
+  <ul class="topics">
+    <li class="topic-biometric"><p><strong><%= t('.topic1') %></strong></p></li>
+    <li class="topic-health"><p><strong><%= t('.topic2') %></strong></p></li>
+    <li class="topic-wellness"><p><strong><%= t('.topic3') %></strong></p></li>
+    <li class="topic-enrollment"><p><strong><%= t('.topic4') %></strong></p></li>
+    <li class="topic-benefit"><p><strong><%= t('.topic5') %></strong></p></li>
+    <li class="topic-financial"><p><strong><%= t('.topic6') %></strong></p></li>
+    <li class="topic-recruiting"><p><strong><%= t('.topic7') %></strong></p></li>
+    <li class="topic-onboarding"><p><strong><%= t('.topic8') %></strong></p></li>
+    <li class="topic-announcement"><p><strong><%= t('.topic9') %></strong></p></li>
+    <li class="topic-compliance"><p><strong><%= t('.topic10') %></strong></p></li>
+    <li class="topic-drug"><p><strong><%= t('.topic11') %></strong></p></li>
+    <li class="topic-holiday"><p><strong><%= t('.topic12') %></strong></p></li>
+  </ul>
+  <div class="wrap">
+    <div class="left">
+      <ul class="ft-lists ft-type-board">
+        <% [*1..6].each do |num| %>
+          <li>
+            <div>
+              <h4><%= t(".topic_value_header#{num}") %></h4>
+              <p><%= t(".topic_value_subheader#{num}") %></p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="right">
+      <blockquote class="promo-quote">
+        <p><%= t('.promo_quote') %></p>
+        <cite>
+          <%= image_tag("marketing_site/logo_thumbnails/constangy.jpg", alt: "Constangy") %>
+          <%= t('.promo_quote_cite_html') %>
+        </cite>
+      </blockquote>
+    </div>
+  </div>
+</div>

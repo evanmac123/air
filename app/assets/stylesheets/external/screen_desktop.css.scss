@@ -1,7 +1,7 @@
-// ================== General Marketing styles ================== 
+// ================== General Marketing styles ==================
 body .row {max-width:70em;}
 
-// ================== Header ================== 
+// ================== Header ==================
 header {
   .contain-to-grid {padding:.5em 0;}
   nav.top-bar {
@@ -31,10 +31,10 @@ header {
         padding:.35em 0 0 1em;
       }
     }
-  } 
+  }
 }
 
-// ================== Homepage ================== 
+// ================== Homepage ==================
 
 // ****** Any Objectives ******
 #any_objective {
@@ -50,23 +50,10 @@ header {
   #objectives_right {top:10em;}
 }
 
-// ****** Build tiles fast ******
-#fast_tiles .row {
-  background:image-url('marketing/more_info/tile.png') no-repeat 87% bottom;
-  background-size:246px 300px;
-  .text_container {padding-top:4%;}
-  .arrow {
-    display:block;
-    position: absolute;
-    bottom:7%;
-    left:90%;
-  }
-}
-
 // ****** Trigger engagement ******
 #engagement .text_container {padding-top:7%;}
 
-// ================== Case studies ================== 
+// ================== Case studies ==================
 .case_study_title {
   padding-top:2em;
 }
@@ -86,7 +73,7 @@ header {
 }
 
 
-// ================== Pricing page ================== 
+// ================== Pricing page ==================
 @mixin help_bubble {
   border:1px $light-gray solid;
   color:$light-gray;
@@ -187,7 +174,7 @@ header {
       line-height: 1.25em;
       padding-top:1em;
       span.label {display: none;}
-    } 
+    }
   }
   .feature_labels li, .an_offering li.plan_details {min-height:53px;}
 }
@@ -225,10 +212,10 @@ header {
   .push_messaging:hover:after {
     content:"Sending emails and text messages to specific segments of the User population. Enterprise pricing includes up to 4 push messages a month for up to 5 audiences. Custom quotes for more complicated use cases are available.";
   }
-} 
+}
 .an_offering.basic_plan, .an_offering.business_plan {
   li.plan_details.additional_features {display: block; z-index: -1;}
-} 
+}
 
 /* ================== Invitation acceptance ==================  */
 .helper {

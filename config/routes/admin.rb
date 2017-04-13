@@ -49,7 +49,7 @@ namespace :admin do
   end
 
   namespace :reference do
-    get "style_guide"
+    get "styleguide"
   end
 
   resources :billings

@@ -107,3 +107,9 @@ Airbo.MarketingPage = (function(){
   };
 
 }());
+
+$(function(){
+  if (Airbo.Utils.nodePresent(".pages-home")) {
+    Airbo.MarketingPage.init();
+  }
+});

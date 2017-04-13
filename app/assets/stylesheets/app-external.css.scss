@@ -19,14 +19,12 @@
 @import "./external/more_info/hero.css.scss";
 @import "./external/more_info/tiles_detail.css.scss";
 @import "./external/more_info/_any_objective.css.scss";
-@import "./external/more_info/build_fast.css.scss";
 @import "./external/more_info/reach_people.css.scss"; // list for Deployment in here too
 @import "./external/more_info/target_influence.css.scss";
 @import "./external/more_info/biz_built.css.scss";
 
 @import "./external/_case_study.css.scss";
 @import "./external/_request_demo.css.scss";
-@import "./external/_footer.css.scss";
 @import "./external/_customer_tile.css.scss";
 
 /* External signup-login process pages */
@@ -43,7 +41,6 @@
 /* RWD */
 @media only screen and (min-width: $foundation) {
 	@import "./external/screen_medium.css.scss";
-	@import "./external/more_info/general_moreinfo.css.scss";
 }
 @media only screen and (min-width: $mid-desktop) {
 	@import "./external/screen_desktop.css.scss";

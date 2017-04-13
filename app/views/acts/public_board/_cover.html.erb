@@ -1,4 +1,13 @@
-<%= render partial: "pages/landing/hero_board", locals:{name: @demo.name, img_url: @demo.cover_image.url}%>
+<section class="board_hero_section" style="background-image: url(<%= @demo.cover_image.url %>);">
+  <div class="hero-mask"></div>
+  <div class="vertical_middle">
+    <div class="row">
+      <div class="large-8 large-centered columns">
+        <h1 class="text-center white"><%= @demo.name %></h1>
+      </div>
+    </div>
+  </div>
+</section>
 <section>
     <div class="row">
       <div class="large-8 large-centered columns">
@@ -7,5 +16,3 @@
       </div>
     </div>
 </section>
-
-

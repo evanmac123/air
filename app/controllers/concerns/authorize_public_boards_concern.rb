@@ -10,7 +10,7 @@ module AuthorizePublicBoardsConcern
   def authorize!
     unless skip_authorize_for_public
       if params[:public_slug] && !current_user
-        render 'shared/public_board_not_found', layout: 'external_marketing'
+        render 'shared/public_board_not_found', layout: 'public_board_not_found'
       else
         require_login
       end

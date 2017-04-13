@@ -26,7 +26,6 @@ task :update_historical_digests => :environment do
   }
 end
 
-
 task :update_follow_ups => :environment do
   jql_script = %Q|function main() { return Events({ from_date: "2013-03-05", to_date: "2017-04-25", event_selectors: [{ event: "Digest - Sent", selector: `properties["followup_scheduled"] == true` }] }).groupBy(["properties.game",mixpanel.numeric_bucket('time',mixpanel.daily_time_buckets)],mixpanel.reducer.count());}|
 
