@@ -116,7 +116,6 @@ class Organization < ActiveRecord::Base
   end
 
   def added_during_period sdate, edate
-    binding.pry
     has_start_and_end && customer_start_date >= sdate && customer_start_date <= edate
   end
 
