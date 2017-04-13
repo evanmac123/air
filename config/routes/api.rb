@@ -1,5 +1,9 @@
 namespace :api, defaults: { format: :json } do
-  resource :charts, only: [:show]
+
+  namespace :client_admin do
+    resource :charts, only: [:show]
+    resource :reports, only: [:show]
+  end
 
   namespace :v1 do
     resources :user_onboardings, only: [:update]

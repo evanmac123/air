@@ -5,7 +5,7 @@
         {
           chart_id: "board-unique-tile-completions",
           chart_class: "Charts::BoardUniqueTileCompletionsChart", starting_interval: "month",
-          data_path: api_charts_path,
+          data_path: api_client_admin_charts_path,
           series_list: ["primary_data"],
           title: "Total Completions",
           no_data_message: nil,
@@ -20,7 +20,7 @@
         {
           chart_id: "board-unique-tile-completions-cum",
           chart_class: "Charts::BoardUniqueTileCompletionsChart", starting_interval: "month",
-          data_path: api_charts_path,
+          data_path: api_client_admin_charts_path,
           series_list: ["cumulative_data"],
           title: "Total Completions",
           no_data_message: nil,

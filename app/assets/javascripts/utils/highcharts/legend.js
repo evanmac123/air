@@ -9,7 +9,7 @@ Airbo.Utils.Highcharts.Legend = (function(){
       enabled: true,
       verticalAlign: 'bottom',
       align:'left',
-      floating: true,
+      floating: false,
       y: 40,
       backgroundColor: "#fff",
       borderWidth: 0,

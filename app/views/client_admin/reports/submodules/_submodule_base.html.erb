@@ -1,0 +1,10 @@
+<%= render partial: 'client_admin/reports/utils/header_content_loader' %>
+<div id="<%= opts[:id] %>" class="card-header-content-data reports-submodule hide" data-path="<%= opts[:path] %>" data-report="<%= opts[:report] %>">
+  <ul class="small-block-grid-1 large-block-grid-<%= opts[:partials].length %>">
+    <% opts[:partials].each do |partial| %>
+      <li class="circle-chart-block-grid-container">
+        <%= render partial: partial %>
+      </li>
+    <% end %>
+  </ul>
+</div>

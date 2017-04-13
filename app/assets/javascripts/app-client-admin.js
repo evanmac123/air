@@ -3,6 +3,7 @@
 //= require_tree ./explore
 //= require_tree ../../../vendor/assets/javascripts/external/
 
+//= require ../../../vendor/assets/javascripts/progressbar
 //= require_tree ../../../vendor/assets/javascripts/highcharts
 //= require vendor_customization/highcharts
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min

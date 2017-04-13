@@ -1,0 +1,13 @@
+<%= render partial: "client_admin/reports/submodules/submodule_base", locals: {
+  opts: {
+    id: "content-creation-submodule",
+    path: api_client_admin_reports_path,
+    report: "Reports::ContentCreationBoardReport",
+    partials: [
+      'client_admin/reports/charts/circle_charts/tiles_created_circle_chart',
+      'client_admin/reports/charts/circle_charts/tiles_percent_created_circle_chart',
+      'client_admin/reports/charts/circle_charts/tiles_percent_explore_circle_chart',
+      'client_admin/reports/charts/circle_charts/tiles_percent_suggestion_circle_chart'
+    ]
+  }
+} %>

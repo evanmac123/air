@@ -2,15 +2,39 @@
 @import 'mixins/airbo-layout-defaults';
 @import 'mixins/tabs-component';
 @import 'mixins/card-component';
+@import 'mixins/circle-progress-chart-component';
 @import 'mixins/toolbar-inline-list-component';
 
 .client_admin-reports {
   @include airbo-layout-defaults();
   @include card-component($dark-blue, $primary-gray);
   @include graphs();
+  @include circle-progress-chart-component($n-blue, $n-white);
 
   .card-component {
     @include tabs-component($dark-blue, $white, $primary-gray);
+    .card-header-content {
+      #participation-submodule {
+        @media screen and (min-width: 768px) {
+          #users-circle-chart-wrapper { float: right; }
+          #users-email-only-circle-chart-wrapper { float: left; }
+          #tile-emails-circle-chart-wrapper { float: left; }
+        }
+      }
+      #tile-engagement-submodule {
+        @media screen and (min-width: 768px) {
+          #interactions-circle-chart-wrapper { float: right; }
+          #total-views-circle-chart-wrapper { float: left; }
+        }
+      }
+      #content-creation-submodule {
+        @media screen and (min-width: 768px) {
+          #tiles-created-circle-chart-wrapper { float: right; }
+          #tiles-percent-created-circle-chart-wrapper { float: right; }
+          #tiles-percent-suggestion-circle-chart-wrapper { float: left; }
+        }
+      }
+    }
     .card-content {
       min-height: 521px;
       .chart-controls-group {
