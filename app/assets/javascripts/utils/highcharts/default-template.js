@@ -10,7 +10,7 @@ Airbo.Utils.Highcharts.defaultTemplate = function($chart){
   return {
     chart: {
       type: 'line',
-      height: 460,
+      height: 500,
       marginTop: 100,
       spacingBottom: 60
     },
@@ -33,17 +33,7 @@ Airbo.Utils.Highcharts.defaultTemplate = function($chart){
 
       }
     },
-    exporting: {
-      enabled: false,
-      buttons: {
-        contextButton: {
-          menuItems: null,
-          onclick: function () {
-            this.exportChart();
-          }
-        }
-      }
-    },
+    exporting: Airbo.Utils.Highcharts.Exporting.defaultExportingConfig(),
     title: {
       text: $chart.data("title"),
       align: "left",

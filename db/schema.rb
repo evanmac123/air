@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170403190010) do
+ActiveRecord::Schema.define(:version => 20170417204641) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -498,11 +498,12 @@ ActiveRecord::Schema.define(:version => 20170403190010) do
 
   create_table "follow_up_digest_emails", :force => true do |t|
     t.date     "send_on"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.text     "user_ids_to_deliver_to"
     t.integer  "tiles_digest_id"
     t.text     "subject"
+    t.boolean  "sent",                   :default => false
   end
 
   add_index "follow_up_digest_emails", ["tiles_digest_id"], :name => "index_follow_up_digest_emails_on_tiles_digest_id"

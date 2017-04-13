@@ -61,7 +61,9 @@ class ScheduleDigestAndFollowUp
         {
           digest_send_to: receiver_description,
           followup_scheduled: followup_scheduled,
-          optional_message_added: optional_message_added
+          optional_message_added: optional_message_added,
+          subject: custom_subject,
+          alt_subject: alt_custom_subject
         },
         current_user
       )

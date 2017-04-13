@@ -5,14 +5,13 @@ class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
   include ClientAdmin::TilesHelper
   include Rails.application.routes.url_helpers
 
-  def initialize(user, demo, custom_from, custom_headline, custom_message, is_new_invite, subject=nil)
-    super(custom_message)
+  def initialize(digest, user, subject, is_invite_user)
+    super(digest.message)
+    @digest = digest
     @user = user
-    @demo = demo
-    @custom_from = custom_from
-    @is_new_invite = is_new_invite
-    @custom_headline = custom_headline
+    @demo = digest.demo
     @subject = subject
+    @is_invite_user = is_invite_user
   end
 
   def follow_up_email
@@ -24,31 +23,21 @@ class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
   end
 
   def from_email
-    if @custom_from.present?
-      @custom_from
-    else
-      @demo.reply_email_address
-    end
+    @demo.reply_email_address
   end
 
   def link_options
-    if @subject
-      {subject: @subject}
-    else
-      {}
-    end
+    opts = { tiles_digest_id: @digest.id }
+    opts.merge({ subject: @subject }) if @subject
+    opts
   end
 
   def email_heading
-    @custom_headline.present? ? @custom_headline : standard_email_heading
+    @digest.headline.present? ? @digest.headline : standard_email_heading
   end
 
   def standard_email_heading
     STANDARD_DIGEST_HEADING
-  end
-
-  def title
-    join_demo_copy_or_digest_email_heading(@is_new_invite)
   end
 
   def email_type
@@ -56,6 +45,10 @@ class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
   end
 
   def general_site_url
-    email_site_link(@user, @demo, is_preview, email_type)
+    "#{email_site_link(@user, @demo, is_preview, email_type)}&tiles_digest_id=#{@digest.id}"
+  end
+
+  def title
+    join_demo_copy_or_digest_email_heading(@is_invite_user)
   end
 end

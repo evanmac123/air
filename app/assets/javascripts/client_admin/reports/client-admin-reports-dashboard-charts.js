@@ -36,6 +36,7 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
         var chartAttrs = $.extend(true, {}, Airbo.Utils.HighchartsBase.chartTemplate($chart, chartData), chartData);
 
         $chart.highcharts(chartAttrs);
+        initExport($chart);
 
         showChartControls($chart);
 
@@ -46,6 +47,24 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
       fail: function(response, status, xhr) {
       }
     });
+  }
+
+  function initExport($chart) {
+    var exportButton = $chart.siblings(".download");
+    exportButton.on("click", function(e) {
+      e.preventDefault();
+      $chart.highcharts().exportChart({
+        type: "application/pdf",
+        filename: formateExportFilename($chart)
+      });
+    });
+  }
+
+  function formateExportFilename($chart) {
+    var parsedTitle = $chart.data("title").replace(/ /g,"_");
+    var snakeDate = moment().format('MM_DD_YYYY');
+
+    return "Airbo_" + parsedTitle + "_" + snakeDate;
   }
 
   function showChartControls($chart) {
@@ -84,7 +103,7 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
       if ($(this).hasClass("tabs-component-active")) {
         return false;
       }
-      
+
       Airbo.ClientAdminReportsUtils.switchActiveTab($(this));
 
       var $chart = getChartWithTarget($(this), ".chart-interval-opts");

@@ -139,7 +139,7 @@ feature 'In multiple boards appears present in all at once' do
 
       Timecop.travel(Chronic.parse("March 25, 2014, 6:00 PM"))
 
-      TilesDigestMailer.notify_all_follow_up_from_delayed_job
+      TilesDigestMailer.notify_all_follow_up
 
       expect_all_headlines_in_some_email(@user, @first_board, @second_board)
     end

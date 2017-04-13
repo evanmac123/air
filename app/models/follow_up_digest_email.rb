@@ -13,8 +13,10 @@ class FollowUpDigestEmail < ActiveRecord::Base
 
   before_create :set_subject
 
+  scope :scheduled, -> { where(sent: false).order("send_on ASC") }
+
   def self.send_follow_up_digest_email
-    where send_on: Date.today
+    scheduled.where(send_on: Date.today)
   end
 
   def self.follow_up_days(follow_up_day)
@@ -37,15 +39,20 @@ class FollowUpDigestEmail < ActiveRecord::Base
   end
 
   def tile_ids
-    tiles_digest.tile_ids
+    tiles_digest.tile_ids_for_email
   end
 
   def trigger_deliveries
     recipients.each do |recipient_id|
-      TilesDigestMailer.delay.
-        notify_one(tiles_digest.demo_id, recipient_id, tiles_digest.tile_ids, decorated_subject, true, headline, nil)
+      TilesDigestMailer.delay.notify_one(tiles_digest, recipient_id, decorated_subject, TilesDigestMailFollowUpPresenter)
     end
 
+    post_process_delivery
+  end
+
+  def post_process_delivery
+    schedule_digest_sent_ping
+    self.update_attributes(sent: true, user_ids_to_deliver_to: nil)
     tiles_digest.update_attributes(followup_delivered: true)
   end
 
@@ -78,5 +85,16 @@ class FollowUpDigestEmail < ActiveRecord::Base
 
   def decorated_subject
     "Don't Miss: #{subject}"
+  end
+
+  def schedule_digest_sent_ping
+    TrackEvent.ping(
+      'FollowUpDigest - Sent',
+      {
+        tiles_digest_id: tiles_digest_id,
+        subject: subject
+      },
+      tiles_digest.sender
+    )
   end
 end
