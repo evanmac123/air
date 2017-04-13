@@ -222,7 +222,7 @@ FactoryGirl.define do
     trait :complete do
       association :organization, factory: [:organization, :complete]
       arr  60000
-      amt_booked  5000
+      amt_booked  60000
       start_date '2012-01-01'
       end_date '2012-12-31'
       cycle Contract::ANNUAL

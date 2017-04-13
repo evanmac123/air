@@ -153,7 +153,7 @@ class Organization < ActiveRecord::Base
   end
 
   def has_start_and_end
-    customer_start_date && customer_end_date
+    !!(customer_start_date and customer_end_date)
   end
 
   def primary_contact

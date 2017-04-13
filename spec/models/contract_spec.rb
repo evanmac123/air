@@ -11,17 +11,37 @@ describe Contract do
     expect(c.role_type).to eq "Upgrade"
   end
 
-  it "is an invalid upgrade wthout parent contract " do
+  it "is invalid upgrade wthout parent contract " do
     c = FactoryGirl.build(:upgrade )
     expect(c.role_type).to eq "Primary"
   end
 
-  it "is an invalid if custom without term " do
+  it "is invalid if custom without term " do
     c = FactoryGirl.build(:contract, :complete, :custom )
     expect(c.valid?).to be_falsey
   end
 
-  it "is an valid if custom without term " do
+  it "is invalid if arr is not annualized mrr " do
+    c = FactoryGirl.create(:contract, :complete, mrr:100 )
+    c.update_attribute(:arr, 1000)
+    c.max_users = 666
+    expect(c.save).to be_falsey
+  end
+
+  it "is valid when arr is annualized mrr " do
+    a = FactoryGirl.build(:contract, :complete, arr:9345, mrr:779 )
+    b = FactoryGirl.build(:contract, :complete, arr:425, mrr:35 )
+    c = FactoryGirl.build(:contract, :complete, arr:2438, mrr:203 )
+    d = FactoryGirl.build(:contract, :complete, arr:594, mrr:50 )
+    e = FactoryGirl.build(:contract, :complete, arr:1650, mrr:138 )
+    expect(a.valid?).to be_truthy
+    expect(b.valid?).to be_truthy
+    expect(c.valid?).to be_truthy
+    expect(d.valid?).to be_truthy
+    expect(e.valid?).to be_truthy
+  end
+
+  it "is valid if custom without term " do
     c = FactoryGirl.build(:contract, :complete, :custom_valid )
     expect(c.valid?).to be_truthy
   end

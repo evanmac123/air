@@ -9,6 +9,7 @@ class Contract < ActiveRecord::Base
   validates :max_users, numericality: { only_integer: true }
   validates :arr, :mrr, numericality: true, allow_nil: true
   validate :arr_or_mrr_provided
+  validate :annualized_mrr
 
   ANNUAL="Annual"
   MONTHLY="Monthly"
@@ -210,6 +211,7 @@ class Contract < ActiveRecord::Base
 
   private
 
+
   def revenue_changed?
     (changes.keys & ["arr", "mrr"]).any?
   end
@@ -249,6 +251,20 @@ class Contract < ActiveRecord::Base
         when CUSTOM
           new_start.advance(months: contract_length_in_months)
         end
+  end
+
+  # NOTE technically this validation should never fail because
+  # the before_validation establishes the invariant relationship between
+  # arr and mrr (i.e. arr ==mmr*12 or mmr == arr/12)
+  # however if mrr or arr are ever updated directly in sql or in some way
+  # through code that skips validations this should catch the error the next time 
+  # the model is saved normally
+  def annualized_mrr
+    if (arr.to_f/mrr.to_f).round != 12
+      errors.add(:mrr,"ARR must be annualized value of MRR") 
+      return false
+    end
+
   end
 
   def arr_or_mrr_provided
