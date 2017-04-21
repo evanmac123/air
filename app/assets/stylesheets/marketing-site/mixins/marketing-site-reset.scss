@@ -1,0 +1,128 @@
+@mixin marketing-site-reset() {
+  ::-moz-selection {background: #b3d4fc;text-shadow: none;}
+  ::selection {background: #b3d4fc;text-shadow: none;}
+
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+  }
+
+  audio,canvas,iframe,img,svg,video {vertical-align: middle;}
+
+  figure { margin: 0; }
+
+  img {
+    height: auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  h1,h2,h3,h4,h5,h6 {
+    color: #404040;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  h1 {
+    font-size: 48px;
+    line-height: 56px;
+  }
+  h2 {font-size: 40px;}
+  h3 {font-size: 32px;}
+  h4 {font-size: 24px;}
+  h5 {font-size: 18px;}
+  h6 {
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+
+  p { margin: 32px 0; }
+
+  a {
+    color: #48bfff;
+    text-decoration: none;
+  }
+
+  blockquote {
+    color: #404040;
+    font: 20px/28px 'Open Sans';
+    font-weight: 300;
+    font-style: italic;
+    margin: 32px 0;
+  }
+
+  cite { font-style: normal; }
+
+  strong { font-weight: bold; }
+
+  ol {
+    margin: 39px 0;
+    padding-left: 32px;
+  }
+
+  ol li { padding-left: 12px; }
+
+  fieldset {border: 0;margin: 0;padding: 0;}
+  textarea {resize: vertical;}
+
+  *,*:before,*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  svg { fill: currentColor; }
+
+  ::-webkit-input-placeholder {color: #9c9c9c;}
+  ::-moz-placeholder {color: #9c9c9c;}
+  :-ms-input-placeholder {color: #9c9c9c;}
+
+  label {
+    color: #babec0;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  input,textarea,select {
+    background: rgba(243,244,245,.75);
+    border: #dce1e3 1px solid;
+    border-radius: 3px;
+    color: #636363;
+    display: inline-block;
+    margin: 0;
+    outline: none;
+    height: 40px;
+    padding: 0 12px;
+  }
+  input[disabled="disabled"],textarea[disabled="disabled"],
+  select[disabled="disabled"] {background: rgba(243,244,245,.05);border-color: #edeff0;}
+
+  textarea {
+    overflow: auto;
+    height: auto;
+    padding: 10px 12px;
+    width: 100%;
+  }
+
+  button, input[type="button"],
+  input[type="submit"] {
+    background: #48bfff;
+    color: #fff;
+    border-radius: 3px;
+    display: inline-block;
+    border: none;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 48px;
+    height: 48px;
+    padding: 0 20px;
+  }
+
+  button:focus, button:hover,
+  input[type="button"]:focus, input[type="button"]:hover,
+  input[type="submit"]:focus, input[type="submit"]:hover {background: #4c4c4c;}
+}

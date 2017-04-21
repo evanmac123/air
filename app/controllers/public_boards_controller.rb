@@ -11,7 +11,7 @@ class PublicBoardsController < ApplicationController
         redirect_to public_activity_path(public_slug: params[:public_slug])
       end
     else
-      render 'shared/public_board_not_found', layout: 'external_marketing'
+      render 'shared/public_board_not_found', layout: 'public_board_not_found'
     end
   end
 

@@ -1,0 +1,30 @@
+<div class="feature-group ft-tile" id="ipnav-tile">
+  <div class="feature-head">
+    <h2><%= t('.section_header_html') %></h2>
+    <h5><%= t('.section_subheader')%></h5>
+  </div>
+  <div class="wrap">
+    <div class="right">
+      <blockquote class="promo-quote">
+        <p><%= t('.tile_promo_quote_eplus')%></p>
+        <cite>
+          <%= image_tag("marketing_site/logo_thumbnails/eplus.jpg", alt: "e+CancerCare") %>
+          <%= t('.tile_promo_quote_eplus_citation_html') %>
+        </cite>
+      </blockquote>
+      <ul class="ft-lists ft-type-card">
+        <% [*1..6].each do |num| %>
+          <li>
+            <div>
+              <h4><%= t(".tile_values_header#{num}") %></h4>
+              <p><%= t(".tile_values_subheader#{num}") %></p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="left">
+      <%= image_tag("marketing_site/tile_example.png", alt: "The Tile") %>
+    </div>
+  </div>
+</div>

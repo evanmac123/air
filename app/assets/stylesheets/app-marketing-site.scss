@@ -1,0 +1,33 @@
+@import "font-awesome";
+@import "./mixins/main_styles.css.scss";
+@import "./internal/flash.css.scss";
+@import "./marketing-site/main.scss";
+
+@mixin button-outlined-intro{
+  @include button-outlined-color($n-white);
+  &:hover {
+    color: $n-blue !important;
+  }
+}
+
+#flash {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  z-index: 198;
+  width: 100%;
+}
+
+.pages-home {
+
+  #signups_modal, #demo_requests_modal {
+    border-radius: 0;
+    background: $n-blue;
+    padding: 30px;
+    color: #fff;
+    a {
+      @include button-outlined-intro;
+      margin: 5px;
+    }
+  }
+}

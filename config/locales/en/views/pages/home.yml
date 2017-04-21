@@ -1,0 +1,140 @@
+en:
+  pages:
+    partials:
+      home:
+        main_hero:
+          header: "Engaging employee communications in minutes"
+          subheader: "Airbo's software combines all the pieces employers need to communicate with employees."
+          try_airbo_button: "Try Airbo"
+          try_airbo_placeholder: "Your work email"
+        featured_news:
+          header: "Featured News"
+          news_quote_html: '<span>"</span>Airbo CEO Vlad Gyster named Top 50 Benefits Technology Innovator.<span>"</span>'
+          news_quote_by_line: "- Employee Benefit News"
+        ceos_message:
+          side_header_html: 'A note from <br /> Vlad Gyster <br /> Founder &amp; CEO of Airbo'
+          note_header: 'The Airbo Employee Communication Platform'
+          note_header: 'For over six years, Airbo has pursued a simple mission based on a simple belief: HR and Corporate Communications are important.'
+          note_p1: 'They connect employees with benefits that improve their lives. They weave employees into a greater company culture. But corporate communication tools just haven’t kept up with how today’s employees engage in the world around them.'
+          note_p2_html: 'Intranets have become like filing cabinets &#8212; great for storage, not so great for engagement. Inboxes overflow with urgent messages and HR and Corporate communications get lost in the shuffle. A great deal of work goes underappreciated and even more work is created.'
+          note_p3: 'Airbo’s Employee Communication Platform helps HR and Corporate Communications close the engagement gap. It helps make content as engaging as the consumer tools employees already love so that more employees read, understand, and take action, while HR and Corporate Communications have less administration and higher return from the programs they invest in.'
+          note_p4: 'Explore how Airbo works below. If you have any questions, please feel free to chat with us.'
+          note_signature: 'Vlad Gyster, Founder & CEO of Airbo'
+        feature_tile:
+          section_header_html: '<strong>Meet the Tile,</strong> a modern way to connect with employees'
+          section_subheader: 'Every communication posted on Airbo is a Tile - a bite-sized piece of content formatted for today’s attention span. Employees earn points for reading and interacting with Tiles.'
+          tile_promo_quote_eplus: It's a great way to get people interactive, and it really helps when we need a response or action. There's a much quicker turnaround.
+          tile_promo_quote_eplus_citation_html: '<strong>Annie Taylor</strong>
+          Employee Relations Manager <br /> e+CancerCare'
+          tile_values_header1: Capture Attention
+          tile_values_subheader1: Images, video and interactivity provide moments of delight that sustain interest.
+          tile_values_header2: Simplify Content
+          tile_values_subheader2: Content is concise. Complex topics are segmented into multiple Tiles.
+          tile_values_header3: Boost Comprehension
+          tile_values_subheader3: Quiz questions encourage employees to fully understand the content.
+          tile_values_header4: Collect Feedback
+          tile_values_subheader4: Add survey questions to learn what employees understand, value and want.
+          tile_values_header5: Drive Behavior
+          tile_values_subheader5: Award points for actions like eating a fruit or completing a form.
+          tile_values_header6: Increase Participation
+          tile_values_subheader6: Direct employees to Intranet and vendor sites via links from Tiles.
+        feature_board:
+          section_header_html: "<strong>Meet the Board,</strong> a way to highlight what's important"
+          section_subheader: 'Post Tiles for employees to a Board - a simple micro-site that works like a reinvented bulletin board. Unlike emails and intranets, which can be easy to miss, your Board puts content front and center.'
+          board_promo_quote_alta: We're able to communicate more often about a wider variety of topics.
+          board_promo_quote_alta_citation_html: '<strong>Jennifer Crick</strong>Director of HR <br /> Alta California Regional Center'
+          board_values_header1: Timely
+          board_values_subheader1: Post new Tiles Every 1 to 4 weeks. Your Board shows what’s new in one simple snapshot.
+          board_values_header2: Organized
+          board_values_subheader2: Drive awareness in all the things you need employees to know in one place.
+          board_values_header3: Motivational
+          board_values_subheader3: Progress mechanics motivate employees to read more content.
+          board_values_header4: There For Reference
+          board_values_subheader4: Search helps employees find content fast, reducing one-off questions.
+          board_values_header5: Prizes
+          board_values_subheader5: Build excitement and reward engagement.
+          board_values_header6: Community
+          board_values_subheader6: Employees can connect to support each other and compete for prizes.
+        supported_devices:
+          header: Works on any device
+          subheader: Turn-key deployment with minimal IT support.
+        feature_topics:
+          header: Easily deliver content across many topics
+          subheader: Create your own content, collect content from colleagues, or copy it from a rich best-practice library. Airbo will save you time on content planning and creation so you get more priorities done.
+          topic1: Biometrics
+          topic2: Health Plan Basics
+          topic3: Wellness
+          topic4: Open Enrollment
+          topic5: Benefits
+          topic6: Financial Ed
+          topic7: Recruiting
+          topic8: Onboarding
+          topic9: Announcements
+          topic10: Compliance
+          topic11: Prescription Drugs
+          topic12: Holidays
+          topic_value_header1: Create Better Content
+          topic_value_subheader1: Tiles are easy to create and look professionally designed.
+          topic_value_header2: Weekly Suggestions
+          topic_value_subheader2: Proactive recommendations on what to communicate based on the time of year.
+          topic_value_header3: Searchable Library
+          topic_value_subheader3: Find best practice content that you can copy and modify in minutes.
+          topic_value_header4: Content Collector
+          topic_value_subheader4: Collect Tiles from others in your organization and save time on coordination.
+          topic_value_header5: Explore Best Practices
+          topic_value_subheader5: Why reinvent the wheel? On Airbo, companies share content with one another.
+          topic_value_header6: Cover More Topics
+          topic_value_subheader6: Airbo makes it faster to create content so that you can cover more with employees.
+          promo_quote: I can do each announcement in half the time it used to take.
+          promo_quote_cite_html: "<strong>Amy Anderson</strong>
+          Director of HR <br /> Constangy"
+        feature_tiles_email:
+          section_header_html: "<strong>Send less email,</strong> drive higher participation"
+          section_subheader: New content is automatically compiled into a Tiles Summary Email. It notifies employees that there is new content to see. It stands out from normal work emails using marketing best practices.
+          promo_quote: Airbo has radically reduced the numbers of emails I have to send, which people appreciate.
+          promo_quote_cite_html: "<strong>Timber Chinn</strong> VP of HR <br /> Coffman Engineers"
+          tiles_email_value_header1: Save Time
+          tiles_email_value_subheader1: The Tile Summary Email is automatically created based on the Tiles you post.
+          tiles_email_value_header2: Design Best Practices
+          tiles_email_value_subheader2: Marketing best practices are built-in. Just click send when you’re ready.
+          tiles_email_value_header3: Send Less Email
+          tiles_email_value_subheader3: Different topics are summarized together, reducing one-off emails to employees.
+          tiles_email_value_header4: Trigger Engagement
+          tiles_email_value_subheader4: Once you click send, employees start engaging in the content you’ve posted.
+          tiles_email_value_header5: Magic Log-In
+          tiles_email_value_subheader5: Empoyees click or tap the email to log into Airbo, no passwords or SSO needed.
+          tiles_email_value_header6: Auto Follow-Up
+          tiles_email_value_subheader6: If an employee didn’t engage, Airbo can follow-up with the full Tile content.
+        feature_metrics:
+          section_header: See real-time success metrics
+          section_subheader: As employees interact with Tiles, you receive feedback on who read, answered questions and completed actions.
+          metrics_value_header1: Know Who Read
+          metrics_value_subheader1: No more wondering who read and who you need to follow-up with.
+          metrics_value_header2: Easily Collect Feedback
+          metrics_value_subheader2: Get a pulse on what employees value and where to focus energy.
+          metrics_value_header3: Gather Success Metrics
+          metrics_value_subheader3: Prove the value of your investments by showing changes in employee sentiment.
+          metrics_value_header4: Improve Survey Participation
+          metrics_value_subheader4: Surveys are built into communications so many more employees participate.
+          metrics_value_header5: Improve Compliance
+          metrics_value_subheader5: Track who has taken an action and who needs an extra nudge.
+          metrics_value_header6: Improve Event Attendance
+          metrics_value_subheader6: Gather feedback on the best times and topics to shape more relevant events.
+          promo_quote: I used to send out emails and hope for the best. Now, I have tangible evidence of success.
+          promo_quote_cite_html: "<strong>Ali Hodson-Aguilar</strong> Operations &amp; HR Specialist <br /> Envisionit"
+        feature_dedication:
+          section_header: We're dedicated to your success
+          section_subheader: We’ve implemented our software at companies from 20 to 90,000 employees across every major industry. Your dedicated Customer Success Consultant will take the time to understand your organization, and help you leverage best practices that drive success.
+          promo_quote: The support Airbo provides is excellent.
+          promo_quote_cite_html: "<strong>Miriam Johnson</strong> Director of HR <br /> Town of Dedham"
+        schedule_demo_panel:
+          schedule_button: Schedule Demo
+          subheader: Receive a free Airbo account and a 30 minute orientation.
+        inpage_paginator:
+          page1: Try Airbo
+          page2: CEO Message
+          page3: The Tile
+          page4: The Board
+          page5: Many Topics
+          page6: Less Email
+          page7: Success Metrics

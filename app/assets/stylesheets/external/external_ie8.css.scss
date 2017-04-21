@@ -1,7 +1,6 @@
 @import "../mixins/main_styles.css.scss";
 @import "../external/marketing.css.scss";
 @import "screen_medium.css.scss";
-@import "more_info/general_moreinfo.css.scss";
 @import "screen_desktop.css.scss";
 @import '../tile/tile_thumbnail/tiles_thumbnails_desktop';
 @import "screen_large.css.scss";
@@ -36,7 +35,7 @@ nav.top-bar {
   img {max-width:800px;}
   p:after {width:10em;}
 }
-#fast_tiles .row {background-image:image-url('marketing/more_info/tile_ie8.png')}
+
 #target_influence, #monitor_board {
   .visual_container img {border:1px $light-gray solid;}
 }
@@ -50,5 +49,5 @@ nav.top-bar {
 }
 
 
-// ============= Case study ============= 
+// ============= Case study =============
 .case_study_content .study_samples {margin:4em auto 2em}

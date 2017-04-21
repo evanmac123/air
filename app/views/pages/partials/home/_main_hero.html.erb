@@ -1,0 +1,24 @@
+<div class="hero" id="ipnav-hero">
+  <div class="wrap">
+    <div class="cnts">
+      <h1><%= t('.header') %></h1>
+      <h4><%= t('.subheader') %></h4>
+      <%= form_tag( 'signup_requests/new', method: :get, class: "pre-signup") do |f| %>
+        <span>
+          <%= text_field_tag(:email, '', placeholder: "#{t('.try_airbo_placeholder')}") %>
+        </span>
+        <%= submit_tag("#{t('.try_airbo_button')}") %>
+      <% end %>
+    </div>
+  </div>
+  <div class="clients-list">
+    <ul>
+      <li><%= image_tag("marketing_site/clients/fujifilm.svg", alt: "Fujifilm") %>
+      <li><%= image_tag("marketing_site/clients/asha.svg", alt: "ASHA") %>
+      <li><%= image_tag("marketing_site/clients/envisionit.svg", alt: "Envisionit") %>
+      <li><%= image_tag("marketing_site/clients/coffman-engineers.svg", alt: "Coffman Engineers") %>
+      <li><%= image_tag("marketing_site/clients/rle.svg", alt: "RLE") %>
+      <li><%= image_tag("marketing_site/clients/constangy.svg", alt: "Constangy") %>
+    </ul>
+  </div>
+</div>

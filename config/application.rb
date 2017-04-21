@@ -43,6 +43,8 @@ module Health
     # Tell rake which assets to precompile (default is application.css and application.js)
     # Note that even though our files are named .scss, the ones in this list are the plain .css counterparts
     config.assets.precompile += %w(
+      app-marketing-site.css
+      app-marketing-site.js
       app-admin.css
       app-client-admin.css
       app-client-admin_split2.css
@@ -93,14 +95,6 @@ module Health
       client_admin/public_board_controls.js
       app-support.js
       internal/explore.css
-      Explore_tile_page/antioxidents.png
-      Explore_tile_page/drink_water.png
-      Explore_tile_page/happy_smile.png
-      Explore_tile_page/cholesterol.png
-      Explore_tile_page/relationships.png
-      Explore_tile_page/recycle_yourself.png
-      Explore_tile_page/notebook.png
-      Explore_tile_page/open_book.png
       video.png
       client_admin/tile_tag_callback.js
       internal/countUp.min.js

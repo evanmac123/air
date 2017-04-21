@@ -4,7 +4,9 @@ class DemoRequestsController < ApplicationController
   def create
     request = EmailInfoRequest.create(permitted_params)
     request.notify
-    redirect_to root_path(demo_request: true)
+
+    flash[:success] = "Thanks for requesting a demo! Someone from our team will reach out to you in the next 24 hours to schedule a time to chat."
+    redirect_to root_path
   end
 
   def new

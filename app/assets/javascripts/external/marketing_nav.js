@@ -12,7 +12,7 @@ $(viewWindow).scroll(function() {
 		$('header').css('top', '7px');
 	} else if (viewWindow.scrollTop() > 7) {
     $('header').css('top', '0');
-  } 
+  }
 });
 
 // Animate scroll

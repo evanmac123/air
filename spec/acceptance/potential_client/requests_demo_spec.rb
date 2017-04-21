@@ -6,7 +6,7 @@ feature "Potential user requests demo", js: true do
       it "should send an email to sales notifying a demo request" do
         visit root_path
 
-        click_link("Schedule a Demo", match: :first)
+        click_link("Schedule Demo", match: :first)
 
         fill_in('request[name]', with: "Test")
         fill_in('request[email]', with: "test@example.com")

@@ -68,7 +68,7 @@ match "sign_up"  => "users#new"
 match "sign_out" => "sessions#destroy"
 
 get "company" => 'pages#company', as: 'company'
-get "case-studies" => 'pages#case-studies', as: 'case_studies'
+get "case_studies" => 'pages#case_studies', as: 'case_studies'
 get "demo_link" => "pages#demo_link", as: "demo_link"
 get "terms" => "pages#terms", :as => "terms"
 get "privacy" => "pages#privacy", :as => "privacy"
