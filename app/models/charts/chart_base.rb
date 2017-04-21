@@ -1,4 +1,4 @@
-class ChartBase
+class Charts::ChartBase
   MIXPANEL_TIME_LIMIT = 1824.days.ago
 
   attr_reader :params

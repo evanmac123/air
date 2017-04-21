@@ -132,6 +132,14 @@ class Demo < ActiveRecord::Base
             demos[:is_paid])
   end
 
+  def users_for_digest
+    self.users.joins(:board_memberships).where(board_memberships: { demo_id: self.id, digest_muted: false })
+  end
+
+  def claimed_users_for_digest
+    users_for_digest.where("board_memberships.joined_board_at IS NOT NULL")
+  end
+
   def organization_name
    organization.present? ? organization.name : "Unattached To Any Organization"
   end

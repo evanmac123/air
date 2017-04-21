@@ -66,39 +66,39 @@ class TilesDigestForm
   end
 
   def send_test_email_to_self
-    send_test_digest
+    digest = OpenStruct.new(test_digest_params)
+
+    TilesDigestMailer.delay.notify_one(
+      digest,
+      current_user.id,
+      "[Test] #{digest.subject}",
+      TilesDigestMailDigestPresenter
+    )
+
     unless follow_up_day == 'Never'
-      send_test_digest true # test follow-up
+      TilesDigestMailer.delay.notify_one(
+        digest,
+        current_user.id,
+        "[Test] Don't Miss: #{digest.subject}",
+        TilesDigestMailFollowUpPresenter
+      )
     end
   end
 
-  protected
+  private
 
+    def test_digest_params
+      cutoff_time = demo.tile_digest_email_sent_at
+      tile_ids = demo.digest_tiles(cutoff_time).pluck(:id)
 
-  def send_test_digest follow_up_email = false
-    cutoff_time = demo.tile_digest_email_sent_at
-    tile_ids = demo.digest_tiles(cutoff_time).pluck(:id)
-
-    TilesDigestMailer.delay.notify_one  demo.id,
-                                        current_user.id,
-                                        tile_ids,
-                                        test_digest_subject(follow_up_email),
-                                        follow_up_email,
-                                        custom_headline,
-                                        custom_message
-  end
-
-  def test_digest_subject follow_up_email
-    subject = if follow_up_email
-      if custom_subject.present?
-        "Don't Miss: #{custom_subject}"
-      else
-        "Don't Miss Your New Tiles"
-      end
-    else
-      custom_subject || "New Tiles"
+      {
+        id: "test",
+        cutoff_time: cutoff_time,
+        tile_ids_for_email: tile_ids,
+        demo: demo,
+        subject: custom_subject || TilesDigest::DEFAULT_DIGEST_SUBJECT,
+        headline: custom_headline,
+        message: custom_message,
+      }
     end
-
-    "[Test] " + subject
-  end
 end

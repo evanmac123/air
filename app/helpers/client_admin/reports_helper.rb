@@ -18,7 +18,11 @@ module ClientAdmin::ReportsHelper
   private
 
     def demo_launch
-      current_demo.created_at
+      if current_demo.launch_date
+        current_demo.launch_date.try(:to_time).beginning_of_year
+      else
+        current_demo.created_at.beginning_of_year
+      end
     end
 
     def past_twelve_months
@@ -59,14 +63,16 @@ module ClientAdmin::ReportsHelper
     end
 
     def last_four_years
-      [*demo_launch.year..(Time.now - 1.year).year].reverse.map { |year|
-        {
-          formatted_name: "#{year}",
-          start_active: false,
-          start_date: Time.new(year),
-          end_date: Time.new(year).end_of_year,
-        }
-      }.take(4)
+      unless demo_launch.year == Time.now.year
+        [*demo_launch.year..Time.now.year].reverse.map { |year|
+          {
+            formatted_name: "#{year}",
+            start_active: false,
+            start_date: Time.new(year),
+            end_date: Time.new(year).end_of_year,
+          }
+        }.take(4)
+      end
     end
 
     def launch_date_or_five_years

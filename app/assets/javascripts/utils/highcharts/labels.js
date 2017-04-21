@@ -7,14 +7,12 @@ Airbo.Utils.Highcharts.Labels = (function(){
   function defaultLabelFormat($chart) {
     var intervalType = $chart.data("intervalType");
 
-    if (intervalType === 'day' || intervalType === 'week') {
-      return '{value: %b %d}';
-    } else if (intervalType === 'month') {
-      return '{value: %b %Y}';
-    } else if (intervalType === 'quarter') {
+    if (intervalType === 'quarter') {
       return '{value: %Q}';
     } else if (intervalType === 'year') {
       return '{value: %Y}';
+    } else {
+      return '{value: %b %Y}';
     }
   }
 

@@ -3,14 +3,14 @@
     <%= render partial: 'client_admin/reports/charts/chart_base',
     locals: { opts:
       {
-        chart_id: "board-tiles-created-cumulative",
-        chart_class: "Charts::BoardTilesCreatedChart", starting_interval: "month",
+        chart_id: "board-tiles-posted-cumulative",
+        chart_class: "Charts::BoardTilesPostedChart", starting_interval: "month",
         data_path: api_client_admin_charts_path,
         series_list: ["cumulative_data"],
-        title: "Cumulative Tiles Created To Date",
+        title: "Cumulative Tiles Posted To Date",
         subtitle: "",
         no_data_message: link_to("Create a tile", client_admin_tiles_path) + " to view this graph.",
-        series_names: ["Tiles Created"],
+        series_names: ["Tiles Posted"],
         intervals: ["quarter", "month", "week"],
       }
     }

@@ -1,4 +1,7 @@
 class TilesDigest < ActiveRecord::Base
+  DEFAULT_DIGEST_SUBJECT = "New Tiles"
+
+  include TilesDigestConcern
   belongs_to :sender, class_name: 'User'
   belongs_to :demo
 
@@ -8,6 +11,9 @@ class TilesDigest < ActiveRecord::Base
   has_one :follow_up_digest_email, dependent: :destroy
   has_many :tiles_digest_tiles
   has_many :tiles, through: :tiles_digest_tiles
+
+  before_save :set_default_subject
+  before_save :sanitize_subject_lines
 
   def self.dispatch(digest_params)
     digest = TilesDigest.new(digest_params)
@@ -23,15 +29,7 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def send_emails
-    TilesDigestMailer.delay.notify_all(
-      demo,
-      user_ids_to_deliver_to,
-      tile_ids,
-      headline,
-      message,
-      digest_subject,
-      alt_subject
-    )
+    TilesDigestMailer.notify_all(self)
 
     self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true)
   end
@@ -47,6 +45,14 @@ class TilesDigest < ActiveRecord::Base
 
   def tile_ids
     tiles.pluck(:id)
+  end
+
+  def tiles_for_email
+    tiles.active
+  end
+
+  def tile_ids_for_email
+    tiles_for_email.pluck(:id)
   end
 
   def users
@@ -68,13 +74,17 @@ class TilesDigest < ActiveRecord::Base
     end
   end
 
+  def user_ids_to_deliver_to
+    @user_ids = users_to_deliver_to.pluck(:id)
+  end
+
   private
 
     def users_for_digest
       if include_unclaimed_users
-        demo.users
+        demo.users_for_digest
       else
-        demo.claimed_users
+        demo.claimed_users_for_digest
       end
     end
 
@@ -86,11 +96,14 @@ class TilesDigest < ActiveRecord::Base
       @users = users_for_digest
     end
 
-    def user_ids_to_deliver_to
-      @user_ids = users_to_deliver_to.pluck(:id)
+    def sanitize_subject_lines
+      self.subject = sanitize_subject_line(subject)
+      self.alt_subject = sanitize_subject_line(alt_subject)
     end
 
-    def digest_subject
-      subject || "New Tiles"
+    def set_default_subject
+      if subject.nil?
+        self.subject = DEFAULT_DIGEST_SUBJECT
+      end
     end
 end

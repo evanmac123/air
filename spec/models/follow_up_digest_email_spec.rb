@@ -100,6 +100,7 @@ describe FollowUpDigestEmail do
       end
 
       describe "#trigger_deliveries" do
+
         it "mails all recipients with no tile completions for the current digest tiles" do
           TilesDigestMailer.stubs(:delay).returns TilesDigestMailer
           TilesDigestMailer.expects(:notify_one).at_most(5)
@@ -115,8 +116,25 @@ describe FollowUpDigestEmail do
 
           expect(@fu.tiles_digest.followup_delivered).to be true
         end
+
+        it "sets user_ids_to_deliver_to to nil" do
+          @fu.expects(:post_process_delivery).once
+
+          @fu.trigger_deliveries
+        end
       end
 
+      describe "#post_process_delivery" do
+        it "sends ping and updates to sent state" do
+          @fu.expects(:schedule_digest_sent_ping).once
+
+          @fu.trigger_deliveries
+
+          expect(@fu.sent).to be true
+          expect(@fu.user_ids_to_deliver_to).to eq([])
+          expect(@fu.tiles_digest.followup_delivered).to be true
+        end
+      end
     end
   end
 

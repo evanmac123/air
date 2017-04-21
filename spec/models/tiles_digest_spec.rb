@@ -67,15 +67,7 @@ RSpec.describe TilesDigest, :type => :model do
     it "calls notify_all on TilesDigestMailer" do
       TilesDigestMailer.stubs(:delay).returns(TilesDigestMailer)
 
-      TilesDigestMailer.expects(:notify_all).with(
-        @digest.demo,
-        @digest.send(:user_ids_to_deliver_to),
-        @digest.tile_ids,
-        @digest.headline,
-        @digest.message,
-        @digest.send(:digest_subject),
-        @digest.alt_subject
-      )
+      TilesDigestMailer.expects(:notify_all).with(@digest)
 
       @digest.send_emails
     end
@@ -126,6 +118,34 @@ RSpec.describe TilesDigest, :type => :model do
       end
 
       expect(digest.tile_ids.sort).to eq(tiles.map(&:id).sort)
+    end
+  end
+
+  describe "#before_save" do
+    it "calls :set_default_subject" do
+      TilesDigest.any_instance.expects(:set_default_subject).once
+      TilesDigest.create(demo: demo, sender: client_admin)
+    end
+
+    it "calls :sanitize_subject_lines" do
+      TilesDigest.any_instance.expects(:sanitize_subject_lines).once
+      TilesDigest.create(demo: demo, sender: client_admin)
+    end
+  end
+
+  describe "#set_default_subject" do
+    it "does nothing if subject is set" do
+      digest = TilesDigest.new(subject: "Subject")
+      digest.send(:set_default_subject)
+
+      expect(digest.subject).to eq("Subject")
+    end
+
+    it "sets the subject to the default subject if subject is nil" do
+      digest = TilesDigest.new
+      digest.send(:set_default_subject)
+
+      expect(digest.subject).to eq(TilesDigest::DEFAULT_DIGEST_SUBJECT)
     end
   end
 end

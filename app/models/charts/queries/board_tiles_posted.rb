@@ -1,10 +1,10 @@
-class Charts::Queries::BoardTilesCreated < Charts::Queries::BoardQuery
+class Charts::Queries::BoardTilesPosted < Charts::Queries::BoardQuery
   def query
-    board.tiles.group(:creation_source_cd).group_by_period(time_unit, :created_at).count
+    board.tiles.where("activated_at IS NOT NULL").group(:creation_source_cd).group_by_period(time_unit, :activated_at).count
   end
 
   def cache_key
-    "#{board.id}:tiles_created:#{time_unit}"
+    "#{board.id}:tiles_posted:#{time_unit}"
   end
 
   def analysis_from_cached_query(start_date, end_date, scoped_enum = nil)

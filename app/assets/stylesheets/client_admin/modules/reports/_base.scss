@@ -1,15 +1,15 @@
-@import 'mixins/graphs';
 @import 'mixins/airbo-layout-defaults';
 @import 'mixins/tabs-component';
 @import 'mixins/card-component';
 @import 'mixins/circle-progress-chart-component';
 @import 'mixins/toolbar-inline-list-component';
+@import 'mixins/highcharts-exporting-component';
 
 .client_admin-reports {
   @include airbo-layout-defaults();
   @include card-component($dark-blue, $primary-gray);
-  @include graphs();
   @include circle-progress-chart-component($n-blue, $n-white);
+  @include highcharts-exporting-component();
 
   .card-component {
     @include tabs-component($dark-blue, $white, $primary-gray);
@@ -29,7 +29,7 @@
       }
       #content-creation-submodule {
         @media screen and (min-width: 768px) {
-          #tiles-created-circle-chart-wrapper { float: right; }
+          #tiles-posted-circle-chart-wrapper { float: right; }
           #tiles-percent-created-circle-chart-wrapper { float: right; }
           #tiles-percent-suggestion-circle-chart-wrapper { float: left; }
         }

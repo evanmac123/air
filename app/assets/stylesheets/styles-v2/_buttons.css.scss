@@ -64,6 +64,41 @@
     }
   }
 }
+
+@mixin button-new($text-color: $dark-blue, $border-color: $primary-gray, $bg-color: $white, $hover-color: $dark-blue, $active-color: $n-blue, $content: false) {
+
+  &, &:focus {
+    border-color: $border-color;
+    background-color: $bg-color;
+    color: $text-color;
+    line-height: normal;
+    padding: 8px 13px;
+  }
+
+  &[disabled], &[disabled]:hover, &[disabled]:active, &[disabled]:focus {
+    color: $border-color
+  }
+  &:hover {
+    color: $bg-color;
+    background-color: $hover-color;
+    border-color: $hover-color;
+  }
+  &.active {
+    color: $active-color;
+    background-color: $bg-color;
+    border-color: $active-color
+  }
+  @if $content {
+    &:before {
+      font-family: "FontAwesome";
+      content: $content + "\00a0\00a0";
+      &.active {
+        animation: fa-spin 2s infinite linear;
+      }
+    }
+  }
+}
+
 @mixin button-with-spinner($spinner-color: $n-white) {
   position: relative;
   &, &:active, &:hover {
@@ -141,6 +176,12 @@
         background-color: darken($n-white, 10%);
         border-color: darken($n-blue, 10%);
       }
+    }
+  }
+  &.button-new {
+    @include button-new();
+    &.download {
+      @include button-new($content: $download-icon);
     }
   }
   &.outlined {

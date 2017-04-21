@@ -58,4 +58,67 @@ describe TilesDigestForm do
       end
     end
   end
+
+  describe "#send_test_email_to_self" do
+    it "attempts to send a test Tile Email and test Follow Up Email if follow_up_day != Never" do
+      TilesDigestMailer.expects(:delay).twice.returns(TilesDigestMailer)
+
+      TilesDigestMailer.expects(:notify_one).with(
+        instance_of(OpenStruct),
+        @tiles_digest_form.current_user.id,
+        "[Test] #{@tiles_digest_form.custom_subject}",
+        TilesDigestMailDigestPresenter
+      ).once
+
+      TilesDigestMailer.expects(:notify_one).with(
+        instance_of(OpenStruct),
+        @tiles_digest_form.current_user.id,
+        "[Test] Don't Miss: #{@tiles_digest_form.custom_subject}",
+        TilesDigestMailFollowUpPresenter
+      ).once
+
+      @tiles_digest_form.send_test_email_to_self
+    end
+
+    it "only attempts to send a test Tile Email if follow_up_day == Never" do
+      params = digest_params
+      params[:follow_up_day] = "Never"
+      tiles_digest_form = TilesDigestForm.new(@client_admin, params)
+
+      TilesDigestMailer.expects(:delay).once.returns(TilesDigestMailer)
+
+      TilesDigestMailer.expects(:notify_one).with(
+        instance_of(OpenStruct),
+        @tiles_digest_form.current_user.id,
+        "[Test] #{@tiles_digest_form.custom_subject}",
+        TilesDigestMailDigestPresenter
+      ).once
+
+      tiles_digest_form.send_test_email_to_self
+    end
+
+    it "defaults to the TilesDigest::DEFAULT_DIGEST_SUBJECT if no subject is given" do
+      params = digest_params
+      params[:custom_subject] = nil
+      tiles_digest_form = TilesDigestForm.new(@client_admin, params)
+
+      TilesDigestMailer.expects(:delay).twice.returns(TilesDigestMailer)
+
+      TilesDigestMailer.expects(:notify_one).with(
+        instance_of(OpenStruct),
+        @tiles_digest_form.current_user.id,
+        "[Test] #{TilesDigest::DEFAULT_DIGEST_SUBJECT}",
+        TilesDigestMailDigestPresenter
+      ).once
+
+      TilesDigestMailer.expects(:notify_one).with(
+        instance_of(OpenStruct),
+        @tiles_digest_form.current_user.id,
+        "[Test] Don't Miss: #{TilesDigest::DEFAULT_DIGEST_SUBJECT}",
+        TilesDigestMailFollowUpPresenter
+      ).once
+
+      tiles_digest_form.send_test_email_to_self
+    end
+  end
 end

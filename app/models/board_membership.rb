@@ -35,6 +35,10 @@ class BoardMembership < ActiveRecord::Base
     where("joined_board_at IS NOT NULL")
   end
 
+  def self.receives_digests
+    where(digest_muted: false)
+  end
+
   def self.current
     where(is_current: true)
   end

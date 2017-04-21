@@ -12,7 +12,16 @@ Airbo.Utils.Highcharts.loginActivityTilesDigestTemplate = function($chart, data)
 
   var zIndex = $chart.data("seriesNames").length;
   var series = $.map($chart.data("seriesNames"), function(name, i) {
-    s =  { name: name, type: $chart.data("chartTypes")[i], color: $chart.data("colorList")[i], yAxis: i, zIndex: zIndex };
+    var configIndex;
+    if (i === 0) {
+      configIndex = i;
+    } else {
+      configIndex = 1;
+    }
+
+    var seriesVisible = name === "Follow Up Emails Sent" ? false : true;
+
+    s =  { name: name, type: $chart.data("chartTypes")[configIndex], color: $chart.data("colorList")[i], yAxis: configIndex, zIndex: zIndex, visible: seriesVisible };
 
     zIndex--;
     return s;
@@ -22,6 +31,45 @@ Airbo.Utils.Highcharts.loginActivityTilesDigestTemplate = function($chart, data)
     chart: {
       type: null,
       zoomType: 'xy'
+    },
+    exporting: {
+      chartOptions: {
+        // plotOptions: {
+        //   series: {
+        //     dataLabels: {
+        //       enabled: true,
+        //       inside: true,
+        //       borderColor: "#fff",
+        //       verticalAlign: "bottom",
+        //       formatter: function() {
+        //         if (this.series.type === "column" && this.y > 0) {
+        //           return this.y;
+        //         }
+        //       }
+        //     }
+        //   }
+        // },
+        yAxis: [{
+          labels: {
+            enabled: true
+          },
+          title: {
+            text: "Logins"
+          }
+        },
+        {
+          max: tilesDigestYAxisMax * 3,
+          allowDecimals: false,
+          gridLineColor: 'transparent',
+          opposite: true,
+          labels: {
+            enabled: true
+          },
+          title: {
+            text: "Emails Sent"
+          }
+        }]
+      }
     },
     yAxis: [{ // Primary yAxis
         min: 0,
@@ -36,7 +84,7 @@ Airbo.Utils.Highcharts.loginActivityTilesDigestTemplate = function($chart, data)
     		max: tilesDigestYAxisMax * 3,
         gridLineColor: 'transparent',
         title: {
-            text: null
+          text: null
         },
         labels: {
         	enabled: false

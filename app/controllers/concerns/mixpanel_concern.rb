@@ -27,8 +27,11 @@ module MixpanelConcern
       email_ping_text = BaseTilesDigestMailer.digest_types_for_mixpanel[params[:email_type]]
       rack_timestamp = request.env['rack.timestamp']
       event_time = (rack_timestamp || Time.now) - 5.seconds
+
       hsh = { email_type: email_ping_text, time: event_time }
       hsh.merge!({subject_line: params[:subject_line]}) if params[:subject_line]
+      hsh.merge!({tiles_digest_id: params[:tiles_digest_id]}) if params[:tiles_digest_id]
+
       ping("Email clicked", hsh, user) if email_ping_text.present?
     end
   end

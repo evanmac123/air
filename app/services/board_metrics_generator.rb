@@ -27,12 +27,12 @@ class BoardMetricsGenerator
     puts "Updating metrics cache for Board #{board.id}."
 
     [:week, :month, :quarter].each do |interval|
-      Query::BoardUniqueTileViews.new(board, interval).set_cached_query
-      Query::BoardUniqueTileCompletions.new(board, interval).set_cached_query
-      Query::BoardUniqueLoginActivity.new(board, interval).set_cached_query
-      Query::BoardTotalTileViews.new(board, interval).set_cached_query
-      Query::BoardTilesCreated.new(board, interval).set_cached_query
-      Query::BoardDigestsSent.new(board, interval).set_cached_query
+      Charts::Queries::BoardUniqueTileViews.new(board, interval).set_cached_query
+      Charts::Queries::BoardUniqueTileCompletions.new(board, interval).set_cached_query
+      Charts::Queries::BoardUniqueLoginActivity.new(board, interval).set_cached_query
+      Charts::Queries::BoardTotalTileViews.new(board, interval).set_cached_query
+      Charts::Queries::BoardTilesCreated.new(board, interval).set_cached_query
+      Charts::Queries::BoardDigestsSent.new(board, interval).set_cached_query
     end
 
     board.rdb[:reports_cached_at].set(Time.now)
