@@ -31,7 +31,7 @@ class BoardMetricsGenerator
       Charts::Queries::BoardUniqueTileCompletions.new(board, interval).set_cached_query
       Charts::Queries::BoardUniqueLoginActivity.new(board, interval).set_cached_query
       Charts::Queries::BoardTotalTileViews.new(board, interval).set_cached_query
-      Charts::Queries::BoardTilesCreated.new(board, interval).set_cached_query
+      Charts::Queries::BoardTilesPosted.new(board, interval).set_cached_query
       Charts::Queries::BoardDigestsSent.new(board, interval).set_cached_query
     end
 
