@@ -4,6 +4,7 @@ class Admin::Sales::OrganizationsController < AdminBaseController
   def new
     @sales_organization_creator = SalesOrganizationCreator.new(current_user)
     @default_board_id = default_sales_board
+    @demos_to_select_from = demos_to_select_from
   end
 
   def create
@@ -29,6 +30,10 @@ class Admin::Sales::OrganizationsController < AdminBaseController
     end
 
     def default_sales_board
-      Demo.where(name: "HR Bulletin Board").first.try(:id)
+      demos_to_select_from.where(name: "HR Bulletin Board").first.try(:id)
+    end
+
+    def demos_to_select_from
+      Demo.select([:id, :name, :organization_id]).includes(:organization).order("organizations.name")
     end
 end

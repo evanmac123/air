@@ -11,45 +11,16 @@ Airbo.Utils.Highcharts.defaultTemplate = function($chart){
     chart: {
       type: 'line',
       height: 500,
-      marginTop: 100,
+      marginTop: 50,
       spacingBottom: 60
     },
-    responsive: {
-      rules: [
-        {
-          condition: {
-            maxWidth: 768
-          },
-          chartOptions: {
-            subtitle: {
-              text: null
-            }
-          }
-        }
-      ]
-    },
-    loading: {
-      style: {
-
-      }
-    },
-    exporting: Airbo.Utils.Highcharts.Exporting.defaultExportingConfig(),
     title: {
-      text: $chart.data("title"),
-      align: "left",
-      style: {
-        color: $chart.data("chartHeaderColor"),
-        fontWeight: "bold"
-      }
+      text: null
     },
     subtitle: {
-      text: $chart.data("subtitle"),
-      align: "left",
-      style: {
-        color: $chart.data("chartSubHeaderColor"),
-        fontSize: "16px"
-      }
+      text: null
     },
+    exporting: Airbo.Utils.Highcharts.Exporting.defaultExportingConfig($chart),
     xAxis: {
       type: 'datetime',
 

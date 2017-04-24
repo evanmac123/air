@@ -166,3 +166,12 @@ describe Demo, 'on create' do
     expect(d.is_public?).to be_truthy
   end
 end
+
+describe Demo, '#name_and_org_name' do
+  it "returns a string witht he demo name and org name" do
+    org = FactoryGirl.build(:organization)
+    demo = FactoryGirl.build(:demo, organization: org)
+
+    expect(demo.name_and_org_name).to eq("#{demo.name}, #{org.name}")
+  end
+end
