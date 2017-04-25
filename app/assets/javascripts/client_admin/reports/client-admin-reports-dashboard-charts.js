@@ -37,6 +37,7 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
 
         $chart.highcharts(chartAttrs);
         initExport($chart);
+        downloadButton($chart).show();
 
         showChartControls($chart);
 
@@ -49,8 +50,12 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
     });
   }
 
+  function downloadButton($chart) {
+    return $("#download-" + $chart.attr("id"));
+  }
+
   function initExport($chart) {
-    var exportButton = $chart.siblings(".download");
+    var exportButton = downloadButton($chart);
     exportButton.on("click", function(e) {
       e.preventDefault();
       $chart.highcharts().exportChart({

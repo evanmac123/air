@@ -1,0 +1,30 @@
+@mixin highcharts-header-component() {
+  .chart-header-component {
+    margin-top: 15px;
+    .chart-title {
+      margin: 0;
+      font-size: 18px;
+      color: $dark-blue;
+      font-weight: bold;
+    }
+    .chart-subtitle {
+      margin: 0;
+      font-size: 16px;
+      color: $dark-blue;
+    }
+    .chart-download-button {
+      margin-right: 10px;
+      float: right;
+    }
+
+    @media (max-width: 768px) {
+      .chart-subtitle {
+        display: none;
+      }
+      .chart-download-button {
+        float: left;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

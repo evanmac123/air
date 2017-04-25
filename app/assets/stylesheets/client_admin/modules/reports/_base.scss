@@ -3,13 +3,13 @@
 @import 'mixins/card-component';
 @import 'mixins/circle-progress-chart-component';
 @import 'mixins/toolbar-inline-list-component';
-@import 'mixins/highcharts-exporting-component';
+@import 'mixins/highcharts-header-component';
 
 .client_admin-reports {
   @include airbo-layout-defaults();
   @include card-component($dark-blue, $primary-gray);
   @include circle-progress-chart-component($n-blue, $n-white);
-  @include highcharts-exporting-component();
+  @include highcharts-header-component();
 
   .card-component {
     @include tabs-component($dark-blue, $white, $primary-gray);

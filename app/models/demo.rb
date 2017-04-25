@@ -469,6 +469,10 @@ class Demo < ActiveRecord::Base
     BoardDeletionJob.new(self.id).perform
   end
 
+  def name_and_org_name
+    "#{name}, #{organization.try(:name)}"
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)
