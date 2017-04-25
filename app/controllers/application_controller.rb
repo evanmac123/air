@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :authorize!
   before_filter :refresh_activity_session
+  before_filter :set_eager_caches
 
   ##AirboSecurityHelper
   before_filter :force_ssl
@@ -23,6 +24,7 @@ class ApplicationController < ActionController::Base
   ##
 
   include ActivitySessionConcern
+  include CachingConcern
   include SecurityConcern
   include MixpanelConcern
   include FlashConcern

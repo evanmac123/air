@@ -896,13 +896,10 @@ class User < ActiveRecord::Base
     (self.accepted_friends + [self]).sort_by {|ff| ff.name.downcase}
   end
 
-  def reset_tiles(demo=nil)
+  def reset_tiles(demo = nil)
     demo ||= self.demo
 
-    # Why the fuck does changing this to self.tile_completions not work?
-    TileCompletion.where(user_id: self.id).each do |completion|
-      completion.destroy if completion.tile.demo == demo
-    end
+    tile_completions.joins(tile: :demo).where(tile: { demo: demo }).destroy_all
   end
 
   def has_tiles_tools_subnav?

@@ -106,7 +106,7 @@
   }
   &:before {
     font: normal normal normal 14px/1 FontAwesome;
-    content: "\f013";
+    content: $loading-icon;
     animation: fa-spin 2s infinite linear;
     display: block;
     position: absolute;

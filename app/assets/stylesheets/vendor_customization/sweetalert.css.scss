@@ -1,6 +1,8 @@
 /*FIXME clean up sweet-alert styling*/
 
 .sweet-alert.airbo {
+  font-family: "Avenir Next Airbo";
+  font-style: normal;
   width: 400px;
   margin-left: -200px;
   h2 {
@@ -26,7 +28,7 @@
      color: inherit;
     }
   }
- 
+
 
   input[type='checkbox']{
     display: inline;
@@ -49,10 +51,7 @@
       border-color: $n-blue !important;
       background-color: $n-blue !important;
       &[disabled]{
-         background-image: url("/assets/spinner_gears.gif");
-         background-repeat: no-repeat;
-         background-position: center;
-         color: rgba(255, 255, 255, 0);
+        @include button-with-spinner;
       }
     }
   }
