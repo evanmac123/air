@@ -53,6 +53,7 @@ module Reporting
           "percent_of_added_tiles_from_scratch",
 
           "total_tiles_added_from_copy_by_paid_client_admin",
+
           "unique_orgs_that_copied_tiles",
           "percent_orgs_that_copied_tiles",
           "average_tiles_copied_per_org_that_copied",
@@ -319,82 +320,6 @@ module Reporting
           indent: 1
         },
 
-        "tiles_with_image_search" => {
-          label: "Image Search",
-          series: "Num Tiles Posted Where Image From Search",
-          type: "num",
-          hint: "",
-          indent: 1
-        },
-
-     "tiles_with_image_upload" => {
-          label: "Image Upload",
-          series: "Num Tiles Posted Where Image From Upload",
-          type: "num",
-          hint: "",
-          indent: 1
-        },
-
-     "tiles_with_video_upload" => {
-          label: "Video Upload",
-          series: "Num Tiles Posted Where Image From Upload",
-          type: "num",
-          hint: "",
-          indent: 1
-        },
-
-        "average_tile_creation_time" =>{
-          label: "Speed",
-          type: "num",
-          hint: "Average tile creation time in seconds",
-          indent: 1,
-        },
-
-        "percent_joined_current" =>{
-          label: "User Activation",
-          type: "pct 0",
-          hint: "",
-          indent: 1,
-        },
-        "percent_joined_30_days" =>{
-          label: "30 Days",
-          type: "pct 0",
-          hint: "",
-          indent: 2,
-        },
-        "percent_joined_60_days" =>{
-          label: "60 Days",
-          type: "pct 0",
-          hint: "",
-          indent: 2,
-        },
-        "percent_joined_120_days" =>{
-          label: "120 Days",
-          type: "pct 0",
-          hint: "",
-          indent: 2,
-        },
-        "percent_retained_post_activation_30_days" =>{
-          label: "30 Day Retention",
-          type: "pct 0",
-          hint: "Percent user who had unique activity session within 30 days of activation",
-          css: "kpi-tooltip",
-          indent: 1,
-        },
-        "percent_retained_post_activation_60_days" =>{
-          label: "60 Day Retention",
-          type: "pct 0",
-          hint: "Percent user who had unique activity session within 60 days of activation",
-          css: "kpi-tooltip",
-          indent: 1,
-        },
-        "percent_retained_post_activation_120_days" =>{
-          label: "120 Day Retention",
-          type: "pct 0",
-          hint: "Percent user who had unique activity session within 120 days of activation",
-          css: "kpi-tooltip",
-          indent: 1,
-        },
       }
     end
 
