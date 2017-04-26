@@ -1,18 +1,30 @@
 @mixin toolbar-inline-list-component($background-color, $box-shadow-color, $text-color, $active-color) {
-  padding: 0 37px;
-  background-color: $background-color;
-  box-shadow: inset 0 -1px 0 0 $box-shadow-color;
-  li {
-    padding: 20px 0;
-    &:not(.tabs-component-active) {
-      a {
-        color: $text-color;
+  .toolbar-inline-list-component {
+    padding: 0 37px;
+    background-color: $background-color;
+    box-shadow: inset 0 -1px 0 0 $box-shadow-color;
+
+    ul {
+      @extend .inline-list;
+      li {
+        padding: 20px 0;
+        &:not(.tabs-component-active) {
+          a {
+            color: $text-color;
+          }
+        }
+        &.tabs-component-active {
+          color: $active-color;
+          border-bottom: solid 2px $active-color;
+          font-weight: bold;
+        }
       }
-    }
-    &.tabs-component-active {
-      color: $active-color;
-      border-bottom: solid 2px $active-color;
-      font-weight: bold;
+
+      @media (max-width: 650px) {
+        li:nth-of-type(n+3) {
+          display:none;
+        }
+      }
     }
   }
 }

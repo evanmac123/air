@@ -9,8 +9,9 @@ class Reports::TileEngagementBoardReport < Reports::BoardReport
   end
 
   private
+
     def tile_viewings
-      @tile_viewings ||= board.tile_viewings.select([:views, :created_at]).where("tile_viewings.created_at >= ? and tile_viewings.created_at <= ?", from_date, to_date)
+      board.tile_viewings.select([:views, :created_at]).where("tile_viewings.created_at >= ? and tile_viewings.created_at <= ?", from_date, to_date)
     end
 
     def unique_views_count

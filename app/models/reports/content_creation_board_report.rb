@@ -12,7 +12,7 @@ class Reports::ContentCreationBoardReport < Reports::BoardReport
   private
 
     def tiles_source_hash
-      @tiles_source_hash ||= board.tiles.select([:creation_source_cd, :created_at]).where("tiles.activated_at >= ? and tiles.activated_at <= ?", from_date, to_date).group(:creation_source_cd).count
+      board.tiles.select([:creation_source_cd, :created_at]).where("tiles.activated_at >= ? and tiles.activated_at <= ?", from_date, to_date).group(:creation_source_cd).count
     end
 
     def tiles_posted_count

@@ -43,26 +43,34 @@ Airbo.TileAction = (function(){
       "user_submitted": "suggestion_box",
       "ignored": "suggestion_box"
     };
-    var newTile = $(data)
-      , status = newTile.data("status")
-      , newSection = "#" + sections[status]
-    ;
 
-    if(status !=="user_submitted" && status!=="ignored"){
+    var newTile = $(data);
+    var status = newTile.data("status");
+    var newSection = "#" + sections[status];
+
+    if (fromSuggestionBox(newTile)) {
+      replaceTileContent(newTile, newTile.data("tile-container-id"));
+    } else{
       currTile.remove();
       $(newSection).prepend(newTile);
       Airbo.TileDragDropSort.updateTilesAndPlaceholdersAppearance();
-    }else{
-      replaceTileContent(newTile, newTile.data("tile-container-id"));
+    }
+
+    if (fromSuggestionBox(currTile)) {
       updateUserSubmittedTilesCounter();
     }
 
     Airbo.TileThumbnailMenu.initMoreBtn(newTile.find(".pill.more"));
   }
 
+  function fromSuggestionBox(tile) {
+    var status = tile.data("status");
+    return status == "user_submitted" || status == "ignored";
+  }
+
   function updateUserSubmittedTilesCounter() {
     submittedTile = $(".tile_thumbnail.user_submitted");
-    $("#user_submitted_tiles_counter").html(submittedTile.length);
+    $("#suggestion_box_title").find(".num-items").html("(" + submittedTile.length + ")");
   }
 
   function movePing(tile, status, action){
@@ -303,7 +311,7 @@ Airbo.TileAction = (function(){
     swal(
       {
         title: "",
-        text: "Are you sure you want to accept this tile? This action cannot be undone",
+        text: "Are you sure you want to accept this tile?",
         customClass: "airbo",
         animation: false,
         closeOnConfirm: false,

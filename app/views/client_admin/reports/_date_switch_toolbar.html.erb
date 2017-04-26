@@ -1,7 +1,7 @@
-<div class="date-switch-toolbar">
-    <ul class="inline-list report-date-opts">
-      <% reportings_date_switch_opts.each do |interval| %>
-        <li class="report-interval-change <%= 'tabs-component-active' if interval[:start_active] == true %>" data-start-date="<%= interval[:start_date] %>" data-end-date="<%= interval[:end_date] %>"><%= link_to interval[:formatted_name], "#" %></li>
-      <% end %>
-    </ul>
+<div class="date-switch-toolbar toolbar-inline-list-component">
+  <ul class="report-date-opts">
+    <% reportings_date_switch_opts.each do |interval| %>
+      <li class="report-interval-change <%= 'tabs-component-active' if interval[:start_active] == true %>" data-start-date="<%= interval[:start_date] %>" data-end-date="<%= interval[:end_date] %>"><%= link_to interval[:formatted_name], "#" %></li>
+    <% end %>
+  </ul>
 </div>

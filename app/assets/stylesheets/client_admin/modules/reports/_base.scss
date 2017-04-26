@@ -10,6 +10,7 @@
   @include card-component($dark-blue, $primary-gray);
   @include circle-progress-chart-component($n-blue, $n-white);
   @include highcharts-header-component();
+  @include toolbar-inline-list-component($white, $primary-gray, $dark-blue, $n-blue);
 
   .card-component {
     @include tabs-component($dark-blue, $white, $primary-gray);
@@ -41,9 +42,5 @@
         text-align: center;
       }
     }
-  }
-
-  .date-switch-toolbar {
-    @include toolbar-inline-list-component($white, $primary-gray, $dark-blue, $n-blue)
   }
 }

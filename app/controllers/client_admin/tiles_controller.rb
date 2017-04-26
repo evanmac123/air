@@ -14,6 +14,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @archives = tiles_by_grp(Tile::ARCHIVE)
     @drafts =  tiles_by_grp(Tile::DRAFT)
     @suggesteds = tiles_by_grp(Tile::USER_SUBMITTED)  | tiles_by_grp(Tile::IGNORED)
+
     @submitteds = tiles_by_grp(Tile::USER_SUBMITTED)
 
     @active_tiles  = @demo.active_tiles_with_placeholders(@actives)

@@ -1,6 +1,6 @@
 class BoardMetricsGenerator
   class << self
-    def update_metrics_caches_for_users_boards(user)
+    def set_cache(user)
       if user.is_site_admin
         boards = [user.demo]
       else
@@ -23,18 +23,20 @@ class BoardMetricsGenerator
     end
   end
 
-  def update_metrics_caches_for_board(board)
-    puts "Updating metrics cache for Board #{board.id}."
+  private
 
-    [:week, :month, :quarter].each do |interval|
-      Charts::Queries::BoardUniqueTileViews.new(board, interval).set_cached_query
-      Charts::Queries::BoardUniqueTileCompletions.new(board, interval).set_cached_query
-      Charts::Queries::BoardUniqueLoginActivity.new(board, interval).set_cached_query
-      Charts::Queries::BoardTotalTileViews.new(board, interval).set_cached_query
-      Charts::Queries::BoardTilesPosted.new(board, interval).set_cached_query
-      Charts::Queries::BoardDigestsSent.new(board, interval).set_cached_query
+    def update_metrics_caches_for_board(board)
+      puts "Updating metrics cache for Board #{board.id}."
+
+      [:week, :month, :quarter].each do |interval|
+        Charts::Queries::BoardUniqueTileViews.new(board, interval).set_cached_query
+        Charts::Queries::BoardUniqueTileCompletions.new(board, interval).set_cached_query
+        Charts::Queries::BoardUniqueLoginActivity.new(board, interval).set_cached_query
+        Charts::Queries::BoardTotalTileViews.new(board, interval).set_cached_query
+        Charts::Queries::BoardTilesPosted.new(board, interval).set_cached_query
+        Charts::Queries::BoardDigestsSent.new(board, interval).set_cached_query
+      end
+
+      board.rdb[:reports_cached_at].set(Time.now)
     end
-
-    board.rdb[:reports_cached_at].set(Time.now)
-  end
 end
