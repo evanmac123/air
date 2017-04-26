@@ -1,8 +1,10 @@
 module CachingConcern
 
   def set_eager_caches
-    if current_user.is_client_admin_in_any_board
-      set_client_admin_caches
+    if current_user && current_user.is_a?(User)
+      if current_user.is_client_admin_in_any_board
+        set_client_admin_caches
+      end
     end
   end
 
