@@ -1,8 +1,8 @@
 class TilesDigestMailer < BaseTilesDigestMailer
 
   def notify_one(digest, user_id, subject, presenter_class)
-    @user  = User.find(user_id)
-    return nil unless @user.email.present?
+    @user  = User.where(id: user_id).first
+    return nil unless @user && @user.email.present?
 
     @demo = digest.demo
     @tile_ids = digest.tile_ids_for_email
