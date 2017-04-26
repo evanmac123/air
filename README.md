@@ -14,13 +14,35 @@ Airbo Git Flow
     git rebase -i development 111_example_feature_branch
     git push origin 111_example_feature_branch -f
     ```
-    
+
 5. Before merging your pull request:
-  *Make sure Semaphore passes
-  *Make sure all the CodeClimate checks pass
-  *Ask for code review on your pull request if needed
-  *Deploy to Staging and QA
-6. Merge pull requests from the GitHub GUI and delete your feature banch in the same GUI after merging. 
+  * Make sure Semaphore passes
+  * Make sure all the CodeClimate checks pass
+  * Ask for code review on your pull request if needed
+  * Deploy to Staging and QA
+6. Merge pull requests from the GitHub GUI and delete your feature banch in the same GUI after merging.
+
+Deploying
+---------
+
+To deploy to staging:
+
+  * Option 1: Deploy from Semaphore
+  * Option 2: `git push staging ${branch}:master -f`
+
+To deploy to production:
+
+  * Option 1: `script/deploy_production`
+      * This:
+        1. runs `git push production development:master`
+        2. runs `heroku restart -a hengage`
+        3. runs `heroku run rake db:migrate -a hengage`
+        4. runs `script/airbrake_deploy_production`
+
+  * Option 2: `git push production development:master && heroku restart -a hengage && heroku run rake db:migrate -a hengage`
+    * Set deploy for Airbrake:
+      1. Make sure `AIRBRAKE_PRODUCTION_PROJECT_ID` and `AIRBRAKE_PRODUCTION_API_KEY` ENV vars are set.
+      2. `script/airbrake_deploy_production`
 
 Laptop setup
 ------------
@@ -138,32 +160,14 @@ We're using Heroku as a hosting provider. Deploying to Heroku is done via git. S
     git remote add staging git@heroku.com:hengage-staging.git
     git remote add production git@heroku.com:hengage.git
 
-Development process
--------------------
-
-    git pull --rebase
-    grb create feature-branch
-    be rake
-
-This creates a new branch for your feature. Name it something relevant. Run the tests to make sure everything's passing. Then, implement the feature.
-
-    be rake
-    git add -A
-    git commit -m "my awesome feature"
-    git push origin feature-branch
-
-Open up the Github repo, change into your feature-branch branch. Press the "Pull request" button. It should automatically choose the commits that are different between master and your feature-branch. Create a pull request and share the link in Campfire with the team. When someone else gives you the thumbs-up, you can merge into master:
-
-    git up
-    git mm
-    git push origin master
 
 Running the app
 ---------------
 
 To run the app locally:
 
-    script/airbo_dev_up
+    1. `script/airbo_dev_up` will start workers, redis, and elastic search as well as serve as a log.
+    2. `rails s`
 
 Running the tests
 -----------------
@@ -172,20 +176,7 @@ Our CI runs with the following script:
 
   `bundle exec rspec -fd -t ~broken:true; bundle exec rspec --only-failures`
 
-This will run all test not flagged for removal and then rerun failures one time.
-
-Deploying
----------
-
-To deploy to staging:
-
-    be rake deploy:staging
-
-To deploy to production:
-
-    be rake deploy:production
-
-Using these commands is important because they will migrate the database and notify Hoptoad of the deploy.
+This will run all tests not flagged for removal and then rerun failures one time.
 
 Heroku
 ------

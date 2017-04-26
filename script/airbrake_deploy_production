@@ -1,0 +1,13 @@
+#!/bin/sh
+
+ENVIRONMENT=production
+AIRBRAKE_PROJECT_ID="$(printenv AIRBRAKE_PRODUCTION_PROJECT_ID)"
+AIRBRAKE_PROJECT_KEY="$(printenv AIRBRAKE_PRODUCTION_API_KEY)"
+REVISION=$(git rev-parse HEAD)
+USERNAME=$(whoami)
+REPOSITORY="https://github.com/theairbo/hengage"
+
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"environment":"'${ENVIRONMENT}'","username":"'${USERNAME}'","repository":"'${REPOSITORY}'","revision":"'${REVISION}'"}' \
+  "https://airbrake.io/api/v4/projects/${AIRBRAKE_PROJECT_ID}/deploys?key=${AIRBRAKE_PROJECT_KEY}"
