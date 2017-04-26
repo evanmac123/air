@@ -61,6 +61,7 @@ module Reporting
           "tiles_created_from_scratch",
           "orgs_that_created_tiles_from_scratch",
           "average_tiles_created_from_scratch_per_org_that_created",
+          "percent_of_orgs_that_posted_tiles"
         ],
 
       }

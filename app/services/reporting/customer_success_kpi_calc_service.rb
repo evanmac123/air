@@ -108,25 +108,8 @@ module Reporting
       @total_tiles_viewed_in_explore.get_count(@curr_interval_key)
     end
 
-
     def tiles_viewed_per_paid_client_admin
       calc_avg(total_tiles_viewed_in_explore, unique_client_admin_with_viewed_tiles_in_explore)
-    end
-
-    def get_tiles_posted_by_media_source
-      @tiles_posted_by_media_source = Reporting::Mixpanel::TotalTilesPostedByMediaSource.new(opts)
-    end
-
-    def tiles_with_image_upload
-      @tiles_posted_by_media_source.get_count_by_segment(Tile::IMAGE_UPLOAD, @curr_interval_key)
-    end
-
-    def tiles_with_video_upload
-      @tiles_posted_by_media_source.get_count_by_segment(Tile::VIDEO_UPLOAD, @curr_interval_key)
-    end
-
-    def tiles_with_image_search
-      @tiles_posted_by_media_source.get_count_by_segment(Tile::IMAGE_SEARCH, @curr_interval_key)
     end
 
     def get_tiles_added_by_paid_client_admins
