@@ -9,11 +9,11 @@ describe ContractRenewer do
     start_date2 = end_date2.advance(months: -1)
 
 
-    FactoryGirl.create(:contract, :complete, cycle: Contract::ANNUAL, start_date: 120.days.ago, end_date: Date.yesterday)
-    FactoryGirl.create(:contract, :complete, cycle: Contract::ANNUAL, start_date: start_date, end_date: end_date)
-    FactoryGirl.create(:contract, :complete, cycle: Contract::MONTHLY, renewed_on: Date.yesterday,  start_date: start_date, end_date: end_date)
-    FactoryGirl.create(:contract, :complete, cycle: Contract::MONTHLY, start_date: start_date2, end_date: end_date2)
-    expect{ContractRenewer.execute}.to change{Contract.count}.by 1
+    FactoryGirl.create(:contract, :complete, cycle: Contract::ANNUAL, start_date: 120.days.ago, end_date: Date.yesterday) #not renewed
+    FactoryGirl.create(:contract, :complete, cycle: Contract::ANNUAL, start_date: start_date, end_date: end_date) #should renew
+    FactoryGirl.create(:contract, :complete, cycle: Contract::MONTHLY, renewed_on: Date.yesterday,  start_date: start_date, end_date: end_date) #renewed already
+    FactoryGirl.create(:contract, :complete, cycle: Contract::MONTHLY, start_date: start_date2, end_date: end_date2) #should renew
+    expect{ContractRenewer.execute}.to change{Contract.count}.by 2
   end
 
 
