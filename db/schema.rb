@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170426185155) do
+ActiveRecord::Schema.define(:version => 20170501194149) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -345,6 +345,8 @@ ActiveRecord::Schema.define(:version => 20170426185155) do
     t.string   "static_text_color"
   end
 
+  add_index "custom_color_palettes", ["demo_id"], :name => "index_custom_color_palettes_on_demo_id"
+
   create_table "custom_invitation_emails", :force => true do |t|
     t.text     "custom_html_text"
     t.text     "custom_plain_text"
@@ -388,8 +390,8 @@ ActiveRecord::Schema.define(:version => 20170426185155) do
     t.datetime "ends_at"
     t.string   "followup_welcome_message",              :limit => 160, :default => "",                :null => false
     t.integer  "followup_welcome_message_delay",                       :default => 20
-    t.integer  "credit_game_referrer_threshold"
-    t.integer  "game_referrer_bonus"
+    t.integer  "credit_game_referrer_threshold",                       :default => 100000
+    t.integer  "game_referrer_bonus",                                  :default => 5
     t.boolean  "use_standard_playbook",                                :default => true,              :null => false
     t.datetime "begins_at"
     t.string   "phone_number"
@@ -399,7 +401,7 @@ ActiveRecord::Schema.define(:version => 20170426185155) do
     t.string   "unrecognized_user_message"
     t.string   "act_too_early_message",                                :default => "",                :null => false
     t.string   "act_too_late_message",                                 :default => "",                :null => false
-    t.integer  "referred_credit_bonus"
+    t.integer  "referred_credit_bonus",                                :default => 2
     t.string   "survey_answer_activity_message",                       :default => "",                :null => false
     t.string   "login_announcement",                    :limit => 500
     t.datetime "total_user_rankings_last_updated_at"
@@ -455,6 +457,8 @@ ActiveRecord::Schema.define(:version => 20170426185155) do
     t.boolean  "marked_for_deletion",                                  :default => false
   end
 
+  add_index "demos", ["dependent_board_id"], :name => "index_demos_on_dependent_board_id"
+  add_index "demos", ["marked_for_deletion"], :name => "index_demos_on_marked_for_deletion"
   add_index "demos", ["organization_id"], :name => "index_demos_on_organization_id"
   add_index "demos", ["public_slug"], :name => "index_demos_on_public_slug"
 
@@ -739,7 +743,6 @@ ActiveRecord::Schema.define(:version => 20170426185155) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.boolean  "featured"
-    t.boolean  "in_trial",          :default => false
   end
 
   add_index "organizations", ["name"], :name => "index_organizations_on_name"
@@ -840,6 +843,8 @@ ActiveRecord::Schema.define(:version => 20170426185155) do
     t.datetime "updated_at",     :null => false
     t.integer  "delayed_job_id"
   end
+
+  add_index "raffles", ["demo_id"], :name => "index_raffles_on_demo_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -1135,7 +1140,7 @@ ActiveRecord::Schema.define(:version => 20170426185155) do
     t.integer  "user_tile_copies_count",  :default => 0
     t.integer  "user_tile_likes_count",   :default => 0
     t.boolean  "user_created"
-    t.string   "remote_media_url"
+    t.text     "remote_media_url"
     t.string   "remote_media_type"
     t.boolean  "use_old_line_break_css",  :default => false
     t.text     "embed_video",             :default => "",    :null => false
@@ -1301,7 +1306,7 @@ ActiveRecord::Schema.define(:version => 20170426185155) do
   create_table "user_onboardings", :force => true do |t|
     t.integer  "user_id"
     t.integer  "onboarding_id"
-    t.integer  "state",          :default => 0
+    t.integer  "state",          :default => 2
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.string   "auth_hash"

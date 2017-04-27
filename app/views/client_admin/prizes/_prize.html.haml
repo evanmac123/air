@@ -3,7 +3,7 @@
     %h1
       Prize
     .end_date
-      Ends 
+      Ends
       = raffle.ends_at ? raffle.ends_at.strftime("%A, %b %e") : "[Day of week, MM DD]"
   .tickets_row
     .torhy_icon.icon_container
@@ -35,10 +35,14 @@
         .prize_description.desc_container
           %p{:class => ("placeholder_text" unless prize.present?)}
             = prize.present? ? prize : "Prize description will appear here"
+  .ticket_container
+    .ticket_row
+      .prize_icon.icon_container
+        %span.fa.fa-ticket
+      .prize_description.desc_container
+        %p{style: "font-size:14px;"}
+          For every 20 points, you get an entry.
   .other_info_row{:class => ("placeholder_text" unless raffle.other_info.present?)}
-    = raffle.other_info.present? ? raffle.other_info : "For every 20 points you earn, you receive an entry. We’ll email the winner to award the prize within a week of the end of the prize period."
+    = raffle.other_info.present? ? raffle.other_info : "We’ll email the winner to award the prize within a week of the end of the prize period."
     .button.close_modal
       Start
-
-
-

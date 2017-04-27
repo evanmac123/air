@@ -110,7 +110,11 @@ class Tile < ActiveRecord::Base
   alias_attribute :unique_views, :unique_viewings_count
   alias_attribute :interactions, :tile_completions_count
 
-  searchkick word_start: [:channel_list, :headline], callbacks: :async, settings: { number_of_shards: 1, number_of_replicas: 1 }
+  after_save :reindex, if: :should_reindex?
+  after_destroy :reindex
+
+  searchkick word_start: [:channel_list, :headline], callbacks: false
+
   def search_data
     extra_data = {
       channel_list: channel_list,
@@ -118,6 +122,10 @@ class Tile < ActiveRecord::Base
     }
 
     serializable_hash.merge(extra_data)
+  end
+
+  def should_reindex?
+    self.changes.key?("headline") || self.changes.key?("supporting_content")
   end
 
   def self.not_completed

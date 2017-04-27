@@ -39,7 +39,7 @@ feature 'Pick winners after raffle' do
   context "re-pick one winner" do
     before(:each) do
       @raffle = demo.raffle = FactoryGirl.create(:raffle, :picked_winners, demo: demo)
-      demo.raffle.add_winners @users[0..1]
+      @users[0..1].each { |user| demo.raffle.send(:add_winner, user) }
       visit client_admin_prizes_path(as: client_admin)
     end
 
@@ -53,7 +53,6 @@ feature 'Pick winners after raffle' do
       ejected_winner = User.find_by_email winner_email(1)
       repick_winner 1
       expect(@raffle.reload.winners.include?(ejected_winner)).to be_falsey
-      expect(@raffle.reload.blacklisted_users.include?(ejected_winner)).to be_truthy
     end
 
     scenario "re-pick winner and get message if no potential winners left", js: true do

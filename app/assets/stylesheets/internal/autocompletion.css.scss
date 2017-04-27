@@ -52,7 +52,7 @@ a.remove_referrer{
   padding: 10px;
   width: 100%;
   position: relative;
-  &:hover{border-color:$blue;}
+  &:hover{border-color:$dark-blue;}
   &:after {@include clear;}
   .image {width:75px;}
   img {
@@ -61,7 +61,7 @@ a.remove_referrer{
   }
   div.info {
     div.bit:first-child {
-      color:$blue;
+      color:$dark-blue;
       font-size:1.15em;
       font-weight:700;
       padding:.5em 0;
@@ -69,7 +69,7 @@ a.remove_referrer{
   }
 }
 .single_suggestion + .single_suggestion{
-  margin-top: 2px; 
+  margin-top: 2px;
 }
 #autocomplete + .single_suggestion{
   margin-top: 5px;
@@ -177,9 +177,9 @@ div.helper {
   padding: 10px;
   position: absolute;
   width: 175px;
-  left: -187px;           
+  left: -187px;
   z-index: 1;
-}   
+}
 
 /* ###############################   END STOLEN  ################################# */
 .relative{
@@ -197,11 +197,11 @@ div.helper {
   border-radius: $medium_radius;
   padding-left: 7px;
   padding-bottom: 7px;
-  width: 330px;  
+  width: 330px;
 }
 .gold{color: $gold;}
 
-#invite_friends_middle{ 
+#invite_friends_middle{
   #autocomplete{width: 100%;}
   .form-label{padding:1em 0;}
   .form-label label {

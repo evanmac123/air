@@ -47,7 +47,6 @@ feature "User Accepts Invitation" do
   scenario "and gets no email after accepting invitation" do
     visit invitation_url(@user.invitation_code)
     set_password_if_needed
-    crank_dj_clear
 
     expect(ActionMailer::Base.deliveries).to be_empty
   end

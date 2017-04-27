@@ -1033,42 +1033,6 @@ describe User, "add_tickets" do
   end
 end
 
-describe User, "#flush_tickets_in_board" do
-  before do
-    @user = FactoryGirl.create(:user, points: 123, tickets: 79)
-  end
-
-  context "of the board the user is currently in" do
-    it "resets tickets and ticket_threshold base" do
-      @user.flush_tickets_in_board(@user.demo_id)
-
-      expect(@user.reload.points).to eq(123)
-      expect(@user.reload.ticket_threshold_base).to eq(123)
-      expect(@user.reload.tickets).to eq(0)
-    end
-  end
-
-  context "on a different board than the user is currently in" do
-    it "resets tickets and ticket_threshold base on the board membership" do
-      other_board = FactoryGirl.create(:demo)
-      @user.add_board(other_board)
-      expect(@user.demos).to include(other_board)
-      expect(@user.demo).not_to eq(other_board)
-      board_membership = @user.board_memberships.find_by_demo_id(other_board.id)
-      board_membership.update_attributes(points: 456, tickets: 44)
-
-      @user.flush_tickets_in_board(other_board.id)
-      expect(@user.reload.points).to eq(123)
-      expect(@user.reload.ticket_threshold_base).to eq(0)
-      expect(@user.reload.tickets).to eq(79)
-
-      expect(board_membership.reload.points).to eq(456)
-      expect(board_membership.reload.ticket_threshold_base).to eq(456)
-      expect(board_membership.tickets).to eq(0)
-    end
-  end
-end
-
 describe User, "#not_in_any_paid_boards?" do
   it "returns what you'd think" do
     user = FactoryGirl.create(:user)
