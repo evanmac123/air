@@ -113,8 +113,7 @@ Airbo.KpiChart = (function(){
 
   function refreshWithHTML(html){
     $(".tabular-data").html(html);
-    Airbo.Utils.StickyTable.reflow();
-
+    initTableScroll();
     if ($(".no-chart-data").length === 0){
       initChartDataFromDataAttributes();
       refreshChart();
@@ -231,6 +230,16 @@ Airbo.KpiChart = (function(){
     });
   }
 
+
+  function initTableScroll(){
+    $('tbody').scroll(function(e) { //detect a scroll event on the tbody
+      $('thead').css("left", -$("tbody").scrollLeft()); //fix the thead relative to the body scrolling
+      $('thead th:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first cell of the header
+      $('tbody td:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first column of tdbody
+    });
+
+  }
+
   function init(){
     initDataSets();
     initVars();
@@ -239,8 +248,8 @@ Airbo.KpiChart = (function(){
     initForm();
     initSeriesSwitcher();
     Airbo.Utils.KpiReportDateFilter.init();
-    Airbo.Utils.StickyTable.init();
     Airbo.Utils.initChosen();
+    initTableScroll();
   }
 
 
