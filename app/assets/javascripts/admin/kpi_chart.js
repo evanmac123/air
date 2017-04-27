@@ -241,6 +241,7 @@ Airbo.KpiChart = (function(){
 
 $(function(){
   if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".kpis-graph")){
+    debugger
     Airbo.KpiChart.init();
   }
 });
