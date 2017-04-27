@@ -11,24 +11,6 @@ Airbo.KpiChart = (function(){
   ;
 
 
-  var tableTemplate=[
-    "<table>",
-    "<thead><tr><td>&nbsp;</td>",
-    "{{#each headers}}",
-    "<td>{{this}}</td>",
-    "{{/each}}",
-    "</tr></thead>",
-    "<tbody>",
-    "{{#each rows}}",
-    "<tr>",
-    "<th>{{label}}</th>",
-    "{{#each values}}",
-    "<td>{{this}}</td>",
-    "{{/each}}",
-    "</tr>",
-    "{{/each}}",
-    "</tbody></table>"
-  ].join("");
 
   function initChart(container){
     kpiChart = Highcharts.chart(container.attr("id"), {
@@ -111,6 +93,15 @@ Airbo.KpiChart = (function(){
     refreshTable(tableData)
   }
 
+  function refreshTable(data){
+    rebuildTable();
+  }
+
+  function rebuildTable(){
+     var theTemplate = Handlebars.compile (tableTemplate);  
+    $(".table-container").html(theTemplate (tableData));
+  }
+
   function refreshWithHTML(html){
     $(".tabular-data").html(html);
     initTableScroll();
@@ -123,11 +114,6 @@ Airbo.KpiChart = (function(){
 
     kpiChart.hideLoading();
   }
-
-  function refreshTable(data){
-    rebuildTable();
-  }
-
 
   function refreshChart(){
     kpiChart.series[0].setData(chartData[0].data);
@@ -195,11 +181,6 @@ Airbo.KpiChart = (function(){
   }
 
 
-  function rebuildTable(){
-
-     var theTemplate = Handlebars.compile (tableTemplate);  
-    $(".table-container").html(theTemplate (tableData));
-  }
 
 
 
@@ -222,7 +203,7 @@ Airbo.KpiChart = (function(){
       switchKpi($(this).find("option:selected").val())
     });
   }
-  
+
   function initDataSets(){
     var kpiset = $("#metric_list").data("kpis")
     Object.keys(kpiset).forEach(function(kpi){
