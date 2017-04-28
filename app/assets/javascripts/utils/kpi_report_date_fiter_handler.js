@@ -55,12 +55,21 @@ Airbo.Utils.KpiReportDateFilter = (function(){
 
   function initCustomDateDone(){
     $("body").on("click", ".custom-date-done", function(event){
-      var  range = $("#sdate").val() + " to " + $("#edate").val() ;
       event.preventDefault();
+      var sdatePicker= $("#sdate_picker")
+        , edatePicker= $("#edate_picker")
+        , range = sdatePicker.val() + " to " + edatePicker.val()
+      ;
+      $( '#sdate_picker' ).datepicker( "option", "altField", "#sdate" );
+      $( '#edate_picker' ).datepicker( "option", "altField", "#edate" );
+
+
+
       customRange.hide();
       builtinRange.show();
 
-        $("#date_range_chosen .chosen-single span").text(range);
+        $(".button.submit").show();
+      $("#date_range_chosen .chosen-single span").text(range);
       $.Topic("report-date-form-submitted").subscribe(function(){
         $("#date_range").val('').trigger("chosen:updated");
         $("#date_range_chosen .chosen-single span").text(range);
@@ -79,6 +88,7 @@ Airbo.Utils.KpiReportDateFilter = (function(){
       if($(this).val()==="-1"){
         customRange.show();
         builtinRange.hide();
+        $(".button.submit").hide();
       }else{
         sdate = startDateFromTimeStamp($(this).val());
         $("input[name='sdate']").val(extractDateStringFromISO(sdate));
@@ -87,11 +97,23 @@ Airbo.Utils.KpiReportDateFilter = (function(){
   }
 
 
-
+  function initJQueryDatePicker(){
+   $(".datepicker").datepicker({
+      showOtherMonths: true,
+      selectOtherMonths: true,
+      dateFormat: 'M d, yy',
+      altFormat: "yy-mm-dd",
+      maxDate: 0,
+      onClose: function(dateText, inst) {
+        $(inst.input).removeClass("opened");
+      }
+    });
+  }
 
   function init(){
     builtinRange =$(builtinRangeSel);
     customRange = $(customRangeSel); 
+    initJQueryDatePicker();
     initDateRangeFilters();
     initCustomDateDone();
   }
