@@ -153,7 +153,7 @@ class Contract < ActiveRecord::Base
   end
 
   def contract_length_in_months
-    TimeDifference.between(end_date, start_date).in_months
+    TimeDifference.between(end_date, start_date).in_months.round
   end
   
 
