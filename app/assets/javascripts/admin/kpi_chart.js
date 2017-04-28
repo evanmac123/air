@@ -11,24 +11,6 @@ Airbo.KpiChart = (function(){
   ;
 
 
-  var tableTemplate=[
-    "<table>",
-    "<thead><tr><td>&nbsp;</td>",
-    "{{#each headers}}",
-    "<td>{{this}}</td>",
-    "{{/each}}",
-    "</tr></thead>",
-    "<tbody>",
-    "{{#each rows}}",
-    "<tr>",
-    "<th>{{label}}</th>",
-    "{{#each values}}",
-    "<td>{{this}}</td>",
-    "{{/each}}",
-    "</tr>",
-    "{{/each}}",
-    "</tbody></table>"
-  ].join("");
 
   function initChart(container){
     kpiChart = Highcharts.chart(container.attr("id"), {
@@ -111,10 +93,18 @@ Airbo.KpiChart = (function(){
     refreshTable(tableData)
   }
 
+  function refreshTable(data){
+    rebuildTable();
+  }
+
+  function rebuildTable(){
+     var theTemplate = Handlebars.compile (tableTemplate);  
+    $(".table-container").html(theTemplate (tableData));
+  }
+
   function refreshWithHTML(html){
     $(".tabular-data").html(html);
-    Airbo.Utils.StickyTable.reflow();
-
+    initTableScroll();
     if ($(".no-chart-data").length === 0){
       initChartDataFromDataAttributes();
       refreshChart();
@@ -124,11 +114,6 @@ Airbo.KpiChart = (function(){
 
     kpiChart.hideLoading();
   }
-
-  function refreshTable(data){
-    rebuildTable();
-  }
-
 
   function refreshChart(){
     kpiChart.series[0].setData(chartData[0].data);
@@ -196,11 +181,6 @@ Airbo.KpiChart = (function(){
   }
 
 
-  function rebuildTable(){
-
-     var theTemplate = Handlebars.compile (tableTemplate);  
-    $(".table-container").html(theTemplate (tableData));
-  }
 
 
 
@@ -223,12 +203,22 @@ Airbo.KpiChart = (function(){
       switchKpi($(this).find("option:selected").val())
     });
   }
-  
+
   function initDataSets(){
     var kpiset = $("#metric_list").data("kpis")
     Object.keys(kpiset).forEach(function(kpi){
       datasets[kpi]={name: kpiset[kpi], data:[]};
     });
+  }
+
+
+  function initTableScroll(){
+    $('tbody').scroll(function(e) { //detect a scroll event on the tbody
+      $('thead').css("left", -$("tbody").scrollLeft()); //fix the thead relative to the body scrolling
+      $('thead th:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first cell of the header
+      $('tbody td:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first column of tdbody
+    });
+
   }
 
   function init(){
@@ -239,8 +229,8 @@ Airbo.KpiChart = (function(){
     initForm();
     initSeriesSwitcher();
     Airbo.Utils.KpiReportDateFilter.init();
-    Airbo.Utils.StickyTable.init();
     Airbo.Utils.initChosen();
+    initTableScroll();
   }
 
 
@@ -251,6 +241,7 @@ Airbo.KpiChart = (function(){
 
 $(function(){
   if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".kpis-graph")){
+    debugger
     Airbo.KpiChart.init();
   }
 });

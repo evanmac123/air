@@ -10,15 +10,17 @@
       </span>
 
       <div class="custom-date-range" style="display:none">
-        <%= text_field_tag :sdate, @sdate, class: "pickadate", data: {value: simple_date_format_Y_d_m(@sdate)} %>
-        <%= text_field_tag :edate, @edate, class: "pickadate", data: {value: simple_date_format_Y_d_m(@edate)} %>
+        <%= text_field_tag :sdate_picker, @sdate, class: "datepicker", data: {value: simple_date_format_Y_d_m(@sdate)} %>
+        <%= text_field_tag :edate_picker, @edate, class: "datepicker", data: {value: simple_date_format_Y_d_m(@edate)} %>
+        <%= hidden_field_tag :sdate, @sdate %>
+        <%= hidden_field_tag :edate, @edate %>
         <a href= "#" class ="button outlined custom-date-done">
           Done
         </a>
       </div>
 
     </div>
-    <button class="button">Submit</button>
+    <button class="button submit">Submit</button>
 <%end%>
 
 

@@ -43,18 +43,7 @@ Airbo.SiteAdminInitializer = ( function(){
     });
   }
 
-  function initJQueryDatePicker(){
-   $(".datepicker").datepicker({
-      showOtherMonths: true,
-      selectOtherMonths: true,
-      dateFormat: 'M d, yy',
-      altFormat: "dd/mm/yy",
-      maxDate: 0,
-      onClose: function(dateText, inst) {
-        $(inst.input).removeClass("opened");
-      }
-    });
-  }
+
 
   function init(){
     initBoardDeleter();

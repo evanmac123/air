@@ -43,9 +43,6 @@
     background-color: $n-blue;
   }
 
-  .separator{
-   background-color: $n-green;
-  }
 
   .indent-1{
     padding-left: 1.5em;
@@ -66,25 +63,6 @@
     overflow: auto;
   }
 
- table.kpi{
-   td {
-      text-align: right;
-   }
-
-   tbody th{
-     white-space: nowrap;
-   }
-
-   th:not(:first-child){
-     text-align: right ;
-   }
-
-   th {
-     border-bottom: 1px solid #dddddd;
-     .grp{
-       background: #DDD;
-     }
-   }
- }
-
 }
+
+

@@ -108,25 +108,8 @@ module Reporting
       @total_tiles_viewed_in_explore.get_count(@curr_interval_key)
     end
 
-
     def tiles_viewed_per_paid_client_admin
       calc_avg(total_tiles_viewed_in_explore, unique_client_admin_with_viewed_tiles_in_explore)
-    end
-
-    def get_tiles_posted_by_media_source
-      @tiles_posted_by_media_source = Reporting::Mixpanel::TotalTilesPostedByMediaSource.new(opts)
-    end
-
-    def tiles_with_image_upload
-      @tiles_posted_by_media_source.get_count_by_segment(Tile::IMAGE_UPLOAD, @curr_interval_key)
-    end
-
-    def tiles_with_video_upload
-      @tiles_posted_by_media_source.get_count_by_segment(Tile::VIDEO_UPLOAD, @curr_interval_key)
-    end
-
-    def tiles_with_image_search
-      @tiles_posted_by_media_source.get_count_by_segment(Tile::IMAGE_SEARCH, @curr_interval_key)
     end
 
     def get_tiles_added_by_paid_client_admins
@@ -197,30 +180,6 @@ module Reporting
       calc_avg(total_tiles_added_from_scratch, orgs_that_created_tiles_from_scratch)
     end
 
-    def get_avg_tile_creation_time
-      @avg_tile_creation_time = Reporting::Mixpanel::TileCreationFunnel.new(opts)
-    end
-
-
-    def avg_tile_creation_time
-      @avg_tile_creation_time.get_avg_time(@curr_interval_key)
-    end
-
-    def get_retention
-      @retention = Reporting::Mixpanel::UniqueActivitySessionAfterTimePeriodInDays.new(opts)
-    end
-
-
-    def retention
-      @retention = Reporting::Mixpanel::UniqueActivitySessionAfterTimePeriodInDays.new(opts)
-    end
-
-    def retention_by_days days
-      #TODO fix implementation
-      return nil
-      #retention.get_count_by_segment(days)
-    end
-
     def percent_of_orgs_that_posted_tiles
       calc_percent(orgs_that_posted_tiles, total_paid_orgs)
     end
@@ -229,17 +188,6 @@ module Reporting
       calc_avg(total_tiles_posted, orgs_that_posted_tiles)
     end
 
-    def percent_joined_current
-    end
-
-    def percent_joined_30
-    end
-
-    def percent_joined_60
-    end
-
-    def percent_joined_120
-    end
 
     def get_total_tiles_posted
       @total_tiles_posted = Reporting::Mixpanel::TotalTilesPostedByPaidClientAdmin.new(opts)
@@ -280,8 +228,6 @@ module Reporting
       get_orgs_that_created_tiles_from_scratch
       get_orgs_that_posted_tiles
       get_total_tiles_posted
-      get_avg_tile_creation_time
-      get_tiles_posted_by_media_source
     end
 
     #----------Utility Methods

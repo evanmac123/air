@@ -4,7 +4,6 @@ Airbo.CustomerSuccessKpi = (function(){
 
   function refreshWithHTML(html){
     $(".tabular-data").html(html);
-    Airbo.Utils.StickyTable.reflow();
   }
   function submitFailure(){
     console.log("error occured"); 
@@ -20,7 +19,6 @@ Airbo.CustomerSuccessKpi = (function(){
 
 function init(){
   Airbo.Utils.KpiReportDateFilter.init();
-  Airbo.Utils.StickyTable.init();
   initForm();
 }
 

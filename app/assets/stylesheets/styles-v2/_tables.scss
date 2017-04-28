@@ -5,11 +5,14 @@ $table-even-row-bg: $n-white;
 $table-head-padding: 10px;
 $table-row-padding: 10px;
 $table-line-height: 1.5em;
-
 // Foundation table docs:
 // http://foundation.zurb.com/sites/docs/v/4.3.2/components/tables.html
 
 @import "./vendor/foundation/components/tables";
+
+@mixin kpi-table-section-separator {
+  background-color: $n-green;
+}
 
 table:not(.first-column-header){
 
@@ -38,7 +41,7 @@ table:not(.first-column-header){
       border-bottom: 0;
     }
   }
- 
+
 }
 
 table.first-column-header{
@@ -137,3 +140,106 @@ th {
     }
   }
 }
+
+table.scrollable {
+  position: relative;
+  width: 1200px;
+  overflow: hidden;
+  border-collapse: collapse;
+
+
+  /*thead*/
+  thead {
+    position: relative;
+    display: block; /*seperates the header from the body allowing it to be positioned*/
+    width: 1200px;
+    overflow: visible;
+  }
+
+  thead th {
+    min-width: 120px;
+    height: 60px;
+  }
+
+  thead th:nth-child(1) {/*first cell in the header*/
+    position: relative;
+    display: block; /*seperates the first cell in the header from the header*/
+    width: 275px;
+    background-color: #CCC;
+  }
+
+
+  /*tbody*/
+  tbody {
+    position: relative;
+    display: block; /*seperates the tbody from the header*/
+    width: 1200px;
+    height: 800px;
+    overflow: scroll;
+  }
+
+  tbody td {
+    min-width: 120px;
+    border-bottom: 1px solid #ddd; 
+  }
+
+  tbody tr td:nth-child(1) {  /*the first cell in each tr*/
+    position: relative;
+    display: block; /*seperates the first column from the tbody*/
+    height: 60px;
+    width: 275px;
+    background-color: white;
+  }
+}
+
+table.kpi{
+  td:not(:nth-child(1)) {
+    text-align: right;
+  }
+  
+  thead{
+    background-color: rgb(238, 238, 238);
+  }
+
+  tbody th{
+    white-space: nowrap;
+  }
+
+  th:not(:first-child){
+    text-align: right ;
+  }
+
+  th {
+    border-bottom: 1px solid #dddddd;
+    .grp{
+      background: #DDD;
+    }
+  }
+
+  .separator td{
+    @include kpi-table-section-separator;
+  }
+
+}
+
+
+table.kpi.scrollable  {
+  tbody tr.separator td:nth-child(1){
+    @include kpi-table-section-separator;
+  }
+
+  tbody tr td:nth-child(1):hover {
+    background-color: inherit;
+  }
+
+  thead {
+    background-color: inherit;
+
+    th{
+      background-color: #eee;
+    }
+
+
+  }
+}
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170417204641) do
+ActiveRecord::Schema.define(:version => 20170426185155) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -312,7 +312,7 @@ ActiveRecord::Schema.define(:version => 20170417204641) do
     t.integer  "paid_orgs_visited_explore"
     t.integer  "total_tiles_viewed_in_explore_by_paid_orgs"
     t.integer  "paid_client_admins_who_viewed_tiles_in_explore"
-    t.integer  "tiles_viewed_per_paid_client_admin"
+    t.float    "tiles_viewed_per_paid_client_admin"
     t.integer  "tiles_created_from_scratch"
     t.integer  "total_tiles_added_by_paid_client_admin"
     t.integer  "total_tiles_added_from_copy_by_paid_client_admin"
@@ -322,7 +322,7 @@ ActiveRecord::Schema.define(:version => 20170417204641) do
     t.integer  "unique_orgs_that_added_tiles"
     t.float    "percent_orgs_that_added_tiles"
     t.integer  "orgs_that_created_tiles_from_scratch"
-    t.integer  "average_tiles_created_from_scratch_per_org_that_created"
+    t.float    "average_tiles_created_from_scratch_per_org_that_created"
     t.string   "interval"
     t.integer  "unique_orgs_that_viewed_tiles_in_explore"
     t.integer  "tiles_with_image_search",                                 :default => 0
@@ -739,6 +739,7 @@ ActiveRecord::Schema.define(:version => 20170417204641) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.boolean  "featured"
+    t.boolean  "in_trial",          :default => false
   end
 
   add_index "organizations", ["name"], :name => "index_organizations_on_name"
@@ -1300,7 +1301,7 @@ ActiveRecord::Schema.define(:version => 20170417204641) do
   create_table "user_onboardings", :force => true do |t|
     t.integer  "user_id"
     t.integer  "onboarding_id"
-    t.integer  "state",          :default => 2
+    t.integer  "state",          :default => 0
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.string   "auth_hash"

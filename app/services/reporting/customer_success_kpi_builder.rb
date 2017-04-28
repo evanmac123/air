@@ -34,10 +34,6 @@ module Reporting
         m.orgs_that_posted_tiles = kpi.orgs_that_posted_tiles
         m.total_tiles_posted = kpi.total_tiles_posted
 
-        m.tiles_with_image_search = kpi.tiles_with_image_search
-        m.tiles_with_image_upload = kpi.tiles_with_image_upload
-        m.tiles_with_video_upload = kpi.tiles_with_video_upload
-
         m.average_tiles_created_from_scratch_per_org_that_created = kpi.average_tiles_created_from_scratch_per_org_that_created
         m.average_tile_creation_time = kpi.avg_tile_creation_time
         m.average_tiles_copied_per_org_that_copied = kpi.average_tiles_copied_per_org_that_copied
@@ -51,13 +47,7 @@ module Reporting
         m.percent_orgs_that_copied_tiles = kpi.percent_orgs_that_copied_tiles
         m.percent_of_added_tiles_from_copy = kpi.percent_of_tiles_added_from_copy
         m.percent_of_added_tiles_from_scratch = kpi.percent_of_tiles_added_created_from_scratch
-        m.percent_retained_post_activation_30_days = kpi.retention_by_days("30")
-        m.percent_retained_post_activation_60_days =  kpi.retention_by_days("60")
-        m.percent_retained_post_activation_120_days =  kpi.retention_by_days("120")
-        m.percent_joined_current = kpi.percent_joined_current
-        m.percent_joined_30_days = kpi.percent_joined_30
-        m.percent_joined_60_days = kpi.percent_joined_60
-        m.percent_joined_120_days = kpi.percent_joined_120
+
         m.percent_of_orgs_that_posted_tiles = kpi.percent_of_orgs_that_posted_tiles
         m.from_date = kpi.curr_interval_start
         m.to_date = kpi.curr_interval_end
