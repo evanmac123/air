@@ -139,7 +139,7 @@ describe Contract do
         c = FactoryGirl.build(:contract, :complete, cycle: Contract::CUSTOM, start_date: sdate, end_date: edate)
         d = c.renew
         expect(d.start_date).to eq Date.new(2014,6,1)
-        expect(d.end_date).to eq Date.new(2014,8,31)
+        expect(d.end_date).to eq Date.new(2014,9,30)
       end
     end
 
@@ -179,7 +179,7 @@ describe Contract do
         c = FactoryGirl.build(:contract, :complete, cycle: Contract::CUSTOM, start_date: sdate, end_date: edate)
         d = c.renew
         expect(d.start_date).to eq Date.new(2014,6,1)
-        expect(d.end_date).to eq Date.new(2014,8,31)
+        expect(d.end_date).to eq Date.new(2014,9,30)
       end
     end
 
