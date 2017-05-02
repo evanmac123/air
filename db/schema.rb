@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170501194149) do
+ActiveRecord::Schema.define(:version => 20170502210440) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1137,7 +1137,6 @@ ActiveRecord::Schema.define(:version => 20170501194149) do
     t.integer  "explore_page_priority"
     t.integer  "unique_viewings_count",   :default => 0,     :null => false
     t.integer  "total_viewings_count",    :default => 0,     :null => false
-    t.integer  "user_tile_copies_count",  :default => 0
     t.integer  "user_tile_likes_count",   :default => 0
     t.boolean  "user_created"
     t.text     "remote_media_url"
@@ -1146,6 +1145,7 @@ ActiveRecord::Schema.define(:version => 20170501194149) do
     t.text     "embed_video",             :default => "",    :null => false
     t.string   "media_source"
     t.integer  "creation_source_cd",      :default => 0
+    t.integer  "copy_count",              :default => 0
   end
 
   add_index "tiles", ["activated_at"], :name => "index_tiles_on_activated_at"

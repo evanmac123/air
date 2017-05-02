@@ -46,7 +46,6 @@ class Tile < ActiveRecord::Base
   has_many :tile_completions, :dependent => :nullify
   has_many :tile_viewings, dependent: :nullify
   has_many :tile_taggings, dependent: :nullify
-  has_many :user_tile_copies, dependent: :nullify
   has_many :user_tile_likes, dependent: :nullify
 
   has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: 'GuestUser'
@@ -104,7 +103,6 @@ class Tile < ActiveRecord::Base
 
   scope :ordered_by_position, -> { order "position DESC" }
 
-  alias_attribute :copy_count, :user_tile_copies_count
   alias_attribute :like_count, :user_tile_likes_count
   alias_attribute :total_views, :total_viewings_count
   alias_attribute :unique_views, :unique_viewings_count
@@ -241,12 +239,12 @@ class Tile < ActiveRecord::Base
     false
   end
 
-  def copy_inside_demo new_demo, copying_user
-    CopyTile.new(new_demo, copying_user).copy_tile(self, false)
+  def copy_inside_demo(new_demo, copying_user)
+    TileCopier.new(new_demo, self, copying_user).copy_from_own_board
   end
 
   def copy_to_new_demo(new_demo, copying_user)
-    CopyTile.new(new_demo, copying_user).copy_tile(self, true)
+    TileCopier.new(new_demo, self, copying_user).copy_tile_from_explore
   end
 
   def find_new_first_position
@@ -466,5 +464,4 @@ class Tile < ActiveRecord::Base
   def image_changed?
     changes.keys.include? "remote_media_url"
   end
-
 end

@@ -78,7 +78,7 @@ class OnboardingInitializer
   end
 
   def copy_tiles_to_new_board
-    CopyBoard.new(@board, reference_board).copy_active_tiles_from_board
+    BoardCopier.new(@board, reference_board).copy_active_tiles_from_board
   end
 
   def reference_board

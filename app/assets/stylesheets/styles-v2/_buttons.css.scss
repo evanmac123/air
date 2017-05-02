@@ -10,7 +10,7 @@
       background-color: lighten($bg-color, 5%);
       border-color: lighten($bg-color, 5%);
     }
-    &:active, &:focus {
+    &:active {
       color: $text-color;
       background-color: darken($bg-color, 5%);
       border-color: darken($bg-color, 5%);
