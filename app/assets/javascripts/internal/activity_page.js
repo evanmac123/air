@@ -69,6 +69,7 @@ window.registerPotentialUserLightbox = function(){
       return;
     }
 
+    $(this).text("");
     submit_button.addClass("with_spinner").attr("disabled", "disabled");
     form.find(".real_submit").click();
   });

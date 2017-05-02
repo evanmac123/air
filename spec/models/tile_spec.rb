@@ -9,6 +9,25 @@ describe Tile do
   it { is_expected.to have_many(:guest_user_viewers) }
   it { is_expected.to ensure_inclusion_of(:status).in_array(Tile::STATUS) }
 
+  describe "after_save" do
+    let(:tile) { FactoryGirl.create(:tile) }
+    describe "#reindex" do
+      it "reindexes tile if should_reindex? returns true" do
+        tile.expects(:should_reindex?).returns(true)
+        tile.expects(:reindex)
+
+        tile.save
+      end
+
+      it "does not reindex tile if should_reindex? returns false" do
+        tile.expects(:should_reindex?).returns(false)
+        tile.expects(:reindex).never
+
+        tile.save
+      end
+    end
+  end
+
   context "incomplete drafts" do
     let(:demo){Demo.new}
     LONG_TEXT  =  "*" * (Tile::MAX_SUPPORTING_CONTENT_LEN + 1)
@@ -388,6 +407,23 @@ describe Tile do
 
         expect(tile_with_channels.search_data).to eql(tile_with_channels.serializable_hash.merge({ channel_list: ["wellness"], organization_name: tile_with_channels.organization.try(:name)}))
       end
+    end
+  end
+
+  describe "#should_reindex?" do
+    let(:tile) { FactoryGirl.create(:tile) }
+    it "return true if headline changed" do
+      tile.headline = "New Headline"
+      expect(tile.should_reindex?).to be true
+    end
+
+    it "return true if supporting_content changed" do
+      tile.supporting_content = "New Content"
+      expect(tile.should_reindex?).to be true
+    end
+
+    it "returns false if headline or supporting_content did not change" do
+      expect(tile.should_reindex?).to be false
     end
   end
 

@@ -1069,17 +1069,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def flush_tickets_in_board(board_id)
-    User.transaction do
-      if demo_id == board_id
-        update_attributes(tickets: 0, ticket_threshold_base: points)
-      else
-        board_membership = board_memberships.find_by_demo_id(board_id)
-        board_membership.update_attributes(tickets: 0, ticket_threshold_base: board_membership.points)
-      end
-    end
-  end
-
   def has_board_in_common_with(other_user)
     board_ids = self.board_memberships.pluck(:demo_id)
     other_user.board_memberships.where(demo_id: board_ids).first.present?
@@ -1209,6 +1198,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  # TODO: This is a shitstorm and a big performance hit.
   def can_make_tile_suggestions? _demo = demo
     bm = board_memberships.where(demo: _demo).first
     _demo.everyone_can_make_tile_suggestions ||

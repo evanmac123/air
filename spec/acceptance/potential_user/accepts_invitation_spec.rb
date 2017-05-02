@@ -52,7 +52,7 @@ feature "Potential User Accepts Invitation" do
         new_user = User.last
 
         open_email @user.email
-        expect(current_email.to_s).to have_content "#{new_user.name} gave you credit for recruiting them. Many thanks and bonus points!"
+        expect(current_email.to_s).to have_content "#{new_user.name} gave you credit for recruiting them. Many thanks and 5 bonus points!"
       end
     end
 

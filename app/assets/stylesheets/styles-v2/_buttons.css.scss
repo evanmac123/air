@@ -101,6 +101,8 @@
 
 @mixin button-with-spinner($spinner-color: $n-white) {
   position: relative;
+  min-width: 60px;
+  min-height: 32px;
   &, &:active, &:hover {
     color: transparent;
   }

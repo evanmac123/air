@@ -144,6 +144,7 @@ class InvitationsController < ApplicationController
     def process_potential_user_invitation
       sign_out
       session[:potential_user_id] = @user.id
+
       @user.update_attribute :game_referrer_id, @referrer.try(:id)
       redirect_to activity_path
     end

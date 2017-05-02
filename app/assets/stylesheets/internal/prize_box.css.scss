@@ -95,8 +95,8 @@ body.tiles-index, body.acts-index, body.client_admin-prizes, .explore-search-use
         padding: 0;
       }
     }
-    .prizes_container{
-      .prize_row{
+    .prizes_container, .ticket_container{
+      .prize_row, .ticket_row {
         border-bottom: 1px solid $light-gray;
         .icon_container{
           color: $sky-blue;

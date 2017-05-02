@@ -368,13 +368,14 @@ class Demo < ActiveRecord::Base
     self.maximum_ticket_award - self.minimum_ticket_award
   end
 
+  # TODO: This isn't great but a work around until we sort out referencing BMs vs Users for things like tickets.
   def flush_all_user_tickets
-    GuestUser.delay.update_all("tickets = 0, ticket_threshold_base = points", {demo_id: self.id})
-    users.each do |user|
-      user.delay.flush_tickets_in_board(id)
-    end
+    guest_users.update_all("tickets = 0, ticket_threshold_base = points")
+    board_memberships.update_all("tickets = 0, ticket_threshold_base = points")
+    users.joins(:board_memberships).where(board_memberships: { demo_id: id, is_current: true }).update_all("tickets = 0, ticket_threshold_base = points")
   end
 
+  # TODO: Deprecate below
   def find_raffle_winner(eligible_user_ids, ticket_maximum)
     eligibles = users.with_some_tickets.order("tickets ASC")
 
@@ -396,6 +397,7 @@ class Demo < ActiveRecord::Base
     index = rand(chances.length)
     chances[index]
   end
+  #
 
   def invitation_email
     self.custom_invitation_email || CustomInvitationEmail.new(demo: self)

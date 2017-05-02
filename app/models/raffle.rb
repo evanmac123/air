@@ -1,8 +1,7 @@
 class Raffle < ActiveRecord::Base
   belongs_to :demo
   has_many :user_in_raffle_infos, dependent: :delete_all
-  has_many :blacklisted_users, through: :user_in_raffle_infos, source: :user, source_type: "User", :conditions => "in_blacklist = true"
-  has_many :user_winners, through: :user_in_raffle_infos, source: :user, source_type: "User", :conditions => "is_winner = true"
+  has_many :winners, through: :user_in_raffle_infos, source: :user, source_type: "User", :conditions => "is_winner = true"
   serialize :prizes, Array
 
   after_initialize :default_values
@@ -20,14 +19,6 @@ class Raffle < ActiveRecord::Base
   validate :prizes_presence
   scope :live, ->(){where("status = ? and starts_at <= ?", LIVE, Time.now)}
 
-  def winners
-    user_winners
-  end
-
-  def blacklisted_participants
-    blacklisted_users
-  end
-
   def live?
     self.status == LIVE && self.starts_at <= Time.now
   end
@@ -36,27 +27,23 @@ class Raffle < ActiveRecord::Base
     status == PICK_WINNERS || status == PICKED_WINNERS
   end
 
-  def show_start? user
-    user_in_raffle = find_user_in_raffle_info user
+  def show_start?(user)
+    user_in_raffle = find_user_in_raffle_info(user)
+
     if live? && !user_in_raffle.start_showed
       user_in_raffle.update_attributes(start_showed: true)
-      true
-    else
-      false
     end
   end
 
-  def show_finish? user
+  def show_finish?(user)
     user_in_raffle = find_user_in_raffle_info user
+
     if finished? && !user_in_raffle.finish_showed && user_in_raffle.start_showed
-      user_in_raffle.update_attributes(start_showed: true, finish_showed: true)
-      true
-    else
-      false
+      user_in_raffle.update_attributes(finish_showed: true)
     end
   end
 
-  def update_attributes_without_validations raffle_params
+  def update_attributes_without_validations(raffle_params)
     self.starts_at = raffle_params[:starts_at]
     self.ends_at = raffle_params[:ends_at]
     self.prizes = raffle_params[:prizes]
@@ -64,48 +51,18 @@ class Raffle < ActiveRecord::Base
     self.save(validate: false)
   end
 
-  def pick_winners number, delete_old = winners
-    add_blacklisted_participants delete_old
+  def pick_winners(number_of_winners, repick = false)
+    reset_winners unless repick
     participants = user_participants
-    return nil if participants.empty?
 
-    chances = []
-    participants.each do |user|
-      user.tickets.times {chances << user}
-    end
-
-    delete_winners delete_old
-    number += winners.count
-
-    begin
-      index = rand(chances.length)
-      possible_winner = chances[index]
-
-      if winners.include? possible_winner
-        chances.delete(possible_winner)
-        break if chances.empty?
-      else
-        add_winners possible_winner
-      end
-      self.reload
-    end while winners.count < number
-    self.reload
-    winners
+    pool = create_entry_pool(participants)
+    get_new_winners(number_of_winners, pool)
   end
 
-  def user_participants
-    blacklist = blacklisted_users.empty? ? -1 : blacklisted_users.pluck(:id)
-    demo.users.where('user_id not in (?)', blacklist).with_some_tickets.order(:tickets)
-  end
+  def repick_winner(old_winner)
+    user_in_raffle_infos.where(user_id: old_winner.id).update_all(is_winner: false, in_blacklist: true)
 
-  def repick_winner old_winner
-    old_winners_emails = winners.pluck(:email)
-
-    pick_winners 1, old_winner
-
-    new_winners_emails = self.reload.winners.pluck(:email)
-    picked_winner_email = (new_winners_emails - old_winners_emails).first
-    User.where(email: picked_winner_email).first
+    pick_winners(1, true).first
   end
 
   def set_timer_to_end_live
@@ -120,44 +77,67 @@ class Raffle < ActiveRecord::Base
     true
   end
 
-  def finish_live
-    update_attribute(:status, PICK_WINNERS)
-  end
-
-
-  #
-  # => UserInRaffleInfo methods
-  #
-  def find_user_in_raffle_info user
-    UserInRaffleInfo.find_user_in_raffle_info self, user
-  end
-
-  def add_blacklisted_participants users
-    UserInRaffleInfo.add_blacklisted_participants self, users
-  end
-
-  def add_winners users
-    UserInRaffleInfo.add_winners self, users
-  end
-
-  def delete_winners users 
-    UserInRaffleInfo.delete_winners self, users
-  end
-
   private
-  def default_values
-    self.prizes = [""] if prizes.empty?
-    self.status = SET_UP unless status
-    unless other_info.present?
-      self.other_info = "For every 20 points you earn, you receive an entry. " + \
-      "We'll email the winner to award the prize within a week of the end of the prize period."
-    end
-  end
 
-  def prizes_presence
-    if prizes.empty?
-      errors.add(:prizes, "should have at least one prize") 
-      default_values
+    def get_new_winners(number_of_winners, pool, new_winners = [])
+      number_of_winners.times do
+        winner = pool.sample
+        if winner
+          add_winner(winner)
+          new_winners << pool.delete(winner)
+        end
+      end
+
+      new_winners
     end
-  end
+
+    def blacklisted_user_ids
+      user_in_raffle_infos.where(in_blacklist: true).pluck(:user_id)
+    end
+
+    def all_winners_selected?(number_of_winners, pool)
+      winners.count == number_of_winners || pool.empty?
+    end
+
+    def create_entry_pool(participants)
+      participants.inject([]) do |entries, user|
+        user.tickets.times { entries << user }
+        entries
+      end
+    end
+
+    def user_participants
+      demo.users.select([:id, :tickets, :name, :email]).where(User.arel_table[:id].not_in(blacklisted_user_ids)).with_some_tickets
+    end
+
+    def finish_live
+      update_attribute(:status, PICK_WINNERS)
+    end
+
+    def reset_winners
+      user_in_raffle_infos.where(is_winner: true).update_all(is_winner: false, in_blacklist: true)
+    end
+
+    def add_winner(winner)
+      find_user_in_raffle_info(winner).update_attributes({ is_winner: true, in_blacklist: true })
+    end
+
+    def find_user_in_raffle_info(user)
+      user_in_raffle_infos.where(user_id: user.id, user_type: user.class.name.to_s).first_or_create
+    end
+
+    def default_values
+      self.prizes = [""] if prizes.empty?
+      self.status = SET_UP unless status
+      unless other_info.present?
+        self.other_info = "We'll email the winner to award the prize within a week of the end of the prize period."
+      end
+    end
+
+    def prizes_presence
+      if prizes.empty?
+        errors.add(:prizes, "should have at least one prize")
+        default_values
+      end
+    end
 end

@@ -33,15 +33,15 @@
     @include font-bold;
   }
 }
-#flash_notice, .notice, #flash_failure, .failure {
+#flash_notice, #flash .notice, #flash_failure, #flash .failure {
   background: $n-red;
   .flash-content a {border-color:lighten($n-red, 30%);}
 }
-#flash_success, .success {
+#flash_success, #flash .success {
   background: $n-green;
   .flash-content a {border-color:lighten($n-green, 30%);}
 }
-#flash_info, .info {
+#flash_info, #flash .info {
   background: $dark-blue;
   .flash-content a {border-color:lighten($dark-blue, 30%);}
 }

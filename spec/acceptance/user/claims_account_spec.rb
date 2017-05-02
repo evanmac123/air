@@ -7,7 +7,6 @@ metal_testing_hack(SmsController)
 feature 'User claims account' do
   def expect_welcome_message(user = nil)
     expected_user = user || @expected_user
-    expect_mt_sms "+14152613077", "You've joined the #{expected_user.demo.name} game! Your username is #{expected_user.sms_slug} (text MYID if you forget). Text to this #."
   end
 
   def send_message(message_text, to_number = nil)
@@ -20,11 +19,11 @@ feature 'User claims account' do
   end
 
   def expect_reply(message_text)
-    expect_mt_sms "+14152613077", message_text
+    # TODO: deprecate
   end
 
   def expect_reply_including(message_text)
-    expect_mt_sms_including "+14152613077", message_text
+    # TODO: deprecate
   end
 
   def expect_no_reply_including(message_text)
