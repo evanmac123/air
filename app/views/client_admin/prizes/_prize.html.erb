@@ -1,0 +1,79 @@
+<div class="prize_box">
+  <div class="prize_header">
+    <h1>
+      Prize
+    </h1>
+    <div class="end_date">
+      Ends
+      <%= raffle.ends_at ? raffle.ends_at.strftime("%A, %b %e") : "[Day of week, MM DD]" %>
+    </div>
+  </div>
+  <div class="tickets_row">
+    <div class="torhy_icon icon_container">
+      <span class="fa fa-trophy"></span>
+    </div>
+    <div class="raffle_entries desc_container">
+      <h1 class="raffle_entries_num prize_num">
+        <%= entries %>
+      </h1>
+      <div class="prize_caps">
+        Your entries
+      </div>
+    </div>
+  </div>
+  <div class="time_row">
+    <div class="clock_icon icon_container">
+      <span class="fa fa-clock-o"></span>
+    </div>
+    <div class="time_left desc_container">
+      <div class="time_cell">
+        <h1 class="prize_num" id="first_date_num">
+          <%= time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :number %>
+        </h1>
+        <div class="prize_caps" id="first_date_text">
+          <%= time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :first, format: :text %>
+        </div>
+      </div>
+      <div class="time_cell">
+        <h1 class="prize_num" id="second_date_num">
+          <%= time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :second, format: :number %>
+        </h1>
+        <div class="prize_caps" id="second_date_text">
+          <%= time_left starts_at: raffle.starts_at, ends_at: raffle.ends_at, position: :second, format: :text %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="prizes_container">
+    <% raffle.prizes.each do |prize| %>
+      <div class="prize_row">
+        <div class="prize_icon icon_container">
+          <span class="fa fa-gift"></span>
+        </div>
+        <div class="prize_description desc_container">
+          <p class="<%= ("placeholder_text" unless prize.present?) %>">
+            <%= prize.present? ? prize : "Prize description will appear here" %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="ticket_container">
+    <div class="ticket_row">
+      <div class="prize_icon icon_container">
+        <span class="fa fa-ticket"></span>
+      </div>
+      <div class="prize_description desc_container">
+        <p style="font-size:14px;">
+          You get one entry for every 20 points.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="<%= ("placeholder_text" unless raffle.other_info.present?) %> other_info_row">
+    <%= raffle.other_info.present? ? raffle.other_info : "We'll email the winner to award the prize within a week of the end of the prize period." %>
+    <div class="button close_modal">
+      Start
+    </div>
+  </div>
+</div>

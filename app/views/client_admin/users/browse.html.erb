@@ -1,27 +1,51 @@
-<div class="row">
-  <div class="large-12 columns">
-    <ul class="breadcrumbs">
-      <li><a href="/client_admin/users">Manage Users</a></li>
-      <li><span>All users</span></li>
-    </ul>
-  </div>
-</div>
+<div class="users-module mt-2">
 
-<div class="row">
-  <div class="large-12 columns">
-    <h3>All Users:</h3>
-    <table id="search-results-table">
-      <thead>
-        <tr id="search-labels">
-          <th class="results-name">Name</th>
-          <th class="results-email">Email</th>
-          <th class="results-joined">Joined?</th>
-          <th class="results-send-invite">Invite</th>
-          <th class="results-send-invite">Administator?</th>
-        </tr>
-      </thead>
-      <% if @offset == 0 %>
-        <% @client_admin.each do |user| %>
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="breadcrumbs">
+        <li><a href="/client_admin/users">Manage Users</a></li>
+        <li><span>All users</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <h3>All Users:</h3>
+      <table id="search-results-table">
+        <thead>
+          <tr id="search-labels">
+            <th class="results-name">Name</th>
+            <th class="results-email">Email</th>
+            <th class="results-joined">Joined?</th>
+            <th class="results-send-invite">Invite</th>
+            <th class="results-send-invite">Administator?</th>
+          </tr>
+        </thead>
+        <% if @offset == 0 %>
+          <% @client_admin.each do |user| %>
+            <tr class="found-user" data-user-id='<%=user.id%>'>
+              <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user link' %></td>
+              <td class="results-email"><%= user.email %></td>
+              <td class="results-joined">
+                <%= user.claimed? ? "Yes" : "No" %>
+              </td>
+              <td class="results-send-invite">
+                <% if user.invitable? %>
+                  <%= link_to  client_admin_user_invitation_path(user), {method: :post, class: "send-invite-link"} do %>
+                    <i class="fa fa-envelope"></i>
+                  <% end %>
+                <% end %>
+              </td>
+              <td>
+                <% if user.is_client_admin %>
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+        <% @users.each do |user| %>
           <tr class="found-user" data-user-id='<%=user.id%>'>
             <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user link' %></td>
             <td class="results-email"><%= user.email %></td>
@@ -42,34 +66,13 @@
             </td>
           </tr>
         <% end %>
+      </table>
+      <% if @show_previous_link %>
+        <%= link_to "Previous page", @previous_page_url, id: "previous-page-link" %>
       <% end %>
-      <% @users.each do |user| %>
-        <tr class="found-user" data-user-id='<%=user.id%>'>
-          <td class="results-name"><%= link_to user.name, edit_client_admin_user_path(user), class: 'edit-user link' %></td>
-          <td class="results-email"><%= user.email %></td>
-          <td class="results-joined">
-            <%= user.claimed? ? "Yes" : "No" %>
-          </td>
-          <td class="results-send-invite">
-            <% if user.invitable? %>
-              <%= link_to  client_admin_user_invitation_path(user), {method: :post, class: "send-invite-link"} do %>
-                <i class="fa fa-envelope"></i>
-              <% end %>
-            <% end %>
-          </td>
-          <td>
-            <% if user.is_client_admin %>
-              <i class="fa fa-check" aria-hidden="true"></i>
-            <% end %>
-          </td>
-        </tr>
+      <% if @show_next_link %>
+        <%= link_to "Next page", @next_page_url, id: "next-page-link" %>
       <% end %>
-    </table>
-    <% if @show_previous_link %>
-      <%= link_to "Previous page", @previous_page_url, id: "previous-page-link" %>
-    <% end %>
-    <% if @show_next_link %>
-      <%= link_to "Next page", @next_page_url, id: "next-page-link" %>
-    <% end %>
+    </div>
   </div>
 </div>

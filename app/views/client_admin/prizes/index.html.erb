@@ -1,0 +1,30 @@
+<div class="prizes-module mt-2">
+  <div class="row">
+    <div class="large-12 columns"></div>
+  </div>
+  <div class="row steps_nav_bar">
+    <div class="columns">
+      <%= render partial: 'nav_bar', locals: { raffle: @raffle } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form_section columns">
+      <%= render partial: 'form', locals: { raffle: @raffle } %>
+      <%= render partial: 'buttons', locals: { raffle: @raffle } %>
+    </div>
+    <div class="action_section columns">
+      <% if @raffle.status == Raffle::SET_UP || @raffle.status == Raffle::LIVE %>
+        <label>
+          User preview
+        </label>
+        <div class="preview_container">
+          <%= render partial: 'prize', locals: { raffle: @raffle, entries: 0 } %>
+        </div>
+      <% else %>
+        <div class="pick_container">
+          <%= render partial: 'pick_winners', locals: { raffle: @raffle, winners: @winners } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

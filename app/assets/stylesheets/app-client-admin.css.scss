@@ -33,5 +33,10 @@ styles changes haven't broken anything.
 @import "./tile/tile_preview/arrows.scss";
 @import "./tile/tile_stats/tile_stats.css.scss";
 @import "./explore/explore.css.scss";
-@import "client_admin/modules/reports/base";
 @import "client_admin/modules/onboarding/base";
+
+/*New scss direction*/
+@import "client_admin/modules/reporting-module";
+
+@import 'mixins/airbo-layout-defaults';
+@include airbo-layout-defaults();

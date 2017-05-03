@@ -1,0 +1,44 @@
+/*
+t - for classes that set margin-top or padding-top
+b - for classes that set margin-bottom or padding-bottom
+l - for classes that set margin-left or padding-left
+r - for classes that set margin-right or padding-right
+x - for classes that set both *-left and *-right
+y - for classes that set both *-top and *-bottom
+blank - for classes that set a margin or padding on all 4 sides of the element
+*/
+
+@for $i from 0 through 10 {
+  .m-#{$i} {
+    margin: 0rem + $i;
+  }
+  .mt-#{$i} {
+    margin-top: 0rem + $i;
+  }
+  .mb-#{$i} {
+    margin-bottom: 0rem + $i;
+  }
+  .ml-#{$i} {
+    margin-left: 0rem + $i;
+  }
+  .mr-#{$i} {
+    margin-right: 0rem + $i;
+  }
+  .mx-#{$i} {
+    margin-left: 0rem + $i;
+    margin-right: 0rem + $i;
+  }
+  .my-#{$i} {
+    margin-top: 0rem + $i;
+    margin-bottom: 0rem + $i;
+  }
+}
+
+/*
+.mx-auto horizontally centers fixed-width block level content—that is, content that has display: block and a width set—by setting the horizontal margins to auto
+*/
+
+.mx-auto {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
