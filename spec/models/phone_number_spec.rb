@@ -29,13 +29,13 @@ describe "PhoneNumber" do
     end
 
     context "when the number is blank" do
-      it "should return a blank string" do
+      it "should return nil" do
         [
           "",
           "            ",
           "\t\t\n\t\n"
         ].each do |unnormalized_phone_number|
-          expect(PhoneNumber.normalize(unnormalized_phone_number)).to eq("")
+          expect(PhoneNumber.normalize(unnormalized_phone_number)).to eq(nil)
         end
       end
     end
