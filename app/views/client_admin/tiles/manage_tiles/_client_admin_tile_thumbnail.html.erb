@@ -1,27 +1,24 @@
-
 <%= content_tag :div,  class: "tile_container #{presenter.completion_status} #{presenter.tile_status}",  data: {"tile-container-id" =>"#{presenter.tile_id}", "status" => presenter.status, "media_source" => presenter.media_source,  "has_completions" => presenter.tile_completions_count > 0, "assembly_required" => presenter.assembly_required?} do %>
 
   <%=content_tag :div, class: "tile_thumbnail #{presenter.tile_status} #{presenter.completed_class}", id: "single-tile-#{presenter.tile_id}", data: { tile_id: presenter.tile_id, from_search: presenter.from_search? } do %>
-    <div class="tile-wrapper">
-      <%= link_to presenter.show_tile_path, class:'tile_thumb_link tile_thumb_link_client_admin' , data:{action: "show", tile_id: presenter.tile_id} do %>
-        <div class="tile_thumbnail_image">
-          <%= image_tag presenter.thumbnail %>
-        </div>
-        <%= presenter.activation_dates %>
-        <%= presenter.status_marker %>
-        <div class="headline">
-          <div class="text">
-            <%= presenter.headline %>
+    <% cache presenter.tile do %>
+      <div class="tile-wrapper">
+        <%= link_to presenter.show_tile_path, class:'tile_thumb_link tile_thumb_link_client_admin' , data:{action: "show", tile_id: presenter.tile_id} do %>
+          <div class="tile_thumbnail_image">
+            <%= image_tag presenter.thumbnail %>
           </div>
-        </div>
-        <%if presenter.class == SingleTilePresenter%>
-          <%= render partial: "client_admin/tiles/manage_tiles/thumbnail_overlays",  locals:{presenter: presenter} %>
-        <%end%>
-      <% end %>
-      <%if presenter.class == SingleAdminTilePresenter%>
+          <%= presenter.activation_dates %>
+          <%= presenter.status_marker %>
+          <div class="headline">
+            <div class="text">
+              <%= presenter.headline %>
+            </div>
+          </div>
+        <% end %>
         <%= render partial: "client_admin/tiles/manage_tiles/thumbnail_overlays",  locals:{presenter: presenter} %>
-      <%end%>
-    </div>
+      </div>
+    <% end %>
+
     <%= render partial: 'client_admin/tiles/manage_tiles/tile_stats', locals: { presenter: presenter } %>
   <% end %>
 <% end %>

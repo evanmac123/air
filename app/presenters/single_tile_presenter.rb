@@ -27,7 +27,7 @@ class SingleTilePresenter < BasePresenter
   end
 
   def partial
-    'client_admin/tiles/manage_tiles/no_cache_single_tile'
+    'client_admin/tiles/manage_tiles/user_tile_thumbnail'
   end
 
   #this method is redundant as to_param is notset for Tile, so it just returns id

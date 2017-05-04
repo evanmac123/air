@@ -3,9 +3,7 @@
     <%= render "client_admin/tiles/manage_tiles/single_#{tile.class.to_s.underscore}", placeholder: tile %>
   <% else %>
     <% present(tile, SingleAdminTilePresenter, {is_ie: browser.ie?}) do |presenter| %>
-      <% cache [__FILE__, 'v1.pwd', 'single tile', presenter.cache_key] do %>
-        <%= render 'client_admin/tiles/manage_tiles/single_tile', presenter: presenter %>
-      <% end %>
+      <%= render partial: 'client_admin/tiles/manage_tiles/client_admin_tile_thumbnail', locals:{ presenter: presenter } %>
     <% end %>
   <% end %>
 <% end %>

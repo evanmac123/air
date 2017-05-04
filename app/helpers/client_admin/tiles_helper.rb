@@ -184,7 +184,7 @@ module ClientAdmin::TilesHelper
   def single_tile_for_sort_js(tile)
     escape_javascript(
       render(
-        partial: 'client_admin/tiles/manage_tiles/single_tile',
+        partial: 'client_admin/tiles/manage_tiles/client_admin_tile_thumbnail',
         locals: {presenter: present(tile, SingleAdminTilePresenter, {is_ie: browser.ie?})}
       )
     )

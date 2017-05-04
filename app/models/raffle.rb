@@ -32,6 +32,8 @@ class Raffle < ActiveRecord::Base
 
     if live? && !user_in_raffle.start_showed
       user_in_raffle.update_attributes(start_showed: true)
+    else
+      return false
     end
   end
 
@@ -40,6 +42,8 @@ class Raffle < ActiveRecord::Base
 
     if finished? && !user_in_raffle.finish_showed && user_in_raffle.start_showed
       user_in_raffle.update_attributes(finish_showed: true)
+    else
+      return false
     end
   end
 

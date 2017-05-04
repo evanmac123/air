@@ -125,7 +125,7 @@ class Tile < ActiveRecord::Base
   end
 
   def should_reindex?
-    self.changes.key?("headline") || self.changes.key?("supporting_content")
+    self.changes.key?("headline") || self.changes.key?("supporting_content") || self.changes.key?("is_public")
   end
 
   def self.not_completed
