@@ -28,7 +28,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def partial
-    'client_admin/tiles/manage_tiles/client_admin_tile_thumbnail'
+    'client_admin/tiles/manage_tiles/no_cache_single_tile'
   end
 
   def tile_id
@@ -191,5 +191,23 @@ class SingleAdminTilePresenter < BasePresenter
   def from_search?
     options[:from_search] == true || options[:from_search] == "true"
   end
+
+  def cache_key
+    @cache_key ||= [
+      self.class,
+      'v2.ant',
+      timestamp,
+      thumbnail,
+      tile_status,
+      tile_id,
+      headline,
+      tile_completions_count,
+      total_views,
+      unique_views,
+      updated_at,
+      @is_ie,
+    ].join('-')
+  end
+
 
 end
