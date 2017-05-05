@@ -53,6 +53,6 @@ class LeadContactProcessor
     end
 
     def copy_tiles_to_new_board
-      CopyBoard.new(board, board_template).copy_active_tiles_from_board
+      BoardCopier.new(board, board_template).copy_active_tiles_from_board
     end
 end

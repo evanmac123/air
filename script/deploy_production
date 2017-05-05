@@ -20,8 +20,8 @@ then
   echo_with_color "Deploying $(git rev-parse HEAD)" $GREEN
 
   git push production development:master
-  heroku restart -a hengage
   heroku run rake db:migrate -a hengage
+  heroku restart -a hengage
 
   echo_with_color "$(git rev-parse HEAD) deployed!" $GREEN
 

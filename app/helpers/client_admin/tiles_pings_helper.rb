@@ -33,8 +33,7 @@ module ClientAdmin::TilesPingsHelper
   def tile_creation_ping_props tile, source
     {
       tile_source: source,
-      is_public: tile.is_public,
-      tag: tile.tile_tags.first.try(:title)
+      is_public: tile.is_public
     }
   end
 

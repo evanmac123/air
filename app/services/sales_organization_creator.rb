@@ -61,8 +61,8 @@ class SalesOrganizationCreator
     end
 
     def copy_tiles_to_board(board)
-      unless copy_board.nil? || copy_board.empty?
-        CopyBoard.new(board, Demo.find(copy_board)).delay.copy_active_tiles_from_board
+      if copy_board.present?
+        BoardCopier.new(board, Demo.find(copy_board)).delay.copy_active_tiles_from_board
       end
     end
 end

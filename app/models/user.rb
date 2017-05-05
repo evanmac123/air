@@ -60,7 +60,6 @@ class User < ActiveRecord::Base
   has_many   :tiles, :foreign_key => :creator_id, dependent: :nullify
   has_many   :tile_completions, :as => :user, :dependent => :nullify
   has_many   :tile_viewings, as: :user, :dependent => :nullify
-  has_many   :user_tile_copies, dependent: :nullify
   has_many   :user_tile_likes, dependent: :nullify
 
 
@@ -1078,10 +1077,6 @@ class User < ActiveRecord::Base
     tile.user_tile_likes.where(user_id: self.id).exists?
   end
 
-  def copied_tile?(tile)
-    tile.user_tile_copies.where(user_id: self.id).exists?
-  end
-
   def available_tiles_on_current_demo
     TileProgressCalculator.new(self).available_tiles_on_current_demo
   end
@@ -1181,10 +1176,6 @@ class User < ActiveRecord::Base
 
   def display_get_started_lightbox
     !get_started_lightbox_displayed && demo.tiles.active.present?
-  end
-
-  def copy_active_tiles_from_demo(demo)
-    CopyTile.new(self.demo, self).copy_active_tiles_from_demo(demo)
   end
 
   def update_allowed_to_make_tile_suggestions value, demo
