@@ -1,6 +1,6 @@
 source 'https://www.rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.8'
 
 gem 'rails', '=3.2.22.1'
 gem 'rack', '~> 1.4.7'
@@ -79,7 +79,7 @@ gem 'humanize_boolean'
 gem 'delighted'
 gem 'airbrake', '~> 5.4'
 
-gem 'scout_apm'
+gem 'scout_apm', '~> 3.0.x'
 
 gem 'searchkick'
 gem 'searchjoy'
