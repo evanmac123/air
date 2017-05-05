@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   ##ApplicationPerformanceConcern
   before_filter :enable_miniprofiler
-  before_filter :set_apm_custom_contexts
+  before_filter :set_scout_context
   ##
 
   before_filter :refresh_activity_session

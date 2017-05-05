@@ -1,5 +1,5 @@
 module ApplicationPerformanceConcern
-  def set_apm_custom_contexts
+  def set_scout_context
     if current_user.is_a?(User)
       if current_user.is_site_admin?
         ScoutApm::Context.add(site_admin: true)
