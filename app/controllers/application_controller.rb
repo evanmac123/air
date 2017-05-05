@@ -5,22 +5,24 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :not_found
 
   before_filter :authorize!
+
+  ##ApplicationPerformanceConcern
+  before_filter :enable_miniprofiler
+  before_filter :set_apm_custom_contexts
+  ##
+
   before_filter :refresh_activity_session
   before_filter :set_eager_caches
 
-  ##AirboSecurityHelper
+  ##AirboSecurityConcern
   before_filter :force_ssl
   before_filter :disable_mime_sniffing
   before_filter :disable_framing
   ##
 
-  ##AirboFlashHelper
+  ##AirboFlashConcern
   before_filter :initialize_flashes
   after_filter :merge_flashes
-  ##
-
-  ##MiniprofilerHelper
-  before_filter :enable_miniprofiler
   ##
 
   include ActivitySessionConcern
@@ -28,7 +30,7 @@ class ApplicationController < ActionController::Base
   include SecurityConcern
   include MixpanelConcern
   include FlashConcern
-  include MiniprofilerConcern
+  include ApplicationPerformanceConcern
   include Mobvious::Rails::Controller
 
   ###### Airbo authentication/authorizaiton
