@@ -71,5 +71,6 @@ class TileCopier
       copy.position = copy.find_new_first_position
       copy.remote_media_url = tile.image.url(:original)
       copy.media_source = "tile-copy"
+      copy.is_cloned = true
     end
 end
