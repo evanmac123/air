@@ -1,0 +1,42 @@
+<table class="with_link">
+  <thead>
+    <tr>
+      <th class="winner_number"></th>
+      <th class="winner_name">
+        Name
+      </th>
+      <th class="winner_chances">
+        Chances
+      </th>
+      <th class="winner_email">
+        Email
+      </th>
+      <th class="winner_delete"></th>
+      <th class="winner_repick"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% winners.each_with_index do |user, index| %>
+      <tr id="user_<%= user.id %>">
+        <td class="winner_number">
+          <%= (index + 1).to_s + '.' %>
+        </td>
+        <td class="winner_name">
+          <%= user.name %>
+        </td>
+        <td class="winner_chances">
+          <%= user.tickets %>
+        </td>
+        <td class="winner_email">
+          <%= mail_to user.email, user.email, subject: winner_email_subject, body: winner_email_body %>
+        </td>
+        <td class="winner_delete">
+          <%= link_to "Delete", delete_winner_client_admin_prizes_path(user.id), remote: true, method: :delete %>
+        </td>
+        <td class="winner_repick">
+          <%= link_to "Re-Pick", repick_winner_client_admin_prizes_path(user.id), remote: true %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

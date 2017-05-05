@@ -1,13 +1,15 @@
-<div class="row board_settings">
-  <div class="large-6 columns">
-    <%= render partial: "name_form", locals: { board: @board } %>
-    <%= render partial: "logo_form", locals: { board: @board } %>
-    <%= render partial: "email_form", locals: { board: @board } %>
-    <%= render partial: "email_name_form", locals: { board: @board } %>
-  </div>
-  <div class="large-6 columns">
-  	<%= render partial: "welcome_message_form", locals: { board: @board } %>
-  	<%= render partial: "public_link_form", locals: { board: @board } %>
-    <%= render partial: "weekly_activity_report", locals: { board: @board } %>
+<div class="settings-module mt-2">
+  <div class="row board_settings">
+    <div class="large-6 columns">
+      <%= render partial: "name_form", locals: { board: @board } %>
+      <%= render partial: "logo_form", locals: { board: @board } %>
+      <%= render partial: "email_form", locals: { board: @board } %>
+      <%= render partial: "email_name_form", locals: { board: @board } %>
+    </div>
+    <div class="large-6 columns">
+      <%= render partial: "welcome_message_form", locals: { board: @board } %>
+      <%= render partial: "public_link_form", locals: { board: @board } %>
+      <%= render partial: "weekly_activity_report", locals: { board: @board } %>
+    </div>
   </div>
 </div>

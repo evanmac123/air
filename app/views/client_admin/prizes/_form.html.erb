@@ -1,33 +1,46 @@
-= form_for raffle, url: save_draft_client_admin_prizes_path, method: :post do |f|
-  .content_section
-    = f.label :starts_at, "Duration"
-    .duration
-      .date_input
-        = f.text_field :starts_at, value: date_in_pick_format(raffle.starts_at), class: "datepicker", placeholder: "Start", size: 10
-      .to_label
-        = f.label :ends_at, "to"
-      .date_input
-        = f.text_field :ends_at, value: date_in_pick_format(raffle.ends_at), class: "datepicker", placeholder: "End", size: 10
-    %small.with_input_margin
+<%= form_for raffle, url: save_draft_client_admin_prizes_path, method: :post do |f| %>
+  <div class="content_section">
+    <%= f.label :starts_at, "Duration" %>
+    <div class="duration">
+      <div class="date_input">
+        <%= f.text_field :starts_at, value: date_in_pick_format(raffle.starts_at), class: "datepicker", placeholder: "Start", size: 10 %>
+      </div>
+      <div class="to_label">
+        <%= f.label :ends_at, "to" %>
+      </div>
+      <div class="date_input">
+        <%= f.text_field :ends_at, value: date_in_pick_format(raffle.ends_at), class: "datepicker", placeholder: "End", size: 10 %>
+      </div>
+    </div>
+    <small class="with_input_margin">
       Starts at 12:00 AM ET of start date. Ends at 11:59 PM ET of end date.
-  .content_section
-    = f.label "prizes_", "Prize"
-    .add_another
-      %i.fa.fa-plus
+    </small>
+  </div>
+  <div class="content_section">
+    <%= f.label "prizes_", "Prize" %>
+    <div class="add_another">
+      <i class="fa fa-plus"></i>
       Add Another
-    #prizes
-      - raffle.prizes.each do |prize|
-        .prize_section
-          = text_area_tag "raffle[prizes][]", prize, placeholder: "Enter a prize description (e.g., Grand Prize: Gift Card)", class: "prize_field", maxlength: 160
-          .remove_prize
+    </div>
+    <div id="prizes">
+      <% raffle.prizes.each do |prize| %>
+        <div class="prize_section">
+          <%= text_area_tag "raffle[prizes][]", prize, placeholder: "Enter a prize description (e.g., Grand Prize: Gift Card)", class: "prize_field", maxlength: 160 %>
+          <div class="remove_prize">
             Remove
-  .content_section
-    = f.label :other_info
-    = f.text_area :other_info, maxlength: 300, placeholder: "We’ll email the winner to award the prize within a week of the end of the prize period."
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="content_section">
+    <%= f.label :other_info %>
+    <%= f.text_area :other_info, maxlength: 300, placeholder: "We'll email the winner to award the prize within a week of the end of the prize period." %>
+  </div>
+<% end %>
+<% content_for :javascript do %>
+  <script>
 
-
-- content_for :javascript do
-  :javascript
     $(function() {
       addCharacterCounterFor( $('#raffle_other_info') );
       $(".datepicker").datepicker({ minDate: '0'});
@@ -90,3 +103,7 @@
     $("#raffle_other_info").bind('input propertychange', function(){
       updatePreivewOtherInfo();
     });
+
+
+  </script>
+<% end %>
