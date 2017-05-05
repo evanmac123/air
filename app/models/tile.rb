@@ -326,14 +326,6 @@ class Tile < ActiveRecord::Base
       .order("position ASC").first
   end
 
-  def is_cloned?
-    @cloned || false
-  end
-
-  def is_cloned= val
-    @cloned = val
-  end
-
   def custom_supporting_content_class
     use_old_line_break_css? ? 'old_line_break_css' : ''
   end
@@ -458,7 +450,7 @@ class Tile < ActiveRecord::Base
   end
 
   def process_image
-    ImageProcessJob.new(id, image_from_library).perform unless is_cloned?
+    ImageProcessJob.new(id, image_from_library).perform
   end
 
   def image_changed?
