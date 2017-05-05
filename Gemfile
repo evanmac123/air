@@ -79,7 +79,6 @@ gem 'humanize_boolean'
 gem 'delighted'
 gem 'airbrake', '~> 5.4'
 
-gem 'skylight'
 gem 'scout_apm'
 
 gem 'searchkick'
