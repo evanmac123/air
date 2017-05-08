@@ -5,8 +5,8 @@
 Copyright (c) <%= Time.now.year %> Airbo All Rights Reserved.
 
 Our mailing address is:
-1600 Main Street
-Venice CA 90291
+<%= AIRBO_HQ_STREET %>
+<%= "#{AIRBO_HQ_CITY}, #{AIRBO_HQ_STATE} #{AIRBO_HQ_ZIP}" %>
 
 <% if @user.present? %>
 You are getting this email because your company is using H.Engage to help people better understand HR programs. <% if @user.claimed? -%>If you would rather not receive notifications, go to: <%= email_account_settings_link %><% end %>
