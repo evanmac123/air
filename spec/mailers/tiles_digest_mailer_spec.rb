@@ -189,7 +189,7 @@ describe 'Digest email' do
       it { is_expected.to have_body_text "This email is unique for you. Please do not forward it." }
       it { is_expected.to have_body_text 'For assistance contact' }
       it { is_expected.to have_link      'support@airbo.com' }
-      it { is_expected.to have_body_text "Our mailing address is 1600 Main Street, Venice CA 90291" }
+      it { is_expected.to have_body_text "Our mailing address is #{AIRBO_HQ_STREET}, #{AIRBO_HQ_CITY} #{AIRBO_HQ_STATE} #{AIRBO_HQ_ZIP}" }
 
       it { is_expected.to have_link      'Unsubscribe' }
       it { is_expected.to have_link 'Update Preferences' }
