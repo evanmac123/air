@@ -20,7 +20,7 @@ Airbo.Utils.KpiReportDateFilter = (function(){
 
   function startDateFromTimeStamp(ts){
     var start = Date.now() - (ts * 1000);
-    return new Date(start); 
+    return new Date(start);
   }
 
   function setEndDateForRange(interval, range){
@@ -70,7 +70,7 @@ Airbo.Utils.KpiReportDateFilter = (function(){
 
         $(".button.submit").show();
       $("#date_range_chosen .chosen-single span").text(range);
-      $.Topic("report-date-form-submitted").subscribe(function(){
+      Airbo.PubSub.subscribe("report-date-form-submitted", function(){
         $("#date_range").val('').trigger("chosen:updated");
         $("#date_range_chosen .chosen-single span").text(range);
       });
@@ -112,7 +112,7 @@ Airbo.Utils.KpiReportDateFilter = (function(){
 
   function init(){
     builtinRange =$(builtinRangeSel);
-    customRange = $(customRangeSel); 
+    customRange = $(customRangeSel);
     initJQueryDatePicker();
     initDateRangeFilters();
     initCustomDateDone();
@@ -124,6 +124,3 @@ Airbo.Utils.KpiReportDateFilter = (function(){
   }
 
 }());
-
-
-
