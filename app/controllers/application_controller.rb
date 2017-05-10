@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   before_filter :authorize!
 
   ##ApplicationPerformanceConcern
-  before_filter :enable_miniprofiler
   before_filter :set_scout_context
   ##
 
