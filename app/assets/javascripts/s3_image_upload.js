@@ -46,7 +46,7 @@ function imagePreview(data){
 function initChooseFileDelegator(){
   var uploadForm= $(uploaderSelector);
 
-  $('body').on('click',uploaderTriggerSelector, function(event){
+  $('body').on('click', uploaderTriggerSelector, function(event){
     event.preventDefault();
     uploadForm.find('input[type=file]').click();
     return false;
@@ -108,7 +108,7 @@ function initFileUploader() {
     fileAdded(data);
 
   }).on('fileuploadprocessalways', function (e, data) {
-    handleAnyFileErrors(data.files[0])
+    handleAnyFileErrors(data.files[0]);
   }).on('fileuploadprocessdone', function (e, data) {
     fileProcessed(data);
   }).on('fileuploadprogress', function(e, data) {
