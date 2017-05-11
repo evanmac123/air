@@ -26,48 +26,6 @@ function isIE() {
   }
 }
 
-(function($) {
-  var o = $({});
-
-  $.subscribe = function() {
-    o.on.apply(o, arguments);
-  };
-
-  $.unsubscribe = function() {
-    o.off.apply(o, arguments);
-  };
-
-  $.publish = function() {
-    o.trigger.apply(o, arguments);
-  };
-
-}(jQuery));
-
-(function($){
-    jQuery.Topic = (function(  ) {
-
-      var topics = {};
-
-      return function( id ){
-        var callbacks
-          , topic = id && topics[ id ]
-        ;
-        if ( !topic ) {
-          callbacks = jQuery.Callbacks();
-          topic = {
-            publish: callbacks.fire,
-            subscribe: callbacks.add,
-            unsubscribe: callbacks.remove
-          };
-          if ( id ) {
-            topics[ id ] = topic;
-          }
-        }
-        return topic;
-      }
-    })();
-})(jQuery);
-
 $(function(){
   Airbo.init();
 });
