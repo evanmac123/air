@@ -59,7 +59,6 @@ gem 'counter_culture'
 gem 'css_splitter', :git => 'https://github.com/theairbo/css_splitter.git' #Allow customization of MAX_SELECTORS_DEFAULT via environment variable
 gem 'sanitize'
 gem 'htmlentities'
-gem 'rack-mini-profiler', require: false
 gem 'unicorn'   # Some of our capybara webkit tests fail with thin, so we use unicorn
 gem 'jquery-fileupload-rails'#
 gem 'acts_as_singleton'
