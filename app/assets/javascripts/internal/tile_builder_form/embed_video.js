@@ -9,7 +9,7 @@ Airbo.EmbedVideo = (function() {
     timer = waitForVideoLoad();
     $(".video_frame_block iframe").on("load", function(event){
       clearTimeout(timer);
-      $.Topic("video-added").publish();
+      Airbo.PubSub.publish("video-added");
     });
   }
 
@@ -18,11 +18,11 @@ Airbo.EmbedVideo = (function() {
   }
 
   function raiseUnloadableError(){
-    $.Topic("video-load-error").publish();
+    Airbo.PubSub.publish("video-load-error");
   }
 
   function raiseUnparsableError(){
-    $.Topic("video-link-parse-error").publish();
+    Airbo.PubSub.publish("video-link-parse-error");
   }
 
   function removeVideo() {
@@ -30,7 +30,7 @@ Airbo.EmbedVideo = (function() {
     $("#tile_builder_form_embed_video").val("");
     $(".video_frame_block").html("");
     $("#upload_preview").attr("src","/assets/missing-tile-img-full.png");
-    $.Topic("video-removed").publish();
+    Airbo.PubSub.publish("video-removed");
   }
 
   function getValidCode(text) {
@@ -45,7 +45,7 @@ Airbo.EmbedVideo = (function() {
   function initPaste(){
     $("body").on('input',"#tile_builder_form_embed_video", function(event) {
       var val = $(this).val() ;
-      $.Topic("video-link-entered").publish()
+      Airbo.PubSub.publish("video-link-entered");
       if(val !== "" ){
         code = getValidCode(val)
 
@@ -63,7 +63,7 @@ Airbo.EmbedVideo = (function() {
     $("body").on("keyup", "#tile_builder_form_embed_video", function(e){
       if(e.keyCode == 8) {
         $(this).val("");
-        $.Topic("video-link-cleared").publish();
+        Airbo.PubSub.publish("video-link-cleared");
         removeVideo();
         clearTimeout(timer);
       }

@@ -28,7 +28,7 @@ Airbo.TileImagePreviewer = (function(){
   };
 
   function removeImage(){
-    $("#upload_preview").attr("src","/assets/missing-search-image.png") 
+    $("#upload_preview").attr("src","/assets/missing-search-image.png")
     $(imagePreviewSelector).removeClass("present");
     removeImageCredit();
     remoteMediaUrl.val('');
@@ -69,7 +69,7 @@ Airbo.TileImagePreviewer = (function(){
   }
 
   function initImageSelectedListener(){
-    $.subscribe('image-selected', function(event, imgProps){
+    Airbo.PubSub.subscribe('image-selected', function(event, imgProps){
       setPreviewImage(imgProps.url, imgProps.w, imgProps.h);
     });
   }

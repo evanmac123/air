@@ -31,9 +31,9 @@ Airbo.ImageSearcher = (function(){
     var handler = this.provider;
     var html = handler.handle(data);
 
-    $.Topic("image-results-added").publish();
+    Airbo.PubSub.publish("image-results-added");
     presentData(html);
-    $.Topic("media-request-done").publish();
+    Airbo.PubSub.publish("media-request-done");
     Airbo.Utils.ping("Image Search", {searchText: this.search, hasResults: (html !==undefined)});
   }
 
@@ -65,7 +65,7 @@ Airbo.ImageSearcher = (function(){
       var searchText = $(".search-input").val();
       var ctx = { provider:  service, search: searchText }; // create context binding for the ajax success handler
 
-      $.Topic("inititiating-image-search").publish();
+      Airbo.PubSub.publish("inititiating-image-search");
 
       form.find(apiSearchField).val(searchText);
 
@@ -109,7 +109,7 @@ Airbo.ImageSearcher = (function(){
     $("body").on("click","#images img", function(event){
       var img = $(this);
       var props = { url: $(this).data("preview"), source: 'image-search'};
-      $.publish("image-selected", props);
+      Airbo.PubSub.publish("image-selected", props);
     });
   }
 

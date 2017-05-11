@@ -125,49 +125,49 @@ Airbo.TileVisualPreviewMgr = (function(){
 
   function initCustomEventsSubscriber(){
 
-    $.Topic("image-results-added").subscribe( function(){
+    Airbo.PubSub.subscribe("image-results-added", function(){
       hideLoader();
     });
 
-    $.Topic("video-added").subscribe( function(){
+    Airbo.PubSub.subscribe("video-added", function(){
       hideVisualContentPanel()
       hideLoader();
       $(".video_section").show();
       $("#image_uploader").hide();
     });
 
-    $.Topic("video-link-entered").subscribe(function(){
-      showLoader(); 
+    Airbo.PubSub.subscribe("video-link-entered", function(){
+      showLoader();
     });
 
-    $.Topic("video-link-cleared").subscribe(function(){
+    Airbo.PubSub.subscribe("video-link-cleared", function(){
       hideVideoErrors()
     })
 
 
-    $.Topic("video-load-error").subscribe(function(){
+    Airbo.PubSub.subscribe("video-load-error", function(){
       hideLoader();
       $(".unloadable").show();
     });
 
 
-    $.Topic("video-removed").subscribe( function(){
+    Airbo.PubSub.subscribe("video-removed", function(){
       $("#image_uploader").show();
       hideLoader();
       hideVideoPreview();
     });
 
-    $.Topic("video-link-parse-error").subscribe(function(){
+    Airbo.PubSub.subscribe("video-link-parse-error", function(){
       hideLoader();
       showUnparsableError();
     });
 
 
-    $.Topic("media-request-done").subscribe(function(){
+    Airbo.PubSub.subscribe("media-request-done", function(){
       showMediaPanelCloseButton();
     });
 
-    $.Topic("inititiating-image-search").subscribe( function(){
+    Airbo.PubSub.subscribe("inititiating-image-search", function(){
       $("#remote_media_url").val("");
       $("#tile_builder_form_embed_video").val("");
       hideVideoPreview();
@@ -208,4 +208,3 @@ Airbo.TileVisualPreviewMgr = (function(){
     init: init,
   }
 }());
-

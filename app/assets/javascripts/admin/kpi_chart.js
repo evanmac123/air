@@ -4,7 +4,7 @@ Airbo.KpiChart = (function(){
 
   var chartData = []
     , tableData
-    , dates 
+    , dates
     , kpiChart
     , chartContainer = ".kpis-graph"
     , datasets = {}
@@ -31,12 +31,12 @@ Airbo.KpiChart = (function(){
 
   function legend_params(){
     return { enabled: false };
-  } 
+  }
 
   function x_axis_params(){
     return   {
       title: {
-        text: "" 
+        text: ""
       },
       type: 'datetime',
       lineWidth: 0,
@@ -127,7 +127,7 @@ Airbo.KpiChart = (function(){
 
   function getPlotPoints(data, kpi){
     return dates.map(
-      function(date,idx){ 
+      function(date,idx){
         return{
           x: date,
           y: parseInt(data[kpi].values[idx])
@@ -156,7 +156,7 @@ Airbo.KpiChart = (function(){
 
 
   function getTableRows(data){
-    return Object.keys(data).map(function (kpi) { 
+    return Object.keys(data).map(function (kpi) {
       if(kpi !== "from_date"){
         return data[kpi];
       }
@@ -172,7 +172,7 @@ Airbo.KpiChart = (function(){
   function getDateSeries(data){
     if(data !== null){
       dates = data.map(
-        function(val,idx){ 
+        function(val,idx){
           return  Date.parse(val)
         });
     }else{
@@ -185,15 +185,15 @@ Airbo.KpiChart = (function(){
 
 
   function submitFailure(){
-    console.log("error occured"); 
+    console.log("error occured");
   }
 
   function initForm(){
     $(".report-filter").submit(function(event){
-      event.preventDefault(); 
+      event.preventDefault();
       kpiChart.showLoading();
       Airbo.AjaxResponseHandler.submit($(this), refreshWithHTML, submitFailure, "html");
-      $.Topic("report-date-form-submitted").publish();
+      Airbo.PubSub.publish("report-date-form-submitted");
     })
   }
 

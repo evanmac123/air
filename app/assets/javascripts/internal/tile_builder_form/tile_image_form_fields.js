@@ -18,13 +18,13 @@ Airbo.TileImageFormFields = (function(){
   }
 
   function initImageSelectedListener(){
-    $.subscribe('image-selected', function(event, formFieldArgs) {
+    Airbo.PubSub.subscribe('image-selected', function(event, formFieldArgs) {
       setFormFieldsForSelectedImage(formFieldArgs);
     });
   }
 
   function initImageDoneListener(){
-    $.subscribe('image-done', function(event, formFieldArgs){
+    Airbo.PubSub.subscribe('image-done', function(event, formFieldArgs){
       setFormFieldsForSelectedImage(formFieldArgs);
       remoteMediaUrl.change();
     });
