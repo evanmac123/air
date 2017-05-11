@@ -43,7 +43,7 @@
       top:-1px;
       * {vertical-align: middle;}
       .num_of_points {
-        font-size:2em;
+        font-size:2rem;
         font-size:2rem;
         line-height:.75em;
       }
@@ -57,7 +57,7 @@
   // Question portion
   .tile_question {
     @include font-semibold;
-    font-size:1.25em;
+    font-size:1.25rem;
     line-height:1.35em;
     padding-top:1.5em;
     padding-bottom: 1em;
@@ -91,7 +91,7 @@
       @include font-semibold;
       color:$white;
       display: block;
-      font-size:1.25em;
+      font-size:1.25rem;
       line-height:1em;
       padding:.5em 1em;
       text-align: center;

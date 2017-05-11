@@ -21,7 +21,7 @@
 .tile_supporting_content, #supporting_content_editor {
   @include with-lists();
   color:$text-color;
-  font-size:1.25em;
+  font-size:1.25rem;
   line-height:1.3em;
   margin-bottom:1.3em;
   margin-top:.25em;
@@ -98,4 +98,3 @@ TODO move to tile media file
 .video-help{
  margin-bottom:10px;
 }
-
