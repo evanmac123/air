@@ -1,0 +1,66 @@
+#!/bin/sh
+RED="\x1b[31m"
+GREEN="\x1b[32m"
+COLOR_RESET="\x1b[0m"
+DUMP_FILENAME="./latest.dump"
+STAGING_READY_DUMP_FILENAME="./ready_for_staging_dump.sql"
+
+echo_with_color() {
+  echo "$2$1$COLOR_RESET"
+}
+
+if [ "$1" == "prep" ]
+then
+  echo_with_color "Starting Environment Sync $1." $GREEN
+
+  echo_with_color "Downloading latest backup from Heroku..." $GREEN
+  heroku pg:backups:download -a hengage
+
+  echo_with_color "The most recent cut of the production db has been downloaded to $DUMP_FILENAME.
+  To continue restoring your local db, run 'script/enivronment_sync development'." $GREEN
+elif [ "$1" == "staging" ] || [ "$1" == "development" ]
+then
+  echo_with_color "Starting Environment Sync for $1." $GREEN
+
+  if [ "$1" == "staging" ]
+  then
+    if [ -f $STAGING_READY_DUMP_FILENAME ]
+    then
+      echo_with_color "$1 not configured for sync" $RED
+    else
+      echo_with_color "$STAGING_READY_DUMP_FILENAME not found. Please sync your development environment before attempting to sync Staging." $RED
+    fi
+  fi
+
+  if [ "$1" == "development" ]
+  then
+    if [ -f $DUMP_FILENAME ]
+    then
+      pg_restore --verbose --clean --no-acl --no-owner -h localhost -d public $DUMP_FILENAME
+      psql public < ./script/environment_sync_anonymizer.sql
+      pg_dump public > ./$STAGING_READY_DUMP_FILENAME
+
+      rm $DUMP_FILENAME
+      echo_with_color "Your local db has be restored to the most recent production dump and all sensitive data has been sanitized.
+
+      The sanitized cut of the production db has been downloaded to $STAGING_READY_DUMP_FILENAME.
+
+      Explore images and tile images for the Airbo Org, Take5 and all Explore tiles will now be populated..." $GREEN
+
+      rake env_sync:core_images
+
+      echo_with_color "You have a few options now:
+
+      1. You will likely want to also migrate the production Redis app_db to your development env.
+      You can do this manually via redis-server, or write a script and add it here :).
+
+      2. If you would like to refresh Staging with the most recent version of the Production db, run:
+
+      script/environment_sync staging (NOT IMPLEMENTED)" $GREEN
+    else
+      echo_with_color "$DUMP_FILENAME not found. Please run 'script/environment_sync prep' before attempting to sync your development environment." $RED
+    fi
+  fi
+else
+  echo_with_color "Please provide 'prep', 'development' or 'staging' as a parameter." $RED
+fi
