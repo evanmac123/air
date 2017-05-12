@@ -422,7 +422,18 @@ describe Tile do
       expect(tile.should_reindex?).to be true
     end
 
-    it "returns false if headline or supporting_content did not change" do
+    it "return true if is_public changed" do
+      tile.is_public = true
+      expect(tile.should_reindex?).to be true
+    end
+
+    it "return true if status changed" do
+      tile.status = "archive"
+      expect(tile.should_reindex?).to be true
+    end
+
+    it "returns false otherwise" do
+      tile.touch
       expect(tile.should_reindex?).to be false
     end
   end
