@@ -35,7 +35,6 @@ module Reporting
         m.total_tiles_posted = kpi.total_tiles_posted
 
         m.average_tiles_created_from_scratch_per_org_that_created = kpi.average_tiles_created_from_scratch_per_org_that_created
-        m.average_tile_creation_time = kpi.avg_tile_creation_time
         m.average_tiles_copied_per_org_that_copied = kpi.average_tiles_copied_per_org_that_copied
         m.average_tiles_posted_per_organization_that_posted = kpi.average_tiles_posted_per_organization_that_posted
         m.percent_paid_orgs_view_tile_in_explore = kpi.percent_of_orgs_that_viewed_tiles
