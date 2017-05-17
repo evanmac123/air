@@ -126,7 +126,6 @@ Airbo.Utils.mediumEditor = (function() {
 
 
   function init(params) {
-   
     params = params || {};
     reset();
     initExtensions();
@@ -155,14 +154,25 @@ Airbo.Utils.mediumEditor = (function() {
       fieldName = $(this).data('field')
       field = $("#" + fieldName);
       content =  field.val();
+      field.data("oldVal", content);
       editor.setContent(content);
 
       editor.subscribe('blur', function (event, editable) {
-        var obj =$(editable),  textLength = obj.text().trim().length;
-        var val = obj.html();
-        var re = new RegExp( /(<p><br><\/p>)+$/g);
+        var obj =$(editable)
+          ,  textLength = obj.text().trim().length
+          , val = obj.html()
+          , oldVal = field.data("oldVal")
+          , re = new RegExp( /(<p><br><\/p>)+$/g)
+        ;
+
         field.val( val.replace(re, "") );
-        field.change();
+        field.data("oldVal", field.val());
+
+        if(oldVal !== field.val()){
+          setTimeout(function(){
+            field.change();
+          }, 0)
+        }
       });
 
 
