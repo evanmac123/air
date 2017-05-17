@@ -8,12 +8,15 @@
     .card-header {
       background-color: $header-background-color;
       color: #fff;
-      .card-title {
+      .card-title-group {
         box-shadow: inset 0 -1px 0 0 darken($header-background-color, 5%);
-        font-size: 28px;
-        font-weight: 400;
-        padding: 16px;
-        margin: 0;
+        .card-title {
+          font-size: 28px;
+          font-weight: 400;
+          padding: 16px;
+          margin: 0;
+          display: inline-block;
+        }
       }
       .card-header-content {
         padding: 16px;
@@ -25,6 +28,32 @@
         background-color: #fff;
         border-top: solid 1px $border-color;
         padding: 16px;
+      }
+    }
+
+    .dropdown-button-component {
+      background-color: transparent;
+      color: #fff;
+      .list {
+        color: $header-background-color;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .dropdown-button-component {
+        margin-right: 25px;
+        margin-top: 17px;
+        float: right;
+        .list {
+          left: auto;
+          right: 0;
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dropdown-button-component {
+        margin: 0 1rem 1rem 1rem;
       }
     }
   }

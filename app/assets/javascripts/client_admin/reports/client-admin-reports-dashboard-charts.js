@@ -2,8 +2,11 @@ var Airbo = window.Airbo || {};
 
 Airbo.ClientAdminReportsDashboardCharts = (function(){
   var reportSel = ".report-container";
+  var $parentModule;
 
-  function buildChart($chart) {
+  function buildChart($chart, $module) {
+    $parentModule = $module;
+
     $chart.highcharts(Airbo.Utils.HighchartsBase.chartTemplate($chart));
     requestChart($chart);
   }
@@ -14,8 +17,8 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
         chart_type: $chart.data("chartType"),
         interval_type: $chart.data("intervalType"),
         requested_series_list: $chart.data("requestedSeriesList"),
-        start_date: $(reportSel).data("startDate"),
-        end_date: $(reportSel).data("endDate"),
+        start_date: $($parentModule).data("startDate"),
+        end_date: $($parentModule).data("endDate"),
         demo_id: $(reportSel).data("currentDemoId")
       }
     };

@@ -1,0 +1,12 @@
+@import "./mixins/nice-select.scss";
+
+@mixin dropdown-button-component() {
+  .dropdown-button-component {
+    @include nice-select();
+    &.dropdown-button-component-init {
+      display: none;
+    }
+  }
+}
+
+@include dropdown-button-component();

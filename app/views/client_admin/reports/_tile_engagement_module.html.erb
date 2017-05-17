@@ -1,0 +1,10 @@
+<%= render partial: 'client_admin/reports/report_module_base',
+  locals: {
+    opts:  {
+        module_target: "tileEngagementModule",
+        title: "Tile Engagement",
+        submodules: ['client_admin/reports/submodules/tile_engagement_submodule'],
+        graphs: ['client_admin/reports/charts/grouped_tile_activity']
+      }
+    }
+%>

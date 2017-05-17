@@ -17,17 +17,18 @@ Airbo.ClientAdminReportsDashboard = (function(){
   function requestSubmoduleData($module) {
     var submodules = $module.find(".reports-submodule");
     $.each(submodules, function(i, submodule) {
-      Airbo.ClientAdminReportsDashboardSubmodules.buildSubmodule($(submodule));
+      Airbo.ClientAdminReportsDashboardSubmodules.buildSubmodule($(submodule), $module);
     });
   }
 
   function requestModuleCharts($module) {
     var charts = $module.find(".chart-container");
     $.each(charts, function(i, chart) {
-      Airbo.ClientAdminReportsDashboardCharts.buildChart($(chart));
+      Airbo.ClientAdminReportsDashboardCharts.buildChart($(chart), $module);
     });
   }
 
+  //deprecate after we decide on module-based date switching
   function reportDateChange() {
     $(".report-interval-change").on("click", function(e) {
       e.preventDefault();
@@ -44,11 +45,30 @@ Airbo.ClientAdminReportsDashboard = (function(){
       activateReportModules();
     });
   }
+  //
+
+  function moduleDateChange() {
+    $(".module-interval-change").on("click", function(e) {
+      e.preventDefault();
+
+      if ($(this).hasClass("selected")) {
+        return false;
+      }
+
+      var moduleSel = $(this).data("moduleTarget");
+      var $module = $(moduleSel);
+
+      $module.data("startDate", $(this).data("startDate"));
+      $module.data("endDate", $(this).data("endDate"));
+
+      activateReportModule($module);
+    });
+  }
 
   function init() {
     $(".report-container").fadeIn();
     activateReportModules();
-    reportDateChange();
+    moduleDateChange();
   }
 
   return {
