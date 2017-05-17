@@ -57,18 +57,18 @@ Airbo.TileFormModal = (function(){
     currform.data("forcevalidation", false);
   }
 
-  function addAutoSave(){
+  function setAutoSavingTrue(){
     addSavingIndicator();
     currform.data("autosave", true);
   }
 
-  function removeAutoSave(){
+  function setAutoSavingFalse(){
     removeSavingIndicator();
     currform.data("autosave", false);
   }
 
   function resetSubmit(){
-    removeAutoSave();
+    setAutoSavingFalse();
     enablesubmitLink();
   }
 
@@ -169,24 +169,29 @@ Airbo.TileFormModal = (function(){
     });
   }
 
+
   function initAutoSave(){
     var me = this;
     if(currform.data("suggested") === false){
-      $(currform).on("change", function() {
-        addAutoSave();
+      $(currform).on("change", $.debounce(2000, function(event) {
+
+        console.log("change called", event, currform.attr("method"));
+
+        setAutoSavingTrue();
         disablesubmitLink();
+
         if(currform.valid()){
           modalObj.setConfirmOnClose(false);
           disablesubmitLink();
           timer = setTimeout(function(){
             ajaxHandler.submit(currform, autoSaveSuccess.bind(me), resetSubmit);
-          }, 1000);
+          }, 500);
         }else{
           saveable = false;
           modalObj.setConfirmOnClose(true);
           resetSubmit();
         }
-      });
+      }));
     }
   }
 
@@ -208,14 +213,14 @@ Airbo.TileFormModal = (function(){
     tileManager.updateSections(data);
   }
 
+
   function autoSaveSuccess(data){
     clearTimeout(timer);
     currform.attr("action", data.updatePath);
     currform.attr("method", "PUT");
-
     updateThumbnail(data);
     enablesubmitLink();
-    removeAutoSave();
+    setAutoSavingFalse();
     saveable = true;
   }
 
