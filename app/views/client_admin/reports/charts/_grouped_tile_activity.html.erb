@@ -5,12 +5,12 @@
       chart_class: "Charts::BoardGroupedTileActivityChart", starting_interval: "month",
       data_path: api_client_admin_charts_path,
       series_list: ["total_tile_interactions", "unique_tile_views", "total_tile_views"],
-      title: "Tile Participation",
-      subtitle: "Number of employees who viewed Tiles and interacted with them.",
+      title: "Number of Tiles completed and viewed",
+      subtitle: "This graph shows the number of Tiles completed, and Tiles viewed. It also shows the total number of Tiles viewed, which includes Tiles that were seen by the same person more than once.",
       no_data_message: nil,
       intervals: ["quarter", "month", "week"],
       chart_template: "groupedBarGraph",
-      series_names: ["Interactions", "Unique Views", "Total Views"],
+      series_names: ["Tiles Completed", "Tiles Viewed", "Total Tile Views"],
       color_list: ["#4fd4c0", "#ffb748", "#b6a9f1"],
     }
   }

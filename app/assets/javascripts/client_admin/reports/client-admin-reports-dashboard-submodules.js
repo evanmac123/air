@@ -2,8 +2,10 @@ var Airbo = window.Airbo || {};
 
 Airbo.ClientAdminReportsDashboardSubmodules = (function(){
   var reportSel = ".report-container";
+  var $parentModule;
 
-  function buildSubmodule($submodule) {
+  function buildSubmodule($submodule, $module) {
+    $parentModule = $module;
     prepNewSubmodule($submodule);
 
     $.ajax({
@@ -32,8 +34,8 @@ Airbo.ClientAdminReportsDashboardSubmodules = (function(){
     return {
       report_params: {
         report_type: $submodule.data("report"),
-        from_date: $(reportSel).data("startDate"),
-        to_date: $(reportSel).data("endDate"),
+        from_date: $parentModule.data("startDate"),
+        to_date: $parentModule.data("endDate"),
         demo_id: $(reportSel).data("currentDemoId")
       }
     };

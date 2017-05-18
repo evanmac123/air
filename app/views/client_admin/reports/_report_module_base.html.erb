@@ -1,0 +1,27 @@
+<div id="<%= opts[:module_target] %>" class="card-component report-module" data-start-date="<%= report_default_start_date %>" data-end-date="<%= Time.now %>">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="row">
+        <div class="columns large-6 small-12">
+          <h3 class="card-title"><%= opts[:title] %></h3>
+        </div>
+        <div class="columns large-6 small-12">
+          <%= render partial: 'client_admin/reports/date_switch_dropdown', locals: { target: "##{opts[:module_target]}" } %>
+        </div>
+      </div>
+    </div>
+    <% opts[:submodules].each do |submodule| %>
+    <div class="card-header-content">
+      <%= render partial: submodule %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="card-body">
+    <% opts[:graphs].each do |graph| %>
+      <div class="card-content">
+        <%= render partial: graph %>
+      </div>
+    <% end %>
+  </div>
+</div>

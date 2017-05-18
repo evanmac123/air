@@ -1,0 +1,5 @@
+<select class="nice-select-init dropdown-button-component outlined-dark-background report-interval-change-select">
+  <% reportings_date_switch_opts.each do |interval| %>
+    <option class="module-interval-change" data-start-date="<%= interval[:start_date] %>" data-end-date="<%= interval[:end_date] %>" data-module-target="<%= target %>"><%= link_to interval[:formatted_name], "#" %></option>
+  <% end %>
+</select>

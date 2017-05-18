@@ -1,6 +1,5 @@
-<div class="report-container reporting-module" style="display:none;" data-current-demo-id="<%= current_demo_id %>" data-start-date="<%= report_default_start_date %>" data-end-date="<%= Time.now %>">
-  <%= render partial: 'client_admin/reports/date_switch_toolbar' %>
-  <%= render partial: 'client_admin/reports/participation_component' %>
-  <%= render partial: 'client_admin/reports/tile_engagement_component' %>
-  <%= render partial: 'client_admin/reports/content_creation_component' %>
+<div class="report-container reporting-module" style="display:none;" data-current-demo-id="<%= current_demo_id %>">
+  <%= render partial: 'client_admin/reports/participation_module' %>
+  <%= render partial: 'client_admin/reports/tile_engagement_module' %>
+  <%= render partial: 'client_admin/reports/content_creation_module' %>
 </div>

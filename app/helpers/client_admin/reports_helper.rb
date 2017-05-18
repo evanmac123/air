@@ -1,14 +1,15 @@
 module ClientAdmin::ReportsHelper
   def report_default_start_date
-    if demo_launch > 1.year.ago
+    if demo_launch > 3.months.ago
       demo_launch
     else
-      1.year.ago
+      Time.now.end_of_month - 3.months
     end
   end
 
   def reportings_date_switch_opts
     [
+      past_three_months,
       past_twelve_months,
       all_time_or_last_five_years,
       last_four_years
@@ -25,11 +26,20 @@ module ClientAdmin::ReportsHelper
       end
     end
 
+    def past_three_months
+      if (Time.now - demo_launch) > 3.months
+        {
+          formatted_name: "Past 3 Months",
+          start_date: Time.now.end_of_month - 3.months,
+          end_date: Time.now,
+        }
+      end
+    end
+
     def past_twelve_months
       if (Time.now - demo_launch) > 12.months
         {
           formatted_name: "Past 12 Months",
-          start_active: true,
           start_date: Time.now - 1.year,
           end_date: Time.now,
         }

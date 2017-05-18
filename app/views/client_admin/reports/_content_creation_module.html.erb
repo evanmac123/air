@@ -1,0 +1,10 @@
+<%= render partial: 'client_admin/reports/report_module_base',
+  locals: {
+    opts:  {
+        module_target: "contentCreationModule",
+        title: "Content Creation",
+        submodules: ['client_admin/reports/submodules/content_creation_submodule'],
+        graphs: ['client_admin/reports/charts/tiles_posted_by_creation_source']
+      }
+    }
+%>

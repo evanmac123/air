@@ -6,20 +6,20 @@ describe ClientAdmin::ReportsHelper do
   end
 
   describe "#report_default_start_date" do
-    it "returns demo_launch if launch date is less than 12 months ago" do
-      launch_date = Time.zone.now - 6.months
+    it "returns demo_launch if launch date is less than 3 months ago" do
+      launch_date = Time.zone.now - 2.months
       helper.stubs(:demo_launch).returns(launch_date)
 
       expect(helper.report_default_start_date).to eq(launch_date)
     end
 
-    it "returns 1.year.ago if demo_launch is greater than 12 months ago" do
+    it "returns Time.now.end_of_month - 3.months if demo_launch is greater than 12 months ago" do
       Timecop.freeze(Time.zone.now)
 
       launch_date = Time.zone.now - 5.years
       helper.stubs(:demo_launch).returns(launch_date)
 
-      expect(helper.report_default_start_date).to eq(1.year.ago)
+      expect(helper.report_default_start_date).to eq(Time.now.end_of_month - 3.months)
     end
   end
 
@@ -70,7 +70,7 @@ describe ClientAdmin::ReportsHelper do
 
       helper.stubs(:current_demo).returns(demo)
 
-      result = ["Past 12 Months", "Past Five Years", "1990", "1989", "1988", "1987"]
+      result = ["Past 3 Months", "Past 12 Months", "Past Five Years", "1990", "1989", "1988", "1987"]
 
       expectation = helper.reportings_date_switch_opts.map { |opt| opt[:formatted_name] }
 
@@ -82,29 +82,11 @@ describe ClientAdmin::ReportsHelper do
 
       helper.stubs(:current_demo).returns(demo)
 
-      result = ["Past 12 Months", "All Time", "1990", "1989", "1988"]
+      result = ["Past 3 Months", "Past 12 Months", "All Time", "1990", "1989", "1988"]
 
       expectation = helper.reportings_date_switch_opts.map { |opt| opt[:formatted_name] }
 
       expect(expectation).to eq(result)
-    end
-
-    describe "#past_twelve_months" do
-      it "returns opts hash to activate reports for last 12 months" do
-
-        demo = FactoryGirl.create(:demo, created_at: 7.years.ago)
-
-        helper.stubs(:current_demo).returns(demo)
-
-        result = {
-          formatted_name: "Past 12 Months",
-          start_active: true,
-          start_date: Time.zone.now - 1.year,
-          end_date: Time.zone.now,
-        }
-
-        expect(helper.send(:past_twelve_months)).to eq(result)
-      end
     end
 
     describe "#five_years_or_older" do

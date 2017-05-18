@@ -4,6 +4,7 @@
 @import 'mixins/circle-progress-chart-component';
 @import 'mixins/toolbar-inline-list-component';
 @import 'mixins/highcharts-header-component';
+@import 'mixins/dropdown-button-component';
 
 .reporting-module {
   @include card-component($dark-blue, $primary-gray);
@@ -13,6 +14,8 @@
 
   .card-component {
     @include tabs-component($dark-blue, $white, $primary-gray);
+    @include dropdown-button-component();
+
     .card-header-content {
       #participation-submodule {
         @media screen and (min-width: 768px) {
