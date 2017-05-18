@@ -1,8 +1,7 @@
 var Airbo = window.Airbo || {};
-Airbo.Utils = Airbo.Utils || {};
-Airbo.Utils.Highcharts = Airbo.Utils.Highcharts || {};
+Airbo.Highcharts = Airbo.Highcharts || {};
 
-Airbo.Utils.Highcharts.PlotOptions = (function(){
+Airbo.Highcharts.PlotOptions = (function(){
 
 
   function defaultPlotOptions($chart) {

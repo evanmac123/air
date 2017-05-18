@@ -2,41 +2,28 @@ var Airbo = window.Airbo || {};
 
 Airbo.ClientAdminReportsDashboardCharts = (function(){
   var reportSel = ".report-container";
-  var $parentModule;
 
   function buildChart($chart, $module) {
-    $parentModule = $module;
+    var $parentModule = $module;
 
-    $chart.highcharts(Airbo.Utils.HighchartsBase.chartTemplate($chart));
-    requestChart($chart);
+    $chart.highcharts(Airbo.HighchartsBase.chartTemplate($chart));
+    requestChart($chart, $parentModule);
   }
 
-  function chartStrongParams($chart) {
-    return {
-      chart_params: {
-        chart_type: $chart.data("chartType"),
-        interval_type: $chart.data("intervalType"),
-        requested_series_list: $chart.data("requestedSeriesList"),
-        start_date: $($parentModule).data("startDate"),
-        end_date: $($parentModule).data("endDate"),
-        demo_id: $(reportSel).data("currentDemoId")
-      }
-    };
-  }
-
-  function requestChart($chart) {
-    $chart.highcharts().showLoading(Airbo.Utils.HighchartsBase.loadingContent());
+  function requestChart($chart, $parentModule) {
+    $chart.highcharts().showLoading(Airbo.HighchartsBase.loadingContent());
 
     $.ajax({
       url: $chart.data("path"),
       type: "GET",
-      data: chartStrongParams($chart),
+      data: chartStrongParams($chart, $parentModule),
       dataType: "json",
       success: function(response, status, xhr) {
         var chartData = response.data.attributes;
-        convertToJsDates(chartData.series);
+        Airbo.HighchartsBase.convertSeriesToJsDates(chartData.series);
+        Airbo.HighchartsBase.specifyIncompleteZones(chartData.series, $chart.data("intervalType"));
 
-        var chartAttrs = $.extend(true, {}, Airbo.Utils.HighchartsBase.chartTemplate($chart, chartData), chartData);
+        var chartAttrs = $.extend(true, {}, Airbo.HighchartsBase.chartTemplate($chart, chartData), chartData);
 
         $chart.highcharts(chartAttrs);
         initExport($chart);
@@ -51,6 +38,19 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
       fail: function(response, status, xhr) {
       }
     });
+  }
+
+  function chartStrongParams($chart, $parentModule) {
+    return {
+      chart_params: {
+        chart_type: $chart.data("chartType"),
+        interval_type: $chart.data("intervalType"),
+        requested_series_list: $chart.data("requestedSeriesList"),
+        start_date: $parentModule.data("startDate"),
+        end_date: $parentModule.data("endDate"),
+        demo_id: $(reportSel).data("currentDemoId")
+      }
+    };
   }
 
   function downloadButton($chart) {
@@ -88,15 +88,7 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
   }
 
   function manageNoData($chart) {
-    $chart.highcharts().showLoading(Airbo.Utils.HighchartsBase.noDataMessage($chart));
-  }
-
-  function convertToJsDates(allSeries) {
-    $.each(allSeries, function(seriesIdx, series) {
-      $.each(series.data, function(plotIdx, plot) {
-        plot[0] = Date.parse(plot[0]);
-      });
-    });
+    $chart.highcharts().showLoading(Airbo.HighchartsBase.noDataMessage($chart));
   }
 
   function getChartWithTarget($node, closestNodeWithTarget) {
@@ -115,11 +107,12 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
       Airbo.ClientAdminReportsUtils.switchActiveTab($(this));
 
       var $chart = getChartWithTarget($(this), ".chart-interval-opts");
+      var $parentModule = $chart.parents(".report-module");
       var intervalType = $(this).data("interval");
 
       $chart.data("intervalType", intervalType);
 
-      requestChart($chart);
+      requestChart($chart, $parentModule);
     });
   }
 

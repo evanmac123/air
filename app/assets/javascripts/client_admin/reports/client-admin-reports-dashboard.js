@@ -28,25 +28,6 @@ Airbo.ClientAdminReportsDashboard = (function(){
     });
   }
 
-  //deprecate after we decide on module-based date switching
-  function reportDateChange() {
-    $(".report-interval-change").on("click", function(e) {
-      e.preventDefault();
-
-      if ($(this).hasClass("tabs-component-active")) {
-        return false;
-      }
-
-      Airbo.ClientAdminReportsUtils.switchActiveTab($(this));
-
-      $(reportSel).data("startDate", $(this).data("startDate"));
-      $(reportSel).data("endDate", $(this).data("endDate"));
-
-      activateReportModules();
-    });
-  }
-  //
-
   function moduleDateChange() {
     $(".module-interval-change").on("click", function(e) {
       e.preventDefault();

@@ -1,13 +1,12 @@
 var Airbo = window.Airbo || {};
-Airbo.Utils = Airbo.Utils || {};
-Airbo.Utils.Highcharts = Airbo.Utils.Highcharts || {};
+Airbo.Highcharts = Airbo.Highcharts || {};
 
-Airbo.Utils.Highcharts.loginActivityTilesDigestTemplate = function($chart, data){
+Airbo.Highcharts.loginActivityTilesDigestTemplate = function($chart, data){
   var tilesDigestYAxisMax;
 
   if (data) {
     var tilesDigestYAxisData = data.series[1].data;
-    tilesDigestYAxisMax = Airbo.Utils.HighchartsBase.axisMax(tilesDigestYAxisData);
+    tilesDigestYAxisMax = Airbo.HighchartsBase.axisMax(tilesDigestYAxisData);
   }
 
   var zIndex = $chart.data("seriesNames").length;
@@ -34,21 +33,6 @@ Airbo.Utils.Highcharts.loginActivityTilesDigestTemplate = function($chart, data)
     },
     exporting: {
       chartOptions: {
-        // plotOptions: {
-        //   series: {
-        //     dataLabels: {
-        //       enabled: true,
-        //       inside: true,
-        //       borderColor: "#fff",
-        //       verticalAlign: "bottom",
-        //       formatter: function() {
-        //         if (this.series.type === "column" && this.y > 0) {
-        //           return this.y;
-        //         }
-        //       }
-        //     }
-        //   }
-        // },
         yAxis: [{
           labels: {
             enabled: true
@@ -91,6 +75,6 @@ Airbo.Utils.Highcharts.loginActivityTilesDigestTemplate = function($chart, data)
         },
         opposite: true
     }],
-    series: series
+    series: series,
   };
 };
