@@ -95,6 +95,7 @@ describe TileCopier do
       "multiple_choice_answers",
       "points",
       "question",
+      "embed_video",
       "supporting_content",
       "use_old_line_break_css",
       "question_type",

@@ -53,6 +53,7 @@ class TileCopier
         "question",
         "supporting_content",
         "image",
+        "embed_video",
         "thumbnail",
         "use_old_line_break_css",
         "question_type",
