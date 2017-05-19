@@ -171,7 +171,7 @@ Airbo.Utils.mediumEditor = (function() {
         if(oldVal !== field.val()){
           setTimeout(function(){
             field.change();
-          }, 0)
+          }, 1000)
         }
       });
 
