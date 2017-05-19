@@ -182,7 +182,7 @@ GEM
       activemodel
     erubis (2.7.0)
     escape (0.0.4)
-    eventmachine (1.0.8)
+    eventmachine (1.2.3)
     excon (0.41.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
