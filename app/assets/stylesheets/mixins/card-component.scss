@@ -1,11 +1,11 @@
 @mixin card-component($header-background-color, $border-color, $default-header-content-height: 212px) {
   .card-component {
-    border: solid 1px $border-color;
     overflow: hidden;
     margin: 35px;
-    border-radius: 8px;
-    border: solid 1px $border-color;
     .card-header {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      border: solid 1px $header-background-color;
       background-color: $header-background-color;
       color: #fff;
       .card-title-group {
@@ -24,10 +24,17 @@
       }
     }
     .card-body {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      border: solid 1px $border-color;
+      border-top: none;
       .card-content {
+        border-radius: inherit;
         background-color: #fff;
-        border-top: solid 1px $border-color;
         padding: 16px;
+        &:not(:first-child) {
+          border-top: solid 1px $border-color;
+        }
       }
     }
 

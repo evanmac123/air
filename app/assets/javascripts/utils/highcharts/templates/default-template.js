@@ -1,8 +1,7 @@
 var Airbo = window.Airbo || {};
-Airbo.Utils = Airbo.Utils || {};
-Airbo.Utils.Highcharts = Airbo.Utils.Highcharts || {};
+Airbo.Highcharts = Airbo.Highcharts || {};
 
-Airbo.Utils.Highcharts.defaultTemplate = function($chart){
+Airbo.Highcharts.defaultTemplate = function($chart){
   var series = $.map($chart.data("seriesNames"), function(name) {
     return { name: name };
   });
@@ -10,7 +9,7 @@ Airbo.Utils.Highcharts.defaultTemplate = function($chart){
   return {
     chart: {
       type: 'line',
-      height: 500,
+      height: 450,
       marginTop: 50,
       spacingBottom: 60
     },
@@ -20,13 +19,14 @@ Airbo.Utils.Highcharts.defaultTemplate = function($chart){
     subtitle: {
       text: null
     },
-    exporting: Airbo.Utils.Highcharts.Exporting.defaultExportingConfig($chart),
+    exporting: Airbo.Highcharts.Exporting.defaultExportingConfig($chart),
     xAxis: {
       type: 'datetime',
 
       labels: {
-        align: 'center',
-        format: Airbo.Utils.Highcharts.Labels.defaultLabelFormat($chart),
+        formatter: function() {
+          return Airbo.Highcharts.Labels.defaultLabelFormatter(this, $chart);
+        },
         style: {
           color: "#33445c"
         }
@@ -51,9 +51,9 @@ Airbo.Utils.Highcharts.defaultTemplate = function($chart){
       }]
     },
     series: series,
-    legend: Airbo.Utils.Highcharts.Legend.defaultLegend($chart),
+    legend: Airbo.Highcharts.Legend.defaultLegend($chart),
     credits: { enabled: false },
-    plotOptions: Airbo.Utils.Highcharts.PlotOptions.defaultPlotOptions($chart),
-    tooltip: Airbo.Utils.Highcharts.Tooltip.defaultTooltip($chart)
+    plotOptions: Airbo.Highcharts.PlotOptions.defaultPlotOptions($chart),
+    tooltip: Airbo.Highcharts.CustomTooltips.SharedTooltipWithPercentChange.render($chart)
   };
 };

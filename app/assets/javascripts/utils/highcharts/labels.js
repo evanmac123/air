@@ -1,23 +1,27 @@
 var Airbo = window.Airbo || {};
-Airbo.Utils = Airbo.Utils || {};
-Airbo.Utils.Highcharts = Airbo.Utils.Highcharts || {};
+Airbo.Highcharts = Airbo.Highcharts || {};
 
-Airbo.Utils.Highcharts.Labels = (function(){
+Airbo.Highcharts.Labels = (function(){
 
-  function defaultLabelFormat($chart) {
-    var intervalType = $chart.data("intervalType");
+  function defaultLabelFormatter(label, $chart) {
+    return getDateFormat(label.value, $chart.data("intervalType"));
+  }
 
+  function getDateFormat(timestamp, intervalType) {
+    var date = new Date(timestamp);
     if (intervalType === 'quarter') {
-      return '{value: %Q}';
+      return Highcharts.dateFormat('%Q', date);
     } else if (intervalType === 'year') {
-      return '{value: %Y}';
-    } else {
-      return '{value: %b %Y}';
+      return Highcharts.dateFormat('%Y', date);
+    } else if (intervalType === 'month') {
+      return Highcharts.dateFormat('%b %Y', date);
+    } else if (intervalType === 'week') {
+      return Highcharts.dateFormat('%m/%d/%y', date);
     }
   }
 
   return {
-    defaultLabelFormat: defaultLabelFormat
+    defaultLabelFormatter: defaultLabelFormatter
   };
 
 }());
