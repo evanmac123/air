@@ -1057,3 +1057,19 @@ describe User, "#data_for_mixpanel" do
     expect(client_admin.data_for_mixpanel[:email]).to eq(client_admin.email)
   end
 end
+
+describe User, ".paid_client_admin" do
+  it "should return users who have a client admin board membership in a demo that is paid" do
+    paid_demo = FactoryGirl.create(:demo, name: "Paid", is_paid: true)
+    unpaid_demo = FactoryGirl.create(:demo, name: "Unpaid", is_paid: false)
+
+    paid_client_admin = FactoryGirl.create(:user, name: "Paid Ca")
+    paid_client_admin.board_memberships.create(demo: paid_demo, is_client_admin: true)
+
+    unpaid_client_admin = FactoryGirl.create(:user, name: "Unpaid Ca")
+    unpaid_client_admin.board_memberships.create(demo: paid_demo, is_client_admin: false)
+    unpaid_client_admin.board_memberships.create(demo: unpaid_demo, is_client_admin: false)
+
+    expect(User.paid_client_admin.pluck(:id)).to eq([paid_client_admin.id])
+  end
+end
