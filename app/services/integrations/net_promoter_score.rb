@@ -3,7 +3,7 @@ module Integrations
     #Delighted API docs: https://delighted.com/docs/api
     class << self
       def send_survey_to_all_paid_client_admin
-        users = User.client_admin.includes(:demos).where(demos: { is_paid: true } ).uniq
+        users = User.paid_client_admin
 
         users.each { |user|
           send_nps_survey(user)
