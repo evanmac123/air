@@ -35,6 +35,36 @@ feature "Client admin creates tiles", js: true do
         end
       end
 
+      scenario "creates only one tile when  " do
+        pending "unable to simulate this scenario in acceptance test"
+
+        #NOTE 
+        #this test attempts to simulate a bug #708 where two tiles 
+        # are created if the user uploads an image and quickly causes blur 
+        # and focus events on the supporting content field. 
+        # leaving it here as pending for future documentation
+        
+        #NOTE in ordr for it to be ignored by spec runner the expection is wrong
+        #on purpose
+
+        click_link "Add New Tile"
+        content = page.find(:css, "#supporting_content_editor", visible: false)
+        headline = page.find("#tile_builder_form_headline")
+        fake_upload_image img_file1
+
+        content.trigger("focus")
+        content.set("This")
+        headline.trigger("focus")
+        headline.set("Ten pounds of cheese")
+        content.trigger("focus")
+        content.set("that")
+        headline.trigger("focus")
+        page.find(".close-reveal-modal").click
+        within ".tile_container.draft" do
+          expect(page).to  have_css(".tile_thumbnail", count: 2)
+        end
+      end
+
       pending "create with only image" do
         click_link "Add New Tile"
         fake_upload_image img_file1
