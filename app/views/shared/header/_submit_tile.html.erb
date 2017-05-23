@@ -1,5 +1,5 @@
 <% if user.can_submit_tile?(browser) %>
-  <%= link_to new_suggested_tile_path, id: "submit_tile", data: {action: "new", intro: "Add a Tile to the Suggestion Box. If it's accepted, it will be featured on this Board."} do %>
+  <%= link_to new_suggested_tile_path, id: "submit_tile", data: {action: "new", intro: "Add a Tile to the Suggestion Box. If it's accepted, it will be featured on this Board.", display: params[:suggest] } do %>
     <%= fa_icon 'pencil' %>
     <span>Suggest Tile</span>
   <% end %>
