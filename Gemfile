@@ -46,7 +46,7 @@ gem 'delayed_paperclip'
 gem 'mobvious-rails'
 gem 'rails3_before_render'
 gem 'rollout'
-gem 'font-awesome-rails'
+gem 'font-awesome-rails', '>= 4.7'
 gem 'wice_grid', git: 'https://github.com/avbrychak/wice_grid', branch: 'rails3'
 gem 'kaminari'
 gem 'browser'
@@ -93,6 +93,7 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'jquery-ui-rails'
+  gem 'handlebars_assets'
 end
 
 

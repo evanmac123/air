@@ -1,7 +1,15 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ClientAdminReportsUtils = (function(){
-  var reportSel = ".report-container";
+
+  function reportsBoardId() {
+    var reportSel = ".js-reports-container";
+    return $(reportSel).data("currentDemoId");
+  }
+
+  function hideReports() {
+    $(".js-report-container").hide();
+  }
 
   function switchActiveTab($node) {
     $node.siblings().removeClass("tabs-component-active");
@@ -9,7 +17,9 @@ Airbo.ClientAdminReportsUtils = (function(){
   }
 
   return {
-    switchActiveTab: switchActiveTab
+    switchActiveTab: switchActiveTab,
+    reportsBoardId: reportsBoardId,
+    hideReports: hideReports
   };
 
 }());

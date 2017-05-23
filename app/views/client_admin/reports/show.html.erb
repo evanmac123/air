@@ -1,5 +1,24 @@
-<div class="report-container reporting-module" style="display:none;" data-current-demo-id="<%= current_demo_id %>">
-  <%= render partial: 'client_admin/reports/participation_module' %>
-  <%= render partial: 'client_admin/reports/tile_engagement_module' %>
-  <%= render partial: 'client_admin/reports/content_creation_module' %>
+<div class="js-reports-container reporting-module" data-current-demo-id="<%= current_demo_id %>">
+
+  <div class="js-report-switcher report-switcher-tabs mt-2 ml-2">
+    <ul class="inline-list tabs-component">
+      <li class="tabs-component-active js-report-switcher-tab" data-target=".js-tile-emails-report-container">Tile Emails</li>
+      <li class= "js-report-switcher-tab" data-target=".js-summary-report-container">Summary</li>
+    </ul>
+  </div>
+
+  <div id="tileEmailReports">
+    <div class="js-tile-emails-report-container js-report-container" data-path="<%= api_client_admin_tile_email_reports_path %>">
+    </div>
+    <div class="text-center">
+      <%= link_to "Load More", api_client_admin_tile_email_reports_path, class: "button js-next-tile-email-report", style: "display:none;" %>
+    </div>
+  </div>
+
+  <div class="js-summary-report-container js-report-container hide">
+    <%= render partial: 'client_admin/reports/summary_participation_module' %>
+    <%= render partial: 'client_admin/reports/summary_tile_engagement_module' %>
+    <%= render partial: 'client_admin/reports/summary_content_creation_module' %>
+  </div>
+
 </div>

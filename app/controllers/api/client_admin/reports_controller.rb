@@ -1,9 +1,9 @@
 class Api::ClientAdmin::ReportsController < Api::ClientAdminBaseController
   def show
     report = report_class.new(
-      report_params[:demo_id],
-      report_params[:from_date],
-      report_params[:to_date]
+      board_id: report_params[:demo_id],
+      from_date: report_params[:from_date],
+      to_date: report_params[:to_date]
     )
 
     render json: {

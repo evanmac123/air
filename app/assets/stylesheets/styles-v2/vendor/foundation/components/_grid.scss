@@ -119,7 +119,7 @@ $total-columns: 12 !default;
     &.collapse {
        > .column,
        > .columns { @include grid-column($collapse:true); }
-    
+
       .row {margin-left:0; margin-right:0;}
     }
 
@@ -179,6 +179,39 @@ $total-columns: 12 !default;
 
     .column.large-uncentered.opposite,
     .columns.large-uncentered.opposite {
+      float: $opposite-direction !important;
+    }
+
+
+  }
+
+  @media #{$medium} {
+
+    @for $i from 1 through $total-columns {
+      .x-large#{-$i} { @include grid-column($columns:$i,$collapse:null,$float:false); }
+    }
+
+    @for $i from 0 through $total-columns - 1 {
+      .row .x-large-offset-#{$i} { @include grid-column($offset:$i, $collapse:null,$float:false); }
+    }
+
+    @for $i from 1 through $total-columns - 1 {
+      .push#{-$i} { @include grid-column($push:$i, $collapse:null, $float:false); }
+      .pull#{-$i} { @include grid-column($pull:$i, $collapse:null, $float:false); }
+    }
+
+    .column.x-large-centered,
+    .columns.x-large-centered { @include grid-column($center:true, $collapse:null, $float:false); }
+
+    .column.x-large-uncentered,
+    .columns.x-large-uncentered {
+      margin-#{$default-float}: 0;
+      margin-#{$opposite-direction}: 0;
+      float: $default-float !important;
+    }
+
+    .column.x-large-uncentered.opposite,
+    .columns.x-large-uncentered.opposite {
       float: $opposite-direction !important;
     }
 

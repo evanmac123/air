@@ -10,7 +10,7 @@
       background-color: lighten($bg-color, 5%);
       border-color: lighten($bg-color, 5%);
     }
-    &:active {
+    &:active, &:focus {
       color: $text-color;
       background-color: darken($bg-color, 5%);
       border-color: darken($bg-color, 5%);
@@ -185,6 +185,32 @@
     &.download {
       @include button-new($content: $download-icon);
     }
+    &.dark-blue {
+      @include button-new($text-color: $white, $border-color: $white, $bg-color: transparent, $hover-color: $white, $active-color: transparent);
+      &:hover {
+        background: transparent;
+        color: $white;
+        border-color: $white;
+      }
+      &.collapse-icon {
+        &:after {
+          font-family: "FontAwesome";
+          content: "\00a0\00a0" + $collapse-icon;
+          &.active {
+            animation: fa-spin 2s infinite linear;
+          }
+        }
+      }
+      &.expand-icon {
+        &:after {
+          font-family: "FontAwesome";
+          content: "\00a0\00a0" + $expand-icon;
+          &.active {
+            animation: fa-spin 2s infinite linear;
+          }
+        }
+      }
+    }
   }
   &.outlined {
     @include button-outlined-color;
@@ -266,7 +292,7 @@
       margin-right: 5px;
     }
   }
-
+  
   &.with_spinner {
     @include button-with-spinner;
     &.outlined {

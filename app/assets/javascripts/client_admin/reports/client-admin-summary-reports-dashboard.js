@@ -1,10 +1,9 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminReportsDashboard = (function(){
-  var reportSel = ".report-container";
+Airbo.ClientAdminSummaryReportsDashboard = (function(){
 
   function activateReportModules() {
-    $.each($(".report-module"), function(i, module) {
+    $.each($(".summary-report-module"), function(i, module) {
       activateReportModule($(module));
     });
   }
@@ -24,7 +23,7 @@ Airbo.ClientAdminReportsDashboard = (function(){
   function requestModuleCharts($module) {
     var charts = $module.find(".chart-container");
     $.each(charts, function(i, chart) {
-      Airbo.ClientAdminReportsDashboardCharts.buildChart($(chart), $module);
+      Airbo.ClientAdminSummaryReportsDashboardCharts.buildChart($(chart), $module);
     });
   }
 
@@ -46,20 +45,24 @@ Airbo.ClientAdminReportsDashboard = (function(){
     });
   }
 
+  function showReports() {
+    $(".js-summary-report-container").fadeIn();
+  }
+
   function init() {
-    $(".report-container").fadeIn();
     activateReportModules();
     moduleDateChange();
   }
 
   return {
-    init: init
+    init: init,
+    showReports: showReports
   };
 
 }());
 
 $(function(){
   if (Airbo.Utils.nodePresent(".client_admin-reports")) {
-    Airbo.ClientAdminReportsDashboard.init();
+    Airbo.ClientAdminSummaryReportsDashboard.init();
   }
 });

@@ -1,0 +1,55 @@
+@mixin tile-email-report-component($border-color) {
+  .tile-email-report-module {
+
+    .subject-line-section {
+      .subject-line {
+        margin: 10px 0;
+      }
+
+      .login-count {
+        margin: 10px 0;
+      }
+    }
+    .tile-email-data-point {
+      &.data-number {
+        font-weight: bold;
+        margin: 10px 0;
+      }
+      &.data-label {
+        margin-bottom: 20px;
+      }
+      &.data-icon {
+        margin-top: 20px;
+      }
+    }
+    .tile-data {
+      overflow: hidden;
+      &.card-content {
+        padding: 0;
+      }
+      table {
+        margin: 0;
+      }
+      .tile-row {
+        padding: 10px;
+        .tile-data-td-image {
+          width: 85px;
+        }
+        .tile-data-td-headline {
+          font-size: 18px;
+        }
+        .tile-data-td-numbers {
+          text-align: right;
+        }
+        td {
+          border-bottom: 1px solid $border-color;
+        }
+        &:last-child {
+          td {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+}

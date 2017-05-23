@@ -1,20 +1,33 @@
+<%# This li duplication is on purpose as we move towards a less abstract version of the subnav. We need to do this so each tab is more flaxible. %>
 <% unless blocked %>
-  <li id="<%= item_id %>">
-    <%= link_to link, link_options.merge({class: "mini-text white"}) do %>
-      <% if icon.present? %>
-        <%= fa_icon icon %>
-      <% elsif image.present? %>
-        <%= image_tag image %>
-      <% end %>
+  <% if text == "Share" %>
+    <li id="<%= item_id %>" class="js-sidenav-share-tab" data-tiles-to-be-sent="<%= @tiles_to_be_sent || tiles_to_be_sent(current_user) %>">
+      <%= link_to link, link_options.merge({class: "mini-text white"}) do %>
+        <% if icon.present? %>
+          <%= fa_icon icon %>
+        <% elsif image.present? %>
+          <%= image_tag image %>
+        <% end %>
 
-      <%= text %>
-      <% if text == "Share" %>
+        <%= text %>
         <span>
           <%= @tiles_to_be_sent || tiles_to_be_sent(current_user) %>
         </span>
       <% end %>
-    <% end %>
-  </li>
+    </li>
+  <% else %>
+    <li id="<%= item_id %>" class="<%= "js-sidenav-#{text.downcase}-tab" %>">
+      <%= link_to link, link_options.merge({class: "mini-text white"}) do %>
+        <% if icon.present? %>
+          <%= fa_icon icon %>
+        <% elsif image.present? %>
+          <%= image_tag image %>
+        <% end %>
+
+        <%= text %>
+      <% end %>
+    </li>
+  <% end %>
 <% else %>
   <li id="<%= item_id %>" class="has-tip text-center" data-tooltip="true" title="Create and post at least one tile to unlock">
     <div class="blocked_nav white mini-text">

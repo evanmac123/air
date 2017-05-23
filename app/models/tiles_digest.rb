@@ -78,6 +78,10 @@ class TilesDigest < ActiveRecord::Base
     @user_ids = users_to_deliver_to.pluck(:id)
   end
 
+  def sender_name
+    sender.try(:name)
+  end
+
   private
 
     def users_for_digest
