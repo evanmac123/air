@@ -141,7 +141,7 @@ Airbo.TileFormModal = (function(){
 
   function initSubmitButtonClick(){
     submitLink.click(
-      $.debounce(1000, function(e){
+      $.debounce(2000, function(e){
         e.preventDefault();
         if(timer){
           clearTimeout(timer);
@@ -184,9 +184,7 @@ Airbo.TileFormModal = (function(){
         console.log("change called", event, currform.attr("method"));
 
         if(isAutoSaving()){
-
           console.log("already autosaving");
-          //return false
         }
 
         setAutoSavingTrue();
@@ -197,7 +195,7 @@ Airbo.TileFormModal = (function(){
           disablesubmitLink();
           timer = setTimeout(function(){
             ajaxHandler.submit(currform, autoSaveSuccess.bind(me), resetSubmit);
-          }, 1000);
+          }, 500);
         }else{
           saveable = false;
           modalObj.setConfirmOnClose(true);

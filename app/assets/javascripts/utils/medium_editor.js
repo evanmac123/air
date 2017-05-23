@@ -157,7 +157,7 @@ Airbo.Utils.mediumEditor = (function() {
       field.data("oldVal", content);
       editor.setContent(content);
 
-      editor.subscribe('blur', function (event, editable) {
+      editor.subscribe('blur', $.debounce( 3000, function(event, editable) {
         var obj =$(editable)
           ,  textLength = obj.text().trim().length
           , val = obj.html()
@@ -169,21 +169,24 @@ Airbo.Utils.mediumEditor = (function() {
         field.data("oldVal", field.val());
 
         if(oldVal !== field.val()){
-          setTimeout(function(){
-            field.change();
-          }, 1000)
+          field.change();
         }
-      });
+      }));
 
 
-      editor.subscribe('editableInput', function (event, editable) {
-        var obj =$(editable),  textLength = obj.text().trim().length;
+      editor.subscribe('editableInput', function (e, editable) {
+        var obj =$(editable)
+          , textLength = obj.text().trim().length
+        ;
+
+        e.preventDefault();
 
         if(textLength > 0){
           field.val(obj.html());
         }else{
           field.val("");
         }
+
 
         field.blur();
       });
