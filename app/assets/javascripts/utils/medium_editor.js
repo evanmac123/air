@@ -157,7 +157,7 @@ Airbo.Utils.mediumEditor = (function() {
       field.data("oldVal", content);
       editor.setContent(content);
 
-      editor.subscribe('blur', $.debounce( 3000, function(event, editable) {
+      editor.subscribe('blur', $.debounce( 2000, function(event, editable) {
         var obj =$(editable)
           ,  textLength = obj.text().trim().length
           , val = obj.html()

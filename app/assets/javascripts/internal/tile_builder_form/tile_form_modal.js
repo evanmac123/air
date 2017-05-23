@@ -141,7 +141,7 @@ Airbo.TileFormModal = (function(){
 
   function initSubmitButtonClick(){
     submitLink.click(
-      $.debounce(2000, function(e){
+      $.debounce(500, function(e){
         e.preventDefault();
         if(timer){
           clearTimeout(timer);
