@@ -240,8 +240,7 @@ Make sure to set these vars as appropriate.  Below is for example purpose only
 |NEW_RELIC_APP_NAME|                               hengage-dev|  |
 |NEW_RELIC_LICENSE_KEY|                            [KEY]|  |
 |NEW_RELIC_LOG|                                    stdout|  |
-|PROFILABLE_USERS|  |
-herby@airbo.com,a.v.brychak@gmail.com,kate-admin@airbo.com|  |
+|PROFILABLE_USERS|herby@airbo.com,a.v.brychak@gmail.com,kate-admin@airbo.com |
 |RACK_ENV|                                         development|  |
 |RAILS_ENV|                                        production|  |
 |REDISTOGO_URL|                                    [URL]|  |
@@ -331,7 +330,7 @@ Usage: heroku ps:scale DYNO1=AMOUNT1 [DYNO2=AMOUNT2 ...]
 
 Scale dynos by the given amount
 Examples:
-$ heroku ps:scale web=3 worker+1
+$ heroku ps:scale web=3 worker=1
 Scaling web dynos... done, now running 3
 Scaling worker dynos... done, now running 1
 
