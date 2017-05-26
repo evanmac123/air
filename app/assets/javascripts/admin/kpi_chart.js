@@ -98,13 +98,12 @@ Airbo.KpiChart = (function(){
   }
 
   function rebuildTable(){
-     var theTemplate = Handlebars.compile (tableTemplate);  
+    var theTemplate = Handlebars.compile (tableTemplate);
     $(".table-container").html(theTemplate (tableData));
   }
 
   function refreshWithHTML(html){
     $(".tabular-data").html(html);
-    initTableScroll();
     if ($(".no-chart-data").length === 0){
       initChartDataFromDataAttributes();
       refreshChart();
@@ -137,10 +136,12 @@ Airbo.KpiChart = (function(){
 
   function prepareDataForChart(data){
     var kpi = $("#metric_list").find("option:selected").val();
-    getDateSeries(data.from_date.values);
-    build_graph_series_data(data)
     chartData[0] = datasets[kpi];
-    tableData = { headers: converDates(), rows: getTableRows(data)};
+    if(data !== undefined){
+      getDateSeries(data.from_date.values);
+      build_graph_series_data(data)
+      tableData = { headers: converDates(), rows: getTableRows(data)};
+    }
   }
 
   function build_graph_series_data(data){
@@ -230,7 +231,6 @@ Airbo.KpiChart = (function(){
     initSeriesSwitcher();
     Airbo.Utils.KpiReportDateFilter.init();
     Airbo.Utils.initChosen();
-    initTableScroll();
   }
 
 
@@ -241,7 +241,6 @@ Airbo.KpiChart = (function(){
 
 $(function(){
   if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".kpis-graph")){
-    debugger
     Airbo.KpiChart.init();
   }
 });
