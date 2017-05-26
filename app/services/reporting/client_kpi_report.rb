@@ -24,43 +24,8 @@ module Reporting
     def sections
       {
 
-        "Overall Engagement" =>  [
-          "paid_net_promoter_score",
-          "paid_net_promoter_score_response_count",
-          "percent_engaged_organizations",
-          "unique_org_with_activity_sessions",
-          "total_paid_orgs",
-          "percent_engaged_client_admin",
-          "unique_client_admin_with_activity_sessions",
-          "total_paid_client_admins",
-          "total_paid_client_admin_activity_sessions",
-          "activity_sessions_per_client_admin"
-        ],
-        "Planning" => [
-          "percent_paid_orgs_view_tile_in_explore",
-          "unique_orgs_that_viewed_tiles_in_explore",
-          "total_tiles_viewed_in_explore_by_paid_orgs",
-          "paid_client_admins_who_viewed_tiles_in_explore",
-          "tiles_viewed_per_paid_client_admin"
-        ],
-
         "Creation" => [
-          "percent_orgs_that_added_tiles",
-          "total_tiles_added_by_paid_client_admin",
-          "unique_orgs_that_added_tiles",
-
-          "percent_of_added_tiles_from_copy",
-          "percent_of_added_tiles_from_scratch",
-
-          "total_tiles_added_from_copy_by_paid_client_admin",
-
-          "unique_orgs_that_copied_tiles",
           "percent_orgs_that_copied_tiles",
-          "average_tiles_copied_per_org_that_copied",
-
-          "tiles_created_from_scratch",
-          "orgs_that_created_tiles_from_scratch",
-          "average_tiles_created_from_scratch_per_org_that_created",
           "percent_of_orgs_that_posted_tiles"
         ],
 
