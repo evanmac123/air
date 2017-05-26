@@ -197,12 +197,12 @@ module Reporting
           indent: 1
         },
         "percent_orgs_that_copied_tiles" =>{
-          label: "Copied",
+          label: "% Orgs That Copied Tiles",
           series: "% Customers That Copied Tiles",
           type: "pct 0",
-          hint: "% Customers That Copied Tiles",
+          hint: "",
           css: "kpi-tooltip",
-          indent: 1,
+          indent: 0,
         },
         "total_tiles_added_from_copy_by_paid_client_admin" =>{
           label: "Tiles Copied",
@@ -243,7 +243,7 @@ module Reporting
           indent: 0,
         },
         "percent_of_orgs_that_posted_tiles" =>{
-          label: "% of Orgs That Posted Tiles",
+          label: "% Orgs That Posted Tiles",
           series: "% Customers That Posted Tiles",
           type: "pct 0",
           hint: "",
