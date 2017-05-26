@@ -215,8 +215,8 @@ CONFIG vars
 Make sure to set these vars as appropriate.  Below is for example purpose only
 
 | Var                        |Value                   | Purpose                      |
-| -------------              |:-------------:         | :-----                       |
-|MAX_SELECTORS_DEFAULT       |3072                    | IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split the file into IE9 digestable chuncks.|
+| -------------              |:-------------:         | :----- |
+|MAX_SELECTORS_DEFAULT       |3072 | IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split the file into IE9 digestable chuncks.|
 |APP_HOST                    |hengage-dev.herokuapp.com|                             |
 |AVATAR_BUCKET               |hengage-avatars-development|                           |
 |AWS_ACCESS_KEY_ID |[KEY]|  |
@@ -231,16 +231,11 @@ Make sure to set these vars as appropriate.  Below is for example purpose only
 |FOG_PROVIDER|                                     AWS|  |
 |HEROKU_APP_NAME|                                  hengage-dev|  |
 |LOG_LEVEL|                                        INFO|  |
-|MAX_SELECTORS_DEFAULT|                            3072|  |
 |MIXPANEL_API_KEY|                                 [KEY_ID]|  |
 |MIXPANEL_API_SECRET|                              [SECRET]|  |
 |MIXPANEL_TOKEN|                                   [TOKEN]|  |
 |MONGOHQ_URL|                                      [URL]|  |
 |MONGOLAB_URI|                                     [URL]|  |
-|NEW_RELIC_APP_NAME|                               hengage-dev|  |
-|NEW_RELIC_LICENSE_KEY|                            [KEY]|  |
-|NEW_RELIC_LOG|                                    stdout|  |
-|PROFILABLE_USERS|herby@airbo.com,a.v.brychak@gmail.com,kate-admin@airbo.com |
 |RACK_ENV|                                         development|  |
 |RAILS_ENV|                                        production|  |
 |REDISTOGO_URL|                                    [URL]|  |
