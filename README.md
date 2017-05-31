@@ -79,19 +79,23 @@ Make sure to set these vars as appropriate.  Below is for example purpose only
 |FLICKR_SECRET                                    |[SECRET                              |                                    |
 |FOG_DIRECTORY                                    |hengage-tiles-development            |                                    |
 |FOG_PROVIDER                                     |AWS                                  |                                    |
-|GAME_CREATION_REQUEST_ADDRESS|team@airbo.com     |                                     |                                    |
-|HEROKU_APP_NAME                                  |hengage-dev                          |                                    | 
+|GAME_CREATION_REQUEST_ADDRESS                    |team@airbo.com                       |                                    |
+|HEROKU_APP_NAME                                  |[APP_NAME]                           |                                    | 
 |HOMEPAGE_BOARD_SLUGS                             |[SLUG_NAMES]                         |                                    |
 |IMAGE_PROVIDERS                                  |Pixabay                              |                                    |
+|LIBRARY_ENABLED                                  |TRUE/FALSE                           |                                    |
 |LOG_LEVEL                                        |INFO                                 |                                    |
+|MAINTENANCE_PAGE_URL                             |[AWS_URL]/heroku_error_page/down_for_maintenance.html|                    |
 |MAX_SELECTORS_DEFAULT                            |3072                                 |                                    |
 |MIXPANEL_API_KEY                                 |[KEY_ID]                             |                                    |
 |MIXPANEL_API_SECRET                              |[SECRET]                             |                                    |
+|MIXPANEL_EXCLUDED_ORGS                           |[IDS]                                |                                    |
 |MIXPANEL_TOKEN                                   |[TOKEN]                              |                                    |
 |MONGOHQ_URL                                      |[URL]                                |                                    |
-|MONGOLAB_URI                                     |[URL]                                |                                    |
-|RACK_ENV                                         |development                          |                                    |
-|RAILS_ENV                                        |production                           |                                    |
+|MONGO_URL                                        |[URL]                                |                                    |
+|MP_HOMPAGE_TAG_VERSION                           |[DATE]                               |                                    |
+|RACK_ENV                                         |[ENV NAME]                           |                                    |
+|RAILS_ENV                                        |[ENV NAME]                           |                                    |
 |REDISTOGO_URL                                    |[URL]                                |                                    |
 |S3_LOGO_BUCKET                                   |hengage-logos-development            |                                    |
 |S3_TILE_BUCKET                                   |hengage-tiles-development            |                                    |
@@ -100,8 +104,8 @@ Make sure to set these vars as appropriate.  Below is for example purpose only
 |STRIPE_API_PRIVATE_KEY                           |[KEY]                                |                                    |
 |STRIPE_API_PUBLIC_KEY                            |[KEY]                                |                                    |
 |TILE_BUCKET                                      |hengage-tiles-development            |                                    |
-
-
+|UNMONITORED_MAILBOX_RESPONSE_THRESHOLD           |120                                  |                                    | 
+|USE_GA                                           |TRUE/FALSE                           |                                    |
 IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split the file into IE9 digestable chunks.
 
 https://s3.amazonaws.com/
