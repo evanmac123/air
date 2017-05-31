@@ -20,7 +20,7 @@ If opting for chruby with ruby-install, you can install ruby 2.0.0 with this com
     ruby-install -M https://cache.ruby-lang.org/pub/ruby ruby 2.0.0-p645
 
 
-Setting up the app itself
+### Setting Local Development Instance
 -------------------------
 
 Get the HEngage source code:
@@ -50,9 +50,9 @@ else set up, fire up a Rails console and create a (claimed, admin) user thusly (
     user.save
 
 
-Environment Config VAars
+#### Environment Variables
 -----------
-Make sure to set these vars as appropriate.  Below is for example purpose only
+Make sure to set these vars as appropriate. You can ignore the ones marked as Heroku Only in your local environment
 
 | Var                                             |Value                                | Notes                              |
 | ------------------------------------------------|-------------------------------------| -----------------------------------|
@@ -104,20 +104,19 @@ Make sure to set these vars as appropriate.  Below is for example purpose only
 |STRIPE_API_PRIVATE_KEY                           |[KEY]                                |                                    |
 |STRIPE_API_PUBLIC_KEY                            |[KEY]                                |                                    |
 |TILE_BUCKET                                      |hengage-tiles-development            |                                    |
-|TWILIO_ACCOUNT_SID |||
-|TWILIO_AUTH_TOKEN    |||
-|TWILIO_PHONE_NUMBER |||
-|TZ |||
-
+|TWILIO_ACCOUNT_SID                               |                                     |                                    |
+|TWILIO_AUTH_TOKEN                                |                                     |                                    |
+|TWILIO_PHONE_NUMBER                              |                                     |                                    |
+|TZ                                               |                                     |                                    |
 |UNMONITORED_MAILBOX_RESPONSE_THRESHOLD           |120                                  |                                    | 
 |USE_GA                                           |TRUE/FALSE                           |                                    |
 
-### Notes
+##### Notes
 1. IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split large css files into IE9 digestable chunks here we set the max number of selectors to 3072.  This is below the 4096 limit because there appears to be a file size limit in IE9 as well but that has been hard to confirm. Setting the max selectors to 3072 hopefully keeps the file size below the limit if it exists.
 
 2. AWS_URL = https://s3.amazonaws.com/
 
-Running the app
+Running on local machine
 ---------------
 
 To run the app locally:
@@ -135,7 +134,9 @@ Our CI runs with the following script:
 This will run all tests not flagged for removal and then rerun failures one time.
 
 
-Airbo Git Flow
+## Committing Code
+
+### Airbo Git Workflow
 --------------
 
 1. Create a feature branch off of `development`.  The branch should be prefixed with an issue number of the first issue you are working on in the branch.  Ex: `git checkout -b 111_example_feature_branch`
