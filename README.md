@@ -46,11 +46,11 @@ Prepare the test database:
 You need to create one user before firing up the app, so after you've cloned the repository and got everything
 else set up, fire up a Rails console and create a (claimed, admin) user thusly (password must have at least 6 characters):
 
-    user = FactoryGirl.build :user, :claimed, name: 'Joe Blow', password: 'joeblow', password_confirmation: 'joeblow', email: 'joe@blow.com', is_site_admin: true
+    user = User.new({name: 'Joe Blow', password: 'joeblow', password_confirmation: 'joeblow', email: 'joe@blow.com', is_site_admin: true, accepted_invitation_at: Date.today})
     user.save
 
 
-CONFIG vars
+Environment Config VAars
 -----------
 Make sure to set these vars as appropriate.  Below is for example purpose only
 
@@ -124,10 +124,8 @@ Airbo Git Flow
   * Deploy to Staging and QA
 6. Merge pull requests from the GitHub GUI and delete your feature banch in the same GUI after merging.
 
-Staging and production environments
+Add Heroku Git Remotes for Staging and production environments
 -----------------------------------
-
-We're using Heroku as a hosting provider. Deploying to Heroku is done via git. So, set up your git remotes for each environment:
 
     git remote add staging git@heroku.com:hengage-staging.git
     git remote add production git@heroku.com:hengage.git
