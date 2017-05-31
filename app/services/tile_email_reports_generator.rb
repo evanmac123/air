@@ -33,7 +33,7 @@ class TileEmailReportsGenerator
     end
 
     def tile_emails_supported_by_feature
-      tile_emails.where("created_at > ?", TILE_EMAIL_REPORTS_SUPPORTED_DATE)
+      tile_emails.where("created_at > ?", TILE_EMAIL_REPORTS_SUPPORTED_DATE).order("created_at DESC")
     end
 
     def tile_emails
