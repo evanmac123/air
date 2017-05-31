@@ -79,6 +79,7 @@ Make sure to set these vars as appropriate.  Below is for example purpose only
 |RACK_ENV|                                         development|  |
 |RAILS_ENV|                                        production|  |
 |REDISTOGO_URL|                                    [URL]|  |
+|S3_LOGO_BUCKET|                                   hengage-logos-development|  |
 |S3_TILE_BUCKET|                                   hengage-tiles-development|  |
 |SENDGRID_PASSWORD|                                [PWD]|  |
 |SENDGRID_USERNAME|                                [USER]|  |
