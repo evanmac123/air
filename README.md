@@ -115,16 +115,14 @@ Make sure to set these vars as appropriate. You can ignore the ones marked as He
 
 2. AWS_URL = https://s3.amazonaws.com/
 
-Running App locally
----------------
+### Running App locally
 
 To run the app locally:
 
     1. `script/airbo_dev_up` will start workers, redis, and elastic search as well as serve as a log.
     2. `rails s`
 
-Running the tests locally
------------------
+### Running the tests locally
 
   `bundle exec rspec -fd -t ~broken:true; bundle exec rspec --only-failures`
 
@@ -133,6 +131,7 @@ This will run all tests ignoring those flaggged as broken (to be removed) and th
 Our CI runs this exact script after every push to github
 
 Committing Code
+---------------
 
 ### Airbo Git Workflow
 
