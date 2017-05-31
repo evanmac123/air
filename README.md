@@ -104,11 +104,18 @@ Make sure to set these vars as appropriate.  Below is for example purpose only
 |STRIPE_API_PRIVATE_KEY                           |[KEY]                                |                                    |
 |STRIPE_API_PUBLIC_KEY                            |[KEY]                                |                                    |
 |TILE_BUCKET                                      |hengage-tiles-development            |                                    |
+|TWILIO_ACCOUNT_SID |||
+|TWILIO_AUTH_TOKEN    |||
+|TWILIO_PHONE_NUMBER |||
+|TZ |||
+
 |UNMONITORED_MAILBOX_RESPONSE_THRESHOLD           |120                                  |                                    | 
 |USE_GA                                           |TRUE/FALSE                           |                                    |
-IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split the file into IE9 digestable chunks.
 
-https://s3.amazonaws.com/
+### Notes
+1. IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split large css files into IE9 digestable chunks here we set the max number of selectors to 3072.  This is below the 4096 limit because there appears to be a file size limit in IE9 as well but that has been hard to confirm. Setting the max selectors to 3072 hopefully keeps the file size below the limit if it exists.
+
+2. AWS_URL = https://s3.amazonaws.com/
 
 Running the app
 ---------------
