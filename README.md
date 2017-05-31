@@ -54,38 +54,52 @@ Environment Config VAars
 -----------
 Make sure to set these vars as appropriate.  Below is for example purpose only
 
-| Var                        |Value                   | Purpose                      |
-| -------------              |:-------------:         | :----- |
-|MAX_SELECTORS_DEFAULT       |3072 | IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split the file into IE9 digestable chuncks.|
-|APP_HOST                    |hengage-dev.herokuapp.com|                             |
-|AVATAR_BUCKET               |hengage-avatars-development|                           |
-|AWS_ACCESS_KEY_ID |[KEY]|  |
-|AWS_BULK_UPLOAD_ACCESS_KEY_ID|                    [KEY]|  |
-|AWS_BULK_UPLOAD_SECRET_ACCESS_KEY|                [SECRET]|  |
-|AWS_SECRET_ACCESS_KEY|                            [KEY]|  |
-|BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS| team@air.bo|  |
-|DATABASE_URL|                                     [URL]|  |
-|EMAIL_HOST|                                       hengage-dev.herokuapp.com|  |
-|EMAIL_PROTOCOL|                                   https|  |
-|FOG_DIRECTORY|                                    hengage-tiles-development|  |
-|FOG_PROVIDER|                                     AWS|  |
-|HEROKU_APP_NAME|                                  hengage-dev|  |
-|LOG_LEVEL|                                        INFO|  |
-|MIXPANEL_API_KEY|                                 [KEY_ID]|  |
-|MIXPANEL_API_SECRET|                              [SECRET]|  |
-|MIXPANEL_TOKEN|                                   [TOKEN]|  |
-|MONGOHQ_URL|                                      [URL]|  |
-|MONGOLAB_URI|                                     [URL]|  |
-|RACK_ENV|                                         development|  |
-|RAILS_ENV|                                        production|  |
-|REDISTOGO_URL|                                    [URL]|  |
-|S3_LOGO_BUCKET|                                   hengage-logos-development|  |
-|S3_TILE_BUCKET|                                   hengage-tiles-development|  |
-|SENDGRID_PASSWORD|                                [PWD]|  |
-|SENDGRID_USERNAME|                                [USER]|  |
-|STRIPE_API_PRIVATE_KEY|                           [KEY]|  |
-|STRIPE_API_PUBLIC_KEY|                            [KEY]|  |
-|TILE_BUCKET|                                      hengage-tiles-development|  |
+| Var                              |Value                   | Notes                      |
+| -------------                    |-------------         | ----- |
+|MAX_SELECTORS_DEFAULT             |3072 |IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split the file into IE9 digestable chunks.        |
+|APP_HOST                          |[HOST]        |              |
+|APP_S3_BUCKET                     |[BUCKET_NAME] |              |
+|AVATAR_BUCKET                     |[BUCKET_NAME] |              |
+|AWS_ACCESS_KEY_ID                 |[KEY]         |              |
+|AWS_BULK_UPLOAD_ACCESS_KEY_ID     |[KEY]         |              |
+|AWS_BULK_UPLOAD_SECRET_ACCESS_KEY |[SECRET]      |              |
+|AWS_SECRET_ACCESS_KEY             |[KEY]         |              |
+|BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS |team@airbo.com|       |
+|BOARD_CREATED_NOTIFICATION_ADDRESS               |team@airbo.com|
+|BULK_UPLOADER_BUCKET                             |[BUCKET NAME] |       |
+|BULK_UPLOAD_NOTIFICATION_ADDRESS                 |team@airbo.com|
+|DATABASE_URL                                     |[URL          |       |
+|DEFAULT_DEMO_PARENT_BOARD                        |[BOARD NAME]  |       |
+|DEFAULT_INVITE_DEPENDENT_EMAIL_BODY              |[EMAIL BODY]  |       |
+|DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE            |[EMAIL SUBJECT]|      | 
+|EMAIL_HOST                                       |[HOST]         |      |
+|EMAIL_PROTOCOL                                   |https          |      |
+|ERROR_PAGE_URL                                   |https://s3.amazonaws.com/heroku_error_page/503.html |     |
+|EXPLORE_ENABLED                                  |True                                                |     |
+|FLICKR_KEY                                       |[KEY]                                               |     |
+|FLICKR_SECRET                                    |[SECRET                                             |     |
+|FOG_DIRECTORY                                    |hengage-tiles-development                           |     |
+|FOG_PROVIDER                                     |AWS                                                 |     |
+|GAME_CREATION_REQUEST_ADDRESS|team@airbo.com     |                                                    |     |
+|HEROKU_APP_NAME                                  |hengage-dev                                         |     |     
+|HOMEPAGE_BOARD_SLUGS                             |[SLUG_NAMES]                                        |     |
+|IMAGE_PROVIDERS                                  |Pixabay                                             | |
+|LOG_LEVEL                                        |INFO                                                |  |
+|MIXPANEL_API_KEY                                 |[KEY_ID]                                            |  |
+|MIXPANEL_API_SECRET                              |[SECRET]                                            |  |
+|MIXPANEL_TOKEN                                   |[TOKEN]                                             |  |
+|MONGOHQ_URL                                      |[URL]                                               |  |
+|MONGOLAB_URI                                     |[URL]                                               |  |
+|RACK_ENV                                         |development                                         |  |
+|RAILS_ENV                                        |production                                          |  |
+|REDISTOGO_URL                                    |[URL]|  |
+|S3_LOGO_BUCKET                                   |hengage-logos-development|  |
+|S3_TILE_BUCKET                                   |hengage-tiles-development|  |
+|SENDGRID_PASSWORD                                |[PWD]|  |
+|SENDGRID_USERNAME                                |[USER]|  |
+|STRIPE_API_PRIVATE_KEY                           |[KEY]                       |  |
+|STRIPE_API_PUBLIC_KEY                            |[KEY]                       |                                  |
+|TILE_BUCKET                                      |hengage-tiles-development|                |
 
 Running the app
 ---------------
