@@ -6,7 +6,7 @@ Airbo 🎉
 Developer Machine Setup
 ------------
 
-### Mac
+### Mac Only
 Install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, Qt, ImageMagick, elasticsearch 
 
 Git should be installed on your Mac if it's not do: brew install git.
