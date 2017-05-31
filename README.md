@@ -3,7 +3,7 @@ Airbo 🎉
 [![Code Climate](https://codeclimate.com/repos/55e48aaee30ba07a20000264/badges/c3777803cac110be5c21/gpa.svg)](https://codeclimate.com/repos/55e48aaee30ba07a20000264/feed) [![Test Coverage](https://codeclimate.com/repos/55e48aaee30ba07a20000264/badges/c3777803cac110be5c21/coverage.svg)](https://codeclimate.com/repos/55e48aaee30ba07a20000264/coverage) [![Build Status](https://semaphoreci.com/api/v1/projects/ba420932-a062-4cec-916a-fedd904d027a/966697/shields_badge.svg)](https://semaphoreci.com/airbo/hengage)
 
 
-Developer Machine setup
+Developer Machine Setup
 ------------
 
 ### Mac
@@ -20,9 +20,8 @@ If opting for chruby with ruby-install, you can install ruby 2.0.0 with this com
     ruby-install -M https://cache.ruby-lang.org/pub/ruby ruby 2.0.0-p645
 
 
-### Setting Local Development Instance
--------------------------
-
+Airbo App Setup
+------------
 Get the HEngage source code:
 
     git clone git@github.com:vladig17/hengage.git
@@ -50,8 +49,8 @@ else set up, fire up a Rails console and create a (claimed, admin) user thusly (
     user.save
 
 
-#### Environment Variables
------------
+### Environment Variables
+
 Make sure to set these vars as appropriate. You can ignore the ones marked as Heroku Only in your local environment
 
 | Var                                             |Value                                | Notes                              |
@@ -111,12 +110,12 @@ Make sure to set these vars as appropriate. You can ignore the ones marked as He
 |UNMONITORED_MAILBOX_RESPONSE_THRESHOLD           |120                                  |                                    | 
 |USE_GA                                           |TRUE/FALSE                           |                                    |
 
-##### Notes
+#### Notes
 1. IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split large css files into IE9 digestable chunks here we set the max number of selectors to 3072.  This is below the 4096 limit because there appears to be a file size limit in IE9 as well but that has been hard to confirm. Setting the max selectors to 3072 hopefully keeps the file size below the limit if it exists.
 
 2. AWS_URL = https://s3.amazonaws.com/
 
-Running on local machine
+Running App locally
 ---------------
 
 To run the app locally:
@@ -124,20 +123,19 @@ To run the app locally:
     1. `script/airbo_dev_up` will start workers, redis, and elastic search as well as serve as a log.
     2. `rails s`
 
-Running the tests
+Running the tests locally
 -----------------
-
-Our CI runs with the following script:
 
   `bundle exec rspec -fd -t ~broken:true; bundle exec rspec --only-failures`
 
-This will run all tests not flagged for removal and then rerun failures one time.
+This will run all tests ignoring those flaggged as broken (to be removed) and then rerun failures one time.
 
+Our CI runs this exact script after every push to github
 
-## Committing Code
+Committing Code
 
 ### Airbo Git Workflow
---------------
+
 
 1. Create a feature branch off of `development`.  The branch should be prefixed with an issue number of the first issue you are working on in the branch.  Ex: `git checkout -b 111_example_feature_branch`
 2. Push your feature branch to GitHub and create a pull request.  This will trigger Semaphore and CodeClimate to run checks as you develop and let the team know what you are working on.  Prefix the name of the pull request with 'WIP' while your are still working on the branch (work in progress).
@@ -156,15 +154,14 @@ This will run all tests not flagged for removal and then rerun failures one time
   * Deploy to Staging and QA
 6. Merge pull requests from the GitHub GUI and delete your feature banch in the same GUI after merging.
 
-Add Heroku Git Remotes for Staging and production environments
------------------------------------
+
+### Add Heroku Git Remotes for Staging and production environments
 
     git remote add staging git@heroku.com:hengage-staging.git
     git remote add production git@heroku.com:hengage.git
 
+### Deploying
 
-Deploying
----------
 
 To deploy to staging:
 
