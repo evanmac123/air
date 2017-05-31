@@ -1,0 +1,75 @@
+<div class="card-component tile-email-report-module report-module js-tile-email-report-module hide" data-tile-data="#tileData{{tileEmailId}}" data-tile-data-toggle="#tileDataToggle{{tileEmailId}}">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="row">
+        <div class="columns large-6 small-8">
+          <h3 class="card-title">Sent on {{reportHeader}}</h3>
+        </div>
+        <div class="columns large-6 small-4">
+          <a href="#" id="tileDataToggle{{tileEmailId}}" class="button button-new dark-blue js-expand-tile-data-button expand-icon float-right mt-1 mr-1" data-target="#tileData{{tileEmailId}}">Expand</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-content js-subject-line-section subject-line-section">
+      {{#each loginsBySubjectLine}}
+        <div id="subject-{{@index}}" class="subject js-subject">
+          <div class="row">
+            <div class="columns small-10">
+              <h3 class="subject-line">{{@key}}</h3>
+            </div>
+            <div class="columns small-2">
+              <h3 class="login-count float-right">{{numAddCommas this}} logins</h3>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    <div class="card-content js-tile-email-data tile-email-data">
+      <div class="row">
+        <div class="columns large-3 small-6 text-center">
+          <i class="tile-email-data-point data-icon fa fa-clone" aria-hidden="true"></i>
+          <span class="d-block tile-email-data-point data-number">{{numAddCommas tilesCount}}</span>
+          <span class="d-block tile-email-data-point data-label">Tiles</span>
+        </div>
+        <div class="columns large-3 small-6 text-center">
+          <i class="tile-email-data-point data-icon fa fa-user" aria-hidden="true"></i>
+          <span class="d-block tile-email-data-point data-number">{{numAddCommas recipientCount}}</span>
+          <span class="d-block tile-email-data-point data-label">Recipients</span>
+        </div>
+        <div class="columns large-3 small-6 text-center">
+          {{#compare followUpStatus "delivered" operator="==="}}
+            <i class="tile-email-data-point data-icon fa fa-paper-plane-o" aria-hidden="true"></i>
+          {{/compare}}
+          {{#compare followUpStatus "scheduled" operator="==="}}
+            <i class="tile-email-data-point data-icon fa fa-clock-o" aria-hidden="true"></i>
+          {{/compare}}
+          {{#compare followUpStatus "no" operator="==="}}
+            <i class="tile-email-data-point data-icon fa fa-ban" aria-hidden="true"></i>
+          {{/compare}}
+
+          <span class="d-block tile-email-data-point data-number">{{followUpStatus}}</span>
+          <span class="d-block tile-email-data-point data-label">Followup</span>
+        </div>
+        <div class="columns large-3 small-6 text-center">
+          <i class="tile-email-data-point data-icon fa fa-tv" aria-hidden="true"></i>
+          <span class="d-block tile-email-data-point data-number">{{numAddCommas totalLoginsFromEmail}}</span>
+          <span class="d-block tile-email-data-point data-label">logins</span>
+        </div>
+      </div>
+    </div>
+    <div id="tileData{{tileEmailId}}"class="card-content js-tile-data tile-data hide">
+      <table>
+        {{#each tiles}}
+          <tr id="tile-list-{{@index}}" data-tile-id="{{this.id}}" class="tile-row">
+            <td class="tile-data-td-image"><img src="{{this.image_url}}" alt="tile-image" height="60" width="60"></td>
+            <td class="tile-data-td-headline">{{this.headline}}</td>
+            <td class="tile-data-td-numbers">{{numAddCommas this.views}} views</td>
+            <td class="tile-data-td-numbers">{{numAddCommas this.completions}} completions</td>
+          </tr>
+        {{/each}}
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,5 @@
+//Decided this is too opinionated and move new feature to EndlessScrollUtil.
+// TODO: Deprecate the use of this endless scroll.
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 Airbo.Utils.EndlessScroll = (function(){

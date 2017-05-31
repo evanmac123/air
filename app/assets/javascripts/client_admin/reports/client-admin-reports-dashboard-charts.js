@@ -1,7 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminReportsDashboardCharts = (function(){
-  var reportSel = ".report-container";
+Airbo.ClientAdminSummaryReportsDashboardCharts = (function(){
 
   function buildChart($chart, $module) {
     var $parentModule = $module;
@@ -48,7 +47,7 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
         requested_series_list: $chart.data("requestedSeriesList"),
         start_date: $parentModule.data("startDate"),
         end_date: $parentModule.data("endDate"),
-        demo_id: $(reportSel).data("currentDemoId")
+        demo_id: Airbo.ClientAdminReportsUtils.reportsBoardId()
       }
     };
   }
@@ -107,7 +106,7 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
       Airbo.ClientAdminReportsUtils.switchActiveTab($(this));
 
       var $chart = getChartWithTarget($(this), ".chart-interval-opts");
-      var $parentModule = $chart.parents(".report-module");
+      var $parentModule = $chart.parents(".summary-report-module");
       var intervalType = $(this).data("interval");
 
       $chart.data("intervalType", intervalType);
@@ -129,6 +128,6 @@ Airbo.ClientAdminReportsDashboardCharts = (function(){
 
 $(function(){
   if (Airbo.Utils.nodePresent(".client_admin-reports")) {
-    Airbo.ClientAdminReportsDashboardCharts.init();
+    Airbo.ClientAdminSummaryReportsDashboardCharts.init();
   }
 });
