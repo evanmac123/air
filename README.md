@@ -49,14 +49,42 @@ else set up, fire up a Rails console and create a (claimed, admin) user thusly (
     user = FactoryGirl.build :user, :claimed, name: 'Joe Blow', password: 'joeblow', password_confirmation: 'joeblow', email: 'joe@blow.com', is_site_admin: true
     user.save
 
-Staging and production environments
------------------------------------
 
-We're using Heroku as a hosting provider. Deploying to Heroku is done via git. So, set up your git remotes for each environment:
+CONFIG vars
+-----------
+Make sure to set these vars as appropriate.  Below is for example purpose only
 
-    git remote add staging git@heroku.com:hengage-staging.git
-    git remote add production git@heroku.com:hengage.git
-
+| Var                        |Value                   | Purpose                      |
+| -------------              |:-------------:         | :----- |
+|MAX_SELECTORS_DEFAULT       |3072 | IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split the file into IE9 digestable chuncks.|
+|APP_HOST                    |hengage-dev.herokuapp.com|                             |
+|AVATAR_BUCKET               |hengage-avatars-development|                           |
+|AWS_ACCESS_KEY_ID |[KEY]|  |
+|AWS_BULK_UPLOAD_ACCESS_KEY_ID|                    [KEY]|  |
+|AWS_BULK_UPLOAD_SECRET_ACCESS_KEY|                [SECRET]|  |
+|AWS_SECRET_ACCESS_KEY|                            [KEY]|  |
+|BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS| team@air.bo|  |
+|DATABASE_URL|                                     [URL]|  |
+|EMAIL_HOST|                                       hengage-dev.herokuapp.com|  |
+|EMAIL_PROTOCOL|                                   https|  |
+|FOG_DIRECTORY|                                    hengage-tiles-development|  |
+|FOG_PROVIDER|                                     AWS|  |
+|HEROKU_APP_NAME|                                  hengage-dev|  |
+|LOG_LEVEL|                                        INFO|  |
+|MIXPANEL_API_KEY|                                 [KEY_ID]|  |
+|MIXPANEL_API_SECRET|                              [SECRET]|  |
+|MIXPANEL_TOKEN|                                   [TOKEN]|  |
+|MONGOHQ_URL|                                      [URL]|  |
+|MONGOLAB_URI|                                     [URL]|  |
+|RACK_ENV|                                         development|  |
+|RAILS_ENV|                                        production|  |
+|REDISTOGO_URL|                                    [URL]|  |
+|S3_TILE_BUCKET|                                   hengage-tiles-development|  |
+|SENDGRID_PASSWORD|                                [PWD]|  |
+|SENDGRID_USERNAME|                                [USER]|  |
+|STRIPE_API_PRIVATE_KEY|                           [KEY]|  |
+|STRIPE_API_PUBLIC_KEY|                            [KEY]|  |
+|TILE_BUCKET|                                      hengage-tiles-development|  |
 
 Running the app
 ---------------
@@ -95,6 +123,15 @@ Airbo Git Flow
   * Ask for code review on your pull request if needed
   * Deploy to Staging and QA
 6. Merge pull requests from the GitHub GUI and delete your feature banch in the same GUI after merging.
+
+Staging and production environments
+-----------------------------------
+
+We're using Heroku as a hosting provider. Deploying to Heroku is done via git. So, set up your git remotes for each environment:
+
+    git remote add staging git@heroku.com:hengage-staging.git
+    git remote add production git@heroku.com:hengage.git
+
 
 Deploying
 ---------
@@ -153,45 +190,7 @@ Transfer production data to staging:
     heroku pgbackups:restore DATABASE `heroku pgbackups:url --remote production` --remote staging
     
     
-    
-    
-    
 
-CONFIG vars
------------
-Make sure to set these vars as appropriate.  Below is for example purpose only
-
-| Var                        |Value                   | Purpose                      |
-| -------------              |:-------------:         | :----- |
-|MAX_SELECTORS_DEFAULT       |3072 | IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split the file into IE9 digestable chuncks.|
-|APP_HOST                    |hengage-dev.herokuapp.com|                             |
-|AVATAR_BUCKET               |hengage-avatars-development|                           |
-|AWS_ACCESS_KEY_ID |[KEY]|  |
-|AWS_BULK_UPLOAD_ACCESS_KEY_ID|                    [KEY]|  |
-|AWS_BULK_UPLOAD_SECRET_ACCESS_KEY|                [SECRET]|  |
-|AWS_SECRET_ACCESS_KEY|                            [KEY]|  |
-|BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS| team@air.bo|  |
-|DATABASE_URL|                                     [URL]|  |
-|EMAIL_HOST|                                       hengage-dev.herokuapp.com|  |
-|EMAIL_PROTOCOL|                                   https|  |
-|FOG_DIRECTORY|                                    hengage-tiles-development|  |
-|FOG_PROVIDER|                                     AWS|  |
-|HEROKU_APP_NAME|                                  hengage-dev|  |
-|LOG_LEVEL|                                        INFO|  |
-|MIXPANEL_API_KEY|                                 [KEY_ID]|  |
-|MIXPANEL_API_SECRET|                              [SECRET]|  |
-|MIXPANEL_TOKEN|                                   [TOKEN]|  |
-|MONGOHQ_URL|                                      [URL]|  |
-|MONGOLAB_URI|                                     [URL]|  |
-|RACK_ENV|                                         development|  |
-|RAILS_ENV|                                        production|  |
-|REDISTOGO_URL|                                    [URL]|  |
-|S3_TILE_BUCKET|                                   hengage-tiles-development|  |
-|SENDGRID_PASSWORD|                                [PWD]|  |
-|SENDGRID_USERNAME|                                [USER]|  |
-|STRIPE_API_PRIVATE_KEY|                           [KEY]|  |
-|STRIPE_API_PUBLIC_KEY|                            [KEY]|  |
-|TILE_BUCKET|                                      hengage-tiles-development|  |
 
 
 Restore Development Environment From Production
