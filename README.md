@@ -2,125 +2,22 @@ Airbo 🎉
 ========
 [![Code Climate](https://codeclimate.com/repos/55e48aaee30ba07a20000264/badges/c3777803cac110be5c21/gpa.svg)](https://codeclimate.com/repos/55e48aaee30ba07a20000264/feed) [![Test Coverage](https://codeclimate.com/repos/55e48aaee30ba07a20000264/badges/c3777803cac110be5c21/coverage.svg)](https://codeclimate.com/repos/55e48aaee30ba07a20000264/coverage) [![Build Status](https://semaphoreci.com/api/v1/projects/ba420932-a062-4cec-916a-fedd904d027a/966697/shields_badge.svg)](https://semaphoreci.com/airbo/hengage)
 
-Airbo Git Flow
---------------
 
-1. Create a feature branch off of `development`.  The branch should be prefixed with an issue number of the first issue you are working on in the branch.  Ex: `git checkout -b 111_example_feature_branch`
-2. Push your feature branch to GitHub and create a pull request.  This will trigger Semaphore and CodeClimate to run checks as you develop and let the team know what you are working on.  Prefix the name of the pull request with 'WIP' while your are still working on the branch (work in progress).
-3. Push to GitHub as you develop in order to continue running checks.  If you are working on a branch for an extended period of time, periodically pull `development` and rebase `developmet` onto your feature branch. Ex: `git rebase development 111_example_feature_branch`
-4. When development is complete, rebase `developmet` onto your feature branch and squash commits to a single commit with a commit message that details the issues that will be closed. Remove 'WIP' from the pull request name. When pushing to GitHub after you squash your commits, you will have to force push.
-    ```
-    git rebase development 111_example_feature_branch
-    git rebase -i development 111_example_feature_branch
-    git push origin 111_example_feature_branch -f
-    ```
-
-5. Before merging your pull request:
-  * Make sure Semaphore passes
-  * Make sure all the CodeClimate checks pass
-  * Ask for code review on your pull request if needed
-  * Deploy to Staging and QA
-6. Merge pull requests from the GitHub GUI and delete your feature banch in the same GUI after merging.
-
-Deploying
----------
-
-To deploy to staging:
-
-  * Option 1: Deploy from Semaphore
-  * Option 2: `git push staging ${branch}:master -f`
-
-To deploy to production:
-
-  * Option 1: `script/deploy_production`
-      * This:
-        1. runs `git push production development:master`
-        2. runs `heroku restart -a hengage`
-        3. runs `heroku run rake db:migrate -a hengage`
-        4. runs `script/airbrake_deploy_production`
-
-  * Option 2: `git push production development:master && heroku restart -a hengage && heroku run rake db:migrate -a hengage`
-    * Set deploy for Airbrake:
-      1. Make sure `AIRBRAKE_PRODUCTION_PROJECT_ID` and `AIRBRAKE_PRODUCTION_API_KEY` ENV vars are set.
-      2. `script/airbrake_deploy_production`
-
-Laptop setup
+Developer Machine setup
 ------------
 
 ### Mac
-[Thoughtbot Laptop](https://github.com/thoughtbot/laptop) is a script to set up a Mac OS X laptop for Rails development.
+Install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, Qt, ImageMagick, elasticsearch 
 
-Or just install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, Qt, ImageMagick  
+Git should be installed on your Mac if it's not do: brew install git.
 
-Many Mac users use [Textmate](http://macromates.com/) to write their code.
-If you use Textmate, set your tabs to "Soft Tabs: 2". This is one of the drop-down options at the very bottom of your window.
 
-### (We Don't Do) Windows
-
-### Linux
-The following instructions are for an Ubuntu system; some slight modifications may need to be made for other distributions.
-
-#### Install the following packages
-1. build-essential
-2. git
-3. postgresql
-4. mongodb
-5. libqtwebkit-dev
-6. libpq-dev
-7. nodejs
-8. ImageMagick
-9. elasticsearch
-10. pgadmin3 (Optional: PostgreSQL GUI admin tool)
-11. curl (Optional: If using RVM - see below)
-
-Since the _Package Manager_ is used to install these packages they might not be as up-to-date as needed.
-If this is the case you will need to go to the appropriate site to get the latest and greatest version.
-
-#### Git
-Run the following commands:
-
-    git config --global user.name "Joe Blow"
-    git config --global user.email "joe@hengage.com"
-
-#### PostgreSQL
-
-Getting Postgres authentication can be a bit tricky, especially if you've never done it before. There is a simple authentication config file available at https://github.com/vladig17/hengage/wiki/Development-pg_hba.conf. However, YOU MUST NEVER USE THIS CONFIGURATION IN PRODUCTION BECAUSE IT IS TOTALLY INSECURE. IT IS FOR DEVELOPMENT ONLY.
-
-To get started. copy the configuration from the address above to `/etc/postgresql/9.1/main/` (version number might be different) and restart Postgres.
-
-Then you'll need to create a database user (Postgres keeps its own lists of users separate from the system's) to use:
-
-    $ sudo su postgres
-    $ createuser joe # this should be the same as your system username
-
-It will ask if the new user should be a superuser: say yes. Again, this is fine for a development machine but not a production server.
-
-####  Use  [RBENV](https://github.com/rbenv/rbenv) or [CHRUBY](https://medium.com/@heidar/switching-from-rbenv-to-postmodern-s-ruby-install-and-chruby-f0daa24b36e6#.hl85swk6r) if you have need to support multiple ruby versions *
+#### Install Ruby Manager
+Use  [RBENV](https://github.com/rbenv/rbenv) or [CHRUBY](https://medium.com/@heidar/switching-from-rbenv-to-postmodern-s-ruby-install-and-chruby-f0daa24b36e6#.hl85swk6r) if you have need to support multiple ruby versions *
 
 If opting for chruby with ruby-install, you can install ruby 2.0.0 with this command:
 
     ruby-install -M https://cache.ruby-lang.org/pub/ruby ruby 2.0.0-p645
-
-Aliases for faster workflow
----------------------------
-
-Git aliases: add to ~/.gitconfig
-
-    [alias]
-      up = !git fetch origin && git rebase origin/master
-      mm = !test `git rev-parse master` = $(git merge-base HEAD master) && git checkout master && git merge HEAD@{1} || echo "Non-fastforward"
-
-Shell aliases: add to ~/.aliases
-
-    alias be="bundle exec"
-    alias s="bundle exec rspec"
-    alias cuc="bundle exec cucumber"
-
- * For the aliases to take effect, add this to your ~/.bash_profile:
-
-    if [ -e "$HOME/.aliases" ]; then
-      source "$HOME/.aliases"
-    fi
 
 
 Setting up the app itself
@@ -178,6 +75,51 @@ Our CI runs with the following script:
 
 This will run all tests not flagged for removal and then rerun failures one time.
 
+
+Airbo Git Flow
+--------------
+
+1. Create a feature branch off of `development`.  The branch should be prefixed with an issue number of the first issue you are working on in the branch.  Ex: `git checkout -b 111_example_feature_branch`
+2. Push your feature branch to GitHub and create a pull request.  This will trigger Semaphore and CodeClimate to run checks as you develop and let the team know what you are working on.  Prefix the name of the pull request with 'WIP' while your are still working on the branch (work in progress).
+3. Push to GitHub as you develop in order to continue running checks.  If you are working on a branch for an extended period of time, periodically pull `development` and rebase `developmet` onto your feature branch. Ex: `git rebase development 111_example_feature_branch`
+4. When development is complete, rebase `developmet` onto your feature branch and squash commits to a single commit with a commit message that details the issues that will be closed. Remove 'WIP' from the pull request name. When pushing to GitHub after you squash your commits, you will have to force push.
+    ```
+    git rebase development 111_example_feature_branch
+    git rebase -i development 111_example_feature_branch
+    git push origin 111_example_feature_branch -f
+    ```
+
+5. Before merging your pull request:
+  * Make sure Semaphore passes
+  * Make sure all the CodeClimate checks pass
+  * Ask for code review on your pull request if needed
+  * Deploy to Staging and QA
+6. Merge pull requests from the GitHub GUI and delete your feature banch in the same GUI after merging.
+
+Deploying
+---------
+
+To deploy to staging:
+
+  * Option 1: Deploy from Semaphore
+  * Option 2: `git push staging ${branch}:master -f`
+
+To deploy to production:
+
+  * Option 1: `script/deploy_production`
+      * This:
+        1. runs `git push production development:master`
+        2. runs `heroku restart -a hengage`
+        3. runs `heroku run rake db:migrate -a hengage`
+        4. runs `script/airbrake_deploy_production`
+
+  * Option 2: `git push production development:master && heroku restart -a hengage && heroku run rake db:migrate -a hengage`
+    * Set deploy for Airbrake:
+      1. Make sure `AIRBRAKE_PRODUCTION_PROJECT_ID` and `AIRBRAKE_PRODUCTION_API_KEY` ENV vars are set.
+      2. `script/airbrake_deploy_production`
+
+
+
 Heroku
 ------
 
@@ -209,6 +151,11 @@ Transfer production data to staging:
 
     heroku pgbackups:capture --remote production
     heroku pgbackups:restore DATABASE `heroku pgbackups:url --remote production` --remote staging
+    
+    
+    
+    
+    
 
 CONFIG vars
 -----------
