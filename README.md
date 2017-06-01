@@ -55,36 +55,31 @@ Make sure to set these vars as appropriate. You can ignore the ones marked as He
 
 | Var                                             |Value                                | Notes                              |
 | ------------------------------------------------|-------------------------------------| -----------------------------------|
-|APP_HOST                                         |[HOST]                               |                                    |
-|APP_S3_BUCKET                                    |[BUCKET_NAME]                        |                                    |
-|AVATAR_BUCKET                                    |[BUCKET_NAME]                        |                                    |
-|AWS_ACCESS_KEY_ID                                |[KEY]                                |                                    |
-|AWS_BULK_UPLOAD_ACCESS_KEY_ID                    |[KEY]                                |                                    |
-|AWS_BULK_UPLOAD_SECRET_ACCESS_KEY                |[SECRET]                             |                                    |
-|AWS_SECRET_ACCESS_KEY                            |[KEY]                                |                                    |
-|BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS |team@airbo.com                       |                                    |
-|BOARD_CREATED_NOTIFICATION_ADDRESS               |team@airbo.com                       |                                    |
-|BULK_UPLOADER_BUCKET                             |[BUCKET NAME]                        |                                    |
-|BULK_UPLOAD_NOTIFICATION_ADDRESS                 |team@airbo.com                       |                                    |
-|DATABASE_URL                                     |[URL                                 |                                    |
-|DEFAULT_DEMO_PARENT_BOARD                        |[BOARD NAME]                         |                                    |
-|DEFAULT_INVITE_DEPENDENT_EMAIL_BODY              |[BODY]                               |                                    |
-|DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE            |[SUBJECT]                            |                                    | 
-|EMAIL_HOST                                       |[HOST]                               |                                    |
-|EMAIL_PROTOCOL                                   |https                                |                                    |
-|ERROR_PAGE_URL                                   |[AWS_URL]/heroku_error_page/503.html |                                    |
-|EXPLORE_ENABLED                                  |True                                 |                                    |
-|FLICKR_KEY                                       |[KEY]                                |                                    |
-|FLICKR_SECRET                                    |[SECRET                              |                                    |
-|FOG_DIRECTORY                                    |hengage-tiles-development            |                                    |
-|FOG_PROVIDER                                     |AWS                                  |                                    |
-|GAME_CREATION_REQUEST_ADDRESS                    |team@airbo.com                       |                                    |
-|HEROKU_APP_NAME                                  |[APP_NAME]                           |                                    | 
-|HOMEPAGE_BOARD_SLUGS                             |[SLUG_NAMES]                         |                                    |
-|IMAGE_PROVIDERS                                  |Pixabay                              |                                    |
-|LIBRARY_ENABLED                                  |TRUE/FALSE                           |                                    |
+|APP_HOST                                         |[HOST]                               | Rails Configuration Option         |
+|APP_S3_BUCKET                                    |[BUCKET_NAME]                        | Default S3 Bucket                  |
+|AVATAR_BUCKET                                    |[BUCKET_NAME]                        | User Avatar Bucket                 |
+|AWS_ACCESS_KEY_ID                                |[KEY]                                | Primary AWS access key for images                                                                                             and attachments                    |
+|AWS_BULK_UPLOAD_ACCESS_KEY_ID                    |[KEY]                                | Bulk upload specific AWS key       |
+|AWS_BULK_UPLOAD_SECRET_ACCESS_KEY                |[SECRET]                             | Bulk upload specific AWS secret    |
+|AWS_SECRET_ACCESS_KEY                            |[KEY]                                | Primary AWS secret                 |
+|<sub>BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS<sub> |team@airbo.com                       | Address where notifications of                                                                                                 Stripe billing details updates are sent                               |
+|BOARD_CREATED_NOTIFICATION_ADDRESS               |team@airbo.com                       | Address where notifications of                                                                                                 board creation are sent            |
+|BULK_UPLOADER_BUCKET                             |[BUCKET NAME]                        | Location on S3 where uploaded census                                                                                           files are stored                   |
+|BULK_UPLOAD_NOTIFICATION_ADDRESS                 |team@airbo.com                       | Address where notifications of user                                                                                           census file uploads are sent       |
+|DATABASE_URL                                     |[URL                                 | Heroku config pointing to DB       |
+|DEFAULT_INVITE_DEPENDENT_EMAIL_BODY              |[BODY]                               | Default email body for invite spouse                                                                                           feature                            |
+|DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE            |[SUBJECT]                            | Default email subject for invite                                                                                               spouse feature                     |
+|EMAIL_HOST                                       |[HOST]                               | Set host var so sendgrid can                                                                                                   properly set email links that point                                                                                           to the correct environment (dev,                                                                                               staging or production)             |
+|EMAIL_PROTOCOL                                   |https                                | Sets to http or https so sendgrid                                                                                             can properly create email links                                                                                               in each  environment (dev,                                                                                                     staging or production)             | 
+|ERROR_PAGE_URL                                   |[AWS_ERR_BASE]/503.html | AWS hosted error page URL          |
+|FLICKR_KEY                                       |[KEY]                                | Flickr API key used in image search                                                                                           (to be removed?) |
+|FLICKR_SECRET                                    |[SECRET                              | Flickr API secrect usded in image                                                                                             search (to be removed?)            |
+|FOG_DIRECTORY                                    |[BUCKET   ]                          | AWS Bucket setting used by                                                                                                     CarrierWave gem                    |
+|FOG_PROVIDER                                     |AWS                                  | Setting used by CarrierWave gem    |
+|HEROKU_APP_NAME                                  |[APP_NAME]                           | Heroku Specfic Setting             | 
+|IMAGE_PROVIDERS                                  |Pixabay                              | Comma separated list of image                                                                                                 services used by image search                                                                                                 feature                            |
 |LOG_LEVEL                                        |INFO                                 |                                    |
-|MAINTENANCE_PAGE_URL                             |[AWS_URL]/heroku_error_page/down_for_maintenance.html|                    |
+|MAINTENANCE_PAGE_URL                             |[AWS_ERR_BASE]/down_for_maintenance.html|                                 |
 |MAX_SELECTORS_DEFAULT                            |3072                                 |                                    |
 |MIXPANEL_API_KEY                                 |[KEY_ID]                             |                                    |
 |MIXPANEL_API_SECRET                              |[SECRET]                             |                                    |
@@ -113,7 +108,8 @@ Make sure to set these vars as appropriate. You can ignore the ones marked as He
 #### Notes
 1. IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split large css files into IE9 digestable chunks here we set the max number of selectors to 3072.  This is below the 4096 limit because there appears to be a file size limit in IE9 as well but that has been hard to confirm. Setting the max selectors to 3072 hopefully keeps the file size below the limit if it exists.
 
-2. AWS_URL = https://s3.amazonaws.com/
+2. AWS_URL = https://s3.amazonaws.com
+3. AWS_ERROR_BASE = https://s3.amazonaws.com/heroku_error_page
 
 ### Running App locally
 
