@@ -102,7 +102,7 @@ Make sure to set these vars as appropriate. You can ignore the ones marked as He
 |TWILIO_AUTH_TOKEN                                |                                     |                                    |
 |TWILIO_PHONE_NUMBER                              |                                     |                                    |
 |TZ                                               |                                     |                                    |
-|UNMONITORED_MAILBOX_RESPONSE_THRESHOLD           |120                                  |                                    | 
+|<sub>UNMONITORED_MAILBOX_RESPONSE_THRESHOLD<sub>          |120                                  |                                    | 
 |USE_GA                                           |TRUE/FALSE                           |                                    |
 
 #### Notes
