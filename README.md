@@ -173,3 +173,25 @@ To deploy to production:
       1. Make sure `AIRBRAKE_PRODUCTION_PROJECT_ID` and `AIRBRAKE_PRODUCTION_API_KEY` ENV vars are set.
       2. `script/airbrake_deploy_production`
 
+# Application Behaviors 
+
+
+## File and Image Storage
+
+The application uses a couple file storage strategies. All file assets including images are stored on S3. What is different is how the assets get uploaded to S3
+
+### Paperclip
+1. Tile Images:  Paperclip client side direct to S3 upload using jquery-fileupload-rails gem
+2. Client logos and Avatars are stored on S3 using server side upload
+
+### CarrierWave
+1. Census Files: Use a form backed by CarrierWave Direct and Fog gems.
+ 
+
+### Other
+CSS assets and images are also stored on S3 using the asset-sync gem and also have a dependency on the fog gem
+
+
+
+
+
