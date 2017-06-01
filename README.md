@@ -216,7 +216,7 @@ CSS assets and images are also stored on S3 using the asset-sync gem and also ha
 </table>
 
 ## Weekly Automated Processes
-* note: Heroku Scheduler does not have a setting for running jobs on a weekly basis. The job itself runs daily but will exit automatically if the weekday is not Monday.
+Heroku Scheduler does not have a setting for running jobs on a weekly basis. The job itself runs daily but will exit automatically if the weekday is not Monday.
 <table>
 <thead>
 <tr>
