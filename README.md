@@ -98,9 +98,8 @@ Make sure to set these vars as appropriate. You can ignore the ones marked as He
 |TWILIO_ACCOUNT_SID                               |                                     | Twilio account credentials         |
 |TWILIO_AUTH_TOKEN                                |                                     | Twilio account credentials         |
 |TWILIO_PHONE_NUMBER                              |                                     | Twilio Phone number for SMS        |
-|TZ                                               |                                     | Rails application TimeZone                                   |
-|<sub>UNMONITORED_MAILBOX_RESPONSE_THRESHOLD</sub>|120                                  |                                    | 
-|USE_GA                                           |TRUE/FALSE                           |                                    |
+|TZ                                               |                                     | Rails application TimeZone for                                                                                                 Heroku                             |
+|USE_GA                                           |TRUE/FALSE                           | Determines if Google Analytics                                                                                                 javascript should be included in                                                                                               page layout                        |
 
 #### Notes
 1. IE9 cannot handle more than 4096 css selectors per css file. We use css splitter to split large css files into IE9 digestable chunks here we set the max number of selectors to 3072.  This is below the 4096 limit because there appears to be a file size limit in IE9 as well but that has been hard to confirm. Setting the max selectors to 3072 hopefully keeps the file size below the limit if it exists.
