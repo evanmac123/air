@@ -62,13 +62,13 @@ Make sure to set these vars as appropriate. You can ignore the ones marked as He
 |AWS_BULK_UPLOAD_ACCESS_KEY_ID                    |[KEY]                                | Bulk upload specific AWS key       |
 |AWS_BULK_UPLOAD_SECRET_ACCESS_KEY                |[SECRET]                             | Bulk upload specific AWS secret    |
 |AWS_SECRET_ACCESS_KEY                            |[KEY]                                | Primary AWS secret                 |
-|<sub>BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS<sub> |team@airbo.com                       | Address where notifications of                                                                                                 Stripe billing details updates are sent                               |
+|<sub>BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS</sub> |team@airbo.com                       | Address where notifications of                                                                                                 Stripe billing details updates are sent                               |
 |BOARD_CREATED_NOTIFICATION_ADDRESS               |team@airbo.com                       | Address where notifications of                                                                                                 board creation are sent            |
 |BULK_UPLOADER_BUCKET                             |[BUCKET NAME]                        | Location on S3 where uploaded census                                                                                           files are stored                   |
 |BULK_UPLOAD_NOTIFICATION_ADDRESS                 |team@airbo.com                       | Address where notifications of user                                                                                           census file uploads are sent       |
 |DATABASE_URL                                     |[URL                                 | Heroku config pointing to DB       |
-|DEFAULT_INVITE_DEPENDENT_EMAIL_BODY              |[BODY]                               | Default email body for invite spouse                                                                                           feature                            |
-|DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE            |[SUBJECT]                            | Default email subject for invite                                                                                               spouse feature                     |
+|<sub>DEFAULT_INVITE_DEPENDENT_EMAIL_BODY</sub>             |[BODY]                               | Default email body for invite spouse                                                                                           feature                            |
+|<sub>DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE</sub>           |[SUBJECT]                            | Default email subject for invite                                                                                               spouse feature                     |
 |EMAIL_HOST                                       |[HOST]                               | Set host var so sendgrid can                                                                                                   properly set email links that point                                                                                           to the correct environment (dev,                                                                                               staging or production)             |
 |EMAIL_PROTOCOL                                   |https                                | Sets to http or https so sendgrid                                                                                             can properly create email links                                                                                               in each  environment (dev,                                                                                                     staging or production)             | 
 |ERROR_PAGE_URL                                   |[AWS_ERR_BASE]/503.html | AWS hosted error page URL          |
@@ -102,7 +102,7 @@ Make sure to set these vars as appropriate. You can ignore the ones marked as He
 |TWILIO_AUTH_TOKEN                                |                                     |                                    |
 |TWILIO_PHONE_NUMBER                              |                                     |                                    |
 |TZ                                               |                                     |                                    |
-|<sub>UNMONITORED_MAILBOX_RESPONSE_THRESHOLD<sub>          |120                                  |                                    | 
+|<sub>UNMONITORED_MAILBOX_RESPONSE_THRESHOLD</sub>          |120                                  |                                    | 
 |USE_GA                                           |TRUE/FALSE                           |                                    |
 
 #### Notes
