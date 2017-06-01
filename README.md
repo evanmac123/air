@@ -191,6 +191,44 @@ The application uses a couple file storage strategies. All file assets including
 ### Other
 CSS assets and images are also stored on S3 using the asset-sync gem and also have a dependency on the fog gem
 
+## Daily Automated Processes
+
+<table>
+<thead>
+<tr>
+<th>Job Name</th> <th>Rake Task </th> <th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tile Digests Followup Mailer</td> <td>:cron</td> <td>Sends any scheduled Tile Digests follow up emails</td>
+</tr>
+<tr>
+<td>Contract Renewer</td> <td>admin:reports:financials:renewals</td> <td>Renews any unrenewed contracts that are set expire in 30 Days or less </td>
+</tr>
+<tr>
+<td>Daily and Weekly Customer Success KPIs</td> <td>admin:reports:financials:customer_success:build_daily</td> <td>Creates the weekly and monthly  customer success KPIS using most recent data</td>
+</tr>
+<tr>
+<td>Daily and Weekly Customer Success KPIs</td> <td>admin:reports:financials:build_daily</td> <td>Creates the weekly and monthly financials  KPIS using most recent data. Has a dependency on the Contract renewals</td>
+</tr>
+</tbody>
+</table>
+
+## Weekly Automated Processes
+* note: Heroku Scheduler does not have a setting for running jobs on a weekly basis. The job itself runs daily but will exit automatically if the weekday is not Monday.
+<table>
+<thead>
+<tr>
+<th>Job Name</th> <th>Rake Task </th> <th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Weekly Activity Report</td> <td>:reports:client_admin:weekly_activity</td> <td>Sends board activity report to client admins </td>
+</tr>
+</tbody>
+</table>
 
 
 
