@@ -11,7 +11,16 @@ Airbo.ClientAdminReportsInitializer = (function(){
       Airbo.ClientAdminReportsUtils.switchActiveTab($reportTab);
       Airbo.ClientAdminReportsUtils.hideReports();
 
-      $($reportTab.data("target")).fadeIn();
+      $reportTabTarget = $($reportTab.data("target"));
+
+      $reportTabTarget.fadeIn();
+      reflowHighcharts();
+    });
+  }
+
+  function reflowHighcharts() {
+    $.each($(".js-highcharts-chart"), function(i, chart) {
+      $(chart).highcharts().reflow();
     });
   }
 
