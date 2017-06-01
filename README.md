@@ -71,27 +71,25 @@ Make sure to set these vars as appropriate. You can ignore the ones marked as He
 |<sub>DEFAULT_INVITE_DEPENDENT_SUBJECT_LINE</sub>           |[SUBJECT]                            | Default email subject for invite                                                                                               spouse feature                     |
 |EMAIL_HOST                                       |[HOST]                               | Set host var so sendgrid can                                                                                                   properly set email links that point                                                                                           to the correct environment (dev,                                                                                               staging or production)             |
 |EMAIL_PROTOCOL                                   |https                                | Sets to http or https so sendgrid                                                                                             can properly create email links                                                                                               in each  environment (dev,                                                                                                     staging or production)             | 
-|ERROR_PAGE_URL                                   |[AWS_ERR_BASE]/503.html | AWS hosted error page URL          |
+|ERROR_PAGE_URL                                   |[AWS_ERR_BASE]/503.html              | AWS hosted error page URL          |
 |FLICKR_KEY                                       |[KEY]                                | Flickr API key used in image search                                                                                           (to be removed?) |
 |FLICKR_SECRET                                    |[SECRET                              | Flickr API secrect usded in image                                                                                             search (to be removed?)            |
 |FOG_DIRECTORY                                    |[BUCKET   ]                          | AWS Bucket setting used by                                                                                                     CarrierWave gem                    |
 |FOG_PROVIDER                                     |AWS                                  | Setting used by CarrierWave gem    |
 |HEROKU_APP_NAME                                  |[APP_NAME]                           | Heroku Specfic Setting             | 
 |IMAGE_PROVIDERS                                  |Pixabay                              | Comma separated list of image                                                                                                 services used by image search                                                                                                 feature                            |
-|LOG_LEVEL                                        |INFO                                 |                                    |
-|MAINTENANCE_PAGE_URL                             |[AWS_ERR_BASE]/down_for_maintenance.html|                                 |
-|MAX_SELECTORS_DEFAULT                            |3072                                 |                                    |
-|MIXPANEL_API_KEY                                 |[KEY_ID]                             |                                    |
-|MIXPANEL_API_SECRET                              |[SECRET]                             |                                    |
-|MIXPANEL_EXCLUDED_ORGS                           |[IDS]                                |                                    |
-|MIXPANEL_TOKEN                                   |[TOKEN]                              |                                    |
-|MONGOHQ_URL                                      |[URL]                                |                                    |
-|MONGO_URL                                        |[URL]                                |                                    |
-|MP_HOMPAGE_TAG_VERSION                           |[DATE]                               |                                    |
-|RACK_ENV                                         |[ENV NAME]                           |                                    |
-|RAILS_ENV                                        |[ENV NAME]                           |                                    |
-|REDISTOGO_URL                                    |[URL]                                |                                    |
-|S3_LOGO_BUCKET                                   |hengage-logos-development            |                                    |
+|LOG_LEVEL                                        |INFO                                 | Heroku logging config              |
+|MAINTENANCE_PAGE_URL                             |[AWS_ERR_BASE]/down_for_maintenance.html| AWS hosted maintenance page URL |
+|MAX_SELECTORS_DEFAULT                            |3072                                 | Used by css splitter to limit # CSS                                                                                           selectors per file for IE9                                                                                                     Compatibility                      |
+|MIXPANEL_API_KEY                                 |[KEY_ID]                             | Mixpanel API Access Settings       |
+|MIXPANEL_API_SECRET                              |[SECRET]                             | Mixpanel API Access Settings       |
+|MIXPANEL_EXCLUDED_ORGS                           |[IDS]                                | Comma separated list of Orgs to                                                                                               exclude from MixPanel tracking     |
+|MIXPANEL_TOKEN                                   |[TOKEN]                              | Mixpanel API Access Settings       |
+|MONGOHQ_URL                                      |[URL]                                | MONGO Datbase URL                  |
+|RACK_ENV                                         |[ENV NAME]                           | Used to distinguish staging and                                                                                               development environments in                                                                                                   applicaiton code from the true                                                                                                 production environment onHeroku                                                                                               since RAILS_ENV always equals                                                                                                 "production"                       |
+|RAILS_ENV                                        |[ENV NAME]                           | Determines Rails app run mode                                                                                                 development, test, or production   |
+|REDISTOGO_URL                                    |[URL]                                | Redis DB URL via Heroku            |
+|S3_LOGO_BUCKET                                   |hengage-logos-development            | Location                                   |
 |S3_TILE_BUCKET                                   |hengage-tiles-development            |                                    |
 |SENDGRID_PASSWORD                                |[PWD]                                |                                    |
 |SENDGRID_USERNAME                                |[USER]                               |                                    |
