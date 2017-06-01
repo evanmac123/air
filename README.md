@@ -89,18 +89,17 @@ Make sure to set these vars as appropriate. You can ignore the ones marked as He
 |RACK_ENV                                         |[ENV NAME]                           | Used to distinguish staging and                                                                                               development environments in                                                                                                   applicaiton code from the true                                                                                                 production environment onHeroku                                                                                               since RAILS_ENV always equals                                                                                                 "production"                       |
 |RAILS_ENV                                        |[ENV NAME]                           | Determines Rails app run mode                                                                                                 development, test, or production   |
 |REDISTOGO_URL                                    |[URL]                                | Redis DB URL via Heroku            |
-|S3_LOGO_BUCKET                                   |hengage-logos-development            | Location                                   |
-|S3_TILE_BUCKET                                   |hengage-tiles-development            |                                    |
-|SENDGRID_PASSWORD                                |[PWD]                                |                                    |
-|SENDGRID_USERNAME                                |[USER]                               |                                    |
-|STRIPE_API_PRIVATE_KEY                           |[KEY]                                |                                    |
-|STRIPE_API_PUBLIC_KEY                            |[KEY]                                |                                    |
-|TILE_BUCKET                                      |hengage-tiles-development            |                                    |
-|TWILIO_ACCOUNT_SID                               |                                     |                                    |
-|TWILIO_AUTH_TOKEN                                |                                     |                                    |
-|TWILIO_PHONE_NUMBER                              |                                     |                                    |
-|TZ                                               |                                     |                                    |
-|<sub>UNMONITORED_MAILBOX_RESPONSE_THRESHOLD</sub>          |120                                  |                                    | 
+|S3_LOGO_BUCKET                                   |hengage-logos-development            | AWS S3 Bucket where board logos are                                                                                           stored                             |
+|SENDGRID_PASSWORD                                |[PWD]                                | Heroku Addon assigned pwd for                                                                                                 sendgrid                           |
+|SENDGRID_USERNAME                                |[USER]                               | Heroku Addon assigned login for                                                                                               sendgrid                           |
+|STRIPE_API_PRIVATE_KEY                           |[KEY]                                | Stripe account credentials         |
+|STRIPE_API_PUBLIC_KEY                            |[KEY]                                | Stripe account credentials         |
+|TILE_BUCKET                                      |hengage-tiles-development            | AWS S3 Bucket where tile images are                                                                                           stored                             |
+|TWILIO_ACCOUNT_SID                               |                                     | Twilio account credentials         |
+|TWILIO_AUTH_TOKEN                                |                                     | Twilio account credentials         |
+|TWILIO_PHONE_NUMBER                              |                                     | Twilio Phone number for SMS        |
+|TZ                                               |                                     | Rails application TimeZone                                   |
+|<sub>UNMONITORED_MAILBOX_RESPONSE_THRESHOLD</sub>|120                                  |                                    | 
 |USE_GA                                           |TRUE/FALSE                           |                                    |
 
 #### Notes
