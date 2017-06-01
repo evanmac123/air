@@ -24,7 +24,7 @@ Airbo App Setup
 ------------
 Get the HEngage source code:
 
-    git clone git@github.com:vladig17/hengage.git
+    git clone git@github.com:theairbo/hengage.git
 
 Install the dependent Ruby libraries:
 
@@ -41,13 +41,16 @@ Load the development database:
 Prepare the test database:
 
     rake db:test:prepare
+    
+Download the most recent db backup from Heroku:
 
-You need to create one user before firing up the app, so after you've cloned the repository and got everything
-else set up, fire up a Rails console and create a (claimed, admin) user thusly (password must have at least 6 characters):
+    script/environment_sync prep
+    
+Populate your development database with a sanitized cut of production:
 
-    user = User.new({name: 'Joe Blow', password: 'joeblow', password_confirmation: 'joeblow', email: 'joe@blow.com', is_site_admin: true, accepted_invitation_at: Date.today})
-    user.save
+    script/environment_sync development
 
+Airbo employee users (site_admin) are not sanitized in the previous command, so you will be able to login to your dev environement with your production credentials.
 
 ### Environment Variables
 
@@ -120,7 +123,7 @@ To run the app locally:
 
 This will run all tests ignoring those flaggged as broken (to be removed) and then rerun failures one time.
 
-Our CI runs this exact script after every push to github
+Our CI runs this exact script after every push to github.
 
 Committing Code
 ---------------
@@ -161,28 +164,25 @@ To deploy to staging:
 
 To deploy to production:
 
-  * Option 1: `script/deploy_production`
+  * Make sure `AIRBRAKE_PRODUCTION_PROJECT_ID` and `AIRBRAKE_PRODUCTION_API_KEY` ENV vars are set.
+  
+  * Run `script/deploy_production`
       * This:
         1. runs `git push production development:master`
-        2. runs `heroku restart -a hengage`
-        3. runs `heroku run rake db:migrate -a hengage`
+        2. runs `heroku run rake db:migrate -a hengage`
+        3. runs `heroku restart -a hengage`
         4. runs `script/airbrake_deploy_production`
-
-  * Option 2: `git push production development:master && heroku restart -a hengage && heroku run rake db:migrate -a hengage`
-    * Set deploy for Airbrake:
-      1. Make sure `AIRBRAKE_PRODUCTION_PROJECT_ID` and `AIRBRAKE_PRODUCTION_API_KEY` ENV vars are set.
-      2. `script/airbrake_deploy_production`
 
 # Application Behaviors 
 
 
 ## File and Image Storage
 
-The application uses a couple file storage strategies. All file assets including images are stored on S3. What is different is how the assets get uploaded to S3
+The application uses a couple file storage strategies. All file assets including images are stored on S3. What is different is how the assets get uploaded to S3.
 
 ### Paperclip
 1. Tile Images:  Paperclip client side direct to S3 upload using jquery-fileupload-rails gem
-2. Client logos and Avatars are stored on S3 using server side upload
+2. Other images (client logos, avatars, channel images, etc.) are stored on S3 using server side upload
 
 ### CarrierWave
 1. Census Files: Use a form backed by CarrierWave Direct and Fog gems.
