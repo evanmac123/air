@@ -172,8 +172,57 @@ To deploy to production:
         2. runs `heroku run rake db:migrate -a hengage`
         3. runs `heroku restart -a hengage`
         4. runs `script/airbrake_deploy_production`
+        
+## Active Domains
+<table>
+<thead>
+<tr>
+<td>Name</td>
+<td>Purpose</td>
+<td>Registrar</td>
+<td>Notes</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>airbo.com</td>
+<td>Primary Domain</td>
+<td>www.enom.com</td>
+<td>
+Primary Contact: Vlad
+Secondary Contact: sysadmin@airbo.com
+Expiration:  March 14, 2018
+Auto Renew: True
+Auto Renew Date:  ?
+</td>
+<tr>
+<td>air.bo</td>
+<td>Legacy domain name.</td> 
+<td>www.europeregistry.com</td>
+<td>Primary Contact: Vlad
+Secondary Contact: sysadmin@airbo.com
+Expiration:  December 12, 2017
+Auto Renew: True
+Auto Renew Date:  ?
+</td>
+</tr>
+<tr>
+<td>ourairbo.com</td>
+<td>Sendgrid white label domain</td>
+<td>iwantmyname.com</td>
+<td>Primary Contact: Vlad
+Secondary Contact: ?
+Expiration:  December 17, 2017
+Auto Renew: Yes
+Auto Renew Date:  November 9, 2017
+</td>
+</tr>
+<tbody>
+<table>
 
 # Application Behaviors 
+
+
 
 
 ## File and Image Storage
@@ -229,6 +278,10 @@ Heroku Scheduler does not have a setting for running jobs on a weekly basis. The
 </tr>
 </tbody>
 </table>
+
+
+
+
 
 
 
