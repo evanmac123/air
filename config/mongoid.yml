@@ -1,4 +1,4 @@
-<% mongo_uri = ENV['MONGOHQ_URL'] || "mongodb://localhost:27017/health_#{Rails.env}" %>
+<% mongo_uri = ENV['OLD_MONGO_URL'] || "mongodb://localhost:27017/health_#{Rails.env}" %>
 
 development: &default
   sessions:
