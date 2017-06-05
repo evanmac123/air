@@ -55,6 +55,6 @@ class ActsController < ApplicationController
     end
 
     def should_authenticate_by_tile_token?(tile_token, user)
-      user && EmailLink.validate_token(user, tile_token)
+      user && user.end_user? && EmailLink.validate_token(user, tile_token)
     end
 end

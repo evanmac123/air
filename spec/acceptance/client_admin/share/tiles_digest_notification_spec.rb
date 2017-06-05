@@ -198,13 +198,16 @@ feature 'Client admin and the digest email for tiles' do
               open_email(address)
               expect(current_email).to have_content "Your New Tiles Are Here!"
               name = User.find_by_email(address).first_name
-              if %w(site-admin@hengage.com wc@clark.com taj@mahal.com).include?(address)  # Claimed, non-client-admin user?
+              if %w(wc@clark.com taj@mahal.com).include?(address)  # Claimed, non-client-admin user?
                 email_link = /tile_token/
                 page_text_1 = "Welcome back, #{name}"
                 page_text_2 = "Invite"
-              elsif address == 'client-admin@hengage.com' # client-admin?
-                # client-admin was signed in at top of tests => needs to sign out in order to get sent to the Log-In page
-                click_link "Sign Out"
+              elsif %w(site-admin@hengage.com client-admin@hengage.com).include?(address)
+
+                if address == 'client-admin@hengage.com'
+                  # client-admin was signed in at top of tests and needs to sign out in order to get sent to the Log-In page
+                  click_link "Sign Out"
+                end
 
                 email_link = /acts/
                 page_text_1 = "Log In"
