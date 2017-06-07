@@ -1,5 +1,8 @@
 class ExploreController < ExploreBaseController
+  include ExploreConcern
+
   before_filter :set_initial_objects
+  before_filter :schedule_explore_pings
 
   def show
     @tiles = Tile.explore_without_featured_tiles.page(params[:page]).per(28)
@@ -19,6 +22,16 @@ class ExploreController < ExploreBaseController
   end
 
   private
+
+    def schedule_explore_pings
+      if params[:email_type].present?
+        explore_email_clicked_ping(
+          user: current_user,
+          email_type: params[:email_type],
+          email_version: params[:email_version]
+        )
+      end
+    end
 
     def set_initial_objects
       unless request.xhr?

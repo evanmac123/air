@@ -17,12 +17,6 @@ class BaseTilesDigestMailer < ActionMailer::Base
       "follow_up_digest" => "Follow-up - v. 6/15/14",
       "explore_digest"  => "Explore - v. 1/1/17",
       "weekly_activity_report"  => "Weekly Report - v. 5/20/15",
-
-      #deprecate after a couple months:
-      "digest_new_v" => "Digest - v. 6/15/14",
-      "follow_new_v" => "Follow-up - v. 6/15/14",
-      "explore_v_1" => "Explore - v. 1/1/17",
-      "weekly_activity_v_1"  => "Weekly Report - v. 5/20/15"
     }
   end
 

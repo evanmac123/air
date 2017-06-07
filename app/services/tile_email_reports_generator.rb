@@ -1,5 +1,5 @@
 class TileEmailReportsGenerator
-  TILE_EMAIL_REPORTS_SUPPORTED_DATE = DateTime.new(2017, 5, 1).freeze
+  TILE_EMAIL_REPORTS_SUPPORTED_DATE = DateTime.new(2017, 5, 26).freeze
 
   attr_reader :board, :limit, :page
 

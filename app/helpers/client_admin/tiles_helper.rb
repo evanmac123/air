@@ -14,10 +14,11 @@ module ClientAdmin::TilesHelper
   end
 
   def email_site_link(user, demo, is_preview = false, email_type = "")
+    # TODO: This is some of the worst Airbo code I have seen.
     _demo_id = demo.kind_of?(Demo) ? demo.id : demo
 
     email_link_hash = is_preview ? {demo_id: _demo_id} : { protocol: email_link_protocol, host: email_link_host, demo_id: _demo_id, email_type: email_type }
-    email_link_hash.merge!(user_id: user.id, tile_token: EmailLink.generate_token(user)) if user.claimed? and ! user.is_client_admin
+    email_link_hash.merge!(user_id: user.id, tile_token: EmailLink.generate_token(user)) if user.claimed?
 
     coder = HTMLEntities.new
     email_link_hash.map{|k,v| coder.encode(v.to_s)}

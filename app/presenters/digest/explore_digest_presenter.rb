@@ -4,6 +4,8 @@ class ExploreDigestPresenter < TilesDigestMailBasePresenter
 
   EXPLORE_TITLE = "Explore digest".freeze
   EXPLORE_EMAIL = "explore_digest".freeze
+  CURRENT_EMAIL_VERSION = "1/1/17".freeze
+  FROM_EMAIL = "Airbo Explore <airboexplore@ourairbo.com>".freeze
 
   attr_reader :email_heading
 
@@ -12,23 +14,20 @@ class ExploreDigestPresenter < TilesDigestMailBasePresenter
   end
 
   def from_email
-    "Airbo Explore <airboexplore@ourairbo.com>"
+    FROM_EMAIL
   end
 
   def title
     EXPLORE_TITLE
   end
 
-  def email_type
-    EXPLORE_EMAIL
-  end
-
   def general_site_url(requested_tile_id: nil)
-    if Rails.env.development? or Rails.env.test?
-      'http://localhost:3000' + explore_path(explore_token: @explore_token, email_type: email_type, requested_tile_id: requested_tile_id)
-    else
-      explore_url(explore_token: @explore_token, email_type: email_type, host: email_link_host, protocol: email_link_protocol, requested_tile_id: requested_tile_id)
-    end
+    explore_url(
+      explore_token: @explore_token,
+      email_type: EXPLORE_EMAIL,
+      email_version: CURRENT_EMAIL_VERSION,
+      requested_tile_id: requested_tile_id
+    )
   end
 
   def works_on_mobile?

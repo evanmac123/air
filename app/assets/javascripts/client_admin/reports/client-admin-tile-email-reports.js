@@ -95,7 +95,6 @@ Airbo.ClientAdminTileEmailReports = (function(){
 
     if (reports.length > 0) {
       addReportsToPage(reports);
-      manageFirstReport();
       bindReports();
     } else {
       addNoDataReport();
@@ -129,18 +128,6 @@ Airbo.ClientAdminTileEmailReports = (function(){
         path: editPath
       };
     }
-  }
-
-  function manageFirstReport() {
-    var $firstReport = $(reportSelector).first();
-    var $expandButton = $($firstReport.data("tileDataToggle"));
-    var $tileData = $($firstReport.data("tileData"));
-
-    $expandButton.removeClass("expand-icon collapse-icon");
-    $expandButton.addClass("collapse-icon");
-    $expandButton.text("Hide");
-
-    $tileData.toggle();
   }
 
   function toggleTileSection($expandButton) {

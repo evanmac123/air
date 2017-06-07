@@ -241,6 +241,10 @@ class User < ActiveRecord::Base
     demo.tiles.select(select_clause).where(tile_arel[:status].eq([Tile::ACTIVE]).or(tile_arel[:id].in(user_tile_completions.pluck(:id)))).order(:position)
   end
 
+  def end_user_in_all_boards?
+    !is_site_admin && !is_client_admin_in_any_board
+  end
+
   def end_user?
     !is_client_admin && !is_site_admin
   end

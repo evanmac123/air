@@ -1,5 +1,7 @@
 class InvitationsController < ApplicationController
   include SalesAcquisitionConcern
+  include TileEmailTrackingConcern
+
   layout 'external'
 
   def new
@@ -28,11 +30,10 @@ class InvitationsController < ApplicationController
 
   def show
     @user = find_user
-
     if @user
       @referrer = get_referrer
       @demo = Demo.find_by_id(params[:demo_id])
-      send_pings
+      schedule_pings
       process_invitation
     else
       require_login
@@ -53,9 +54,8 @@ class InvitationsController < ApplicationController
       end
     end
 
-    def send_pings
-      set_invitation_email_type_for_ping
-      email_clicked_ping(@user)
+    def schedule_pings
+      track_tile_email_logins(user: @user)
     end
 
     def process_invitation
@@ -155,20 +155,5 @@ class InvitationsController < ApplicationController
       else
         activity_path
       end
-    end
-
-    def set_invitation_email_type_for_ping
-      invitation_email_type = if params[:email_type].present?
-        if params[:email_type] == "tile_digest"
-          "Digest email"
-        elsif params[:email_type] == "follow_up_digest"
-          "Follow-up"
-        end
-      elsif params[:referrer_id].present? # friend invitation
-        "Friend Invitation"
-      else # just invitation
-        "Invitation email"
-      end
-      session[:invitation_email_type] = invitation_email_type
     end
 end

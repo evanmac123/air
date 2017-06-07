@@ -6,7 +6,7 @@
           <h3 class="card-title">Sent on {{reportHeader}}</h3>
         </div>
         <div class="columns large-6 small-4">
-          <a href="#" id="tileDataToggle{{tileEmailId}}" class="button button-new dark-blue js-expand-tile-data-button expand-icon float-right mt-1 mr-1" data-target="#tileData{{tileEmailId}}">Expand</a>
+          <a href="#" id="tileDataToggle{{tileEmailId}}" class="button button-new dark-blue js-expand-tile-data-button collapse-icon float-right mt-1 mr-1" data-target="#tileData{{tileEmailId}}">Hide</a>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
               <h3 class="subject-line">{{@key}}</h3>
             </div>
             <div class="columns small-2">
-              <h3 class="login-count float-right">{{numAddCommas this}} logins</h3>
+              <h3 class="login-count float-right">{{numAddCommas this}} {{pluralize this "login" "logins"}}</h3>
             </div>
           </div>
         </div>
@@ -31,12 +31,12 @@
         <div class="columns large-3 small-6 text-center">
           <i class="tile-email-data-point data-icon fa fa-clone" aria-hidden="true"></i>
           <span class="d-block tile-email-data-point data-number">{{numAddCommas tilesCount}}</span>
-          <span class="d-block tile-email-data-point data-label">Tiles</span>
+          <span class="d-block tile-email-data-point data-label">{{pluralize tilesCount "Tile" "Tiles"}}</span>
         </div>
         <div class="columns large-3 small-6 text-center">
           <i class="tile-email-data-point data-icon fa fa-user" aria-hidden="true"></i>
           <span class="d-block tile-email-data-point data-number">{{numAddCommas recipientCount}}</span>
-          <span class="d-block tile-email-data-point data-label">Recipients</span>
+          <span class="d-block tile-email-data-point data-label">{{pluralize recipientCount "Recipient" "Recipients"}}</span>
         </div>
         <div class="columns large-3 small-6 text-center">
           {{#compare followUpStatus "delivered" operator="==="}}
@@ -55,18 +55,18 @@
         <div class="columns large-3 small-6 text-center">
           <i class="tile-email-data-point data-icon fa fa-tv" aria-hidden="true"></i>
           <span class="d-block tile-email-data-point data-number">{{numAddCommas totalLoginsFromEmail}}</span>
-          <span class="d-block tile-email-data-point data-label">logins</span>
+          <span class="d-block tile-email-data-point data-label">{{pluralize totalLoginsFromEmail "Login" "Logins"}}</span>
         </div>
       </div>
     </div>
-    <div id="tileData{{tileEmailId}}"class="card-content js-tile-data tile-data hide">
+    <div id="tileData{{tileEmailId}}"class="card-content js-tile-data tile-data">
       <table>
         {{#each tiles}}
           <tr id="tile-list-{{@index}}" data-tile-id="{{this.id}}" class="tile-row">
             <td class="tile-data-td-image"><img src="{{this.image_url}}" alt="tile-image" height="60" width="60"></td>
             <td class="tile-data-td-headline">{{this.headline}}</td>
-            <td class="tile-data-td-numbers">{{numAddCommas this.views}} views</td>
-            <td class="tile-data-td-numbers">{{numAddCommas this.completions}} completions</td>
+            <td width="60" class="tile-data-td-numbers">{{numAddCommas this.views}} {{pluralize this.views "view" "views"}}</td>
+            <td width="100" class="tile-data-td-numbers">{{numAddCommas this.completions}} {{pluralize this.completions "completion" "completions"}}</td>
           </tr>
         {{/each}}
       </table>

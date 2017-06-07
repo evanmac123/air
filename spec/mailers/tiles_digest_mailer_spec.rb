@@ -110,17 +110,16 @@ describe 'Digest email' do
       it { is_expected.not_to have_selector "a[href *= 'acts']" }
     end
 
-    # client-admins should not have automatic sign-in links in their tiles
+    # client-admins should have the same links as users and access is managed in the controller
     context 'client-admins' do
       subject { TilesDigestMailer.notify_one(digest, client_admin.id, 'New Tiles', TilesDigestMailDigestPresenter) }
-      it { is_expected.to     have_selector "a[href *= 'acts']", count: 11 }
-      it { is_expected.not_to have_selector "a[href *= 'acts?tile_token']" }
+      it { is_expected.to     have_selector "a[href *= 'acts?demo_id=#{demo.id}&email_type=tile_digest&tile_token=#{EmailLink.generate_token(client_admin)}&user_id=#{client_admin.id}&tiles_digest_id=#{digest.id}&subject_line=#{URI.escape("New Tiles")}']", count: 11 }
     end
 
-    # site-admins should have automatic sign-in links in their tiles
+    # site-admins should have the same links as users and access is managed in the controller
     context 'site-admins' do
       subject { TilesDigestMailer.notify_one(digest, site_admin.id, 'New Tiles', TilesDigestMailDigestPresenter) }
-      it { is_expected.to have_selector "a[href *= 'acts?demo_id=#{demo.id}&email_type=tile_digest&tile_token=#{EmailLink.generate_token(site_admin)}&user_id=#{site_admin.id}']", count: 11 }
+      it { is_expected.to have_selector "a[href *= 'acts?demo_id=#{demo.id}&email_type=tile_digest&tile_token=#{EmailLink.generate_token(site_admin)}&user_id=#{site_admin.id}&tiles_digest_id=#{digest.id}&subject_line=#{URI.escape("New Tiles")}']", count: 11 }
     end
   end
 

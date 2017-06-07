@@ -25,8 +25,6 @@ class Explore::TilePreviewsController < ExploreBaseController
       else
         ping("Tile - Viewed in Explore", {tile_id: tile.id, section: params[:section]}, current_user)
       end
-
-      email_clicked_ping(current_user) if current_user
     end
 
     def find_board_for_guest

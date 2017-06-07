@@ -18,6 +18,14 @@ Handlebars.registerHelper("numAddCommas", function(num) {
   }
 });
 
+Handlebars.registerHelper("pluralize", function(num, singular, plural) {
+  if (num === 1) {
+    return singular;
+  } else {
+    return plural;
+  }
+});
+
 Handlebars.registerHelper("arrExists", function(arr) {
   return arr !== undefined || arr.length !== 0;
 });

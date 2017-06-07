@@ -16,6 +16,26 @@ RSpec.describe TilesDigest, :type => :model do
   let(:client_admin) { FactoryGirl.create(:client_admin) }
   let(:demo) { client_admin.demo }
 
+  describe "#after_destroy" do
+    describe "#destroy_from_redis" do
+      it "removes all associated redis keys" do
+        digest = TilesDigest.create(demo: demo, subject: "Subject A", alt_subject: "Subject B")
+        digest_id = digest.id
+
+        digest.rdb[:key].set(1)
+        digest.rdb[:key][:subkey].incr
+
+        expect(TilesDigest.rdb[digest_id][:key].get).to eq("1")
+        expect(TilesDigest.rdb[digest_id][:key][:subkey].get).to eq("1")
+
+        digest.destroy
+
+        expect(TilesDigest.rdb[digest_id][:key].get).to eq(nil)
+        expect(TilesDigest.rdb[digest_id][:key][:subkey].get).to eq(nil)
+      end
+    end
+  end
+
   describe "#self.deliver" do
 
     let(:tiles_digest) { TilesDigest.dispatch(digest_params(demo, client_admin, true)) }
@@ -146,6 +166,80 @@ RSpec.describe TilesDigest, :type => :model do
       digest.send(:set_default_subject)
 
       expect(digest.subject).to eq(TilesDigest::DEFAULT_DIGEST_SUBJECT)
+    end
+  end
+
+  describe "#all_related_subject_lines" do
+    describe "when no follow_up_digest_email" do
+      it "returns subject, alt_subject" do
+        digest = TilesDigest.new(subject: "Subject A", alt_subject: "Subject B")
+        subjects = digest.all_related_subject_lines
+
+        expect(subjects).to eq(["Subject A", "Subject B"])
+      end
+    end
+
+    describe "when follow_up_digest_email" do
+      it "returns subject, alt_subject and a decorated follow_up_digest_email subject" do
+        digest = TilesDigest.create(demo: demo, subject: "Subject A", alt_subject: "Subject B")
+        _follow_up = digest.create_follow_up_digest_email
+
+        subjects = digest.all_related_subject_lines
+
+        expect(subjects).to eq(["Subject A", "Subject B", "Don't Miss: Subject A"])
+      end
+    end
+  end
+
+  describe "#follow_up_digest_email_subject" do
+    describe "when there is a follow_up_digest_email" do
+      it "returns a decorated follow_up subject" do
+        digest = TilesDigest.create(demo: demo, subject: "Subject A", alt_subject: "Subject B")
+        follow_up = digest.create_follow_up_digest_email
+
+        expect(digest.follow_up_digest_email_subject).to eq(follow_up.decorated_subject)
+      end
+    end
+
+    describe "when there is no follow_up_digest_email" do
+      it "returns nil" do
+        digest = TilesDigest.create(demo: demo, subject: "Subject A", alt_subject: "Subject B")
+
+        expect(digest.follow_up_digest_email).to eq(nil)
+      end
+    end
+  end
+
+  describe "#increment_logins_by_subject_line" do
+    it "increments login counts in a redis sorted set" do
+      digest = TilesDigest.new
+      expect(digest.rdb[:logins].zrangebyscore("-inf", "inf", "WITHSCORES")).to eq([])
+
+      2.times do
+        digest.increment_logins_by_subject_line("A")
+      end
+
+      3.times do
+        digest.increment_logins_by_subject_line("B")
+      end
+
+      expect(digest.rdb[:logins].zrangebyscore("-inf", "inf", "WITHSCORES")).to eq(["A", "2", "B", "3", ])
+    end
+  end
+  describe "#logins_by_subject_line" do
+    it "returns an ordered array of highest login subject line to lowest login subject line" do
+      digest = TilesDigest.new
+      expect(digest.logins_by_subject_line).to eq([])
+
+      2.times do
+        digest.rdb[:logins].zincrby(1, "A")
+      end
+
+      3.times do
+        digest.rdb[:logins].zincrby(1, "B")
+      end
+
+      expect(digest.logins_by_subject_line).to eq(["3", "B", "2", "A"])
     end
   end
 end

@@ -30,7 +30,7 @@ class PotentialUser < ActiveRecord::Base
   def name
     ""
   end
-  
+
   def remember_token
     "token"
   end
@@ -111,10 +111,13 @@ class PotentialUser < ActiveRecord::Base
     updated_at
   end
 
-  def self.search_by_invitation_code invitation_code
-    potential_user = self.find_by_invitation_code invitation_code
-    user = User.where(email: potential_user.email).first
-    user || potential_user
+  def self.search_by_invitation_code(invitation_code)
+    potential_user = self.where(invitation_code: invitation_code).first
+
+    if potential_user
+      user = User.where(email: potential_user.email).first
+      user || potential_user
+    end
   end
 
   def to_ticket_progress_calculator
