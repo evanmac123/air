@@ -4,9 +4,7 @@ feature "Potential user requests demo", js: true do
   context 'As a potential client' do
     context "when I visit the marketing page and request a demo" do
       it "should send an email to sales notifying a demo request" do
-        visit root_path
-
-        click_link("Schedule Demo", match: :first)
+        visit new_demo_request_path
 
         fill_in('request[name]', with: "Test")
         fill_in('request[email]', with: "test@example.com")

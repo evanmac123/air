@@ -1,0 +1,12 @@
+@mixin marketing-site-footer() {
+  .marketing-site-footer {
+    background-color: $dark-blue;
+    min-height: 40px;
+    .logo {
+      display: block;
+      padding-top: 7px;
+      height: 25px;
+      width: 50px;
+    }
+  }
+}

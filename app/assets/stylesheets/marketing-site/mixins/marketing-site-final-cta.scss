@@ -1,0 +1,20 @@
+@mixin marketing-site-final-cta() {
+  .final-cta {
+    .wrap {
+      text-align: center;
+      margin-bottom: 60px;
+      .pre-header {
+        font-size: 15px;
+        text-transform: uppercase;
+        color: #d2dade;
+        margin-top: 60px;
+        margin-bottom: 15px;
+      }
+      .header {
+        color: $dark-blue;
+        width: 50%;
+        margin: 60px 0;
+      }
+    }
+  }
+}

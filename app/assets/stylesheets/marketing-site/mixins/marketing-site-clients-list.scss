@@ -1,0 +1,46 @@
+@mixin marketing-site-clients-list() {
+  .clients-list {
+    background: $dark-blue;
+    display: flex; justify-content: center; align-items: center;
+    height: 92px;
+    left: 0; bottom: 0;
+    width: 100%;
+    z-index: 5;
+    ul {
+      list-style: none;
+      overflow: hidden;
+      padding: 0 15px;
+      width: 100%;
+      max-width: 1230px;
+    }
+    li {
+      display: block;
+      float: left;
+      padding: 0 15px;
+      width: 16.66666666666667%;
+    }
+    img {
+      display: block;
+      margin: 0 auto;
+      max-width: 120px;
+    }
+    @media only screen and (max-width: 1336px) {
+      height: 80px;
+      ul { margin: 8px auto; }
+    }
+    @media only screen and (max-width: 610px) {
+      height: 64px;
+      ul { padding: 0 5px; }
+      li { padding: 0 5px; }
+    }
+
+    @media only screen and (max-width: 380px) {
+      height: 48px;
+      li {
+        padding: 10px;
+        width: 25%;
+        &:nth-child(1n+5) { display: none; }
+      }
+    }
+  }
+}
