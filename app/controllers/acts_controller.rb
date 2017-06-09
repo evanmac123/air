@@ -3,6 +3,7 @@ class ActsController < ApplicationController
   include AuthorizePublicBoardsConcern
   include TileBatchHelper
   include ActsHelper
+  include TileEmailTrackingConcern
 
   prepend_before_filter :authenticate
 
@@ -40,13 +41,16 @@ class ActsController < ApplicationController
     end
 
     def authenticate_by_tile_token
+      # TODO: This is too coupled to authentication and a huge mess...
       return false unless params[:tile_token]
       user = User.find_by_id(params[:user_id])
-      email_clicked_ping(user)
 
       if should_authenticate_by_tile_token?(params[:tile_token], user)
-        sign_in(user, :remember_user)
         user.move_to_new_demo(params[:demo_id]) if params[:demo_id].present?
+        track_tile_email_logins(user: user)
+
+        sign_in(user, :remember_user) if user.end_user_in_all_boards?
+
         flash[:success] = "Welcome back, #{user.first_name}"
         redirect_to activity_url
       else
@@ -55,6 +59,6 @@ class ActsController < ApplicationController
     end
 
     def should_authenticate_by_tile_token?(tile_token, user)
-      user && user.end_user? && EmailLink.validate_token(user, tile_token)
+      user && EmailLink.validate_token(user, tile_token)
     end
 end

@@ -10,7 +10,8 @@ class TilesDigestMailBasePresenter
 
   def site_link
     if @subject
-      "#{general_site_url}&subject_line=#{URI.escape(@subject)}"
+      uri_encoded_subject = URI.encode(@subject, /\W/)
+      "#{general_site_url}&subject_line=#{uri_encoded_subject}"
     else
       general_site_url
     end

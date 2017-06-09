@@ -17,13 +17,12 @@ class Reports::TileEmailReport
       sender: sender_name,
       tilesCount: tiles_count,
       recipientCount: recipient_count,
-      loginsBySubjectLine: logins_by_subject_line,
+      loginsBySubjectLine: subject_lines_with_login_count,
       totalLoginsFromEmail: total_logins,
       followUpStatus: follow_up_status,
       tiles: tile_attributes
     }
   end
-  # logins_by_subject_line is too slow -- Consider loading subject lines and then logins in a subsequent call.
 
   private
 
@@ -67,16 +66,37 @@ class Reports::TileEmailReport
       end
     end
 
-    def logins_by_subject_line
-      @_logins_by_subject_line = tile_email_login_data.inject({}) do |hsh, data|
-        subject = data["key"][0]
-        hsh[subject] = data["value"] if subject
+    def subject_lines_with_login_count
+      @_subject_lines_with_login_count ||= get_logins_by_subject_line
+    end
+
+    def get_logins_by_subject_line
+      if tile_email.logins_by_subject_line.present?
+        logins_by_subject_line
+      else
+        subject_line_hash_without_logins
+      end
+    end
+
+    def logins_by_subject_line(login_data: {})
+      tile_email.logins_by_subject_line.each_slice(2) do |logins, subject|
+        login_data[subject] = logins.to_i
+      end
+
+      login_data
+    end
+
+    def subject_line_hash_without_logins
+      subjects = [tile_email.subject, tile_email.alt_subject].compact
+
+      subjects.inject({}) do |hsh, subject|
+        hsh[subject] = 0
         hsh
       end
     end
 
     def total_logins
-      logins_by_subject_line.values.inject(:+)
+      subject_lines_with_login_count.values.inject(:+) || 0
     end
 
     def tile_attributes
@@ -90,40 +110,4 @@ class Reports::TileEmailReport
         }
       end
     end
-
-    def from_date
-      tile_email.created_at.strftime("%Y-%m-%d")
-    end
-
-    def to_date
-      Date.today.strftime("%Y-%m-%d")
-    end
-
-    def tile_email_login_data
-      @_tile_email_login_data ||= $mixpanel_client.request("jql", { script: tile_email_logins_jql })
-    end
-
-    def tile_email_logins_jql
-      %Q|
-      function main() {
-        return Events(
-        {
-          from_date: "#{from_date}",
-          to_date: "#{to_date}",
-          event_selectors: [
-            {
-              event: "Email clicked",
-              selector: `properties["tiles_digest_id"] == "#{tile_email_id}"`
-            }
-          ]
-        })
-        .groupBy(
-          [
-            "properties.subject_line"
-          ],
-          mixpanel.reducer.count()
-        ).sortDesc('value');
-      }|
-    end
-
 end

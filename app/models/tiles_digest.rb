@@ -15,6 +15,12 @@ class TilesDigest < ActiveRecord::Base
   before_save :set_default_subject
   before_save :sanitize_subject_lines
 
+  after_destroy :destroy_from_redis
+
+  def destroy_from_redis
+    rdb.destroy
+  end
+
   def self.dispatch(digest_params)
     digest = TilesDigest.new(digest_params)
     digest.set_tiles_and_update_cuttoff_time if digest.valid?
@@ -32,6 +38,22 @@ class TilesDigest < ActiveRecord::Base
     TilesDigestMailer.delay.notify_all(self)
 
     self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true)
+  end
+
+  def all_related_subject_lines
+    [subject, alt_subject, follow_up_digest_email_subject].compact
+  end
+
+  def follow_up_digest_email_subject
+    follow_up_digest_email.decorated_subject if follow_up_digest_email
+  end
+
+  def increment_logins_by_subject_line(subject_line)
+    rdb[:logins].zincrby(1, subject_line)
+  end
+
+  def logins_by_subject_line
+    rdb[:logins].zrangebyscore("-inf", "inf", "WITHSCORES").reverse
   end
 
   def schedule_followup(follow_up_days_index)

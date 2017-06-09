@@ -21,6 +21,13 @@ Nest.class_eval do
   def [](key)
     self.class.new("#{self}:#{key.to_param}", @redis)
   end
+
+  def destroy
+    namespace_keys = @redis.keys("#{self}:*")
+    if namespace_keys.present?
+      @redis.del(namespace_keys)
+    end
+  end
 end
 
 ActiveRecord::Base.class_eval do
