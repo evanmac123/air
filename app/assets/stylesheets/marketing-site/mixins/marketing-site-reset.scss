@@ -125,4 +125,17 @@
   button:focus, button:hover,
   input[type="button"]:focus, input[type="button"]:hover,
   input[type="submit"]:focus, input[type="submit"]:hover {background: #4c4c4c;}
+  .wrap {
+    margin: 0 auto;
+    padding: 0 48px;
+    width: 100%;
+    max-width: 1200px;
+    &:after {
+      clear:both;
+      content:'';
+      display:table;
+    }
+  }
+
+  ul:after {clear:both;content:'';display:table;}
 }

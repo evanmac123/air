@@ -1,0 +1,48 @@
+@mixin marketing-site-value-props() {
+  .value-props {
+    text-align: center;
+    color: $dark-blue;
+    .pre-header {
+      font-size: 15px;
+      text-transform: uppercase;
+      color: #d2dade;
+      margin-top: 60px;
+      margin-bottom: 15px;
+    }
+    .header {
+      margin: 0 0 60px 0;
+    }
+    .value-prop-image {
+      width: 193px;
+      height: 193px;
+    }
+    .value-prop-text {
+      height: 85px;
+      font-size: 18px;
+      margin: auto;
+      margin-top: 10px;
+    }
+    .value-prop-quote {
+      min-height: 100px;
+      color: $n-blue;
+      font-size: 20px;
+      margin: auto;
+      margin-bottom: 18px;
+    }
+    .value-prop-cite {
+      margin-bottom: 60px;
+      p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 17px;
+        font-weight: lighter;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .value-prop-quote {
+        min-height: 0;
+      }
+    }
+  }
+}

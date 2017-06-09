@@ -158,6 +158,12 @@
   &.red {
     @include button-color($n-red2);
   }
+  &.yellow {
+    @include button-color($n-yellow);
+  }
+  &.pink {
+    @include button-color($n-pink);
+  }
   &.white {
     font-size: 12px;
     font-weight: bold;
@@ -292,7 +298,7 @@
       margin-right: 5px;
     }
   }
-  
+
   &.with_spinner {
     @include button-with-spinner;
     &.outlined {
