@@ -34,7 +34,7 @@ feature 'Starts over' do
       close_tutorial_lightbox
       click_link tile.headline
       #answer(tile.correct_answer_index).click
-      page.find('.right_multiple_choice_answer').click
+      page.find('.multiple-choice-answer.correct').click
 
       close_conversion_form
     end
@@ -83,7 +83,7 @@ feature 'Starts over' do
 
         click_link tile.headline
         @tiles[0,1].each do |tile|
-          page.find('.right_multiple_choice_answer:not(.clicked_right_answer)').click
+          page.find('.multiple-choice-answer.correct:not(.clicked_right_answer)').click
         end
 
         close_conversion_form
@@ -93,7 +93,7 @@ feature 'Starts over' do
 
         click_link tile.headline
         @tiles[0,1].each do |tile|
-          page.find('.right_multiple_choice_answer:not(.clicked_right_answer)').click
+          page.find('.multiple-choice-answer.correct:not(.clicked_right_answer)').click
         end
         expect_conversion_form
       end

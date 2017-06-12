@@ -36,7 +36,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def assembly_required?
-    !tile.is_fully_assembled?
+    !tile_fully_assembled?
   end
 
   def tile_status_matches? *statuses
@@ -49,9 +49,12 @@ class SingleAdminTilePresenter < BasePresenter
     end
   end
 
+  def tile_fully_assembled?
+   @fully_assembled ||= tile.is_fully_assembled?
+  end
 
   def completion_status
-    tile.is_fully_assembled? ? "finished" : "unfinished"
+    tile_fully_assembled? ? "finished" : "unfinished"
   end
 
   def thumbnail
@@ -76,7 +79,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def activation_dates
-    if tile.is_fully_assembled? && tile_status_matches?(:active, :archive, :draft, :user_submitted, :ignored)
+    if tile_fully_assembled? && tile_status_matches?(:active, :archive, :draft, :user_submitted, :ignored)
       content_tag :div, raw(timestamp), class: "activation_dates"
     else
       incomplete_label
@@ -110,20 +113,20 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def has_activate_button?
-    tile_status_matches?(:draft) && tile.is_fully_assembled?
+    tile_status_matches?(:draft) && tile_fully_assembled?
   end
 
 
   def has_incomplete_edit_button?
-    tile_status_matches?(:draft) && !tile.is_fully_assembled?
+    tile_status_matches?(:draft) && !tile_fully_assembled?
   end
 
   def has_incomplete_destroy_button?
-    tile_status_matches?(:draft) && !tile.is_fully_assembled?
+    tile_status_matches?(:draft) && !tile_fully_assembled?
   end
 
   def has_edit_button?
-     tile_status_matches?(:draft, :active, :archive) && tile.is_fully_assembled?
+     tile_status_matches?(:draft, :active, :archive) && tile_fully_assembled?
   end
 
   def has_destroy_button?
@@ -147,7 +150,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def has_menu?
-    tile_status_matches?(:draft, :active, :archive) && tile.is_fully_assembled?
+    tile_status_matches?(:draft, :active, :archive) && tile_fully_assembled?
   end
 
   def shows_creator?

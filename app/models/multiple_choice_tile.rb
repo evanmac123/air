@@ -36,12 +36,8 @@ class MultipleChoiceTile < Tile
    self.multiple_choice_answers =  normalized_answers
  end
 
- def normalized_correct_answer_index
-   normalized_correct_answer_index
- end
-
  def normalized_answers
-     answers.map(&:strip).select(&:present?).uniq
+     answers.map(&:strip).select(&:present?)
  end
 
  def answers_changed?
@@ -51,6 +47,8 @@ class MultipleChoiceTile < Tile
  def normalized_correct_answer_index
    if correct_answer_index
      answers[0, correct_answer_index + 1].reject(&:blank?).uniq.count - 1
+   elsif question_subtype.downcase == Tile::CHANGE_EMAIL.downcase 
+     0
    else
      -1
    end

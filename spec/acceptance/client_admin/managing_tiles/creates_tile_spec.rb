@@ -118,7 +118,7 @@ feature 'Creates tile' do
   end
 
   scenario "should see character (not byte) counters on each text field", js: true do
-    expect_character_counter_for      '#tile_builder_form_headline', 75
+    expect_character_counter_for      '#tile_headline', 75
     expect_character_counter_for      '#supporting_content_editor', 600
     expect_character_counter_for_each '.answer-field', 25
 

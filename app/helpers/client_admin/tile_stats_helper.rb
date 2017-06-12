@@ -13,4 +13,11 @@ module ClientAdmin::TileStatsHelper
       ""
     end
   end
+
+
+
+  def is_free_response_answer? tile, row
+    tile.question_subtype == "free_response" || tile.allow_free_response && row.free_response != ""
+  end
+
 end

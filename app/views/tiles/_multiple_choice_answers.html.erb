@@ -1,23 +1,10 @@
 <% if tile.multiple_choice_answers.present? %>
   <div class="multiple_choice_group content_sections">
-    <% tile.multiple_choice_answers.each_with_index do |answer, answer_index| %>
-      <%= content_tag "div", class: "tile_multiple_choice_answer" do %>
-        <% if tile.non_preview_of_completed_tile? %>
-          <% if tile.user_completed_tile_with_answer_index(answer_index) %>
-            <%= content_tag :div , answer, class: 'clicked_right_answer' %>
-          <% else %>
-            <%= link_to answer, '#', class: "nerfed_answer" %>
-          <% end %>
-        <% else %>
-          <% if tile.is_possible_correct_answer?(answer_index) %>
-            <%= link_to answer, tile_completions_path(tile_id: tile.id, answer_index: answer_index), class: "right_multiple_choice_answer #{tile.action_answer_class(answer_index)}", data: {tile_id: tile.id} %>
-          <% else %>
-            <%= link_to answer, '#', class: "wrong_multiple_choice_answer" %>
-          <% end %>
-        <% end %>
+    <%=form_tag tile_completions_path(tile_id: tile.id), id: "tile_completion" do%>
+      <%=hidden_field_tag "answer_index" %>
 
-        <div class="answer_target" style="display: none"></div>
-      <% end %>
-    <% end %>
+      <%=build_tile_interaction tile%>
+
+    <%end%>
   </div>
 <% end %>

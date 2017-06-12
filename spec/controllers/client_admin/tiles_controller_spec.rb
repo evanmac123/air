@@ -11,14 +11,14 @@ describe ClientAdmin::TilesController do
 
       sign_in_as(client_admin)
 
-      xhr :post, :create, tile_builder_form: tile_builder_form
+      xhr :post, :create, tile: tile
 
       expect(response.status).to eq(200)
       expect(subject).to have_received(:schedule_tile_creation_ping)
     end
   end
 
-  def tile_builder_form
+  def tile
     {"status"=>"draft",
      "remote_media_type"=>"image/jpeg",
      "image_from_library"=>"",

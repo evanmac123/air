@@ -5,7 +5,7 @@ Airbo.ImageCreditIE = (function(){
   var imageCreditView,
   imageCreditInput,
   maxLength = 50,
-    imageCreditInputSelector = '#tile_builder_form_image_credit';
+    imageCreditInputSelector = '#tile_image_credit';
 
   function normalizedImageCreditInput() {
     var inputted_text;

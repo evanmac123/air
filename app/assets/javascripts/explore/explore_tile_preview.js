@@ -27,7 +27,7 @@ Airbo.ExploreTilePreview = (function(){
     Airbo.ImageLoadingPlaceholder.init();
     arrowsObj.initEvents();
 
-    $('.right_multiple_choice_answer').one("click", function(event) {
+    $('.js-multiple-choice-answer.correct').one("click", function(event) {
       event.preventDefault();
       $("#next_tile").trigger("click");
       ping("Clicked Answer");

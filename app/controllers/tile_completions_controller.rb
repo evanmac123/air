@@ -10,15 +10,16 @@ class TileCompletionsController < ApplicationController
       return false
     end
 
-    answer_index = params[:answer_index]
 
     remember_points_and_tickets
 
-    if create_tile_completion(@tile, answer_index)
+    if create_tile_completion(@tile)
+      #FIXME do we need to track acts?
       create_act(@tile)
     else
       flash[:failure] = "It looks like you've already done this tile, possibly in a different browser window or tab."
     end
+
     persist_points_and_tickets
     add_start_over_if_guest
 
@@ -36,8 +37,12 @@ class TileCompletionsController < ApplicationController
       @tile ||= Tile.find(params[:tile_id])
     end
 
-    def create_tile_completion(tile, answer_index)
-      completion = TileCompletion.new(:tile_id => tile.id, :user => current_user, :answer_index => answer_index)
+    def create_tile_completion(tile)
+      completion = TileCompletion.new(
+        :tile_id => tile.id, :user => current_user,
+        :answer_index => params[:answer_index],
+        :free_form_response => params[:free_form_response]
+      )
       completion.save
     end
     # TODO: move this from controller

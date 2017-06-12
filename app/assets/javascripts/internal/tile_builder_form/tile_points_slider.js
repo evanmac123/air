@@ -4,7 +4,7 @@ Airbo.TilePointsSlider = (function() {
   var pointsSlider
     , formPoints
     , pointSliderSelector =  "#points_slider"
-    , formPointsSelector = "#tile_builder_form_points"
+    , formPointsSelector = "#tile_points"
 
   function refreshPointsField(){
     //max points 20, max slider 200. so:

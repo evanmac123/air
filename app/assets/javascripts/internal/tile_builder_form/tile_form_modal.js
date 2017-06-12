@@ -96,7 +96,7 @@ Airbo.TileFormModal = (function(){
     Airbo.TileImageCredit.init();
     Airbo.TileImageFormFields.init();
     Airbo.TilePointsSlider.init();
-    Airbo.TileQuestionBuilder.init();
+    Airbo.TileInteractionManager.init();
     Airbo.TileSuportingContentTextManager.init();
     Airbo.Utils.mediumEditor.init();
     Airbo.ImageSearcher.init();

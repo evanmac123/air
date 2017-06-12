@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170621173204) do
+ActiveRecord::Schema.define(:version => 20170706144407) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -775,6 +775,7 @@ ActiveRecord::Schema.define(:version => 20170621173204) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.boolean  "featured"
+    t.boolean  "in_trial",              :default => false
     t.text     "chart_mogul_uuid"
     t.string   "email"
     t.string   "zip_code"
@@ -1063,6 +1064,7 @@ ActiveRecord::Schema.define(:version => 20170621173204) do
     t.string   "user_type"
     t.integer  "answer_index"
     t.boolean  "not_show_in_tile_progress", :default => false
+    t.text     "free_form_response"
   end
 
   add_index "tile_completions", ["created_at"], :name => "index_tile_completions_on_created_at"
@@ -1203,6 +1205,7 @@ ActiveRecord::Schema.define(:version => 20170621173204) do
     t.string   "media_source"
     t.integer  "creation_source_cd",      :default => 0
     t.integer  "copy_count",              :default => 0
+    t.boolean  "allow_free_response",     :default => false
   end
 
   add_index "tiles", ["activated_at"], :name => "index_tiles_on_activated_at"
@@ -1363,7 +1366,7 @@ ActiveRecord::Schema.define(:version => 20170621173204) do
   create_table "user_onboardings", :force => true do |t|
     t.integer  "user_id"
     t.integer  "onboarding_id"
-    t.integer  "state",          :default => 2
+    t.integer  "state",          :default => 0
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.string   "auth_hash"
@@ -1371,6 +1374,7 @@ ActiveRecord::Schema.define(:version => 20170621173204) do
     t.boolean  "shared",         :default => false, :null => false
     t.boolean  "completed",      :default => false, :null => false
     t.string   "more_info"
+    t.integer  "stage"
   end
 
   add_index "user_onboardings", ["onboarding_id"], :name => "index_user_onboardings_on_onboarding_id"

@@ -8,6 +8,7 @@ feature "Client admin creates tiles", js: true do
     before do
       visit client_admin_tiles_path(as: client_admin)
     end
+
     scenario "Creates new tile", js: true do
       click_link "Add New Tile"
       fill_in_tile_form_entries edit_text: "baz", points: "10"
@@ -21,14 +22,14 @@ feature "Client admin creates tiles", js: true do
         expect(page).to  have_content "Who rules?"
       end
 
-      expect(page).to have_selector(".tile_multiple_choice_answer a.right_multiple_choice_answer", text: "Youbaz")
+      expect(page).to have_selector("a.multiple-choice-answer.correct ", text: "Youbaz")
       expect(page).to have_selector("#tile_point_value", text: "10")
     end
 
     context "autosave" do
       scenario "create with only headline" do
         click_link "Add New Tile"
-        page.find("#tile_builder_form_headline").set("Ten pounds of cheese")
+        page.find("#tile_headline").set("Ten pounds of cheese")
         page.find(".close-reveal-modal").click
         within ".tile_container.unfinished" do
           expect(page).to  have_content "Ten pounds of cheese"
@@ -49,7 +50,7 @@ feature "Client admin creates tiles", js: true do
 
         click_link "Add New Tile"
         content = page.find(:css, "#supporting_content_editor", visible: false)
-        headline = page.find("#tile_builder_form_headline")
+        headline = page.find("#tile_headline")
         fake_upload_image img_file1
 
         content.trigger("focus")
@@ -82,7 +83,7 @@ feature "Client admin creates tiles", js: true do
     let(:points){"10"}
 
     before do
-      @tile = FactoryGirl.create :multiple_choice_tile
+      @tile = FactoryGirl.create :multiple_choice_tile, question_type: "survey", question_subtype: "multiple_choice"
       @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
       visit client_admin_tiles_path(as: @client_admin)
       within "#single-tile-#{@tile.id}" do
@@ -94,7 +95,7 @@ feature "Client admin creates tiles", js: true do
     scenario "check tile content in form fields" do
       within ".new_tile_builder_form" do
         expect(page).to  have_content "This is some extra text by the tile"
-        expect(page).to  have_content "Which of the following comes out of a bird?"
+        expect(page).to  have_field "tile_question", with: "Which of the following comes out of a bird?"
         expect(page).to  have_content "Ham"
         expect(page).to  have_content "Eggs"
         expect(page).to  have_content "A V8 Buick"
@@ -104,7 +105,7 @@ feature "Client admin creates tiles", js: true do
     scenario  "edit all tile fields" do
 
       fill_in_tile_form_entries edit_text: edit_text, points: points
-      select_correct_answer 2 
+      select_correct_answer 0 
       click_create_button
 
       within ".viewer" do
@@ -113,7 +114,7 @@ feature "Client admin creates tiles", js: true do
         expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?#{edit_text}"
         expect(page).to  have_content "Who rules?#{edit_text}"
       end
-      expect(page).to have_selector("a.right_multiple_choice_answer", text: "Hipster#{edit_text}")
+      expect(page).to have_selector("a.multiple-choice-answer.correct", text: "Me#{edit_text}")
       expect(page).to have_selector("#tile_point_value", text: points)
     end
   end
@@ -124,8 +125,7 @@ feature "Client admin creates tiles", js: true do
   end
 
   def fill_in_tile_form_entries options = {}
-    click_answer = options[:click_answer] || 1
-    question_type = options[:question_type] || Tile::QUIZ
+    question_type = options[:question_type] || Tile::QUIZ.downcase
     question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
     edit_text = options[:edit_text] || "foobar"
     points = options[:points] || "18"
@@ -135,15 +135,13 @@ feature "Client admin creates tiles", js: true do
     fake_upload_image img_file1
 
     fill_in_image_credit "by Society#{edit_text}"
-    page.find("#tile_builder_form_headline").set("Ten pounds of cheese#{edit_text}")
+    page.find("#tile_headline").set("Ten pounds of cheese#{edit_text}")
     el = page.find(:css, "#supporting_content_editor", visible: false)
     el.set("Ten pounds of cheese. Yes? Or no?#{edit_text}")
     fill_in_question "Who rules?#{edit_text}"
-    2.times {click_add_answer}
     fill_in_answer_field 0, "Me#{edit_text}"
     fill_in_answer_field 1, "You#{edit_text}"
-    fill_in_answer_field 2, "Hipster#{edit_text}"
-    click_answer.times { select_correct_answer 1 } if question_type == Tile::QUIZ
+    select_correct_answer 1
     fill_in_points points
   end
 

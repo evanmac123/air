@@ -7,7 +7,7 @@ Airbo.TileStatsGrid = (function(){
       sortLinkSel = tileGridSectionSel + " th a",
       linkInGridSel = [paginationLinkSel, sortLinkSel].join(", "),
       gridTypeSel = "#grid_type_select",
-      answerCellSel = tileGridSectionSel + " tbody .answer_column",
+      answerCellSel = tileGridSectionSel + " tbody .js-grid-answer-filter",
       surveyTableSel = "#survey_table";
   // JQuery Objects
   var tileGridSection,

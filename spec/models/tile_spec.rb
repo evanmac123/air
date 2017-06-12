@@ -130,7 +130,7 @@ describe Tile do
     end
 
     it "cannot be created if headline and image missing" do
-      tile = Tile.new
+      tile = Tile.new(question_type: Tile::QUIZ)
       tile.headline = nil
       tile.remote_media_url = nil
       expect(tile.valid?).to be false

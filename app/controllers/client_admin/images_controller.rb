@@ -17,7 +17,7 @@ class ClientAdmin::ImagesController < ClientAdminBaseController
   end
 
   def update
-    new_image = params[:tile_builder_form].try(:[], :image)
+    new_image = params[:tile].try(:[], :image)
     @tile.image = @tile.thumbnail = new_image
 
     if @tile.save(:context => :client_admin)

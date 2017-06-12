@@ -6,7 +6,6 @@
 //     submit button
 //
 .content_sections {
-  border-bottom: 2px dashed #f3f3f3;
   // padding-bottom: 12px;
   &:last-child:not(:only-child) {
     border-bottom: none;
@@ -17,12 +16,14 @@
   &.question_tile_builder_error{
     background-color: rgba(188, 76, 64,.20); //pinkish*/
   }
-  .character-counter {
-    &.exceeded_maxlength_counter {
-      color: #e3402d;
-    }
+}
+
+.tile_builder_section {
+  .content_sections {
+    border-bottom: 2px dashed #f3f3f3;
   }
 }
+
 input[type="text"],textarea, .text-input {
   &.tile-form{
     border: none;
@@ -52,7 +53,7 @@ label.show_if_ie9{
   //   line-height: inherit !important;
   // }
 }
-#tile_builder_form_supporting_content {
+#tile_supporting_content {
   display: none;
 }
 #tile_external_link {

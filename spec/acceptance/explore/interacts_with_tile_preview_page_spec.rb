@@ -70,7 +70,7 @@ feature "interacts with a tile from the explore-preview page" do
       it "should tell me I'm wrong" do
         expect(page).to have_no_content("Sorry, that's not it. Try again!")
 
-        page.find("a.wrong_multiple_choice_answer", match: :first).click
+        page.find("a.multiple-choice-answer.incorrect", match: :first).click
 
         expect(page).to have_content("Sorry, that's not it. Try again!")
       end
@@ -80,7 +80,7 @@ feature "interacts with a tile from the explore-preview page" do
       it "should tell me I'm right" do
         expect(page).to have_no_content("Correct!")
 
-        page.find("a.right_multiple_choice_answer", match: :first).click
+        page.find("a.multiple-choice-answer.correct", match: :first).click
 
         expect(page).to have_content("Correct!")
       end
@@ -126,7 +126,7 @@ feature "interacts with a tile from the explore-preview page" do
       it "should tell me I'm wrong" do
         expect(page).to have_no_content("Sorry, that's not it. Try again!")
 
-        page.find("a.wrong_multiple_choice_answer", match: :first).click
+        page.find("a.multiple-choice-answer.incorrect", match: :first).click
 
         expect(page).to have_content("Sorry, that's not it. Try again!")
       end
@@ -136,7 +136,7 @@ feature "interacts with a tile from the explore-preview page" do
       it "should tell me I'm right" do
         expect(page).to have_no_content("Correct!")
 
-        page.find("a.right_multiple_choice_answer", match: :first).click
+        page.find("a.multiple-choice-answer.correct", match: :first).click
 
         expect(page).to have_content("Correct!")
       end

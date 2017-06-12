@@ -57,7 +57,8 @@ class TileCopier
         "thumbnail",
         "use_old_line_break_css",
         "question_type",
-        "question_subtype"
+        "question_subtype",
+        "allow_free_response"
       ].each do |field_to_copy|
         copy.send("#{field_to_copy}=", tile.send(field_to_copy))
       end

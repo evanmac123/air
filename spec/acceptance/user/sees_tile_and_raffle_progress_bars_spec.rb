@@ -6,8 +6,8 @@ def click_right_answer
   # can wait for them to finish is a damned dirty lie. So we cheat and click
   # the hidden link that ACTUALLY triggers the Ajax request, while bypassing
   # animations.
-  #page.find('.right_multiple_choice_answer').click
-  page.find('.right_multiple_choice_answer').click
+
+  page.find('.multiple-choice-answer.correct').click
 end
 
 feature 'Progress bars', js: true, wonky: true do

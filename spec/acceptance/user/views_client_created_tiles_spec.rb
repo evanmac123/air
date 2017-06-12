@@ -33,7 +33,7 @@ feature 'User views tiles' do
       click_answer 2
       expect_wrong_answer_reaction 2
 
-      page.find('.right_multiple_choice_answer').click
+      page.find('.multiple-choice-answer.correct').click
       #click_answer 1
 
       visit activity_path
@@ -42,7 +42,7 @@ feature 'User views tiles' do
     end
 
     scenario 'and sees a helpful message afterwards', js: true do
-      page.find('.right_multiple_choice_answer').click
+      page.find('.multiple-choice-answer.correct').click
       expect(page).to have_content(all_tiles_done_message)
     end
 
