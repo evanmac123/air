@@ -121,6 +121,8 @@ GEM
       fog
       uuid
     chartkick (2.2.2)
+    chartmogul-ruby (1.1.4)
+      faraday (~> 0.9)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
@@ -638,6 +640,7 @@ DEPENDENCIES
   capybara-screenshot
   capybara-webkit
   carrierwave_direct
+  chartmogul-ruby
   chronic
   clearance
   clearance-deprecated_password_strategies

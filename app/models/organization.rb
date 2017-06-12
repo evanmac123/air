@@ -5,6 +5,9 @@ class Organization < ActiveRecord::Base
   before_save :update_slug
 
   has_many :contracts
+  has_many :subscriptions
+  has_many :invoices, through: :subscriptions
+
   has_many :demos, autosave: true, dependent: :destroy
   has_many :lead_contacts, dependent: :destroy
   has_many :boards, class_name: :Demo, autosave: true
