@@ -8,23 +8,14 @@ Airbo.TileInteractionMenuHandler =(function(){
 
   function initQuestionTypeMenus(){
     $("body").on("click", typeSelector, function(event){
-      var menu = $(this) ;
-
-      if(menu.hasClass("open")){
-        menu.removeClass("open")
-      }else{
-        menu.addClass("open");
-      }
-
+      closeMenuDropDowns();
+      $(this).addClass("open");
     });
   }
 
-
   function closeMenuDropDowns(){
     $(dropdownSelector).each(function() {
-      var menu = $(this);
-      menu.removeClass("open").removeAttr("style");
-      menu.find(".js-menu-toggle").removeClass("fa-caret-up").addClass("fa-caret-down");
+      $(this).removeClass("open").removeAttr("style");
     });
   }
 

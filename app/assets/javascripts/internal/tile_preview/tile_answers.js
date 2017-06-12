@@ -78,19 +78,16 @@ Airbo.TileAnswers = (function(){
   }
 
   function validateFreeText(answer, target){
-    var freeText = $(".js-free-form-response");
-
+    var freeText;
     if(answer.hasClass("free-text")){
-      if(freeText.val().trim() === ""){
+      freeText = $(".js-free-form-response").val().trim();
+      if(freeText === ""){
         showFreeFormError(answer, target);
         $(rightAnswerSel).one("click",correctAnswerClicked);
         return false
       }
-    }else{
-      //Clear if non free response selected
-      freeText.val("");
     }
-      return true;
+    return true;
   }
 
 
@@ -100,19 +97,13 @@ Airbo.TileAnswers = (function(){
   }
 
   function initFreeFormText(){
-    initShowFreeForm();
-    initHideFreeform();
-    addFreeResponseCharChaounter();
-  }
-
-  function addFreeResponseCharChaounter(){
-    if((".js-free-form-response").length > 0){
-      addCharacterCounterFor(".js-free-form-response");
-    }
+    showFreeForm();
+    hideFreeform();
+    addCharacterCounterFor(".js-free-form-response")
   }
 
 
- function initShowFreeForm(){
+ function showFreeForm(){
    $("body").on("click", ".js-free-text-show", function(event){
      var other = $(this);
      event.preventDefault();
@@ -121,7 +112,7 @@ Airbo.TileAnswers = (function(){
    });
  }
 
- function initHideFreeform(){
+ function hideFreeform(){
    $("body").on("click", ".js-free-text-hide", function(event){
      event.preventDefault();
      $(".js-free-text-panel").hide();

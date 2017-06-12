@@ -67,7 +67,16 @@ Airbo.TileBuilderInteractionConfig = (function(){
         minResponses: 1,
         maxResponses: 1,
       },
- 
+      free_form: {
+        answerType: "action_free_form",
+        name: "Free Form Text ",
+        question: "Ask question requiring a free form response",
+        maxLength: 500,
+        answers: ["Submit my response"],
+        exceed: true,
+        minResponses: 1,
+        maxResponses: 1,
+      }
     },
 
     quiz: {
@@ -106,16 +115,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         minResponses: 2,
         maxResponses: 100,
         freeResponse: true
-      },
-     free_response: {
-        answerType: "action_free_form",
-        name: "Free Response",
-        question: "Ask a question",
-        maxLength: 50,
-        answers: ["Submit My Answer"],
-        exceed: true,
-        minResponses: 0,
-        maxResponses: 0,
       },
       rsvp_to_event : {
         answerType: "survey",

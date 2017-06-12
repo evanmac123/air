@@ -3,7 +3,9 @@
     <%=form_tag tile_completions_path(tile_id: tile.id), id: "tile_completion" do%>
       <%=hidden_field_tag "answer_index" %>
 
-      <%=build_tile_interaction tile%>
+      <%=build_buttons_for_tile tile%>
+
+
 
     <%end%>
   </div>
