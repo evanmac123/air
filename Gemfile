@@ -84,6 +84,7 @@ gem 'searchkick'
 gem 'searchjoy'
 gem 'rolify'
 gem 'simple_enum', '~> 1.6.9'
+gem 'chartmogul-ruby', require: 'chartmogul'
 #
 # Gems used only for assets and not required
 # in production environments by default.

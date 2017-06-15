@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170502210440) do
+ActiveRecord::Schema.define(:version => 20170614195400) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -599,6 +599,33 @@ ActiveRecord::Schema.define(:version => 20170502210440) do
     t.datetime "updated_at"
   end
 
+  create_table "invoice_transactions", :force => true do |t|
+    t.integer  "invoice_id"
+    t.integer  "type_cd",          :default => 0
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "result_cd",        :default => 0
+    t.datetime "paid_date"
+    t.string   "chart_mogul_uuid"
+  end
+
+  add_index "invoice_transactions", ["invoice_id"], :name => "index_invoice_transactions_on_invoice_id"
+
+  create_table "invoices", :force => true do |t|
+    t.integer  "subscription_id"
+    t.datetime "due_date"
+    t.integer  "type_cd",              :default => 0
+    t.datetime "service_period_start"
+    t.datetime "service_period_end"
+    t.integer  "amount_in_cents",      :default => 0
+    t.text     "description"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.text     "chart_mogul_uuid"
+  end
+
+  add_index "invoices", ["subscription_id"], :name => "index_invoices_on_subscription_id"
+
   create_table "keys", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -743,6 +770,9 @@ ActiveRecord::Schema.define(:version => 20170502210440) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.boolean  "featured"
+    t.text     "chart_mogul_uuid"
+    t.string   "email"
+    t.string   "zip_code"
   end
 
   add_index "organizations", ["name"], :name => "index_organizations_on_name"
@@ -904,6 +934,27 @@ ActiveRecord::Schema.define(:version => 20170502210440) do
   add_index "searchjoy_searches", ["created_at"], :name => "index_searchjoy_searches_on_created_at"
   add_index "searchjoy_searches", ["search_type", "created_at"], :name => "index_searchjoy_searches_on_search_type_and_created_at"
   add_index "searchjoy_searches", ["search_type", "normalized_query", "created_at"], :name => "index_searchjoy_searches_on_search_type_and_normalized_query_an"
+
+  create_table "subscription_plans", :force => true do |t|
+    t.string   "name"
+    t.integer  "interval_count",   :default => 1
+    t.integer  "interval_cd",      :default => 0
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.text     "chart_mogul_uuid"
+  end
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "subscription_plan_id"
+    t.datetime "cancelled_at"
+    t.string   "chart_mogul_uuid"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "subscriptions", ["organization_id"], :name => "index_subscriptions_on_organization_id"
+  add_index "subscriptions", ["subscription_plan_id"], :name => "index_subscriptions_on_subscription_plan_id"
 
   create_table "suggestions", :force => true do |t|
     t.string   "value",      :default => "", :null => false
