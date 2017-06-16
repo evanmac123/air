@@ -52,7 +52,7 @@ then
       echo_with_color "You have a few options now:
 
       1. You will likely want to also migrate the production Redis app_db to your development env.
-      You can do this manually via redis-server, or write a script and add it here :).
+      You can do this by downloading the most recent cut, naming dump.rb, and replacing/adding the dump.rb file to our root dir.
 
       2. If you would like to refresh Staging with the most recent version of the Production db, run:
 

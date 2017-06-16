@@ -16,6 +16,8 @@ match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via =>
 match "myairbo/:id" => "user_onboardings#show", as: "myairbo"
 match "newairbo" => "onboardings#new"
 
+resources :case_studies, only: [:index]
+
 resources :onboardings, only: [:create, :new]
 resources :user_onboardings, only: [:show, :create] do
   resources :tiles, only: [:show]
@@ -68,7 +70,6 @@ match "sign_up"  => "users#new"
 match "sign_out" => "sessions#destroy"
 
 get "company" => 'pages#company', as: 'company'
-get "case_studies" => 'pages#case_studies', as: 'case_studies'
 get "demo_link" => "pages#demo_link", as: "demo_link"
 get "terms" => "pages#terms", :as => "terms"
 get "privacy" => "pages#privacy", :as => "privacy"

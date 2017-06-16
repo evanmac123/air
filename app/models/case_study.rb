@@ -6,19 +6,23 @@ class CaseStudy < ActiveRecord::Base
   validates_attachment :logo, presence: true,
   content_type: { content_type: /\Aimage\/.*\z/ }
 
-  has_attached_file :cover_image, { display: "250x375x" }
-  validates_attachment :cover_image, presence: true,
-  content_type: { content_type: /\Aimage\/.*\z/ }
-
   validates :client_name, uniqueness: true, presence: true
 
   before_save :update_slug
+
+  def self.order_by_position
+    order(:position)
+  end
 
   def update_slug
     self.slug = client_name.parameterize
   end
 
-  def to_param
-    [id, client_name.parameterize].join("-")
+  def display_path
+    if non_pdf_url.present?
+      non_pdf_url
+    else
+      pdf.url
+    end
   end
 end

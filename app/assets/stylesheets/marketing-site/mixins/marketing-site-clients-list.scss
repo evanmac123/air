@@ -1,10 +1,13 @@
 @mixin marketing-site-clients-list() {
   .clients-list {
     background: $dark-blue;
-    display: flex; justify-content: center; align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 92px;
-    left: 0; bottom: 0;
     width: 100%;
+    left: 0;
+    bottom: 0;
     z-index: 5;
     ul {
       list-style: none;

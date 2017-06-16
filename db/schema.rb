@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170614195400) do
+ActiveRecord::Schema.define(:version => 20170615230749) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -187,8 +187,13 @@ ActiveRecord::Schema.define(:version => 20170614195400) do
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.string   "non_pdf_url"
+    t.text     "quote"
+    t.text     "quote_cite"
+    t.text     "quote_cite_title"
+    t.integer  "position",                 :default => 0
   end
 
   create_table "channels", :force => true do |t|

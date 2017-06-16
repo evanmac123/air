@@ -1,10 +1,10 @@
-@mixin marketing-site-main-hero() {
+@mixin marketing-site-main-hero($bg-image, $bg-image-position: top center, $height: 674px) {
   .main-hero {
-    background: image-url('marketing_site/main-hero.png');
+    background: image-url($bg-image);
     background-size: cover;
-    background-position: right;
+    background-position: $bg-image-position;
     display: flex;
-    height: 654px;
+    height: $height;
     position: relative;
 
     .wrap {
@@ -28,50 +28,6 @@
         }
         .main-hero-cta-link {
           width: 190px;
-        }
-      }
-
-      .copy-mobile {
-        display: none;
-      }
-
-      @media only screen and (max-width: 768px) {
-        .copy {
-          display: none;
-        }
-        .copy-mobile {
-          margin-top: 156px;
-          display: block;
-          margin-right: auto;
-          margin-left: auto;
-          max-width: 450px;
-          margin: inherit 25px;
-          padding: 15px;
-          border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
-          background-color:  $white;
-          -webkit-box-shadow: 0 8px 6px -6px #777;
-          -moz-box-shadow: 0 8px 6px -6px #777;
-          box-shadow: 0 8px 6px -6px #777;
-          .main-hero-header {
-            width: 100%;
-            margin-top: 0;
-            font-size: 20px;
-            line-height: 40px;
-            margin-bottom: 0;
-            color: $text-color;
-          }
-          .main-hero-subheader {
-            width: 100%;
-            color: $gray-4;
-            font-size: 16px;
-            line-height: 22px;
-            margin: 5px 0;
-          }
-          .main-hero-cta-link {
-            margin-top: 40px;
-            width: 190px;
-          }
         }
       }
     }

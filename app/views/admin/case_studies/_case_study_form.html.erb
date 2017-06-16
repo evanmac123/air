@@ -19,19 +19,43 @@
         </div>
         <div class="row">
           <div class="small-6 columns">
-            <%= f.label :logo, "Logo"  %>
+            <%= f.label :quote, "Quote"  %>
+            <%= f.text_area :quote %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :quote_cite, "Name for quote"  %>
+            <%= f.text_area :quote_cite %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :quote_cite_title, "Job Title of Person Quoted"  %>
+            <%= f.text_area :quote_cite_title %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :non_pdf_url, "Non pdf url (Optional, include https://)"  %>
+            <%= f.text_area :non_pdf_url %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :position, "Position on Case Studies Page (0 is first)"  %>
+            <%= f.number_field :position %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            <%= f.label :logo, "Logo (#{case_study.logo.original_filename})"  %>
             <%= f.file_field :logo %>
           </div>
         </div>
         <div class="row">
           <div class="small-6 columns">
-            <%= f.label :cover_image, "Cover Image"  %>
-            <%= f.file_field :cover_image %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="small-6 columns">
-            <%= f.label :pdf, "Pdf"  %>
+            <%= f.label :pdf, "Pdf (#{case_study.pdf.original_filename})"  %>
             <%= f.file_field :pdf %>
           </div>
         </div>
