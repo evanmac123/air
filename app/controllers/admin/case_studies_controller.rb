@@ -8,7 +8,7 @@ class Admin::CaseStudiesController < AdminBaseController
   end
 
   def index
-    @case_studies = CaseStudy.all
+    @case_studies = CaseStudy.order_by_position
   end
 
   def create
@@ -25,7 +25,7 @@ class Admin::CaseStudiesController < AdminBaseController
   def update
     @case_study = find_case_study
 
-    if @case_study.update_attributes(campaign_params)
+    if @case_study.update_attributes(case_study_params)
       redirect_to admin_case_studies_path
     else
       flash.now[:failure] = @case_study.errors.full_messages.join(", ")
@@ -36,7 +36,7 @@ class Admin::CaseStudiesController < AdminBaseController
   private
 
     def case_study_params
-      params.require(:case_study).permit(:client_name, :description, :cover_image, :logo, :pdf)
+      params.require(:case_study).permit(:client_name, :description, :logo, :pdf, :quote, :quote_cite, :quote_cite_title, :non_pdf_url, :position)
     end
 
     def find_case_study

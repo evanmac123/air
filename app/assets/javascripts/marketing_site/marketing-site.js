@@ -20,9 +20,20 @@ Airbo.MarketingSite.Home = (function(){
     });
   }
 
+  function bindCaseStudyViewButtons() {
+    $(".js-case-study-view-button").on("click", function(e) {
+      e.preventDefault();
+
+      Airbo.Utils.ping("Marketing Site Action", { action: "Viewed Case Study", case_study: $(this).data("caseStudy"), copy: $(this).text(), color: $(this).css("background-color") });
+
+      window.open($(this).attr("href"));
+    });
+  }
+
   function init() {
     initHeaderMobileMenu();
     bindCtas();
+    bindCaseStudyViewButtons();
   }
 
   return {
@@ -32,7 +43,7 @@ Airbo.MarketingSite.Home = (function(){
 }());
 
 $(function(){
-  if (Airbo.Utils.nodePresent(".pages-home")) {
+  if (Airbo.Utils.nodePresent(".airbo-marketing-site")) {
     Airbo.MarketingSite.Home.init();
   }
 });

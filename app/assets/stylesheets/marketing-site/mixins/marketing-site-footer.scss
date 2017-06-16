@@ -1,7 +1,7 @@
 @mixin marketing-site-footer() {
   .marketing-site-footer {
+    height: 40px;
     background-color: $dark-blue;
-    min-height: 40px;
     .logo {
       display: block;
       padding-top: 7px;

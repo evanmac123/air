@@ -13,6 +13,7 @@
           <thead>
             <tr>
               <th>Client Name</th>
+              <th>Position</th>
               <th>Updated At</th>
               <th>Edit</th>
               <th>Delete</th>
@@ -22,6 +23,7 @@
             <% @case_studies.each do |case_study| %>
               <tr class="resource-row">
                 <td><%= case_study.client_name %></td>
+                <td><%= case_study.position %></td>
                 <td><%= case_study.updated_at.to_formatted_s(:short) %></td>
                 <td><%= link_to "Edit", edit_admin_case_study_path(case_study) %></td>
                 <td><%= link_to "Delete", admin_case_study_path(case_study), method: :delete %></td>

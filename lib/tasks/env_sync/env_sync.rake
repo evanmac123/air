@@ -29,6 +29,11 @@ namespace :env_sync do
       tiles_to_update << tile.id
     }
 
+    #adds images to weilandia
+    Demo.find_by_id(1630).tiles.each { |tile|
+      tiles_to_update << tile.id
+    }
+
     Tile.explore.each { |tile|
       tiles_to_update << tile.id
     }
