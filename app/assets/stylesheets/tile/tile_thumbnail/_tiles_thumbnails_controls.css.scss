@@ -113,15 +113,6 @@
 
 .incomplete_button{
   float: left;
-  .button {
-    background-color: #ff5656;
-    border-color: #ff5656;
-    &:hover{
-      background-color:#ff5656;
-      border-color: #ff5656;
-      opacity: .8;
-    }
-  }
 }
 
 .tile_container.explore{

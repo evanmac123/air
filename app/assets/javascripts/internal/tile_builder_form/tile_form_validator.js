@@ -106,7 +106,7 @@ Airbo.TileFormValidator = (function(){
         errorClass = "answer_" + errorClass;
       break;
     }
-    return errorClass;
+    return errorClass + "validation-error";
   }
 
 
@@ -115,15 +115,15 @@ Airbo.TileFormValidator = (function(){
   }
 
   function forceValidation(form){
-    return form.data("forcevalidation") === true
+    return form.data("forcevalidation") === true;
   }
 
   function isAutoSaving(form){
-    return form.data("autosave") === true
+    return form.data("autosave") === true;
   }
 
   function formIsNotDraft(){
-    return $("#tile_builder_form_status").val() !=="draft"
+    return $("#tile_builder_form_status").val() !== "draft";
   }
 
   function isRequired(el){

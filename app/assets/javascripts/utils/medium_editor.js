@@ -38,7 +38,7 @@ Airbo.Utils.mediumEditor = (function() {
               url: link.attr("href"),
               target: link.attr('target'),
               buttonClass: link.attr('class')
-            }
+            };
             this.showForm(opt);
           } else {
             this.showForm();
@@ -48,7 +48,6 @@ Airbo.Utils.mediumEditor = (function() {
         return false;
       }
     });
-
 
     Airbo.CustomAnchorPreview = MediumEditor.extensions.anchorPreview.extend({
       createPreview: function () {
@@ -64,11 +63,7 @@ Airbo.Utils.mediumEditor = (function() {
         return el;
       },
       getTemplate: function () {
-        return  '<div class="medium-editor-toolbar-anchor-preview" id="medium-editor-toolbar-anchor-preview">' +
-          '  <a target="_blank"></a>' +
-          '  <span class="sep-vertical medium-editor-toolbar-anchor-preview-inner"></span>' +
-          '  <i class="fa fa-pencil"></i>' +
-          '</div>';
+        return HandlebarsTemplates["client-admin/tile-builder/linkEdit"]();
       },
       attachToEditables: function () {
         // show link preview on click instead of mouse over
@@ -79,13 +74,6 @@ Airbo.Utils.mediumEditor = (function() {
 
         if (false === target) {
           return;
-        }
-
-        // Detect empty href attributes
-        // The browser will make href="" or href="#top"
-        // into absolute urls when accessed as event.target.href, so check the html
-        if (!/href=["']\S+["']/.test(target.outerHTML) || /href=["']#\S+["']/.test(target.outerHTML)) {
-          return true;
         }
 
         // only show when toolbar is not present
@@ -131,7 +119,6 @@ Airbo.Utils.mediumEditor = (function() {
     initExtensions();
 
     $('.medium-editable').each(function(){
-
       defaultParams = {
         extensions: {
           anchorPreview: new Airbo.CustomAnchorPreview(),
@@ -151,19 +138,18 @@ Airbo.Utils.mediumEditor = (function() {
       editor = new MediumEditor(this, $.extend(defaultParams, params) );
       editor.trigger("focus");
 
-      fieldName = $(this).data('field')
+      fieldName = $(this).data('field');
       field = $("#" + fieldName);
       content =  field.val();
       field.data("oldVal", content);
       editor.setContent(content);
 
       editor.subscribe('blur', $.debounce( 2000, function(event, editable) {
-        var obj =$(editable)
-          ,  textLength = obj.text().trim().length
-          , val = obj.html()
-          , oldVal = field.data("oldVal")
-          , re = new RegExp( /(<p><br><\/p>)+$/g)
-        ;
+        var obj = $(editable);
+        var textLength = obj.text().trim().length;
+        var val = obj.html();
+        var oldVal = field.data("oldVal");
+        var re = new RegExp( /(<p><br><\/p>)+$/g);
 
         field.val( val.replace(re, "") );
         field.data("oldVal", field.val());
@@ -175,23 +161,18 @@ Airbo.Utils.mediumEditor = (function() {
 
 
       editor.subscribe('editableInput', function (e, editable) {
-        var obj =$(editable)
-          , textLength = obj.text().trim().length
-        ;
+        var obj = $(editable);
+        var textLength = obj.text().trim().length;
 
-        e.preventDefault();
-
-        if(textLength > 0){
+        if (textLength > 0) {
           field.val(obj.html());
-        }else{
+        } else {
           field.val("");
         }
 
-
         field.blur();
       });
-
-    })
+    });
   }
 
   return {
