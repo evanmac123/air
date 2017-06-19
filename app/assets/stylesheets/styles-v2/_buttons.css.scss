@@ -10,6 +10,11 @@
       background-color: lighten($bg-color, 5%);
       border-color: lighten($bg-color, 5%);
     }
+    &:active {
+      color: $text-color;
+      background-color: darken($bg-color, 5%);
+      border-color: darken($bg-color, 5%);
+    }
   }
 }
 @mixin button-outlined-color($text-color: $n-blue, $bg-color: transparent, $hover-color: $n-white) {
@@ -143,7 +148,7 @@
     @include button-color($n-green);
   }
   &.red {
-    @include button-color($n-red2);
+    @include button-color($n-red);
   }
   &.yellow {
     @include button-color($n-yellow);

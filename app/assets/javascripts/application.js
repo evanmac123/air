@@ -2,6 +2,11 @@
 //= require jquery_ujs
 //= require jquery.validate
 //= require jquery.validate.additional-methods
+
+//= require handlebars
+//= require vendor_customization/handlebars
+//= require_tree ./templates
+
 //= require autosize
 //= require masonry.pkgd.min.js
 //= require imagesloaded.pkgd.min.js

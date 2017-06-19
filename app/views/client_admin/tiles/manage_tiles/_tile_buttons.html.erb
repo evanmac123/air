@@ -20,7 +20,7 @@
    <% if presenter.has_unarchive_button? %>
       <li class="archive_button">
         <%= link_to status_change_client_admin_tile_path(presenter), class: "button update_status", data: {action: "unarchive", status: Tile::ACTIVE, "tile-id" => presenter.tile_id} do %>
-         Post Again 
+         Post Again
         <% end %>
       </li>
     <% end %>
@@ -35,7 +35,6 @@
 
     <% if presenter.has_ignore_button? %>
       <li class="ignore_button">
-
         <%= link_to status_change_client_admin_tile_path(presenter), class:"update_status button outlined", data: {action: "ignore", status:Tile::IGNORED, "tile-id" => presenter.tile_id} do %>
           Ignore
         <% end %>
@@ -53,7 +52,7 @@
 
     <% if presenter.has_incomplete_edit_button? %>
       <li class="incomplete_button">
-        <%= link_to edit_client_admin_tile_path(presenter),  class: "button edit", data:{action: "edit", "tile-id" => presenter.tile_id, status: presenter.status} do %>
+        <%= link_to edit_client_admin_tile_path(presenter),  class: "button edit red", data:{action: "edit", "tile-id" => presenter.tile_id, status: presenter.status} do %>
           Edit
         <% end %>
       </li>

@@ -1,7 +1,7 @@
 #images_modal{
 }
 
-  .err {
+  .validation-err {
     color: $n-red2;
   }
 
@@ -13,7 +13,8 @@
     @import "slider";
     @import "ie9";
     .character-counter {
-      margin-top: -15px;
+      margin-top: 0;
+      margin-bottom: 10px;
     }
   }
   .tile_form_holder {

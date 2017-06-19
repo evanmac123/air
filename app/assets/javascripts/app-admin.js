@@ -10,10 +10,6 @@
 //= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
 //= require jquery.floatThead.min
 
-//= require handlebars
-//= require vendor_customization/handlebars
-//= require_tree ./templates
-
 //= require_tree ../../../vendor/assets/javascripts/admin/.
 //= require ./internal_and_external/underscore-min
 //= require ./file-uploader

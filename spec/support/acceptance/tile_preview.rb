@@ -1,22 +1,6 @@
 module TilePreviewHelpers
-  def expect_copied_lightbox
-    page.find(".tile_copied_lightbox")
-    expect(page).to have_content("Tile has been copied to your board's drafts section.")
-  end
-
   def click_copy_button
     page.find('.copy_to_board').click
-    register_if_guest
-    expect_copied_lightbox
-
-    within '.tile_copied_lightbox' do
-      click_button "OK"
-    end
-  end
-
-  def click_copy_link
-    page.first('.copy_tile_link').click
-    expect_copied_lightbox
   end
 
   def click_like
