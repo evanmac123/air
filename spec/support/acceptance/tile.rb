@@ -423,16 +423,6 @@ module TileHelpers
     expect(page).to have_selector('.image_placeholder', visible: true)
   end
 
-  # First "copy" in these next method name refers to the act of copying
-  # something.
-  # Second "copy" means a piece of text.
-  # If you have a problem with this, don't blame me, sue the President of
-  # English.
-
-  def post_copy_copy
-    "Tile has been copied to your board's drafts section."
-  end
-
   def completed_tiles_number
     page.find("#completed_tiles_num", :visible => false).text.to_i
   end

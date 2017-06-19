@@ -37,24 +37,6 @@ feature "interacts with a tile from the explore-preview page" do
         expect_tile_copied(@original_tile, @user)
       end
     end
-
-    scenario "should show a helpful message after copying", js: true do
-      click_copy_button
-
-      page.find('.tile_copied_lightbox', visible: true)
-
-      expect_content(post_copy_copy)
-    end
-
-    scenario "works if no creator is set", js: true do
-      @original_tile.update_attributes(creator: nil)
-
-      click_copy_button
-
-      page.find('.tile_copied_lightbox', visible: true)
-
-      expect_content(post_copy_copy)
-    end
   end
 
   context "as Client admin", js: true, wonky: true do
