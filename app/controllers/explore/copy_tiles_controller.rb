@@ -4,8 +4,7 @@ class Explore::CopyTilesController < ClientAdminBaseController
 
   def create
     tile = Tile.explore.where(id: params[:tile_id]).first
-    tile.copy_to_new_demo(current_user.demo, current_user)
-    track_user_channels(tile.channel_list)
+    tile.delay.copy_to_new_demo(current_user.demo, current_user)
     store_copy_in_redis(params[:tile_id])
 
     render json: {
