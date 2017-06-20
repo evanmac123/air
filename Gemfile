@@ -41,7 +41,7 @@ gem 'lazy_high_charts'#, '~>1.4.0'
 gem 'json', '>= 1.7.7'
 gem 'carrierwave_direct'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
-gem 'rack-timeout'
+gem 'rack-timeout', require: false
 gem 'delayed_paperclip'
 gem 'mobvious-rails'
 gem 'rails3_before_render'
