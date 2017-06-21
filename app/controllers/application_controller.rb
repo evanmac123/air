@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   include ApplicationPerformanceConcern
   include Mobvious::Rails::Controller
 
-  ###### Airbo authentication/authorizaiton
+  ###### Airbo authentication/authorization
 	include Pundit
   alias_method :pundit_authorize, :authorize
 
@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
 
   def authorize!
     unless authorized?
-      redirect_to root_path
+      deny_access(authorization_flash)
     end
   end
 
@@ -63,6 +63,14 @@ class ApplicationController < ActionController::Base
       cookies.permanent[:remember_me] = remember_me
     else
       cookies.delete(:remember_me)
+    end
+  end
+
+  def authorization_flash
+    if signed_in?
+      I18n.t("flashes.failure_when_not_permitted")
+    else
+      I18n.t("flashes.failure_when_not_signed_in_html")
     end
   end
   ######
