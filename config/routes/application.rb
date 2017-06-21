@@ -18,6 +18,7 @@ match "newairbo" => "onboardings#new"
 
 resources :case_studies, only: [:index]
 
+# TODO: Deprecate onboarding code
 resources :onboardings, only: [:create, :new]
 resources :user_onboardings, only: [:show, :create] do
   resources :tiles, only: [:show]

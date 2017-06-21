@@ -1,4 +1,5 @@
 class UserRestrictedToExplorePages < Draper::Decorator
+  # TODO: Deprecate along with all code related to nerf_links_with_login_modal
   decorates :user
   delegate_all
 

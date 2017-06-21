@@ -16,4 +16,8 @@ class ClientAdmin::LocationsController < ClientAdminBaseController
     location = Location.new(demo_id: demo_id, name: name)
     location.save ? location : nil
   end
+
+  def load_locations
+    @locations = current_user.demo.locations.alphabetical
+  end
 end

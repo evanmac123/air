@@ -1,4 +1,4 @@
-class Explore::SearchesController < ExploreBaseController
+class Explore::SearchesController < UserBaseController
   layout 'search_layout'
 
   def show

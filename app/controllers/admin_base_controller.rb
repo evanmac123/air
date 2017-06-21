@@ -5,8 +5,7 @@ class AdminBaseController < UserBaseController
   layout 'admin'
 
   def authorized?
-    return true if current_user.authorized_to?(:site_admin)
-    return false
+    signed_in? && current_user.authorized_to?(:site_admin)
   end
 
   private

@@ -109,6 +109,10 @@ class ClientAdmin::UsersController < ClientAdminBaseController
     load_locations
   end
 
+  def load_locations
+    @locations = current_user.demo.locations.alphabetical
+  end
+
   def search_results_as_json
     normalized_term = params[:term].downcase.strip.gsub(/\s+/, ' ')
     users = current_user.demo.users.name_like(normalized_term).alphabetical_by_name.limit(10)
