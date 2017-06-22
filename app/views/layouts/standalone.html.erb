@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<html lang="en">
+<!doctype html>
+<html class="no-js" lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no">
-
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Welcome to Airbo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= content_for :meta %>
+
     <%= mobvious_javascript %>
     <%= javascript_include_tag 'app-landing' %>
     <%= stylesheet_link_tag 'app-landing' %>
@@ -27,7 +26,6 @@
     <%= render 'shared/nerf_animations_in_test' %>
 
     <%= content_for :head %>
-
   </head>
   <body class="<%= body_pages_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">
     <%= render 'shared/flashes' %>

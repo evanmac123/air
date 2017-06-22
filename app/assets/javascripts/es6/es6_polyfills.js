@@ -3,6 +3,12 @@ Airbo.Utils = Airbo.Utils || {};
 Airbo.Utils.ES6Polyfills = (function(){
 
   function init(){
+    if (!String.prototype.startsWith) {
+      String.prototype.startsWith = function(searchString, position){
+        return this.substr(position || 0, searchString.length) === searchString;
+      };
+    }
+    
     if (!String.prototype.includes) {
       String.prototype.includes = function(search, start) {
         'use strict';
