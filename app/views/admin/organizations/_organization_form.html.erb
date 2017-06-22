@@ -1,41 +1,55 @@
-<div class="row">
-  <div class = "columns small-11" data-campaign = "<%= organization.id %>">
-    <div class="panel">
-      <%= form_for([:admin, organization]) do |f| %>
-        <div id="response_explanation">
-          <ul>
-            <% organization.errors.full_messages.each do |msg| %>
-              <li style="color: red;"><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-        <br>
-        <div class="row image-row">
-          <div class="large-6 columns">
-            <%= f.label :name, "Name" %>
-            <%= f.text_field :name %>
-          </div>
-          <div class="large-6 columns">
-            <%= f.label :logo, "Logo"  %>
-            <%= f.file_field :logo, { id: "file_input" } %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="large-6 columns">
-            <%= f.label :num_employees, "Number of Employees"  %>
-            <%= f.number_field :num_employees %>
-          </div>
-          <div class="large-6 columns">
-            <%= f.label :featured, "Featured?" %>
-            <%= f.check_box :featured %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="large-2 large-offset-6 columns" style="text-align:right">
-            <%= f.submit "Save", class: "button" %>
-          </div>
-        </div>
+<%= form_for([:admin, organization]) do |f| %>
+  <div id="response_explanation">
+    <ul>
+      <% organization.errors.full_messages.each do |msg| %>
+        <li style="color: red;"><%= msg %></li>
       <% end %>
-      </div>
+    </ul>
   </div>
-</div>
+  <br>
+  <div class="row image-row">
+    <div class="large-6 columns">
+      <%= f.label :name, "Name" %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="large-6 columns">
+      <%= f.label :logo, "Logo"  %>
+      <%= f.file_field :logo, { id: "file_input" } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.label :num_employees, "Number of Employees"  %>
+      <%= f.number_field :num_employees %>
+    </div>
+    <div class="large-6 columns">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.label :free_trial_started_at, "Free trial start date" %>
+      <%= f.text_field :free_trial_started_at, type: :date %>
+    </div>
+    <div class="large-6 columns">
+      <%= f.label :chart_mogul_uuid %>
+      <%= f.text_field :chart_mogul_uuid, disabled: true %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.label :featured, "Featured?" %>
+      <%= f.check_box :featured %>
+    </div>
+    <div class="large-6 columns">
+      <%= f.label :internal, "Internal Airbo Organization?" %>
+      <%= f.check_box :internal %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= f.submit "Save", class: "button green float-right" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,5 @@
+@import 'mixins/card-component';
+
+.organization-module {
+  @include card-component($dark-blue, $primary-gray);
+}

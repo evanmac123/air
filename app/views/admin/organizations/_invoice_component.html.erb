@@ -1,0 +1,8 @@
+<tr class="resource-row" data-url="">
+  <td><%= invoice.id %></td>
+  <td><%= invoice.service_period_start.to_date %></td>
+  <td><%= invoice.service_period_end.to_date %></td>
+  <td><%= invoice.amount_in_cents %></td>
+  <td><%= invoice.chart_mogul_uuid %></td>
+  <td><%= link_to "Delete Invoice", admin_organization_subscription_invoice_path(@organization, subscription, invoice), method: :delete, class: "button tiny red" %></td>
+</tr>

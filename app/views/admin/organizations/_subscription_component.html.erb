@@ -1,0 +1,66 @@
+<div class="card-content">
+  <div class="row">
+    <div class="columns small-6">
+      <p class="mt-0 mb-0"><%= subscription.subscription_plan.name %></p>
+      <p class="mt-0 mb-0">ID: <%= subscription.id %></p>
+      <% if subscription.cancelled_at.present? %>
+        <p class="mt-0 mb-0">Cancelled at: <%= subscription.cancelled_at.to_date %></p>
+      <% end %>
+    </div>
+    <% unless subscription.cancelled_at.present? %>
+      <div class="columns small-6">
+        <%= link_to "Cancel Subscription", "#", class: "js-cancel-subscription button tiny yellow float-right", data: { reveal_id: "jsCancelSubscription#{subscription.id}" } %>
+      </div>
+    <% end %>
+  </div>
+  <% unless subscription.cancelled_at.present? %>
+    <div class="row mt-2">
+      <div class="columns small-12">
+        <%= link_to "Add Invoice", "#", class: "button green tiny js-add-invoice", data: { reveal_id: "jsAddInvoice#{subscription.id}" } %>
+      </div>
+    </div>
+  <% end %>
+  <% if subscription.invoices.present? %>
+    <div class="row mt-2">
+      <div class="small-12 columns">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Service Period Start</th>
+              <th>Service Period End</th>
+              <th>Amount in Cents</th>
+              <th>Chart Mogul UUID</th>
+              <th>Delete?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% subscription.invoices.each do |invoice| %>
+              <%= render "invoice_component", invoice: invoice, subscription: subscription %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Modals -->
+
+  <div id="jsCancelSubscription<%= subscription.id %>" class="js-subscriptions reveal-modal">
+    <div class="modal_container">
+      <a class="close-reveal-modal"><i class="fa fa-times fa-1x"></i></a>
+      <div id="modal_content">
+        <%= render "cancel_subscription_form", subscription: subscription %>
+      </div>
+    </div>
+  </div>
+
+  <div id="jsAddInvoice<%= subscription.id %>" class="js-subscriptions reveal-modal">
+    <div class="modal_container">
+      <a class="close-reveal-modal"><i class="fa fa-times fa-1x"></i></a>
+      <div id="modal_content">
+        <%= render "add_invoice_form", subscription: subscription %>
+      </div>
+    </div>
+  </div>
+</div>

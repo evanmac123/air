@@ -7,5 +7,4 @@ class ContractRenewer
       end
     end
   end
-
 end

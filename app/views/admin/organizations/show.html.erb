@@ -1,39 +1,17 @@
-<div class="row">
-  <div class="columns small-12">
-    <h1 class ="text-left"><%= @organization.name %></h1>
-    <fieldset>
-      <legend>Info</legend>
-      <%= render 'shared/organization_card', organization: @organization %>
-      <%=link_to "Edit this organization", edit_admin_organization_path(@organization)%>
-    </fieldset>
-    <br>
-    <% if @organization.is_in_sales? %>
-      <fieldset>
-        <legend>Sales Data</legend>
-        <%= render "sales_users_table", { users: @organization.users } %>
-      </fieldset>
-    <% end %>
-    <fieldset>
-      <legend>Customer Success</legend>
-      <% if @organization.channel_list.present? %>
-        <% @organization.channel_list.each do |channel| %>
-          <%= link_to channel, explore_channel_path(id: channel.parameterize), target: "_blank", class: "button outlined gray explore-tag", style: "border-radius: 0; padding: 5px; margin-bottom: 4px; text-transform: lowercase;" %>
-        <% end %>
-      <% else %>
-        <p>No interests yet.</p>
-      <% end %>
-    </fieldset>
-    <fieldset>
-      <legend>Boards</legend>
-      <%= render "org_boards", boards: @organization.boards %>
-    </fieldset>
-    <fieldset>
-      <legend>Contracts</legend>
-      <%= render "cust_contracts", organization: @organization %>
-    </fieldset>
+<div class="organization-module">
+  <%= render "organization_component" %>
+  <%= render "boards_component" %>
+  <%= render "subscriptions_component" %>
+  <%= render "delete_organization_component" %>
+</div>
 
-    <%= form_tag admin_organization_path(@organization), method: :delete do %>
-      <%= submit_tag 'Delete Organization', confirm: "Are you sure you would like to delete the #{@organization.name} organization?", class: "button red" %>
-    <% end %>
+<!-- Modals -->
+
+<div id="jsAddSubscription" class="js-subscriptions reveal-modal">
+  <div class="modal_container">
+    <a class="close-reveal-modal"><i class="fa fa-times fa-1x"></i></a>
+    <div id="modal_content">
+      <%= render "subscription_form", organization: @organization, plans: SubscriptionPlan.all %>
+    </div>
   </div>
 </div>

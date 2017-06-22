@@ -4,6 +4,13 @@ namespace :admin do
   constraints Clearance::Constraints::SignedIn.new { |user| user.is_site_admin } do
     mount Searchjoy::Engine, at: "searchjoy"
   end
+
+  namespace :chart_mogul do
+    resources :organizations, only: [:destroy] do
+      post 'sync'
+    end
+  end
+
   resources :user_migrators
   resource  :sales, only: [:show]
   resources :channels
@@ -37,6 +44,11 @@ namespace :admin do
     end
     resources :contracts, controller: "contracts"
     resources :billings
+
+    resources :subscriptions, only: [:create, :destroy] do
+      put 'cancel'
+      resources :invoices, only: [:create, :destroy]
+    end
   end
 
   resources :contracts do

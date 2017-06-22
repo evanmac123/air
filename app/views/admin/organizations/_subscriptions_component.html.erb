@@ -1,0 +1,23 @@
+<div class="card-component">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="row">
+        <div class="columns large-6 small-12">
+          <h3 class="card-title">Subscriptions</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-content">
+      <div class="row">
+        <div class="columns small-12">
+          <%= link_to "Add Subscription", "#", class: "js-org-add-subscription button green", data: { reveal_id: "jsAddSubscription" } %>
+        </div>
+      </div>
+    </div>
+    <% @organization.subscriptions.each do |subscription| %>
+      <%= render "subscription_component", subscription: subscription %>
+    <% end %>
+  </div>
+</div>

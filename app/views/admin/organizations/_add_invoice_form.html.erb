@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="columns small-12">
+    <p>Add invoice for subscription <%= subscription.id %></p>
+  </div>
+</div>
+<%= form_for [:admin, subscription.organization, subscription, Invoice.new] do |f| %>
+  <%= f.hidden_field :subscription_id, value: subscription.id %>
+  <div class="row">
+    <div class="columns small-6">
+      <%= f.label :amount_in_cents %>
+      <%= f.number_field :amount_in_cents %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="columns small-6">
+      <%= f.label :service_period_start %>
+      <%= f.text_field :service_period_start, type: :date  %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="columns small-6">
+      <%= f.label :service_period_end %>
+      <%= f.text_field :service_period_end, type: :date  %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= f.submit "Save", class: "button green float-right" %>
+    </div>
+  </div>
+<% end %>

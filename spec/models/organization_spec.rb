@@ -7,6 +7,21 @@ describe Organization do
     expect(o.valid?).to be_truthy
   end
 
+  describe ".before_save" do
+    describe "#normalize_blank_values" do
+      it "calls method from mixin" do
+        Organization.any_instance.expects(:normalize_blank_values).once
+        FactoryGirl.create(:organization)
+      end
+
+      it "forces blank values to nil" do
+        org = FactoryGirl.create(:organization, email: "")
+
+        expect(org.email).to eq(nil)
+      end
+    end
+  end
+
   context "customer start and and dates" do
 
     let(:org){FactoryGirl.create(:organization, :complete)}

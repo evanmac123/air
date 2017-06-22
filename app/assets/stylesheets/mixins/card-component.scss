@@ -10,7 +10,6 @@
       background-color: $header-background-color;
       color: #fff;
       .card-title-group {
-        box-shadow: inset 0 -1px 0 0 darken($header-background-color, 5%);
         .card-title {
           font-size: 28px;
           font-weight: 400;
@@ -22,6 +21,11 @@
       .card-header-content {
         padding: 16px;
         min-height: $default-header-content-height;
+        border-top: solid 1px darken($header-background-color, 5%);
+      }
+      &.danger {
+        border-color: $n-red;
+        background-color: $n-red;
       }
     }
     .card-body {

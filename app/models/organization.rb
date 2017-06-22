@@ -1,12 +1,15 @@
 class Organization < ActiveRecord::Base
   resourcify
   acts_as_taggable_on :channels
+  include NormalizeBlankValues
 
   before_save :update_slug
+  before_save :normalize_blank_values
 
   has_many :contracts
-  has_many :subscriptions
+  has_many :subscriptions, dependent: :destroy
   has_many :invoices, through: :subscriptions
+  has_many :invoice_transactions, through: :invoices
 
   has_many :demos, autosave: true, dependent: :destroy
   has_many :lead_contacts, dependent: :destroy
@@ -17,6 +20,7 @@ class Organization < ActiveRecord::Base
   has_one :onboarding, autosave: true
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validate :free_trial_cannot_start_before_created_at_or_in_future
 
   accepts_nested_attributes_for :boards
   accepts_nested_attributes_for :users
@@ -29,6 +33,12 @@ class Organization < ActiveRecord::Base
       styles: { small: "x40>", medium: "x120>" },
       default_style: :small
     }
+
+  def free_trial_cannot_start_before_created_at_or_in_future
+    if free_trial_started_at.present? && (free_trial_started_at < created_at.to_date || free_trial_started_at.to_time > Time.now)
+      errors.add(:free_trial_started_at, "can't be before #{created_at} or in the future")
+    end
+  end
 
   def role_names
     roles.pluck(:name)
@@ -61,19 +71,6 @@ class Organization < ActiveRecord::Base
 
   def self.active_as_of_date d
     as_customer.select{|o| o.active_as_of_date(d)}
-  end
-
-  def self.with_active_contracts date
-    org_table = Organization.arel_table
-    contract_table = Contract.arel_table
-
-    self.select(org_table[:name]).joins(
-      org_table.join(contract_table).on(
-        org_table[:id].eq(contract_table[:organization_id]).and(
-          contract_table[:end_date].gteq(date).and(contract_table[:in_collection].eq(false))
-        )
-      ).join_sources
-    ).uniq
   end
 
   def self.currently_active
@@ -184,14 +181,4 @@ class Organization < ActiveRecord::Base
     users.non_site_admin.where(arel_users[:accepted_invitation_at].not_eq(nil))
   end
 
-  private
-
-    def create_default_board_membership
-      if users.first && demos.first
-        bm = BoardMembership.new
-        bm.user = users.first
-        bm.demo = demos.first
-        bm.save
-      end
-    end
 end

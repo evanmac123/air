@@ -28,6 +28,7 @@ class SalesOrganizationCreator
 
     def set_sales_defaults
       board.guest_user_conversion_modal = false
+      organization.email = user.email
     end
 
     def setup_sales_org

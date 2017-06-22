@@ -1,12 +1,12 @@
 class ChartMogulService::Invoice
   attr_reader :invoice, :organization, :plan, :subscription
 
-  def self.create_subscription_invoice(invoice: invoice)
+  def self.create_subscription_invoice(invoice:)
     chart_mogul_service = ChartMogulService::Invoice.new(invoice: invoice)
     chart_mogul_service.create_subscription_invoice
   end
 
-  def initialize(invoice: invoice)
+  def initialize(invoice:)
     @invoice = invoice
     @organization = invoice.organization
     @subscription = invoice.subscription
@@ -23,8 +23,18 @@ class ChartMogulService::Invoice
       customer_uuid: organization.chart_mogul_uuid,
       invoices: [chart_mogul_invoice]
     )
+
     if result
       invoice.update_attributes(chart_mogul_uuid: result.invoices.first.uuid)
+      result
+    end
+  end
+
+  def remove_invoice
+    begin
+      ChartMogul::Invoice.destroy!(uuid: invoice.chart_mogul_uuid)
+    rescue ChartMogul::NotFoundError
+      return true
     end
   end
 
@@ -34,20 +44,12 @@ class ChartMogulService::Invoice
       organization.chart_mogul_uuid && plan.chart_mogul_uuid
     end
 
-    def get_customer(organization)
-      ChartMogulService::Customer.new(organization).find_or_create_customer
-    end
-
-    def get_plan(plan)
-      ChartMogulService::Plan.new(plan).find_plan_by_name(internal_plan_name)
-    end
-
     def build_subscription_invoice_line_item
       ChartMogul::LineItems::Subscription.new(
         subscription_external_id: subscription.id,
         plan_uuid: plan.chart_mogul_uuid,
-        service_period_start: invoice.service_period_start.utc,
-        service_period_end: invoice.service_period_end.utc,
+        service_period_start: invoice.service_period_start,
+        service_period_end: invoice.service_period_end,
         amount_in_cents: invoice.amount_in_cents,
       )
     end
@@ -55,9 +57,9 @@ class ChartMogulService::Invoice
     def build_subscription_invoice(line_item:)
       ChartMogul::Invoice.new(
       	external_id: invoice.id,
-        date: invoice.created_at.utc,
+        date: invoice.created_at,
         currency: 'USD',
-        due_date: invoice.service_period_start.utc,
+        due_date: invoice.service_period_start,
         line_items: [line_item]
       )
     end

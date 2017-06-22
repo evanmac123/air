@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="columns small-12">
+    <p>Add a subscription</p>
+  </div>
+</div>
+<%= form_for [:admin, organization, Subscription.new] do |f| %>
+  <div class="row">
+    <%= f.hidden_field :organization_id, value: organization.id %>
+    <div class="columns small-6">
+      <%= f.label :subscription_plan_id, "Plan" %>
+      <%= f.select :subscription_plan_id, plans.map { |p| [ p.name, p.id ] }, include_blank: true  %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= f.submit "Save", class: "button green float-right" %>
+    </div>
+  </div>
+<% end %>
