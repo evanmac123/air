@@ -31,12 +31,9 @@ Health::Application.configure do
   # In production, Apache or nginx will already do this
   config.serve_static_assets = false
 
-  # Enable serving of images, stylesheets, and javascripts from an asset server
-  # Note that you must run
-  # heroku labs:enable user_env_compile --app <appname>
-  # In order for assets to be compiled during push
-  config.action_controller.asset_host = "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
-  config.action_mailer.asset_host = "https:" + config.action_controller.asset_host
+  # Set AWS Cloudfront as asset host
+  config.action_controller.asset_host = ENV['CLOUDFRONT_DOMAIN']
+  config.action_mailer.asset_host = config.action_controller.asset_host
 
 	Rails.application.routes.default_url_options[:host] = ENV['APP_HOST']
   # Disable delivery errors, bad email addresses will be ignored
