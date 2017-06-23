@@ -17,7 +17,6 @@ gem 'clearance'
 ### Remove after porting passwords to BCRYPT:
 gem 'clearance-deprecated_password_strategies'
 ###
-gem 'aws-s3'
 gem 'delayed_job'
 gem 'haml-rails'
 gem 'chronic'
@@ -94,7 +93,7 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'jquery-ui-rails'
-  gem 'handlebars_assets'
+  gem 'handlebars_assets', '~>0.22.0'
 end
 
 
