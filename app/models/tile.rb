@@ -31,6 +31,7 @@ class Tile < ActiveRecord::Base
   IMAGE_UPLOAD = "image-upload"
   IMAGE_SEARCH = "image-search"
   VIDEO_UPLOAD = "video-upload"
+  MAX_REMOTE_MEDIA_URL_LENGTH = 2000
 
   acts_as_taggable_on :channels
 
@@ -62,7 +63,7 @@ class Tile < ActiveRecord::Base
   before_save :update_timestamps, if: :status_changed?
   before_save :ensure_protocol_on_link_address, :handle_suggested_tile_status_change
   before_save :set_image_credit_to_blank_if_default
-  before_save :set_image_processing, if: :image_changed?
+  before_save :prep_image_processing, if: :image_changed?
   after_save :process_image, if: :image_changed?
 
   validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank",  if: :state_is_anything_but_draft?
@@ -79,11 +80,7 @@ class Tile < ActiveRecord::Base
      status != DRAFT
   end
 
-
-
   before_post_process :no_post_process_on_copy
-
-
 
   scope :after_start_time, -> { where("start_time < ? OR start_time IS NULL", Time.now) }
   scope :before_end_time, -> { where("end_time > ? OR end_time IS NULL", Time.now) }
@@ -450,10 +447,19 @@ class Tile < ActiveRecord::Base
     end
   end
 
-  def set_image_processing
+  def prep_image_processing
+    validate_remote_media_url if remote_media_url.present?
+
     if remote_media_url.present?
       self.thumbnail_processing = true
       self.image_processing = true
+    end
+  end
+
+  def validate_remote_media_url
+    # Prevent remote_media_urls that are too long without preventing the entire tile from saving.
+    if remote_media_url.length > MAX_REMOTE_MEDIA_URL_LENGTH
+      self.remote_media_url = nil
     end
   end
 

@@ -25,7 +25,6 @@ function imagePreview(data){
   var node, imagePlaceholder, index = data.index || 0, file = data.files[index];
   data.context = $(imageUploaderSelector);
   node = data.context.find(imagePreviewSelector);
-
   if (defaultBuiltInPreview(file)) {
     //Built-in image preview (scales images)
     node.html(file.preview);
@@ -64,10 +63,10 @@ function fileAdded(data){
 
 function fileProgress(data){
   var progress;
-  // console.log(parseInt(data.loaded / data.total * 100, 10))
+  // console.log(parseInt(data.loaded / data.total * 100, 10));
   if (data.context) {
     progress = parseInt(data.loaded / data.total * 100, 10);
-    // console.log(progress)
+    // console.log(progress);
     data.context.find('.bar').css('width', progress + '%');
   }
   customHandler.progressed(data);
