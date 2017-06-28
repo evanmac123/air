@@ -11,13 +11,21 @@ Airbo.TileImageFormFields = (function(){
     mediaSource = $("#media_source");
   }
 
-  function setFormFieldsForSelectedImage(fields){
-    remoteMediaUrl.val(fields.url);
-    remoteMediaType.val(fields.type || "image");
-    mediaSource.val(fields.source);
+  function setFormFieldsForSelectedImage(formFieldArgs) {
+    if (remoteUploadComplete(formFieldArgs.url)) {
+      remoteMediaUrl.val(formFieldArgs.url);
+      remoteMediaType.val(formFieldArgs.type || "image");
+      mediaSource.val(formFieldArgs.source);
+    }
   }
 
-  function initImageSelectedListener(){
+  function remoteUploadComplete(url) {
+    // Confirm direct uploads have valid urls and are no longer base64 encoded images.
+    var validUrlRegexp = /(http|https):/;
+    return validUrlRegexp.test(url);
+  }
+
+  function initImageSelectedListener() {
     Airbo.PubSub.subscribe('image-selected', function(event, formFieldArgs) {
       setFormFieldsForSelectedImage(formFieldArgs);
     });

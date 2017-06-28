@@ -32,9 +32,9 @@ class ImageProcessJob
 
 
   def image_path
-    #TODO fix me in test
-    URI.parse(URI.encode(@tile.remote_media_url))
-
+    if @tile.remote_media_url.is_a?(String)
+      URI.parse(URI.encode(@tile.remote_media_url))
+    end
   end
 
   def library_image

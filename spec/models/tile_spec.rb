@@ -28,6 +28,91 @@ describe Tile do
     end
   end
 
+  describe "before_save" do
+    let(:tile) { FactoryGirl.create(:tile) }
+
+    describe "#prep_image_processing" do
+      describe "when image has not been changed" do
+        it "does not call method prep_image_processing" do
+          tile.expects(:prep_image_processing).never
+
+          tile.save
+        end
+      end
+
+      describe "when image has been updated" do
+        it "calls prep_image_processing" do
+          tile.expects(:prep_image_processing).once
+
+          tile.remote_media_url = "remote_media_url"
+          tile.save
+        end
+      end
+    end
+  end
+
+  describe "#prep_image_processing" do
+    let(:tile) { FactoryGirl.create(:tile) }
+
+    it "calls #validate_remote_media_url if remote_media_url is present" do
+      tile.expects(:validate_remote_media_url).once
+      tile.remote_media_url = "remote_media_url"
+
+      tile.send(:prep_image_processing)
+    end
+
+    it "does not calla #validate_remote_media_url if remote_media_url is nil" do
+      tile.expects(:validate_remote_media_url).never
+      tile.remote_media_url = nil
+
+      tile.send(:prep_image_processing)
+    end
+
+    it "sets thumbnail_processing and image_processing to true if remote_media_url is present" do
+      tile.thumbnail_processing = false
+      tile.image_processing = false
+
+      tile.remote_media_url = "remote_media_url"
+      tile.send(:prep_image_processing)
+
+      expect(tile.thumbnail_processing).to eq(true)
+      expect(tile.image_processing).to eq(true)
+    end
+
+    it "does not set thumbnail_processing and image_processing to true if remote_media_url is not present"  do
+      tile.thumbnail_processing = false
+      tile.image_processing = false
+
+      tile.remote_media_url = nil
+      tile.send(:prep_image_processing)
+
+      expect(tile.thumbnail_processing).to eq(false)
+      expect(tile.image_processing).to eq(false)
+    end
+  end
+
+  describe "#validate_remote_media_url" do
+    let(:tile) { FactoryGirl.create(:tile) }
+
+    it "sets remote_media_url to nil if remote_media_url is greater than Tile.MAX_REMOTE_MEDIA_URL_LENGTH" do
+      long_remote_media_url = "s" * (Tile::MAX_REMOTE_MEDIA_URL_LENGTH + 1)
+
+      tile.remote_media_url = long_remote_media_url
+      tile.send(:validate_remote_media_url)
+
+      expect(tile.remote_media_url).to eq(nil)
+    end
+
+    it "does not change the remote_media_url if it is <= the Tile.MAX_REMOTE_MEDIA_URL_LENGTH" do
+      long_remote_media_url = "s" * (Tile::MAX_REMOTE_MEDIA_URL_LENGTH)
+
+      tile.remote_media_url = long_remote_media_url
+      tile.send(:validate_remote_media_url)
+
+      expect(tile.remote_media_url).to eq(long_remote_media_url)
+    end
+  end
+
   context "incomplete drafts" do
     let(:demo){Demo.new}
     LONG_TEXT  =  "*" * (Tile::MAX_SUPPORTING_CONTENT_LEN + 1)
