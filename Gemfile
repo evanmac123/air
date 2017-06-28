@@ -4,6 +4,7 @@ ruby '2.1.8'
 
 gem 'rails', '=3.2.22.1'
 gem 'rack', '~> 1.4.7'
+gem 'rack-cors', :require => 'rack/cors'
 gem 'delayed_job_active_record'
 gem 'high_voltage'
 gem 'paperclip', '~>3.3.0'
@@ -88,7 +89,6 @@ gem 'chartmogul-ruby', require: 'chartmogul'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'asset_sync'
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'

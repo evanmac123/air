@@ -161,5 +161,12 @@ module Health
     config.middleware.use Rack::Deflater
 
     config.cache_store = :redis_store, ENV['REDIS_CACHE'], { expires_in: 5.years }
+
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
+      end
+    end
   end
 end
