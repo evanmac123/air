@@ -1,0 +1,35 @@
+<div class="card-component">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="row">
+        <div class="columns large-6 small-12">
+          <h3 class="card-title"><%= @organization.name %></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-content">
+      <div class="row">
+        <div class="columns small-12">
+          <%= image_tag @organization.logo.url, alt: "#{@organization.name} logo" %>
+        </div>
+      </div>
+      <%= render "organization_form", organization: @organization %>
+    </div>
+    <div class="card-content">
+      <div class="row">
+        <div class="small-12 columns">
+          <%= button_to "Sync with Chart Mogul", admin_chart_mogul_organization_sync_path([@organization]), class: "js-sync-org-chart-mogul button yellow" %>
+        </div>
+        <% if @organization.chart_mogul_uuid.present? %>
+          <div class="row">
+            <div class="small-12 columns mt-2">
+              <%= button_to "Remove Org from Chart Mogul", admin_chart_mogul_organization_path([@organization]), class: "js-destroy-org-chart-mogul button red tiny float-right", method: :delete %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

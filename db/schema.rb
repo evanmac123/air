@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170615230749) do
+ActiveRecord::Schema.define(:version => 20170621173204) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -763,13 +763,13 @@ ActiveRecord::Schema.define(:version => 20170615230749) do
     t.string   "sales_channel"
     t.boolean  "churned"
     t.text     "churn_reason"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
-    t.boolean  "is_hrm",            :default => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.boolean  "is_hrm",                :default => false
     t.string   "size_estimate"
     t.string   "slug"
-    t.boolean  "internal",          :default => false
-    t.integer  "demos_count",       :default => 0,     :null => false
+    t.boolean  "internal",              :default => false
+    t.integer  "demos_count",           :default => 0,     :null => false
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
@@ -778,6 +778,7 @@ ActiveRecord::Schema.define(:version => 20170615230749) do
     t.text     "chart_mogul_uuid"
     t.string   "email"
     t.string   "zip_code"
+    t.date     "free_trial_started_at"
   end
 
   add_index "organizations", ["name"], :name => "index_organizations_on_name"

@@ -1,19 +1,47 @@
 class Invoice < ActiveRecord::Base
-  # attrs :amount_in_cents, :description, :due_date, :service_period_end, :service_period_start, :type_cd
-
   belongs_to :subscription
-  has_many   :invoice_transactions
+  has_many   :invoice_transactions, dependent: :destroy
 
   validates :subscription, presence: true
   validates :amount_in_cents, presence: true, numericality: true
+  validates :type_cd, presence: true
   validates :service_period_start, presence: true
   validates :service_period_end, presence: true
-  validates :type_cd, presence: true
+  validate  :valid_service_dates
 
   as_enum :type, subscription: 0, one_time: 1
 
-  def self.paid_invoices
+  scope :service_ends_tomorrow, -> { where("DATE(service_period_end) = ?", Date.tomorrow) }
 
+  def self.renew_active_invoices
+    Invoice.service_ends_tomorrow.each do |invoice|
+      subscription = invoice.subscription
+
+      if subscription && subscription.should_renew_invoice?(invoice: invoice)
+        puts "Renewing subscription #{invoice.subscription.id}"
+        Invoice.renew_invoice(original_invoice: invoice)
+      end
+    end
+  end
+
+  def self.renew_invoice(original_invoice:)
+    new_invoice = original_invoice.dup
+    new_invoice.service_period_start = original_invoice.service_period_end.advance(days: 1)
+    new_invoice.service_period_end = new_invoice.calculate_service_period_end
+
+    if new_invoice.save
+      ChartMogulService::Sync.new(organization: new_invoice.organization).sync
+    end
+  end
+
+  def calculate_service_period_end
+    service_period_start + plan.interval_count.send(plan.interval)
+  end
+
+  def plan
+    if subscription
+      subscription.subscription_plan
+    end
   end
 
   def create_subscription_invoice_in_chart_mogul
@@ -28,66 +56,13 @@ class Invoice < ActiveRecord::Base
     subscription.id
   end
 
-  def subscription_plan
-    subscription.subscription_plan
+  def find_or_create_payment
+    invoice_transactions.paid.first || invoice_transactions.create(type: InvoiceTransaction.payment, result: InvoiceTransaction.successful)
   end
 
- #METHODS FOR MIGRATION
-  def self.subscription_cancelled?(contract, last_contract)
-    if last_contract && contract.end_date < Date.today
-      contract.end_date.end_of_day
-    end
-  end
-
-  def self.match_new_plan(old_plan, cycle)
-    if old_plan == "Engage"
-      if cycle == "Annual"
-        SubscriptionPlan.find_by_name("engage_annual")
-      elsif cycle == "Monthly"
-        SubscriptionPlan.find_by_name("engage_monthly")
-      else
-        SubscriptionPlan.find_by_name("engage_campaign")
-      end
-    elsif old_plan == "Activate"
-      if cycle == "Monthly"
-        SubscriptionPlan.find_by_name("activate_monthly")
-      else
-        SubscriptionPlan.find_by_name("activate_annual")
-      end
-    elsif old_plan == "Enterprise"
-      SubscriptionPlan.find_by_name("enterprise")
-    end
-  end
-
-  def self.add_invoices_from_org(org)
-    ordered_contracts = org.contracts.order(:end_date).group_by {|c| c.plan}
-
-    ordered_contracts.each do |plan, contracts|
-      new_plan = Invoice.match_new_plan(plan, contracts.first.cycle)
-
-      subscription = org.subscriptions.create(subscription_plan: new_plan)
-
-      contracts.each_with_index do |contract, i|
-        puts "ADDING INVOICES FOR #{subscription.organization.name}."
-        if contracts.length - 1 == i
-          last_contract = true
-        else
-          last_contract = false
-        end
-
-        subscription.invoices.create(
-          due_date: contract.start_date.beginning_of_day,
-          service_period_start: contract.start_date.beginning_of_day,
-          service_period_end: contract.end_date.end_of_day,
-          amount_in_cents: contract.amt_booked * 100,
-          description: contract.notes,
-          type_cd: 0
-        )
-
-        if Invoice.subscription_cancelled?(contract, last_contract)
-          subscription.update_attributes(cancelled_at: Invoice.subscription_cancelled?(contract, last_contract))
-        end
-      end
+  def valid_service_dates
+    if service_period_start > service_period_end
+      errors.add(:service_period_end, "cannot be before Service period start.")
     end
   end
 end

@@ -25,6 +25,10 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   def show
+    unless @organization
+      flash[:failure] = "Organization not found."
+      redirect_to admin_path
+    end
   end
 
   def import
@@ -47,13 +51,18 @@ class Admin::OrganizationsController < AdminBaseController
       flash[:success] = "#{@organization.name} has been updated."
       redirect_to admin_organization_path(@organization)
     else
-      render :edit
+      render :show
     end
   end
 
   def destroy
-    @organization.destroy
-    flash[:success] = t('controllers.admin.organizations.flash_destroy', name: @organization.name)
+    if @organization == current_user.demo.organization
+      flash[:failure] = "Switch out of #{@organization.name}'s demos in order to delete the organization."
+    else
+      @organization.delay.destroy
+      flash[:success] = t('controllers.admin.organizations.flash_destroy', name: @organization.name)
+    end
+
     redirect_to admin_path
   end
 
@@ -64,6 +73,6 @@ class Admin::OrganizationsController < AdminBaseController
     end
 
     def organization_params
-      params.require(:organization).permit(:name, :logo, :num_employees, :featured)
+      params.require(:organization).permit(:name, :logo, :num_employees, :featured, :email, :internal, :free_trial_started_at)
     end
 end

@@ -1,0 +1,22 @@
+<div class="card-component">
+  <div class="card-header danger">
+    <div class="card-title-group">
+      <div class="row">
+        <div class="columns large-6 small-12">
+          <h3 class="card-title"></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-content">
+      <div class="row">
+        <div class="columns small-12">
+          <%= form_tag admin_organization_path(@organization), method: :delete do %>
+            <%= submit_tag 'Delete Organization', confirm: "Are you sure you would like to delete the #{@organization.name} organization?", class: "button red" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

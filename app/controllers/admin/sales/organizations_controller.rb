@@ -15,6 +15,8 @@ class Admin::Sales::OrganizationsController < AdminBaseController
       flash[:success] = flash_create_success(user)
       redirect_to explore_path
     else
+      @default_board_id = default_sales_board
+      @demos_to_select_from = demos_to_select_from
       render :new
     end
   end

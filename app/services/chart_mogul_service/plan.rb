@@ -18,7 +18,7 @@ class ChartMogulService::Plan
   def create_chart_mogul_plan_and_update_internal_plan
     unless chart_mogul_plan
       create_chart_mogul_plan
-      update_internal_plan_uuid if chart_mogul_plan
+      update_internal_plan_uuid
       chart_mogul_plan
     end
   end
@@ -43,7 +43,9 @@ class ChartMogulService::Plan
     end
 
     def update_internal_plan_uuid
-      subscription_plan.update_attributes(chart_mogul_uuid: chart_mogul_plan.uuid)
+      if chart_mogul_plan
+        subscription_plan.update_attributes(chart_mogul_uuid: chart_mogul_plan.uuid)
+      end
     end
 
     def find_plan_by_uuid

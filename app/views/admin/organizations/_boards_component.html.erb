@@ -1,0 +1,35 @@
+<div class="card-component">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="row">
+        <div class="columns large-6 small-12">
+          <h3 class="card-title">Boards</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>All Users</th>
+            <th>Active Users</th>
+            <th>Date Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @organization.demos.name_order.each do |demo| %>
+            <tr class="resource-row" data-url="<%=admin_demo_path(demo)%>">
+              <td><%= demo.name %></td>
+              <td><%= demo.users.count %></td>
+              <td><%= demo.users.claimed.count %></td>
+              <td><%= simple_date_format demo.created_at %></td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
