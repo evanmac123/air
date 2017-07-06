@@ -10,6 +10,11 @@ Handlebars.registerHelper("debugger", function(optionalValue) {
   }
 });
 
+Handlebars.registerHelper('formatLocalTime', function(utc, format) {
+  var utcTime = moment.utc(utc).toDate();
+  return moment(utcTime).local().format(format);
+});
+
 Handlebars.registerHelper("numAddCommas", function(num) {
   if (num) {
     return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');

@@ -2,7 +2,6 @@ class BoardActivityMailer < BaseTilesDigestMailer
 
   ACTIVITY_DIGEST_HEADING = "Your Weekly Airbo Activity Report".freeze
 
-  layout "mailer"
   default reply_to: 'support@airbo.com'
 
   def notify(demo_id, user_id, tile_ids, beg_date, end_date)

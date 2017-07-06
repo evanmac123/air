@@ -35,34 +35,38 @@ class TileEmailTracker
 
   private
 
-  def tile_email_clicked_ping
-    properties = {
-      email_type: email_type,
-      subject_line: valid_subject_line,
-      tiles_digest_id: tile_email_id
-    }
+    def tile_email_clicked_ping
+      properties = {
+        email_type: email_type,
+        subject_line: valid_subject_line,
+        tiles_digest_id: tile_email_id
+      }
 
-    ping("Email clicked", properties, user)
-  end
+      ping("Email clicked", properties, user)
+    end
 
-  def track_tile_email_logins_in_redis
-    tile_email.increment_logins_by_subject_line(valid_subject_line)
-  end
+    def track_tile_email_logins_in_redis
+      if tile_email.new_unique_login?(user_id: user.id)
+        tile_email.increment_unique_logins_by_subject_line(valid_subject_line)
+      end
 
-  def validate_subject_line
-    subject_lines = tile_email.all_related_subject_lines
-    subject_lines.include?(subject_line) ? subject_line : nil
-  end
+      tile_email.increment_logins_by_subject_line(valid_subject_line)
+    end
 
-  def valid_subject_line
-    @_valid_subject_line = validate_subject_line
-  end
+    def validate_subject_line
+      subject_lines = tile_email.all_related_subject_lines
+      subject_lines.include?(subject_line) ? subject_line : nil
+    end
 
-  def tile_email
-    @_tile_email = TilesDigest.where(id: tile_email_id).first
-  end
+    def valid_subject_line
+      @_valid_subject_line = validate_subject_line
+    end
 
-  def follow_up_email
-    @_follow_up_email =  tile_email.follow_up_digest_email
-  end
+    def tile_email
+      @_tile_email = TilesDigest.where(id: tile_email_id).first
+    end
+
+    def follow_up_email
+      @_follow_up_email =  tile_email.follow_up_digest_email
+    end
 end

@@ -103,6 +103,9 @@ class Demo < ActiveRecord::Base
     end
   ###
 
+  def client_admin
+    users.joins(:board_memberships).where(board_memberships: { is_client_admin: true, demo_id: self.id } )
+  end
 
   def self.paid
     where(is_paid: true)

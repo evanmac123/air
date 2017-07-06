@@ -34,11 +34,7 @@ describe BoardActivityMailer do
 		end
 
 		it 'has correct CTA text' do
-			expect(mail.body.encoded).to match("See Your Tiles")
-		end
-
-		it 'does not mention not having to log in ' do
-			expect(mail.body.encoded).not_to match("You won't have to log in.")
+			expect(mail.body.encoded).to match("View Your Reports")
 		end
 	end
 
@@ -52,7 +48,7 @@ describe BoardActivityMailer do
 	end
 
 	def setup_board_membership bm, user, board, is_admin=true
-		bm.demo = board 
+		bm.demo = board
 		bm.user = user
 		bm.is_client_admin=is_admin;
 		bm.save
@@ -72,8 +68,7 @@ describe BoardActivityMailer do
 	end
 
 	def create_date_range_collector
-		ActiveBoardCollector.new(beg_date: @beg_date, end_date: @end_date) 
+		ActiveBoardCollector.new(beg_date: @beg_date, end_date: @end_date)
 	end
 
 end
-

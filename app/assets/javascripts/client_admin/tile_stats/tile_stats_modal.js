@@ -62,7 +62,8 @@ Airbo.TileStatsModal = (function(){
 $(function(){
   var mainTilePage = $(".client_admin-tiles.client_admin-tiles-index.client_admin_main");
   var archivedTilePage = $(".client_admin-inactive_tiles.client_admin-inactive_tiles-index.client_admin_main");
-  if( mainTilePage.length > 0 || archivedTilePage.length > 0){
+  var reportsPage = $(".client_admin-reports");
+  if( mainTilePage.length > 0 || archivedTilePage.length > 0 || reportsPage.length > 0){
     Airbo.TileStatsModal.init();
   }
 });

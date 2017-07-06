@@ -42,6 +42,7 @@ RSpec.describe TilesDigest, :type => :model do
 
     it "calls #send_emails" do
       TilesDigest.any_instance.stubs(:schedule_followup)
+      TilesDigest.any_instance.stubs(:set_tile_email_report_notifications)
 
       TilesDigest.any_instance.expects(:send_emails).once
 
@@ -50,15 +51,24 @@ RSpec.describe TilesDigest, :type => :model do
 
     it "calls #schedule_followup" do
       TilesDigest.any_instance.stubs(:send_emails)
-      TilesDigest.any_instance.stubs(:create_from_digest_form)
+      TilesDigest.any_instance.stubs(:set_tile_email_report_notifications)
 
       TilesDigest.any_instance.expects(:schedule_followup).with(5).once
 
       tiles_digest.deliver(5)
     end
+
+    it "calls #set_tile_email_report_notifications" do
+      TilesDigest.any_instance.stubs(:send_emails)
+      TilesDigest.any_instance.stubs(:schedule_followup)
+
+      TilesDigest.any_instance.expects(:set_tile_email_report_notifications).once
+
+      tiles_digest.deliver(5)
+    end
   end
 
-  describe "#dispatch" do
+  describe ".dispatch" do
     it "creates a tiles_digest object with correct attrs and tiles" do
       demo.update_attributes(tile_digest_email_sent_at: Time.now)
       params = digest_params(demo, client_admin, true)
@@ -73,6 +83,18 @@ RSpec.describe TilesDigest, :type => :model do
       expect(digest.alt_subject).to eq(params[:alt_subject])
       expect(digest.cutoff_time).to eq(demo.tile_digest_email_sent_at)
       expect(digest.tiles.pluck(:id).sort).to eq(tiles.map(&:id).sort)
+    end
+  end
+
+  describe "#set_tile_email_report_notifications" do
+    it "asks ClientAdmin::NotificationsManager to set_tile_email_report_notifications in the background" do
+      digest = TilesDigest.create(demo: demo)
+
+      ClientAdmin::NotificationsManager.expects(:delay).returns(ClientAdmin::NotificationsManager)
+      ClientAdmin::NotificationsManager.expects(:set_tile_email_report_notifications).with(board: digest.demo)
+
+
+      digest.set_tile_email_report_notifications
     end
   end
 
@@ -226,6 +248,7 @@ RSpec.describe TilesDigest, :type => :model do
       expect(digest.rdb[:logins].zrangebyscore("-inf", "inf", "WITHSCORES")).to eq(["A", "2", "B", "3", ])
     end
   end
+
   describe "#logins_by_subject_line" do
     it "returns an ordered array of highest login subject line to lowest login subject line" do
       digest = TilesDigest.new
@@ -240,6 +263,58 @@ RSpec.describe TilesDigest, :type => :model do
       end
 
       expect(digest.logins_by_subject_line).to eq(["3", "B", "2", "A"])
+    end
+  end
+
+  describe "#new_unique_login?" do
+    it "returns true if a user id  is added to the unique_login_set" do
+      digest = TilesDigest.new
+
+      expect(digest.new_unique_login?(user_id: 1)).to eq(true)
+      expect(digest.rdb[:unique_login_set].smembers).to eq(["1"])
+    end
+
+    it "returns false if a user id is already in the unique_login_set" do
+      digest = TilesDigest.new
+
+      expect(digest.new_unique_login?(user_id: 1)).to eq(true)
+      expect(digest.rdb[:unique_login_set].smembers).to eq(["1"])
+
+      expect(digest.new_unique_login?(user_id: 1)).to eq(false)
+    end
+  end
+
+  describe "#increment_unique_logins_by_subject_line" do
+    it "increments unique login counts in a redis sorted set" do
+      digest = TilesDigest.new
+      expect(digest.rdb[:unique_logins].zrangebyscore("-inf", "inf", "WITHSCORES")).to eq([])
+
+      2.times do
+        digest.increment_unique_logins_by_subject_line("A")
+      end
+
+      3.times do
+        digest.increment_unique_logins_by_subject_line("B")
+      end
+
+      expect(digest.rdb[:unique_logins].zrangebyscore("-inf", "inf", "WITHSCORES")).to eq(["A", "2", "B", "3", ])
+    end
+  end
+
+  describe "#unique_logins_by_subject_line" do
+    it "returns an ordered array of highest unique login subject line to lowest unique login subject line" do
+      digest = TilesDigest.new
+      expect(digest.unique_logins_by_subject_line).to eq([])
+
+      2.times do
+        digest.rdb[:unique_logins].zincrby(1, "A")
+      end
+
+      3.times do
+        digest.rdb[:unique_logins].zincrby(1, "B")
+      end
+
+      expect(digest.unique_logins_by_subject_line).to eq(["3", "B", "2", "A"])
     end
   end
 end

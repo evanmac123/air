@@ -3,28 +3,40 @@
     <div class="card-title-group">
       <div class="row">
         <div class="columns large-6 small-8">
-          <h3 class="card-title">Sent on {{reportHeader}}</h3>
-        </div>
-        <div class="columns large-6 small-4">
-          <a href="#" id="tileDataToggle{{tileEmailId}}" class="button button-new dark-blue js-expand-tile-data-button collapse-icon float-right mt-1 mr-1" data-target="#tileData{{tileEmailId}}">Hide</a>
+          <h3 class="card-title">Sent on {{formatLocalTime tileEmailSentAt 'MMM D, Y [at] h:mm A'}}</h3>
         </div>
       </div>
     </div>
   </div>
   <div class="card-body">
     <div class="card-content js-subject-line-section subject-line-section">
-      {{#each loginsBySubjectLine}}
+      {{#if showUnique}}
+        {{#each loginsBySubjectLine}}
+          <div id="subject-{{@index}}" class="subject js-subject">
+            <div class="row">
+              <div class="columns small-10">
+                <h3 class="subject-line">{{@key}}</h3>
+              </div>
+              <div class="columns small-2">
+                  <h3 class="login-count float-right"><span class="login-count-number">{{numAddCommas this}}</span> {{pluralize this "unique login" "unique logins"}}</h3>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      {{else}}
+        {{#each loginsBySubjectLine}}
         <div id="subject-{{@index}}" class="subject js-subject">
           <div class="row">
-            <div class="columns small-10">
+            <div class="columns small-7">
               <h3 class="subject-line">{{@key}}</h3>
             </div>
-            <div class="columns small-2">
-              <h3 class="login-count float-right">{{numAddCommas this}} {{pluralize this "login" "logins"}}</h3>
+            <div class="columns small-5">
+              <h3 class="login-count float-right"><span class="login-count-number">{{numAddCommas this}}</span> total logins</h3>
             </div>
           </div>
         </div>
-      {{/each}}
+        {{/each}}
+      {{/if}}
     </div>
     <div class="card-content js-tile-email-data tile-email-data">
       <div class="row">
@@ -54,22 +66,50 @@
         </div>
         <div class="columns large-3 small-6 text-center">
           <i class="tile-email-data-point data-icon fa fa-tv" aria-hidden="true"></i>
-          <span class="d-block tile-email-data-point data-number">{{numAddCommas totalLoginsFromEmail}}</span>
-          <span class="d-block tile-email-data-point data-label">{{pluralize totalLoginsFromEmail "Login" "Logins"}}</span>
+          <span class="d-block tile-email-data-point data-number">{{numAddCommas loginsFromEmail}}</span>
+          {{#if showUnique}}
+            <span class="d-block tile-email-data-point data-label">{{pluralize loginsFromEmail "Unique Login" "Unique Logins"}}</span>
+          {{else}}
+            <span class="d-block tile-email-data-point data-label">Total Logins</span>
+          {{/if}}
         </div>
       </div>
     </div>
-    <div id="tileData{{tileEmailId}}"class="card-content js-tile-data tile-data">
-      <table>
-        {{#each tiles}}
-          <tr id="tile-list-{{@index}}" data-tile-id="{{this.id}}" class="tile-row">
-            <td class="tile-data-td-image"><img src="{{this.image_url}}" alt="tile-image" height="60" width="60"></td>
-            <td class="tile-data-td-headline">{{this.headline}}</td>
-            <td width="60" class="tile-data-td-numbers">{{numAddCommas this.views}} {{pluralize this.views "view" "views"}}</td>
-            <td width="100" class="tile-data-td-numbers">{{numAddCommas this.completions}} {{pluralize this.completions "completion" "completions"}}</td>
-          </tr>
-        {{/each}}
-      </table>
-    </div>
+    {{#each tiles}}
+      <div class="card-content tile-data">
+        <div class="row">
+          <div class="columns large-8 small-12 tile-image-and-headline">
+            <img class="tile-image" src="{{this.image_url}}" alt="tile-image" height="60" width="60">
+            <span class="tile-headline">{{this.headline}}</span>
+          </div>
+          <div class="columns large-2 small-3">
+            <p class="tile-data-label tile_stats">
+              <span class="tile-data-number">
+                {{numAddCommas this.views}}
+              </span>
+              <a class="stat_action" href="#" data-href="/client_admin/tiles/{{this.id}}/tile_stats?action_type=total_views">
+                {{pluralize this.views "View" "Views"}}
+              </a>
+              <span class="mobile_stat_action">
+                {{pluralize this.views "View" "Views"}}
+              </span>
+            </p>
+          </div>
+          <div class="columns large-2 small-9">
+            <p class="tile-data-label tile_stats">
+              <span class="tile-data-number">
+                {{numAddCommas this.completions}}
+              </span>
+              <a class="stat_action" href="#" data-href="/client_admin/tiles/{{this.id}}/tile_stats?action_type=interactions">
+                {{pluralize this.completions "Completion" "Completions"}}
+              </a>
+              <span class="mobile_stat_action">
+                {{pluralize this.completions "Completion" "Completions"}}
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    {{/each}}
   </div>
 </div>

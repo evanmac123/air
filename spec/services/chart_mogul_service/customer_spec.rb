@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ChartMogulService::Customer do
-  let(:organization) { Organization.create(name: "Test") }
+  let(:organization) { Organization.create(name: "Test", num_employees: 10) }
   let(:cm_customer_service) { ChartMogulService::Customer.new(organization: organization) }
 
   describe "#retrieve_customer" do
@@ -55,7 +55,7 @@ describe ChartMogulService::Customer do
 
   describe "#update_chart_mogul_customer" do
     it "updates attributes of chart_mogul_customer" do
-      fake_chart_mogul_customer = OpenStruct.new(name: nil, email: nil, free_trial_started_at: nil)
+      fake_chart_mogul_customer = OpenStruct.new(name: nil, email: nil, free_trial_started_at: nil, attributes: { custom: { } })
 
       fake_chart_mogul_customer.expects(:update!)
       cm_customer_service.chart_mogul_customer = fake_chart_mogul_customer
@@ -66,7 +66,7 @@ describe ChartMogulService::Customer do
 
   describe "#create_chart_mogul_customer" do
     it "asks ChartMogul to create a customer and updates the internal org" do
-      fake_chart_mogul_customer = OpenStruct.new(uuid: "cm_cus_uuid")
+      fake_chart_mogul_customer = OpenStruct.new(uuid: "cm_cus_uuid", attributes: { custom: { } })
 
       ChartMogul::Customer.expects(:create!).with(
         data_source_uuid: ChartMogul::DEFAULT_DATA_SOURCE,
@@ -74,7 +74,12 @@ describe ChartMogulService::Customer do
         name: organization.name,
         email: organization.email,
         lead_created_at: organization.created_at,
-        free_trial_started_at: organization.free_trial_started_at
+        free_trial_started_at: organization.free_trial_started_at,
+        attributes: {
+          custom: [
+            { type: "Integer", key: "number_of_users", value: organization.num_employees }
+          ]
+        }
       ).returns(fake_chart_mogul_customer)
 
       cm_customer_service.expects(:add_chart_mogul_uuid_to_org)

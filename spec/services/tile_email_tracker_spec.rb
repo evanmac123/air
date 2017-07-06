@@ -82,13 +82,31 @@ describe TileEmailTracker do
         )
       end
 
-      it "increments tile email logins" do
+      it "increments total email logins" do
         tile_email_tracker = TileEmailTracker.new(user: user, email_type: email_type, subject_line: tile_email.subject, tile_email_id: tile_email.id )
 
         TilesDigest.any_instance.stubs(:increment_logins_by_subject_line)
         tile_email_tracker.track
 
         expect(TilesDigest.any_instance).to have_received(:increment_logins_by_subject_line).with(tile_email.subject)
+      end
+
+      it "increments unique email logins when the login is unique" do
+        tile_email_tracker = TileEmailTracker.new(user: user, email_type: email_type, subject_line: tile_email.subject, tile_email_id: tile_email.id )
+
+        TilesDigest.any_instance.expects(:new_unique_login?).returns(true)
+        TilesDigest.any_instance.expects(:increment_unique_logins_by_subject_line).with(tile_email_tracker.subject_line)
+
+        tile_email_tracker.track
+      end
+
+      it "does not increment unique email logins when the login is not unique" do
+        tile_email_tracker = TileEmailTracker.new(user: user, email_type: email_type, subject_line: tile_email.subject, tile_email_id: tile_email.id )
+
+        TilesDigest.any_instance.expects(:new_unique_login?).returns(false)
+        TilesDigest.any_instance.expects(:increment_unique_logins_by_subject_line).with(tile_email_tracker.subject_line).never
+
+        tile_email_tracker.track
       end
     end
   end

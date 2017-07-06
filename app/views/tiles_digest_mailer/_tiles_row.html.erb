@@ -6,7 +6,7 @@
       <% if @presenter.is_empty_preview? %>
         <%= render partial: "tiles_digest_mailer/tile_placeholder" %>
       <% else %>
-        <%= render partial: "tiles_digest_mailer/tile", locals: {tile: tiles[0], site_link: @presenter.site_link} %>
+        <%= render partial: "tiles_digest_mailer/tile", locals: { tile: tiles[0], site_link: @presenter.site_link } %>
       <% end %>
     </td>
     <td width="20" class="verticalGap">

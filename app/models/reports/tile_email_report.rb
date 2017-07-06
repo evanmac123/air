@@ -5,6 +5,8 @@ class Reports::TileEmailReport
   FOLLOW_UP_DELIVERED_STATUS = "delivered".freeze
   NO_FOLLOW_UP_STATUS = "no".freeze
 
+  UNIQUE_LOGIN_SUPPORTED_DATE = DateTime.new(2017, 7, 9).freeze
+
   def initialize(tile_email:)
     @tile_email = tile_email
   end
@@ -13,21 +15,26 @@ class Reports::TileEmailReport
     {
       type: "Reports::TileEmailReport",
       tileEmailId: tile_email_id,
-      reportHeader: report_header,
+      tileEmailSentAt: tile_email_sent_at,
       sender: sender_name,
       tilesCount: tiles_count,
       recipientCount: recipient_count,
       loginsBySubjectLine: subject_lines_with_login_count,
-      totalLoginsFromEmail: total_logins,
+      loginsFromEmail: login_count,
       followUpStatus: follow_up_status,
-      tiles: tile_attributes
+      tiles: tile_attributes,
+      showUnique: show_unique_logins_instead_of_total_logins?
     }
   end
 
   private
 
-    def report_header
-      tile_email.created_at.strftime("%B %e, %Y")
+    def show_unique_logins_instead_of_total_logins?
+      tile_email.created_at > UNIQUE_LOGIN_SUPPORTED_DATE
+    end
+
+    def tile_email_sent_at
+      tile_email.created_at.utc
     end
 
     def sender_name
@@ -67,20 +74,34 @@ class Reports::TileEmailReport
     end
 
     def subject_lines_with_login_count
-      @_subject_lines_with_login_count ||= get_logins_by_subject_line
+      @_subject_lines_with_login_count ||= get_logins_by_subject_line || subject_line_hash_without_logins
     end
 
     def get_logins_by_subject_line
-      if tile_email.logins_by_subject_line.present?
-        logins_by_subject_line
+      if show_unique_logins_instead_of_total_logins?
+        get_unique_logins_by_subject_line
       else
-        subject_line_hash_without_logins
+        get_total_logins_by_subject_line
       end
     end
 
-    def logins_by_subject_line(login_data: {})
-      tile_email.logins_by_subject_line.each_slice(2) do |logins, subject|
-        login_data[subject] = logins.to_i
+    def get_total_logins_by_subject_line
+      if tile_email.logins_by_subject_line.present?
+        total_logins = tile_email.logins_by_subject_line
+        logins_by_subject_line(logins: total_logins)
+      end
+    end
+
+    def get_unique_logins_by_subject_line
+      if tile_email.unique_logins_by_subject_line.present?
+        unique_logins = tile_email.unique_logins_by_subject_line
+        logins_by_subject_line(logins: unique_logins)
+      end
+    end
+
+    def logins_by_subject_line(logins:, login_data: {})
+      logins.each_slice(2) do |login_count, subject|
+        login_data[subject] = login_count.to_i
       end
 
       login_data
@@ -95,7 +116,7 @@ class Reports::TileEmailReport
       end
     end
 
-    def total_logins
+    def login_count
       subject_lines_with_login_count.values.inject(:+) || 0
     end
 

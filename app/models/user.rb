@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   include User::Segmentation
   include ActionView::Helpers::TextHelper
   include CancelAccountToken
+  include User::ClientAdminNotifications
 
   extend User::Queries
   extend ValidImageMimeTypes
@@ -806,7 +807,7 @@ class User < ActiveRecord::Base
     Demo.transaction do
       unless member_of_demo?(new_demo)
         if is_site_admin
-          add_board(new_demo)
+          add_board(new_demo, { is_client_admin: true, is_current: false })
         else
           return false
         end

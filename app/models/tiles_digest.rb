@@ -31,7 +31,12 @@ class TilesDigest < ActiveRecord::Base
   def deliver(follow_up_days_index)
     send_emails
     schedule_followup(follow_up_days_index)
+    set_tile_email_report_notifications
     self.delivered
+  end
+
+  def set_tile_email_report_notifications
+    ClientAdmin::NotificationsManager.delay.set_tile_email_report_notifications(board: self.demo)
   end
 
   def send_emails
@@ -46,6 +51,18 @@ class TilesDigest < ActiveRecord::Base
 
   def follow_up_digest_email_subject
     follow_up_digest_email.decorated_subject if follow_up_digest_email
+  end
+
+  def new_unique_login?(user_id:)
+    rdb[:unique_login_set].sadd(user_id) == 1
+  end
+
+  def increment_unique_logins_by_subject_line(subject_line)
+    rdb[:unique_logins].zincrby(1, subject_line)
+  end
+
+  def unique_logins_by_subject_line
+    rdb[:unique_logins].zrangebyscore("-inf", "inf", "WITHSCORES").reverse
   end
 
   def increment_logins_by_subject_line(subject_line)
