@@ -67,6 +67,6 @@ class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
   end
 
   def general_site_url
-		client_admin_reports_url(email_type: email_type, email_version: email_version, protocol: ENV["EMAIL_PROTOCOL"])
+		client_admin_activity_email_link
   end
 end

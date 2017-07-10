@@ -1,4 +1,6 @@
 class TilesDigestMailBasePresenter
+  include EmailHelper
+
   attr_reader :custom_message
 
   STANDARD_DIGEST_HEADING = 'Your New Tiles Are Here!'.freeze
