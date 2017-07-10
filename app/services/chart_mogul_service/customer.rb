@@ -29,9 +29,7 @@ class ChartMogulService::Customer
     chart_mogul_customer.free_trial_started_at = organization.free_trial_started_at
 
     chart_mogul_customer.attributes[:custom] = {
-      number_of_users: {
-        value: organization.num_employees
-      }
+      number_of_users: organization.num_employees
     }
 
     chart_mogul_customer.update!

@@ -78,10 +78,9 @@ describe ChartMogulService::Sync do
       invoice
       fake_chart_mogul_subscription_service = OpenStruct.new
 
-      subscription.update_attributes(cancelled_at: Date.tomorrow)
-
+      subscription.update_attributes(cancelled_at: Date.today + 2.weeks)
       cancelled_subscription = subscription
-      
+
       ongoing_subscription =  Subscription.create(subscription_plan: plan, organization: organization)
 
       ChartMogulService::Subscription.expects(:new).with(subscription: ongoing_subscription).never
