@@ -127,6 +127,19 @@ feature 'Client admin and the digest email for tiles' do
         2.times { |i| create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, headline: "Headline #{i + 1}"}
       end
 
+      context "subnav notifications" do
+        it "shows a notification on the subnav for the reports tab" do
+          admin.board_memberships.first.update_attributes(is_client_admin: true)
+          visit client_admin_share_path(as: admin)
+
+          submit_button.click
+
+          within "li#board_activity" do
+            expect(page).to have_selector("span.badge")
+          end
+        end
+      end
+
       scenario "yet a third message appears, somewhere on the page, that the digest has been sent" do
         visit client_admin_share_path(as: admin)
         submit_button.click

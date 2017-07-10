@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   ##
 
   before_filter :refresh_activity_session
+  before_filter :set_eager_caches
 
   ##AirboSecurityConcern
   before_filter :force_ssl

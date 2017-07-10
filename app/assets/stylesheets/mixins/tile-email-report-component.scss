@@ -8,6 +8,9 @@
 
       .login-count {
         margin: 10px 0;
+        .login-count-number {
+          font-weight: bold;
+        }
       }
     }
     .tile-email-data-point {
@@ -23,31 +26,61 @@
       }
     }
     .tile-data {
-      overflow: hidden;
-      &.card-content {
-        padding: 0;
-      }
-      table {
-        margin: 0;
-      }
-      .tile-row {
-        padding: 10px;
-        .tile-data-td-image {
-          width: 85px;
+      .tile-image-and-headline {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        .tile-image {
+          margin-right: 15px;
+          // vertical-align: bottom;
         }
-        .tile-data-td-headline {
+        .tile-headline {
+          margin: 15px 0;
           font-size: 18px;
         }
-        .tile-data-td-numbers {
-          text-align: right;
+      }
+      .tile-data-label {
+        margin: 15px 0;
+        padding: 0;
+        text-align: center;
+        .stat_action {
+          color: $dark-blue;
+          text-decoration: underline;
+          font-weight: lighter;
         }
-        td {
-          border-bottom: 1px solid $border-color;
+        .mobile_stat_action {
+          color: $dark-blue;
+          font-weight: lighter;
+          display: none;
         }
-        &:last-child {
-          td {
-            border-bottom: none;
+        .tile-data-number {
+          font-weight: bold;
+          margin-right: 10px;
+        }
+      }
+      .tile-data-links {
+        margin: 5px 0;
+        display: inline-block;
+        text-decoration: underline;
+      }
+      @media (max-width: 768px) {
+        .tile-data-label {
+          float: left;
+          margin-left: 10px;
+          margin-bottom: 0;
+          .stat_action {
+            display: none;
           }
+          .mobile_stat_action {
+            display: block;
+          }
+          .tile-data-number {
+            margin: 0;
+            display: block;
+          }
+        }
+        .tile-data-links {
+          display: none;
         }
       }
     }

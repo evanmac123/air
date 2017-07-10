@@ -33,11 +33,11 @@ describe Reports::TileEmailReport do
       expect(attributes[:tileEmailId]).to eq(tile_email.id)
     end
 
-    it "returns the correct header" do
+    it "returns the tile email sent at in utc" do
       report = new_tile_email_report(tile_email)
       attributes = report.attributes
 
-      expect(attributes[:reportHeader]).to eq(tile_email.created_at.strftime("%B %e, %Y"))
+      expect(attributes[:tileEmailSentAt]).to eq(tile_email.created_at.utc)
     end
 
     it "returns the correct sender" do
@@ -124,7 +124,7 @@ describe Reports::TileEmailReport do
       end
 
       describe "when there are logins" do
-        it "returns a hash of subject lines and logins ordered by login count" do
+        it "returns a hash of subject lines and total logins ordered by login count if the Tile Email was created before Reports::TileEmailReport::UNIQUE_LOGIN_SUPPORTED_DATE" do
           3.times do
             tile_email.increment_logins_by_subject_line(tile_email.subject)
           end
@@ -133,12 +133,32 @@ describe Reports::TileEmailReport do
             tile_email.increment_logins_by_subject_line(tile_email.alt_subject)
           end
 
+          tile_email.update_attributes(created_at: Reports::TileEmailReport::UNIQUE_LOGIN_SUPPORTED_DATE - 1.day)
           report = new_tile_email_report(tile_email)
           attributes = report.attributes
 
           expect(attributes[:loginsBySubjectLine]).to eq({
             tile_email.alt_subject => 5,
             tile_email.subject => 3
+          })
+        end
+
+        it "returns a hash of subject lines and unique logins ordered by login count if the Tile Email was created after Reports::TileEmailReport::UNIQUE_LOGIN_SUPPORTED_DATE" do
+          7.times do
+            tile_email.increment_unique_logins_by_subject_line(tile_email.subject)
+          end
+
+          2.times do
+            tile_email.increment_unique_logins_by_subject_line(tile_email.alt_subject)
+          end
+
+          tile_email.update_attributes(created_at: Reports::TileEmailReport::UNIQUE_LOGIN_SUPPORTED_DATE + 1.day)
+          report = new_tile_email_report(tile_email)
+          attributes = report.attributes
+
+          expect(attributes[:loginsBySubjectLine]).to eq({
+            tile_email.alt_subject => 2,
+            tile_email.subject => 7
           })
         end
       end

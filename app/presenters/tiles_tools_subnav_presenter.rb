@@ -71,55 +71,68 @@ class TilesToolsSubnavPresenter
               item_id: "explore",
               link: explore_path,
               icon: "rocket",
-              text: "Explore"
+              text: "Explore",
+              has_notification: false
             },
             {
               item_id: "managing_tiles",
               link: client_admin_tiles_path,
               icon: "pencil",
-              text: "Edit"
+              text: "Edit",
+              has_notification: false
             },
             {
               item_id: "home_nav",
               link: activity_path,
               image: "airbo_logo_lightblue_square.png",
-              text: "Preview"
+              text: "Preview",
+              has_notification: false
             },
             {
               item_id: "share_tiles",
               link: client_admin_share_path,
               icon: "share-alt",
-              text: "Share"
+              text: "Share",
+              has_notification: true,
+              notification_class: "no-color",
+              notification_content: @tiles_to_be_sent || demo.digest_tiles(demo.tile_digest_email_sent_at).count
             },
             {
               item_id: "board_activity",
               link: client_admin_reports_path,
               icon: "line-chart",
-              text: "Reports"
+              text: "Reports",
+              has_notification: current_user.has_tile_email_report_notification?,
+              notification_class: "alert",
+              notification_content: current_user.get_tile_email_report_notification_content
             },
             {
               item_id: "prizes_nav",
               link: client_admin_prizes_path,
               icon: "trophy",
-              text: "Prizes"
+              text: "Prizes",
+              has_notification: false
             },
             {
               item_id: "users",
               link: client_admin_users_path,
               icon: "users",
-              text: "Users"
+              text: "Users",
+              has_notification: false
             },
             {
               item_id: "settings",
               link: client_admin_board_settings_path,
               icon: "cog",
-              text: "Settings"
+              text: "Settings",
+              has_notification: false
             },
             {
               item_id: "admin_help",
               link: support_path,
               icon: "question",
               text: "Help",
+              has_notification: false,
               link_options: { target: "_blank" }
             }
           ]

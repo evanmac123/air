@@ -16,7 +16,7 @@ module CachingConcern
 
     def set_client_admin_reporting_caches
       unless cookies[:client_admin_reporting_caches]
-        set_cached_cookie(:client_admin_reporting_caches, 5.minutes.from_now)
+        set_cached_cookie(:client_admin_reporting_caches, 10.minutes.from_now)
         BoardMetricsGenerator.delay.set_cache(current_user)
       end
     end

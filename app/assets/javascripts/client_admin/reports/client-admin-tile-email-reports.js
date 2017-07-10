@@ -79,7 +79,6 @@ Airbo.ClientAdminTileEmailReports = (function(){
 
     var reports = response.data.reports;
     addReportsToPage(reports);
-    bindReports();
 
     $(reportSelector).fadeIn();
   }
@@ -95,7 +94,6 @@ Airbo.ClientAdminTileEmailReports = (function(){
 
     if (reports.length > 0) {
       addReportsToPage(reports);
-      bindReports();
     } else {
       addNoDataReport();
     }
@@ -112,7 +110,7 @@ Airbo.ClientAdminTileEmailReports = (function(){
   }
 
   function getNoDataOptions() {
-    var tilesToBeSent = $(".js-sidenav-share-tab").data("tilesToBeSent");
+    var tilesToBeSent = $(".js-sidenav-share-tab").data("notificationContent");
     if (tilesToBeSent > 0) {
       var sharePath = $(".js-sidenav-share-tab a").attr("href");
       return {
@@ -127,39 +125,6 @@ Airbo.ClientAdminTileEmailReports = (function(){
         linkText: "Post Tiles",
         path: editPath
       };
-    }
-  }
-
-  function toggleTileSection($expandButton) {
-    var $tileData = $($expandButton.data("target"));
-
-    $tileData.toggle();
-    toggleExpandButton($expandButton, $tileData);
-  }
-
-  function bindReports() {
-    bindTileDataToggle();
-  }
-
-  function bindTileDataToggle() {
-    var $tileDataToggle = $(".js-expand-tile-data-button");
-    $tileDataToggle.unbind();
-
-    $tileDataToggle.on("click", function(e) {
-      e.preventDefault();
-      toggleTileSection($(this));
-    });
-  }
-
-  function toggleExpandButton($expandButton, $tileData) {
-    $expandButton.removeClass("expand-icon collapse-icon");
-
-    if ($tileData.is(":visible")) {
-      $expandButton.addClass("collapse-icon");
-      $expandButton.text("Hide");
-    } else {
-      $expandButton.addClass("expand-icon");
-      $expandButton.text("Expand");
     }
   }
 

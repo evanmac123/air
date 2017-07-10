@@ -28,6 +28,12 @@ class ChartMogulService::Customer
     chart_mogul_customer.email = organization.email
     chart_mogul_customer.free_trial_started_at = organization.free_trial_started_at
 
+    chart_mogul_customer.attributes[:custom] = {
+      number_of_users: {
+        value: organization.num_employees
+      }
+    }
+
     chart_mogul_customer.update!
   end
 
@@ -38,7 +44,12 @@ class ChartMogulService::Customer
       name: organization.name,
       email: organization.email,
       lead_created_at: organization.created_at,
-      free_trial_started_at: organization.free_trial_started_at
+      free_trial_started_at: organization.free_trial_started_at,
+      attributes: {
+        custom: [
+          { type: "Integer", key: "number_of_users", value: organization.num_employees }
+        ]
+      }
     )
 
     add_chart_mogul_uuid_to_org if chart_mogul_customer
