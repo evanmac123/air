@@ -3,16 +3,12 @@
   <meta property="og:title" content="<%= tile.headline %>" />
   <meta property="og:description" content="<%= tile.supporting_content %>" />
   <meta property="og:image" content="<%= tile.image %>" />
-  <!-- special Pinterest meta tags -->
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Airbo" />
-  <% tile.channel_list do |tag| %>
-    <meta property="article:tag" content="<%= tag.title %>" />
-  <% end %>
   <!-- Twitter meta tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@theairbo">
   <meta name="twitter:title" content="<%= tile.headline %>">
   <meta name="twitter:description" content="<%= tile.supporting_content %>">
-  <meta name="twitter:image:src" content="<%= tile.image %>">
+  <meta name="twitter:image" content="<%= tile.image %>">
 <% end %>
