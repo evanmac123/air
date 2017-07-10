@@ -121,12 +121,6 @@ var Airbo = {
       flash.find(".flash-content").text(msg);
       flash.find(".flash-js-msg").addClass(type);
       flash.fadeIn(500);
-      //TODO small hack to make flash show in specs
-      //would normally use native jquery fadeIn(n).fadeOut(n)
-      setTimeout(function(){
-        flash.fadeOut(0);
-      }, 2000);
-
     },
 
 

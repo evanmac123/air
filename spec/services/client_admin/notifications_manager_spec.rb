@@ -13,7 +13,7 @@ describe ClientAdmin::NotificationsManager do
     end
 
     it "asks each client_admin to set_tile_email_report_notification" do
-      User.any_instance.expects(:set_tile_email_report_notification).twice
+      User.any_instance.expects(:set_tile_email_report_notification).twice.with(board_id: board.id)
 
       ClientAdmin::NotificationsManager.set_tile_email_report_notifications(board: board)
     end
