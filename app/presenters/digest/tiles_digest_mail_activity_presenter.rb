@@ -1,4 +1,6 @@
 class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
+  include EmailHelper
+
   ACTIVITY_EMAIL = "client_admin_activity_report".freeze
   ACTIVITY_DIGEST_HEADING = "Weekly Activity Report".freeze
   EMAIL_VERSION = "v.2".freeze
@@ -67,6 +69,6 @@ class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
   end
 
   def general_site_url
-		client_admin_activity_email_link
+    client_admin_reports_url(email_type: email_type, email_version: email_version, host: email_link_host, protocol: email_link_protocol)
   end
 end
