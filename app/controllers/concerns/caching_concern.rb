@@ -2,7 +2,7 @@ module CachingConcern
 
   def set_eager_caches
     if current_user && current_user.is_a?(User)
-      if current_user.is_client_admin_in_any_board
+      if current_user.is_client_admin || current_user.is_site_admin
         set_client_admin_caches
       end
     end
@@ -15,13 +15,12 @@ module CachingConcern
     end
 
     def set_client_admin_reporting_caches
-      unless cookies[:client_admin_reporting_caches]
-        set_cached_cookie(:client_admin_reporting_caches, 10.minutes.from_now)
-        BoardMetricsGenerator.delay.set_cache(current_user)
-      end
-    end
+      board = current_user.demo
 
-    def set_cached_cookie(key, expiration)
-      cookies[key] = { value: "cached", expires: expiration }
+      unless board.rdb[:reports_cached].get
+        board.rdb[:reports_cached].set(Time.now)
+        board.rdb[:reports_cached].expire(12.minutes)
+        BoardMetricsGenerator.delay.set_cache(board: board)
+      end
     end
 end
