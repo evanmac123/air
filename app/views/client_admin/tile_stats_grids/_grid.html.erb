@@ -16,21 +16,11 @@
     row.tile_views || "-"
   end
 
-  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', in_csv: false, html: {class: "answer-column" } do |row|
-    if is_free_response_answer?(tile, row)
+  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', html: {class: "answer_column"} do |row|
+    if tile.allow_free_response && row.free_response != ""
       row.free_response
     elsif row.tile_answer_index != nil
-      link_to tile.multiple_choice_answers[row.tile_answer_index.to_i], "#", class: "js-grid-answer-filter"
-    else
-      "-"
-    end
-  end
-
-  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', in_html: false, html: {class: "answer-column" } do |row|
-    if is_free_response_answer?(tile, row)
-      row.free_response
-    elsif row.tile_answer_index != nil
-     tile.multiple_choice_answers[row.tile_answer_index.to_i]
+      tile.multiple_choice_answers[row.tile_answer_index.to_i]
     else
       "-"
     end
