@@ -128,12 +128,19 @@ module TilesHelper
   end
 
   def free_response_fragment tile, optional=false
-    cust_css = optional ?  "optional" : ""
     content = ""
+    if optional
+      cust_css = "optional"
+      answer_index = tile.multiple_choice_answers.length #Always the last answer_index
+    else
+      cust_css =  ""
+      answer_index = 0
+    end
+
     content += content_tag :div,   class: "js-free-text-panel free-text-panel #{cust_css}" do
       s = optional ? content_tag(:i, "",  class: "js-free-text-hide free-text-hide fa fa-remove fa-1x") : "".html_safe
       s += text_area_tag "free_form_response", nil, maxlength: 400, placeholder: "Enter your response here", class:"js-free-form-response free-form-response edit" 
-      s += link_to "Submit My Answer", "#", class: "js-multiple-choice-answer free-text multiple-choice-answer correct ", data: {tile_id: tile.id, answer_index: tile.multiple_choice_answers.length}  
+      s += link_to "Submit My Answer", "#", class: "js-multiple-choice-answer free-text multiple-choice-answer correct ", data: {tile_id: tile.id, answer_index: answer_index }
       s += content_tag :div, "Response cannot be empty", class: "answer_target",  style: "display: none"
       s
     end
