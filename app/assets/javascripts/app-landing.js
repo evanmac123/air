@@ -12,9 +12,7 @@
 //= require ./external/prefilled_input.js
 //= require ./external/marketing_slider.js
 //= require ./external/category
-//= require ./external/marketing_page_pings
-//= require ./external/marketing_page
-//= require ./external/signup_requests
+//= require ./marketing_site/marketing-site-pings
 
 $(function(){
   $(document).foundation();

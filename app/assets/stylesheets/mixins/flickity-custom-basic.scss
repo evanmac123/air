@@ -1,0 +1,33 @@
+@mixin flickity-custom-basic($color) {
+  /* white circles */
+  .flickity-page-dots {
+    bottom: 35px;
+    .dot {
+      width: 12px;
+      height: 12px;
+      opacity: 1;
+      background: transparent;
+      border: 1px solid $color;
+
+      &.is-selected {
+        background: $color;
+      }
+    }
+  }
+
+  .flickity-prev-next-button {
+    box-shadow: none;
+    .arrow {
+      fill: $color;
+    }
+    &.previous {
+      left: -45px;
+    }
+    &.next {
+      right: -45px;
+    }
+    &:hover {
+      background: transparent;
+    }
+  }
+}

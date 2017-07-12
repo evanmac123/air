@@ -3,11 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Airbo</title>
+
+    <title>
+      <% if content_for?(:page_title) %>
+        <%= yield(:page_title) %>
+      <% else %>
+        <%= "Airbo" %>
+      <% end %>
+    </title>
+
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <%= content_for :meta %>
 
     <%= mobvious_javascript %>
     <%= javascript_include_tag 'app-marketing-site' %>
@@ -29,7 +36,6 @@
   </head>
   <body class="airbo-marketing-site" style="-webkit-overflow-scrolling: touch; overflow:visible;">
     <%= render partial: "pages/partials/marketing_site_header" %>
-    <%= render partial: "shared/simple_flashes" %>
     <%= yield %>
     <%= render partial: "pages/partials/marketing_site_footer" %>
     <%= yield :javascript %>

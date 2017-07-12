@@ -1,0 +1,72 @@
+<div class="highlights-carousel-container">
+  <div class="header-container mx-auto">
+    <h3 class="header">Success Stories</h3>
+  </div>
+  <div class="highlights-carousel mx-auto">
+    <%= render partial: "pages/partials/highlight_carousel_cell", locals: {
+      opts: {
+        copy: %Q("Airbo helped Fujifilm increase Health Risk Assessment participation rates by 217%."),
+        path: "https://www.airbo.com/pages/fujifilm",
+        cta: "View case study",
+        cta_class: "js-case-study-view-button",
+        image: "marketing_site/clients/fujifilm.svg",
+        company_name: "Fujifilm"
+      } }
+    %>
+
+    <%= render partial:  "pages/partials/highlight_carousel_cell", locals: {
+      opts: {
+        copy: %Q("People thought we were going through a big growth spurt, when in fact these jobs were posted for months."),
+        path: "https://airbo-production.s3.amazonaws.com/case_studies/pdfs/1/original/ASHA_case_study.pdf?1497589718",
+        cta: "View case study",
+        cta_class: "js-case-study-view-button",
+        image: "marketing_site/clients/asha.svg",
+        company_name: "ASHA"
+      } }
+    %>
+
+    <%= render partial:  "pages/partials/highlight_carousel_cell", locals: {
+      opts: {
+        copy: %Q("There's less confusion, and fewer people asking and re-asking the same questions."),
+        path: "https://airbo-production.s3.amazonaws.com/case_studies/pdfs/4/original/envisionit_case_study.pdf?1497589907",
+        cta: "View case study",
+        cta_class: "js-case-study-view-button",
+        image: "marketing_site/clients/envisionit.svg",
+        company_name: "Envisionit"
+      } }
+    %>
+
+    <%= render partial:  "pages/partials/highlight_carousel_cell", locals: {
+      opts: {
+        copy: %Q("Airbo has radically reduced the number of emails I have to send, which people appreciate."),
+        path: "https://airbo-production.s3.amazonaws.com/case_studies/pdfs/6/original/coffman_casestudy.pdf?1497590020",
+        cta: "View case study",
+        cta_class: "js-case-study-view-button",
+        image: "marketing_site/clients/coffman-engineers.svg",
+        company_name: "Coffman"
+      } }
+    %>
+
+    <%= render partial:  "pages/partials/highlight_carousel_cell", locals: {
+      opts: {
+        copy: %Q("Airbo was such an easy solution, and such a time-saver--it only takes about an hour each week."),
+        path: "https://airbo-production.s3.amazonaws.com/case_studies/pdfs/10/original/rletech_case_study.pdf?1497590267",
+        cta: "View case study",
+        cta_class: "js-case-study-view-button",
+        image: "marketing_site/clients/rle.svg",
+        company_name: "RLA Technologies"
+      } }
+    %>
+
+    <%= render partial:  "pages/partials/highlight_carousel_cell", locals: {
+      opts: {
+        copy: %Q("I can do each announcement in half the time it used to take."),
+        path: "https://airbo-production.s3.amazonaws.com/case_studies/pdfs/3/original/Constangy_Case_Study.pdf?1497589847",
+        cta: "View case study",
+        cta_class: "js-case-study-view-button",
+        image: "marketing_site/clients/constangy.svg",
+        company_name: "Constangy"
+      } }
+    %>
+  </div>
+</div>

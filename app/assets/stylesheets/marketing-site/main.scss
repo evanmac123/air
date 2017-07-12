@@ -11,6 +11,12 @@
 @import './mixins/marketing-site-final-cta';
 //
 
+//about
+@import './mixins/marketing-site-about-timeline';
+@import './mixins/marketing-site-highlights';
+@import './mixins/marketing-site-about-leadership';
+//
+
 //case_sstudies
 @import './mixins/marketing-site-case-studies-index-header';
 @import './mixins/marketing-site-case-study-cards';
@@ -18,9 +24,11 @@
 //
 
 .airbo-marketing-site {
+  color: #33445c;
   @include marketing-site-reset();
   @include marketing-site-header();
   @include marketing-site-footer();
+  @include marketing-site-highlights();
 
   .marketing-site-home {
     @include marketing-site-main-hero($bg-image: 'marketing_site/main-hero.png');
@@ -31,8 +39,36 @@
     @include marketing-site-final-cta();
   }
 
+  .marketing-site-about {
+    @include marketing-site-main-hero($bg-image: 'marketing_site/about-hero.png', $height: 575px);
+    @include marketing-site-about-timeline();
+    @include marketing-site-about-leadership();
+    .final-cta {
+      .wrap {
+        text-align: center;
+        margin-bottom: 60px;
+        .final-image {
+          width: 50%;
+        }
+        .header {
+          margin-top: 0;
+          width: 50%;
+        }
+
+        @media only screen and (max-width: 768px) {
+          .final-image {
+            width: 100%;
+          }
+          .header {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
   .marketing-site-case-studies {
-    @include marketing-site-main-hero($bg-image: 'marketing_site/case-studies-hero.png', $height: 550px);
+    @include marketing-site-main-hero($bg-image: 'marketing_site/case-studies-hero.png', $height: 575px);
     @include marketing-site-case-studies-index-header();
     @include marketing-site-case-studies-industry-dropdown();
     @include marketing-site-case-study-cards();

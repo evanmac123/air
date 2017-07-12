@@ -1,5 +1,9 @@
 @mixin marketing-site-header($bg-color: transparent, $content-color: $white, $cta-color: $white, $mobile-content-color: $n-blue) {
   .marketing-site-header {
+    #flash {
+      position: absolute;
+      top: 0;
+    }
     background: $bg-color;
     height: 64px;
     position: absolute;

@@ -2,20 +2,32 @@ class DemoRequestsController < ApplicationController
   layout 'standalone'
 
   def create
-    request = EmailInfoRequest.create(permitted_params)
-    request.notify
+    lead_contact = LeadContact.new(lead_contact_params)
 
-    flash[:success] = "Thanks for requesting a demo! Someone from our team will reach out to you in the next 24 hours to schedule a time to chat."
-    redirect_to root_path
+    if user_valid(lead_contact) && lead_contact.save
+      flash[:info] = "Thanks for requesting a demo! Someone from our team will reach out to you in the next 24 hours to schedule a time to chat."
+
+      redirect_to about_path
+    else
+      LeadContactNotifier.duplicate_signup_request(lead_contact).deliver
+
+      flash[:info] = "An Airbo account has already been requested with your email or phone number. Someone from our team will reach out to you shortly."
+
+      redirect_to sign_in_path
+    end
   end
 
   def new
-    @demo_request = EmailInfoRequest.new
+    @marketing_site_request = LeadContact.new
   end
 
-  protected
+  private
 
-  def permitted_params
-    params[:request].permit!
-  end
+    def lead_contact_params
+      params[:lead_contact].permit!
+    end
+
+    def user_valid(lead_contact)
+      !User.exists?(email: lead_contact.email) && !User.exists?(phone_number: lead_contact.phone)
+    end
 end
