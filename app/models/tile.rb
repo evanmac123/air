@@ -404,7 +404,7 @@ class Tile < ActiveRecord::Base
 
   def has_required_number_of_answers?
     if multiple_choice_answers.present?
-      if(normalized_question_type == ACTION.downcase)
+      if(normalized_question_type == ACTION.downcase || question_subtype == "free_response")
         multiple_choice_answers.length > 0
       else
         multiple_choice_answers.length > 1

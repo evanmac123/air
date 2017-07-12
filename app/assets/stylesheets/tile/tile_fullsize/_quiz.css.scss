@@ -101,7 +101,9 @@
 
 
 .free-text-panel{
-  display:none;
+  &.optional{
+    display:none;
+  }
 }
 
 .free-text-hide{
