@@ -292,18 +292,18 @@ describe Tile do
 
     it "triggers status change manager if status has changed" do
       tile.status = Tile::DRAFT
-      TileStatusChangeManager.any_instance.expects(:process)
+      SuggestedTileStatusChangeManager.any_instance.expects(:process)
       tile.save
     end
 
     it "does not trigger status change manager if status has not changed" do
       tile.question = "2B || !2B"
-      TileStatusChangeManager.any_instance.expects(:process).never
+      SuggestedTileStatusChangeManager.any_instance.expects(:process).never
       tile.save
     end
 
     it "triggers status change manager on creation " do
-      TileStatusChangeManager.any_instance.expects(:process)
+      SuggestedTileStatusChangeManager.any_instance.expects(:process)
       FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true
     end
   end

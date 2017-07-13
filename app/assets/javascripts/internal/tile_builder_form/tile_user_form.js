@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileUserForm = (function(){
   function updateSections(data) {
-    // do nothing
+    Airbo.Utils.alertSuccess("Thanks for suggesting a Tile!", "You will be notified when the Tile is posted.");
   }
 
   function initEvents() {

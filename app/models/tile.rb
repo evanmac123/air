@@ -443,7 +443,7 @@ class Tile < ActiveRecord::Base
 
   def handle_suggested_tile_status_change
     if changed.map(&:to_sym).include?(:status)
-      TileStatusChangeManager.new(self).process
+      SuggestedTileStatusChangeManager.new(self).process
     end
   end
 
