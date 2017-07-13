@@ -97,13 +97,19 @@ Airbo.TileAnswers = (function(){
   }
 
   function initFreeFormText(){
-    showFreeForm();
-    hideFreeform();
-    addCharacterCounterFor(".js-free-form-response")
+    initShowFreeForm();
+    initHideFreeform();
+    addFreeResponseCharChaounter();
+  }
+
+  function addFreeResponseCharChaounter(){
+    if((".js-free-form-response").length > 0){
+      addCharacterCounterFor(".js-free-form-response");
+    }
   }
 
 
- function showFreeForm(){
+ function initShowFreeForm(){
    $("body").on("click", ".js-free-text-show", function(event){
      var other = $(this);
      event.preventDefault();
@@ -112,7 +118,7 @@ Airbo.TileAnswers = (function(){
    });
  }
 
- function hideFreeform(){
+ function initHideFreeform(){
    $("body").on("click", ".js-free-text-hide", function(event){
      event.preventDefault();
      $(".js-free-text-panel").hide();

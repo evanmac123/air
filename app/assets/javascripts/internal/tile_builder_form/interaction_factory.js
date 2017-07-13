@@ -19,6 +19,7 @@ var TileAnswerButton = {
       , btn = document.createElement("a")
     ;
 
+    textInput.setAttribute('rows', 1);
     textInput.setAttribute('maxlength', this.maxLength);
     textInput.setAttribute('class', 'answer-editable');
     textInput.setAttribute('name','tile[answers][]');
@@ -100,7 +101,7 @@ FreeResponseAnswer.asDomNode = function() {
   hidden.setAttribute("name", "tile[allow_free_response]");
   hidden.setAttribute("value", 1);
 
-  btn.setAttribute('class', 'answer-btn js-answer-btn');
+  btn.setAttribute('class', 'answer-btn btn-free-response js-answer-btn');
   btn.appendChild(document.createTextNode("Submit My Response"));
 
   freeText.setAttribute("class", "free-text");
