@@ -257,7 +257,7 @@ SimpleAnswer.includeFreeResponse = function(){
     , tooltipTemplate = document.createElement("div")
     , tooltipContent = document.createElement("div")
     , node = document.createDocumentFragment()
-    , btnClass = 'answer-btn js-btn-free-text'
+    , btnClass = 'answer-btn no-edit js-btn-free-text'
     , answerWrapper
     , answerWrapperClass="answer-div js-free-text-btn-wrapper free-text-btn-wrapper"
   ;
@@ -288,7 +288,7 @@ SimpleAnswer.includeFreeResponse = function(){
   tooltipTemplate.setAttribute('class', 'js-tooltip-template tooltip-template free-response' );
   tooltipContent.setAttribute('class', 'js-tooltip-content tooltip-content free-response' );
 
-  tooltip.setAttribute('class', 'js-free-text-tooltip fa fa-question-circle fa-1x ' );
+  tooltip.setAttribute('class', 'js-free-text-tooltip hover-help fa fa-question-circle fa-1x ' );
 
   tooltip.setAttribute('data-tooltip-content', ".js-tooltip-content.free-response");
 

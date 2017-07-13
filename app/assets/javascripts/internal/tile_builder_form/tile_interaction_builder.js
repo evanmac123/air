@@ -76,6 +76,7 @@ Airbo.TileInteractionManager =(function(){
   function handleSubTypeSelection(selected){
     var config = interactionConfigByTypeAndSubType(selected);
     renderSelectedInteraction(config)
+    initFreeFormTooltip();
   }
 
   function initAddAnswerOption(){
@@ -133,6 +134,12 @@ Airbo.TileInteractionManager =(function(){
     });
   }
 
+  function initQuestionitHighlight(){
+
+    $('body').on('click', "#tile_question", function(event) {
+      highlightText($(this) );
+    })
+  }
   function initAnswerRead(){
     $("body").on("focusout blur", ".answer-editable", function(event){
       var field = $(this)
@@ -193,6 +200,7 @@ Airbo.TileInteractionManager =(function(){
     initAnswerEditOnTabEntry();
     initToggleFreeResponse();
     initFreeFormTooltip();
+    initQuestionitHighlight();
     showSlider();
   }
 
