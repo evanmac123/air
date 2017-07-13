@@ -60,7 +60,7 @@ Airbo.HighchartsBase = (function(){
 
   function specifyIncompleteZones(allSeries, intervalType) {
     $.each(allSeries, function(seriesIdx, series) {
-      if (series.data.length > 0) {
+      if (series.data.length > 1) {
         var lastDataPoint = series.data[series.data.length - 1];
         var penultimateDataPoint = series.data[series.data.length - 2];
         if (seriesIsIncomplete(lastDataPoint[0], intervalType)) {
