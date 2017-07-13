@@ -89,9 +89,6 @@
 }
 // Quiz section of the tile
 .builder_quiz, .tile_quiz {
-  .answer-div{
-    position: relative;
-  }
   input[type="text"],textarea, #tile_question {
     &.answer-field {
       color:$sky-blue;
@@ -144,7 +141,10 @@
 
 .answer-div{
   padding:10px 0px;
+  position: relative;
+  clear:both;
 }
+
 
 .read-mode .answer-editable{
   display:none;
@@ -167,9 +167,16 @@
   width: 95%;
 }
 
-.survey-interaction .answer-btn{
-  width: 95%;
+.survey-interaction {
+  .answer-btn{
+    width: 95%;
+    &.btn-free-response{
+      width: 100%;
+    }
+  }
+
 }
+
 
 .quiz-interaction .answer-editable{
   width: 85%;
