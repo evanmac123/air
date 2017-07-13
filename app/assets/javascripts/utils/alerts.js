@@ -13,6 +13,16 @@ Airbo.Utils.alert = function (text) {
   });
 };
 
+Airbo.Utils.alertSuccess = function (title, text, buttonText) {
+  swal({
+    title: title,
+    text: text,
+    customClass: "airbo",
+    type: "success",
+    confirmButtonText: buttonText || "Continue"
+  });
+};
+
 Airbo.Utils.approve = function (text, cb) {
   swal(
     {
