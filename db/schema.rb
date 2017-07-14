@@ -775,7 +775,7 @@ ActiveRecord::Schema.define(:version => 20170706144407) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.boolean  "featured"
-    t.boolean  "in_trial",          :default => false
+    t.boolean  "in_trial",              :default => false
     t.text     "chart_mogul_uuid"
     t.string   "email"
     t.string   "zip_code"
