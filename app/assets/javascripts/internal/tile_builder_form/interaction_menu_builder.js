@@ -31,7 +31,7 @@ Airbo.TileBuilderInteractionMenuBuilder = (function(){
       dropDownTriggerLink.appendChild(document.createTextNode(interaction + " "));
       dropDownTriggerLink.appendChild(caret);
 
-      caret.setAttribute("class", "fa fa-caret-down");
+      caret.setAttribute("class", "js-menu-toggle fa fa-caret-down");
 
       variantDropdownMenu.setAttribute("id", "drop_" + interaction);
       variantDropdownMenu.setAttribute("class", "f-dropdown");
