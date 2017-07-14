@@ -78,16 +78,19 @@ Airbo.TileAnswers = (function(){
   }
 
   function validateFreeText(answer, target){
-    var freeText;
+    var freeText = $(".js-free-form-response");
+
     if(answer.hasClass("free-text")){
-      freeText = $(".js-free-form-response").val().trim();
-      if(freeText === ""){
+      if(freeText.val().trim() === ""){
         showFreeFormError(answer, target);
         $(rightAnswerSel).one("click",correctAnswerClicked);
         return false
       }
+    }else{
+      //Clear if non free response selected
+      freeText.val("");
     }
-    return true;
+      return true;
   }
 
 
