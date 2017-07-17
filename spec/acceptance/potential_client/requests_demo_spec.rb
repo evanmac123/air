@@ -6,18 +6,18 @@ feature "Potential user requests demo", js: true do
       it "should send an email to sales notifying a demo request" do
         visit new_demo_request_path
 
-        fill_in('request[name]', with: "Test")
-        fill_in('request[email]', with: "test@example.com")
-        fill_in('request[company]', with: "Test Company")
-        fill_in('request[phone]', with: "9018484848")
+        fill_in('lead_contact[name]', with: "Test")
+        fill_in('lead_contact[email]', with: "test@example.com")
+        fill_in('lead_contact[organization_name]', with: "Test Company")
+        fill_in('lead_contact[phone]', with: "9018484848")
 
-        click_button("Request demo")
+        click_button("Submit")
 
         expect_content("Please enter your first and last name.")
 
-        fill_in('request[name]', with: "Test Name")
+        fill_in('lead_contact[name]', with: "Test Name")
 
-        click_button("Request demo")
+        click_button("Submit")
 
         expect_content("Someone from our team will reach out to you in the next 24 hours to schedule a time to chat.")
       end

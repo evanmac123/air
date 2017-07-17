@@ -1,7 +1,9 @@
 var Airbo = window.Airbo || {};
+Airbo.MarketingSite = Airbo.MarketingSite || {};
 
-Airbo.SignupRequest= (function(){
-  function validateSignupRequestForm() {
+Airbo.MarketingSite.StandaloneMarketingSiteForms = (function(){
+
+  function validateSignupRequest() {
     var validCharactersRegex = /^[a-z][- a-z]*[- ]{1}[- a-z]*[a-z]$/i;
     function fullname_valid(value) {
         return validCharactersRegex.test(value);
@@ -12,13 +14,13 @@ Airbo.SignupRequest= (function(){
     }, "Please enter your first and last name.");
 
 
-    $("#signup_request_form").submit(function(event){
-      var form = $("#signup_request_form");
+    $("#standalone-marketing-site-form").submit(function(event){
+      var form = $("#standalone-marketing-site-form");
       var config={
         onkeyup: false,
         rules: {
           "lead_contact[organization_name]": {
-            required: true,
+            required: true
           },
           "lead_contact[email]": {
             required: true,
@@ -33,22 +35,22 @@ Airbo.SignupRequest= (function(){
             phoneUS: true
           },
           "lead_contact[organization_size]": {
-            required: true,
-          },
+            required: true
+          }
         },
         messages: {
           "lead_contact[company]": {
-            required: "Please enter a company name.",
+            required: "Please enter a company name."
           },
           "lead_contact[name]": {
-            required: "Please enter your first and last name.",
+            required: "Please enter your first and last name."
           },
           "lead_contact[email]": {
-            required: "Please enter your work email.",
+            required: "Please enter your work email."
           },
           "lead_contact[phone]": {
-            required: "Please enter your phone number.",
-          },
+            required: "Please enter your phone number."
+          }
         },
         errorPlacement: function(error, element) {
           var placement = $(element).data('error');
@@ -69,20 +71,23 @@ Airbo.SignupRequest= (function(){
       } else {
         var email = form.children("#lead_contact_email").val();
 
-        Airbo.MarketingPagePings.signupRequestPings(email);
+        Airbo.MarketingSite.Pings.standaloneFormPings(email);
       }
     });
   }
 
   function init() {
-    validateSignupRequestForm();
+    validateSignupRequest();
   }
 
   return {
-  init: init
-};
+    init: init
+  };
+
 }());
 
 $(function(){
-  Airbo.SignupRequest.init();
+  if (Airbo.Utils.nodePresent("#standalone-marketing-site-form")) {
+    Airbo.MarketingSite.StandaloneMarketingSiteForms.init();
+  }
 });

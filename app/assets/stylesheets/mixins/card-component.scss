@@ -51,6 +51,16 @@
       }
     }
 
+    @media (min-width: 1300px) {
+      .card-header {
+        .card-title-group {
+          .card-title {
+            padding-left: 0;
+          }
+        }
+      }
+    }
+
     @media (min-width: 768px) {
       .dropdown-button-component {
         margin-right: 25px;

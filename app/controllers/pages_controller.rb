@@ -8,7 +8,7 @@ class PagesController < HighVoltage::PagesController
       case page_name
       when 'privacy', 'terms'
         'external'
-      when 'home'
+      when 'home', 'about'
         'marketing_site'
       else
         'standalone'

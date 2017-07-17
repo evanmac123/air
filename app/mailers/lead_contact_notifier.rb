@@ -13,6 +13,16 @@ class LeadContactNotifier < ActionMailer::Base
     )
   end
 
+  def demo_request(lead_contact)
+    @lead_contact = lead_contact
+
+    mail(
+      :from    => 'Inbound Lead<sales@airbo.com>',
+      :to      => 'team@airbo.com',
+      :subject => 'New Inbound Lead: Demo Request'
+    )
+  end
+
   def denial(lead_contact)
     @lead_contact = lead_contact
 

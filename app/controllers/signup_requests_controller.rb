@@ -5,27 +5,28 @@ class SignupRequestsController < ApplicationController
     lead_contact = LeadContact.new(lead_contact_params)
 
     if user_valid(lead_contact) && lead_contact.save
-      flash[:success] = "Thanks for signing up! Someone from our team will reach out to you in the next 24 hours to get you set up."
-      redirect_to root_path
+      flash[:info] = "Thanks for signing up! Someone from our team will reach out to you in the next 24 hours to get you set up."
+
+      redirect_to about_path
     else
       LeadContactNotifier.duplicate_signup_request(lead_contact).deliver
 
       flash[:info] = "An Airbo account has already been requested with your email or phone number. Someone from our team will reach out to you shortly."
-      redirect_to root_path
+      redirect_to sign_in_path
     end
   end
 
   def new
-    @signup_request = LeadContact.new(email: params[:email])
+    @marketing_site_request = LeadContact.new
   end
 
-  protected
+  private
 
-  def lead_contact_params
-    params[:lead_contact].permit!
-  end
+    def lead_contact_params
+      params[:lead_contact].permit!
+    end
 
-  def user_valid(lead_contact)
-    !User.exists?(email: lead_contact.email) && !User.exists?(phone_number: lead_contact.phone)
-  end
+    def user_valid(lead_contact)
+      !User.exists?(email: lead_contact.email) && !User.exists?(phone_number: lead_contact.phone)
+    end
 end

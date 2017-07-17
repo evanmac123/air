@@ -70,10 +70,10 @@ match "sign_in"  => "sessions#new"
 match "sign_up"  => "users#new"
 match "sign_out" => "sessions#destroy"
 
-get "company" => 'pages#company', as: 'company'
+get "about" => 'pages#about', as: 'about'
 get "demo_link" => "pages#demo_link", as: "demo_link"
-get "terms" => "pages#terms", :as => "terms"
-get "privacy" => "pages#privacy", :as => "privacy"
+get "terms" => "pages#terms", as: "terms"
+get "privacy" => "pages#privacy", as: "privacy"
 
 resources :pages, only: :show
 resource :support, only: :show

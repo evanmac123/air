@@ -1,0 +1,22 @@
+<div class="employee columns large-3 small-6">
+  <div class="thumbnail">
+    <%= image_tag opts[:image] %>
+  </div>
+  <p class="name"><%= opts[:name] %></p>
+  <p class="title"><%= opts[:title] %></p>
+  <a href="#" data-reveal-id="<%= opts[:name].gsub(" ", "") %>" class="bio-cta">Read Bio</a>
+
+  <div id="<%= opts[:name].gsub(" ", "") %>" class="marketing-site-about reveal-modal small" data-reveal aria-labelledby="<%= opts[:name] %>" aria-hidden="true" role="dialog">
+    <div class="leadership">
+      <div class="bio-modal">
+        <div class="thumbnail">
+          <%= image_tag opts[:image] %>
+        </div>
+        <p class="name"><%= opts[:name] %><a href="https://www.linkedin.com/in/<%= opts[:linkedin_username] %>" target="blank"><i class="fa fa-linkedin float-right" aria-hidden="true"></i></a></p>
+        <p class="title"><%= opts[:title] %></p>
+        <p class="bio"><%= opts[:bio] %></p>
+      </div>
+    </div>
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+  </div>
+</div>

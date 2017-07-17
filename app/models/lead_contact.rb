@@ -24,7 +24,9 @@ class LeadContact < ActiveRecord::Base
 
   def notify!
     if source == "Inbound: Signup Request"
-      notify_inbound_signup_request
+      LeadContactNotifier.delay_mail(:signup_request, self)
+    elsif source == "Inbound: Demo Request"
+      LeadContactNotifier.delay_mail(:demo_request, self)
     end
   end
 
@@ -50,10 +52,6 @@ class LeadContact < ActiveRecord::Base
       add_initial_status
       parse_phone_number
       parse_organization_name
-    end
-
-    def notify_inbound_signup_request
-      LeadContactNotifier.delay_mail(:signup_request, self)
     end
 
     def add_initial_status

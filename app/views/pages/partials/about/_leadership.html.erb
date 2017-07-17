@@ -1,0 +1,58 @@
+<div class="leadership">
+  <div class="row header-row">
+    <div class="leadership-header-container mx-auto text-center">
+      <h3 class="header">Leadership</h3>
+      <p class="subheader">Our leadership team brings together expertise across human resources, educational psychology, product, design, engineering, and marketing to help build the future of employee engagement.</p>
+    </div>
+  </div>
+  <div class="row employees">
+    <%= render partial: "pages/partials/about/employee", locals: {
+      opts: {
+        name: "Vlad Gyster",
+        title: "Founder, CEO",
+        image: "marketing_site/airbo_employees/vlad.jpg",
+        linkedin_username: "vladgyster",
+        bio: "Vlad has spent ten years helping Human Resources understand and adopt emerging technologies like mobile, gamification, and social media. Prior to starting Airbo, Vlad spent five years at Willis Towers Watson. There, he cofounded the social media practice and worked with Fortune 500 companies like 3M and American Express to implement strategies to engage employees in the HR ecosystem.
+        <br><br>
+
+        Vlad is a frequent speaker at HR conferences and contributes to publications like Fortune, Employee Benefit News, IHRIM, and SHRM. He resides in Venice, CA, where he occasionally sneaks out of the office to surf.".html_safe
+      }
+    } %>
+
+    <%= render partial: "pages/partials/about/employee", locals: {
+      opts: {
+        name: "Kate Bernier",
+        title: "Director of Customer Success",
+        image: "marketing_site/airbo_employees/kate.jpg",
+        linkedin_username: "kate-bernier",
+        bio: "Kate joined Airbo in 2012 from Starwood Hotels, where she was a front-line HR manager working with a diverse employee population. As the Director of Customer Success, she applies her first hand HR knowledge to help launch and service clients from 20 to 100,000 employees.
+        <br><br>
+
+        Kate holds a BA in Business Administration, with a focus on human resources, from the University of Vermont and resides in Los Angeles, California.".html_safe
+      }
+    } %>
+
+    <%= render partial: "pages/partials/about/employee", locals: {
+      opts: {
+        name: "Nick Weiland",
+        title: "Director of Product & Technology",
+        image: "marketing_site/airbo_employees/nick.jpg",
+        linkedin_username: "weilandia",
+        bio: "Nick leads Airbo’s vision for the future of employee engagement and engineers it into existence. His unique perspective on user psychology was born from his years as a Teach For America corps member in Detroit, where he combined his passion for technology and human engagement to lead his 6th-grade math class to grow 2x the national average. Since leaving the classroom, Nick has worked as a technology implementation consultant and software engineer.
+        <br><br>
+
+        Nick lives in Venice, CA. When he's not at Airbo HQ, he can be found surfing somewhere up the coast.".html_safe
+      }
+    } %>
+
+    <%= render partial: "pages/partials/about/employee", locals: {
+      opts: {
+        name: "Marco Schneiderman",
+        title: "Sales Executive",
+        image: "marketing_site/airbo_employees/marco.png",
+        linkedin_username: "marco-schneiderman",
+        bio: "Marco began his career as an intern at BeatBox Beverages, a Mark Cuban Company. He quickly rose through the ranks and in under a year was promoted to National Sales Manager. As the head of sales, he established and developed a successful sales team that spanned across the United States. After successfully launching BeatBox into key new markets, Marco wanted to shift gears. He decided he wanted to build a sales team with a local company, who has a mission that Marco truly believes in."
+      }
+    } %>
+  </div>
+</div>
