@@ -44,8 +44,12 @@
   background: $tile-wall-bg;
 }
 
+.onboarding-top-bar {
+  box-shadow: none;
+}
+
 .onboarding-progress {
-  background: lighten($ca-subnav-color, 5%);
+  background: $ca-subnav-color;
   text-align: center;
   color: $off-white;
   height: 55px;

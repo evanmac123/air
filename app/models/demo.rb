@@ -65,6 +65,7 @@ class Demo < ActiveRecord::Base
       :styles => {:thumb => ["x46>", :png]},
       :default_style => :thumb,
       :default_url => "/assets/logo.png",
+      :keep_old_files => true
     }.merge!(DEMO_LOGO_OPTIONS)
 
   has_attached_file :cover_image,

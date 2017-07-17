@@ -23,7 +23,6 @@
     <% unless request.user_agent =~ /Mobile|webOS/ %>
       <%= render partial: 'user_onboardings/partials/header' , locals:{user_onboarding: @user_onboarding}%>
       <main class="main">
-      <%= render partial: 'user_onboardings/partials/onboarding_subnav', locals:{user_onboarding: @user_onboarding}%>
     <% end %>
       <div class="core <%= params[:controller] + "-" + params[:action] %>-content">
         <div class="content <%= params[:controller] + "-" + params[:action] %>-content">

@@ -12,9 +12,7 @@ class TilesToolsSubnavPresenter
   end
 
   def items_with_corrected_params
-    elements = set_subnav_elements
-
-    elements.each do |item_params|
+    subnav_elements.each do |item_params|
       yield correct_params(item_params)
     end
   end
@@ -23,20 +21,15 @@ class TilesToolsSubnavPresenter
     has_tiles_tools_subnav?
   end
 
-  def tile_manager_nav_class
-    ''
+  def side_nav_id
+    "tile_manager_nav"
+  end
+
+  def side_nav_class
+    "js-client-admin-side-nav"
   end
 
   private
-
-    def set_subnav_elements
-      if block_nav?
-        subnav_elements_with_blocked_items
-      else
-        subnav_elements
-      end
-    end
-
 
     def correct_params params = {}
       params[:icon] ||= nil
@@ -46,22 +39,12 @@ class TilesToolsSubnavPresenter
       params
     end
 
-    def block_nav?
-      demo.non_activated? && current_user.show_onboarding?
-    end
-
-    def subnav_elements_with_blocked_items
-      elements = subnav_elements
-      elements.each do |element|
-        if list_of_blocked_items.include? element[:text]
-          element[:blocked] = true
-        end
-      end
-      elements
+    def tiles_to_be_sent
+      @_tiles_to_be_sent = demo.digest_tiles(demo.tile_digest_email_sent_at).count
     end
 
     def subnav_elements
-       nav = []
+      nav = []
 
       nav.tap do |els|
 
@@ -94,8 +77,7 @@ class TilesToolsSubnavPresenter
               icon: "share-alt",
               text: "Share",
               has_notification: true,
-              notification_class: "no-color",
-              notification_content: @tiles_to_be_sent || demo.digest_tiles(demo.tile_digest_email_sent_at).count
+              notification_content: tiles_to_be_sent
             },
             {
               item_id: "board_activity",
@@ -103,7 +85,6 @@ class TilesToolsSubnavPresenter
               icon: "line-chart",
               text: "Reports",
               has_notification: current_user.has_tile_email_report_notification?,
-              notification_class: "alert",
               notification_content: current_user.get_tile_email_report_notification_content
             },
             {
@@ -138,9 +119,5 @@ class TilesToolsSubnavPresenter
           ]
         )
       end
-    end
-
-    def list_of_blocked_items
-     ["Share", "Activity", "Prizes", "Users"]
     end
 end

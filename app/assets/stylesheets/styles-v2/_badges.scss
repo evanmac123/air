@@ -18,15 +18,19 @@ $badge-font-size: 11px !default;
   border-radius: 50%;
   text-align: center;
 
-  background: $n-green;
+  background: transparent;
   color: #fff;
+
+  &.success {
+    background: $n-green
+  }
 
   &.alert {
     background: $n-red;
     color: #fff;
   }
 
-  &.no-color {
-    background: transparent;
+  &.warning {
+    background: $n-yellow;
   }
 }
