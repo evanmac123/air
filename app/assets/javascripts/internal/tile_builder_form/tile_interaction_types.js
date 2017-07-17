@@ -5,7 +5,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
   var interactions =  {
     action:{
       take_action: {
-        answerType: "action",
         name: "Take Action",
         question: "Points for taking action",
         maxLength: 50,
@@ -14,7 +13,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 1,
       },
       read_tile: {
-        answerType: "action",
         name: "Read Tile",
         question: "Points for reading tile",
         maxLength: 50,
@@ -23,7 +21,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 1,
       },
       read_article: {
-        answerType: "action",
         name: "Read Article",
         question: "Points for reading article",
         maxLength: 50,
@@ -32,7 +29,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 1,
       },
       share_on_social_media : {
-        answerType: "action",
         name: "Share On Social Media",
         question: "Points for sharing on social media (e.g., Facebook, Twitter)",
         maxLength: 50,
@@ -41,7 +37,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 1,
       },
       visit_web_site: {
-        answerType: "action",
         name: "Visit Web Site",
         question: "Points for visiting web site",
         maxLength: 50,
@@ -50,7 +45,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 1,
       },
       watch_video: {
-        answerType: "action",
         name: "Watch Video",
         question: "Points for watching video",
         maxLength: 50,
@@ -59,7 +53,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 1,
       },
       custom: {
-        answerType: "action",
         name: "Custom...",
         question: "Points for taking an action",
         maxLength: 50,
@@ -72,7 +65,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
 
     quiz: {
       true_false: {
-        answerType: "quiz",
         name: "True / False",
         question: "Fill in statement",
         answers: ["True",  "False"],
@@ -83,7 +75,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 2,
       },
       multiple_choice: {
-        answerType: "quiz",
         name: "Multiple Choice",
         question: "Ask a question",
         answers: ["Add Answer Option",  "Add Answer Option"],
