@@ -88,7 +88,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
 
     survey : {
       multiple_choice: {
-        answerType: "survey",
         name: "Multiple Choice",
         question: "Add question",
         answers: ["Add Answer Option", "Add Answer Option"],
@@ -99,7 +98,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         freeResponse: true
       },
      free_response: {
-        answerType: "action_free_form",
         name: "Free Response",
         question: "Ask a question",
         maxLength: 50,
@@ -109,7 +107,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 0,
       },
       rsvp_to_event : {
-        answerType: "survey",
         name: "RSVP To Event",
         question: "Will you be attending?",
         answers: ["Yes", "No", "Maybe"],
@@ -119,7 +116,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 3,
       },
       change_email: {
-        answerType: "survey",
         name: "Change Email",
         question: "Would you like to change the email that you receive Airbo email notifications?",
         answers: ["Change my email", "Keep my current email"],
@@ -130,7 +126,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
       },
 
       invite_spouse: {
-        answerType: "survey",
         name: "Invite Spouse",
         question: "Do you want to invite your spouse?",
         answers: [

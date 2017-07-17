@@ -10,8 +10,7 @@ Airbo.EditableTileAnswerButton = {
     this.exceed = config.exceed || false;
     this.text = text
     remaining =  this.maxLength - text.length
-
-    this.characterCounter = Object.create(Airbo.TileBuilderInteractionCharacterCounter).init(this.maxLength, remaining);
+    this.characterCounter = Airbo.TileBuilderComponentCharacterCounter.build(this.maxLength, remaining);
     return this;
   },
 
