@@ -2,5 +2,4 @@
 //= require ../../../vendor/assets/javascripts/external/foundation.min
 //= require ../../../vendor/assets/javascripts/jquery-scrollTo.min
 //= require flickity.pkgd.min.js
-//= require internal/flashes
 //= require_tree ./marketing_site

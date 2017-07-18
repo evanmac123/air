@@ -5,7 +5,7 @@ body.client_admin-users {
 
   form.user-profile {
     .field_with_errors {
-      input {border:1px $red solid;}
+      input {border:1px $n-red solid;}
     }
 
     &:after{@include clear;}

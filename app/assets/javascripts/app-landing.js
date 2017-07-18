@@ -8,7 +8,6 @@
 //= require_tree ../../../vendor/assets/javascripts/external/
 //= require application
 //= require ./internal_and_external/underscore-min
-//= require internal/flashes
 //= require ./external/prefilled_input.js
 //= require ./external/marketing_slider.js
 //= require ./external/category
