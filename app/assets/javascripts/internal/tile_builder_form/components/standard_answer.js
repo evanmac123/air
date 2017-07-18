@@ -14,7 +14,7 @@ Airbo.StandardAnswer.init = function (config, container){
   this.points = config.points;
   this.maxLength = config.maxLength;
   this.exceed = config.exceed;
-  this.freeResponseEnabled = config.freeResponseEnabled;
+  this.allowFreeResponse = config.allowFreeResponse;
   this.freeResponse = config.freeResponse;
 
   this.setupAnswers();
@@ -150,7 +150,7 @@ Airbo.StandardAnswer.includeFreeResponse = function(){
 
 
 
-  if(this.freeResponseEnabled){
+  if(this.allowFreeResponse){
     checkbox.checked = true;
     answerWrapperClass += " enabled";
   }

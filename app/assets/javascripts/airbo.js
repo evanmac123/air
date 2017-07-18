@@ -114,6 +114,14 @@ var Airbo = {
       mixpanel.track(event, properties);
     },
 
+    tileTypeSelectedPing: function(config){
+      this.ping("Tile Type Selected", {
+        type: config.type,
+        subtype: config.subtype,
+        allow_free_response: config.allowFreeResponse
+      });
+    },
+
     flash: function(type,msg,config ){
       //TODO make flash duration configurable
       var flash= $(".flash-js");

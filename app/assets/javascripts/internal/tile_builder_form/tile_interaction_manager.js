@@ -47,22 +47,27 @@ Airbo.TileInteractionManager =(function(){
   function getSavedOrDefaultInteractionConfig(){
     var defaults
       , config ={}
-      , savedConfig = $("#question_type_container").data('config')
+      , savedConfig = getSavedConfig()
     ;
 
     if(Object.keys(savedConfig).length === 0){
       defaults = Airbo.TileBuilderInteractionConfig.defaultKeys();
       config = interactionConfigByTypeAndSubType(defaults);
-      $("#question_type_container").data('config', config)
     }else{
       config = interactionConfigByTypeAndSubType(savedConfig);
-      config =  $.extend({}, config, savedConfig)
-      $("#question_type_container").data('config', config)
+      config =  $.extend({}, config, savedConfig);
     }
 
     return config;
   }
 
+  function getSavedConfig(){
+    return $("#question_type_container").data('config');
+  }
+
+  function updateConfig(config){
+    $("#question_type_container").data('config', config);
+  }
 
   function interactionConfigByTypeAndSubType(selected){
     var config = Airbo.TileBuilderInteractionConfig.get(selected.type, selected.subtype);
@@ -75,6 +80,8 @@ Airbo.TileInteractionManager =(function(){
 
   function handleSubTypeSelection(selected){
     var config = interactionConfigByTypeAndSubType(selected);
+
+    updateConfig(config)
     renderSelectedInteraction(config)
     initFreeFormTooltip();
   }
@@ -170,6 +177,7 @@ Airbo.TileInteractionManager =(function(){
     $("body").on("change", ".js-chk-free-text", function(event){
       var btnWrapper = $(".js-free-text-btn-wrapper")
         , target = event.target
+        , config = getSavedConfig()
       ;
 
       if(target.checked){
@@ -177,6 +185,9 @@ Airbo.TileInteractionManager =(function(){
       }else{
         btnWrapper.removeClass("enabled");
       }
+
+      Airbo.Utils.tileTypeSelectedPing($.extend({}, config, {allowFreeResponse: target.checked}));
+
     });
   }
 

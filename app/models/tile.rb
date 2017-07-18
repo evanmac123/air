@@ -219,7 +219,7 @@ class Tile < ActiveRecord::Base
         answers: multiple_choice_answers,
         question: question,
         index: correct_answer_index,
-        freeResponseEnabled: allow_free_response,
+        allowFreeResponse: allow_free_response,
         points: points
       }
     else
