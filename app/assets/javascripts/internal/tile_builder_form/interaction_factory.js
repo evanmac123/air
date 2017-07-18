@@ -10,7 +10,7 @@ Airbo.TileInteractionBuilder = (function(){
 
   function renderQuestion () {
     var textArea = document.getElementById("tile_question")
-    textArea.innerText =question
+    textArea.innerText = question
   }
 
   function render() {
@@ -22,20 +22,13 @@ Airbo.TileInteractionBuilder = (function(){
     answer.addAnswer();
   }
 
-  function answerType(type){
-    switch(type){
-      case "free_response":
-        return Airbo.FreeResponseAnswer;
-      default:
-        return Airbo.StandardAnswer;
-    }
-  }
 
   function init(config){
-    var answerObject = answerType(config.subtype)
-    question = config.question;
+    var builder = config.builder || Airbo.StandardAnswer;
+
+    question = config.question
     resetAttributes(config.type, config.subtype);
-    answer = Object.create(answerObject).init(config, container)
+    answer = Object.create(builder).init(config, container)
   }
 
   return {
