@@ -1,6 +1,6 @@
 var Airbo = Airbo || {};
 
-Airbo.FreeResponseAnswer = Object.create(BaseAnswer);
+Airbo.FreeResponseAnswer = Object.create(Airbo.BaseAnswer);
 
 Airbo.FreeResponseAnswer.asDomNode = function() {
   var node = document.createDocumentFragment()
