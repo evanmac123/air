@@ -153,7 +153,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
   }
 
   function defaultKeys(){
-    return {type:"action",subtype: "take_action"}
+    return {type: "action",subtype: "read_tile"}
   }
 
   return {
