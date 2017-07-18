@@ -1,8 +1,8 @@
 class SuggestedTilesController < UserBaseController
   def new
-
+ 
     @image_providers = ENV['IMAGE_PROVIDERS'].split(",").to_json
-    @tile_builder_form =  current_user.demo.m_tiles.build(status: Tile::USER_SUBMITTED, user_created: true)
+    @tile =  current_user.demo.m_tiles.build(status: Tile::USER_SUBMITTED, user_created: true)
     @user_side = true
     render partial: "client_admin/tiles/form", layout: false and return
   end
@@ -13,18 +13,18 @@ class SuggestedTilesController < UserBaseController
   end
 
   def create
-    @tile_builder_form =  UserTileBuilderForm.new(
-                            current_user.demo,
-                            form_params:params.require(:tile_builder_form).permit!,
-                            creator: current_user,
-                            action: params[:action]
-                          )
+    demo = current_user.demo
 
-    if @tile_builder_form.create_tile
-      @tile = @tile_builder_form.tile
+
+    @tile = demo.m_tiles.build(params.require(:tile).permit!)
+    @tile.creator =current_user
+    @tile.status =Tile::USER_SUBMITTED
+    @tile.creation_source = :suggestion_box_created
+
+    if @tile.save
       render_preview
     else
-      response.headers["X-Message"]= @tile_builder_form.error_message
+      response.headers["X-Message"]= @tile.error_message
       head :unprocessable_entity and return
     end
   end

@@ -215,18 +215,18 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
       it "should filter by 'Yes' answer" do
         within "#tile_stats_grid" do
-          page.first("td.answer_column", text: "Yes").click
-          expect(page).to have_no_css("td.answer_column", text: "No")
-          expect(page).to have_no_css("td.answer_column", text: "A V8 Buick")
+          page.first(".js-grid-answer-filter", text: "Yes").click
+          expect(page).to have_no_css(".js-grid-answer-filter", text: "No")
+          expect(page).to have_no_css(".js-grid-answer-filter", text: "A V8 Buick")
           expect(all_names).to eq(["user0", "user3", "user6"])
         end
       end
 
       it "should filter by 'No' answer" do
         within "#tile_stats_grid" do
-          page.first("td.answer_column", text: "No").click
-          expect(page).to have_no_css("td.answer_column", text: "Yes")
-          expect(page).to have_no_css("td.answer_column", text: "A V8 Buick")
+          page.first(".js-grid-answer-filter", text: "No").click
+          expect(page).to have_no_css(".js-grid-answer-filter", text: "Yes")
+          expect(page).to have_no_css(".js-grid-answer-filter", text: "A V8 Buick")
           expect(all_names).to eq(["user1", "user4", "user7"])
         end
       end

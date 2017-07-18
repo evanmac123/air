@@ -56,14 +56,12 @@ feature 'Creates draft tile' do
     fake_upload_image img_file1
 
     fill_in_image_credit "by Society#{edit_text}"
-    page.find("#tile_builder_form_headline").set("Ten pounds of cheese#{edit_text}")
-    page.find("#tile_supporting_content").native.send_key("Ten pounds of cheese. Yes? Or no?#{edit_text}")
+    page.find("#tile_headline").set("Ten pounds of cheese#{edit_text}")
+    page.find("#tile_supporting_content_container").native.send_key("Ten pounds of cheese. Yes? Or no?#{edit_text}")
     fill_in_question "Who rules?#{edit_text}"
-    2.times {click_add_answer}
     fill_in_answer_field 0, "Me#{edit_text}"
     fill_in_answer_field 1, "You#{edit_text}"
-    fill_in_answer_field 2, "Hipster#{edit_text}"
-    click_answer.times { select_correct_answer 2 } if question_type == Tile::QUIZ
+    select_correct_answer 1 
     fill_in_points points
   end
 

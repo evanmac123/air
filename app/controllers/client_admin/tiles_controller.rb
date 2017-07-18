@@ -47,14 +47,14 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
 
   def new
-    @tile_builder_form =  @demo.m_tiles.build(status: Tile::DRAFT)
-    new_or_edit @tile_builder_form
+   @tile = @demo.m_tiles.build(status: Tile::DRAFT)
+    new_or_edit @tile
   end
 
 
   def edit
-    @tile_builder_form =  get_tile
-    new_or_edit @tile_builder_form
+    @tile = get_tile
+    new_or_edit @tile
   end
 
   def update
@@ -62,7 +62,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     if params[:update_status]
       update_status
     else
-      @tile.assign_attributes(params[:tile_builder_form])
+      @tile.assign_attributes(params[:tile])
       update_or_create @tile do
         render_preview_and_single
       end
@@ -70,10 +70,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def create
-    @tile_builder_form =  @tile = @demo.m_tiles.build(params[:tile_builder_form].merge(creator_id: current_user.id))
+    @tile = @demo.m_tiles.build(params[:tile].merge(creator_id: current_user.id))
 
-    update_or_create @tile_builder_form do
-      schedule_tile_creation_ping(@tile_builder_form, "Self Created")
+    update_or_create @tile do
+      schedule_tile_creation_ping(@tile, "Self Created")
       render_preview_and_single
     end
   end
@@ -168,7 +168,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def permit_params
-    params.require(:tile_builder_form).permit!
+    params.require(:tile).permit!
   end
 
   def update_status
@@ -330,8 +330,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def set_flash_for_no_image
-    if @tile_builder_form.no_image
-      flash.now[:failure] = render_to_string("client_admin/tiles/form/save_tile_without_an_image", layout: false, locals: { tile: @tile_builder_form.tile })
+    if @tile.no_image
+      flash.now[:failure] = render_to_string("client_admin/tiles/form/save_tile_without_an_image", layout: false, locals: { tile: @tile.tile })
       flash[:failure_allow_raw] = true
     end
   end
@@ -343,7 +343,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def builder_options
     {
-      form_params: params[:tile_builder_form],
+      form_params: params[:tile],
       creator: current_user,
       action: params[:action]
     }

@@ -129,11 +129,11 @@ module TileHelpers
   end
 
   def answer_field_selector
-    "input[name='tile_builder_form[answers][]'], textarea[name='tile_builder_form[answers][]']"
+    "textarea[name='tile[answers][]']"
   end
 
   def answer_link_selector
-    ".tile_multiple_choice_answer a"
+    "a.answer-btn"
   end
 
   def fill_in_answer_field(index, text)
@@ -142,13 +142,11 @@ module TileHelpers
   end
 
   def fill_in_external_link_field(text)
-    page.find("#tile_builder_form_link_address").set(text)
+    page.find("#tile_link_address").set(text)
   end
 
   def fill_in_question text
-    page.find(".tile_question").click
-    #FIXME shouldn't clicking make the form element visible?
-    page.find("#tile_builder_form_question", visible: false).set(text)
+    page.find("#tile_question").set(text)
   end
 
   def click_make_copyable
@@ -160,8 +158,7 @@ module TileHelpers
   end
 
   def select_correct_answer(index)
-    page.all(".tile_multiple_choice_answer a")[index].click
-    page.all(".correct-answer-button")[index].click
+    page.find("input[type='radio'][value='#{index}'].correct-answer-button" ).trigger("click")
   end
 
   def add_tile_tag(tag)
@@ -312,8 +309,8 @@ module TileHelpers
   end
 
   def choose_question_type_and_subtype question_type, question_subtype
-    page.find("##{question_type}").click
-    page.find("##{question_type}-#{question_subtype}").click
+    page.find("##{question_type.downcase}.type").click
+    page.find(".subtype.#{question_type.downcase}.#{question_subtype}").trigger("click")
   end
 
 
@@ -359,7 +356,7 @@ module TileHelpers
   end
 
   def answer(index)
-    page.all('.tile_multiple_choice_answer')[index]
+    page.all('.js-tile-answer-container')[index]
   end
 
   def expect_answer(index, text)
@@ -409,7 +406,7 @@ module TileHelpers
   end
 
   def attach_tile locator, path
-    page.execute_script("$('#tile_builder_form_image').css('display','block')")
+    page.execute_script("$('#tile_image').css('display','block')")
     attach_file locator, path
   end
 

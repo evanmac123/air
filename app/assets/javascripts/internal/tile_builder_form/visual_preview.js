@@ -12,7 +12,7 @@ Airbo.TileVisualPreviewMgr = (function(){
 
   function showEmbedVideo(){
     $(".embed-video-container").addClass("present").show();
-    $("#tile_builder_form_embed_video").focus();
+    $("#tile_embed_video").focus();
   }
 
   function hideEmbedVideo(){
@@ -169,7 +169,7 @@ Airbo.TileVisualPreviewMgr = (function(){
 
     Airbo.PubSub.subscribe("inititiating-image-search", function(){
       $("#remote_media_url").val("");
-      $("#tile_builder_form_embed_video").val("");
+      $("#tile_embed_video").val("");
       hideVideoPreview();
       hideEmbedVideo();
       showSearchResults();
@@ -178,7 +178,7 @@ Airbo.TileVisualPreviewMgr = (function(){
   }
 
   function initPreviewByType(){
-    if( $("#tile_builder_form_embed_video").val().length > 0 ) {
+    if( $("#tile_embed_video").val().length > 0 ) {
       $("#image_uploader").hide();
       showVideoPreview()
     }
@@ -191,7 +191,7 @@ Airbo.TileVisualPreviewMgr = (function(){
 
       if($(".unparsable").is(":visible")){
         $("#remote_media_url").val("");
-        $("#tile_builder_form_embed_video").val("");
+        $("#tile_embed_video").val("");
       }
 
     });

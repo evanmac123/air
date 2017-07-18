@@ -40,8 +40,8 @@ Airbo.UserTilePreview =(function(){
     return  !isRemote();
   }
 
-//TODO refactor this code since this logic for finding completed tiles is also
- //in progress_and_prize_bar.js
+  // TODO refactor this code since this logic for finding completed tiles is also
+  // in progress_and_prize_bar.js
   function completedTileCount(){
     return completedTileIds().length;
   }
@@ -138,9 +138,9 @@ Airbo.UserTilePreview =(function(){
   }
 
   function disableNonSelectedAnswers(answerIndex){
-    $(".tile_multiple_choice_answer").each(function(idx, el){
+    $(".js-multiple-choice-answer").each(function(idx, el){
       if(idx !== answerIndex){
-        $(this).children("a").attr("class","").addClass("nerfed_answer");
+        $(this).attr("class","").addClass("nerfed_answer");
       }
     });
   }
@@ -149,7 +149,7 @@ Airbo.UserTilePreview =(function(){
     var  clickAnswerTemplate = $("<div class='clicked_right_answer'></div>");
 
 
-    el = $($(".tile_multiple_choice_answer")[answerIndex]).children('a');
+    el = $($(".js-multiple-choice-answer")[answerIndex])
     clickAnswerTemplate.text(el.text());
     el.replaceWith(clickAnswerTemplate);
   }
@@ -201,14 +201,14 @@ Airbo.UserTilePreview =(function(){
     });
   }
 
-  function postTileCompletionPing(event) {
+  function postTileCompletionPing(target) {
     var tileId = $(".tile_holder").data("current-tile-id");
     var tileType;
     if( $('body').hasClass("public-board") ) {
       tileType = "Public Tile";
-    } else if( $(".tile_multiple_choice_answer a").hasClass("invitation_answer") ) {
+    } else if( $(".js-multiple-choice-answer").hasClass("invitation_answer") ) {
       tileType = "Spouse Invite";
-    } else if( $(".tile_multiple_choice_answer a").hasClass("change_email_answer") ) {
+    } else if( $(".js-multiple-choice-answer").hasClass("change_email_answer") ) {
       tileType = "Email Change";
     }else {
       tileType = "User";
@@ -218,25 +218,33 @@ Airbo.UserTilePreview =(function(){
       tile_type: tileType
     };
     if( tileType == "Spouse Invite" ) {
-      pingParams.sent_invite = $(event.target).hasClass("invitation_answer");
+      pingParams.sent_invite = target.hasClass("invitation_answer");
     }
     Airbo.Utils.ping('Tile - Completed', pingParams);
   }
 
-  function postTileCompletion(event) {
-    var response,
-        answer,
-        promise;
+  function handleForm(index){
+    return form.serializeArray();
+  }
+
+  function postTileCompletion(target) {
+    var response
+      , answer
+      , promise
+      , idx = target.data("answerIndex")
+      , form  = $("form#tile_completion")
+      , url = form.attr("action")
+    ;
+     form.find("#answer_index").val(idx);
 
     if (isRemote()){
-      postTileCompletionPing(event);
-        response = $.ajax({
-          type: "POST",
-          url: $(event.target).attr('href'),
-          headers: { 'X-CSRF-Token': findCsrfToken() },
-          dataType: "json"
-        });
-        return response;
+      postTileCompletionPing(target);
+      response = $.ajax({
+        type: "POST",
+        url: url,
+        data: form.serializeArray(),
+      });
+      return response;
     } else {
       promise = postToLocalStorage();
       promise.then(function(response){
@@ -281,25 +289,28 @@ Airbo.UserTilePreview =(function(){
  }
 
  //TODO make sure not broken
- function targetAnswerClicked(event) {
-   var tileCompletionPosted = postTileCompletion(event),
-       grayedOutAndScrolled = grayoutAndScroll(event);
+ function targetAnswerClicked(target) {
+   var tileCompletionPosted = postTileCompletion(target),
+       grayedOutAndScrolled = grayoutAndScroll();
 
    $.when(tileCompletionPosted, grayedOutAndScrolled).then(function(xhr, res) {
      getTileAfterAnswer(xhr[2].responseText);
    });
  }
 
- function rightAnswerClicked(event){
+ //FIXME this is a shitty way to do this!!
+
+ function rightAnswerClicked(answer){
    var formFun = function() {};
-   if( $(event.target).hasClass("invitation_answer") ){
+
+   if( answer.hasClass("invitation_answer") ){
      formFun = Airbo.DependentEmailForm.get;
    } else if( $(event.target).hasClass("change_email_answer") ){
      formFun = Airbo.ChangeEmailForm.get;
    }
 
    $.when(formFun()).done(function() {
-     targetAnswerClicked(event);
+     targetAnswerClicked(answer);
    }).fail(function() {
      Airbo.TileAnswers.reinitEvents();
    });
@@ -319,14 +330,15 @@ Airbo.UserTilePreview =(function(){
  }
 
 
+
+
+
  function initTile(){
    var configObj = $(".tile_holder");
-
    tileId = configObj.data("current-tile-id");
    pointValue = configObj.data("point-value");
    config = $(".user_container").data("config");
    storageKey = config.key;
-
    initNextTileParams();
    setUpAnswers();
    Airbo.Utils.ExternalLinkHandler.init();

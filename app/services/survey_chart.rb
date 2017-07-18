@@ -9,7 +9,7 @@ class SurveyChart
     agg = tile.tile_completions.group(:answer_index).count
     count = agg.values.sum
 
-    tile.multiple_choice_answers.inject([]) do |chart, answer|
+    answer_set.inject([]) do |chart, answer|
       answer_hsh = {}
       answer_hsh["answer"] = answer
       answer_hsh["number"] = agg[chart.length].to_i
@@ -21,6 +21,14 @@ class SurveyChart
       end
 
       chart << answer_hsh
+    end
+  end
+
+  def answer_set
+    if tile.allow_free_response && tile.question_subtype != "free_response"
+      tile.multiple_choice_answers.push("Other")
+    else
+      tile.multiple_choice_answers
     end
   end
 end

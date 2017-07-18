@@ -2,7 +2,7 @@
 <%= content_tag :div, class: "builder_content #{'ie9' if ie9_or_older?}" do %>
   <div class="video_section">
     <div class="video_frame_block">
-      <%= unescape_html(@tile_builder_form.embed_video) %>
+      <%= unescape_html(@tile.embed_video) %>
     </div>
     <div class="video-menu">
       <ul>
@@ -17,19 +17,19 @@
   </div>
 
   <div id="image_uploader" class="intro-tipsy content_sections">
-    <% image_class = tile_image_present(@tile_builder_form.remote_media_url) ? "present" : "missing" %>
+    <% image_class = tile_image_present(@tile.remote_media_url) ? "present" : "missing" %>
 
-    <div class="intro-tipsy image_preview limited-height <%= image_class %>" data-img-height='<%= @tile_builder_form.full_size_image_height%>'>
-      <%= image_tag @tile_builder_form.image.url, class: "tile_image", id: "upload_preview" %>
+    <div class="intro-tipsy image_preview limited-height <%= image_class %>" data-img-height='<%= @tile.full_size_image_height%>'>
+      <%= image_tag @tile.image.url, class: "tile_image", id: "upload_preview" %>
       <div class="shadow_overlay"></div>
       <div class="image_credit ">
         <% if ie9_or_older? %>
           <div class="image_credit_view">
-            <%= @tile_builder_form.image_credit %>
+            <%= @tile.image_credit %>
           </div>
         <% else %>
           <div class="image_credit_view no_outline" contenteditable="true">
-            <%= @tile_builder_form.image_credit%>
+            <%= @tile.image_credit%>
           </div>
           <%= form.text_area :image_credit %>
         <% end %>

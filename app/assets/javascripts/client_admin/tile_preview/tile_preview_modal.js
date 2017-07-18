@@ -49,7 +49,7 @@ Airbo.TilePreviewModal = (function(){
   function initStickyPreviewMenu() {
     Airbo.StickyMenu.init(self);
   }
-  function initEvents() {
+  function initTileToolbarActions() {
     // FIXME
     // there are same events in Airbo.TileThumbnail (edit, update, delete, duplicate)
     // reason: i want to have object, its elements and its events in one place
@@ -99,7 +99,7 @@ Airbo.TilePreviewModal = (function(){
     Airbo.ImageLoadingPlaceholder.init();
     initStickyPreviewMenu();
     arrowsObj.initEvents();
-    initEvents();
+    initTileToolbarActions();
   }
   function open(preview) {
     modalObj.setContent(preview);

@@ -21,7 +21,7 @@ feature "Changes email via tile", js: true do
     # right tile
     expect( page.find(".tile_headline").text ).to eql(tile.headline)
 
-    page.find(".right_multiple_choice_answer.change_email_answer").click
+    page.find(".js-multiple-choice-answer.correct.change_email_answer").click
     within(".change_email_form") do
       expect_content "New Email Address"
       fill_in "change_email_email", with: "new@email.com"

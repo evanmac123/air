@@ -6,6 +6,7 @@ class GridQuery::TileActions
     "interacted" => "Interacted",
     "viewed_only" => "Viewed only",
     "not_viewed" => "Didn't view",
+    "free_response" => "Free Response",
     "all" => "All"
   }.freeze
 
@@ -46,6 +47,10 @@ class GridQuery::TileActions
       all.where{ tile_viewings.id == nil }
     end
 
+    def free_response
+      all.where{tile_completions.free_form_response !=""}
+    end
+
     def all
       users_viewings_subquery = TileViewing.users_viewings(tile.id).to_sql
       users_completions_subquery = TileCompletion.where(tile_id: tile.id, user_type: 'User').to_sql
@@ -69,7 +74,8 @@ class GridQuery::TileActions
            users.email AS user_email, \
            tile_viewings.views AS tile_views, \
            tile_completions.answer_index AS tile_answer_index, \
-           tile_completions.created_at AS completion_date"
+           tile_completions.created_at AS completion_date, \ 
+           tile_completions.free_form_response AS free_response"
         )
     end
 end

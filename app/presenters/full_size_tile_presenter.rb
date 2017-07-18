@@ -20,6 +20,9 @@ class FullSizeTilePresenter
     :full_size_image_height,
     :custom_supporting_content_class,
     :embed_video,
+    :question_type,
+    :question_subtype,
+    :allow_free_response?,
     to: :tile
 
   def initialize(tile, user, is_preview, current_tile_ids, browser)
@@ -92,6 +95,10 @@ class FullSizeTilePresenter
 
   def adjacent_tile_image_urls
     Tile.where(id: adjacent_tile_ids).map{|tile| tile.image.url}
+  end
+
+  def free_form_response
+    user_tile_completion && user_tile_completion.free_form_response
   end
 
   def image_styles

@@ -131,7 +131,7 @@
     width:100%;
   }
 
-  .tile_multiple_choice_answer a{
+  .multiple-choice-answer{
     font-style: normal;
     font-weight: bold;
     font-weight: 400;
@@ -174,4 +174,17 @@
     padding-top: 1.5em;
     padding-bottom: 1em ;
   }
+}
+
+.tile_button, .multiple-choice-answer  {
+  @include button($blue);
+  @include font-weight-bold;
+  color:$n-white;
+  display: block;
+  font-size:1.25em !important;
+  line-height:1em;
+  padding:.5em 1em;
+  white-space: normal;
+  text-transform: none;
+  width: 100%;
 }

@@ -5,8 +5,6 @@ $font-family-primary: 'Avenir Next Airbo', "avenir next", avenir, "Helvetica Neu
 /* Font Weights */
 
 @mixin font-weight-bold {
-  font-style: normal;
-  font-weight: bold;
   font-weight: 400;
 }
 
@@ -147,3 +145,4 @@ a.link, .with_link a {
     outline: 0;
   }
 }
+

@@ -9,10 +9,13 @@ class Tile < ActiveRecord::Base
   IGNORED = 'ignored'.freeze
 
   STATUS  = [ACTIVE, ARCHIVE, DRAFT, USER_DRAFT, USER_SUBMITTED, IGNORED].freeze
+  #TODO remove these question type constant declarations if not needed
+
   # Question Types
   ACTION = 'Action'.freeze
   QUIZ   = 'Quiz'.freeze
   SURVEY = 'Survey'.freeze
+
   # Question Subtypes
   TAKE_ACTION           = "Take Action".parameterize("_").freeze
   READ_TILE             = "Read Tile".parameterize("_").freeze
@@ -70,7 +73,7 @@ class Tile < ActiveRecord::Base
   validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", if: :state_is_anything_but_draft?
   validates_presence_of :question, :allow_blank => false, :message => "question can't be blank",  if: :state_is_anything_but_draft?
   validates_presence_of :remote_media_url, message: "image is missing" , if: :state_is_anything_but_draft?
-  validate :multiple_choice_question, if: :state_is_anything_but_draft?
+  validate :multiple_choice_question_answer_selected, if: :state_is_anything_but_draft?
   validates_inclusion_of :status, in: STATUS
 
   validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
@@ -189,7 +192,7 @@ class Tile < ActiveRecord::Base
   end
 
   def is_fully_assembled?
-    headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content_raw_text.length <= MAX_SUPPORTING_CONTENT_LEN && has_correct_answer_selected?
+    headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content_raw_text.length <= MAX_SUPPORTING_CONTENT_LEN && has_correct_answer_selected? && has_unique_answers? && has_required_number_of_answers?
   end
 
   def points= p
@@ -208,29 +211,44 @@ class Tile < ActiveRecord::Base
     active? || archive? || draft?
   end
 
+  def question_config
+    if(question_type && question_subtype)
+      {
+        type: normalized_question_type,
+        subtype: question_subtype,
+        answers: multiple_choice_answers,
+        question: question,
+        index: correct_answer_index,
+        freeResponseEnabled: allow_free_response,
+        points: points
+      }
+    else
+      {}
+    end
+  end
+
+
   def is_survey?
-    question_type == SURVEY || (question_type.nil? && correct_answer_index == -1)
+    normalized_question_type == SURVEY.downcase || (question_type.nil? && correct_answer_index == -1)
   end
 
   def is_quiz?
-    question_type == QUIZ || (question_type.nil? && correct_answer_index > 0)
+    normalized_question_type == QUIZ.downcase || (question_type.nil? && correct_answer_index > 0)
   end
 
   def is_action?
-    question_type == ACTION
+    normalized_question_type == ACTION.downcase
   end
 
   def is_invite_spouse?
     question_subtype == INVITE_SPOUSE
   end
 
+
   def survey_chart
     SurveyChart.new(self).build
   end
 
-  def to_form_builder
-    TileBuilderForm.new(demo, tile: self)
-  end
 
   def is_placeholder?
     false
@@ -373,14 +391,39 @@ class Tile < ActiveRecord::Base
 
   private
 
-  def multiple_choice_question
+  #TODO run migratio to downcase question type in DB remove this method
+  def normalized_question_type
+    question_type.try(:downcase)
+  end
+
+  def multiple_choice_question_answer_selected
     unless( has_correct_answer_selected?)
       errors.add(:base, "Please select correct answer")
     end
   end
 
+  def has_required_number_of_answers?
+    if multiple_choice_answers.present?
+      if(normalized_question_type == ACTION.downcase || question_subtype == "free_response")
+        multiple_choice_answers.length > 0
+      else
+        multiple_choice_answers.length > 1
+      end
+    else
+      true
+    end
+  end
+
+  def has_unique_answers?
+    if multiple_choice_answers.present?
+      multiple_choice_answers.length == multiple_choice_answers.uniq.length
+    else
+      true
+    end
+  end
+
   def has_correct_answer_selected?
-    if(question_type == QUIZ)
+    if(normalized_question_type == QUIZ.downcase)
       correct_answer_index != -1
     else
       true

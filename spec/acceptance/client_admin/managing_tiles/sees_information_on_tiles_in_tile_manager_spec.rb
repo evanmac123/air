@@ -10,7 +10,7 @@ feature 'Sees helpful information in tile manager' do
 
   def complete_tile tile
     expect_content tile.headline
-    page.find('.right_multiple_choice_answer').click
+    page.find('.multiple-choice-answer.correct').click
   end
 
   def tile_stat tile, selector

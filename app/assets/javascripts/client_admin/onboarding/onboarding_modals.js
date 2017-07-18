@@ -69,7 +69,7 @@ Airbo.OnboardingModals = (function(){
       triggerModal("#onboarding-complete-modal", 'open');
     }
 
-    $(".tile_multiple_choice_answer").on("click", function() {
+    $(".js-multiple-choice-answer").on("click", function() {
       if ($("#tiles_done_message").length > 0) {
         $("#tiles_done_message").hide();
         triggerModal("#onboarding-tiles-complete-modal", 'open');

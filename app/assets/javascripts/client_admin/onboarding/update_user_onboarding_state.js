@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.UserOnboardingUpdate = (function() {
   function secondUpdate(id) {
-    $(".tile_multiple_choice_answer").on("click", function() {
+    $(".js-multiple-choice-answer").on("click", function() {
       Airbo.OnboardingKpis.completeTilePing();
       $.ajax({
         type: "PUT",

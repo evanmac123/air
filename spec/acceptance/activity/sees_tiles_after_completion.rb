@@ -96,7 +96,7 @@ feature "Sees tiles after completion" do
         visit tiles_path(as: user)
       end
       scenario "allows to see tile that was not completed" do
-        expect(page).to have_selector('a', 'right_multiple_choice_answer')
+        expect(page).to have_selector('a', 'multiple-choice-answer.correct')
       end
     end
     context "completes all active tiles" do

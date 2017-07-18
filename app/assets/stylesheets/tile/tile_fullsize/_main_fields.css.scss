@@ -8,14 +8,14 @@
 
 
 
-.tile_headline, #tile_builder_form_headline, #tile_builder_form_embed_video {
+.tile_headline, #tile_headline, #tile_embed_video {
   font-size: 25px;
   color:$dark-gray;
   line-height:1.35em;
   padding-top:.5em;
   padding-bottom:.5em;
 }
-#tile_builder_form_embed_video {
+#tile_embed_video {
   font-size: 20px;
 }
 .tile_supporting_content, #supporting_content_editor {
@@ -46,7 +46,7 @@
 
 
 }
-.tile_external_link, #tile_builder_form_link_address {
+.tile_external_link, #tile_link_address {
   font-size: 1.25em;
 }
 .tile_external_link {

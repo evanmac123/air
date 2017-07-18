@@ -4,7 +4,7 @@ Airbo.TileImageCredit = (function(){
   var  imageCreditInput 
     , imageCreditView
     , imageCreditViewSelector ='.new_tile_builder_form .image_credit_view'
-    , imageCreditInputSelector ='#tile_builder_form_image_credit'
+    , imageCreditInputSelector ='#tile_image_credit'
     , maxLength = 50 
     , maxLengthAfterTruncation = maxLength + '...'.length 
     , backspaceKeyCode=8

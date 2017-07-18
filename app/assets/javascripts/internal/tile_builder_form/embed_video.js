@@ -27,7 +27,7 @@ Airbo.EmbedVideo = (function() {
 
   function removeVideo() {
     $("#remote_media_url").val("");
-    $("#tile_builder_form_embed_video").val("");
+    $("#tile_embed_video").val("");
     $(".video_frame_block").html("");
     $("#upload_preview").attr("src","/assets/missing-tile-img-full.png");
     Airbo.PubSub.publish("video-removed");
@@ -43,7 +43,7 @@ Airbo.EmbedVideo = (function() {
   }
 
   function initPaste(){
-    $("body").on('input',"#tile_builder_form_embed_video", function(event) {
+    $("body").on('input',"#tile_embed_video", function(event) {
       var val = $(this).val() ;
       Airbo.PubSub.publish("video-link-entered");
       if(val !== "" ){
@@ -60,7 +60,7 @@ Airbo.EmbedVideo = (function() {
   }
 
   function initClearCode(){
-    $("body").on("keyup", "#tile_builder_form_embed_video", function(e){
+    $("body").on("keyup", "#tile_embed_video", function(e){
       if(e.keyCode == 8) {
         $(this).val("");
         Airbo.PubSub.publish("video-link-cleared");

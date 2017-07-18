@@ -1,11 +1,50 @@
 .character-counter {
-  @include caption;
   color:$med-gray;
   float:right;
+  font-size:10px;
+  font-weight:bold;
+  text-transform: uppercase;
+
   padding-top:.5em;
   margin-top: -25px;
-  margin-right: 3px;
+  &.for-free-repsponse{
+    margin-top: 5px;
+    margin-bottom: 10px;
+
+  }
   &.exceeded_maxlength_counter {
-    color: $red;
+    color: #FF0000;
   }
 }
+/* Character counter for text and textarea*/
+.share_tools {
+  .character-counter {
+    margin-right: 3px;
+  }
+}
+
+.answer-div{
+  .character-counter {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+}
+
+
+.board_settings {
+  .character-counter{
+    margin-right: 115px;
+  }
+}
+
+.image_credit{
+  .character-counter{
+    display:block;
+    position: absolute;
+    bottom: 1px;
+    right:2px;
+    font-size: 0.6rem;
+  }
+}
+
+
