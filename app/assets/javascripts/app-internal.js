@@ -23,6 +23,7 @@
 //= require ./client_admin/tile_preview/sticky_menu
 //= require ./client_admin/tile_preview/tile_preview_arrows
 //= require ./client_admin/tile_preview/tile_preview_modal
+//= require ./client_admin/side-nav-notifications-manager
 //= require ./external/schedule_demo
 //= require ./external/request_form
 
