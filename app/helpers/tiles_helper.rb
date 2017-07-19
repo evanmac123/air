@@ -104,7 +104,7 @@ module TilesHelper
       content += content_tag :p, tile.free_form_response,  class: "free-form-response read"
       content += content_tag :div, "Submit my answer", class: 'multiple-choice-answer clicked_right_answer' 
     else
-      content = free_response_fragment tile, false
+      content = free_response_edit_fragment tile, false
     end
     content.html_safe
   end
@@ -123,11 +123,28 @@ module TilesHelper
       end
     end
 
-    buttons += optional_free_response_text(tile, index)
+    buttons += optional_free_response_text(tile, index) if tile.allow_free_response? 
     buttons.html_safe
   end
 
-  def free_response_fragment tile, optional=false
+  def optional_free_response_text tile, index
+    content =""
+
+    if tile.non_preview_of_completed_tile?
+      if tile.user_completed_tile_with_answer_index(index) 
+        content += content_tag :p, tile.free_form_response,  class: "free-form-response read"
+        content += content_tag :div, "Other", class: 'multiple-choice-answer clicked_right_answer' 
+      else
+        content += content_tag :div, "Other", class: 'multiple-choice-answer nerfed_answer' 
+      end
+    else
+      content += free_response_edit_fragment tile, true
+      content += link_to "Other", "#", class: "js-free-text-show multiple-choice-answer correct "
+    end
+    content.html_safe
+  end
+
+  def free_response_edit_fragment tile, optional=false
     content = ""
     if optional
       cust_css = "optional"
@@ -146,22 +163,5 @@ module TilesHelper
     end
     content.html_safe
   end
-
-  def optional_free_response_text tile, index
-    content =""
-    if tile.allow_free_response? 
-
-      if tile.non_preview_of_completed_tile? &&  tile.user_completed_tile_with_answer_index(index) 
-
-        content += content_tag :p, tile.free_form_response,  class: "free-form-response read"
-        content += content_tag :div, "Other", class: 'multiple-choice-answer clicked_right_answer' 
-      else
-        content += free_response_fragment tile, true
-        content += link_to "Other", "#", class: "js-free-text-show multiple-choice-answer correct "
-      end
-    end
-    content.html_safe
-  end
-
 
 end
