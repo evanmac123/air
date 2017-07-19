@@ -40,11 +40,6 @@ Airbo.TileFormModal = (function(){
     $("#pseudo_tile_id").data("props", props);
   }
 
-  function triggerMixpanelTileCreateDurationTracking(){
-    setTileCreationPingProps();
-    Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("start"));
-  }
-
   function getTileCreationPingProps(step){
     return $.extend({"action": step}, $("#pseudo_tile_id").data("props"));
   }
@@ -259,7 +254,7 @@ Airbo.TileFormModal = (function(){
           modalObj.setConfirmOnClose(true);
         }
         modalObj.open();
-        triggerMixpanelTileCreateDurationTracking();
+        setTileCreationPingProps();
         initAutoSave();
         removeForceValidation();
       }.bind(self),
