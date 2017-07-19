@@ -47,9 +47,24 @@ Airbo.TileInteractionMenuHandler =(function(){
     closeMenuDropDowns();
       if(!(target.hasClass("selected"))){
         callback(config);
+
         setSelected(config.type, config.subtype);
+
+        Airbo.Utils.ping("Tile Type Selected", {
+          tile_id: tileId(),
+          type: config.type,
+          subtype: config.subtype,
+        });
+
       }
-    });
+    })
+  }
+
+  function tileId(){
+    var id = $("#question_type_container").data('config').tileId
+      , pseudoId = $("#pseudo_tile_id").data("props").pseudoTileId
+    ;
+    return id || pseudoId;
   }
 
 

@@ -1,4 +1,6 @@
-Airbo.TileBuilderInteractionCharacterCounter =  {
+var Airbo = window.Airbo || {};
+
+Airbo.TileBuilderComponentCharacterCounter =  {
   msg: "",
 
   init: function(max, remaining) {
@@ -17,6 +19,10 @@ Airbo.TileBuilderInteractionCharacterCounter =  {
     node.insertAdjacentText('afterbegin', this.msg);
     return node;
   },
+
+  build: function(maxLength, remaining){
+    return Object.create(this).init(maxLength, remaining);
+  }
 
 };
 

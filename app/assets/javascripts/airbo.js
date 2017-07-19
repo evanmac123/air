@@ -123,8 +123,6 @@ var Airbo = {
       flash.fadeIn(500);
     },
 
-
-
     flashMsg: function (xhr, defaultMsg){
       return xhr.getResponseHeader("X-Message") || defaultMsg;
     },
