@@ -89,7 +89,7 @@ Airbo.StandardAnswer.addRadioButton = function(answer, value, checked){
 
   var radiobutton = document.createElement("input")
     , wrapper = document.createElement("div")
-    , answerButton = answer.querySelector(".answer-btn");
+    , answerButton = answer.querySelector(".answer-btn")
   ;
 
   radiobutton.setAttribute('type', 'radio');
@@ -222,18 +222,5 @@ Airbo.StandardAnswer.createTileAnswerButton = function(answer){
   return Airbo.EditableTileAnswerButton.build(answer, this.maxLength, this.exceed);
 };
 
-Airbo.StandardAnswer.setupAnswers = function(){
-  var idx
-    , numAnswers = this.answers.length
-  ;
 
-  for(idx = 0; idx < numAnswers; idx++){
-    this.answerSet.push(this.createTileAnswerButton(this.answers[idx]));
-  }
-};
 
-Airbo.StandardAnswer.buildAnswerNodeList =   function() {
-  return this.answerSet.map(function(answer) {
-    return answer.asDomNode();
-  });
-};

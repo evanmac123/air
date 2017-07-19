@@ -131,7 +131,7 @@ Airbo.TileInteractionManager =(function(){
         , field = nextAnswer.first(".answer-editable")
       ;
 
-    if (code == '9') {
+    if (code === '9') {
       if(nextAnswer.length > 0){
         nextAnswer.find(".js-answer-btn").click();
 

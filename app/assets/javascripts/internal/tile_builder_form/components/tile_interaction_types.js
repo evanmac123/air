@@ -4,21 +4,21 @@ var Airbo = window.Airbo || {};
 Airbo.TileBuilderInteractionConfig = (function(){
   var interactions =  {
     action:{
-      take_action: {
-        name: "Take Action",
-        question: "Points for taking action",
-        maxLength: 50,
-        answers: ["I did it"],
-        minResponses: 1,
-        maxResponses: 1,
-      },
       read_tile: {
         name: "Read Tile",
         question: "Points for reading tile",
         maxLength: 50,
         answers: ["I read it"],
         minResponses: 1,
-        maxResponses: 1,
+        maxResponses: 1
+      },
+      take_action: {
+        name: "Take Action",
+        question: "Points for taking action",
+        maxLength: 50,
+        answers: ["I did it"],
+        minResponses: 1,
+        maxResponses: 1
       },
       read_article: {
         name: "Read Article",
@@ -26,7 +26,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxLength: 50,
         answers: ["I read it"],
         minResponses: 1,
-        maxResponses: 1,
+        maxResponses: 1
       },
       share_on_social_media : {
         name: "Share On Social Media",
@@ -34,7 +34,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxLength: 50,
         answers: ["I shared"],
         minResponses: 1,
-        maxResponses: 1,
+        maxResponses: 1
       },
       visit_web_site: {
         name: "Visit Web Site",
@@ -42,7 +42,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxLength: 50,
         answers: ["I visited"],
         minResponses: 1,
-        maxResponses: 1,
+        maxResponses: 1
       },
       watch_video: {
         name: "Watch Video",
@@ -50,7 +50,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxLength: 50,
         answers: ["I watched"],
         minResponses: 1,
-        maxResponses: 1,
+        maxResponses: 1
       },
       custom: {
         name: "Custom...",
@@ -58,8 +58,8 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxLength: 50,
         answers: ["Add Action"],
         minResponses: 1,
-        maxResponses: 1,
-      },
+        maxResponses: 1
+      }
  
     },
 
@@ -72,7 +72,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         wrongable: true,
         maxLength: 50,
         minResponses: 2,
-        maxResponses: 2,
+        maxResponses: 2
       },
       multiple_choice: {
         name: "Multiple Choice",
@@ -82,7 +82,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         wrongable: true,
         maxLength: 50,
         minResponses: 2,
-        maxResponses: 100,
+        maxResponses: 100
       }
     },
 
@@ -104,7 +104,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         answers: ["Submit My Answer"],
         exceed: true,
         minResponses: 0,
-        maxResponses: 0,
+        maxResponses: 0
       },
       rsvp_to_event : {
         name: "RSVP To Event",
@@ -113,7 +113,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         extendable: false, 
         maxLength: 50,
         minResponses: 3,
-        maxResponses: 3,
+        maxResponses: 3
       },
       change_email: {
         name: "Change Email",
@@ -122,7 +122,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         minResponses: 2,
         maxResponses: 100,
         extendable: true,
-        maxLength: 50,
+        maxLength: 50
       },
 
       invite_spouse: {
@@ -135,7 +135,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         minResponses: 3,
         maxResponses: 3,
         extendable: false
-      },
+      }
     }
   }
 
@@ -152,7 +152,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
   }
 
   function defaultKeys(){
-    return {type:"action",subtype: "take_action"}
+    return {type: "action",subtype: "read_tile"}
   }
 
   return {
