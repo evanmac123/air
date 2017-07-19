@@ -1,24 +1,17 @@
-<% unless blocked %>
-  <li id="<%= item_id %>" class="<%= "js-sidenav-#{text.downcase}-tab" %>" data-notification-content="<%= notification_content if has_notification %>">
-    <%= link_to link, link_options.merge({class: "mini-text white"}) do %>
-      <% if icon.present? %>
-        <%= fa_icon icon %>
-      <% elsif image.present? %>
-        <%= image_tag image %>
-      <% end %>
-
-      <%= text %>
-
-      <% if has_notification %>
-        <div class="notification"><span class="<%= notification_class %> badge "><%= notification_content %></span></div>
-      <% end %>
+<li id="<%= item_id %>">
+  <%= link_to link, link_options.merge({class: "mini-text white"}) do %>
+    <% if icon.present? %>
+      <%= fa_icon icon %>
+    <% elsif image.present? %>
+      <%= image_tag image %>
     <% end %>
-  </li>
-<% else %>
-  <li id="<%= item_id %>" class="has-tip text-center" data-tooltip="true" title="Create and post at least one tile to unlock">
-    <div class="blocked_nav white mini-text">
-      <%= fa_icon "lock" %>
-      <%= text %>
-    </div>
-  </li>
-<% end %>
+
+    <%= text %>
+
+    <% if has_notification %>
+      <div class="notification">
+        <span class="badge hidden js-sidenav-badge <%= "js-notification-#{item_id}" %>" data-notification-content="<%= notification_content %>"></span>
+      </div>
+    <% end %>
+  <% end %>
+</li>

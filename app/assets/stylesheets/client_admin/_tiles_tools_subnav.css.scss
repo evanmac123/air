@@ -16,6 +16,9 @@
     &:hover {
       background-color: darken($ca-subnav-color, 5%);
     }
+    &:first-child{
+      border-top: 1px $blue solid;
+    }
     &:last-child{
       border-bottom: 1px $blue solid;
     }

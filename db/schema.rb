@@ -775,7 +775,6 @@ ActiveRecord::Schema.define(:version => 20170706144407) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.boolean  "featured"
-    t.boolean  "in_trial",              :default => false
     t.text     "chart_mogul_uuid"
     t.string   "email"
     t.string   "zip_code"
@@ -1366,7 +1365,7 @@ ActiveRecord::Schema.define(:version => 20170706144407) do
   create_table "user_onboardings", :force => true do |t|
     t.integer  "user_id"
     t.integer  "onboarding_id"
-    t.integer  "state",          :default => 0
+    t.integer  "state",          :default => 2
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.string   "auth_hash"
@@ -1374,7 +1373,6 @@ ActiveRecord::Schema.define(:version => 20170706144407) do
     t.boolean  "shared",         :default => false, :null => false
     t.boolean  "completed",      :default => false, :null => false
     t.string   "more_info"
-    t.integer  "stage"
   end
 
   add_index "user_onboardings", ["onboarding_id"], :name => "index_user_onboardings_on_onboarding_id"

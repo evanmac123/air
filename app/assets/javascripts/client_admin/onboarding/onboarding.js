@@ -1,25 +1,11 @@
 $(function() {
-  if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".onboarding-body")) {
-    $(".grid_types").hide();
-
-    $(".topic-board-button").on("click", function() {
-      Airbo.OnboardingKpis.selectPriorityPing();
-    });
-
+  if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".onboarding-top-bar")) {
     Airbo.OnboardingSubnav.init();
     Airbo.UserOnboardingUpdate.init();
     Airbo.OnboardingModals.init();
     Airbo.OnboardingCreate.init();
     Airbo.UserOnboardingCreate.init();
     Airbo.OnboardingPings.init();
-  }
-
-  if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".user-onboarding-state-1")) {
-    Airbo.OnboardingKpis.initializeOnboardingPing();
-  }
-
-  if (Airbo.Utils.supportsFeatureByPresenceOfSelector(".onboardings-new")) {
-    $("#logo a").removeAttr("href");
   }
 
   if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#onboarding-to-full-client-admin")) {

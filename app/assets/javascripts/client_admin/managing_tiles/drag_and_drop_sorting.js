@@ -6,7 +6,7 @@ replaceMovedTile = function(tile_id, updated_tile_container){
 };
 
 updateShareTilesNumber = function(number){
-  $("#share_tiles span").text(number);
+  Airbo.PubSub.publish("updateShareTabNotification", { number: number });
 };
 
 updateShowMoreDraftTilesButton = function(){
