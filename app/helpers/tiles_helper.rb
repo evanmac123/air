@@ -140,7 +140,7 @@ module TilesHelper
     else
       content += free_response_edit_fragment tile, true
       content += link_to "Other", "#", class: "js-free-text-show multiple-choice-answer correct "
-      end
+    end
     content.html_safe
   end
 
