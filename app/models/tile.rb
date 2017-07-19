@@ -220,7 +220,8 @@ class Tile < ActiveRecord::Base
         question: question,
         index: correct_answer_index,
         allowFreeResponse: allow_free_response,
-        points: points
+        points: points,
+        tileId: id
       }
     else
       {}

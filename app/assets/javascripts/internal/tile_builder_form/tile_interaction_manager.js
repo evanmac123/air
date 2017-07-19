@@ -191,6 +191,7 @@ Airbo.TileInteractionManager =(function(){
       }
 
       Airbo.Utils.ping(mpEventName, {
+        tile_id:  tileId(),
         type: config.type,
         subtype: config.subtype,
         allowFreeResponse: target.checked
@@ -204,6 +205,16 @@ Airbo.TileInteractionManager =(function(){
       theme: "tooltipster-shadow" 
     });
   }
+
+  //TODO move to utils?
+  function tileId(){
+    var id = $("#question_type_container").data('config').tileId
+      , pseudoId = $("#pseudo_tile_id").data("props").pseudoTileId
+    ;
+    return id || pseudoId;
+  }
+
+
 
 
   function init (){
