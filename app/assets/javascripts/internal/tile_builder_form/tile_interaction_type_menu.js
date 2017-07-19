@@ -48,8 +48,13 @@ Airbo.TileInteractionMenuHandler =(function(){
       if(!(target.hasClass("selected"))){
         callback(config);
 
-        Airbo.Utils.tileTypeSelectedPing(config);
         setSelected(config.type, config.subtype);
+
+        Airbo.Utils.ping("Tile Type Selected", {
+          type: config.type,
+          subtype: config.subtype,
+        });
+
       }
     })
   }

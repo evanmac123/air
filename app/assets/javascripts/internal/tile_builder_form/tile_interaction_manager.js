@@ -58,6 +58,7 @@ Airbo.TileInteractionManager =(function(){
       config =  $.extend({}, config, savedConfig);
     }
 
+    updateConfig(config)
     return config;
   }
 
@@ -178,15 +179,22 @@ Airbo.TileInteractionManager =(function(){
       var btnWrapper = $(".js-free-text-btn-wrapper")
         , target = event.target
         , config = getSavedConfig()
+        , mpEventName
       ;
 
       if(target.checked){
         btnWrapper.addClass("enabled");
+        mpEventName = "Free Response Enabled";
       }else{
         btnWrapper.removeClass("enabled");
+        mpEventName = "Free Response Disabled";
       }
 
-      Airbo.Utils.tileTypeSelectedPing($.extend({}, config, {allowFreeResponse: target.checked}));
+      Airbo.Utils.ping(mpEventName, {
+        type: config.type,
+        subtype: config.subtype,
+        allowFreeResponse: target.checked
+      });
 
     });
   }
@@ -199,13 +207,14 @@ Airbo.TileInteractionManager =(function(){
 
 
   function init (){
+    var config = getSavedOrDefaultInteractionConfig();
     initDom();
     initAddAnswerOption();
     initRemoveAnswerOption();
     Airbo.TileBuilderInteractionMenuBuilder.render();
     Airbo.TileInteractionMenuHandler.init(handleSubTypeSelection)
     Airbo.TileBuilderCharacterCounter.init();
-    renderSelectedInteraction(getSavedOrDefaultInteractionConfig());
+    renderSelectedInteraction(config);
     initAnswerEdit();
     initAnswerRead();
     initAnswerEditOnTabEntry();
