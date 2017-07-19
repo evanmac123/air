@@ -3,6 +3,7 @@ Airbo.ClientAdmin = Airbo.ClientAdmin || {};
 
 
 Airbo.ClientAdmin.SideNavNotificationsManager = (function(){
+  var noColorClass = "no-color";
   var greenClass = "success";
   var yellowClass = "warning";
   var redClass = "alert";
@@ -10,8 +11,10 @@ Airbo.ClientAdmin.SideNavNotificationsManager = (function(){
 
   function numberDependentNotificationClass(number, bounds) {
     if (number < bounds.lower) {
-      return greenClass;
+      return noColorClass;
     } else if (bounds.middle && number < bounds.middle) {
+      return greenClass;
+    } else if (bounds.upper && number < bounds.upper) {
       return yellowClass;
     } else {
       return redClass;
@@ -35,8 +38,9 @@ Airbo.ClientAdmin.SideNavNotificationsManager = (function(){
   function updateShareTab(event, options) {
     var $shareTabNotification = $(".js-notification-share_tiles");
     var notificationClass = numberDependentNotificationClass(options.number, {
-      lower: 6,
-      middle: 9
+      lower: 1,
+      middle: 6,
+      upper: 9
     });
 
     setNotification($shareTabNotification, options.number, notificationClass);
