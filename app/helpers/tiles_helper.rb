@@ -123,7 +123,7 @@ module TilesHelper
       end
     end
 
-    buttons += optional_free_response_text(tile, index)
+    buttons += optional_free_response_text(tile, index) if tile.allow_free_response?
     buttons.html_safe
   end
 
