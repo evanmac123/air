@@ -9,6 +9,30 @@ feature 'User views tiles' do
     device_type == :mobile ? 2 : 4
   end
 
+
+  scenario "free response", js:true do 
+    @tile = FactoryGirl.create(:multiple_choice_tile,question_subtype: "free_response",  points: 30)
+    @user = FactoryGirl.create(:user, demo: @tile.demo)
+    visit tiles_path(as: @user)
+    within ".js-free-text-panel" do 
+      expect(page).to have_css(".js-free-form-response")
+      expect(page).to have_css(".free-text.multiple-choice-answer.correct")
+      expect(page).to have_css(".character-counter")
+    end
+  end
+
+  scenario "survey optional free response", js:true do 
+    @tile = FactoryGirl.create(:multiple_choice_tile, question_subtype: "multiple_choice", allow_free_response: true,   points: 30)
+    @user = FactoryGirl.create(:user, demo: @tile.demo)
+    visit tiles_path(as: @user)
+    click_link "Other"
+    within ".js-free-text-panel" do 
+      expect(page).to have_css(".js-free-form-response")
+      expect(page).to have_css(".free-text.multiple-choice-answer.correct")
+      expect(page).to have_css(".character-counter")
+    end
+  end
+
   context 'of the multiple-choice variety' do
     before do
       @tile = FactoryGirl.create(:multiple_choice_tile, points: 30)

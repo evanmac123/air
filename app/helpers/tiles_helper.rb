@@ -104,7 +104,7 @@ module TilesHelper
       content += content_tag :p, tile.free_form_response,  class: "free-form-response read"
       content += content_tag :div, "Submit my answer", class: 'multiple-choice-answer clicked_right_answer' 
     else
-      content = free_response_fragment tile, false
+      content = free_response_edit_fragment tile, false
     end
     content.html_safe
   end

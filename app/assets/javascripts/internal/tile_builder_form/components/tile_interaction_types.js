@@ -104,7 +104,8 @@ Airbo.TileBuilderInteractionConfig = (function(){
         answers: ["Submit My Answer"],
         exceed: true,
         minResponses: 0,
-        maxResponses: 0
+        maxResponses: 0,
+        builder: Airbo.FreeResponseAnswer
       },
       rsvp_to_event : {
         name: "RSVP To Event",
