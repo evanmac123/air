@@ -33,8 +33,9 @@ function isIE() {
 
 $(function(){
   Airbo.init();
-  
+
   $('#close-flash').click(function(event) {
     $('#flash').slideUp();
+    $('.flash-js').slideUp();
   });
 });

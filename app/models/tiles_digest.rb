@@ -46,11 +46,12 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def all_related_subject_lines
-    [subject, alt_subject, follow_up_digest_email_subject].compact
-  end
-
-  def follow_up_digest_email_subject
-    follow_up_digest_email.decorated_subject if follow_up_digest_email
+    [
+      subject,
+      alt_subject,
+      follow_up_digest_email.try(:subject),
+      follow_up_digest_email.try(:alt_subject)
+    ].compact
   end
 
   def new_unique_login?(user_id:)

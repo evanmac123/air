@@ -1,7 +1,10 @@
 class FollowUpDigestEmail < ActiveRecord::Base
   serialize :user_ids_to_deliver_to, Array
-
   belongs_to :tiles_digest
+
+  before_validation :set_subjects, on: :create
+
+  validates_presence_of :subject
 
   DEFAULT_FOLLOW_UP = {'Sunday'    => 'Wednesday',
                        'Monday'    => 'Thursday',
@@ -10,8 +13,6 @@ class FollowUpDigestEmail < ActiveRecord::Base
                        'Thursday'  => 'Monday',
                        'Friday'    => 'Tuesday',
                        'Saturday'  => 'Wednesday'}
-
-  before_create :set_subject
 
   scope :scheduled, -> { where(sent: false).order("send_on ASC") }
 
@@ -30,10 +31,6 @@ class FollowUpDigestEmail < ActiveRecord::Base
     day_to_send > today ? day_to_send - today : 7 - (today - day_to_send)
   end
 
-  def set_subject
-    self.subject = tiles_digest.subject || "Your New Tiles"
-  end
-
   def demo
     tiles_digest.demo
   end
@@ -43,8 +40,8 @@ class FollowUpDigestEmail < ActiveRecord::Base
   end
 
   def trigger_deliveries
-    recipients.each do |recipient_id|
-      TilesDigestMailer.delay.notify_one(tiles_digest, recipient_id, decorated_subject, TilesDigestMailFollowUpPresenter)
+    recipients.each_with_index do |recipient_id, index|
+      TilesDigestMailer.delay.notify_one(tiles_digest, recipient_id, resolve_subject(index: index), TilesDigestMailFollowUpPresenter)
     end
 
     post_process_delivery
@@ -83,8 +80,34 @@ class FollowUpDigestEmail < ActiveRecord::Base
     tiles_digest.headline
   end
 
-  def decorated_subject
-    "Don't Miss: #{subject}"
+  def tiles_digest_subject
+    tiles_digest.subject
+  end
+
+  def tiles_digest_alt_subject
+    tiles_digest.alt_subject
+  end
+
+  def resolve_subject(index:)
+    return subject unless alt_subject.present?
+
+    if index.even?
+      alt_subject
+    else
+      subject
+    end
+  end
+
+  def set_subjects
+    self.subject = decorated_subject(plain_subject: tiles_digest_subject)
+
+    if tiles_digest_alt_subject
+      self.alt_subject = decorated_subject(plain_subject: tiles_digest_alt_subject)
+    end
+  end
+
+  def decorated_subject(plain_subject:)
+    "Don't Miss: #{plain_subject}"
   end
 
   def schedule_digest_sent_ping
@@ -92,7 +115,8 @@ class FollowUpDigestEmail < ActiveRecord::Base
       'FollowUpDigest - Sent',
       {
         tiles_digest_id: tiles_digest_id,
-        subject: subject
+        subject: subject,
+        alt_subject: alt_subject
       },
       tiles_digest.sender
     )

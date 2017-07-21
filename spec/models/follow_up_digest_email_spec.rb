@@ -2,6 +2,9 @@
 require 'spec_helper'
 
 describe FollowUpDigestEmail do
+  let(:demo) { FactoryGirl.create(:demo) }
+  let(:tiles_digest) { TilesDigest.create(demo: demo, subject: "Subject A", alt_subject: "Subject B") }
+
   describe '#follow_up_days' do
     it "returns 0 when the specified day is 'Never'" do
       expect(FollowUpDigestEmail.follow_up_days('Never')).to eq(0)
@@ -23,6 +26,64 @@ describe FollowUpDigestEmail do
       days.each_with_index { |day, i| expect(FollowUpDigestEmail.follow_up_days(day)).to eq(results[i]) }
 
       Timecop.return
+    end
+  end
+
+  describe "#set_subjects" do
+    it "sets decoratd subjects based on the TilesDigest" do
+      follow_up = FollowUpDigestEmail.new(tiles_digest: tiles_digest)
+
+      follow_up.set_subjects
+
+      expect(follow_up.subject).to eq(follow_up.decorated_subject(plain_subject: tiles_digest.subject))
+      expect(follow_up.alt_subject).to eq(follow_up.decorated_subject(plain_subject: tiles_digest.alt_subject))
+    end
+  end
+
+  describe "#decorated_subject" do
+    it "add Don't Miss: in front of passed int subject" do
+      follow_up = FollowUpDigestEmail.new
+
+      expect(follow_up.decorated_subject(plain_subject: "HEY")).to eq("Don't Miss: HEY")
+    end
+  end
+
+  describe "#resolve_subject" do
+    it "returns subject if there is no alt_subject" do
+      fu = FollowUpDigestEmail.new(subject: "Subject")
+      result_even = fu.resolve_subject(index: 2)
+      result_odd = fu.resolve_subject(index: 1)
+
+      expect(result_even).to eq("Subject")
+      expect(result_odd).to eq("Subject")
+    end
+
+    it "returns alt subject if the passed in index is even" do
+      fu = FollowUpDigestEmail.new(subject: "Subject", alt_subject: "Alt Subject")
+
+      expect(fu.resolve_subject(index: 2)).to eq("Alt Subject")
+    end
+
+    it "returns subject if the passed in index is odd" do
+      fu = FollowUpDigestEmail.new(subject: "Subject", alt_subject: "Alt Subject")
+
+      expect(fu.resolve_subject(index: 1)).to eq("Subject")
+    end
+  end
+
+  describe "#tiles_digest_subject" do
+    it "returns the subject of the related tiles_digest" do
+      fu = FollowUpDigestEmail.new(tiles_digest: tiles_digest)
+
+      expect(fu.tiles_digest_subject).to eq(tiles_digest.subject)
+    end
+  end
+
+  describe "#tiles_digest_alt_subject" do
+    it "returns the alt_subject of the related tiles_digest" do
+      fu = FollowUpDigestEmail.new(tiles_digest: tiles_digest)
+
+      expect(fu.tiles_digest_alt_subject).to eq(tiles_digest.alt_subject)
     end
   end
 
@@ -69,7 +130,8 @@ describe FollowUpDigestEmail do
 
         @fu = digest.build_follow_up_digest_email(
           send_on: 1.hour.from_now,
-          user_ids_to_deliver_to: users_including_unclaimed(false)
+          user_ids_to_deliver_to: users_including_unclaimed(false),
+          subject: "SUBJECT"
         )
 
         @fu.save
@@ -88,7 +150,8 @@ describe FollowUpDigestEmail do
 
         @fu = digest.build_follow_up_digest_email(
           send_on: 1.hour.from_now,
-          user_ids_to_deliver_to: users_including_unclaimed(true)
+          user_ids_to_deliver_to: users_including_unclaimed(true),
+          subject: "SUBJECT"
         )
 
         @fu.save

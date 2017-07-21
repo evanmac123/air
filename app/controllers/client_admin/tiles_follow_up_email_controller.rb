@@ -56,7 +56,7 @@ class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
   end
 
   def permitted_params
-    params.require(:follow_up_digest_email).permit(:subject, :send_on)
+    params.require(:follow_up_digest_email).permit(:subject, :alt_subject, :send_on)
   end
 
   def js_flash msg

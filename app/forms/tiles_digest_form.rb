@@ -70,21 +70,26 @@ class TilesDigestForm
   def send_test_email_to_self
     digest = OpenStruct.new(test_digest_params)
     subject = sanitize_subject_line(digest.subject)
+    alt_subject = sanitize_subject_line(digest.alt_subject)
 
-    TilesDigestMailer.delay.notify_one(
-      digest,
-      current_user.id,
-      "[Test] #{subject}",
-      TilesDigestMailDigestPresenter
-    )
-
-    unless follow_up_day == 'Never'
+    [subject, alt_subject].compact.each do |s|
       TilesDigestMailer.delay.notify_one(
         digest,
         current_user.id,
-        "[Test] Don't Miss: #{subject}",
-        TilesDigestMailFollowUpPresenter
+        "[Test] #{s}",
+        TilesDigestMailDigestPresenter
       )
+    end
+
+    unless follow_up_day == 'Never'
+      [subject, alt_subject].compact.each do |s|
+        TilesDigestMailer.delay.notify_one(
+          digest,
+          current_user.id,
+          "[Test] Don't Miss: #{s}",
+          TilesDigestMailFollowUpPresenter
+        )
+      end
     end
   end
 
@@ -100,6 +105,7 @@ class TilesDigestForm
         tile_ids_for_email: tile_ids,
         demo: demo,
         subject: custom_subject || TilesDigest::DEFAULT_DIGEST_SUBJECT,
+        alt_subject: alt_custom_subject,
         headline: custom_headline,
         message: custom_message,
       }
