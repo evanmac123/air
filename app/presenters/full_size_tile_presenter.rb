@@ -23,6 +23,7 @@ class FullSizeTilePresenter
     :question_type,
     :question_subtype,
     :allow_free_response?,
+    :question_config,
     to: :tile
 
   def initialize(tile, user, is_preview, current_tile_ids, browser)

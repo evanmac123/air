@@ -202,8 +202,12 @@ Airbo.UserTilePreview =(function(){
   }
 
   function postTileCompletionPing(target) {
-    var tileId = $(".tile_holder").data("current-tile-id");
+    var tileHolder = $(".tile_holder");
+    var tileId = tileHolder.data("current-tile-id");
+    var config = tileHolder.data("config"); 
+
     var tileType;
+
     if( $('body').hasClass("public-board") ) {
       tileType = "Public Tile";
     } else if( $(".js-multiple-choice-answer").hasClass("invitation_answer") ) {
@@ -212,7 +216,8 @@ Airbo.UserTilePreview =(function(){
       tileType = "Email Change";
     }else {
       tileType = "User";
-    },
+    }
+
     var pingParams = {
       tile_id: tileId,
       tile_type: tileType,
@@ -221,6 +226,7 @@ Airbo.UserTilePreview =(function(){
       allow_free_reponse: config.allowFreeResponse,
       config_signature: config.signature,
     };
+
     if( tileType == "Spouse Invite" ) {
       pingParams.sent_invite = target.hasClass("invitation_answer");
     }
