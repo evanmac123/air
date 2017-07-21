@@ -88,10 +88,9 @@ Airbo.TileAction = (function(){
       action: action, 
       tile_id:  $(tile).data("tile-container-id"), 
       media_source: $(tile).data("mediaSource"),
-      type: config.type,
-      subtype: config.subtype,
+      tile_module: config.type,
+      tile_type: config.signature,
       allow_free_reponse: config.allowFreeResponse,
-      config_signature: config.signature,
     });
   }
 
