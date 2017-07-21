@@ -220,11 +220,9 @@ Airbo.UserTilePreview =(function(){
 
     var pingParams = {
       tile_id: tileId,
-      tile_type: tileType,
-      type: config.type,
-      subtype: config.subtype,
+      tile_module: config.type,
       allow_free_reponse: config.allowFreeResponse,
-      config_signature: config.signature,
+      tile_type: config.signature,
     };
 
     if( tileType == "Spouse Invite" ) {
