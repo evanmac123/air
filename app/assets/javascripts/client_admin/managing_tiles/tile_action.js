@@ -82,7 +82,16 @@ Airbo.TileAction = (function(){
       "ignored": "Ignored"
     };
 
-    Airbo.Utils.ping("Tile " + mess[status], {action: action, tile_id:  $(tile).data("tile-container-id"), media_source: $(tile).data("mediaSource")});
+    var config = tile.data("config");
+
+    Airbo.Utils.ping("Tile " + mess[status], {
+      action: action, 
+      tile_id:  $(tile).data("tile-container-id"), 
+      media_source: $(tile).data("mediaSource"),
+      tile_module: config.type,
+      tile_type: config.signature,
+      allow_free_reponse: config.allowFreeResponse,
+    });
   }
 
   function submitTileForUpadte(tile,target, postProcess ){

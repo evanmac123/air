@@ -6,7 +6,6 @@ Airbo.FreeResponseAnswer.asDomNode = function() {
   var node = document.createDocumentFragment()
     , btn = document.createElement("a")
     , answers = document.createElement("input")
-    , hidden = document.createElement("input")
     , freeText = document.createElement("textarea")
   ;
 
@@ -15,17 +14,12 @@ Airbo.FreeResponseAnswer.asDomNode = function() {
   answers.setAttribute('name','tile[answers][]');
   answers.setAttribute('value','Submity My Response');
 
-  hidden.setAttribute("type", "hidden");
-  hidden.setAttribute("name", "tile[allow_free_response]");
-  hidden.setAttribute("value", 1);
-
   btn.setAttribute('class', 'answer-btn btn-free-response js-answer-btn');
   btn.appendChild(document.createTextNode("Submit My Response"));
 
   freeText.setAttribute("class", "js-free-form-response free-text-entry");
   freeText.setAttribute("placeholder", "Enter your response here");
   node.appendChild(answers);
-  node.appendChild(hidden);
   node.appendChild(freeText);
   node.appendChild(btn);
   return node;

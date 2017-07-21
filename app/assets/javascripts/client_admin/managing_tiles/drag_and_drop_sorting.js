@@ -1,4 +1,5 @@
 replaceMovedTile = function(tile_id, updated_tile_container){
+  //TODO  reference tile container directly instead of going through single tile
   tile = $("#single-tile-" + tile_id).closest(".tile_container");
   tile.replaceWith(updated_tile_container);
   tile = $("#single-tile-" + tile_id).closest(".tile_container");
