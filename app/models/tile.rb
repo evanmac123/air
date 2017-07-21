@@ -221,6 +221,7 @@ class Tile < ActiveRecord::Base
         index: correct_answer_index,
         allowFreeResponse: allow_free_response,
         signature: config_signature.downcase,
+        isAnonymous: is_anonymous,
         points: points,
         tileId: id
       }
@@ -399,6 +400,7 @@ class Tile < ActiveRecord::Base
 
   def add_config_options_to_base_signature base
     base.push "free_response" if allow_free_response
+    base.push "is_anonymous" if  is_anonymous
     base
   end
 

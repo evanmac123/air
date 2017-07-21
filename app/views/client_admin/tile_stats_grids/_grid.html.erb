@@ -1,16 +1,18 @@
 <% tile_stats_grid ||= @tile_stats_grid %>
 <% tile ||= @tile %>
+
 <%= grid(tile_stats_grid, hide_csv_button: true) do |g|
   g.blank_slate "<div class='grid_no_record'>#{empty_grid_message(@current_grid)}</div>".html_safe
 
   g.column name: 'Name', attribute: 'name', html: {class: "name_column"}, in_csv: false do |row|
-    link_to row.user_name, edit_client_admin_user_path(row.user_id)
+     tile.is_anonymous? ? "Anonymous" : link_to(row.user_name, edit_client_admin_user_path(row.user_id))
   end
   g.column name: 'Name', attribute: 'name', in_html: false do |row|
-    row.user_name
+    tile.is_anonymous?  ? "Anonymous" : row.user_name
   end
+
   g.column name: 'Email', attribute: 'email', html: {class: "email_column"} do |row|
-    row.user_email
+    tile.is_anonymous?  ? "Anonymous" : row.user_email
   end
   g.column name: 'Views', model: 'TileViewing', attribute: 'views', html: {class: "views_column"}  do |row|
     row.tile_views || "-"
@@ -28,7 +30,7 @@
 
   g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', in_html: false, html: {class: "answer-column" } do |row|
     if is_free_response_answer?(tile, row)
-      row.free_response
+      row.free_response #NOTE should the answers show at all?
     elsif row.tile_answer_index != nil
      tile.multiple_choice_answers[row.tile_answer_index.to_i]
     else

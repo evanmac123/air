@@ -11,13 +11,15 @@
       </div>
     <% end %>
   </div>
+  <% if tile.is_anonymous? %>
+    <%= render "/shared/tiles/anonymous_banner" %>
+  <% end %>
   <div class="tile_quiz">
     <% if tile.points %>
       <div class="tile_points_bar">
         <div class="earnable_points">
           <span class="num_of_points" id="tile_point_value"><%= tile.points %></span>
           <span class="points_label"><%= tile.points > 1 ? "Points" : "Point" %></span>
-
         </div>
       </div>
     <% end %>
@@ -26,4 +28,7 @@
     <div class="tile_question content_sections"><%= tile.question %></div>
     <%= render 'tiles/multiple_choice_answers', tile: tile %>
   </div>
+
+
+
 </div>

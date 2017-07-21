@@ -42,6 +42,9 @@ Airbo.TileInteractionManager =(function(){
     saveTypeToForm(config);
     autosize($('#tile_question'));
     autosize($('textarea.answer-editable'));
+    toggleAnonBannerVisibility(config.isAnonymous);
+    initToggleAnonymous();
+    initAnonymousTooltip();
   }
 
   function getSavedOrDefaultInteractionConfig(){
@@ -85,6 +88,15 @@ Airbo.TileInteractionManager =(function(){
     updateConfig(config)
     renderSelectedInteraction(config)
     initFreeFormTooltip();
+
+  }
+
+  function toggleAnonBannerVisibility(isAnonymous){
+    if(isAnonymous){
+      $(".js-anon-banner-wrapper").removeClass("hidden");
+    }else{
+      $(".js-anon-banner-wrapper").addClass("hidden");
+    }
   }
 
   function initAddAnswerOption(){
@@ -173,6 +185,12 @@ Airbo.TileInteractionManager =(function(){
     });
   }
 
+  function initToggleAnonymous(){
+    $("body").on("change", ".js-chk-anonymous-reponse", function(event){
+      toggleAnonBannerVisibility($(this).is(":checked"));
+    });
+  }
+
   function initToggleFreeResponse(){
     $("body").on("change", ".js-chk-free-text", function(event){
       var btnWrapper = $(".js-free-text-btn-wrapper")
@@ -201,6 +219,12 @@ Airbo.TileInteractionManager =(function(){
 
   function initFreeFormTooltip(){
     $(".js-free-text-tooltip").tooltipster({
+      theme: "tooltipster-shadow" 
+    });
+  }
+
+  function initAnonymousTooltip(){
+    $(".js-anonymous-tile-tooltip").tooltipster({
       theme: "tooltipster-shadow" 
     });
   }

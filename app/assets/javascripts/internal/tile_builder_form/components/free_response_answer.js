@@ -2,6 +2,13 @@ var Airbo = Airbo || {};
 
 Airbo.FreeResponseAnswer = Object.create(Airbo.BaseAnswer);
 
+Airbo.FreeResponseAnswer.render = function(){
+  Airbo.BaseAnswer.render.call(this)
+
+  this.renderOptionalFeatures();
+
+};
+
 Airbo.FreeResponseAnswer.asDomNode = function() {
   var node = document.createDocumentFragment()
     , btn = document.createElement("a")

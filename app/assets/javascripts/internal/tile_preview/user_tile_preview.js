@@ -222,6 +222,7 @@ Airbo.UserTilePreview =(function(){
       tile_id: tileId,
       tile_module: config.type,
       allow_free_reponse: config.allowFreeResponse,
+      is_anonymous: config.isAnonymous,
       tile_type: config.signature,
     };
 
@@ -338,6 +339,12 @@ Airbo.UserTilePreview =(function(){
 
 
 
+ function initAnonymousTooltip(){
+   $(".js-anonymous-tile-tooltip").tooltipster({
+     theme: "tooltipster-shadow" 
+   });
+ }
+
 
 
  function initTile(){
@@ -348,6 +355,7 @@ Airbo.UserTilePreview =(function(){
    storageKey = config.key;
    initNextTileParams();
    setUpAnswers();
+   initAnonymousTooltip();
    Airbo.Utils.ExternalLinkHandler.init();
  }
 

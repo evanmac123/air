@@ -120,12 +120,9 @@
   overflow: hidden;
   font-weight: 700;
   border-bottom: 2px dashed $light-gray;
-  .add_answer {
-    width: auto;
-  }
+
   .add_answer {
     width: 32%;
-    padding-bottom: 2em;
     cursor: pointer;
     color: $blue;
     text-align: right;
@@ -175,6 +172,28 @@
     }
   }
 
+}
+
+.tile-info-banner{
+  padding: 10px 0px;
+  background: #3B3B38;
+  text-align: center;
+  color:#fff;
+
+}
+
+.tile-info-banner-text{
+  font-size: 14px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  .under-dot{
+    border-bottom: 1px dotted #fff;
+  }
+}
+
+.anonymous-help{
+  margin-left: 5px;
+  vertical-align: middle;
 }
 
 
@@ -278,11 +297,14 @@
   margin-right: 5%;
 }
 
-.free-response-toggle-wrapper{
- padding-top: 5px;
-
+.tile-optional-feature-toggle-wrapper{
+    margin: 5px;
+    margin-right: 10px;
+    margin-left: 0px;
+    display: inline-block;
 }
-.free-response-toggle{
+
+ .chk-tile-optional-feature-toggle{
   margin-right: 5px;
 }
 
@@ -293,4 +315,9 @@
 .tooltip-content{
   max-width: 350px;
 
+}
+
+.optional-tile-features{
+  margin-top: 10px;
+  border-radius: 4px;
 }

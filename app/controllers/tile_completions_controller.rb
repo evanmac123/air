@@ -4,18 +4,20 @@ class TileCompletionsController < ApplicationController
 
   prepend_before_filter :find_tile
 
+  #FIXME most of this functionality needs to to be moved into the TileCompletion
+  #model
+
   def create
     unless current_user.in_board?(@tile.demo_id)
       not_found('flashes.failure_cannot_complete_tile_in_different_board')
       return false
     end
 
-
     remember_points_and_tickets
 
     if create_tile_completion(@tile)
       #FIXME do we need to track acts?
-      create_act(@tile)
+      create_act(@tile) unless @tile.is_anonymous?
     else
       flash[:failure] = "It looks like you've already done this tile, possibly in a different browser window or tab."
     end

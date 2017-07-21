@@ -23,6 +23,8 @@ class FullSizeTilePresenter
     :question_type,
     :question_subtype,
     :allow_free_response?,
+    :is_anonymous,
+    :is_anonymous?,
     :question_config,
     to: :tile
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170721191016) do
+ActiveRecord::Schema.define(:version => 20170722210801) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1206,6 +1206,7 @@ ActiveRecord::Schema.define(:version => 20170721191016) do
     t.integer  "creation_source_cd",      :default => 0
     t.integer  "copy_count",              :default => 0
     t.boolean  "allow_free_response",     :default => false
+    t.boolean  "is_anonymous",            :default => false
   end
 
   add_index "tiles", ["activated_at"], :name => "index_tiles_on_activated_at"
