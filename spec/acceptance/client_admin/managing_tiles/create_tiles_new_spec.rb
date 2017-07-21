@@ -26,6 +26,18 @@ feature "Client admin creates tiles", js: true do
       expect(page).to have_selector("#tile_point_value", text: "10")
     end
 
+    scenario "Creates new optional free reponse tile", js: true do
+      click_link "Add New Tile"
+      choose_question_type_and_subtype Tile::SURVEY, Tile::MULTIPLE_CHOICE
+      expect(page).to have_content "Allow Free Response"
+    end
+
+    scenario "Creates new free reponse tile", js: true do
+      click_link "Add New Tile"
+      choose_question_type_and_subtype Tile::SURVEY,"free_response" 
+      expect(page).to have_css ".js-free-form-response.free-text-entry"
+    end
+
     context "autosave" do
       scenario "create with only headline" do
         click_link "Add New Tile"

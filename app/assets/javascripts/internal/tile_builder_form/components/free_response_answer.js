@@ -22,9 +22,8 @@ Airbo.FreeResponseAnswer.asDomNode = function() {
   btn.setAttribute('class', 'answer-btn btn-free-response js-answer-btn');
   btn.appendChild(document.createTextNode("Submit My Response"));
 
-  freeText.setAttribute("class", "free-text");
+  freeText.setAttribute("class", "js-free-form-response free-text-entry");
   freeText.setAttribute("placeholder", "Enter your response here");
-
   node.appendChild(answers);
   node.appendChild(hidden);
   node.appendChild(freeText);
