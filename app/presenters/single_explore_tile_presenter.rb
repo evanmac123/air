@@ -3,6 +3,7 @@ class SingleExploreTilePresenter < BasePresenter
   delegate  :id,
             :thumbnail,
             :headline,
+            :question_config,
             to: :tile
 
   attr_reader :tile, :tiles_grouped_ids, :section

@@ -14,6 +14,7 @@ class SingleAdminTilePresenter < BasePresenter
             :updated_at,
             :is_placeholder?,
             :media_source,
+            :question_config,
             to: :tile
   attr_reader :tile, :tile_status, :tiles_grouped_ids, :options
 

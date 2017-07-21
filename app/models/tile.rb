@@ -220,12 +220,17 @@ class Tile < ActiveRecord::Base
         question: question,
         index: correct_answer_index,
         allowFreeResponse: allow_free_response,
+        signature: config_signature,
         points: points,
         tileId: id
       }
     else
       {}
     end
+  end
+
+  def config_signature
+    add_config_options_to_base_signature([question_type, question_subtype]).join("_")
   end
 
 
@@ -391,6 +396,11 @@ class Tile < ActiveRecord::Base
   end
 
   private
+
+  def add_config_options_to_base_signature base
+    base.push "free_response" if allow_free_response
+    base
+  end
 
   #TODO run migratio to downcase question type in DB remove this method
   def normalized_question_type
