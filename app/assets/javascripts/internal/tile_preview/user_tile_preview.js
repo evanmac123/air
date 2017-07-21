@@ -302,10 +302,9 @@ Airbo.UserTilePreview =(function(){
 
  function rightAnswerClicked(answer){
    var formFun = function() {};
-
    if( answer.hasClass("invitation_answer") ){
      formFun = Airbo.DependentEmailForm.get;
-   } else if( $(event.target).hasClass("change_email_answer") ){
+   } else if( answer.hasClass("change_email_answer") ){
      formFun = Airbo.ChangeEmailForm.get;
    }
 
