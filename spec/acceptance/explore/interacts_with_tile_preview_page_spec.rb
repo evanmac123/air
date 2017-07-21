@@ -15,55 +15,12 @@ feature "interacts with a tile from the explore-preview page" do
   let (:last_actor) {FactoryGirl.create(:client_admin, name: "John Lastactor")}
   let (:second_actor) {FactoryGirl.create(:client_admin, name: "Suzanne von Secondactor")}
 
-  shared_examples_for 'copies tile' do
-    scenario "by clicking the proper link", js: true do
-      click_copy_button
-
-      expect(Tile.count).to eq(2)
-
-      expect_tile_copied(@original_tile, @user)
-    end
-
-    context "when the tile has no creator", js: true do
-      before do
-        @original_tile.update_attributes(creator: nil)
-      end
-
-      it "should work", js: true do
-        click_copy_button
-
-        expect(Tile.count).to eq(2)
-
-        expect_tile_copied(@original_tile, @user)
-      end
-    end
-  end
-
-  context "as Client admin", js: true, wonky: true do
-    before do
-      @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
-
-      @user = FactoryGirl.create(:client_admin, name: "Lucille Adminsky")
-      visit explore_tile_preview_path(@original_tile, as: @user)
-    end
-
-    it_should_behave_like "copies tile"
-  end
-
   context "as Nobody", js: true  do
     before do
       UserIntro.any_instance.stubs(:explore_intro_seen).returns(true)
       @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
 
       visit explore_tile_preview_path(@original_tile, as: nil)
-    end
-
-    context "when I click on See How It Works" do
-      it "should redirect to explore" do
-        click_link "See How It Works"
-
-        expect(current_path).to eq(explore_path)
-      end
     end
 
     context "when I click on a wrong answer" do
@@ -104,22 +61,6 @@ feature "interacts with a tile from the explore-preview page" do
       @user = FactoryGirl.create(:guest_user)
 
       visit explore_tile_preview_path(@original_tile, as: @user)
-    end
-
-    context "when I click on Explore" do
-      it "should redirect to explore" do
-        click_link "Explore"
-
-        expect(current_path).to eq(explore_path)
-      end
-    end
-
-    context "when I click on See How It Works" do
-      it "should redirect to explore" do
-        click_link "See How It Works"
-
-        expect(current_path).to eq(explore_path)
-      end
     end
 
     context "when I click on a wrong answer" do

@@ -16,9 +16,11 @@
 
 </div>
 <div class="bars">
-    <%=render partial: 'share_bar', locals: {tile: tile} %>
-  <div class="bg-white center bar_for_preview align_left offset_top">
-    <%=render partial: 'creator', locals: { tile: tile } %>
-    <%= render partial: 'categories', locals: { tile: tile } %>
-  </div>
+  <%=render partial: 'share_bar', locals: {tile: tile} %>
+  <% if prev_tile && next_tile %>
+    <div class="bg-white center bar_for_preview align_left offset_top">
+      <%=render partial: 'creator', locals: { tile: tile } %>
+      <%= render partial: 'categories', locals: { tile: tile } %>
+    </div>
+  <% end %>
 </div>

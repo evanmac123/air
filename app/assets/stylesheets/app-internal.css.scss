@@ -8,6 +8,7 @@
 *= require introjs.min
 *= require flickity.min.css
 *= require jquery-ui-1.8.10.custom
+*= require jssocials
 */
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
@@ -35,6 +36,7 @@ styles changes haven't broken anything.
 @import "./internal/guest_conversion_form.css.scss";
 @import "./internal/tags.css.scss";
 @import "./internal/tile.css.scss";
+@import "./explore/single-explore-tile.scss";
 @import "./external/sign_up_form.css.scss";
 @import "./external/sign_up_form_ie.css.scss";
 @import "./external/landing/common.css.scss";

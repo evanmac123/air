@@ -1,14 +1,9 @@
 <% content_for :meta do %>
+  <meta name="description" content="Check out this Airbo Tile: <%= tile.headline %>"/>
   <!-- Open Grpaph meta tags(Facebook, Linkedin) -->
   <meta property="og:title" content="<%= tile.headline %>" />
-  <meta property="og:description" content="<%= tile.supporting_content %>" />
+  <meta property="og:description" content="<%= strip_tags(tile.supporting_content) %>" />
   <meta property="og:image" content="<%= tile.image %>" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Airbo" />
-  <!-- Twitter meta tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@theairbo">
-  <meta name="twitter:title" content="<%= tile.headline %>">
-  <meta name="twitter:description" content="<%= tile.supporting_content %>">
-  <meta name="twitter:image" content="<%= tile.image %>">
 <% end %>
