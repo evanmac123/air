@@ -212,10 +212,14 @@ Airbo.UserTilePreview =(function(){
       tileType = "Email Change";
     }else {
       tileType = "User";
-    }
+    },
     var pingParams = {
       tile_id: tileId,
-      tile_type: tileType
+      tile_type: tileType,
+      type: config.type,
+      subtype: config.subtype,
+      allow_free_reponse: config.allowFreeResponse,
+      config_signature: config.signature,
     };
     if( tileType == "Spouse Invite" ) {
       pingParams.sent_invite = target.hasClass("invitation_answer");
