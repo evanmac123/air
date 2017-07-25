@@ -140,7 +140,15 @@ describe TileEmailTracker do
         end
 
         it "validates decorated follow up subject" do
-          subject = tile_email.follow_up_digest_email.decorated_subject
+          subject = tile_email.follow_up_digest_email.subject
+
+          tile_email_tracker = TileEmailTracker.new(user: user, email_type: email_type, subject_line: subject, tile_email_id: tile_email.id )
+
+          expect(tile_email_tracker.send(:validate_subject_line)).to eq(subject)
+        end
+
+        it "validates decorated follow up alt subject" do
+          subject = tile_email.follow_up_digest_email.alt_subject
 
           tile_email_tracker = TileEmailTracker.new(user: user, email_type: email_type, subject_line: subject, tile_email_id: tile_email.id )
 

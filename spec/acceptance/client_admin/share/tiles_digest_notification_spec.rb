@@ -51,17 +51,20 @@ feature 'Client admin and the digest email for tiles' do
   def create_follow_up_emails
     digest_1 = TilesDigest.create(demo: user.demo, tile_ids: [1, 2], sender: admin)
     @follow_up_1 = digest_1.create_follow_up_digest_email(
-      send_on: Date.new(2013, 7, 1)
+      send_on: Date.new(2013, 7, 1),
+      subject: "Subject"
     )
 
     digest_2 = TilesDigest.create(demo: user.demo, tile_ids: [1, 2], sender: admin)
     @follow_up_1 = digest_2.create_follow_up_digest_email(
-      send_on: Date.new(2013, 7, 2)
+      send_on: Date.new(2013, 7, 2),
+      subject: "Subject"
     )
 
     digest_3 = TilesDigest.create(demo: user.demo, tile_ids: [1, 2], sender: admin)
     @follow_up_1 = digest_3.create_follow_up_digest_email(
-      send_on: Date.new(2013, 7, 3)
+      send_on: Date.new(2013, 7, 3),
+      subject: "Subject"
     )
   end
 
@@ -169,7 +172,7 @@ feature 'Client admin and the digest email for tiles' do
           visit client_admin_share_path(as: admin)
           change_follow_up_day 'Thursday'
           submit_button.click
-          expect_content "Scheduled Follow-Up"
+          expect_content "Scheduled Follow-Ups"
           expect_content "Thursday, July 11, 2013"
         end
       end
@@ -437,6 +440,51 @@ feature 'Client admin and the digest email for tiles' do
 
       expect(page).to have_field("Email subject", with: "Custom Subject")
       expect(page).to have_field("Intro message", with: "Custom Message")
+    end
+  end
+
+  context "when sending a tiles email with an alternate subject", js: true do
+    before do
+      visit client_admin_share_path(as: admin)
+
+      fill_in "digest[custom_message]", with: 'Custom Message'
+      fill_in "digest[custom_subject]", with: 'Subject'
+      fill_in "digest[alt_custom_subject]", with: 'Alt Subject'
+
+      within ".follow_up" do
+        find(".drop_down").click
+        find("li", text: "Sunday").click
+      end
+    end
+
+    describe "when sending test" do
+      it "should send four test emails" do
+        click_button "Send a Test Email to Myself"
+
+        subjects_sent = ActionMailer::Base.deliveries.map(&:subject)
+
+        expect(subjects_sent.sort).to eq(
+          [
+            "[Test] Alt Subject",
+            "[Test] Don't Miss: Alt Subject",
+            "[Test] Don't Miss: Subject",
+            "[Test] Subject"
+          ]
+        )
+      end
+    end
+
+    describe "when sending digest" do
+      it "should send with both subjects" do
+        submit_button.click
+        expect_digest_sent_content
+
+        expect( ActionMailer::Base.deliveries.count).to eq(2)
+
+        subjects_sent =  ActionMailer::Base.deliveries.map(&:subject)
+
+        expect(subjects_sent.sort).to eq(["Alt Subject", "Subject"])
+      end
     end
   end
 end

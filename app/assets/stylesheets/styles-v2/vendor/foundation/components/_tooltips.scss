@@ -5,15 +5,15 @@ $include-html-tooltip-classes: $include-html-classes !default;
 
 $has-tip-border-bottom: dotted 1px #ccc !default;
 $has-tip-font-weight: bold !default;
-$has-tip-font-color: #333 !default;
-$has-tip-border-bottom-hover: dotted 1px darken($primary-color, 20%) !default;
-$has-tip-font-color-hover: $primary-color !default;
+$has-tip-font-color: $text-color !default;
+$has-tip-border-bottom-hover: dotted 1px $n-blue !default;
+$has-tip-font-color-hover: $n-blue !default;
 $has-tip-cursor-type: help !default;
 
 $tooltip-padding: em-calc(8) !default;
 $tooltip-bg: #000 !default;
-$tooltip-font-size: em-calc(15) !default;
-$tooltip-font-weight: bold !default;
+$tooltip-font-size: 13px !default;
+$tooltip-font-weight: lighter !default;
 $tooltip-font-color: #fff !default;
 $tooltip-line-height: 1.3 !default;
 $tooltip-close-font-size: em-calc(10) !default;
@@ -21,7 +21,7 @@ $tooltip-close-font-weight: normal !default;
 $tooltip-close-font-color: #888 !default;
 $tooltip-font-size-sml: em-calc(14) !default;
 $tooltip-radius: $global-radius !default;
-$tooltip-pip-size: 5px !default;
+$tooltip-pip-size: 7px !default;
 
 @if $include-html-tooltip-classes != false {
 
@@ -31,6 +31,9 @@ $tooltip-pip-size: 5px !default;
     cursor: $has-tip-cursor-type;
     font-weight: $has-tip-font-weight;
     color: $has-tip-font-color;
+    font-size: 12px;
+    display: inline-flex;
+    vertical-align: top;
 
     &:hover,
     &:focus {
@@ -50,8 +53,8 @@ $tooltip-pip-size: 5px !default;
     font-size: $tooltip-font-size;
     line-height: $tooltip-line-height;
     padding: $tooltip-padding;
-    max-width: 85%;
-    #{$default-float}: 50%;
+    max-width: 40%;
+    #{$default-float}: 40%;
     width: 100%;
     color: $tooltip-font-color;
     background: $tooltip-bg;
@@ -110,7 +113,6 @@ $tooltip-pip-size: 5px !default;
         top: 50%;
         margin-top: -$tooltip-pip-size;
       }
-
     }
   }
 

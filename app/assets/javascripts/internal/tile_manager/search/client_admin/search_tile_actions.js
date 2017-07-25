@@ -42,6 +42,7 @@ Airbo.SearchTileActions = (function(){
           $(tileModalSelector).foundation("reveal", "close");
           tile.replaceWith(data);
           Airbo.SearchTileThumbnail.init( $(data).data("tile-container-id"));
+          Airbo.TileAction.movePing($(data), $(data).data("status"), "Clicked button to move");
         }
       });
     }

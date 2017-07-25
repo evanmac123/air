@@ -154,7 +154,7 @@ header #guest_user_start_over_button, header #guest_user_start_over_button[disab
   color:<%=@primary_color%>;
 }
 
-.button.button.outlined:hover, .button.button.outlined:focus, .button.button.outlined:active {
+.button.button.outlined:not([disabled]):hover, .button.button.outlined:hover, .button.button.outlined:focus, .button.button.outlined:active {
   border-color: <%=@primary_color%>;
   background-color: <%=@primary_color%>;
   opacity: 1;

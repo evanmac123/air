@@ -11,8 +11,6 @@
 }
 
 body.client_admin-shares{
-
-
   .content{
     padding: 0;
   }
@@ -31,12 +29,6 @@ body.client_admin-shares{
       .public_board_title{
         float: left;
         margin: 0;
-      }
-      .fa-question-circle{
-        float: left;
-        margin-top: -1px;
-        margin-left: 10px;
-        color: $med-gray;
       }
     }
     .status_div{
@@ -111,14 +103,10 @@ body.client_admin-shares{
         label {
           margin-bottom: 0.5em;
         }
-        i.has-tip {
-          font-size: 13px;
-          color: $med-gray;
-          margin-left: 5px;
-        }
       }
       .total_users {
         border:1px $light-gray solid;
+        border-radius: 4px;
         padding: 10px;
         margin-bottom: 2.75em;
         color: $gray;

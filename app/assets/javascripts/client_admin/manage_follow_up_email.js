@@ -199,7 +199,9 @@ Airbo.DigestEmailFollowUpManager = (function(){
     var date = $.datepicker.parseDate("yy-mm-dd", data["send_on"]),
       subject = Airbo.Utils.truncate(data["subject"], 50)
     ;
-    currRow.find("td.subject>span").text(subject);
+    if (subject.length > 0)  {
+      currRow.find("td.subject>span").text(subject);
+    }
     currRow.find("td.send_on").text($.datepicker.formatDate("DD, MM d, yy",date));
   }
 

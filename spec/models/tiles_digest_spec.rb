@@ -208,26 +208,7 @@ RSpec.describe TilesDigest, :type => :model do
 
         subjects = digest.all_related_subject_lines
 
-        expect(subjects).to eq(["Subject A", "Subject B", "Don't Miss: Subject A"])
-      end
-    end
-  end
-
-  describe "#follow_up_digest_email_subject" do
-    describe "when there is a follow_up_digest_email" do
-      it "returns a decorated follow_up subject" do
-        digest = TilesDigest.create(demo: demo, subject: "Subject A", alt_subject: "Subject B")
-        follow_up = digest.create_follow_up_digest_email
-
-        expect(digest.follow_up_digest_email_subject).to eq(follow_up.decorated_subject)
-      end
-    end
-
-    describe "when there is no follow_up_digest_email" do
-      it "returns nil" do
-        digest = TilesDigest.create(demo: demo, subject: "Subject A", alt_subject: "Subject B")
-
-        expect(digest.follow_up_digest_email).to eq(nil)
+        expect(subjects).to eq(["Subject A", "Subject B", "Don't Miss: Subject A", "Don't Miss: Subject B"])
       end
     end
   end
