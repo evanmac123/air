@@ -70,6 +70,7 @@ match "sign_in"  => "sessions#new"
 match "sign_up"  => "users#new"
 match "sign_out" => "sessions#destroy"
 
+get "marketing_site_home" => 'pages#home', as: 'marketing_site_home'
 get "about" => 'pages#about', as: 'about'
 get "demo_link" => "pages#demo_link", as: "demo_link"
 get "terms" => "pages#terms", as: "terms"

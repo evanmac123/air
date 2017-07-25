@@ -50,6 +50,10 @@
     height: auto;
   }
 
+  input {
+    display: block;
+  }
+
   button{
 
     &.cancel {

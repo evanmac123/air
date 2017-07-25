@@ -1,0 +1,13 @@
+<% content_for :head do %>
+  <%= render partial: 'meta_tags', locals: { tile: @tile } %>
+<%end%>
+<div class='viewer'>
+  <div id="tile_preview_section">
+    <div class="large-centered columns clearfix tile_preview_block">
+      <%= render "tiles/full_size_tile", tile: @tile, is_preview: true, image_is_loading: true %>
+    </div>
+  </div>
+</div>
+<div class="bars">
+  <%=render partial: 'share_bar', locals: { tile: @tile } %>
+</div>

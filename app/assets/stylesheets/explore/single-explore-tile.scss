@@ -1,0 +1,31 @@
+.single_tile_explore_layout {
+  .content.content {
+    padding-top: 0;
+  }
+  background:$tile-wall-bg;
+
+  .single-tile-explore-layout-header {
+    margin: 0;
+    .header {
+      padding: 20px 25px 0 25px;
+      max-width: 650px;
+      width: 100%;
+      img {
+        max-height: 40px;
+        max-width: auto;
+      }
+    }
+  }
+  .tile_holder.tile_holder {
+    width: auto;
+  }
+  footer {
+    height: auto;
+  }
+
+  @media only screen and (max-width: $foundation) {
+    .tile_preview_block.tile_preview_block {
+      padding: 0;
+    }
+  }
+}
