@@ -220,7 +220,7 @@ class Tile < ActiveRecord::Base
         question: question,
         index: correct_answer_index,
         allowFreeResponse: allow_free_response,
-        signature: config_signature,
+        signature: config_signature.downcase,
         points: points,
         tileId: id
       }

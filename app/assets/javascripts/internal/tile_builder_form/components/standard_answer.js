@@ -139,11 +139,11 @@ Airbo.StandardAnswer.includeFreeResponse = function(){
     , hidden = document.createElement("input")
     , label = document.createElement("label")
     , btn = document.createElement("a")
-    , tooltip = document.createElement("i")
+    , iconText = document.createElement("i")
     , tooltipTemplate = document.createElement("div")
     , tooltipContent = document.createElement("div")
     , node = document.createDocumentFragment()
-    , btnClass = 'answer-btn no-edit js-btn-free-text'
+    , btnClass = 'answer-btn js-btn-free-text js-free-text-tooltip hover-help'
     , answerWrapper
     , answerWrapperClass="answer-div js-free-text-btn-wrapper free-text-btn-wrapper"
   ;
@@ -174,15 +174,18 @@ Airbo.StandardAnswer.includeFreeResponse = function(){
   tooltipTemplate.setAttribute('class', 'js-tooltip-template tooltip-template free-response' );
   tooltipContent.setAttribute('class', 'js-tooltip-content tooltip-content free-response' );
 
-  tooltip.setAttribute('class', 'js-free-text-tooltip hover-help fa fa-question-circle fa-1x ' );
+  iconText.setAttribute('class', 'fa fa-file-text fa-1x');
 
-  tooltip.setAttribute('data-tooltip-content', ".js-tooltip-content.free-response");
+  btn.setAttribute('data-tooltip-content', ".js-tooltip-content.free-response");
 
   tooltipContent.appendChild(document.createTextNode("When users choose Other as their answer, they will be shown a free response text box."));
+
   tooltipTemplate.appendChild(tooltipContent);
+
   node.appendChild(btn);
+
   node.appendChild(tooltipTemplate);
-  node.appendChild(tooltip);
+  node.appendChild(iconText);
   answerWrapper = this.answerWrapper(node)
   answerWrapper.setAttribute("class", answerWrapperClass);
   this.answerPanel.appendChild(answerWrapper);
