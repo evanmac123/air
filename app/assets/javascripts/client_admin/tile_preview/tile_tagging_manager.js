@@ -31,9 +31,9 @@ Airbo.TileTagger = (function(){
 
   function toggleShareRemove(nowPosted) {
     if (nowPosted) {
-      shareToExplore.addClass('remove_from_explore').text('Remove from Explore');
+      shareToExplore.addClass('remove_from_explore outlined yellow').text('Remove from Explore');
     } else {
-      shareToExplore.removeClass('remove_from_explore').text('Share to Explore');
+      shareToExplore.removeClass('remove_from_explore outlined yellow').text('Share to Explore');
     }
     return true;
   }

@@ -1,0 +1,23 @@
+.tile-builder-share-to-explore {
+  background: $n-green;
+  color: #fff;
+  border-radius: 4px;
+  height: 70px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  border: solid 0 #666666;
+  box-shadow: 0 0 1px 1px #b5b5b5;
+  &:before {
+    font-family: "FontAwesome";
+    font-size: 24px;
+    content: "\f135 ";
+    margin: 5px;
+    float: left;
+  }
+
+  .share-to-explore-cta {
+    padding-top: 22px;
+    margin: 0;
+  }
+}

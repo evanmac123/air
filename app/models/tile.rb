@@ -223,7 +223,8 @@ class Tile < ActiveRecord::Base
         signature: config_signature.downcase,
         isAnonymous: is_anonymous,
         points: points,
-        tileId: id
+        tileId: id,
+        is_public: is_public
       }
     else
       {}

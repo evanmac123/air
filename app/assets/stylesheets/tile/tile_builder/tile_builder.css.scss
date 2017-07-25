@@ -3,6 +3,7 @@
   @import "image_uploader";
   @import "quiz";
   @import "slider";
+  @import "share_to_explore";
   @import "ie9";
 
 
@@ -20,11 +21,9 @@
     min-height: 646px;
     overflow: hidden;
     padding-top: 20px;
-    padding-bottom: 50px;
+    padding-bottom: 25px;
     width: 600px;
     padding-top: 0px;
     padding-left: 1px;
     margin: auto;
   }
-
-
