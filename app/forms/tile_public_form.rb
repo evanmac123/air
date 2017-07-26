@@ -24,6 +24,10 @@ class TilePublicForm
 
   def set_channels
     @tile.channel_list = params[:channels]
+
+    if @tile.airbo_community_created?
+      @tile.channel_list.add("Airbo Community")
+    end
   end
 
   def is_public

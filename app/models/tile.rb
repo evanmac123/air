@@ -80,7 +80,7 @@ class Tile < ActiveRecord::Base
   validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: MAX_SUPPORTING_CONTENT_LEN, message: "supporting content is too long (maximum is #{MAX_SUPPORTING_CONTENT_LEN} characters)"
 
   def state_is_anything_but_draft?
-     status != DRAFT
+    status != DRAFT
   end
 
   before_post_process :no_post_process_on_copy
@@ -136,10 +136,13 @@ class Tile < ActiveRecord::Base
     joins(:completed_tiles)
   end
 
-  def airbo?
-    organization.name == "Airbo"
+  def airbo_created?
+    organization.present? && organization.internal
   end
 
+  def airbo_community_created?
+    organization.present? && organization.internal.blank?
+  end
 
   # Dynamically define 'status?' instance methods  and scopes
   # TODO consider refactoring to remove metaprogramming here. prob not needed

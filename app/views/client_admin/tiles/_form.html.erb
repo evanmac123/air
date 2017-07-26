@@ -35,9 +35,11 @@
           </div>
         </div>
       </div>
-      <div class="tile-builder-share-to-explore text-center">
-        <p class="share-to-explore-cta"><%= f.check_box :is_public, style: "margin-right: 7px;" %>Share to Airbo Explore when this Tile is posted?</p>
-      </div>
+      <% unless @user_side %>
+        <div class="tile-builder-share-to-explore text-center">
+          <p class="share-to-explore-cta"><%= f.check_box :is_public, style: "margin-right: 7px;" %>Share to Airbo Explore when this Tile is posted?</p>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

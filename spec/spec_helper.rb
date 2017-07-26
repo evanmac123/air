@@ -28,7 +28,7 @@ Capybara.register_driver :poltergeist_debug do |app|
 end
 
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, { js_errors: false,  window_size: [1920, 6000] })
+  Capybara::Poltergeist::Driver.new(app, { js_errors: true,  window_size: [1920, 6000] })
 end
 
 Capybara.javascript_driver = :poltergeist
