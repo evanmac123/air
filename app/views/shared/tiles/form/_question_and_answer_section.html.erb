@@ -1,4 +1,7 @@
 <div class="tile_texts_container" >
+  <div class="js-anon-banner-wrapper hidden">
+    <%= render "/shared/tiles/anonymous_banner" %>
+  </div>
   <div class="tile_quiz content_sections" id="question_type_container" data-config = '<%=@tile.question_config.to_json%>'>
     <%= form.hidden_field :question_type %>
     <%= form.hidden_field :question_subtype, data:{proxyid: "question_type_container"} %>

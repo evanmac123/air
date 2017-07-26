@@ -42,6 +42,8 @@ Airbo.ExploreTilePreview = (function(){
     Airbo.TileCarouselPage.init();
     initEvents();
 
+    initAnonymousTooltip();
+
     //This handles issue where the onboarding modal css interferes with the tile modal css.
     $(".reveal-modal").css("top", 0);
   }
@@ -52,6 +54,12 @@ Airbo.ExploreTilePreview = (function(){
       modalClass: "tile_previews explore-tile_previews tile_previews-show explore-tile_previews-show bg-user-side",
       useAjaxModal: true,
       closeSticky: true
+    });
+  }
+
+  function initAnonymousTooltip(){
+    $(".js-anonymous-tile-tooltip").tooltipster({
+      theme: "tooltipster-shadow" 
     });
   }
 

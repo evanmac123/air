@@ -93,9 +93,17 @@ Airbo.TilePreviewModal = (function(){
     });
   }
 
+
+  function initAnonymousTooltip(){
+    $(".js-anonymous-tile-tooltip").tooltipster({
+      theme: "tooltipster-shadow" 
+    });
+  }
+
   function initPreviewElements() {
     Airbo.TileCarouselPage.init();
     initPreviewMenuTooltips();
+    initAnonymousTooltip();
     Airbo.ImageLoadingPlaceholder.init();
     initStickyPreviewMenu();
     arrowsObj.initEvents();

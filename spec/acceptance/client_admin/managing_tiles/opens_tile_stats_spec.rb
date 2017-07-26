@@ -72,6 +72,18 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
     #TODO Make sure these assertions first_name == ... are the best way to do
     #these tests.
+    context "anonymous tile" do
+      before do 
+        @tile.is_anonymous=true
+        @tile.save
+        create_user_data_for_sorting(@tile)
+        open_stats(@tile)
+      end
+
+      it "should show Anonymous for name" do
+        expect(first_name).to eq("Anonymous")
+      end
+    end
 
     context "sorting in user table" do
       before do
@@ -114,6 +126,8 @@ feature "Client admin opens tile stats", js: true, type: :feature do
         table_column("date").click
         expect(first_name).to eq(@user_last_completed.name)
       end
+
+   
     end
 
     context "pagination in user table" do
@@ -273,6 +287,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
   def select_grid_type type
     page.find('.grid_types').click
+    expect(page).to have_css(".custom.dropdown.open")
 
     within '.custom.dropdown.open' do
       page.find("li", text: type).click

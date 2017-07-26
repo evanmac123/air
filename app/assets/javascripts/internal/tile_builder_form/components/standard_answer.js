@@ -5,7 +5,6 @@ Airbo.StandardAnswer = Object.create(Airbo.BaseAnswer);
 
 Airbo.StandardAnswer.init = function (config, container){
 
-  Airbo.BaseAnswer.init.call(this, config, container); 
 
   this.answers = config.answers;
   this.correctAnswerIndex = config.index;
@@ -17,6 +16,7 @@ Airbo.StandardAnswer.init = function (config, container){
   this.allowFreeResponse = config.allowFreeResponse;
   this.freeResponse = config.freeResponse;
 
+  Airbo.BaseAnswer.init.call(this, config, container); 
   this.setupAnswers();
   return this;
 };
@@ -33,10 +33,18 @@ Airbo.StandardAnswer.render = function(){
     this.includeRadioButtons();
   }
 
+  this.renderOptionalFeatures();
+
+};
+
+Airbo.StandardAnswer.setupOptionalFeatures = function(){
+  Airbo.BaseAnswer.setupOptionalFeatures.call(this);
   if(this.freeResponse){
-    this.includeFreeResponse();
+    this.optionalFeatures.push(this.includeFreeResponse.bind(this))
   }
 };
+
+
 
 Airbo.StandardAnswer.includeAnswerAdder = function(){
   var panel
@@ -139,13 +147,14 @@ Airbo.StandardAnswer.includeFreeResponse = function(){
     , hidden = document.createElement("input")
     , label = document.createElement("label")
     , btn = document.createElement("a")
-    , iconText = document.createElement("i")
+    , iconHelp = document.createElement("i")
     , tooltipTemplate = document.createElement("div")
     , tooltipContent = document.createElement("div")
+    , tooltipTarget = document.createElement("div")
     , node = document.createDocumentFragment()
-    , btnClass = 'answer-btn js-btn-free-text js-free-text-tooltip hover-help'
+    , btnClass = 'answer-btn js-btn-free-text hover-help'
     , answerWrapper
-    , answerWrapperClass="answer-div js-free-text-btn-wrapper free-text-btn-wrapper"
+    , answerWrapperClass="answer-div js-free-text-btn-wrapper free-text-btn-wrapper "
   ;
 
 
@@ -163,10 +172,10 @@ Airbo.StandardAnswer.includeFreeResponse = function(){
   hidden.setAttribute('value', "0");
 
   checkbox.setAttribute('type', 'checkbox');
-  checkbox.setAttribute('class', 'js-chk-free-text free-response-toggle');
+  checkbox.setAttribute('class', 'js-chk-free-text chk-tile-optional-feature-toggle');
   checkbox.setAttribute('name', 'tile[allow_free_response]');
 
-  label.setAttribute('class', 'js-free-response-toggle-wrapper free-response-toggle-wrapper')
+  label.setAttribute('class', 'tile-optional-feature-toggle-wrapper')
   label.appendChild(hidden);
   label.appendChild(checkbox);
   label.appendChild(document.createTextNode("Allow Free Response"));
@@ -174,9 +183,8 @@ Airbo.StandardAnswer.includeFreeResponse = function(){
   tooltipTemplate.setAttribute('class', 'js-tooltip-template tooltip-template free-response' );
   tooltipContent.setAttribute('class', 'js-tooltip-content tooltip-content free-response' );
 
-  iconText.setAttribute('class', 'fa fa-file-text fa-1x');
+  iconHelp.setAttribute('class', 'fa fa-question-circle fa-1x');
 
-  btn.setAttribute('data-tooltip-content', ".js-tooltip-content.free-response");
 
   tooltipContent.appendChild(document.createTextNode("When users choose Other as their answer, they will be shown a free response text box."));
 
@@ -185,11 +193,18 @@ Airbo.StandardAnswer.includeFreeResponse = function(){
   node.appendChild(btn);
 
   node.appendChild(tooltipTemplate);
-  node.appendChild(iconText);
-  answerWrapper = this.answerWrapper(node)
+  node.appendChild(iconHelp);
+
+  tooltipTarget.setAttribute("class", "js-free-text-tooltip hover-help");
+  tooltipTarget.setAttribute('data-tooltip-content', ".js-tooltip-content.free-response");
+  tooltipTarget.appendChild(node);
+
+  answerWrapper = this.answerWrapper(tooltipTarget)
+
   answerWrapper.setAttribute("class", answerWrapperClass);
   this.answerPanel.appendChild(answerWrapper);
-  this.controlPanel.appendChild(label);
+
+  return label
 };
 
 Airbo.StandardAnswer.addAnswer = function() {

@@ -95,7 +95,8 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxLength: 50,
         minResponses: 2,
         maxResponses: 100,
-        freeResponse: true
+        freeResponse: true,
+        allowAnonymous: true
       },
      free_response: {
         name: "Free Response",
@@ -105,6 +106,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         exceed: true,
         minResponses: 0,
         maxResponses: 0,
+        allowAnonymous: true,
         builder: Airbo.FreeResponseAnswer
       },
       rsvp_to_event : {

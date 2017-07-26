@@ -91,6 +91,7 @@ Airbo.TileAction = (function(){
       tile_module: config.type,
       tile_type: config.signature,
       allow_free_reponse: config.allowFreeResponse,
+      is_anonymous: config.isAnonymous,
     });
   }
 
