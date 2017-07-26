@@ -702,7 +702,7 @@ DEPENDENCIES
   scout_apm (~> 3.0.x)
   searchjoy
   searchkick
-  selenium-webdriver
+  selenium-webdriver (~> 2.53.4)
   sham_rack
   shoulda
   shoulda-matchers

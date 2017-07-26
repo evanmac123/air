@@ -595,4 +595,26 @@ describe Tile do
       expect(tile.airbo_created?).to be_falsey
     end
   end
+
+  describe "#airbo_community_created?" do
+    let(:tile) { FactoryGirl.build(:tile) }
+
+    it "returns true if the tile's organization is not marked as internal" do
+      tile.stubs(:organization).returns(OpenStruct.new(internal: false))
+
+      expect(tile.airbo_community_created?).to eq(true)
+    end
+
+    it "returns false if the tile does not have an organization" do
+      tile.stubs(:organization).returns(nil)
+
+      expect(tile.airbo_community_created?).to be_falsey
+    end
+
+    it "returns false if the tiles's organization is marked as internal" do
+      tile.stubs(:organization).returns(OpenStruct.new(internal: true))
+
+      expect(tile.airbo_community_created?).to be_falsey
+    end
+  end
 end

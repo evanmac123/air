@@ -11,12 +11,7 @@ Airbo.TileBuilderShareToExplore = (function(){
   }
 
   return {
-    init: init,
+    init: init
   };
 
 }());
-
-$(function(){
-  if (Airbo.Utils.nodePresent(".tile-builder-share-to-explore")) {
-  }
-});
