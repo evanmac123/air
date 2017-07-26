@@ -130,8 +130,7 @@ Airbo.TileInteractionManager =(function(){
         , nextAnswer = $(this).parent(".answer-div").next(".answer-div")
         , field = nextAnswer.first(".answer-editable")
       ;
-
-    if (code === '9') {
+    if (code === 9) {
       if(nextAnswer.length > 0){
         nextAnswer.find(".js-answer-btn").click();
 
@@ -144,8 +143,8 @@ Airbo.TileInteractionManager =(function(){
 
   function initQuestionitHighlight(){
 
-    $('body').on('click', "#tile_question", function(event) {
-      highlightText($(this) );
+    $('body').on('focus', "#tile_question", function(event) {
+      $(this).select();
     })
   }
   function initAnswerRead(){
