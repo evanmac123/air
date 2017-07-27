@@ -23,10 +23,10 @@ Airbo.TileInteractionBuilder = (function(){
   }
 
 
-  function init(config){
+  function init(config,savedQuestion){
     var builder = config.builder || Airbo.StandardAnswer;
 
-    question = config.question
+    question = savedQuestion || config.question
     resetAttributes(config.type, config.subtype);
     answer = Object.create(builder).init(config, container)
   }
