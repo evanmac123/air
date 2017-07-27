@@ -1,10 +1,10 @@
-.single_tile_explore_layout {
+.single-tile-base {
   .content.content {
     padding-top: 0;
   }
   background:$tile-wall-bg;
 
-  .single-tile-explore-layout-header {
+  .single-tile-base-header {
     margin: 0;
     .header {
       padding: 20px 25px 0 25px;

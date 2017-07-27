@@ -5,7 +5,10 @@ class TileController < ApplicationController
 
   def show
     @public_tile_page = true
+    @explore_or_public = :public
     tile_viewed_ping
+
+    render "explore/tile_previews/single_explore_tile", layout: "single_tile_base_layout"
   end
 
   private

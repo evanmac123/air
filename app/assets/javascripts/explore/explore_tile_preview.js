@@ -59,7 +59,7 @@ Airbo.ExploreTilePreview = (function(){
 
   function initAnonymousTooltip(){
     $(".js-anonymous-tile-tooltip").tooltipster({
-      theme: "tooltipster-shadow" 
+      theme: "tooltipster-shadow"
     });
   }
 
@@ -97,7 +97,7 @@ Airbo.ExploreTileNonModal = (function(){
 }());
 
 $(function(){
-  if( $(".single_tile_explore_layout, .explore-tile_previews-show").length > 0 ) {
+  if( $(".single-tile-base, .explore-tile_previews-show").length > 0 ) {
     Airbo.ExploreTileNonModal.init();
   }
 });
