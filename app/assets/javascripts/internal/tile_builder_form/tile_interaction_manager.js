@@ -1,10 +1,11 @@
 var Airbo = window.Airbo || {};
 
 
-Airbo.TileInteractionManager =(function(){
+Airbo.TileInteractionManager = (function(){
 
   var tileTypes = []
     , tilebuilderform
+    , savedQuestion
     , tileBuilderFormSelector = "#new_tile_builder_form"
     , sliderSelector = ".slider"
   ;
@@ -35,7 +36,7 @@ Airbo.TileInteractionManager =(function(){
 
 
   function renderSelectedInteraction(config){
-    Airbo.TileInteractionBuilder.init(config);
+    Airbo.TileInteractionBuilder.init(config, savedQuestion);
     Airbo.TileInteractionBuilder.render();
 
     Airbo.TileInteractionMenuHandler.setSelected(config.type,config.subtype);
@@ -54,9 +55,12 @@ Airbo.TileInteractionManager =(function(){
     ;
 
     if(Object.keys(savedConfig).length === 0){
+      savedQuestion = undefined
       defaults = Airbo.TileBuilderInteractionConfig.defaultKeys();
       config = interactionConfigByTypeAndSubType(defaults);
     }else{
+
+      savedQuestion = savedConfig.question;
       config = interactionConfigByTypeAndSubType(savedConfig);
       config =  $.extend({}, config, savedConfig);
     }
@@ -75,7 +79,6 @@ Airbo.TileInteractionManager =(function(){
 
   function interactionConfigByTypeAndSubType(selected){
     var config = Airbo.TileBuilderInteractionConfig.get(selected.type, selected.subtype);
-
     config.type = selected.type
     config.subtype = selected.subtype
     return config;
@@ -84,7 +87,6 @@ Airbo.TileInteractionManager =(function(){
 
   function handleSubTypeSelection(selected){
     var config = interactionConfigByTypeAndSubType(selected);
-
     updateConfig(config)
     renderSelectedInteraction(config)
     initFreeFormTooltip();
