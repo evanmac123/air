@@ -156,12 +156,12 @@ input[type=text].search-input{
     }
 
     &.focused{
-      border: 1px solid #15adff;
+      border: 1px solid $n-blue-hover;
     }
 
     &:hover {
       i {
-        color: #15adff
+        color: $n-blue-hover;
       }
     }
   }
