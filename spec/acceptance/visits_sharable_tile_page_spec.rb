@@ -5,13 +5,6 @@ feature "visits sharable tile page", js: true do
 
   let!(:tile) { FactoryGirl.create(:multiple_choice_tile, is_sharable: true) }
 
-  shared_examples_for 'gets registration form' do |name, selector|
-    scenario "when clicks #{name}", js: true do
-      page.find(selector).click
-      register_if_guest
-    end
-  end
-
   shared_examples_for "answers the tile" do
     scenario "should get feedback", js: true do
       click_link "Ham"
@@ -28,7 +21,6 @@ feature "visits sharable tile page", js: true do
       visit sharable_tile_path(tile)
     end
 
-    it_should_behave_like "gets registration form", "create board button", "#save_progress_button"
     it_should_behave_like "answers the tile"
   end
 

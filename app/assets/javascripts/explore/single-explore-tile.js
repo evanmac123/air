@@ -25,7 +25,7 @@ Airbo.ExploreSingleTile = (function(){
   function initAnswerCorrectModal() {
     $(".multiple-choice-answer.correct, .clicked_right_answer").on("click", function(e) {
       e.preventDefault();
-      if(tileType == "public") {
+      if(tileType === "public") {
         publicTileCompleted();
       } else {
         exploreTileCompleted();

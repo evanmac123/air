@@ -227,7 +227,8 @@ class Tile < ActiveRecord::Base
         isAnonymous: is_anonymous,
         points: points,
         tileId: id,
-        is_public: is_public
+        isPublic: is_public,
+        isSharable: is_sharable
       }
     else
       {}
