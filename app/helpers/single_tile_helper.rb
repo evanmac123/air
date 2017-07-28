@@ -1,6 +1,8 @@
 module SingleTileHelper
   def single_tile_more_content_url(tile:)
-    if tile.demo.try(:is_public)
+    if current_user.is_a?(User)
+      root_path(utm_source: "explore_single_tile", utm_campaign: tile.headline)
+    elsif tile.demo.try(:is_public)
       public_board_url(tile.demo.public_slug, utm_source: "explore_single_tile", utm_campaign: tile.headline)
     else
       marketing_site_home_url(utm_source: "explore_single_tile", utm_campaign: tile.headline)
