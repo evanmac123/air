@@ -23,8 +23,14 @@ Airbo.ExploreSingleTile = (function(){
   }
 
   function initAnswerCorrectModal() {
-    $(".multiple-choice-answer.correct, .clicked_right_answer").on("click", function(e) {
+    $(".js-multiple-choice-answer.correct, .clicked_right_answer").on("click", function(e) {
       e.preventDefault();
+      if($(this).hasClass("free-text")) {
+        if(!$(".js-free-form-response").val()) {
+          return;
+        }
+      }
+
       if(tileType === "public") {
         publicTileCompleted();
       } else {

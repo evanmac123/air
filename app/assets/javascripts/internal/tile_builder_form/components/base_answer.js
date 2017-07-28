@@ -6,19 +6,20 @@ Airbo.BaseAnswer = {
     this.answerPanel = document.getElementById("quiz-answer");
     this.controlPanel = document.querySelector(".js-answer-controls");
     this.answerSet = [];
-    this.optionalFeatures = []
+    this.optionalFeatures = [];
     this.answers = config.answers;
     this.allowAnonymous = config.allowAnonymous;
     this.isAnonymous = config.isAnonymous;
     this.setupOptionalFeatures();
     return this;
   },
+
   addErrorLabel: function(){
     var errorLabel = document.createElement("span");
     errorLabel.setAttribute("id", "tile_error");
     errorLabel.setAttribute("class", "err");
 
-    this.controlPanel.appendChild(errorLabel)
+    this.controlPanel.appendChild(errorLabel);
   },
 
   reset: function(){
@@ -34,7 +35,7 @@ Airbo.BaseAnswer = {
 
   wrapOptionToggler: function(opt){
     var wrapper = document.createElement("div");
-    wrapper.setAttribute('class', 'left tile-option');
+    wrapper.setAttribute('class', 'tile-option');
     wrapper.appendChild(opt);
     return wrapper;
   },
@@ -46,7 +47,6 @@ Airbo.BaseAnswer = {
 
     this.controlPanel.appendChild(options);
     this.optionsPanel = options;
-
   },
 
   answerWrapper: function(answerNode, index) {
@@ -58,10 +58,9 @@ Airbo.BaseAnswer = {
   },
 
   includeAllowAnonymous: function(){
-    var checkbox = document.createElement("input")
-      , hidden = document.createElement("input")
-      , label = document.createElement("label")
-    ;
+    var checkbox = document.createElement("input");
+    var hidden = document.createElement("input");
+    var label = document.createElement("label");
 
     if(this.isAnonymous){
       checkbox.checked = true;
@@ -75,16 +74,16 @@ Airbo.BaseAnswer = {
     checkbox.setAttribute('class', 'js-chk-anonymous-reponse chk-tile-optional-feature-toggle');
     checkbox.setAttribute('name', 'tile[is_anonymous]');
 
-    label.setAttribute('class', 'tile-optional-feature-toggle-wrapper')
+    label.setAttribute('class', 'tile-optional-feature-toggle-wrapper');
     label.appendChild(hidden);
     label.appendChild(checkbox);
     label.appendChild(document.createTextNode("Make Tile Anonymous"));
-    return label
+    return label;
   },
 
   setupOptionalFeatures: function(){
-    if(this.allowAnonymous){
-      this.optionalFeatures.push(this.includeAllowAnonymous.bind(this))
+    if (this.allowAnonymous) {
+      this.optionalFeatures.unshift(this.includeAllowAnonymous.bind(this));
     }
   },
 
@@ -94,10 +93,7 @@ Airbo.BaseAnswer = {
       this.optionalFeatures.forEach(function(featureAdder){
         var optToggler = featureAdder.call(this);
         this.optionsPanel.appendChild(this.wrapOptionToggler(optToggler));
-      }.bind(this))
+      }.bind(this));
     }
   }
-
 };
-
-
