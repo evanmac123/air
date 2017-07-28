@@ -35,6 +35,11 @@
           </div>
         </div>
       </div>
+      <% unless @user_side %>
+        <div class="tile-builder-share-to-explore text-center">
+          <p class="share-to-explore-cta"><%= f.check_box :is_public, style: "margin-right: 7px;" %>Share to Airbo Explore when this Tile is posted?</p>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
@@ -58,7 +63,7 @@
   <input type="hidden" name="safesearch" value="true">
   <input type="hidden" name="per_page" value="200">
   <input type="hidden" name="image_type" value="photo">
- 
+
 </form>
 
 <form class="search-form" id="google" action="https://www.googleapis.com/customsearch/v1" method="get" data-provider="google" data-search-field='q'>

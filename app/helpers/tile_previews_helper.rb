@@ -141,8 +141,8 @@ module TilePreviewsHelper
   end
 
   def share_to_explore_css_config tile
-    share_to_explore_classes = %w(share_to_explore)
-    share_to_explore_classes << "remove_from_explore" if tile.is_public
+    share_to_explore_classes = %w(share_to_explore button)
+    share_to_explore_classes << "remove_from_explore outlined yellow" if tile.is_public
 
     h = {}
 

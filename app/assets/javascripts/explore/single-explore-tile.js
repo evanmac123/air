@@ -1,6 +1,8 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreSingleTile = (function(){
+  var entryPoint;
+  var tileType;
 
   function initSocialShareLinks($selector) {
     jsSocials.setDefaults("pinterest", {
@@ -8,11 +10,11 @@ Airbo.ExploreSingleTile = (function(){
     });
 
     jsSocials.setDefaults("twitter", {
-      hashtags: "airbo"
+      hashtags: $entryPoint.data("twitterHashtags")
     });
 
     $selector.jsSocials({
-      url: $(".single_tile_explore_layout").data("exploreTilePath"),
+      url: $entryPoint.data("tilePath"),
       shareIn: "blank",
       showLabel: false,
       showCount: false,
@@ -21,9 +23,33 @@ Airbo.ExploreSingleTile = (function(){
   }
 
   function initAnswerCorrectModal() {
-    $(".multiple-choice-answer.correct, .clicked_right_answer").on("click", function(e) {
+    $(".js-multiple-choice-answer.correct, .clicked_right_answer").on("click", function(e) {
       e.preventDefault();
-      exploreTileCompleted();
+      if($(this).hasClass("free-text")) {
+        if(!$(".js-free-form-response").val()) {
+          return;
+        }
+      }
+
+      if(tileType === "public") {
+        publicTileCompleted();
+      } else {
+        exploreTileCompleted();
+      }
+    });
+  }
+
+  function publicTileCompleted() {
+    Airbo.Utils.ping("Single Explore Tile", { action: "Completed Tile" });
+    initAnswerCorrectModal();
+    swal({
+      title: "Tile Completed!",
+      type: "success",
+      showConfirmButton: false,
+      showCancelButton: true,
+      cancelButtonText: "Close",
+      customClass: "airbo",
+      allowOutsideClick: true
     });
   }
 
@@ -46,7 +72,7 @@ Airbo.ExploreSingleTile = (function(){
     function(isConfirm) {
       Airbo.Utils.ping("Single Explore Tile", { action: "Clicked to see more content" });
       if(isConfirm) {
-        var url = $(".single_tile_explore_layout").data("moreContentUrl");
+        var url = $entryPoint.data("moreContentUrl");
         var win = window.open(url, "_blank");
         if (win) {
           win.focus();
@@ -58,6 +84,9 @@ Airbo.ExploreSingleTile = (function(){
   }
 
   function init() {
+    $entryPoint = $(".js-single-tile-base");
+    tileType = $entryPoint.data("exploreOrPublic");
+
     initSocialShareLinks($(".social-share"));
     initAnswerCorrectModal();
   }
@@ -69,7 +98,7 @@ Airbo.ExploreSingleTile = (function(){
 }());
 
 $(function(){
-  if (Airbo.Utils.nodePresent(".single_tile_explore_layout")) {
+  if (Airbo.Utils.nodePresent(".single-tile-base")) {
     Airbo.ExploreSingleTile.init();
   }
 });

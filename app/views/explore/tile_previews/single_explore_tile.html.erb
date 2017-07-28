@@ -1,6 +1,6 @@
 <% content_for :head do %>
-  <%= render partial: 'meta_tags', locals: { tile: @tile } %>
-<%end%>
+  <%= render 'explore/tile_previews/meta_tags', tile: @tile, source: @explore_or_public %>
+<% end %>
 <div class='viewer'>
   <div id="tile_preview_section">
     <div class="large-centered columns clearfix tile_preview_block">
@@ -9,5 +9,5 @@
   </div>
 </div>
 <div class="bars">
-  <%=render partial: 'share_bar', locals: { tile: @tile } %>
+  <%= render 'explore/tile_previews/share_bar', tile: @tile, source: @explore_or_public %>
 </div>

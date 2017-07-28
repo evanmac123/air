@@ -1,7 +1,5 @@
-<div id="save_progress" class="large-4 large-offset-6 columns" style="<%= user.guest_user_header_button_style %>">
-  <% if @public_tile_page %>
-    <%= link_to "Learn More", new_demo_request_path, id: "save_progress_button" %>
-  <% elsif guest_user_conversion_modal?(user) %>
+<div id="save_progress" class="large-4 large-offset-6 columns text-right" style="<%= user.guest_user_header_button_style %>">
+  <% if @explore_or_public.blank? && guest_user_conversion_modal?(user) %>
     <%= link_to "Save Progress", "#", id: "save_progress_button", class: "open_save_progress_form", data: { "reveal-id" => "guest-conversion-modal" } %>
   <% end %>
 

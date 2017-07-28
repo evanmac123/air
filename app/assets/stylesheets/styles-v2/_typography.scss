@@ -129,14 +129,14 @@ ol.list {
 
 a {
   text-decoration: none;
-  color: darken($n-blue, 10%);
+  color: $n-blue;
   outline: none !important;
 }
 a.link, .with_link a {
   text-decoration: underline;
   &:hover {
     text-decoration: none;
-    color: darken($n-blue, 10%);
+    color: $n-blue;
   }
   &:active {
     color: $n-blue;
@@ -145,4 +145,3 @@ a.link, .with_link a {
     outline: 0;
   }
 }
-

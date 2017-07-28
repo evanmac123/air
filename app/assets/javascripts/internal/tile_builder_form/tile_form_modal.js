@@ -84,7 +84,7 @@ Airbo.TileFormModal = (function(){
 
   function initFormElements() {
     Airbo.PubSub.unsubscribe("image-selected");
-    Airbo.PubSub.unsubscribe("image-done"); 
+    Airbo.PubSub.unsubscribe("image-done");
     validator = Airbo.TileFormValidator.init(currform);
     Airbo.TileImageUploader.init();
     Airbo.TileImagePreviewer.init();
@@ -96,6 +96,7 @@ Airbo.TileFormModal = (function(){
     Airbo.Utils.mediumEditor.init();
     Airbo.ImageSearcher.init();
     Airbo.StickyMenu.init(self);
+    Airbo.TileBuilderShareToExplore.init();
   }
 
   function initModalObj() {
@@ -161,6 +162,7 @@ Airbo.TileFormModal = (function(){
       if(formObj.valid()){
         disablesubmitLink();
         Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("save"));
+        Airbo.IntercomEventService.trackEvent("Tile Creation", getTileCreationPingProps("save"));
         ajaxHandler.submit(formObj, submitSuccess, resetSubmit);
       }else{
         saveable = false;

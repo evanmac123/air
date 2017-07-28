@@ -1,0 +1,22 @@
+#!/bin/sh
+RED="\x1b[31m"
+GREEN="\x1b[32m"
+COLOR_RESET="\x1b[0m"
+
+echo_with_color() {
+  echo "$2$1$COLOR_RESET"
+}
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+read -p "Are you sure you want to deploy $BRANCH to staging? " -r
+echo
+if [[ $REPLY =~ ^(yes|y| ) ]]
+then
+  echo_with_color "Running: git push staging $BRANCH:master -f" $GREEN
+  git push staging $BRANCH:master -f
+  echo_with_color "$BRANCH deployed!" $GREEN
+  echo_with_color "Deploy complete." $GREEN
+else
+  echo_with_color "Not deploying." $RED
+fi

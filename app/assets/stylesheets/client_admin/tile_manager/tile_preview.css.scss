@@ -43,6 +43,7 @@ body.client_admin-tiles.client_admin-tiles-index, .client_admin_tilesexplore-sea
     .share_options {
 
        display: block; // Always show
+       text-align: center;
 
       hr {
         margin: .5em 0;
@@ -95,25 +96,6 @@ body.client_admin-tiles.client_admin-tiles-index, .client_admin_tilesexplore-sea
             padding-bottom: 10px;
           }
         }
-      }
-
-      .share_to_explore {
-        float:none;
-        padding: 0em 0.5em;
-        margin-top: 0px;
-        margin: auto;
-        padding-left: 8px;
-        padding-right: 8px;
-        width: 95%;
-        display: block;
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 12px;
-        @include light-button($n-blue);
-        display: block;
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 12px;
       }
     }
 
@@ -344,37 +326,6 @@ body.client_admin-tiles.client_admin-tiles-index, .client_admin_tilesexplore-sea
       margin-right: 0;
     }
 
-    .share_to_explore{
-      float: left;
-      display: inline;
-      width: 34%;
-      padding: 2em 0.5em;
-    }
-
-    $share_to_explore_width: 195px;
-    .share_to_explore{
-      @include light-button($n-blue);
-      margin-right: 8px;
-      &.disabled {
-        @include light-button($light-gray);
-      }
-      &.remove_from_explore{
-        @include light-button($light-gray);
-      }
-
-      float: right;
-      display: inline;
-      width: $share_to_explore_width;
-      margin-top: 1.8em;
-
-      .share_to_explore_message{
-        color:lighten($text-color, 17%);
-        padding-left: 10px;
-        display: inline-block;
-        @include caption;
-      }
-    }
-
     #share_to_explore_buttons { display: none; }
 
     .allow_copying{
@@ -463,7 +414,6 @@ body.client_admin-tiles.client_admin-tiles-index, .client_admin_tilesexplore-sea
       color: $n-blue;
       margin: 4px 0;
       display: none;
-      width: $share_to_explore_width;
       float: right;
     }
   }

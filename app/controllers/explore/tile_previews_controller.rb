@@ -12,7 +12,8 @@ class Explore::TilePreviewsController < ExploreBaseController
              locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section] },
              layout: false
     else
-      render "single_explore_tile", layout: "single_tile_explore_layout"
+      @explore_or_public = :explore
+      render "single_explore_tile", layout: "single_tile_base_layout"
     end
   end
 
