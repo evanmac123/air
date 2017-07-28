@@ -88,13 +88,15 @@ RSpec.describe TilesDigest, :type => :model do
 
   describe "#set_tile_email_report_notifications" do
     it "asks ClientAdmin::NotificationsManager to set_tile_email_report_notifications in the background" do
+      Timecop.freeze(Time.local(1990))
       digest = TilesDigest.create(demo: demo)
 
-      ClientAdmin::NotificationsManager.expects(:delay).returns(ClientAdmin::NotificationsManager)
+      ClientAdmin::NotificationsManager.expects(:delay).with(run_at: 1.hour.from_now).returns(ClientAdmin::NotificationsManager)
       ClientAdmin::NotificationsManager.expects(:set_tile_email_report_notifications).with(board: digest.demo)
 
 
       digest.set_tile_email_report_notifications
+      Timecop.return
     end
   end
 
