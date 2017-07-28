@@ -21,22 +21,27 @@
     style="-webkit-overflow-scrolling: touch; overflow:visible;"
     data-current-user-is-client-admin="<%= current_user.is_client_admin %>"
     data-current-user="<%= current_user.data_for_mixpanel.to_json %>"
-    data-tile-path="<%= path_for_single_tile_with_tracking(tile: @tile, source: @explore_or_public) %>"
+    data-tile-path="<%= path_for_single_tile(tile: @tile, source: @explore_or_public) %>"
     data-more-content-url="<%= single_tile_more_content_url(tile: @tile) %>"
     data-explore-or-public="<%= @explore_or_public %>"
     data-twitter-hashtags="<%= single_tile_hashtags(tile: @tile) %>">
 
-    <% if single_tile_is_public(source: @explore_or_public) %>
-      <%= render 'shared/header' %>
-    <% else %>
+
       <div class="single-tile-base-header">
         <div class="center header">
-          <%= link_to root_path do %>
-            <%= image_tag single_tile_logo(tile: @tile, source: @explore_or_public), class: "airbo-logo" %>
+          <% if single_tile_logo(tile: @tile, source: @explore_or_public) %>
+            <%= link_to root_path do %>
+              <%= image_tag single_tile_logo(tile: @tile, source: @explore_or_public), class: "#{@explore_or_public.to_s}" %>
+            <% end %>
+          <% end %>
+
+          <% if @explore_or_public == :public && !@tile.organization.try(:internal) %>
+            <%= link_to marketing_site_home_path(utm_source: "#{@explore_or_public.to_s}_single_tile", utm_campaign: "Powered by Airbo") do %>
+              <%= image_tag "powered-by-airbo-vertical.svg", class: "float-right #{@explore_or_public.to_s}" %>
+            <% end %>
           <% end %>
         </div>
       </div>
-    <% end %>
 
     <main class="main">
     <div class="core">

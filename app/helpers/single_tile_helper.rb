@@ -28,7 +28,7 @@ module SingleTileHelper
 
     if demo && demo.logo.present? && source == :public
       demo.logo
-    else
+    elsif source == :explore
       "airbo_logo_lightblue.png"
     end
   end
