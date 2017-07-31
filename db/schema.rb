@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170722210801) do
+ActiveRecord::Schema.define(:version => 20170801231901) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1136,6 +1136,23 @@ ActiveRecord::Schema.define(:version => 20170722210801) do
 
   add_index "tile_tags", ["topic_id"], :name => "index_tile_tags_on_topic_id"
 
+  create_table "tile_user_notifications", :force => true do |t|
+    t.integer  "tile_id"
+    t.integer  "creator_id"
+    t.string   "subject"
+    t.text     "message"
+    t.string   "answer"
+    t.integer  "scope_cd"
+    t.datetime "delivered_at"
+    t.integer  "recipient_count"
+    t.datetime "send_at"
+    t.integer  "delayed_job_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "tile_user_notifications", ["tile_id"], :name => "index_tile_user_notifications_on_tile_id"
+
   create_table "tile_viewings", :force => true do |t|
     t.integer  "tile_id"
     t.integer  "user_id"
@@ -1241,6 +1258,7 @@ ActiveRecord::Schema.define(:version => 20170722210801) do
     t.boolean  "include_unclaimed_users"
     t.boolean  "delivered",               :default => false
     t.boolean  "followup_delivered",      :default => false
+    t.datetime "sent_at"
   end
 
   add_index "tiles_digests", ["demo_id"], :name => "index_tiles_digests_on_demo_id"

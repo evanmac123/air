@@ -99,13 +99,24 @@ Airbo.SearchTileThumbnail = (function() {
 
 
   function initMyTilePreview(){
-    $("body").on("click", ".tile_container:not(.explore) .shadow_overlay", function(e){
+    $("body").on("click", ".tile_container:not(.explore) .tile_thumb_link, .tile_container:not(.explore) .shadow_overlay", function(e){
       e.preventDefault();
+      var self = $(this);
+      var tileModalLink;
+
+      //return immediately if tooltipser is triggered since we want to let it
+      //do its own handling and not do the preview
       if($(e.target).is(".pill.more") || $(e.target).is("span.dot")){
         return;
       }
-      var link = $(this).siblings(".tile_thumb_link");
-      getPreview(link.attr('href'), link.data('tileId'), "bg-user-side");
+
+      if((self).is(".tile_thumb_link")){
+        tileModalLink = self;
+      }else{
+        tileModalLink = self.siblings(".tile_thumb_link");
+      }
+
+      getPreview(tileModalLink.attr('href'), tileModalLink.data('tileId'), "bg-user-side");
     });
   }
 

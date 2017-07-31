@@ -1,3 +1,6 @@
+
+
+
 class Tile < ActiveRecord::Base
   include Concerns::TileImageable
 
@@ -51,6 +54,9 @@ class Tile < ActiveRecord::Base
   has_many :tile_viewings, dependent: :nullify
   has_many :tile_taggings, dependent: :nullify
   has_many :user_tile_likes, dependent: :nullify
+  has_many :tiles_digest_tiles
+  has_many :tiles_digests, through: :tiles_digest_tiles
+  has_many :tile_user_notifications
 
   has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: 'GuestUser'
   has_many :completed_tiles, source: :tile, through: :tile_completions
@@ -142,6 +148,10 @@ class Tile < ActiveRecord::Base
 
   def airbo_community_created?
     organization.present? && organization.internal.blank?
+  end
+
+  def tiles_digest
+    tiles_digests.first
   end
 
   # Dynamically define 'status?' instance methods  and scopes

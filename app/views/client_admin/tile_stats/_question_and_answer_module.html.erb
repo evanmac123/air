@@ -1,0 +1,26 @@
+<table class="survey-chart-table" id="survey_table">
+  <thead>
+    <tr>
+      <th class="answer">
+        <span>Answers</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @tile.question_subtype == "free_response" %>
+      <tr>
+        <td class="answer">
+          Free Response
+        </td>
+      </tr>
+    <% else %>
+      <% @tile.multiple_choice_answers.each do |answer| %>
+        <tr>
+          <td class="answer">
+            <%= answer %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

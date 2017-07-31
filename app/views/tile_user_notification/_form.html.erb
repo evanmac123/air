@@ -1,0 +1,21 @@
+<%= form_for([:client_admin, tile_user_notification]) do |f| %>
+  <%= f.hidden_field :tile_id, value: tile.id %>
+  <div class="row">
+    Send a message to everyone who <%= f.select :scope_cd, options_for_select(TileUserNotification.options_for_scope_cd) %> <%= f.select :answer, options_for_select(TileUserNotification.options_for_answers(tile: tile)) %>
+  </div>
+  <div class="row image-row">
+    <div class="large-6 columns">
+      <%= f.label :subject %>
+      <%= f.text_field :subject %>
+    </div>
+    <div class="large-6 columns">
+      <%= f.label :message %>
+      <%= f.text_area :message, id: "jsInitTinyMCD#{tile.id}" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= f.submit "Save", class: "button green float-right" %>
+    </div>
+  </div>
+<% end %>
