@@ -36,7 +36,7 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def set_tile_email_report_notifications
-    ClientAdmin::NotificationsManager.delay.set_tile_email_report_notifications(board: self.demo)
+    ClientAdmin::NotificationsManager.delay(run_at: 1.hour.from_now).set_tile_email_report_notifications(board: self.demo)
   end
 
   def send_emails
