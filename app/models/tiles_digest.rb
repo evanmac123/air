@@ -42,7 +42,7 @@ class TilesDigest < ActiveRecord::Base
   def send_emails
     TilesDigestMailer.delay.notify_all(self)
 
-    self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true)
+    self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true, sent_at: Time.now)
   end
 
   def all_related_subject_lines

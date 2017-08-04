@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user, dependent: :destroy
 
   has_many   :potential_users, foreign_key: "primary_user_id", dependent: :destroy
+  has_many   :tile_user_notifications, foreign_key: "creator_id"
   # Use delete strategy for direct unshared simple relations with no additional cleanup
   # required prevents callbacks and records being instantiated
   # ------------------------------------------------------------------
