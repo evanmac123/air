@@ -21,6 +21,7 @@
       <%= f.hidden_field :remote_media_type,  id: "remote_media_type" %>
       <%= f.hidden_field :media_source, id: "media_source"%>
       <%= hidden_field_tag :pseudo_tile_id %>
+      <%= hidden_field_tag "tile[attachments][]", "DELETE" %>
 
 
       <div class="tile_holder_container">
@@ -30,6 +31,13 @@
             <%= render '/shared/tiles/form/image_preview', form: f %>
             <div class="builder_content tile_builder_section">
               <%= render 'shared/tiles/form/headline_and_supporting_content_fields', form: f, tile: @tile %>
+            </div>
+            <div class="attachments">
+              <%= render partial: "/client_admin/tiles/tile_attachments", locals: {tile: @tile}%>
+              <a class=" js-file-upload-trigger add-attachment-wrapper" data-target="#file-uploader" >
+                <%=fa_icon "plus", class: "icon-add-attachment"%> 
+                <span class="add-attachment">Add Attachment</span>
+              </a>
             </div>
             <%= render 'shared/tiles/form/question_and_answer_section', form: f %>
           </div>
@@ -74,31 +82,14 @@
   <input type="hidden" name="start" value="1">
 </form>
 
-  <%= s3_uploader_form post: client_admin_tiles_url, as: "tile[upload_url]", style: "visibility:hidden;height:0px;width:0px" do %>
-    <%= file_field_tag :file, id:"media_file" %>
-  <% end %>
+<%= s3_uploader_form  id: "image-uploader", class: "s3-uploader", data:{uploadType: 'tileImage'} do %>
+  <%= file_field_tag :file, id:"media_file" %>
+<% end %>
 
 
-  <%content_for :head do%>
-  <style>
-input.read {
-  display: none;
-}
 
-input.write {}
+<%= s3_uploader_form  id: "file-uploader", class: "s3-uploader", bucket: APP_BUCKET, data:{path: "tile_attachments/board/#{@demo.id}", uploadType: 'tileAttachment'} do %>
+  <%= file_field_tag "file", id:"tileAttachment" , multiple: true%>
+<% end %>
 
-.char-counter {
-  display: none
-}
 
-input.answer-editable:focus ~ i {
-  display: none;
-}
-
-input.answer-editable:focus ~ .char-counter {
-  display: block;
-}
-
-  </style>
-
-  <%end%>

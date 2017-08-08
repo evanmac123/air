@@ -59,6 +59,7 @@ body.tiles.tiles-index{
   @import './tile/tile_fullsize/image';
   @import './tile/tile_fullsize/main_fields';
   @import './tile/tile_fullsize/quiz';
+  @import './tile/tile_fullsize/attachments';
 
   // That's fading. it appears when moving to the next tile
   #spinner_large {

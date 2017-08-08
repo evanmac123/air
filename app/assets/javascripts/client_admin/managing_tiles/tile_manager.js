@@ -11,25 +11,17 @@ Airbo.TileManager = (function(){
 
   // TODO Deprecate this method
 
-  function getManagerType() {
-    return managerType;
-  }
 
   function pageSectionByStatus(status){
     return $("#" + status + sectionSelector);
   }
 
-  function replaceTileContent(tile, id){
-    selector = tileContainerByDataTileId(id);
-    $(selector).replaceWith(tile);
-  }
 
   function tileContainerByDataTileId(id){
     return  $(tileWrapperSelector + "[data-tile-container-id=" + id + "]");
   }
 
   function updateTileSection(data){
-
     var selector,
     section = pageSectionByStatus(data.tileStatus),
       tile = $(data.tile),
@@ -47,9 +39,49 @@ Airbo.TileManager = (function(){
     Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".pill.more"));
   }
 
-  function updateSections(data) {
+  function replaceTileContent(tile, id){
+    if($(".explore-search-results-client_admin").length > 0){
+      replaceTileContentSearch(tile, id);
+    }else{
+      replaceTileContentNormal(tile, id);
+    }
+  }
+
+  function replaceTileContentNormal(tile, id){
+    selector = tileContainerByDataTileId(id);
+    $(selector).replaceWith(tile);
+  }
+
+
+
+  function replaceTileContentSearch(tile, id){
+    selector = tileContainerByDataTileId(id);
+    $(selector).each(function(idx, oldTile){
+      var newTile = $(tile);
+      $(oldTile).replaceWith(newTile);
+      Airbo.TileThumbnailMenu.initMoreBtn(newTile.find(".pill.more"));
+    });
+  }
+
+
+  function updateSectionsNormal(data){
     updateTileSection(data);
     updateShowMoreDraftTilesButton();
+  }
+
+
+  function updateSectionsSearch(data){
+    var tile = data.tile;
+    replaceTileContent(tile, data.tileId);
+  }
+
+  function updateSections(data) {
+
+    if($(".explore-search-results-client_admin").length > 0){
+      updateSectionsSearch(data);
+    }else{
+      updateSectionsNormal(data);
+    }
   }
 
   function initEvents() {
@@ -67,38 +99,43 @@ Airbo.TileManager = (function(){
     tileThumbnail = thumbNail.init(this);
   }
 
-  function init(type) {
-    if(type==="search"){
-      Airbo.SearchTileThumbnail.init();
-    }
-    else{
+  function initSearch() {
+    var userType = $(".explore-search-results").data().userType;
+    if (userType == "user") {
+      Airbo.UserTileSearch.init();
+    } else {
       Airbo.TileThumbnail.init();
+      Airbo.TileStatsModal.init();
+    }
+  }
+
+  function initNormal(){
+    Airbo.TileThumbnail.init();
+    initEvents();
+  }
+
+  function init() {
+
+    if($(".explore-search-results-client_admin").length > 0){
+      initSearch();
+    }else{
+      initNormal();
     }
 
-    initEvents();
+    Airbo.TileAttachmentUploader.init();
+    Airbo.TileImageUploader.init();
   }
   return {
     init: init,
     updateTileSection: updateTileSection,
     updateSections: updateSections,
-    getManagerType: getManagerType
+    tileContainerByDataTileId: tileContainerByDataTileId
   };
 }());
 
 $(function(){
-  var manageType;
-  var manageNum = $(".manage_tiles").length;
-  if( manageNum > 0 ) {
-    if(manageNum == 3) {
-      manageType = "main";
-    } else {
-      manageType = "archived";
-    }
-
+  if(  $(".manage_tiles").length > 0  || $(".explore-search-results-client_admin").length > 0) {
     Airbo.TileManager.init();
   }
 
-  if ( $(".has-tile-thumnails").length > 0 ) {
-    Airbo.SearchTileManager.init();
-  }
 });

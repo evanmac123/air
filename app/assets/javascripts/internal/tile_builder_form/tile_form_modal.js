@@ -9,8 +9,9 @@ Airbo.TileFormModal = (function(){
     , self
     , saveable = false
     , timer
+    , tileManager
   ;
-
+  
   var modalObj = Airbo.Utils.StandardModal()
     , tileManager
     , validator
@@ -86,7 +87,7 @@ Airbo.TileFormModal = (function(){
     Airbo.PubSub.unsubscribe("image-selected");
     Airbo.PubSub.unsubscribe("image-done");
     validator = Airbo.TileFormValidator.init(currform);
-    Airbo.TileImageUploader.init();
+    Airbo.DirectToS3FileUploader.init();
     Airbo.TileImagePreviewer.init();
     Airbo.TileImageCredit.init();
     Airbo.TileImageFormFields.init();
@@ -115,18 +116,9 @@ Airbo.TileFormModal = (function(){
   }
 
   function submitSuccess(data) {
-    var mgr = getTileManager(),
-    tilePreview;
-
-    if (data.fromSearch === true) {
-      tilePreview = Airbo.SearchTilePreviewModal;
-    } else {
-      tilePreview = Airbo.TilePreviewModal;
-    }
-
-    mgr.updateSections(data);
-    tilePreview.init();
-    tilePreview.open(data.preview);
+    tileManager.updateSections(data);
+    Airbo.TilePreviewModal.init();
+    Airbo.TilePreviewModal.open(data.preview);
   }
 
   function initEvents() {
@@ -217,7 +209,8 @@ Airbo.TileFormModal = (function(){
   }
 
   function updateThumbnail(data){
-    tileManager.updateSections(data);
+    //tileManager.updateSections(data);
+    Airbo.TileManager.updateSections(data);
   }
 
 
@@ -279,8 +272,8 @@ Airbo.TileFormModal = (function(){
 
   function init(mgr) {
     self = this;
-    initModalObj();
     tileManager = mgr;
+    initModalObj();
     Airbo.EmbedVideo.init();
   }
 

@@ -14,6 +14,13 @@
   <% if tile.is_anonymous? %>
     <%= render "/shared/tiles/anonymous_banner" %>
   <% end %>
+
+  <% if tile.documents.count > 0 %>
+    <div class="attachments">
+      <%= render partial: "/client_admin/tiles/tile_attachments", locals: {tile: tile} %>
+    </div>
+  <%end%>
+
   <div class="tile_quiz">
     <% if tile.points %>
       <div class="tile_points_bar">
@@ -26,6 +33,7 @@
 
 
     <div class="tile_question content_sections"><%= tile.question %></div>
+
     <%= render 'tiles/multiple_choice_answers', tile: tile %>
   </div>
 
