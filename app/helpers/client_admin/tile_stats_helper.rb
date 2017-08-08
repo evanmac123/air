@@ -9,6 +9,8 @@ module ClientAdmin::TileStatsHelper
       "No users have only viewed Tiles."
     when 'not_viewed'
       "All users have viewed at least one Tile."
+    when 'free_response'
+      "There is no free reponse activity for this Tile."
     else
       ""
     end

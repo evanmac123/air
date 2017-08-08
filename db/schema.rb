@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170801231901) do
+ActiveRecord::Schema.define(:version => 20170808212746) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1518,6 +1518,7 @@ ActiveRecord::Schema.define(:version => 20170801231901) do
   add_index "users", ["game_referrer_id"], :name => "index_users_on_game_referrer_id"
   add_index "users", ["invitation_code"], :name => "index_users_on_invitation_code"
   add_index "users", ["is_employee"], :name => "index_users_on_is_employee"
+  add_index "users", ["is_site_admin"], :name => "index_users_on_is_site_admin"
   add_index "users", ["location_id"], :name => "index_users_on_location_id"
   add_index "users", ["name"], :name => "user_name_trigram"
   add_index "users", ["official_email"], :name => "index_users_on_official_email"

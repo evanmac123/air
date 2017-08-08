@@ -2,33 +2,30 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileStatsGrid = (function(){
   // Selectros
-  var tileGridSectionSel = ".tile_grid_section",
-      paginationLinkSel = tileGridSectionSel + " .pagination a",
-      sortLinkSel = tileGridSectionSel + " th a",
-      linkInGridSel = [paginationLinkSel, sortLinkSel].join(", "),
-      gridTypeSel = "#grid_type_select",
-      answerCellSel = tileGridSectionSel + " tbody .js-grid-answer-filter",
-      surveyTableSel = "#survey_table";
-  // JQuery Objects
-  var tileGridSection,
-      surveyTable;
+  var tileGridSectionSel = ".tile_grid_section .tile-stats-grid";
+  var paginationLinkSel = tileGridSectionSel + " .pagination a";
+  var sortLinkSel = tileGridSectionSel + " th a";
+  var linkInGridSel = [paginationLinkSel, sortLinkSel].join(", ");
+  var gridTypeSel = "#grid_type_select";
 
-  var updateLink,
-      updatesChecker,
-      eventsInitialized;
+  // JQuery Objects
+  var tileGridSection;
+  var updateLink;
+  var updatesChecker;
+  var eventsInitialized;
 
   function ajaxResponse(){
     return function (data){
       if(data.success){
-        tileGridSection.replaceWith(data.grid);
+        tileGridSection.html(data.grid);
         initVars();
         $(document).foundation();
       }
     };
   }
 
-  function getLinkParams(link) {
-    return link.attr("href").split('?')[1] || "";
+  function getLinkParams(path) {
+    return path.attr("href").split('?')[1] || "";
   }
 
   function gridRequest(url) {
@@ -37,6 +34,7 @@ Airbo.TileStatsGrid = (function(){
       success: ajaxResponse(),
       dataType: "json"
     });
+
     updatesChecker.stopChecker();
   }
 
@@ -44,57 +42,33 @@ Airbo.TileStatsGrid = (function(){
     gridRequest( updateLink + "?" + getLinkParams(link) );
   }
 
-  function markAnswerInSurveyTable(answer){
-    selectedRow = surveyTable.find("td:contains('" + answer + "')").closest('tr');
-    selectedRow.addClass("selected");
-  }
-
-  function unmarkAnswerInSurveyTable() {
-    surveyTable.find('tr.selected').removeClass('selected');
-  }
-
-  function filterByAnswer(answer){
-    if(answer == "-") return;
-    markAnswerInSurveyTable(answer);
-    gridRequest( updateLink + "?answer_filter=" + answer);
-  }
-
   function initVars(){
     tileGridSection = $(tileGridSectionSel);
-    updateLink = tileGridSection.data("update-link");
-    surveyTable = $(surveyTableSel);
+    updateLink = $(".tile_grid_section").data("update-link");
 
     if(updatesChecker){
-      updatesChecker.reStart();
+      updatesChecker.restart();
     } else {
       updatesChecker = Airbo.GridUpdatesChecker.init();
       updatesChecker.start();
     }
   }
 
-  function initEvents(){
-    if(eventsInitialized){
+  function initEvents() {
+    if (eventsInitialized) {
       return;
-    }else{
+    } else {
       eventsInitialized = true;
     }
 
     $(document).on("click", linkInGridSel, function(e){
       e.preventDefault();
-      updateGrid( $(this) );
+      updateGrid($(this));
     });
 
     $(document).on("change", gridTypeSel, function(e){
       e.preventDefault();
-      unmarkAnswerInSurveyTable();
-
-      input = $(this);
-      gridRequest(updateLink + "?grid_type=" + input.val());
-    })
-
-    $(document).on("click", answerCellSel, function(e){
-      e.preventDefault();
-      filterByAnswer( $(this).text() );
+      gridRequest(updateLink + "?grid_type=" + $(this).val());
     });
   }
 
@@ -108,9 +82,3 @@ Airbo.TileStatsGrid = (function(){
     gridRequest: gridRequest
   };
 }());
-
-$(function(){
-  if (Airbo.Utils.supportsFeatureByPresenceOfSelector("#tile_stats_grid")) {
-    Airbo.TileStatsGrid.init();
-  }
-});

@@ -6,4 +6,20 @@
 .tile-stats-modal {
   @include card-component($dark-blue, transparent);
   @include tabs-component-full-width();
+
+  .tile-stats-download-report {
+    margin-right: 30px;
+    margin-top: 14px;
+  }
+
+  .card-content {
+    min-height: 500px;
+    .dropdown-button-component {
+      color: $dark-blue;
+      margin: 0;
+      margin-bottom: 20px;
+      margin-top: 4px;
+      float: left;
+    }
+  }
 }

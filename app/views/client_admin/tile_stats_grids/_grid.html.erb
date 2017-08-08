@@ -2,10 +2,9 @@
 <% tile ||= @tile %>
 
 <%= grid(tile_stats_grid, hide_csv_button: true) do |g|
-  g.blank_slate "<div class='grid_no_record'>#{empty_grid_message(@current_grid)}</div>".html_safe
 
   g.column name: 'Name', attribute: 'name', html: {class: "name_column"}, in_csv: false do |row|
-     tile.is_anonymous? ? "Anonymous" : link_to(row.user_name, edit_client_admin_user_path(row.user_id))
+     tile.is_anonymous? ? "Anonymous" : link_to(row.user_name, edit_client_admin_user_path(row.user_id), target: "_blank")
   end
   g.column name: 'Name', attribute: 'name', in_html: false do |row|
     tile.is_anonymous?  ? "Anonymous" : row.user_name
@@ -22,7 +21,7 @@
     if is_free_response_answer?(tile, row)
       row.free_response
     elsif row.tile_answer_index != nil
-      link_to tile.multiple_choice_answers[row.tile_answer_index.to_i], "#", class: "js-grid-answer-filter"
+      tile.multiple_choice_answers[row.tile_answer_index.to_i]
     else
       "-"
     end
@@ -44,5 +43,9 @@
     else
       "-"
     end
+  end
+
+  g.blank_slate do
+    "<div class='grid_no_record'>#{empty_grid_message(@current_grid)}</div>".html_safe
   end
 end -%>
