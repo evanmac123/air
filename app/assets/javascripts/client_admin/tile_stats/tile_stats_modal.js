@@ -45,6 +45,7 @@ Airbo.TileStatsModal = (function(){
   function initModalObj() {
     modalObj.init({
       modalId: modalId,
+      modalClass: "js-tile-stats-modal tile-stats-modal",
       useAjaxModal: true
     });
   }

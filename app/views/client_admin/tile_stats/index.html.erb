@@ -1,1 +1,45 @@
-<%= render partial: "tile_stats_modal" %>
+<%#= render partial: "tile_stats_modal" %>
+<div class="card-component">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="row">
+        <div class="columns small-12">
+          <h3 class="card-title"><%= @tile.headline %></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="tabs-component-full-width">
+      <ul class="inline-list">
+        <li class="tab active"><a href="#">Results</a></li>
+        <li class="tab"><a href="#">Activity</a></li>
+        <li class="tab"><a href="#">Message</a></li>
+      </ul>
+      <%= link_to "Download", "#", class: "content-on-right button outlined download float-right mr-2", style: "bottom: 45px;" %>
+    </div>
+    <div class="card-content">
+      <div class="row stats_page">
+        <% if TileUserNotification.launched? %>
+          <div class="large-12 columns">
+            <%= render partial: 'tile_user_notification/form', locals: { tile: @tile, tile_user_notification: TileUserNotification.new } %>
+          </div>
+        <% end %>
+        <div class="large-12 columns">
+          <% if @chart_form %>
+            <%= render partial: 'client_admin/tile_stats_charts/chart_section', locals: {chart_form: @chart_form, chart: nil} %>
+            <div class="table_title">
+              <%= @tile.question %>
+            </div>
+            <% if @survey_chart && @tile.question_subtype != "free_response" %>
+              <%= render partial: 'survey_chart' %>
+            <% end %>
+            <%= render(partial: 'client_admin/tile_stats_grids/grid_section') %>
+          <% else %>
+            <i class="chart-load-wheel fa fa-spinner fa-spin fa-3x fa-fw"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

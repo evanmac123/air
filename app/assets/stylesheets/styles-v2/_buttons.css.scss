@@ -136,6 +136,16 @@
   }
 }
 
+@mixin withIcon($content) {
+  &:before {
+    font-family: "FontAwesome";
+    content: $content + "\00a0\00a0";
+    &.active {
+      animation: fa-spin 2s infinite linear;
+    }
+  }
+}
+
 .button.button {
   @include button;
   // &. {
@@ -304,9 +314,11 @@
     }
   }
 
+  &.download {
+    @include withIcon($download-icon);
+  }
+
   &.full_width {
     width: 100%;
   }
 }
-
-
