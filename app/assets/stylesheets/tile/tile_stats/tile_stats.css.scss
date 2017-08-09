@@ -12,6 +12,11 @@
     margin-top: 14px;
   }
 
+  .grid_no_record {
+    font-size: 15px;
+    color: $dark-blue;
+  }
+
   .card-content {
     min-height: 500px;
     .dropdown-button-component {

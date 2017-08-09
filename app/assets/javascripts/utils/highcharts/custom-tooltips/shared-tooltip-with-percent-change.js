@@ -88,6 +88,10 @@ Airbo.Highcharts.CustomTooltips.SharedTooltipWithPercentChange = (function(){
     var color;
     var decoratedChange;
 
+    if (isNaN(percentChange)) {
+      percentChange = 0;
+    }
+
     if (percentChange >= 0) {
       color = "#4fd4c0";
     } else {

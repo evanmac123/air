@@ -28,7 +28,7 @@ class TileStatsGrid
   def grid_params
     {
       name: 'tile_stats_grid',
-      order: 'name',
+      order: 'date',
       order_direction: 'asc',
       per_page: 10,
       enable_export_to_csv: true,

@@ -74,21 +74,6 @@ input, textarea {
  background: none;
 }
 
-#tile_stats_modal .action_type_block:hover {
-
-  cursor: pointer;
-  .action_name.action_name {
-    cursor: pointer;
-    font-weight: 900;
-  }
-
-  .action_num.action_num {
-    cursor: pointer;
-    font-weight: 900;
-  }
-
-}
-
 body.client_admin-tiles-index .download_csv {
 
  margin-right: 43px;

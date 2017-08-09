@@ -59,6 +59,10 @@ class Charts::ChartBase
     Demo.find(params[:demo_id])
   end
 
+  def tile_from_params
+    params[:tile] || Tile.find(params[:tile_id])
+  end
+
   def cumulative_data(data)
     sum = 0
     data.map { |plot| [plot[0], sum += plot[1]] }

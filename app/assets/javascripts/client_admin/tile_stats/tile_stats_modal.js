@@ -15,7 +15,8 @@ Airbo.TileStatsModal = (function(){
       fillAnalyticsTab();
       fillActivityTab();
       fillMessagesTab();
-      reloadComponents();
+      reloadComponents(data);
+      $(".card-title").text(data.headline);
       Airbo.TileStatsGrid.gridRequest($(".tile_grid_section").data("updateLink"));
     };
   }
@@ -71,8 +72,8 @@ Airbo.TileStatsModal = (function(){
     $(".js-tile-stats-modal-tab-content.messages").html(template);
   }
 
-  function reloadComponents() {
-    // chart.init();
+  function reloadComponents(data) {
+    chart.init(data);
     grid.init();
   }
 

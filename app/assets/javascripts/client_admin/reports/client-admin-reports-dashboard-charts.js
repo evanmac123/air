@@ -19,11 +19,11 @@ Airbo.ClientAdminSummaryReportsDashboardCharts = (function(){
       dataType: "json",
       success: function(response, status, xhr) {
         var chartData = response.data.attributes;
+
         Airbo.HighchartsBase.convertSeriesToJsDates(chartData.series);
         Airbo.HighchartsBase.specifyIncompleteZones(chartData.series, $chart.data("intervalType"));
 
         var chartAttrs = $.extend(true, {}, Airbo.HighchartsBase.chartTemplate($chart, chartData), chartData);
-
         $chart.highcharts(chartAttrs);
         initExport($chart);
         downloadButton($chart).show();

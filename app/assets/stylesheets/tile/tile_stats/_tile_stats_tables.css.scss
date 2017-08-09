@@ -1,21 +1,20 @@
-body.client_admin-tile_stats, #tile_stats_modal {
+.tile-stats-modal {
   @import "mixins/sort_arrows";
 
   %stats-table {
     border-radius: 8px;
     border-collapse: separate;
 
-    font-size: 14px;
     margin: 0;
     th, td {
-      padding: 14px 20px;
+      font-size: 15px;
+      padding: 14px 14px;
     }
     th {
-      background: #dde3e9;
+      background: $primary-gray;
       border: 0;
       a {
-        color: $text-color;
-        font-weight: 700;
+        color: $dark-blue;
         @include sort-arrows(transparent);
         &:hover {
           @include sort-arrows(rgba(89, 89, 89, 0.6));
@@ -25,23 +24,17 @@ body.client_admin-tile_stats, #tile_stats_modal {
         @include sort-arrows(rgb(89, 89, 89));
       }
       &:first-child {
-        border-top-left-radius: 3px;
+        border-top-left-radius: 8px;
       }
       &:last-child {
-        border-top-right-radius: 3px;
+        border-top-right-radius: 8px;
       }
     }
     td {
-      color: $text-color;
-      font-weight: 500;
+      color: $dark-blue;
       border-width: 0;
       border: 0 solid $secondary-gray;
       border-bottom-width: 1px;
-      background: $white;
-      &:first-child, a {
-        font-weight: 500;
-        color: #2e2e2c;
-      }
       &:first-child {
         border-left-width: 1px;
       }
@@ -49,31 +42,28 @@ body.client_admin-tile_stats, #tile_stats_modal {
         border-right-width: 1px;
       }
       a:hover {
-        color: $sky-blue;
+        color: $n-blue;
       }
     }
     tr:last-child td {
       &:first-child {
-        border-bottom-left-radius: 3px;
+        border-bottom-left-radius: 8px;
       }
       &:last-child {
-        border-bottom-right-radius: 3px;
+        border-bottom-right-radius: 8px;
       }
     }
   }
+
+  .table-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: $dark-blue;
+    margin-bottom: 20px;
+  }
+
   .survey-chart-table {
     @extend %stats-table;
-    margin-bottom: 47px;
-    tr.selected {
-      td {
-        background: #e9f0f7;
-      }
-    }
-    tr:hover {
-      td {
-        background: #f5f9fc;
-      }
-    }
     .answer {
       width: 50%;
     }
@@ -84,34 +74,21 @@ body.client_admin-tile_stats, #tile_stats_modal {
       float: left;
     }
     .progress {
-      border-radius: 8px;
-      background: $n-blue;
-      height: 12px;
+      width: 75%;
       margin: 2px 10px 0 0;
     }
   }
 
   .tile_grid_section table {
     @extend %stats-table;
+
     .new_records {
       text-align: center;
       color: $n-blue;
       border: 1px solid $secondary-gray;
       cursor: pointer;
     }
-    .name_column {
-      width: 25%;
-    }
-    .email_column {
-      width: 30%;
-    }
-    .views_column {
-      width: 10%;
-    }
-    .answer_column {
-      width: 25%;
-      cursor: pointer;
-    }
+
     tfoot{
       td {
         border: 0;
