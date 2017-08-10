@@ -11,11 +11,11 @@
           </div>
         </div>
         <div class="action_type_block unique_views ">
-          <div class="action_num">{{uniqueViews}}</div>
+          <div class="action_num">{{numAddCommas uniqueViews}}</div>
           <div class="action_name">People Viewed</div>
         </div>
         <div class="action_type_block interactions">
-          <div class="action_num">{{totalCompletions}}</div>
+          <div class="action_num">{{numAddCommas totalCompletions}}</div>
           <div class="action_name">People Completed</div>
         </div>
       </div>
@@ -51,7 +51,7 @@
               {{this.answer}}
             </td>
             <td class="users">
-              {{this.number}}
+              {{numAddCommas this.number}}
             </td>
             <td class="percent">
               <div class="progress round">
