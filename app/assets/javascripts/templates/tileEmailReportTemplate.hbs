@@ -87,7 +87,7 @@
               <span class="tile-data-number">
                 {{numAddCommas this.views}}
               </span>
-              <a class="stat_action" href="#" data-href="/client_admin/tiles/{{this.id}}/tile_stats?action_type=total_views">
+              <a class="stat_action js-open-tile-stats-modal" href="#" data-href="/client_admin/tiles/{{this.id}}/tile_stats">
                 {{pluralize this.views "View" "Views"}}
               </a>
               <span class="mobile_stat_action">
@@ -100,7 +100,7 @@
               <span class="tile-data-number">
                 {{numAddCommas this.completions}}
               </span>
-              <a class="stat_action" href="#" data-href="/client_admin/tiles/{{this.id}}/tile_stats?action_type=interactions">
+              <a class="stat_action js-open-tile-stats-modal" href="#" data-href="/client_admin/tiles/{{this.id}}/tile_stats">
                 {{pluralize this.completions "Completion" "Completions"}}
               </a>
               <span class="mobile_stat_action">

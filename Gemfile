@@ -37,7 +37,6 @@ gem 'jquery-validation-rails'
 gem 'historyjs-rails'
 
 gem 'nokogiri'
-gem 'lazy_high_charts'#, '~>1.4.0'
 gem 'json', '>= 1.7.7'
 gem 'carrierwave_direct'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'

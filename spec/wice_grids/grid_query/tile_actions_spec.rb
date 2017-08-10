@@ -28,6 +28,8 @@ describe GridQuery::TileActions do
   end
 
   before do
+    Timecop.freeze(Time.local(1990))
+
     @users = create_users 8, demo, "good_guy"
     @other_users = create_users 2, other_demo, "other_guy"
     # viewed and interacted
@@ -43,20 +45,25 @@ describe GridQuery::TileActions do
     # users 6 7 8
   end
 
+  after do
+    Timecop.return
+  end
+
   it "should return 'all'" do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_answer_index
     table = make_table(GridQuery::TileActions.new(tile, "all").query.order("users.id ASC"))
+
     expect(table).to eq([
-      ["Good guy0", "good_guy0@gmail.com", "1", "0",nil],
-      ["Good guy1", "good_guy1@gmail.com", "2", "1",nil],
-      ["Good guy2", "good_guy2@gmail.com", "3", "2",nil],
-      ["Good guy3", "good_guy3@gmail.com", "3", nil,nil],
-      ["Good guy4", "good_guy4@gmail.com", "4", nil,nil],
-      ["Good guy5", "good_guy5@gmail.com", "5", nil,nil],
-      ["Good guy6", "good_guy6@gmail.com", nil, nil,nil],
-      ["Good guy7", "good_guy7@gmail.com", nil, nil,nil],
-      ["Good guy8", "good_guy8@gmail.com", nil, nil,nil]
+      ["Good guy0", "1", "1990-01-01 08:00:00", "0", nil],
+      ["Good guy1", "2", "1990-01-01 08:00:00", "1", nil],
+      ["Good guy2", "3", "1990-01-01 08:00:00", "2", nil],
+      ["Good guy3", "3", "1990-01-01 08:00:00", nil, nil],
+      ["Good guy4", "4", "1990-01-01 08:00:00", nil, nil],
+      ["Good guy5", "5", "1990-01-01 08:00:00", nil, nil],
+      ["Good guy6", nil, nil, nil, nil],
+      ["Good guy7", nil, nil, nil, nil],
+      ["Good guy8", nil, nil, nil, nil]
     ])
   end
 
@@ -65,9 +72,9 @@ describe GridQuery::TileActions do
     # user_name | user_email | tile_views | tile_answer_index
     table = make_table(GridQuery::TileActions.new(tile, "viewed_only").query.order("users.id ASC"))
     expect(table).to eq([
-      ["Good guy3", "good_guy3@gmail.com", "3", nil,nil],
-      ["Good guy4", "good_guy4@gmail.com", "4", nil,nil],
-      ["Good guy5", "good_guy5@gmail.com", "5", nil,nil]
+      ["Good guy3", "3", "1990-01-01 08:00:00", nil, nil],
+      ["Good guy4", "4", "1990-01-01 08:00:00", nil, nil],
+      ["Good guy5", "5", "1990-01-01 08:00:00", nil, nil]
     ])
   end
 
@@ -75,10 +82,11 @@ describe GridQuery::TileActions do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_an,nilswer_index
     table = make_table(GridQuery::TileActions.new(tile, "not_viewed").query.order("users.id ASC"))
+
     expect(table).to eq([
-      ["Good guy6", "good_guy6@gmail.com", nil, nil,nil],
-      ["Good guy7", "good_guy7@gmail.com", nil, nil,nil],
-      ["Good guy8", "good_guy8@gmail.com", nil, nil,nil]
+      ["Good guy6", nil, nil, nil,nil],
+      ["Good guy7", nil, nil, nil,nil],
+      ["Good guy8", nil, nil, nil,nil]
     ])
   end
 
@@ -86,10 +94,11 @@ describe GridQuery::TileActions do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_an,nilswer_index
     table = make_table(GridQuery::TileActions.new(tile, "interacted").query.order("users.id ASC"))
+
     expect(table).to eq([
-      ["Good guy0", "good_guy0@gmail.com", "1", "0",nil],
-      ["Good guy1", "good_guy1@gmail.com", "2", "1",nil],
-      ["Good guy2", "good_guy2@gmail.com", "3", "2",nil]
+      ["Good guy0", "1", "1990-01-01 08:00:00", "0", nil],
+      ["Good guy1", "2", "1990-01-01 08:00:00", "1", nil],
+      ["Good guy2", "3", "1990-01-01 08:00:00", "2", nil]
     ])
   end
 end

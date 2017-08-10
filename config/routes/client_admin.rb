@@ -23,7 +23,6 @@ namespace :client_admin do
 
     resource :image, :only => [:update, :show]
     resources :tile_stats, :only => [:index]
-    resources :tile_stats_charts, :only => [:create]
     resources :tile_stats_grids, :only => [:index] do
       collection do
         get 'new_completions_count'

@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileStatsModal = (function(){
   // Selectors
-  var tileStatsLinkSel = ".tile_stats .stat_action";
+  var tileStatsLinkSel = ".js-open-tile-stats-modal";
   var modalId = "tile_stats_modal";
   var modalObj = Airbo.Utils.StandardModal();
   var chart;
@@ -132,11 +132,8 @@ Airbo.TileStatsModal = (function(){
   };
 }());
 
-$(function(){
-  var mainTilePage = $(".client_admin-tiles.client_admin-tiles-index.client_admin_main");
-  var archivedTilePage = $(".client_admin-inactive_tiles.client_admin-inactive_tiles-index.client_admin_main");
-  var reportsPage = $(".client_admin-reports");
-  if( mainTilePage.length > 0 || archivedTilePage.length > 0 || reportsPage.length > 0) {
+$(function() {
+  if (Airbo.Utils.nodePresent(".js-open-tile-stats-modal") || Airbo.Utils.nodePresent(".client_admin-reports")) {
     Airbo.TileStatsModal.init();
   }
 });
