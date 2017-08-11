@@ -12,9 +12,9 @@ class Charts::Queries::TileQuery
   end
 
   def cached_query
-    # Rails.cache.fetch(cache_key) do
+    Rails.cache.fetch(cache_key) do
       query.to_a
-    # end
+    end
   end
 
   def chart_end_date

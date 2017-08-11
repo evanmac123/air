@@ -4,6 +4,6 @@ class Charts::Queries::TileTotalCompletions < Charts::Queries::TileQuery
   end
 
   def cache_key
-    "#{tile.id}:unique_tile_views:#{tile.tile_completions_count}"
+    "#{tile.id}:tile_completions_count:#{tile.tile_completions_count}"
   end
 end

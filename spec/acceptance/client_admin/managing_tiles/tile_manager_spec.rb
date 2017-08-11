@@ -42,7 +42,7 @@ feature 'Client admin and tile manager page', js: true do
 
       within active_tab do
         tiles.each do |tile|
-          within tile(tile) do
+          within ".tile_thumbnail[data-tile-id='#{tile.id}']" do
             expect_content tile.headline
             expect(page).to have_css "a[data-status='archive']", visible: false
             expect(page).to have_css "li.edit_button a", visible: false
@@ -59,7 +59,7 @@ feature 'Client admin and tile manager page', js: true do
       expect(page).to have_num_tiles(3)
 
       tiles.each do |tile|
-        within tile(tile) do
+        within ".tile_thumbnail[data-tile-id='#{tile.id}']" do
           expect_content tile.headline
           expect(page).to have_css "a[data-status='active']", visible: false
           expect(page).to have_css "li.edit_button a", visible: false
@@ -74,7 +74,7 @@ feature 'Client admin and tile manager page', js: true do
         expect(active_tab).to  have_num_tiles(3)
         expect(archive_tab).to have_num_tiles(0)
 
-        active_tab.find(:tile, first).hover
+        active_tab.find(".tile_thumbnail[data-tile-id='#{first.id}']").hover
         page.find("a", text: "Archive", visible: true).click
 
 
@@ -87,7 +87,7 @@ feature 'Client admin and tile manager page', js: true do
         #second.archived_at.should be_nil
         #FIXME we should be able to assert in model or controller spec or js
         #test that the order of tiles is correct
-        active_tab.find(:tile, second).hover
+        active_tab.find(".tile_thumbnail[data-tile-id='#{second.id}']").hover
         page.find("a", text: "Archive", visible: true).click
 
 

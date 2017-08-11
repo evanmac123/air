@@ -140,9 +140,6 @@
   &:before {
     font-family: "FontAwesome";
     content: $content + "\00a0\00a0";
-    &.active {
-      animation: fa-spin 2s infinite linear;
-    }
   }
 }
 

@@ -75,6 +75,10 @@ GEM
     aws-sdk-v1 (1.59.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
+    axlsx (2.1.0.pre)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (~> 1.1.7)
     bcrypt (3.1.11)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -495,7 +499,7 @@ GEM
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
     ruby-ole (1.2.12)
-    rubyzip (1.2.0)
+    rubyzip (1.1.7)
     sanitize (4.0.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
@@ -613,6 +617,7 @@ DEPENDENCIES
   airbrake (~> 5.4)
   awesome_print
   aws-sdk
+  axlsx (= 2.1.0.pre)
   better_errors
   binding_of_caller
   bourne
@@ -693,6 +698,7 @@ DEPENDENCIES
   roo
   roo-xls
   rspec-rails (~> 3.0)
+  rubyzip (~> 1.1.0)
   sanitize
   sass-rails
   scout_apm (~> 3.0.x)

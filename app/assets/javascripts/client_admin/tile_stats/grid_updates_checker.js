@@ -7,7 +7,7 @@ Airbo.GridUpdatesChecker = (function(){
   var table;
   var startTimeInMs;
 
-  var interval = 5000;
+  var interval = 10000;
   var tileGridSectionSel = ".tile_grid_section";
   var tableSel = "#tile_stats_grid table";
   var newRecordsSectionSel = ".new_records";
@@ -65,14 +65,14 @@ Airbo.GridUpdatesChecker = (function(){
     window.clearInterval(timeoutID);
   }
 
-  function updateStartTime() {
-    startTimeInMs = Date.now();
-  }
-
   function initVars() {
     tileGridSection = $(tileGridSectionSel);
     checkLink = tileGridSection.data('updates-checker-link');
     table = $(tableSel);
+  }
+  
+  function updateStartTime() {
+    startTimeInMs = Date.now();
   }
 
   function initEvents() {

@@ -35,12 +35,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
   describe "when tile stats modal is opened" do
     describe "when switching between tabs" do
       before do
-        Timecop.travel(Time.local(1990))
         open_stats(tile)
-      end
-
-      after do
-        Timecop.return
       end
 
       it "should show the analytics tab" do
@@ -118,6 +113,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
           within ".js-tile-stats-modal.open" do
             expect(page).to have_content("Live")
 
+            page.find('table')
             live_grid_data = page.all('tr').map(&:text)
 
             expect(live_grid_data[0]).to eq("Date Name Answer Views")

@@ -1,39 +1,33 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileStatsModal = (function(){
-  // Selectors
   var tileStatsLinkSel = ".js-open-tile-stats-modal";
   var modalId = "tile_stats_modal";
   var modalObj = Airbo.Utils.StandardModal();
-  var chart;
-  var grid;
 
   function renderReport() {
     return function (data) {
-      $(".tile-stats-modal").data("tileStatsData", data);
-      initModalEvents();
-      fillAnalyticsTab();
-      fillActivityTab();
-      fillMessagesTab();
-      reloadComponents(data);
-      $(".card-title").text(data.headline);
-      Airbo.TileStatsGrid.gridRequest($(".tile_grid_section").data("updateLink"));
+      initModal(data);
+      loadChartAndGrid(data);
     };
   }
 
-  function initModalEvents() {
+  function initModal(data) {
+    $(".card-title").text(data.headline);
+    $(".tile-stats-modal").data("tileStatsData", data);
+
     $(".js-tile-stats-tab").on("click", function(e) {
       e.preventDefault();
       switchTabs($(this));
     });
+
+    fillModalTabs();
   }
 
-  function tileStatsData() {
-    return $(".tile-stats-modal").data("tileStatsData");
-  }
-
-  function fillData() {
-
+  function fillModalTabs() {
+    fillAnalyticsTab();
+    fillActivityTab();
+    fillMessagesTab();
   }
 
   function switchTabs($tab) {
@@ -57,59 +51,33 @@ Airbo.TileStatsModal = (function(){
     return $(".js-tile-stats-modal-tab-content." + $tab.data("tabContent"));
   }
 
+  function setTemplate(template) {
+    return HandlebarsTemplates["client-admin/tile-stats-modal/" + template](tileStatsData());
+  }
+
+  function tileStatsData() {
+    return $(".tile-stats-modal").data("tileStatsData");
+  }
+
   function fillAnalyticsTab() {
-    var template = HandlebarsTemplates["client-admin/tile-stats-modal/tileStatsAnalytics"](tileStatsData());
+    var template = setTemplate("tileStatsAnalytics");
     $(".js-tile-stats-modal-tab-content.analytics").html(template);
   }
 
   function fillActivityTab() {
-    var template = HandlebarsTemplates["client-admin/tile-stats-modal/tileStatsActivity"](tileStatsData());
+    var template = setTemplate("tileStatsActivity");
     $(".js-tile-stats-modal-tab-content.activity").html(template);
   }
 
   function fillMessagesTab() {
-    var template = HandlebarsTemplates["client-admin/tile-stats-modal/tileStatsMessages"](tileStatsData());
+    var template = setTemplate("tileStatsMessages");
     $(".js-tile-stats-modal-tab-content.messages").html(template);
   }
 
-  function reloadComponents(data) {
-    chart.init(data);
-    grid.init();
-  }
-
-  function getTileStatsReport(path, tile) {
-    $.ajax({
-      url: path,
-      success: renderReport(),
-      dataType: "json"
-    });
-  }
-
-  function initEvents() {
-    $(document).on("click", tileStatsLinkSel, function(e) {
-      e.preventDefault();
-      var path = $(this).data("href");
-      var tile = $(this).closest(".tile_container");
-      openLoadingModal(tile);
-      getTileStatsReport(path);
-    });
-  }
-
-  function baseTemplate(data) {
-    return HandlebarsTemplates["client-admin/tile-stats-modal/tileStatsBase"](data);
-  }
-
-
-  function openLoadingModal(tile) {
-    var headline = tile.data("headline");
-    var template = Airbo.TileStatsModal.baseTemplate({ headline: headline });
-    modalObj.setContent(template);
-    modalObj.open();
-  }
-
-  function initVars(){
-    chart = Airbo.TileStatsChart;
-    grid = Airbo.TileStatsGrid;
+  function loadChartAndGrid(data) {
+    Airbo.TileStatsChart.init(data);
+    Airbo.TileStatsGrid.init();
+    Airbo.TileStatsGrid.gridRequest($(".tile_grid_section").data("updateLink"));
   }
 
   function initModalObj() {
@@ -120,15 +88,41 @@ Airbo.TileStatsModal = (function(){
     });
   }
 
+  function initEvents() {
+    $(document).on("click", tileStatsLinkSel, function(e) {
+      e.preventDefault();
+      var path = $(this).data("href");
+      var tileId = $(this).data("tileId");
+      openModal(tileId);
+      getTileStatsReport(path);
+    });
+  }
+
+  function openModal(tileId) {
+    var template = baseTemplate({ tileId: tileId });
+    modalObj.setContent(template);
+    modalObj.open();
+  }
+
+  function baseTemplate(data) {
+    return HandlebarsTemplates["client-admin/tile-stats-modal/tileStatsBase"](data);
+  }
+
+  function getTileStatsReport(path, tile) {
+    $.ajax({
+      url: path,
+      success: renderReport(),
+      dataType: "json"
+    });
+  }
+
   function init(){
     initModalObj();
-    initVars();
     initEvents();
   }
 
   return {
-    init: init,
-    baseTemplate: baseTemplate
+    init: init
   };
 }());
 

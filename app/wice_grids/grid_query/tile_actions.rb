@@ -71,6 +71,7 @@ class GridQuery::TileActions
         select(
           "users.id AS user_id, \
            users.name AS user_name, \
+           users.email AS user_email, \
            tile_viewings.views AS tile_views, \
            tile_viewings.created_at AS viewed_date, \
            tile_completions.answer_index AS tile_answer_index, \

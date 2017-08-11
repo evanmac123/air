@@ -71,6 +71,12 @@ gem 'lograge'
 
 gem 'roo'
 gem 'roo-xls'
+
+# Complex spreadsheet creation
+gem 'rubyzip', '~> 1.1.0'
+gem 'axlsx', '2.1.0.pre'
+#
+
 gem 'addressable'
 gem 'humanize_boolean'
 
