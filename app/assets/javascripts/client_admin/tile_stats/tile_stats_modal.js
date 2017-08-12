@@ -31,6 +31,8 @@ Airbo.TileStatsModal = (function(){
   }
 
   function switchTabs($tab) {
+    Airbo.TileStatsPings.ping({ action: "Changed Tab", tab: $tab.text() });
+
     hideCurrentTab();
     showNewTab($tab);
   }
@@ -84,8 +86,13 @@ Airbo.TileStatsModal = (function(){
     modalObj.init({
       modalId: modalId,
       modalClass: "js-tile-stats-modal tile-stats-modal",
-      useAjaxModal: true
+      useAjaxModal: true,
+      onClosedEvent: modalClosedEvents
     });
+  }
+
+  function modalClosedEvents() {
+    Airbo.GridUpdatesChecker.stopChecker();
   }
 
   function initEvents() {
@@ -93,12 +100,19 @@ Airbo.TileStatsModal = (function(){
       e.preventDefault();
       var path = $(this).data("href");
       var tileId = $(this).data("tileId");
+
       openModal(tileId);
       getTileStatsReport(path);
+    });
+
+    $(document).on("click", ".tile-stats-download-report", function(e) {
+      Airbo.TileStatsPings.ping({ action: "Download Stats Report", reportPath: $(this).attr("href") });
     });
   }
 
   function openModal(tileId) {
+    Airbo.TileStatsPings.ping({ action: "Opened Stats Modal", tileId: tileId });
+
     var template = baseTemplate({ tileId: tileId });
     modalObj.setContent(template);
     modalObj.open();

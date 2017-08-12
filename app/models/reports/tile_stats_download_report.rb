@@ -48,7 +48,7 @@ class Reports::TileStatsDownloadReport
   def add_completed_sheet
     data = get_tile_interaction_data(action: "interacted")
 
-    if tile.question_type == Tile::SURVEY
+    if tile_is_a_survey?
       headers = ["Date", "Name", "Email", "Answer", "Free Response"]
       schema =  ["completion_date", "user_name", "user_email", "tile_answer_index", "free_response"]
     else
@@ -124,5 +124,11 @@ class Reports::TileStatsDownloadReport
 
   def set_table_header_style(sheet)
     sheet.styles.add_style(bg_color: SECONDARY_GRAY)
+  end
+
+  def tile_is_a_survey?
+    if tile.question_type
+      tile.question_type.downcase == Tile::SURVEY.downcase
+    end
   end
 end

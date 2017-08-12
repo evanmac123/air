@@ -34,6 +34,10 @@ class Organization < ActiveRecord::Base
       default_style: :small
     }
 
+  def self.paid_organizations_count
+    joins(:demos).where(demos: { is_paid: true }).uniq.count
+  end
+
   def free_trial_cannot_start_before_created_at_or_in_future
     if free_trial_started_at.present? && (free_trial_started_at < created_at.to_date || free_trial_started_at.to_time > Time.now)
       errors.add(:free_trial_started_at, "can't be before #{created_at} or in the future")
