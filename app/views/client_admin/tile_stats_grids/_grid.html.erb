@@ -2,47 +2,34 @@
 <% tile ||= @tile %>
 
 <%= grid(tile_stats_grid, hide_csv_button: true) do |g|
-  g.blank_slate "<div class='grid_no_record'>#{empty_grid_message(@current_grid)}</div>".html_safe
 
-  g.column name: 'Name', attribute: 'name', html: {class: "name_column"}, in_csv: false do |row|
-     tile.is_anonymous? ? "Anonymous" : link_to(row.user_name, edit_client_admin_user_path(row.user_id))
-  end
-  g.column name: 'Name', attribute: 'name', in_html: false do |row|
-    tile.is_anonymous?  ? "Anonymous" : row.user_name
-  end
-
-  g.column name: 'Email', attribute: 'email', html: {class: "email_column"} do |row|
-    tile.is_anonymous?  ? "Anonymous" : row.user_email
-  end
-  g.column name: 'Views', model: 'TileViewing', attribute: 'views', html: {class: "views_column"}  do |row|
-    row.tile_views || "-"
+  g.column name: 'Date', model: 'TileCompletion', attribute: 'created_at', html: { class: "date" }  do |row|
+    if row.completion_date
+      Time.parse(row.completion_date + " UTC").strftime("%-m/%-d")
+    else
+      "-"
+    end
   end
 
-  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', in_csv: false, html: {class: "answer-column" } do |row|
+  g.column name: 'Name', attribute: 'name', html: {class: "name"}, in_csv: false do |row|
+     tile.is_anonymous? ? "Anonymous" : link_to(row.user_name, edit_client_admin_user_path(row.user_id), target: "_blank")
+  end
+
+  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', in_csv: false, html: {class: "answer" } do |row|
     if is_free_response_answer?(tile, row)
       row.free_response
     elsif row.tile_answer_index != nil
-      link_to tile.multiple_choice_answers[row.tile_answer_index.to_i], "#", class: "js-grid-answer-filter"
+      tile.multiple_choice_answers[row.tile_answer_index.to_i]
     else
       "-"
     end
   end
 
-  g.column name: 'Answer', model: "TileCompletion", attribute: 'answer_index', in_html: false, html: {class: "answer-column" } do |row|
-    if is_free_response_answer?(tile, row)
-      row.free_response #NOTE should the answers show at all?
-    elsif row.tile_answer_index != nil
-     tile.multiple_choice_answers[row.tile_answer_index.to_i]
-    else
-      "-"
-    end
+  g.column name: 'Views', model: 'TileViewing', attribute: 'views', html: { class: "views" }  do |row|
+    row.tile_views || "-"
   end
 
-  g.column name: 'Date', model: 'TileCompletion', attribute: 'id', html: {class: "date"}  do |row|
-    if row.completion_date
-      Time.parse(row.completion_date + " UTC").strftime(Wice::Defaults::DATE_FORMAT)
-    else
-      "-"
-    end
+  g.blank_slate do
+    "<div class='grid_no_record'>#{empty_grid_message(@current_grid)}</div>".html_safe
   end
 end -%>

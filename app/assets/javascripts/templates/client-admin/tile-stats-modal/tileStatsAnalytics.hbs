@@ -1,0 +1,67 @@
+<div class="row stats_page">
+  <div class="large-12 columns mb-1">
+    <div class="tile_chart_section">
+      <div class="actions_column">
+        <div class="action_type_block date-posted">
+          <div class="action_num">
+            {{formatLocalTime datePosted 'MMM D, Y'}}
+          </div>
+          <div class="action_name">
+            Date Posted
+          </div>
+        </div>
+        <div class="action_type_block people-viewed">
+          <div class="action_num">{{numAddCommas uniqueViews}}</div>
+          <div class="action_name">{{pluralize uniqueViews 'Person' 'People'}} Viewed</div>
+        </div>
+        <div class="action_type_block people-completed">
+          <div class="action_num">{{numAddCommas totalCompletions}}</div>
+          <div class="action_name">{{pluralize totalCompletions 'Person' 'People'}} Completed</div>
+        </div>
+      </div>
+      <div class="chart_column">
+        <div id={{chartId}}
+          class="chart-container js-highcharts-chart"
+          style="width:100%;margin: 0 auto"
+          data-chart-template={{chartTemplate}}>
+        </div>
+      </div>
+    </div>
+    <div class="table-title">
+      {{question}}
+    </div>
+    <table class="survey-chart-table" id="survey_table">
+      <thead>
+        <tr>
+          <th class="answer">
+            <span>Answer</span>
+          </th>
+          <th class="users">
+            <span>Users</span>
+          </th>
+          <th class="percent">
+            <span>Percent</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each surveyChart}}
+          <tr>
+            <td class="answer">
+              {{this.answer}}
+            </td>
+            <td class="users">
+              {{numAddCommas this.number}}
+            </td>
+            <td class="percent">
+              <div class="progress round">
+                <span class="meter" style="width: {{this.percent}}%"></span>
+              </div>
+              <div class="percent_num">{{this.percent}}%</div>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

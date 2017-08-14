@@ -37,7 +37,6 @@ gem 'jquery-validation-rails'
 gem 'historyjs-rails'
 
 gem 'nokogiri'
-gem 'lazy_high_charts'#, '~>1.4.0'
 gem 'json', '>= 1.7.7'
 gem 'carrierwave_direct'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
@@ -47,7 +46,7 @@ gem 'mobvious-rails'
 gem 'rails3_before_render'
 gem 'rollout'
 gem 'font-awesome-rails', '>= 4.7'
-gem 'wice_grid', git: 'https://github.com/avbrychak/wice_grid', branch: 'rails3'
+gem 'wice_grid', git: 'https://github.com/theairbo/wice_grid', branch: 'rails3'
 gem 'kaminari'
 gem 'browser'
 gem 'squeel'
@@ -72,6 +71,12 @@ gem 'lograge'
 
 gem 'roo'
 gem 'roo-xls'
+
+# Complex spreadsheet creation
+gem 'rubyzip', '~> 1.1.0'
+gem 'axlsx', '2.1.0.pre'
+#
+
 gem 'addressable'
 gem 'humanize_boolean'
 

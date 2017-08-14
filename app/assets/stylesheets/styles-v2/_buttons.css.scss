@@ -136,6 +136,13 @@
   }
 }
 
+@mixin withIcon($content) {
+  &:before {
+    font-family: "FontAwesome";
+    content: $content + "\00a0\00a0";
+  }
+}
+
 .button.button {
   @include button;
   // &. {
@@ -304,9 +311,11 @@
     }
   }
 
+  &.download {
+    @include withIcon($download-icon);
+  }
+
   &.full_width {
     width: 100%;
   }
 }
-
-

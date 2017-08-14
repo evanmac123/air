@@ -17,7 +17,7 @@ feature 'Client admin duplicates tile' do
 
   context "from thumbnail menu" do
     before do
-      within find(:tile, original_tile) do
+      within ".tile_thumbnail[data-tile-id='#{original_tile.id}']" do
         page.find(".tile-wrapper").hover
         page.find(".more").click
       end
@@ -41,7 +41,7 @@ feature 'Client admin duplicates tile' do
 
   context "from preview" do
     before do
-      find(:tile, original_tile).click
+      find( ".tile_thumbnail[data-tile-id='#{original_tile.id}']").click
       within "#tile_preview_modal" do
         click_link "Copy"
       end

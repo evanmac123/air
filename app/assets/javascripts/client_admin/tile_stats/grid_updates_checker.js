@@ -1,26 +1,28 @@
 var Airbo = window.Airbo || {};
 
 Airbo.GridUpdatesChecker = (function(){
-  var timeoutID,
-      interval = 30000, // ms
-      checkLink,
-      tileGridSectionSel = ".tile_grid_section",
-      tileGridSection,
-      tableSel = "#tile_stats_grid table",
-      table,
-      newRecordsSectionSel = ".new_records",
-      startTimeInMs;
+  var timeoutID;
+  var checkLink;
+  var tileGridSection;
+  var table;
+  var startTimeInMs;
+
+  var interval = 10000;
+  var tileGridSectionSel = ".tile_grid_section";
+  var tableSel = "#tile_stats_grid table";
+  var newRecordsSectionSel = ".new_records";
 
   function findNewRecordsSection() {
     return table.find(newRecordsSectionSel);
   }
 
-  function findOrCreateNewRecordsSection(){
+  function findOrCreateNewRecordsSection() {
     newRecordsSection = findNewRecordsSection();
-    if(newRecordsSection.length == 0) {
+    if (newRecordsSection.length === 0) {
       table.find('thead').after("<td class='new_records' colspan='5'></td>");
       newRecordsSection = findNewRecordsSection();
     }
+
     return newRecordsSection;
   }
 
@@ -42,7 +44,7 @@ Airbo.GridUpdatesChecker = (function(){
   function checkForUpdate() {
     $.ajax({
       url: checkLink,
-      data: {start_time_in_ms: startTimeInMs},
+      data: { start_time_in_ms: startTimeInMs },
       success: ajaxResponse(),
       dataType: "json"
     });
@@ -53,7 +55,7 @@ Airbo.GridUpdatesChecker = (function(){
     timeoutID = window.setInterval(checkForUpdate, interval);
   }
 
-  function reStart() {
+  function restart() {
     stopChecker();
     initVars();
     start();
@@ -63,14 +65,14 @@ Airbo.GridUpdatesChecker = (function(){
     window.clearInterval(timeoutID);
   }
 
-  function updateStartTime() {
-    startTimeInMs = Date.now();
-  }
-
   function initVars() {
     tileGridSection = $(tileGridSectionSel);
     checkLink = tileGridSection.data('updates-checker-link');
     table = $(tableSel);
+  }
+  
+  function updateStartTime() {
+    startTimeInMs = Date.now();
   }
 
   function initEvents() {
@@ -93,6 +95,6 @@ Airbo.GridUpdatesChecker = (function(){
     init: init,
     start: start,
     stopChecker: stopChecker,
-    reStart: reStart
+    restart: restart
   };
 }());

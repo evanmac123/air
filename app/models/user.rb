@@ -583,7 +583,8 @@ class User < ActiveRecord::Base
       user_type:             highest_ranking_user_type,
       board_type:            (demo.try(:is_paid) ? "Paid" : "Free"),
       first_time_user:       false,
-      days_since_activated:  days_since_activated
+      days_since_activated:  days_since_activated,
+      paid_organizations_count: Organization.paid_organizations_count
     }
   end
 

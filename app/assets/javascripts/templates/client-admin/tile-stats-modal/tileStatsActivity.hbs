@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="columns small-12">
+    <div class="grid_types">
+      <select id="grid_type_select" class="nice-select-init dropdown-button-component light-outlined grid_type_select">
+        {{#each tileActivityGridTypes}}
+        <option class="tile-stats-activity-grid-change" value={{this}}>{{@key}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+</div>
+<div class="row stats_page">
+  <div class="columns small-12">
+    <div class="tile_grid_section" data-update-link={{activityGridUpdatePath}} data-updates-checker-link={{activityGridUpdatesPollingPath}}>
+      <div class="tile-stats-grid">
+        <div class="text-center">
+          <i class="app-load-wheel fa fa-spinner fa-spin fa-3x fa-fw mt-4"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

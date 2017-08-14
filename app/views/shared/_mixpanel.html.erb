@@ -3,12 +3,25 @@
     function MixPanelMock() {
       this.track = track;
       this.register = register;
-      function track(eventString) {
-        // console.log(eventString);
+      function track(eventString, props) {
       }
 
       function register(registration) {
-        // console.log(registration);
+      }
+    }
+    window.mixpanel = new MixPanelMock();
+  </script>
+<% elsif Rails.env.development? %>
+  <script type="text/javascript">
+    function MixPanelMock() {
+      this.track = track;
+      this.register = register;
+      function track(eventString, props) {
+        console.log(eventString, props);
+      }
+
+      function register(registration) {
+        console.log(registration);
       }
     }
     window.mixpanel = new MixPanelMock();

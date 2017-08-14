@@ -61,6 +61,7 @@ header {
     font-size:.875em;
     position: static;
     padding-right: 0;
+    max-height: 49px;
     #desktop-toggle.off-canvas-toggle {
       display: inline-block;
       a {margin:0;}
@@ -193,6 +194,10 @@ header {
     padding-left: 1em;
     padding-right: 1em;
     display: inline-block;
+
+    .board-name-container {
+      overflow: hidden;
+    }
 
     border: {
       style:solid;

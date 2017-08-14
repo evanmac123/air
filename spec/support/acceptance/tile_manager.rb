@@ -1,6 +1,6 @@
 module TileManagerHelpers
-  def tile(tile)
-    find(:tile, tile)  # Uses our custom selector (defined in '/support/helpers/tile_helpers.rb')
+  def tile_from_thumbnail(tile)
+    find(".tile_thumbnail[data-tile-id='#{tile.id}']")
   end
 
   def have_reactivate_link_for(tile)
@@ -62,15 +62,15 @@ module TileManagerHelpers
     end
   end
 
-  def move_tile tile1, tile2
-    selected_tile = tile(tile1)
-    new_place_tile = tile(tile2)
+  def move_tile(tile1, tile2)
+    selected_tile = tile_from_thumbnail(tile1)
+    new_place_tile = tile_from_thumbnail(tile2)
     selected_tile.drag_to new_place_tile
   end
 
   def move_tile_between_sections(tile1, tile2)
-    selected_tile = tile(tile1)
-    new_place_tile = tile(tile2)
+    selected_tile = tile_from_thumbnail(tile1)
+    new_place_tile = tile_from_thumbnail(tile2)
     selected_tile.drag_to(new_place_tile)
     wait_for_ajax
     move_tile(tile1, tile2)

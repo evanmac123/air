@@ -154,6 +154,10 @@ class Tile < ActiveRecord::Base
     tiles_digests.first
   end
 
+  def sent_at
+    tiles_digest.try(:sent_at)
+  end
+
   # Dynamically define 'status?' instance methods  and scopes
   # TODO consider refactoring to remove metaprogramming here. prob not needed
 

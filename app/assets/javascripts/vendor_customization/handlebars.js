@@ -78,3 +78,20 @@ Handlebars.registerHelper("compare", function(lvalue, rvalue, options) {
     return options.inverse(this);
   }
 });
+
+Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
+    lvalue = parseFloat(lvalue);
+    rvalue = parseFloat(rvalue);
+
+    return {
+        "+": lvalue + rvalue,
+        "-": lvalue - rvalue,
+        "*": lvalue * rvalue,
+        "/": lvalue / rvalue,
+        "%": lvalue % rvalue
+    }[operator];
+});
+
+Handlebars.registerHelper('toJSON', function(string) {
+    return JSON.stringify(string);
+});

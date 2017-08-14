@@ -21,9 +21,11 @@ namespace :client_admin do
       get "blank"
     end
 
+    get 'download_tile_report', to: 'tile_stats#download_report', as: 'download_report'
+
     resource :image, :only => [:update, :show]
-    resources :tile_stats, :only => [:index]
-    resources :tile_stats_charts, :only => [:create]
+    resources :tile_stats, only: [:index] do
+    end
     resources :tile_stats_grids, :only => [:index] do
       collection do
         get 'new_completions_count'

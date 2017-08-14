@@ -1,3 +1,0 @@
-class TileStatsChart < LineChartBuilder
-
-end

@@ -42,6 +42,11 @@ Airbo.Highcharts.Tooltip = (function(){
       return Highcharts.dateFormat('%Q', date);
     } else if (intervalType === "week") {
       return Highcharts.dateFormat('Week of %b %d, %Y', date);
+    } else if (intervalType === "hour") {
+      var lowerHour = moment(date).local();
+      var upperHour = moment(date).local().add({ hours: 1 });
+
+      return lowerHour.format("h:00a-") + upperHour.format("h:00a ") + lowerHour.format("on MMM D");
     } else {
       return Highcharts.dateFormat('%B, %Y', date);
     }

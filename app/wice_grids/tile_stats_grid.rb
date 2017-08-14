@@ -28,11 +28,14 @@ class TileStatsGrid
   def grid_params
     {
       name: 'tile_stats_grid',
-      order: 'name',
-      order_direction: 'asc',
+      order: 'tile_completions.created_at',
+      order_direction: "DESC",
+      custom_order: {
+        'tile_completions.created_at' => lambda { |c| "(#{c} IS NULL), #{c}" },
+        'tile_completions.answer_index' => lambda { |c| "(#{c} IS NULL), #{c}" }
+      },
       per_page: 10,
-      enable_export_to_csv: true,
-      csv_file_name: "tile_stats_report_#{DateTime.now.strftime("%d_%m_%y")}"
+      csv_file_name: "#{tile.headline.parameterize}-#{DateTime.now.strftime("%d-%m-%y")}"
     }
   end
 end

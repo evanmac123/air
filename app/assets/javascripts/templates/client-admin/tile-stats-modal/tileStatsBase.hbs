@@ -1,0 +1,41 @@
+<div class="card-component js-tile-stats-data">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="row">
+        <div class="columns small-12">
+          <h3 class="card-title"></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <a href="/client_admin/tiles/{{tileId}}/download_tile_report" class="tile-stats-download-report content-on-right button outlined download float-right" target="_blank">Download Report</a>
+
+    <div class="tabs-component-full-width">
+      <ul class="inline-list">
+        <li class="js-tile-stats-tab tab active" data-tab-content="analytics"><a href="#">Analytics</a></li>
+        <li class="js-tile-stats-tab tab" data-tab-content="activity"><a href="#">Activity</a></li>
+        <!-- <li class="js-tile-stats-tab tab" data-tab-content="messages"><a href="#">Push Messages</a></li> -->
+      </ul>
+    </div>
+    <div class="card-content tile-stats-card-content">
+      <div class="js-tile-stats-modal-tab-content analytics">
+        <div class="text-center">
+          <i class="app-load-wheel fa fa-spinner fa-spin fa-3x fa-fw mt-4"></i>
+        </div>
+      </div>
+
+      <div class="js-tile-stats-modal-tab-content activity hidden">
+        <div class="text-center">
+          <i class="app-load-wheel fa fa-spinner fa-spin fa-3x fa-fw mt-4"></i>
+        </div>
+      </div>
+
+      <div class="js-tile-stats-modal-tab-content messages hidden">
+        <div class="text-center">
+          <i class="app-load-wheel fa fa-spinner fa-spin fa-3x fa-fw mt-4"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

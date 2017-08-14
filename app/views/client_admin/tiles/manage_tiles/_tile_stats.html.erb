@@ -1,14 +1,14 @@
 <% if presenter.has_tile_stats? %>
-  <div class="tile_stats" data-href="<%= client_admin_tile_tile_stats_path(presenter) %>">
-  <div class="unique_views stat_action has-tip tip-bottom" data-tooltip='unique_views' data-href="<%= client_admin_tile_tile_stats_path(presenter, action_type: 'unique_views')%>" title="Unique Views">
-      <%= fa_icon 'users' %>
-      <%= presenter.unique_views %>
+  <div class="tile_stats">
+    <div class="unique_views stat_action has-tip tip-bottom js-open-tile-stats-modal" data-tooltip='unique_views' data-tile-id="<%= presenter.id %>" data-href="<%= client_admin_tile_tile_stats_path(presenter)%>" title="Unique Views">
+        <%= fa_icon 'users' %>
+        <%= presenter.unique_views %>
     </div>
-    <div class="views stat_action has-tip tip-bottom" data-tooltip='total_views' data-href="<%=client_admin_tile_tile_stats_path(presenter, action_type: 'total_views') %>" title="Total Views">
+    <div class="views stat_action has-tip tip-bottom js-open-tile-stats-modal" data-tooltip='total_views' data-tile-id="<%= presenter.id %>" data-href="<%= client_admin_tile_tile_stats_path(presenter) %>" title="Total Views">
       <%= fa_icon 'eye' %>
       <%= presenter.total_views %>
     </div>
-    <div class="completions stat_action has-tip tip-bottom" data-tooltip='interactions' data-href="<%= client_admin_tile_tile_stats_path(presenter, action_type: 'interactions') %>" title="Interactions">
+    <div class="completions stat_action has-tip tip-bottom js-open-tile-stats-modal" data-tooltip='interactions' data-tile-id="<%= presenter.id %>" data-href="<%= client_admin_tile_tile_stats_path(presenter) %>" title="Interactions">
       <%= fa_icon 'check' %>
       <%= presenter.tile_completions_count %>
     </div>

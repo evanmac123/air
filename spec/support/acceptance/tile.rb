@@ -4,11 +4,7 @@ module TileHelpers
 
   # This selector is for tiles contained in a table in the tile manager
   #
-  # Usage: find(:tile, tile)
-  #
-  Capybara.add_selector(:tile) do
-    xpath { |tile| ".//div[@data-tile-id='#{tile.id}']" }
-  end
+  # Usage: find(:tile_image, tile_image)
 
   Capybara.add_selector(:tile_image) do
     xpath { |tile_image| ".//div[@data-tile-image-id='#{tile_image.id}']" }

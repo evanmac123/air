@@ -47,49 +47,30 @@ describe GridQuery::TileActions do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_answer_index
     table = make_table(GridQuery::TileActions.new(tile, "all").query.order("users.id ASC"))
-    expect(table).to eq([
-      ["Good guy0", "good_guy0@gmail.com", "1", "0",nil],
-      ["Good guy1", "good_guy1@gmail.com", "2", "1",nil],
-      ["Good guy2", "good_guy2@gmail.com", "3", "2",nil],
-      ["Good guy3", "good_guy3@gmail.com", "3", nil,nil],
-      ["Good guy4", "good_guy4@gmail.com", "4", nil,nil],
-      ["Good guy5", "good_guy5@gmail.com", "5", nil,nil],
-      ["Good guy6", "good_guy6@gmail.com", nil, nil,nil],
-      ["Good guy7", "good_guy7@gmail.com", nil, nil,nil],
-      ["Good guy8", "good_guy8@gmail.com", nil, nil,nil]
-    ])
+
+    expect(table.map(&:first)).to eq(["Good guy0", "Good guy1", "Good guy2", "Good guy3", "Good guy4", "Good guy5", "Good guy6", "Good guy7", "Good guy8"])
   end
 
   it "should return 'viewed only'" do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_answer_index
     table = make_table(GridQuery::TileActions.new(tile, "viewed_only").query.order("users.id ASC"))
-    expect(table).to eq([
-      ["Good guy3", "good_guy3@gmail.com", "3", nil,nil],
-      ["Good guy4", "good_guy4@gmail.com", "4", nil,nil],
-      ["Good guy5", "good_guy5@gmail.com", "5", nil,nil]
-    ])
+    expect(table.map(&:first)).to eq(["Good guy3", "Good guy4", "Good guy5"])
   end
 
   it "should return 'not_viewed'" do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_an,nilswer_index
     table = make_table(GridQuery::TileActions.new(tile, "not_viewed").query.order("users.id ASC"))
-    expect(table).to eq([
-      ["Good guy6", "good_guy6@gmail.com", nil, nil,nil],
-      ["Good guy7", "good_guy7@gmail.com", nil, nil,nil],
-      ["Good guy8", "good_guy8@gmail.com", nil, nil,nil]
-    ])
+
+    expect(table.map(&:first)).to eq(["Good guy6", "Good guy7", "Good guy8"])
   end
 
   it "should return 'interacted'" do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_an,nilswer_index
     table = make_table(GridQuery::TileActions.new(tile, "interacted").query.order("users.id ASC"))
-    expect(table).to eq([
-      ["Good guy0", "good_guy0@gmail.com", "1", "0",nil],
-      ["Good guy1", "good_guy1@gmail.com", "2", "1",nil],
-      ["Good guy2", "good_guy2@gmail.com", "3", "2",nil]
-    ])
+
+    expect(table.map(&:first)).to eq(["Good guy0", "Good guy1", "Good guy2"])
   end
 end

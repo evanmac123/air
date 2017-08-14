@@ -55,7 +55,7 @@ class GridQuery::TileActions
       users_viewings_subquery = TileViewing.users_viewings(tile.id).to_sql
       users_completions_subquery = TileCompletion.where(tile_id: tile.id, user_type: 'User').to_sql
 
-      tile.demo.users.
+      tile.demo.users.non_site_admin.
         joins do
           "LEFT JOIN (" +
            users_completions_subquery +
@@ -73,8 +73,9 @@ class GridQuery::TileActions
            users.name AS user_name, \
            users.email AS user_email, \
            tile_viewings.views AS tile_views, \
+           tile_viewings.created_at AS viewed_date, \
            tile_completions.answer_index AS tile_answer_index, \
-           tile_completions.created_at AS completion_date, \ 
+           tile_completions.created_at AS completion_date, \
            tile_completions.free_form_response AS free_response"
         )
     end

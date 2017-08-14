@@ -1,69 +1,147 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileStatsModal = (function(){
-  // Selectors
-  var tileStatsLinkSel = ".tile_stats .stat_action",
-      modalId = "tile_stats_modal",
-      modalObj = Airbo.Utils.StandardModal(),
-      chart,
-      grid;
+  var tileStatsLinkSel = ".js-open-tile-stats-modal";
+  var modalId = "tile_stats_modal";
+  var modalObj = Airbo.Utils.StandardModal();
 
-  function ajaxResponse(){
-    return function (data){
-      modalObj.setContent(data.page);
-      modalObj.open();
-      reloadComponents();
-      Airbo.TileStatsGrid.gridRequest($(".tile_grid_section").data("updateLink"));
+  function renderReport() {
+    return function (data) {
+      initModal(data);
+      loadChartAndGrid(data);
     };
   }
 
-  function reloadComponents() {
-    chart.init();
-    grid.init();
-  }
+  function initModal(data) {
+    $(".card-title").text(data.headline);
+    $(".tile-stats-modal").data("tileStatsData", data);
 
-  function getPage(link) {
-    $.ajax({
-      url: link,
-      success: ajaxResponse(),
-      dataType: "json"
-    });
-  }
-
-  function initEvents(){
-    $(document).on("click", tileStatsLinkSel, function(e) {
+    $(".js-tile-stats-tab").on("click", function(e) {
       e.preventDefault();
-      getPage( $(this).data("href") );
+      switchTabs($(this));
     });
+
+    fillModalTabs();
   }
 
-  function initVars(){
-    chart = Airbo.TileStatsChart;
-    grid = Airbo.TileStatsGrid;
+  function fillModalTabs() {
+    fillAnalyticsTab();
+    fillActivityTab();
+    fillMessagesTab();
+  }
+
+  function switchTabs($tab) {
+    Airbo.TileStatsPings.ping({ action: "Changed Tab", tab: $tab.text() });
+
+    hideCurrentTab();
+    showNewTab($tab);
+  }
+
+  function hideCurrentTab() {
+    $(".js-tile-stats-tab").removeClass("active");
+    $(".js-tile-stats-modal-tab-content").addClass("hidden");
+  }
+
+  function showNewTab($tab) {
+    $tab.addClass("active");
+    var $tabNode = getTabNode($tab);
+    $tabNode.removeClass("hidden");
+    Airbo.Utils.DropdownButtonComponent.reflow();
+  }
+
+  function getTabNode($tab) {
+    return $(".js-tile-stats-modal-tab-content." + $tab.data("tabContent"));
+  }
+
+  function setTemplate(template) {
+    return HandlebarsTemplates["client-admin/tile-stats-modal/" + template](tileStatsData());
+  }
+
+  function tileStatsData() {
+    return $(".tile-stats-modal").data("tileStatsData");
+  }
+
+  function fillAnalyticsTab() {
+    var template = setTemplate("tileStatsAnalytics");
+    $(".js-tile-stats-modal-tab-content.analytics").html(template);
+  }
+
+  function fillActivityTab() {
+    var template = setTemplate("tileStatsActivity");
+    $(".js-tile-stats-modal-tab-content.activity").html(template);
+  }
+
+  function fillMessagesTab() {
+    var template = setTemplate("tileStatsMessages");
+    $(".js-tile-stats-modal-tab-content.messages").html(template);
+  }
+
+  function loadChartAndGrid(data) {
+    Airbo.TileStatsChart.init(data);
+    Airbo.TileStatsGrid.init();
+    Airbo.TileStatsGrid.gridRequest($(".tile_grid_section").data("updateLink"));
   }
 
   function initModalObj() {
     modalObj.init({
       modalId: modalId,
-      useAjaxModal: true
+      modalClass: "js-tile-stats-modal tile-stats-modal",
+      useAjaxModal: true,
+      onClosedEvent: modalClosedEvents
+    });
+  }
+
+  function modalClosedEvents() {
+    Airbo.GridUpdatesChecker.stopChecker();
+  }
+
+  function initEvents() {
+    $(document).on("click", tileStatsLinkSel, function(e) {
+      e.preventDefault();
+      var path = $(this).data("href");
+      var tileId = $(this).data("tileId");
+
+      openModal(tileId);
+      getTileStatsReport(path);
+    });
+
+    $(document).on("click", ".tile-stats-download-report", function(e) {
+      Airbo.TileStatsPings.ping({ action: "Download Stats Report", reportPath: $(this).attr("href") });
+    });
+  }
+
+  function openModal(tileId) {
+    Airbo.TileStatsPings.ping({ action: "Opened Stats Modal", tileId: tileId });
+
+    var template = baseTemplate({ tileId: tileId });
+    modalObj.setContent(template);
+    modalObj.open();
+  }
+
+  function baseTemplate(data) {
+    return HandlebarsTemplates["client-admin/tile-stats-modal/tileStatsBase"](data);
+  }
+
+  function getTileStatsReport(path, tile) {
+    $.ajax({
+      url: path,
+      success: renderReport(),
+      dataType: "json"
     });
   }
 
   function init(){
     initModalObj();
-    initVars();
     initEvents();
   }
+
   return {
     init: init
   };
 }());
 
-$(function(){
-  var mainTilePage = $(".client_admin-tiles.client_admin-tiles-index.client_admin_main");
-  var archivedTilePage = $(".client_admin-inactive_tiles.client_admin-inactive_tiles-index.client_admin_main");
-  var reportsPage = $(".client_admin-reports");
-  if( mainTilePage.length > 0 || archivedTilePage.length > 0 || reportsPage.length > 0){
+$(function() {
+  if (Airbo.Utils.nodePresent(".js-open-tile-stats-modal") || Airbo.Utils.nodePresent(".client_admin-reports")) {
     Airbo.TileStatsModal.init();
   }
 });

@@ -1,7 +1,11 @@
 <!-- start of new admin navigation that needs to be gated off later -->
 <% if user.can_submit_tile?(browser) %>
   <% if user.show_search_bar?(browser) %>
-    <%= render 'shared/search_bar', column_count: 4 %>
+    <% if user.end_user? %>
+      <%= render 'shared/search_bar', column_count: 4 %>
+    <% else %>
+      <%= render 'shared/search_bar', column_count: 3 %>
+    <% end %>
   <% end %>
   <div class="large-3 columns" id="user_info">
     <%= render 'shared/header/submit_tile', user: user %>
@@ -26,7 +30,7 @@
 
 <% elsif user.is_client_admin || user.is_site_admin %>
   <% if user.show_search_bar?(browser) %>
-    <%= render 'shared/search_bar', column_count: 5 %>
+    <%= render 'shared/search_bar', column_count: 4 %>
   <% end %>
   <div class="large-2 columns" id="user_info">
     <div id="me_toggle">

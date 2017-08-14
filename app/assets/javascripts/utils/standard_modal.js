@@ -1,49 +1,30 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
-
-
 Airbo.Utils.StandardModal = (function(){
-  /* ******* NOTE ********************************
-   * This modal template introduces a small bit of duplicaiton between the erb
-   * templates and javascript. The fragment below is identlical to the modal erb
-   * template for the form
-   * ******************************************************************
-   *
-   */
+
   return function(){
-    var modalTemplate = '<div class="reveal-modal standard_modal">' +
-      '<div class="modal_container">' +
-      '<div class="modal_header">' +
-      '<a class="close-reveal-modal"><i class="fa fa-times fa-2x"></i></a>' +
-      '</div>' +
-      '<div class="modal_content"></div>' +
-      '</div></div>';
 
-    var dynamicModal = $(modalTemplate);
-
-
-    var modal
-      , modalSel
-      , modalContainer
-      , modalContent
-      , modalXSel
-      , params
-      , defaultParams = {
-          useAjaxModal: false,
-          closeSel: "",
-          closeSticky: false,
-          onOpenedEvent: Airbo.Utils.noop,
-          onClosedEvent: Airbo.Utils.noop,
-          closeAlt: null,
-          closeOnBgClick: true,
-          confirmOnClose: false,
-          scrollOnOpen: true,
-          smallModal: false,
-          modalClass: "",
-          closeMessage: function(){return "Are you sure"}
-        }
-    ;
+    var modal;
+    var modalSel;
+    var modalContainer;
+    var modalContent;
+    var modalXSel;
+    var params;
+    var defaultParams = {
+      useAjaxModal: false,
+      closeSel: "",
+      closeSticky: false,
+      onOpenedEvent: Airbo.Utils.noop,
+      onClosedEvent: Airbo.Utils.noop,
+      closeAlt: null,
+      closeOnBgClick: true,
+      confirmOnClose: false,
+      scrollOnOpen: true,
+      smallModal: false,
+      modalClass: "",
+      closeMessage: function() { return "Are you sure"; }
+    };
 
     function scrollModalToTop() {
       if(params.scrollOnOpen) {
@@ -80,7 +61,7 @@ Airbo.Utils.StandardModal = (function(){
       var width = "";
       if(!show) {
         overflow = "hidden";
-        width = $("body").width()
+        width = $("body").width();
       }
 
       $("body").css({"overflow-y": overflow});
@@ -113,7 +94,7 @@ Airbo.Utils.StandardModal = (function(){
       });
 
       modal.bind('closed.fndtn.reveal', function(){
-        if( $(".reveal-modal.open").length == 0 ) {
+        if( $(".reveal-modal.open").length === 0 ) {
           bodyScrollVisibility(true);
         }
         params.onClosedEvent();
@@ -145,13 +126,20 @@ Airbo.Utils.StandardModal = (function(){
         });
       }
     }
+
+    function dynamicModal() {
+      var modalTemplate = params.template || HandlebarsTemplates.standardModal();
+
+      return $(modalTemplate).clone();
+    }
+
     function makeModal() {
       modalId = params.modalId;
       modalSel = "#" + modalId;
       modal = $(modalSel);
       // make ajax modal
-      if(params.useAjaxModal && modal.length == 0) {
-        modal = $(dynamicModal).clone();
+      if( params.useAjaxModal && modal.length === 0 ) {
+        modal = dynamicModal();
         modal.appendTo( $(".modals") );
         modal.attr("id", modalId);
       }
@@ -162,7 +150,7 @@ Airbo.Utils.StandardModal = (function(){
       modalXSel = modalSel + " .close-reveal-modal";
       // small modals for some messages etc.
       if(params.smallModal) {
-        modal.addClass("standard_small_modal")
+        modal.addClass("standard_small_modal");
       }
       if(params.closeSticky) {
         $(modalXSel).addClass("stickable");
@@ -173,18 +161,18 @@ Airbo.Utils.StandardModal = (function(){
       params.confirmOnClose = val;
     }
 
-    function init(userParams) {
-      params = $.extend(defaultParams, userParams);
+    function init(customParams) {
+      params = $.extend(defaultParams, customParams);
       makeModal();
       initEvents();
     }
+
     return {
-     init: init,
-     open: open,
-     close: close,
-     setContent: setContent,
-     setConfirmOnClose: setConfirmOnClose
-     // scrollModalToTop: scrollModalToTop
-    }
-  }
+      init: init,
+      open: open,
+      close: close,
+      setContent: setContent,
+      setConfirmOnClose: setConfirmOnClose
+    };
+  };
 }());

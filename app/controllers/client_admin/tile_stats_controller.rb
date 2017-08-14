@@ -1,25 +1,13 @@
 class ClientAdmin::TileStatsController < ClientAdminBaseController
   def index
-    @tile = Tile.find(params[:tile_id])
+    tile_stats_report = Reports::TileStatsReport.new(tile_id: params[:tile_id])
 
-    @chart_form = TileStatsChartForm.new @tile, {action_type: params[:action_type]}
-
-    @survey_chart = @tile.survey_chart if @tile.is_survey?
-
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: { page: page_to_string }
-      end
-    end
+    render json: tile_stats_report.data
   end
 
-  protected
-    def page_to_string
-      render_to_string(
-        'index',
-        formats: [:html],
-        layout: false
-      )
-    end
+  def download_report
+    tile_stats_report = Reports::TileStatsDownloadReport.new(tile_id: params[:tile_id])
+
+    send_data(tile_stats_report.data, type: "application/xlsx", filename: tile_stats_report.filename)
+  end
 end
