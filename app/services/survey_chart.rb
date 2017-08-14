@@ -25,7 +25,9 @@ class SurveyChart
   end
 
   def answer_set
-    if tile.allow_free_response && tile.question_subtype != "free_response"
+    if tile.question_subtype == "free_response"
+      ["Free Response"]
+    elsif tile.allow_free_response
       tile.multiple_choice_answers.push("Other")
     else
       tile.multiple_choice_answers
