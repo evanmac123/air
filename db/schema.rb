@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170808212746) do
+ActiveRecord::Schema.define(:version => 20170815222939) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -333,6 +333,9 @@ ActiveRecord::Schema.define(:version => 20170808212746) do
     t.integer  "tiles_with_image_search",                                 :default => 0
     t.integer  "tiles_with_image_upload",                                 :default => 0
     t.integer  "tiles_with_video_upload",                                 :default => 0
+    t.decimal  "tile_completion_rate"
+    t.decimal  "tile_view_rate"
+    t.integer  "tiles_delivered_count"
   end
 
   create_table "custom_color_palettes", :force => true do |t|

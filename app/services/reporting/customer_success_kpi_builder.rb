@@ -40,7 +40,7 @@ module Reporting
         m.percent_paid_orgs_view_tile_in_explore = kpi.percent_of_orgs_that_viewed_tiles
         m.percent_engaged_organizations = kpi.percent_engaged_organizations
         m.percent_engaged_client_admin = kpi.percent_engaged_client_admin
-        m.percent_orgs_that_added_tiles = kpi.percent_of_orgs_that_added_tiles 
+        m.percent_orgs_that_added_tiles = kpi.percent_of_orgs_that_added_tiles
         m.percent_of_added_tiles_from_copy = kpi.percent_of_tiles_added_from_copy
         m.percent_of_added_tiles_from_scratch = kpi.percent_of_tiles_added_created_from_scratch
         m.percent_orgs_that_copied_tiles = kpi.percent_orgs_that_copied_tiles
@@ -48,6 +48,9 @@ module Reporting
         m.percent_of_added_tiles_from_scratch = kpi.percent_of_tiles_added_created_from_scratch
 
         m.percent_of_orgs_that_posted_tiles = kpi.percent_of_orgs_that_posted_tiles
+        m.tile_completion_rate = kpi.tile_completion_rate
+        m.tile_view_rate = kpi.tile_view_rate
+        m.tiles_delivered_count = kpi.tiles_delivered_count
         m.from_date = kpi.curr_interval_start
         m.to_date = kpi.curr_interval_end
         m.interval = kpi.interval
@@ -74,7 +77,7 @@ module Reporting
           sdate = min_start(from_date).beginning_of_week
           edate = Date.today.end_of_week
           kpi = Reporting::CustomerSuccessKpiCalcService.new(sdate, edate, WEEKLY)
-          while kpi.curr_interval_start < edate do 
+          while kpi.curr_interval_start < edate do
             build(kpi)
             kpi.advance_interval
           end
@@ -85,7 +88,7 @@ module Reporting
         if has_data?
           sdate = min_start(from_date).beginning_of_month
           kpi = Reporting::CustomerSuccessKpiCalcService.new(sdate, Date.today.beginning_of_month, MONTHLY)
-          while kpi.curr_interval_start < Date.today.beginning_of_month do 
+          while kpi.curr_interval_start < Date.today.beginning_of_month do
             build(kpi)
             sdate = kpi.advance_interval
           end

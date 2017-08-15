@@ -10,12 +10,34 @@ module Reporting
       @from_date =  from_date
       @to_date =  to_date
       @interval = interval
-      @curr_interval_start = @from_date 
+      @curr_interval_start = @from_date
       setup_current_interval
       get_data
     end
 
+    def get_tile_completion_rate
+      @tile_completion_rate = TilesDigest.where(sent_at: @from_date..@to_date).tile_completion_rate
+    end
 
+    def tile_completion_rate
+      @tile_completion_rate
+    end
+
+    def get_tile_view_rate
+      @tile_view_rate = TilesDigest.where(sent_at: @from_date..@to_date).tile_view_rate
+    end
+
+    def tile_view_rate
+      @tile_view_rate
+    end
+
+    def get_tiles_delivered_count
+      @tiles_delivered_count = TilesDigestTile.where(created_at: @from_date..@to_date).count
+    end
+
+    def tiles_delivered_count
+      @tiles_delivered_count
+    end
 
     def get_paid_net_promoter_score
       @nps = Integrations::NetPromoterScore.get_metrics({ until: @curr_interval_start.to_time.to_i, trend: PAID_CLIENTS_DELIGHTED_TREND })
@@ -26,16 +48,13 @@ module Reporting
     end
 
     def get_total_paid_orgs
-      @total_paid_orgs = Organization.active_as_of_date(@curr_interval_start).count
+      @total_paid_orgs = Organization.joins(:demos).where(demos: { is_paid: true }).uniq.count
     end
 
     def total_paid_orgs
       @total_paid_orgs
     end
 
-
-    #FIXME this number is disconnected from organizations because paid demos are
-    #not connected to organizations properly
     def get_total_paid_client_admins
       @total_paid_client_admins = User.joins(:demo).where(demo: { id: @demo_ids } ).where(is_client_admin: true).count
     end
@@ -48,13 +67,12 @@ module Reporting
       @org_unique_activity_sessions = Reporting::Mixpanel::OrganizationWithUniqueActivitySessions.new(opts)
     end
 
-
     def org_unique_activity_sessions
       @org_unique_activity_sessions.get_count(@curr_interval_key)
     end
 
     def percent_engaged_organizations
-      calc_percent(org_unique_activity_sessions, total_paid_orgs) #OK
+      calc_percent(org_unique_activity_sessions, total_paid_orgs)
     end
 
     def get_client_admin_unique_activity_sessions
@@ -69,11 +87,9 @@ module Reporting
       @total_client_admin_activity_sessions = Reporting::Mixpanel::TotalClientAdminActivitySessions.new(opts)
     end
 
-
     def total_client_admin_activity_sessions
       @total_client_admin_activity_sessions.get_count(@curr_interval_key)
     end
-
 
     def percent_engaged_client_admin
       calc_percent(client_admin_unique_activity_sessions, total_paid_client_admins)
@@ -82,7 +98,6 @@ module Reporting
     def activity_sessions_per_client_admin
       calc_avg(total_client_admin_activity_sessions, client_admin_unique_activity_sessions)
     end
-
 
     def get_unique_client_admin_with_viewed_tiles_in_explore
       @unique_client_admin_with_viewed_tiles_in_explore =Reporting::Mixpanel::ClientAdminWithUniqueExploreTileViews.new(opts)
@@ -118,7 +133,7 @@ module Reporting
 
     def total_tiles_added
       @tiles_added_by_paid_client_admins.sum(@curr_interval_key)
-    end 
+    end
 
     def total_tiles_added_from_copy
       @tiles_added_by_paid_client_admins.get_count_by_segment("Explore Page", @curr_interval_key)
@@ -152,11 +167,9 @@ module Reporting
       @unique_orgs_that_copied_tiles = Reporting::Mixpanel::UniqueOrganizationsWithCopiedTiles.new(opts)
     end
 
-
     def unique_orgs_that_copied_tiles
       @unique_orgs_that_copied_tiles.get_count(@curr_interval_key)
     end
-
 
     def get_orgs_that_created_tiles_from_scratch
       @orgs_that_created_tiles_from_scratch = Reporting::Mixpanel::UniqueOrganizationsThatCreatedTilesFromScratch.new(opts)
@@ -166,11 +179,9 @@ module Reporting
       @orgs_that_created_tiles_from_scratch.get_count(@curr_interval_key)
     end
 
-
     def percent_of_orgs_that_viewed_tiles
       calc_percent(unique_organizations_with_viewed_tiles_in_explore, total_paid_orgs)
     end
-
 
     def average_tiles_copied_per_org_that_copied
       calc_avg(total_tiles_added_from_copy, unique_orgs_that_copied_tiles)
@@ -188,11 +199,9 @@ module Reporting
       calc_avg(total_tiles_posted, orgs_that_posted_tiles)
     end
 
-
     def get_total_tiles_posted
       @total_tiles_posted = Reporting::Mixpanel::TotalTilesPostedByPaidClientAdmin.new(opts)
     end
-
 
     def total_tiles_posted
       @total_tiles_posted.get_count(@curr_interval_key)
@@ -211,7 +220,7 @@ module Reporting
     end
 
     def get_data
-      @demo_ids = Demo.paid.pluck(:id) 
+      @demo_ids = Demo.paid.pluck(:id)
 
       get_paid_net_promoter_score
       get_total_paid_client_admins
@@ -228,22 +237,23 @@ module Reporting
       get_orgs_that_created_tiles_from_scratch
       get_orgs_that_posted_tiles
       get_total_tiles_posted
+      get_tile_completion_rate
+      get_tiles_delivered_count
+      get_tile_view_rate
     end
 
     #----------Utility Methods
 
-
-
     def advance_interval
       if @interval == WEEKLY
-        @curr_interval_start =   @curr_interval_start.advance(weeks:1) 
+        @curr_interval_start =   @curr_interval_start.advance(weeks:1)
       else
         @curr_interval_start =  @curr_interval_start.advance(months:1)
       end
       setup_current_interval
     end
 
-    private 
+    private
 
     def setup_current_interval
       @curr_interval_end = end_interval(@curr_interval_start)
@@ -255,7 +265,7 @@ module Reporting
     end
 
     def unit
-      @interval == WEEKLY ? "week" : "month" 
+      @interval == WEEKLY ? "week" : "month"
     end
 
     def format_date date
@@ -263,7 +273,7 @@ module Reporting
     end
 
     def opts
-      {from_date: @from_date, to_date: @to_date, unit: unit}
+      { from_date: @from_date, to_date: @to_date, unit: unit }
     end
 
     def formatted_total_completion_time t
@@ -297,4 +307,3 @@ module Reporting
     end
   end
 end
-

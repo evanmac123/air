@@ -21,11 +21,40 @@ class TilesDigest < ActiveRecord::Base
     rdb.destroy
   end
 
+  # TODO: These queries can be optimized
+  def self.tile_completion_rate
+    if self.count > 0
+      all.map(&:tile_completion_rate).compact.sum / self.count
+    end
+  end
+
+  def self.tile_view_rate
+    if self.count > 0
+      all.map(&:tile_view_rate).compact.sum / self.count
+    end
+  end
+  
   def self.dispatch(digest_params)
     digest = TilesDigest.new(digest_params)
     digest.set_tiles_and_update_cuttoff_time if digest.valid?
 
     digest.tap(&:save)
+  end
+
+  def eligible_tile_action_count
+    recipient_count.to_i * tiles.count.to_f
+  end
+
+  def tile_completion_rate
+    if eligible_tile_action_count > 0
+      tiles.joins(:tile_completions).count / eligible_tile_action_count
+    end
+  end
+
+  def tile_view_rate
+    if eligible_tile_action_count > 0
+      tiles.joins(:tile_viewings).count / eligible_tile_action_count
+    end
   end
 
   def deliver(follow_up_days_index)

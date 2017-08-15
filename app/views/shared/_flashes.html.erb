@@ -1,4 +1,5 @@
-<% invisible_flash_keys = [/_allow_raw$/] %>
+<%# TODO: Remove the dependency on the invisible_flash_keys (TileCompletionsController) %>
+<% invisible_flash_keys = [/previous_/, /_allow_raw$/] %>
 
 <% if listified_flash.any? %>
   <div id="flash">
