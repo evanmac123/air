@@ -7,11 +7,6 @@ class AccountsController < UserBaseController
       flash[:success] = "Your account update request has been successfully processed. #{phone_msg}"
     end
 
-    current_user.previous_changes.each do |field_name, changes|
-      next if field_name == 'updated_at' || field_name == 'created_at'
-      flash["mp_track_#{field_name}"] = ["changed #{field_name.humanize.downcase}", {:to => changes.last}]
-    end
-
     redirect_to :back
   end
 

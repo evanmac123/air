@@ -1,6 +1,10 @@
 module ApplicationHelper
   include Mobvious::Rails::Helper
 
+  def current_layout
+    controller.send('_layout')
+  end
+
   def current_demo_id
     current_user.demo_id
   end

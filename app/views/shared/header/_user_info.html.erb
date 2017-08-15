@@ -1,11 +1,7 @@
 <!-- start of new admin navigation that needs to be gated off later -->
 <% if user.can_submit_tile?(browser) %>
   <% if user.show_search_bar?(browser) %>
-    <% if user.end_user? %>
-      <%= render 'shared/search_bar', column_count: 4 %>
-    <% else %>
-      <%= render 'shared/search_bar', column_count: 3 %>
-    <% end %>
+    <%= render 'shared/search_bar', column_count: 4 %>
   <% end %>
   <div class="large-3 columns" id="user_info">
     <%= render 'shared/header/submit_tile', user: user %>
@@ -18,7 +14,7 @@
 
 <% elsif user.end_user? %>
   <% if user.show_search_bar?(browser) %>
-    <%= render 'shared/search_bar', column_count: 5 %>
+    <%= render 'shared/search_bar', column_count: 4 %>
   <% end %>
   <div class="large-2 columns" id="user_info">
     <div id="open-intercom" class="open_intercom"><i class="fa fa-question-circle" aria-hidden="true"></i></div>

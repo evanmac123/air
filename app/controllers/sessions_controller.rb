@@ -20,7 +20,6 @@ class SessionsController < Clearance::SessionsController
       end
 
       flash_login_announcement
-      flash[:mp_track_logged_in] = "logged in"
       redirect_back_or(url_after_create)
     end
   end

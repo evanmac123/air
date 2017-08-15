@@ -1,9 +1,9 @@
-<% invisible_flash_keys = [/^mp_track/, /^mp_alias/, /_allow_raw$/, /_flag$/, /previous_/, /tile_activated/] %>
+<% invisible_flash_keys = [/_allow_raw$/] %>
 
 <% if listified_flash.any? %>
   <div id="flash">
     <% listified_flash.each do |key, value| -%>
-      <% next if invisible_flash_keys.any?{|regex| key.to_s =~ regex} %>
+    <% next if invisible_flash_keys.any?{|regex| key.to_s =~ regex} %>
       <div id="flash_<%= key %>">
         <div class="row">
           <div class="flash-content large-12 columns">
@@ -25,7 +25,6 @@
     <% end -%>
   </div>
 <% end %>
-<!--small hack to adding new dont-show class to avoid specificity issue with hdden class -->
 
 <div class="flash-js hidden">
   <div class="flash-js-msg ">

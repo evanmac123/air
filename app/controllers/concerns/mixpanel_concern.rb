@@ -14,12 +14,6 @@ module MixpanelConcern
     invalid_ping_logger(event, data_hash, user)
   end
 
-  def ping_page(page, user = nil, additional_properties={})
-    event = 'viewed page'
-    properties = {page_name: page, device_type: device_type}.merge(additional_properties)
-    self.ping(event, properties, user)
-  end
-
-  alias_method_chain :ping, :device_type
-
+  alias_method :ping_without_device_type, :ping
+  alias_method :ping, :ping_with_device_type
 end

@@ -12,10 +12,6 @@ module User::FakeUserBehavior
     TrackEvent.ping(event, data)
   end
 
-  def ping_page(page, additional_properties = {})
-    TrackEvent.ping_page(page, additional_properties, self)
-  end
-
   def is_site_admin
     false
   end
