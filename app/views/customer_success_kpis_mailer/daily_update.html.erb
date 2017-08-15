@@ -1,0 +1,18 @@
+<h2>
+  <%= "Customer Success KPIs Update" %>
+</h2>
+<h3><%= "[#{@report.interval.capitalize}] #{@report.from_date.strftime("%m/%d")}-#{@report.to_date.strftime("%m/%d")}" %></h3>
+<br>
+<h3>Administrator Engagement</h3>
+<p><%= "Total Paid Organizations: #{@report.total_paid_orgs}" %></p>
+<p><%= "Paid Client Admin NPS Score: #{@report.paid_net_promoter_score}" %></p>
+<p><%= "Percent of Paid Organizations that posted Tiles: #{@report.percent_of_orgs_that_posted_tiles}" %></p>
+<p><%= "Percent of Paid Organizations that had an activity session: #{@report.percent_engaged_organizations}" %></p>
+<p><%= "Tiles Delivered Count: #{@report.tiles_delivered_count}" %></p>
+<br>
+<h3>User Engagement</h3>
+<p><%= "Tile completion rate: #{@report.tile_completion_rate}" %></p>
+<p><%= "Tile view rate: #{@report.tile_view_rate}" %></p>
+<br>
+<h3>Content</h3>
+<p><%= "Percent of organizations that copied Tiles: #{@report.percent_orgs_that_copied_tiles}" %></p>

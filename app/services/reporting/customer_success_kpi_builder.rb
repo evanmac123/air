@@ -54,7 +54,7 @@ module Reporting
         m.from_date = kpi.curr_interval_start
         m.to_date = kpi.curr_interval_end
         m.interval = kpi.interval
-        m.save
+        m.tap(&:save)
       end
 
 

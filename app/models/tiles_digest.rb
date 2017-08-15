@@ -21,6 +21,10 @@ class TilesDigest < ActiveRecord::Base
     rdb.destroy
   end
 
+  def self.paid
+    joins(:demo).where(demo: { is_paid: true })
+  end
+
   # TODO: These queries can be optimized
   def self.tile_completion_rate
     if self.count > 0
@@ -33,7 +37,7 @@ class TilesDigest < ActiveRecord::Base
       all.map(&:tile_view_rate).compact.sum / self.count
     end
   end
-  
+
   def self.dispatch(digest_params)
     digest = TilesDigest.new(digest_params)
     digest.set_tiles_and_update_cuttoff_time if digest.valid?

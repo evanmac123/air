@@ -15,8 +15,12 @@ module Reporting
       get_data
     end
 
+    def tile_emails_for_report
+      TilesDigest.paid.where(sent_at: @from_date..@to_date)
+    end
+
     def get_tile_completion_rate
-      @tile_completion_rate = TilesDigest.where(sent_at: @from_date..@to_date).tile_completion_rate
+      @tile_completion_rate = tile_emails_for_report.tile_completion_rate
     end
 
     def tile_completion_rate
@@ -24,7 +28,7 @@ module Reporting
     end
 
     def get_tile_view_rate
-      @tile_view_rate = TilesDigest.where(sent_at: @from_date..@to_date).tile_view_rate
+      @tile_view_rate = tile_emails_for_report.tile_view_rate
     end
 
     def tile_view_rate
@@ -32,7 +36,7 @@ module Reporting
     end
 
     def get_tiles_delivered_count
-      @tiles_delivered_count = TilesDigestTile.where(created_at: @from_date..@to_date).count
+      @tiles_delivered_count = tile_emails_for_report.joins(:tiles_digest_tiles).count
     end
 
     def tiles_delivered_count
