@@ -1,17 +1,8 @@
 .row
   .external-form-wrapper.small-12.large-6.large-centered.columns
     %h1 Reset Password
-    
+
     = form_tag passwords_path do
       %p We will email you a link to reset your password.
       = text_field_tag "password[email]", "", placeholder: "Email address"
-      = submit_tag "Reset password" 
-
-  = mp_track_page 'password reset request' 
-
-
-  = content_for :javascript do
-    :javascript
-      $(function() {
-        autoFocusColor("#password_email", "email"); 
-      });
+      = submit_tag "Reset password"

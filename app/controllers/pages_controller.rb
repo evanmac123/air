@@ -1,5 +1,4 @@
 class PagesController < HighVoltage::PagesController
-
   layout :layout_for_page
 
   private
