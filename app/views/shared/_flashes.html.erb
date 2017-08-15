@@ -1,6 +1,9 @@
+<% invisible_flash_keys = [/_allow_raw$/] %>
+
 <% if listified_flash.any? %>
   <div id="flash">
     <% listified_flash.each do |key, value| -%>
+    <% next if invisible_flash_keys.any?{|regex| key.to_s =~ regex} %>
       <div id="flash_<%= key %>">
         <div class="row">
           <div class="flash-content large-12 columns">

@@ -964,12 +964,6 @@ class User < ActiveRecord::Base
     TrackEvent.ping(event, data)
   end
 
-  def ping_page(page, additional_properties={})
-    event = 'viewed page'
-    properties = {page_name: page}.merge(additional_properties)
-    ping(event, properties)
-  end
-
   def load_personal_email(in_email)
     return nil unless in_email.try(:is_email_address?)
     return true if email == in_email # do nothing but return true if they try to reload their primary email

@@ -23,20 +23,6 @@ Airbo.ExploreKpis = (function(){
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
-  function viewedExplorePing() {
-    var properties = $.extend({ page_name: "explore" }, currentUserData);
-    Airbo.Utils.ping("viewed page", properties);
-
-    if ( $(".client_admin-campaigns").length > 0) {
-      viewedCampaignPing();
-    }
-  }
-
-  function viewedCampaignPing() {
-    var properties = $.extend({ page_name: "explore campaign", campaign: $(".explore").data("campaignId")}, currentUserData);
-    Airbo.Utils.ping("viewed page", properties);
-  }
-
   function bindKPIs() {
     $(".topic").on("click", function() {
       campaignClickedPing($(this));
@@ -49,7 +35,6 @@ Airbo.ExploreKpis = (function(){
 
   function init() {
     currentUserData = $("body").data("currentUser");
-    viewedExplorePing();
     bindKPIs();
   }
 
