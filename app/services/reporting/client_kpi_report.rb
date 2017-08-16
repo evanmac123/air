@@ -24,9 +24,19 @@ module Reporting
     def sections
       {
 
-        "Creation" => [
-          "percent_orgs_that_copied_tiles",
-          "percent_of_orgs_that_posted_tiles"
+        "Administrator Engagement" => [
+          "total_paid_orgs",
+          "paid_net_promoter_score",
+          "percent_of_orgs_that_posted_tiles",
+          "percent_engaged_organizations",
+          "tiles_delivered_count"
+        ],
+        "User Engagement" => [
+          "tile_completion_rate",
+          "tile_view_rate"
+        ],
+        "Content" => [
+          "percent_orgs_that_copied_tiles"
         ],
 
       }
@@ -44,6 +54,27 @@ module Reporting
           type: "date",
           hint: "",
           indent: 0
+        },
+        "tiles_delivered_count" => {
+          label: "Tiles Delivered Count",
+          series: "Tiles Delivered Count",
+          type: "num",
+          indent: 0,
+          css: " kpi-tooltip"
+        },
+        "tile_completion_rate" => {
+          label: "Tile Completion Rate",
+          series: "Tile Completion Rate",
+          type: "num",
+          indent: 0,
+          css: " kpi-tooltip"
+        },
+        "tile_view_rate" => {
+          label: "Tile View Rate",
+          series: "Tile View Rate",
+          type: "num",
+          indent: 0,
+          css: " kpi-tooltip"
         },
         "paid_net_promoter_score" => {
           label: "Net Promoter Score (NPS)",
@@ -122,8 +153,6 @@ module Reporting
           css: "kpi-tooltip",
           indent: 1,
         },
-
-
         "percent_paid_orgs_view_tile_in_explore" => {
           label: "Explore Engagement",
           series: "% Customers Viewed Tile in Explore",
