@@ -43,7 +43,7 @@ module Integrations
             board:                 user.demo_id,
             organization:          user.organization_id,
             created_at:            user.created_at,
-            board_type:            (user.demo.try(:is_paid) ? "Paid" : "Free"),
+            board_type:            user.demo.try(:customer_status_for_mixpanel),
           }
         end
 

@@ -3,8 +3,8 @@ require 'google/api_client'
 class GdriveClient
   APP_NAME="Airbo"
   APP_VERSION="2.0"
-  SCOPE= ["https://www.googleapis.com/auth/drive", "https://spreadsheets.google.com/feeds/"] 
-  FREE_HRM_ROW_INDEX = 8 
+  SCOPE= ["https://www.googleapis.com/auth/drive", "https://spreadsheets.google.com/feeds/"]
+  FREE_HRM_ROW_INDEX = 8
 
   attr_accessor :google_api_session, :mixpanel_client, :kpi_worksheet, :mixpanel_worksheet
 
@@ -15,7 +15,7 @@ class GdriveClient
     @end_date = @beg_date.end_of_week(:sunday).end_of_day
   end
 
-  def run_report 
+  def run_report
     file = google_api_session.spreadsheet_by_title(ENV['KPI_SPREADSHEET_NAME'])
     @kpi_worksheet = file.worksheet_by_title("KPIs")
     @mixpanel_worksheet = file.worksheet_by_title("Mixpanel Data")
@@ -71,11 +71,11 @@ class GdriveClient
   end
 
   def paid_client_admins_by_bm
-    @paid_client_admins_by_bm ||=BoardMembership.joins(:demo).where("board_memberships.is_client_admin is true and demos.is_paid is true").pluck(:user_id).uniq
+    @paid_client_admins_by_bm ||=BoardMembership.joins(:demo).where("board_memberships.is_client_admin is true and demos.customer_status_cd = #{Demo.customer_statuses[:paid]}").pluck(:user_id).uniq
   end
 
   def paid_client_admins_by_user_type
-    @paid_client_admins_by_user_type ||= User.joins(:board_memberships).joins(:demos).where("users.is_client_admin is true and demos.is_paid is true").pluck("users.id").uniq
+    @paid_client_admins_by_user_type ||= User.joins(:board_memberships).joins(:demos).where("users.is_client_admin is true and demos.customer_status_cd = #{Demo.customer_statuses[:paid]}").pluck("users.id").uniq
   end
 
   #-----------------------------------------
@@ -89,7 +89,7 @@ class GdriveClient
 
     row_idx =2
 
-    data.each_with_index do |(board,_types), idx| 
+    data.each_with_index do |(board,_types), idx|
       mixpanel_worksheet[row_idx, 1]=board
       mixpanel_worksheet[row_idx, 2]=data[board]["client admin"].values.first
       mixpanel_worksheet[row_idx, 3]=data[board]["ordinary user"].values.first
@@ -127,7 +127,7 @@ class GdriveClient
 
 
   #-----------------------------------------
-  #  Authentication 
+  #  Authentication
   #------------------------------------------
 
   def auth_to_mixpanel
@@ -140,7 +140,7 @@ class GdriveClient
     asserter = Google::APIClient::JWTAsserter.new( ENV["GOOGLE_API_CLIENT_EMAIL"], SCOPE,key)
     client.authorization = asserter.authorize("herby@airbo.com")
     @google_api_session = GoogleDrive.login_with_oauth(client.authorization.access_token)
-  end 
+  end
 
 
 

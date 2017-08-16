@@ -2,7 +2,7 @@
 <% mute_slider_presenter   = FollowupMuteSliderPresenter.new(board.id, digest_is_muted, digest_is_muted || followup_is_muted) %>
 <% truncated_board_name = board.name.truncate(35) %>
 
-<% cache [__FILE__, 'v2.pwd', digest_slider_presenter.cache_key, mute_slider_presenter.cache_key, truncated_board_name, board.id, board.is_paid] do %>
+<% cache [__FILE__, 'v2.pwd', digest_slider_presenter.cache_key, mute_slider_presenter.cache_key, truncated_board_name, board.id, board.paid?] do %>
   <div class="board_wrapper">
     <div class="board_name_column">
       <%= content_tag 'h3', class: "board_name non_admin", "data-demo_id" => board.id do %>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="delete_column">
-      <% unless board.is_paid %>
+      <% unless board.paid? %>
         <%= link_to "Delete", '#', {class: 'delete_board_icon', "data-delete_url" => board_membership_path(board.id)} %>
       <% else %>
         <span class="cannot_delete">Cannot delete</span>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170815222939) do
+ActiveRecord::Schema.define(:version => 20170816184205) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -415,7 +415,6 @@ ActiveRecord::Schema.define(:version => 20170815222939) do
     t.datetime "total_user_rankings_last_updated_at"
     t.datetime "average_user_rankings_last_updated_at"
     t.integer  "mute_notice_threshold"
-    t.text     "join_type",                                            :default => "pre-populated",   :null => false
     t.string   "sponsor"
     t.string   "example_tooltip"
     t.string   "example_tutorial"
@@ -463,6 +462,7 @@ ActiveRecord::Schema.define(:version => 20170815222939) do
     t.boolean  "guest_user_conversion_modal",                          :default => true
     t.integer  "users_count"
     t.boolean  "marked_for_deletion",                                  :default => false
+    t.integer  "customer_status_cd",                                   :default => 0
   end
 
   add_index "demos", ["dependent_board_id"], :name => "index_demos_on_dependent_board_id"

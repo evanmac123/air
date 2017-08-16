@@ -44,8 +44,6 @@ module SingleTileHelper
   end
 
   def single_tile_hashtags(tile:)
-    org_name = tile.organization.try(:name)
-
-    ["airbo", org_name.delete(" ")]
+    ["airbo"]
   end
 end

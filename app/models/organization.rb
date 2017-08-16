@@ -20,7 +20,7 @@ class Organization < ActiveRecord::Base
   has_one :onboarding, autosave: true
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
-  validate :free_trial_cannot_start_before_created_at_or_in_future
+  validate  :free_trial_cannot_start_before_created_at_or_in_future
 
   accepts_nested_attributes_for :boards
   accepts_nested_attributes_for :users
@@ -35,7 +35,7 @@ class Organization < ActiveRecord::Base
     }
 
   def self.paid_organizations_count
-    joins(:demos).where(demos: { is_paid: true }).uniq.count
+    joins(:demos).where(demos: { customer_status_cd: Demo.customer_statuses[:paid] }).uniq.count
   end
 
   def free_trial_cannot_start_before_created_at_or_in_future

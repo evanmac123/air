@@ -49,7 +49,7 @@ class PotentialUser < ActiveRecord::Base
       user_type:       self.highest_ranking_user_type,
       game:            self.demo.try(:id),
       is_test_user:    is_test_user?,
-      board_type:      (self.demo.try(:is_paid) ? "Paid" : "Free"),
+      board_type:      self.demo.try(:customer_status_for_mixpanel),
       first_time_user: false
     }
   end

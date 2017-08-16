@@ -12,11 +12,6 @@
           <th>Num employees</th>
           <td><%= @organization.num_employees %></td>
         </tr>
-
-        <tr>
-          <th>Sales channel</th>
-          <td><%= @organization.sales_channel %></td>
-        </tr>
         <tr>
           <th>Start</th>
           <td><%= simple_date_format @organization.customer_start_date %></td>
@@ -25,11 +20,6 @@
           <th>End</th>
           <td><%= simple_date_format @organization.customer_end_date %></td>
         </tr>
-        <tr>
-          <th>Churned</th>
-          <td><%= @organization.churned %></td>
-        </tr>
-
         <tr>
           <th>Churn reason</th>
           <td><%= @organization.churn_reason %></td>

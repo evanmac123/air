@@ -3,8 +3,6 @@ class Demo < ActiveRecord::Base
   include Assets::Normalizer # normalize filename of paperclip attachment
   extend ValidImageMimeTypes
 
-  JOIN_TYPES = %w(pre-populated self-inviting public).freeze
-
   belongs_to :organization, counter_cache: true
   belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id
 
@@ -35,9 +33,6 @@ class Demo < ActiveRecord::Base
   has_many :users, through: :board_memberships
   has_many :tile_completions, through: :tiles
   has_many :tile_viewings, through: :tiles
-
-
-  validates_inclusion_of :join_type, :in => JOIN_TYPES
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
@@ -78,6 +73,12 @@ class Demo < ActiveRecord::Base
 
   scope :campaigns, -> { joins(:topic_board).where(topic_board: { is_library: true } ) }
 
+  as_enum :customer_status, free: 0, paid: 1, free_trial: 2
+
+  def customer_status_for_mixpanel
+    customer_status.to_s.capitalize
+  end
+
   # We go through this rigamarole since we can move a user from one demo to
   # another, and usually we will only be concerned with acts belonging to the
   # current demo. The :conditions option on has_many isn't quite flexible
@@ -94,46 +95,24 @@ class Demo < ActiveRecord::Base
 
   attr_accessor :unlink
 
-  ###ROLLOUT
-    def has_end_user_search
-      rdb[:has_end_user_search].get == "true"
-    end
-
-    def has_end_user_search=(bool)
-      rdb[:has_end_user_search].set(bool)
-    end
-  ###
-
   def client_admin
     users.joins(:board_memberships).where(board_memberships: { is_client_admin: true, demo_id: self.id } )
   end
 
   def self.paid
-    where(is_paid: true)
+    where(customer_status_cd: Demo.customer_statuses[:paid])
+  end
+
+  def self.free
+    where(customer_status_cd: Demo.customer_statuses[:free])
+  end
+
+  def self.free_trial
+    where(customer_status_cd: Demo.customer_statuses[:free_trial])
   end
 
   def self.unmatched
     where(organization_id: nil)
-  end
-
-  def self.list
-    demos = Demo.arel_table
-    bms = BoardMembership.arel_table
-    orgs = Organization.arel_table
-
-    x = Demo.select(
-      [orgs[:name].as("org_name"), demos[:id], demos[:name], demos[:dependent_board_id],
-       demos[:is_paid], bms[:user_id].count.as('user_count')]
-    ).joins(
-      bms.join(orgs).on( demos[:organization_id].eq(orgs[:id]))
-      .join(bms,Arel::Nodes::OuterJoin).on( bms[:demo_id].eq(demos[:id]))
-      .join_sources
-    ).order(
-      Arel::Nodes::NamedFunction.new('LOWER', [demos[:name]])
-    )
-
-    x.group(orgs[:name], demos[:id], demos[:name], demos[:dependent_board_id],
-            demos[:is_paid])
   end
 
   def users_for_digest
@@ -444,10 +423,6 @@ class Demo < ActiveRecord::Base
     self.where(id: id).public.first
   end
 
-	def non_activated? # CUT?  #TODO find a way to do this without doing a query every time.
-    self.tiles.active.empty? && self.tiles.where('activated_at IS NOT NULL').count < 1
-  end
-
   def has_normal_users?
     (self.users.non_admin.count > 0) || (self.guest_users.count > 0)
   end
@@ -460,16 +435,6 @@ class Demo < ActiveRecord::Base
     "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
   end
 
-  def company_size(user_count)
-    if user_count < 1000
-      "small"
-    elsif user_count < 5000
-      "medium"
-    else
-      "enterprise"
-    end
-  end
-
   def set_for_delete
     update_column(:marked_for_deletion, true)
     BoardDeletionJob.new(self.id).perform
@@ -477,6 +442,24 @@ class Demo < ActiveRecord::Base
 
   def name_and_org_name
     "#{name}, #{organization.try(:name)}"
+  end
+
+  def self.list_with_org_name_and_user_count
+    demos = Demo.arel_table
+    bms = BoardMembership.arel_table
+    orgs = Organization.arel_table
+
+    x = Demo.select(
+      [orgs[:name].as("org_name"), demos[:id], demos[:name], demos[:dependent_board_id], bms[:user_id].count.as('user_count')]
+    ).joins(
+      bms.join(orgs).on( demos[:organization_id].eq(orgs[:id]))
+      .join(bms,Arel::Nodes::OuterJoin).on( bms[:demo_id].eq(demos[:id]))
+      .join_sources
+    ).order(
+      Arel::Nodes::NamedFunction.new('LOWER', [demos[:name]])
+    )
+
+    x.group(orgs[:name], demos[:id], demos[:name], demos[:dependent_board_id])
   end
 
   protected
