@@ -3,7 +3,7 @@ class CustomerSuccessKpisMailer < ActionMailer::Base
     @report = report
 
     ["nick@airbo.com", "kate@airbo.com"].each do |user|
-      mail(from: "Airbo Customer Success<notify@airbo.com>", to: user, subject: "Update: #{report.interval.upcase} Airbo Customer Success KPIs").deliver
+      mail(from: "[INTERNAL] Airbo Customer Success<notify@airbo.com>", to: user, subject: "Update: #{report.interval.upcase} Airbo Customer Success KPIs").deliver
     end
   end
 end

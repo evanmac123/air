@@ -11,8 +11,8 @@
 <p><%= "Tiles Delivered Count: #{@report.tiles_delivered_count}" %></p>
 <br>
 <h3>User Engagement</h3>
-<p><%= "Tile completion rate: #{@report.tile_completion_rate}" %></p>
-<p><%= "Tile view rate: #{@report.tile_view_rate}" %></p>
+<p><%= "Tile completion rate: #{@report.tile_completion_rate.round(4)}" %></p>
+<p><%= "Tile view rate: #{@report.tile_view_rate.round(4)}" %></p>
 <br>
 <h3>Content</h3>
-<p><%= "Percent of organizations that copied Tiles: #{@report.percent_orgs_that_copied_tiles}" %></p>
+<p><%= "Percent of Paid Organizations that copied Tiles: #{@report.percent_orgs_that_copied_tiles}" %></p>

@@ -28,13 +28,17 @@ class TilesDigest < ActiveRecord::Base
   # TODO: These queries can be optimized
   def self.tile_completion_rate
     if self.count > 0
-      all.map(&:tile_completion_rate).compact.sum / self.count
+      (all.map(&:tile_completion_rate).compact.sum / self.count)
+    else
+      0
     end
   end
 
   def self.tile_view_rate
     if self.count > 0
-      all.map(&:tile_view_rate).compact.sum / self.count
+      (all.map(&:tile_view_rate).compact.sum / self.count)
+    else
+      0
     end
   end
 
