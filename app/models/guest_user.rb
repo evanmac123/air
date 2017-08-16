@@ -90,8 +90,6 @@ class GuestUser < ActiveRecord::Base
     }
   end
 
-
-
   def highest_ranking_user_type
     "guest"
   end

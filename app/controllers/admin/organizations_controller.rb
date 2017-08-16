@@ -73,6 +73,6 @@ class Admin::OrganizationsController < AdminBaseController
     end
 
     def organization_params
-      params.require(:organization).permit(:name, :logo, :num_employees, :featured, :email, :internal, :free_trial_started_at)
+      params.require(:organization).permit(:name, :logo, :num_employees, :featured, :email, :internal, :free_trial_started_at, :company_size_cd)
     end
 end

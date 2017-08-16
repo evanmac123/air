@@ -580,6 +580,7 @@ class User < ActiveRecord::Base
       game:                  demo_id,
       users_in_board:        demo.try(:users_count) || 0,
       organization:          organization_id,
+      organization_size:     organization.try(:company_size),
       account_creation_date: created_at.try(:to_date),
       joined_game_date:      accepted_invitation_at.try(:to_date),
       user_type:             highest_ranking_user_type,

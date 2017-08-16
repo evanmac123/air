@@ -20,10 +20,6 @@
           <th>End</th>
           <td><%= simple_date_format @organization.customer_end_date %></td>
         </tr>
-        <tr>
-          <th>Churn reason</th>
-          <td><%= @organization.churn_reason %></td>
-        </tr>
       </tbody>
     </table>
     <%= link_to 'Edit', edit_admin_organization_path(@organization) %> |
