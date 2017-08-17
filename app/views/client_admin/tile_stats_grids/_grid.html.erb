@@ -5,7 +5,7 @@
 
   g.column name: 'Date', model: 'TileCompletion', attribute: 'created_at', html: { class: "date" }  do |row|
     if row.completion_date
-      Time.parse(row.completion_date + " UTC").strftime("%-m/%-d")
+      Time.parse(row.completion_date + " UTC").in_time_zone.strftime("%-m/%-d")
     else
       "-"
     end

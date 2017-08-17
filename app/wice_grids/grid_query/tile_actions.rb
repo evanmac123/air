@@ -55,7 +55,7 @@ class GridQuery::TileActions
       users_viewings_subquery = TileViewing.users_viewings(tile.id).to_sql
       users_completions_subquery = TileCompletion.where(tile_id: tile.id, user_type: 'User').to_sql
 
-      tile.demo.users.non_site_admin.
+      tile.demo.users.
         joins do
           "LEFT JOIN (" +
            users_completions_subquery +

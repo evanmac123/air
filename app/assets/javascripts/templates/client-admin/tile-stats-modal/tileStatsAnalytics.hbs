@@ -2,14 +2,25 @@
   <div class="large-12 columns mb-1">
     <div class="tile_chart_section">
       <div class="actions_column">
-        <div class="action_type_block date-posted">
-          <div class="action_num">
-            {{formatLocalTime datePosted 'MMM D, Y'}}
+        {{#if dateSent}}
+          <div class="action_type_block date-sent">
+            <div class="action_num">
+              {{formatLocalTime dateSent 'MMM D, Y'}}
+            </div>
+            <div class="action_name">
+              Date Sent
+            </div>
           </div>
-          <div class="action_name">
-            Date Posted
+        {{else}}
+          <div class="action_type_block date-posted">
+            <div class="action_num">
+              {{formatLocalTime datePosted 'MMM D, Y'}}
+            </div>
+            <div class="action_name">
+              Date Posted
+            </div>
           </div>
-        </div>
+        {{/if}}
         <div class="action_type_block people-viewed">
           <div class="action_num">{{numAddCommas uniqueViews}}</div>
           <div class="action_name">{{pluralize uniqueViews 'Person' 'People'}} Viewed</div>
