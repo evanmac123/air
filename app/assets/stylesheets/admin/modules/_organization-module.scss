@@ -1,5 +1,9 @@
 @import 'mixins/card-component';
 
-.organization-module {
+.organization-module, .new-modules {
   @include card-component($dark-blue, $primary-gray);
+
+  img {
+    max-height: 40px;
+  }
 }

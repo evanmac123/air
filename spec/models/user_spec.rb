@@ -1033,17 +1033,20 @@ describe User, "add_tickets" do
   end
 end
 
-describe User, "#not_in_any_paid_boards?" do
+describe User, "#not_in_any_paid_or_trial_boards?" do
   it "returns what you'd think" do
     user = FactoryGirl.create(:user)
-    expect(user.not_in_any_paid_boards?).to be_truthy
+    expect(user.not_in_any_paid_or_trial_boards?).to be_truthy
 
     user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:paid])
-    expect(user.not_in_any_paid_boards?).to be_falsey
+    expect(user.not_in_any_paid_or_trial_boards?).to be_falsey
+
+    user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:free_trial])
+    expect(user.not_in_any_paid_or_trial_boards?).to be_falsey
 
     user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:free])
     user.add_board(FactoryGirl.create(:demo, :paid))
-    expect(user.not_in_any_paid_boards?).to be_falsey
+    expect(user.not_in_any_paid_or_trial_boards?).to be_falsey
   end
 end
 

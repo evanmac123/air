@@ -1,0 +1,21 @@
+<div class="card-component">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="row">
+        <div class="columns large-6 small-12">
+          <h3 class="card-title">Users</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-content">
+      <div class="row">
+        <div class="columns large-12">
+          <%= render 'user_paginator', :demo => @demo  %>
+          <p><%=link_to "Bulk User Deletion", admin_demo_bulk_user_deletions_path(@demo)%></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<%= form_for([:admin, demo]) do |f| %>
+  <div id="response_explanation">
+    <ul>
+      <% demo.errors.full_messages.each do |msg| %>
+        <li style="color: red;"><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <br>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.label :logo, "Logo"  %>
+      <%= f.file_field :logo, { id: "file_input" } %>
+    </div>
+    <div class="large-6 columns">
+      <%= f.label :name, "Name" %>
+      <%= f.text_field :name %>
+    </div>
+  </div>
+  <div class="row image-row">
+    <div class="large-6 columns">
+      <%= f.label :customer_status_cd, "Customer Status" %>
+      <%= f.select :customer_status_cd, Demo.customer_statuses.to_a %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <%= f.label :is_public, "Is Public?" %>
+      <%= f.check_box :is_public %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= f.submit "Save", class: "button green float-right" %>
+    </div>
+  </div>
+<% end %>

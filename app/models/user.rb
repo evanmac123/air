@@ -1169,8 +1169,8 @@ class User < ActiveRecord::Base
     demos == [board]
   end
 
-  def not_in_any_paid_boards?
-    demos.paid.empty?
+  def not_in_any_paid_or_trial_boards?
+    demos.paid.empty? && demos.free_trial.empty?
   end
 
   def can_see_raffle_modal?

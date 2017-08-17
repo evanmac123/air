@@ -59,6 +59,7 @@ module Params
         :logo_content_type,
         :logo_file_size,
         :logo_updated_at,
+        :logo,
         :everyone_can_make_tile_suggestions,
         :cover_message,
         :cover_image_file_name,
