@@ -7,8 +7,8 @@ class LeadContactProcessor
 
   def initialize(lead_contact, board_params)
     @lead_contact = lead_contact
+    @organization = lead_contact.organization
     @user = build_user
-    @organization = user.organization
     @board = build_board(board_params)
     @board_template = find_template(board_params[:template_id])
   end
@@ -24,12 +24,13 @@ class LeadContactProcessor
     def build_user
       User.new(
         name: lead_contact.name,
-        email: lead_contact.email,
-        organization_id: lead_contact.organization_id
+        email: lead_contact.email
       )
     end
 
     def build_board(board_params)
+      organization.email = lead_contact.email
+
       board = organization.boards.create(
         name: board_params[:name],
         logo: board_params[:logo].presence,

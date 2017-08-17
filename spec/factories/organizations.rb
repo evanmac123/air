@@ -4,7 +4,6 @@ FactoryGirl.define do
 
     trait :complete do
       sequence(:name){|n| "Client-#{n}"}
-      sales_channel "Direct"
       num_employees   5000
     end
 

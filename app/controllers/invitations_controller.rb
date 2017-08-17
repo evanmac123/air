@@ -96,7 +96,7 @@ class InvitationsController < ApplicationController
     def user_can_login_to_already_accepted_board?
       if current_user == @user || !@user.is_client_admin_in_any_board
         return true
-      elsif params[:new_lead] && @demo.is_paid == false
+      elsif params[:new_lead] && @demo.free?
         return true
       else
         return false

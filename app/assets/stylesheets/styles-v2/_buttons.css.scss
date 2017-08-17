@@ -226,7 +226,7 @@
       @include button-outlined-color($text-color: $n-blue, $hover-color: $n-white);
     }
     &.red {
-      @include button-outlined-color($text-color: $n-red2, $hover-color: $n-white);
+      @include button-outlined-color($text-color: $n-red, $hover-color: $n-white);
     }
     &.green {
       @include button-outlined-color($text-color: $n-green, $hover-color: $n-white);

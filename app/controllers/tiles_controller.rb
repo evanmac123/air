@@ -207,9 +207,8 @@ class TilesController < ApplicationController
 
     def schedule_viewed_tile_ping(tile)
       return unless tile.present?
-      board_type = tile.demo.is_paid ? "Paid" : "Free"
       tile_type = tile.is_invite_spouse? ? "Spouse Invite" : "User"
-      ping('Tile - Viewed', {tile_type: tile_type, tile_id: tile.id, board_type: board_type}, current_user)
+      ping('Tile - Viewed', { tile_type: tile_type, tile_id: tile.id, board_type: tile.demo.customer_status_for_mixpanel }, current_user)
     end
 
     def maximum_tiles_wanted

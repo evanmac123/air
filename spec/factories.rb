@@ -41,7 +41,7 @@ FactoryGirl.define do
     end
 
     trait :paid do
-      is_paid true
+      customer_status_cd Demo.customer_statuses[:paid]
     end
 
     trait :parent do

@@ -42,18 +42,17 @@ class Admin::ContractsController < AdminBaseController
     importer = ContractImporter.new(FileUploadWrapper.new(params[:file]))
     heads = importer.header
     org = nil
-    importer.rows.each do |row| 
+    importer.rows.each do |row|
       org = Organization.where(name: row["Company"]).first_or_initialize
       if(org.new_record?)
         org.num_employees = 1
-        org.sales_channel = "Direct"
         org.save
       end
 
       contract = org.contracts.build
       data = heads.reject{|h| h=="Company"}
 
-      data.each do|head| 
+      data.each do|head|
         contract[field_mapping[head]]=row[head] if field_mapping[head]
       end
 
@@ -69,9 +68,9 @@ class Admin::ContractsController < AdminBaseController
   # Also, you can specialize this method with per-user checking of permissible attributes.
   def contract_params
     params.require(:contract).permit(:organization_id, :parent_contract_id, :plan,
-                                     :end_date,:start_date, 
-                                     :arr, :mrr, :name,  
-                                     :amt_booked, :date_booked, 
+                                     :end_date,:start_date,
+                                     :arr, :mrr, :name,
+                                     :amt_booked, :date_booked,
                                      :is_actual, :max_users, :cycle,
                                      :term, :notes, :auto_renew, :in_collection)
   end

@@ -25,7 +25,6 @@ class User < ActiveRecord::Base
   rolify strict: true
   acts_as_taggable_on :channels
 
-  belongs_to :organization
   belongs_to :location
   belongs_to :game_referrer, :class_name => "User"
   belongs_to :spouse, :class_name => "User"
@@ -147,7 +146,6 @@ class User < ActiveRecord::Base
     set_slugs_based_on_name if name_present? && (self.slug.blank? || self.sms_slug.blank?)
   end
 
-
   before_validation do
     downcase_sms_slug
   end
@@ -209,7 +207,7 @@ class User < ActiveRecord::Base
   scope :client_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin = ?', true, true) }
 
   def self.paid_client_admin
-    joins(board_memberships: :demo).where(board_memberships: { is_client_admin: true }).where(board_memberships: { demo: { is_paid: true } }).uniq
+    joins(board_memberships: :demo).where(board_memberships: { is_client_admin: true }).where(board_memberships: { demo: { customer_status_cd: Demo.customer_statuses[:paid] } }).uniq
   end
 
   # TODO: Rewrite this method to use roles architecture and deprecate explore family:
@@ -255,8 +253,12 @@ class User < ActiveRecord::Base
     self.demo.try(&:id)
   end
 
+  def organization
+    demo.organization
+  end
+
   def organization_id
-    self.demo.try(&:organization_id)
+    organization.try(:id)
   end
 
   def email_optional?
@@ -578,10 +580,11 @@ class User < ActiveRecord::Base
       game:                  demo_id,
       users_in_board:        demo.try(:users_count) || 0,
       organization:          organization_id,
+      organization_size:     organization.try(:company_size),
       account_creation_date: created_at.try(:to_date),
       joined_game_date:      accepted_invitation_at.try(:to_date),
       user_type:             highest_ranking_user_type,
-      board_type:            (demo.try(:is_paid) ? "Paid" : "Free"),
+      board_type:            demo.try(:customer_status_for_mixpanel),
       first_time_user:       false,
       days_since_activated:  days_since_activated,
       paid_organizations_count: Organization.paid_organizations_count
@@ -599,7 +602,7 @@ class User < ActiveRecord::Base
       email: email,
       demo: demo_id,
       organization: organization_id,
-      board_type: (demo.try(:is_paid) ? "Paid" : "Free"),
+      board_type: demo.try(:customer_status_for_mixpanel),
       user_hash: OpenSSL::HMAC.hexdigest('sha256', ENV["INTERCOM_API_SECRET"], id.to_s)
     }
   end
@@ -1166,8 +1169,8 @@ class User < ActiveRecord::Base
     demos == [board]
   end
 
-  def not_in_any_paid_boards?
-    demos.where(is_paid: true).first.nil?
+  def not_in_any_paid_or_trial_boards?
+    demos.paid.empty? && demos.free_trial.empty?
   end
 
   def can_see_raffle_modal?

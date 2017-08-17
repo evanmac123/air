@@ -300,4 +300,18 @@ RSpec.describe TilesDigest, :type => :model do
       expect(digest.unique_logins_by_subject_line).to eq(["3", "B", "2", "A"])
     end
   end
+
+  describe ".paid" do
+    it "returns a collection of TilesDigests that came from paid boards" do
+      paid_board = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
+      _free_board = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free])
+      _trial_board = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:trial])
+
+      Demo.scoped.each do |demo|
+        demo.tiles_digests.create
+      end
+
+      expect(TilesDigest.paid.pluck(:id)).to eq(paid_board.tiles_digests.pluck(:id))
+    end
+  end
 end

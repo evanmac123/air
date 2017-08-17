@@ -1,0 +1,28 @@
+<div class="card-component">
+  <div class="card-header danger">
+    <div class="card-title-group">
+      <div class="row">
+        <div class="columns large-6 small-12">
+          <h3 class="card-title"></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-content">
+        <div class="row">
+          <div class="small-6 columns">
+            <%= link_to "Delete Board", "#", id: "delete-board", class: "inline button red danger", form_class: "inline" %>
+          </div>
+          <% if @demo.organization.present? %>
+            <div class="small-6 columns">
+              <%= link_to admin_demo_path(@demo), class: "right button outlined unlink" do %>
+                <%=fa_icon("unlink") %>
+                <span>Unlink this board from: <%= @demo.organization_name %></span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+    </div>
+  </div>
+</div>

@@ -18,14 +18,14 @@ class Charts::Queries::TileQuery
   end
 
   def chart_end_date
-    chart_start_date.beginning_of_day + 2.days
+    chart_start_date.beginning_of_day + 2.5.days
   end
 
   def chart_start_date
-    tile.tile_viewings.order(:created_at).limit(10).last.try(:created_at) || tile.sent_at || tile.activated_at || tile.created_at
+    tile.sent_at || tile.activated_at || tile.created_at
   end
 
   def tile_stats_chart_range
-    (chart_start_date - 3.hours)..chart_end_date
+    (chart_start_date - 2.hours)..chart_end_date
   end
 end

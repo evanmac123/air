@@ -1,0 +1,39 @@
+<div class="card-component">
+  <div class="card-header">
+    <div class="card-title-group">
+      <div class="row">
+        <div class="columns large-6 small-12">
+          <h3 class="card-title">Actions</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-content">
+      <div class="row">
+        <div class="columns large-12">
+          <h4>
+            <%= link_to "Characteristics for this board", admin_demo_characteristics_path(@demo) %>
+          </h4>
+          <h4>
+            <%= link_to "Segment users", admin_demo_segmentation_path(@demo) %>
+          </h4>
+          <% if @demo.dependent_board_enabled %>
+            <h4>
+              <%= link_to "Dependent board data", admin_demo_dependent_board_path(@demo) %>
+            </h4>
+          <% end %>
+          <h4>
+            <%= link_to "Send targeted messages to users in this demo", admin_demo_targeted_messages_path(@demo) %>
+          </h4>
+          <h4>
+            <%= link_to "Conduct raffle", admin_demo_raffles_path(@demo) %>
+          </h4>
+          <h4>
+            <%= link_to "Count peer invitations", admin_demo_peer_invitations_path(@demo) %>
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

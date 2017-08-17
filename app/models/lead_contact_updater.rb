@@ -64,9 +64,6 @@ class LeadContactUpdater
     def find_or_create_organization
       Organization.where(
         name: lead_contact.organization_name
-      ).first_or_create(
-        size_estimate: lead_contact.organization_size,
-        sales_channel: "inbound"
-      )
+      ).first_or_create
     end
 end

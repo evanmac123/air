@@ -52,7 +52,7 @@ module Reporting
     end
 
     def get_total_paid_orgs
-      @total_paid_orgs = Organization.joins(:demos).where(demos: { is_paid: true }).uniq.count
+      @total_paid_orgs = Organization.paid_organizations_count
     end
 
     def total_paid_orgs

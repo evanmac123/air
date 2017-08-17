@@ -1033,17 +1033,20 @@ describe User, "add_tickets" do
   end
 end
 
-describe User, "#not_in_any_paid_boards?" do
+describe User, "#not_in_any_paid_or_trial_boards?" do
   it "returns what you'd think" do
     user = FactoryGirl.create(:user)
-    expect(user.not_in_any_paid_boards?).to be_truthy
+    expect(user.not_in_any_paid_or_trial_boards?).to be_truthy
 
-    user.demo.update_attributes(is_paid: true)
-    expect(user.not_in_any_paid_boards?).to be_falsey
+    user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:paid])
+    expect(user.not_in_any_paid_or_trial_boards?).to be_falsey
 
-    user.demo.update_attributes(is_paid: false)
+    user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:trial])
+    expect(user.not_in_any_paid_or_trial_boards?).to be_falsey
+
+    user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:free])
     user.add_board(FactoryGirl.create(:demo, :paid))
-    expect(user.not_in_any_paid_boards?).to be_falsey
+    expect(user.not_in_any_paid_or_trial_boards?).to be_falsey
   end
 end
 
@@ -1060,8 +1063,8 @@ end
 
 describe User, ".paid_client_admin" do
   it "should return users who have a client admin board membership in a demo that is paid" do
-    paid_demo = FactoryGirl.create(:demo, name: "Paid", is_paid: true)
-    unpaid_demo = FactoryGirl.create(:demo, name: "Unpaid", is_paid: false)
+    paid_demo = FactoryGirl.create(:demo, name: "Paid", customer_status_cd: Demo.customer_statuses[:paid])
+    unpaid_demo = FactoryGirl.create(:demo, name: "Unpaid", customer_status_cd: Demo.customer_statuses[:free])
 
     paid_client_admin = FactoryGirl.create(:user, name: "Paid Ca")
     paid_client_admin.board_memberships.create(demo: paid_demo, is_client_admin: true)

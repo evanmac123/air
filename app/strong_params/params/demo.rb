@@ -33,7 +33,6 @@ module Params
         :total_user_rankings_last_updated_at,
         :average_user_rankings_last_updated_at,
         :mute_notice_threshold,
-        :join_type,
         :sponsor,
         :example_tooltip,
         :example_tutorial,
@@ -60,6 +59,7 @@ module Params
         :logo_content_type,
         :logo_file_size,
         :logo_updated_at,
+        :logo,
         :everyone_can_make_tile_suggestions,
         :cover_message,
         :cover_image_file_name,
@@ -70,7 +70,7 @@ module Params
 
       if current_user.is_site_admin?
         attrs.concat [
-          :is_paid,
+          :customer_status_cd,
           :dependent_board_enabled,
           :dependent_board_id,
           :dependent_board_email_subject,

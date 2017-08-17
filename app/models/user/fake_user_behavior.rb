@@ -48,7 +48,7 @@ module User::FakeUserBehavior
     false
   end
 
-  def not_in_any_paid_boards?
+  def not_in_any_paid_or_trial_boards?
     false
   end
 

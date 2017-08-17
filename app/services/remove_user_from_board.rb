@@ -48,7 +48,7 @@ class RemoveUserFromBoard
   end
 
   def board_isnt_paid?
-    @board_isnt_paid ||= !(board_membership_to_leave.demo.is_paid)
+    @board_isnt_paid ||= !(board_membership_to_leave.demo.paid?)
   end
 
   def not_last_board?

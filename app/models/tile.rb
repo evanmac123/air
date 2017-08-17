@@ -1,6 +1,3 @@
-
-
-
 class Tile < ActiveRecord::Base
   include Concerns::TileImageable
 

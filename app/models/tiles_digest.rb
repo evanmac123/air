@@ -22,7 +22,7 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def self.paid
-    joins(:demo).where(demo: { is_paid: true })
+    joins(:demo).where(demo: { customer_status_cd: Demo.customer_statuses[:paid] })
   end
 
   # TODO: These queries can be optimized

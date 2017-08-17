@@ -22,6 +22,6 @@ class DeleteUserAccount
     end
 
     def in_a_paid_board?
-      @in_a_paid_board ||= @user.demos.where(is_paid: true).first.present?
+      @in_a_paid_board ||= @user.demos.paid.present?
     end
 end

@@ -68,8 +68,8 @@ class Admin::Sales::LeadContactsController < AdminBaseController
         @organizations = Organization.select(:name)
       elsif @lead_contact.status == "approved"
         @campaigns = Demo.campaigns.select([:id, :name, :public_slug])
-        @user = User.new(name: @lead_contact.name, email: @lead_contact.email, organization_id: @lead_contact.organization.id)
-        @board = @user.demos.new(name: @lead_contact.organization_name)
+        @user = User.new(name: @lead_contact.name, email: @lead_contact.email)
+        @board = @user.demos.new(name: @lead_contact.organization_name, organization_id: @lead_contact.organization.id)
         @board_names = Demo.pluck(:name)
       end
     end

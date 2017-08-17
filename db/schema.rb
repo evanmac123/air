@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170815222939) do
+ActiveRecord::Schema.define(:version => 20170816225319) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -415,7 +415,6 @@ ActiveRecord::Schema.define(:version => 20170815222939) do
     t.datetime "total_user_rankings_last_updated_at"
     t.datetime "average_user_rankings_last_updated_at"
     t.integer  "mute_notice_threshold"
-    t.text     "join_type",                                            :default => "pre-populated",   :null => false
     t.string   "sponsor"
     t.string   "example_tooltip"
     t.string   "example_tutorial"
@@ -463,6 +462,7 @@ ActiveRecord::Schema.define(:version => 20170815222939) do
     t.boolean  "guest_user_conversion_modal",                          :default => true
     t.integer  "users_count"
     t.boolean  "marked_for_deletion",                                  :default => false
+    t.integer  "customer_status_cd",                                   :default => 0
   end
 
   add_index "demos", ["dependent_board_id"], :name => "index_demos_on_dependent_board_id"
@@ -764,13 +764,10 @@ ActiveRecord::Schema.define(:version => 20170815222939) do
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.integer  "num_employees"
-    t.string   "sales_channel"
     t.boolean  "churned"
-    t.text     "churn_reason"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
     t.boolean  "is_hrm",                :default => false
-    t.string   "size_estimate"
     t.string   "slug"
     t.boolean  "internal",              :default => false
     t.integer  "demos_count",           :default => 0,     :null => false
@@ -783,6 +780,7 @@ ActiveRecord::Schema.define(:version => 20170815222939) do
     t.string   "email"
     t.string   "zip_code"
     t.date     "free_trial_started_at"
+    t.integer  "company_size_cd",       :default => 0
   end
 
   add_index "organizations", ["name"], :name => "index_organizations_on_name"

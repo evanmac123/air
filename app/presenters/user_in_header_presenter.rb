@@ -87,7 +87,7 @@ class UserInHeaderPresenter
 
   def can_create_board?
     current_user.is_site_admin ||
-    current_user.not_in_any_paid_boards? ||
+    current_user.not_in_any_paid_or_trial_boards? ||
     current_user.is_client_admin_in_any_board
   end
 
