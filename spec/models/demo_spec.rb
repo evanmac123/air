@@ -7,6 +7,53 @@ describe Demo do
   it { is_expected.to have_many(:characteristics) }
 
   it { should_have_valid_mime_type(Demo, :logo_content_type) }
+
+  describe "#customer_status_for_mixpanel" do
+    it "returns 'Free' if demo is free" do
+      d = Demo.new(customer_status_cd: Demo.customer_statuses[:free])
+
+      expect(d.customer_status_for_mixpanel).to eq("Free")
+    end
+
+    it "returns 'Paid' if demo is paid" do
+      d = Demo.new(customer_status_cd: Demo.customer_statuses[:paid])
+
+      expect(d.customer_status_for_mixpanel).to eq("Paid")
+    end
+
+    it "returns 'Trial' if demo is in a trial" do
+      d = Demo.new(customer_status_cd: Demo.customer_statuses[:trial])
+
+      expect(d.customer_status_for_mixpanel).to eq("Trial")
+    end
+  end
+
+  describe ".paid" do
+    it "returns a collection of all paid demos" do
+      paid_demos = FactoryGirl.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:paid])
+      _free_demos = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free])
+
+      expect(Demo.paid).to eq(paid_demos)
+    end
+  end
+
+  describe ".free" do
+    it "returns a collection of all free demos" do
+      free_demos = FactoryGirl.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:free])
+      _paid_demos = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
+
+      expect(Demo.free).to eq(free_demos)
+    end
+  end
+
+  describe ".free_trial" do
+    it "returns a collection of all trial demos" do
+      trial_demos = FactoryGirl.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:trial])
+      _paid_demos = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
+
+      expect(Demo.free_trial).to eq(trial_demos)
+    end
+  end
 end
 
 describe Demo, "#welcome_message" do

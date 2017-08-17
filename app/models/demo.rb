@@ -73,7 +73,7 @@ class Demo < ActiveRecord::Base
 
   scope :campaigns, -> { joins(:topic_board).where(topic_board: { is_library: true } ) }
 
-  as_enum :customer_status, free: 0, paid: 1, free_trial: 2
+  as_enum :customer_status, free: 0, paid: 1, trial: 2
 
   def customer_status_for_mixpanel
     customer_status.to_s.capitalize
@@ -108,7 +108,7 @@ class Demo < ActiveRecord::Base
   end
 
   def self.free_trial
-    where(customer_status_cd: Demo.customer_statuses[:free_trial])
+    where(customer_status_cd: Demo.customer_statuses[:trial])
   end
 
   def self.unmatched

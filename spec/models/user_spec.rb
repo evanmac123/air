@@ -1041,7 +1041,7 @@ describe User, "#not_in_any_paid_or_trial_boards?" do
     user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:paid])
     expect(user.not_in_any_paid_or_trial_boards?).to be_falsey
 
-    user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:free_trial])
+    user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:trial])
     expect(user.not_in_any_paid_or_trial_boards?).to be_falsey
 
     user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:free])
