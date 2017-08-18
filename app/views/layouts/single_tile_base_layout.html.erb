@@ -30,12 +30,12 @@
       <div class="single-tile-base-header">
         <div class="center header">
           <% if single_tile_logo(tile: @tile, source: @explore_or_public) %>
-            <%= link_to root_path do %>
-              <%= image_tag single_tile_logo(tile: @tile, source: @explore_or_public), class: "#{@explore_or_public.to_s}" %>
+            <%= link_to root_path(utm_source: "#{@explore_or_public.to_s}_single_tile", utm_campaign: @tile.headline) do %>
+              <%= image_tag single_tile_logo(tile: @tile, source: :explore), class: "#{@explore_or_public.to_s}" %>
             <% end %>
           <% end %>
 
-          <% if @explore_or_public == :public && !@tile.organization.try(:internal) %>
+          <% if false #@explore_or_public == :public && !@tile.organization.try(:internal) %>
             <%= link_to marketing_site_home_path(utm_source: "#{@explore_or_public.to_s}_single_tile", utm_campaign: "Powered by Airbo") do %>
               <%= image_tag "powered-by-airbo-vertical.svg", class: "float-right #{@explore_or_public.to_s}" %>
             <% end %>

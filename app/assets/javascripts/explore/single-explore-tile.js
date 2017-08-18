@@ -60,17 +60,17 @@ Airbo.ExploreSingleTile = (function(){
       title: "Tile Completed!",
       type: "success",
       cancelButtonText: "Close",
-      showCancelButton: true,
+      showCancelButton: false,
       text: "Airbo helps HR create a workplace that employees love.",
       html: true,
       confirmButtonColor: "#4fd4c0",
-      confirmButtonText: "See more great content",
+      confirmButtonText: confirmButtonText($entryPoint.data("currentUserIsClientAdmin")),
       closeOnConfirm: true,
       customClass: "airbo",
       allowOutsideClick: true
     },
     function(isConfirm) {
-      Airbo.Utils.ping("Single Explore Tile", { action: "Clicked to see more content" });
+      Airbo.Utils.ping("Single Explore Tile", { action: "clicked tile completed CTA", cta: $(this)[0].confirmButtonText });
       if(isConfirm) {
         var url = $entryPoint.data("moreContentUrl");
         var win = window.open(url, "_blank");
@@ -83,12 +83,31 @@ Airbo.ExploreSingleTile = (function(){
     });
   }
 
+  function confirmButtonText(isClientAdmin) {
+    if (isClientAdmin) {
+      return "See More Great Content";
+    } else {
+      return "Learn More About Airbo";
+    }
+  }
+
+  function initPingEvents() {
+    $(".jssocials-share").on("click", function(e) {
+      Airbo.Utils.ping("Single Explore Tile", { action: "Share option clicked", shareOption: $(this).attr("class") });
+    });
+
+    $(".share-link").one("focusin", function(e) {
+      Airbo.Utils.ping("Single Explore Tile", { action: "Share option clicked", shareOption: $(this).attr("class") });
+    });
+  }
+
   function init() {
     $entryPoint = $(".js-single-tile-base");
     tileType = $entryPoint.data("exploreOrPublic");
 
     initSocialShareLinks($(".social-share"));
     initAnswerCorrectModal();
+    initPingEvents();
   }
 
   return {
