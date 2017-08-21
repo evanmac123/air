@@ -4,8 +4,13 @@
 }
 .attachments{
   padding: 20px 40px;
-
   border-top: 2px dashed #f3f3f3;
+}
+
+.not_completed , .completed {
+ .attachments{
+    border: none; 
+  }
 }
 
 .tile-attachment{
@@ -77,8 +82,5 @@
 }
 
 
-.search_form {
-
-}
 
 

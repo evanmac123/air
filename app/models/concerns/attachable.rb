@@ -26,6 +26,7 @@ module Concerns::Attachable
   def documents
     h = {}
     file_attachments.each do |filename,path|
+      filename = filename.gsub("_dot_" , "." )
       h[filename]="https://s3.amazonaws.com/#{APP_BUCKET}#{path}"
     end
     h
@@ -50,7 +51,7 @@ module Concerns::Attachable
       self.file_attachments = {}
       attachments.drop_while{|x|x=="DELETE"}.each do |url|
         uri = URI.parse(URI.escape(url))
-        filename = File.basename(uri.path)
+        filename = File.basename(uri.path).gsub(".", "_dot_")
         self.file_attachments[filename]=uri.path
       end
     end
