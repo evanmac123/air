@@ -19,10 +19,11 @@
   color: #33445c;
   margin-bottom: 5px;
   margin-right: 10px;
+  margin-left: 10px;
 }
 
-.tile-attachment:not(:first-of-type) {
-  margin-left: 10px;
+.tile-attachment:nth-child(4n+1) {
+  margin-left: 0px;
 }
 
 .tile-attachment a{
