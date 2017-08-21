@@ -51,7 +51,7 @@ Airbo.TileAttachmentUploader = (function() {
 
     attachment.append(field);
     attachment.append(link);
-    attachment.append("<i class='fa fa-trash attachment-delete'></i><br/>");
+    attachment.append("<i class='fa fa-times-circle attachment-delete'></i><br/>");
     $(".attachment-list").append(attachment);
   }
 

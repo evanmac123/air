@@ -34,10 +34,12 @@
             </div>
             <div class="attachments">
               <%= render partial: "/client_admin/tiles/tile_attachments", locals: {tile: @tile}%>
-              <a class=" js-file-upload-trigger add-attachment-wrapper" data-target="#file-uploader" >
-                <%=fa_icon "plus", class: "icon-add-attachment"%> 
-                <span class="add-attachment">Add Attachment</span>
-              </a>
+              <div class="add-attachment-wrapper">
+                <a class=" js-file-upload-trigger " data-target="#file-uploader" >
+                  <%=fa_icon "plus", class: "icon-add-attachment"%> 
+                  <span class="add-attachment">Add Attachment</span>
+                </a>
+              </div>
             </div>
             <%= render 'shared/tiles/form/question_and_answer_section', form: f %>
           </div>

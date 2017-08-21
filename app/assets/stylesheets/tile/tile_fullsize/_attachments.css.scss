@@ -1,6 +1,7 @@
 
 .attachment-list {
-  margin-bottom: 20px;
+  padding-top: 12px;
+  margin-bottom: 0px;
 }
 .attachments{
   padding: 20px 40px;
@@ -10,6 +11,7 @@
 .not_completed , .completed {
  .attachments{
     border: none; 
+  border-top: 1px dashed #f3f3f3;
   }
 }
 
@@ -21,18 +23,25 @@
   text-align: center;
   display: inline-block;
   background-color: #f3f3f3;
-  color: #33445c;
-  margin-bottom: 5px;
-  margin-right: 10px;
-  margin-left: 10px;
+  color: $text-color;
+  margin-bottom: 12px;
+  margin-right: 18px;
+  margin-left: 18px;
+  position: relative;
 }
 
 .tile-attachment:nth-child(4n+1) {
   margin-left: 0px;
 }
+.tile-attachment:nth-child(4n) {
+  margin-right: 0px;
+}
 
 .tile-attachment a{
   color: inherit;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
 }
 .icon-tile-attachment{
   font-size: 30px;
@@ -54,30 +63,33 @@
 }
 
 .attachment-delete {
-  font-size: 10px;
   cursor: pointer;
-  color: #ff5656;
-  padding: 5px 10px;
+  padding: 10px;
+
+  color: $text-color; 
+  position: absolute;
+  top: -15px;
+  right: -15px;
 }
 
 .icon-add-attachment{
-  color: #546682;
+  color: $text-color;
   margin-left: 10px;
   margin-right: 6px;
 }
 
 .add-attachment-wrapper{
-  width: 160px;
-  height: 30px;
   border-radius: 3px;
-  background-color: #ebedee;
-  padding: 6px 10px 3px 0px;
+  background-color: #f3f3f3;
+  padding: 7px 5px 7px 0px;
+  display: inline-block;
+  margin-top: 10px;
 }
 .add-attachment {
   width: 121px;
   height: 22px;
   font-size: 16px;
   font-weight: 500;
-  color: #546682;
+  color: $text-color;
 }
 
