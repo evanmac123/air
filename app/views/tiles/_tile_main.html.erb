@@ -11,9 +11,6 @@
       </div>
     <% end %>
   </div>
-  <% if tile.is_anonymous? %>
-    <%= render "/shared/tiles/anonymous_banner" %>
-  <% end %>
 
   <% if tile.documents.count > 0 %>
     <div class="attachments">
@@ -21,6 +18,9 @@
     </div>
   <%end%>
 
+  <% if tile.is_anonymous? %>
+    <%= render "/shared/tiles/anonymous_banner" %>
+  <% end %>
   <div class="tile_quiz">
     <% if tile.points %>
       <div class="tile_points_bar">
