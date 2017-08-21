@@ -68,15 +68,15 @@ describe Concerns::Attachable do
       it "populates hash" do
         t = Tile.new
         t.attachments = ["DELETE", "https://s3.amazonaws.com/#{APP_BUCKET}/file1.pdf"]
-        expect{t.valid?}.to change{t.file_attachments}.to({"file1.pdf"=>"/airbo-development/file1.pdf"})
+        expect{t.valid?}.to change{t.file_attachments}.to({"file1_dot_pdf"=>"/airbo-development/file1.pdf"})
       end
 
       it "populates hash" do
         t = Tile.new
-        t.file_attachments = {"file1.pdf"=>"/airbo-development/file1.pdf"}
+        t.file_attachments = {"file1_dot_pdf"=>"/airbo-development/file1.pdf"}
         t.stubs(:delete_s3_attachments)
         t.attachments = ["DELETE"]
-        expect{t.save}.to change{t.file_attachments}.from({"file1.pdf"=>"/airbo-development/file1.pdf"}).to({})
+        expect{t.save}.to change{t.file_attachments}.from({"file1_dot_pdf"=>"/airbo-development/file1.pdf"}).to({})
       end
 
 
@@ -84,7 +84,7 @@ describe Concerns::Attachable do
         t = Tile.new
         t.file_attachments = {"file1.pdf"=>"/airbo-development/file1.pdf", "file2.pdf"=>"/airbo-development/file2.pdf"}
         t.attachments = ["DELETE", "https://s3.amazonaws.com/#{APP_BUCKET}/file1.pdf"]
-        expect{t.save}.to change{t.file_attachments}.from({"file1.pdf"=>"/airbo-development/file1.pdf", "file2.pdf"=>"/airbo-development/file2.pdf"}).to({"file1.pdf"=>"/airbo-development/file1.pdf"})
+        expect{t.save}.to change{t.file_attachments}.from({"file1.pdf"=>"/airbo-development/file1.pdf", "file2.pdf"=>"/airbo-development/file2.pdf"}).to({"file1_dot_pdf"=>"/airbo-development/file1.pdf"})
       end
 
       it "deletes elements not in attachments" do
@@ -95,7 +95,7 @@ describe Concerns::Attachable do
           "file1.pdf"=>"/airbo-development/file1.pdf", 
           "file2.pdf"=>"/airbo-development/file2.pdf",
           "file3.pdf"=>"/airbo-development/file3.pdf"
-        }).to({"file1.pdf"=>"/airbo-development/file1.pdf", "file3.pdf"=>"/airbo-development/file3.pdf"})
+        }).to({"file1_dot_pdf"=>"/airbo-development/file1.pdf", "file3_dot_pdf"=>"/airbo-development/file3.pdf"})
       end
 
     end
