@@ -1,75 +1,83 @@
-   form.s3-uploader{
-     visibility: hidden;
-     height: 0px;
-     width: 0px;
-   }
-   .attachment-list {
-     margin-bottom: 20px;
-   }
-   .attachments{
-     padding: 20px 40px;
 
-     border-top: 2px dashed #f3f3f3;
-   }
+.attachment-list {
+  margin-bottom: 20px;
+}
+.attachments{
+  padding: 20px 40px;
 
-   .tile-attachment{
-     padding:20px 3px 10px 3px;
-     height: 100px;
-     width: 100px;
-     border-radius: 4px;
-     text-align: center;
-     display: inline-block;
-     background-color: #f3f3f3;
-     color: #33445c;
-     margin-bottom: 5px;
-     margin-right: 10px;
-   }
+  border-top: 2px dashed #f3f3f3;
+}
 
-   .tile-attachment:not(:first-of-type) {
-     margin-left: 10px;
-   }
+.tile-attachment{
+  padding:20px 3px 10px 3px;
+  height: 100px;
+  width: 100px;
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+  background-color: #f3f3f3;
+  color: #33445c;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
 
-   .tile-attachment a{
-     color: inherit;
-   }
-   .icon-tile-attachment{
-     font-size: 30px;
-   }
+.tile-attachment:not(:first-of-type) {
+  margin-left: 10px;
+}
 
-   .attachment-filename{
-     font-size: 10px;
-     padding: 3px;
-     margin-top: 10px;
-     text-overflow: ellipsis;
-     overflow: hidden;
-     white-space: nowrap;
-   }
+.tile-attachment a{
+  color: inherit;
+}
+.icon-tile-attachment{
+  font-size: 30px;
+}
+
+.attachment-filename{
+  font-size: 10px;
+  padding: 3px;
+  margin-top: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.not_completed , .completed {
+  .attachment-delete {
+    display: none;
+  }
+}
+
+.attachment-delete {
+  font-size: 10px;
+  cursor: pointer;
+  color: #ff5656;
+  padding: 5px 10px;
+}
+
+.icon-add-attachment{
+  color: #546682;
+  margin-left: 10px;
+  margin-right: 6px;
+}
+
+.add-attachment-wrapper{
+  width: 160px;
+  height: 30px;
+  border-radius: 3px;
+  background-color: #ebedee;
+  padding: 6px 10px 3px 0px;
+}
+.add-attachment {
+  width: 121px;
+  height: 22px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #546682;
+}
 
 
-   .attachment-delete {
-     font-size: 10px;
-     cursor: pointer;
-     color: #ff5656;
-     padding: 5px 10px;
-   }
+.search_form {
 
-   .icon-add-attachment{
-     color: #546682;
-     margin-left: 10px;
-     margin-right: 6px;
-   }
+}
 
-   .add-attachment-wrapper{
-     width: 160px;
-     height: 30px;
-     border-radius: 3px;
-     background-color: #ebedee;
-     padding: 6px 10px 3px 0px;
-   }
-   .add-attachment {
-     width: 121px;
-     height: 22px;
-     font-size: 16px;
-     font-weight: 500;
-     color: #546682;
-   }
+
