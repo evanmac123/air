@@ -33,16 +33,21 @@ module Concerns::Attachable
   end
 
   def delete_s3_attachments
-    s3 = AWS::S3.new
-    bucket = s3.buckets[APP_BUCKET]
-    file_attachments.each do |filename,path |
-      s3_key = path[1..-1]
-      s3_key.gsub!("%20", " ")
-      bucket.objects[s3_key].delete
-    end
+    get_attachments.map(&:delete)
   end
 
   private
+
+  def get_attachments
+    s3 = AWS::S3.new
+    bucket = s3.buckets[APP_BUCKET]
+    file_attachments.map do |filename,path |
+      s3_key = path[1..-1]
+      s3_key.gsub!("%20", " ")
+      bucket.objects[s3_key]
+    end
+  end
+
   def update_attachments
     if all_attachments_deleted?
       delete_s3_attachments
