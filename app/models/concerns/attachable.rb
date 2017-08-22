@@ -13,6 +13,9 @@ module Concerns::Attachable
   # Since we are re-writing the serialized value everytime something changes it
   # might simplify things
   #
+  # 
+  BASE_ATTACHMENT_PATH ="tile_attachments/board/"
+
   extend ActiveSupport::Concern
   included do
     # attachments is an array of urls submitted via the form.
@@ -21,6 +24,8 @@ module Concerns::Attachable
     serialize :file_attachments, Hash
     before_destroy :delete_s3_attachments 
     before_validation :update_attachments
+    before_validation :update_attachments
+    #after_create :move_attachments
   end
 
   def documents
@@ -36,16 +41,39 @@ module Concerns::Attachable
     get_attachments.map(&:delete)
   end
 
-  private
+  def copy_s3_attachments new_key
+    get_attachments.map do |object|
+      object.copy_to new_key
+    end
+  end
 
+  def copy_one_s3_attachment filename
+
+  end
+
+  def tile_attachments_path
+    "#{BASE_ATTACHMENT_PATH}/#{demo_id}/#{id}"
+  end 
+
+  private
+  def s3
+    @s3 ||= AWS::S3.new
+  end
+
+  def s3_attachment_bucket
+    @bucket ||= s3.buckets[APP_BUCKET]
+  end
+ 
   def get_attachments
-    s3 = AWS::S3.new
-    bucket = s3.buckets[APP_BUCKET]
     file_attachments.map do |filename,path |
       s3_key = path[1..-1]
       s3_key.gsub!("%20", " ")
-      bucket.objects[s3_key]
+      get_s3_object s3_key
     end
+  end
+
+  def get_s3_object s3_key
+    s3_attachment_bucket.objects[s3_key]
   end
 
   def update_attachments
