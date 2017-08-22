@@ -24,8 +24,7 @@ module Concerns::Attachable
     serialize :file_attachments, Hash
     before_destroy :delete_s3_attachments 
     before_validation :update_attachments
-    before_validation :update_attachments
-    #after_create :move_attachments
+    after_save :copy_to_self
   end
 
   def documents
@@ -41,9 +40,11 @@ module Concerns::Attachable
     get_attachments.map(&:delete)
   end
 
-  def copy_s3_attachments new_key
-    get_attachments.map do |object|
-      object.copy_to new_key
+
+  def copy_s3_attachments_to tile
+    file_attachments.map do |filename, path|
+     obj = get_s3_object calc_s3_key(path)
+      copy_attachment obj, filename, tile unless already_attached?(path, tile)
     end
   end
 
@@ -55,6 +56,21 @@ module Concerns::Attachable
   end 
 
   private
+
+  def already_attached? path, tile
+    path.include?("tile/#{tile.id}")
+  end
+
+  def copy_to_self
+    copy_s3_attachments_to self
+    #updae file_attachments
+  end
+
+  def copy_attachment object, filename, target
+    unencoded_file_name = filename.gsub("_dot_", "." ).gsub("%20", " ")
+    copy = object.copy_to "#{target.tile_attachments_path}/#{unencoded_file_name}"
+  end
+
   def s3
     @s3 ||= AWS::S3.new
   end
