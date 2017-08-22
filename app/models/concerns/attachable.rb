@@ -47,9 +47,6 @@ module Concerns::Attachable
     end
   end
 
-  def copy_one_s3_attachment filename
-
-  end
 
   def tile_attachments_path
     "#{BASE_ATTACHMENT_PATH}/#{demo_id}/#{id}"
@@ -66,10 +63,13 @@ module Concerns::Attachable
  
   def get_attachments
     file_attachments.map do |filename,path |
-      s3_key = path[1..-1]
-      s3_key.gsub!("%20", " ")
-      get_s3_object s3_key
+      get_s3_object calc_s3_key(path)
     end
+  end
+
+  def calc_s3_key path
+    s3_key = path[1..-1]
+    s3_key.gsub("%20", " ")
   end
 
   def get_s3_object s3_key
