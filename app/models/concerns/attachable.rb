@@ -24,7 +24,7 @@ module Concerns::Attachable
     serialize :file_attachments, Hash
     before_destroy :delete_s3_attachments 
     before_validation :update_attachments
-    after_save :copy_to_self
+    before_save :copy_to_self,  unless: :new_record?
   end
 
   def documents
@@ -48,12 +48,19 @@ module Concerns::Attachable
     end
   end
 
-
   def tile_attachments_path
     base =  "#{BASE_ATTACHMENT_PATH}/#{demo_id}/tile"
     base += "/#{id}" unless new_record?
     base
   end 
+
+  def copy_attachment object, filename, target
+    unencoded_file_name = filename.gsub("_dot_", "." ).gsub("%20", " ")
+    new_key = "#{target.tile_attachments_path}/#{SecureRandom.hex}/#{unencoded_file_name}"
+    copy = object.copy_to(new_key, {:acl => :public_read})
+    new_path = copy.public_url.path.gsub(" ", "%20")
+    target.file_attachments[filename]= new_path
+  end
 
   private
 
@@ -66,11 +73,6 @@ module Concerns::Attachable
     #updae file_attachments
   end
 
-  def copy_attachment object, filename, target
-    unencoded_file_name = filename.gsub("_dot_", "." ).gsub("%20", " ")
-    copy = object.copy_to "#{target.tile_attachments_path}/#{unencoded_file_name}"
-  end
-
   def s3
     @s3 ||= AWS::S3.new
   end
@@ -78,7 +80,7 @@ module Concerns::Attachable
   def s3_attachment_bucket
     @bucket ||= s3.buckets[APP_BUCKET]
   end
- 
+
   def get_attachments
     file_attachments.map do |filename,path |
       get_s3_object calc_s3_key(path)

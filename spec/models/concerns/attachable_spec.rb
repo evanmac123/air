@@ -1,6 +1,24 @@
 require 'spec_helper'
 require 'aws-sdk'
 describe Concerns::Attachable do
+
+  let(:t){FactoryGirl.create(:multiple_choice_tile)}
+  let(:t2){FactoryGirl.create(:multiple_choice_tile)}
+  let(:s3){mock()}
+  let(:bucket){ mock()}
+  let(:buckets){ mock()}
+  let(:objects){ mock()}
+  let(:object){ mock()}
+  let(:copy){ mock()}
+  let(:pub_url){ mock()}
+
+  before do
+    AWS::S3.stubs(:new).returns(s3)
+    s3.stubs(:buckets).returns(buckets)
+    buckets.stubs(:[], APP_BUCKET).returns(bucket)
+    bucket.stubs(:objects).returns(objects)
+  end
+
   describe "#documents" do
     it "should return a document hash with two elements" do
       t = FactoryGirl.create(:multiple_choice_tile)
@@ -64,33 +82,24 @@ describe Concerns::Attachable do
       end
     end
 
-    describe "#copy_s3_attachments" do
+    describe "#copy_s3_object" do
+      it "copies object to new key" do
+        object.expects(:copy_to).returns(copy).once
+        copy.expects(:public_url).returns(pub_url).once
+        pub_url.expects(:path).returns("http://wwww.somwhere.com").once
+        t.copy_attachment object, "file1.pdf",  t2
+      end
+    end
 
-      let(:t){FactoryGirl.create(:multiple_choice_tile)}
-      context "copy objects" do
-        let(:s3){mock()}
-        let(:bucket){ mock()}
-        let(:buckets){ mock()}
-        let(:objects){ mock()}
-        let(:object){ mock()}
-
-        let(:new_path){"/somebucket/somepath"}
-
-        before do
-          AWS::S3.stubs(:new).returns(s3)
-          s3.stubs(:buckets).returns(buckets)
-          buckets.stubs(:[], APP_BUCKET).returns(bucket)
-          bucket.stubs(:objects).returns(objects)
-        end
-
-        it "should call s3 object delete for all elements" do
-          t.stubs(:file_attachments).returns({"file1" =>"/file1.pdf", "file2" =>"/file2.pdf"})
-          objects.expects(:[]).with("file1.pdf").returns(object)
-          objects.expects(:[]).with("file2.pdf").returns(object)
-          object.expects(:copy_to).twice
-          t.copy_s3_attachments(new_path)
-        end
-
+    describe "copy_s3_attachments_to" do
+      it "copies all objects  to new tile" do
+        t.stubs(:file_attachments).returns({"file1" =>"/file1.pdf", "file2" =>"/file2.pdf"})
+        objects.expects(:[]).with("file1.pdf").returns(object)
+        objects.expects(:[]).with("file2.pdf").returns(object)
+        object.expects(:copy_to).returns(copy).twice
+        copy.expects(:public_url).returns(pub_url).twice
+        pub_url.expects(:path).returns("http://wwww.somwhere.com").twice
+        t.copy_s3_attachments_to t2
       end
     end
 
