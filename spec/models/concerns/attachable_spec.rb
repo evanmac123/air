@@ -64,6 +64,37 @@ describe Concerns::Attachable do
       end
     end
 
+    describe "#copy_s3_attachments" do
+
+      let(:t){FactoryGirl.create(:multiple_choice_tile)}
+      context "copy objects" do
+        let(:s3){mock()}
+        let(:bucket){ mock()}
+        let(:buckets){ mock()}
+        let(:objects){ mock()}
+        let(:object){ mock()}
+
+        let(:new_path){"/somebucket/somepath"}
+
+        before do
+          AWS::S3.stubs(:new).returns(s3)
+          s3.stubs(:buckets).returns(buckets)
+          buckets.stubs(:[], APP_BUCKET).returns(bucket)
+          bucket.stubs(:objects).returns(objects)
+        end
+
+        it "should call s3 object delete for all elements" do
+          t.stubs(:file_attachments).returns({"file1" =>"/file1.pdf", "file2" =>"/file2.pdf"})
+          objects.expects(:[]).with("file1.pdf").returns(object)
+          objects.expects(:[]).with("file2.pdf").returns(object)
+          object.expects(:copy_to).twice
+          t.copy_s3_attachments(new_path)
+        end
+
+      end
+    end
+
+
     context "saving with attachments" do
       it "populates hash" do
         t = Tile.new
