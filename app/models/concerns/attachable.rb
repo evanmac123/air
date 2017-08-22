@@ -14,7 +14,7 @@ module Concerns::Attachable
   # might simplify things
   #
   # 
-  BASE_ATTACHMENT_PATH ="tile_attachments/board/"
+  BASE_ATTACHMENT_PATH ="tile_attachments/board"
 
   extend ActiveSupport::Concern
   included do
@@ -49,7 +49,9 @@ module Concerns::Attachable
 
 
   def tile_attachments_path
-    "#{BASE_ATTACHMENT_PATH}/#{demo_id}/#{id}"
+    base =  "#{BASE_ATTACHMENT_PATH}/#{demo_id}/tile"
+    base += "/#{id}" unless new_record?
+    base
   end 
 
   private

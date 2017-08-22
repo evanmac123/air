@@ -90,7 +90,7 @@
 
 
 
-<%= s3_uploader_form  id: "file-uploader", class: "s3-uploader", bucket: APP_BUCKET, data:{path: "tile_attachments/board/#{@demo.id}", uploadType: 'tileAttachment'} do %>
+<%= s3_uploader_form  id: "file-uploader", class: "s3-uploader", bucket: APP_BUCKET, data:{path: @tile.tile_attachments_path, uploadType: 'tileAttachment'} do %>
   <%= file_field_tag "file", id:"tileAttachment" , multiple: true%>
 <% end %>
 
