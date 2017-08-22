@@ -59,7 +59,8 @@ class TileCopier
         "question_type",
         "question_subtype",
         "allow_free_response",
-        "is_anonymous"
+        "is_anonymous",
+        "file_attachments"
       ].each do |field_to_copy|
         copy.send("#{field_to_copy}=", tile.send(field_to_copy))
       end
