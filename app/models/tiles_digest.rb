@@ -27,19 +27,13 @@ class TilesDigest < ActiveRecord::Base
 
   # TODO: These queries can be optimized
   def self.tile_completion_rate
-    if self.count > 0
-      (all.map(&:tile_completion_rate).compact.sum / self.count)
-    else
-      0
-    end
+    data = all.map(&:tile_completion_rate)
+    AirboStatistics.new(data).mean_without_outliers
   end
 
   def self.tile_view_rate
-    if self.count > 0
-      (all.map(&:tile_view_rate).compact.sum / self.count)
-    else
-      0
-    end
+    data = all.map(&:tile_view_rate)
+    AirboStatistics.new(data).mean_without_outliers
   end
 
   def self.dispatch(digest_params)
