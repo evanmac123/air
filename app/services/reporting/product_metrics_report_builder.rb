@@ -1,11 +1,11 @@
 class Reporting::ProductMetricsReportBuilder
   def self.build
     ProductMetricsReport.set_demo_tile_health_reports
-    Reporting::ProductMetricsReportBuilder.build_week
-    Reporting::ProductMetricsReportBuilder.build_month
+    Reporting::ProductMetricsReportBuilder.build_week(from_date: Date.today.beginning_of_week)
+    Reporting::ProductMetricsReportBuilder.build_month(from_date: Date.today.beginning_of_month)
   end
 
-  def self.build_week(from_date: Date.today.beginning_of_week)
+  def self.build_week(from_date:)
     to_date = from_date.end_of_week
 
     ProductMetricsReport.where({ from_date: from_date, to_date: to_date, period_cd: ProductMetricsReport.periods[:week] }).delete_all
@@ -15,7 +15,7 @@ class Reporting::ProductMetricsReportBuilder
     report.tap(&:save)
   end
 
-  def self.build_month(from_date: Date.today.beginning_of_month)
+  def self.build_month(from_date:)
     to_date = from_date.end_of_month
 
     ProductMetricsReport.where({ from_date: from_date, to_date: to_date, period_cd: ProductMetricsReport.periods[:month] }).delete_all
