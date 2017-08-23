@@ -2,7 +2,7 @@
   <%tile.documents.each do |name, url| %>
     <div class="tile-attachment" , data-key="<%=name%>" data-persisted="true">
       <%=hidden_field_tag "tile[attachments][]", url, id: name.gsub(" ", "_")%>
-      <%=link_to url, target: "hidden-download-target" do %>
+      <%=link_to url, target: "_blank" do %>
         <%=file_type_font_for name %>
         <div class="attachment-filename">
           <%= raw CGI.unescape(name)%>
@@ -13,4 +13,3 @@
   <%end%>
 </div>
 
-<iframe name="hidden-download-target" class="hidden"> </iframe>

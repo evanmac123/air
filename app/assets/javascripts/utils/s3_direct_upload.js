@@ -57,6 +57,7 @@ Airbo.DirectToS3FileUploader = (function(){
 
       form.fileupload(config)
       .on('fileuploadadd', function(e, data) {
+        $("#file-uploader #Content-Type").val(data.files[0].type);
         Airbo.PubSub.publish(eventPrefix + "added", data);
       }).on('fileuploadprocessalways', function (e, data) {
         handleAnyFileErrors(data.files[0]);
