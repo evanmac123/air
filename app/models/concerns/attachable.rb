@@ -70,7 +70,6 @@ module Concerns::Attachable
 
   def copy_to_self
     copy_s3_attachments_to self
-    #updae file_attachments
   end
 
   def s3
