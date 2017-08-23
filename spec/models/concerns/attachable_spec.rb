@@ -22,19 +22,19 @@ describe Concerns::Attachable do
   describe "#documents" do
     it "should return a document hash with two elements" do
       t = FactoryGirl.create(:multiple_choice_tile)
-      t.stubs(:file_attachments).returns({"file1" =>"file1.pdf", "file2" =>"file2.pdf"})
+      t.stubs(:file_attachments).returns({"file1" =>"/file1.pdf", "file2" =>"/file2.pdf"})
       expect(t.documents).to eq({
-        "file1" =>"https://s3.amazonaws.com/#{APP_BUCKET}file1.pdf", 
-        "file2" =>"https://s3.amazonaws.com/#{APP_BUCKET}file2.pdf"
+        "file1" =>"https://#{APP_BUCKET}.s3.amazonaws.com/file1.pdf",
+        "file2" =>"https://#{APP_BUCKET}.s3.amazonaws.com/file2.pdf"
       })
     end
 
 
     it "should return a document hash with 1 elements" do
       t = FactoryGirl.create(:multiple_choice_tile)
-      t.stubs(:file_attachments).returns({"file1" =>"file1.pdf"})
+      t.stubs(:file_attachments).returns({"file1" =>"/file1.pdf"})
       expect(t.documents).to eq({
-        "file1" =>"https://s3.amazonaws.com/#{APP_BUCKET}file1.pdf", 
+        "file1" =>"https://#{APP_BUCKET}.s3.amazonaws.com/file1.pdf"
       })
     end
 
