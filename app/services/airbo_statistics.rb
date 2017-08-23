@@ -1,23 +1,24 @@
 class AirboStatistics
   attr_reader :data
 
-  def initialize(data)
+  def initialize(data:)
     @data = DescriptiveStatistics::Stats.new(data.compact)
   end
 
-  def data_without_outliers
-    @_data_witout_outliers ||= DescriptiveStatistics::Stats.new(data.reject { |n| n < lower_outliers || n > upper_outliers })
+  def dataset_without_outliers
+    @_dataset_witout_outliers ||= set_dataset_without_outliers
   end
 
-  def mean_without_outliers
-    data_without_outliers.mean
+  def set_dataset_without_outliers
+    d = data.reject { |n| n < lower_outlier_threshold || n > upper_outlier_threshold }
+    AirboStatistics.new(data: d)
   end
 
-  def lower_outliers
+  def lower_outlier_threshold
     stats_base[:q1] - (1.5 * interquartile_range)
   end
 
-  def upper_outliers
+  def upper_outlier_threshold
     stats_base[:q3] + (1.5 * interquartile_range)
   end
 

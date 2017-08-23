@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170816225319) do
+ActiveRecord::Schema.define(:version => 20170822221053) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -850,6 +850,30 @@ ActiveRecord::Schema.define(:version => 20170816225319) do
 
   add_index "prerequisites", ["prerequisite_tile_id"], :name => "index_prerequisites_on_prerequisite_id"
   add_index "prerequisites", ["tile_id"], :name => "index_prerequisites_on_task_id"
+
+  create_table "product_metrics_reports", :force => true do |t|
+    t.date     "from_date"
+    t.date     "to_date"
+    t.integer  "period_cd",                           :default => 0
+    t.integer  "smb_tiles_delivered"
+    t.decimal  "smb_overall_completion_rate"
+    t.decimal  "smb_completion_rate_in_range"
+    t.decimal  "smb_overall_view_rate"
+    t.decimal  "smb_view_rate_in_range"
+    t.decimal  "smb_percent_orgs_posted"
+    t.decimal  "smb_percent_orgs_activity"
+    t.decimal  "smb_percent_orgs_copied"
+    t.integer  "enterprise_tiles_delivered"
+    t.decimal  "enterprise_overall_completion_rate"
+    t.decimal  "enterprise_completion_rate_in_range"
+    t.decimal  "enterprise_overall_view_rate"
+    t.decimal  "enterprise_view_rate_in_range"
+    t.decimal  "enterprise_percent_orgs_posted"
+    t.decimal  "enterprise_percent_orgs_activity"
+    t.decimal  "enterprise_percent_orgs_copied"
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
+  end
 
   create_table "push_messages", :force => true do |t|
     t.text     "subject"

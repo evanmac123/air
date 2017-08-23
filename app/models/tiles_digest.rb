@@ -25,15 +25,26 @@ class TilesDigest < ActiveRecord::Base
     joins(:demo).where(demo: { customer_status_cd: Demo.customer_statuses[:paid] })
   end
 
-  # TODO: These queries can be optimized
-  def self.tile_completion_rate
-    data = all.map(&:tile_completion_rate)
-    AirboStatistics.new(data).mean_without_outliers
+  def self.smb
+    joins(demo: :organization).where(demo: { organization: { company_size_cd: Organization.company_sizes[:smb] } })
   end
 
-  def self.tile_view_rate
+  def self.enterprise
+    joins(demo: :organization).where(demo: { organization: { company_size_cd: Organization.company_sizes[:enterprise] } })
+  end
+
+  def self.tile_completion_report
+    data = all.map(&:tile_completion_rate)
+    data_without_outliers = AirboStatistics.new(data: data).dataset_without_outliers
+
+    data_without_outliers
+  end
+
+  def self.tile_view_report
     data = all.map(&:tile_view_rate)
-    AirboStatistics.new(data).mean_without_outliers
+    data_without_outliers = AirboStatistics.new(data: data).dataset_without_outliers
+
+    data_without_outliers
   end
 
   def self.dispatch(digest_params)
