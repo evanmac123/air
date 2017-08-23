@@ -43,7 +43,7 @@ module Concerns::Attachable
 
   def copy_s3_attachments_to tile
     file_attachments.map do |filename, path|
-     obj = get_s3_object calc_s3_key(path)
+     obj = get_s3_object s3_key_from(path)
       copy_attachment obj, filename, tile unless already_attached?(path, tile)
     end
   end
@@ -58,7 +58,7 @@ module Concerns::Attachable
     unencoded_file_name = filename.gsub("_dot_", "." ).gsub("%20", " ")
     new_key = "#{target.tile_attachments_path}/#{SecureRandom.hex}/#{unencoded_file_name}"
     copy = object.copy_to(new_key, {:acl => :public_read})
-    new_path = copy.public_url.path.gsub(" ", "%20")
+    new_path = copy.public_url.path.gsub("%20", " " )
     target.file_attachments[filename]= new_path
   end
 
@@ -82,13 +82,12 @@ module Concerns::Attachable
 
   def get_attachments
     file_attachments.map do |filename,path |
-      get_s3_object calc_s3_key(path)
+      get_s3_object s3_key_from(path)
     end
   end
 
-  def calc_s3_key path
-    s3_key = path[1..-1]
-    s3_key.gsub("%20", " ")
+  def s3_key_from path
+    path[1..-1]
   end
 
   def get_s3_object s3_key
@@ -104,7 +103,7 @@ module Concerns::Attachable
       attachments.drop_while{|x|x=="DELETE"}.each do |url|
         uri = URI.parse(URI.escape(url))
         filename = File.basename(uri.path).gsub(".", "_dot_")
-        self.file_attachments[filename]=uri.path
+        self.file_attachments[filename]=uri.path.gsub("%20", " ")
       end
     end
   end
