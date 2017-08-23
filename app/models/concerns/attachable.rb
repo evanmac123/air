@@ -15,7 +15,7 @@ module Concerns::Attachable
   #
   # 
   BASE_ATTACHMENT_PATH ="tile_attachments/board"
-
+  BUCKET_URL = "https://#{APP_BUCKET}.s3.amazonaws.com"
   extend ActiveSupport::Concern
   included do
     # attachments is an array of urls submitted via the form.
@@ -31,7 +31,7 @@ module Concerns::Attachable
     h = {}
     file_attachments.each do |filename,path|
       filename = filename.gsub("_dot_" , "." )
-      h[filename]="https://s3.amazonaws.com/#{APP_BUCKET}#{path}"
+      h[filename]="#{BUCKET_URL}#{path}"
     end
     h
   end
