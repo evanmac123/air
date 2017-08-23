@@ -87,7 +87,8 @@ module Concerns::Attachable
   end
 
   def s3_key_from path
-    path[1..-1]
+    key = path[1..-1]
+    URI.decode(key)
   end
 
   def get_s3_object s3_key
