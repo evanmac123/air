@@ -9,6 +9,12 @@ class Subscription < ActiveRecord::Base
   validates :subscription_plan, presence: true
   validate :cancelled_at_is_valid?
 
+  before_save :set_subscription_start
+
+  def set_subscription_start
+    self.subscription_start = earliest_invoice_start
+  end
+
   def should_renew_invoice?(invoice:)
     if cancelled_at.nil? || (cancelled_at && cancelled_at > invoice.service_period_end)
       latest_invoice = self.invoices.order(:service_period_end).last
@@ -26,10 +32,13 @@ class Subscription < ActiveRecord::Base
     end
   end
 
+  def earliest_invoice_start
+    invoices.order(:service_period_start).first.try(:service_period_start)
+  end
+
   private
 
     def earliest_invoice_or_org_created_at
-      invoice = invoices.order(:service_period_start).first
-      invoice.try(:service_period_start) || organization.created_at
+      earliest_invoice_start || organization.created_at
     end
 end

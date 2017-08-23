@@ -48,6 +48,10 @@ class Organization < ActiveRecord::Base
     joins(:demos).where(demos: { customer_status_cd: Demo.customer_statuses[:paid] }).uniq
   end
 
+  def self.paid_at_date(date:)
+    Organization.joins(:subscriptions).where("subscriptions.subscription_start <= ?", date).where("subscriptions.cancelled_at IS NULL OR cancelled_at > ?", date).uniq
+  end
+
   def self.paid_organizations_count
     paid.count
   end

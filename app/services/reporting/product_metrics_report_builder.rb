@@ -10,9 +10,7 @@ class Reporting::ProductMetricsReportBuilder
 
     ProductMetricsReport.where({ from_date: from_date, to_date: to_date, period_cd: ProductMetricsReport.periods[:week] }).delete_all
 
-    report = Reporting::ProductMetricsReportBuilder.new(from_date: from_date, to_date: to_date, period: :week).run
-
-    report.tap(&:save)
+    Reporting::ProductMetricsReportBuilder.new(from_date: from_date, to_date: to_date, period: :week).run
   end
 
   def self.build_month(from_date:)
@@ -20,9 +18,7 @@ class Reporting::ProductMetricsReportBuilder
 
     ProductMetricsReport.where({ from_date: from_date, to_date: to_date, period_cd: ProductMetricsReport.periods[:month] }).delete_all
 
-    report = Reporting::ProductMetricsReportBuilder.new(from_date: from_date, to_date: to_date, period: :month).run
-
-    report.tap(&:save)
+    Reporting::ProductMetricsReportBuilder.new(from_date: from_date, to_date: to_date, period: :month).run
   end
 
   attr_reader :date_range, :report
@@ -154,11 +150,11 @@ class Reporting::ProductMetricsReportBuilder
     end
 
     def smb_organizations
-      Organization.paid.smb.where("organizations.created_at < ?", report.from_date)
+      Organization.paid_at_date(date: report.to_date).smb
     end
 
     def enterprise_organizations
-      Organization.paid.enterprise.where("organizations.created_at < ?", report.from_date)
+      Organization.paid_at_date(date: report.to_date).enterprise
     end
 
     def smb_tiles_digests
