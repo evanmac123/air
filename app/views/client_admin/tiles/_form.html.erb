@@ -94,4 +94,13 @@
   <%= file_field_tag "file", id:"tileAttachment" , multiple: true%>
 <% end %>
 
-
+<!-- Used for dynamically adding attachments to list -->
+<div class="tile-attachment  hidden-template" >
+  <%=fa_icon "times-circle", class: "attachment-delete" %>
+  <%=link_to "", target: "_blank" do %>
+    <div class="tile-attachment-inner">
+      <i class='fa fa-file-o icon-tile-attachment'></i>
+      <div class="attachment-filename"></div>
+    </div>
+  <%end%>
+</div>
