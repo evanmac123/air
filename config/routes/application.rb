@@ -77,8 +77,6 @@ get "terms" => "pages#terms", as: "terms"
 get "privacy" => "pages#privacy", as: "privacy"
 
 resources :pages, only: :show
-resource :support, only: :show
-
 
 resource :home,  :only => :show
 
@@ -90,7 +88,6 @@ resource  :user_intros, only: [:update]
 resource :board_setting, only: [:show]
 resource :current_board, only: [:update]
 
-
 resources :demo_requests, only: [:create, :new]
 resources :signup_requests, only: [:create, :new]
 resources :board_name_validations, only: :show
@@ -100,8 +97,6 @@ resources :mute_digests, only: :update
 
 resources :suggested_tiles, only: [:new, :show, :create]
 resource :change_email, only: [:new, :create, :show]
-
-
 
 # See CancelAccountController for why this isn't rolled into AccountController
 resources :cancel_account, :only => [:show, :destroy]
