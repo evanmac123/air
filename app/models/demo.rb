@@ -147,6 +147,22 @@ class Demo < ActiveRecord::Base
     tiles.suggested
   end
 
+  def self.tile_engagement_health_report_cache_key(demo)
+    "demo_#{demo.id}_tile_engagement_health_report"
+  end
+
+  def tile_engagement_health_report
+    Rails.cache.fetch(Demo.tile_engagement_health_report_cache_key(self)) do
+      tile_completion_report = tiles_digests.tile_completion_report.stats_base
+      tile_view_report = tiles_digests.tile_view_report.stats_base
+
+      {
+        tile_completion_report: tile_completion_report,
+        tile_view_report: tile_view_report,
+      }
+    end
+  end
+
   def archive_tiles_with_placeholders tile_set=archive_tiles
     self.class.add_odd_row_placeholders! tile_set
   end
