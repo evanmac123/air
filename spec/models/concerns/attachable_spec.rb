@@ -85,8 +85,6 @@ describe Concerns::Attachable do
     describe "#copy_s3_object" do
       it "copies object to new key" do
         object.expects(:copy_to).returns(copy).once
-        copy.expects(:public_url).returns(pub_url).once
-        pub_url.expects(:path).returns("http://wwww.somwhere.com").once
         t.copy_attachment object, "file1.pdf",  t2
       end
     end
@@ -97,8 +95,6 @@ describe Concerns::Attachable do
         objects.expects(:[]).with("file1.pdf").returns(object)
         objects.expects(:[]).with("file2.pdf").returns(object)
         object.expects(:copy_to).returns(copy).twice
-        copy.expects(:public_url).returns(pub_url).twice
-        pub_url.expects(:path).returns("http://wwww.somwhere.com").twice
         t.copy_s3_attachments_to t2
       end
     end
