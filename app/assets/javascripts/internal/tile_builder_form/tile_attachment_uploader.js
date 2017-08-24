@@ -40,24 +40,18 @@ Airbo.TileAttachmentUploader = (function() {
   }
 
   function addAttachmentLink(name,fullPath){
-    var link = $("<a class='attachment-link'>")
-      ,  attachment = $("<div class='tile-attachment'>")
-      ,  field = createAttachmentField(name, fullPath)
-    ;
-
-    link.attr("href", fullPath);
-    link.append("<i class='fa fa-file-o icon-tile-attachment'></i>");
-    link.append("<div class='attachment-filename'>"+ name + "</div>");
+    var attachment = $(".tile-attachment.hidden-template").clone();
+    var field =  field = createAttachmentField(name, fullPath);
 
     attachment.append(field);
-    attachment.append(link);
-    attachment.append("<i class='fa fa-times-circle attachment-delete'></i><br/>");
+    attachment.find('.attachment-filename').text(name)
+    attachment.find('.attachment-link').attr('href', fullPath)
+    attachment.removeClass("hidden-template");
     $(".attachment-list").append(attachment);
   }
 
   function createAttachmentField(name, path){
-    var field = $('<input type="hidden" name="tile[attachments][]"/>')
-    ;
+    var field = $('<input type="hidden" name="tile[attachments][]"/>');
     field.val(path);
     field.attr("id", name.replace(/ /g,"_"));
     return field;

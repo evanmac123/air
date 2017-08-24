@@ -30,6 +30,9 @@
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  &.hidden-template{
+    display:none;
+  }
 }
 
 .tile-attachment-inner{
