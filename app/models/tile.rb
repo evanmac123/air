@@ -414,6 +414,14 @@ class Tile < ActiveRecord::Base
     Nokogiri::HTML::Document.parse(supporting_content).text
   end
 
+  def has_attachments
+    attachment_count > 0
+  end
+
+  def attachment_count
+    @attaments ||= documents.count
+  end
+
   private
 
   def add_config_options_to_base_signature base

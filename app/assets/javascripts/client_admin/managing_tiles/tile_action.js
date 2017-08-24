@@ -8,7 +8,30 @@ Airbo.TileAction = (function(){
   //
   // => Update Status
   //
+    function movePing(updatedTile, status, action){
+      var mess = {
+        "active": "Posted",
+        "draft": "Drafted",
+        "archive": "Archived",
+        "user_submitted": "Unignored",
+        "ignored": "Ignored"
+      };
 
+      var config = updatedTile.data("config");
+      var data = updatedTile.data();
+
+      Airbo.Utils.ping("Tile " + mess[status], {
+        action: action, 
+        tile_id:  data["tile-container-id"], 
+        media_source: data["mediaSource"],
+        tile_module: config.type,
+        tile_type: config.signature,
+        allow_free_reponse: config.allowFreeResponse,
+        is_anonymous: config.isAnonymous,
+        has_attachments: data["hasAttachments"],
+        attachment_count: data["attachmentCount"]
+      });
+    }
 
   function updateStatus(link){
     var currTile = tileByStatusChangeTriggerLocation(link);
@@ -32,27 +55,7 @@ Airbo.TileAction = (function(){
       }
     }
 
-    function movePing(updatedTile, action){
-      var mess = {
-        "active": "Posted",
-        "draft": "Drafted",
-        "archive": "Archived",
-        "user_submitted": "Unignored",
-        "ignored": "Ignored"
-      };
 
-      var config = updatedTile.data("config");
-
-      Airbo.Utils.ping("Tile " + mess[status], {
-        action: action, 
-        tile_id:  updatedTile.data("tile-container-id"), 
-        media_source: updatedTile.data("mediaSource"),
-        tile_module: config.type,
-        tile_type: config.signature,
-        allow_free_reponse: config.allowFreeResponse,
-        is_anonymous: config.isAnonymous,
-      });
-    }
 
     function submit(){
       $.ajax({
@@ -236,6 +239,7 @@ Airbo.TileAction = (function(){
   }
 
   return {
+    movePing: movePing,
     updateStatus: updateStatus,
     makeDuplication: makeDuplication,
     confirmDeletion: confirmDeletion,
