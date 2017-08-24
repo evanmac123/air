@@ -3,10 +3,8 @@ var Airbo = window.Airbo || {};
 Airbo.TilePreviewModal = (function(){
   var modalId = "tile_preview_modal"
     , self
-  ;
-  var modalObj = Airbo.Utils.StandardModal()
-    , arrowsObj = Airbo.TilePreivewArrows()
-    , tileManager
+    , modalObj = Airbo.Utils.StandardModal()
+    , arrowsObj = Airbo.TilePreviewArrows()
   ;
   function tileContainerSizes() {
     tileContainer = $(".tile_full_image")[0];
@@ -88,8 +86,7 @@ Airbo.TilePreviewModal = (function(){
     $(".preview_menu_item .update_status").click(function(e){
       e.preventDefault();
       e.stopPropagation();
-      target = $(this);
-      Airbo.TileAction.updateStatus(target);
+      Airbo.TileAction.updateStatus($(this));
     });
   }
 
@@ -108,7 +105,14 @@ Airbo.TilePreviewModal = (function(){
     initStickyPreviewMenu();
     arrowsObj.initEvents();
     initTileToolbarActions();
+
+    if($(".explore").length > 0){
+      Airbo.CopyTileToBoard.init();
+      Airbo.ShareLink.init();
+    }
   }
+
+
   function open(preview) {
     modalObj.setContent(preview);
     initPreviewElements();

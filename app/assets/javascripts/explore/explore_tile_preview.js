@@ -70,7 +70,7 @@ Airbo.ExploreTilePreview = (function(){
   function init() {
     self = this;
     initModalObj();
-    arrowsObj = Airbo.TilePreivewArrows();
+    arrowsObj = Airbo.TilePreviewArrows();
     arrowsObj.init(this, { buttonSize: 40, offset: 20 });
     return self;
   }

@@ -17,14 +17,19 @@ class TileCopier
     deliver_tile_copied_notification
     tile.increment!(:copy_count)
 
-    copy.tap(&:save)
+    copy.save
+    #NOTE copy attachments after save so attachment has an iD
+    tile.copy_s3_attachments_to copy
+    copy.tap(&:save)  
   end
 
   def copy_from_own_board(status = Tile::DRAFT, tile_source = OWN_BOARD_SOURCE)
     copy_tile(status)
     ping_tile_created(tile_source)
-
-    copy.tap(&:save)
+    copy.save
+    #NOTE copy attachments after save so attachment has an iD
+    tile.copy_s3_attachments_to copy
+    copy.tap(&:save)  
   end
 
 
@@ -59,13 +64,14 @@ class TileCopier
         "question_type",
         "question_subtype",
         "allow_free_response",
-        "is_anonymous"
+        "is_anonymous",
       ].each do |field_to_copy|
         copy.send("#{field_to_copy}=", tile.send(field_to_copy))
       end
     end
 
     def set_new_data_for_copy(status)
+
       copy.status = status
       copy.original_creator = tile.creator || tile.original_creator
       copy.original_created_at = tile.created_at || tile.original_created_at

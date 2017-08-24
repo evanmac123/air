@@ -8,6 +8,8 @@ class SingleTilePresenter < BasePresenter
             :tile_completions_count,
             :media_source,
             :question_config,
+            :has_attachments,
+            :attachment_count,
             to: :tile
 
   presents :tile

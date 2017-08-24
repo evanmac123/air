@@ -1,4 +1,32 @@
 module S3UploadHelper
+
+  def file_type_font_for name
+    ext = File.extname(name).downcase
+    case ext
+    when ".pdf"
+      type = "file-pdf-o"
+    when ".bmp", ".jpeg", ".jpg", ".png", ".svg"
+      type = "file-image-o"
+    when ".xls", ".xlsx", ".csv"
+      type = "file-excel-o"
+    when ".doc", ".docx"
+      type = "file-word-o"
+    when ".ppt", ".pptx"
+      type = "file-powerpoint-o"
+    when ".mp4","mpeg", "wmv"
+      type = "file-video-o"
+    when ".mp3","ogg", "wma"
+      type = "file-audio-o"
+    when ".zip","tar"
+      type = "file-archive-o"
+    when ".txt"
+      type = "file-text-o"
+    else
+      type = "file-o"
+    end
+      fa_icon(type, class: "icon-tile-attachment")
+  end
+
   def s3_uploader_form(options = {}, &block)
     uploader = S3Uploader.new(options)
     form_tag(uploader.url, uploader.form_options) do
@@ -11,14 +39,12 @@ module S3UploadHelper
   class S3Uploader
     def initialize(options)
       @options = options.reverse_merge(
-        id: "fileupload",
         aws_access_key_id: ENV["AWS_ACCESS_KEY_ID"],
         aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
         bucket: S3_TILE_BUCKET,
         acl: "public-read",
         expiration: 10.hours.from_now.utc,
         max_file_size: 2.5.megabytes.to_i,
-        as: "file"
       )
     end
 
@@ -30,10 +56,7 @@ module S3UploadHelper
         multipart: true,
         class: @options[:class],
         style: @options[:style],
-        data: {
-          post: @options[:post],
-          as: @options[:as]
-        }
+        data: @options[:data]
       }
     end
 
@@ -45,11 +68,16 @@ module S3UploadHelper
         :signature => signature,
         "AWSAccessKeyId" => @options[:aws_access_key_id],
         :success_action_status => "201",
+        "Content-Type" =>""
       }
     end
 
     def key
-      @key ||= "uploads/#{SecureRandom.hex}/${filename}"
+      @key ||= "#{base_path}/#{SecureRandom.hex}/${filename}"
+    end
+
+    def base_path
+      @options.fetch(:data, {}).fetch(:path, nil) || "uploads"
     end
 
     def url
@@ -67,6 +95,7 @@ module S3UploadHelper
           ["starts-with", "$utf8", ""],
           ["starts-with", "$key", ""],
           ["content-length-range", 0, @options[:max_file_size]],
+          ["starts-with", "$Content-Type", ""],
           {bucket: @options[:bucket]},
           {success_action_status: "201"},
           {acl: @options[:acl]}

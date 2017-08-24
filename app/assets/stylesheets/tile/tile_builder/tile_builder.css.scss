@@ -27,3 +27,14 @@
     padding-left: 1px;
     margin: auto;
   }
+
+  form.s3-uploader{
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+  }
+
+
+  .tile-attachment.hidden-template{
+    display:none;
+  }

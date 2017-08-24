@@ -76,7 +76,7 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
     } else if (section === "archive") {
       //TODO Delete reference to getManagerType
 
-      if( Airbo.TileManager.getManagerType() == "main" ){
+      if( isOnClientAdminDashboard() ){
         return numberInRow(section);
       } else {
         return 9999;
@@ -85,6 +85,10 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
       return 9999;
     }
   };
+
+  function isOnClientAdminDashboard(){
+   return  $(".manage_tiles").length === 3;
+  }
 
   function updateTileVisibilityIn(section) {
     var i, index, len, results, tile, tiles, visibleTilesNumber;

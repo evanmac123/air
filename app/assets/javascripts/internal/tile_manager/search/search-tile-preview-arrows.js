@@ -29,7 +29,7 @@ Airbo.SearchTilePreviewArrows = (function(){
         var id = $(this).data('tileId');
         var path = $(this).attr('href');
 
-        Airbo.SearchTileThumbnail.getPreview(path, id);
+        Airbo.TileThumbnail.getPreview(path, id);
       });
     }
 

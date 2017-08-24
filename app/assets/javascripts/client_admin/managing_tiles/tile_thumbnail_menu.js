@@ -40,8 +40,8 @@ Airbo.TileThumbnailMenu = (function() {
   }
 
   function initMoreBtn(menu_button){
-    var selector =  menu_button || ".more.pill";
 
+    var selector = "body .pill.more:not(.tooltipstered)";
    //TODO remove duplicaiton
      $(selector).tooltipster({
       theme: "tooltipster-shadow tooltipster-thumbnail-menu",

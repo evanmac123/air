@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TilePreivewArrows = (function(){
+Airbo.TilePreviewArrows = (function(){
   return function(){
     var exploreNav = ".explore_next_prev",
     clientAdminNav = ".button_arrow:not(.explore_next_prev)",

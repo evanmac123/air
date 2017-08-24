@@ -1,5 +1,6 @@
 class Tile < ActiveRecord::Base
   include Concerns::TileImageable
+  include Concerns::Attachable
 
   ACTIVE  = 'active'.freeze
   ARCHIVE = 'archive'.freeze
@@ -59,6 +60,7 @@ class Tile < ActiveRecord::Base
   has_many :completed_tiles, source: :tile, through: :tile_completions
   has_many :user_viewers, through: :tile_viewings, source: :user, source_type: 'User'
   has_many :tile_tags, through: :tile_taggings
+
   has_alphabetical_column :headline
 
   before_validation :sanitize_supporting_content
@@ -410,6 +412,14 @@ class Tile < ActiveRecord::Base
 
   def supporting_content_raw_text
     Nokogiri::HTML::Document.parse(supporting_content).text
+  end
+
+  def has_attachments
+    attachment_count > 0
+  end
+
+  def attachment_count
+    @attaments ||= documents.count
   end
 
   private

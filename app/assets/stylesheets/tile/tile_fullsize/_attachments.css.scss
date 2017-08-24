@@ -1,0 +1,107 @@
+
+.attachment-list {
+  padding-top: 12px;
+  margin-bottom: 0px;
+}
+.attachments{
+  padding: 20px 40px;
+  border-top: 2px dashed #f3f3f3;
+}
+
+.not_completed , .completed {
+ .attachments{
+    border: none; 
+  border-top: 1px dashed #f3f3f3;
+  }
+}
+
+.tile-attachment{
+  height: 115px;
+  width: 115px;
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+  background-color: #f3f3f3;
+  color: $text-color;
+  margin-bottom: 12px;
+  margin-right: 8px;
+  margin-left: 8px;
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  }
+
+
+
+.tile-attachment-inner{
+  position: relative;
+  padding: 3px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.tile-attachment:nth-child(4n+1) {
+  margin-left: 0px;
+}
+.tile-attachment:nth-child(4n) {
+  margin-right: 0px;
+}
+
+.tile-attachment a{
+  color: inherit;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+.icon-tile-attachment{
+  font-size: 30px;
+}
+
+.attachment-filename{
+  font-size: 10px;
+  padding: 3px;
+  margin-top: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.not_completed , .completed {
+  .attachment-delete {
+    display: none;
+  }
+}
+
+.attachment-delete {
+  cursor: pointer;
+  padding: 10px;
+
+  color: $text-color; 
+  position: absolute;
+  top: -15px;
+  right: -15px;
+}
+
+.icon-add-attachment{
+  color: $text-color;
+  margin-right: 6px;
+}
+
+.add-attachment-wrapper{
+  border-radius: 3px;
+  background-color: #f3f3f3;
+  padding: 7px 10px 7px 10px;
+  display: inline-block;
+  margin-top: 10px;
+}
+.add-attachment {
+  width: 121px;
+  height: 22px;
+  font-size: 16px;
+  font-weight: 500;
+  color: $text-color;
+}
+
