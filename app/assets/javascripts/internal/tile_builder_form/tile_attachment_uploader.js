@@ -43,10 +43,10 @@ Airbo.TileAttachmentUploader = (function() {
     var attachment = $(".tile-attachment.hidden-template").clone();
     var field =  field = createAttachmentField(name, fullPath);
 
+    attachment.removeClass("hidden-template");
     attachment.append(field);
     attachment.find('.attachment-filename').text(name)
     attachment.find('.attachment-link').attr('href', fullPath)
-    attachment.removeClass("hidden-template");
     $(".attachment-list").append(attachment);
   }
 
