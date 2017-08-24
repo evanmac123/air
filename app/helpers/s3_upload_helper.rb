@@ -5,7 +5,7 @@ module S3UploadHelper
     case ext
     when ".pdf"
       type = "file-pdf-o"
-    when ".bmp", ".jpeg", ".jpg", ".png"
+    when ".bmp", ".jpeg", ".jpg", ".png", ".svg"
       type = "file-image-o"
     when ".xls", ".xlsx", ".csv"
       type = "file-excel-o"
