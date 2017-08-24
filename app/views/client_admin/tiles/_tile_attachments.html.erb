@@ -1,14 +1,16 @@
 <div class="attachment-list"> 
   <%tile.documents.each do |name, url| %>
     <div class="tile-attachment" , data-key="<%=name%>" data-persisted="true">
-      <%=hidden_field_tag "tile[attachments][]", url, id: name.gsub(" ", "_")%>
-      <%=link_to url, target: "_blank" do %>
-        <%=file_type_font_for name %>
-        <div class="attachment-filename">
-          <%= raw CGI.unescape(name)%>
-        </div>
-      <%end%>
-      <%=fa_icon "times-circle", class: "attachment-delete" %>
+        <%=fa_icon "times-circle", class: "attachment-delete" %>
+      <div class="tile-attachment-inner">
+        <%=hidden_field_tag "tile[attachments][]", url, id: name.gsub(" ", "_")%>
+        <%=link_to url, target: "_blank" do %>
+          <%=file_type_font_for name %>
+          <div class="attachment-filename">
+            <%= raw CGI.unescape(name)%>
+          </div>
+        <%end%>
+      </div>
     </div>
   <%end%>
 </div>

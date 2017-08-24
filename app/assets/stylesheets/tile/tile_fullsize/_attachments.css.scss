@@ -16,18 +16,28 @@
 }
 
 .tile-attachment{
-  padding:20px 3px 10px 3px;
-  height: 100px;
-  width: 100px;
+  height: 115px;
+  width: 115px;
   border-radius: 4px;
   text-align: center;
   display: inline-block;
   background-color: #f3f3f3;
   color: $text-color;
   margin-bottom: 12px;
-  margin-right: 18px;
-  margin-left: 18px;
+  margin-right: 8px;
+  margin-left: 8px;
   position: relative;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.tile-attachment-inner{
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .tile-attachment:nth-child(4n+1) {
