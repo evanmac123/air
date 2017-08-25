@@ -121,9 +121,6 @@ Airbo.TileManager = (function(){
     }else{
       initNormal();
     }
-
-    Airbo.TileAttachmentUploader.init();
-    Airbo.TileImageUploader.init();
   }
   return {
     init: init,
