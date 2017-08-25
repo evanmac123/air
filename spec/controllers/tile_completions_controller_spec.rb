@@ -40,5 +40,15 @@ describe TileCompletionsController do
 
       expect(Act.count).to eq(1)
     end
+
+    it "should update points anonymously if tile is anonymous" do
+
+      Tile.any_instance.stubs(:is_anonymous?).returns(true)
+      sign_in_as user
+      user.expects(:update_points)
+      post :create, tile_id: tile.id
+
+      expect(Act.count).to eq(0)
+    end
   end
 end

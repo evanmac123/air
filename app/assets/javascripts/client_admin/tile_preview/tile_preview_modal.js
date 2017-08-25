@@ -79,8 +79,13 @@ Airbo.TilePreviewModal = (function(){
     });
 
     initDisabled();
-  }
 
+    if($(".js-suggested-tile-preview").length > 0){
+      initStatusUpdate() 
+    }else{
+      initPreviewMenuTooltips();
+    }
+  }
 
   function initStatusUpdate(){
     $(".preview_menu_item .update_status").click(function(e){
@@ -90,7 +95,6 @@ Airbo.TilePreviewModal = (function(){
     });
   }
 
-
   function initAnonymousTooltip(){
     $(".js-anonymous-tile-tooltip").tooltipster({
       theme: "tooltipster-shadow" 
@@ -99,7 +103,6 @@ Airbo.TilePreviewModal = (function(){
 
   function initPreviewElements() {
     Airbo.TileCarouselPage.init();
-    initPreviewMenuTooltips();
     initAnonymousTooltip();
     Airbo.ImageLoadingPlaceholder.init();
     initStickyPreviewMenu();

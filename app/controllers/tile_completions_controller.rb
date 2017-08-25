@@ -16,8 +16,11 @@ class TileCompletionsController < ApplicationController
     remember_points_and_tickets
 
     if create_tile_completion(@tile)
-      #FIXME do we need to track acts?
-      create_act(@tile) unless @tile.is_anonymous?
+      if  @tile.is_anonymous?
+        update_user_points_anonymously @tile.points
+      else
+        create_act(@tile) 
+      end
     else
       flash[:failure] = "It looks like you've already done this tile, possibly in a different browser window or tab."
     end
@@ -56,6 +59,10 @@ class TileCompletionsController < ApplicationController
         text: text_of_completion_act(tile),
         creation_channel: 'web'
       )
+    end
+
+    def update_user_points_anonymously points
+      current_user.update_points(points,"web") 
     end
 
     def text_of_completion_act(tile)
