@@ -33,6 +33,7 @@ class Demo < ActiveRecord::Base
   has_many :users, through: :board_memberships
   has_many :tile_completions, through: :tiles
   has_many :tile_viewings, through: :tiles
+  has_many :board_health_reports
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
@@ -111,8 +112,16 @@ class Demo < ActiveRecord::Base
     where(customer_status_cd: Demo.customer_statuses[:trial])
   end
 
+  def self.paid_or_free_trial
+    where("customer_status_cd = ? OR customer_status_cd = ?", Demo.customer_statuses[:paid], Demo.customer_statuses[:trial])
+  end
+
   def self.unmatched
     where(organization_id: nil)
+  end
+
+  def latest_health_report
+    board_health_reports.where(period_cd: BoardHealthReport.periods[:week]).order(:created_at).last
   end
 
   def users_for_digest
@@ -147,20 +156,8 @@ class Demo < ActiveRecord::Base
     tiles.suggested
   end
 
-  def self.tile_engagement_health_report_cache_key(demo)
-    "demo_#{demo.id}_tile_engagement_health_report"
-  end
-
-  def tile_engagement_health_report
-    Rails.cache.fetch(Demo.tile_engagement_health_report_cache_key(self)) do
-      tile_completion_report = tiles_digests.tile_completion_report.stats_base
-      tile_view_report = tiles_digests.tile_view_report.stats_base
-
-      {
-        tile_completion_report: tile_completion_report,
-        tile_view_report: tile_view_report,
-      }
-    end
+  def tile_engagement_report
+    BoardHealthReport.tile_engagement_report(board: self)
   end
 
   def archive_tiles_with_placeholders tile_set=archive_tiles

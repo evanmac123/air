@@ -15,11 +15,11 @@ class AirboStatistics
   end
 
   def lower_outlier_threshold
-    stats_base[:q1] - (1.5 * interquartile_range)
+    stats_base[:q1] - (3 * interquartile_range)
   end
 
   def upper_outlier_threshold
-    stats_base[:q3] + (1.5 * interquartile_range)
+    stats_base[:q3] + (3 * interquartile_range)
   end
 
   def interquartile_range
