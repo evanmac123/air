@@ -21,16 +21,78 @@
 <div class="row ">
   <div class="columns large-12">
     <%= form_for :user, :url => admin_lost_user_path do |f| %>
-      <label>Find a lost user</label>
+      <label>Search for a user by email</label>
       <%= f.text_field :email, :placeholder => 'email', style: "display:inline" %>
       <%= f.submit "Find", class: "button primary" %>
     <% end %>
   </div>
 </div>
 <br>
-<div class="row ">
-  <div class="columns large-12">
-    <h3 class="blue">Organizations</h3>
-    <%= render "admin/organizations/orgs_table" %>
+<div class="new-modules">
+  <div class="card-component">
+    <div class="card-header">
+      <div class="card-title-group">
+        <div class="row">
+          <div class="columns large-6 small-12">
+            <h3 class="card-title">Free Trials</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-content">
+        <table>
+          <thead>
+            <tr>
+              <th>Health Score</th>
+              <th>Board</th>
+              <th>Organization</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Demo.free_trial.health_score_order.each do |demo| %>
+              <tr class="resource-row" data-url="<%= admin_demo_path(demo) %>">
+                <td><%= demo.current_health_score %></td>
+                <td><%= link_to demo.name, admin_demo_path(demo) %></td>
+                <td><%= link_to demo.organization_name, admin_organization_path(demo.organization) %></td>
+              </tr>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card-component">
+    <div class="card-header">
+      <div class="card-title-group">
+        <div class="row">
+          <div class="columns large-6 small-12">
+            <h3 class="card-title">Paid Boards</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-content">
+        <table>
+          <thead>
+            <tr>
+              <th>Health Score</th>
+              <th>Board</th>
+              <th>Organization</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Demo.paid.health_score_order.each do |demo| %>
+              <tr class="resource-row" data-url="<%= admin_demo_path(demo) %>">
+                <td><%= demo.current_health_score %></td>
+                <td><%= link_to demo.name, admin_demo_path(demo) %></td>
+                <td><%= link_to demo.organization_name, admin_organization_path(demo.organization) %></td>
+              </tr>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

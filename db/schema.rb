@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170823210145) do
+ActiveRecord::Schema.define(:version => 20170826002025) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -106,6 +106,31 @@ ActiveRecord::Schema.define(:version => 20170823210145) do
     t.integer  "contract_id"
     t.integer  "organization_id"
   end
+
+  create_table "board_health_reports", :force => true do |t|
+    t.integer  "demo_id"
+    t.integer  "tiles_copied_count"
+    t.integer  "user_count"
+    t.decimal  "activated_user_percent"
+    t.integer  "tiles_posted_count"
+    t.decimal  "tile_completion_average"
+    t.decimal  "tile_completion_min"
+    t.decimal  "tile_completion_max"
+    t.decimal  "tile_view_average"
+    t.decimal  "tile_view_max"
+    t.decimal  "tile_view_min"
+    t.decimal  "latest_tile_completion_rate"
+    t.decimal  "latest_tile_view_rate"
+    t.integer  "days_since_tile_posted"
+    t.date     "from_date"
+    t.date     "to_date"
+    t.integer  "period_cd",                   :default => 0
+    t.integer  "health_score"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
+
+  add_index "board_health_reports", ["demo_id"], :name => "index_board_health_reports_on_demo_id"
 
   create_table "board_memberships", :force => true do |t|
     t.boolean  "is_current",                       :default => true
@@ -463,6 +488,7 @@ ActiveRecord::Schema.define(:version => 20170823210145) do
     t.integer  "users_count"
     t.boolean  "marked_for_deletion",                                  :default => false
     t.integer  "customer_status_cd",                                   :default => 0
+    t.integer  "current_health_score"
   end
 
   add_index "demos", ["dependent_board_id"], :name => "index_demos_on_dependent_board_id"
@@ -776,7 +802,6 @@ ActiveRecord::Schema.define(:version => 20170823210145) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.boolean  "featured"
-    t.boolean  "in_trial",              :default => false
     t.text     "chart_mogul_uuid"
     t.string   "email"
     t.string   "zip_code"
@@ -1413,7 +1438,7 @@ ActiveRecord::Schema.define(:version => 20170823210145) do
   create_table "user_onboardings", :force => true do |t|
     t.integer  "user_id"
     t.integer  "onboarding_id"
-    t.integer  "state",          :default => 0
+    t.integer  "state",          :default => 2
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.string   "auth_hash"
@@ -1421,7 +1446,6 @@ ActiveRecord::Schema.define(:version => 20170823210145) do
     t.boolean  "shared",         :default => false, :null => false
     t.boolean  "completed",      :default => false, :null => false
     t.string   "more_info"
-    t.integer  "stage"
   end
 
   add_index "user_onboardings", ["onboarding_id"], :name => "index_user_onboardings_on_onboarding_id"
