@@ -67,7 +67,6 @@ module Health
       external/standalone_ie8.css
       internal/internal_ie8.css
       client_admin/client_admin_ie8.css
-      app-support.css
       public_board_fixed_headers.css
       public_board_fixed_headers.js
       app-admin.js
@@ -95,7 +94,6 @@ module Health
       resizing_gears_fullsize.gif
       internal/guest_user_conversion.js
       client_admin/public_board_controls.js
-      app-support.js
       internal/explore.css
       video.png
       client_admin/tile_tag_callback.js
