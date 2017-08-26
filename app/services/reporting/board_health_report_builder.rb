@@ -86,7 +86,7 @@ class Reporting::BoardHealthReportBuilder
     last_tile_posted = report.demo.tiles.where("activated_at IS NOT NULL").order(:activated_at).last
 
     if last_tile_posted && last_tile_posted.activated_at
-      (report.to_date - last_tile_posted.activated_at).to_i
+      (report.to_date - last_tile_posted.activated_at.to_date).to_i
     end
   end
 end
