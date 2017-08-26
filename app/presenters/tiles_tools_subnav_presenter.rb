@@ -1,4 +1,5 @@
 class TilesToolsSubnavPresenter
+  include AirboLearningHelper
   include Rails.application.routes.url_helpers
 
   attr_reader :current_user
@@ -110,7 +111,7 @@ class TilesToolsSubnavPresenter
             },
             {
               item_id: "admin_help",
-              link: support_path,
+              link: airbo_learning_url,
               icon: "question",
               text: "Help",
               has_notification: false,
