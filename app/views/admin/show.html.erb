@@ -44,13 +44,15 @@
         <table>
           <thead>
             <tr>
+              <th>Health Score</th>
               <th>Board</th>
               <th>Organization</th>
             </tr>
           </thead>
           <tbody>
-            <% Demo.free_trial.name_order.each do |demo| %>
+            <% Demo.free_trial.health_score_order.each do |demo| %>
               <tr class="resource-row" data-url="<%= admin_demo_path(demo) %>">
+                <td><%= demo.current_health_score %></td>
                 <td><%= link_to demo.name, admin_demo_path(demo) %></td>
                 <td><%= link_to demo.organization_name, admin_organization_path(demo.organization) %></td>
               </tr>
@@ -75,13 +77,15 @@
         <table>
           <thead>
             <tr>
+              <th>Health Score</th>
               <th>Board</th>
               <th>Organization</th>
             </tr>
           </thead>
           <tbody>
-            <% Demo.paid.name_order.each do |demo| %>
+            <% Demo.paid.health_score_order.each do |demo| %>
               <tr class="resource-row" data-url="<%= admin_demo_path(demo) %>">
+                <td><%= demo.current_health_score %></td>
                 <td><%= link_to demo.name, admin_demo_path(demo) %></td>
                 <td><%= link_to demo.organization_name, admin_organization_path(demo.organization) %></td>
               </tr>

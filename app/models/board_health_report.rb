@@ -6,6 +6,10 @@ class BoardHealthReport < ActiveRecord::Base
 
   def set_health_score
     self.health_score = calculate_health_score.to_i
+
+    if self.week?
+      demo.update_attributes(current_health_score: health_score)
+    end
   end
 
   def calculate_health_score
