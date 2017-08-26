@@ -4,6 +4,7 @@ namespace :admin do
 
     task :product_metrics_report => [:environment] do
       if Date.today == Date.today.end_of_week
+        puts "Running Product Metrics Weekly Report"
         Reporting::ProductMetricsReportBuilder.build_week(to_date: Date.today).save
 
         Demo.paid_or_free_trial.each do |demo|
@@ -12,6 +13,7 @@ namespace :admin do
       end
 
       if Date.today == Date.today.end_of_month
+        puts "Running Product Metrics Monthly Report"
         Reporting::ProductMetricsReportBuilder.build_month(to_date: Date.today).save
 
         Demo.paid_or_free_trial.each do |demo|

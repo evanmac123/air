@@ -83,10 +83,10 @@ class Reporting::BoardHealthReportBuilder
   end
 
   def days_since_tile_posted
-    date_of_last_tile_posted = report.demo.tiles.where("activated_at IS NOT NULL").order(:activated_at).last.activated_at.try(:to_date)
+    last_tile_posted = report.demo.tiles.where("activated_at IS NOT NULL").order(:activated_at).last
 
-    if date_of_last_tile_posted
-      (report.to_date - date_of_last_tile_posted).to_i
+    if last_tile_posted && last_tile_posted.activated_at
+      (report.to_date - last_tile_posted.activated_at).to_i
     end
   end
 end
