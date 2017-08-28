@@ -59,30 +59,27 @@ input[type=file],
 select,
 textarea {
   background-color: $n-white;
-  border: 1px solid $border-color-1;
+  border: 1px solid $gray-7;
   font-size: $font-size-2;
   margin: 0 0 20px;
   padding: 0.5em;
   outline: 0;
   width: 100%;
   resize: vertical;
-  @include radius(3px);
+  @include radius(4px);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   box-shadow: none;
   &:hover {
-    background-color: $gray-1;
     box-shadow: none;
   }
 
   &:focus {
     background-color: $n-white;
-    border-color: $n-blue;
     box-shadow: none;
     &.disabled{
-
-    border-color:$border-color-1;
+      border-color:$border-color-1;
     }
   }
 
@@ -110,7 +107,7 @@ textarea#dependent_user_invitation_body{
 //   @include button;
 // }
 
-select { // TODO: fix with JS select replace; using crappy available image here as stand in
+select { // TODO: Move all selects to Nice Select
   background: url(/assets/down_triangle.png) no-repeat right center $n-white;
   background-size: 10px 5px;
   background-position-x: 98%;

@@ -1,0 +1,14 @@
+<tr class="js-tile-user-notification-row">
+  <td class="date-sent">
+    {{formatLocalTime notification.created_at 'MMM D, Y'}}
+  </td>
+  <td class="subject">
+    {{notification.subject}}
+  </td>
+  <td class="rule">
+    {{notification.scope}} {{notification.answer}}
+  </td>
+  <td class="recipient-count">
+    {{notification.recipient_count}}
+  </td>
+</tr>

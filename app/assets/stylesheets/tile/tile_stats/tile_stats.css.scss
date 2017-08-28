@@ -13,12 +13,27 @@
   }
 
   .grid_no_record {
-    font-size: 15px;
+    font-size: 16px;
     color: $dark-blue;
   }
 
   .card-content {
     min-height: 500px;
+    color: $dark-blue;
+
+    p {
+      font-size: 16px;
+      margin: 15px 0;
+    }
+
+    label {
+      color: $dark-blue;
+    }
+
+    input {
+      color: $text-color;
+    }
+
     .dropdown-button-component {
       color: $dark-blue;
       margin: 0;

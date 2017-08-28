@@ -1,7 +1,6 @@
 module FlashConcern
   FLASHES_ALLOWING_RAW = %w(notice)
 
-  ##FLASH MGMT =>
   def add_success(text)
     @flash_successes_for_next_request << text
   end
@@ -23,5 +22,10 @@ module FlashConcern
     unless @flash_failures_for_next_request.empty?
       flash[:failure] = (@flash_failures_for_next_request + [flash[:failure]]).join(' ')
     end
+  end
+
+  def add_flash_to_headers(type:, message:)
+    response.headers['X-Message-Type'] = type
+    response.headers['X-Message'] = message
   end
 end

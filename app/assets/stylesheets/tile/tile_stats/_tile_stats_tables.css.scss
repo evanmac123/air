@@ -13,6 +13,7 @@
     th {
       background: $primary-gray;
       border: 0;
+      color: $dark-blue;
       a {
         color: $dark-blue;
         @include sort-arrows(transparent);
@@ -56,10 +57,14 @@
   }
 
   .table-title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
     color: $dark-blue;
     margin-bottom: 20px;
+  }
+
+  .messages-sent-table {
+    @extend %stats-table;
   }
 
   .survey-chart-table {
@@ -91,7 +96,7 @@
 
     .views {
       text-align: center;
-      
+
     }
 
     tfoot{

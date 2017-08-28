@@ -9,6 +9,8 @@ Airbo.TileStatsModal = (function(){
     return function (data) {
       initModal(data);
       loadChartAndGrid(data);
+      Airbo.TileStatsMessageEditor.init();
+      Airbo.TileStatsMessageSender.init();
     };
   }
 
@@ -27,12 +29,14 @@ Airbo.TileStatsModal = (function(){
   function fillModalTabs() {
     fillAnalyticsTab();
     fillActivityTab();
-    fillMessagesTab();
+    fillMessageTab();
+    fillSentTab();
   }
 
   function switchTabs($tab) {
     Airbo.TileStatsPings.ping({ action: "Changed Tab", tab: $tab.text() });
 
+    Airbo.SubComponentFlash.destroy();
     hideCurrentTab();
     showNewTab($tab);
   }
@@ -71,9 +75,14 @@ Airbo.TileStatsModal = (function(){
     $(".js-tile-stats-modal-tab-content.activity").html(template);
   }
 
-  function fillMessagesTab() {
-    var template = setTemplate("tileStatsMessages");
-    $(".js-tile-stats-modal-tab-content.messages").html(template);
+  function fillMessageTab() {
+    var template = setTemplate("tileStatsMessage");
+    $(".js-tile-stats-modal-tab-content.message").html(template);
+  }
+
+  function fillSentTab() {
+    var template = setTemplate("tileStatsSent");
+    $(".js-tile-stats-modal-tab-content.sent").html(template);
   }
 
   function loadChartAndGrid(data) {

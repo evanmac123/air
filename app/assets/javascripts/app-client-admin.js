@@ -43,6 +43,9 @@
 //= require_tree ./internal/tile_manager/
 //= require internal/byte_counter
 //= require jssocials.min.js
+//= require quill.min.js
+//= require_tree ./vendor_customization/quill
+
 
 var Airbo = window.Airbo || {};
 

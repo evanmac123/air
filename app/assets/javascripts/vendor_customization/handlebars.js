@@ -95,3 +95,7 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
 Handlebars.registerHelper('toJSON', function(string) {
     return JSON.stringify(string);
 });
+
+Handlebars.registerHelper('renderPartial', function(template, options) {
+  return new Handlebars.SafeString(HandlebarsTemplates[template](options.hash));
+});
