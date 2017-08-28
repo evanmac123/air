@@ -36,7 +36,7 @@ Airbo.TileBuilderCharacterCounter = (function(){
   }
 
   function init(){
-    $("body").on("keyup paste", "textarea.answer-editable", function(event) {
+    $("body").on("keyup paste", "textarea.answer-editable,  textarea.free-text-entry", function(event) {
       var field = $(event.target)
         , counterId = "#" +field.data("counterid") 
         , counter = $(counterId)

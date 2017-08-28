@@ -1,11 +1,14 @@
 body.client_admin-board_settings-index{
   .board_settings{
+    input[type="text"]{
+      margin-bottom: 10px;
+    }
 
-		#notification_settings{
-     li {
-			 display: inline-block;
-		 }
-		}
+    #notification_settings{
+      li {
+        display: inline-block;
+      }
+    }
     input::-ms-clear { // hide 'x' for ie
       width: 0;
       height: 0;
@@ -57,17 +60,20 @@ body.client_admin-board_settings-index{
     form#edit_board_email {
       .input_with_postfix{
         @include input-with-fix;
-        width: 80%;
       }
     }
     form#edit_board_public_link {
       .input_with_prefix{
         @include input-with-fix($type: pre);
-        width: 80%;
       }
     }
     form#edit_board_welcome_message{
       margin-bottom: 6em;
     }
   }
+}
+
+.two-panel-layout{
+  position: relative;
+  width: 80%;
 }

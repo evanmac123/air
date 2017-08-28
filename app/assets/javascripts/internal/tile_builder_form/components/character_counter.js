@@ -14,7 +14,7 @@ Airbo.TileBuilderComponentCharacterCounter =  {
   asDomNode: function() {
     var node = document.createElement('div');
     node.setAttribute('id', this.uniqueId);
-    node.setAttribute('class', 'character-counter');
+    node.setAttribute('class', 'tile-builder-component character-counter ');
     node.setAttribute('maxlength', this.max);
     node.insertAdjacentText('afterbegin', this.msg);
     return node;

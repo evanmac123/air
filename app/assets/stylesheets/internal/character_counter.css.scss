@@ -1,19 +1,21 @@
 .character-counter {
   color:$med-gray;
-  float:right;
   font-size:10px;
   font-weight:bold;
   text-transform: uppercase;
-
-  padding-top:.5em;
-  margin-top: -25px;
+  margin-top: 5px;
+  float: right;
   &.for-free-repsponse{
-    margin-top: 5px;
     margin-bottom: 10px;
 
   }
   &.exceeded_maxlength_counter {
     color: #FF0000;
+  }
+
+  &.tile-builder-component{
+    margin-top: 0px;
+    margin-bottom: 10px;
   }
 }
 
@@ -24,17 +26,9 @@
   }
 }
 
-.answer-div{
-  .character-counter {
-    margin-top: 0px;
-    margin-bottom: 10px;
-  }
-}
-
-
 .board_settings {
   .character-counter{
-    margin-right: 115px;
+    margin-bottom: 10px;
   }
 }
 
@@ -47,3 +41,11 @@
     font-size: 0.6rem;
   }
 }
+
+.free-form-response ~.character-counter, 
+.free-text-entry ~ .character-counter {
+  margin-bottom:20px
+}
+
+
+

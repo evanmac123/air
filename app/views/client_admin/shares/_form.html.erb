@@ -12,23 +12,23 @@
         <%= select_tag "digest[follow_up_day]", options_for_select(@tiles_digest_form.follow_up_day_options, selected: @tiles_digest_form.default_follow_up_day) %>
       </div>
     </div>
-    <div class="custom_subject">
+    <div class="custom_subject share-form-component">
       <label for="digest_custom_subject">Email subject</label>
-      <%= text_area_tag "digest[custom_subject]", @tiles_digest_form.custom_subject, size: "50x3", maxlength: 80, placeholder: 'New Tiles' %>
+      <%= text_area_tag "digest[custom_subject]", @tiles_digest_form.custom_subject, size: "50x3", maxlength: 80, placeholder: 'New Tiles', class: "share-form-text" %>
       <script>
         addCharacterCounterFor('#digest_custom_subject');
       </script>
     </div>
-    <div class="custom_subject mt-1">
+    <div class="custom_subject mt-1 share-form-component">
       <label for="digest_alt_custom_subject">Alternate Subject <i class="fa fa-question-circle has-tip" data-tooltip="abSubjects" data-allow-html="true" title="The alternate subject is optional. A/B testing subject lines is a great way to discover which subject lines lead to more engagement."></i></i></label>
-      <%= text_area_tag "digest[alt_custom_subject]", @tiles_digest_form.alt_custom_subject, size: "50x3", maxlength: 80, placeholder: 'Optional ' %>
+      <%= text_area_tag "digest[alt_custom_subject]", @tiles_digest_form.alt_custom_subject, size: "50x3", maxlength: 80, placeholder: 'Optional ',  class: "share-form-text" %>
       <script>
         addCharacterCounterFor('#digest_alt_custom_subject');
       </script>
     </div>
-    <div class="custom_headline">
+    <div class="custom_headline share-form-component">
       <label for="digest_custom_headline">Custom headline</label>
-      <%= text_area_tag "digest[custom_headline]", @tiles_digest_form.custom_headline, size: "50x3", maxlength: 75, placeholder: 'Your New Tiles Are Here!' %>
+      <%= text_area_tag "digest[custom_headline]", @tiles_digest_form.custom_headline, size: "50x3", maxlength: 75, placeholder: 'Your New Tiles Are Here!', class: "share-form-text" %>
       <script>
 
         addCharacterCounterFor('#digest_custom_headline');
@@ -36,9 +36,9 @@
 
       </script>
     </div>
-    <div class="intro_message">
+    <div class="intro_message share-form-component">
       <label for="digest_custom_message">Intro message</label>
-      <%= text_area_tag "digest[custom_message]", @tiles_digest_form.custom_message, size: "50x6", maxlength: 160 %>
+      <%= text_area_tag "digest[custom_message]", @tiles_digest_form.custom_message, size: "50x6", maxlength: 160, class: "share-form-text" %>
       <script>
 
         addCharacterCounterFor('#digest_custom_message');
