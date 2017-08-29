@@ -2,6 +2,7 @@
   <%= form.label :name, "Board Name" %>
   <i class="fa fa-question-circle has-tip" id="board_name_tooltip" data-tooltip="true" title="Title of your board."></i>
   <%= form.text_field :name, maxlength: 50 %>
+  <div class="clearfix"></div>
   <div class="error_message">
     Sorry, that board name is already taken.
   </div>
@@ -12,6 +13,7 @@
   <a class="clear_form">Clear</a>
 <% end %>
 
+<%#TODO Fix this idiotic code%>
 <% js_at_end do %>
   $().ready(function(){
     addCharacterCounterFor( $("#demo_name") );

@@ -116,16 +116,12 @@
   height: 150px;
   &.edit{
     resize: none;
-    margin-bottom: 0px;
   }
+
   &.read{
     border: 1px solid #48bfff;
     padding: 5px;
   }
 }
 
-.free-form-response ~.character-counter {
-  margin-top:20px;
-  margin-bottom:20px
 
-}

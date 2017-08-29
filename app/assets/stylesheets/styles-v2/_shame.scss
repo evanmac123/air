@@ -45,13 +45,6 @@
   text-align: right;
 }
 
-.board_settings {
-  input[type="text"], input[type="file"], textarea{
-    width: 80%;
-    display: block;
-  }
-
-}
 
 table.transparent-bg {
   &, &:hover, & tr:hover {
@@ -59,11 +52,6 @@ table.transparent-bg {
   }
 }
 
-input, textarea {
-  &.with_counter {
-    margin-bottom: 35px;
-  }
-}
 .with_input_margin {
   margin-bottom: 20px;
   display: block;

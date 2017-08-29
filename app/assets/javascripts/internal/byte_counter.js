@@ -62,7 +62,7 @@ function addCounter(locator, countUpdater) {
 
   maxlength = $(locator).attr('maxlength'); // copy maxlength to counter
   if( canExceedMaxlength(locator) ) $(locator).removeAttr('maxlength');
-  $(locator).after('<span class="character-counter" id="' + ghettoUniqueId + '" maxlength="' + maxlength + '"></span>');
+  $(locator).after('<div class="character-counter" id="' + ghettoUniqueId + '" maxlength="' + maxlength + '"></div>');
 
   countUpdater(locator, '#'+ghettoUniqueId);
   // I'm using keyup here instead of keypress so that it plays nicely in Chrome
