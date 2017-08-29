@@ -69,6 +69,10 @@ module Concerns::Attachable
     get_attachments.compact.map(&:delete)
   end
 
+  def has_attachments?
+    file_attachments.keys.size > 0;
+  end
+
 
   private
 
