@@ -50,7 +50,6 @@
     <tbody>
       <%tile.documents.each do |name, url|%>
         <tr>
-          <td><i class="fa fa-file-image-o icon-tile-attachment"></i></td>
           <td>
             <%=link_to url, target: "_blank", class: "attachment-link"  do %>
               <%= raw CGI.unescape(name)%>
