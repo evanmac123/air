@@ -17,7 +17,7 @@ namespace :admin do
         Reporting::ProductMetricsReportBuilder.build_month(to_date: Date.today.end_of_month).save
 
         Demo.paid_or_free_trial.each do |demo|
-          Reporting::BoardHealthReportBuilder.build_month(board: demo, to_date: Date.end_of_month).save
+          Reporting::BoardHealthReportBuilder.build_month(board: demo, to_date: Date.today.end_of_month).save
         end
       end
     end
