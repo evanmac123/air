@@ -116,37 +116,6 @@ class UserInHeaderPresenter
     end
   end
 
-  def boards_as_admin
-    return if is_not_user?
-    current_user.boards_as_admin
-  end
-
-  def boards_as_regular_user
-    return if is_not_user?
-    current_user.boards_as_regular_user
-  end
-
-  def has_only_one_board?
-    return if is_not_user?
-    current_user.has_only_one_board?
-  end
-
-  def divider_class
-    if put_divider_between_sections?
-      "with_divider"
-    else
-      ""
-    end
-  end
-
-  def followup_is_muted(board)
-    muted_followup_boards.include?(board)
-  end
-
-  def digest_is_muted(board)
-    muted_digest_boards.include?(board)
-  end
-
   def can_submit_tile?(browser)
     return false if browser.ie8?
     (can_make_tile_suggestions? || is_client_admin || current_user.is_site_admin) &&
@@ -162,20 +131,6 @@ class UserInHeaderPresenter
   end
 
   protected
-
-  def muted_followup_boards
-    return if is_not_user?
-    current_user.muted_followup_boards
-  end
-
-  def muted_digest_boards
-    return if is_not_user?
-    current_user.muted_digest_boards
-  end
-
-  def put_divider_between_sections?
-    boards_as_admin.present? && boards_as_regular_user.present?
-  end
 
   def is_user?
     current_user && current_user.is_a?(User)

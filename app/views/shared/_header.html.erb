@@ -11,7 +11,6 @@
       <nav id="navigation" class="columns large-3"> <!-- offcanvas menu -->
         <%= render 'shared/header/user_options', user: user %>
         <%= render 'shared/header/board_switch_toggler', user: user %>
-        <%= render 'shared/header/mobile_admin_options', user: user %>
       </nav>
       <%= render 'shared/header/user_info', user: user %>
     <% else # user.is_guest? == true %>
