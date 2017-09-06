@@ -1,0 +1,20 @@
+<div id="boardWelcomeMessageModal" class="js-board-welcome-message reveal-modal small" data-reveal aria-labelledby="boardWelcomeMessageModal" aria-hidden="true" role="dialog" data-show-on-load="<%= show_on_load %>">
+  <% if board.internal? %>
+    <div class="image-header text-center">
+      <%= image_tag "airbo-venice-fireworks.svg", width: "500px" %>
+    </div>
+  <% end %>
+  <div class="welcome-header text-center blue">
+    <h3><%= "Welcome to the #{board.name_as_noun.titleize}!" %></h3>
+  </div>
+  <div class="welcome-message">
+    <p><%= board.intro_message %></p>
+  </div>
+  <div class="get-started-button text-center mt-1">
+    <%= link_to "Get Started", "#", class: "button" %>
+  </div>
+  <div class="already-a-user-text text-center">
+    <p class="mb-0" style="font-size:12px;">Already a user? <%= link_to "Sign in.", sign_in_path %></p>
+  </div>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>

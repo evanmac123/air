@@ -87,6 +87,10 @@ class PotentialUser < ActiveRecord::Base
     false
   end
 
+  def display_get_started_lightbox
+    false
+  end
+
   def show_onboarding?
     false
   end

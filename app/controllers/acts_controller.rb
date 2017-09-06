@@ -1,4 +1,5 @@
 class ActsController < ApplicationController
+  # This is stil such shit awful code. Trying to do so many things at once. Fuck.
   include AllowGuestUsersConcern
   include AuthorizePublicBoardsConcern
   include TileBatchHelper

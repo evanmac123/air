@@ -1,15 +1,16 @@
-<div class="">
-  <%= javascript_include_tag 'jquery.lightbox_me' %>
-  <%= render partial: 'shared/tiles/user_progress', locals: { as_null:false, raffle: current_user.demo.raffle, opts: {} } %>
-  <%= render 'shared/tile_wall', @displayable_categorized_tiles.merge(path_for_more_tiles: tiles_path) %>
+<%= javascript_include_tag 'jquery.lightbox_me' %>
+<% if current_user.is_a?(GuestUser) && current_board.internal? %>
+  <!-- put way to reactivate welcome modal -->
+<% end %>
+<%= render partial: 'shared/tiles/user_progress', locals: { as_null:false, raffle: current_user.demo.raffle, opts: {} } %>
+<%= render 'shared/tile_wall', @displayable_categorized_tiles.merge(path_for_more_tiles: tiles_path) %>
 
-  <%= render "acts/activity_feed" %>
+<%= render "acts/activity_feed" %>
 
-  <%= render "shared/guest_conversion_lightbox", user: current_user, demo: current_user.demo %>
+<%= render "shared/guest_conversion_lightbox", user: current_user, demo: current_user.demo %>
 
-  <% if current_user.is_a? PotentialUser %>
-    <%= render "acts/register_potential_user_lightbox" %>
-  <% elsif @display_get_started_lightbox %>
-    <%= render "acts/get_started_lightbox", board_name: current_user.demo.name, is_guest: current_user.is_guest?, get_started_lightbox_message: @get_started_lightbox_message, suppress_conversion_modal: false %>
-  <% end %>
-</div>
+<% if current_user.is_a? PotentialUser %>
+  <%= render "acts/register_potential_user_lightbox" %>
+<% end %>
+
+<%= render "acts/board_welcome_message", board: current_board, show_on_load: @display_board_welcome_message %>
