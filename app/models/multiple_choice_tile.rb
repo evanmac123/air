@@ -45,10 +45,10 @@ class MultipleChoiceTile < Tile
  end
 
  def normalized_correct_answer_index
-   if correct_answer_index
-     answers[0, correct_answer_index + 1].reject(&:blank?).uniq.count - 1
-   elsif question_subtype.downcase == Tile::CHANGE_EMAIL.downcase 
+   if PRESET_CORRECT_ANSWER_INDEX.include?(question_subtype.downcase)
      0
+   elsif  correct_answer_index
+     answers[0, correct_answer_index + 1].reject(&:blank?).uniq.count - 1
    else
      -1
    end

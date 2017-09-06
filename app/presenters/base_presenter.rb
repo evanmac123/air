@@ -5,8 +5,6 @@ class BasePresenter
     @is_ie = options[:is_ie] || false
   end
 
-private
-
   def self.presents(name)
     define_method(name) do
       @object
@@ -24,4 +22,5 @@ private
   def method_missing(*args, &block)
     @template.send(*args, &block)
   end
+
 end

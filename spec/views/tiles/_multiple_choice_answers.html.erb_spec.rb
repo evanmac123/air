@@ -2,17 +2,14 @@ require "spec_helper"
 
 describe "tiles/_multiple_choice_answers.html.erb" do
   context "when the tile in question is completed by the current user, and not a preview" do
-    let(:tile) { FactoryGirl.build_stubbed(:multiple_choice_tile, multiple_choice_answers: %w(Zero One)) }
-    let(:user) { FactoryGirl.build_stubbed(:user) }
-    let(:tile_completion) { FactoryGirl.build_stubbed(:tile_completion, answer_index: 0) }
-
-    let(:presenter) { FullSizeTilePresenter.new(tile, user, false, [], Browser.new) }
 
     before do
-      presenter.stubs(:non_preview_of_completed_tile).returns(true)
-      presenter.stubs(:user_tile_completion).returns(tile_completion)
+      tile = FactoryGirl.create(:multiple_choice_tile, multiple_choice_answers: %w(Zero One))
+      user = FactoryGirl.create(:user) 
+      FactoryGirl.create(:tile_completion, tile: tile, user: user, answer_index: 0) 
 
-      render "tiles/multiple_choice_answers", tile: presenter
+      view.stubs(:current_user).returns(user)
+      render partial: "tiles/multiple_choice_answers", locals: {tile: tile, is_preview: false}
     end
 
     context "and this answer is the one used to complete" do

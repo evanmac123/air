@@ -16,7 +16,7 @@ feature 'User views tiles' do
     visit tiles_path(as: @user)
     within ".js-free-text-panel" do 
       expect(page).to have_css(".js-free-form-response")
-      expect(page).to have_css(".free-text.multiple-choice-answer.correct")
+      expect(page).to have_css(".js-free-text.multiple-choice-answer.correct")
       expect(page).to have_css(".character-counter")
     end
   end
@@ -28,7 +28,7 @@ feature 'User views tiles' do
     click_link "Other"
     within ".js-free-text-panel" do 
       expect(page).to have_css(".js-free-form-response")
-      expect(page).to have_css(".free-text.multiple-choice-answer.correct")
+      expect(page).to have_css(".js-free-text.multiple-choice-answer.correct")
       expect(page).to have_css(".character-counter")
     end
   end

@@ -221,6 +221,3 @@ Airbo.StandardAnswer.asDomNode = function() {
 };
 
 
-Airbo.StandardAnswer.createTileAnswerButton = function(answer){
-  return Airbo.EditableTileAnswerButton.build(answer, this.maxLength, this.exceed);
-};

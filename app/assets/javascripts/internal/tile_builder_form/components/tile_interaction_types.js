@@ -60,7 +60,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         minResponses: 1,
         maxResponses: 1
       }
- 
     },
 
     quiz: {
@@ -108,7 +107,18 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 0,
         allowAnonymous: true,
         builder: Airbo.FreeResponseAnswer
-      },
+     },
+     custom_form: {
+       name: "Form",
+       question: "Ask a question",
+       maxLength: 50,
+       answers: ["Change my phone", "Keep my current phone"],
+       exceed: true,
+       minResponses: 2,
+       maxResponses: 2,
+       builder: Airbo.CustomFormAnswer,
+       extendable: false,
+     },
       rsvp_to_event : {
         name: "RSVP To Event",
         question: "Will you be attending?",
@@ -123,8 +133,9 @@ Airbo.TileBuilderInteractionConfig = (function(){
         question: "Would you like to change the email that you receive Airbo email notifications?",
         answers: ["Change my email", "Keep my current email"],
         minResponses: 2,
-        maxResponses: 100,
-        extendable: true,
+        maxResponses: 2,
+        extendable: false,
+        correctAnswerIndex: 0,
         maxLength: 50
       },
 

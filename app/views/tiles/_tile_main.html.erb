@@ -34,7 +34,7 @@
 
     <div class="tile_question content_sections"><%= tile.question %></div>
 
-    <%= render 'tiles/multiple_choice_answers', tile: tile %>
+    <%= render partial: 'tiles/multiple_choice_answers', locals: {tile: tile, is_preview: is_preview} %>
   </div>
 
 

@@ -13,6 +13,7 @@ class TileCompletionsController < ApplicationController
       return false
     end
 
+
     remember_points_and_tickets
 
     if create_tile_completion(@tile)
@@ -46,7 +47,8 @@ class TileCompletionsController < ApplicationController
       completion = TileCompletion.new(
         :tile_id => tile.id, :user => current_user,
         :answer_index => params[:answer_index],
-        :free_form_response => params[:free_form_response]
+        :free_form_response => params[:free_form_response],
+        :custom_form => params[:custom_form]
       )
       completion.save
     end
