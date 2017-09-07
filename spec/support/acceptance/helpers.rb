@@ -7,10 +7,6 @@ module SteakHelperMethods
     first(:link, locator).click
   end
 
-  def close_tutorial_lightbox
-    find('#get_started_lightbox #lightbox_get_started_button').click
-  end
-
   # Need these guys to get rid of overlays for the talking-chicken tutorial and inviting people
   # to join the game. If don't get rid of them => can't click on any links because they are "covered".
   def bypass_modal_overlays(user)

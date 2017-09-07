@@ -31,7 +31,7 @@ feature 'Ensure carousel are in synch', js: true do
     signin_as(admin, admin.password)
 
     visit activity_path
-    click_link "Get started!"
+    visit activity_path
     check_carousel_and_viewer(active_tile_headlines_order, Tile.first)
   end
 

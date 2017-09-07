@@ -31,8 +31,10 @@ feature 'User views tile' do
     end
 
     scenario 'views tile image', js: true do
+      within ".js-board-welcome-modal" do
+        page.find(".close-airbo-modal").click
+      end
       # Click on the first tile, and it should take you to the tiles  path
-      click_link "Get started!"
       click_link 'discover fire'
       should_be_on tiles_path
 

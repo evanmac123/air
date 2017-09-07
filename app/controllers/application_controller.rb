@@ -78,6 +78,10 @@ class ApplicationController < ActionController::Base
   def render_json_access_denied
     render json: { errors: "Access Denied" }, status: 403
   end
+
+  def current_board
+    current_user.demo
+  end
   ######
 
   private
