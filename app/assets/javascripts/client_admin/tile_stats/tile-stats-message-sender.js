@@ -50,6 +50,7 @@ Airbo.TileStatsMessageSender = (function(){
 
   function messageSentSuccess(data) {
     Airbo.SubComponentFlash.insert($(".tile-stats-card-content"), "Your message has been delivered.", "success");
+    Airbo.TileStatsPings.ping({ action: "Tile Targeted Message Sent" });
 
     addNewMessageToSentTable(data);
     clearPreviousMessage();
@@ -66,6 +67,7 @@ Airbo.TileStatsMessageSender = (function(){
 
   function testMessageSentSuccess() {
     Airbo.SubComponentFlash.insert($(".tile-stats-card-content"), "A test message has been sent to your email address.", "success");
+    Airbo.TileStatsPings.ping({ action: "Test Tile Targeted Message Sent" });
 
     initSendTestMessage();
   }
