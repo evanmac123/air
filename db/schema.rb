@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170826002025) do
+ActiveRecord::Schema.define(:version => 20170829221427) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1194,7 +1194,6 @@ ActiveRecord::Schema.define(:version => 20170826002025) do
     t.integer  "creator_id"
     t.string   "subject"
     t.text     "message"
-    t.string   "answer"
     t.integer  "scope_cd"
     t.datetime "delivered_at"
     t.integer  "recipient_count"
@@ -1202,6 +1201,7 @@ ActiveRecord::Schema.define(:version => 20170826002025) do
     t.integer  "delayed_job_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "answer_idx"
   end
 
   add_index "tile_user_notifications", ["tile_id"], :name => "index_tile_user_notifications_on_tile_id"

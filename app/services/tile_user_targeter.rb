@@ -6,23 +6,23 @@ class TileUserTargeter
 
   def get_users
     if rule[:scope] == :answered
-      users_who_answered(answer: rule[:answer])
+      users_who_answered(answer_idx: rule[:answer_idx])
     elsif rule[:scope] == :did_not_answer
-      users_who_did_not_answer(answer: rule[:answer])
+      users_who_did_not_answer(answer_idx: rule[:answer_idx])
     end
   end
 
-  def users_who_answered(answer: nil)
-    if answer.present?
-      users_who_answered_specific_answer(answer: answer)
+  def users_who_answered(answer_idx: nil)
+    if answer_idx.present?
+      users_who_answered_specific_answer(answer_idx: answer_idx)
     else
       targetable_users.joins(:tile_completions).where(tile_completions: { tile_id: tile_id } )
     end
   end
 
-  def users_who_did_not_answer(answer: nil)
-    if answer.present?
-      users_who_chose_different_answer(answer: answer)
+  def users_who_did_not_answer(answer_idx: nil)
+    if answer_idx.present?
+      users_who_chose_different_answer(answer_idx: answer_idx)
     else
       targetable_users.where("users.id NOT IN (?)", users_who_answered)
     end
@@ -50,31 +50,19 @@ class TileUserTargeter
       User.select([:id, :name, :email]).joins(:board_memberships)
     end
 
-    def targetable_users_claimed_only
-      user_select_clause.where("board_memberships.demo_id = ? AND board_memberships.joined_board_at <= ?", tile.demo_id, tile.activated_at)
-    end
-
     def targetable_users_all
-      user_select_clause.where("board_memberships.demo_id = ? AND board_memberships.created_at <= ?", tile.demo_id, tile.activated_at)
+      user_select_clause.where("board_memberships.demo_id = ?", tile.demo_id)
     end
 
     def targetable_users
-      if tiles_digest && !tiles_digest.include_unclaimed_users
-        targetable_users_claimed_only
-      else
-        targetable_users_all
-      end
+      targetable_users_all
     end
 
-    def users_who_answered_specific_answer(answer:)
-      answer_idx = tile.multiple_choice_answers.index(answer)
-
+    def users_who_answered_specific_answer(answer_idx:)
       targetable_users.joins(:tile_completions).where(tile_completions: { tile_id: tile.id, answer_index: answer_idx } )
     end
 
-    def users_who_chose_different_answer(answer:)
-      answer_idx = tile.multiple_choice_answers.index(answer)
-
+    def users_who_chose_different_answer(answer_idx:)
       targetable_users.joins(:tile_completions).where('"tile_completions"."tile_id" = ? AND "tile_completions"."answer_index" != ?', tile.id, answer_idx)
     end
 

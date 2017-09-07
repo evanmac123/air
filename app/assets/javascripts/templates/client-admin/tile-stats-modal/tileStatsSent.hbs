@@ -1,0 +1,51 @@
+<div class="row stats_page">
+  <div class="columns small-12">
+    {{#if tileUserNotifications }}
+      <table class="messages-sent-table" id="survey_table">
+        <thead>
+          <tr>
+            <th class="date-sent">
+              <span>Date Sent</span>
+            </th>
+            <th class="subject">
+              <span>Subject</span>
+            </th>
+            <th class="rule">
+              <span>Rule</span>
+            </th>
+            <th class="recipients">
+              <span>Recipient Count</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="messages-sent-table-body">
+          {{#each tileUserNotifications}}
+            {{renderPartial "client-admin/tile-stats-modal/tile-user-notification-row" notification=this }}
+          {{/each}}
+        </tbody>
+      </table>
+    {{else}}
+      <p class="messages-sent-empty">No targeted messages have been delivered for this Tile.</p>
+      <table class="messages-sent-table hide" id="survey_table">
+        <thead>
+          <tr>
+            <th class="date-sent">
+              <span>Date Sent</span>
+            </th>
+            <th class="subject">
+              <span>Subject</span>
+            </th>
+            <th class="rule">
+              <span>Rule</span>
+            </th>
+            <th class="recipients">
+              <span>Recipient Count</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="messages-sent-table-body">
+        </tbody>
+      </table>
+    {{/if}}
+  </div>
+</div>

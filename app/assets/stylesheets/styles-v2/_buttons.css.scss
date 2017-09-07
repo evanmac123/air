@@ -315,6 +315,10 @@
     @include withIcon($download-icon);
   }
 
+  &.send {
+    @include withIcon($send-icon);
+  }
+
   &.full_width {
     width: 100%;
   }

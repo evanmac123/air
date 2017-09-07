@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="columns small-12">
+    <p>Send a message to the <span class="js-recipient-count">{{numAddCommas defaultNotificationRecipientCount}} {{pluralize defaultNotificationRecipientCount 'person' 'people'}}</span> who...</p>
+    <div class="grid_types d-inline-block mr-1">
+      <select class="js-tile-targeted-message-scope-cd nice-select-init dropdown-button-component light-outlined">
+        {{#each tileMessageOptionsForScope}}
+        <option class="" value={{this.[1]}}>{{this.[0]}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="grid_types d-inline-block">
+      <select class="js-tile-targeted-message-answer-idx nice-select-init dropdown-button-component light-outlined">
+        {{#each tileMessageOptionsForAnswers}}
+        <option class="" value={{this.[1]}}>{{this.[0]}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="columns small-12">
+    <label>Subject</label>
+    <input type="text" class="js-tile-targeted-message-subject"></input>
+  </div>
+</div>
+<div class="row">
+  <div class="columns small-12">
+    <label>Message</label>
+    <div class="airbo-quill-standalone">
+      <div id="tileStatsMessageEditor">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="columns small-12 text-right mt-2">
+    <a href="#" class="js-send-tile-targeted-test-message green button outlined send mr-1" data-tile-id={{id}}>Send Test</a>
+    <a href="#" class="js-send-tile-targeted-message green button send" data-tile-id={{id}}>Send Email</a>
+  </div>
+</div>

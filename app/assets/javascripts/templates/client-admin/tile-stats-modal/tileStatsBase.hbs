@@ -15,7 +15,8 @@
       <ul class="inline-list">
         <li class="js-tile-stats-tab tab active" data-tab-content="analytics"><a href="#">Analytics</a></li>
         <li class="js-tile-stats-tab tab" data-tab-content="activity"><a href="#">Activity</a></li>
-        <!-- <li class="js-tile-stats-tab tab" data-tab-content="messages"><a href="#">Push Messages</a></li> -->
+        <li class="js-tile-stats-tab tab" data-tab-content="message"><a href="#">Message</a></li>
+        <li class="js-tile-stats-tab tab" data-tab-content="sent"><a href="#">Sent</a></li>
       </ul>
     </div>
     <div class="card-content tile-stats-card-content">
@@ -31,7 +32,13 @@
         </div>
       </div>
 
-      <div class="js-tile-stats-modal-tab-content messages hidden">
+      <div class="js-tile-stats-modal-tab-content message hidden">
+        <div class="text-center">
+          <i class="app-load-wheel fa fa-spinner fa-spin fa-3x fa-fw mt-4"></i>
+        </div>
+      </div>
+
+      <div class="js-tile-stats-modal-tab-content sent hidden">
         <div class="text-center">
           <i class="app-load-wheel fa fa-spinner fa-spin fa-3x fa-fw mt-4"></i>
         </div>
