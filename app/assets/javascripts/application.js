@@ -12,6 +12,7 @@
 //= require imagesloaded.pkgd.min.js
 //= require airbo
 //= require_tree ./utils
+//= require_tree ./application
 //= require ./internal/tile_manager/first_tile_hint
 
 

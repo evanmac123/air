@@ -34,5 +34,5 @@ $(document).ready(function() {
   $('.settings-edit').foundation();
 
   $(document).foundation();
-  $(document).foundation('reveal', {animation: "fade"});
+  $(document).foundation('reveal', { animation: "fade" });
 });

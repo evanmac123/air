@@ -1,4 +1,4 @@
-function bindPrizeModal(showStart, showFinish, publicSlug) {
+function bindPrizeModal(showStart, showFinish) {
   $().ready(function(){
     if(showFinish) {
       $(".prize_header .end_date").css("display", "none");

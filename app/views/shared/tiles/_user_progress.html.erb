@@ -42,5 +42,5 @@
 <%end%>
 
 <% if raffle && current_user.can_see_raffle_modal? %>
-  <%= render partial: "client_admin/prizes/prize_modal", locals: {raffle: raffle} %>
+  <%= render partial: "client_admin/prizes/prize_modal", locals: { raffle: raffle } %>
 <% end %>
