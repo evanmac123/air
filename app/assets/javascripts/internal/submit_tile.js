@@ -1,8 +1,4 @@
-
-var Airbo = window.Airbo || {}
-
-
-
+var Airbo = window.Airbo || {};
 
 var addExplainBtn, askUsSel, closeBtn, explainBtnClass, infoIcon, modal, suggestLink, tooltip, tooltipClass;
 

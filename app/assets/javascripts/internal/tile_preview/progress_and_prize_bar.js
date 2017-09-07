@@ -183,7 +183,7 @@ function initDom(){
     newWidth = calculateTileProgressWidth(allTiles, completedTiles);
     hideTileNumbers(allTiles, completedTiles);
 
-    tileCompletedBar.animate({width: newWidth}, 750, 'linear', function(){
+    tileCompletedBar.animate({ width: newWidth }, 750, 'linear', function(){
       showTileNumbers(allTiles, completedTiles);
       deferred.resolve();
     });

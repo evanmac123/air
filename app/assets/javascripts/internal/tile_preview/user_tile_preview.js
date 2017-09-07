@@ -113,6 +113,8 @@ Airbo.UserTilePreview =(function(){
         }
       };
       $.when(Airbo.ProgressAndPrizeBar.predisplayAnimations(result, responseText)).then(handler);
+
+      Airbo.PubSub.publish("tileAnswered");
     };
 
 
@@ -204,7 +206,7 @@ Airbo.UserTilePreview =(function(){
   function postTileCompletionPing(target) {
     var tileHolder = $(".tile_holder");
     var tileId = tileHolder.data("current-tile-id");
-    var config = tileHolder.data("config"); 
+    var config = tileHolder.data("config");
 
     var tileType;
 
@@ -341,7 +343,7 @@ Airbo.UserTilePreview =(function(){
 
  function initAnonymousTooltip(){
    $(".js-anonymous-tile-tooltip").tooltipster({
-     theme: "tooltipster-shadow" 
+     theme: "tooltipster-shadow"
    });
  }
 
