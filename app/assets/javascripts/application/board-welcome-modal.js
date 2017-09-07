@@ -7,6 +7,11 @@ Airbo.BoardWelcomeModal = (function(){
     $(".close-airbo-modal").on("click", function() {
       close();
     });
+
+    $(".js-open-board-welcome-modal").on("click", function(e) {
+      e.preventDefault();
+      open();
+    });
   }
 
   function open() {

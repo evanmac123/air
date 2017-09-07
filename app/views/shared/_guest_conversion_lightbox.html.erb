@@ -1,4 +1,4 @@
-<% if user.is_guest? && guest_user_conversion_modal?(user) %>
+<% if should_convert_guest_as_user?(user) %>
   <div id="guest-conversion-modal" class="reveal-modal small" data-reveal aria-labelledby="guestConversionModal" aria-hidden="true" role="dialog">
     <h3>You're on a roll!</h3>
 

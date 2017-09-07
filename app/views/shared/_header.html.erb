@@ -14,7 +14,7 @@
       </nav>
       <%= render 'shared/header/user_info', user: user %>
     <% else # user.is_guest? == true %>
-      <%= render 'shared/header/save_progress', user: user %>
+      <%= render 'shared/header/guest_user_options', user: user %>
     <% end %>
   </div> <!-- end of topbar -->
 
