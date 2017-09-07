@@ -1,23 +1,29 @@
 var Airbo = window.Airbo || {};
 
 Airbo.BoardWelcomeModal = (function(){
-  var self;
-  function init() {
-    self = $(".js-board-welcome-modal");
+  var selector = ".js-board-welcome-modal";
 
-    if (self.data("showOnLoad") === true) {
-      self.foundation("reveal", "open");
-    }
+  function init() {
+    $(".close-airbo-modal").on("click", function() {
+      close();
+    });
+  }
+
+  function open() {
+    $(selector).foundation("reveal", "open");
+  }
+
+  function close() {
+    $(selector).foundation("reveal", "close");
+  }
+
+  function showOnLoad() {
+    return $(selector).data("showOnLoad") === true;
   }
 
   return {
+    open: open,
+    showOnLoad: showOnLoad,
     init: init
   };
-
 }());
-
-$(function() {
-  if (Airbo.Utils.nodePresent(".js-board-welcome-modal")) {
-    Airbo.BoardWelcomeModal.init();
-  }
-});

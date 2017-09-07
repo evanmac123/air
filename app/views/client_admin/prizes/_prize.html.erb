@@ -1,6 +1,6 @@
 <div class="prize_box">
   <div class="prize_header">
-    <h1>
+    <h1 class="js-prize-header">
       Prize
     </h1>
     <div class="end_date">
@@ -72,7 +72,7 @@
   </div>
   <div class="<%= ("placeholder_text" unless raffle.other_info.present?) %> other_info_row">
     <%= raffle.other_info.present? ? raffle.other_info : "We'll email the winner to award the prize within a week of the end of the prize period." %>
-    <div class="button close_modal">
+    <div class="button close_modal js-close_prize_modal">
       Start
     </div>
   </div>

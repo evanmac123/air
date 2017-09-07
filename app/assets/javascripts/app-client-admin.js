@@ -47,6 +47,9 @@
 //= require_tree ./vendor_customization/quill
 
 
+//= require_tree ./application
+
+
 var Airbo = window.Airbo || {};
 
 $(document).ready(function() {

@@ -26,13 +26,11 @@
 //= require ./client_admin/side-nav-notifications-manager
 //= require ./external/schedule_demo
 //= require ./external/request_form
-
 //= require ../../../vendor/assets/javascripts/flickity.pkgd.min.js
-
 //= require_self
-$(document).ready(function() {
-  $('.settings-edit').foundation();
 
+//= require_tree ./application
+
+$(document).ready(function() {
   $(document).foundation();
-  $(document).foundation('reveal', { animation: "fade" });
 });
