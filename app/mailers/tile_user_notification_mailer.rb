@@ -20,6 +20,6 @@ class TileUserNotificationMailer < ActionMailer::Base
     @creator = tile_user_notification.creator
     @message = tile_user_notification.interpolated_message(user: @user)
 
-    mail(to: @user.email_with_name, from: tile_user_notification.from_email, subject: tile_user_notification.subject)
+    mail(to: @user.email_with_name, from: tile_user_notification.from_email, subject: tile_user_notification.subject, reply_to: 'support@airbo.com')
   end
 end
