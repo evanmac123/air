@@ -37,7 +37,7 @@ Airbo.MarketingSite.Pings = (function() {
   };
 }());
 
-$(function(){
+$(function() {
   if (Airbo.Utils.nodePresent(".airbo-marketing-site")) {
     Airbo.MarketingSite.Pings.init();
   }

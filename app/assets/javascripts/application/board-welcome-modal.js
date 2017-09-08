@@ -12,6 +12,10 @@ Airbo.BoardWelcomeModal = (function(){
       e.preventDefault();
       open();
     });
+
+    $(".js-customize-board-cta").on("click", function(e) {
+      Airbo.Utils.ping("Public Board Action", { action: "CTA Clicked", copy: $(this).text() });
+    });
   }
 
   function open() {

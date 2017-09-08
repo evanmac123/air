@@ -11,6 +11,6 @@
   </div>
 <% elsif should_convert_guest_as_prospect?(current_user) %>
   <div class="large-4 large-offset-6 columns customize-board-cta">
-    <%= link_to "Customize Board", new_signup_request_path, class: "button yellow", style: "margin: 0.5em 0;", target: "_blank" %>
+    <%= link_to "Customize Board", new_signup_request_path, class: "button yellow js-customize-board-cta", style: "margin: 0.5em 0;", target: "_blank" %>
   </div>
 <% end %>
