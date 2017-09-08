@@ -34,10 +34,10 @@ class UserInHeaderPresenter
   def home_path
     if guest_for_tile_preview?
       nil
+    elsif demo.internal? && params[:controller] == "acts" && params[:action] == "index"
+      root_path
     elsif current_user.is_guest? && !public_tile_page
       public_activity_path(current_user.demo.public_slug)
-    elsif @request.cookies["user_onboarding"].present? && current_user.user_onboarding && !current_user.user_onboarding.completed
-      user_onboarding_path(current_user.user_onboarding.id, return_onboarding: true)
     else
       root_path
     end

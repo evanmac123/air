@@ -1,0 +1,8 @@
+header {
+  .customize-board-cta {
+    text-align: right;
+    @media only screen and (max-width: 780px) {
+      display: none;
+    }
+  }
+}
