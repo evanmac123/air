@@ -9,6 +9,10 @@ module ApplicationHelper
     current_user.demo
   end
 
+  def current_board
+    current_user.demo
+  end
+
   def current_demo_created_at
     current_demo.try(:created_at)
   end

@@ -42,3 +42,5 @@ styles changes haven't broken anything.
 
 @import 'mixins/airbo-layout-defaults';
 @include airbo-layout-defaults();
+
+@import "./application/**/*"

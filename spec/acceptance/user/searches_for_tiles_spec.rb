@@ -15,9 +15,8 @@ feature 'User searches for tile', js: true do
     user = FactoryGirl.create(:user, demo: demo)
     TileCompletion.create(tile: archived_tiles.first, user: user)
 
-    bypass_modal_overlays(user)
     visit root_path(as: user)
-    click_link "Get started!"
+    visit root_path(as: user)
   end
 
   describe "when a user searches for tiles" do

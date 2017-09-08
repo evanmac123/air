@@ -10,7 +10,7 @@ class PotentialUserConversionsController < ApplicationController
         flash[:success] = "Welcome, #{full_user.name}"
         sign_in full_user
       else
-        flash[:failure] = "Wrong name!"
+        flash[:failure] = "This invite link has already been used."
       end
     end
     redirect_to activity_path

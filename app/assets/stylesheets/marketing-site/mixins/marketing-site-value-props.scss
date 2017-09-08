@@ -5,7 +5,7 @@
     .pre-header {
       font-size: 15px;
       text-transform: uppercase;
-      color: #d2dade;
+      color: $secondary-dark-blue;
       margin-top: 60px;
       margin-bottom: 15px;
     }
@@ -15,6 +15,18 @@
     .value-prop-image {
       width: 193px;
       height: 193px;
+    }
+    .gallery-row {
+      a {
+        color: $dark-blue;
+      }
+      .gallery-image {
+        width: 162px;
+        height: 162px;
+      }
+      &:last-child {
+        @extend .end;
+      }
     }
     .value-prop-text {
       height: 85px;

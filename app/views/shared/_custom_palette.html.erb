@@ -19,7 +19,7 @@
   border-color:  #dfdfdf;
   color: #dfdfdf;
 }
-.act .act-details .user a {
+a {
   color: <%=@primary_color%>
 }
 .search-bar .search-bar-wrapper.focus {
@@ -44,12 +44,12 @@
   background-color: <%=@primary_color%>
 }
 
-header #guest_user_start_over_button, header #guest_user_start_over_button[disabled], header #sign_in_button, header #sign_in_button[disabled], header #save_progress_button, header #save_progress_button[disabled], .start_lightbox #lightbox_get_started_button, .start_lightbox #lightbox_get_started_button[disabled] {
+header #guest_user_start_over_button, header #guest_user_start_over_button[disabled], header #sign_in_button, header #sign_in_button[disabled], header #save_progress_button, header #save_progress_button[disabled] {
   border-color:<%=@primary_color%>;
   color:<%=@primary_color%>;
 }
 
-.follow_buttons .follow-btn:not([disabled]):active, .follow_buttons .follow-btn:not([disabled]):focus, #guest_user_start_over_button[disabled]:hover, header #guest_user_start_over_button:not([disabled]):active, header #guest_user_start_over_button:not([disabled]):focus, header #guest_user_start_over_button:not([disabled]):hover, header #save_progress_button:not([disabled]):focus, #save_progress_button[disabled]:hover, #save_progress_button[disabled]:active, header #save_progress_button:not([disabled]):hover, #sign_in_button[disabled]:hover, #sign_in_button[disabled]:active, header #sign_in_button:not([disabled]):hover, .start_lightbox #lightbox_get_started_button:not([disabled]):hover, .start_lightbox #lightbox_get_started_button[disabled]:hover, .start_lightbox #lightbox_get_started_button[disabled]:active {
+.follow_buttons .follow-btn:not([disabled]):active, .follow_buttons .follow-btn:not([disabled]):focus, #guest_user_start_over_button[disabled]:hover, header #guest_user_start_over_button:not([disabled]):active, header #guest_user_start_over_button:not([disabled]):focus, header #guest_user_start_over_button:not([disabled]):hover, header #save_progress_button:not([disabled]):focus, #save_progress_button[disabled]:hover, #save_progress_button[disabled]:active, header #save_progress_button:not([disabled]):hover, #sign_in_button[disabled]:hover, #sign_in_button[disabled]:active, header #sign_in_button:not([disabled]):hover {
   border-color: <%=@primary_color%>;
   background-color: <%=@primary_color%>;
   opacity: 1;
@@ -57,10 +57,6 @@ header #guest_user_start_over_button, header #guest_user_start_over_button[disab
 }
 
 .close-reveal-modal:hover {
-  color: <%=@primary_color%>;
-}
-
-.start_lightbox a {
   color: <%=@primary_color%>;
 }
 
@@ -140,10 +136,10 @@ header #guest_user_start_over_button, header #guest_user_start_over_button[disab
   background-color:
 }
 
-.button {
+.button.button {
   <%=@solid_filled_styles%>
 }
-.button:not([disabled]):hover, .button:not([disabled]):focus, .button:not([disabled]):active {
+.button.button:not([disabled]):hover, .button.button:not([disabled]):focus, .button.button:not([disabled]):active {
   <%=@solid_filled_styles%>
   <%=@solid_hover_styles%>
 }
@@ -168,7 +164,6 @@ header #guest_user_start_over_button, header #guest_user_start_over_button[disab
 .follow-btn {
   <%=@solid_filled_styles%>
 }
-
 
 h3, h4, h5, label {
   color:  <%=@palette.static_text_color %>;

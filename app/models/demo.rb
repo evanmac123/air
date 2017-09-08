@@ -134,8 +134,20 @@ class Demo < ActiveRecord::Base
     users_for_digest.where("board_memberships.joined_board_at IS NOT NULL")
   end
 
+  def internal?
+    organization.try(:internal)
+  end
+
   def organization_name
    organization.present? ? organization.name : "Unattached To Any Organization"
+  end
+
+  def name_as_noun
+    if name =~ /(board)\z/i
+      name
+    else
+      name + " board"
+    end
   end
 
   def activate_tiles_if_showtime
@@ -446,8 +458,16 @@ class Demo < ActiveRecord::Base
     where("name ILIKE ?", normalize_board_name(name))
   end
 
+  def intro_message
+    if persistent_message.present?
+      persistent_message
+    else
+      Demo.default_persistent_message
+    end
+  end
+
   def self.default_persistent_message
-    "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
+    "Airbo is an engaging microsite for employee communication. Get started by clicking on a Tile. Answer questions to earn points."
   end
 
   def set_for_delete

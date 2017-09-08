@@ -1,16 +1,8 @@
 module ActsHelper
   def set_modals_and_intros
-    unless current_user.is_a?(PotentialUser)
-      @display_get_started_lightbox = current_user.display_get_started_lightbox
-
-      if @display_get_started_lightbox && current_user
-        @get_started_lightbox_message = welcome_message
-        current_user.get_started_lightbox_displayed = true
-      elsif current_user.is_a?(GuestUser)
-        welcome_message_flash
-      end
-
-      current_user.save
+    if current_user.display_get_started_lightbox
+      @display_board_welcome_message = true
+      current_user.update_attributes(get_started_lightbox_displayed: true)
     end
   end
 
@@ -19,16 +11,6 @@ module ActsHelper
     return if keys_for_real_flashes.any?{|key| flash[key].present?}
 
     flash.now[:success] = [welcome_message]
-  end
-
-  def welcome_message
-    message_from_board = current_user.try(:demo).try(:persistent_message)
-
-    if message_from_board.present?
-      message_from_board
-    else
-      Demo.default_persistent_message
-    end
   end
 
   def find_requested_acts(demo, per_page)

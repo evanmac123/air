@@ -10,9 +10,9 @@ feature 'Completes tiles' do
   end
 
   before do
-    UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
     visit public_board_path(public_slug: board.public_slug)
-    close_tutorial_lightbox
+    page.find(".close-airbo-modal").click
+
     click_link tile_1.headline
   end
 
