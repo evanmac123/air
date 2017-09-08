@@ -11,7 +11,7 @@ feature 'Completes tiles' do
 
   before do
     visit public_board_path(public_slug: board.public_slug)
-    visit public_board_path(public_slug: board.public_slug)
+    page.find(".close-airbo-modal").click
 
     click_link tile_1.headline
   end

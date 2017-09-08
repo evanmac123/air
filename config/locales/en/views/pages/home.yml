@@ -3,12 +3,15 @@ en:
     partials:
       home:
         main_hero:
-          header: "HR's Employee Communication Assistant"
-          subheader: "Software to create engaging communications employees love."
+          header: "Engaging Employee Communication"
+          subheader: "Airbo is an easy, flexible and fun microsite."
           try_airbo_button: "Request a Demo"
           mobile_header: "Mobile Title Goes Here"
           mobile_subheader: "Mobile Subtitle goes here."
           mobile_try_airbo_button: "Mobile Try Airbo"
+        gallery:
+          header: "Pick a topic to see how it works."
+          pre_header: "Capture attention, educate employees, drive participation"
         secondary_hero:
           quote: '“It’s a great way to get people interactive, and it helps when we need a response or action from people. There is a much quicker turnaround."'
           cite: "Annie Winslow, Employee Relations Manager"

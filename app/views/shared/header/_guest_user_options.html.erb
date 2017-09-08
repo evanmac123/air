@@ -1,4 +1,4 @@
-<% if should_convert_guest_as_user?(user) %>
+<% if should_convert_guest_as_user?(current_user) %>
   <div id="save_progress" class="large-4 large-offset-6 columns text-right" style="<%= user.guest_user_header_button_style %>">
     <%= link_to "Save Progress", "#", id: "save_progress_button", class: "open_save_progress_form", data: { "reveal-id" => "guest-conversion-modal" } %>
     <%= link_to "Sign In", new_session_path, id: 'sign_in_button' %>
@@ -9,7 +9,7 @@
       <%= link_to "Start Over", guest_user_reset_path({ user: { demo_id: user.demo_id } }), id: 'guest_user_start_over_button', style: 'display:none', method: :put %>
     <% end %>
   </div>
-<% elsif should_convert_guest_as_prospect?(user) %>
+<% elsif should_convert_guest_as_prospect?(current_user) %>
   <div class="large-4 large-offset-6 columns customize-board-cta">
     <%= link_to "Customize Board", new_signup_request_path, class: "button yellow", style: "margin: 0.5em 0;", target: "_blank" %>
   </div>

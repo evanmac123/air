@@ -467,7 +467,7 @@ class Demo < ActiveRecord::Base
   end
 
   def self.default_persistent_message
-    "Airbo is an interactive communication tool. Get started by clicking on a tile. Interact and answer questions to earn points."
+    "Airbo is an engaging microsite for employee communication. Get started by clicking on a Tile. Answer questions to earn points."
   end
 
   def set_for_delete

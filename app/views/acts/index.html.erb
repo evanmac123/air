@@ -7,10 +7,12 @@
 
 <%= render "acts/activity_feed" %>
 
-<%= render "shared/guest_conversion_lightbox", user: current_user, demo: current_board%>
-
-<% if current_user.is_a? PotentialUser %>
+<% if current_user.is_a?(PotentialUser) %>
   <%= render "acts/register_potential_user_lightbox" %>
+<% end %>
+
+<% if should_convert_guest_as_user?(current_user) %>
+  <%= render "shared/guest_conversion_lightbox", user: current_user, demo: current_board %>
 <% end %>
 
 <%= render "acts/board_welcome_message", board: current_board, show_on_load: @display_board_welcome_message %>

@@ -1,0 +1,31 @@
+<div class="value-props">
+  <div class="wrap">
+    <div class="value-prop-header">
+      <h4 class="pre-header"><%= t('.pre_header') %></h4>
+      <h4 class="header"><%= t('.header') %></h4>
+    </div>
+    <div class="row">
+      <% [
+        { image: "open_enrollment_basics.svg", text: "Open Enrollment Basics", board_path: "/ard/airbo-open-enrollment-basics" },
+        { image: "benefits_appreciation.svg", text: "Benefits Appreciation", board_path: "/ard/airbo-benefits-appreciation" },
+        { image: "wellness.svg", text: "Weekly Wellness Challenges", board_path: "/ard/airbo-weekly-wellness-challenges" },
+        { image: "biometrics.svg", text: "Biometrics and HRA Participation", board_path: "/ard/airbo-biometrics-hra" },
+        { image: "health_insurance_basics.svg", text: "Health Plan Basics", board_path: "/ard/airbo-health-plan-basics" },
+        { image: "compliance.svg", text: "Compliance", board_path: "/ard/airbo-compliance" },
+        { image: "onboarding.svg", text: "New Hire Onboarding", board_path: "/ard/airbo-new-hire-onboarding" },
+        { image: "financial_education.svg", text: "Financial Education", board_path: "/ard/airbo-financial-education" },
+        { image: "prescription_basics.svg", text: "Prescription Drug Basics", board_path: "/ard/airbo-prescription-drug-basics" },
+        { image: "social_recruiting.svg", text: "Social Recruiting", board_path: "/ard/airbo-social-recruiting" },
+      ].each_with_index do |gallery_item, i| %>
+        <div class="columns large-3 small-12 gallery-row">
+          <%= link_to gallery_item[:board_path] do %>
+            <div class="value-prop-image-container">
+              <%= image_tag("marketing_site/gallery_logos/#{gallery_item[:image]}", alt: gallery_item[:text], class: "gallery-image") %>
+            </div>
+            <p class="value-prop-text"><%= gallery_item[:text] %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,25 +1,23 @@
-<% if should_convert_guest_as_user?(user) %>
-  <div id="guest-conversion-modal" class="reveal-modal small" data-reveal aria-labelledby="guestConversionModal" aria-hidden="true" role="dialog">
-    <h3>You're on a roll!</h3>
+<div id="guest-conversion-modal" class="reveal-modal small" data-reveal aria-labelledby="guestConversionModal" aria-hidden="true" role="dialog">
+  <h3>You're on a roll!</h3>
 
-    <h4 id="errors" style="color:#be2625; display:none">It looks like that email is already taken. You can <a href="/sign_in">click here</a> to sign in, or contact <a href="mailto:support@airbo.com">support@airbo.com</a> for help.</h4>
+  <h4 id="errors" style="color:#be2625; display:none">It looks like that email is already taken. You can <a href="/sign_in">click here</a> to sign in, or contact <a href="mailto:support@airbo.com">support@airbo.com</a> for help.</h4>
 
-    <p>Create an account so you don't lose your progress.</p>
-    <%= form_tag guest_user_conversions_path, id: 'guest_conversion_form', remote: true do %>
-      <%= label_tag "user[name]", "First and last name" %>
-      <%= text_field_tag "user[name]" %>
-      <%= label_tag "user[email]", "Email" %>
-      <%= text_field_tag "user[email]" %>
-      <%= label_tag "user[password]", "Password (six characters or more)" %>
-      <%= password_field_tag "user[password]" %>
-      <%= hidden_field_tag "user[demo_id]", user.demo.id %>
+  <p>Create an account so you don't lose your progress.</p>
+  <%= form_tag guest_user_conversions_path, id: 'guest_conversion_form', remote: true do %>
+    <%= label_tag "user[name]", "First and last name" %>
+    <%= text_field_tag "user[name]" %>
+    <%= label_tag "user[email]", "Email" %>
+    <%= text_field_tag "user[email]" %>
+    <%= label_tag "user[password]", "Password (six characters or more)" %>
+    <%= password_field_tag "user[password]" %>
+    <%= hidden_field_tag "user[demo_id]", user.demo.id %>
 
-      <%= render partial: "shared/button_with_spinner", locals: { button_id: "guest_user_conversion_button", button_classes: "", button_text: "Create Account" } %>
-    <% end %>
-    <div id="t-and-c-notice">
-      By submitting this form, you are agreeing to the
-      <%= link_to('terms and conditions', terms_path, target: '_blank') + '.' %>
-    </div>
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    <%= render partial: "shared/button_with_spinner", locals: { button_id: "guest_user_conversion_button", button_classes: "", button_text: "Create Account" } %>
+  <% end %>
+  <div id="t-and-c-notice">
+    By submitting this form, you are agreeing to the
+    <%= link_to('terms and conditions', terms_path, target: '_blank') + '.' %>
   </div>
-<% end %>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>

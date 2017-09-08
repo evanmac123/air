@@ -13,4 +13,6 @@
   </div>
 <% end %>
 
-<%= render "shared/guest_conversion_lightbox", user: @current_user, demo: @current_user.demo %>
+<% if should_convert_guest_as_user?(current_user) %>
+  <%= render "shared/guest_conversion_lightbox", user: current_user, demo: current_board %>
+<% end %>
