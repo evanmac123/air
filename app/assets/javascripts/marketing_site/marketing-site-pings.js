@@ -10,6 +10,14 @@ Airbo.MarketingSite.Pings = (function() {
 
       window.location = $(this).data("path");
     });
+
+    $(".js-marketing-site-gallery-item").on("click", function(e) {
+      e.preventDefault();
+
+      Airbo.Utils.ping("Marketing Site Action", { action: "Clicked Gallery Board", board: $(this).data("board") });
+
+      window.location = $(this).data("path");
+    });
   }
 
   function bindCaseStudyViewButtons() {
