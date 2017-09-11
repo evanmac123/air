@@ -1,0 +1,10 @@
+<% if board.present? %>
+  <title><%= board.name %></title>
+  <meta property="og:title" content="<%= board.name %>" />
+  <meta name="description" content="<%= board.intro_message %>"/>
+  <meta property="og:image" content="<%= OpengraphService.image_for_board(board: board) %>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Airbo" />
+<% else %>
+  <%= render "shared/opengraph_meta_tags_marketing" %>
+<% end %>

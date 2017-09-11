@@ -3,16 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Welcome to Airbo</title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= content_for :meta %>
+    <%= render "shared/opengraph_meta_tags_marketing" %>
 
     <%= mobvious_javascript %>
     <%= javascript_include_tag 'app-marketing-site' %>
     <%= stylesheet_link_tag 'app-landing' %>
 
-    <%= render "shared/opengraph_meta_tags" %>
     <%= render 'shared/mixpanel' %>
 
     <!--[if lt IE 9]>

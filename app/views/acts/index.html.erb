@@ -1,3 +1,7 @@
+<% content_for :meta do %>
+  <%= render 'shared/opengraph_meta_tags_board', board: @demo || current_board %>
+<% end %>
+
 <%= javascript_include_tag 'jquery.lightbox_me' %>
 <% if current_user.is_a?(GuestUser) && current_board.internal? %>
   <%= render "acts/guest_user_how_to_use_banner" %>
