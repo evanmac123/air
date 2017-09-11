@@ -18,7 +18,7 @@
         { image: "social_recruiting.svg", text: "Social Recruiting", board_path: "/ard/airbo-social-recruiting" },
       ].each_with_index do |gallery_item, i| %>
         <div class="columns large-3 small-12 gallery-row">
-          <%= link_to gallery_item[:board_path] do %>
+          <%= link_to "##{gallery_item[:board_path]}", class: "js-marketing-site-gallery-item", data: { path: gallery_item[:board_path], board: gallery_item[:text] } do %>
             <div class="value-prop-image-container">
               <%= image_tag("marketing_site/gallery_logos/#{gallery_item[:image]}", alt: gallery_item[:text], class: "gallery-image") %>
             </div>
