@@ -23,6 +23,8 @@
     <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
     <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
     <%= render 'shared/mixpanel' %>
+    <%= render 'shared/integrations/full_story' %>
+
     <%= mobvious_javascript %>
     <%= render 'shared/nerf_animations_in_test' %>
     <%= render "shared/custom_palette"  if @palette && @palette.enabled? %>
