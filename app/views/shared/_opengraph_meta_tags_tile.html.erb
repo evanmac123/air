@@ -8,10 +8,9 @@
     <meta name="description" content="Check out this Airbo Tile: <%= tile.headline %>"/>
   <% end %>
 
-    <!-- Open Grpaph meta tags(Facebook, Linkedin) -->
-    <meta property="og:title" content="<%= tile.headline %>" />
-    <meta property="og:description" content="<%= strip_tags(tile.supporting_content) %>" />
-    <meta property="og:image" content="<%= tile.image %>" />
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="Airbo" />
+  <meta property="og:title" content="<%= tile.headline %>" />
+  <meta property="og:description" content="<%= strip_tags(tile.supporting_content) %>" />
+  <meta property="og:image" content="<%= tile.image %>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Airbo" />
 <% end %>

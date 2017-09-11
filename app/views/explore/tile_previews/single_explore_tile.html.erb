@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <%= render 'explore/tile_previews/meta_tags', tile: @tile, source: @explore_or_public %>
+  <%= render 'shared/opengraph_meta_tags_tile', tile: @tile, source: @explore_or_public %>
 <% end %>
 <div class='viewer'>
   <div id="tile_preview_section">

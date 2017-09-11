@@ -3,12 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Airbo</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <%= render "shared/opengraph_meta_tags" %>
-    <meta property="og:url" content="http://www.airbo.com" />
+    <%= render 'shared/opengraph_meta_tags_board', board: @board %>
     <meta name="viewport" content="width=device-width" />
 
     <%= javascript_include_tag 'app-external' %>
