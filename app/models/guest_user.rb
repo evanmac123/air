@@ -35,10 +35,6 @@ class GuestUser < ActiveRecord::Base
     false
   end
 
-  def display_get_started_lightbox
-    demo.internal? || super
-  end
-
   def role
     "Guest"
   end
