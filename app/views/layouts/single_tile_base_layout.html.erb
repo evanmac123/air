@@ -8,6 +8,8 @@
     <%= content_for :meta %>
 
     <%= render partial: '/shared/mixpanel' %>
+    <%= render 'shared/integrations/full_story' %>
+
 
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'app-admin' %>
