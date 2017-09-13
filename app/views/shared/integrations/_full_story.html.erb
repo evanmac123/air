@@ -20,7 +20,11 @@
 
     <% if current_user.is_a?(User) %>
       <script>
-        FS.identify("<%= current_user.id %>", "<%= current_user.data_for_mixpanel %>");
+        FS.identify("<%= current_user.id %>", {
+          email: "<%= current_user.email %>",
+          userType: "<%= current_user.highest_ranking_user_type %>",
+          organization: "<%= current_user.organization.try(:name) %>"
+        });
       </script>
     <% end %>
   <% elsif Rails.env.development? %>
