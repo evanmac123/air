@@ -73,7 +73,7 @@ describe Integrations::FullStoryService do
   describe "#user_is_ordinary_user_in_sample?" do
     it "records user if user is ordinary user in sample (id % 3 == 0)" do
       organization = OpenStruct.new(internal: false)
-      user = OpenStruct.new(end_user?: true, id: 3, organization: organization)
+      user = OpenStruct.new(end_user?: true, id: 2, organization: organization)
 
       full_story_service = Integrations::FullStoryService.new(user)
 
@@ -82,7 +82,7 @@ describe Integrations::FullStoryService do
 
     it "does not record user if user is outside of sample" do
       organization = OpenStruct.new(internal: false)
-      user = OpenStruct.new(end_user?: true, id: 2, organization: organization)
+      user = OpenStruct.new(end_user?: true, id: 1, organization: organization)
 
       full_story_service = Integrations::FullStoryService.new(user)
 

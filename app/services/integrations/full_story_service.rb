@@ -12,14 +12,14 @@ module Integrations
 
     private
 
-      def record_active_user?
-        unless user.organization.try(:internal)
-          user.is_client_admin || user_is_ordinary_user_in_sample?
-        end
-      end
-
       def user_is_guest?
         user.nil? || user.is_a?(GuestUser) || user.is_a?(PotentialUser)
+      end
+
+      def record_active_user?
+        unless user.organization.try(:internal) || user.is_site_admin
+          user.is_client_admin || user_is_ordinary_user_in_sample?
+        end
       end
 
       def user_is_ordinary_user_in_sample?
