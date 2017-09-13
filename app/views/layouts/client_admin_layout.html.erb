@@ -27,6 +27,8 @@
       <%= mobvious_javascript %>
       <%= render 'shared/nerf_animations_in_test' %>
       <%= render partial: '/shared/mixpanel' %>
+      <%= render 'shared/integrations/full_story' %>
+
       <%= render 'shared/inspectlet' if non_site_admin(current_user) %>
       <%= content_for :head %>
   </head>

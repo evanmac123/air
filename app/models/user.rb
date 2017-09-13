@@ -586,8 +586,7 @@ class User < ActiveRecord::Base
       user_type:             highest_ranking_user_type,
       board_type:            demo.try(:customer_status_for_mixpanel),
       first_time_user:       false,
-      days_since_activated:  days_since_activated,
-      paid_organizations_count: Organization.paid_organizations_count
+      days_since_activated:  days_since_activated
     }
   end
 
