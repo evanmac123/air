@@ -76,7 +76,6 @@ class GuestUser < ActiveRecord::Base
       distinct_id:     self.mixpanel_distinct_id,
       user_type:       self.highest_ranking_user_type,
       game:            self.demo.try(:id),
-      is_test_user:    is_test_user?,
       board_type:      self.demo.try(:customer_status_for_mixpanel),
       first_time_user: self.seeing_marketing_page_for_first_time
     }

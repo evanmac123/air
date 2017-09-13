@@ -3,11 +3,11 @@ require 'spec_helper'
 describe GuestUser do
   it { is_expected.to have_many(:tile_viewings) }
   it { is_expected.to have_many(:viewed_tiles) }
-  
+
   let(:user) { FactoryGirl.create(:guest_user) }
 
   def convert
-    user.convert_to_full_user!("Jimmy Smits", "jimmy@example.com", "weakpassword")    
+    user.convert_to_full_user!("Jimmy Smits", "jimmy@example.com", "weakpassword")
   end
 
   describe '#convert_to_full_user!' do
@@ -25,7 +25,7 @@ describe GuestUser do
       act_ids = user.act_ids
 
       converted_user = convert
-     
+
       expect(converted_user).not_to eq(user)
 
       expect(converted_user.tile_viewing_ids.sort).to eq(tile_viewing_ids.sort)
@@ -45,7 +45,7 @@ describe GuestUser do
       user_in_raffle_info1 = FactoryGirl.create(:user_in_raffle_info, user: user, raffle: raffle1)
       raffle2 = FactoryGirl.create(:raffle)
       user_in_raffle_info2 = FactoryGirl.create(:user_in_raffle_info, user: user, raffle: raffle2)
-      
+
       expect(user.user_in_raffle_infos).to eq([user_in_raffle_info1, user_in_raffle_info2])
       converted_user = convert
       expect(converted_user.user_in_raffle_infos.pluck(:id)).to eq([user_in_raffle_info1.id, user_in_raffle_info2.id])
@@ -168,10 +168,6 @@ describe GuestUser do
     it "should include the game ID" do
       expect(user.demo).not_to be_nil
       expect(user.data_for_mixpanel[:game]).to eq(user.demo.id)
-    end
-
-    it "should always report false for is_test_user" do
-      expect(user.data_for_mixpanel[:is_test_user]).to eq(false)
     end
   end
 
