@@ -21,8 +21,8 @@
     <% if current_user.is_a?(User) %>
       <script>
         FS.identify("<%= current_user.id %>", {
-          "email": "<%= current_user.email %>",
-          "displayName": "<%= current_user.name %>",
+          "email": "<%= current_user.email_for_vendor %>",
+          "displayName": "<%= current_user.name %> - <%= current_user.demo.try(:name) %>",
           "userType_str": "<%= current_user.highest_ranking_user_type %>",
           "organization_str": "<%= current_user.organization.try(:name) %>",
           "board_str": "<%= current_user.demo.try(:name) %>"

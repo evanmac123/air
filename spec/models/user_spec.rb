@@ -1061,6 +1061,20 @@ describe User, "#data_for_mixpanel" do
   end
 end
 
+describe User, "#email_for_vendor" do
+  it "should return nil for end users" do
+    end_user = FactoryGirl.build(:user, email: 'end_user@example.com')
+
+    expect(end_user.email_for_vendor).to eq(nil)
+  end
+
+  it "should return email for client admin" do
+    client_admin = FactoryGirl.build(:client_admin, email: 'ca@example.com')
+
+    expect(client_admin.email_for_vendor).to eq(client_admin.email)
+  end
+end
+
 describe User, ".paid_client_admin" do
   it "should return users who have a client admin board membership in a demo that is paid" do
     paid_demo = FactoryGirl.create(:demo, name: "Paid", customer_status_cd: Demo.customer_statuses[:paid])

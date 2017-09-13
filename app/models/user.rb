@@ -568,6 +568,12 @@ class User < ActiveRecord::Base
     self.demo.reply_email_address(include_name)
   end
 
+  def email_for_vendor
+    if is_client_admin
+      email
+    end
+  end
+
   def mixpanel_distinct_id
     attributes["mixpanel_distinct_id"] || self.id
   end
@@ -576,7 +582,7 @@ class User < ActiveRecord::Base
     {
       distinct_id:           mixpanel_distinct_id,
       id:                    id,
-      email:                 is_client_admin ? email : nil,
+      email:                 email_for_vendor,
       game:                  demo_id,
       users_in_board:        demo.try(:users_count) || 0,
       organization:          organization_id,
