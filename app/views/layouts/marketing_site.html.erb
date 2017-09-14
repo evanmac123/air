@@ -18,8 +18,10 @@
 
     <%= content_for :head %>
   </head>
-  <body class="airbo-marketing-site" style="-webkit-overflow-scrolling: touch; overflow:visible;">
-    <%= render partial: "pages/partials/marketing_site_header" %>
+  <body class="airbo-marketing-site">
+    <%= render 'shared/public_nav_bar' %>
+    <%= render partial: "shared/simple_flashes" %>
+
     <%= yield %>
     <%= render partial: "pages/partials/marketing_site_footer" %>
     <%= yield :javascript %>

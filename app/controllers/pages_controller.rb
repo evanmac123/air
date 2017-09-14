@@ -5,9 +5,7 @@ class PagesController < HighVoltage::PagesController
 
     def layout_for_page
       case page_name
-      when 'privacy', 'terms'
-        'external'
-      when 'home', 'about'
+      when 'home', 'about',  'terms', 'privacy'
         'marketing_site'
       else
         'standalone'

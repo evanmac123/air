@@ -1,5 +1,4 @@
 @import './mixins/marketing-site-reset';
-@import './mixins/marketing-site-header';
 @import './mixins/marketing-site-footer';
 
 //homepage
@@ -26,7 +25,6 @@
 .airbo-marketing-site {
   color: #33445c;
   @include marketing-site-reset();
-  @include marketing-site-header();
   @include marketing-site-footer();
   @include marketing-site-highlights();
 

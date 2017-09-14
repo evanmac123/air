@@ -4,6 +4,7 @@
 
 @import "font-awesome";
 @import "./mixins/main_styles.css.scss";
+@import "./external/public_nav_bar.scss";
 @import "./internal/flash.css.scss";
 @import "./marketing-site/main.scss";
 
@@ -14,16 +15,7 @@
   }
 }
 
-#flash {
-  position: fixed;
-  top: 64px;
-  left: 0;
-  z-index: 198;
-  width: 100%;
-}
-
 .pages-home {
-
   #signups_modal, #demo_requests_modal {
     border-radius: 0;
     background: $n-blue;
