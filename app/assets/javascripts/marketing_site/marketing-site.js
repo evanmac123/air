@@ -4,12 +4,6 @@ var Airbo = window.Airbo || {};
 Airbo.MarketingSite = Airbo.MarketingSite || {};
 
 Airbo.MarketingSite.Base = (function(){
-  function initHeaderMobileMenu() {
-    $('.btn-menu').click(function() {
-      $('.marketing-site-header').toggleClass('mobile-nav');
-    });
-  }
-
   function initMarketingSiteHighlightsCarousels() {
     $(".highlights-carousel").flickity({
       groupCells: true,
@@ -20,7 +14,6 @@ Airbo.MarketingSite.Base = (function(){
   }
 
   function init() {
-    initHeaderMobileMenu();
     initMarketingSiteHighlightsCarousels();
     $(".airbo-marketing-site").foundation();
   }
