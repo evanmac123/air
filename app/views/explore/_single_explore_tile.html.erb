@@ -6,6 +6,12 @@
           <div class="tile_thumbnail_image">
             <%= image_tag presenter.thumbnail %>
           </div>
+          <div class="activation_dates">
+            <span class='tile-active-time'>
+              <i class='fa fa-calendar'></i>
+              <%= presenter.timestamp %>
+            </span>
+          </div>
           <div class="headline">
             <div class="text">
               <%= presenter.headline %>
