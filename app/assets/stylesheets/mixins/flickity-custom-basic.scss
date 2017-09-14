@@ -16,6 +16,7 @@
   }
 
   .flickity-prev-next-button {
+    background: transparent;
     box-shadow: none;
     .arrow {
       fill: $color;
@@ -28,6 +29,9 @@
     }
     &:hover {
       background: transparent;
+    }
+    @media only screen and (max-width: 768px) {
+      display: none;
     }
   }
 }

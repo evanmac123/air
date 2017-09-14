@@ -5,8 +5,8 @@
   }
   .toggle-topbar {
     cursor: pointer;
-    right: 1%;
-    top: 30%;
+    right: 5%;
+    top: 40%;
     &.is-active .burger-icon {
       top: 50%;
       @include burger-to-cross;
@@ -16,14 +16,14 @@
   .top-bar {
     height: 55px;
     background: #fff;
-    box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #B3B3B3;
+    border-bottom: 1px solid #eeeeee;
     z-index: 5;
     ul {
       background-color:white;
     }
     .top-bar-section {
       ul {
-        background-color:white;
+        background-color: white;
         text-align: right;
       }
 
@@ -35,21 +35,26 @@
       padding-top: 15px;
       padding-left: 0;
       padding-right: 0;
-      background-color:white;
-      color: #4c4c4c;
+      background-color: white;
+      color: $text-color;
       font-size: 14px;
       line-height: 25px;
         &:hover {
-          background-color:white;
-          border-bottom: 2px solid #4face0;
+          background-color: white;
+          border-bottom: 2px solid $n-blue;
+          &.green {
+            border-color: $n-green;
+          }
         }
       }
       .active {
-        border-bottom: 2px solid #4face0;
+        border-bottom: 2px solid $n-blue;
+      }
+      .green {
+        color: $n-green;
       }
     }
     .name {
-      height: 55px;
       background: #fff;
     }
     .name img {
@@ -85,7 +90,7 @@
     }
     @media screen and (max-width: 59em) {
       .name img {
-        margin-left:0;
+        margin-left: 5px;
       }
     }
   }

@@ -2,23 +2,10 @@
   ::-moz-selection {background: #b3d4fc;text-shadow: none;}
   ::selection {background: #b3d4fc;text-shadow: none;}
 
-  hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-  }
-
   audio,canvas,iframe,img,svg,video {vertical-align: middle;}
-
-  figure { margin: 0; }
-
-  img {
-    height: auto;
-    width: 100%;
-    max-width: 100%;
+  html, body {
+    margin: 0;
+    padding:0;
   }
 
   h1,h2,h3,h4,h5,h6 {
@@ -62,17 +49,7 @@
   fieldset {border: 0;margin: 0;padding: 0;}
   textarea {resize: vertical;}
 
-  *,*:before,*:after {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-
   svg { fill: currentColor; }
-
-  ::-webkit-input-placeholder {color: #9c9c9c;}
-  ::-moz-placeholder {color: #9c9c9c;}
-  :-ms-input-placeholder {color: #9c9c9c;}
 
   label {
     color: #babec0;
@@ -80,54 +57,11 @@
     text-transform: uppercase;
   }
 
-  input,textarea,select {
-    background: rgba(243,244,245,.75);
-    border: #dce1e3 1px solid;
-    border-radius: 3px;
-    color: #636363;
-    display: inline-block;
-    margin: 0;
-    outline: none;
-    height: 40px;
-    padding: 0 12px;
-  }
-  input[disabled="disabled"],textarea[disabled="disabled"],
-  select[disabled="disabled"] {background: rgba(243,244,245,.05);border-color: #edeff0;}
-
-  textarea {
-    overflow: auto;
-    height: auto;
-    padding: 10px 12px;
-    width: 100%;
-  }
-
-  button, input[type="button"],
-  input[type="submit"] {
-    background: #48bfff;
-    color: #fff;
-    border-radius: 3px;
-    display: inline-block;
-    border: none;
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 48px;
-    height: 48px;
-    padding: 0 20px;
-  }
-
-  button:focus, button:hover,
-  input[type="button"]:focus, input[type="button"]:hover,
-  input[type="submit"]:focus, input[type="submit"]:hover {background: #4c4c4c;}
   .wrap {
     margin: 0 auto;
     padding: 0 48px;
     width: 100%;
     max-width: 1200px;
-    &:after {
-      clear:both;
-      content:'';
-      display:table;
-    }
   }
 
   ul:after {clear:both;content:'';display:table;}
