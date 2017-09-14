@@ -6,7 +6,7 @@
       <% if @presenter.is_empty_preview? %>
         <%= render partial: "tiles_digest_mailer/tile_placeholder" %>
       <% else %>
-        <%= render partial: "tiles_digest_mailer/tile", locals: { tile: tiles[0], site_link: @presenter.site_link } %>
+        <%= render partial: "tiles_digest_mailer/tile", locals: { tile: tiles[0], site_link: @presenter.site_link(tile_id: tiles[0].id) } %>
       <% end %>
     </td>
     <td width="20" class="verticalGap">
@@ -15,8 +15,8 @@
     <td width="208" valign="top" class="column">
       <% if @presenter.is_empty_preview? %>
         <%= render partial: "tiles_digest_mailer/tile_placeholder" %>
-      <% elsif tiles[1] %>
-        <%= render partial: "tiles_digest_mailer/tile", locals: {tile: tiles[1], site_link: @presenter.site_link} %>
+      <% elsif tiles[1].present? %>
+        <%= render partial: "tiles_digest_mailer/tile", locals: {tile: tiles[1], site_link: @presenter.site_link(tile_id: tiles[1].id) } %>
       <% end %>
     </td>
   </tr>
