@@ -7,7 +7,7 @@ Developer Machine Setup
 ------------
 
 ### Mac Only
-Install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, Qt, ImageMagick, elasticsearch 
+Install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, Qt, ImageMagick, elasticsearch
 
 Git should be installed on your Mac if it's not do: brew install git.
 
@@ -41,11 +41,11 @@ Load the development database:
 Prepare the test database:
 
     rake db:test:prepare
-    
+
 Download the most recent db backup from Heroku:
 
     script/environment_sync prep
-    
+
 Populate your development database with a sanitized cut of production:
 
     script/environment_sync development
@@ -83,7 +83,6 @@ FOG_DIRECTORY                                    | [BUCKET]                  | A
 FOG_PROVIDER                                     | AWS                       | Setting used by CarrierWave gem
 GAME_CREATION_REQUEST_ADDRESS                    | team@airbo.com            | Email recipient to notify new boards(deprecate for better solution)
 HEROKU_APP_NAME                                  | [APP_NAME]                | Heroku Specfic Setting
-INSPECTLET_WID                                   | [ID]                      | Inspectlet API Access
 IMAGE_PROVIDERS                                  | Pixabay                   | Comma separated list of image services used by image search feature
 INTERCOM_API_SECRET                              | [SECRET]                  | Intercom API Access Settings
 INTERCOM_API_KEY                                 | [KEY]                     | Intercom API Access Settings
@@ -203,14 +202,14 @@ To deploy to staging:
 To deploy to production:
 
   * Make sure `AIRBRAKE_PRODUCTION_PROJECT_ID` and `AIRBRAKE_PRODUCTION_API_KEY` ENV vars are set.
-  
+
   * Run `script/deploy_production`
       * This:
         1. runs `git push production development:master`
         2. runs `heroku run rake db:migrate -a hengage`
         3. runs `heroku restart -a hengage`
         4. runs `script/airbrake_deploy_production`
-        
+
 ## Active Domains
 <table>
 <thead>
@@ -235,7 +234,7 @@ Auto Renew Date:  ?
 </td>
 <tr>
 <td>air.bo</td>
-<td>Legacy domain name.</td> 
+<td>Legacy domain name.</td>
 <td>www.europeregistry.com</td>
 <td>Primary Contact: Vlad
 Secondary Contact: sysadmin@airbo.com
@@ -258,7 +257,7 @@ Auto Renew Date:  November 9, 2017
 <tbody>
 <table>
 
-# Application Behaviors 
+# Application Behaviors
 
 
 
@@ -273,7 +272,7 @@ The application uses a couple file storage strategies. All file assets including
 
 ### CarrierWave
 1. Census Files: Use a form backed by CarrierWave Direct and Fog gems.
- 
+
 
 ### Other
 CSS assets and images are also stored on S3 using the asset-sync gem and also have a dependency on the fog gem
@@ -310,11 +309,3 @@ Heroku Scheduler does not have a setting for running jobs on a weekly basis. The
 
 ## AWS
 https://hengage.signin.aws.amazon.com/console
-
-
-
-
-
-
-
-
