@@ -3,7 +3,7 @@
   @media only screen and (max-width: $foundation) { // for user side
     display: none;
   }
-  background: $ca-subnav-color;
+  background: $dark-blue;
   overflow: hidden;
   float: left;
   height: 100%;
@@ -13,35 +13,19 @@
   }
   li {
     position: relative;
+    border-bottom: 1px darken($dark-blue, 5%) solid;
     &:hover {
-      background-color: darken($ca-subnav-color, 5%);
+      background-color: darken($dark-blue, 5%);
     }
-    &:first-child{
-      border-top: 1px $blue solid;
-    }
-    &:last-child{
-      border-bottom: 1px $blue solid;
-    }
-  }
-  li + li {
-    border-left: 1px $blue solid;
-    border-left: 0;
-    border-top: 1px $blue solid;
   }
   .blocked_nav, a {
-    // @include link($white);
     border-bottom: 5px transparent solid;
     display: block;
-    // font-size: .75em;
-    padding: .75em 2em .5em;
     text-align: center;
-    // color: $white;
-    @media only screen and (min-width: $foundation) {
-      border-bottom: 0;
-      border-left: 5px transparent solid;
-      padding: 1.15em 0 1em;
-      width: $ca-subnav-size;
-    }
+    border-bottom: 0;
+    padding: 1.15em 0 1em;
+    width: $ca-subnav-size;
+
     .fa {
       display: block;
       font-size: 22px;
@@ -57,7 +41,7 @@
       padding-bottom: 10px;
     }
   }
-  //.blocked_nav:hover { background-color: $ca-subnav-color; }
+  //.blocked_nav:hover { background-color: $dark-blue; }
 
   .notification {
     position: absolute;
@@ -100,7 +84,7 @@
 .client_admin-prizes #tile_manager_nav li#prizes_nav,
 
 .client_admin-board_settings-index #tile_manager_nav li#settings{
-  background: $sky-blue;
+  background: $n-blue;
   .fa, img {
     opacity: 1;
   }

@@ -31,7 +31,7 @@ module TileFooterTimestamper
   end
 
   def timestamp_html
-    if tile_status_matches? *html_allowed_types
+    if tile_status_matches?(*html_allowed_types)
       spanned_text span_params
     else
       ''
@@ -55,36 +55,36 @@ module TileFooterTimestamper
     when :draft
       {
         title: "Created: ",
-        icon: "calendar",
-        time: time_in_format(tile.created_at),
+        icon: "clock-o",
+        time: "#{distance_of_time_in_words(tile.created_at, Time.now)}",
         class: "tile-created-at"
       }
     when :active
       {
         title: "Active: ",
-        icon: "clock-o",
-        time: distance_of_time_in_words(tile.activated_at, Time.now),
+        icon: "calendar",
+        time: time_in_format(tile.activated_at),
         class: 'tile-active-time'
       }
     when :archive
       {
         title: "Active: ",
-        icon: "clock-o",
-        time: distance_of_time_in_words(tile.activated_at, tile.archived_at),
+        icon: "calendar",
+        time: time_in_format(tile.activated_at),
         class: 'tile-active-time'
       }
     when :archive_never_activated
       {
         title: "Never activated",
-        icon: "clock-o",
+        icon: "calendar",
         time: "0",
         class: ""
       }
     when :user_submitted
       {
         title: "Submitted: ",
-        icon: "calendar",
-        time: time_in_format(tile.created_at),
+        icon: "clock-o",
+        time: "#{distance_of_time_in_words(tile.created_at, Time.now)}",
         class: "tile-submitted-at"
       }
     when :ignored
@@ -115,9 +115,9 @@ module TileFooterTimestamper
       title + time
     else
       [
-        "<span class='#{span_class}'>", 
+        "<span class='#{span_class}'>",
           "<i class='fa fa-#{icon}'></i>",
-          time, 
+          time,
         "</span>"
       ].join.html_safe
     end

@@ -1,5 +1,4 @@
 class SingleExploreTilePresenter < BasePresenter
-
   delegate  :id,
             :thumbnail,
             :headline,
@@ -26,5 +25,10 @@ class SingleExploreTilePresenter < BasePresenter
 
   def show_tile_path
     explore_tile_preview_path(tile)
+  end
+
+  def timestamp
+    time = tile.activated_at || tile.created_at
+    time.strftime('%-m/%-d/%Y')
   end
 end
