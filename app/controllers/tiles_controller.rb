@@ -82,7 +82,7 @@ class TilesController < ApplicationController
     end
 
     def start_tile_id
-      session[:start_tile] || first_id
+      params[:tile_id] || session[:start_tile] || first_id
     end
 
     def first_id

@@ -53,7 +53,7 @@ class ActsController < ApplicationController
         sign_in(user, :remember_user) if user.end_user_in_all_boards?
 
         flash[:success] = "Welcome back, #{user.first_name}"
-        redirect_to activity_url
+        redirect_to redirect_path_for_tile_token_auth
       else
         return false
       end

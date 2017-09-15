@@ -24,4 +24,19 @@ module ActsHelper
     @all_tiles_done = satisfiable_tiles.empty?
     @no_tiles_to_do = current_user.demo.tiles.active.empty?
   end
+
+  def redirect_path_for_tile_token_auth
+    tile = get_tile_from_params
+    if tile.present?
+      tiles_path({ tile_id: params[:tile_id] })
+    else
+      activity_path
+    end
+  end
+
+  def get_tile_from_params
+    if current_user && params[:tile_id].present?
+      current_board.tiles.where(id: params[:tile_id]).first
+    end
+  end
 end

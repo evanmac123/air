@@ -260,6 +260,17 @@ feature 'Client admin and the digest email for tiles' do
           end
         end
 
+        context "when user clicks tile link" do
+          it "should log them in a take them to the tile page" do
+            submit_button.click
+            address = 'wc@clark.com'
+            open_email(address)
+
+            click_email_link_matching(/tile_id=/)
+            expect(page.current_url.include?("tiles?tile_id=")).to eq(true)
+          end
+        end
+
         context "and the optional admin-supplied custom message is filled in" do
           it "should put that in the emails" do
             buzzwordery = "Proactive synergies and cross-functional co-opetition."

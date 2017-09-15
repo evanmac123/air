@@ -8,12 +8,20 @@ class TilesDigestMailBasePresenter
     @custom_message = custom_message
   end
 
-  def site_link
-    if @subject
-      uri_encoded_subject = URI.encode(@subject, /\W/)
-      "#{general_site_url}&subject_line=#{uri_encoded_subject}"
-    else
-      general_site_url
+  def site_link(tile_id: nil)
+    general_site_url + subject_line_param.to_s + tile_id_param(tile_id).to_s
+  end
+
+  def subject_line_param
+    uri_encoded_subject = URI.encode(@subject.to_s, /\W/)
+    if uri_encoded_subject.present?
+      "&subject_line=#{uri_encoded_subject}"
+    end
+  end
+
+  def tile_id_param(tile_id)
+    if tile_id.present?
+      "&tile_id=#{tile_id}"
     end
   end
 
