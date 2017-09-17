@@ -49,9 +49,14 @@ Airbo.TileAnswers = (function(){
       return answer.hasClass(this.customHandlerCSS);
     },
 
+    isInvalid:  function(){
+      return $(this.response).val().trim() === "";
+    },
+
     showError: function (target){
       target.slideDown(250);
     },
+
 
     init: function(){
       this.initShow();
@@ -66,10 +71,6 @@ Airbo.TileAnswers = (function(){
   FreeTextHandler.panel =  ".js-free-text-panel";
   FreeTextHandler.response = ".js-free-form-response";
   FreeTextHandler.customHandlerCSS = "js-free-text";
-
-  FreeTextHandler.isInvalid = function(){
-    return $(this.response).val().trim() === "";
-  };
 
   FreeTextHandler.addFreeResponseCharCounter = function(){
     if($(this.response).length > 0){

@@ -68,7 +68,7 @@ updateShowMoreDraftTilesButton = function(){
 };
 
 updateShowMoreArchiveTilesButton = function(){
-  if( Airbo.TileManager.managerType == "archived" ) {
+  if( Airbo.TileManager.managerType === "archived" ) {
     return;
   }
 
@@ -88,12 +88,12 @@ updateShowMoreButtons = function(){
 
 showMoreDraftTiles = function(){
   draftTilesCount = notTilePlaceholdersInSection( $("#draft") ).length;
-  return (draftTilesCount > 6 && selectedSection() == 'draft');
+  return (draftTilesCount > 6 && selectedSection() === 'draft');
 };
 
 showMoreSuggestionBox = function(){
   suggestionBoxTilesCount = notTilePlaceholdersInSection( $("#suggestion_box") ).length;
-  return (suggestionBoxTilesCount > 6 && selectedSection() == 'box');
+  return (suggestionBoxTilesCount > 6 && selectedSection() === 'box');
 };
 
 selectedSection = function() {

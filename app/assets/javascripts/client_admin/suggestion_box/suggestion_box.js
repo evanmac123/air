@@ -20,7 +20,7 @@ Airbo.SuggestionBox = (function(){
     }
     updateShowMoreDraftTilesButton();
    Airbo.DraftSectionExpander.compressSection();
-  };
+  }
 
   function tileVisibility(tile, action) {
     if (action === "show") {
@@ -32,15 +32,15 @@ Airbo.SuggestionBox = (function(){
     }
 
     window.updateTilesAndPlaceholdersAppearance();
-  };
+  }
 
   function removeNewTileTip() {
     return $(".joyride-tip-guide.tile").remove();
-  };
+  }
 
   function ping(action) {
     Airbo.Utils.ping('Suggestion Box', { client_admin_action: action } );
-  };
+  }
 
   function initTiles() {
 
@@ -56,7 +56,7 @@ Airbo.SuggestionBox = (function(){
       return ping("Suggestion Box Opened");
     });
 
-  };
+  }
 
 
 
