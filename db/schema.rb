@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170829221427) do
+ActiveRecord::Schema.define(:version => 20170907210232) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1118,6 +1118,7 @@ ActiveRecord::Schema.define(:version => 20170829221427) do
     t.integer  "answer_index"
     t.boolean  "not_show_in_tile_progress", :default => false
     t.text     "free_form_response"
+    t.text     "custom_form"
   end
 
   add_index "tile_completions", ["created_at"], :name => "index_tile_completions_on_created_at"
