@@ -1,4 +1,6 @@
+require 'ostruct'
 class TileCompletion < ActiveRecord::Base
+  serialize :custom_form, Hash
   belongs_to :user, polymorphic: true
   belongs_to :tile, counter_cache: true
 
@@ -7,6 +9,14 @@ class TileCompletion < ActiveRecord::Base
   validates_uniqueness_of :tile_id, :scope => [:user_id, :user_type]
 
   after_create :creator_has_tile_completed
+
+
+  # convenience method to convert the data in the serialzed hash to more
+  # accessible object
+
+  def custom_data
+    @custom_form = OpenStruct.new(custom_form) 
+  end
 
   def creator_has_tile_completed
     # OPTZ: this can run asynchronously

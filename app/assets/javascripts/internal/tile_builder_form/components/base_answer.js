@@ -97,3 +97,7 @@ Airbo.BaseAnswer = {
     }
   }
 };
+
+Airbo.BaseAnswer.createTileAnswerButton = function(answer){
+  return Airbo.EditableTileAnswerButton.build(answer, this.maxLength, this.exceed);
+};

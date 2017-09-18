@@ -3,7 +3,7 @@
     <%= fa_icon "ban" %>
   </div>
 </div>
-<div class="row draft-and-suggested-tiles">
+<div class="row draft-and-suggested-tiles" data-intro = "<%=@user_submitted_tile_intro%>" >
   <div class="large-12 columns">
     <ul class="tabs">
       <li id="draft_title"><a href="#" class="for-draft <%= draft_tab_class("draft") %>">Draft</a>
@@ -53,22 +53,3 @@
 <%= render partial: 'client_admin/suggestions_access/modal' %>
 <%= render partial: 'client_admin/suggestions_access/help_modal' %>
 
-<% content_for :javascript do %>
-  <script>
-
-
-    $().ready(function(){
-
-      $(".draft-toggler a.unfinished").click(function(){
-        $(".tile_container.unfinished").hide();
-        Airbo.TileDragDropSort.updateTilesAndPlaceholdersAppearance();
-      })
-
-      window.suggestionBox();
-      window.userSubmittedTileIntro("<%= @user_submitted_tile_intro %>");
-      window.suggestionsAccess();
-      window.suggestionBoxIntro();
-    })
-
-  </script>
-<% end %>

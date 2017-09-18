@@ -37,6 +37,7 @@ class Tile < ActiveRecord::Base
   VIDEO_UPLOAD = "video-upload"
   MAX_REMOTE_MEDIA_URL_LENGTH = 2000
 
+  PRESET_CORRECT_ANSWER_INDEX = ["change_email", "custom_form"]
   acts_as_taggable_on :channels
 
   #enum column: creation_source_cd
@@ -443,7 +444,7 @@ class Tile < ActiveRecord::Base
 
   def has_required_number_of_answers?
     if multiple_choice_answers.present?
-      if(normalized_question_type == ACTION.downcase || question_subtype == "free_response")
+      if(min_one_answer_required)
         multiple_choice_answers.length > 0
       else
         multiple_choice_answers.length > 1
@@ -551,5 +552,9 @@ class Tile < ActiveRecord::Base
 
   def image_changed?
     changes.keys.include? "remote_media_url"
+  end
+
+  def min_one_answer_required
+    normalized_question_type == ACTION.downcase || ["free_response","custom_form"].include?(question_subtype)
   end
 end

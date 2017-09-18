@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <%= render partial: 'tiles/tile_main', locals: {tile: tile} %>
+    <%= render partial: 'tiles/tile_main', locals: {tile: tile, is_preview: is_preview} %>
     <% render partial: 'invitation/dependent_user_invitations/success' %>
 
    <% overlay_style = overlay_displayed ? "display:block" : "" %>

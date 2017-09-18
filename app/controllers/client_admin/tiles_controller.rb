@@ -115,11 +115,20 @@ class ClientAdmin::TilesController < ClientAdminBaseController
         params[:source_section][:presented_ids],
         get_demo.id
       )
+
     end
 
-
-    #FIXME is this really important for tracking?
-    # tile_status_updated_ping @tile, "Dragged tile to move"
+    render json: {
+      tileId: @tile.id,
+      tileHTML: render_to_string( partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals: { presenter:  tile_presenter(@tile)}),
+      tilesToBeSentCount:  @demo.digest_tiles(@demo.tile_digest_email_sent_at).count,
+      lastTiles: @last_tiles.map{|tile|
+        {id: tile.id,
+         status: tile.status, 
+         html: render_to_string( partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals: { presenter:  tile_presenter(tile)})
+        }
+      }
+    }
 
   end
 
@@ -223,7 +232,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def intro_flags_index
     @board_is_brand_new = @all_tiles.empty? && params[:show_suggestion_box] != "true"
     @show_suggestion_box_intro =  should_show_suggestion_box_intro?
-    @user_submitted_tile_intro =   should_show_submitted_tile_intro?
+    @user_submitted_tile_intro =   !!should_show_submitted_tile_intro?
     @manage_access_prompt = should_show_manage_access_prompt?
   end
 
@@ -317,8 +326,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     render partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals: { presenter: tile_presenter}
   end
 
-  def tile_presenter
-    @presenter ||= present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?})
+  def tile_presenter tile=@tile
+    @presenter ||= present(tile, SingleAdminTilePresenter, {is_ie: browser.ie?})
   end
 
   def render_tile_preview_string

@@ -60,7 +60,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         minResponses: 1,
         maxResponses: 1
       }
- 
     },
 
     quiz: {
@@ -85,12 +84,11 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 100
       }
     },
-
     survey : {
       multiple_choice: {
         name: "Multiple Choice",
         question: "Add question",
-        answers: ["Add Answer Option", "Add Answer Option"],
+        answers: ["Strongly agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"],
         extendable: true,
         maxLength: 50,
         minResponses: 2,
@@ -108,12 +106,12 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 0,
         allowAnonymous: true,
         builder: Airbo.FreeResponseAnswer
-      },
+     },
       rsvp_to_event : {
         name: "RSVP To Event",
         question: "Will you be attending?",
         answers: ["Yes", "No", "Maybe"],
-        extendable: false, 
+        extendable: false,
         maxLength: 50,
         minResponses: 3,
         maxResponses: 3
@@ -123,8 +121,9 @@ Airbo.TileBuilderInteractionConfig = (function(){
         question: "Would you like to change the email that you receive Airbo email notifications?",
         answers: ["Change my email", "Keep my current email"],
         minResponses: 2,
-        maxResponses: 100,
-        extendable: true,
+        maxResponses: 2,
+        extendable: false,
+        correctAnswerIndex: 0,
         maxLength: 50
       },
 
@@ -132,7 +131,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         name: "Invite Spouse",
         question: "Do you want to invite your spouse?",
         answers: [
-          "I have a dependent and want to invite them", 
+          "I have a dependent and want to invite them",
           "I have a dependent but don't want to invite them", "I don't have a dependent"
         ],
         minResponses: 3,
@@ -166,6 +165,3 @@ Airbo.TileBuilderInteractionConfig = (function(){
   };
 
 }())
-
-
-

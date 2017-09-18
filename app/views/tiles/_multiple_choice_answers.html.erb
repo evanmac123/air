@@ -1,10 +1,10 @@
+
+<% @interaction = TileInteractionFactory.get(self, tile, current_user, is_preview) %>
 <% if tile.multiple_choice_answers.present? %>
   <div class="multiple_choice_group content_sections">
-    <%=form_tag tile_completions_path(tile_id: tile.id), id: "tile_completion" do%>
-      <%=hidden_field_tag "answer_index" %>
-
-      <%=build_tile_interaction tile%>
-
-    <%end%>
+    <%= form_tag tile_completions_path(tile_id: tile.id), id: "tile_completion" do %>
+      <%= hidden_field_tag "answer_index" %>
+      <%= @interaction.build %>
+    <% end %>
   </div>
 <% end %>

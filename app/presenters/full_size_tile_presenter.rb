@@ -50,48 +50,6 @@ class FullSizeTilePresenter
     @supporting_content = p_tags.join.html_safe
   end
 
-  def non_preview_of_completed_tile?
-    !is_preview && user_completed_tile?
-  end
-
-  def user_completed_tile?
-    user_tile_completion.present?
-  end
-
-  def user_tile_completion
-    # nil is a valid answer, so we have to remember if this is memoized separately
-    return @user_tile_completion if @user_tile_completion_memoized
-    @user_tile_completion_memoized = true
-    @user_tile_completion = @user.tile_completions.where(tile_id: tile.id).first
-  end
-
-  def is_possible_correct_answer?(answer_index)
-    answer_index == tile.correct_answer_index || tile.is_survey? || tile.is_action?
-  end
-
-  def is_invitation_answer?(answer_index)
-    answer_index == tile.correct_answer_index &&
-    tile.question_subtype == Tile::INVITE_SPOUSE
-  end
-
-  def is_change_email_answer?(answer_index)
-    answer_index == tile.correct_answer_index &&
-    tile.question_subtype == Tile::CHANGE_EMAIL
-  end
-
-  def action_answer_class(answer_index)
-    if is_invitation_answer?(answer_index) && user.is_a?(User)
-      'invitation_answer'
-    elsif is_change_email_answer?(answer_index) && user.is_a?(User)
-      'change_email_answer'
-    else
-      ''
-    end
-  end
-
-  def user_completed_tile_with_answer_index(answer_index)
-    user_tile_completion.answer_index == answer_index
-  end
 
   def current_tile_ids_joined
     @current_tile_ids && @current_tile_ids.join(',')
@@ -101,9 +59,6 @@ class FullSizeTilePresenter
     Tile.where(id: adjacent_tile_ids).map{|tile| tile.image.url}
   end
 
-  def free_form_response
-    user_tile_completion && user_tile_completion.free_form_response
-  end
 
   def image_styles
     styles = ""
@@ -128,6 +83,8 @@ class FullSizeTilePresenter
     Nokogiri::HTML::Document.parse( tile.embed_video).xpath("//iframe").attribute("src").value
   end
 
+
+
   protected
 
   def adjacent_tile_ids
@@ -143,8 +100,8 @@ class FullSizeTilePresenter
     adjacent_indices.map{|adjacent_index| @current_tile_ids[adjacent_index]}
   end
 
-  def content_tag(*args)
-    ActionController::Base.helpers.content_tag(*args).html_safe
+  def content_tag(*args, &block)
+    ActionController::Base.helpers.content_tag(*args, &block).html_safe
   end
 
   def html_escape(*args)

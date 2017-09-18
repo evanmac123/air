@@ -1,3 +1,165 @@
+
+/*-----------------    drag_and_drop_in_section.js  ------------------------------------------------------------------------------------------------------------------*/
+
+window.dragAndDropInSection = function() {
+  var findTileId, saveTilePosition, saveUrl;
+
+  $(".manage_section").sortable($.extend(window.dragAndDropProperties, {
+    update: function(event, ui) {
+      return saveTilePosition(ui.item);
+    }
+  })).disableSelection();
+
+  saveTilePosition = function(tile) {
+    var id, left_tile_id, right_tile_id;
+
+    id = findTileId(tile);
+    left_tile_id = findTileId(tile.prev());
+    right_tile_id = findTileId(tile.next());
+
+    return $.ajax({
+      data: {
+        left_tile_id: left_tile_id,
+        right_tile_id: right_tile_id
+      },
+
+      type: 'POST',
+      url: saveUrl(id)
+    });
+  };
+
+  findTileId = function(tile) {
+    return tile.find(".tile_thumbnail").data("tile-id");
+  };
+
+  return saveUrl = function(id) {
+    var section_name, url_section_name;
+    section_name = $(".manage_section").attr("id");
+    url_section_name = "inactive_tiles";
+    return '/client_admin/' + url_section_name + '/' + id + '/sort';
+  };
+};
+
+
+
+/*-----------------    drag_drop_sorting.js  ------------------------------------------------------------------------------------------------------------------*/
+
+
+
+replaceMovedTile = function(tile_id, updated_tile_container){
+  //TODO  reference tile container directly instead of going through single tile
+  tile = $("#single-tile-" + tile_id).closest(".tile_container");
+  tile.replaceWith(updated_tile_container);
+  tile = $("#single-tile-" + tile_id).closest(".tile_container");
+  Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".pill.more"));
+};
+
+updateShareTilesNumber = function(number){
+  Airbo.PubSub.publish("updateShareTabNotification", { number: number });
+};
+
+updateShowMoreDraftTilesButton = function(){
+  button = $(".show_all_draft_section");
+  if( showMoreDraftTiles() || showMoreSuggestionBox() ){
+    button.show();
+  }else{
+    button.hide();
+  }
+};
+
+updateShowMoreArchiveTilesButton = function(){
+  if( Airbo.TileManager.managerType === "archived" ) {
+    return;
+  }
+
+  button = $(".show_all_inactive_section");
+
+  if( notTilePlaceholdersInSection( $("#archive") ).length > 4 ){
+    button.show();
+  }else{
+    button.hide();
+  }
+};
+
+updateShowMoreButtons = function(){
+  updateShowMoreDraftTilesButton();
+  updateShowMoreArchiveTilesButton();
+};
+
+showMoreDraftTiles = function(){
+  draftTilesCount = notTilePlaceholdersInSection( $("#draft") ).length;
+  return (draftTilesCount > 6 && selectedSection() === 'draft');
+};
+
+showMoreSuggestionBox = function(){
+  suggestionBoxTilesCount = notTilePlaceholdersInSection( $("#suggestion_box") ).length;
+  return (suggestionBoxTilesCount > 6 && selectedSection() === 'box');
+};
+
+selectedSection = function() {
+  if( $("#draft_tiles.draft_selected").length > 0 ){
+    return 'draft';
+  } else {
+    return 'box';
+  }
+};
+
+fillInLastTile = function(tile_id, section_name, tile_container){
+  section = $("#" + section_name);
+  if( sectionHasFreePlace(section) && tileIsNotPresent(tile_id) ){
+    addTileOnFreePlace(section, tile_container);
+  }
+};
+
+addTileOnFreePlace = function(section, tile_container){
+  free_place = freePlaceForTile(section);
+  free_place.removeClass("placeholder_container").replaceWith(tile_container);
+};
+
+freePlaceForTile = function(section){
+  free_place = $( tilePlaceholdersInSection(section)[0] );
+  if (free_place.length === 0) {
+    free_place = $('<div class="tile_container"></div>');
+    section.append(free_place);
+  }
+  return free_place;
+};
+
+tileIsNotPresent = function(tile_id){
+  return !tileIsPresent(tile_id);
+};
+
+tileIsPresent = function(tile_id){
+  return ($("#single-tile-" + tile_id).length > 0);
+};
+
+sectionHasFreePlace = function(section){
+  return !sectionIsFull(section);
+};
+
+sectionIsFull = function(section){
+  var tileNum = Airbo.Utils.TilePlaceHolderManager.visibleTilesNumberIn(section);
+  return (notTilePlaceholdersInSection(section).length >= tileNum);
+};
+
+notTilePlaceholdersInSection = function(section){
+  return section.children( notTilePlaceholderSelector() );
+};
+
+tilePlaceholdersInSection = function(section){
+  return section.children( tilePlaceholderSelector() );
+};
+
+notTilePlaceholderSelector = function(){
+  return ".tile_container:not(.placeholder_container)";
+};
+
+tilePlaceholderSelector = function(){
+  return ".tile_container.placeholder_container";
+};
+
+
+/*-----------------    tile_drag_drop_sort.js  ------------------------------------------------------------------------------------------------------------------*/
 var Airbo = window.Airbo || {}
 String.prototype.times = function(n) {
   return Array.prototype.join.call({
@@ -5,6 +167,7 @@ String.prototype.times = function(n) {
   }, this);
 };
 var allowRedigest = false;
+
 Airbo.TileDragDropSort = (function(){
 
   var sourceSectionName
@@ -279,6 +442,19 @@ Airbo.TileDragDropSort = (function(){
     }
   }
 
+
+  function onSortSuccess(result){
+
+    replaceMovedTile(result.tileId, result.tileHTML);
+    updateShareTilesNumber(result.tilesToBeSentCount);
+    updateShowMoreDraftTilesButton();
+
+    updateShowMoreButtons();
+    result.lastTiles.forEach(function(tile){
+      fillInLastTile( tile.id , tile.status, tile.html); 
+    });
+  }
+
   function saveTilePosition(tile) {
     var id, left_tile_id, right_tile_id, status;
     id = findTileId(tile);
@@ -295,7 +471,8 @@ Airbo.TileDragDropSort = (function(){
       },
       type: 'POST',
       url: '/client_admin/tiles/' + id + '/sort',
-      success: function() {
+      success: function(result) {
+        onSortSuccess(result);
         updateTileVisibility();
         Airbo.TileThumbnail.initTile(id);
       }
@@ -422,10 +599,10 @@ Airbo.TileDragDropSort = (function(){
   }
 
 
-})();
+}());
 
 $(function(){
 if(Airbo.Utils.supportsFeatureByPresenceOfSelector(".client_admin-tiles-index"))
   Airbo.TileDragDropSort.init();
- window.expandDraftSectionOrSuggestionBox();
+Airbo.DraftSectionExpander.init();;
 })

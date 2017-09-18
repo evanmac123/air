@@ -1,0 +1,3 @@
+class UserCompletableInteraction < PreviewInteraction
+
+end

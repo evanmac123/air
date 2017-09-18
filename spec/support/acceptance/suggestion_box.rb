@@ -105,7 +105,6 @@ module SuggestionBox
   def fill_in_username_autocomplete(name)
     autocomplete_input.set(name)
     page.execute_script("$('#name_substring').autocomplete('search')")
-    wait_for_ajax
   end
 
   def username_autocomplete_results_click num

@@ -1,169 +1,64 @@
-var allUsers, cancelBtn, controlButtonsBlock, form, manageAccessBtn, manageAccessPrompt, modal, modalSelector, removeLinkSelector, saveBtn, searchInput, searchResultsSelector, specificUsers, switherOff, switherOn, userRow, userRows, usersTableBody, warningCancel, warningConfirm, warningModal, warningModalSelector;
+var Airbo = window.Airbo || {}
+Airbo.SuggestionBoxAccessManager = (function(){
+  var  modalSelector =  '#suggestions_access_modal'
+    , searchResultsSelector = "#name_autocomplete_target"
+    , allUsers
+    , specificUsers
+    , switherOn
+    , switherOff
+    , modal
+    , manageAccessBtn
+    , saveBtn
+    , cancelBtn
+    , controlButtonsBlock
+    , userRows
+    , userRow
+    , usersTableBody
+    , searchInput
+    , form
+    , removeLinkSelector
+    , warningModalSelector
+    , warningModal
+    , warningConfirm
+    , warningCancel
+    , manageAccessPrompt
+  ;
 
-allUsers = function() {
-  return $(".all_users_section");
-};
-
-specificUsers = function() {
-  return $(".specific_users_section");
-};
-
-switherOn = function() {
-  return $('#suggestion_switcher_on');
-};
-
-switherOff = function() {
-  return $('#suggestion_switcher_off');
-};
-
-modalSelector = function() {
-  return '#suggestions_access_modal';
-};
-
-modal = function() {
-  return $(modalSelector());
-};
-
-manageAccessBtn = function() {
-  return $('#manage_access');
-};
-
-saveBtn = function() {
-  return $("#save_suggestions_access");
-};
-
-cancelBtn = function() {
-  return $('#cancel_suggestions_access, #suggestion_box_modal .close-reveal-modal, #close-suggestions-access-modal');
-};
-
-controlButtonsBlock = function() {
-  return $('.control_buttons');
-};
-
-userRows = function() {
-  return $(".allowed_to_suggest_user");
-};
-
-userRow = function(userId) {
-  return $(".allowed_to_suggest_user[data-user-id=" + userId + "]");
-};
-
-usersTableBody = function() {
-  return $("#allowed_to_suggest_users tbody");
-};
-
-searchInput = function() {
-  return $("#name_substring");
-};
-
-searchResultsSelector = function() {
-  return "#name_autocomplete_target";
-};
-
-form = function() {
-  return $("#suggestions_access_form");
-};
-
-removeLinkSelector = function() {
-  return ".user_remove a";
-};
-
-warningModalSelector = function() {
-  return "#suggestions_access_warning_modal";
-};
-
-warningModal = function() {
-  return $(warningModalSelector());
-};
-
-warningConfirm = function() {
-  return $(warningModalSelector() + " .confirm");
-};
-
-warningCancel = function() {
-  return $(warningModalSelector() + " .cancel, " + warningModalSelector() + " .close-reveal-modal");
-};
-
-manageAccessPrompt = function() {
-  return $("#manage_access_prompt");
-};
-
-window.suggestionsAccess = function(withModalEvents) {
-  var alreadyInList, blockSaveBtn, checkManageAccessPrompt, formChanged, getSelectedUser, higlightSwitcherCopy, reloadForm, showSection, specificUsersChanged, triggerModal, triggerWarningModal, turnSaveBtnSpinner, unblockSaveBtn;
-  if (withModalEvents == null) {
-    withModalEvents = true;
+  function triggerModal(action) {
+    modal.foundation('reveal', action);
   }
-  triggerModal = function(action) {
-    return modal().foundation('reveal', action);
-  };
-  cancelBtn().click(function(e) {
-    e.preventDefault();
-    return triggerModal('close');
-  });
-  if (withModalEvents) {
-    $(document).on('open.fndtn.reveal', modalSelector(), function() {
-      if (!window.needToBeSaved) {
-        return blockSaveBtn();
-      }
-    });
-    $(document).on('closed.fndtn.reveal', modalSelector(), function() {
-      if (window.needToBeSaved) {
-        return triggerWarningModal('open');
-      }
-    });
-    manageAccessBtn().click(function(e) {
-      e.preventDefault();
-      return triggerModal('open');
-    });
+
+  function triggerWarningModal(action) {
+    warningModal.foundation('reveal', action);
   }
-  triggerWarningModal = function(action) {
-    return warningModal().foundation('reveal', action);
-  };
-  if (withModalEvents) {
-    warningCancel().click(function(e) {
-      return triggerWarningModal('close');
-    });
-    warningConfirm().click(function(e) {
-      window.needToBeSaved = 'reload';
-      return triggerWarningModal('close');
-    });
-    $(document).on('closed.fndtn.reveal', warningModalSelector(), function() {
-      if (window.needToBeSaved === 'reload') {
-        return reloadForm();
-      } else {
-        return triggerModal('open');
-      }
-    });
-  }
-  higlightSwitcherCopy = function(name) {
+
+  function higlightSwitcherCopy(name) {
     $(".specific_users_copy, .all_users_copy").removeClass("on");
     if (name === 'allUsers') {
-      return $(".all_users_copy").addClass("on");
+      $(".all_users_copy").addClass("on");
     } else {
-      return $(".specific_users_copy").addClass("on");
+      $(".specific_users_copy").addClass("on");
     }
-  };
-  showSection = function(name) {
+  }
+
+  function showSection(name) {
     if (name === 'allUsers') {
-      allUsers().slideDown();
-      specificUsers().slideUp();
+      allUsers.slideDown();
+      specificUsers.slideUp();
     } else {
-      allUsers().slideUp();
-      specificUsers().slideDown();
+      allUsers.slideUp();
+      specificUsers.slideDown();
     }
     higlightSwitcherCopy(name);
-    return formChanged();
+    formChanged();
+  }
+
+
+  function userRow(userId) {
+    return $(".allowed_to_suggest_user[data-user-id=" + userId + "]");
   };
-  switherOn().click(function(e) {
-    return showSection('allUsers');
-  });
-  switherOff().click(function(e) {
-    return showSection('specificUsers');
-  });
-  alreadyInList = function(userId) {
-    return userRow(userId).length > 0;
-  };
-  getSelectedUser = function(e, ui) {
+
+  function getSelectedUser(e, ui) {
     var user;
     e.preventDefault();
     user = ui.item.value;
@@ -172,91 +67,201 @@ window.suggestionsAccess = function(withModalEvents) {
         type: 'GET',
         url: '/client_admin/allowed_to_suggest_users/' + user.id,
         success: function(data) {
-          usersTableBody().prepend(data.userRow);
-          return formChanged();
+          usersTableBody.prepend(data.userRow);
+          formChanged();
         }
       });
     }
-    return searchInput().val('').focus();
-  };
-  searchInput().autocomplete({
-    appendTo: searchResultsSelector(),
-    source: '/client_admin/users',
-    html: 'html',
-    select: getSelectedUser,
-    focus: function(e) {
-      return e.preventDefault();
+    searchInput.val('').focus();
+  }
+
+  function checkManageAccessPrompt() {
+    if (manageAccessPrompt.length > 0) {
+      return manageAccessPrompt.remove();
     }
-  });
-  checkManageAccessPrompt = function() {
-    if (manageAccessPrompt().length > 0) {
-      return manageAccessPrompt().remove();
-    }
-  };
-  blockSaveBtn = function() {
-    saveBtn().attr("disabled", "disabled");
+  }
+
+  function blockSaveBtn() {
+    saveBtn.attr("disabled", "disabled");
     return window.needToBeSaved = false;
-  };
-  unblockSaveBtn = function() {
-    saveBtn().removeAttr("disabled");
+  }
+
+  function unblockSaveBtn() {
+    saveBtn.removeAttr("disabled");
     return window.needToBeSaved = true;
-  };
-  specificUsersChanged = function() {
-    if (userRows().length > 0) {
-      return specificUsers().addClass("has_users");
+  }
+
+  function specificUsersChanged() {
+    if (userRows.length > 0) {
+      return specificUsers.addClass("has_users");
     } else {
-      return specificUsers().removeClass("has_users");
+      return specificUsers.removeClass("has_users");
     }
-  };
-  formChanged = function() {
+  }
+
+  function formChanged() {
     unblockSaveBtn();
     return specificUsersChanged();
-  };
-  turnSaveBtnSpinner = function(action) {
+  }
+
+  function  turnSaveBtnSpinner(action) {
     if (action == null) {
       action = 'on';
     }
     if (action === 'on') {
       blockSaveBtn();
-      return controlButtonsBlock().addClass('with_spinner');
+      return controlButtonsBlock.addClass('with_spinner');
     } else {
-      return controlButtonsBlock().removeClass('with_spinner');
+      return controlButtonsBlock.removeClass('with_spinner');
     }
-  };
-  reloadForm = function() {
+  }
+
+  function alreadyInList(userId) {
+    return userRow(userId).length > 0;
+  }
+
+  function reloadForm() {
     return $.ajax({
       type: 'GET',
       url: '/client_admin/suggestions_access',
       success: function(data) {
-        form().replaceWith(data.form);
+        form.replaceWith(data.form);
         window.needToBeSaved = false;
-        return window.suggestionsAccess(false);
       }
     });
+  }
+
+  function initDom(){
+    allUsers = $(".all_users_section")
+    specificUsers = $(".specific_users_section");
+    switherOn = $('#suggestion_switcher_on');
+    switherOff = $('#suggestion_switcher_off');
+    modal =  $(modalSelector);
+    manageAccessBtn = $('#manage_access');
+    saveBtn = $("#save_suggestions_access");
+    cancelBtn = $('#cancel_suggestions_access, #suggestion_box_modal .close-reveal-modal, #close-suggestions-access-modal');
+    controlButtonsBlock = $('.control_buttons');
+    userRows = $(".allowed_to_suggest_user");
+    usersTableBody = $("#allowed_to_suggest_users tbody");
+    searchInput = $("#name_substring");
+    form = $("#suggestions_access_form");
+    removeLinkSelector =  ".user_remove a";
+    warningModalSelector = "#suggestions_access_warning_modal";
+    warningModal =  $(warningModalSelector);
+    warningConfirm =  $(warningModalSelector + " .confirm");
+    warningCancel =  $(warningModalSelector + " .cancel, " + warningModalSelector + " .close-reveal-modal");
+    manageAccessPrompt = $("#manage_access_prompt");
+  }
+
+  function initEvents(){
+
+    manageAccessBtn.click(function(e) {
+      e.preventDefault();
+      return triggerModal('open');
+    });
+
+    cancelBtn.click(function(e) {
+      e.preventDefault();
+      return triggerModal('close');
+    });
+
+    switherOn.click(function(e) {
+      return showSection('allUsers');
+    });
+
+    switherOff.click(function(e) {
+      return showSection('specificUsers');
+    });
+
+    searchInput.autocomplete({
+      appendTo: searchResultsSelector,
+      source: '/client_admin/users',
+      html: 'html',
+      select: getSelectedUser,
+      focus: function(e) {
+ 
+        e.preventDefault();
+      }
+    });
+
+
+    $("body").on('click', removeLinkSelector, function(e) {
+      e.preventDefault();
+      $(this).closest("tr").remove();
+      return formChanged();
+    });
+
+    form.on('submit', function(e) {
+      e.preventDefault();
+      turnSaveBtnSpinner('on');
+      return $(this).ajaxSubmit({
+        dataType: 'json',
+        success: function() {
+          turnSaveBtnSpinner('off');
+          triggerModal('close');
+          return checkManageAccessPrompt();
+        }
+      });
+    });
+  }
+
+  function init(){
+    initDom();;
+    initEvents();
+    setupConfirmationModal();
+  }
+
+  // TODO this functionality should be replaced with sweetalert and
+  // better method of dirty detection on the form
+
+  function setupConfirmationModal(withModalEvents){
+
+    if (withModalEvents == null) {
+      withModalEvents = true;
+
+      $("body").on('open.fndtn.reveal', modalSelector, function() {
+        if (!window.needToBeSaved) {
+          return blockSaveBtn();
+        }
+      });
+
+      $("body").on('closed.fndtn.reveal', modalSelector, function() {
+        if (window.needToBeSaved) {
+          return triggerWarningModal('open');
+        }
+      });
+
+      $("body").on('closed.fndtn.reveal', warningModalSelector, function() {
+        if (window.needToBeSaved === 'reload') {
+          return reloadForm();
+        } else {
+          return triggerModal('open');
+        }
+      });
+
+
+      warningCancel.click(function(e) {
+        return triggerWarningModal('close');
+      });
+
+      warningConfirm.click(function(e) {
+        window.needToBeSaved = 'reload';
+        return triggerWarningModal('close');
+      });
+    }
+  }
+
+
+  return {
+    init: init
   };
 
-  $(document).on('click', removeLinkSelector(), function(e) {
-    e.preventDefault();
-    $(this).closest("tr").remove();
-    return formChanged();
-  });
+}())
 
-  form().on('submit', function(e) {
-    e.preventDefault();
-    turnSaveBtnSpinner('on');
-    return $(this).ajaxSubmit({
-      dataType: 'json',
-      success: function() {
-        turnSaveBtnSpinner('off');
-        triggerModal('close');
-        return checkManageAccessPrompt();
-      }
-    });
-  });
 
-  $(window).on("beforeunload", function() {
-    if (window.needToBeSaved) {
-      return "You haven't saved your changes.";
-    }
-  });
-};
+// NOTE  not sure if this is still needed
+$(window).on("beforeunload", function() {
+  if (window.needToBeSaved) {
+    return "You haven't saved your changes.";
+  }
+});
