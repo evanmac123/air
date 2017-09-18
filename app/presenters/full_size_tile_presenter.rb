@@ -35,7 +35,6 @@ class FullSizeTilePresenter
     @is_preview = is_preview
     @current_tile_ids = current_tile_ids
     @browser = browser
-    #@interaction = TileInteractionFactory.get(context, tile, user, is_preview)
   end
 
   def storage_key
@@ -78,10 +77,6 @@ class FullSizeTilePresenter
 
   def old_browser?
     browser.ie8?
-  end
-
-  def build_tile_interaction
-    @interaction.build
   end
 
   def extracted_video_link
