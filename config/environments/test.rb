@@ -1,4 +1,3 @@
-ENV['INSPECTLET_WID']="1234567890"
 ENV['IMAGE_PROVIDERS']="pixabay"
 
 silence_warnings do
