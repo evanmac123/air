@@ -88,7 +88,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       multiple_choice: {
         name: "Multiple Choice",
         question: "Add question",
-        answers: ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"],
+        answers: ["Strongly agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"],
         extendable: true,
         maxLength: 50,
         minResponses: 2,
