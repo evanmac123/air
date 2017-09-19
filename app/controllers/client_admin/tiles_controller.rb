@@ -124,7 +124,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       tilesToBeSentCount:  @demo.digest_tiles(@demo.tile_digest_email_sent_at).count,
       lastTiles: @last_tiles.map{|tile|
         {id: tile.id,
-         status: tile.status, 
+         status: tile.status,
          html: render_to_string( partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals: { presenter:  tile_presenter(tile)})
         }
       }

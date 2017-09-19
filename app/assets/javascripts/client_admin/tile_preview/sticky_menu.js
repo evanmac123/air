@@ -15,8 +15,8 @@ Airbo.StickyMenu = (function(){
   }
 
   function getSizes(container) {
-    if (container.tileContainerSizes().left > 0) {
-      return container.tileContainerSizes().left;
+    if (Airbo.TileModalUtils.tileContainerSizes().left > 0) {
+      return Airbo.TileModalUtils.tileContainerSizes().left;
     } else {
       var holderSize = $('.tile_holder').last().outerWidth();
       var modalSize = $('#tile_preview_modal').outerWidth();

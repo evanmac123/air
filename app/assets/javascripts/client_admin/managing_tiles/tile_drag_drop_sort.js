@@ -451,7 +451,7 @@ Airbo.TileDragDropSort = (function(){
 
     updateShowMoreButtons();
     result.lastTiles.forEach(function(tile){
-      fillInLastTile( tile.id , tile.status, tile.html); 
+      fillInLastTile( tile.id , tile.status, tile.html);
     });
   }
 
@@ -474,7 +474,6 @@ Airbo.TileDragDropSort = (function(){
       success: function(result) {
         onSortSuccess(result);
         updateTileVisibility();
-        Airbo.TileThumbnail.initTile(id);
       }
     });
   }
