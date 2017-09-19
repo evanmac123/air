@@ -1,21 +1,16 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileManager = (function(){
-  var newTileBtnSel = "#add_new_tile"
-    , sectionSelector = ".manage_section"
-    , tileWrapperSelector =".tile_container"
-    , managerType // main or archived
-  ;
-  var newTileBtn,
-  thumbnailMenu;
-
-  // TODO Deprecate this method
-
+  var newTileBtnSel = "#add_new_tile";
+  var sectionSelector = ".manage_section";
+  var tileWrapperSelector =".tile_container";
+  var managerType; // main or archived
+  var newTileBtn;
+  var thumbnailMenu;
 
   function pageSectionByStatus(status){
     return $("#" + status + sectionSelector);
   }
-
 
   function tileContainerByDataTileId(id){
     return  $(tileWrapperSelector + "[data-tile-container-id=" + id + "]");
@@ -52,8 +47,6 @@ Airbo.TileManager = (function(){
     $(selector).replaceWith(tile);
   }
 
-
-
   function replaceTileContentSearch(tile, id){
     selector = tileContainerByDataTileId(id);
     $(selector).each(function(idx, oldTile){
@@ -63,12 +56,10 @@ Airbo.TileManager = (function(){
     });
   }
 
-
   function updateSectionsNormal(data){
     updateTileSection(data);
     updateShowMoreDraftTilesButton();
   }
-
 
   function updateSectionsSearch(data){
     var tile = data.tile;
@@ -109,18 +100,14 @@ Airbo.TileManager = (function(){
     }
   }
 
-  function initNormal(){
-    Airbo.TileThumbnail.init();
-    initEvents();
-  }
-
   function init() {
-
-    if($(".explore-search-results-client_admin").length > 0){
+    if($(".explore-search").length > 0){
       initSearch();
-    }else{
-      initNormal();
+    } else {
+      Airbo.TileThumbnail.init();
     }
+
+    initEvents();
   }
   return {
     init: init,
@@ -131,7 +118,7 @@ Airbo.TileManager = (function(){
 }());
 
 $(function(){
-  if(  $(".manage_tiles").length > 0  || $(".explore-search-results-client_admin").length > 0) {
+  if(  $(".manage_tiles").length > 0 || $(".explore-search-results").length > 0) {
     Airbo.TileManager.init();
   }
 

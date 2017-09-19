@@ -83,8 +83,6 @@ class FullSizeTilePresenter
     Nokogiri::HTML::Document.parse( tile.embed_video).xpath("//iframe").attribute("src").value
   end
 
-
-
   protected
 
   def adjacent_tile_ids

@@ -1,10 +1,10 @@
 # This is the base class for creating the tile interaction section of the tile
-# preview or live tile.  
+# preview or live tile.
 #
 # It inherits from BasePresenter which has access to the view_context and all
 # functionality available to the views (html helpers/ URL helpers etc)
 #
-# Tile interactions (buttons and other form elements) come in 3 flavors: 
+# Tile interactions (buttons and other form elements) come in 3 flavors:
 # 1. PreviewInteraction:  this is triggered from client admin dashboard, explore etc. The
 # buttons and form elements are active but only simulate what happens when
 # completing the tile.
@@ -20,7 +20,7 @@
 # NOTE UserCompletableInteraction currently uses the exact same markup as the
 # PreviewInteraction. The separate class is preserved in case of future
 # customization and to highlight that the modes are technically different.
-# 
+#
 
 # NOTE maybe a better name is TileInteractionMode?
 
@@ -37,11 +37,11 @@ class TileInteraction < BasePresenter
   # Interactions are further classified into groups according  their customized behavior and complexity e.g.
   # free_response, custom_form, etc.!
   #
-  # Each interaction mode e.g. PreviewInteraction, 
+  # Each interaction mode e.g. PreviewInteraction,
   # implements its own version off the group behavior
   #
   # NOTE this group functionality can could be further refactored into separate
-  # classes 
+  # classes
   #
   def build
     subtype = tile.question_subtype
@@ -58,7 +58,7 @@ class TileInteraction < BasePresenter
   end
 
   def default_answer_buttons
-    buttons ="" 
+    buttons =""
     index = nil
     tile.multiple_choice_answers.each_with_index do |answer, answer_index|
       buttons += content_tag :div, class: "js-tile-answer-container" do
