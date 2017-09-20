@@ -2,18 +2,20 @@
   header{
     box-shadow: none;
   }
+  .user_container{
+    background: $tile-wall-bg;
+  }
   .content{
     padding-top: 0em !important;
   }
   #user_progress{
-    background: $white;
     padding: 1em;
-    box-shadow: 0 4px 4px -4px #a6a6a6;
     width: 100%;
     font-size: 9px;
     text-transform: uppercase;
     color: $white;
     font-weight: 700;
+    padding-top: 35px;
     &:after {@include clear;}
     .progress_header{
         height: 1rem;
@@ -47,7 +49,7 @@
       /* -------------------------------------
        * Radial progress bar - http://codepen.io/geedmo/pen/InFfd/
        * ------------------------------------- */
-      $barColor: $sky-blue;
+      $barColor: $n-blue;
       $overlayColor: $white;
       $backColor: $white;
       /* -------------------------------------
@@ -112,25 +114,24 @@
       overflow: hidden;
     }
     #total_section{
-      width: 4rem;
+      width: 3.5rem;
       float: right;
       margin-left: 0.5rem;
       #total_points{
-        text-align: left;
-        float: left;
-        width: 4rem;
+        background: $white;
+        height: 1.9rem;
+        width: 3.5rem;
+        border-radius: 4px;
         color: $n-blue;
         font-size: 14px;
-        padding-top: 0.5rem;
-        padding-left: 0.5rem;
+        margin-top: 0.3rem;
+        padding: 9.75px;
         line-height: 0.8;
-        font-weight: 500;
-        &:after{
-          font-size: 9px;
-          content: "POINTS";
-          display: block;
-          margin-top: 0.3rem;
-        }
+        text-align: center;
+      }
+      #total_header {
+        text-align: center;
+        padding-left: 0;
       }
     }
     #tile_section{

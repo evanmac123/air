@@ -73,17 +73,13 @@ Airbo.BoardPrizeModal = (function(){
   function showRaffleMobile(){
     $(".js-board-prize-modal").removeClass("reveal-modal");
     $(".content").children().slice(3).css("display", "none");
-    $("footer").css("display", "none");
-    $("body").css("background", "white");
-    $(".jPanelMenu-panel").css("background", "white");
+    $(".jPanelMenu-panel").css("background", $("#tile_wall").css("background"));
   }
 
   function hideRaffleMobile(){
     $(selector).addClass("reveal-modal");
     $(".content").children().slice(3).css("display", "block");
-    $("footer").css("display", "block");
     $("jPanelMenu-panel").css("background", "");
-    $(".content").css("background", "");
   }
 
   return {

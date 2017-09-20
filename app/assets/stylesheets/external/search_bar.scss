@@ -26,6 +26,10 @@
       border: none;
       background: transparent;
     }
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: 8px;
+    }
   }
   .airbo-search-input-button {
     &:hover {
