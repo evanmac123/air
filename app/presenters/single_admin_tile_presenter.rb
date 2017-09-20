@@ -100,8 +100,8 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def show_tile_path
-    if options[:referrer] == :contextual_tiles
-      client_admin_tile_preview_path(tile)
+    if options[:from_search] == true
+      client_admin_tile_preview_path(tile, { from_search: true })
     else
       client_admin_tile_path(tile)
     end

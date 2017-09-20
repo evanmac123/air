@@ -15,18 +15,22 @@ class TilesController < ApplicationController
   # the second time we render the partial via ajax.
 
   def index
-    @demo ||= current_user.demo
+    @demo = current_user.demo
     @palette = @demo.custom_color_palette
-    @current_user = current_user
+
     if params[:partial_only]
       render_tile_wall_as_partial
     elsif params[:from_search] == "true"
-      @start_tile = Tile.find_by_id(params[:tile_id])
+      @start_tile = current_board.tiles.find_by_id(params[:tile_id])
       @current_tile_ids = params[:tile_ids].split(", ")
     else
       @in_public_board = params[:public_slug].present?
 
       @start_tile = find_start_tile
+
+      if params[:tile_id] && @start_tile.nil?
+        redirect_to activity_path
+      end
 
       @current_tile_ids = satisfiable_tiles.map(&:id)
       decide_if_tiles_can_be_done(satisfiable_tiles)

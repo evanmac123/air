@@ -1,11 +1,10 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreTilePreview = (function(){
-  var modalObj = Airbo.Utils.StandardModal(),
-      modalId = "explore_tile_preview",
-      arrowsObj,
-      introShowed = false,
-      self;
+  var modalObj = Airbo.Utils.StandardModal();
+  var modalId = "explore_tile_preview";
+  var introShowed = false;
+  var self;
 
   function ping(action) {
     var tile_id;
@@ -13,19 +12,10 @@ Airbo.ExploreTilePreview = (function(){
     Airbo.Utils.ping('Explore page - Interaction', {action: action, tile_id: tile_id});
   }
 
-  function tileContainerSizes() {
-    tileContainer = $(".tile_full_image")[0];
-    if( !tileContainer ) {
-      return null;
-    }
-    return tileContainer.getBoundingClientRect();
-  }
-
   function initEvents() {
     Airbo.StickyMenu.init(self);
     Airbo.CopyTileToBoard.init();
     Airbo.ImageLoadingPlaceholder.init();
-    arrowsObj.initEvents();
 
     $('.js-multiple-choice-answer.correct').one("click", function(event) {
       event.preventDefault();
@@ -34,18 +24,21 @@ Airbo.ExploreTilePreview = (function(){
     });
   }
 
-  function open(preview) {
-    modalObj.setContent(preview);
-    modalObj.open();
-
+  function initPreviewElements() {
+    Airbo.TilePreviewArrows.init();
     Airbo.ShareLink.init();
     Airbo.TileCarouselPage.init();
     initEvents();
-
     initAnonymousTooltip();
 
     //This handles issue where the onboarding modal css interferes with the tile modal css.
     $(".reveal-modal").css("top", 0);
+  }
+
+  function open(previewHTML) {
+    modalObj.setContent(previewHTML);
+    modalObj.open();
+    initPreviewElements();
   }
 
   function initModalObj() {
@@ -63,24 +56,16 @@ Airbo.ExploreTilePreview = (function(){
     });
   }
 
-  function positionArrows() {
-    arrowsObj.position();
-  }
-
   function init() {
     self = this;
     initModalObj();
-    arrowsObj = Airbo.TilePreviewArrows();
-    arrowsObj.init(this, { buttonSize: 40, offset: 20 });
     return self;
   }
 
   return {
     init: init,
     open: open,
-    tileContainerSizes: tileContainerSizes,
-    modalId: modalId,
-    positionArrows: positionArrows
+    modalId: modalId
   };
 }());
 

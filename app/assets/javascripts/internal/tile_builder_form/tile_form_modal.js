@@ -11,7 +11,7 @@ Airbo.TileFormModal = (function(){
     , timer
     , tileManager
   ;
-  
+
   var modalObj = Airbo.Utils.StandardModal()
     , tileManager
     , validator
@@ -26,14 +26,6 @@ Airbo.TileFormModal = (function(){
 
   function disablesubmitLink(){
     submitLink.attr("disabled", "disabled");
-  }
-
-  function tileContainerSizes() {
-    tileContainer = $(".tile_holder_container")[0];
-    if( !tileContainer ) {
-      return null;
-    }
-    return tileContainer.getBoundingClientRect();
   }
 
   function setTileCreationPingProps(){
@@ -224,11 +216,6 @@ Airbo.TileFormModal = (function(){
     saveable = true;
   }
 
-
-
-
-
-
   function open(url) {
     $.ajax({
       type: "GET",
@@ -281,7 +268,6 @@ Airbo.TileFormModal = (function(){
     init: init,
     open: open,
     openModal: openModal,
-    tileContainerSizes: tileContainerSizes,
     modalId: modalId,
     closeMessage: closeMessage
   }

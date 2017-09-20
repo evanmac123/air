@@ -1,18 +1,10 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TilePreviewModal = (function(){
-  var modalId = "tile_preview_modal"
-    , self
-    , modalObj = Airbo.Utils.StandardModal()
-    , arrowsObj = Airbo.TilePreviewArrows()
-  ;
-  function tileContainerSizes() {
-    tileContainer = $(".tile_full_image")[0];
-    if( !tileContainer ) {
-      return null;
-    }
-    return tileContainer.getBoundingClientRect();
-  }
+  var modalObj = Airbo.Utils.StandardModal();
+  var modalId = "tile_preview_modal";
+  var self;
+
   function initSharing(){
     Airbo.TileSharingMgr.init();
     Airbo.TileTagger.init({
@@ -21,9 +13,10 @@ Airbo.TilePreviewModal = (function(){
       }
     });
   }
+
   function prepareToolTip(origin, content){
     initSharing();
-    initStatusUpdate()
+    initStatusUpdate();
   }
 
   function initPreviewMenuTooltips(){
@@ -43,10 +36,10 @@ Airbo.TilePreviewModal = (function(){
     });
   }
 
-
   function initStickyPreviewMenu() {
     Airbo.StickyMenu.init(self);
   }
+
   function initTileToolbarActions() {
     // FIXME
     // there are same events in Airbo.TileThumbnail (edit, update, delete, duplicate)
@@ -81,7 +74,7 @@ Airbo.TilePreviewModal = (function(){
     initDisabled();
 
     if($(".js-suggested-tile-preview").length > 0){
-      initStatusUpdate() 
+      initStatusUpdate();
     }else{
       initPreviewMenuTooltips();
     }
@@ -97,29 +90,23 @@ Airbo.TilePreviewModal = (function(){
 
   function initAnonymousTooltip(){
     $(".js-anonymous-tile-tooltip").tooltipster({
-      theme: "tooltipster-shadow" 
+      theme: "tooltipster-shadow"
     });
   }
 
   function initPreviewElements() {
+    Airbo.TilePreviewArrows.init();
     Airbo.TileCarouselPage.init();
     initAnonymousTooltip();
     Airbo.ImageLoadingPlaceholder.init();
     initStickyPreviewMenu();
-    arrowsObj.initEvents();
     initTileToolbarActions();
-
-    if($(".explore").length > 0){
-      Airbo.CopyTileToBoard.init();
-      Airbo.ShareLink.init();
-    }
   }
 
-
-  function open(preview) {
-    modalObj.setContent(preview);
-    initPreviewElements();
+  function open(previewHTML) {
+    modalObj.setContent(previewHTML);
     modalObj.open();
+    initPreviewElements();
   }
 
   function initModalObj() {
@@ -128,9 +115,6 @@ Airbo.TilePreviewModal = (function(){
       useAjaxModal: true,
       modalClass: "bg-user-side",
       closeSticky: true,
-      onOpenedEvent: function() {
-        arrowsObj.position();
-      },
       onClosedEvent: function() {
         $(".tipsy").tooltipster("hide");
       }
@@ -139,7 +123,6 @@ Airbo.TilePreviewModal = (function(){
   function init(AirboTileManager){
     self = this;
     initModalObj();
-    arrowsObj.init(self, {buttonSize: 40, offset: 20});
     tileManager = AirboTileManager;
     return this;
   }
@@ -147,7 +130,6 @@ Airbo.TilePreviewModal = (function(){
     init: init,
     open: open,
     close: close,
-    tileContainerSizes: tileContainerSizes,
     modalId: modalId
   };
 }());
