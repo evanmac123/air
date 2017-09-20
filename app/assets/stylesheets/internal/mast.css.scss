@@ -12,7 +12,7 @@ header #small-toggle.off-canvas-toggle a {
   color:$white;
   padding:1em;
   position: absolute;
-  left:0;
+  right:0;
   top:1rem;
 }
 #jPanelMenu-menu {
@@ -79,7 +79,6 @@ header {
   box-shadow: 0 4px 4px -4px darken($header-color, 35%);
   margin-bottom: -1px;
   position: relative;
-  margin-bottom: 1px;
   .small_cap {
     color:$med-gray;
     margin-bottom: $under_small_cap;
