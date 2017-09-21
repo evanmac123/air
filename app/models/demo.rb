@@ -460,7 +460,7 @@ class Demo < ActiveRecord::Base
 
   def intro_message
     if persistent_message.present?
-      persistent_message
+      persistent_message.html_safe
     else
       Demo.default_persistent_message
     end

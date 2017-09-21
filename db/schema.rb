@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170907210232) do
+ActiveRecord::Schema.define(:version => 20170921184006) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -462,7 +462,7 @@ ActiveRecord::Schema.define(:version => 20170907210232) do
     t.boolean  "is_paid",                                              :default => false
     t.datetime "tile_last_posted_at"
     t.boolean  "use_location_in_conversion",                           :default => false
-    t.string   "persistent_message",                                   :default => ""
+    t.text     "persistent_message",                                   :default => ""
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
