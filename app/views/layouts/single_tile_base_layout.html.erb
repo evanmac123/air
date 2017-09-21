@@ -28,18 +28,11 @@
     data-explore-or-public="<%= @explore_or_public %>"
     data-twitter-hashtags="<%= single_tile_hashtags(tile: @tile) %>">
 
-
       <div class="single-tile-base-header">
         <div class="center header">
-          <% if single_tile_logo(tile: @tile, source: @explore_or_public) %>
+          <% if single_tile_logo(tile: @tile) %>
             <%= link_to root_path(utm_source: "#{@explore_or_public.to_s}_single_tile", utm_campaign: @tile.headline) do %>
-              <%= image_tag single_tile_logo(tile: @tile, source: :explore), class: "#{@explore_or_public.to_s}" %>
-            <% end %>
-          <% end %>
-
-          <% if false #@explore_or_public == :public && !@tile.organization.try(:internal) %>
-            <%= link_to marketing_site_home_path(utm_source: "#{@explore_or_public.to_s}_single_tile", utm_campaign: "Powered by Airbo") do %>
-              <%= image_tag "powered-by-airbo-vertical.svg", class: "float-right #{@explore_or_public.to_s}" %>
+              <%= image_tag single_tile_logo(tile: @tile), class: "explore" %>
             <% end %>
           <% end %>
         </div>
@@ -52,26 +45,8 @@
       </div>
     </div>
     </main>
-
-    <% if single_tile_is_public(source: @explore_or_public) %>
-      <div id="footer" style="color: #4c4c4c;">
-        <%= render 'shared/copyright' %>
-      </div>
-    <% else %>
-      <footer class="bg-blue tall" >
-        <div class="row">
-          <div class="columns large-6 small-11 small-centered">
-            <p class="medium margin-none">
-              Welcome to Airbo
-            </p>
-            <p>Airbo is HR's Employee Communication Assistant. We help create a workplace that employees love.
-            </p>
-            <p>
-              <%= link_to "See How Airbo Works", marketing_site_home_path(utm_source: "explore_single_tile", utm_campaign: @tile.headline), class: "js-convert-cta button yellow", target: "blank" %>
-            </p>
-          </div>
-        </div>
-      </footer>
-    <% end %>
+    <div id="footer">
+      <%= render 'shared/copyright' %>
+    </div>
   </body>
 </html>

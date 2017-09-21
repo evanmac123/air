@@ -23,12 +23,12 @@ module SingleTileHelper
     end
   end
 
-  def single_tile_logo(tile:, source:)
+  def single_tile_logo(tile:)
     demo = tile.demo
 
-    if demo && demo.logo.present? && source == :public
+    if demo && demo.logo.present?
       demo.logo
-    elsif source == :explore
+    else
       "airbo_logo_lightblue.png"
     end
   end

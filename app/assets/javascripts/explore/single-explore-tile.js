@@ -57,11 +57,11 @@ Airbo.ExploreSingleTile = (function(){
     Airbo.Utils.ping("Single Explore Tile", { action: "Completed Tile" });
     initAnswerCorrectModal();
     swal({
-      title: "Tile Completed!",
+      title: "Tile Completed 🎉",
       type: "success",
       cancelButtonText: "Close",
       showCancelButton: false,
-      text: "Airbo helps HR create a workplace that employees love.",
+      text: "",
       html: true,
       confirmButtonColor: "#4fd4c0",
       confirmButtonText: confirmButtonText($entryPoint.data("currentUserIsClientAdmin")),
@@ -84,11 +84,7 @@ Airbo.ExploreSingleTile = (function(){
   }
 
   function confirmButtonText(isClientAdmin) {
-    if (isClientAdmin) {
-      return "See More Great Content";
-    } else {
-      return "Learn More About Airbo";
-    }
+    return "See More";
   }
 
   function initPingEvents() {
