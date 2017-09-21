@@ -23,8 +23,8 @@ module Integrations
       end
 
       def user_is_ordinary_user_in_sample?
-        # Simple sample mechanism to avoid rate limite on FullStory.
-        user.end_user? && (user.id % 2 == 0)
+        # Simple sample mechanism to avoid rate limit on FullStory: (user.id % 2 == 0). Removed for now, to see how the rate limit affects us.
+        user.end_user?
       end
   end
 end
