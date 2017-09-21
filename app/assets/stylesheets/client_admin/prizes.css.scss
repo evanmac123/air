@@ -163,6 +163,8 @@ body.client_admin-prizes {
     .buttons_section{
       display: flex;
       margin-bottom: 20px;
+      display: block;
+      margin-top: 2em;
       .button, button{
         width: 46.5%;
         // &.confirmation{

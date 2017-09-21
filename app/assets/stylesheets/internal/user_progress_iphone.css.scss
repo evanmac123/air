@@ -1,36 +1,32 @@
-.user_onboardings, body.acts-index, .explore-search-user{
-  #user_progress{
-    padding-bottom: 2rem !important;
-  }
-}
 .user_onboardings, body.tiles-index, body.acts-index, .explore-search-user{
   header{
     box-shadow: none;
+  }
+  .user_container{
+    background: $tile-wall-bg;
   }
   .content{
     padding-top: 0em !important;
   }
   #user_progress{
-    background: $white;
     padding: 1em;
-    box-shadow: 0 4px 4px -4px #a6a6a6;
     width: 100%;
     font-size: 9px;
     text-transform: uppercase;
     color: $white;
     font-weight: 700;
-    margin-bottom: 1em;
+    padding-top: 35px;
     &:after {@include clear;}
     .progress_header{
         height: 1rem;
         width: 100%;
         color: $white;
         text-transform: uppercase;
-        line-height: 1.4;
+        line-height: 1.5;
         padding: 0.27em;
         padding-left: 1em;
         background: #C0CADB;
-        border-radius: 3px;
+        border-radius: 4px;
       }
     #raffle_section.round_bar{
       float: right;
@@ -39,8 +35,8 @@
       padding-bottom: 3px;
       //box-shadow: #B3B3B3 0px 0px 1px 1px;
       #raffle_header{
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
       }
       #raffle_data{
         cursor: pointer;
@@ -53,7 +49,7 @@
       /* -------------------------------------
        * Radial progress bar - http://codepen.io/geedmo/pen/InFfd/
        * ------------------------------------- */
-      $barColor: $sky-blue;
+      $barColor: $n-blue;
       $overlayColor: $white;
       $backColor: $white;
       /* -------------------------------------
@@ -118,25 +114,24 @@
       overflow: hidden;
     }
     #total_section{
-      width: 4rem;
+      width: 3.5rem;
       float: right;
       margin-left: 0.5rem;
       #total_points{
-        text-align: left;
-        float: left;
-        width: 4rem;
-        color: $sky-blue;
-        font-size: 15px;
-        padding-top: 0.5rem;
-        padding-left: 0.5rem;
-        font-weight: 500;
+        background: $white;
+        height: 1.9rem;
+        width: 3.5rem;
+        border-radius: 4px;
+        color: $n-blue;
+        font-size: 14px;
+        margin-top: 0.3rem;
+        padding: 9.75px;
         line-height: 0.8;
-        &:after{
-          font-size: 9px;
-          content: "POINTS";
-          display: block;
-          margin-top: 0.4rem;
-        }
+        text-align: center;
+      }
+      #total_header {
+        text-align: center;
+        padding-left: 0;
       }
     }
     #tile_section{
@@ -148,22 +143,22 @@
         width: auto;
         overflow: hidden;
         height: 1.9rem;
-        font-size: 10px;
+        font-size: 14px;
         background: #cfd7e3;//#e2e7ef;
-        border-radius: 3px;
+        border-radius: 4px;
         margin-top: 0.3rem;
         #all_tiles{
           float: right;
           height: 1.9rem;
-          padding: 0.8em;
+          padding: 8.75px;
           background: transparent;
         }
         #completed_tiles{
           float: left;
           height: 1.9rem;
           text-align: right;
-          padding: 0.8em;
-          width: 40px;
+          padding: 8.75px;
+          width: 55px;
           #complete_info{
             float: right;
           }

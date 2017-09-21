@@ -1,7 +1,7 @@
 .user_onboardings, body.acts-index, .explore-search-user{
   .user_container{
     height: 10rem;
-    background: #d9dfe9;
+    background: $tile-wall-bg;
   }
 }
 .user_onboardings, body.tiles-index, body.acts-index, .explore-search-user{
@@ -30,6 +30,7 @@
         background: #C0CADB;
         border-radius: 0;
         text-align: left;
+        padding-top: 1.1em;
       }
     #raffle_section.round_bar{
       float: right;
@@ -42,6 +43,7 @@
       #raffle_header{
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
+        padding-top: 0.3rem;
       }
       #raffle_data{
         cursor: pointer;
@@ -51,6 +53,7 @@
         border-bottom-right-radius: 3px;
         margin: 0;
         color: $white;
+        padding-top: 0.3rem;
       }
       /* -------------------------------------
        * Radial progress bar - http://codepen.io/geedmo/pen/InFfd/
@@ -127,11 +130,6 @@
       width: 8rem;
       float: right;
       margin-left: 1.5rem;
-      #total_header{
-        &:after{
-          content: "POINTS";
-        }
-      }
       #total_points{
         text-align: center;
         float: left;
@@ -140,10 +138,8 @@
         font-size: 2em;
         font-weight: bold;
         line-height: 1em;
-        padding-left: 0;
-        &:after{
-          content: "";
-        }
+        padding-top: 0.5rem;
+        margin-top: 0;
       }
     }
     #tile_section{
@@ -151,9 +147,6 @@
       width: auto;
       overflow: hidden;
       background: #e2e7ef;
-      #tile_header{
-        padding-top: 1.1em;
-      }
       #tile_progress_bar{
         float: none;
         width: auto;

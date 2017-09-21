@@ -1,6 +1,5 @@
 <div class="acts-index">
   <% if current_user.is_a?(GuestUser) && current_board.internal? %>
-    <%= render "acts/guest_user_how_to_use_banner" %>
     <%= render "acts/board_welcome_message", board: current_board, show_on_load: false %>
   <% end %>
   <%= render partial: 'shared/tiles/user_progress', locals: { as_null:false, raffle: current_user.demo.raffle, opts: {} } %>

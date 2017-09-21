@@ -1,7 +1,9 @@
 function bindOffcanvasMenu(boardSwitchingAllowed) {
   var jPM = $.jPanelMenu({
     menu: 'header nav',
-    trigger: '.off-canvas-toggle a'
+    direction: 'right',
+    trigger: '.off-canvas-toggle a',
+    closeOnContentClick: false
   });
   var jRes = jRespond([
     {

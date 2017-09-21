@@ -5,13 +5,13 @@ html.lt-ie9{
     }
     .user_container{
       height: 10rem;
-      background: #d9dfe9;
+      background: $tile-wall-bg;
       padding-bottom: 10em !important;
     }
   }
   body.tiles-index, body.acts-index, .explore-search-user{
     .user_container{
-      background: #d9dfe9;
+      background: $tile-wall-bg;
       padding-top: 2em;
       padding-bottom: 2em;
       padding-left: 26px;
@@ -51,11 +51,6 @@ html.lt-ie9{
         width: 120px;
         float: right;
         margin-left: 10px;
-        #total_header{
-          &:after{
-            content: "POINTS";
-          }
-        }
         #total_points{
           text-align: center;
           float: left;

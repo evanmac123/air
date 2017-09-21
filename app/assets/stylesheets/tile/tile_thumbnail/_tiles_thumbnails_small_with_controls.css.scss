@@ -17,6 +17,9 @@
   @media only screen and (max-width: 500px) {
     width:50%;
   }
+  @media only screen and (max-width: 350px) {
+    width:100%;
+  }
   .tile_thumbnail {
     max-width: 159px;
     max-height: 211px;
