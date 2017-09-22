@@ -14,8 +14,6 @@ module Params
         :seed_points,
         :custom_welcome_message,
         :ends_at,
-        :followup_welcome_message,
-        :followup_welcome_message_delay,
         :credit_game_referrer_threshold,
         :game_referrer_bonus,
         :use_standard_playbook,

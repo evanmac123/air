@@ -102,6 +102,14 @@ class Demo < ActiveRecord::Base
     users.joins(:board_memberships).where(board_memberships: { is_client_admin: true, demo_id: self.id } )
   end
 
+  def twilio_from_number
+    if phone_number.present?
+      phone_number
+    else
+      TWILIO_PHONE_NUMBER
+    end
+  end
+
   def self.paid
     where(customer_status_cd: Demo.customer_statuses[:paid])
   end

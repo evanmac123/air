@@ -1,6 +1,5 @@
 get "users/index"
 
-match "sms"           => "sms#create", :via => :post
 match "activity"      => "acts#index"
 match "activity/admin_return_guide_displayed" => "acts#admin_return_guide_displayed"
 match "scoreboard"    => "scores#index"
@@ -102,7 +101,9 @@ resource :change_email, only: [:new, :create, :show]
 resources :cancel_account, :only => [:show, :destroy]
 
 resource :account, :only => [:update] do
-  resource :phone, :only => [:update]
+  resource :phone, only: [:update] do
+    put :validate
+  end
   resource :avatar, :only => [:update, :destroy]
   resource :sms_slug, :only => [:update]
   resource :name, :only => [:update]

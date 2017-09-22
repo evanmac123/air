@@ -44,13 +44,6 @@
       <% end %>
     <% end %>
 
-    <%= form.inputs :name => "Followup welcome message" do %>
-      <br>
-      <%= form.input :followup_welcome_message %>
-      <%= add_byte_counter_for 'Followup welcome message' %>
-      <%= form.input :followup_welcome_message_delay, :label => "Followup welcome message delay (in minutes)" %>
-    <% end %>
-
     <%= form.inputs :name => "Referral Bonus" do %>
       <p>Note that for this functionality to be active, you need to set both the threshold and the bonus for referring another.</p>
       <%= form.input :game_referrer_bonus, :label => 'Bonus for referring another to the game' %>

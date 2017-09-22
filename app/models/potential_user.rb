@@ -91,10 +91,6 @@ class PotentialUser < ActiveRecord::Base
     false
   end
 
-  def show_onboarding?
-    false
-  end
-
   def tile_completions
     TileCompletion.where("1 = 0")
   end

@@ -28,10 +28,6 @@ module User::FakeUserBehavior
     true
   end
 
-  def show_onboarding?
-    true
-  end
-
   def available_tiles_on_current_demo
     User::TileProgressCalculator.new(self).available_tiles_on_current_demo
   end
@@ -74,10 +70,6 @@ module User::FakeUserBehavior
 
   def nerf_links_with_login_modal?
     false
-  end
-
-  def likes_tile?(tile)
-    nil
   end
 
   def copied_tile?(tile)
