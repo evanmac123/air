@@ -1,6 +1,6 @@
 class PhonesController < UserBaseController
   def update
-    user_phone_updater = UserPhoneUpdater.new(user: current_user, phone_number: params[:user].delete(:phone_number)).dispatch
+    user_phone_updater = User::PhoneUpdaterService.new(user: current_user, phone_number: params[:user][:phone_number]).dispatch
 
     flash[user_phone_updater.flash_type] = user_phone_updater.flash_msg
 

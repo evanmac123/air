@@ -1,4 +1,4 @@
-class UserPhoneUpdater
+class User::PhoneUpdaterService
   attr_reader :user, :phone_number, :flash_type, :flash_msg
 
   def initialize(user:, phone_number:)
