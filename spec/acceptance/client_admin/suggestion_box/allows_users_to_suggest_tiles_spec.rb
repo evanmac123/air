@@ -72,22 +72,6 @@ feature 'Client admin segments on characteristics', js: true do
         all_users_switcher_on.click
         expect_content "You've selected All Users in this Board to have access to Suggestion Box."
       end
-
-      it "should save switcher state after clicking 'save'", js: true do
-        skip "this test needs the UI to be updated with visual confirmaiton of actions taken"
-        within "#suggestions_access_modal" do
-          all_users_switcher_on.click
-          expect_content "You've selected All Users"
-          save_button.click
-        end
-
-        manage_access_link.click
-        within "#suggestions_access_modal" do
-          specific_users_switcher_on.click
-          expect_content "Type the name of an user"
-         #FIXME there should be a flash message here that confirms success
-        end
-      end
     end
 
     context "Users Table" do
@@ -121,7 +105,8 @@ feature 'Client admin segments on characteristics', js: true do
 
       context "Removing" do
         before do
-          users.first.update_allowed_to_make_tile_suggestions true, demo
+          bm = users.first.board_memberships.where(demo: demo).first
+          bm.update_attribute(:allowed_to_make_tile_suggestions, true)
           visit current_path
           suggestion_box_title.click
           manage_access_link.click
@@ -150,7 +135,8 @@ feature 'Client admin segments on characteristics', js: true do
 
     context "Warning Modal" do
       before do
-        users.first.update_allowed_to_make_tile_suggestions true, demo
+        bm = users.first.board_memberships.where(demo: demo).first
+        bm.update_attribute(:allowed_to_make_tile_suggestions, true)
         visit current_path
         suggestion_box_title.click
         manage_access_link.click

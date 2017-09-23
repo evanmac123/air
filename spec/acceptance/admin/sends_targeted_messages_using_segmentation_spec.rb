@@ -143,25 +143,6 @@ feature 'Admin sends targeted messages using segmentation' do
     end
   end
 
-  it "should allow texts to be sent", :js => true do
-    skip "implementation may have changed"
-    set_up_models(use_phone: true)
-    select_common_form_entries
-
-    expected_sms_text = "Here is a text message! Yay!"
-    fill_in "sms_text", :with => expected_sms_text
-
-    click_button "It's going to be OK"
-    expect_content "Email text blank, no emails sent"
-    expect_content "Scheduled SMS to 6 users"
-
-    crank_dj_clear
-
-    @expected_users.each do |expected_user|
-      expect_mt_sms expected_user.phone_number, expected_sms_text
-    end
-  end
-
   it "should not try sending an SMS if the SMS text is blank", :js => true do
     set_up_models(use_phone: true)
     select_common_form_entries
@@ -171,7 +152,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
     crank_dj_clear
 
-    expect(FakeTwilio.sent_messages).to be_empty
+    expect(FakeTwilio::Client.messages).to be_empty
   end
 
   it "should have helpful messages if email text and sms text are all blank", :js => true do
@@ -185,7 +166,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
     crank_dj_clear
     expect(ActionMailer::Base.deliveries).to be_empty
-    expect(FakeTwilio.sent_messages).to be_empty
+    expect(FakeTwilio::Client.messages).to be_empty
   end
 
   it "should allow both emails and SMSes to be sent at the same time", :js => true do
@@ -204,7 +185,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
     crank_dj_clear
     expect(ActionMailer::Base.deliveries.length).to eq(6)
-    expect(FakeTwilio.sent_messages.length).to eq(6)
+    expect(FakeTwilio::Client.messages.length).to eq(6)
   end
 
   it 'should respect notification preferences by default', :js => true do
@@ -225,14 +206,12 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Scheduled email to 4 users"
     expect_content "Scheduled SMS to 4 users"
 
-    crank_dj_clear
-
     sms_users = @expected_users.select{|u| u.notification_method == 'sms' || u.notification_method == 'both'}
     email_users = @expected_users.select{|u| u.notification_method == 'email' || u.notification_method == 'both'}
 
     expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(email_users.map(&:email).sort)
 
-    expect(FakeTwilio.sent_messages.map{|sms| sms['To']}.sort).to eq(sms_users.map(&:phone_number).sort)
+    expect(FakeTwilio::Client.messages.map{ |sms| sms.to }.sort).to eq(sms_users.map(&:phone_number).sort)
   end
 
   it 'should allow override of notification preferences and send to everyone possible', :js => true do
@@ -256,7 +235,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
     crank_dj_clear
     expect(ActionMailer::Base.deliveries.size).to eq(6)
-    expect(FakeTwilio.sent_messages.size).to eq(6)
+    expect(FakeTwilio::Client.messages.size).to eq(6)
   end
 
   it "should have a link from somewhere in the admin side" do
@@ -334,7 +313,7 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Scheduled SMS to 20 users"
 
     crank_dj_clear
-    expect(FakeTwilio.sent_messages.size).to eq(20)
+    expect(FakeTwilio::Client.messages.size).to eq(20)
   end
 
   it "should not show a misleading error message after scheduling a long email", :js => true do
@@ -358,157 +337,5 @@ feature 'Admin sends targeted messages using segmentation' do
     expect(page.find('#plain_text').value).to eq(long_text)
     expect(page.find('#subject').value).to eq(mail_subject)
     expect(page.find('#sms_text').value).to eq(sms_text)
-  end
-
-  context "when the admin wishes to send a push later" do
-    before(:each) do
-      @demo = FactoryGirl.create(:demo)
-      @user = FactoryGirl.create(:user, :with_phone_number, demo: @demo, notification_method: 'both')
-
-      crank_dj_clear
-      FakeTwilio.clear_messages
-      ActionMailer::Base.deliveries.clear
-
-
-      visit admin_demo_targeted_messages_path(@demo, as: an_admin)
-      click_button "Find segment"
-
-      fill_in 'plain_text', :with => "Plain text"
-      fill_in 'html_text',  :with => "<p>Some HTML</p>"
-      fill_in 'subject',    :with => "The subject of our push"
-      fill_in 'sms_text',   :with => "A short message"
-
-      @base_time = Time.zone.now
-      @send_time = @base_time + 10.minutes
-
-      fill_in 'Send at', :with => (@send_time).to_s
-
-      click_button "It's going to be OK"
-    end
-
-    after(:each) do
-      Timecop.return
-    end
-
-    #FIXME do not test  non view behavior in acceptance tests!
-    it 'should allow a communication to be sent later', :js => true do
-     skip "This behavior should not be tested in a request spec"
-     expect_content "Scheduled email to 1 users"
-      expect_content "Scheduled SMS to 1 users"
-
-      crank_dj_clear
-
-      expect(FakeTwilio.sent_messages).to be_empty
-      expect(ActionMailer::Base.deliveries).to be_empty
-
-      Timecop.travel(10.minutes + 1.second)
-      crank_dj_clear
-
-      expect(FakeTwilio.sent_messages.size).to eq(1)
-      expect(ActionMailer::Base.deliveries.size).to eq(1)
-    end
-
-    it 'should allow a communication to be tracked after the fact', :js => true do
-     skip "This behavior should not be tested in a request spec"
-      expect_content "Scheduled email to 1 users"
-
-      crank_dj_clear
-      visit admin_demo_targeted_messages_path(@demo, as: an_admin)
-      expect_content "#{@send_time.pretty_succinct}"
-      expect_content "No segmentation, choosing all users The subject of our push A short message"
-
-      Timecop.travel(10.minutes + 1.second)
-      crank_dj_clear
-      visit admin_demo_targeted_messages_path(@demo, as: an_admin)
-      expect_content "No incomplete pushes scheduled"
-    end
-  end
-
-  context 'list of qualified recipients changes between time scheduled and time sent' do
-
-    def check_emails_and_texts(num_emails, num_texts)
-      expect(ActionMailer::Base.deliveries.size).to eq(num_emails)
-      expect(FakeTwilio.sent_messages.size).to eq(num_texts)
-
-      expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(@email_users.collect(&:email).sort)
-
-      expect(FakeTwilio.sent_messages.map{ |sms| sms['To'] }.sort).to eq(@text_users.collect(&:phone_number).sort)
-    end
-
-    def check_push_message_recipients
-      push_message = PushMessage.first
-
-      expect(push_message.email_recipient_ids.sort).to eq(@email_users.collect(&:id).sort)
-
-      expect(push_message.sms_recipient_ids.sort).to eq(@text_users.collect(&:id).sort)
-    end
-
-    # Originally had more than one test, but finally consolidated down to one. This is a pretty complex
-    # operation => might need some more tests someday => leave it set up like this.
-    before(:each) do
-      @demo = FactoryGirl.create :demo
-
-      @email_users = FactoryGirl.create_list :user,            3, demo: @demo, points: 4, notification_method: 'email'
-      @text_users  = FactoryGirl.create_list :user_with_phone, 5, demo: @demo, points: 4, notification_method: 'sms'
-
-      # Make sure characteristic-qualifying users who belong to a different demo are not included
-      FactoryGirl.create_list :user_with_phone, 2, points: 4, notification_method: 'both'
-
-      crank_dj_clear  # Get user info into MongoDB
-
-
-      visit admin_demo_targeted_messages_path(@demo, as: an_admin)
-
-      select "Points", :from => "segment_column[0]"
-      select "is greater than", :from => "segment_operator[0]"
-      fill_in "segment_value[0]", :with => "3"
-
-      click_button "Find segment"  # Get list of (original) recipients
-
-      expect_content "Segmented by POINTS IS GREATER THAN 3."
-      expect_content "Users in this segment: 8"
-
-      fill_in "subject",   :with => 'email subject'
-      fill_in "html_text", :with => 'email text'
-      fill_in "sms_text",  :with => 'sms text'
-
-      @send_time = Time.zone.now + 10.minutes
-      fill_in 'Send at', :with => (@send_time).to_s
-
-      click_button "It's going to be OK"  # Schedule the messages
-
-      expect_content "Scheduled email to 3 users"
-      expect_content "Scheduled SMS to 5 users"
-
-      check_push_message_recipients  # Original list of recipients
-
-      # Now create some new qualifiers and remove qualifications from some original qualifiers
-
-      new_email_users = FactoryGirl.create_list :user,            2, demo: @demo, points: 4, notification_method: 'email'
-      new_text_users  = FactoryGirl.create_list :user_with_phone, 2, demo: @demo, points: 4, notification_method: 'sms'
-
-      @email_users[0].update_attribute :points, 3  # These users no
-      @text_users[0].update_attribute :points,  3  # longer qualify
-
-      crank_dj_clear  # Add new users and update oldUsers in MongoDB
-
-      (@email_users += new_email_users).shift  # Add the new qualifiers and remove the
-      (@text_users  += new_text_users).shift   # no-longer-qualified from expected results
-    end
-
-    after(:each) do
-      Timecop.return
-    end
-
-    it "new users who qualify should be on the list, old users who no longer qualify should be off the list, and \
-        the database record for this targeted message should be updated to reflect the new list of recipients", :js => true do
-      
-     skip "This behavior should not be tested in a request spec"
-      Timecop.travel(@send_time + 1.second)  # Send the
-      crank_dj_clear                         # messages
-
-      check_emails_and_texts(4, 6)   # Original list had (3, 5) - Subtracted 1 and added 2 to each list
-      check_push_message_recipients  # New list of recipients
-    end
   end
 end

@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe Friendship do
   before(:each) do
-    Twilio::SMS.stubs(:create)
+    FakeTwilio::Client.stubs(:messages)
   end
 
   it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:friend) }
 
-  
+
   describe "after create" do
     context "when the friended user has no phone number" do
       before :each do
@@ -19,9 +19,10 @@ describe Friendship do
       end
 
       it "should not try to send an SMS to that blank number" do
-        friendship = FactoryGirl.create :friendship, :user => @user_1, :friend => @friend
-        expect(Twilio::SMS).to have_received(:create).never
+        FactoryGirl.create(:friendship, user: @user_1, friend: @friend)
+        expect(FakeTwilio::Client).to have_received(:messages).never
       end
+
       it "should set both reciprocal friendships to the same request index" do
         @user_1.befriend(@friend)
         initiated_1 = Friendship.where(:user_id => @user_1.id, :friend_id => @friend.id).first
@@ -45,7 +46,6 @@ describe Friendship do
         expect(initiated_3.request_index).to eq(10)
         pending_3 = Friendship.where(:user_id => @friend.id, :friend_id => @user_3.id).first
         expect(pending_3.request_index).to eq(10)
-        
       end
     end
   end

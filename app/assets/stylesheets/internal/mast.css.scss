@@ -75,7 +75,7 @@ header #small-toggle.off-canvas-toggle a {
 // ====== Header
 header {
   @include header_bar;
-
+  z-index: 1;
   box-shadow: 0 4px 4px -4px darken($header-color, 35%);
   margin-bottom: -1px;
   position: relative;

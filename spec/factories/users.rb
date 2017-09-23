@@ -32,8 +32,6 @@ FactoryGirl.define do
       association :game_referrer, :factory => :user
     end
 
-
-
     trait :with_location do
       association :location
     end

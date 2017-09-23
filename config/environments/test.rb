@@ -45,13 +45,6 @@ Health::Application.configure do
 
 	Rails.application.routes.default_url_options[:host] = 'www.example.com'
 
-  FAKE_TWILIO_ACCOUNT_SID  = "12345"
-  FAKE_TWILIO_AUTH_TOKEN   = "abcde"
-
-  Twilio::Config.setup \
-    :account_sid => FAKE_TWILIO_ACCOUNT_SID,
-    :auth_token => FAKE_TWILIO_AUTH_TOKEN
-
   #########  ASSETS   ##################################################################
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_assets = true

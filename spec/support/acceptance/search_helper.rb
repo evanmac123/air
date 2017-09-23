@@ -1,8 +1,8 @@
 module SearchHelper
- def index_elastic_search
+  def index_elastic_search
    Campaign.reindex
    Tile.reindex
- end
+  end
 end
 
 include SearchHelper

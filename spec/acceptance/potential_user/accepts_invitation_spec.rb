@@ -47,13 +47,6 @@ feature "Potential User Accepts Invitation" do
         expect_content "Welcome, my"
         expect_current_board_header(@demo)
       end
-
-      it "referrer should get email", js: true do
-        new_user = User.last
-
-        open_email @user.email
-        expect(current_email.to_s).to have_content "#{new_user.name} gave you credit for recruiting them. Many thanks and 5 bonus points!"
-      end
     end
 
     context "is invited to different boards simultaneusly" do

@@ -89,10 +89,6 @@ class Act < ActiveRecord::Base
     }
   end
 
-  def self.record_bad_message(phone_number, body, reply = '')
-    BadMessage.create!(:phone_number => phone_number, :body => body, :received_at => Time.now, :automated_reply => reply)
-  end
-
   def self.extract_user_and_phone(user_or_phone)
     if user_or_phone.kind_of?(User)
       user = user_or_phone

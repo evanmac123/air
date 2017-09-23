@@ -1,19 +1,4 @@
 class ActionMailer::Base
-  DEFAULT_PLAY_ADDRESS = Rails.env.production? ? "play@ourairbo.com" : "play-#{Rails.env}@ourairbo.com"
-
-  include Reply
-  
-  module ChannelSpecificTranslations
-    def channel_specific_translations
-      {
-         "reply here" => (@user && "If you'd like to play by e-mail instead of texting or going to the website, you can always send your commands to #{@user.reply_email_address(false)}.")
-      }
-    end
-  end
-
-  include ChannelSpecificTranslations
-  extend ChannelSpecificTranslations
-
   # Workaround for the fact that DJ/YAML upgrades break delayed invocation
   # of class & module methods
   def self.has_delay_mail
