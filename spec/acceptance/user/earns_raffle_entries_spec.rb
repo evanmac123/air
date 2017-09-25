@@ -1,7 +1,5 @@
 require 'acceptance/acceptance_helper'
 
-metal_testing_hack(SmsController)
-
 feature 'User earns tickets' do
   before(:each) do
     @demo = FactoryGirl.create(:demo, :with_tickets, ticket_threshold: 10)

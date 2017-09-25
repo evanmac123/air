@@ -24,7 +24,7 @@ class Invitation::AcceptancesController < ApplicationController
     end
 
     unless @user.accepted_invitation_at
-      @user.join_board(:silent)
+      @user.join_board
       @user.credit_game_referrer @user.game_referrer_id
     end
 

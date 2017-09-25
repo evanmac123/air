@@ -31,7 +31,7 @@ class PasswordsController < Clearance::PasswordsController
     password = params[:user][:password]
     password_confirmation = params[:user][:password_confirmation]
     unless password == password_confirmation
-      @user.errors[:password] = User.passwords_dont_match_error_message
+      @user.errors[:password] = "Sorry, your passwords don't match"
     end
 
     if @user.errors.present?

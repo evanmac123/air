@@ -1,12 +1,5 @@
 class CancelAccountController < ApplicationController
   before_filter :find_user
-  # TODO: This is the REST police. Rewrite this controller.
-  # This is in a separate controller, rather than incorporated into
-  # AccountsController, since AccountsController assumes we're logged in, and
-  # it's a singular resource, so we don't have a convenient place to put a token
-  # for the user.
-  #
-  # Please don't tell the REST police.
 
   layout "external"
 

@@ -1,5 +1,13 @@
 class PhonesController < UserBaseController
   def update
+    user_phone_updater = User::PhoneUpdaterService.new(user: current_user, phone_number: params[:user][:phone_number]).dispatch
+
+    flash[user_phone_updater.flash_type] = user_phone_updater.flash_msg
+
+    redirect_to :back
+  end
+
+  def validate
     if current_user.validate_new_phone(params[:user][:new_phone_validation])
       current_user.confirm_new_phone_number
       if current_user.save

@@ -31,7 +31,7 @@ class PushMessage < ActiveRecord::Base
     end
 
     if sms_text.present?
-      SMS.bulk_send_messages(sms_recipient_ids, sms_text)
+      SmsSender.delay.bulk_send_messages(sms_recipient_ids, sms_text)
     end
 
     update_attributes(state: COMPLETED)

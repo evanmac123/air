@@ -79,7 +79,6 @@ class User < ActiveRecord::Base
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique, :normalized_new_phone_number_not_taken_by_board
   validate :new_phone_number_has_valid_number_of_digits
-  validate :sms_slug_does_not_match_commands
   validate :date_of_birth_in_the_past
 
   validates_uniqueness_of :slug
@@ -320,15 +319,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def sms_slug_does_not_match_commands
-    # HRFF: check this only if the slug actually changed
-
-    all_commands = SpecialCommand.reserved_words
-    if all_commands.include? self.sms_slug
-      self.errors.add("sms_slug", "Sorry, but that username is reserved")
-    end
-  end
-
   def date_of_birth_in_the_past
     return unless self.date_of_birth
 
@@ -420,14 +410,6 @@ class User < ActiveRecord::Base
     friends.where('friendships.state' => 'accepted')
   end
 
-  def accepted_friends_not_counting_fairy_tale_characters
-    accepted_friends.where('users.name != ?', Tutorial.example_search_name)
-  end
-
-  def friendship_pending_with(other)
-    pending_friends.include?(other)
-  end
-
   def friends_with?(other)
     self.relationship_with(other) == "friends"
   end
@@ -456,37 +438,13 @@ class User < ActiveRecord::Base
     accepted_friends.count > 0
   end
 
-  # See comment by Demo#acts_with_current_demo_checked for an explanation of
-  # why we do this.
-
-  # Commenting this out until I can figure out to redo alias_method_chain with 'super'
-  # %w(friends pending_friends accepted_friends followers accepted_followers).each do |base_method_name|
-  #   class_eval <<-END_DEF
-  #     def #{base_method_name}_with_in_current_demo
-  #       #{base_method_name}_without_in_current_demo.where(:demo_id => self.demo_id)
-  #     end
-  #
-  #     #alias_method_chain :#{base_method_name}, :in_current_demo
-  #   END_DEF
-  #
-  # end
-
   def to_param
     slug
   end
 
-  def send_support_request
-    latest_act_descriptions = IncomingSms.where(:from => self.phone_number).order("created_at DESC").limit(20).map(&:body)
-
-    Mailer.delay_mail(:support_request, self.name, self.email, self.phone_number, self.demo.name, latest_act_descriptions)
-  end
-
-  def generate_short_numerical_validation_token
-    letters = "0234568"
-    jumbled_letters = letters.split("").sort_by{rand}.join
-    token = jumbled_letters[0,4]
+  def generate_new_phone_validation_token
+    token = rand(000000..999999).to_s.rjust(6, "0")
     self.new_phone_validation = token
-    self.save
   end
 
   def invitation_requested_via_sms?
@@ -501,6 +459,18 @@ class User < ActiveRecord::Base
     self.invitation_method == "web"
   end
 
+  def first_name
+    name.split.first.capitalize
+  end
+
+  def send_new_phone_validation_token
+    SmsSender.delay.send_message(
+      to_number: new_phone_number,
+      body: new_phone_validation_message,
+      from_number: demo.twilio_from_number
+    )
+  end
+
   def confirm_new_phone_number
     self.phone_number = self.new_phone_number
     self.new_phone_number = ""
@@ -511,46 +481,16 @@ class User < ActiveRecord::Base
     new_phone_number.present?
   end
 
-  def first_name
-    name.split.first.capitalize
-  end
-
-  def send_new_phone_validation_token
-    OutgoingMessage.send_message self.new_phone_number, "Your code to verify this phone with Airbo is #{self.new_phone_validation}.", nil, :from_demo => self.demo
+  def new_phone_validation_message
+    "Your code to verify this phone with Airbo is #{self.new_phone_validation}."
   end
 
   def validate_new_phone(entered_validation_code)
     entered_validation_code == self.new_phone_validation
   end
 
-  def schedule_followup_welcome_message
-    return if self.demo.followup_welcome_message.blank?
-    self.delay(:run_at => Time.now + demo.followup_welcome_message_delay.minutes).send_followup_welcome_message
-  end
-
-  def send_followup_welcome_message
-    User.transaction do
-      unless self.follow_up_message_sent_at
-        OutgoingMessage.send_message(self, self.demo.followup_welcome_message, nil, just_message: true)
-        self.update_attributes(:follow_up_message_sent_at => Time.now)
-      end
-    end
-  end
-
   def cancel_new_phone_number
     self.update_attributes(:new_phone_number => '', :new_phone_validation => '')
-  end
-
-  def bump_mt_texts_sent_today
-    increment!(:mt_texts_today)
-    if self.mt_texts_today == self.mute_notice_threshold && !(self.suppress_mute_notice)
-      OutgoingMessage.send_message(
-        self,
-        "If you want to temporarily stop getting texts from us, you can text back MUTE to stop them for 24 hours. To stop getting this reminder, text OK.",
-        nil,
-        channel: "sms"
-      )
-    end
   end
 
   def notification_channels
@@ -633,34 +573,16 @@ class User < ActiveRecord::Base
     board_memberships.where(demo_id: demo_id).present?
   end
 
-  def self.claim_account(from, to, claim_code, options={})
-    channel = options[:channel] || :sms
-
-    claimer_class = case channel
-    when :sms
-      AccountClaimer::SMSClaimer
-    when :email
-      AccountClaimer::EmailClaimer
-    end
-
-    claimer_class.new(from, to, claim_code, options).claim
-  end
-
   def invite(referrer = nil, options ={})
-    _demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : self.demo
+    board = options[:demo_id].present? ? Demo.find(options[:demo_id]) : self.demo
 
     if referrer && !(options[:ignore_invitation_limit])
-      peer_num = self.peer_invitations_as_invitee.where(demo: _demo).length
+      peer_num = self.peer_invitations_as_invitee.where(demo: board).length
       return if peer_num >= PeerInvitation::CUTOFF
     end
 
-    unless options[:is_new_invite]
-      Mailer.delay_mail(:invitation, self, referrer, options)
-    else
-      TilesDigestMailer.delay.notify_one(_demo.id, id,
-        _demo.digest_tiles(nil).pluck(:id), "Join my #{_demo.name}", false, nil,
-        options[:custom_message], options[:custom_from], options[:is_new_invite])
-    end
+    Mailer.delay_mail(:invitation, self, referrer, options)
+
     if referrer && !(options[:ignore_invitation_limit])
       PeerInvitation.create!(inviter: referrer, invitee: self, demo: referrer.demo)
     end
@@ -684,23 +606,15 @@ class User < ActiveRecord::Base
     record_claim_in_mixpanel(channel)
   end
 
-  def finish_claim(reply_mode = :string)
+  def finish_claim
     add_joining_to_activity_stream
-    schedule_followup_welcome_message
 
-    welcome_message = demo.welcome_message(self)
-
-    case reply_mode
-    when :send
-      OutgoingMessage.send_message(self, welcome_message, nil, just_message: true)
-    when :string
-      welcome_message
-    end
+    demo.welcome_message(self)
   end
 
-  def join_board(reply_mode=:string)
+  def join_board
     mark_as_claimed
-    finish_claim(reply_mode)
+    finish_claim
   end
 
   def record_claim_in_mixpanel(channel)
@@ -946,15 +860,6 @@ class User < ActiveRecord::Base
     Mailer.delay_mail(:guest_user_converted_to_real_user, self)
   end
 
-  def self.reset_all_mt_texts_today_counts!
-    User.update_all :mt_texts_today => 0
-  end
-
-  def self.authenticate(email_or_sms_slug, password)
-    user = User.where('sms_slug = ? OR email = ?', email_or_sms_slug.to_s.downcase, email_or_sms_slug.to_s.downcase).first
-    user && user.authenticated?(password) ? user : nil
-  end
-
   def self.referrer_hash(referrer)
     if referrer
       {:referrer_id => referrer.id}
@@ -978,36 +883,13 @@ class User < ActiveRecord::Base
     update_attributes(overflow_email: email, email: in_email)
   end
 
-  def bad_friendship_index_error_message(request_index)
-    if request_index && Friendship.pending(self).present?
-      "Looks like you already responded to that request, or didn't have a request with that number"
-    else
-      "You have no pending requests to add someone as a friend."
-    end
-  end
-
-  # Activity feed posts when someone joins are "joined the game", "credited [name] for referring them to the game" and "got credit for referring [name] to the game." Suggestions: "joined", "credited [name] for recruiting them" and "got credit for recruiting [name]"
   def credit_game_referrer(referring_user)
     referring_user = User.where(id: referring_user).first
     return unless referring_user
 
-    demo = self.demo
-
     referrer_act_text = I18n.t('special_command.credit_game_referrer.activity_feed_text', :default => "got credit for recruiting %{referred_name}", :referred_name => self.name)
-    referrer_sms_text = I18n.t('special_command.credit_game_referrer.referrer_sms', :default => "%{referred_name} gave you credit for recruiting them. Many thanks and %{points} bonus points!", :referred_name => self.name, :points => demo.game_referrer_bonus)
 
     referred_act_text = I18n.t('special_command.credit_game_referrer.referred_activity_feed_text', :default => "credited %{referrer_name} for recruiting them", :referrer_name => referring_user.name)
-    referred_sms_points_phrase = case demo.referred_credit_bonus
-                                 when nil
-                                   ""
-                                 when 1
-                                   " (and 1 point)"
-                                 else
-                                   " (and #{demo.referred_credit_bonus} points)"
-                                 end
-    referred_sms_text = I18n.t('special_command.credit_game_referrer.referred_sms', :default => "Got it, %{referrer_name} recruited you. Thanks%{points_phrase} for letting us know.", :referrer_name => referring_user.name, :points_phrase => referred_sms_points_phrase)
-
-    self.update_attribute(:game_referrer_id, referring_user.id)
 
     referring_user.acts.create!(
       :text            => referrer_act_text,
@@ -1018,10 +900,6 @@ class User < ActiveRecord::Base
       :text            => referred_act_text,
       :inherent_points => demo.referred_credit_bonus
     )
-
-    OutgoingMessage.send_message(referring_user, referrer_sms_text)
-
-    referred_sms_text
   end
 
   def to_ticket_progress_calculator
@@ -1059,11 +937,6 @@ class User < ActiveRecord::Base
     false
   end
 
-  def non_current_boards
-    current_demo_id = demo_id
-    demos.where(id: demo_ids - [current_demo_id])
-  end
-
   def is_client_admin_in_board(board)
     if board == self.demo
       self.is_client_admin
@@ -1072,21 +945,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def current_location_in_board(board)
-    if board == self.demo
-      self.location
-    else
-      board_memberships.find_by_demo_id(board.id).try(:location)
-    end
-  end
-
   def has_board_in_common_with(other_user)
     board_ids = self.board_memberships.pluck(:demo_id)
     other_user.board_memberships.where(demo_id: board_ids).first.present?
-  end
-
-  def likes_tile?(tile)
-    tile.user_tile_likes.where(user_id: self.id).exists?
   end
 
   def available_tiles_on_current_demo
@@ -1099,21 +960,6 @@ class User < ActiveRecord::Base
 
   def not_show_all_completed_tiles_in_progress
     TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
-  end
-
-  def show_onboarding?
-    # onboarding is already turned off
-    if self.current_board_membership.not_show_onboarding
-      false
-    # onboarding is turned off for board. so turn off it for admin
-    elsif (self.is_client_admin || self.is_site_admin)
-      self.current_board_membership.update_attribute(:not_show_onboarding, true)
-      self.get_started_lightbox_displayed = true
-      self.save!
-      false
-    else
-      true
-    end
   end
 
   def is_client_admin_in_any_board
@@ -1130,18 +976,6 @@ class User < ActiveRecord::Base
 
   def nerf_links_with_login_modal?
     false
-  end
-
-  def has_only_one_board?
-    demos.limit(2).count == 1
-  end
-
-  def muted_digest_boards
-    self.board_memberships.where(digest_muted: true).map(&:demo)
-  end
-
-  def muted_followup_boards
-    self.board_memberships.where(followup_muted: true).map(&:demo)
   end
 
   def has_only_board?(board)
@@ -1162,17 +996,6 @@ class User < ActiveRecord::Base
 
   def display_get_started_lightbox
     !get_started_lightbox_displayed && demo.tiles.active.present?
-  end
-
-  def update_allowed_to_make_tile_suggestions value, demo
-    bm = board_memberships.where(demo: demo).first
-    return unless bm
-    transaction do
-      bm.update_attribute :allowed_to_make_tile_suggestions, value
-      if bm.is_current
-        update_attribute :allowed_to_make_tile_suggestions, value
-      end
-    end
   end
 
   # TODO: This is a shitstorm and a big performance hit.
@@ -1226,108 +1049,102 @@ class User < ActiveRecord::Base
     user_intro || self.create_user_intro #UserIntro.create(user: self)
   end
 
-  protected
-
-  def downcase_email
-    self.email = email.to_s.downcase
-  end
-
-  # Assumes spouse exists (or wouldn't be changing the spousal status)
-  def sync_spouses
-    if spouse_id_changed?
-      my_spouse_id = spouse_id.nil? ? spouse_id_was : spouse_id
-      my_spouse = User.find(my_spouse_id)
-      my_spouse.update_attribute :spouse_id, spouse_id.nil? ? nil : id
-    end
-  end
-
-  def destroy_friendships_where_secondary
-    Friendship.destroy_all(:friend_id => self.id)
-  end
-
-  def normalized_new_phone_number_unique
-    normalize_unique(:new_phone_number)
-  end
-
-  def normalized_phone_number_unique
-    normalize_unique(:phone_number)
-  end
-
-  def normalize_unique(input)
-    return if self[input].blank?
-    normalized_number = PhoneNumber.normalize(self[input])
-
-    where_conditions = if self.new_record?
-                         ["phone_number = ?", normalized_number]
-                       else
-                         ["phone_number = ? AND id != ?", normalized_number, self.id]
-                       end
-    if self.class.where(where_conditions).limit(1).present?
-      self.errors.add(input, TAKEN_PHONE_NUMBER_ERR_MSG)
-    end
-  end
-
-  def normalized_new_phone_number_not_taken_by_board
-    num = PhoneNumber.normalize(new_phone_number)
-    return unless num.present?
-
-    found = Demo.find_by_phone_number(num)
-    if found
-      self.errors.add(:new_phone_number, TAKEN_PHONE_NUMBER_ERR_MSG)
-      return false
-    else
-      true
-    end
-  end
-
-  def new_phone_number_has_valid_number_of_digits
-    return unless self.new_phone_number.present?
-    unless PhoneNumber.is_valid_number?(self.new_phone_number)
-      self.errors.add(:new_phone_number, "Please fill in all ten digits of your mobile number, including the area code")
-    end
-  end
-
-  def downcase_sms_slug
-    return unless self.sms_slug
-    self.sms_slug.downcase!
-  end
-
-  def name_present?
-    # this is wrapped up like so so that we can use it in validations
-    name.present?
-  end
-
-  def mute_notice_threshold
-    self.demo.mute_notice_threshold || DEFAULT_MUTE_NOTICE_THRESHOLD
-  end
-
-  def update_associated_act_privacy_levels
-    # See Act for an explanation of why we denormalize privacy_level onto it.
-    Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
-  end
-
-  def self.claimable_by_first_name_and_claim_code(claim_string)
-    normalized_claim_string = claim_string.downcase.gsub(/\s+/, ' ').strip
-    first_name, claim_code = normalized_claim_string.split
-    return nil unless (first_name && claim_code)
-    User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
-  end
-
   private
 
-  def self.add_joining_to_activity_stream(user)
-    Act.create!(
-      :user            => user,
-      :text            => 'joined!',
-      :inherent_points => user.demo.seed_points
-    )
-  end
+    def downcase_email
+      self.email = email.to_s.downcase
+    end
 
-  def add_joining_to_activity_stream
-    self.class.add_joining_to_activity_stream(self)
-  end
+    # Assumes spouse exists (or wouldn't be changing the spousal status)
+    def sync_spouses
+      if spouse_id_changed?
+        my_spouse_id = spouse_id.nil? ? spouse_id_was : spouse_id
+        my_spouse = User.find(my_spouse_id)
+        my_spouse.update_attribute :spouse_id, spouse_id.nil? ? nil : id
+      end
+    end
 
-  def self.passwords_dont_match_error_message
-    "Sorry, your passwords don't match"
-  end
+    def destroy_friendships_where_secondary
+      Friendship.destroy_all(:friend_id => self.id)
+    end
+
+    def normalized_new_phone_number_unique
+      normalize_unique(:new_phone_number)
+    end
+
+    def normalized_phone_number_unique
+      normalize_unique(:phone_number)
+    end
+
+    def normalize_unique(input)
+      return if self[input].blank?
+      normalized_number = PhoneNumber.normalize(self[input])
+
+      where_conditions = if self.new_record?
+                           ["phone_number = ?", normalized_number]
+                         else
+                           ["phone_number = ? AND id != ?", normalized_number, self.id]
+                         end
+      if self.class.where(where_conditions).limit(1).present?
+        self.errors.add(input, TAKEN_PHONE_NUMBER_ERR_MSG)
+      end
+    end
+
+    def normalized_new_phone_number_not_taken_by_board
+      num = PhoneNumber.normalize(new_phone_number)
+      return unless num.present?
+
+      found = Demo.find_by_phone_number(num)
+      if found
+        self.errors.add(:new_phone_number, TAKEN_PHONE_NUMBER_ERR_MSG)
+        return false
+      else
+        true
+      end
+    end
+
+    def new_phone_number_has_valid_number_of_digits
+      return unless self.new_phone_number.present?
+      unless PhoneNumber.is_valid_number?(self.new_phone_number)
+        self.errors.add(:new_phone_number, "Please fill in all ten digits of your mobile number, including the area code")
+      end
+    end
+
+    def downcase_sms_slug
+      return unless self.sms_slug
+      self.sms_slug.downcase!
+    end
+
+    def name_present?
+      # this is wrapped up like so so that we can use it in validations
+      name.present?
+    end
+
+    def mute_notice_threshold
+      self.demo.mute_notice_threshold || DEFAULT_MUTE_NOTICE_THRESHOLD
+    end
+
+    def update_associated_act_privacy_levels
+      # See Act for an explanation of why we denormalize privacy_level onto it.
+      Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
+    end
+
+    def self.claimable_by_first_name_and_claim_code(claim_string)
+      normalized_claim_string = claim_string.downcase.gsub(/\s+/, ' ').strip
+      first_name, claim_code = normalized_claim_string.split
+      return nil unless (first_name && claim_code)
+      User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
+    end
+
+    def self.add_joining_to_activity_stream(user)
+      Act.create!(
+        :user            => user,
+        :text            => 'joined!',
+        :inherent_points => user.demo.seed_points
+      )
+    end
+
+    def add_joining_to_activity_stream
+      self.class.add_joining_to_activity_stream(self)
+    end
 end

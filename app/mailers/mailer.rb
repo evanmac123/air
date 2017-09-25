@@ -108,7 +108,7 @@ class Mailer < ActionMailer::Base
                              @demo = @user.demo
                              [@user.email, @user.reply_email_address]
                            when String
-                             [recipient_identifier, DEFAULT_PLAY_ADDRESS]
+                             [recipient_identifier, "play@ourairbo.com"]
                            end
 
     @message = construct_reply(message.dup)

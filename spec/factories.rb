@@ -54,26 +54,6 @@ FactoryGirl.define do
     end
   end
 
-  factory :bad_message do
-    phone_number "+14155551212"
-    received_at  { Time.now }
-  end
-
-  factory :new_bad_message, :parent => :bad_message do
-    is_new true
-  end
-
-  factory :watchlisted_bad_message, :parent => :bad_message do
-    after(:create) do |bad_message|
-      bad_message.update_attributes(:is_new => false, :on_watch_list => true)
-    end
-  end
-
-  factory :bad_message_reply do
-    association :sender, :factory => :user
-    association :bad_message
-  end
-
   factory :act do
     association :user
   end

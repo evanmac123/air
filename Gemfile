@@ -13,7 +13,7 @@ gem 'aws-sdk'
 gem 'formtastic'
 gem 'pg'
 gem 'flutie'
-gem 'twilio-rb'
+gem 'twilio-ruby', '~> 5.2.3'
 gem 'clearance'
 ### Remove after porting passwords to BCRYPT:
 gem 'clearance-deprecated_password_strategies'

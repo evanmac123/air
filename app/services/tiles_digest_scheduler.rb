@@ -1,4 +1,4 @@
-class ScheduleDigestAndFollowUp
+class TilesDigestScheduler
   attr_reader :demo,
               :unclaimed_users_also_get_digest,
               :custom_headline,
@@ -8,15 +8,15 @@ class ScheduleDigestAndFollowUp
               :follow_up_day,
               :current_user
 
-  def initialize params
-    @demo = params[:demo]
-    @unclaimed_users_also_get_digest = params[:unclaimed_users_also_get_digest]
-    @custom_headline = params[:custom_headline]
-    @custom_message = params[:custom_message]
-    @custom_subject = params[:custom_subject]
-    @alt_custom_subject = params[:alt_custom_subject]
-    @follow_up_day = params[:follow_up_day]
-    @current_user = params[:current_user]
+  def initialize(digest_form:)
+    @demo = digest_form.demo
+    @unclaimed_users_also_get_digest = digest_form.unclaimed_users_also_get_digest
+    @custom_headline = digest_form.custom_headline
+    @custom_message = digest_form.custom_message
+    @custom_subject = digest_form.custom_subject
+    @alt_custom_subject = digest_form.alt_custom_subject
+    @follow_up_day = digest_form.follow_up_day
+    @current_user = digest_form.current_user
   end
 
   def schedule!

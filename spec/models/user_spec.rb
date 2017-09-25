@@ -788,35 +788,30 @@ describe "#mark_as_claimed" do
   end
 end
 
-describe User, "generates a validation token" do
-  it "should generate a token" do
-    a = FactoryGirl.create(:user, :email => "a@a.com")
-    expect(a.reload.new_phone_validation).to be_blank
-    a.generate_short_numerical_validation_token
-    field = a.reload.new_phone_validation
-    expect(field).not_to be_blank
-    expect(field =~ /^\d{4}$/).not_to be_nil
+describe User do
+  describe "#generate_new_phone_validation_token" do
+    it "should generate a token" do
+      user = FactoryGirl.create(:user)
+      user.generate_new_phone_validation_token
+      expect(user.new_phone_validation.length).to eq(6)
+    end
   end
-end
 
-describe User, "reset_all_mt_texts_today_counts!" do
-  it "should reset MT text count on all users" do
-    20.times {FactoryGirl.create :user, :mt_texts_today => rand(1000)}
-    User.reset_all_mt_texts_today_counts!
-    expect(User.where(:mt_texts_today => 0).count).to eq(User.count)
-  end
-end
+  describe "#send_new_phone_validation_token" do
+    it "asks SmsSender to send a message in the background" do
+      user = FactoryGirl.create(:user, :email => "a@a.com")
+      token = user.generate_new_phone_validation_token
+      user.new_phone_number = "3333333333"
 
-describe User, "#schedule_followup_welcome_message" do
-  it "should only send a message once" do
-    SMS.stubs(:send_message)
+      SmsSender.expects(:delay).returns(SmsSender)
+      SmsSender.expects(:send_message).with(
+        to_number: user.new_phone_number,
+        body: "Your code to verify this phone with Airbo is #{token}.",
+        from_number: user.demo.twilio_from_number
+      )
 
-    demo = FactoryGirl.create :demo, :followup_welcome_message => "hey hey", :followup_welcome_message_delay => 0
-    user = FactoryGirl.create :user, phone_number: "+14155551212", demo: demo, notification_method: "both"
-
-    2.times {user.schedule_followup_welcome_message}
-
-    expect(SMS).to have_received(:send_message).once
+      user.send_new_phone_validation_token
+    end
   end
 end
 
@@ -826,17 +821,6 @@ describe User do
       follower = FactoryGirl.create :user
       artist = FactoryGirl.create(:user, :privacy_level => "everybody")
       expect(follower.can_see_activity_of(artist)).to eq(true)
-    end
-  end
-end
-
-describe User, "#sms_slug_does_not_match_commands" do
-  SpecialCommand.reserved_words.each do |reserved_word|
-    it "should invalidate user if sms_slug matches the reserved word \"#{reserved_word}\"" do
-      user = FactoryGirl.build(:user)
-      expect(user).to be_valid
-      user.sms_slug = reserved_word
-      expect(user).not_to be_valid
     end
   end
 end

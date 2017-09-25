@@ -41,10 +41,6 @@ class Friendship < ActiveRecord::Base
     send_follow_notification_by_email
   end
 
-  def send_follow_notification_by_sms
-    SMS.send_message friend, follow_notification_text
-  end
-
   def send_follow_notification_by_email
     Delayed::Job.enqueue FollowNotification.new(friend.name, friend.email, friend.reply_email_address, user.name, user.id, id)
   end
@@ -77,7 +73,7 @@ class Friendship < ActiveRecord::Base
     self.reciprocal.destroy if self.reciprocal
     "OK, we'll ignore the request from #{user.name} to be your connection."
   end
-  
+
   def reciprocal
     Friendship.where(:user_id => self.friend_id, :friend_id => self.user_id).first
   end

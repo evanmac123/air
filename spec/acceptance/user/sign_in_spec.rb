@@ -44,20 +44,6 @@ feature 'Sign in' do
     should_be_signed_in
   end
 
-  scenario "with SMS slug a.k.a username, case-insensitively" do
-    expect(user.sms_slug).to be_present
-    expect(user.sms_slug.capitalize).to_not eq(user.sms_slug)
-
-    try_login_with user.sms_slug, "foobar"
-    should_be_signed_in
-
-    sign_out_via_link # sign_out is taken by Clearance and doesn't work in this context
-
-    try_login_with user.sms_slug.capitalize, "foobar"
-    should_be_signed_in
-  end
-
-
   def fill_in_password_fields(email_or_username, password)
     fill_in "session[email]", with: email_or_username
     fill_in "session[password]", with: password
@@ -68,6 +54,4 @@ feature 'Sign in' do
     fill_in_password_fields(email_or_username, password)
     click_button "Log In"
   end
-
-
 end

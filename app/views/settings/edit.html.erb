@@ -22,7 +22,7 @@
       <h3>Change Password</h3>
       <%= form_for current_user, :url => logged_in_user_password_path do |form| %>
         <div class="row">
-          <div class="small-6 columns">
+          <div class="large-6 columns">
             <div id="new_pass">
               <%= label_tag 'user_password', "New password" %>
               <%= form.password_field :password %>
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="small-6 columns">
+          <div class="large-6 columns">
             <div id="confirm_pass">
               <%= label_tag 'user_password_confirmation', "Confirm new password" %>
               <%= form.password_field :password_confirmation %>
@@ -45,17 +45,22 @@
       <h3>Change Email</h3>
       <%= form_tag change_email_path do %>
         <div class="row">
-          <div class="small-6 columns">
+          <div class="large-6 columns">
             <label>Email Address</label>
             <%= text_field_tag "change_email[email]", @email.split("@")[0] + "...", placeholder: "example@email.com" %>
-            <%= submit_tag 'Save Change', :class => 'button' %>
           </div>
-
-          <div class="small-6 columns">
+        </div>
+        <div class="row">
+          <div class="large-6 columns">
             <% if @pending_email.present? %>
               <label>Pending Email Change</label>
               <%= text_field_tag "change_email[email]", @pending_email, placeholder: "example@email.com", disabled: true, class: "bg-blocked" %>
             <% end %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="columns large-6">
+            <%= submit_tag 'Save Change', :class => 'button' %>
           </div>
         </div>
       <% end %>
@@ -78,32 +83,23 @@
     </div>
 
     <div class="module other_settings" id="notification_settings">
-      <h3>Notification</h3>
+      <h3>Notifications</h3>
+      <%= form_for current_user, url: account_phone_path do |form| %>
+        <div class="module_inner settings_number">
+          <%= label_tag 'user_phone_number', "Mobile number" %>
+          <%= form.text_field :phone_number, value: current_user.phone_number.try(:as_obfuscated_phone) %>
+        </div>
+
+        <%= submit_tag 'Update Phone Number', :class => 'button_norm', :id => 'save-notification-settings' %>
+      <% end %>
       <% if current_user.new_phone_number_needs_verification? %>
-        <div class="module_inner" id="settings_new_number_verification">
-          <%= form_for current_user, :url => account_phone_path, :method => :put do |form| %>
-            <p><%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_obfuscated_phone}, please enter the validation code we sent to that number:" %></p>
+        <div class="module_inner mt-2" id="settings_new_number_verification">
+          <%= form_for current_user, url: validate_account_phone_path, method: :put do |form| %>
+            <%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_obfuscated_phone}, please enter the validation code we sent to that number:" %>
             <%= form.text_field :new_phone_validation, :value => '' %>
             <%= submit_tag 'Verify new number', :class => 'button_norm' %>
           <% end %>
         </div>
-      <% end %>
-      <%= form_for current_user, url: account_path do |form| %>
-        <div class="module_inner settings_number">
-          <%= label_tag 'user_phone_number', "Mobile number" %>
-          <%= form.text_field :phone_number, :value => current_user.phone_number.try(:as_obfuscated_phone) %>
-        </div>
-        <div class="module_inner settings_notification">
-          Notify me via...
-            <ul>
-              <% [["Text message", :sms], ["Email", :email], ["Both", :both] ].each do |label_text, method_name| %>
-                <li><%= form.radio_button :notification_method, method_name, :class => 'notification_pref', :id => method_name %><%= label_tag method_name, label_text, :class => 'check_label' %></li>
-              <% end %>
-            </ul>
-        </div>
-
-
-        <%= submit_tag 'Update', :class => 'button_norm', :id => 'save-notification-settings' %>
       <% end %>
   	</div>
   </div>

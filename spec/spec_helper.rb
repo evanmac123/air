@@ -67,10 +67,10 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    begin
-      FakeTwilio.clear_messages
-    rescue NameError
-    end
+    $twilio_client = FakeTwilio::Client.new
+    Twilio::TwiML::MessagingResponse.stubs(:new).returns(FakeTwilio::TwiMLResponse.new)
+
+    FakeTwilio::Client.messages = []
   end
 
   config.after(:suite) do
@@ -96,16 +96,5 @@ module Paperclip
   class Attachment
     def post_process
     end
-  end
-end
-
-# Hack to allow us to use regular controller tests to test, among others, SmsController
-# (which is an ActionController::Metal).
-
-def metal_testing_hack(klass)
-  klass.class_eval do
-    include ActionController::UrlFor
-    include ActionController::Testing
-    include Rails.application.routes.url_helpers
   end
 end
