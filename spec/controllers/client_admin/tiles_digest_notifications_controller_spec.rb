@@ -21,7 +21,7 @@ describe ClientAdmin::TilesDigestNotificationsController do
       demo = FactoryGirl.create(:demo)
       client_admin = FactoryGirl.create(:client_admin, demo: demo)
 
-      TilesDigestForm.any_instance.expects(:send_test_email_to_self)
+      TilesDigestForm.any_instance.expects(:submit_send_test_digest)
 
       sign_in_as(client_admin)
       request.env['HTTP_REFERER'] = '/'
@@ -32,7 +32,7 @@ describe ClientAdmin::TilesDigestNotificationsController do
       demo = FactoryGirl.create(:demo)
       client_admin = FactoryGirl.create(:client_admin, demo: demo)
 
-      TilesDigestForm.any_instance.expects(:schedule_digest_and_followup!)
+      TilesDigestForm.any_instance.expects(:submit_schedule_digest_and_followup)
 
       sign_in_as(client_admin)
       request.env['HTTP_REFERER'] = '/'

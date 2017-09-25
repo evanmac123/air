@@ -4,10 +4,10 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
 
     if params[:digest_type] == "test_digest"
       save_digest_form_params
-      @tiles_digest_form.send_test_email_to_self
+      @tiles_digest_form.submit_send_test_digest
     else
       session[:digest] = nil
-      @tiles_digest_form.schedule_digest_and_followup!
+      @tiles_digest_form.submit_schedule_digest_and_followup
     end
 
     flash[:digest_sent_type] = digest_sent_type

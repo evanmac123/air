@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe ScheduleDigestAndFollowUp do
+describe TilesDigestScheduler do
   it "schedules digest and follow up" do
     TrackEvent.stubs(:ping)
     FollowUpDigestEmail.stubs(:create!)
 
-    instance = ScheduleDigestAndFollowUp.new(params)
+    instance = TilesDigestScheduler.new(digest_form: digest_form)
 
     expect(instance.demo.unclaimed_users_also_get_digest).to eq(true)
     expect(instance.demo.tile_digest_email_sent_at).to eq(nil)
@@ -20,16 +20,18 @@ describe ScheduleDigestAndFollowUp do
     assert_received(TrackEvent, :ping) { |expect| expect.with('Digest - Sent', anything, anything) }
   end
 
-  def params
-    {
-      demo: FactoryGirl.create(:demo),
-      unclaimed_users_also_get_digest: false,
-      custom_headline: "Custom Headline",
-      custom_message: "Custom Message",
-      custom_subject: "Custom Subject",
-      alt_custom_subject: "alt_custom_subject",
-      follow_up_day: "Friday",
-      current_user: FactoryGirl.create(:client_admin)
-    }
+  def digest_form
+    current_user = FactoryGirl.create(:client_admin)
+
+    TilesDigestForm.new(current_user, {
+        demo: current_user.demo,
+        digest_send_to: "false",
+        custom_headline: "Custom Headline",
+        custom_message: "Custom Message",
+        custom_subject: "Custom Subject",
+        alt_custom_subject: "alt_custom_subject",
+        follow_up_day: "Friday",
+      }
+    )
   end
 end

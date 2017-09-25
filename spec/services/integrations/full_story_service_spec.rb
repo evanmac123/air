@@ -80,13 +80,14 @@ describe Integrations::FullStoryService do
       expect(full_story_service.send(:record_user?)).to eq(true)
     end
 
-    xit "does not record user if user is outside of sample" do
+    it "does not record user if user is outside of sample" do
+      #no sampling currently implemented
       organization = OpenStruct.new(internal: false)
       user = OpenStruct.new(end_user?: true, id: 1, organization: organization)
 
       full_story_service = Integrations::FullStoryService.new(user)
 
-      expect(full_story_service.send(:record_user?)).to eq(false)
+      expect(full_story_service.send(:record_user?)).to eq(true)
     end
   end
 end
