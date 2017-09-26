@@ -11,7 +11,10 @@ class ReceiveSmsController < ActionController::Base
 
     def respond(message)
       response = Twilio::TwiML::MessagingResponse.new
-      response.message(body: message)
+      response.message do |m|
+        m.body(message)
+      end
+
       render xml: response.to_s
     end
 

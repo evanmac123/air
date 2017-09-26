@@ -68,8 +68,6 @@ RSpec.configure do |config|
 
   config.before(:each) do
     $twilio_client = FakeTwilio::Client.new
-    Twilio::TwiML::MessagingResponse.stubs(:new).returns(FakeTwilio::TwiMLResponse.new)
-
     FakeTwilio::Client.messages = []
   end
 

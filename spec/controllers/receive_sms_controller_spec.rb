@@ -57,9 +57,18 @@ describe ReceiveSmsController do
 end
 
 def stop_response(demo_name)
-  "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Message body=\"Thanks for replying. You will no longer recieve texts from #{demo_name}.\"/></Response>"
+  simple_twiml_response("Thanks for replying. You will no longer recieve texts from #{demo_name}.")
 end
 
 def normal_response(demo_name)
-  "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Message body=\"Thanks for replying to #{demo_name}. Available commands are: 'stop'.\"/></Response>"
+  simple_twiml_response("Thanks for replying to #{demo_name}. Available commands are: 'stop'.")
+end
+
+def simple_twiml_response(message)
+  response = Twilio::TwiML::MessagingResponse.new
+  response.message do |m|
+    m.body(message)
+  end
+
+  response.to_s
 end
