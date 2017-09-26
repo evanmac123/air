@@ -10,6 +10,10 @@ namespace :client_admin do
   resources :users_invites, only: :create
   get 'preview_tiles_digest_email', to: 'users_invites#preview_tiles_digest_email'
 
+  resource :tiles_digest_preview, only: [] do
+    get 'sms', as: 'sms'
+  end
+
   resources :tile_user_notifications, only: [:create, :new]
 
   resources :locations, :only => :create
