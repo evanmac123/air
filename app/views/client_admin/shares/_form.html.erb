@@ -46,6 +46,10 @@
 
       </script>
     </div>
+    <div class="include_sms share-form-component">
+      <%= check_box_tag "digest[include_sms]", nil, class: "no-custom" %>
+      <label for="digest_include_sms" class="d-inline">Include SMS? <i class="fa fa-question-circle has-tip" data-tooltip="<%= true %>" title="By checking this box, we will also notify users who have entered their phone numbers via SMS."></i></label>
+    </div>
     <%= hidden_field_tag "digest_type", "digest_and_follow_up" %>
     <div class="send_test">
       <label>
@@ -65,7 +69,7 @@
       <span id="activated_users">
         <%= @activated_users %>
       </span>
-</h5>
+    </h5>
       <div class="clearfix"></div>
     </div>
     <%= submit_tag "Send", confirm: 'Are you sure you want to send the digest email?', disabled: @digest_tiles.empty?, class: "button full_width" %>

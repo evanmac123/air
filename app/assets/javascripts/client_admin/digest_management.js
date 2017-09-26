@@ -71,6 +71,7 @@ resizeEmailPreview = function() {
 window.digestManagement = function() {
   $(document).ready(function() {
     $('.client_admin-shares-show').foundation();
+    $('#digest_include_sms').show();
     return loadEmailPreview();
   });
   $(".email_preview_switchers a").click(function(e) {

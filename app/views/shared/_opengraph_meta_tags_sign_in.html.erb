@@ -1,0 +1,6 @@
+<% content_for :meta do %>
+  <% if @tile.present? %>
+    <meta property="og:title" content="<%= @tile.headline %>" />
+    <meta property="og:image" content="<%= @tile.image %>" />
+  <% end %>
+<% end %>

@@ -6,7 +6,8 @@ class TilesDigestScheduler
               :custom_subject,
               :alt_custom_subject,
               :follow_up_day,
-              :current_user
+              :current_user,
+              :include_sms
 
   def initialize(digest_form:)
     @demo = digest_form.demo
@@ -17,6 +18,7 @@ class TilesDigestScheduler
     @alt_custom_subject = digest_form.alt_custom_subject
     @follow_up_day = digest_form.follow_up_day
     @current_user = digest_form.current_user
+    @include_sms = digest_form.include_sms
   end
 
   def schedule!
@@ -37,6 +39,7 @@ class TilesDigestScheduler
         subject: custom_subject,
         alt_subject: alt_custom_subject,
         sender: current_user,
+        include_sms: include_sms
       })
 
       if digest.persisted?
@@ -63,7 +66,8 @@ class TilesDigestScheduler
           followup_scheduled: followup_scheduled,
           optional_message_added: optional_message_added,
           subject: custom_subject,
-          alt_subject: alt_custom_subject
+          alt_subject: alt_custom_subject,
+          include_sms: include_sms
         },
         current_user
       )
