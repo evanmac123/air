@@ -1,0 +1,24 @@
+<div class="chat">
+  <span></span>
+  <div class="messages">
+    <div class="message">
+      <% if @tile.present? %>
+        <div class="from with-image">
+          <%= image_tag @tile.image %>
+          <p class="headline"><%= @tile.headline %></p>
+          <p class="link">airbo.com</p>
+        </div>
+
+        <div class="from">
+          <p><%= @subject %></p>
+        </div>
+      <% else %>
+        <div class="from">
+          <p>No new Tiles to send.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <input type="text" placeholder="Your message">
+  <input type="submit" value="Send">
+</div>

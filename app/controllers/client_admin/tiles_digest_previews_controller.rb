@@ -3,6 +3,8 @@ class ClientAdmin::TilesDigestPreviewsController < ClientAdminBaseController
   prepend_before_filter :allow_same_origin_framing
 
   def sms
-    @digest = params[:digest]
+    @tile = Tile.find(31675)
+    @subject = "New Tiles!"
+    @digest = { tile: @tile }
   end
 end
