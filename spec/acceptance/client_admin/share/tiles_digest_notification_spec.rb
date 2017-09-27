@@ -156,14 +156,12 @@ feature 'Client admin and the digest email for tiles' do
         on_day '7/6/2013' do
           visit client_admin_share_path(as: admin)
           expect_tiles_to_send_header
-          expect(page).not_to contain 'No new tiles have been added'
 
           submit_button.click
           crank_dj_clear
 
           expect_digest_sent_content
           expect(page).not_to contain 'Tiles to be sent'
-          expect(page).to contain 'No new Tiles to send. Go to Edit to post new Tiles.'
         end
       end
 
@@ -414,7 +412,6 @@ feature 'Client admin and the digest email for tiles' do
     it "should send test digest and follow-up only to admin", js: true do
       # don't block anything
       expect_no_content follow_up_header_copy
-      expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
 
       expect_content test_digest_and_follow_up_sent_content(admin.email)
       page.find(".close-reveal-modal").click
