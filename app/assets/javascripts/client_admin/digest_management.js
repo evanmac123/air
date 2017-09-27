@@ -69,44 +69,45 @@ Airbo.TilesDigestManagement = (function() {
       newHeight -= newTotalHeight - maxHeight;
       $('#share_tiles_digest_preview').height(newHeight + "px");
     }
-
-    window.resizedEmailPreview = true;
   }
 
-  function manageUsers() {
-    $('#digest_include_sms').on('change', function(e) {
-      var ischecked = $(this).is(':checked');
-      if (ischecked) {
-        $(".sms-recipients").show();
-      } else {
-        $(".sms-recipients").hide();
-      }
-
-      resizeEmailPreview();
-    });
+  function initRecipientChangeEvents() {
+    manageRecipientChange();
 
     $('#digest_digest_send_to').on('change', function(event) {
-      if ($('#digest_digest_send_to option:selected').text() === "All Users") {
-        $('.js-all-user-recipients').show();
-        $('.js-all-activated-user-recipients').hide();
-      } else if ($('#digest_digest_send_to option:selected').text() === "Activated Users") {
-        $('.js-all-user-recipients').hide();
-        $('.js-all-activated-user-recipients').show();
-      }
+      manageRecipientChange();
     });
-
-    if ($('#digest_include_sms').is(':checked')) {
-      $(".sms-recipients").show();
-    }
-
-    $('#digest_digest_send_to').trigger('change');
   }
 
-  function init() {
-    $('#digest_include_sms').show();
-    manageUsers();
-    loadDigestPreview();
+  function manageRecipientChange() {
+    if ($('#digest_digest_send_to option:selected').text() === "All Users") {
+      $('.js-all-user-recipients').show();
+      $('.js-all-activated-user-recipients').hide();
+    } else if ($('#digest_digest_send_to option:selected').text() === "Activated Users") {
+      $('.js-all-user-recipients').hide();
+      $('.js-all-activated-user-recipients').show();
+    }
+  }
 
+  function initReceiveSmsChangeEvents() {
+    $('#digest_include_sms').show();
+    manageReceiveSmsCheckbox();
+
+    $('#digest_include_sms').on('change', function(e) {
+      manageReceiveSmsCheckbox();
+      resizeEmailPreview();
+    });
+  }
+
+  function manageReceiveSmsCheckbox() {
+    if ($('#digest_include_sms').is(':checked')) {
+      $(".sms-recipients").show();
+    } else {
+      $(".sms-recipients").hide();
+    }
+  }
+
+  function initDigestPreviewTabs() {
     $(".js-digest-preview-tabs li").click(function(e) {
       e.preventDefault();
       $(".digest_preview_overlay").fadeIn();
@@ -116,41 +117,65 @@ Airbo.TilesDigestManagement = (function() {
 
       loadDigestPreview($(this).data("previewType"));
     });
+  }
 
+  function initDigestPreviewLoadEvents() {
     $('#share_tiles_digest_preview').on('load', function(event) {
-      if (!window.resizedEmailPreview) {
-        resizeEmailPreview();
-      }
-
-      if ($("#show_sms_preview").hasClass("tabs-component-active")) {
-        $(".email-client").addClass("phone");
-      } else {
-        $(".email-client").removeClass("phone");
-      }
+      resizeEmailPreview();
+      removeEmailClientToolbarForSms();
 
       $(".digest_preview_overlay").fadeOut();
-      return $("#digest_custom_message, #digest_custom_subject, #digest_custom_headline").trigger('keyup');
-    });
 
+      $("#digest_custom_message, #digest_custom_subject, #digest_custom_headline").trigger('keyup');
+    });
+  }
+
+  function removeEmailClientToolbarForSms() {
+    if ($("#show_sms_preview").hasClass("tabs-component-active")) {
+      $(".email-client").addClass("phone");
+    } else {
+      $(".email-client").removeClass("phone");
+    }
+  }
+
+  function initCustomeMessageChangeEvents() {
     $('#digest_management').find('#digest_custom_message').on('keyup', function(event) {
-      return $('#digest_management').find('#share_tiles_digest_preview').contents().find('#custom_message').html($(this).val());
+      $('#digest_management').find('#share_tiles_digest_preview').contents().find('#custom_message').html($(this).val());
     }).on('keypress', function(event) {
-      return $('#digest_management').find('#share_tiles_digest_preview').contents().find('#custom_message').html($(this).val());
+      $('#digest_management').find('#share_tiles_digest_preview').contents().find('#custom_message').html($(this).val());
     });
+  }
 
+  function initCustomeHeadlineChangeEvents() {
     $('#digest_management #digest_custom_headline').on('keyup', updateCustomHeadline).on('keypress', updateCustomHeadline);
+  }
 
+  function initCustomeSubjectChangeEvents() {
     $('#digest_custom_subject').keyup(function(event) {
       var text;
       text = $(event.target).val();
       return $('.subject-field').text(textForSubject(text));
     });
+  }
 
+  function initSendTestDigestEvents() {
     $("#send_test_digest").click(function(e) {
       e.preventDefault();
       $("#digest_type").val("test_digest");
       return $("#tiles_digest_form").submit();
     });
+  }
+
+  function init() {
+    loadDigestPreview();
+    initReceiveSmsChangeEvents();
+    initRecipientChangeEvents();
+    initDigestPreviewTabs();
+    initDigestPreviewLoadEvents();
+    initCustomeMessageChangeEvents();
+    initCustomeHeadlineChangeEvents();
+    initCustomeSubjectChangeEvents();
+    initSendTestDigestEvents();
   }
 
   return {
