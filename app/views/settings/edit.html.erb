@@ -1,106 +1,116 @@
-<div class="row">
-  <div class="large-7 columns">
-    <div class="module personal_settings" id="about_user">
-    	<h3>Change Picture</h3>
-      <div class="module_inner settings_avatar">
-          <%= avatar_96 current_user %>
-          <div class="avatar_inputs">
-            <%= form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :class => 'set-avatar'} do |form| %>
-              <%= form.file_field :avatar, :id => "avatar_path" %>
-              <%= form.submit "Upload & save" %>
-            <% end %>
-            <% if current_user.avatar_file_name %>
-              <%= form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :method => :delete, :class => 'clear-avatar'} do |form| %>
-                <%= form.submit "Clear", :class => 'clear button outlined' %>
+<div class="js-user-settings">
+  <div class="row">
+    <div class="large-7 columns">
+      <div class="module personal_settings" id="about_user">
+      	<h3>Change Picture</h3>
+        <div class="module_inner settings_avatar">
+            <%= avatar_96 current_user %>
+            <div class="avatar_inputs">
+              <%= form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :class => 'set-avatar'} do |form| %>
+                <%= form.file_field :avatar, :id => "avatar_path" %>
+                <%= form.submit "Upload & save" %>
               <% end %>
-            <% end %>
+              <% if current_user.avatar_file_name %>
+                <%= form_for current_user, :url => account_avatar_path, :html => {:multipart => true, :method => :delete, :class => 'clear-avatar'} do |form| %>
+                  <%= form.submit "Clear", :class => 'clear button outlined' %>
+                <% end %>
+              <% end %>
+            </div>
+        </div>
+      </div>
+
+      <div class="personal_settings" id="password_change">
+        <h3>Change Password</h3>
+        <%= form_for current_user, :url => logged_in_user_password_path do |form| %>
+          <div class="row">
+            <div class="large-6 columns">
+              <div id="new_pass">
+                <%= label_tag 'user_password', "New password" %>
+                <%= form.password_field :password %>
+              </div>
+            </div>
           </div>
+          <div class="row">
+            <div class="large-6 columns">
+              <div id="confirm_pass">
+                <%= label_tag 'user_password_confirmation', "Confirm new password" %>
+                <%= form.password_field :password_confirmation %>
+              </div>
+            </div>
+          </div>
+            <%= submit_tag 'Save', :class => 'button_norm', :id => 'save-password-settings' %>
+        <% end %>
+      </div>
+
+      <div class="module personal_settings" id="email_change">
+        <h3>Change Email</h3>
+        <%= form_tag change_email_path do %>
+          <div class="row">
+            <div class="large-6 columns">
+              <label>Email Address</label>
+              <%= text_field_tag "change_email[email]", @email.split("@")[0] + "...", placeholder: "example@email.com" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-6 columns">
+              <% if @pending_email.present? %>
+                <label>Pending Email Change</label>
+                <%= text_field_tag "change_email[email]", @pending_email, placeholder: "example@email.com", disabled: true, class: "bg-blocked" %>
+              <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="columns large-6">
+              <%= submit_tag 'Save Change', :class => 'button' %>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
 
-    <div class="personal_settings" id="password_change">
-      <h3>Change Password</h3>
-      <%= form_for current_user, :url => logged_in_user_password_path do |form| %>
-        <div class="row">
-          <div class="large-6 columns">
-            <div id="new_pass">
-              <%= label_tag 'user_password', "New password" %>
-              <%= form.password_field :password %>
+    <div class="large-5 columns">
+      <div class="module other_settings" id="privacy_settings">
+        <h3>Privacy</h3>
+          <%= form_for current_user, url: account_settings_path, html: {class: "custom"} do |form| %>
+            <div class="module_inner">
+              <%= label_tag "user_privacy_level", "Let these people see my actions:" %>
+              <%= form.select :privacy_level, [
+                ['Everybody', 'everybody'],
+                ["Connections I've accepted", 'connected']
+              ] %>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="large-6 columns">
-            <div id="confirm_pass">
-              <%= label_tag 'user_password_confirmation', "Confirm new password" %>
-              <%= form.password_field :password_confirmation %>
-            </div>
-          </div>
-        </div>
-          <%= submit_tag 'Save', :class => 'button_norm', :id => 'save-password-settings' %>
-      <% end %>
-    </div>
+            <%= submit_tag 'Update privacy', :class => 'button_norm', :id => 'save-privacy-level' %>
+          <% end %>
+      </div>
 
-    <div class="module personal_settings" id="email_change">
-      <h3>Change Email</h3>
-      <%= form_tag change_email_path do %>
-        <div class="row">
-          <div class="large-6 columns">
-            <label>Email Address</label>
-            <%= text_field_tag "change_email[email]", @email.split("@")[0] + "...", placeholder: "example@email.com" %>
+      <div class="module other_settings" id="notification_settings">
+        <h3>Notifications</h3>
+        <%= form_for current_user, url: account_settings_path, html: {class: "custom"} do |form| %>
+          <div class="module_inner mb-1">
+            <%= form.check_box :receives_sms, class: "js-receives-sms-checkbox" %>
+            <%= form.label :receives_sms, "Allow text messages", class: "d-inline" %>
           </div>
-        </div>
-        <div class="row">
-          <div class="large-6 columns">
-            <% if @pending_email.present? %>
-              <label>Pending Email Change</label>
-              <%= text_field_tag "change_email[email]", @pending_email, placeholder: "example@email.com", disabled: true, class: "bg-blocked" %>
+          <%= form.submit 'Save Notification Settings', class: 'button_norm' %>
+        <% end %>
+      </div>
+        <%= form_for current_user, url: account_phone_path do |form| %>
+          <div class="module_inner settings_number">
+            <%= label_tag 'user_phone_number', "Mobile number" %>
+            <%= form.text_field :phone_number, value: current_user.phone_number.try(:as_obfuscated_phone) %>
+          </div>
+
+          <%= submit_tag 'Update Phone Number', :class => 'button_norm', :id => 'save-notification-settings' %>
+        <% end %>
+        <% if current_user.new_phone_number_needs_verification? %>
+          <div class="module_inner mt-2" id="settings_new_number_verification">
+            <%= form_for current_user, url: validate_account_phone_path, method: :put do |form| %>
+              <%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_obfuscated_phone}, please enter the validation code we sent to that number:" %>
+              <%= form.text_field :new_phone_validation, :value => '' %>
+              <%= submit_tag 'Verify new number', :class => 'button_norm' %>
             <% end %>
           </div>
-        </div>
-        <div class="row">
-          <div class="columns large-6">
-            <%= submit_tag 'Save Change', :class => 'button' %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="large-5 columns">
-    <div class="module other_settings" id="privacy_settings">
-      <h3>Privacy</h3>
-        <%= form_for current_user, :url => account_settings_path, html: {class: "custom"} do |form| %>
-          <div class="module_inner">
-            <%= label_tag "user_privacy_level", "Let these people see my actions:" %>
-            <%= form.select :privacy_level, [
-              ['Everybody', 'everybody'],
-              ["Connections I've accepted", 'connected']
-            ] %>
-          </div>
-          <%= submit_tag 'Update privacy', :class => 'button_norm', :id => 'save-privacy-level' %>
         <% end %>
+    	</div>
     </div>
-
-    <div class="module other_settings" id="notification_settings">
-      <h3>Notifications</h3>
-      <%= form_for current_user, url: account_phone_path do |form| %>
-        <div class="module_inner settings_number">
-          <%= label_tag 'user_phone_number', "Mobile number" %>
-          <%= form.text_field :phone_number, value: current_user.phone_number.try(:as_obfuscated_phone) %>
-        </div>
-
-        <%= submit_tag 'Update Phone Number', :class => 'button_norm', :id => 'save-notification-settings' %>
-      <% end %>
-      <% if current_user.new_phone_number_needs_verification? %>
-        <div class="module_inner mt-2" id="settings_new_number_verification">
-          <%= form_for current_user, url: validate_account_phone_path, method: :put do |form| %>
-            <%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_obfuscated_phone}, please enter the validation code we sent to that number:" %>
-            <%= form.text_field :new_phone_validation, :value => '' %>
-            <%= submit_tag 'Verify new number', :class => 'button_norm' %>
-          <% end %>
-        </div>
-      <% end %>
-  	</div>
   </div>
 </div>

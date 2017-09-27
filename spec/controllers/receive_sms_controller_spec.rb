@@ -7,7 +7,7 @@ describe ReceiveSmsController do
     end
 
     describe "when existing user responds with anything but 'stop'" do
-      it "should return Twilio friendly XML and keep the user's phone number unchanged" do
+      it "should return Twilio friendly XML and keep the user's notifications settings unchanged" do
         params = {
           "From" => @user.phone_number,
           "Body" => "Hi",
@@ -39,7 +39,7 @@ describe ReceiveSmsController do
     end
 
     describe "when an existing user response with stop" do
-      it "unsubscribes them from texts by removing their phone number" do
+      it "unsubscribes them from texts by updating their notification settings" do
         params = {
           "From" => @user.phone_number,
           "Body" => "Hi, please stop sending text messages.",
@@ -51,6 +51,42 @@ describe ReceiveSmsController do
         expect(response.status).to eq(200)
         expect(response.content_type).to eq("xml")
         expect(response.body).to eq(stop_response(@user.demo.name))
+        expect(@user.reload.receives_sms).to eq(false)
+      end
+    end
+
+    describe "when an existing user responds with start" do
+      it "updates their notification settings" do
+        @user.update_attributes(receives_sms: false)
+
+        params = {
+          "From" => @user.phone_number,
+          "Body" => "Hi, please start sending text messages.",
+          "To"   => "+14158675309",
+        }
+
+        post "create", params
+
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq("xml")
+        expect(response.body).to eq(start_response_existing_user(@user.demo.name))
+        expect(@user.reload.receives_sms).to eq(true)
+      end
+    end
+
+    describe "when an unknown user responds with start" do
+      it "updates their notification settings" do
+        params = {
+          "From" => "+3233333333",
+          "Body" => "Hi, please start sending text messages.",
+          "To"   => "+14158675309",
+        }
+
+        post "create", params
+
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq("xml")
+        expect(response.body).to eq(start_response_unknown_user)
       end
     end
   end
@@ -60,8 +96,16 @@ def stop_response(demo_name)
   simple_twiml_response("Thanks for replying. You will no longer recieve texts from #{demo_name}.")
 end
 
+def start_response_existing_user(demo_name)
+  simple_twiml_response("Thanks for replying. You will now recieve text messages from #{demo_name}.")
+end
+
+def start_response_unknown_user
+  simple_twiml_response("Sorry, we don't have your number in our system.")
+end
+
 def normal_response(demo_name)
-  simple_twiml_response("Thanks for replying to #{demo_name}. Available commands are: 'stop'.")
+  simple_twiml_response("Thanks for replying to #{demo_name}. Available commands are: 'start' and 'stop'.")
 end
 
 def simple_twiml_response(message)

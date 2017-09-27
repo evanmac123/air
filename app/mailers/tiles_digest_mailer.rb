@@ -14,7 +14,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
       context: { demo: digest.demo, user: @user, follow_up_email: @presenter.follow_up_email, email_type: @presenter.email_type }
     )
 
-    if digest.include_sms?
+    if digest.include_sms && @user.receives_sms
       SmsSender.send_message(to_number: @user.phone_number, from_number: @demo.twilio_from_number, body: @presenter.body_for_text_message)
     end
 
