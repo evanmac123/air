@@ -92,6 +92,13 @@ window.digestManagement = function() {
     if (!window.resizedEmailPreview) {
       resizeEmailPreview();
     }
+
+    if ($("#show_sms_preview").hasClass("tabs-component-active")) {
+      $(".email-client").addClass("phone");
+    } else {
+      $(".email-client").removeClass("phone");
+    }
+
     $(".digest_preview_overlay").fadeOut();
     return $("#digest_custom_message, #digest_custom_subject, #digest_custom_headline").trigger('keyup');
   });

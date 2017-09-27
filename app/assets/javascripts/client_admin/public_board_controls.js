@@ -46,15 +46,30 @@ Airbo.PublicBoardControls = (function(){
   }
 
   function manageUsers() {
+    $('#digest_include_sms').on('change', function(e) {
+      var ischecked = $(this).is(':checked');
+      if (ischecked) {
+        $(".sms-recipients").show();
+      } else {
+        $(".sms-recipients").hide();
+      }
+
+      window.resizeEmailPreview();
+    });
+
     $('#digest_digest_send_to').on('change', function(event) {
       if ($('#digest_digest_send_to option:selected').text() === "All Users") {
-        $('#all_users').show();
-        $('#activated_users').hide();
+        $('.js-all-user-recipients').show();
+        $('.js-all-activated-user-recipients').hide();
       } else if ($('#digest_digest_send_to option:selected').text() === "Activated Users") {
-        $('#all_users').hide();
-        $('#activated_users').show();
+        $('.js-all-user-recipients').hide();
+        $('.js-all-activated-user-recipients').show();
       }
     });
+
+    if ($('#digest_include_sms').is(':checked')) {
+      $(".sms-recipients").show();
+    }
 
     $('#digest_digest_send_to').trigger('change');
   }

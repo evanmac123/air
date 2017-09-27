@@ -28,6 +28,15 @@ $client-green: #bfd255;
     width: 100%;
     height: 1.5em;
   }
+  &.phone {
+    &:before {
+      display: none;
+    }
+
+    .client-toolbar {
+      display: none;
+    }
+  }
 
   .digest_preview_overlay {
     position: absolute;

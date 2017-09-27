@@ -100,19 +100,19 @@ body.client_admin-shares{
         }
       }
       .send_test {
-        margin-bottom: 2.75em;
         label {
           margin-bottom: 0.5em;
         }
       }
-      .total_users {
-        border:1px $light-gray solid;
+
+      .recipient-count {
+        border: 1px $light-gray solid;
         border-radius: 4px;
         padding: 10px;
-        margin-bottom: 2.75em;
+        margin-bottom: 20px;
         color: $gray;
         overflow: auto;
-        h5{
+        h5 {
           float: left;
           margin: 0;
           line-height: 1.7;
@@ -120,7 +120,7 @@ body.client_admin-shares{
             margin-left: 10px;
           }
         }
-        p{
+        p {
           float: right;
         }
       }
@@ -135,7 +135,7 @@ body.client_admin-shares{
       .digest-preview-tabs {
         width: 100%;
         li {
-          width: 33%;
+          width: 33.3%;
         }
       }
 
