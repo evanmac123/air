@@ -10,27 +10,28 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
       @tiles_digest_form.submit_schedule_digest_and_followup
     end
 
-    flash[:digest_sent_type] = digest_sent_type
-    flash[:digest_sent_flag] = true
+    session[:digest_sent_type] = digest_sent_type
 
     redirect_to :back
   end
 
-  protected
+  private
 
-  def save_digest_form_params
-    session[:digest] = params[:digest]
-  end
-
-  def digest_sent_type
-    if params[:digest_type] == "test_digest"
-      if @tiles_digest_form.with_follow_up?
-        "test_digest_and_follow_up"
-      else
-        "test_digest"
-      end
-    else
-      "digest_and_follow_up"
+    def save_digest_form_params
+      session[:digest] = params[:digest]
     end
-  end
+
+    def digest_sent_type
+      if params[:digest_type] == "test_digest"
+        test_digest_sent_type
+      else
+        "digest_delivered"
+      end
+    end
+
+    def test_digest_sent_type
+      type = "test_digest"
+      type += "_and_follow_up" if @tiles_digest_form.with_follow_up?
+      type += "_with_sms" if @tiles_digest_form.include_sms
+    end
 end

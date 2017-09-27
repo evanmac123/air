@@ -224,7 +224,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   def prepTilePreview
     unless from_search?
       @prev, @next = @demo.bracket @tile
-      @show_share_section_intro = show_share_section_intro
     end
   end
 
@@ -264,15 +263,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @user_submitted_tiles_counter > 0 ||
       @allowed_to_suggest_users.count > 0 ||
       @demo.everyone_can_make_tile_suggestions
-  end
-
-
-  def show_share_section_intro
-    if !current_user.share_section_intro_seen && @tile.has_client_admin_status?
-      current_user.share_section_intro_seen = true
-      current_user.save!
-      true
-    end
   end
 
   def get_demo

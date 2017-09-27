@@ -35,12 +35,6 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     end
 
     def digest_sent_modal
-      return unless flash[:digest_sent_flag]
-
-      @digest_sent_flag = true
-      flash.delete(:digest_sent_flag)
-
-      @digest_sent_type = flash[:digest_sent_type]
-      flash.delete(:digest_sent_type)
+      @digest_sent_type = session.delete(:digest_sent_type)
     end
 end

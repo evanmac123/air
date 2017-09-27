@@ -154,7 +154,9 @@ Airbo.TilesDigestManagement = (function() {
     $('#digest_custom_subject').keyup(function(event) {
       var text;
       text = $(event.target).val();
-      return $('.subject-field').text(textForSubject(text));
+      $('.subject-field').text(textForSubject(text));
+
+      $('#digest_management').find('#share_tiles_digest_preview').contents().find('.subject-field').html(textForSubject(text));
     });
   }
 
@@ -166,7 +168,12 @@ Airbo.TilesDigestManagement = (function() {
     });
   }
 
+  function showDigestSentModal() {
+    $('.js-digest-sent-modal').foundation('reveal', 'open');
+  }
+
   function init() {
+    showDigestSentModal();
     loadDigestPreview();
     initReceiveSmsChangeEvents();
     initRecipientChangeEvents();
