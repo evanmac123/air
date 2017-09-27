@@ -10,7 +10,7 @@ module ClientAdmin::TilesHelper
   end
 
   def digest_email_sent_on_message
-    @demo.tile_digest_email_sent_at.nil? ? nil : "Last tiles sent on #{@demo.tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)}"
+    @demo.tile_digest_email_sent_at.nil? ? nil : "Last Tiles sent on #{@demo.tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)}"
   end
 
   def email_site_link(user, demo, is_preview = false, email_type = "")

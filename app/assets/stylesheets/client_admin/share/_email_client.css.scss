@@ -29,7 +29,7 @@ $client-green: #bfd255;
     height: 1.5em;
   }
 
-  .email_preview_overlay {
+  .digest_preview_overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -38,8 +38,7 @@ $client-green: #bfd255;
     background: rgba(0, 0, 0, 0.4);
     z-index: 100;
     display: none;
-    img {
-      height: 35px;
+    .loading {
       margin-top: 200px;
       margin-left: 365px;
     }

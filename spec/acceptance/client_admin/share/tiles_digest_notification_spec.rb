@@ -69,7 +69,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def expect_tiles_to_send_header
-    expect_content_case_insensitive "Email Tiles"
+    expect_content_case_insensitive "Deliver Tiles"
   end
 
   def expect_no_new_tiles_to_send_header
