@@ -44,7 +44,7 @@ describe ClientAdmin::SharesHelper do
       it "returns the message" do
         helper.expects(:current_user).returns(user_with_phone).twice
 
-        expect(helper.sms_sent_template_message).to eq("Any test text messages have been sent to #{user_with_phone.phone_number}.")
+        expect(helper.sms_sent_template_message).to eq("Any test text messages have been sent to #{user_with_phone.phone_number}")
       end
     end
 

@@ -112,6 +112,10 @@ class TilesDigest < ActiveRecord::Base
     rdb[:logins].zincrby(1, subject_line)
   end
 
+  def increment_sms_logins
+    rdb[:sms_logins].incr
+  end
+
   def logins_by_subject_line
     rdb[:logins].zrangebyscore("-inf", "inf", "WITHSCORES").reverse
   end

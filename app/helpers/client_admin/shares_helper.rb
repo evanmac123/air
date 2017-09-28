@@ -29,7 +29,7 @@ module ClientAdmin::SharesHelper
   end
 
   def test_email_sent_message_template(emails_sent, sms_sent_message=nil)
-    "A test #{emails_sent} has been sent to #{current_user.email}. #{sms_sent_message}"
+    "A test #{emails_sent} has been sent to #{current_user.email}. #{sms_sent_message}."
   end
 
   def sms_sent_template_message
