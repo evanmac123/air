@@ -75,6 +75,9 @@ describe Reports::TileStatsReport do
       expect(data[:tileUserNotifications]).to eq(tile_stats_report.send(:tile_user_notifications_for_report))
 
       expect(data[:tileActivitySeries]).to eq(tile_stats_report.send(:tile_activity_series))
+
+      expect(data[:linkClickStats]).to eq({})
+      expect(data[:hasLinkTracking]).to eq(false)
     end
   end
 

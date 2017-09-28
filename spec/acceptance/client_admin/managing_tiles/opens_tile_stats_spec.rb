@@ -98,7 +98,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
           within ".survey-chart-table" do
             table_data = page.all('tr').map(&:text)
-            expect(table_data).to eq(["Answer Users Percent", "A 1 100%", "B 0 0%", "C 0 0%"])
+            expect(table_data).to eq(["Answer People Percent", "A 1 100%", "B 0 0%", "C 0 0%"])
           end
         end
       end

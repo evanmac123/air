@@ -84,6 +84,13 @@
     }
   }
 
+  .link-tracking-table {
+    @extend %stats-table;
+    .link {
+      width: 60%;
+    }
+  }
+
   .tile_grid_section table {
     @extend %stats-table;
 

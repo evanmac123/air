@@ -28,7 +28,9 @@ class Reports::TileStatsReport
       tileMessageOptionsForAnswers: TileUserNotification.options_for_answers(tile: tile),
       defaultNotificationRecipientCount: default_notification_recipient_count,
       tileUserNotifications: tile_user_notifications_for_report,
-      tileActivitySeries: tile_activity_series
+      tileActivitySeries: tile_activity_series,
+      linkClickStats: link_click_stats,
+      hasLinkTracking: has_link_tracking?
     }
   end
 
@@ -52,5 +54,13 @@ class Reports::TileStatsReport
 
     def default_notification_recipient_count
       TileUserNotification.default_recipient_count(tile: tile)
+    end
+
+    def link_click_stats
+      @_link_click_stats ||= tile.link_click_stats
+    end
+
+    def has_link_tracking?
+      tile.has_link_tracking? && link_click_stats.length > 0
     end
 end
