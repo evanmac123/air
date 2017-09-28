@@ -33,6 +33,5 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
       type = "test_digest"
       type += "_and_follow_up" if @tiles_digest_form.with_follow_up?
       type += "_with_sms" if @tiles_digest_form.include_sms
-      type
     end
 end

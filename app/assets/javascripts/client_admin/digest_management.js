@@ -158,6 +158,12 @@ Airbo.TilesDigestManagement = (function() {
 
       $('#digest_management').find('#share_tiles_digest_preview').contents().find('.subject-field').html(textForSubject(text));
     });
+
+    $('#digest_custom_subject, #digest_alt_custom_subject').on("keypress", function(e) {
+      if (e.keyCode === 10 || e.keyCode === 13) {
+        e.preventDefault();
+      }
+    });
   }
 
   function initSendTestDigestEvents() {
