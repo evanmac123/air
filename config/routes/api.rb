@@ -1,4 +1,7 @@
 namespace :api, defaults: { format: :json } do
+  resources :tiles, only: [] do
+    resources :tile_link_trackings, only: [:create]
+  end
 
   namespace :client_admin do
     resource :charts, only: [:show]

@@ -1,15 +1,14 @@
 
 Airbo.TileSuportingContentTextManager = (function(){
 
-  var contentEditor
-    , contentInput
-    , contentEditorSelector = '#supporting_content_editor'
-    , contentInputSelector = '#tile_supporting_content'
-  ;
+  var contentEditor;
+  var contentInput;
+  var contentEditorSelector = '#supporting_content_editor';
+  var contentInputSelector = '#tile_supporting_content';
 
   function contentEditorMaxlength() {
     return contentEditor.next().attr('maxlength');
-  };
+  }
 
   function updateContentInput() {
     contentInput.val(contentEditor.html());
@@ -19,7 +18,7 @@ Airbo.TileSuportingContentTextManager = (function(){
     var pasteNoFormattingIE;
     addCharacterCounterFor('#tile_headline');
     addCharacterCounterFor(contentEditorSelector);
-  };
+  }
 
   function initjQueryObjects(){
     contentEditor = $(contentEditorSelector);
@@ -30,9 +29,7 @@ Airbo.TileSuportingContentTextManager = (function(){
     autosize($('#tile_headline'));
   }
 
-
   function init(){
-
     if (Airbo.Utils.supportsFeatureByPresenceOfSelector(contentEditorSelector) ) {
       initjQueryObjects();
       initializeEditor();
@@ -43,7 +40,6 @@ Airbo.TileSuportingContentTextManager = (function(){
 
   return {
     init: init
-  }
-
+  };
 
 }());

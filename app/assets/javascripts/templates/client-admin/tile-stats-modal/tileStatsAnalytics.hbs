@@ -48,7 +48,7 @@
             <span>Answer</span>
           </th>
           <th class="users">
-            <span>Users</span>
+            <span>People</span>
           </th>
           <th class="percent">
             <span>Percent</span>
@@ -74,5 +74,41 @@
         {{/each}}
       </tbody>
     </table>
+
+    {{#if hasLinkTracking}}
+      <div class="table-title mt-2">
+        Tile Link Tracking
+      </div>
+      <table class="link-tracking-table">
+        <thead>
+          <tr>
+            <th class="link">
+              <span>Link</span>
+            </th>
+            <th class="users">
+              <span>People Who Clicked</span>
+            </th>
+            <th class="percent">
+              <span>Total Clicks</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each linkClickStats}}
+            <tr>
+              <td class="link">
+                <a href={{@key}}>{{@key}}</a>
+              </td>
+              <td class="unique-clicks">
+                {{this.unique_link_clicks}}
+              </td>
+              <td class="total-clicks">
+                {{this.link_clicks}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{/if}}
   </div>
 </div>
