@@ -1,7 +1,7 @@
 class TileEmailTracker
   include TrackEvent
 
-  attr_reader :user, :email_type, :subject_line, :tile_email_id
+  attr_reader :user, :email_type, :subject_line, :tile_email_id, :from_sms
 
   def self.dispatch(user:, email_type:, subject_line:, tile_email_id:, from_sms:)
     if TilesDigest.where(id: tile_email_id).exists?
