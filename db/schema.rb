@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170921184006) do
+ActiveRecord::Schema.define(:version => 20170927172339) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1313,6 +1313,7 @@ ActiveRecord::Schema.define(:version => 20170921184006) do
     t.boolean  "delivered",               :default => false
     t.boolean  "followup_delivered",      :default => false
     t.datetime "sent_at"
+    t.boolean  "include_sms",             :default => false
   end
 
   add_index "tiles_digests", ["demo_id"], :name => "index_tiles_digests_on_demo_id"
@@ -1561,6 +1562,7 @@ ActiveRecord::Schema.define(:version => 20170921184006) do
     t.integer  "primary_user_id"
     t.string   "official_email"
     t.integer  "organization_id"
+    t.boolean  "receives_sms",                                        :default => true
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
