@@ -34,7 +34,8 @@ describe InvitationsController do
           user: user,
           email_type: "tile_digest",
           subject_line: "NEW TILES",
-          tile_email_id: "1"
+          tile_email_id: "1",
+          from_sms: false
         })
       end
 

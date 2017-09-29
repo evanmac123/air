@@ -51,4 +51,8 @@ class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
   def title
     join_demo_copy_or_digest_email_heading(@is_invite_user)
   end
+
+  def body_for_text_message
+    "#{site_link(tile_id: @digest.tile_ids_for_email.first)}&from_sms=true #{@subject}"
+  end
 end

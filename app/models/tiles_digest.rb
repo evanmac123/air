@@ -71,7 +71,7 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def deliver(follow_up_days_index)
-    send_emails
+    send_emails_and_sms
     schedule_followup(follow_up_days_index)
     set_tile_email_report_notifications
     self.delivered
@@ -81,7 +81,7 @@ class TilesDigest < ActiveRecord::Base
     ClientAdmin::NotificationsManager.delay(run_at: 1.hour.from_now).set_tile_email_report_notifications(board: self.demo)
   end
 
-  def send_emails
+  def send_emails_and_sms
     TilesDigestMailer.delay.notify_all(self)
 
     self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true, sent_at: Time.now)
@@ -110,6 +110,10 @@ class TilesDigest < ActiveRecord::Base
 
   def increment_logins_by_subject_line(subject_line)
     rdb[:logins].zincrby(1, subject_line)
+  end
+
+  def increment_sms_logins
+    rdb[:sms_logins].incr
   end
 
   def logins_by_subject_line

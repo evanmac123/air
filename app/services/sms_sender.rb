@@ -18,7 +18,7 @@ class SmsSender
   end
 
   def self.bulk_send_messages(user_ids, body)
-    users = User.where(id: user_ids)
+    users = User.where(id: user_ids).where(receives_sms: true)
     users.each { |user| SmsSender.send_message(to_number: user.phone_number, body: body) }
   end
 end

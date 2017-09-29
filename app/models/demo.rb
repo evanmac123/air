@@ -299,8 +299,16 @@ class Demo < ActiveRecord::Base
     claim_state_machine_without_default || ClaimStateMachine.default_claim_state_machine(self)
   end
 
+  def user_with_phone_number_count
+    users.non_site_admin.with_phone_number.count
+  end
+
   def claimed_user_count
     claimed_users.non_site_admin.count
+  end
+
+  def claimed_user_with_phone_number_count
+    claimed_users.non_site_admin.with_phone_number.count
   end
 
   def claimed_user_with_phone_fraction

@@ -493,17 +493,6 @@ class User < ActiveRecord::Base
     self.update_attributes(:new_phone_number => '', :new_phone_validation => '')
   end
 
-  def notification_channels
-    case self.notification_method
-    when 'email'
-      [:email]
-    when 'sms'
-      [:sms]
-    when 'both'
-      [:sms, :email]
-    end
-  end
-
   def reply_email_address(include_name = true)
     self.demo.reply_email_address(include_name)
   end

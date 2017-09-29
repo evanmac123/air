@@ -26,12 +26,18 @@ module ActsHelper
   end
 
   def redirect_path_for_tile_token_auth
+    set_tile_id_for_open_graph
+
     tile = get_tile_from_params
     if tile.present?
       tiles_path({ tile_id: params[:tile_id] })
     else
       activity_path
     end
+  end
+
+  def set_tile_id_for_open_graph
+    session[:open_graph_tile_id] = params[:tile_id]
   end
 
   def get_tile_from_params

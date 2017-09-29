@@ -1,4 +1,5 @@
 // Digest email and followup controls
+@import 'mixins/tabs-component';
 
 @mixin share-instructions {
   @include font-regular;
@@ -99,19 +100,19 @@ body.client_admin-shares{
         }
       }
       .send_test {
-        margin-bottom: 2.75em;
         label {
           margin-bottom: 0.5em;
         }
       }
-      .total_users {
-        border:1px $light-gray solid;
+
+      .recipient-count {
+        border: 1px $light-gray solid;
         border-radius: 4px;
         padding: 10px;
-        margin-bottom: 2.75em;
+        margin-bottom: 20px;
         color: $gray;
         overflow: auto;
-        h5{
+        h5 {
           float: left;
           margin: 0;
           line-height: 1.7;
@@ -119,7 +120,7 @@ body.client_admin-shares{
             margin-left: 10px;
           }
         }
-        p{
+        p {
           float: right;
         }
       }
@@ -128,38 +129,26 @@ body.client_admin-shares{
         padding-top: 10px;
       }
     }
-    .email_preview{
+    .digest_preview{
+      @include tabs-component($active-color: $n-blue, $static-color: $white, $border-color: $n-blue, $component-margin: 0 0 10px 0, $font-size: 14px);
+
+      .digest-preview-tabs {
+        width: 100%;
+        li {
+          width: 33.3%;
+        }
+      }
+
       float: left;
       padding-left: 30px;
-      .email_preview_header {
+      margin-top: 23px;
+      .digest_preview_header {
         position: relative;
         #last-email {
           @include regular-text;
           position: absolute;
           top: -1px;
           right: 1px;
-        }
-      }
-      .email_preview_switchers{
-        margin: 10px 0;
-        li {
-          width: 50%;
-          padding-right: 1px;
-        }
-        a {
-          // @include light-button($gray-4);
-          // width: 100%;
-          &.selected {
-            @include app-button($sky-blue);
-          }
-        }
-        #show_email_preview {
-          border-bottom-right-radius: 0;
-          border-top-right-radius: 0;
-        }
-        #show_follow_up_preview {
-          border-bottom-left-radius: 0;
-          border-top-left-radius: 0;
         }
       }
     }
@@ -180,20 +169,17 @@ body.client_admin-shares{
       max-width: 100%;
     }
 
-    .ready_to_send {
-      // margin-bottom: 20px;
+    .deliver-tiles-header {
       padding: 0;
       position: relative;
-      .go_post_tiles_message {
+      margin: 1.5em 0;
+      .header-text {
+        margin-bottom: 5px;
+      }
+      .last-sent-at {
         font-size: 14px;
-        color: $dark-gray;
-        margin: 2em 0 1em 0;
-        a {
-          font-weight: 400;
-          color: $med-gray;
-          border-bottom: 1px solid $med-gray;
-          letter-spacing: 0.03em;
-        }
+        color: $tile-text;
+        margin-bottom: 20px;
       }
     }
   }
@@ -223,7 +209,7 @@ body.client_admin-shares{
     padding-top: 0.75em;
   }
 
-  #digest_was_sent_lightbox{
+  .digest-sent-modal {
     margin-left: -20%;
     width: 40%;
     p{

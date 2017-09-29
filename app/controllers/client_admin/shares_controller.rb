@@ -5,8 +5,7 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     tile_digest_email_sent_at = @demo.tile_digest_email_sent_at
     @follow_up_emails = @demo.follow_up_digest_emails.scheduled
     @board_is_public = @demo.is_public
-    @all_users = @demo.users.non_site_admin.count
-    @activated_users = @demo.claimed_user_count
+    @recipient_counts = get_recipient_counts
 
     @digest_tiles = @demo.digest_tiles(tile_digest_email_sent_at)
     @tiles_to_be_sent = @demo.digest_tiles(tile_digest_email_sent_at).count
@@ -24,15 +23,18 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     render :layout => false
   end
 
-  protected
+  private
 
-  def digest_sent_modal
-    return unless flash[:digest_sent_flag]
+    def get_recipient_counts
+      {
+        all_user_email_recipient_count: @demo.users.non_site_admin.count,
+        activated_user_email_recipient_count: @demo.claimed_user_count,
+        all_user_sms_recipient_count: @demo.user_with_phone_number_count,
+        activated_user_sms_recipient_count: @demo.claimed_user_with_phone_number_count
+      }
+    end
 
-    @digest_sent_flag = true
-    flash.delete(:digest_sent_flag)
-
-    @digest_sent_type = flash[:digest_sent_type]
-    flash.delete(:digest_sent_type)
-  end
+    def digest_sent_modal
+      @digest_sent_type = session.delete(:digest_sent_type)
+    end
 end

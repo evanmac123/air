@@ -7,6 +7,8 @@ describe ClientAdmin::ReportsHelper do
 
   describe "#redirect_path_for_tile_token_auth" do
     it "returns tiles_path if tile is present" do
+      helper.stubs(:set_tile_id_for_open_graph)
+
       helper.expects(:get_tile_from_params).returns(Tile.new)
       helper.expects(:params).returns({ tile_id: 1 })
 
@@ -15,6 +17,12 @@ describe ClientAdmin::ReportsHelper do
 
     it "returns activity_path if tile is not present" do
       expect(helper.redirect_path_for_tile_token_auth).to eq("/activity")
+    end
+
+    it "asks to set_tile_id_for_open_graph" do
+      helper.expects(:set_tile_id_for_open_graph)
+
+      helper.redirect_path_for_tile_token_auth
     end
   end
 
@@ -42,6 +50,16 @@ describe ClientAdmin::ReportsHelper do
       helper.expects(:params).returns({})
 
       expect(helper.get_tile_from_params).to eq(nil)
+    end
+  end
+
+  describe "#set_tile_id_for_open_graph" do
+    it "adds tile id to session" do
+      helper.expects(:params).returns({ tile_id: 1 })
+
+      helper.set_tile_id_for_open_graph
+
+      expect(helper.session[:open_graph_tile_id]).to eq(1)
     end
   end
 end

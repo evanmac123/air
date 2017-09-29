@@ -45,25 +45,10 @@ Airbo.PublicBoardControls = (function(){
     });
   }
 
-  function manageUsers() {
-    $('#digest_digest_send_to').on('change', function(event) {
-      if ($('#digest_digest_send_to option:selected').text() === "All Users") {
-        $('#all_users').show();
-        $('#activated_users').hide();
-      } else if ($('#digest_digest_send_to option:selected').text() === "Activated Users") {
-        $('#all_users').hide();
-        $('#activated_users').show();
-      }
-    });
-
-    $('#digest_digest_send_to').trigger('change');
-  }
-
   function init() {
     $("#public_switch").attr("checked", $("#public_switch").data("isPublic"));
     togglePublic();
     disablePublicLink();
-    manageUsers();
   }
 
   return {

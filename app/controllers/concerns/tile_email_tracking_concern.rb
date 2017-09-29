@@ -5,7 +5,8 @@ module TileEmailTrackingConcern
         user: user,
         email_type: params[:email_type],
         subject_line: params[:subject_line],
-        tile_email_id: params[:tiles_digest_id]
+        tile_email_id: params[:tiles_digest_id],
+        from_sms: params[:from_sms].present?
       )
     end
   end

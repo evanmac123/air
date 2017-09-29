@@ -1,5 +1,5 @@
 require 'aws-sdk'
-module Concerns::Attachable 
+module Concerns::Attachable
   # This module provides some basic functionality for managing files on S3
   # when mixed in to an AR model that has a textfield called file_attachments
   # it will convert a an array of AWS S3 urls submitted via the tile builder
@@ -13,16 +13,16 @@ module Concerns::Attachable
   # Since we are re-writing the serialized value everytime something changes it
   # might simplify things
   #
-  # 
+  #
   BASE_ATTACHMENT_PATH ="tile_attachments/board"
   BUCKET_URL = "https://#{APP_BUCKET}.s3.amazonaws.com"
   extend ActiveSupport::Concern
   included do
     # attachments is an array of urls submitted via the form.
     # we use it to populate the file_attachments serialized hash
-    attr_accessor :attachments 
+    attr_accessor :attachments
     serialize :file_attachments, Hash
-    before_destroy :delete_s3_attachments 
+    before_destroy :delete_s3_attachments
     before_validation :update_attachments
     before_save :copy_to_self,  unless: :new_record?
   end
@@ -31,7 +31,7 @@ module Concerns::Attachable
     base =  "#{BASE_ATTACHMENT_PATH}/#{demo_id}/tile"
     base += "/#{id}" unless new_record?
     base
-  end 
+  end
 
   def documents
     h = {}
@@ -46,7 +46,6 @@ module Concerns::Attachable
   def copy_s3_attachments_to tile
     file_attachments.map do |filename, path|
      obj = get_s3_object s3_key_from(path)
-     #binding.pry
      #NOTE get_s3_object now returns nil if no key exception is raisedt 
      if obj
        copy_attachment obj, filename, tile unless already_attached?(path, tile)
@@ -136,5 +135,5 @@ module Concerns::Attachable
     attachments && attachments.count > 1 && attachments[1..-1].count != file_attachments.count
   end
 
- 
+
 end

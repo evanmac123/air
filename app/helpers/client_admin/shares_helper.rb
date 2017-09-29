@@ -1,64 +1,44 @@
-module ClientAdmin::SharesHelper  
-  def show_conditionally_invite_users(demo = current_user.demo)
-    #TODO auto_show should be removed from user modal
-    render 'invite_users', demo: demo
-  end
-
-  def digest_sent_modal_title digest_type
-    case digest_type
-    when "test_digest"
-      "Test Email Sent"
-    when "test_digest_and_follow_up"
-      "Test Emails Sent"
-    else
+module ClientAdmin::SharesHelper
+  def digest_sent_modal_title(digest_type)
+    if digest_type == "digest_delivered"
       "Congratulations!"
+    else
+      "Test Sent"
     end
   end
-  
-  def digest_sent_modal_text digest_type
+
+  def digest_sent_modal_text(digest_type)
+    if digest_type == "digest_delivered"
+      "Your Tiles have been successfully sent. New Tiles you post will appear in the email preview."
+    else
+      test_digest_modal_message(digest_type)
+    end
+  end
+
+  def test_digest_modal_message(digest_type)
     case digest_type
     when "test_digest"
-      "A test Tiles Email has been sent to #{current_user.email}. You should receive it shortly."
+      test_email_sent_message_template("Tiles Email")
+    when "test_digest_with_sms"
+      test_email_sent_message_template("Tiles Email", sms_sent_template_message)
     when "test_digest_and_follow_up"
-      "A test Tiles Email and Follow-up Email has been sent to #{current_user.email}. You should receive it shortly."
-    else
-      "Your Tiles have been successfully sent. New Tiles you post will appear in the email preview."
+      test_email_sent_message_template("Tiles Email and Follow-up Email")
+    when "test_digest_and_follow_up_with_sms"
+      test_email_sent_message_template("Tiles Email and Follow-up Email", sms_sent_template_message)
     end
   end
 
-  def share_tile_by_linkedin(tile)
-    params = {
-      mini: true,
-      url: explore_tile_preview_url(tile),
-      title: tile.headline,
-      summary: Nokogiri::HTML::Document.parse(tile.supporting_content).text,
-      source: "http://www.airbo.com"
-    }
-    "https://www.linkedin.com/shareArticle?#{params.to_query}"
+  def test_email_sent_message_template(emails_sent, sms_sent_message=nil)
+    "A test #{emails_sent} has been sent to #{current_user.email}. #{sms_sent_message}."
   end
 
-  def sharable_tile_on_linkedin(tile)
-    params = {
-      mini: true,
-      url: sharable_tile_url(tile),
-      title: tile.headline,
-      summary: tile.supporting_content,
-      source: "http://www.airbo.com"
-    }
-    "https://www.linkedin.com/shareArticle?#{params.to_query}"
-  end
+  def sms_sent_template_message
+    current_user_receives_sms = current_user.phone_number.present?
 
-  def sharable_tile_on_facebook(tile)
-    params = {
-      u: sharable_tile_url(tile)
-    }
-    "http://www.facebook.com/sharer.php?#{params.to_query}"
-  end
-
-  def sharable_tile_on_twitter(tile)
-    params = {
-      url: sharable_tile_url(tile)
-    }
-    "https://twitter.com/intent/tweet?#{params.to_query}"
+    if current_user_receives_sms
+      "Any test text messages have been sent to #{current_user.phone_number}"
+    else
+      "No test text messages could be sent because your phone number is not set in Airbo. You may add your phone number #{link_to 'here', edit_account_settings_path}"
+    end
   end
 end

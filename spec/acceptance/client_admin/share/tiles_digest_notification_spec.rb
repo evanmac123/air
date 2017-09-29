@@ -5,7 +5,7 @@ include EmailHelper
 feature 'Client admin and the digest email for tiles' do
 
   let!(:demo)  { FactoryGirl.create :demo, email: 'foobar@playhengage.com' }
-  let!(:admin) { FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: demo }
+  let!(:admin) { FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: demo, phone_number: "+3333333333" }
   before do
     user = FactoryGirl.create :user, demo: demo
     tile = create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, demo: demo, headline: "Tile completed"
@@ -69,7 +69,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def expect_tiles_to_send_header
-    expect_content_case_insensitive "Email Tiles"
+    expect_content_case_insensitive "Deliver Tiles"
   end
 
   def expect_no_new_tiles_to_send_header
@@ -81,7 +81,7 @@ feature 'Client admin and the digest email for tiles' do
   end
 
   def test_digest_and_follow_up_sent_content(email)
-    "A test Tiles Email and Follow-up Email has been sent to #{email}. You should receive it shortly."
+    "Test Sent"
   end
 
   def follow_up_header_copy
@@ -156,14 +156,12 @@ feature 'Client admin and the digest email for tiles' do
         on_day '7/6/2013' do
           visit client_admin_share_path(as: admin)
           expect_tiles_to_send_header
-          expect(page).not_to contain 'No new tiles have been added'
 
           submit_button.click
           crank_dj_clear
 
           expect_digest_sent_content
           expect(page).not_to contain 'Tiles to be sent'
-          expect(page).to contain 'No new Tiles to send. Go to Edit to post new Tiles.'
         end
       end
 
@@ -414,16 +412,11 @@ feature 'Client admin and the digest email for tiles' do
     it "should send test digest and follow-up only to admin", js: true do
       # don't block anything
       expect_no_content follow_up_header_copy
-      expect_no_content 'No new Tiles to send. Go to Edit to post new Tiles.'
 
-      expect_content test_digest_and_follow_up_sent_content(admin.email)
-      page.find(".close-reveal-modal").click
       # sign out
       page.find("#me_toggle").click
       click_link "Sign Out"
-      expect_content "Log In"
 
-      crank_dj_clear
       address = admin.email
       expect(all_emails.size).to eq(2)
 
@@ -490,12 +483,33 @@ feature 'Client admin and the digest email for tiles' do
         submit_button.click
         expect_digest_sent_content
 
-        expect( ActionMailer::Base.deliveries.count).to eq(2)
+        expect(ActionMailer::Base.deliveries.count).to eq(2)
 
         subjects_sent =  ActionMailer::Base.deliveries.map(&:subject)
 
         expect(subjects_sent.sort).to eq(["Alt Subject", "Subject"])
       end
+    end
+  end
+
+  context "when sending a test digest with SMS", js: true do
+    before do
+      visit client_admin_share_path(as: admin)
+
+      fill_in "digest[custom_subject]", with: 'Subject'
+      fill_in "digest[alt_custom_subject]", with: 'Alt Subject'
+      check "digest[include_sms]"
+
+      within ".follow_up" do
+        find(".drop_down").click
+        find("li", text: "Sunday").click
+      end
+
+      click_button "Send a Test Email to Myself"
+    end
+
+    it "sends SMS to current_user" do
+      expect(FakeTwilio::Client.messages.count).to eq(4)
     end
   end
 end

@@ -61,13 +61,11 @@ FactoryGirl.define do
   factory :site_admin, :parent => :claimed_user do
     name          "Sylvester McAdmin"
     is_site_admin true
-    share_section_intro_seen true
   end
 
   factory :client_admin, :parent => :claimed_user do
     name            "Bo Diddley"
     is_client_admin true
-    share_section_intro_seen true
   end
 
   factory :guest_user do

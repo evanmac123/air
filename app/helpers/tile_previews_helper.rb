@@ -77,20 +77,6 @@ module TilePreviewsHelper
     end
   end
 
-
-  def social_share_links tile
-    content_tag :div, class: "share_section" do
-      content_tag :div, class: "share_via_block" do
-        s =""
-        %w(facebook twitter linkedin).each do |site|
-          s += tile_preview_menu_social_share tile, site
-        end
-        s += email_share_link tile
-        raw s
-      end
-    end
-  end
-
   def email_share_link tile
     mail_content = capture do
       content_tag :div, class: "share_via share_via_email" do

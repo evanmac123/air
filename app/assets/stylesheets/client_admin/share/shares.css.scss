@@ -1,4 +1,5 @@
 @import 'share_controls';
+@import 'tiles-digest-sms-preview';
 @import 'followup_list';
 .client_admin-shares-show {
   @import 'email_client';
@@ -12,7 +13,7 @@
 
   #share_tiles_digest{
     margin: 0 158px;
-    .invite_users_header_page_1, .invite_users_header_page_2{ 
+    .invite_users_header_page_1, .invite_users_header_page_2{
       h1{
         margin-left: 40px;
       }
@@ -165,7 +166,7 @@
     float: right;
     margin-right: -28px;
     margin-top: 0px;
-  }    
+  }
 
   .show_tiles{
     padding: 8px 20px !important;
@@ -214,7 +215,7 @@
     padding-bottom: 100px;
   }
 
-  #user_invite_message_custom{    
+  #user_invite_message_custom{
     background-color: #ECECEC;
     margin: 0 20px;
     padding: 10px 10px 20px 10px;
@@ -309,7 +310,7 @@
       }
       &.disengaged {
         @include app-button($gray);
-      }    
+      }
     }
     .info-cols {
       li {
@@ -331,20 +332,20 @@
     .move-right {
       text-align:right;
       margin-right:35px;
-      margin-bottom:20px;	
+      margin-bottom:20px;
     }
     .blue {
-      color:#50698c !important;	
+      color:#50698c !important;
     }
     .blue:hover {
-      text-decoration:underline !important;	
+      text-decoration:underline !important;
     }
     .error_cross {
       &:before {
         background: $white;
         border-radius: 2em;
         z-index: 100;
-        content: "\f058"; 
+        content: "\f058";
         font-family: FontAwesome;
         font-style: normal;
         font-weight: normal;
@@ -360,7 +361,7 @@
         /*      top: -5px;
               right: -5px;      */
         width: 1.15em;
-      }        
+      }
     }
     input.invalid {
       background-position: right top;
@@ -377,14 +378,13 @@
       background-image: url('client_admin/valid.png');
       background-position: right top;
       background-repeat: no-repeat;
-    }  
+    }
   }
 
-  #share_tiles_email_preview {
+  #share_tiles_digest_preview {
     min-height: 735px;
   }
 }
 .light_button{
   @include light-button($dark-green);
 }
-

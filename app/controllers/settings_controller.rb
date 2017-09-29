@@ -10,7 +10,7 @@ class SettingsController < UserBaseController
   end
 
   def update
-    if current_user.update_attributes protected_params[:user]
+    if current_user.update_attributes(user_params)
       flash[:success] = "OK, your settings were updated."
     else
       flash[:failure] = current_user.errors.smarter_full_messages.join(' ')
@@ -19,9 +19,9 @@ class SettingsController < UserBaseController
     redirect_to :back
   end
 
-  protected
+  private
 
-  def protected_params
-    params.permit(user: [:privacy_level])
-  end
+    def user_params
+      params.require(:user).permit(:privacy_level, :receives_sms)
+    end
 end

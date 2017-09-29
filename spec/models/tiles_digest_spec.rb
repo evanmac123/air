@@ -40,17 +40,17 @@ RSpec.describe TilesDigest, :type => :model do
 
     let(:tiles_digest) { TilesDigest.dispatch(digest_params(demo, client_admin, true)) }
 
-    it "calls #send_emails" do
+    it "calls #send_emails_and_sms" do
       TilesDigest.any_instance.stubs(:schedule_followup)
       TilesDigest.any_instance.stubs(:set_tile_email_report_notifications)
 
-      TilesDigest.any_instance.expects(:send_emails).once
+      TilesDigest.any_instance.expects(:send_emails_and_sms).once
 
       tiles_digest.deliver(5)
     end
 
     it "calls #schedule_followup" do
-      TilesDigest.any_instance.stubs(:send_emails)
+      TilesDigest.any_instance.stubs(:send_emails_and_sms)
       TilesDigest.any_instance.stubs(:set_tile_email_report_notifications)
 
       TilesDigest.any_instance.expects(:schedule_followup).with(5).once
@@ -59,7 +59,7 @@ RSpec.describe TilesDigest, :type => :model do
     end
 
     it "calls #set_tile_email_report_notifications" do
-      TilesDigest.any_instance.stubs(:send_emails)
+      TilesDigest.any_instance.stubs(:send_emails_and_sms)
       TilesDigest.any_instance.stubs(:schedule_followup)
 
       TilesDigest.any_instance.expects(:set_tile_email_report_notifications).once
@@ -100,7 +100,7 @@ RSpec.describe TilesDigest, :type => :model do
     end
   end
 
-  describe "#send_emails" do
+  describe "#send_emails_and_sms" do
     before do
       params = digest_params(demo, client_admin, true)
       _tiles = FactoryGirl.create_list(:tile, 5, demo: demo)
@@ -113,16 +113,16 @@ RSpec.describe TilesDigest, :type => :model do
 
       TilesDigestMailer.expects(:notify_all).with(@digest)
 
-      @digest.send_emails
+      @digest.send_emails_and_sms
     end
 
     it "updates recipient_count to the demo.users count at the time excluding site admins" do
-      @digest.send_emails
+      @digest.send_emails_and_sms
       expect(@digest.recipient_count).to eq(demo.users.count)
     end
 
     it "updates delivered to true" do
-      @digest.send_emails
+      @digest.send_emails_and_sms
       expect(@digest.delivered).to be true
     end
   end

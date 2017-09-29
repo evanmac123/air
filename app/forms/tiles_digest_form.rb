@@ -6,7 +6,8 @@ class TilesDigestForm
               :custom_subject,
               :alt_custom_subject,
               :custom_headline,
-              :unclaimed_users_also_get_digest
+              :unclaimed_users_also_get_digest,
+              :include_sms
 
   def initialize current_user, params = {}
     @current_user = current_user
@@ -24,6 +25,7 @@ class TilesDigestForm
     @custom_subject  = params[:custom_subject]  if params[:custom_subject].present?
     @alt_custom_subject = params[:alt_custom_subject] if params[:alt_custom_subject].present?
     @custom_headline = params[:custom_headline] if params[:custom_headline].present?
+    @include_sms = params[:include_sms].present?
   end
 
   def set_unclaimed_users_also_get_digest?(digest_send_to)

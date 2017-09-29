@@ -1,3 +1,5 @@
+<%= render 'shared/opengraph_meta_tags_simple_tile', tile: @start_tile %>
+
 <div class="acts-index">
   <% if current_user.is_a?(GuestUser) && current_board.internal? %>
     <%= render "acts/board_welcome_message", board: current_board, show_on_load: false %>

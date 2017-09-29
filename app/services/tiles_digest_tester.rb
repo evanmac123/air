@@ -1,7 +1,7 @@
 class TilesDigestTester
   include TilesDigestConcern
 
-  attr_reader :digest, :current_user, :follow_up_day
+  attr_reader :digest, :current_user, :follow_up_day, :subject, :alt_subject
 
   def initialize(digest_form:)
     digest_params = test_digest_params(digest_form)
@@ -9,35 +9,40 @@ class TilesDigestTester
     @digest = OpenStruct.new(digest_params)
     @current_user = digest_form.current_user
     @follow_up_day = digest_form.follow_up_day
+    @subject = sanitize_subject_line(digest.subject)
+    @alt_subject = sanitize_subject_line(digest.alt_subject)
   end
 
   def deliver_test!
-    subject = sanitize_subject_line(digest.subject)
-    alt_subject = sanitize_subject_line(digest.alt_subject)
+    deliver_test_tile_email
+    deliver_test_follow_up_email
+  end
 
-    [subject, alt_subject].compact.each do |s|
-      TilesDigestMailer.delay.notify_one(
-        digest,
-        current_user.id,
-        "[Test] #{s}",
-        TilesDigestMailDigestPresenter
-      )
-    end
+  private
 
-    unless follow_up_day == 'Never'
+    def deliver_test_tile_email
       [subject, alt_subject].compact.each do |s|
         TilesDigestMailer.delay.notify_one(
           digest,
           current_user.id,
-          "[Test] Don't Miss: #{s}",
-          TilesDigestMailFollowUpPresenter
+          "[Test] #{s}",
+          TilesDigestMailDigestPresenter
         )
       end
     end
-  end
 
-
-  private
+    def deliver_test_follow_up_email
+      unless follow_up_day == 'Never'
+        [subject, alt_subject].compact.each do |s|
+          TilesDigestMailer.delay.notify_one(
+            digest,
+            current_user.id,
+            "[Test] Don't Miss: #{s}",
+            TilesDigestMailFollowUpPresenter
+          )
+        end
+      end
+    end
 
     def test_digest_params(digest_form)
       cutoff_time = digest_form.demo.tile_digest_email_sent_at
@@ -52,6 +57,7 @@ class TilesDigestTester
         alt_subject: digest_form.alt_custom_subject,
         headline: digest_form.custom_headline,
         message: digest_form.custom_message,
+        include_sms: digest_form.include_sms
       }
     end
 end
