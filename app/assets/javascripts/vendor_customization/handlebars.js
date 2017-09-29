@@ -99,3 +99,15 @@ Handlebars.registerHelper('toJSON', function(string) {
 Handlebars.registerHelper('renderPartial', function(template, options) {
   return new Handlebars.SafeString(HandlebarsTemplates[template](options.hash));
 });
+
+Handlebars.registerHelper('truncate', function(str, len) {
+  if(str && str.length > len) {
+    var newStr = str + " ";
+    newStr = str.substr(0, len);
+    newStr = str.substr(0, newStr.lastIndexOf(" "));
+    newStr = (newStr.length > 0) ? newStr : str.substr(0, len);
+    return new Handlebars.SafeString(newStr + '...');
+  }
+
+  return str;
+});

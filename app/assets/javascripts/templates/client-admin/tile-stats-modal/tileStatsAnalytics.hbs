@@ -97,7 +97,7 @@
           {{#each linkClickStats}}
             <tr>
               <td class="link">
-                <a href={{@key}}>{{@key}}</a>
+                <a href={{@key}} target="_blank">{{truncate @key 65}}</a>
               </td>
               <td class="unique-clicks">
                 {{this.unique_link_clicks}}
