@@ -29,8 +29,8 @@ class ClientAdmin::SharesController < ClientAdminBaseController
       {
         all_user_email_recipient_count: @demo.users.non_site_admin.count,
         activated_user_email_recipient_count: @demo.claimed_user_count,
-        all_user_sms_recipient_count: @demo.claimed_user_with_phone_number_count,
-        activated_user_sms_recipient_count: @demo.user_with_phone_number_count
+        all_user_sms_recipient_count: @demo.user_with_phone_number_count,
+        activated_user_sms_recipient_count: @demo.claimed_user_with_phone_number_count
       }
     end
 
