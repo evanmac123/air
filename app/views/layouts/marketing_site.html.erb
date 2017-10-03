@@ -21,8 +21,9 @@
   <body class="airbo-marketing-site">
     <%= render 'shared/public_nav_bar' %>
     <%= render partial: "shared/simple_flashes" %>
-
-    <%= yield %>
+    <div class="main">
+      <%= yield %>
+    </div>
     <%= render partial: "pages/partials/marketing_site_footer" %>
     <%= yield :javascript %>
   </body>

@@ -24,6 +24,9 @@
 
 .airbo-marketing-site {
   color: #33445c;
+  .main {
+    min-height: 100%;
+  }
   @include marketing-site-reset();
   @include marketing-site-footer();
   @include marketing-site-highlights();
