@@ -1,22 +1,19 @@
 Airbo.TileBuilderInteractionMenuBuilder = (function(){
 
   function buildMenu(){
-    var interactions = Airbo.TileBuilderInteractionConfig.interactionSet()
-      , dropdownMenuGroup= document.createElement("ul")
-      , types = Object.keys(interactions)
-      , interaction
-      , dropDownTriggerLink 
-      , interactionVariantsList
-      , caret
-      , variants
-      , variantDropdownMenu
-      ;
-    ;
+    var interactions = Airbo.TileBuilderInteractionConfig.interactionSet();
+    var dropdownMenuGroup= document.createElement("ul");
+    var types = Object.keys(interactions);
+    var interaction;
+    var dropDownTriggerLink ;
+    var interactionVariantsList;
+    var caret;
+    var variants;
+    var variantDropdownMenu;
 
     dropdownMenuGroup.setAttribute("class", "button-group");
 
-    for(var idx = 0; idx < types.length; idx++){
-
+    for(var idx = 0; idx < types.length; idx++) {
       interaction = types[idx];
       variants = Object.keys(interactions[interaction]);
       dropDownTriggerLink = document.createElement("a");
@@ -39,21 +36,21 @@ Airbo.TileBuilderInteractionMenuBuilder = (function(){
 
       interactionVariantsList.appendChild(dropDownTriggerLink);
 
-      variants.forEach(function(key){
-        var variant = interactions[interaction][key]
-          , variantListItem = document.createElement("li")
-        ;
+      variants.forEach(function(key) {
+        var variant = interactions[interaction][key];
+        var variantListItem = document.createElement("li");
 
         config = JSON.stringify({type: interaction, subtype: key});
         variantListItem.setAttribute("class", "subtype " + interaction + " " + key);
-        variantListItem.setAttribute("data-config", config)
+
+        variantListItem.setAttribute("data-config", config);
         variantListItem.appendChild(document.createTextNode(variant.name));
         variantDropdownMenu.appendChild(variantListItem);
       });
 
       interactionVariantsList.appendChild(variantDropdownMenu);
       dropdownMenuGroup.appendChild(interactionVariantsList);
-    };
+    }
 
     return dropdownMenuGroup;
   }
@@ -65,6 +62,6 @@ Airbo.TileBuilderInteractionMenuBuilder = (function(){
 
   return {
     render: render
-  }
+  };
 
 }());
