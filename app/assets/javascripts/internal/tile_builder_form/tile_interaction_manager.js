@@ -1,20 +1,15 @@
 var Airbo = window.Airbo || {};
 
-
 Airbo.TileInteractionManager = (function(){
-
-  var tileTypes = []
-    , tilebuilderform
-    , savedQuestion
-    , tileBuilderFormSelector = "#new_tile_builder_form"
-    , sliderSelector = ".slider"
-  ;
-
+  var tileTypes = [];
+  var tilebuilderform;
+  var savedQuestion;
+  var tileBuilderFormSelector = "#new_tile_builder_form";
+  var sliderSelector = ".slider";
 
   function initDom(){
     tileBuilderForm = $(tileBuilderFormSelector);
   }
-
 
   function showSlider(){
     $(sliderSelector).css("display", "block");
@@ -26,20 +21,19 @@ Airbo.TileInteractionManager = (function(){
     tileBuilderForm.change();
   }
 
-
   function resetQuizCorrectAnswerIndex(){
     $("#quiz-answer input[type='radio']").each(function(idx, option){
        $(option).val(idx);
-    })
+    });
+
     tileBuilderForm.change();
   }
-
 
   function renderSelectedInteraction(config){
     Airbo.TileInteractionBuilder.init(config, savedQuestion);
     Airbo.TileInteractionBuilder.render();
 
-    Airbo.TileInteractionMenuHandler.setSelected(config.type,config.subtype);
+    Airbo.TileInteractionMenuHandler.setSelected(config.type, config.subtype);
     saveTypeToForm(config);
     autosize($('#tile_question'));
     autosize($('textarea.answer-editable'));
@@ -48,24 +42,30 @@ Airbo.TileInteractionManager = (function(){
     initAnonymousTooltip();
   }
 
-  function getSavedOrDefaultInteractionConfig(){
-    var defaults
-      , config ={}
-      , savedConfig = getSavedConfig()
-    ;
+  function setSavedQuestion(question) {
+    if(question && question.length > 0) {
+      return question;
+    } else {
+      return undefined;
+    }
+  }
 
-    if(Object.keys(savedConfig).length === 0){
-      savedQuestion = undefined
+  function getSavedOrDefaultInteractionConfig(){
+    var defaults;
+    var config ={};
+    var savedConfig = getSavedConfig();
+
+    if(Object.keys(savedConfig).length === 0) {
+      savedQuestion = undefined;
       defaults = Airbo.TileBuilderInteractionConfig.defaultKeys();
       config = interactionConfigByTypeAndSubType(defaults);
-    }else{
-
-      savedQuestion = savedConfig.question;
+    } else {
+      savedQuestion = setSavedQuestion(savedConfig.question);
       config = interactionConfigByTypeAndSubType(savedConfig);
       config =  $.extend({}, config, savedConfig);
     }
 
-    updateConfig(config)
+    updateConfig(config);
     return config;
   }
 
@@ -79,16 +79,15 @@ Airbo.TileInteractionManager = (function(){
 
   function interactionConfigByTypeAndSubType(selected){
     var config = Airbo.TileBuilderInteractionConfig.get(selected.type, selected.subtype);
-    config.type = selected.type
-    config.subtype = selected.subtype
+    config.type = selected.type;
+    config.subtype = selected.subtype;
     return config;
   }
 
-
   function handleSubTypeSelection(selected){
     var config = interactionConfigByTypeAndSubType(selected);
-    updateConfig(config)
-    renderSelectedInteraction(config)
+    updateConfig(config);
+    renderSelectedInteraction(config);
     initFreeFormTooltip();
 
   }
@@ -107,7 +106,7 @@ Airbo.TileInteractionManager = (function(){
       event.stopPropagation();
       event.stopImmediatePropagation();
       Airbo.TileInteractionBuilder.addAnswer();
-    })
+    });
   }
 
   function initRemoveAnswerOption(){
@@ -115,7 +114,7 @@ Airbo.TileInteractionManager = (function(){
       event.preventDefault();
       $(this).parents(".answer-div").remove();
       resetQuizCorrectAnswerIndex();
-    })
+    });
   }
 
   function highlightText(input) {
@@ -126,64 +125,63 @@ Airbo.TileInteractionManager = (function(){
   function initAnswerEdit(){
     $("body").on("click", ".js-answer-btn", function(event){
       event.preventDefault();
-      var answer = $(this).parent(".answer-div")
-        , field = answer.find(".answer-editable").first()
-      ;
+      var answer = $(this).parent(".answer-div");
+      var field = answer.find(".answer-editable").first();
 
-      answer.removeClass("read-mode").addClass("edit-mode")
-      field.data("text",field.val()); 
-      highlightText(field)
+      answer.removeClass("read-mode").addClass("edit-mode");
+      field.data("text",field.val());
+      highlightText(field);
     });
   }
 
 
   function initAnswerEditOnTabEntry(){
     $('body').on('keydown', ".answer-editable", function openNextAnswerOnTab(e) {
+      var  code = e.keyCode || e.which;
+      var nextAnswer = $(this).parent(".answer-div").next(".answer-div");
+      var field = nextAnswer.first(".answer-editable");
 
-      var  code = e.keyCode || e.which
-        , nextAnswer = $(this).parent(".answer-div").next(".answer-div")
-        , field = nextAnswer.first(".answer-editable")
-      ;
-    if (code === 9) {
-      if(nextAnswer.length > 0){
-        nextAnswer.find(".js-answer-btn").click();
-
-        highlightText(field)
-        return false;
+      if (code === 9) {
+        if(nextAnswer.length > 0){
+          nextAnswer.find(".js-answer-btn").click();
+          highlightText(field);
+          return false;
+        }
       }
-    }
     });
   }
 
   function initQuestionitHighlight(){
-
     $('body').on('focus', "#tile_question", function(event) {
       $(this).select();
-    })
+    });
+
+    $('body').on('focusout blur', "#tile_question", function(event) {
+      $(this).val($(this).val().trim());
+    });
   }
+
   function initAnswerRead(){
     $("body").on("focusout blur", ".answer-editable", function(event){
-      var field = $(this)
-        , answer = field.parent(".answer-div")
-        , btn = answer.find(".js-answer-btn").first()
-        , text = field.val()
-        , storedVal= field.data("text")
-        , defaultText =  "Add Ansswer Option"
-      ;
+      var field = $(this);
+      var answer = field.parent(".answer-div");
+      var btn = answer.find(".js-answer-btn").first();
+      var text = field.val();
+      var storedVal = field.data("text");
+      var defaultText =  "Add Ansswer Option";
 
-      if(text.length === 0){
-        if(storedVal=== "" || storedVal === undefined){
-          storedVal= defaultText;
+      if(text.length === 0) {
+        if(storedVal=== "" || storedVal === undefined) {
+          storedVal = defaultText;
         }
 
          field.val(storedVal);
          btn.text(storedVal);
-      }else{
+      } else {
         field.data("text", text);
         btn.text(text);
-        answer.removeClass("edit-mode").addClass("read-mode")
+        answer.removeClass("edit-mode").addClass("read-mode");
       }
-
     });
   }
 
@@ -195,16 +193,15 @@ Airbo.TileInteractionManager = (function(){
 
   function initToggleFreeResponse(){
     $("body").on("change", ".js-chk-free-text", function(event){
-      var btnWrapper = $(".js-free-text-btn-wrapper")
-        , target = event.target
-        , config = getSavedConfig()
-        , mpEventName
-      ;
+      var btnWrapper = $(".js-free-text-btn-wrapper");
+      var target = event.target;
+      var config = getSavedConfig();
+      var mpEventName;
 
-      if(target.checked){
+      if(target.checked) {
         btnWrapper.addClass("enabled");
         mpEventName = "Free Response Enabled";
-      }else{
+      } else {
         btnWrapper.removeClass("enabled");
         mpEventName = "Free Response Disabled";
       }
@@ -215,32 +212,28 @@ Airbo.TileInteractionManager = (function(){
         subtype: config.subtype,
         allowFreeResponse: target.checked
       });
-
     });
   }
 
   function initFreeFormTooltip(){
     $(".js-free-text-tooltip").tooltipster({
-      theme: "tooltipster-shadow" 
+      theme: "tooltipster-shadow"
     });
   }
 
   function initAnonymousTooltip(){
     $(".js-anonymous-tile-tooltip").tooltipster({
-      theme: "tooltipster-shadow" 
+      theme: "tooltipster-shadow"
     });
   }
 
   //TODO move to utils?
   function tileId(){
-    var id = $("#question_type_container").data('config').tileId
-      , pseudoId = $("#pseudo_tile_id").data("props").pseudoTileId
-    ;
+    var id = $("#question_type_container").data('config').tileId;
+    var pseudoId = $("#pseudo_tile_id").data("props").pseudoTileId;
+
     return id || pseudoId;
   }
-
-
-
 
   function init (){
     var config = getSavedOrDefaultInteractionConfig();
@@ -248,7 +241,7 @@ Airbo.TileInteractionManager = (function(){
     initAddAnswerOption();
     initRemoveAnswerOption();
     Airbo.TileBuilderInteractionMenuBuilder.render();
-    Airbo.TileInteractionMenuHandler.init(handleSubTypeSelection)
+    Airbo.TileInteractionMenuHandler.init(handleSubTypeSelection);
     Airbo.TileBuilderCharacterCounter.init();
     renderSelectedInteraction(config);
     initAnswerEdit();
@@ -262,6 +255,6 @@ Airbo.TileInteractionManager = (function(){
 
   return {
     init: init
-  }
-}())
+  };
 
+}());
