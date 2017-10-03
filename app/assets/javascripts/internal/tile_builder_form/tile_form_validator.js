@@ -1,14 +1,11 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileFormValidator = (function(){
+  var tileModalSelector = "#tile_form_modal";
+  var conditionFunction;
+  var context = this;
 
-
-  var tileModalSelector = "#tile_form_modal"
-    , conditionFunction
-    , context = this
-  ;
-
-  var config= {
+  var config = {
     debug: false,
     onfocusout: function(el, e){
       if($(el).is("tile[image_credit]")){
@@ -39,16 +36,14 @@ Airbo.TileFormValidator = (function(){
       "tile[correct_answer_index]":  { required: isRequired},
     },
 
-    invalidHandler: function(form, validator) {
-
+    invalidHandler: function(_form, validator) {
       /*
        * Scrolls first invalid element into view if visible
        */
-      var errors = validator.numberOfInvalids()
-        , modal = $(tileModalSelector)
-        , firstError = $(validator.errorList[0].element)
-        , form = $(validator.currentForm);
-      ;
+      var errors = validator.numberOfInvalids();
+      var modal = $(tileModalSelector);
+      var firstError = $(validator.errorList[0].element);
+      var form = $(validator.currentForm);
 
       if (errors && modal.is(":visible") && !forceValidation(form) && !isAutoSaving(form)) {
         if(firstError.is(":visible")) {
@@ -89,6 +84,7 @@ Airbo.TileFormValidator = (function(){
         element.parent().append(error);
       }
     },
+
     highlight: function(element, errorClass) {
       $(element).parents(".content_sections").addClass( errorClassName(element, errorClass) );
     },
@@ -110,9 +106,9 @@ Airbo.TileFormValidator = (function(){
         errorClass = "answer_" + errorClass;
       break;
     }
-    return errorClass
-  }
 
+    return errorClass;
+  }
 
   function headlineError(f, s){
     return "Headline is required";
@@ -134,39 +130,33 @@ Airbo.TileFormValidator = (function(){
     var form = $("#new_tile");
 
     return forceValidation(form) || formIsNotDraft();
-
   }
-
 
   function hasLimit(){
     var form = $("#new_tile_builder_form");
 
     if(forceValidation(form) || $("#tile_status").val() !=="draft"){
       return 700;
-    }else{
+    } else{
       return 9999999;
     }
-
   }
-
 
  function initHeadlineValidator(){
    var form = $("#new_tile_builder_form");
    $.validator.addMethod("headLineValidator", function(value, element, params) {
-     var imageUrl = $("#remote_media_url").val()
-     if(value !== "")
-       return true
-
-     else if(form.data("suggested")==true && value === ""){
-       return false
-     }
-     else{
+     var imageUrl = $("#remote_media_url").val();
+     if(value !== "") {
+       return true;
+     } else if(form.data("suggested") === true && value === "") {
+       return false;
+     } else {
        if (forceValidation(form) || ((imageUrl === undefined || imageUrl === "") && value ==="")){
-         return false
+         return false;
        }
-       return true
-     }
 
+       return true;
+     }
    }, function (params, element) {
      return isAutoSaving(form) ? "" : "This field is required";
    });
@@ -180,72 +170,59 @@ Airbo.TileFormValidator = (function(){
    var form = $("#new_tile_builder_form");
 
    $.validator.addMethod("duplicateAnswerValidator", function(value, element, params) {
-     var answers = $(".answer-editable")
-       , values
-       , notUnique
-       , unique
-       , hash ={}
-     ;
+     var answers = $(".answer-editable");
+     var values;
+     var notUnique;
+     var unique;
+     var hash ={};
 
      for(var i = 0; i < answers.length; i++){
        var answer = $(answers[i]).val();
-       hash[answer] = 1
+       hash[answer] = 1;
      }
 
     unique = !(notUnique = answers.length > Object.keys(hash).length);
 
-    if(unique){
+    if(unique) {
+      return true;
+    } else if(form.data("suggested") === true && notUnique) {
+      return false;
+    } else if (forceValidation(form) && notUnique) {
+      return false;
+    } else{
       return true;
     }
-    else if(form.data("suggested") == true && notUnique){
-      return false;
-    }
-    else if (forceValidation(form) && notUnique){
-      return false;
-    }
-    else{
-      return true;
-    }
-   },
-
-   "Answer choices must be unique"
-   );
+   }, "Answer choices must be unique");
  }
 
  function initMinAnswerOptionsValidator(){
    var form = $("#new_tile_builder_form");
 
    $.validator.addMethod("minAnswersOptionsValidator", function(value, element, params) {
-     var answers = $(".answer-editable")
-       , config = $(element).parents(".tile_quiz").data("config")
-       , hasMin
-     ;
+     var answers = $(".answer-editable");
+     var config = $(element).parents(".tile_quiz").data("config");
+     var hasMin;
 
-
-     if(Object.keys(config).length === 0){
+     if(Object.keys(config).length === 0) {
        return true;
-     }else{
-
+     } else {
        hasMin = answers.length >= config.minResponses;
-       if(hasMin){
+       if(hasMin) {
          return true;
-       } else if(form.data("suggested") == true && !hasMin){
+       } else if(form.data("suggested") === true && !hasMin) {
          return false;
-       } else if (forceValidation(form) && !hasMin){
+       } else if (forceValidation(form) && !hasMin) {
          return false;
-       }else{
+       } else {
          return true;
        }
      }
-   }, 
-   "Answer choices must be unique"
-                        );
+   }, "Answer choices must be unique");
  }
 
-
   function init(formObj) {
-    makeConfig = $.extend({}, Airbo.Utils.validationConfig, config);
-    initHeadlineValidator()
+    var makeConfig = $.extend({}, Airbo.Utils.validationConfig, config);
+    initHeadlineValidator();
     initDuplicateAnswerValidator();
     initMinAnswerOptionsValidator();
     return formObj.validate(makeConfig);
@@ -253,6 +230,6 @@ Airbo.TileFormValidator = (function(){
 
   return {
     init: init
-  }
+  };
 
 }());
