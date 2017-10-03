@@ -3,17 +3,15 @@ var Airbo = Airbo || {};
 Airbo.FreeResponseAnswer = Object.create(Airbo.BaseAnswer);
 
 Airbo.FreeResponseAnswer.render = function(){
-  Airbo.BaseAnswer.render.call(this)
-
+  Airbo.BaseAnswer.render.call(this);
   this.renderOptionalFeatures();
 };
 
 Airbo.FreeResponseAnswer.asDomNode = function() {
-  var node = document.createDocumentFragment()
-    , btn = document.createElement("a")
-    , answers = document.createElement("input")
-    , freeText = document.createElement("textarea")
-  ;
+  var node = document.createDocumentFragment();
+  var btn = document.createElement("a");
+  var answers = document.createElement("input");
+  var freeText = document.createElement("textarea");
 
   this.characterCounter = Airbo.TileBuilderComponentCharacterCounter.build(400, 400);
   answers.setAttribute('type','hidden');
@@ -34,7 +32,3 @@ Airbo.FreeResponseAnswer.asDomNode = function() {
   node.appendChild(btn);
   return node;
 };
-
-
-
-
