@@ -7,7 +7,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       read_tile: {
         name: "Read Tile",
         question: "Points for reading tile",
-        questionPlaceholder: "Points for reading tile",
+        questionPlaceholder: "Add prompt",
         maxLength: 50,
         answers: ["I read it"],
         minResponses: 1,
@@ -16,7 +16,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       take_action: {
         name: "Take Action",
         question: "Points for taking action",
-        questionPlaceholder: "Points for taking action",
+        questionPlaceholder: "Add prompt",
         maxLength: 50,
         answers: ["I did it"],
         minResponses: 1,
@@ -25,7 +25,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       read_article: {
         name: "Read Article",
         question: "Points for reading article",
-        questionPlaceholder: "Points for reading article",
+        questionPlaceholder: "Add prompt",
         maxLength: 50,
         answers: ["I read it"],
         minResponses: 1,
@@ -34,7 +34,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       share_on_social_media: {
         name: "Share On Social Media",
         question: "Points for sharing on social media (e.g., Facebook, Twitter)",
-        questionPlaceholder: "Points for sharing on social media (e.g., Facebook, Twitter)",
+        questionPlaceholder: "Add prompt",
         maxLength: 50,
         answers: ["I shared"],
         minResponses: 1,
@@ -43,7 +43,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       visit_web_site: {
         name: "Visit Web Site",
         question: "Points for visiting web site",
-        questionPlaceholder: "Points for visiting web site",
+        questionPlaceholder: "Add prompt",
         maxLength: 50,
         answers: ["I visited"],
         minResponses: 1,
@@ -52,7 +52,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       watch_video: {
         name: "Watch Video",
         question: "Points for watching video",
-        questionPlaceholder: "Points for watching video",
+        questionPlaceholder: "Add prompt",
         maxLength: 50,
         answers: ["I watched"],
         minResponses: 1,
@@ -61,7 +61,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       custom: {
         name: "Custom...",
         question: "Points for taking an action",
-        questionPlaceholder: "Points for taking an action",
+        questionPlaceholder: "Add prompt",
         maxLength: 50,
         answers: ["Add Action"],
         minResponses: 1,
@@ -97,7 +97,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       multiple_choice: {
         name: "Multiple Choice",
         question: null,
-        questionPlaceholder: "Add question",
+        questionPlaceholder: "Ask a question",
         answers: ["Strongly agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"],
         extendable: true,
         maxLength: 50,
@@ -121,7 +121,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       rsvp_to_event : {
         name: "RSVP To Event",
         question: "Will you be attending?",
-        questionPlaceholder: "Will you be attending?",
+        questionPlaceholder: "Add prompt",
         answers: ["Yes", "No", "Maybe"],
         extendable: false,
         maxLength: 50,
@@ -131,7 +131,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       change_email: {
         name: "Change Email",
         question: "Would you like to change the email that you receive Airbo email notifications?",
-        questionPlaceholder: "Would you like to change the email that you receive Airbo email notifications?",
+        questionPlaceholder: "Add prompt",
         answers: ["Change my email", "Keep my current email"],
         minResponses: 2,
         maxResponses: 2,
@@ -143,7 +143,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
       invite_spouse: {
         name: "Invite Spouse",
         question: "Do you want to invite your spouse?",
-        questionPlaceholder: "Do you want to invite your spouse?",
+        questionPlaceholder: "Add prompt",
         answers: [
           "I have a dependent and want to invite them",
           "I have a dependent but don't want to invite them", "I don't have a dependent"

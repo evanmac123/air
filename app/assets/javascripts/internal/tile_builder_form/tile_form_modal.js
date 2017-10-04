@@ -1,24 +1,19 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileFormModal = (function(){
-  // Selectors
-  var modalId = "tile_form_modal"
-    , formSel ="#new_tile_builder_form"
-    , pickImageSel =".image_placeholder, .image_preview.show_shadows"
-    , ajaxHandler = Airbo.AjaxResponseHandler
-    , self
-    , saveable = false
-    , timer
-    , tileManager
-  ;
-
-  var modalObj = Airbo.Utils.StandardModal()
-    , tileManager
-    , validator
-    , currform
-    , imageLibrary
-    , submitLink
-  ;
+  var modalId = "tile_form_modal";
+  var formSel ="#new_tile_builder_form";
+  var pickImageSel =".image_placeholder, .image_preview.show_shadows";
+  var ajaxHandler = Airbo.AjaxResponseHandler;
+  var modalObj = Airbo.Utils.StandardModal();
+  var self;
+  var saveable = false;
+  var timer;
+  var tileManager;
+  var validator;
+  var currform;
+  var imageLibrary;
+  var submitLink;
 
   function enablesubmitLink(){
     submitLink.removeAttr("disabled");
@@ -64,14 +59,11 @@ Airbo.TileFormModal = (function(){
     submitLink.addClass("saving");
   }
 
-
   function removeSavingIndicator(){
     submitLink.removeClass("saving");
   }
 
-
   function isAutoSaving(){
-    //return submitLink.hasClass("saving") || currform.data("autosave") === true ;
     return $.active > 0;
   }
 
@@ -156,7 +148,6 @@ Airbo.TileFormModal = (function(){
     });
   }
 
-
   function initAutoSave(){
     var me = this;
     if(currform.data("suggested") === false){
@@ -190,7 +181,6 @@ Airbo.TileFormModal = (function(){
     return tileManager;
   }
 
-
   function initVars() {
     currform = $(formSel);
     submitLink = $(".submit_tile_form");
@@ -201,10 +191,8 @@ Airbo.TileFormModal = (function(){
   }
 
   function updateThumbnail(data){
-    //tileManager.updateSections(data);
     Airbo.TileManager.updateSections(data);
   }
-
 
   function autoSaveSuccess(data){
     clearTimeout(timer);
@@ -249,12 +237,11 @@ Airbo.TileFormModal = (function(){
 
   function closeMessage(){
     currform.valid();
-    if(saveable == true){
+    if(saveable === true) {
       return "Your changes have been autosaved. Click 'Cancel' to continuing editing this Tile or Ok to close the Tile Editor.";
-    }else{
-      return "Are you sure you want to stop editing this Tile? Any changes you've made will be lost."
+    } else {
+      return "Are you sure you want to stop editing this Tile? Any changes you've made will be lost.";
     }
-
   }
 
   function init(mgr) {
@@ -270,5 +257,5 @@ Airbo.TileFormModal = (function(){
     openModal: openModal,
     modalId: modalId,
     closeMessage: closeMessage
-  }
+  };
 }());

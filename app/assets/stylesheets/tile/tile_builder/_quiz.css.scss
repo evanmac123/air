@@ -140,6 +140,11 @@
   padding:10px 0px;
   position: relative;
   clear:both;
+  font-weight: normal;
+
+  .fa-remove {
+    color: $text-color;
+  }
 }
 
 
@@ -229,6 +234,9 @@
   padding: 2.0em;
   padding-bottom: 0;
   border-bottom: 2px dashed #dfdfdf;
+  .err {
+    padding: 0.5em;
+  }
 }
 
 #quiz-question textarea{

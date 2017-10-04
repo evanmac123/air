@@ -83,14 +83,14 @@ TODO move to tile media file
       color: $white;
       &:hover, &:focus {
         cursor: pointer;
-        color: $red;
+        color: $n-red;
       }
     }
   }
 }
 
 .video-error{
-  color: $n-red2;
+  color: $n-red;
   display: none;
   line-height: 1.5em;
 }

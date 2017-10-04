@@ -1,7 +1,7 @@
 <div class="<%='ie9' if  ie9_or_older? %>">
   <div id="tile_headline_container" class="content_sections">
     <%= form.label :headline,  class: "show_if_ie9" %>
-    <%= form.text_area :headline,  {rows: 1, maxlength: 75, class: 'tile-form', placeholder:'Give this Tile a headline (required)'} %>
+    <%= form.text_area :headline,  {rows: 1, maxlength: 75, class: 'tile-form', placeholder:'Give this Tile a headline'} %>
   </div>
   <div id="tile_supporting_content_container" class="content_sections">
     <%= form.label :supporting_content, class: "show_if_ie9" %>

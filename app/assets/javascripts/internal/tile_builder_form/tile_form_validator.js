@@ -20,46 +20,35 @@ Airbo.TileFormValidator = (function(){
 
     rules: {
       "tile[supporting_content]": {
-        required: isRequired,
+        requiredValidator: true,
         minWords: 1,
         maxTextLength: hasLimit
       },
       "tile[answers][]": {
-        required: isRequired,
         duplicateAnswerValidator: true,
         minAnswersOptionsValidator: true
       },
       "tile[headline]": {
         headLineValidator: true
       },
-      "tile[remote_media_url]": { required: isRequired },
-      "tile[question_subtype]": { required: isRequired },
-      "tile[question]":         { required: isRequired },
-      "tile[correct_answer_index]": { required: isRequired },
+      "tile[remote_media_url]": { requiredValidator: true },
+      "tile[question_subtype]": { requiredValidator: true },
+      "tile[question]":         { requiredValidator: true },
+      "tile[correct_answer_index]": { requiredValidator: true },
     },
 
     invalidHandler: function(_form, validator) {
-      /*
-       * Scrolls first invalid element into view if visible
-       */
       var errors = validator.numberOfInvalids();
       var modal = $(tileModalSelector);
-      var firstError = $(validator.errorList[0].element);
       var form = $(validator.currentForm);
 
       if (errors && modal.is(":visible") && !forceValidation(form) && !isAutoSaving(form)) {
-        if(firstError.is(":visible")) {
-          modal.animate({ scrollTop: firstError.offset().top }, 250);
-        } else {
-          /* The element is hidden due complex UI use the proxy */
-          modal.animate({
-            scrollTop: $("#" + firstError.data("proxyid")).offset().top
-          }, 1000);
-        }
+        modal.animate({ scrollTop: 0 }, "slow");
       }
     },
 
     messages: {
+      "tile[headline]": "Please enter a headline before saving.",
       "tile[question_subtype]": "Question option is required.",
       "tile[correct_answer_index]": "Please select one choice as the correct answer.",
       "tile[answers][]": {
@@ -67,6 +56,8 @@ Airbo.TileFormValidator = (function(){
         duplicateAnswerValidator: "Answer choices must be unique.",
       },
       "tile[remote_media_url]": "Please add an image.",
+      "tile[supporting_content]": "Please add Tile content.",
+      "tile[question]": "Please add a Tile prompt."
     },
 
     errorPlacement: function(error, element) {
@@ -147,20 +138,18 @@ Airbo.TileFormValidator = (function(){
  function initHeadlineValidator(){
    var form = $("#new_tile_builder_form");
    $.validator.addMethod("headLineValidator", function(value, element, params) {
-     var imageUrl = $("#remote_media_url").val();
-     if(value !== "") {
-       return true;
-     } else if(form.data("suggested") === true && value === "") {
-       return false;
-     } else {
-       if (forceValidation(form) || ((imageUrl === undefined || imageUrl === "") && value ==="")){
-         return false;
-       }
-
-       return true;
+     if(form.data("suggested") === true) {
+       return $.validator.methods.required.call(this, value, element);
      }
-   }, function (params, element) {
-     return isAutoSaving(form) ? "" : "This field is required";
+
+     var imageUrl = $("#remote_media_url").val();
+     var imageNotPresent = (imageUrl === undefined || imageUrl === "");
+
+     if(forceValidation(form) || imageNotPresent) {
+       return $.validator.methods.required.call(this, value, element);
+     }
+
+     return true;
    });
  }
 
@@ -194,7 +183,7 @@ Airbo.TileFormValidator = (function(){
     } else{
       return true;
     }
-   }, "Answer choices must be unique");
+   });
  }
 
  function initMinAnswerOptionsValidator(){
@@ -219,11 +208,24 @@ Airbo.TileFormValidator = (function(){
          return true;
        }
      }
-   }, "Answer choices must be unique");
+   });
+ }
+
+ function initRequiredValidator() {
+   var form = $("#new_tile_builder_form");
+
+   $.validator.addMethod("requiredValidator", function(value, element, params) {
+     if(forceValidation(form)) {
+       return $.validator.methods.required.call(this, value, element);
+     } else {
+       return true;
+     }
+   });
  }
 
   function init(formObj) {
     var makeConfig = $.extend({}, Airbo.Utils.validationConfig, config);
+    initRequiredValidator();
     initHeadlineValidator();
     initDuplicateAnswerValidator();
     initMinAnswerOptionsValidator();

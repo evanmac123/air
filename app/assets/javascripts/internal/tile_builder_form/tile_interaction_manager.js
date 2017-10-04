@@ -89,7 +89,6 @@ Airbo.TileInteractionManager = (function(){
     updateConfig(config);
     renderSelectedInteraction(config);
     initFreeFormTooltip();
-
   }
 
   function toggleAnonBannerVisibility(isAnonymous){
