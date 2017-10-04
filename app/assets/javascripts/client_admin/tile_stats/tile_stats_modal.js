@@ -15,7 +15,7 @@ Airbo.TileStatsModal = (function(){
   }
 
   function initModal(data) {
-    $(".card-title").text(data.headline);
+    $(".js-tile-stats-modal-title").text(data.headline);
     $(".tile-stats-modal").data("tileStatsData", data);
 
     $(".js-tile-stats-tab").on("click", function(e) {
