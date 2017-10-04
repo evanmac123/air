@@ -24,16 +24,18 @@ Airbo.TileFormValidator = (function(){
         minWords: 1,
         maxTextLength: hasLimit
       },
-      "tile[answers][]":{
+      "tile[answers][]": {
         required: isRequired,
         duplicateAnswerValidator: true,
         minAnswersOptionsValidator: true
       },
-      "tile[headline]":             {headLineValidator: true},
-      "tile[remote_media_url]":      { required: isRequired},
-      "tile[question_subtype]":      { required: isRequired},
-      "tile[question]":              { required: isRequired},
-      "tile[correct_answer_index]":  { required: isRequired},
+      "tile[headline]": {
+        headLineValidator: true
+      },
+      "tile[remote_media_url]": { required: isRequired },
+      "tile[question_subtype]": { required: isRequired },
+      "tile[question]":         { required: isRequired },
+      "tile[correct_answer_index]": { required: isRequired },
     },
 
     invalidHandler: function(_form, validator) {
