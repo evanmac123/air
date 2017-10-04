@@ -9,11 +9,18 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
   end
 
   def update
-    unless @raffle.update_attributes(raffle_params)
-      @listified_flash = {failure: ["Sorry, we couldn't update the prize: " + @raffle.errors.values.join(", ") + "."]}
-      render 'show_errors'
+    if @raffle.update_attributes(raffle_params)
+      @raffle.set_timer_to_end_live
+      flash_message = "Prize updated."
+      
+      add_flash_to_headers(type: "success", message: flash_message)
+      render json: @raffle
+    else
+      flash_message = "Sorry, we couldn't update the prize: #{@raffle.errors.values.join(", ")}."
+
+      add_flash_to_headers(type: "failure", message: flash_message)
+      render json: { success: false, status: 'failure', errors: flash_message }
     end
-    @raffle.set_timer_to_end_live
   end
 
   def start

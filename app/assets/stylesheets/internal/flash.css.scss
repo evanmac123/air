@@ -33,7 +33,7 @@
     @include font-bold;
   }
 }
-#flash_notice, #flash .notice, #flash_failure, #flash .failure, .flash-js .notice {
+#flash_notice, #flash .notice, #flash_failure, #flash .failure, .flash-js .notice, .flash-js .failure {
   background: $n-red;
   .flash-content a {border-color:lighten($n-red, 30%);}
 }
