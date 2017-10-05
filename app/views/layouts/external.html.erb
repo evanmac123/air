@@ -15,7 +15,6 @@
       <%= stylesheet_link_tag 'ie8-grid12-foundation-4.css' %>
       <%= stylesheet_link_tag 'external/external_ie8' %>
     <![endif]-->
-    <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
 
     <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
@@ -34,7 +33,6 @@
     </div>
 
     <div class="modals"></div>
-    <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
     <%= yield :javascript %>
   </body>
 </html>

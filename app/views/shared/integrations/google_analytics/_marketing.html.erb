@@ -1,0 +1,15 @@
+<% if ENV['RACK_ENV'] == "production" && !current_user.is_a?(User) %>
+  <!-- Global Site Tag (gtag.js) - Google Analytics - Account: Airbo Team - Property: Airbo Marketing -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-21795640-5"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-21795640-5');
+  </script>
+<% elsif !current_user.is_a?(User) %>
+  <script>
+    console.log("Google Analytics would track this page in production for the Airbo Marketing property.")
+  </script>
+<% end %>

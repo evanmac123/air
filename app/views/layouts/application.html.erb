@@ -21,9 +21,9 @@
     <%= javascript_include_tag 'app-internal' %>
     <%= javascript_include_tag 'file-uploader' unless browser.ie8? %>
     <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
-    <%= javascript_include_tag asset_path('ga.js') if ENV['USE_GA'] %>
     <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
+    <%= render 'shared/integrations/google_analytics/marketing' %>
 
     <%= mobvious_javascript %>
     <%= render 'shared/nerf_animations_in_test' %>
