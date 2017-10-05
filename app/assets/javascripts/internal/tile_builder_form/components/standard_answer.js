@@ -81,7 +81,7 @@ Airbo.StandardAnswer.includeAnswerRemovers = function() {
 
 Airbo.StandardAnswer.addAnswerRemover = function(answer){
   var remover =document.createElement("i");
-  remover.setAttribute('class', 'js-remove-answer fa fa-remove fa-1x ' );
+  remover.setAttribute('class', 'js-remove-answer fa fa-remove fa-1x cursor-pointer' );
   answer.appendChild(remover);
 };
 
@@ -93,7 +93,7 @@ Airbo.StandardAnswer.addRadioButton = function(answer, value, checked){
 
   radiobutton.setAttribute('type', 'radio');
   radiobutton.setAttribute('name', 'tile[correct_answer_index]');
-  radiobutton.setAttribute('class', "correct-answer-button");
+  radiobutton.setAttribute('class', "correct-answer-button cursor-pointer");
 
   radiobutton.setAttribute('value', value);
   if(checked){
@@ -219,5 +219,3 @@ Airbo.StandardAnswer.asDomNode = function() {
 
   return node;
 };
-
-

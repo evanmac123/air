@@ -359,10 +359,18 @@ function turnLiveShow(){
   window.prizeFormStatus = 'live_show';
 }
 
-function updateRaffle(){
-  $("form[class$='_raffle']").attr("action", "/client_admin/prizes")
-                             .attr("data-remote", "true")
-                             .submit();
+function updateRaffle() {
+  var raffleForm = $("form[class$='_raffle']");
+  raffleForm.attr("action", "/client_admin/prizes");
+
+  $.ajax({
+    type: "POST",
+    url: raffleForm.attr('action'),
+    data: raffleForm.serialize(),
+    success: function(data, status, xhr) {
+      Airbo.FlashHandler.setFlash(xhr);
+    }
+  });
 }
 
 function makeConfirmButton(button){

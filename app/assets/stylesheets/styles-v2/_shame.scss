@@ -177,12 +177,13 @@ form.custom{
 
 
 .dependent_user_invitation_error{
-  color: #ff8a58;
+  color: $n-red;
   text-align: right;
 }
 
-.err {
-  color: $n-red2;
+span.err, label.err {
+  color: $n-red;
+  font-weight: bold;
 }
 
 .multi-list{

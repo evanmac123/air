@@ -1,16 +1,19 @@
 
 Airbo.TileInteractionBuilder = (function(){
-  var question, answer, container;
+  var question;
+  var questionPlaceholder;
+  var answer;
+  var container;
 
   function resetAttributes(type, subtype) {
     container = document.getElementById("js-interaction-container");
     container.setAttribute("class", type + "-interaction " + subtype);
   }
 
-
   function renderQuestion () {
-    var textArea = document.getElementById("tile_question")
-    textArea.innerText = question
+    var textArea = document.getElementById("tile_question");
+    textArea.innerText = question;
+    textArea.placeholder = questionPlaceholder;
   }
 
   function render() {
@@ -22,20 +25,18 @@ Airbo.TileInteractionBuilder = (function(){
     answer.addAnswer();
   }
 
-
-  function init(config,savedQuestion){
+  function init(config, savedQuestion) {
     var builder = config.builder || Airbo.StandardAnswer;
+    question = savedQuestion || config.question;
+    questionPlaceholder = config.questionPlaceholder;
 
-    question = savedQuestion || config.question
     resetAttributes(config.type, config.subtype);
-    answer = Object.create(builder).init(config, container)
+    answer = Object.create(builder).init(config, container);
   }
 
   return {
-    init: init, 
+    init: init,
     render: render,
     addAnswer: addAnswer
-  }
+  };
 }());
-
-

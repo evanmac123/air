@@ -49,6 +49,7 @@ Airbo.TilePreviewModal = (function(){
       url = $(this).attr("href");
 
       tileForm = Airbo.TileFormModal;
+
       tileForm.init(Airbo.TileManager);
       tileForm.open(url);
     });

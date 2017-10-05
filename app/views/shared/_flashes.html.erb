@@ -8,7 +8,7 @@
       <div id="flash_<%= key %>">
         <div class="row">
           <div class="flash-content large-12 columns">
-            <% bracketless = value.flatten.compact.map{|value_part| value_part.gsub('["', '').gsub('"]', '')} %>
+            <% bracketless = value.flatten.compact.map{|value_part| value_part.to_s.gsub('["', '').gsub('"]', '')} %>
             <% result = if raw_allowed_in_flash?(key) %>
               <% bracketless.length == 1 ? bracketless.first : bracketless %>
             <% else %>
