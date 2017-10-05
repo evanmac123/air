@@ -23,9 +23,11 @@
     <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
     <%= mobvious_javascript %>
     <%= render 'shared/nerf_animations_in_test' %>
-    <%= render partial: '/shared/mixpanel' %>
+    
+    <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
     <%= render 'shared/integrations/google_analytics/marketing' %>
+    <%= render 'shared/integrations/facebook_pixel' %>
 
     <%= content_for :head %>
   </head>
