@@ -13,8 +13,7 @@
 
     <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
-
-    <%= javascript_include_tag asset_path('ga-marketing.js') if ENV['USE_GA'] %>
+    <%= render 'shared/integrations/google_analytics/marketing' %>
 
     <%= content_for :head %>
   </head>
