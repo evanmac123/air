@@ -11,7 +11,7 @@ describe ClientAdmin::TilesDigestNotificationsController do
 
       sign_in_as(client_admin)
       request.env['HTTP_REFERER'] = '/' # so redirect_to :back works
-      post :create, follow_up_day: 'Friday', digest: {follow_up_day: "Tuesday", digest_send_to: 'true'}
+      post :create, follow_up_day: 'Friday', digest: {follow_up_day: "Tuesday", digest_send_to: 'true', demo_id: client_admin.demo_id}
 
       follow_up = FollowUpDigestEmail.last
       expect(follow_up.user_ids_to_deliver_to.sort).to eq(expected_user_ids_to_deliver_to)
@@ -25,7 +25,7 @@ describe ClientAdmin::TilesDigestNotificationsController do
 
       sign_in_as(client_admin)
       request.env['HTTP_REFERER'] = '/'
-      post :create, follow_up_day: 'Friday', digest: {follow_up_day: "Tuesday", digest_send_to: 'true'}, digest_type: "test_digest"
+      post :create, follow_up_day: 'Friday', digest: {follow_up_day: "Tuesday", digest_send_to: 'true', demo_id: client_admin.demo_id}, digest_type: "test_digest"
     end
 
     it "should schedule digests and followups" do
@@ -36,7 +36,20 @@ describe ClientAdmin::TilesDigestNotificationsController do
 
       sign_in_as(client_admin)
       request.env['HTTP_REFERER'] = '/'
-      post :create, follow_up_day: 'Friday', digest: {follow_up_day: "Tuesday", digest_send_to: 'true'}
+      post :create, follow_up_day: 'Friday', digest: {follow_up_day: "Tuesday", digest_send_to: 'true', demo_id: client_admin.demo_id}
+    end
+
+    it "should prevent digests from being sent if the current user's demo does not match the demo on the DOM" do
+      demo = FactoryGirl.create(:demo)
+      client_admin = FactoryGirl.create(:client_admin, demo: demo)
+
+      TilesDigestForm.expects(:new).never
+
+      sign_in_as(client_admin)
+      request.env['HTTP_REFERER'] = '/'
+      post :create, follow_up_day: 'Friday', digest: {follow_up_day: "Tuesday", digest_send_to: 'true', demo_id: 0}
+
+      expect(flash[:failure]).to be_present
     end
   end
 end
