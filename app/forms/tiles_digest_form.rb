@@ -28,6 +28,10 @@ class TilesDigestForm
     @include_sms = params[:include_sms].present?
   end
 
+  def demo_id
+    demo.id
+  end
+
   def set_unclaimed_users_also_get_digest?(digest_send_to)
     if digest_send_to == 'true'
       true

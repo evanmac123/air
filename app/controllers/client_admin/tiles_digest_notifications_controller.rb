@@ -1,4 +1,7 @@
 class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseController
+
+  before_filter :authorize_digest
+
   def create
     @tiles_digest_form = TilesDigestForm.new(current_user, params[:digest])
 
@@ -16,6 +19,13 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
   end
 
   private
+
+    def authorize_digest
+      unless current_user.demo_id == params[:digest][:demo_id].to_i
+        flash[:failure] = "Oops, looks like you tried to send a Tile Email in a board with an expired session. Please try again by switching into the right board."
+        redirect_to :back
+      end
+    end
 
     def save_digest_form_params
       session[:digest] = params[:digest]

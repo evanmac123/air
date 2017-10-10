@@ -1,4 +1,5 @@
 <%= form_tag client_admin_tiles_digest_notification_path, class: :custom, id: "tiles_digest_form" do %>
+  <%= hidden_field_tag "digest[demo_id]", @tiles_digest_form.demo_id %>
   <div class="notification_controls">
     <div class="send_to">
       <label for="digest_send_to">Recipients</label>
