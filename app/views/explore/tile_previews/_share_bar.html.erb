@@ -3,7 +3,8 @@
   </div>
   <br>
   <div class="share_title">Share Link</div>
-  <div class="share_link_block">
+  <div class="share_link_block copy-to-clipboard-input-group">
     <%= text_field_tag 'share_tile_link', path_for_single_tile(tile: tile, source: source), id: "share_link", class: "share-link" %>
+    <div class="copy-to-clipboard-button js-copy-to-clipboard-btn" data-tooltip="publicBoard" title="Click to Copy" data-clipboard-target="#share_link"></div>
   </div>
 <% end %>

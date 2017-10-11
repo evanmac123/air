@@ -19,6 +19,7 @@ Airbo.PublicBoardControls = (function(){
         $("#public_board_field").attr("disabled", "true");
         $(".private").addClass("engaged").removeClass("disengaged");
         $(".public").addClass("disengaged").removeClass("engaged");
+        $(".copy-to-clipboard-input-group").addClass("copy-disabled");
       } else {
         $.post("/client_admin/public_boards");
 
@@ -28,6 +29,7 @@ Airbo.PublicBoardControls = (function(){
         $("#public_board_field").removeAttr("disabled");
         $(".private").addClass("disengaged").removeClass("engaged");
         $(".public").addClass("engaged").removeClass("disengaged");
+        $(".copy-to-clipboard-input-group").removeClass("copy-disabled");
       }
     });
   }

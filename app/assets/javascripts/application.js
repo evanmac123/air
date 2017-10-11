@@ -13,6 +13,7 @@
 //= require airbo
 //= require_tree ./utils
 //= require ./internal/tile_manager/first_tile_hint
+//= require clipboard.js
 
 
 function isIE11() {

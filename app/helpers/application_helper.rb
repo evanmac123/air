@@ -219,4 +219,10 @@ module ApplicationHelper
   def dependent_board_email_body
     current_user.demo.dependent_board_email_body || DEFAULT_INVITE_DEPENDENT_EMAIL_BODY
   end
+
+  def copy_to_clipboard_class(enabled:)
+    unless enabled
+      "copy-disabled"
+    end
+  end
 end

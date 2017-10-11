@@ -11,32 +11,18 @@
   padding-bottom:.5em;
 }
 
-body.client_admin-shares{
+.client_admin-shares{
   .content{
     padding: 0;
   }
-  /*.share_tools .notification_controls,*/
-  .share_tools .public_board_controls {@include form-group;}
-  .share_tools .public_board_controls {
-    padding: 1em 1em 0em 1em;
-  }
+
   .share_tools .new_public_board{
-    div{
-      float: left;
-    }
-    .title_div{
-      width: 210px;
-      margin-top: 8px;
-      .public_board_title{
-        float: left;
-        margin: 0;
-      }
-    }
-    .status_div{
-      margin-top: 8px;
-      width: 170px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    .status_div {
       .public, .private{
-        @include regular-text;
         float: left;
         margin: 0 3px;
         &.engaged {
@@ -58,23 +44,11 @@ body.client_admin-shares{
         }
       }
     }
-    .share_link_div{
-      position: relative;
-      float: none;
-      width: auto;
-      overflow: auto;
-      #public_board_field{
-        width: 100%;
-      }
+    .share_link_div {
+      width: 60%;
     }
   }
-  .share_tools #feedback {
-    color:$gray;
-    @include caption;
-    line-height: 1.45em;
-    padding:16px;
-    padding:1rem 0;
-  }
+
   #digest_management {
     // padding-top: 32px;
     &:after {@include clear;}

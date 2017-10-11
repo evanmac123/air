@@ -18,10 +18,16 @@
     margin: auto;
   }
 
+  .bar_for_preview {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px 42px;
+  }
+
   .share_bar{
     background: $white;
     margin-top: 10px;
-    padding: 20px 42px;
+    padding-bottom: 32px;
     font-size: 16px;
     .share_title{
       float: left;
@@ -52,11 +58,6 @@
     }
   }
 
-  .bar_for_preview {
-    max-width: 600px;
-    width: 100%;
-    padding: 20px 42px;
-  }
   .bars {
     width: 95%;
     margin: auto;

@@ -1,6 +1,6 @@
 <div class="new_public_board" id="<%= current_user.demo.id %>">
   <div class="title_div">
-    <h4 class="public_board_title">Board Share Link <i class="fa fa-question-circle has-tip" data-tooltip="publicBoard" title="In a public board, anyone can participate using the Board Link. In a private board, only users you specifically add can participate, and the Board Link isn't active."></i></h4>
+    <h3 class="public_board_title">Board Share Link <i class="fa fa-question-circle has-tip" data-tooltip="publicBoard" title="In a public board, anyone can participate using the Board Link. In a private board, only users you specifically add can participate, and the Board Link isn't active."></i></h3>
   </div>
   <div class="status_div switch-container">
     <% unless @board_is_public %>
@@ -18,8 +18,10 @@
       <div class="public disengaged">Public</div>
     <% end %>
   </div>
-  <div class="share_link_div">
+  <div class="share_link_div copy-to-clipboard-input-group <%= copy_to_clipboard_class(enabled: @board_is_public)%>">
     <%= text_field_tag 'public_slug', public_board_url(current_user.demo.public_slug), id: 'public_board_field', disabled: !@board_is_public %>
+
+    <div class="copy-to-clipboard-button js-copy-to-clipboard-btn" data-tooltip="publicBoard" title="Click to Copy" data-clipboard-target="#public_board_field"></div>
   </div>
   <br clear="all"/>
 </div>
