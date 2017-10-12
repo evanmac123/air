@@ -27,6 +27,7 @@ class FullSizeTilePresenter
     :is_anonymous?,
     :question_config,
     :documents,
+    :is_sharable,
     to: :tile
 
   def initialize(tile, user, is_preview, current_tile_ids, browser)

@@ -15,12 +15,14 @@
   </div>
 
 </div>
+
+<%=render partial: 'share_bar', locals: { opts: { tile: tile, source: :explore, classes: 'tile-social-share-component' } } %>
+
 <div class="bars">
-  <%=render partial: 'share_bar', locals: { tile: tile, source: :explore } %>
   <% if prev_tile && next_tile %>
-    <div class="bg-white center bar_for_preview align_left offset_top">
-      <%=render partial: 'creator', locals: { tile: tile } %>
-      <%= render partial: 'categories', locals: { tile: tile } %>
-    </div>
+  <div class="bg-white center bar_for_preview align_left offset_top">
+    <%=render partial: 'creator', locals: { tile: tile } %>
+    <%= render partial: 'categories', locals: { tile: tile } %>
+  </div>
   <% end %>
 </div>

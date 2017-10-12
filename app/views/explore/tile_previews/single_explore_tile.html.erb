@@ -8,6 +8,5 @@
     </div>
   </div>
 </div>
-<div class="bars">
-  <%= render 'explore/tile_previews/share_bar', tile: @tile, source: @explore_or_public %>
-</div>
+
+<%= render partial: 'explore/tile_previews/share_bar', locals: { opts: { tile: @tile, source: @explore_or_public, classes: 'tile-social-share-component' } } %>

@@ -359,6 +359,7 @@ Airbo.UserTilePreview =(function(){
    setUpAnswers();
    initAnonymousTooltip();
    Airbo.Utils.TileLinkHandler.init();
+   Airbo.UserTileShareOptions.init();
  }
 
   function setUpAnswers() {

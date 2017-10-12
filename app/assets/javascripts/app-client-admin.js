@@ -24,6 +24,7 @@
 //= require ./internal/tile_preview/tile_answers
 //= require ./internal/tile_preview/progress_and_prize_bar
 //= require ./internal/tile_preview/user_tile_preview
+//= require ./internal/tile_preview/user-tile-share-options
 //= require ./internal/show_more_tiles_link
 //= require ./internal/countUp.min
 //= require ./internal/byte_counter
@@ -42,7 +43,6 @@
 //= require_tree ./internal/tile_builder_form/
 //= require_tree ./internal/tile_manager/
 //= require internal/byte_counter
-//= require jssocials.min.js
 //= require quill.min.js
 //= require_tree ./vendor_customization/quill
 

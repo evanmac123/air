@@ -1,10 +1,12 @@
-<%= content_tag 'div', class: 'share_bar bar_for_preview center text-center' do %>
-  <div class="social-share">
+<div class="<%= opts[:classes] %>">
+  <div class="share_bar bar_for_preview center text-center">
+    <div class="social-share" data-twitter-hashtags="<%= single_tile_hashtags(tile: opts[:tile]) %>" data-tile-path="<%= path_for_single_tile(tile: opts[:tile], source: opts[:source]) %>">
+    </div>
+    <br>
+    <div class="share_title">Share Link</div>
+    <div class="share_link_block copy-to-clipboard-input-group">
+      <%= text_field_tag 'share_tile_link', path_for_single_tile(tile: opts[:tile], source: opts[:source]), id: "share_link", class: "share-link" %>
+      <div class="copy-to-clipboard-button js-copy-to-clipboard-btn" data-tooltip="publicBoard" title="Click to Copy" data-clipboard-target="#share_link"></div>
+    </div>
   </div>
-  <br>
-  <div class="share_title">Share Link</div>
-  <div class="share_link_block copy-to-clipboard-input-group">
-    <%= text_field_tag 'share_tile_link', path_for_single_tile(tile: tile, source: source), id: "share_link", class: "share-link" %>
-    <div class="copy-to-clipboard-button js-copy-to-clipboard-btn" data-tooltip="publicBoard" title="Click to Copy" data-clipboard-target="#share_link"></div>
-  </div>
-<% end %>
+</div>
