@@ -36,7 +36,7 @@
               <%= render partial: "/client_admin/tiles/tile_attachments", locals: {tile: @tile}%>
               <div class="add-attachment-wrapper">
                 <a class=" js-file-upload-trigger " data-target="#file-uploader" >
-                  <%=fa_icon "plus", class: "icon-add-attachment"%> 
+                  <%=fa_icon "plus", class: "icon-add-attachment"%>
                   <span class="add-attachment">Add Attachment</span>
                 </a>
               </div>
@@ -45,11 +45,6 @@
           </div>
         </div>
       </div>
-      <% unless @user_side %>
-        <div class="tile-builder-share-to-explore text-center">
-          <p class="share-to-explore-cta"><%= f.check_box :is_public, style: "margin-right: 7px;" %>Share to Airbo Explore when this Tile is posted?</p>
-        </div>
-      <% end %>
     <% end %>
   </div>
 </div>

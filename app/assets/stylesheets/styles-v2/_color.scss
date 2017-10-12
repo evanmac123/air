@@ -21,7 +21,9 @@ $n-yellow: #FFB748;
 
 $n-blue-hover: darken($n-blue, 10%);
 
-$text-color-1: #404040; /* body copy, headers...*/
+$text-color-1: #4c4c4c; /* body copy, headers...*/
+$text-color:   #4c4c4c;
+
 
 $border-color-1: #e8e8e8; /* for tables, form elements...*/
 
@@ -68,7 +70,6 @@ $white:             #fff;
 // App elements
 $header-color:      #fff;
 $offcanvas-gray:    $dark-gray;
-$text-color:        #4c4c4c;
 $tile-text:         #a8a8a8;
 $tile-tag-border:   #dfdfdf;
 $body-bg:           lighten($blue, 56.5%);
