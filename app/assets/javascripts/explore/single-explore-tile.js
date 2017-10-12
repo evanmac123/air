@@ -69,23 +69,12 @@ Airbo.ExploreSingleTile = (function(){
     return "See More";
   }
 
-  function initPingEvents() {
-    $(".jssocials-share").on("click", function(e) {
-      Airbo.Utils.ping("Single Explore Tile", { action: "Share option clicked", shareOption: $(this).attr("class") });
-    });
-
-    $(".share-link").one("focusin", function(e) {
-      Airbo.Utils.ping("Single Explore Tile", { action: "Share option clicked", shareOption: $(this).attr("class") });
-    });
-  }
-
   function init() {
     $entryPoint = $(".js-single-tile-base");
     tileType = $entryPoint.data("exploreOrPublic");
 
     Airbo.UserTileShareOptions.init();
     initAnswerCorrectModal();
-    initPingEvents();
   }
 
   return {

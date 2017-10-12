@@ -139,4 +139,16 @@ module TilePreviewsHelper
   def sharable_tile_link tile
     request.host_with_port.gsub(/^www./, "") + sharable_tile_path(tile)
   end
+
+  def display_tile_share_options?(tile)
+    tile.is_sharable || params[:controller] == "explore/tile_previews"
+  end
+
+  def tile_link_source(tile)
+    if params[:controller] == "explore/tile_previews"
+      :explore
+    else
+      :sharable
+    end
+  end
 end

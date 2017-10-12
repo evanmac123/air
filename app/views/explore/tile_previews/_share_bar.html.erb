@@ -1,6 +1,6 @@
 <div class="<%= opts[:classes] %>">
-  <div class="share_bar bar_for_preview center text-center">
-    <div class="social-share" data-twitter-hashtags="<%= single_tile_hashtags(tile: opts[:tile]) %>" data-tile-path="<%= path_for_single_tile(tile: opts[:tile], source: opts[:source]) %>">
+  <div class="share_bar center text-center">
+    <div class="social-share" data-twitter-hashtags="<%= single_tile_hashtags(tile: opts[:tile]) %>" data-tile-path="<%= path_for_single_tile(tile: opts[:tile], source: opts[:source]) %>" data-share-text="<%= opts[:tile].headline %>">
     </div>
     <br>
     <div class="share_title">Share Link</div>

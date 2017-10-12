@@ -45,9 +45,9 @@ body.explore, .explore {
   }
 
   .explore-tag {
-    border-radius: 0;
+    border-radius: 4px;
     padding: 5px;
-    margin-bottom: 4px;
+    margin: 10px 5px;
     text-transform: lowercase;
     &.explore-tag-campaign {
       margin-top: 6px;
@@ -275,9 +275,6 @@ body.explore, .explore {
     #copy-all-tiles-button {
       margin: 23px 0 20px 18px;
       width: 96%;
-    }
-    .related-channel-tags {
-      margin-top: 5px;
     }
     h4 {
       color: $darker-gray;

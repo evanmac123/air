@@ -1,20 +1,24 @@
 @mixin tile-social-share-component() {
-  .tile-social-share-component {
-    margin: auto;
-    &.end-user {
-      width: 100%;
-      background: #f3f3f3;
-      padding: 10px;
+  .modal_container {
+    .tile-social-share-component {
       .share_bar {
-        background: #f3f3f3;
+        margin-top: 0;
+        font-size: 20px;
       }
     }
+  }
+  .tile-social-share-component {
+    margin: auto;
+    width: 100%;
+    background: #f3f3f3;
+    padding: 10px;
+
     .share_bar{
       width: 90%;
       min-height: 110px;
-      background: $white;
+      background: #f3f3f3;
       margin-top: 10px;
-      padding-bottom: 32px;
+      padding: 0px 42px 20px 42px;
       font-size: 16px;
       .share_title{
         float: left;
