@@ -1,110 +1,58 @@
 .tile_preview_menu {
-  width: 600px;
-  margin:auto;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
   background: white;
-  border-radius: $border-radius;
-  border-bottom: 1px solid #dcdcdc;
-  overflow: hidden;
-  /*position: absolute;*/
-  top: 0;
-  /*left: 78px;*/
-  &.sticky.sticky {
+  border-radius: 4px;
+  margin: auto;
+
+  &.sticky {
     position: fixed;
     z-index: 1;
     top: 0;
-    border-radius: 0 0 3px 3px;
+    border-radius: 0;
   }
+
   .preview_menu_item, .preview_menu_text {
-    float: left;
+    width: 100%;
+    text-align: center;
+    padding: 0px;
     border-left: 1px $tile-wall-bg solid;
     font-size: 14px;
-    padding: .55em;
-    text-align: center;
     color: $gray;
     &:first-child {
       border-left: none;
     }
-    .header_text {
-      margin-top: .25em;
-      font-weight: bold;
-    }
     a {
+      padding: 11px 20px;
       color: $gray;
       display: block;
-      &:hover {color: darken($gray, 10%);}
-    }
-  }
-  .preview_menu_item {
-    width: 16%;
-    a {
-      padding: 11px 20px;
-      .disabled & {
-       cursor: not-allowed;
+      &:hover {
+        color: darken($gray, 10%);
+      }
+      .header_text {
+        font-size: 12px;
+        font-weight: bold;
+        margin-left: 3px;
       }
     }
-    &#suggested_info{
-     width: 50%;
-     text-align:left;
-    }
-
-    &#suggested_accept{
-     width: 25%;
-    }
-
-    &#suggested_ignore{
-     width: 25%;
-    }
-  }
-  .preview_menu_text {
-    width: 48%;
-  }
-  .submitted_tile_menu {
-    float: left;
-    width: 32%;
-    li {
-      width: 50%;
-    }
-  }
-  &.placeholder_menu {
-    .preview_menu_item {
-      &:first-child a {
-        width: 74px;
-      }
+    &.status {
       a {
-        padding: 11px 14px 13px 15px;
+        cursor: default;
       }
     }
   }
-  &.draft_menu {
-    .preview_menu_item a {
-      padding: 11px 20px;
-    }
-  }
-  &.active_menu {
-    .preview_menu_item a {
-      padding: 11px 20px;
-    }
-  }
-  &.archive_menu {
-    .preview_menu_item a {
-      padding: 11px 20px;
-    }
-  }
-  &.explore_menu {
-    position: relative;
-    left: 0;
-  }
-  &.form_menu {
-    left: 35px;
-  }
+
+
   &.incomplete{
     border: 1px solid #FF5656;
     .preview_menu_item {
       color:  #FF5656;
-      width: 100%;
-      a{
+      a {
         color: #FF5656;
-        &:hover {color: darken(#FF5656, 10%);}
+        &:hover {
+          color: darken(#FF5656, 10%);
+        }
         &:before {
           content: '';
         }
@@ -116,15 +64,12 @@
   &.explore_menu, &.form_menu {
     border: 1px solid $n-blue;
     .preview_menu_item {
-      // border-left: 1px $n-blue  solid;
       color: $n-blue;
-      width: 100%;
-      a{
-        // &:hover {
-        //   color: $n-blue;
-        // }
+      a {
         color: $n-blue;
-        &:hover {color: darken($n-blue, 10%);}
+        &:hover {
+          color: darken($n-blue, 10%);
+        }
         &:before {
           content: '';
         }
@@ -136,14 +81,6 @@
           @include button-with-spinner($n-blue);
         }
       }
-    }
-  }
-  .preview_menu_item {
-    width: auto;
-    padding: 0px;
-    .header_text {
-      font-size: 12px;
-      margin-left: 0.25em;
     }
   }
 }

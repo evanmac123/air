@@ -20,17 +20,10 @@ module TilePreviewsHelper
   def suggested_tile_status_change_tooltip tile
     build_status_change_action_menu tile, [Tile::USER_SUBMITTED, Tile::IGNORED]
   end
-  #
-  def tile_preview_status_change_tooltip tile
-    change_statuses = [Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE, ].reject{|x|x==tile.status}
-    change_statuses = change_statuses.reject{|x|x==Tile::DRAFT} if tile.tile_completions.count > 0
-    build_status_change_action_menu tile, change_statuses
-  end
-  #
+
   def tile_preview_menu_status_item tile
    build_menu_item_link preview_menu_item_config_by_status(tile.status)
   end
-
 
   def suggested_tile_menu_status_item tile
     build_menu_item_link  suggested_menu_item_config_by_status(tile.status)
@@ -144,7 +137,7 @@ module TilePreviewsHelper
     tile.is_sharable || params[:controller] == "explore/tile_previews"
   end
 
-  def tile_link_source(tile)
+  def tile_link_source
     if params[:controller] == "explore/tile_previews"
       :explore
     else

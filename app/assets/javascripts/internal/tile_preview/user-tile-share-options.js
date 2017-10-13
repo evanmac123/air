@@ -28,12 +28,16 @@ Airbo.UserTileShareOptions = (function(){
 
   function initSharePings() {
     $(".jssocials-share").on("click", function(e) {
-      Airbo.Utils.ping("Tile Sharing", { action: "Share option clicked", shareOption: $(this).attr("class") });
+      sharePing($(this).attr("class"));
     });
 
     $(".share-link").one("focusin", function(e) {
-      Airbo.Utils.ping("Tile Sharing", { action: "Share option clicked", shareOption: $(this).attr("class") });
+      sharePing($(this).attr("class"));
     });
+  }
+
+  function sharePing(shareOption) {
+    Airbo.Utils.ping("Tile Sharing", { action: "Share option clicked", shareOption: shareOption });
   }
 
   return {

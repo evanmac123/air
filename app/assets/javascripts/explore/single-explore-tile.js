@@ -24,6 +24,16 @@ Airbo.ExploreSingleTile = (function(){
   function publicTileCompleted() {
     Airbo.Utils.ping("Single Explore Tile", { action: "Completed Tile" });
     initAnswerCorrectModal();
+    launchModal();
+  }
+
+  function exploreTileCompleted() {
+    Airbo.Utils.ping("Single Explore Tile", { action: "Completed Tile" });
+    initAnswerCorrectModal();
+    launchModal();
+  }
+
+  function launchModal() {
     swal({
       title: "Tile Completed!",
       type: "success",
@@ -33,40 +43,6 @@ Airbo.ExploreSingleTile = (function(){
       customClass: "airbo",
       allowOutsideClick: true
     });
-  }
-
-  function exploreTileCompleted() {
-    Airbo.Utils.ping("Single Explore Tile", { action: "Completed Tile" });
-    initAnswerCorrectModal();
-    swal({
-      title: "Tile Completed 🎉",
-      type: "success",
-      cancelButtonText: "Close",
-      showCancelButton: false,
-      text: "",
-      html: true,
-      confirmButtonColor: "#4fd4c0",
-      confirmButtonText: confirmButtonText($entryPoint.data("currentUserIsClientAdmin")),
-      closeOnConfirm: true,
-      customClass: "airbo",
-      allowOutsideClick: true
-    },
-    function(isConfirm) {
-      Airbo.Utils.ping("Single Explore Tile", { action: "clicked tile completed CTA", cta: $(this)[0].confirmButtonText });
-      if(isConfirm) {
-        var url = $entryPoint.data("moreContentUrl");
-        var win = window.open(url, "_blank");
-        if (win) {
-          win.focus();
-        } else {
-          window.location.href = url;
-        }
-      }
-    });
-  }
-
-  function confirmButtonText(isClientAdmin) {
-    return "See More";
   }
 
   function init() {

@@ -32,7 +32,7 @@ module ClientAdmin::TilesHelper
   def set_tile_types(tile)
     tile_types = default_tile_types
     if current_user.demo.dependent_board_enabled ||
-       tile.question_subtype == Tile::INVITE_SPOUSE
+      tile.question_subtype == Tile::INVITE_SPOUSE
 
       tile_types = add_invite_item tile_types
     end
