@@ -1,12 +1,11 @@
 var Airbo = window.Airbo || {};
 
 Airbo.DependentEmailForm = (function() {
-  var deferred
-    , formSel = "form.dependent_email_form"
-    , exitFormSel = formSel + " .no_invitation"
-    , tileQuizSecSel = ".multiple_choice_group"
-    , form
-  ;
+  var deferred;
+  var formSel = "form.dependent_email_form";
+  var exitFormSel = formSel + " .no_invitation";
+  var tileQuizSecSel = ".multiple_choice_group";
+  var form;
 
   function initEvents() {
     form.submit(function(e) {
@@ -54,8 +53,7 @@ Airbo.DependentEmailForm = (function() {
       errorPlacement: function(error, element) {
         error.insertAfter(element);
       }
-    },
-
+    };
 
     config = $.extend({}, Airbo.Utils.validationConfig, config);
     return form.validate(config);
@@ -84,7 +82,9 @@ Airbo.DependentEmailForm = (function() {
     deferred = $.Deferred();
     return deferred.promise();
   }
+
   return {
     get: get
-  }
+  };
+
 }());

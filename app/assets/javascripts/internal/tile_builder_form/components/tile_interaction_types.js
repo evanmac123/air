@@ -1,8 +1,7 @@
 var Airbo = window.Airbo || {};
 
-
 Airbo.TileBuilderInteractionConfig = (function(){
-  var interactions =  {
+  var interactionTypes =  {
     action:{
       read_tile: {
         name: "Read Tile",
@@ -68,7 +67,6 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 1
       }
     },
-
     quiz: {
       true_false: {
         name: "True / False",
@@ -138,37 +136,51 @@ Airbo.TileBuilderInteractionConfig = (function(){
         extendable: false,
         correctAnswerIndex: 0,
         maxLength: 50
-      },
+      }
+    }
+  };
 
-      invite_spouse: {
+  function addInviteSpouseConfig() {
+    if(Airbo.currentBoard.dependent_board_enabled) {
+      interactionTypes.survey.invite_spouse = {
         name: "Invite Spouse",
         question: "Do you want to invite your spouse?",
         questionPlaceholder: "Add prompt",
         answers: [
           "I have a dependent and want to invite them",
-          "I have a dependent but don't want to invite them", "I don't have a dependent"
+          "I have a dependent but don't want to invite them",
+          "I don't have a dependent"
         ],
         minResponses: 3,
         maxResponses: 3,
-        extendable: false
-      }
+        extendable: false,
+        correctAnswerIndex: 0
+      };
     }
-  };
-
-
-  function interactionByType(type){
-    return interactions[type];
   }
 
-  function get(type, subtype){
-    return interactions[type][subtype];
-  }
-  function interactionSet(){
-    return interactions;
+  function addCustomInteractions() {
+    addInviteSpouseConfig();
   }
 
-  function defaultKeys(){
-    return {type: "action",subtype: "read_tile"};
+  function interactions() {
+    addCustomInteractions();
+    return interactionTypes;
+  }
+
+  function interactionByType(type) {
+    return interactions()[type];
+  }
+
+  function get(type, subtype) {
+    return interactions()[type][subtype];
+  }
+  function interactionSet() {
+    return interactions();
+  }
+
+  function defaultKeys() {
+    return { type: "action", subtype: "read_tile" };
   }
 
   return {

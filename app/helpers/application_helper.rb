@@ -1,6 +1,11 @@
 module ApplicationHelper
   include Mobvious::Rails::Helper
 
+  def board_data_for_dom
+    return {} unless current_board.present?
+    current_board.data_for_dom
+  end
+
   def current_demo_id
     current_user.demo_id
   end
