@@ -8,6 +8,7 @@ var Airbo = {
     });
 
     this.currentUser = this.Utils.currentUser();
+    this.currentBoard = this.Utils.currentBoard();
   },
 
   Utils: {
@@ -31,9 +32,12 @@ var Airbo = {
       return !(this.userIsSiteAdmin());
     },
 
-
     currentUser: function(){
        return $("body").data("current-user");
+    },
+
+    currentBoard: function(){
+       return $("body").data("current-board");
     },
 
     intercomUser: function(){

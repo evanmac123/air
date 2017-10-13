@@ -15,8 +15,7 @@
         { image: "onboarding.svg", text: "New Hire Onboarding", board_path: "/ard/airbo-new-hire-onboarding" },
         { image: "biometrics.svg", text: "Biometrics and HRA Participation", board_path: "/ard/airbo-biometrics-hra" },
         { image: "financial_education.svg", text: "Financial Education", board_path: "/ard/airbo-financial-education" },
-        { image: "prescription_basics.svg", text: "Prescription Drug Basics", board_path: "/ard/airbo-prescription-drug-basics" },
-        { image: "social_recruiting.svg", text: "Social Recruiting", board_path: "/ard/airbo-social-recruiting" },
+        { image: "prescription_basics.svg", text: "Prescription Drug Basics", board_path: "/ard/airbo-prescription-drug-basics" }
       ].each_with_index do |gallery_item, i| %>
         <div class="columns large-3 small-12 gallery-row">
           <%= link_to "##{gallery_item[:board_path]}", class: "js-marketing-site-gallery-item", data: { path: "#{gallery_item[:board_path]}/activity?welcome_modal=true", board: gallery_item[:text] } do %>

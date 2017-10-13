@@ -1,17 +1,16 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileAdminActionObserver = (function(){
-  var tileModalSelector = "#tile_preview_modal"
+  var tileModalSelector = "#tile_preview_modal";
 
   function init(){
     Airbo.PubSub.subscribe("/tile-admin/tile-status-updated", function(event, payload){
-      tileUpdateStatusSucces(payload)
+      tileUpdateStatusSucces(payload);
     });
 
 
     Airbo.PubSub.subscribe("/tile-admin/tile-copied", function(event, payload){
         Airbo.TileManager.updateTileSection(payload.data);
-        afterDuplicationModal(payload.data.tileId);
         updateShowMoreDraftTilesButton();
     });
 
@@ -27,39 +26,14 @@ Airbo.TileAdminActionObserver = (function(){
   }
 
 
-  
+
   function updateUserSubmittedTilesCounter() {
     submittedTile = $(".tile_thumbnail.user_submitted");
     $("#suggestion_box_title").find(".num-items").html("(" + submittedTile.length + ")");
   }
 
-  function afterDuplicationModal(tileId){
-    swal(
-      {
-        title: "Tile Copied to Drafts",
-        customClass: "airbo",
-        animation: false,
-        showCancelButton: true,
-        cancelButtonText: "Edit Tile"
-      },
-
-      function(isConfirm){
-        var tile;
-        if (!isConfirm) {
-          tile = Airbo.TileManager.tileContainerByDataTileId(tileId);
-          tile.find(".edit_button a").trigger("click");
-        }
-      }
-    );
-    swapModalButtons();
-  }
-
-  function swapModalButtons(){
-    $("button.cancel").before($("button.confirm"));
-  }
-
   function tileUpdateStatusSucces(payload){
-      var currTile = payload.currTile
+      var currTile = payload.currTile;
       var updatedTile = payload.updatedTile;
 
       Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
@@ -115,7 +89,7 @@ Airbo.TileAdminActionObserver = (function(){
     var status = updatedTile.data("status");
     var newSection = "#" + sections[status];
 
-   
+
       currTile.remove();
       $(newSection).prepend(updatedTile);
       Airbo.TileDragDropSort.updateTilesAndPlaceholdersAppearance();

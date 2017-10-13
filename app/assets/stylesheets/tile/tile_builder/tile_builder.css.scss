@@ -3,18 +3,20 @@
   @import "image_uploader";
   @import "quiz";
   @import "slider";
-  @import "share_to_explore";
+  @import "tile_builder_settings";
   @import "ie9";
 
 
   .tile_form_holder {
     margin-top: 44px;
   }
+  
   .tile_holder {
     background: white;
     overflow: hidden;
     border-radius: 3px;
   }
+
   .tile_holder_container {
     float: none;
     width: auto;
@@ -33,7 +35,6 @@
     height: 0px;
     width: 0px;
   }
-
 
   .tile-attachment.hidden-template{
     display:none;

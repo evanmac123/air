@@ -30,13 +30,6 @@ feature 'Client admin duplicates tile' do
     it "should add tile to draft section", js: true do
       expect(section_tile_headlines("#draft")).to eq(["Copy me!"])
     end
-
-    it "should show success modal", js: true do
-      within ".sweet-alert" do
-        expect_content "Tile Copied to Drafts"
-      end
-    end
-
   end
 
   context "from preview" do
@@ -50,20 +43,5 @@ feature 'Client admin duplicates tile' do
     it "should add tile to draft section", js: true do
       expect(section_tile_headlines("#draft")).to eq(["Copy me!"])
     end
-
-    it "should show success modal", js: true do
-      within ".sweet-alert" do
-        expect_content "Tile Copied to Drafts"
-      end
-    end
-  end
-
-  #
-  # => Helpers
-  #
-  def more_btn
-    show_thumbnail_buttons = "$('.tile_buttons').css('opacity', '1')"
-    page.execute_script show_thumbnail_buttons
-    find(".more.pill")
   end
 end

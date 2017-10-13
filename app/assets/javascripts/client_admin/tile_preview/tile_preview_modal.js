@@ -102,6 +102,7 @@ Airbo.TilePreviewModal = (function(){
     Airbo.ImageLoadingPlaceholder.init();
     initStickyPreviewMenu();
     initTileToolbarActions();
+    Airbo.UserTileShareOptions.init();
   }
 
   function open(previewHTML) {

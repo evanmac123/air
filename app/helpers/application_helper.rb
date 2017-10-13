@@ -1,6 +1,11 @@
 module ApplicationHelper
   include Mobvious::Rails::Helper
 
+  def board_data_for_dom
+    return {} unless current_board.present?
+    current_board.data_for_dom
+  end
+
   def current_demo_id
     current_user.demo_id
   end
@@ -218,5 +223,11 @@ module ApplicationHelper
 
   def dependent_board_email_body
     current_user.demo.dependent_board_email_body || DEFAULT_INVITE_DEPENDENT_EMAIL_BODY
+  end
+
+  def copy_to_clipboard_class(enabled:)
+    unless enabled
+      "copy-disabled"
+    end
   end
 end

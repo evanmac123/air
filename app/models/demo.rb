@@ -513,6 +513,14 @@ class Demo < ActiveRecord::Base
     x.group(orgs[:name], demos[:id], demos[:name], demos[:dependent_board_id])
   end
 
+  def data_for_dom
+    {
+      id: id,
+      name: name,
+      dependent_board_enabled: dependent_board_enabled
+    }.to_json
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)

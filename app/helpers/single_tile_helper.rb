@@ -7,7 +7,7 @@ module SingleTileHelper
     end
   end
 
-  def path_for_single_tile(tile:, source:)
+  def path_for_single_tile(tile:, source: nil)
     if source == :explore
       explore_tile_preview_url(tile)
     else

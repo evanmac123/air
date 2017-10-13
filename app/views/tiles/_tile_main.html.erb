@@ -36,7 +36,7 @@
 
     <%= render partial: 'tiles/multiple_choice_answers', locals: {tile: tile, is_preview: is_preview} %>
   </div>
-
-
-
 </div>
+<% if display_tile_share_options?(tile) %>
+  <%= render partial: 'explore/tile_previews/share_bar', locals: { opts: { tile: tile.tile, source: tile_link_source, classes: 'tile-social-share-component' } } %>
+<% end %>

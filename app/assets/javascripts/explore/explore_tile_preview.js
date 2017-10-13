@@ -28,8 +28,10 @@ Airbo.ExploreTilePreview = (function(){
     Airbo.TilePreviewArrows.init();
     Airbo.ShareLink.init();
     Airbo.TileCarouselPage.init();
+    Airbo.UserTileShareOptions.init();
     initEvents();
     initAnonymousTooltip();
+
 
     //This handles issue where the onboarding modal css interferes with the tile modal css.
     $(".reveal-modal").css("top", 0);

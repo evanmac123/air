@@ -21,8 +21,8 @@ Airbo.TileAction = (function(){
       var data = updatedTile.data();
 
       Airbo.Utils.ping("Tile " + mess[status], {
-        action: action, 
-        tile_id:  data["tile-container-id"], 
+        action: action,
+        tile_id:  data["tile-container-id"],
         media_source: data["mediaSource"],
         tile_module: config.type,
         tile_type: config.signature,
@@ -42,7 +42,7 @@ Airbo.TileAction = (function(){
       }
     };
 
-  
+
 
     function isRepostingArchivedTile(){
       return link.data("action") === "unarchive";
@@ -105,7 +105,7 @@ Airbo.TileAction = (function(){
     swal(
       {
         title: "Tile Copying to Drafts",
-        text: "<div class='spinner'><i class='fa fa-cog fa-spin fa-3x'></i></div>",
+        text: "<div class='spinner'><i class='blue fa fa-spinner fa-spin fa-3x'></i></div>",
         customClass: "airbo",
         animation: false,
         showConfirmButton: false,
@@ -118,8 +118,8 @@ Airbo.TileAction = (function(){
       dataType: "json",
       url: trigger.attr("href") ,
       success: function(data, status,xhr){
-        Airbo.PubSub.publish("/tile-admin/tile-copied", {data: data});
         swal.close();
+        Airbo.PubSub.publish("/tile-admin/tile-copied", {data: data});
       },
 
       error: function(jqXHR, textStatus, error){

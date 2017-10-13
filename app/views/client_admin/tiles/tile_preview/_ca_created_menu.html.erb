@@ -1,6 +1,6 @@
 <ul class="tile_preview_menu <%= tile.status + '_menu' %>" >
-  <li class="preview_menu_item tipsy" id="stat_toggle" title= '<%=tile_preview_status_change_tooltip tile %>'>
-  <%=tile_preview_menu_status_item tile %>
+  <li class="preview_menu_item status">
+    <%= tile_preview_menu_status_item(tile) %>
   </li>
 
   <li class="preview_menu_item edit" >
@@ -13,7 +13,7 @@
   </li>
 
   <li class="preview_menu_item duplicate" >
-    <%=link_to duplicate_client_admin_tile_path(tile, page: 'Edit'), class: "duplicate_tile", data: {"tile-id" => tile.id} do %>
+    <%= link_to duplicate_client_admin_tile_path(tile, page: 'Edit'), class: "duplicate_tile", data: {"tile-id" => tile.id} do %>
       <i class="fa fa-copy fa-1x"></i>
       <span class="header_text">
         Copy
@@ -28,23 +28,5 @@
       Delete
       </span>
       <%end%>
-  </li>
-
-  <li class="preview_menu_item explore tipsy"  title='<%= share_via_explore(tile) %>'>
-    <%=link_to "#" do %>
-      <i class="fa fa-rocket fa-1x"></i>
-      <span class="header_text">
-        Airbo Explore
-      </span>
-      <%end%>
-  </li>
-
-  <li class="preview_menu_item link tipsy" title='<%=tile_share_public_link_block tile%>' >
-    <%=link_to "#" do %>
-      <i class="fa fa-link fa-1x"></i>
-      <span class="header_text">
-        Link
-      </span>
-    <%end%>
   </li>
 </ul>
