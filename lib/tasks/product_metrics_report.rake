@@ -6,6 +6,10 @@ namespace :admin do
       puts "Running Product Metrics Monthly Report"
       Reporting::ProductMetricsReportBuilder.build_month(to_date: Date.today.end_of_month).save
 
+      if 8.days.ago.month != Data.today.month
+        Reporting::ProductMetricsReportBuilder.build_month(to_date: 1.month.ago.end_of_month).save
+      end
+
       puts "Running Product Metrics Board Health Reports for current Month"
       Demo.paid_or_free_trial.each do |demo|
         Reporting::BoardHealthReportBuilder.build_month(board: demo, to_date: Date.today.end_of_month).save

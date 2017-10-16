@@ -13,11 +13,11 @@ class BoardHealthReport < ActiveRecord::Base
   end
 
   def calculate_health_score
-    ((tile_completion_average_score + latest_tile_completion_rate_score + activated_user_percent_score + tiles_copied_count) - days_since_tile_posted_score) * 100
+    (tile_completion_average_score + + latest_tile_completion_rate_score + activated_user_percent_score + copy_count_score + days_since_tile_posted_score) * 100
   end
 
   def days_since_tile_posted_score
-    days_since_tile_posted.to_f / 30.0
+    1 - (days_since_tile_posted.to_f / 15.0)
   end
 
   def tile_completion_average_score
@@ -25,15 +25,19 @@ class BoardHealthReport < ActiveRecord::Base
   end
 
   def latest_tile_completion_rate_score
-    latest_tile_completion_rate.to_f * 0.5
+    latest_tile_completion_rate.to_f
   end
 
   def activated_user_percent_score
-    activated_user_percent.to_f * 0.5
+    activated_user_percent.to_f * 0.25
   end
 
   def copy_count_score
-    tiles_copied_count * 0.1
+    if tiles_copied_count.to_i > 0
+      0.50
+    else
+      0
+    end
   end
 
   def tile_engagement_report_cache_key
@@ -41,15 +45,17 @@ class BoardHealthReport < ActiveRecord::Base
   end
 
   def tile_engagement_report
-    Rails.cache.fetch(tile_engagement_report_cache_key) do
-      tile_completion_report = demo.tiles_digests.tile_completion_report.stats_base
-      tile_view_report = demo.tiles_digests.tile_view_report.stats_base
+    tile_completion_report = tiles_digests_for_report.tile_completion_report.stats_base
+    tile_view_report = tiles_digests_for_report.tile_view_report.stats_base
 
-      {
-        tile_completion_report: tile_completion_report,
-        tile_view_report: tile_view_report,
-      }
-    end
+    {
+      tile_completion_report: tile_completion_report,
+      tile_view_report: tile_view_report,
+    }
+  end
+
+  def tiles_digests_for_report
+    demo.tiles_digests.where("sent_at <= ?", (to_date - 1.week).end_of_day)
   end
 
   def date_range

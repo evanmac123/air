@@ -75,15 +75,15 @@ class Reporting::BoardHealthReportBuilder
   end
 
   def latest_tile_completion_rate
-    report.demo.tiles_digests.order(:sent_at).last.try(:tile_completion_rate)
+    report.tiles_digests_for_report.order(:sent_at).last.try(:tile_completion_rate)
   end
 
   def latest_tile_view_rate
-    report.demo.tiles_digests.order(:sent_at).last.try(:tile_view_rate)
+    report.tiles_digests_for_report.order(:sent_at).last.try(:tile_view_rate)
   end
 
   def days_since_tile_posted
-    last_tile_posted = report.demo.tiles.where("activated_at IS NOT NULL").order(:activated_at).last
+    last_tile_posted = report.demo.tiles.where("activated_at IS NOT NULL").where("activated_at <= ?", report.to_date).order(:activated_at).last
 
     if last_tile_posted && last_tile_posted.activated_at
       (report.to_date - last_tile_posted.activated_at.to_date).to_i

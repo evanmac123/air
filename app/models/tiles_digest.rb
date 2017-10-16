@@ -60,14 +60,18 @@ class TilesDigest < ActiveRecord::Base
 
   def tile_completion_rate
     if eligible_tile_action_count > 0
-      tiles.joins(:tile_completions).count / eligible_tile_action_count
+      tiles.joins(:tile_completions).where("tile_completions.created_at <= ?", reporting_cutoff_for_tile_action).count / eligible_tile_action_count
     end
   end
 
   def tile_view_rate
     if eligible_tile_action_count > 0
-      tiles.joins(:tile_viewings).count / eligible_tile_action_count
+      tiles.joins(:tile_viewings).where("tile_viewings.created_at <= ?", reporting_cutoff_for_tile_action).count / eligible_tile_action_count
     end
+  end
+
+  def reporting_cutoff_for_tile_action
+    (sent_at + 1.week).end_of_day
   end
 
   def deliver(follow_up_days_index)
