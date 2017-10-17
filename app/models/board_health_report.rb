@@ -13,7 +13,7 @@ class BoardHealthReport < ActiveRecord::Base
   end
 
   def calculate_health_score
-    (tile_completion_average_score + + latest_tile_completion_rate_score + activated_user_percent_score + copy_count_score + days_since_tile_posted_score) * 100
+    (tile_completion_average_score + latest_tile_completion_rate_score + activated_user_percent_score + copy_count_score + days_since_tile_posted_score) * 100
   end
 
   def days_since_tile_posted_score

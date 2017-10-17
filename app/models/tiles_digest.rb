@@ -47,6 +47,13 @@ class TilesDigest < ActiveRecord::Base
     data_without_outliers
   end
 
+  def self.active_user_report
+    data = all.map(&:active_user_rate)
+    data_without_outliers = AirboStatistics.new(data: data).dataset_without_outliers
+
+    data_without_outliers
+  end
+
   def self.dispatch(digest_params)
     digest = TilesDigest.new(digest_params)
     digest.set_tiles_and_update_cuttoff_time if digest.valid?
@@ -70,8 +77,18 @@ class TilesDigest < ActiveRecord::Base
     end
   end
 
+  def active_user_rate
+    if recipient_count.to_i > 0
+      tiles.joins(:tile_completions).where("tile_completions.created_at <= ?", reporting_cutoff_for_tile_action).pluck(tile_completions: :user_id).uniq.count / recipient_count.to_f
+    end
+  end
+
   def reporting_cutoff_for_tile_action
-    (sent_at + 1.week).end_of_day
+    if follow_up_digest_email.present?
+      (follow_up_digest_email.send_on + 5.days).end_of_day
+    else
+      (sent_at + 5.days).end_of_day
+    end
   end
 
   def deliver(follow_up_days_index)

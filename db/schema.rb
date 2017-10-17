@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170927172339) do
+ActiveRecord::Schema.define(:version => 20171017172431) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -880,7 +880,7 @@ ActiveRecord::Schema.define(:version => 20170927172339) do
   create_table "product_metrics_reports", :force => true do |t|
     t.date     "from_date"
     t.date     "to_date"
-    t.integer  "period_cd",                           :default => 0
+    t.integer  "period_cd",                                   :default => 0
     t.integer  "smb_tiles_delivered"
     t.decimal  "smb_overall_completion_rate"
     t.decimal  "smb_completion_rate_in_range"
@@ -897,8 +897,10 @@ ActiveRecord::Schema.define(:version => 20170927172339) do
     t.decimal  "enterprise_percent_orgs_posted"
     t.decimal  "enterprise_percent_orgs_activity"
     t.decimal  "enterprise_percent_orgs_copied"
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
+    t.datetime "created_at",                                                 :null => false
+    t.datetime "updated_at",                                                 :null => false
+    t.decimal  "smb_digest_active_user_rate_in_range"
+    t.string   "enterprise_digest_active_user_rate_in_range"
   end
 
   create_table "push_messages", :force => true do |t|

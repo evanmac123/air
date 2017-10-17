@@ -32,6 +32,7 @@ class Reporting::ProductMetricsReportBuilder
       smb_percent_orgs_posted: smb_percent_orgs_posted,
       smb_percent_orgs_activity: smb_percent_orgs_activity,
       smb_percent_orgs_copied: smb_percent_orgs_copied,
+      smb_digest_active_user_rate_in_range: smb_digest_active_user_rate_in_range[:mean],
       enterprise_tiles_delivered: enterprise_tiles_delivered,
       enterprise_overall_completion_rate: enterprise_overall_tile_completion_report[:mean],
       enterprise_completion_rate_in_range: enterprise_tile_completion_report_in_range[:mean],
@@ -39,7 +40,8 @@ class Reporting::ProductMetricsReportBuilder
       enterprise_view_rate_in_range: enterprise_tile_view_report_in_range[:mean],
       enterprise_percent_orgs_posted: enterprise_percent_orgs_posted,
       enterprise_percent_orgs_activity: enterprise_percent_orgs_activity,
-      enterprise_percent_orgs_copied: enterprise_percent_orgs_copied
+      enterprise_percent_orgs_copied: enterprise_percent_orgs_copied,
+      enterprise_digest_active_user_rate_in_range: enterprise_digest_active_user_rate_in_range[:mean]
     })
 
     report
@@ -63,6 +65,10 @@ class Reporting::ProductMetricsReportBuilder
 
   def smb_tile_view_report_in_range
     @_smb_tile_view_report_in_range ||= tiles_digests_in_range_scope(scope: smb_tiles_digests).tile_view_report.stats_base
+  end
+
+  def smb_digest_active_user_rate_in_range
+    @_smb_digest_active_user_rate_in_range ||= tiles_digests_in_range_scope(scope: smb_tiles_digests).active_user_report.stats_base
   end
 
   def smb_percent_orgs_posted
@@ -98,6 +104,10 @@ class Reporting::ProductMetricsReportBuilder
 
   def enterprise_tile_view_report_in_range
     @_enterprise_tile_view_report_in_range ||= tiles_digests_in_range_scope(scope: enterprise_tiles_digests).tile_view_report.stats_base
+  end
+
+  def enterprise_digest_active_user_rate_in_range
+    @_enterprise_digest_active_user_rate_in_range ||= tiles_digests_in_range_scope(scope: enterprise_tiles_digests).active_user_report.stats_base
   end
 
   def enterprise_percent_orgs_posted
