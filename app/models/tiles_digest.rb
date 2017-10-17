@@ -2,6 +2,7 @@ class TilesDigest < ActiveRecord::Base
   DEFAULT_DIGEST_SUBJECT = "New Tiles"
 
   include TilesDigestConcern
+
   belongs_to :sender, class_name: 'User'
   belongs_to :demo
 
@@ -33,62 +34,11 @@ class TilesDigest < ActiveRecord::Base
     joins(demo: :organization).where(demo: { organization: { company_size_cd: Organization.company_sizes[:enterprise] } })
   end
 
-  def self.tile_completion_report
-    data = all.map(&:tile_completion_rate)
-    data_without_outliers = AirboStatistics.new(data: data).dataset_without_outliers
-
-    data_without_outliers
-  end
-
-  def self.tile_view_report
-    data = all.map(&:tile_view_rate)
-    data_without_outliers = AirboStatistics.new(data: data).dataset_without_outliers
-
-    data_without_outliers
-  end
-
-  def self.active_user_report
-    data = all.map(&:active_user_rate)
-    data_without_outliers = AirboStatistics.new(data: data).dataset_without_outliers
-
-    data_without_outliers
-  end
-
   def self.dispatch(digest_params)
     digest = TilesDigest.new(digest_params)
     digest.set_tiles_and_update_cuttoff_time if digest.valid?
 
     digest.tap(&:save)
-  end
-
-  def eligible_tile_action_count
-    recipient_count.to_i * tiles.count.to_f
-  end
-
-  def tile_completion_rate
-    if eligible_tile_action_count > 0
-      tiles.joins(:tile_completions).where("tile_completions.created_at <= ?", reporting_cutoff_for_tile_action).count / eligible_tile_action_count
-    end
-  end
-
-  def tile_view_rate
-    if eligible_tile_action_count > 0
-      tiles.joins(:tile_viewings).where("tile_viewings.created_at <= ?", reporting_cutoff_for_tile_action).count / eligible_tile_action_count
-    end
-  end
-
-  def active_user_rate
-    if recipient_count.to_i > 0
-      tiles.joins(:tile_completions).where("tile_completions.created_at <= ?", reporting_cutoff_for_tile_action).pluck(tile_completions: :user_id).uniq.count / recipient_count.to_f
-    end
-  end
-
-  def reporting_cutoff_for_tile_action
-    if follow_up_digest_email.present?
-      (follow_up_digest_email.send_on + 5.days).end_of_day
-    else
-      (sent_at + 5.days).end_of_day
-    end
   end
 
   def deliver(follow_up_days_index)
@@ -188,6 +138,69 @@ class TilesDigest < ActiveRecord::Base
   def sender_name
     sender.try(:name)
   end
+
+  ### Reporting Concern
+
+  def self.tile_completion_report
+    data = all.map(&:tile_completion_rate)
+    data_without_outliers = AirboStatistics.new(data: data).dataset_without_outliers
+
+    data_without_outliers
+  end
+
+  def self.tile_view_report
+    data = all.map(&:tile_view_rate)
+    data_without_outliers = AirboStatistics.new(data: data).dataset_without_outliers
+
+    data_without_outliers
+  end
+
+  def self.active_user_report
+    data = all.map(&:active_user_rate)
+    data_without_outliers = AirboStatistics.new(data: data).dataset_without_outliers
+
+    data_without_outliers
+  end
+
+  def eligible_tile_action_count
+    recipient_count.to_i * tiles.count.to_f
+  end
+
+  def tile_completion_rate
+    if eligible_tile_action_count > 0
+      tile_completions_from_recipients.where(tile_completions: { created_at: sent_at..reporting_cutoff_for_tile_action}).count / eligible_tile_action_count
+    end
+  end
+
+  def tile_view_rate
+    if eligible_tile_action_count > 0
+      tile_viewings_from_recipients.where(tile_viewings: { created_at: sent_at..reporting_cutoff_for_tile_action}).count / eligible_tile_action_count
+    end
+  end
+
+  def active_user_rate
+    if recipient_count.to_i > 0
+      tile_completions_from_recipients.where(tile_completions: { created_at: sent_at..reporting_cutoff_for_tile_action}).pluck(tile_completions: :user_id).uniq.count / recipient_count.to_f
+    end
+  end
+
+  def tile_completions_from_recipients
+    tiles.joins(:tile_completions).where(tile_completions: { user_id: users.pluck(:id) })
+  end
+
+  def tile_viewings_from_recipients
+    tiles.joins(:tile_viewings).where(tile_viewings: { user_id: users.pluck(:id) })
+  end
+
+  def reporting_cutoff_for_tile_action
+    if follow_up_digest_email.present?
+      (follow_up_digest_email.send_on + 5.days).end_of_day
+    else
+      (sent_at + 5.days).end_of_day
+    end
+  end
+
+  ###
 
   private
 
