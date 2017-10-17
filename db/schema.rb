@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20171017172431) do
+ActiveRecord::Schema.define(:version => 20171017180811) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -900,7 +900,7 @@ ActiveRecord::Schema.define(:version => 20171017172431) do
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
     t.decimal  "smb_digest_active_user_rate_in_range"
-    t.string   "enterprise_digest_active_user_rate_in_range"
+    t.decimal  "enterprise_digest_active_user_rate_in_range"
   end
 
   create_table "push_messages", :force => true do |t|
