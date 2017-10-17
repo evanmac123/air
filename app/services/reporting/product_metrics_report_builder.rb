@@ -1,20 +1,16 @@
 class Reporting::ProductMetricsReportBuilder
-  def self.build_week(to_date:)
-    to_date = to_date.end_of_week
-    from_date = to_date.beginning_of_week
+  def self.build(from_date:, to_date:, period:)
+    ProductMetricsReport.where({ from_date: from_date, to_date: to_date, period_cd: ProductMetricsReport.periods[period] }).delete_all
 
-    ProductMetricsReport.where({ from_date: from_date, to_date: to_date, period_cd: ProductMetricsReport.periods[:week] }).delete_all
-
-    Reporting::ProductMetricsReportBuilder.new(from_date: from_date, to_date: to_date, period: :week).run
+    Reporting::ProductMetricsReportBuilder.new(from_date: from_date, to_date: to_date, period: period).run
   end
 
-  def self.build_month(to_date:)
-    to_date = to_date.end_of_month
-    from_date = to_date.beginning_of_month
+  def self.build_week(date:)
+    build(from_date: date.beginning_of_week, to_date: date.end_of_week, period: :week)
+  end
 
-    ProductMetricsReport.where({ from_date: from_date, to_date: to_date, period_cd: ProductMetricsReport.periods[:month] }).delete_all
-
-    Reporting::ProductMetricsReportBuilder.new(from_date: from_date, to_date: to_date, period: :month).run
+  def self.build_month(date:)
+    build(from_date: date.beginning_of_month, to_date: date.end_of_month, period: :month)
   end
 
   attr_reader :report
