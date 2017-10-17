@@ -6,7 +6,7 @@ namespace :admin do
       puts "Running Product Metrics Monthly Report"
       Reporting::ProductMetricsReportBuilder.build_month(date: Date.today).save
 
-      if 8.days.ago.month != Data.today.month
+      if 8.days.ago.month != Date.today.month
         Reporting::ProductMetricsReportBuilder.build_month(date: 1.month.ago).save
       end
 
