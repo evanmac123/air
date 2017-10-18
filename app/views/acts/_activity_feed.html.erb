@@ -16,15 +16,17 @@
     </div>
   </div>
 
-  <div class="large-4 columns">
-    <div class="module" id="scoreboard-module">
-      <%= render 'acts/scoreboard', user: current_user unless current_user.is_guest? %>
+  <% unless current_user.demo.hide_social %>
+    <div class="large-4 columns">
+      <div class="module" id="scoreboard-module">
+        <%= render 'acts/scoreboard', user: current_user unless current_user.is_guest? %>
+      </div>
     </div>
-  </div>
 
-  <div class="large-4 columns">
-    <div class="module" id="invite-module">
-      <%= render(partial: "acts/invite_your_friends") unless current_user.is_guest? %>
+    <div class="large-4 columns">
+      <div class="module" id="invite-module">
+        <%= render(partial: "acts/invite_your_friends") unless current_user.is_guest? %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>

@@ -38,10 +38,7 @@
       <br>
       <%= form.input :guest_user_conversion_modal, label: " Show guest user conversion modal?" %>
       <br>
-      <%= label_tag :use_multiple_choice_tiles do %>
-        <%= check_box_tag :use_multiple_choice_tiles, '1', demo.tutorial_type == 'multiple_choice' %>
-        Talking chicken should use multiple-choice sample tile
-      <% end %>
+      <%= form.input :hide_social, label: " Hide social components?" %>
     <% end %>
 
     <%= form.inputs :name => "Referral Bonus" do %>

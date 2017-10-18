@@ -25,7 +25,7 @@ class Act < ActiveRecord::Base
     user.update_points(points, self.creation_channel) if points
   end
 
-  scope :recent, lambda {|max| order('created_at DESC').limit(max)}
+  scope :ordered, -> { order("created_at DESC") }
 
   attr_accessor :incoming_sms_sid, :suggestion_code
 
@@ -46,10 +46,6 @@ class Act < ActiveRecord::Base
     user.point_and_ticket_summary
   end
 
-  def self.recent(limit)
-    order('created_at desc').limit(limit)
-  end
-
   def self.unhidden
     where(:hidden => false)
   end
@@ -58,20 +54,31 @@ class Act < ActiveRecord::Base
     where(:demo_id => user.demo_id)
   end
 
+  def self.guest_user_acts
+    where(user_type: GuestUser.to_s)
+  end
+
+  def self.user_acts
+    where(user_type: User.to_s)
+  end
+
   def self.displayable_to_user(viewing_user, board, page, per_page=5)
-    if viewing_user.is_site_admin
-      # Site admins get to see anything they please.
-      return where(demo_id: board.id).order("created_at DESC").page(page).per(per_page)
+    if board.hide_social || viewing_user.is_a?(PotentialUser)
+      return board.acts.ordered.where(user_id: viewing_user.id, user_type: User.to_s).page(page).per(per_page)
+    end
+
+    if viewing_user.is_client_admin || viewing_user.is_site_admin
+      return board.acts.ordered.page(page).per(per_page)
     end
 
     if viewing_user.is_guest?
-      # And guests get to see their own only.
-      return where(demo_id: board.id, user_id: viewing_user.id, user_type: 'GuestUser').order("created_at DESC").page(page).per(per_page)
+      return board.acts.guest_user_acts.where(user_id: viewing_user.id, user_type: GuestUser.to_s).ordered.page(page).per(per_page)
     end
 
-    friends = viewing_user.accepted_friends.where("users.privacy_level != 'nobody'")
+    friends = viewing_user.displayable_accepted_friends
     viewable_user_ids = friends.pluck(:id) + [viewing_user.id]
-    board.acts.where("hidden ='f' and (user_id in (?) or privacy_level='everybody')", viewable_user_ids).order("created_at desc").page(page).per(per_page)
+
+    board.acts.user_acts.unhidden.where("(user_id in (?) or privacy_level='everybody')", viewable_user_ids).ordered.page(page).per(per_page)
   end
 
   def self.for_profile(viewing_user)

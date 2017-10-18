@@ -1,11 +1,13 @@
 class UsersController < UserBaseController
   prepend_before_filter :authenticate
+
   include ActsHelper
 
   USER_LIMIT = 50
   MINIMUM_SEARCH_STRING_LENGTH = 3
 
   def index
+    return not_found if current_user.demo.hide_social
     @palette = current_user.demo.custom_color_palette
     @friend_ids = current_user.friend_ids
     @search_link_text = "our search bar"
@@ -22,16 +24,12 @@ class UsersController < UserBaseController
   end
 
   def show
-    demo = current_user.demo
+    return not_found if current_board.hide_social && params[:id] != current_user.slug
 
-    @user = demo.users.find_by_slug(params[:id])
-    @palette = demo.custom_color_palette
+    @user = current_board.users.find_by_slug(params[:id])
+    return not_found unless @user
 
-    unless @user
-      not_found
-      return
-    end
-
+    @palette = current_board.custom_color_palette
     @acts = find_requested_acts(current_user.demo, 10)
 
     @viewing_self = signed_in? && current_user == @user

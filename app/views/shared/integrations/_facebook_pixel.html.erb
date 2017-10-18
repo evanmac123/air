@@ -18,7 +18,7 @@
     />
   </noscript>
   <!-- End Facebook Pixel Code -->
-<% elsif !current_user.is_a?(User) %>
+<% elsif Rails.env.development? && !current_user.is_a?(User) %>
   <script>
     console.log("Facebook Pixel would track this page in production.")
   </script>
