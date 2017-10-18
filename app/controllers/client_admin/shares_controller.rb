@@ -9,7 +9,7 @@ class ClientAdmin::SharesController < ClientAdminBaseController
 
     @digest_tiles = @demo.digest_tiles(tile_digest_email_sent_at)
     @tiles_to_be_sent = @demo.digest_tiles(tile_digest_email_sent_at).count
-    @tiles_digest_form = TilesDigestForm.new(current_user, session[:digest])
+    @tiles_digest_form = TilesDigestForm.new(current_user, digest_params)
 
     digest_sent_modal
 
@@ -36,5 +36,13 @@ class ClientAdmin::SharesController < ClientAdminBaseController
 
     def digest_sent_modal
       @digest_sent_type = session.delete(:digest_sent_type)
+    end
+
+    def digest_params
+      if session[:digest].present?
+        session[:digest]
+      else
+        { custom_subject: @digest_tiles[0].try(:headline) }
+      end
     end
 end

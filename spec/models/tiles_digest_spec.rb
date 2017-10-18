@@ -10,6 +10,7 @@ RSpec.describe TilesDigest, :type => :model do
       message: "Message",
       subject: "Subject",
       alt_subject: "Alt Subject",
+      sent_at: Time.now + 1.day
     }
   end
 
@@ -146,9 +147,7 @@ RSpec.describe TilesDigest, :type => :model do
       expect(@digest.follow_up_digest_email.present?).to be true
 
       follow_up = @digest.follow_up_digest_email
-
       expect(follow_up.send_on).to eq(Date.today + 1)
-      expect(follow_up.user_ids_to_deliver_to).to eq(@digest.send(:user_ids_to_deliver_to))
     end
   end
 
@@ -206,11 +205,11 @@ RSpec.describe TilesDigest, :type => :model do
     describe "when follow_up_digest_email" do
       it "returns subject, alt_subject and a decorated follow_up_digest_email subject" do
         digest = TilesDigest.create(demo: demo, subject: "Subject A", alt_subject: "Subject B")
-        _follow_up = digest.create_follow_up_digest_email
+        _follow_up = digest.create_follow_up_digest_email(subject: "FU Subject")
 
         subjects = digest.all_related_subject_lines
 
-        expect(subjects).to eq(["Subject A", "Subject B", "Don't Miss: Subject A", "Don't Miss: Subject B"])
+        expect(subjects).to eq(["Subject A", "Subject B", "FU Subject"])
       end
     end
   end
@@ -298,6 +297,27 @@ RSpec.describe TilesDigest, :type => :model do
       end
 
       expect(digest.unique_logins_by_subject_line).to eq(["3", "B", "2", "A"])
+    end
+  end
+
+  describe "#highest_performing_subject_line" do
+    it "returns the highest performing subject line if present" do
+      digest = TilesDigest.new
+      2.times do
+        digest.rdb[:unique_logins].zincrby(1, "A")
+      end
+
+      3.times do
+        digest.rdb[:unique_logins].zincrby(1, "B")
+      end
+
+      expect(digest.highest_performing_subject_line).to eq("B")
+    end
+
+    it "returns subject if the highes performing subject line is not yet present" do
+      digest = TilesDigest.new(subject: "subject")
+
+      expect(digest.highest_performing_subject_line).to eq("subject")
     end
   end
 

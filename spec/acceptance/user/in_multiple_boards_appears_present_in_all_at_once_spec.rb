@@ -125,23 +125,5 @@ feature 'In multiple boards appears present in all at once' do
       should_be_on activity_path
       expect_current_board_header @second_board
     end
-
-    scenario "followups are received from both" do
-      Timecop.freeze
-      Timecop.travel(Chronic.parse("March 23, 2014, 12:00 PM")) # a Sunday
-      visit client_admin_share_path(as: @first_admin)
-      select "Tuesday", from: "digest[follow_up_day]"
-      submit_button.click
-
-      visit client_admin_share_path(as: @second_admin)
-      select "Tuesday", from: "digest[follow_up_day]"
-      submit_button.click
-
-      Timecop.travel(Chronic.parse("March 25, 2014, 6:00 PM"))
-
-      TilesDigestMailer.notify_all_follow_up
-
-      expect_all_headlines_in_some_email(@user, @first_board, @second_board)
-    end
   end
 end

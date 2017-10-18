@@ -33,14 +33,20 @@ class TilesDigestTester
 
     def deliver_test_follow_up_email
       unless follow_up_day == 'Never'
-        [subject, alt_subject].compact.each do |s|
-          TilesDigestMailer.delay.notify_one(
-            digest,
-            current_user.id,
-            "[Test] Don't Miss: #{s}",
-            TilesDigestMailFollowUpPresenter
-          )
-        end
+        TilesDigestMailer.delay.notify_one(
+          digest,
+          current_user.id,
+          test_follow_up_subject,
+          TilesDigestMailFollowUpPresenter
+        )
+      end
+    end
+
+    def test_follow_up_subject
+      if alt_subject.present?
+        "[Test] Don't Miss: #{subject} / Don't Miss: #{alt_subject}"
+      else
+        "[Test] Don't Miss: #{subject}"
       end
     end
 

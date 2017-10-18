@@ -1,3 +1,5 @@
+# FIXME: The way time was originally implemted in this spec led to al lot of weird code manually setting created_at and joined_board_at for board_memberships. Rewrite in light of board_memberships and tiles_digest refacotrs so the tests are more straight forward.
+
 require 'acceptance/acceptance_helper'
 
 include EmailHelper
@@ -6,10 +8,14 @@ feature 'Client admin and the digest email for tiles' do
 
   let!(:demo)  { FactoryGirl.create :demo, email: 'foobar@playhengage.com' }
   let!(:admin) { FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: demo, phone_number: "+3333333333" }
+
   before do
-    user = FactoryGirl.create :user, demo: demo
-    tile = create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, demo: demo, headline: "Tile completed"
-    FactoryGirl.create(:tile_completion, tile: tile, user: user)
+    on_day '7/5/2013' do
+      admin.board_memberships.update_all(created_at: Time.now)
+      user = FactoryGirl.create :user, demo: demo
+      tile = create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, demo: demo, headline: "Tile completed"
+      FactoryGirl.create(:tile_completion, tile: tile, user: user)
+    end
   end
 
   # -------------------------------------------------
@@ -179,18 +185,20 @@ feature 'Client admin and the digest email for tiles' do
         let (:all_addresses) {%w(client-admin@hengage.com site-admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com)}
 
         before do
-          FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
-          FactoryGirl.create :user, demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'
+          on_day '7/5/2013' do
+            FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
+            FactoryGirl.create :user, demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'
 
-          FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
-          FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
+            FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
+            FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
 
-          FactoryGirl.create :site_admin, demo: demo, name: 'Eric Claption',  email: 'site-admin@hengage.com'
+            FactoryGirl.create :site_admin, demo: demo, name: 'Eric Claption',  email: 'site-admin@hengage.com'
 
-          FactoryGirl.create :user,         demo: FactoryGirl.create(:demo)  # Make sure these users from other
-          FactoryGirl.create :claimed_user, demo: FactoryGirl.create(:demo)  # demos don't get an email
+            FactoryGirl.create :user,         demo: FactoryGirl.create(:demo)  # Make sure these users from other
+            FactoryGirl.create :claimed_user, demo: FactoryGirl.create(:demo)  # demos don't get an email
+          end
 
-          visit client_admin_share_path(as: admin)
+            visit client_admin_share_path(as: admin)
         end
 
         scenario "Demo where claimed and unclaimed should get digests.
@@ -200,10 +208,10 @@ feature 'Client admin and the digest email for tiles' do
             admin.demo.users.claimed.each do |user|
               user.board_memberships.each { |bm| bm.update_attributes(joined_board_at: Time.now) }
             end
-
             change_send_to('All Users')
             submit_button.click
             crank_dj_clear
+
             expect(all_emails.size).to eq(7)  # The above 5 for this demo, and the 'client-admin' and the 'user' created at top of tests
 
             all_addresses.each do |address|
@@ -302,11 +310,22 @@ feature 'Client admin and the digest email for tiles' do
           end
         end
 
-        context "and the optional admin-supplied custom subject is not filled in" do
-          it "uses a reasonable default" do
+        context "and the optional admin-supplied custom subject is not changed" do
+          it "defaults to the first tile healine" do
             submit_button.click
 
-            crank_dj_clear
+            all_addresses.each do |address|
+              open_email(address)
+              expect(current_email.subject).to eq("Headline 2")
+            end
+          end
+        end
+
+        context "and the optional admin-supplied custom subject is emptied" do
+          it "uses a reasonable default" do
+            fill_in "digest[custom_subject]", with: ""
+
+            submit_button.click
 
             all_addresses.each do |address|
               open_email(address)
@@ -462,7 +481,7 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     describe "when sending test" do
-      it "should send four test emails" do
+      it "should send three test emails" do
         click_button "Send a Test Email to Myself"
 
         subjects_sent = ActionMailer::Base.deliveries.map(&:subject)
@@ -470,8 +489,7 @@ feature 'Client admin and the digest email for tiles' do
         expect(subjects_sent.sort).to eq(
           [
             "[Test] Alt Subject",
-            "[Test] Don't Miss: Alt Subject",
-            "[Test] Don't Miss: Subject",
+            "[Test] Don't Miss: Subject / Don't Miss: Alt Subject",
             "[Test] Subject"
           ]
         )
@@ -509,7 +527,7 @@ feature 'Client admin and the digest email for tiles' do
     end
 
     it "sends SMS to current_user" do
-      expect(FakeTwilio::Client.messages.count).to eq(4)
+      expect(FakeTwilio::Client.messages.count).to eq(3)
     end
   end
 end

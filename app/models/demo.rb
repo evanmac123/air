@@ -134,14 +134,6 @@ class Demo < ActiveRecord::Base
     board_health_reports.where(period_cd: BoardHealthReport.periods[:week]).order(:created_at).last
   end
 
-  def users_for_digest
-    self.users.joins(:board_memberships).where(board_memberships: { demo_id: self.id, digest_muted: false })
-  end
-
-  def claimed_users_for_digest
-    users_for_digest.where("board_memberships.joined_board_at IS NOT NULL")
-  end
-
   def internal?
     organization.try(:internal)
   end

@@ -53,18 +53,21 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def send_emails_and_sms
-    TilesDigestMailer.delay.notify_all(self)
-
     self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true, sent_at: Time.now)
+
+    TilesDigestMailer.delay.notify_all(self)
   end
 
   def all_related_subject_lines
     [
       subject,
       alt_subject,
-      follow_up_digest_email.try(:subject),
-      follow_up_digest_email.try(:alt_subject)
+      follow_up_digest_email.try(:subject)
     ].compact
+  end
+
+  def highest_performing_subject_line
+    unique_logins_by_subject_line[1] || subject
   end
 
   def new_unique_login?(user_id:)
@@ -94,8 +97,7 @@ class TilesDigest < ActiveRecord::Base
   def schedule_followup(follow_up_days_index)
     if follow_up_days_index != 0 && delivered == true
       self.create_follow_up_digest_email(
-        send_on:  Date.today + follow_up_days_index.days,
-        user_ids_to_deliver_to: user_ids_to_deliver_to,
+        send_on:  Date.today + follow_up_days_index.days
       )
     end
   end
@@ -113,11 +115,7 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def users
-    if include_unclaimed_users
-      users_for_digest.where("users.created_at < ?", self.created_at)
-    else
-      users_for_digest.where("users.accepted_invitation_at < ?", self.created_at)
-    end
+    include_unclaimed_users ? users_for_digest : claimed_users_for_digest
   end
 
   def set_tiles_and_update_cuttoff_time
@@ -132,7 +130,7 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def user_ids_to_deliver_to
-    @user_ids = users_to_deliver_to.pluck(:id)
+    users.pluck(:id)
   end
 
   def sender_name
@@ -205,19 +203,15 @@ class TilesDigest < ActiveRecord::Base
   private
 
     def users_for_digest
-      if include_unclaimed_users
-        demo.users_for_digest
-      else
-        demo.claimed_users_for_digest
-      end
+      demo.users.joins(:board_memberships).where(board_memberships: { demo_id: demo.id, digest_muted: false }).where("board_memberships.created_at <= ?", sent_at)
+    end
+
+    def claimed_users_for_digest
+      users_for_digest.where("board_memberships.joined_board_at IS NOT NULL AND board_memberships.joined_board_at <= ?", sent_at)
     end
 
     def recipient_count_without_site_admin
-      users_to_deliver_to.where(is_site_admin: false).count
-    end
-
-    def users_to_deliver_to
-      @users = users_for_digest
+      users.where(is_site_admin: false).count
     end
 
     def sanitize_subject_lines
