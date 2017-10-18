@@ -34,7 +34,7 @@ feature 'Sets their privacy level' do
   scenario 'Privacy level of "connected" shows act to friends in board only' do
     @user.update_attributes(privacy_level: 'connected')
     create_act
-    
+
     visit acts_path(as: @user_in_same_board)
     expect_no_act_copy
 
@@ -45,7 +45,7 @@ feature 'Sets their privacy level' do
   scenario 'Privacy level of "nobody" shows acts to nobody' do
     @user.update_attributes(privacy_level: 'nobody')
     create_act
-    
+
     visit acts_path(as: @user_in_same_board)
     expect_no_act_copy
 
@@ -58,7 +58,7 @@ feature 'Sets their privacy level' do
       @user.update_attributes(privacy_level: privacy_level)
       create_act
       visit acts_path(as: @user)
-      expect_act_copy
+      expect_content "You ate puppy less than a minute ago"
     end
   end
 

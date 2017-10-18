@@ -69,19 +69,21 @@
     </div>
 
     <div class="large-5 columns">
-      <div class="module other_settings" id="privacy_settings">
-        <h3>Privacy</h3>
-          <%= form_for current_user, url: account_settings_path, html: {class: "custom"} do |form| %>
-            <div class="module_inner">
-              <%= label_tag "user_privacy_level", "Let these people see my actions:" %>
-              <%= form.select :privacy_level, [
-                ['Everybody', 'everybody'],
-                ["Connections I've accepted", 'connected']
-              ] %>
-            </div>
-            <%= submit_tag 'Update privacy', :class => 'button_norm', :id => 'save-privacy-level' %>
-          <% end %>
-      </div>
+      <% unless current_user.demo.hide_social %>
+        <div class="module other_settings" id="privacy_settings">
+          <h3>Privacy</h3>
+            <%= form_for current_user, url: account_settings_path, html: {class: "custom"} do |form| %>
+              <div class="module_inner">
+                <%= label_tag "user_privacy_level", "Let these people see my actions:" %>
+                <%= form.select :privacy_level, [
+                  ['Everybody', 'everybody'],
+                  ["Connections I've accepted", 'connected']
+                ] %>
+              </div>
+              <%= submit_tag 'Update privacy', :class => 'button_norm', :id => 'save-privacy-level' %>
+            <% end %>
+        </div>
+      <% end %>
 
       <div class="module other_settings" id="notification_settings">
         <h3>Notifications</h3>

@@ -25,7 +25,7 @@ feature "Client Admin Accepts Invitation" do
     should_be_on explore_path
 
     visit activity_path
-    expect_content "#{@user.name} joined"
+    expect_content "You joined"
   end
 
   scenario "across boards" do
@@ -53,7 +53,7 @@ feature "Client Admin Accepts Invitation" do
     should_be_on explore_path
 
     visit activity_path
-    expect_content "#{@user.name} joined"
+    expect_content "You joined"
   end
 
   scenario "user gets seed points on accepting invitation to game with them, but just once" do
@@ -66,7 +66,7 @@ feature "Client Admin Accepts Invitation" do
     should_be_on explore_path
 
     visit activity_path
-    expect_content "10 pts #{@user.name} joined"
+    expect_content "10 pts You joined"
   end
 
   scenario "user must set password when accepting invitation" do

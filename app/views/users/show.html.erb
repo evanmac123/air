@@ -15,20 +15,22 @@
         </li>
       </ul>
     </div>
-    <%= render 'accepted_friends' %>
-    <% if @display_pending_friendships   %>
-      <div class="module" id="followed-by">
-        <h3>Connection Requests</h3>
-        <ul id="friend_requests">
-          <% @pending_friends.each do |friend| %>
-            <li class="user">
-              <p class="user-name">
-                <%= link_to friend.name, user_path(friend) %>
-              </p>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+    <% unless current_user.demo.hide_social %>
+      <%= render 'accepted_friends' %>
+      <% if @display_pending_friendships   %>
+        <div class="module" id="followed-by">
+          <h3>Connection Requests</h3>
+          <ul id="friend_requests">
+            <% @pending_friends.each do |friend| %>
+              <li class="user">
+                <p class="user-name">
+                  <%= link_to friend.name, user_path(friend) %>
+                </p>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     <% end %>
   </div>
   <div class="large-7 columns">

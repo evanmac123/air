@@ -43,7 +43,6 @@ module Params
         :internal_domains,
         :show_invite_modal_when_game_closed,
         :tile_digest_email_sent_at,
-        :tutorial_type,
         :unclaimed_users_also_get_digest,
         :public_slug,
         :is_public,
@@ -77,6 +76,7 @@ module Params
           :allow_embed_video,
           :guest_user_conversion_modal,
           :launch_date,
+          :hide_social,
           custom_color_palette_attributes: [
             :enabled, :enable_reset, :content_background_reset, :tile_progress_background_reset, :tile_progress_all_tiles_text_reset, :tile_progress_completed_tiles_text_reset, :primary_color, :static_text_color
           ]

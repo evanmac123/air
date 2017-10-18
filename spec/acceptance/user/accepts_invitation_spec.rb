@@ -105,6 +105,6 @@ feature "User Accepts Invitation" do
     visit invitation_url(@unclaimed_user.invitation_code)
 
     should_be_on activity_path
-    expect_content "10 pts #{@user.name} joined"
+    expect_content "10 pts You joined"
   end
 end

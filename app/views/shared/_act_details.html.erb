@@ -1,13 +1,13 @@
-<%= cache [__FILE__, 'v4.ant', act, user] do %>
-  <p class="user small_margin">
-    <% if user.is_guest? %>
-      You
-    <% else %>
-      <%= link_to(user.name, user, :class => 'name-of-user') %>
-    <% end %>
-    <%= (act.text) %>
-  </p>
-<% end %>
+<p class="user small_margin">
+  <% if user == current_user %>
+    You
+  <% elsif user.is_guest? %>
+    A guest user
+  <% else %>
+    <%= link_to(user.name, user, :class => 'name-of-user') %>
+  <% end %>
+  <%= (act.text) %>
+</p>
 
 <span class="when small_cap">
   <%= time_description %> ago

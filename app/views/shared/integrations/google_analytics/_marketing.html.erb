@@ -8,7 +8,7 @@
 
   gtag('config', 'UA-21795640-5');
   </script>
-<% elsif !current_user.is_a?(User) %>
+<% elsif Rails.env.development? && !current_user.is_a?(User) %>
   <script>
     console.log("Google Analytics would track this page in production for the Airbo Marketing property.")
   </script>

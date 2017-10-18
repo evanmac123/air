@@ -410,6 +410,10 @@ class User < ActiveRecord::Base
     friends.where('friendships.state' => 'accepted')
   end
 
+  def displayable_accepted_friends
+    accepted_friends.where("users.privacy_level != 'nobody'")
+  end
+
   def friends_with?(other)
     self.relationship_with(other) == "friends"
   end

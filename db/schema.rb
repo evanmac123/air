@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20171017200505) do
+ActiveRecord::Schema.define(:version => 20171018183708) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -489,6 +489,7 @@ ActiveRecord::Schema.define(:version => 20171017200505) do
     t.boolean  "marked_for_deletion",                                  :default => false
     t.integer  "customer_status_cd",                                   :default => 0
     t.integer  "current_health_score"
+    t.boolean  "hide_social",                                          :default => false
   end
 
   add_index "demos", ["dependent_board_id"], :name => "index_demos_on_dependent_board_id"
