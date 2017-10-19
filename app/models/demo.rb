@@ -513,6 +513,22 @@ class Demo < ActiveRecord::Base
     }.to_json
   end
 
+  def set_tile_email_draft(params)
+    rdb["tile_email_draft"].set(params.to_json)
+  end
+
+  def clear_tile_email_draft
+    rdb["tile_email_draft"].del
+  end
+
+  def get_tile_email_draft
+    draft = rdb["tile_email_draft"].get
+
+    if draft.present?
+      JSON.parse(draft).symbolize_keys
+    end
+  end
+
   protected
 
   def unless_within(cutoff_time, last_done_time)

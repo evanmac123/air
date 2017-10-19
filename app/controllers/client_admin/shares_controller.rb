@@ -39,8 +39,10 @@ class ClientAdmin::SharesController < ClientAdminBaseController
     end
 
     def digest_params
-      if session[:digest].present?
-        session[:digest]
+      current_draft = current_board.get_tile_email_draft
+
+      if current_draft.present?
+        current_draft
       else
         { custom_subject: @digest_tiles[0].try(:headline) }
       end
