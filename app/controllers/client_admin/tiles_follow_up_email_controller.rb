@@ -1,15 +1,12 @@
 class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
   before_filter :get_followup, only:[:edit, :update, :destroy]
 
-  #TODO figure out if i like this pattern
   SAVE_SUCCESS = "Your follow up email has been updated"
   SEND_NOW_SUCCESS = "Your follow up email has been rescheduled for immediate delivery"
   DELETE_SUCCESS = "Your follow up email has been canceled"
 
   def edit
     if request.xhr?
-      #TODO this is a simple enough form that we can preload data as data
-      #attribues on the edit link rather making this roundtrip
       render partial: "follow_up_email_form", layout: false
     end
   end
@@ -52,14 +49,17 @@ class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
   end
 
   def update_response
-    @follow_up_email.as_json(root: false, only: [:subject,  :send_on])
+    {
+      subject: @follow_up_email.subject_before_sent,
+      send_on: @follow_up_email.send_on
+    }
   end
 
   def permitted_params
     params.require(:follow_up_digest_email).permit(:subject, :alt_subject, :send_on)
   end
 
-  def js_flash msg
-    response.headers["X-Message"]=msg
+  def js_flash(msg)
+    response.headers["X-Message"] = msg
   end
 end

@@ -21,7 +21,7 @@
       </script>
     </div>
     <div class="custom_subject mt-1 share-form-component">
-      <label for="digest_alt_custom_subject">Alternate Subject <i class="fa fa-question-circle has-tip" data-tooltip="abSubjects" data-allow-html="true" title="The alternate subject is optional. A/B testing subject lines is a great way to discover which subject lines lead to more engagement."></i></i></label>
+      <label for="digest_alt_custom_subject">Alternate Subject <i class="fa fa-question-circle has-tip" data-tooltip="abSubjects" data-allow-html="true" title="The alternate subject is optional. A/B testing subject lines is a great way to discover which subject lines lead to more engagement."></i></label>
       <%= text_area_tag "digest[alt_custom_subject]", @tiles_digest_form.alt_custom_subject, size: "50x3", maxlength: 80, placeholder: 'Optional ',  class: "share-form-text" %>
       <script>
         addCharacterCounterFor('#digest_alt_custom_subject');

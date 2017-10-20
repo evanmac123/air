@@ -29,66 +29,41 @@ describe FollowUpDigestEmail do
     end
   end
 
-  describe "#set_subjects" do
-    it "sets decoratd subjects based on the TilesDigest" do
+  describe "#set_subject" do
+    it "sets decoratd subjects based on the TilesDigest's highest_performing_subject_line" do
       follow_up = FollowUpDigestEmail.new(tiles_digest: tiles_digest)
+      tiles_digest.expects(:highest_performing_subject_line).returns(tiles_digest.alt_subject)
 
-      follow_up.set_subjects
+      follow_up.set_subject
 
-      expect(follow_up.subject).to eq(follow_up.decorated_subject(plain_subject: tiles_digest.subject))
-      expect(follow_up.alt_subject).to eq(follow_up.decorated_subject(plain_subject: tiles_digest.alt_subject))
+      expect(follow_up.subject).to eq(follow_up.decorated_subject(tiles_digest.alt_subject))
     end
   end
 
   describe "#decorated_subject" do
-    it "add Don't Miss: in front of passed int subject" do
+    it "adds Don't Miss: in front of passed int subject" do
       follow_up = FollowUpDigestEmail.new
 
-      expect(follow_up.decorated_subject(plain_subject: "HEY")).to eq("Don't Miss: HEY")
+      expect(follow_up.decorated_subject("HEY")).to eq("Don't Miss: HEY")
     end
   end
 
-  describe "#resolve_subject" do
-    it "returns subject if there is no alt_subject" do
-      fu = FollowUpDigestEmail.new(subject: "Subject")
-      result_even = fu.resolve_subject(index: 2)
-      result_odd = fu.resolve_subject(index: 1)
+  describe "#subject_before_sent" do
+    it "returns follow_up.subject if present" do
+      follow_up = FollowUpDigestEmail.new(subject: "SUBJECT")
 
-      expect(result_even).to eq("Subject")
-      expect(result_odd).to eq("Subject")
+      expect(follow_up.subject_before_sent).to eq("SUBJECT")
     end
 
-    it "returns alt subject if the passed in index is even" do
-      fu = FollowUpDigestEmail.new(subject: "Subject", alt_subject: "Alt Subject")
+    it "returns a decorated tiles_digest.highest_performing_subject_line if follow_up.subject is not present" do
+      follow_up = FollowUpDigestEmail.new(tiles_digest: tiles_digest)
+      tiles_digest.expects(:highest_performing_subject_line).returns("WINNER")
 
-      expect(fu.resolve_subject(index: 2)).to eq("Alt Subject")
-    end
-
-    it "returns subject if the passed in index is odd" do
-      fu = FollowUpDigestEmail.new(subject: "Subject", alt_subject: "Alt Subject")
-
-      expect(fu.resolve_subject(index: 1)).to eq("Subject")
-    end
-  end
-
-  describe "#tiles_digest_subject" do
-    it "returns the subject of the related tiles_digest" do
-      fu = FollowUpDigestEmail.new(tiles_digest: tiles_digest)
-
-      expect(fu.tiles_digest_subject).to eq(tiles_digest.subject)
-    end
-  end
-
-  describe "#tiles_digest_alt_subject" do
-    it "returns the alt_subject of the related tiles_digest" do
-      fu = FollowUpDigestEmail.new(tiles_digest: tiles_digest)
-
-      expect(fu.tiles_digest_alt_subject).to eq(tiles_digest.alt_subject)
+      expect(follow_up.subject_before_sent).to eq("Don't Miss: WINNER")
     end
   end
 
   context "Sending follow emails" do
-
     before  do
       @demo = FactoryGirl.create(:demo)
       @sender = FactoryGirl.create(:client_admin, demo: @demo)
@@ -126,11 +101,10 @@ describe FollowUpDigestEmail do
 
     context "claimed" do
       before do
-        digest = @demo.tiles_digests.create(sender: @sender, headline: "headline", tile_ids: @tiles.map(&:id), include_unclaimed_users: false)
+        digest = @demo.tiles_digests.create(sender: @sender, headline: "headline", tile_ids: @tiles.map(&:id), include_unclaimed_users: false, sent_at: Time.now)
 
         @fu = digest.build_follow_up_digest_email(
           send_on: 1.hour.from_now,
-          user_ids_to_deliver_to: users_including_unclaimed(false),
           subject: "SUBJECT"
         )
 
@@ -139,18 +113,17 @@ describe FollowUpDigestEmail do
 
       describe "#recipients" do
         it "list only claimed non muted users" do
-          expect(@fu.recipients).to match_array [@user4.id, @user5.id]
+          expect(@fu.recipients.pluck(:id).sort).to match_array [@user4.id, @user5.id].sort
         end
       end
     end
 
     context "All users" do
       before do
-        digest = @demo.tiles_digests.create(sender: @sender, headline: "headline", tile_ids: @tiles.map(&:id), include_unclaimed_users: true)
+        digest = @demo.tiles_digests.create(sender: @sender, headline: "headline", tiles: @tiles, include_unclaimed_users: true, sent_at: Time.now)
 
         @fu = digest.build_follow_up_digest_email(
           send_on: 1.hour.from_now,
-          user_ids_to_deliver_to: users_including_unclaimed(true),
           subject: "SUBJECT"
         )
 
@@ -159,12 +132,17 @@ describe FollowUpDigestEmail do
 
       describe "#recipients" do
         it "mails all non muted recipients" do
-          expect(@fu.recipients).to match_array [@user4.id, @user5.id, @user6.id]
+          expect(@fu.recipients.pluck(:id).sort).to match_array [@user4.id, @user5.id, @user6.id].sort
+        end
+      end
+
+      describe "#recipient_ids" do
+        it "returns arr of recipient_ids" do
+          expect(@fu.recipient_ids.sort).to eq(@fu.recipients.pluck(:id).sort)
         end
       end
 
       describe "#trigger_deliveries" do
-
         it "mails all recipients with no tile completions for the current digest tiles" do
           TilesDigestMailer.stubs(:delay).returns TilesDigestMailer
           TilesDigestMailer.expects(:notify_one).at_most(5)

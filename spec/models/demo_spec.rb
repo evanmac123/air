@@ -222,3 +222,63 @@ describe Demo, '#name_and_org_name' do
     expect(demo.name_and_org_name).to eq("#{demo.name}, #{org.name}")
   end
 end
+
+describe Demo do
+  describe "#data_for_dom" do
+    it "returns hash of board data for dom access" do
+      demo = FactoryGirl.build(:demo, name: "Board", dependent_board_enabled: true)
+
+      data = {
+        id: nil,
+        name: "Board",
+        dependent_board_enabled: true
+      }.to_json
+
+      expect(demo.data_for_dom).to eq(data)
+    end
+  end
+
+  describe "#set_tile_email_draft" do
+    it "sets the passed in hash as the values to its tile_email_draft redis key" do
+      demo = FactoryGirl.build(:demo)
+      params = { a: 1, b: "A string." }
+
+      expect(demo.set_tile_email_draft(params)).to eq("OK")
+      expect(JSON.parse(demo.rdb["tile_email_draft"].get).symbolize_keys).to eq(params)
+    end
+  end
+
+  describe "#clear_tile_email_draft" do
+    it "removes any saved draft" do
+      demo = FactoryGirl.build(:demo)
+      params = { a: 1, b: "A string." }
+      demo.set_tile_email_draft(params)
+
+      expect(demo.rdb["tile_email_draft"].get.present?).to eq(true)
+
+      demo.clear_tile_email_draft
+
+      expect(demo.rdb["tile_email_draft"].get.present?).to eq(false)
+    end
+  end
+
+  describe "#get_tile_email_draft" do
+    context "when draft exists" do
+      it "returns the draft parsed into a ruby hash" do
+        demo = FactoryGirl.build(:demo)
+        params = { a: 1, b: "A string." }
+        demo.set_tile_email_draft(params)
+
+        expect(demo.get_tile_email_draft).to eq(params)
+      end
+    end
+
+    context "when there is no draft" do
+      it "returns nil" do
+        demo = FactoryGirl.build(:demo)
+
+        expect(demo.get_tile_email_draft).to eq(nil)
+      end
+    end
+  end
+end

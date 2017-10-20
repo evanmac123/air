@@ -5,24 +5,16 @@
 
     <ul>
       <li>
-        <%= f.label :subject, "Subject" %>
-        <%= f.text_field :subject, maxlength: 80 %>
+        <%= f.label :subject do %>
+          Custom Subject <i class="fa fa-question-circle has-tip" data-tooltip="fuCustomSubject" data-allow-html="true" title="The subject for this communication defaults to the highest performing subject line of its related Tile Email. You can override this behavior by entering a custom subject."></i>
+        <% end %>
+        <%= f.text_field :subject, maxlength: 80, placeholder: @follow_up_email.subject_before_sent, style: "margin-bottom:10px;" %>
         <script>
           addCharacterCounterFor('#follow_up_digest_email_subject');
         </script>
       </li>
 
-      <% if @follow_up_email.alt_subject %>
-        <li>
-          <%= f.label :alt_subject, "Alternate Subject" %>
-          <%= f.text_field :alt_subject, maxlength: 80 %>
-          <script>
-            addCharacterCounterFor('#follow_up_digest_email_alt_subject');
-          </script>
-        </li>
-      <% end %>
-
-      <li>
+      <li class="mt-2">
         <%= f.label :send_on, "Send On" %>
         <%= f.text_field :send_on, value: f.object.send_on.to_time.to_s(:tile_digest_email_sent_at), readonly: true %>
       </li>

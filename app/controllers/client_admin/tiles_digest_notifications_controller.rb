@@ -6,10 +6,10 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
     @tiles_digest_form = TilesDigestForm.new(current_user, params[:digest])
 
     if params[:digest_type] == "test_digest"
-      save_digest_form_params
+      current_board.set_tile_email_draft(params[:digest])
       @tiles_digest_form.submit_send_test_digest
     else
-      session[:digest] = nil
+      current_board.clear_tile_email_draft
       @tiles_digest_form.submit_schedule_digest_and_followup
     end
 
@@ -25,10 +25,6 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
         flash[:failure] = "Oops, looks like you tried to send a Tile Email in a board with an expired session. Please try again by switching into the right board."
         redirect_to :back
       end
-    end
-
-    def save_digest_form_params
-      session[:digest] = params[:digest]
     end
 
     def digest_sent_type

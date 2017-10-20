@@ -134,14 +134,6 @@ class Demo < ActiveRecord::Base
     board_health_reports.where(period_cd: BoardHealthReport.periods[:week]).order(:created_at).last
   end
 
-  def users_for_digest
-    self.users.joins(:board_memberships).where(board_memberships: { demo_id: self.id, digest_muted: false })
-  end
-
-  def claimed_users_for_digest
-    users_for_digest.where("board_memberships.joined_board_at IS NOT NULL")
-  end
-
   def internal?
     organization.try(:internal)
   end
@@ -519,6 +511,22 @@ class Demo < ActiveRecord::Base
       name: name,
       dependent_board_enabled: dependent_board_enabled
     }.to_json
+  end
+
+  def set_tile_email_draft(params)
+    rdb["tile_email_draft"].set(params.to_json)
+  end
+
+  def clear_tile_email_draft
+    rdb["tile_email_draft"].del
+  end
+
+  def get_tile_email_draft
+    draft = rdb["tile_email_draft"].get
+
+    if draft.present?
+      JSON.parse(draft).symbolize_keys
+    end
   end
 
   protected

@@ -2,10 +2,6 @@ class FollowUpDigestEmail < ActiveRecord::Base
   serialize :user_ids_to_deliver_to, Array
   belongs_to :tiles_digest
 
-  before_validation :set_subjects, on: :create
-
-  validates_presence_of :subject
-
   DEFAULT_FOLLOW_UP = {'Sunday'    => 'Wednesday',
                        'Monday'    => 'Thursday',
                        'Tuesday'   => 'Friday',
@@ -22,9 +18,6 @@ class FollowUpDigestEmail < ActiveRecord::Base
 
   def self.follow_up_days(follow_up_day)
     return 0 if follow_up_day == 'Never'
-
-    # 'DAYNAMES' is a Ruby array of ['Sunday', 'Monday', ..., 'Saturday']
-    # 'wday' is a Ruby method which returns an integer day-of-the-week: Sunday = 0, Monday = 1, ..., Saturday = 6
     today = Date.today.wday
     day_to_send = Date::DAYNAMES.index(follow_up_day)
 
@@ -40,8 +33,9 @@ class FollowUpDigestEmail < ActiveRecord::Base
   end
 
   def trigger_deliveries
-    recipients.each_with_index do |recipient_id, index|
-      TilesDigestMailer.delay.notify_one(tiles_digest, recipient_id, resolve_subject(index: index), TilesDigestMailFollowUpPresenter)
+    set_subject
+    recipient_ids.each do |recipient_id|
+      TilesDigestMailer.delay.notify_one(tiles_digest, recipient_id, subject, TilesDigestMailFollowUpPresenter)
     end
 
     post_process_delivery
@@ -49,65 +43,46 @@ class FollowUpDigestEmail < ActiveRecord::Base
 
   def post_process_delivery
     schedule_digest_sent_ping
-    self.update_attributes(sent: true, user_ids_to_deliver_to: nil)
+    self.update_attributes(sent: true)
     tiles_digest.update_attributes(followup_delivered: true)
   end
 
   def users_to_reject
-    demos = Demo.arel_table
-    board_memberships = BoardMembership.arel_table
-    tile_completions = TileCompletion.arel_table
-
-    res = BoardMembership.select([:user_id, :followup_muted, tile_completions[:user_id].count]).where(
-      demos[:id].eq(demo.id))
-      .joins(board_memberships
-      .join(demos)
-      .on(board_memberships[:demo_id].eq(demos[:id]))
-      .join(tile_completions, Arel::Nodes::OuterJoin)
-      .on(board_memberships[:user_id].eq(tile_completions[:user_id])
-      .and(tile_completions[:tile_id].in(tile_ids))
-         ).join_sources)
-      .group([board_memberships[:user_id], board_memberships[:followup_muted]])
-      .having(tile_completions[:user_id].count.gt(0).or(board_memberships[:followup_muted].eq(true)))
-    res.map(&:user_id)
+    tiles_digest.users.joins(:tile_completions).where(tile_completions: { tile_id: tile_ids }).pluck(:id)
   end
 
   def recipients
-    user_ids_to_deliver_to - users_to_reject
-  end
-
-  def headline
-    tiles_digest.headline
-  end
-
-  def tiles_digest_subject
-    tiles_digest.subject
-  end
-
-  def tiles_digest_alt_subject
-    tiles_digest.alt_subject
-  end
-
-  def resolve_subject(index:)
-    return subject unless alt_subject.present?
-
-    if index.even?
-      alt_subject
+    if users_to_reject.present?
+      users.where("users.id NOT IN (?)", users_to_reject)
     else
-      subject
+      users
     end
   end
 
-  def set_subjects
-    self.subject = decorated_subject(plain_subject: tiles_digest_subject)
-
-    if tiles_digest_alt_subject
-      self.alt_subject = decorated_subject(plain_subject: tiles_digest_alt_subject)
-    end
+  def users
+    tiles_digest.users.joins(:board_memberships).where(board_memberships: { followup_muted: false })
   end
 
-  def decorated_subject(plain_subject:)
+  def recipient_ids
+    recipients.pluck(:id)
+  end
+
+  def decorated_subject(plain_subject)
     "Don't Miss: #{plain_subject}"
+  end
+
+  def subject_before_sent
+    if subject.present?
+      subject
+    else
+      decorated_subject(tiles_digest.highest_performing_subject_line)
+    end
+  end
+
+  def set_subject
+    unless subject.present?
+      self.update_attributes(subject: subject_before_sent)
+    end
   end
 
   def schedule_digest_sent_ping
@@ -115,8 +90,7 @@ class FollowUpDigestEmail < ActiveRecord::Base
       'FollowUpDigest - Sent',
       {
         tiles_digest_id: tiles_digest_id,
-        subject: subject,
-        alt_subject: alt_subject
+        subject: subject
       },
       tiles_digest.sender
     )
