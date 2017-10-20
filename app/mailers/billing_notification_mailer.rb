@@ -1,4 +1,4 @@
-class BillingNotificationMailer < ActionMailer::Base
+class BillingNotificationMailer < ApplicationMailer
   has_delay_mail
 
   default from: "billing_notification@airbo.com"

@@ -1,4 +1,4 @@
-class BaseTilesDigestMailer < ActionMailer::Base
+class BaseTilesDigestMailer < ApplicationMailer
   helper :email
   helper 'client_admin/tiles'
   helper ApplicationHelper

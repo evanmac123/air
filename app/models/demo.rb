@@ -142,6 +142,10 @@ class Demo < ActiveRecord::Base
    organization.present? ? organization.name : "Unattached To Any Organization"
   end
 
+  def company_size
+    organization.try(:company_size)
+  end
+
   def name_as_noun
     if name =~ /(board)\z/i
       name
@@ -369,10 +373,6 @@ class Demo < ActiveRecord::Base
     end
   end
 
-  def organization_name
-    organization.try(:name)
-  end
-
   def print_pending_friendships
     total_friendships = Friendship.where(:user_id => user_ids).count / 2
     number_accepted = Friendship.where(:user_id => user_ids, :state => "accepted").count / 2
@@ -511,6 +511,21 @@ class Demo < ActiveRecord::Base
       name: name,
       dependent_board_enabled: dependent_board_enabled
     }.to_json
+  end
+
+  def data_for_mixpanel(user:)
+    {
+      distinct_id:           user.mixpanel_distinct_id,
+      user_id:               user.id,
+      user_email:            user.email_for_vendor,
+      game:                  id,
+      users_in_board:        users_count || 0,
+      organization:          organization_id,
+      organization_size:     company_size,
+      account_creation_date: user.created_at.to_date,
+      user_type:             user.highest_ranking_user_type,
+      board_type:            customer_status_for_mixpanel,
+    }
   end
 
   def set_tile_email_draft(params)

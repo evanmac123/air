@@ -1,4 +1,4 @@
-class ReviewSubmittedTileMailer < ActionMailer::Base
+class ReviewSubmittedTileMailer < ApplicationMailer
   has_delay_mail
   layout "mailer"
   helper :email

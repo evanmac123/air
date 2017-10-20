@@ -1,4 +1,4 @@
-class TileUserNotificationMailer < ActionMailer::Base
+class TileUserNotificationMailer < ApplicationMailer
   helper :email
   layout 'mailer'
 
@@ -19,6 +19,14 @@ class TileUserNotificationMailer < ActionMailer::Base
     @demo = tile_user_notification.demo
     @creator = tile_user_notification.creator
     @message = tile_user_notification.interpolated_message(user: @user)
+
+    x_smtpapi_unique_args = @demo.data_for_mixpanel(user: @user).merge({
+      subject: tile_user_notification.subject,
+      notification_id: tile_user_notification.id,
+      email_type: "Tile Push Message"
+    })
+
+    set_x_smtpapi_headers(category: "Tile Push Message", unique_args: x_smtpapi_unique_args)
 
     mail(to: @user.email_with_name, from: tile_user_notification.from_email, subject: tile_user_notification.subject, reply_to: 'support@airbo.com')
   end

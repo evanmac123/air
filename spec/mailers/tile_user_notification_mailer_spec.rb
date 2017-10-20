@@ -36,5 +36,21 @@ describe TileUserNotificationMailer do
       expect(email.from).to eq([tile.demo.reply_email_address(false)])
       expect(email.to).to eq([user.email])
     end
+
+    it "adds custom X-SMTPAPI header" do
+      user = users.last
+      mail = TileUserNotificationMailer.notify_one(user: user, tile_user_notification: tile_user_notification)
+
+      x_smtpapi_header = JSON.parse(mail.header["X-SMTPAPI"].value)
+
+      custom_unique_args = tile_user_notification.demo.data_for_mixpanel(user: user).merge({
+        subject: tile_user_notification.subject,
+        notification_id: tile_user_notification.id,
+        email_type: "Tile Push Message"
+      }).to_json
+
+      expect(x_smtpapi_header["category"]).to eq("Tile Push Message")
+      expect(x_smtpapi_header["unique_args"]).to eq(JSON.parse(custom_unique_args))
+    end
   end
 end

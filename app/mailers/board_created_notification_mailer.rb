@@ -1,4 +1,4 @@
-class BoardCreatedNotificationMailer < ActionMailer::Base
+class BoardCreatedNotificationMailer < ApplicationMailer
   ADDRESS_TO_NOTIFY = (ENV['BOARD_CREATED_NOTIFICATION_ADDRESS']) || 'kate@airbo.com'
 
   default from: "notify@airbo.com"

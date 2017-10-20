@@ -1,4 +1,4 @@
-class SalesNotifier < ActionMailer::Base
+class SalesNotifier < ApplicationMailer
   helper :email
   has_delay_mail
 

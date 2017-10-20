@@ -1,4 +1,4 @@
-class GenericMailer < ActionMailer::Base
+class GenericMailer < ApplicationMailer
   include EmailInterpolations::InvitationUrl
   include EmailInterpolations::TileDigestUrl
 

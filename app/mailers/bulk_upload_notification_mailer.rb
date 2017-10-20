@@ -1,4 +1,4 @@
-class BulkUploadNotificationMailer < ActionMailer::Base
+class BulkUploadNotificationMailer < ApplicationMailer
   ADDRESS_TO_NOTIFY = (ENV['BULK_UPLOAD_NOTIFICATION_ADDRESS']) || 'kate@airbo.com'
 
   default from: "bulkupload@airbo.com"

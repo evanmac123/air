@@ -21,10 +21,14 @@ class ExploreDigestPresenter < TilesDigestMailBasePresenter
     EXPLORE_TITLE
   end
 
+  def email_type
+    EXPLORE_EMAIL
+  end
+
   def general_site_url(requested_tile_id: nil)
     explore_url(
       explore_token: @explore_token,
-      email_type: EXPLORE_EMAIL,
+      email_type: email_type,
       email_version: CURRENT_EMAIL_VERSION,
       requested_tile_id: requested_tile_id
     )

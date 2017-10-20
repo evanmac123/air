@@ -1,4 +1,4 @@
-class BulkCompleteMailer < ActionMailer::Base
+class BulkCompleteMailer < ApplicationMailer
   has_delay_mail
 
   helper :email
