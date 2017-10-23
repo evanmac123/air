@@ -11,6 +11,14 @@ class ExploreDigestMailer < BaseTilesDigestMailer
 
     subject = get_subject
 
+    x_smtpapi_unique_args = @user.data_for_mixpanel.merge({
+      subject: subject,
+      digest_id: explore_digest.id,
+      email_type: @presenter.email_type
+    })
+
+    set_x_smtpapi_headers(category: @presenter.email_type, unique_args: x_smtpapi_unique_args)
+
     mail to: @user.email_with_name,
       from: @presenter.from_email,
       subject: subject

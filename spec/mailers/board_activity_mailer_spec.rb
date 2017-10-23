@@ -36,6 +36,12 @@ describe BoardActivityMailer do
 		it 'has correct CTA text' do
 			expect(mail.body.encoded).to match("View Your Reports")
 		end
+
+    it "adds custom X-SMTPAPI header" do
+      x_smtpapi_header = JSON.parse(mail.header["X-SMTPAPI"].value)
+
+      expect(x_smtpapi_header["category"]).to eq(TilesDigestMailActivityPresenter::ACTIVITY_EMAIL)
+    end
 	end
 
 

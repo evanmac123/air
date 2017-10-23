@@ -29,6 +29,21 @@ describe ExploreDigestMailer do
         expect(mail.to_s).to contain("Test Headline 3")
       end
     end
+
+    it "adds custom X-SMTPAPI header" do
+      user = FactoryGirl.create(:user, is_client_admin: true)
+      mail = ExploreDigestMailer.notify_one(@explore_digest, user)
+
+      x_smtpapi_header = JSON.parse(mail.header["X-SMTPAPI"].value)
+      custom_unique_args = user.data_for_mixpanel.merge({
+        subject: mail.subject,
+        digest_id: @explore_digest.id,
+        email_type: "explore_digest"
+      }).to_json
+
+      expect(x_smtpapi_header["category"]).to eq("explore_digest")
+      expect(x_smtpapi_header["unique_args"]).to eq(JSON.parse(custom_unique_args))
+    end
   end
 
   describe "#notify_all" do

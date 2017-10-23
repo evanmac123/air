@@ -1,4 +1,4 @@
-class EmailInfoRequestNotifier < ActionMailer::Base
+class EmailInfoRequestNotifier < ApplicationMailer
   default :from => "email_info_requested@airbo.com"
   helper :email
   has_delay_mail

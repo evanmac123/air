@@ -1,4 +1,4 @@
-class GameCreationRequestMailer < ActionMailer::Base
+class GameCreationRequestMailer < ApplicationMailer
   has_delay_mail
 
   def notify_ks(game_creation_request)

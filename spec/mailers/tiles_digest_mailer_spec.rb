@@ -55,6 +55,38 @@ describe 'Digest email' do
     it { is_expected.to have_subject 'New Tiles' }
   end
 
+  describe "X-SMTPAPI Header" do
+    it "gets set for TilesDigests" do
+      mail = TilesDigestMailer.notify_one(digest, claimed_user.id, 'New Tiles', TilesDigestMailDigestPresenter)
+
+      x_smtpapi_header = JSON.parse(mail.header["X-SMTPAPI"].value)
+
+      custom_unique_args = digest.demo.data_for_mixpanel(user: claimed_user).merge({
+        subject: mail.subject,
+        digest_id: digest.id,
+        email_type: TilesDigestMailDigestPresenter::DIGEST_EMAIL
+      }).to_json
+
+      expect(x_smtpapi_header["category"]).to eq(TilesDigestMailDigestPresenter::DIGEST_EMAIL)
+      expect(x_smtpapi_header["unique_args"]).to eq(JSON.parse(custom_unique_args))
+    end
+
+    it "gets set for FollowUpDigestEmails" do
+      mail = TilesDigestMailer.notify_one(digest, claimed_user.id, 'New Tiles', TilesDigestMailFollowUpPresenter)
+
+      x_smtpapi_header = JSON.parse(mail.header["X-SMTPAPI"].value)
+
+      custom_unique_args = digest.demo.data_for_mixpanel(user: claimed_user).merge({
+        subject: mail.subject,
+        digest_id: digest.id,
+        email_type: TilesDigestMailDigestPresenter::FOLLOWUP_EMAIL
+      }).to_json
+
+      expect(x_smtpapi_header["category"]).to eq(TilesDigestMailDigestPresenter::FOLLOWUP_EMAIL)
+      expect(x_smtpapi_header["unique_args"]).to eq(JSON.parse(custom_unique_args))
+    end
+  end
+
   describe 'Logo' do
     it 'should display the HEngage logo and alt-text if an alternative one is not provided' do
       email = TilesDigestMailer.notify_one(digest, claimed_user.id, 'New Tiles', TilesDigestMailDigestPresenter)

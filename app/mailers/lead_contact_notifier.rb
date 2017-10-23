@@ -1,4 +1,4 @@
-class LeadContactNotifier < ActionMailer::Base
+class LeadContactNotifier < ApplicationMailer
   default :from => "team@airbo.com"
   helper :email
   has_delay_mail

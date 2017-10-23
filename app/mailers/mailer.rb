@@ -1,4 +1,4 @@
-class Mailer < ActionMailer::Base
+class Mailer < ApplicationMailer
   has_delay_mail
 
   include EmailPreviewsHelper # TODO: DEPRECATE This module is useless
@@ -150,6 +150,7 @@ class Mailer < ActionMailer::Base
     @action = action
     @user = user
     @tile = tile
+
     mail :to      => @creator.email_with_name,
          :from    => @creator.reply_email_address,
          :subject => "Someone #{@action} your tile on Airbo"

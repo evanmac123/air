@@ -18,7 +18,15 @@ class TilesDigestMailer < BaseTilesDigestMailer
       SmsSender.send_message(to_number: @user.phone_number, from_number: @demo.twilio_from_number, body: @presenter.body_for_text_message)
     end
 
-    mail  to: @user.email_with_name, from: @presenter.from_email, subject: subject
+    x_smtpapi_unique_args = @demo.data_for_mixpanel(user: @user).merge({
+      subject: subject,
+      digest_id: digest.id,
+      email_type: @presenter.email_type
+    })
+
+    set_x_smtpapi_headers(category: @presenter.email_type, unique_args: x_smtpapi_unique_args)
+
+    mail to: @user.email_with_name, from: @presenter.from_email, subject: subject
   end
 
   def notify_all(digest)

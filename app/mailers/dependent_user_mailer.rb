@@ -1,4 +1,4 @@
-class DependentUserMailer < ActionMailer::Base
+class DependentUserMailer < ApplicationMailer
   helper :email
   layout "mailer"
   default :reply_to => 'support@airbo.com'
