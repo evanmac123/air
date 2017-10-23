@@ -62,7 +62,7 @@ body.tiles.tiles-index{
   @import './tile/tile_fullsize/attachments';
 
   // That's fading. it appears when moving to the next tile
-  #spinner_large {
+  #tileGrayOverlay {
     display: none;
     background:$light-gray;
     opacity: .75;
