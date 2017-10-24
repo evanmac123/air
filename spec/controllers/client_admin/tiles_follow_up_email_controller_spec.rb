@@ -10,8 +10,7 @@ describe ClientAdmin::TilesFollowUpEmailController do
       digest.tiles << tile
 
       followup = digest.create_follow_up_digest_email(
-      send_on: Date.new(2013, 7, 1),
-      user_ids_to_deliver_to: [client_admin.id]
+        send_on: Date.new(2013, 7, 1)
       )
 
       sign_in_as(client_admin)

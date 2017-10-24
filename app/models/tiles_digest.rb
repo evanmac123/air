@@ -53,7 +53,8 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def send_emails_and_sms
-    self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true, sent_at: Time.now)
+    self.sent_at = Time.now
+    self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true)
 
     TilesDigestMailer.delay.notify_all(self)
   end
