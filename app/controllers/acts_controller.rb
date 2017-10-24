@@ -1,5 +1,5 @@
 class ActsController < ApplicationController
-  # This is stil such shit awful code. Trying to do so many things at once. Fuck.
+  # This is still such shit awful code. Trying to do so many things at once. Fuck.
   include AllowGuestUsersConcern
   include AuthorizePublicBoardsConcern
   include TileBatchHelper
@@ -48,12 +48,15 @@ class ActsController < ApplicationController
 
       if should_authenticate_by_tile_token?(params[:tile_token], user)
         user.move_to_new_demo(params[:demo_id]) if params[:demo_id].present?
-        track_tile_email_logins(user: user)
-
         sign_in(user, :remember_user) if user.end_user_in_all_boards?
 
-        flash[:success] = "Welcome back, #{user.first_name}"
-        redirect_to redirect_path_for_tile_token_auth
+        if signed_in?
+          current_user.move_to_new_demo(params[:demo_id]) if current_user != user
+          track_tile_email_logins(user: current_user)
+
+          flash[:success] = "Welcome back, #{current_user.first_name}!"
+          redirect_to redirect_path_for_tile_token_auth
+        end
       else
         return false
       end
