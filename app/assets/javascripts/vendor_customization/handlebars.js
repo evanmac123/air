@@ -111,3 +111,15 @@ Handlebars.registerHelper('truncate', function(str, len) {
 
   return str;
 });
+
+Handlebars.registerHelper('decorateUriForTileStats', function(uri) {
+  if(uri.includes("s3.amazonaws.com/tile_attachments")) {
+    uri = uri.split("/").pop();
+  }
+
+  return Handlebars.helpers.truncate(uri, 65);
+});
+
+Handlebars.registerHelper('uriEncode', function(uri) {
+  return encodeURI(uri);
+});

@@ -32,7 +32,7 @@ Airbo.Utils.TileLinkHandler= (function(){
   }
 
   function init(){
-    $('body .tile_texts_container a').each(function() {
+    $('.tile_texts_container a, .attachment-link').each(function() {
       bindTileLink($(this));
     });
   }
