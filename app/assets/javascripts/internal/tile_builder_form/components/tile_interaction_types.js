@@ -109,7 +109,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         question: null,
         questionPlaceholder: "Ask a question",
         maxLength: 50,
-        answers: ["Submit My Answer"],
+        answers: ["Submit"],
         exceed: true,
         minResponses: 0,
         maxResponses: 0,

@@ -8,7 +8,7 @@ class UserCompletedInteraction < TileInteraction
   def free_response_answer_group
     content =""
     content += content_tag :p, completion_free_response,  class: "free-form-response read"
-    content += content_tag :div, "Submit my answer", class: 'multiple-choice-answer clicked_right_answer'
+    content += content_tag :div, "Submit", class: 'multiple-choice-answer clicked_right_answer'
     content
   end
 

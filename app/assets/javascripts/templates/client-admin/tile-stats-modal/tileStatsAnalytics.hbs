@@ -97,7 +97,7 @@
           {{#each linkClickStats}}
             <tr>
               <td class="link">
-                <a href={{@key}} target="_blank">{{truncate @key 65}}</a>
+                <a href={{uriEncode @key}} target="_blank">{{decorateUriForTileStats @key}}</a>
               </td>
               <td class="unique-clicks">
                 {{this.unique_link_clicks}}

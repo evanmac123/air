@@ -158,12 +158,6 @@ describe FollowUpDigestEmail do
 
           expect(@fu.tiles_digest.followup_delivered).to be true
         end
-
-        it "sets user_ids_to_deliver_to to nil" do
-          @fu.expects(:post_process_delivery).once
-
-          @fu.trigger_deliveries
-        end
       end
 
       describe "#post_process_delivery" do
@@ -173,7 +167,6 @@ describe FollowUpDigestEmail do
           @fu.trigger_deliveries
 
           expect(@fu.sent).to be true
-          expect(@fu.user_ids_to_deliver_to).to eq([])
           expect(@fu.tiles_digest.followup_delivered).to be true
         end
       end

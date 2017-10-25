@@ -1,5 +1,4 @@
 class FollowUpDigestEmail < ActiveRecord::Base
-  serialize :user_ids_to_deliver_to, Array
   belongs_to :tiles_digest
 
   DEFAULT_FOLLOW_UP = {'Sunday'    => 'Wednesday',
