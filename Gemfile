@@ -83,7 +83,7 @@ gem 'humanize_boolean'
 gem 'delighted'
 gem 'airbrake', '~> 5.4'
 
-gem 'scout_apm', '~> 3.0.x'
+gem 'scout_apm', '~> 2.3'
 
 gem 'searchkick'
 gem 'searchjoy'
