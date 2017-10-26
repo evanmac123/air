@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileUserForm = (function(){
+Airbo.SuggestedTileManager = (function(){
   function updateSections(data) {
     Airbo.Utils.alertSuccess("Thanks for suggesting a Tile!", "You will be notified when the Tile is posted.");
   }
@@ -16,9 +16,17 @@ Airbo.TileUserForm = (function(){
 
       url = $(this).attr("href");
       tileForm = Airbo.TileFormModal;
-      tileForm.init(Airbo.TileUserForm);
+      tileForm.init(Airbo.SuggestedTileManager);
       tileForm.open(url);
     });
+  }
+
+  function forceValidationOnNew() {
+    return true;
+  }
+
+  function hasAutoSave() {
+    return false;
   }
 
   function init() {
@@ -27,14 +35,16 @@ Airbo.TileUserForm = (function(){
 
   return {
     init: init,
-    updateSections: updateSections
+    updateSections: updateSections,
+    forceValidationOnNew: forceValidationOnNew,
+    hasAutoSave: hasAutoSave
   };
 
 }());
 
 $(function(){
   if( $("#submit_tile").length > 0 ) {
-    Airbo.TileUserForm.init();
+    Airbo.SuggestedTileManager.init();
 
     if( $("#submit_tile").data("display") === true) {
       $("#submit_tile").trigger("click");

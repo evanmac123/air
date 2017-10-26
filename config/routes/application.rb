@@ -95,7 +95,7 @@ resources :board_memberships, only: :destroy
 resources :mute_followups, only: :update
 resources :mute_digests, only: :update
 
-resources :suggested_tiles, only: [:new, :show, :create]
+resources :suggested_tiles, only: [:new, :create]
 resource :change_email, only: [:new, :create, :show]
 
 # See CancelAccountController for why this isn't rolled into AccountController

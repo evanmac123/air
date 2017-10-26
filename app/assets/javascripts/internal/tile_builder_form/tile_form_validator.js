@@ -138,10 +138,6 @@ Airbo.TileFormValidator = (function(){
  function initHeadlineValidator(){
    var form = $("#new_tile_builder_form");
    $.validator.addMethod("headLineValidator", function(value, element, params) {
-     if(form.data("suggested") === true) {
-       return $.validator.methods.required.call(this, value, element);
-     }
-
      var imageUrl = $("#remote_media_url").val();
      var imageNotPresent = (imageUrl === undefined || imageUrl === "");
 
@@ -176,8 +172,6 @@ Airbo.TileFormValidator = (function(){
 
     if(unique) {
       return true;
-    } else if(form.data("suggested") === true && notUnique) {
-      return false;
     } else if (forceValidation(form) && notUnique) {
       return false;
     } else{
@@ -200,8 +194,6 @@ Airbo.TileFormValidator = (function(){
        hasMin = answers.length >= config.minResponses;
        if(hasMin) {
          return true;
-       } else if(form.data("suggested") === true && !hasMin) {
-         return false;
        } else if (forceValidation(form) && !hasMin) {
          return false;
        } else {
