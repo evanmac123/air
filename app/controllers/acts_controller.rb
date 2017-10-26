@@ -12,25 +12,13 @@ class ActsController < ApplicationController
     @demo ||= current_user.demo
     @acts = find_requested_acts(@demo, params[:per_page] || 5)
 
-    if request.xhr?
-      content = render_to_string(
-                  partial: "acts/feed",
-                  locals: { opts: { acts: @acts } })
+    @palette = @demo.custom_color_palette
 
-      render json: {
-        success:   true,
-        content:   content,
-        lastPage:  @acts.last_page?
-      }
-    else
-      @palette = @demo.custom_color_palette
+    set_modals_and_intros
 
-      set_modals_and_intros
+    @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size)
 
-      @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size)
-
-      decide_if_tiles_can_be_done(@displayable_categorized_tiles[:not_completed_tiles])
-    end
+    decide_if_tiles_can_be_done(@displayable_categorized_tiles[:not_completed_tiles])
   end
 
   private
