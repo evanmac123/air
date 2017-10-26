@@ -48,7 +48,8 @@ class Act < ActiveRecord::Base
     where(user_type: User.to_s)
   end
 
-  def self.displayable_to_user(viewing_user, board, page, per_page=5)
+  def self.displayable_to_user(viewing_user:, page:, per_page:)
+    board = viewing_user.demo
     if board.hide_social || viewing_user.is_a?(PotentialUser)
       return board.acts.ordered.where(user_id: viewing_user.id, user_type: User.to_s).page(page).per(per_page)
     end

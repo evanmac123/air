@@ -91,6 +91,7 @@ gem 'rolify'
 gem 'simple_enum', '~> 1.6.9'
 gem 'chartmogul-ruby', require: 'chartmogul'
 gem 'descriptive_statistics', require: 'descriptive_statistics/safe'
+gem 'jbuilder'
 
 #
 # Gems used only for assets and not required

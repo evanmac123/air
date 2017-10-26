@@ -1,4 +1,4 @@
-namespace :api do
+namespace :api, defaults: { format: :json } do
   resources :sendgrid_events, only: [:create]
 
   resources :acts, only: [:index]

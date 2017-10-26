@@ -10,7 +10,6 @@ class ActsController < ApplicationController
 
   def index
     @demo ||= current_user.demo
-    @acts = find_requested_acts(@demo, params[:per_page] || 5)
 
     @palette = @demo.custom_color_palette
 
