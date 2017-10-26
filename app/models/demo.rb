@@ -78,25 +78,11 @@ class Demo < ActiveRecord::Base
 
   as_enum :customer_status, free: 0, paid: 1, trial: 2
 
+  attr_accessor :unlink
+
   def customer_status_for_mixpanel
     customer_status.to_s.capitalize
   end
-
-  # We go through this rigamarole since we can move a user from one demo to
-  # another, and usually we will only be concerned with acts belonging to the
-  # current demo. The :conditions option on has_many isn't quite flexible
-  # enough to specify this.
-  #
-  # Meanwhile we have a corresponding before_create callback in Act to make
-  # sure the demo_id there gets set appropriately.
-  module ActsWithCurrentDemoChecked
-    def acts
-      super.in_demo(self)
-    end
-  end
-  include ActsWithCurrentDemoChecked
-
-  attr_accessor :unlink
 
   def client_admin
     users.joins(:board_memberships).where(board_memberships: { is_client_admin: true, demo_id: self.id } )

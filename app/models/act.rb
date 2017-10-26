@@ -1,19 +1,11 @@
 class Act < ActiveRecord::Base
-  include DemoScope
-  extend ParsingMessage
-
   belongs_to :user, polymorphic: true
-  belongs_to :referring_user, :class_name => "User"
+  belongs_to :referring_user, class_name: "User"
   belongs_to :demo
 
   before_save do
     self.hidden = self.text.blank?
-
-    # Privacy level is denormalized from user onto act in the interest of
-    # making #allowed_to_view_by_privacy_settings more efficient. It was
-    # killing our DB.
     self.privacy_level = user.privacy_level
-    true
   end
 
   before_create do
@@ -22,28 +14,22 @@ class Act < ActiveRecord::Base
 
   after_create do
     user.update_last_acted_at
-    user.update_points(points, self.creation_channel) if points
+    user.update_points(points) if points
   end
 
   scope :ordered, -> { order("created_at DESC") }
 
-  attr_accessor :incoming_sms_sid, :suggestion_code
-
-  def user_with_guest_allowed
-    if user_id == 0
-      GuestUser.new({demo_id: demo_id})
-    else
-      user_without_guest_allowed
-    end
+  def self.create_from_tile_completion(tile:, user:)
+    Act.create(
+      user: user,
+      demo_id: user.demo_id,
+      inherent_points: tile.points,
+      text: "completed the tile: \"#{tile.headline}\""
+    )
   end
-  alias_method_chain :user, :guest_allowed
 
   def points
     self.inherent_points || 0
-  end
-
-  def post_act_summary
-    user.point_and_ticket_summary
   end
 
   def self.unhidden
@@ -83,32 +69,5 @@ class Act < ActiveRecord::Base
 
   def self.for_profile(viewing_user)
     displayable_to_user(viewing_user, viewing_user.demo, 1, 10)
-  end
-
-  protected
-
-  def data_for_mixpanel
-    {
-      :time                  => Time.now,
-      :tagged_user_id        => self.referring_user_id,
-      :channel               => self.creation_channel,
-      :suggestion_code       => self.suggestion_code
-    }
-  end
-
-  def self.extract_user_and_phone(user_or_phone)
-    if user_or_phone.kind_of?(User)
-      user = user_or_phone
-      phone_number = user.phone_number
-    else
-      user = User.find_by_phone_number(user_or_phone)
-      phone_number = user_or_phone
-    end
-
-    [user, phone_number]
-  end
-
-  def self.done_today
-    where("created_at BETWEEN ? AND ?", Date.today.midnight, Date.tomorrow.midnight)
   end
 end

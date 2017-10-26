@@ -13,14 +13,13 @@ class TileCompletionsController < ApplicationController
       return false
     end
 
-
     remember_points_and_tickets
 
     if create_tile_completion(@tile)
       if  @tile.is_anonymous?
         update_user_points_anonymously @tile.points
       else
-        create_act(@tile) 
+        Act.delay.create_from_tile_completion(tile: @tile, user: current_user)
       end
     else
       flash[:failure] = "It looks like you've already done this tile, possibly in a different browser window or tab."
@@ -52,23 +51,9 @@ class TileCompletionsController < ApplicationController
       )
       completion.save
     end
-    # TODO: move this from controller
-    def create_act(tile)
-      Act.create(
-        user: current_user,
-        demo_id: current_user.demo_id,
-        inherent_points: tile.points,
-        text: text_of_completion_act(tile),
-        creation_channel: 'web'
-      )
-    end
 
     def update_user_points_anonymously points
-      current_user.update_points(points,"web") 
-    end
-
-    def text_of_completion_act(tile)
-      "completed the tile: \"#{tile.headline}\""
+      current_user.update_points(points)
     end
 
     def find_board_for_guest
