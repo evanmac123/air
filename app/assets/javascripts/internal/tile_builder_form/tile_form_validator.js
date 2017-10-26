@@ -21,7 +21,6 @@ Airbo.TileFormValidator = (function(){
     rules: {
       "tile[supporting_content]": {
         requiredValidator: true,
-        minWords: 1,
         maxTextLength: hasLimit
       },
       "tile[answers][]": {
@@ -56,7 +55,10 @@ Airbo.TileFormValidator = (function(){
         duplicateAnswerValidator: "Answer choices must be unique.",
       },
       "tile[remote_media_url]": "Please add an image.",
-      "tile[supporting_content]": "Please add Tile content.",
+      "tile[supporting_content]": {
+        maxTextLength: "Tile content is too long.",
+        requiredValidator: "Please add Tile content."
+      },
       "tile[question]": "Please add a Tile prompt."
     },
 
