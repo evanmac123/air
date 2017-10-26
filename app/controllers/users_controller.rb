@@ -30,7 +30,6 @@ class UsersController < UserBaseController
     return not_found unless @user
 
     @palette = current_board.custom_color_palette
-    @acts = find_requested_acts(current_user.demo, 10)
 
     @viewing_self = signed_in? && current_user == @user
     @viewing_other = signed_in? && current_user != @user

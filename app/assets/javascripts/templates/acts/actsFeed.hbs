@@ -1,6 +1,10 @@
-<%= link_to "#", class: "button", id: "see-more-acts", data: { path: acts_path, page: opts[:next_page], per_page: opts[:per_page] } do %>
+<h3 id="feeds_title">Activity</h3>
+<ul class="js-user-acts" style="display:none;">
+</ul>
+
+<a href="#" class="button js-see-more-acts see-more-acts" style="display: none;">
   <span class="button_text">
     More <i class="fa fa-angle-down" aria-hidden="true"></i>
   </span>
   <i class="fa fa-spinner fa-spin fa-fw", id="see-more-spinner", style="display: none"></i>
-<% end %>
+</a>

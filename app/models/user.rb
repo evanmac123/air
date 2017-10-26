@@ -614,8 +614,7 @@ class User < ActiveRecord::Base
     TrackEvent.ping('claimed account', {:channel => channel, source: "Joined via invite"}, self)
   end
 
-  def update_points(point_increment, channel=nil)
-    original_tickets = self.tickets
+  def update_points(point_increment)
     PointIncrementer.new(self, point_increment).update_points
   end
 

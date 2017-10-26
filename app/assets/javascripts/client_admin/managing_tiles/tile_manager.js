@@ -100,6 +100,14 @@ Airbo.TileManager = (function(){
     }
   }
 
+  function forceValidationOnNew() {
+    return false;
+  }
+
+  function hasAutoSave() {
+    return true;
+  }
+
   function init() {
     if($(".explore-search").length > 0){
       initSearch();
@@ -113,7 +121,9 @@ Airbo.TileManager = (function(){
     init: init,
     updateTileSection: updateTileSection,
     updateSections: updateSections,
-    tileContainerByDataTileId: tileContainerByDataTileId
+    tileContainerByDataTileId: tileContainerByDataTileId,
+    forceValidationOnNew: forceValidationOnNew,
+    hasAutoSave: hasAutoSave
   };
 }());
 

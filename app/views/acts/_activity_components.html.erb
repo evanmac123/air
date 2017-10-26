@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="large-4 columns">
+    <div class="feeds module js-activity-feed-component" data-page="1" data-per-page="5" data-path="<%= api_acts_path %>">
+    </div>
+  </div>
+
+  <% unless current_user.demo.hide_social %>
+    <div class="large-4 columns">
+      <div class="module" id="scoreboard-module">
+        <%= render 'acts/scoreboard', user: current_user unless current_user.is_guest? %>
+      </div>
+    </div>
+
+    <div class="large-4 columns">
+      <div class="module" id="invite-module">
+        <%= render(partial: "acts/invite_your_friends") unless current_user.is_guest? %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -93,6 +93,7 @@ Airbo.TileFormModal = (function(){
       closeSticky: true,
       onOpenedEvent: function() {
         autosize.update( $('textarea') );
+        currform.data('forcevalidation', tileManager.forceValidationOnNew());
         $("#supporting_content_editor").keyup();
       },
       closeMessage: closeMessage.bind(self) ,
@@ -150,7 +151,7 @@ Airbo.TileFormModal = (function(){
 
   function initAutoSave(){
     var me = this;
-    if(currform.data("suggested") === false){
+    if(tileManager.hasAutoSave()){
       $(currform).on("change", function(event) {
 
         console.log("change called", event, currform.attr("method"));

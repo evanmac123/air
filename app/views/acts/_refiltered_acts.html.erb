@@ -1,6 +1,0 @@
-<%= javascript_tag do %>
-  actOffset = <%= acts.length %>;
-  actsPath = '<%= raw acts_path(:format => :js, :show_only => @show_only, :mode => 'see-more') %>';
-<% end %>
-
-<%= render :partial => "shared/act", :collection => acts, :as => :act %>

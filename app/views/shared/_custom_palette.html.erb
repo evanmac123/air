@@ -328,11 +328,11 @@ body .find_users {
 <%=@unfilled_styles%>
 }
 
-#tile_wall #tile_links .show_more_tiles, #see-more-acts {
+#tile_wall #tile_links .show_more_tiles, .see-more-acts {
   <%=@solid_filled_styles%>
 }
 
-#tile_wall #tile_links .show_more_tiles:hover, #see-more-acts:hover {
+#tile_wall #tile_links .show_more_tiles:hover, .see-more-acts:hover {
 <%=@solid_filled_styles%>
 <%=@solid_hover_styles%>
 }
@@ -408,7 +408,10 @@ background: <%=@primary_color%>;
   background: <%=@primary_color%>;
 }
 
-
+.tile_types #action:hover, .tile_types #quiz:hover, .tile_types #survey:hover {
+  color: inherit;
+  background: inherit;
+}
 
 
 </style>

@@ -18,11 +18,11 @@
     </div>
   </div>
   <%= render partial: 'shared/tiles/form/points', locals: {form: form} %>
-  <% unless @user_side %>
-  <div class="tile-builder-settings">
-    <p class="header"> Tile Settings</p>
-    <p class="settings-input"><%= form.check_box :is_sharable %> Allow employees to share this Tile with friends and family?</p>
-    <p class="settings-input"><%= form.check_box :is_public %> Share to Airbo Explore when this Tile is posted?</p>
-  </div>
+  <% unless @tile.user_submitted? %>
+    <div class="tile-builder-settings">
+      <p class="header"> Tile Settings</p>
+      <p class="settings-input"><%= form.check_box :is_sharable %> Allow employees to share this Tile with friends and family?</p>
+      <p class="settings-input"><%= form.check_box :is_public %> Share to Airbo Explore when this Tile is posted?</p>
+    </div>
   <% end %>
 </div>

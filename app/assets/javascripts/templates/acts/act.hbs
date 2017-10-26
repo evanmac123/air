@@ -1,0 +1,37 @@
+<li id="{{userId}}" class="act">
+  <div class="avatar43">
+    {{#if helpers.isGuest}}
+      <img alt="avatar" class="user_avatar avatar_image" src="{{helpers.avatarPath}}">
+    {{else}}
+      <a href={{helpers.userPath}}>
+        <img alt="{{helpers.userName}}" class="user_avatar avatar_image" src="{{helpers.avatarPath}}">
+      </a>
+    {{/if}}
+
+    {{#if points}}
+      <div class="points">
+        <span class="point-value small_cap">{{points}} {{pluralize points 'pt' 'pts'}}</span>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="act-details">
+    <p class="user small_margin">
+      {{#if helpers.viewingSelf}}
+        You
+      {{else if helpers.isGuest}}
+        A guest user
+      {{else}}
+        <a href="{{helpers.userProfilePath}}" class="name-of-user">
+          {{helpers.userName}}
+        </a>
+      {{/if}}
+
+      {{text}}
+    </p>
+
+    <span class="when small_cap">
+      {{helpers.createdAtForFeed}} ago
+    </span>
+  </div>
+</li>

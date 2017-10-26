@@ -10,7 +10,7 @@
 
   }
   &.exceeded_maxlength_counter {
-    color:  #bc4c40;
+    color:  $n-red;
   }
 
   &.tile-builder-component{
@@ -42,10 +42,7 @@
   }
 }
 
-.free-form-response ~.character-counter, 
+.free-form-response ~.character-counter,
 .free-text-entry ~ .character-counter {
   margin-bottom:20px
 }
-
-
-

@@ -1,6 +1,8 @@
 namespace :api, defaults: { format: :json } do
   resources :sendgrid_events, only: [:create]
 
+  resources :acts, only: [:index]
+
   resources :tiles, only: [] do
     resources :tile_link_trackings, only: [:create]
   end

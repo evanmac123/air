@@ -21,7 +21,6 @@ Airbo.TileFormValidator = (function(){
     rules: {
       "tile[supporting_content]": {
         requiredValidator: true,
-        minWords: 1,
         maxTextLength: hasLimit
       },
       "tile[answers][]": {
@@ -56,7 +55,10 @@ Airbo.TileFormValidator = (function(){
         duplicateAnswerValidator: "Answer choices must be unique.",
       },
       "tile[remote_media_url]": "Please add an image.",
-      "tile[supporting_content]": "Please add Tile content.",
+      "tile[supporting_content]": {
+        maxTextLength: "Tile content is too long.",
+        requiredValidator: "Please add Tile content."
+      },
       "tile[question]": "Please add a Tile prompt."
     },
 
@@ -138,10 +140,6 @@ Airbo.TileFormValidator = (function(){
  function initHeadlineValidator(){
    var form = $("#new_tile_builder_form");
    $.validator.addMethod("headLineValidator", function(value, element, params) {
-     if(form.data("suggested") === true) {
-       return $.validator.methods.required.call(this, value, element);
-     }
-
      var imageUrl = $("#remote_media_url").val();
      var imageNotPresent = (imageUrl === undefined || imageUrl === "");
 
@@ -176,8 +174,6 @@ Airbo.TileFormValidator = (function(){
 
     if(unique) {
       return true;
-    } else if(form.data("suggested") === true && notUnique) {
-      return false;
     } else if (forceValidation(form) && notUnique) {
       return false;
     } else{
@@ -200,8 +196,6 @@ Airbo.TileFormValidator = (function(){
        hasMin = answers.length >= config.minResponses;
        if(hasMin) {
          return true;
-       } else if(form.data("suggested") === true && !hasMin) {
-         return false;
        } else if (forceValidation(form) && !hasMin) {
          return false;
        } else {

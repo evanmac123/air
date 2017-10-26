@@ -83,7 +83,7 @@ gem 'humanize_boolean'
 gem 'delighted'
 gem 'airbrake', '~> 5.4'
 
-gem 'scout_apm', '~> 3.0.x'
+gem 'scout_apm', '~> 2.3'
 
 gem 'searchkick'
 gem 'searchjoy'
@@ -91,6 +91,7 @@ gem 'rolify'
 gem 'simple_enum', '~> 1.6.9'
 gem 'chartmogul-ruby', require: 'chartmogul'
 gem 'descriptive_statistics', require: 'descriptive_statistics/safe'
+gem 'jbuilder'
 
 #
 # Gems used only for assets and not required

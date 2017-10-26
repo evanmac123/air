@@ -7,7 +7,7 @@
 <%= render partial: 'shared/tiles/user_progress', locals: { as_null:false, raffle: current_user.demo.raffle, opts: {} } %>
 <%= render 'shared/tile_wall', @displayable_categorized_tiles.merge(path_for_more_tiles: tiles_path) %>
 
-<%= render "acts/activity_feed" %>
+<%= render "acts/activity_components" %>
 
 <% if current_user.is_a?(PotentialUser) %>
   <%= render "acts/register_potential_user_lightbox" %>

@@ -43,9 +43,9 @@ Health::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.asset_host = 'http://localhost:3000'
 
-Rails.application.routes.default_url_options[:host] = ENV['APP_HOST'] || 'localhost:3000'
+  Rails.application.routes.default_url_options[:host] = ENV['APP_HOST'] || 'localhost:3000'
   ########  ASSETS  ######################
   # Do not compress assets
   config.assets.compress = false
@@ -55,7 +55,6 @@ Rails.application.routes.default_url_options[:host] = ENV['APP_HOST'] || 'localh
   #########################################
 
   ##
-
   #config.action_mailer.delivery_method = :test
   # See https://github.com/ryanb/letter_opener for details.
   config.action_mailer.delivery_method = :letter_opener

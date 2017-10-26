@@ -28,4 +28,8 @@ module AuthorizePublicBoardsConcern
   def more_tiles_request
     request.xhr? && params[:controller] == "tiles" && params[:action].in?(%w(index))
   end
+
+  def more_acts_request
+    request.xhr? && params[:controller] == "api/acts" && params[:action].in?(%w(index))
+  end
 end
