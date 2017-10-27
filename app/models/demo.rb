@@ -60,16 +60,20 @@ class Demo < ActiveRecord::Base
 
   has_attached_file :logo,
     {
-      :styles => {:thumb => ["x46>", :png]},
-      :default_style => :thumb,
-      :default_url => "/assets/logo.png",
-      :keep_old_files => true
+      :styles => {
+        :thumb => "x46>"
+      },
+      default_style: :thumb,
+      default_url: "/assets/logo.png",
+      keep_old_files: true
     }.merge!(DEMO_LOGO_OPTIONS)
 
   has_attached_file :cover_image,
     {
-      :styles => {:thumb => ["30x30#", :png]},
-      :default_url => "/assets/logo.png",
+      styles: {
+        thumb: "30x30#"
+      },
+      default_url: "/assets/logo.png",
     }.merge!(DEMO_LOGO_OPTIONS)
 
   validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error

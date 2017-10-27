@@ -122,16 +122,13 @@ class User < ActiveRecord::Base
 
 
   has_attached_file :avatar,
-    :styles => {:thumb => ["96x96#", :png]},
-    :default_style => :thumb,
-    #:processors => [:png],
-    :storage => :s3,
-    :s3_credentials => S3_CREDENTIALS,
-    :s3_headers => {'Expires' => 1.year.from_now.httpdate, 'Cache-Control' => 'max-age=315576000'},
-    :s3_protocol => 'https',
-    :path => "/avatars/:id/:style/:filename",
-    :bucket => S3_AVATAR_BUCKET,
-    :default_url => MISSING_AVATAR_PATH
+    {
+      styles: {
+        thumb: "96x96#"
+      },
+      default_style: :thumb,
+      default_url: MISSING_AVATAR_PATH
+    }.merge!(USER_AVATAR_OPTIONS)
 
   validates_attachment_content_type :avatar, content_type: valid_image_mime_types, message: invalid_mime_type_error
 
