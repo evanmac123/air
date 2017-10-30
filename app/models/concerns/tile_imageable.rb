@@ -10,40 +10,31 @@ module Concerns::TileImageable
   included do
 
     has_attached_file :image,
-      {
-        # For those of you who don't read ImageMagick geometry arguments like a
-        # native, "666>" means "Leave images under 666 pixels wide alone. Scale
-        # down images over 666 pixels wide to 666 wide, maintaining the original
-        # aspect ratio."
-        styles:         {:viewer => ["666>", :png]},
-        default_style:  :viewer,
-        default_url:    MISSING_PREVIEW,
+      { styles: {
+          viewer: "666>"
+        },
+        default_style: :viewer,
+        default_url: MISSING_PREVIEW,
       }.merge!(TILE_IMAGE_OPTIONS)
 
     has_attached_file :thumbnail,
       {
         styles: {
-          carousel:     ["238x238#", :png],
-          email_digest: ["190x160#", :png]
+          carousel:     "238x238#",
+          email_digest: "190x160#"
         },
-        default_style:  :carousel,
-        default_url:    MISSING_THUMBNAIL,
-        preserve_files: true  # preserve old attachments on update and delete. WHY?
-                              # to fix next scenario: CA sends digest email
-                              # but then changes an image in some tile.
-                              # so user gets email with a link to the old
-                              # image which was removed
+        default_style: :carousel,
+        default_url: MISSING_THUMBNAIL,
+        preserve_files: true
       }.merge!(TILE_THUMBNAIL_OPTIONS)
 
     process_in_background :image,
-                          processing_image_url: :processing_image_fallback,
-                          priority:             TILE_IMAGE_PROCESSING_PRIORITY
+      processing_image_url: :processing_image_fallback,
+      priority: TILE_IMAGE_PROCESSING_PRIORITY
 
     process_in_background :thumbnail,
-                          processing_image_url: :processing_image_fallback,
-                          priority:             TILE_IMAGE_PROCESSING_PRIORITY
-
-
+      processing_image_url: :processing_image_fallback,
+      priority: TILE_IMAGE_PROCESSING_PRIORITY
   end
 
   attr_accessor :image_from_library
@@ -51,10 +42,6 @@ module Concerns::TileImageable
   def processing_image_fallback
     remote_media_url || IMAGE_PROCESSING_URL
   end
-
-
-
-
 
   # need this function to set height of image place in ie8 while image is loading
   def full_size_image_height
@@ -73,6 +60,5 @@ module Concerns::TileImageable
 
   module ClassMethods
     include ValidImageMimeTypes
-    #include Paperclip
   end
 end
