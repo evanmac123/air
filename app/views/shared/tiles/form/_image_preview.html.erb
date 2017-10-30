@@ -39,11 +39,16 @@
           <li>
             <span class="img-menu-item search" title="Search">
               <i class="fa fa-search fa-1x show-search" aria-hidden="true"></i>
-              <input type="text" class="search-input" placeholder="Search images", data-services='<%= tile_image_providers %>'>
+              <input type="text" class="search-input" placeholder="Search images", data-image-search-service='<%= TileBuilderHelper::DEFAULT_TILE_IMAGE_PROVIDER %>'>
             </span>
           </li>
           <li>
-            <span class="img-menu-item upload menu-tooltip js-file-upload-trigger"  data-target="#image-uploader" title="Upload image" >
+            <span class="img-menu-item gif menu-tooltip js-file-upload-trigger" title="Search GIFs">
+              <span>GIF</span>
+            </span>
+          </li>
+          <li>
+            <span class="img-menu-item menu-tooltip js-file-upload-trigger"  data-target="#image-uploader" title="Upload image" >
               <i class="fa fa-cloud-upload fa-1x"></i>
             </span>
           </li>
@@ -73,7 +78,7 @@
     </div>
     <div class="images-wrapper">
       <div id="images"></div>
-      <h6 class="attribution"><a href="http://www.pixabay.com" target="_blank">Powered by<%=image_tag "pixabay_logo.svg", class:"pixabay"%></a></h6>
+      <h6 class="attribution"></h6>
     </div>
 
     <div class="embed-video-container">

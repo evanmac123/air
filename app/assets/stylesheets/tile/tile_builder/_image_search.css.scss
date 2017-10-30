@@ -123,7 +123,7 @@ input[type=text].search-input{
 }
 
 #remote_media_url-error {
-  float: left;
+  text-align: left;
 }
 
 .image-menu, .video-menu{
@@ -131,18 +131,21 @@ input[type=text].search-input{
   bottom: 10px;
   left: 10px;
   opacity: 1;
-  li{
-    display: inline-block;
+  ul {
+    display: flex;
+    align-items: stretch;
+  }
+  li {
+    margin-right: 5px;
   }
 
   .img-menu-item {
     &.clear, &.expand-contract{
       display: none;
     }
-
   }
 
-  .img-menu-item, .video-menu-item{
+  .img-menu-item, .video-menu-item {
     background: rgba(255,255,255,.95);
     padding:5px;
     border-radius: 3px;
@@ -150,6 +153,19 @@ input[type=text].search-input{
     cursor: pointer;
     display: inline-block;
     border: 1px solid #fff;
+
+    &.gif {
+      color: $n-blue;
+      font-size: 13px;
+      font-weight: bold;
+      height: 100%;
+      padding-top: 8px;
+      &.active {
+        background: $n-blue;
+        border-color: $n-blue;
+        color: #fff;
+      }
+    }
 
     i {
       color: $n-blue;

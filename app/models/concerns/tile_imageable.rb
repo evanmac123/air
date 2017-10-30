@@ -2,7 +2,7 @@ module Concerns::TileImageable
   extend ActiveSupport::Concern
   include Assets::Normalizer # normalize filename of paperclip attachment
 
-  IMAGE_PROCESSING_URL =  ActionController::Base.helpers.asset_path('resizing_gears_fullsize.gif')
+  IMAGE_PROCESSING_URL =  ActionController::Base.helpers.asset_path("missing-search-image.png")
   TILE_IMAGE_PROCESSING_PRIORITY = -10
   MISSING_THUMBNAIL = "missing-tile-img-thumb.png"
   MISSING_PREVIEW = "missing-search-image.png"
