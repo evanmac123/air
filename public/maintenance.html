@@ -240,78 +240,69 @@
   <div class="content-container">
 
 	<div class="head-line secondary-text-color">
-		503
+		Maintenance
 	</div>
 	<div class="subheader primary-text-color">
-		Sorry, your request timed out.
+    We're undergoing a bit of</br>
+    scheduled maintenance.
 	</div>
     <hr>
     <div class="clearfix"></div>
     <div class="context primary-text-color">
 
     <p>
-      Please try to reload the page.
-      If you think something is broken, report a problem.
+      Sorry for the inconvenience. We'll be back up and running as fast as possible.
     </p>
 
 
     </div>
-	<div class="buttons-container">
-		<a class="border-button js-reload" href="#reload">Reload</a>
-		<a class="border-button" href="mailto:support@airbo.com" target="_blank">Report A Problem</a>
-	</div>
 </div>
 
 
-<script>
- function ErrorPage(container, pageType, templateName) {
-   this.$container = $(container);
-   this.$contentContainer = this.$container.find('.content-container');
-   this.pageType = pageType;
-   this.templateName = templateName;
- }
+    <script>
+     function ErrorPage(container, pageType, templateName) {
+       this.$container = $(container);
+       this.$contentContainer = this.$container.find('.content-container');
+       this.pageType = pageType;
+       this.templateName = templateName;
+     }
 
- ErrorPage.prototype.centerContent = function () {
-   var containerHeight = this.$container.outerHeight()
-     , contentContainerHeight = this.$contentContainer.outerHeight()
-     , top = (containerHeight - contentContainerHeight) / 3
-     , offset = this.templateName == 'sign' ? -100 : 0;
+     ErrorPage.prototype.centerContent = function () {
+       var containerHeight = this.$container.outerHeight()
+         , contentContainerHeight = this.$contentContainer.outerHeight()
+         , top = (containerHeight - contentContainerHeight) / 3
+         , offset = this.templateName == 'sign' ? -100 : 0;
 
-   this.$contentContainer.css('top', top + offset);
- };
+       this.$contentContainer.css('top', top + offset);
+     };
 
- ErrorPage.prototype.initialize = function () {
-   var self = this;
+     ErrorPage.prototype.initialize = function () {
+       var self = this;
 
-   this.centerContent();
-   this.$container.on('resize', function (e) {
-     e.preventDefault();
-     e.stopPropagation();
-     self.centerContent();
-   });
+       this.centerContent();
+       this.$container.on('resize', function (e) {
+         e.preventDefault();
+         e.stopPropagation();
+         self.centerContent();
+       });
 
-   // fades in content on the plain template
-   if (this.templateName == 'plain') {
-     window.setTimeout(function () {
-       self.$contentContainer.addClass('in');
-     }, 500);
-   }
- };
+       // fades in content on the plain template
+       if (this.templateName == 'plain') {
+         window.setTimeout(function () {
+           self.$contentContainer.addClass('in');
+         }, 500);
+       }
+     };
 
- var ep = new ErrorPage('body', "503", "plain");
- ep.initialize();
+     var ep = new ErrorPage('body', "503", "plain");
+     ep.initialize();
 
- // hack to make sure content stays centered >_<
- $(window).on('resize', function() {
-   $('body').trigger('resize')
- });
+     // hack to make sure content stays centered >_<
+     $(window).on('resize', function() {
+       $('body').trigger('resize')
+     });
 
- $(".js-reload").on("click", function(e) {
-   e.preventDefault();
-   location.reload();
- })
-
-</script>
+    </script>
 
 
   </body>
