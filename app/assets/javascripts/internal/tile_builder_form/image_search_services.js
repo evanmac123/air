@@ -105,8 +105,7 @@ function GiphyImageHandler() {
 
     if(this.data.length > 0) {
       thumbnails = data.data.map(function(gif) {
-        var src = gif.images.fixed_width_still.url;
-        return "<div class='img-wrap'><img src1='" + src  + "' data-flickity-lazyload='" + src +     "' data-preview='" + gif.images.original.url + "'/></div>";
+        return "<div class='img-wrap'><img data-flickity-lazyload='" + gif.images.fixed_width_still.url + "' data-preview='" + gif.images.original.url + "'/></div>";
       });
     }
 

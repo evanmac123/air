@@ -24,6 +24,7 @@ Airbo.TileImagePreviewer = (function(){
   function setPreviewImage(imageUrl, imgWidth, imgHeight) {
     $('#upload_preview').attr("src", imageUrl);
     $(imagePreviewSelector).addClass("present");
+    $("#tile_form_modal").animate({ scrollTop: 0 }, "fast");
   }
 
   function removeImage(){
