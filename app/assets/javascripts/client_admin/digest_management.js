@@ -174,6 +174,35 @@ Airbo.TilesDigestManagement = (function() {
     });
   }
 
+  function initSaveDraftDigestEvents() {
+    $("#save_draft_digest").click(function(e) {
+      e.preventDefault();
+      var $btn = $(this);
+      $btn.html('<i class="fa fa-spinner fa-spin fa-fw"></i>');
+
+      $.ajax({
+        url: "/client_admin/tiles_digest_notification/save",
+        type: "POST",
+        dataType: "json",
+        data: $("#tiles_digest_form").serialize()
+      }).done(function(data) {
+        $btn.html('<i class="fa fa-pencil-square-o"></i> Saved!');
+        $btn.data("saved", true);
+      }).fail(function() {
+        window.location.reload();
+      });
+    });
+
+    $("#tiles_digest_form :input").change(function() {
+      var $btn = $("#save_draft_digest");
+
+      if($btn.data("saved") === true) {
+        $btn.html('<i class="fa fa-pencil-square-o"></i> Save Draft');
+        $btn.data("saved", false);
+      }
+    });
+  }
+
   function showDigestSentModal() {
     $('.js-digest-sent-modal').foundation('reveal', 'open');
   }
@@ -189,6 +218,7 @@ Airbo.TilesDigestManagement = (function() {
     initCustomeHeadlineChangeEvents();
     initCustomeSubjectChangeEvents();
     initSendTestDigestEvents();
+    initSaveDraftDigestEvents();
   }
 
   return {
