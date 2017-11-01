@@ -40,7 +40,9 @@
       background: inherit;
       visibility: hidden;
     }
-
+    &:active {
+      box-shadow: none;
+    }
   }
 }
 
@@ -87,6 +89,7 @@
   img, .thumb-placeholder {
     max-width: none;
     max-height: none;
+    height: 100%;
   }
   .img-wrap{
     overflow:hidden;
