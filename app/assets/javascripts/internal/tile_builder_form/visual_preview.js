@@ -1,4 +1,4 @@
-var Airbo = window.Airbo || {}
+var Airbo = window.Airbo || {};
 
 Airbo.TileVisualPreviewMgr = (function(){
 
@@ -27,7 +27,6 @@ Airbo.TileVisualPreviewMgr = (function(){
     $(".video_section").hide();
   }
 
-
   function resetSearchInput(){
     $(".search-input").val("");
   }
@@ -46,7 +45,6 @@ Airbo.TileVisualPreviewMgr = (function(){
     $(".endless_scroll_loading").show();
   }
 
-
   function hideUnparsableError(){
     $(".unparsable").hide();
   }
@@ -60,7 +58,7 @@ Airbo.TileVisualPreviewMgr = (function(){
   }
 
   function emptyImages(){
-   var grid = $("#images")
+   var grid = $("#images");
    if(grid.data('flickity')){
      grid.flickity('destroy');
    }
@@ -81,17 +79,13 @@ Airbo.TileVisualPreviewMgr = (function(){
     hideUnparsableError();
   }
 
-
-
   function showVisualContentPanel(){
     $(".visual-content-container").slideDown();
   }
 
-
   function toggleOffVideo(){
     hideEmbedVideo();
   }
-
 
   function showSearchResults() {
     showVisualContentPanel();
@@ -118,19 +112,17 @@ Airbo.TileVisualPreviewMgr = (function(){
     $(".hide-media-panel-button").show();
   }
 
-
   function hideMediaPanelCloseButton(){
     $(".hide-media-panel-button").hide();
   }
 
   function initCustomEventsSubscriber(){
-
     Airbo.PubSub.subscribe("image-results-added", function(){
       hideLoader();
     });
 
     Airbo.PubSub.subscribe("video-added", function(){
-      hideVisualContentPanel()
+      hideVisualContentPanel();
       hideLoader();
       $(".video_section").show();
       $("#image_uploader").hide();
@@ -141,15 +133,13 @@ Airbo.TileVisualPreviewMgr = (function(){
     });
 
     Airbo.PubSub.subscribe("video-link-cleared", function(){
-      hideVideoErrors()
-    })
-
+      hideVideoErrors();
+    });
 
     Airbo.PubSub.subscribe("video-load-error", function(){
       hideLoader();
       $(".unloadable").show();
     });
-
 
     Airbo.PubSub.subscribe("video-removed", function(){
       $("#image_uploader").show();
@@ -162,25 +152,22 @@ Airbo.TileVisualPreviewMgr = (function(){
       showUnparsableError();
     });
 
-
     Airbo.PubSub.subscribe("media-request-done", function(){
       showMediaPanelCloseButton();
     });
 
     Airbo.PubSub.subscribe("inititiating-image-search", function(){
-      $("#remote_media_url").val("");
-      $("#tile_embed_video").val("");
       hideVideoPreview();
       hideEmbedVideo();
       showSearchResults();
-      showLoader(); 
+      showLoader();
     });
   }
 
   function initPreviewByType(){
     if( $("#tile_embed_video").val().length > 0 ) {
       $("#image_uploader").hide();
-      showVideoPreview()
+      showVideoPreview();
     }
   }
 
@@ -203,8 +190,8 @@ Airbo.TileVisualPreviewMgr = (function(){
     initVisualContent();
   }
 
-
   return {
     init: init,
-  }
+  };
+
 }());

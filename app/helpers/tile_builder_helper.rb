@@ -1,7 +1,5 @@
 module TileBuilderHelper
-  def tile_image_providers
-    ENV['IMAGE_PROVIDERS'].split(",").to_json
-  end
+  DEFAULT_TILE_IMAGE_PROVIDER = "pixabay".freeze
 
   def tile_builder_url(tile)
     if tile.user_submitted?
