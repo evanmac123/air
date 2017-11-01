@@ -9,9 +9,9 @@ class TilesDigestForm
               :unclaimed_users_also_get_digest,
               :include_sms
 
-  def initialize current_user, params = {}
-    @current_user = current_user
-    @demo = current_user.demo
+  def initialize(demo:, user: nil, params: {})
+    @current_user = user
+    @demo = demo
 
     if params.present?
       set_attribtues(params)

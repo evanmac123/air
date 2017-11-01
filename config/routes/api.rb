@@ -12,6 +12,7 @@ namespace :api, defaults: { format: :json } do
     resource :reports, only: [:show]
     resource :reports, only: [:show]
     resources :tile_email_reports, only: [:index]
+    resources :tiles_digest_automators, only: [:create, :update, :destroy]
   end
 
   namespace :v1 do

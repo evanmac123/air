@@ -9,7 +9,7 @@ class ClientAdmin::SharesController < ClientAdminBaseController
 
     @digest_tiles = @demo.digest_tiles(tile_digest_email_sent_at)
     @tiles_to_be_sent = @demo.digest_tiles(tile_digest_email_sent_at).count
-    @tiles_digest_form = TilesDigestForm.new(current_user, digest_params)
+    @tiles_digest_form = TilesDigestForm.new(demo: current_user.demo, user: current_user, params: digest_params)
 
     digest_sent_modal
 

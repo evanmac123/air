@@ -23,15 +23,16 @@ describe TilesDigestScheduler do
   def digest_form
     current_user = FactoryGirl.create(:client_admin)
 
-    TilesDigestForm.new(current_user, {
-        demo: current_user.demo,
-        digest_send_to: "false",
-        custom_headline: "Custom Headline",
-        custom_message: "Custom Message",
-        custom_subject: "Custom Subject",
-        alt_custom_subject: "alt_custom_subject",
-        follow_up_day: "Friday",
-      }
-    )
+    params = {
+      demo: current_user.demo,
+      digest_send_to: "false",
+      custom_headline: "Custom Headline",
+      custom_message: "Custom Message",
+      custom_subject: "Custom Subject",
+      alt_custom_subject: "alt_custom_subject",
+      follow_up_day: "Friday",
+    }
+
+    TilesDigestForm.new(demo: current_user.demo, user: current_user, params: params)
   end
 end

@@ -3,13 +3,11 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
   before_filter :authorize_digest
 
   def create
-    @tiles_digest_form = TilesDigestForm.new(current_user, params[:digest])
-
+    @tiles_digest_form = TilesDigestForm.new(demo: current_user.demo, user: current_user, params: params[:digest])
     if params[:digest_type] == "test_digest"
       current_board.set_tile_email_draft(params[:digest])
       @tiles_digest_form.submit_send_test_digest
     else
-      current_board.clear_tile_email_draft
       @tiles_digest_form.submit_schedule_digest_and_followup
     end
 

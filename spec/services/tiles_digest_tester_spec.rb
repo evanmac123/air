@@ -7,7 +7,7 @@ describe TilesDigestTester do
     end
 
     it "attempts to send a test Tile Email and test Follow Up Email if follow_up_day != Never" do
-      tiles_digest_form = TilesDigestForm.new(@client_admin, digest_params)
+      tiles_digest_form = TilesDigestForm.new(demo: @client_admin.demo, user: @client_admin, params: digest_params)
 
       tiles_digest_tester = TilesDigestTester.new(digest_form: tiles_digest_form)
 
@@ -34,7 +34,7 @@ describe TilesDigestTester do
     it "only attempts to send a test Tile Email if follow_up_day == Never" do
       params = digest_params
       params[:follow_up_day] = "Never"
-      tiles_digest_form = TilesDigestForm.new(@client_admin, params)
+      tiles_digest_form = TilesDigestForm.new(demo: @client_admin.demo, user: @client_admin, params: params)
 
       tiles_digest_tester = TilesDigestTester.new(digest_form: tiles_digest_form)
 
@@ -53,7 +53,7 @@ describe TilesDigestTester do
     it "defaults to the TilesDigest::DEFAULT_DIGEST_SUBJECT if no subject is given" do
       params = digest_params
       params[:custom_subject] = nil
-      tiles_digest_form = TilesDigestForm.new(@client_admin, params)
+      tiles_digest_form = TilesDigestForm.new(demo: @client_admin.demo, user: @client_admin, params: params)
 
       tiles_digest_tester = TilesDigestTester.new(digest_form: tiles_digest_form)
 

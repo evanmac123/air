@@ -14,7 +14,7 @@ describe TilesDigestForm do
 
   before do
     @client_admin = FactoryGirl.create(:client_admin)
-    @tiles_digest_form = TilesDigestForm.new(@client_admin, digest_params)
+    @tiles_digest_form = TilesDigestForm.new(demo: @client_admin.demo, user: @client_admin, params: digest_params)
   end
 
   describe "attr_readers" do
@@ -45,14 +45,14 @@ describe TilesDigestForm do
     describe "#unclaimed_users_also_get_digest" do
       it "returns true if params[:digest_send_to] returns 'true'" do
         params = { digest_send_to: "true" }
-        tiles_digest_form = TilesDigestForm.new(@client_admin, params)
+        tiles_digest_form = TilesDigestForm.new(demo: @client_admin.demo, user: @client_admin, params: params)
 
         expect(tiles_digest_form.unclaimed_users_also_get_digest).to eq(true)
       end
 
       it "returns false if params[:digest_send_to] returns 'false'" do
         params = { digest_send_to: "false" }
-        tiles_digest_form = TilesDigestForm.new(@client_admin, params)
+        tiles_digest_form = TilesDigestForm.new(demo: @client_admin.demo, user: @client_admin, params: params)
 
         expect(tiles_digest_form.unclaimed_users_also_get_digest).to eq(false)
       end
