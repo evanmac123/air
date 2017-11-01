@@ -5,3 +5,13 @@ task rerun_product_metrics: :environment do
     Reporting::ProductMetricsReportBuilder.build_month(date: d.end_of_month.to_date).save
   end
 end
+
+task product_metrics_add_view_mau: :environment do
+  ProductMetricsReport.where({ period_cd: ProductMetricsReport.periods[:month] }).each do |pr|
+    pr.enterprise_mau_view_rate = pr.mau_view_rate(scope: pr.send(:enterprise_tiles_digests_in_range))
+
+    pr.smb_mau_view_rate = pr.mau_view_rate(scope: pr.send(:smb_tiles_digests_in_range))
+
+    pr.save
+  end
+end
