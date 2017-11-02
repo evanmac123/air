@@ -18,7 +18,7 @@ module CachingConcern
       board = current_user.demo
 
       unless board.rdb[:reports_cached].get
-        board.rdb[:reports_cached].set(Time.now)
+        board.rdb[:reports_cached].set(Time.current)
         board.rdb[:reports_cached].expire(12.minutes)
         BoardMetricsGenerator.delay.set_cache(board: board)
       end

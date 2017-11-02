@@ -32,7 +32,7 @@ FactoryGirl.define do
     trait :activated do |demo|
 
       after(:create) do |demo, evaluator|
-        FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, demo: demo,  activated_at: Time.now, headline: "Tile #{SecureRandom.uuid}")
+        FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, demo: demo,  activated_at: Time.current, headline: "Tile #{SecureRandom.uuid}")
       end
     end
 
@@ -153,8 +153,8 @@ FactoryGirl.define do
 
   factory :raffle do
     association :demo
-    starts_at DateTime.now.change({:hour => 0 , :min => 0 , :sec => 0 })
-    ends_at DateTime.now.change({:hour => 0 , :min => 0 , :sec => 0 }) + 8.days - 1.minute
+    starts_at DateTime.current.change({:hour => 0 , :min => 0 , :sec => 0 })
+    ends_at DateTime.current.change({:hour => 0 , :min => 0 , :sec => 0 }) + 8.days - 1.minute
     prizes ["First Prize", "Second Prize"]
     other_info "Play raffles - it's fun"
 
@@ -224,7 +224,7 @@ FactoryGirl.define do
     end
 
     trait :active do
-      start_date  Date.today
+      start_date  Date.current
       end_date  1.year.from_now
     end
 

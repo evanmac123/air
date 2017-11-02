@@ -60,7 +60,7 @@ describe Organization do
     it 'returns oldest demo if it exists' do
       demo.save!
 
-      Timecop.travel(Time.now + 3.hours)
+      Timecop.travel(Time.current + 3.hours)
 
       demo2.save!
 

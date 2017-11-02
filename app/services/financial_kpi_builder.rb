@@ -35,14 +35,14 @@ class FinancialKpiBuilder
     end
 
     def build_current_week
-      sdate = Date.today.beginning_of_week
+      sdate = Date.current.beginning_of_week
       edate = sdate.end_of_week
       Metrics.where({from_date: sdate, to_date: edate, interval: Metrics::WEEKLY}).delete_all
       build(FinancialsCalcService.new(sdate, edate), Metrics::WEEKLY)
     end
 
     def build_current_month
-      sdate = Date.today.beginning_of_month
+      sdate = Date.current.beginning_of_month
       edate = sdate.end_of_month
       Metrics.where({from_date: sdate, to_date: edate, interval: Metrics::MONTHLY}).delete_all
       build(FinancialsCalcService.new(sdate, edate), Metrics::MONTHLY)
@@ -52,7 +52,7 @@ class FinancialKpiBuilder
       if has_data?
         sdate = min_start(from_date).beginning_of_week
         edate = sdate.end_of_week
-        while sdate < Date.today.beginning_of_week do 
+        while sdate < Date.current.beginning_of_week do 
           build(FinancialsCalcService.new(sdate, edate), Metrics::WEEKLY)
           sdate = sdate.advance(weeks: 1)
           edate = sdate.end_of_week
@@ -66,7 +66,7 @@ class FinancialKpiBuilder
         sdate = min_start(from_date).beginning_of_month
         edate = sdate.end_of_month
 
-        while sdate < Date.today.beginning_of_month do 
+        while sdate < Date.current.beginning_of_month do 
          build(FinancialsCalcService.new(sdate, edate), Metrics::MONTHLY)
           sdate = sdate.advance(months: 1)
           edate = sdate.end_of_month

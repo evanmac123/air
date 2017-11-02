@@ -59,14 +59,14 @@ module Reporting
 
 
       def build_current_week
-        sdate = Date.today.beginning_of_week
+        sdate = Date.current.beginning_of_week
         edate = sdate.end_of_week
         CustSuccessKpi.where({from_date: sdate, to_date: edate, interval: WEEKLY}).delete_all
         build(Reporting::CustomerSuccessKpiCalcService.new(sdate, edate, WEEKLY))
       end
 
       def build_current_month
-        sdate = Date.today.beginning_of_month
+        sdate = Date.current.beginning_of_month
         edate = sdate.end_of_month
         CustSuccessKpi.where({from_date: sdate, to_date: edate, interval: MONTHLY}).delete_all
         build(Reporting::CustomerSuccessKpiCalcService.new(sdate, edate, MONTHLY))
@@ -75,7 +75,7 @@ module Reporting
       def build_weekly_historicals(from_date=nil)
         if has_data?
           sdate = min_start(from_date).beginning_of_week
-          edate = Date.today.end_of_week
+          edate = Date.current.end_of_week
           kpi = Reporting::CustomerSuccessKpiCalcService.new(sdate, edate, WEEKLY)
           while kpi.curr_interval_start < edate do
             build(kpi)
@@ -87,8 +87,8 @@ module Reporting
       def build_monthly_historicals(from_date=nil)
         if has_data?
           sdate = min_start(from_date).beginning_of_month
-          kpi = Reporting::CustomerSuccessKpiCalcService.new(sdate, Date.today.beginning_of_month, MONTHLY)
-          while kpi.curr_interval_start < Date.today.beginning_of_month do
+          kpi = Reporting::CustomerSuccessKpiCalcService.new(sdate, Date.current.beginning_of_month, MONTHLY)
+          while kpi.curr_interval_start < Date.current.beginning_of_month do
             build(kpi)
             sdate = kpi.advance_interval
           end

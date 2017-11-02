@@ -10,7 +10,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
   let!(:tile) { FactoryGirl.create(:multiple_choice_tile,
     status: Tile::ACTIVE,
     demo: demo,
-    activated_at: Time.now,
+    activated_at: Time.current,
     headline: "Tile Headline",
     question: "Tile Question",
     multiple_choice_answers: ["A", "B", "C"],

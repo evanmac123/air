@@ -110,7 +110,7 @@ module Reporting
       end
 
       def get_date_range_config
-        from = @options.delete(:from_date) || Date.today.beginning_of_week(:monday)
+        from = @options.delete(:from_date) || Date.current.beginning_of_week(:monday)
         to = @options.delete(:to_date) || from.end_of_week(:sunday)
         {
           from_date: date_format(from),

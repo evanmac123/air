@@ -13,13 +13,13 @@ describe ClientAdmin::ReportsHelper do
       expect(helper.report_default_start_date).to eq(launch_date)
     end
 
-    it "returns Time.now.end_of_month - 3.months if demo_launch is greater than 12 months ago" do
+    it "returns Time.current.end_of_month - 3.months if demo_launch is greater than 12 months ago" do
       Timecop.freeze(Time.zone.now)
 
       launch_date = Time.zone.now - 5.years
       helper.stubs(:demo_launch).returns(launch_date)
 
-      expect(helper.report_default_start_date).to eq(Time.now.end_of_month - 3.months)
+      expect(helper.report_default_start_date).to eq(Time.current.end_of_month - 3.months)
     end
   end
 
@@ -34,8 +34,8 @@ describe ClientAdmin::ReportsHelper do
 
     it "returns Demo.launch_date.beginning_of_year" do
       demo = FactoryGirl.create(:demo)
-      demo.created_at = Time.now - 1.year
-      demo.launch_date = Time.now
+      demo.created_at = Time.current - 1.year
+      demo.launch_date = Time.current
       demo.save
 
 
@@ -46,7 +46,7 @@ describe ClientAdmin::ReportsHelper do
 
     it "returns Demo.created_at.beginning_of_year if launch_date is not present" do
       demo = FactoryGirl.create(:demo)
-      demo.created_at = Time.now - 1.year
+      demo.created_at = Time.current - 1.year
       demo.launch_date = nil
       demo.save
 

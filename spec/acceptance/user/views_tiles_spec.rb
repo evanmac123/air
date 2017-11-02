@@ -19,8 +19,8 @@ feature 'User views tile' do
 
     @make_toast = Tile.find_by_headline('make toast')
     @discover_fire = Tile.find_by_headline('discover fire')
-    @make_toast.update_attributes(activated_at: Time.now - 60.minutes)
-    @discover_fire.update_attributes(activated_at: Time.now)
+    @make_toast.update_attributes(activated_at: Time.current - 60.minutes)
+    @discover_fire.update_attributes(activated_at: Time.current)
   end
 
   context "when there are tiles to be seen" do

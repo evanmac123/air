@@ -15,7 +15,7 @@ class Charts::Queries::BoardUniqueLoginActivity < Charts::Queries::BoardQuery
   end
 
   def end_date
-    Date.today.strftime("%Y-%m-%d")
+    Date.current.strftime("%Y-%m-%d")
   end
 
   def jql_script

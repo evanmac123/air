@@ -10,7 +10,7 @@ feature 'Archiv Tilesh', js: true do
     UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
 
     1.upto(4) do |i|
-      tiles << FactoryGirl.create(:tile,  demo: demo, headline: "Tile #{i}", created_at: Time.now + i.days)
+      tiles << FactoryGirl.create(:tile,  demo: demo, headline: "Tile #{i}", created_at: Time.current + i.days)
     end
 
     bypass_modal_overlays(admin)

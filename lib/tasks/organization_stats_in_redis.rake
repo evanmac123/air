@@ -1,6 +1,6 @@
 desc "Organization statistics posted to Redis"
 task organization_stats_in_redis: :environment do
-  Organization.all.each do |org|
+  Organization.paid.each do |org|
     puts "Calculating stats for #{org.name}..."
     total_tile_viewings = org.boards.joins(:tile_viewings).count
     total_tiles_created = org.boards.joins(:tiles).count

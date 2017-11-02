@@ -53,7 +53,7 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def send_emails_and_sms
-    self.sent_at = Time.now
+    self.sent_at = Time.current
     self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true)
 
     TilesDigestMailer.delay.notify_all(self)
@@ -98,7 +98,7 @@ class TilesDigest < ActiveRecord::Base
   def schedule_followup(follow_up_days_index)
     if follow_up_days_index != 0 && delivered == true
       self.create_follow_up_digest_email(
-        send_on:  Date.today + follow_up_days_index.days
+        send_on:  Date.current + follow_up_days_index.days
       )
     end
   end

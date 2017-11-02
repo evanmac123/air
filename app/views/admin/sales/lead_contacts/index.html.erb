@@ -63,7 +63,7 @@
                   <%= lead_contact.created_at.strftime("%D") %>
                 </td>
                 <td class="name">
-                  <%= (Date.today - lead_contact.updated_at.to_date).to_i %>
+                  <%= (Date.current - lead_contact.updated_at.to_date).to_i %>
                 </td>
                 <td class="name">
                   <%= lead_contact.name %>
@@ -113,7 +113,7 @@
                   <%= lead_contact.created_at.strftime("%D") %>
                 </td>
                 <td class="name">
-                  <%= (Date.today - lead_contact.updated_at.to_date).to_i %>
+                  <%= (Date.current - lead_contact.updated_at.to_date).to_i %>
                 </td>
                 <td class="name">
                   <%= lead_contact.name %>
@@ -163,7 +163,7 @@
                   <%= lead_contact.created_at.strftime("%D") %>
                 </td>
                 <td class="name">
-                  <%= (Date.today - lead_contact.updated_at.to_date).to_i %>
+                  <%= (Date.current - lead_contact.updated_at.to_date).to_i %>
                 </td>
                 <td class="name">
                   <%= lead_contact.name %>

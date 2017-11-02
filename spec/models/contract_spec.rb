@@ -84,7 +84,7 @@ describe Contract do
       edate = Date.new(2014,12,31)
       c = FactoryGirl.build(:contract, :complete, start_date: sdate, end_date: edate)
       c.renew
-      expect(c.renewed_on).to eq Date.today
+      expect(c.renewed_on).to eq Date.current
     end
 
     it "does not set the renewed on date for the new contract" do

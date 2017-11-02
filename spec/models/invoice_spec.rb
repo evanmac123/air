@@ -9,8 +9,8 @@ RSpec.describe Invoice, type: :model do
 
       @invoice = subscription.invoices.create(
       amount_in_cents: 1000,
-      service_period_start: Date.today,
-      service_period_end: Date.today + 1.year
+      service_period_start: Date.current,
+      service_period_end: Date.current + 1.year
       )
     end
 
@@ -106,7 +106,7 @@ RSpec.describe Invoice, type: :model do
 
   describe "class methods" do
     before do
-      Timecop.freeze(Time.now)
+      Timecop.freeze(Time.current)
       organization = Organization.create(name: "Test")
       plan = SubscriptionPlan.create(name: "Test Plan", interval_count: 1, interval_cd: 0)
       subscription_1 = Subscription.create(subscription_plan: plan, organization: organization)
@@ -114,20 +114,20 @@ RSpec.describe Invoice, type: :model do
 
       @invoice_1 = subscription_1.invoices.create(
         amount_in_cents: 1000,
-        service_period_start: Date.today - 1.year,
+        service_period_start: Date.current - 1.year,
         service_period_end: Date.tomorrow
       )
 
       @invoice_2 = subscription_2.invoices.create(
         amount_in_cents: 1000,
-        service_period_start: Date.today - 2.years,
+        service_period_start: Date.current - 2.years,
         service_period_end: Date.tomorrow
       )
 
       @invoice_3 = subscription_1.invoices.create(
         amount_in_cents: 1000,
-        service_period_start: Date.today,
-        service_period_end: Date.today + 1.year
+        service_period_start: Date.current,
+        service_period_end: Date.current + 1.year
       )
     end
 

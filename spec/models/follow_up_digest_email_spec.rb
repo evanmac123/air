@@ -95,13 +95,13 @@ describe FollowUpDigestEmail do
 
 
       User.claimed.each do |user|
-        user.current_board_membership.update_attributes(joined_board_at: Time.now)
+        user.current_board_membership.update_attributes(joined_board_at: Time.current)
       end
     end
 
     context "claimed" do
       before do
-        digest = @demo.tiles_digests.create(sender: @sender, headline: "headline", tile_ids: @tiles.map(&:id), include_unclaimed_users: false, sent_at: Time.now)
+        digest = @demo.tiles_digests.create(sender: @sender, headline: "headline", tile_ids: @tiles.map(&:id), include_unclaimed_users: false, sent_at: Time.current)
 
         @fu = digest.build_follow_up_digest_email(
           send_on: 1.hour.from_now,
@@ -120,7 +120,7 @@ describe FollowUpDigestEmail do
 
     context "All users" do
       before do
-        digest = @demo.tiles_digests.create(sender: @sender, headline: "headline", tiles: @tiles, include_unclaimed_users: true, sent_at: Time.now)
+        digest = @demo.tiles_digests.create(sender: @sender, headline: "headline", tiles: @tiles, include_unclaimed_users: true, sent_at: Time.current)
 
         @fu = digest.build_follow_up_digest_email(
           send_on: 1.hour.from_now,

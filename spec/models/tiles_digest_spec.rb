@@ -10,7 +10,7 @@ RSpec.describe TilesDigest, :type => :model do
       message: "Message",
       subject: "Subject",
       alt_subject: "Alt Subject",
-      sent_at: Time.now + 1.day
+      sent_at: Time.current + 1.day
     }
   end
 
@@ -71,7 +71,7 @@ RSpec.describe TilesDigest, :type => :model do
 
   describe ".dispatch" do
     it "creates a tiles_digest object with correct attrs and tiles" do
-      demo.update_attributes(tile_digest_email_sent_at: Time.now)
+      demo.update_attributes(tile_digest_email_sent_at: Time.current)
       params = digest_params(demo, client_admin, true)
       tiles = FactoryGirl.create_list(:tile, 5, demo: demo)
       digest = TilesDigest.dispatch(params)
@@ -147,7 +147,7 @@ RSpec.describe TilesDigest, :type => :model do
       expect(@digest.follow_up_digest_email.present?).to be true
 
       follow_up = @digest.follow_up_digest_email
-      expect(follow_up.send_on).to eq(Date.today + 1)
+      expect(follow_up.send_on).to eq(Date.current + 1)
     end
   end
 

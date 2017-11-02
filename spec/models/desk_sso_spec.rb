@@ -24,7 +24,7 @@
 #     end
 #
 #     xit "should return the proper value" do
-#       Timecop.freeze(Time.parse("2011-05-30T12:00:00-04:00"))
+#       Timecop.freeze(Time.zone.parse("2011-05-30T12:00:00-04:00"))
 #       multipass = desksso.multipass
 #
 #       decoded_multipass = Base64.decode64(multipass)

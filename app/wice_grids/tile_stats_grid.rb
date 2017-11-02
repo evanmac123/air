@@ -35,7 +35,7 @@ class TileStatsGrid
         'tile_completions.answer_index' => lambda { |c| "(#{c} IS NULL), #{c}" }
       },
       per_page: 10,
-      csv_file_name: "#{tile.headline.parameterize}-#{DateTime.now.strftime("%d-%m-%y")}"
+      csv_file_name: "#{tile.headline.parameterize}-#{DateTime.current.strftime("%d-%m-%y")}"
     }
   end
 end

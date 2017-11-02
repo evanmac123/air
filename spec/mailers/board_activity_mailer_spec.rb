@@ -19,7 +19,7 @@ describe BoardActivityMailer do
 			@completion = setup_completion(@user, @tile2)
 			@bm = setup_board_membership BoardMembership.first, @user, @demo
 		end
-		let(:mail) {BoardActivityMailer.notify(@demo.id, @user, [@tile1.id, @tile2.id], 1.week.ago, Time.now ) }
+		let(:mail) {BoardActivityMailer.notify(@demo.id, @user, [@tile1.id, @tile2.id], 1.week.ago, Time.current ) }
 
 		it 'renders the subject' do
 			expect(mail.subject).to eql(BoardActivityMailer::ACTIVITY_DIGEST_HEADING)

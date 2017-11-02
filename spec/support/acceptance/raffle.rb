@@ -10,14 +10,14 @@ module RaffleHelpers
     if date.class == DateTime
       date = to_calendar_format date
     end
-    DateTime.strptime(date + " 00:00", "%m/%d/%Y %H:%M").change(:offset => "-0400")
+    DateTime.strptime(date + " 00:00", "%m/%d/%Y %H:%M").in_time_zone
   end
 
   def to_end_date date
     if date.class == DateTime
       date = to_calendar_format date
     end
-    DateTime.strptime(date + " 23:59", "%m/%d/%Y %H:%M").change(:offset => "-0400")
+    DateTime.strptime(date + " 23:59", "%m/%d/%Y %H:%M").in_time_zone
   end
 
   def to_calendar_format date
@@ -45,8 +45,8 @@ module RaffleHelpers
   end
 
   def fill_prize_form
-    start_date = to_calendar_format(DateTime.now)
-    end_date = to_calendar_format(DateTime.now + 7.days)
+    start_date = to_calendar_format(DateTime.current)
+    end_date = to_calendar_format(DateTime.current + 7.days)
 
     fill_in_start_date start_date
     fill_in_end_date end_date

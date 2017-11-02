@@ -12,7 +12,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     respond_to do |format|
       users_invite.send_invites(current_user)
       if users_invite.errors.empty?
-        current_user.demo.update_attributes tile_digest_email_sent_at: Time.now
+        current_user.demo.update_attributes tile_digest_email_sent_at: Time.current
         format.html { redirect_to :back, notice: 'Invitations sent successfully' }
         format.json { render nothing: true, status: :created }
       else

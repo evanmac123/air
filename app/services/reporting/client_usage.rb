@@ -42,7 +42,7 @@ module Reporting
     private
 
     def defaults
-      { beg_date:3.months.ago, end_date:Date.today, interval:"week"}
+      { beg_date:3.months.ago, end_date:Date.current, interval:"week"}
     end
 
     def do_user_activation

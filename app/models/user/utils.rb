@@ -13,7 +13,7 @@ class User
                       email: in_email, 
                       slug: name,
                       sms_slug: name,
-                      accepted_invitation_at: Time.now, 
+                      accepted_invitation_at: Time.current, 
                       password: 'airbo-password')
           count += 1
         end

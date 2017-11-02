@@ -49,7 +49,7 @@ class TilesDigestScheduler
 
     def update_demo
       demo.update_attributes(
-        tile_digest_email_sent_at: Time.now,
+        tile_digest_email_sent_at: Time.current,
         unclaimed_users_also_get_digest: unclaimed_users_also_get_digest
       )
     end

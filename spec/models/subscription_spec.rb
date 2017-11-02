@@ -13,14 +13,14 @@ RSpec.describe Subscription, type: :model do
     let(:subscription) { Subscription.create(subscription_plan: plan, organization: organization) }
     let(:invoice) { subscription.invoices.create(
       amount_in_cents: 1000,
-      service_period_start: Date.today,
-      service_period_end: Date.today + 1.year
+      service_period_start: Date.current,
+      service_period_end: Date.current + 1.year
     ) }
 
     describe "#should_renew_invoice" do
       let(:earlier_invoice) { subscription.invoices.create(
         amount_in_cents: 1000,
-        service_period_start: Date.today - 6.months,
+        service_period_start: Date.current - 6.months,
         service_period_end: Date.tomorrow
       ) }
 

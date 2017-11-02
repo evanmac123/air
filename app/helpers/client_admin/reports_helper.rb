@@ -3,7 +3,7 @@ module ClientAdmin::ReportsHelper
     if demo_launch > 3.months.ago
       demo_launch
     else
-      Time.now.end_of_month - 3.months
+      Time.current.end_of_month - 3.months
     end
   end
 
@@ -27,21 +27,21 @@ module ClientAdmin::ReportsHelper
     end
 
     def past_three_months
-      if (Time.now - demo_launch) > 3.months
+      if (Time.current - demo_launch) > 3.months
         {
           formatted_name: "Past 3 Months",
-          start_date: Time.now.end_of_month - 3.months,
-          end_date: Time.now,
+          start_date: Time.current.end_of_month - 3.months,
+          end_date: Time.current,
         }
       end
     end
 
     def past_twelve_months
-      if (Time.now - demo_launch) > 12.months
+      if (Time.current - demo_launch) > 12.months
         {
           formatted_name: "Past 12 Months",
-          start_date: Time.now - 1.year,
-          end_date: Time.now,
+          start_date: Time.current - 1.year,
+          end_date: Time.current,
         }
       end
     end
@@ -59,7 +59,7 @@ module ClientAdmin::ReportsHelper
         formatted_name: "Past Five Years",
         start_active: false,
         start_date: launch_date_or_five_years,
-        end_date: Time.now,
+        end_date: Time.current,
       }
     end
 
@@ -68,13 +68,13 @@ module ClientAdmin::ReportsHelper
         formatted_name: "All Time",
         start_active: all_time_start_active?,
         start_date: launch_date_or_five_years,
-        end_date: Time.now,
+        end_date: Time.current,
       }
     end
 
     def last_four_years
-      unless demo_launch.year == Time.now.year
-        [*demo_launch.year..Time.now.year].reverse.map { |year|
+      unless demo_launch.year == Time.current.year
+        [*demo_launch.year..Time.current.year].reverse.map { |year|
           {
             formatted_name: "#{year}",
             start_active: false,
@@ -94,7 +94,7 @@ module ClientAdmin::ReportsHelper
     end
 
     def five_years_or_older?
-      demo_launch < (Time.now - 1825.days)
+      demo_launch < (Time.current - 1825.days)
     end
 
     def all_time_start_active?

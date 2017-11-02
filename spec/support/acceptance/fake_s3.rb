@@ -42,7 +42,7 @@ class MockS3
     def initialize(file_path, chunk_size)
       @file_path = file_path
       @chunk_size = chunk_size
-      @last_modified = Time.now
+      @last_modified = Time.current
     end
 
     def read
@@ -63,7 +63,7 @@ class MockS3
   class MockS3String
     def initialize(text)
       @text = text
-      @last_modified = Time.now
+      @last_modified = Time.current
     end
 
     def read

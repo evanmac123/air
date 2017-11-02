@@ -11,7 +11,7 @@ feature 'Client admin and the digest email for tiles' do
 
   before do
     on_day '7/5/2013' do
-      admin.board_memberships.update_all(created_at: Time.now)
+      admin.board_memberships.update_all(created_at: Time.current)
       user = FactoryGirl.create :user, demo: demo
       tile = create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, demo: demo, headline: "Tile completed"
       FactoryGirl.create(:tile_completion, tile: tile, user: user)
@@ -206,7 +206,7 @@ feature 'Client admin and the digest email for tiles' do
                   Activities page, while whisking others to where they belong" do
           on_day '7/6/2013' do
             admin.demo.users.claimed.each do |user|
-              user.board_memberships.each { |bm| bm.update_attributes(joined_board_at: Time.now) }
+              user.board_memberships.each { |bm| bm.update_attributes(joined_board_at: Time.current) }
             end
             change_send_to('All Users')
             submit_button.click
@@ -251,7 +251,7 @@ feature 'Client admin and the digest email for tiles' do
         scenario 'Demo where only claimed users should get digests' do
           on_day '7/6/2013' do
             admin.demo.users.claimed.each do |user|
-              user.current_board_membership.update_attributes(joined_board_at: Time.now)
+              user.current_board_membership.update_attributes(joined_board_at: Time.current)
             end
 
             change_send_to('Activated Users')

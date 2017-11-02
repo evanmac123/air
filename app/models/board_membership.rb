@@ -96,7 +96,7 @@ class BoardMembership < ActiveRecord::Base
 
     def set_joined_board_at
       unless joined_board_at
-        self.joined_board_at = Time.now
+        self.joined_board_at = Time.current
       end
     end
 end

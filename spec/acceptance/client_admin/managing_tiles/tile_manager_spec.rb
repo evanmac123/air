@@ -124,7 +124,7 @@ feature 'Client admin and tile manager page', js: true do
     # Chronologically-speaking, creating tiles "up" from 0 to 10 and then checking "down" from 10 to 0
     let!(:tiles) do
       10.times do |i|
-        tile = FactoryGirl.create :tile, demo: demo, headline: "Tile #{i}", created_at: Time.now + i.days
+        tile = FactoryGirl.create :tile, demo: demo, headline: "Tile #{i}", created_at: Time.current + i.days
         # We now sort by activated_at/archived_at, and if those times aren't present we fall back on created_at
         # Make it so that all odd tiles should be listed before all even ones, and that odd/even each should be sorted in descending order.
         if i.even?

@@ -88,7 +88,7 @@ describe OnboardingsController do
     {
       user_onboarding: user_onboarding.id,
       hash: user_onboarding.auth_hash,
-      user: user.data_for_mixpanel.merge({time: DateTime.now })
+      user: user.data_for_mixpanel.merge({time: DateTime.current })
     }.to_json
   end
 end

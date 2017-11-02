@@ -18,15 +18,15 @@ describe Reports::TileStatsReport do
 
     @tile.tile_viewings.create(user_id: client_admin.id)
     users.each do |user|
-      @tile.tile_viewings.create(user_id: user.id, created_at: Time.now + 1.day)
+      @tile.tile_viewings.create(user_id: user.id, created_at: Time.current + 1.day)
     end
 
     @tile.tile_completions.create(user_id: client_admin, answer_index: 0)
     users[0..2].each do |user|
-      @tile.tile_completions.create(user_id: user.id, answer_index: 0, created_at: Time.now + 1.day)
+      @tile.tile_completions.create(user_id: user.id, answer_index: 0, created_at: Time.current + 1.day)
     end
 
-    @tile.tile_user_notifications.create(creator: client_admin, message: "message", subject: "subject", scope_cd: 0, delivered_at: Time.now - 1.day, recipient_count: 5)
+    @tile.tile_user_notifications.create(creator: client_admin, message: "message", subject: "subject", scope_cd: 0, delivered_at: Time.current - 1.day, recipient_count: 5)
   end
 
   describe "#data" do

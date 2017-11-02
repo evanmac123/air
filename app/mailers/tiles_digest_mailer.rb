@@ -38,7 +38,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
   def notify_all_follow_up
     FollowUpDigestEmail.send_follow_up_digest_email.each do |followup|
-      followup.delay(run_at: noon).trigger_deliveries
+      followup.delay(run_at: noon_est).trigger_deliveries
     end
   end
 

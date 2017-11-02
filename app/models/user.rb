@@ -262,7 +262,7 @@ class User < ActiveRecord::Base
   end
 
   def days_since_activated
-    accepted_invitation_at.nil? ? 0 : (Date.today - accepted_invitation_at.to_date).to_i
+    accepted_invitation_at.nil? ? 0 : (Date.current - accepted_invitation_at.to_date).to_i
   end
 
   def role
@@ -285,7 +285,7 @@ class User < ActiveRecord::Base
   end
   def update_last_acted_at
     reload if changed? # Let's scrap any dirty changes so we don't get unwanted side-effects
-    self.last_acted_at = Time.now
+    self.last_acted_at = Time.current
     save!
   end
 
@@ -319,7 +319,7 @@ class User < ActiveRecord::Base
   def date_of_birth_in_the_past
     return unless self.date_of_birth
 
-    unless self.date_of_birth < Date.today
+    unless self.date_of_birth < Date.current
       self.errors.add(:date_of_birth, "must be in the past")
     end
   end
@@ -592,7 +592,7 @@ class User < ActiveRecord::Base
 
     update_attribute(:phone_number, PhoneNumber.normalize(phone_number)) if phone_number.present?
     update_attribute(:email, email) if email.present?
-    update_attribute(:accepted_invitation_at, Time.now)
+    update_attribute(:accepted_invitation_at, Time.current)
     record_claim_in_mixpanel(channel)
   end
 
@@ -624,7 +624,7 @@ class User < ActiveRecord::Base
 
     until(possibly_finished && (self.valid? || self.errors[:invitation_code].empty?))
       possibly_finished = true
-      self.invitation_code = Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{self.email}--#{self.name}--")
+      self.invitation_code = Digest::SHA1.hexdigest("--#{Time.current.to_f}--#{self.email}--#{self.name}--")
     end
   end
 
@@ -634,7 +634,7 @@ class User < ActiveRecord::Base
   end
 
   def set_explore_token
-    self.explore_token = Digest::SHA1.hexdigest("This is the salt for an explore token, how about that--#{Time.now.to_f}--#{self.email}--#{self.name}--")
+    self.explore_token = Digest::SHA1.hexdigest("This is the salt for an explore token, how about that--#{Time.current.to_f}--#{self.email}--#{self.name}--")
   end
 
   def set_explore_token! # useful for backfilling
@@ -778,7 +778,7 @@ class User < ActiveRecord::Base
   end
 
   def mute_for_now
-    self.update_attributes(:last_muted_at => Time.now)
+    self.update_attributes(:last_muted_at => Time.current)
   end
 
   def invitation_sent_text

@@ -20,11 +20,12 @@ class BaseTilesDigestMailer < ApplicationMailer
     }
   end
 
-  def noon
-    Date.today.midnight.advance(hours: 12)
+  def noon_est
+    Time.current.in_time_zone("Eastern Time (US & Canada)").midnight.advance(hours: 12)
   end
 
   private
+
     def tiles_by_position
       Tile.where(id: @tile_ids).ordered_by_position
     end

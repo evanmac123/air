@@ -12,12 +12,12 @@ class FollowUpDigestEmail < ActiveRecord::Base
   scope :scheduled, -> { where(sent: false).order("send_on ASC") }
 
   def self.send_follow_up_digest_email
-    scheduled.where(send_on: Date.today)
+    scheduled.where(send_on: Date.current)
   end
 
   def self.follow_up_days(follow_up_day)
     return 0 if follow_up_day == 'Never'
-    today = Date.today.wday
+    today = Date.current.wday
     day_to_send = Date::DAYNAMES.index(follow_up_day)
 
     day_to_send > today ? day_to_send - today : 7 - (today - day_to_send)

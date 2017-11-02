@@ -4,13 +4,13 @@ describe FinancialsCalcService do
 
   before do
 
-    Timecop.freeze(Date.today)
+    Timecop.freeze(Date.current)
       org1 = FactoryGirl.create(:organization)
       org2 = FactoryGirl.create(:organization)
       org3 = FactoryGirl.create(:organization)
       org4 = FactoryGirl.create(:organization)
       org5 = FactoryGirl.create(:organization)
-      FactoryGirl.create(:contract, :complete, :active, organization: org1, date_booked: Date.today, start_date: 1.week.from_now, end_date: 53.weeks.from_now)
+      FactoryGirl.create(:contract, :complete, :active, organization: org1, date_booked: Date.current, start_date: 1.week.from_now, end_date: 53.weeks.from_now)
 
       org2_con1 = FactoryGirl.create(:contract, :complete, :active, organization: org2, start_date: 3.months.ago, end_date: 9.months.from_now)
       #upgrade
@@ -19,11 +19,11 @@ describe FinancialsCalcService do
       FactoryGirl.create(:contract, :complete, :active, organization: org3, amt_booked: 100, date_booked: 3.months.ago, mrr: 100, arr: 1200, cycle: Contract::MONTHLY, start_date: 2.months.ago, end_date: 1.month.from_now)
       FactoryGirl.create(:contract, :complete, :active, organization: org4, amt_booked: 100, date_booked: Date.tomorrow, mrr: 100, cycle: Contract::MONTHLY, start_date: 1.months.from_now, end_date: 2.months.from_now)
 
-      @calc =FinancialsCalcService.new(Date.today, 1.week.from_now.to_date)
+      @calc =FinancialsCalcService.new(Date.current, 1.week.from_now.to_date)
       yesterday = Date.yesterday
       year_ago_yesterday = yesterday.advance({years: -1})
       FactoryGirl.create(:contract, :complete, organization: org5, amt_booked: 2400, arr: 2400, date_booked: year_ago_yesterday, start_date: year_ago_yesterday, end_date: yesterday)
-      FactoryGirl.create(:contract, :complete, organization: org5, amt_booked: 2400, arr: 2400, date_booked: Date.today, start_date: Date.today, end_date: 1.year.from_now)
+      FactoryGirl.create(:contract, :complete, organization: org5, amt_booked: 2400, arr: 2400, date_booked: Date.current, start_date: Date.current, end_date: 1.year.from_now)
     end
 
     after do
