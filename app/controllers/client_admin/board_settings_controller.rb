@@ -1,4 +1,5 @@
 class ClientAdmin::BoardSettingsController < ClientAdminBaseController
+  # FIXME Fucking ridiculous.
   before_filter :get_board
 
   def index
@@ -61,6 +62,11 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
 
   def cover_message
     @board.cover_message = params[:demo][:cover_message]
+    render json: { success: @board.save }
+  end
+
+  def timezone
+    @board.timezone = params[:demo][:timezone]
     render json: { success: @board.save }
   end
 

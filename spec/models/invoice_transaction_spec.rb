@@ -11,8 +11,8 @@ RSpec.describe InvoiceTransaction, :type => :model do
 
     let(:invoice) { subscription.invoices.create(
       amount_in_cents: 1000,
-      service_period_start: Date.today,
-      service_period_end: Date.today + 1.year
+      service_period_start: Date.current,
+      service_period_end: Date.current + 1.year
     ) }
 
     describe "#create_invoice_transaction_in_chart_mogul" do
@@ -97,8 +97,8 @@ RSpec.describe InvoiceTransaction, :type => :model do
 
     let(:invoice) { subscription.invoices.create(
       amount_in_cents: 1000,
-      service_period_start: Date.today,
-      service_period_end: Date.today + 1.year
+      service_period_start: Date.current,
+      service_period_end: Date.current + 1.year
     ) }
 
     let!(:paid_success_transaction_1) { invoice.invoice_transactions.create(type_cd: InvoiceTransaction.payment, result_cd: InvoiceTransaction.successful) }

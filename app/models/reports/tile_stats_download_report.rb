@@ -99,7 +99,7 @@ class Reports::TileStatsDownloadReport
       if column == "tile_answer_index"
         get_answer(row.send(column))
       elsif column == "viewed_date" || column == "completion_date"
-        Time.parse(row.send(column)).strftime("%m/%d/%Y")
+        Time.zone.parse(row.send(column)).strftime("%m/%d/%Y")
       else
         row.send(column)
       end

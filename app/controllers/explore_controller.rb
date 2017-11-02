@@ -45,7 +45,7 @@ class ExploreController < ExploreBaseController
 
     def set_intro_slides
       if show_slides? && params[:requested_tile_id].nil?
-        cookies[:airbo_explore] = Time.now
+        cookies[:airbo_explore] = Time.current
         @show_explore_onboarding = true
       end
     end

@@ -22,7 +22,7 @@ feature 'Gets remembered when logging in via digest link' do
   end
 
   scenario "it isn't their first login (i.e. they come in via the activity path)" do
-    user.update_attributes(accepted_invitation_at: Time.now)
+    user.update_attributes(accepted_invitation_at: Time.current)
     visit activity_path(user_id: user.id, tile_token: EmailLink.generate_token(user))
     should_be_on activity_path
 

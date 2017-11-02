@@ -20,11 +20,11 @@ feature "Client admin modifies the follow digest email", js: true do
         headline: "headline",
         include_unclaimed_users: true,
         sender: @admin,
-        sent_at: Time.now + 1.day
+        sent_at: Time.current + 1.day
       )
 
       @fu = digest.create_follow_up_digest_email(
-        send_on: Time.now + 1.month
+        send_on: Time.current + 1.month
       )
 
       @rowSelector = ".followups #fu_#{@fu.id}"

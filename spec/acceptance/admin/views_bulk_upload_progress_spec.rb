@@ -18,10 +18,10 @@ feature 'site admin monitors bulk upload progress' do
     set_fake_list(redis_load_queue_key, 167)
     set_fake_list(redis_failed_load_queue_key, 6)
 
-    baseline_time = Time.now + 5.minutes
+    baseline_time = Time.current + 5.minutes
     Timecop.travel(10.minutes)
     updated_users = users.sort_by{|_u| rand}[0,7]
-    updated_users.each{|user| user.update_column(:updated_at, Time.now)}
+    updated_users.each{|user| user.update_column(:updated_at, Time.current)}
 
     Delayed::Job.all.each(&:destroy)
     3.times {nil.delay.nil?}

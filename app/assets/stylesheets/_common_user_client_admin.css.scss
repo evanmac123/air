@@ -3,7 +3,6 @@
 @import "./mixins/main_styles.css.scss";
 @import "./internal/flash.css.scss";
 @import "./internal/mast.css.scss";
-@import "./internal/board_settings_iphone.css.scss";
 @import "./internal/prize_box.css.scss";
 @import "./internal/tiles.css.scss";
 @import "./client_admin/tile_manager/tiles.css.scss";
@@ -31,8 +30,6 @@
 @media only screen and (min-width: $foundation) {
   @import "./internal/screen_desktop.css.scss";
   @import "./internal/large_tile_viewer_desktop.css.scss";
-  @import "./internal/board_settings_desktop.css.scss";
-
 }
 @media only screen and (min-width: $mid-desktop) {
   @import "./internal/screen_large.css.scss";

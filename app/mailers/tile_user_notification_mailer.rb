@@ -9,7 +9,7 @@ class TileUserNotificationMailer < ApplicationMailer
       TileUserNotificationMailer.delay(queue: TileUserNotification::DELAYED_JOB_QUEUE).notify_one(user: user, tile_user_notification: tile_user_notification)
     end
 
-    tile_user_notification.update_attributes(delivered_at: Time.now)
+    tile_user_notification.update_attributes(delivered_at: Time.current)
   end
 
   def notify_one(user:, tile_user_notification:)

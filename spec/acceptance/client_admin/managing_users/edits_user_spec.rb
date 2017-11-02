@@ -119,7 +119,7 @@ feature 'Edits user' do
     expect_content "Joined: No"
     expect_no_content "Joined: Yes"
 
-    user.update_attributes(accepted_invitation_at: Time.now)
+    user.update_attributes(accepted_invitation_at: Time.current)
     expect(user).to be_claimed
     visit(edit_client_admin_user_path(user, as: client_admin))
 

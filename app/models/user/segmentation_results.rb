@@ -48,6 +48,6 @@ class User::SegmentationResults
   private
 
   def set_created_at
-    self.created_at = Time.now
+    self.created_at = Time.current
   end
 end

@@ -4,7 +4,7 @@ describe ActiveBoardCollector do
 
 	before do
 		@beg_date=1.week.ago
-		@end_date=Time.now
+		@end_date=Time.current
 		@demo, @user, tile1, tile2 = setup_user_board
 		@viewing = setup_viewing @user, tile1
 		@completion = setup_completion(@user, tile2)

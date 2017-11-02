@@ -49,11 +49,11 @@ class Contract < ActiveRecord::Base
   end
 
   def self.active
-    current.where("end_date >= ?", Date.today)
+    current.where("end_date >= ?", Date.current)
   end
 
   def self.inactive
-    where("end_date < ?", Date.today)
+    where("end_date < ?", Date.current)
   end
 
   def self.active_mrr_today
@@ -69,7 +69,7 @@ class Contract < ActiveRecord::Base
   end
 
   def self.active_as_of_today
-    active_as_of_date(Date.today)
+    active_as_of_date(Date.current)
   end
 
 
@@ -97,7 +97,7 @@ class Contract < ActiveRecord::Base
     where("end_date >= ? and end_date <= ?", sdate, edate)
   end
 
-  def self.active_mrr_as_of_date report_date=Date.today
+  def self.active_mrr_as_of_date report_date=Date.current
     active_as_of_date(report_date).sum(&:calc_mrr)
   end
 
@@ -117,11 +117,11 @@ class Contract < ActiveRecord::Base
     where("date_booked >= ? and date_booked <= ?", sdate, edate).sum(&:amt_booked)
   end
 
-  def self.active_booked_for_date start_date=Date.today
+  def self.active_booked_for_date start_date=Date.current
     active_as_of_date(start_date).sum(&:amt_booked)
   end
 
-  def self.booked_year_to_date date=Date.today
+  def self.booked_year_to_date date=Date.current
     where("date_booked >= ? and date_booked <= ?", date.beginning_of_year, date).sum(&:amt_booked)
   end
 
@@ -141,7 +141,7 @@ class Contract < ActiveRecord::Base
   end
 
   def status
-    end_date >= Date.today ? "Active" : "Closed"
+    end_date >= Date.current ? "Active" : "Closed"
   end
 
   def projection_type
@@ -163,7 +163,7 @@ class Contract < ActiveRecord::Base
 
   def renew
     dup = self.dup
-    self.renewed_on = Date.today
+    self.renewed_on = Date.current
     dup.start_date = end_date.advance(days:1)
     dup.end_date = new_end_date(end_date)
     dup.date_booked = dup.start_date

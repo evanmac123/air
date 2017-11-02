@@ -15,7 +15,7 @@ FactoryGirl.define do
     sample_tile_completed true
 
     trait :claimed do
-      accepted_invitation_at Time.now
+      accepted_invitation_at Time.current
     end
 
     # This trait is, strictly speaking, redundant, but some tests are easier
@@ -46,7 +46,7 @@ FactoryGirl.define do
   end
 
   factory :brand_new_user, :parent => :user do
-    accepted_invitation_at { Time.now }
+    accepted_invitation_at { Time.current }
   end
 
   factory :claimed_user, :parent => :brand_new_user do

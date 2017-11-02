@@ -92,8 +92,8 @@ class Tile < ActiveRecord::Base
 
   before_post_process :no_post_process_on_copy
 
-  scope :after_start_time, -> { where("start_time < ? OR start_time IS NULL", Time.now) }
-  scope :before_end_time, -> { where("end_time > ? OR end_time IS NULL", Time.now) }
+  scope :after_start_time, -> { where("start_time < ? OR start_time IS NULL", Time.current) }
+  scope :before_end_time, -> { where("end_time > ? OR end_time IS NULL", Time.current) }
   scope :after_start_time_and_before_end_time, -> { after_start_time.before_end_time }
 
   #FIXME suggested and status are not the same thing!
@@ -175,10 +175,10 @@ class Tile < ActiveRecord::Base
     case status
     when ACTIVE  then
       if  never_activated || activated_at_reset_allowed?
-        self.activated_at = Time.now
+        self.activated_at = Time.current
       end
     when ARCHIVE then
-      self.archived_at  = Time.now
+      self.archived_at  = Time.current
     end
 
   end

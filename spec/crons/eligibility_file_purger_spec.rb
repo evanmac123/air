@@ -21,14 +21,14 @@ describe EligibilityFilePurger do
       # objects after we delete them, as part of the fakery.
       @old_objects = []
       @old_object_keys.each_with_index do |object_key, i|
-        old_modified_time = Time.now - EligibilityFilePurger::AGE_THRESHOLD - (2 * (i + 1)).minutes
+        old_modified_time = Time.current - EligibilityFilePurger::AGE_THRESHOLD - (2 * (i + 1)).minutes
         mock_object = @mock_s3.objects[object_key]
         mock_object.stubs(:last_modified).returns(old_modified_time)
         @old_objects << mock_object
       end
      
       @new_object_keys.each_with_index do |object_key, i|
-        new_modified_time = Time.now - EligibilityFilePurger::AGE_THRESHOLD + (2 * (i + 1)).minutes
+        new_modified_time = Time.current - EligibilityFilePurger::AGE_THRESHOLD + (2 * (i + 1)).minutes
         @mock_s3.objects[object_key].stubs(:last_modified).returns(new_modified_time)
       end
 

@@ -7,8 +7,8 @@ describe ChartMogulService::Sync do
 
   let(:invoice) { subscription.invoices.create(
     amount_in_cents: 1000,
-    service_period_start: Date.today,
-    service_period_end: Date.today + 1.year
+    service_period_start: Date.current,
+    service_period_end: Date.current + 1.year
   ) }
 
   let(:transaction) { invoice.find_or_create_payment }
@@ -78,7 +78,7 @@ describe ChartMogulService::Sync do
       invoice
       fake_chart_mogul_subscription_service = OpenStruct.new
 
-      subscription.update_attributes(cancelled_at: Date.today + 2.weeks)
+      subscription.update_attributes(cancelled_at: Date.current + 2.weeks)
       cancelled_subscription = subscription
 
       ongoing_subscription =  Subscription.create(subscription_plan: plan, organization: organization)

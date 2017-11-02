@@ -41,7 +41,7 @@ class BoardHealthReport < ActiveRecord::Base
   end
 
   def tile_engagement_report_cache_key
-    "BoardHealthReport:#{demo.id}:tile_engagement_report:#{Date.today}"
+    "BoardHealthReport:#{demo.id}:tile_engagement_report:#{Date.current}"
   end
 
   def tile_engagement_report

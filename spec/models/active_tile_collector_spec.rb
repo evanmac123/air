@@ -14,7 +14,7 @@ describe ActiveTileCollector do
       @completion=FactoryGirl.create(:tile_completion, 
                                      tile: @tile2, user: @user)
       @beg_date=1.week.ago
-      @end_date=Time.now
+      @end_date=Time.current
 
       @collector = ActiveTileCollector.new(@demo, @beg_date, @end_date) 
     end

@@ -56,7 +56,7 @@ module TileFooterTimestamper
       {
         title: "Created: ",
         icon: "clock-o",
-        time: "#{distance_of_time_in_words(tile.created_at, Time.now)}",
+        time: "#{distance_of_time_in_words(tile.created_at, Time.current)}",
         class: "tile-created-at"
       }
     when :active
@@ -84,7 +84,7 @@ module TileFooterTimestamper
       {
         title: "Submitted: ",
         icon: "clock-o",
-        time: "#{distance_of_time_in_words(tile.created_at, Time.now)}",
+        time: "#{distance_of_time_in_words(tile.created_at, Time.current)}",
         class: "tile-submitted-at"
       }
     when :ignored

@@ -19,7 +19,7 @@ describe 'Digest email' do
       demo: demo
     )
 
-    user.board_memberships.update_all(joined_board_at: Time.now)
+    user.board_memberships.update_all(joined_board_at: Time.current)
     user
   end
 
@@ -32,18 +32,18 @@ describe 'Digest email' do
   end
 
   let(:tiles) do
-    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 1', status: Tile::ACTIVE, activated_at: Time.now, supporting_content: 'supporting_content_1', link_address: "http://www.google.com")
+    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 1', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_1', link_address: "http://www.google.com")
 
-    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 2', status: Tile::ACTIVE, activated_at: Time.now, supporting_content: 'supporting_content_2', link_address: "https://www.nsa.gov")
+    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 2', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_2', link_address: "https://www.nsa.gov")
 
-    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 3', status: Tile::ACTIVE, activated_at: Time.now, supporting_content: 'supporting_content_3')
+    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 3', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_3')
 
     FactoryGirl.create(:tile, demo: demo, headline: "Archive Tile", status: Tile::ARCHIVE)  # This guy shouldn't show up in the email
 
     demo.tiles
   end
 
-  let(:digest) { TilesDigest.create(demo: demo, sender: claimed_user, tiles: tiles, sent_at: Date.today + 1.day) }
+  let(:digest) { TilesDigest.create(demo: demo, sender: claimed_user, tiles: tiles, sent_at: Date.current + 1.day) }
 
   describe 'Delivery' do
     subject do
@@ -300,7 +300,7 @@ describe 'Digest email' do
     it "should send the appropriate tiles to each user" do
       digest.update_attributes(include_unclaimed_users: true)
 
-      digest.create_follow_up_digest_email(send_on: Date.today)
+      digest.create_follow_up_digest_email(send_on: Date.current)
 
       TilesDigestMailer.notify_all_follow_up
 
@@ -326,9 +326,9 @@ describe 'Digest email' do
       tiles    = FactoryGirl.create_list :tile, 3, demo: demo
       tile_ids = tiles.collect(&:id)
 
-      digest = TilesDigest.create(demo: demo, sender: sender, tile_ids: tile_ids, sent_at: Time.now, include_unclaimed_users: true)
+      digest = TilesDigest.create(demo: demo, sender: sender, tile_ids: tile_ids, sent_at: Time.current, include_unclaimed_users: true)
 
-      digest.create_follow_up_digest_email(send_on: Date.today)
+      digest.create_follow_up_digest_email(send_on: Date.current)
 
       FactoryGirl.create :tile_completion, user: john,  tile: tiles[0]
       FactoryGirl.create :tile_completion, user: john,  tile: tiles[1]
@@ -351,9 +351,9 @@ describe 'Digest email' do
 
       users_to_deliver_to = FactoryGirl.create_list(:user, 2, demo: demo)
 
-      digest = TilesDigest.create(demo: demo, sender: users_to_deliver_to.first, sent_at: Time.now, tile_ids: [], include_unclaimed_users: true)
+      digest = TilesDigest.create(demo: demo, sender: users_to_deliver_to.first, sent_at: Time.current, tile_ids: [], include_unclaimed_users: true)
 
-      digest.create_follow_up_digest_email(send_on: Date.today)
+      digest.create_follow_up_digest_email(send_on: Date.current)
 
       _users_to_not_deliver_to = FactoryGirl.create_list(:user, 2, demo: demo)
 
@@ -370,10 +370,10 @@ describe 'Digest email' do
         user = FactoryGirl.create(:user)
         tile = FactoryGirl.create(:tile, demo: user.demo)
 
-        digest = TilesDigest.create(demo: user.demo, sender: user, tile_ids: [tile.id], subject: custom_original_digest_subject, include_unclaimed_users: true, sent_at: Time.now)
+        digest = TilesDigest.create(demo: user.demo, sender: user, tile_ids: [tile.id], subject: custom_original_digest_subject, include_unclaimed_users: true, sent_at: Time.current)
 
         digest.create_follow_up_digest_email(
-          send_on: Date.today
+          send_on: Date.current
         )
 
         TilesDigestMailer.notify_all_follow_up
@@ -390,10 +390,10 @@ describe 'Digest email' do
 
         tile = FactoryGirl.create(:tile, demo: user.demo)
 
-        digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id], include_unclaimed_users: true, sent_at: Time.now)
+        digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id], include_unclaimed_users: true, sent_at: Time.current)
 
         digest.create_follow_up_digest_email(
-          send_on: Date.today
+          send_on: Date.current
         )
 
         TilesDigestMailer.notify_all_follow_up
@@ -409,10 +409,10 @@ describe 'Digest email' do
         user = FactoryGirl.create(:claimed_user)
         tile = FactoryGirl.create(:tile, demo: user.demo)
 
-        digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id], headline: 'Kneel before Zod', include_unclaimed_users: true, sent_at: Time.now)
+        digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id], headline: 'Kneel before Zod', include_unclaimed_users: true, sent_at: Time.current)
 
         digest.create_follow_up_digest_email(
-          send_on: Date.today
+          send_on: Date.current
         )
 
         TilesDigestMailer.notify_all_follow_up
@@ -429,10 +429,10 @@ describe 'Digest email' do
         user = FactoryGirl.create(:claimed_user)
         tile = FactoryGirl.create(:tile, demo: user.demo)
 
-        digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id], include_unclaimed_users: true, sent_at: Time.now)
+        digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id], include_unclaimed_users: true, sent_at: Time.current)
 
         digest.create_follow_up_digest_email(
-          send_on: Date.today
+          send_on: Date.current
         )
 
         TilesDigestMailer.notify_all_follow_up
@@ -450,10 +450,10 @@ describe 'Digest email' do
 
       muted_user.board_memberships.update_all(followup_muted: true)
 
-      digest = TilesDigest.create(demo: followup_board, sender: unmuted_user, tile_ids: [], sent_at: Time.now, include_unclaimed_users: true)
+      digest = TilesDigest.create(demo: followup_board, sender: unmuted_user, tile_ids: [], sent_at: Time.current, include_unclaimed_users: true)
 
       digest.create_follow_up_digest_email(
-        send_on: Date.today,
+        send_on: Date.current,
       )
 
       TilesDigestMailer.notify_all_follow_up

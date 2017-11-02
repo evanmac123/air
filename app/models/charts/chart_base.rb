@@ -52,7 +52,7 @@ class Charts::ChartBase
   end
 
   def end_date
-    params[:end_date].try(:to_time) || Time.now
+    params[:end_date].try(:to_time) || Time.current
   end
 
   def board_from_params

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20171101001649) do
+ActiveRecord::Schema.define(:version => 20171101224400) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -415,27 +415,27 @@ ActiveRecord::Schema.define(:version => 20171101001649) do
   end
 
   create_table "demos", :force => true do |t|
-    t.string   "name",                                                 :default => "",                :null => false
+    t.string   "name",                                                 :default => "",                           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "seed_points",                                          :default => 0
     t.string   "custom_welcome_message",                :limit => 160
     t.datetime "ends_at"
-    t.string   "followup_welcome_message",              :limit => 160, :default => "",                :null => false
+    t.string   "followup_welcome_message",              :limit => 160, :default => "",                           :null => false
     t.integer  "followup_welcome_message_delay",                       :default => 20
     t.integer  "credit_game_referrer_threshold",                       :default => 100000
     t.integer  "game_referrer_bonus",                                  :default => 5
-    t.boolean  "use_standard_playbook",                                :default => true,              :null => false
+    t.boolean  "use_standard_playbook",                                :default => true,                         :null => false
     t.datetime "begins_at"
     t.string   "phone_number"
-    t.string   "prize",                                                :default => "",                :null => false
-    t.string   "help_message",                                         :default => "",                :null => false
+    t.string   "prize",                                                :default => "",                           :null => false
+    t.string   "help_message",                                         :default => "",                           :null => false
     t.string   "email"
     t.string   "unrecognized_user_message"
-    t.string   "act_too_early_message",                                :default => "",                :null => false
-    t.string   "act_too_late_message",                                 :default => "",                :null => false
+    t.string   "act_too_early_message",                                :default => "",                           :null => false
+    t.string   "act_too_late_message",                                 :default => "",                           :null => false
     t.integer  "referred_credit_bonus",                                :default => 2
-    t.string   "survey_answer_activity_message",                       :default => "",                :null => false
+    t.string   "survey_answer_activity_message",                       :default => "",                           :null => false
     t.string   "login_announcement",                    :limit => 500
     t.datetime "total_user_rankings_last_updated_at"
     t.datetime "average_user_rankings_last_updated_at"
@@ -444,7 +444,7 @@ ActiveRecord::Schema.define(:version => 20171101001649) do
     t.string   "example_tooltip"
     t.string   "example_tutorial"
     t.integer  "ticket_threshold",                                     :default => 20
-    t.string   "client_name",                                          :default => "",                :null => false
+    t.string   "client_name",                                          :default => "",                           :null => false
     t.string   "custom_reply_email_name"
     t.string   "custom_already_claimed_message"
     t.boolean  "use_post_act_summaries",                               :default => true
@@ -468,9 +468,9 @@ ActiveRecord::Schema.define(:version => 20171101001649) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.boolean  "allow_raw_in_persistent_message",                      :default => false
-    t.boolean  "is_parent",                                            :default => false,             :null => false
-    t.boolean  "everyone_can_make_tile_suggestions",                   :default => false,             :null => false
-    t.text     "cover_message",                                        :default => "",                :null => false
+    t.boolean  "is_parent",                                            :default => false,                        :null => false
+    t.boolean  "everyone_can_make_tile_suggestions",                   :default => false,                        :null => false
+    t.text     "cover_message",                                        :default => "",                           :null => false
     t.string   "cover_image_file_name"
     t.string   "cover_image_content_type"
     t.integer  "cover_image_file_size"
@@ -490,6 +490,7 @@ ActiveRecord::Schema.define(:version => 20171101001649) do
     t.integer  "customer_status_cd",                                   :default => 0
     t.integer  "current_health_score"
     t.boolean  "hide_social",                                          :default => false
+    t.string   "timezone",                                             :default => "Eastern Time (US & Canada)"
   end
 
   add_index "demos", ["dependent_board_id"], :name => "index_demos_on_dependent_board_id"
@@ -1292,6 +1293,19 @@ ActiveRecord::Schema.define(:version => 20171101001649) do
   add_index "tiles", ["is_copyable"], :name => "index_tiles_on_is_copyable"
   add_index "tiles", ["is_public"], :name => "index_tiles_on_is_public"
   add_index "tiles", ["status"], :name => "index_tiles_on_status"
+
+  create_table "tiles_digest_automators", :force => true do |t|
+    t.integer  "demo_id"
+    t.datetime "deliver_date"
+    t.integer  "day",          :default => 1
+    t.string   "timezone",     :default => "EST"
+    t.string   "time",         :default => "9"
+    t.integer  "frequency_cd", :default => 1
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "tiles_digest_automators", ["demo_id"], :name => "index_tiles_digest_automators_on_demo_id"
 
   create_table "tiles_digest_tiles", :force => true do |t|
     t.integer  "tile_id"

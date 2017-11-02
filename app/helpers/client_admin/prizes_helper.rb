@@ -17,15 +17,15 @@ module ClientAdmin::PrizesHelper
       status == Raffle::PICK_WINNERS || status == Raffle::PICKED_WINNERS
 
       dimention = (position == :first ? "week" : "day")
-      return time_in_format 0, format, dimention 
+      return time_in_format 0, format, dimention
     end
     #choose duration from today or future start date
-    today = Time.now.utc.in_time_zone("Eastern Time (US & Canada)")
+    today = Time.current
     duration = ends_at + 1.minute - (starts_at > today ? starts_at : today)
 
     if duration < 0
       dimention = (position == :first ? "week" : "day")
-      return time_in_format 0, format, dimention 
+      return time_in_format 0, format, dimention
     end
 
     dimention, duration = find_dimention_and_convert_duration duration, position
@@ -41,7 +41,7 @@ module ClientAdmin::PrizesHelper
           (duration > 1.day && position == :first)
       ["day", convert_duration(duration, position, "day")]
     elsif (duration >= 1.day && position == :second) || \
-          (duration <= 1.day && position == :first) 
+          (duration <= 1.day && position == :first)
       ["hour", convert_duration(duration, position, "hour")]
     elsif (duration <= 1.day && position == :second)
       ["minute", convert_duration(duration, position, "minute")]

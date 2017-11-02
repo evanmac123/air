@@ -83,7 +83,7 @@ module SteakHelperMethods
   end
 
   def crank_off_dj
-    while(Delayed::Job.where("run_at <= ?", Time.now).count > 0)
+    while(Delayed::Job.where("run_at <= ?", Time.current).count > 0)
       crank_dj(10)
     end
   end

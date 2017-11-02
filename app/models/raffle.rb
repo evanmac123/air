@@ -17,10 +17,10 @@ class Raffle < ActiveRecord::Base
   validates_presence_of :ends_at, :allow_blank => false, :message => "end date can't be blank"
   validates_presence_of :other_info, :allow_blank => false, :message => "other info can't be blank"
   validate :prizes_presence
-  scope :live, ->(){where("status = ? and starts_at <= ?", LIVE, Time.now)}
+  scope :live, ->(){where("status = ? and starts_at <= ?", LIVE, Time.current)}
 
   def live?
-    self.status == LIVE && self.starts_at <= Time.now
+    self.status == LIVE && self.starts_at <= Time.current
   end
 
   def finished?

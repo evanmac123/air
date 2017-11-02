@@ -199,7 +199,7 @@ feature 'Sees helpful information in tile manager' do
 
       [@tile_1, @tile_2, @tile_3].each do |tile|
         tile.tile_completions.map(&:user).each {|user| user.add_board(demo.id)}
-        tile.tile_completions.first.user.update_attributes(accepted_invitation_at: Time.now)
+        tile.tile_completions.first.user.update_attributes(accepted_invitation_at: Time.current)
       end
 
       visit client_admin_tiles_path(as: client_admin)

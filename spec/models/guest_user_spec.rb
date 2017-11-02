@@ -84,7 +84,7 @@ describe GuestUser do
     end
 
     it "sets last_acted_at" do
-      baseline = Time.now
+      baseline = Time.current
       user.update_attributes(last_acted_at: baseline)
       expect(convert.last_acted_at.to_i).to eq(baseline.to_i)
     end

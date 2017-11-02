@@ -115,13 +115,13 @@ describe User do
   end
 
   it "should validate that date of birth, if present, is in the past" do
-    Timecop.freeze(Time.now)
+    Timecop.freeze(Time.current)
 
     begin
       user = FactoryGirl.create :claimed_user
       expect(user).to be_valid
 
-      user.date_of_birth = Date.today
+      user.date_of_birth = Date.current
       expect(user).not_to be_valid
       expect(user.errors.full_messages).to include("Date of birth must be in the past")
 
@@ -232,7 +232,7 @@ describe User, "#invitation_code" do
   before do
     Timecop.freeze("1/1/11") do
       @user     = FactoryGirl.create(:user)
-      @expected = Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{@user.email}--#{@user.name}--")
+      @expected = Digest::SHA1.hexdigest("--#{Time.current.to_f}--#{@user.email}--#{@user.name}--")
     end
   end
 
@@ -617,7 +617,7 @@ describe User, "on save" do
     expect(user.segmentation_data.last_acted_at).to be_nil
     act = FactoryGirl.create(:act, user: user)
     crank_dj_clear
-    now = Time.now
+    now = Time.current
     expect(user.segmentation_data.last_acted_at).not_to be_nil
   end
 
@@ -1037,8 +1037,8 @@ end
 describe User, "#data_for_mixpanel" do
 
   it "should include a user's email address only if they're a client admin" do
-    peon = FactoryGirl.build(:user, email: 'peon@example.com', created_at: Time.now)
-    client_admin = FactoryGirl.build(:client_admin, email: 'ca@example.com', created_at: Time.now)
+    peon = FactoryGirl.build(:user, email: 'peon@example.com', created_at: Time.current)
+    client_admin = FactoryGirl.build(:client_admin, email: 'ca@example.com', created_at: Time.current)
 
     expect(peon.data_for_mixpanel[:email]).to be_nil
     expect(client_admin.data_for_mixpanel[:email]).to eq(client_admin.email)

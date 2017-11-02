@@ -103,6 +103,7 @@ namespace :client_admin do
       put 'weekly_activity_email'
       put 'cover_message'
       put 'cover_image'
+      put 'timezone'
     end
   end
 

@@ -18,7 +18,7 @@ class UserSettingsChangeLog < ActiveRecord::Base
   end
 
   def generate_token(val)
-    Digest::SHA1.hexdigest "--#{Time.now.to_f}--#{val}--#{self.id}--user_settings_change_log"
+    Digest::SHA1.hexdigest "--#{Time.current.to_f}--#{val}--#{self.id}--user_settings_change_log"
   end
 
   def update_user_email

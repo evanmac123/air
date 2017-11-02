@@ -9,8 +9,8 @@ describe Admin::SubscriptionsController do
 
   let(:invoice) { subscription.invoices.create(
     amount_in_cents: 1000,
-    service_period_start: Date.today,
-    service_period_end: Date.today + 1.year
+    service_period_start: Date.current,
+    service_period_end: Date.current + 1.year
   ) }
 
   describe "POST create" do

@@ -7,8 +7,8 @@ describe ChartMogulService::Transaction do
 
   let(:invoice) { subscription.invoices.create(
     amount_in_cents: 1000,
-    service_period_start: Date.today,
-    service_period_end: Date.today + 1.year
+    service_period_start: Date.current,
+    service_period_end: Date.current + 1.year
   ) }
 
   let(:transaction) { invoice.find_or_create_payment }

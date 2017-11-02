@@ -24,6 +24,8 @@ class ApplicationController < ActionController::Base
   after_filter :merge_flashes
   ##
 
+  around_filter :set_time_zone, if: :current_board
+
   include ActivitySessionConcern
   include CachingConcern
   include SecurityConcern
@@ -80,11 +82,15 @@ class ApplicationController < ActionController::Base
   end
 
   def current_board
-    current_user.demo
+    current_user.try(:demo)
   end
   ######
 
   private
+
+    def set_time_zone(&block)
+      Time.use_zone(current_board.timezone, &block)
+    end
 
     def present(object, klass = nil, opts={})
       klass ||= "#{object.class}Presenter".constantize
@@ -104,5 +110,4 @@ class ApplicationController < ActionController::Base
         format.any { head :not_found }
       end
     end
-
 end

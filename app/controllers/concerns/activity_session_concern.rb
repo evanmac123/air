@@ -4,7 +4,7 @@ module ActivitySessionConcern
   def refresh_activity_session
     return unless current_user && !current_user.is_a?(PotentialUser)
     update_session_with_user_id(current_user)
-    time = request.env['rack.timestamp'] || Time.now.to_i
+    time = request.env['rack.timestamp'] || Time.current.to_i
 
     if idle_period(time) >= ACTIVITY_SESSION_THRESHOLD
       send_activity_session_ping(time)

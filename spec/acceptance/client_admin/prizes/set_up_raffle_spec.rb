@@ -5,13 +5,13 @@ feature 'Create raffle' do
   let (:demo)         { client_admin.demo }
 
   before(:each) do
-    FactoryGirl.create(:tile, demo: demo, activated_at: DateTime.now) #to active demo
+    FactoryGirl.create(:tile, demo: demo, activated_at: DateTime.current) #to active demo
     visit client_admin_prizes_path(as: client_admin)
   end
 
   scenario 'fill some fields and save as draft', js: true do
-    start_date = to_calendar_format(DateTime.now)
-    end_date = to_calendar_format(DateTime.now - 7.days) #so end date is invalid and will be erased
+    start_date = to_calendar_format(DateTime.current)
+    end_date = to_calendar_format(DateTime.current - 7.days) #so end date is invalid and will be erased
 
     fill_in "Start", with: start_date
     fill_in "End", with: end_date

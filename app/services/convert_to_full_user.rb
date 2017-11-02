@@ -14,7 +14,7 @@ class ConvertToFullUser
     @converted_user = User.new(
       name: @name,
       email: @email,
-      accepted_invitation_at: Time.now,
+      accepted_invitation_at: Time.current,
     )
     @converted_user.creating_board = true
     @converted_user.is_client_admin = true
@@ -102,7 +102,7 @@ class ConvertToFullUser
       points: @pre_user.points,
       tickets: @pre_user.tickets,
       get_started_lightbox_displayed: @pre_user.get_started_lightbox_displayed,
-      accepted_invitation_at: Time.now,
+      accepted_invitation_at: Time.current,
       characteristics: {}
     )
   end
@@ -113,7 +113,7 @@ class ConvertToFullUser
     @converted_user.points = @pre_user.points
     @converted_user.tickets = @pre_user.tickets
     @converted_user.get_started_lightbox_displayed = @pre_user.get_started_lightbox_displayed
-    @converted_user.accepted_invitation_at = Time.now
+    @converted_user.accepted_invitation_at = Time.current
     @converted_user.characteristics = {}
   end
 

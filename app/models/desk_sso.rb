@@ -28,7 +28,7 @@ class DeskSSO
   def user_data
     {
       "uid"            => @user.id,
-      "expires"        => (Time.now + 1.hour).iso8601,
+      "expires"        => (Time.current + 1.hour).iso8601,
       "customer_email" => @user.email,
       "customer_name"  => @user.name
     }

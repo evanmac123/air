@@ -57,7 +57,7 @@ class Organization < ActiveRecord::Base
   end
 
   def free_trial_cannot_start_before_created_at_or_in_future
-    if free_trial_started_at.present? && (free_trial_started_at < created_at.to_date || free_trial_started_at.to_time > Time.now)
+    if free_trial_started_at.present? && (free_trial_started_at < created_at.to_date || free_trial_started_at > Date.current)
       errors.add(:free_trial_started_at, "can't be before #{created_at} or in the future")
     end
   end
@@ -96,7 +96,7 @@ class Organization < ActiveRecord::Base
   end
 
   def self.currently_active
-    active_as_of_date(Date.today)
+    active_as_of_date(Date.current)
   end
 
   def self.active_during_period sdate, edate
@@ -171,7 +171,7 @@ class Organization < ActiveRecord::Base
   end
 
   def churned
-    customer_end_date && customer_end_date < Date.today
+    customer_end_date && customer_end_date < Date.current
   end
 
   def has_start_and_end

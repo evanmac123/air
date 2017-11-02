@@ -73,7 +73,7 @@ fieldHasInitialValue = (field) ->
 
 updateCurrentBoardName = (field, data) ->
   newName = field.val()
-  $("#current_board_name").text(newName.trimToLength(37)) 
+  $("#current_board_name").text(newName.trimToLength(37))
 
 updateLogo = (field, data) ->
   $("#logo a img").attr("src", data.logo_url)

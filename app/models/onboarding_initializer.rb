@@ -23,7 +23,7 @@ class OnboardingInitializer
   def user
     @user ||= User.where({email:email}).first_or_initialize do |u|
       u.name = name
-      u.accepted_invitation_at = Time.now
+      u.accepted_invitation_at = Time.current
       u.is_client_admin = true
     end
   end
@@ -40,7 +40,7 @@ class OnboardingInitializer
      {
        user_onboarding: user_onboarding.id,
        hash: user_onboarding.auth_hash,
-       user: user.data_for_mixpanel.merge({time: DateTime.now })
+       user: user.data_for_mixpanel.merge({time: DateTime.current })
      }
    end
 

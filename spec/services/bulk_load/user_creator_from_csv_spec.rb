@@ -105,7 +105,7 @@ describe BulkLoad::UserCreatorFromCsv do
       expect(user.characteristics[discrete_characteristic.id]).to eq("bar")
       expect(user.characteristics[number_characteristic.id]).to eq(1945)
       expect(user.characteristics[date_characteristic.id]).to eq(Date.parse("2013-02-07"))
-      expect(user.characteristics[time_characteristic.id]).to eq(Time.parse("2013-02-07 18:12:51 -0500"))
+      expect(user.characteristics[time_characteristic.id]).to eq(Time.zone.parse("2013-02-07 18:12:51 -0500"))
       expect(user.characteristics[boolean_characteristic.id]).to eq(false)
     end
 

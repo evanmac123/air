@@ -9,10 +9,3 @@
   <%= form.submit "Update", disabled: true, class: "button outlined" %>
   <a class="clear_form">Clear</a>
 <% end %>
-
-<% js_at_end do %>
-  $().ready(function(){
-    addCharacterCounterFor( $("#demo_custom_reply_email_name") );
-    window.formWithClearableTextField("#demo_custom_reply_email_name");
-  })
-<% end %>

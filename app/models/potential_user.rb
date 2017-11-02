@@ -135,7 +135,7 @@ class PotentialUser < ActiveRecord::Base
 
     until(possibly_finished && (self.valid? || self.errors[:invitation_code].empty?))
       possibly_finished = true
-      self.invitation_code = Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{self.email}--")
+      self.invitation_code = Digest::SHA1.hexdigest("--#{Time.current.to_f}--#{self.email}--")
     end
   end
 

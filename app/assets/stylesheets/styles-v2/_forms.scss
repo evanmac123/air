@@ -108,10 +108,9 @@ textarea#dependent_user_invitation_body{
 // }
 
 select { // TODO: Move all selects to Nice Select
-  background: url(/assets/down_triangle.png) no-repeat right center $n-white;
-  background-size: 10px 5px;
-  background-position-x: 98%;
-  padding-right: 25px;
+  background: url(/assets/angle-down.svg) no-repeat right center $n-white;
+  background-size: 40px 15px;
+  padding-right: 0;
 }
 
 label.radio,

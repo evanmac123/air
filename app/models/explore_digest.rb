@@ -68,12 +68,12 @@ class ExploreDigest < ActiveRecord::Base
     users = User.client_admin.where(id: user_ids)
 
     ExploreDigestMailer.notify_all(self, users)
-    self.update_attributes(delivered: true, delivered_at: Time.now)
+    self.update_attributes(delivered: true, delivered_at: Time.current)
   end
 
   def deliver_digest!
     ExploreDigestMailer.delay.notify_all(self)
-    self.update_attributes(delivered: true, delivered_at: Time.now)
+    self.update_attributes(delivered: true, delivered_at: Time.current)
   end
 
   def get_tiles(feature, tiles = Tile.explore)

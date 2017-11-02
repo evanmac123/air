@@ -10,8 +10,8 @@ class FinancialsReporterService < Reporting::KpiReportingBase
   class << self
 
     def default_date_range
-      sdate = Date.today.advance(days: -30)
-      edate = Date.today.end_of_week
+      sdate = Date.current.advance(days: -30)
+      edate = Date.current.end_of_week
       [sdate, edate]
     end
 
@@ -299,7 +299,7 @@ class FinancialsReporterService < Reporting::KpiReportingBase
 
   def build_from_null_set
     fields = kpi_fields.keys
-    values =fields.map{|f| f=="from_date" ? [Date.today] : [0]}
+    values =fields.map{|f| f=="from_date" ? [Date.current] : [0]}
     Hash[fields.zip(values)]
   end
 

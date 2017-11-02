@@ -9,7 +9,7 @@ class EligibilityFilePurger
 
   def purge!
     @s3.buckets[@bucket_name].objects.delete_if do |object|
-      age = Time.now - object.last_modified
+      age = Time.current - object.last_modified
       age > AGE_THRESHOLD
     end
   end

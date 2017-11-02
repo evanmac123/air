@@ -54,7 +54,7 @@ class ActiveBoardCollector
       @end_date = period_end 
     else
       #NOTE Default to last week
-      @beg_date = Date.today.beginning_of_week(:sunday).prev_week(:sunday).at_midnight
+      @beg_date = Date.current.beginning_of_week(:sunday).prev_week(:sunday).at_midnight
       @end_date = @beg_date.end_of_week(:sunday).end_of_day
     end
   end

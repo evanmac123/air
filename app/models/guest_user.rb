@@ -60,7 +60,7 @@ class GuestUser < ActiveRecord::Base
   end
 
   def update_last_acted_at
-    update_attributes(last_acted_at: Time.now)
+    update_attributes(last_acted_at: Time.current)
   end
 
   def update_points(bump, *args)

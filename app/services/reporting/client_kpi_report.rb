@@ -8,7 +8,7 @@ module Reporting
     PAID_CLIENTS_DELIGHTED_TREND = 75029
 
     def default_date_range
-      edate = Date.today.beginning_of_week
+      edate = Date.current.beginning_of_week
       sdate = edate.advance(weeks: -5)
       [sdate, edate]
     end

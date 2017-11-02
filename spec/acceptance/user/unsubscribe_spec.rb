@@ -34,7 +34,7 @@ feature "Leah unsubscribes" do
 
   context "when Leah is claimed" do
     before do
-      @leah.update_attributes(accepted_invitation_at: Time.now)
+      @leah.update_attributes(accepted_invitation_at: Time.current)
       has_password @leah, 'foobar'
       signin_as @leah, 'foobar'
     end

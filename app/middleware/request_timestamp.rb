@@ -4,7 +4,7 @@ class RequestTimestamp
   end
 
   def call(env)
-    env['rack.timestamp'] = Time.now.to_i
+    env['rack.timestamp'] = Time.current.to_i
     @app.call(env)
   end
 end
