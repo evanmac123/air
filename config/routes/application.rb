@@ -85,7 +85,6 @@ resources :copy_boards, only: [:create]
 
 resource  :user_intros, only: [:update]
 
-resource :board_setting, only: [:show]
 resource :current_board, only: [:update]
 
 resources :demo_requests, only: [:create, :new]

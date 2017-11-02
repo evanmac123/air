@@ -1,7 +1,8 @@
 body.client_admin-board_settings-index{
   .board_settings{
-    input[type="text"]{
-      margin-bottom: 10px;
+    .check_label {
+      margin-bottom: 20px;
+      margin-right: 15px;
     }
 
     #notification_settings{
@@ -68,7 +69,7 @@ body.client_admin-board_settings-index{
       }
     }
     form#edit_board_welcome_message{
-      margin-bottom: 6em;
+      margin-bottom: 35px;
     }
   }
 }

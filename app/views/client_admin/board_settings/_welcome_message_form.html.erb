@@ -1,18 +1,11 @@
 <%= form_for board, url: welcome_message_client_admin_board_settings_path, html: { id: "edit_board_welcome_message"} do |form| %>
   <%= form.label :persistent_message, "Welcome Message" %>
   <i class="fa fa-question-circle has-tip" id="board_welcome_message_tooltip" data-tooltip="true" title="Introductory message users will see when they first join your board."></i>
-  <%= form.text_area :persistent_message, value: board.intro_message, placeholder: board.intro_message, rows: 6, maxlength: 400 %>
+  <%= form.text_area :persistent_message, value: board.intro_message, placeholder: board.intro_message, rows: 8, maxlength: 400 %>
   <div class="clearfix"></div>
   <div class="error_message">
     Sorry, that message is invalid.
   </div>
   <%= form.submit "Update", disabled: true, class: "button outlined" %>
   <a class="clear_form">Clear</a>
-<% end %>
-
-<% js_at_end do %>
-  $().ready(function(){
-    addCharacterCounterFor( $("#demo_persistent_message") );
-    window.formWithClearableTextField("#demo_persistent_message");
-  })
 <% end %>

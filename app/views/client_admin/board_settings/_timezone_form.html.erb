@@ -1,0 +1,5 @@
+<%= form_for board, url: timezone_client_admin_board_settings_path, html: { id: "edit_board_timezone" } do |form| %>
+  <%= form.label :timezone, "Time Zone" %>
+  <%= form.select :timezone, ActiveSupport::TimeZone.us_zones.map(&:name) %>
+  <%= form.submit "Update", disabled: true, class: "button outlined" %>
+<% end %>

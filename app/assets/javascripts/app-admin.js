@@ -18,7 +18,6 @@
 //= require internal_and_external/topbar_togglers
 //= require internal/create_new_board
 //= require internal/validate_new_board
-//= require internal/board_settings_controls
 //= require internal/offcanvas_menu
 //= require internal/board_switch_dropdown
 //= require internal/tile_manager/tile_polling

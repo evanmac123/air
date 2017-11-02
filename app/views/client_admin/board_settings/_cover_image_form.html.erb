@@ -11,10 +11,4 @@
     <a class="clear_form">Clear</a>
     <%= image_tag board.cover_image.url, id: "cover_image" %>
   <% end %>
-
-  <% js_at_end do %>
-    $().ready(function(){
-      window.formWithClearableLogoField("#demo_cover_image", <%= ie9_or_older? %>);
-    })
-  <% end %>
 <% end %>

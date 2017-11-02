@@ -5,40 +5,15 @@
   <div id="notification_settings">
     <ul>
       <li>
-        <%= form.radio_button :send_weekly_activity_report, true, :class => 'notification_pref' %>
+        <%= form.radio_button :send_weekly_activity_report, true, :class => 'notification_pref js-activity-report-pref' %>
         <%= form.label :send_weekly_activity_report, "Yes", value: true, :class => 'check_label' %>
       </li>
       <li>
-        <%= form.radio_button :send_weekly_activity_report, false, :class => 'notification_pref' %>
+        <%= form.radio_button :send_weekly_activity_report, false, :class => 'notification_pref js-activity-report-pref' %>
         <%= form.label :send_weekly_activity_report, "No", value: false , :class => 'check_label' %>
       </li>
     </ul>
   </div>
 
   <%= form.submit "Update", disabled: true, id: "report_submit", class: "button outlined" %>
-<% end %>
-<%#TODO remove inline js%>
-<% js_at_end do %>
-  $(function(){
-
-  $("input[name='board_membership[send_weekly_activity_report]']:radio").change(function(){
-  $("#report_submit").attr("disabled", false)
-  $("#weekly_activity_email").addClass("dirty");
-  });
-
-  $("#weekly_activity_email").submit(function(e){
-  e.preventDefault();
-  var submitButton = $("#report_submit");
-  submitButton.val("Updating...");
-  $.ajax({
-  url: $(this).attr("action"),
-  data: $(this).serialize(),
-  type: "PUT"
-  }).done(function(){
-  $("#weekly_activity_email").removeClass("dirty");
-  $("#report_submit").attr("disabled", true);
-  submitButton.val("Update");
-  });
-  });
-  });
 <% end %>
