@@ -20,7 +20,7 @@ module ClientAdmin::ReportsHelper
 
     def demo_launch
       if current_demo.launch_date
-        current_demo.launch_date.try(:to_time).beginning_of_year
+        current_demo.launch_date.beginning_of_year
       else
         current_demo.created_at.beginning_of_year
       end

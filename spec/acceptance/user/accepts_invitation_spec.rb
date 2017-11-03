@@ -98,13 +98,4 @@ feature "User Accepts Invitation" do
       end
     end
   end
-
-  scenario "unclaimed user gets seed points on accepting invitation to game with them, but just once" do
-    @unclaimed_user.demo.update_attributes(seed_points: 10)
-
-    visit invitation_url(@unclaimed_user.invitation_code)
-
-    should_be_on activity_path
-    expect_content "10 pts You joined"
-  end
 end

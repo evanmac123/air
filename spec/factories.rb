@@ -153,8 +153,8 @@ FactoryGirl.define do
 
   factory :raffle do
     association :demo
-    starts_at DateTime.current.change({:hour => 0 , :min => 0 , :sec => 0 })
-    ends_at DateTime.current.change({:hour => 0 , :min => 0 , :sec => 0 }) + 8.days - 1.minute
+    starts_at Time.current.midnight
+    ends_at Time.current.end_of_day + 8.days
     prizes ["First Prize", "Second Prize"]
     other_info "Play raffles - it's fun"
 

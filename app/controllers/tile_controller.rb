@@ -14,7 +14,7 @@ class TileController < ApplicationController
   private
 
     def find_board_for_guest
-      @demo ||= @tile.demo
+      @demo ||= @tile.try(:demo)
     end
 
     def find_tile

@@ -12,14 +12,14 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
 
   def logo
     @board.logo = if params[:demo].present? && params[:demo][:logo].present?
-                    params[:demo][:logo]
-                  else
-                    nil # remove custom logo
-                  end
+      params[:demo][:logo]
+    else
+      nil
+    end
 
     respond_to do |format|
       if @board.save
-        format.json { render json: { success: true, logo_url: @board.logo.url } }
+        format.json { render json:{ success: true, logo_url: @board.logo.url } }
         format.html do
           flash[:success] = "Logo is updated"
           redirect_to :back
@@ -27,8 +27,7 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
       else
         format.json { render json: { success: false } }
         format.html do
-          flash[:failure] = "Sorry that doesn't look like an image file. Please use a " +
-                            "file with the extension .jpg, .jpeg, .gif, .bmp or .png."
+          flash[:failure] = "Sorry that doesn't look like an image file. Please use a file with the extension .jpg, .jpeg, .gif, .bmp or .png."
           redirect_to :back
         end
       end

@@ -10,7 +10,7 @@ Airbo.EditBoardSettings = (function() {
   }
 
   function initClearableForms() {
-    ["#demo_persistent_message", "#demo_public_slug", "#demo_name", "#demo_logo", "#demo_custom_reply_email_name", "#demo_email", "#demo_cover_message", "#demo_timezone"].forEach(function(sel) {
+    ["#demo_persistent_message", "#demo_public_slug", "#demo_name", "#demo_custom_reply_email_name", "#demo_email", "#demo_cover_message", "#demo_timezone"].forEach(function(sel) {
       window.formWithClearableTextField(sel);
     });
   }

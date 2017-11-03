@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def current_board
-    current_user.demo
+    current_user.try(:demo)
   end
 
   def current_demo_created_at

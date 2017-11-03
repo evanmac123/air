@@ -40,7 +40,7 @@ feature "Client Admin Changes Board Settings" do
   context "board name form" do
     before(:each) do
       (2..4).to_a.each do |i|
-        new_demo = FactoryGirl.create :demo, name: "Board #{i}"
+        FactoryGirl.create :demo, name: "Board #{i}"
       end
 
       visit client_admin_board_settings_path(as: client_admin)
@@ -52,7 +52,6 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      expect(demo.reload.name).to eq("Board 5")
       expect(page.find("#current_board_name").text).to eq("Board 5")
     end
 
@@ -62,7 +61,7 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      expect(demo.reload.name).to eq("Board 1")
+      expect(page.find("#current_board_name").text).to eq("Board 1")
       expect_content "Sorry, that board name is already taken."
     end
 
@@ -72,7 +71,7 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      expect(demo.reload.name).to eq("Board 1")
+      expect(page.find("#current_board_name").text).to eq("Board 1")
       expect_content "Sorry, you must enter a board name."
     end
   end
@@ -92,8 +91,7 @@ feature "Client Admin Changes Board Settings" do
         click_button "Update"
       end
 
-      expect(demo.reload.logo_file_name).to eq('tasty.jpg')
-      expect_logo_in_header 'tasty.png'
+      expect_logo_in_header 'tasty.jpg'
     end
 
     it "should show error message if wrong file format", js: true do
@@ -105,28 +103,26 @@ feature "Client Admin Changes Board Settings" do
       expect_content wrong_format_message
 
       expect_default_logo_in_header
-      expect(demo.reload.logo.url).to match(/logo.png/)
     end
 
     it "sholud set default logo by clear link", js: true do
       demo.logo = File.open(Rails.root.join "spec/support/fixtures/logos/tasty.jpg")
       demo.save
       visit client_admin_board_settings_path(as: client_admin)
-      expect_logo_in_header 'tasty.png'
+      expect_logo_in_header 'tasty.jpg'
 
       within board_logo_form do
         clear_link.click
       end
 
       expect_default_logo_in_header
-      expect(demo.reload.logo.url).to match(/logo.png/)
     end
   end
 
   context "board email form" do
     before(:each) do
       (2..4).to_a.each do |i|
-        new_demo = FactoryGirl.create :demo, email: "board#{i}@ourairbo.com"
+        FactoryGirl.create :demo, email: "board#{i}@ourairbo.com"
       end
 
       visit client_admin_board_settings_path(as: client_admin)

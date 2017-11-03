@@ -5,7 +5,7 @@ feature "Client Admin Accepts Invitation" do
 
   before(:each) do
     @demo = @demo = FactoryGirl.create :demo, :activated
-    FactoryGirl.create(:tile, is_public:true ) #create at least one explore tile for new onboarding
+    FactoryGirl.create(:tile, is_public: true)
     @user = FactoryGirl.create :user, is_client_admin: true, demo: @demo
   end
 
@@ -23,9 +23,6 @@ feature "Client Admin Accepts Invitation" do
     click_button "Log in"
 
     should_be_on explore_path
-
-    visit activity_path
-    expect_content "You joined"
   end
 
   scenario "across boards" do
@@ -44,18 +41,6 @@ feature "Client Admin Accepts Invitation" do
     expect_current_board_header(@other_board)
   end
 
-  scenario "accepts invitation to a game with a custom welcome message" do
-    @user.demo.update_attributes(custom_welcome_message: "You, %{unique_id}, are in the %{name} game.")
-    visit invitation_url(@user.invitation_code)
-    fill_in_required_invitation_fields
-    click_button "Log in"
-
-    should_be_on explore_path
-
-    visit activity_path
-    expect_content "You joined"
-  end
-
   scenario "user gets seed points on accepting invitation to game with them, but just once" do
     @user.demo.update_attributes(seed_points: 10)
 
@@ -71,11 +56,13 @@ feature "Client Admin Accepts Invitation" do
 
   scenario "user must set password when accepting invitation" do
     visit invitation_url(@user.invitation_code)
-    click_button "Log in"
-
-    expect_no_content "Welcome to the game"
     expect_content "Please choose a password"
 
+    click_button "Log in"
+
+    within ".form-msg" do
+      expect_content "Please choose a password"
+    end
   end
 
   scenario "user sets password, with no confirmation needed" do

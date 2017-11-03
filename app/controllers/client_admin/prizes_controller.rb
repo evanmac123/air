@@ -87,8 +87,8 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
       params.permit(raffle: [{prizes: []}, :starts_at, :ends_at])
       raffle = HashWithIndifferentAccess.new(params[:raffle].to_hash)
       raffle[:prizes].reject!(&:empty?)
-      raffle[:starts_at] =  Time.strptime(raffle[:starts_at] + " 00:00", "%m/%d/%Y %H:%M").in_time_zone if raffle[:starts_at].present?
-      raffle[:ends_at] =  Time.strptime(raffle[:ends_at] + " 23:59", "%m/%d/%Y %H:%M").in_time_zone if raffle[:ends_at].present?
+      raffle[:starts_at] =  Time.strptime(raffle[:starts_at] + " 00:00", "%m/%d/%Y %H:%M").in_time_zone.midnight if raffle[:starts_at].present?
+      raffle[:ends_at] =  Time.strptime(raffle[:ends_at] + " 23:59", "%m/%d/%Y %H:%M").in_time_zone.end_of_day if raffle[:ends_at].present?
       raffle
     end
 end

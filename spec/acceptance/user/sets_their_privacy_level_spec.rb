@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Sets their privacy level' do
+feature 'Sets their privacy level', js: true do
   before do
     @user = FactoryGirl.create(:user, name: 'MainGuy')
 
@@ -64,11 +64,13 @@ feature 'Sets their privacy level' do
 
   scenario "sets their privacy level in the settings page" do
     visit edit_account_settings_path(as: @user)
-    expect(page.find('#user_privacy_level').value).to eq('connected')
 
-    select 'Everybody', from: 'user[privacy_level]'
+    expect(find('#user_privacy_level', visible: false).value).to eq('connected')
+
+    select 'Everybody', from: 'user[privacy_level]', visible: false
+
     click_button "Update privacy"
-    expect(page.find('#user_privacy_level').value).to eq('everybody')
+    expect(page.find('#user_privacy_level', visible: false).value).to eq('everybody')
   end
 
   scenario "privacy level change affects existing acts" do
@@ -81,7 +83,7 @@ feature 'Sets their privacy level' do
     expect_act_copy
 
     visit edit_account_settings_path(as: @user)
-    select "Connections I've accepted", from: 'user[privacy_level]'
+    select "Connections I've accepted", from: 'user[privacy_level]', visible: false
     click_button "Update privacy"
 
     visit acts_path(as: @user_in_same_board)
@@ -90,7 +92,7 @@ feature 'Sets their privacy level' do
     expect_act_copy
 
     visit edit_account_settings_path(as: @user)
-    select "Everybody", from: 'user[privacy_level]'
+    select "Everybody", from: 'user[privacy_level]', visible: false
     click_button "Update privacy"
 
     visit acts_path(as: @user_in_same_board)

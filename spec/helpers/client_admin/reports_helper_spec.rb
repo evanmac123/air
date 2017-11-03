@@ -38,7 +38,6 @@ describe ClientAdmin::ReportsHelper do
       demo.launch_date = Time.current
       demo.save
 
-
       helper.stubs(:current_demo).returns(demo)
 
       expect(helper.send(:demo_launch)).to eq(demo.launch_date.beginning_of_year)

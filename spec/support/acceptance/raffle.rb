@@ -6,20 +6,6 @@ module RaffleHelpers
     page.find("#save_draft").click
   end
 
-  def to_start_date date
-    if date.class == DateTime
-      date = to_calendar_format date
-    end
-    DateTime.strptime(date + " 00:00", "%m/%d/%Y %H:%M").in_time_zone
-  end
-
-  def to_end_date date
-    if date.class == DateTime
-      date = to_calendar_format date
-    end
-    DateTime.strptime(date + " 23:59", "%m/%d/%Y %H:%M").in_time_zone
-  end
-
   def to_calendar_format date
     date.strftime("%m/%d/%Y")
   end
@@ -45,8 +31,8 @@ module RaffleHelpers
   end
 
   def fill_prize_form
-    start_date = to_calendar_format(DateTime.current)
-    end_date = to_calendar_format(DateTime.current + 7.days)
+    start_date = to_calendar_format(Time.current.midnight)
+    end_date = to_calendar_format(Time.current.end_of_day + 7.days)
 
     fill_in_start_date start_date
     fill_in_end_date end_date

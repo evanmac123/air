@@ -5,7 +5,7 @@ feature 'Live raffle' do
   let (:demo)         { client_admin.demo }
 
   before(:each) do
-    FactoryGirl.create(:tile, demo: demo, activated_at: DateTime.current) #to active demo
+    FactoryGirl.create(:tile, demo: demo, activated_at: Time.current)
     demo.raffle = FactoryGirl.create(:raffle, :live, demo: demo)
     visit client_admin_prizes_path(as: client_admin)
   end
@@ -17,8 +17,8 @@ feature 'Live raffle' do
     click_save_live_raffle
 
     raffle = demo.raffle.reload
-    expect(raffle.starts_at).to eq(to_start_date(DateTime.current))
-    expect(raffle.ends_at).to eq(to_end_date(DateTime.current + 7.days))
+    expect(raffle.starts_at).to eq(Time.current.midnight)
+    expect(raffle.ends_at).to eq(Time.current.end_of_day + 8.days)
     expect(raffle.prizes).to eq(["Prize2", "Prize3"])
     expect(raffle.other_info).to eq("Other info")
   end

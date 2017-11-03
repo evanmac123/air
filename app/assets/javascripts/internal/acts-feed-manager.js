@@ -40,6 +40,7 @@ Airbo.ActsFeedManager = (function(){
     if(data.acts.length > 0) {
       $(".js-placeholder-act").fadeOut();
       renderActs(data.acts);
+      $(".js-activity-feed-component").data("page", data.meta.nextPage);
       $(".js-user-acts").fadeIn();
       if(data.meta.lastPage !== true) $('.js-see-more-acts').show();
     } else {
