@@ -7,7 +7,7 @@ namespace :admin do
       Reporting::ProductMetricsReportBuilder.build_month(date: Date.current).save
 
       if 8.days.ago.month != Date.current.month
-        Reporting::ProductMetricsReportBuilder.build_month(date: 1.month.ago).save
+        Reporting::ProductMetricsReportBuilder.build_month(date: 1.month.ago.to_date).save
       end
 
       puts "Running Product Metrics Board Health Reports for current Month"
