@@ -41,19 +41,6 @@ feature "Client Admin Accepts Invitation" do
     expect_current_board_header(@other_board)
   end
 
-  scenario "user gets seed points on accepting invitation to game with them, but just once" do
-    @user.demo.update_attributes(seed_points: 10)
-
-    visit invitation_url(@user.invitation_code)
-    fill_in_required_invitation_fields
-    click_button "Log in"
-
-    should_be_on explore_path
-
-    visit activity_path
-    expect_content "10 pts You joined"
-  end
-
   scenario "user must set password when accepting invitation" do
     visit invitation_url(@user.invitation_code)
     expect_content "Please choose a password"

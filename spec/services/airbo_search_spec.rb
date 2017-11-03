@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AirboSearch do
+describe AirboSearch, search: true do
   let(:query) { 'health insurance' }
   let(:user) { FactoryGirl.create(:client_admin) }
   let(:demo) { user.demos.first }

@@ -7,16 +7,16 @@ describe ClientAdmin::ReportsHelper do
 
   describe "#report_default_start_date" do
     it "returns demo_launch if launch date is less than 3 months ago" do
-      launch_date = Time.zone.now - 2.months
+      launch_date = Time.current - 2.months
       helper.stubs(:demo_launch).returns(launch_date)
 
       expect(helper.report_default_start_date).to eq(launch_date)
     end
 
     it "returns Time.current.end_of_month - 3.months if demo_launch is greater than 12 months ago" do
-      Timecop.freeze(Time.zone.now)
+      Timecop.freeze(Time.current)
 
-      launch_date = Time.zone.now - 5.years
+      launch_date = Time.current - 5.years
       helper.stubs(:demo_launch).returns(launch_date)
 
       expect(helper.report_default_start_date).to eq(Time.current.end_of_month - 3.months)
@@ -25,7 +25,7 @@ describe ClientAdmin::ReportsHelper do
 
   describe "#demo_launch" do
     before do
-      Timecop.freeze(Time.local(2010, 2, 15))
+      Timecop.freeze(Time.local(2010, 2, 15).in_time_zone)
     end
 
     after do
@@ -57,7 +57,7 @@ describe ClientAdmin::ReportsHelper do
 
   describe "#reportings_date_switch_opts" do
     before do
-      Timecop.freeze(Time.new(1990))
+      Timecop.freeze(Time.zone.local(1990))
     end
 
     after do

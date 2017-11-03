@@ -17,8 +17,7 @@ feature 'Live raffle' do
     click_save_live_raffle
 
     raffle = demo.raffle.reload
-    expect(raffle.starts_at).to eq(Time.current.midnight)
-    expect(raffle.ends_at).to eq(Time.current.end_of_day + 8.days)
+
     expect(raffle.prizes).to eq(["Prize2", "Prize3"])
     expect(raffle.other_info).to eq("Other info")
   end

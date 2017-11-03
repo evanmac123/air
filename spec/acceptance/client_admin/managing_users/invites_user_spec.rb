@@ -52,17 +52,5 @@ feature 'Invites user' do
       expect_content "Success!"
       expect_no_content "Next, send invite to Bob Jones"
     end
-
-    #FIXME this functionality is deprecated. Remove this test after confirming.
-    #2016-07-26
-    skip "shouldn't be an option, if they have no email" do
-      click_button "Add User"
-
-      new_user = @demo.users.order("created_at DESC").first
-      expect(new_user.invited).to be_falsey
-
-      expect_content "OK, we've added #{new_user.name}. They can join the game with the claim code #{new_user.claim_code.upcase}"
-      expect_no_content "click here to invite them"
-    end
   end
 end
