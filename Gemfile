@@ -27,7 +27,6 @@ gem 'mongoid'
 gem 'bson_ext'
 gem 'pundit'
 gem 'google_drive'
-gem 'time_difference'
 gem 'cache_digests'
 gem 'activerecord-collection_cache_key'
 gem 'groupdate'
@@ -100,7 +99,6 @@ group :assets do
   gem 'jquery-ui-rails'
   gem 'handlebars_assets', '~>0.22.0'
 end
-
 
 group :development, :test do
   gem 'faker'

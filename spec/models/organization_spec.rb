@@ -51,22 +51,4 @@ describe Organization do
       expect(Organization.paid).to eq(paid_orgs)
     end
   end
-
-  describe '#oldest_demo' do
-    let(:organization) { FactoryGirl.create(:organization, :complete) }
-    let(:demo) { FactoryGirl.build(:demo, organization: organization) }
-    let(:demo2) { FactoryGirl.build(:demo, organization: organization) }
-
-    it 'returns oldest demo if it exists' do
-      demo.save!
-
-      Timecop.travel(Time.current + 3.hours)
-
-      demo2.save!
-
-      Timecop.return
-
-      expect(organization.oldest_demo).to eql(demo)
-    end
-  end
 end

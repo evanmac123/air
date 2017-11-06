@@ -6,7 +6,6 @@ class Organization < ActiveRecord::Base
   before_save :update_slug
   before_save :normalize_blank_values
 
-  has_many :contracts
   has_many :subscriptions, dependent: :destroy
   has_many :invoices, through: :subscriptions
   has_many :invoice_transactions, through: :invoices
@@ -87,109 +86,6 @@ class Organization < ActiveRecord::Base
     self.save
   end
 
-  def self.as_customer
-    joins(:contracts).uniq
-  end
-
-  def self.active_as_of_date d
-    as_customer.select{|o| o.active_as_of_date(d)}
-  end
-
-  def self.currently_active
-    active_as_of_date(Date.current)
-  end
-
-  def self.active_during_period sdate, edate
-    as_customer.select{|o| o.active_during_period(sdate, edate)}
-  end
-
-  def self.added_during_period sdate, edate
-    as_customer.select{|o| o.added_during_period(sdate, edate)}
-  end
-
-  def self.churned_during_period sdate, edate
-    possible_churn_during_period(sdate, edate).select{|o|o.contracts.auto_renewing.count == 0}
-  end
-
-  def self.with_deliquent_contracts_as_of_date date
-    as_customer.select{|o|o.contracts.delinquent_as_of(date).count > 0}
-  end
-
-  def self.delinquent_as_of_date date
-    with_deliquent_contracts_as_of_date(date).select{|o|o.contracts.active_as_of_date(date).count == 0}
-  end
-
-  def self.possible_churn_during_period sdate, edate
-    active_as_of_date(sdate).select{|o| o.contracts.active_not_expiring_during_period(sdate,edate).count == 0 }
-  end
-
-  def mrr_churn_during_period sdate, edate
-    current = mrr_as_of_date(edate)
-    starting = mrr_as_of_date(sdate)
-    current-starting
-  end
-
-  def mrr_as_of_date date
-    active_contracts_as_of_date(date).sum(&:calc_mrr)
-  end
-
-  def active_contracts_as_of_date date
-    contracts.active_as_of_date(date)
-  end
-
-  def added_during_period sdate, edate
-    has_start_and_end && customer_start_date >= sdate && customer_start_date <= edate
-  end
-
-  def active_during_period sdate, edate
-    has_start_and_end && customer_start_date <= edate  && customer_end_date >= edate
-  end
-
-  def active_as_of_date date
-    contracts.active_as_of_date(date).count > 0
-  end
-
-  def active_mrr
-    contracts.active.sum(&:calc_mrr)
-  end
-
-
-  def mrr_during_period sdate, edate
-    contracts.mrr_during_period(sdate, edate)
-  end
-
-  def customer_start_date
-    @cust_start ||= contracts.order(:start_date).first.try(:start_date)
-  end
-
-  def customer_end_date
-    @cust_end ||= contracts.order(:end_date).last.try(:end_date)
-  end
-
-  def active
-    !churned
-  end
-
-  def churned
-    customer_end_date && customer_end_date < Date.current
-  end
-
-  def has_start_and_end
-    !!(customer_start_date and customer_end_date)
-  end
-
-  def primary_contact
-    users.first.try(:name) || "*No Primary Contact*"
-  end
-
-  def life_time
-    TimeDifference.between(customer_start_date, customer_end_date).in_months
-  end
-
-  def oldest_demo
-    @oldest_demo ||= demos.order('created_at ASC').first
-  end
-
   def user_activation_rate
     if users.count.nonzero?
       (activated_users.count.to_f / users.count) * 100
@@ -202,5 +98,4 @@ class Organization < ActiveRecord::Base
     arel_users = User.arel_table
     users.non_site_admin.where(arel_users[:accepted_invitation_at].not_eq(nil))
   end
-
 end

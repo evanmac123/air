@@ -196,46 +196,6 @@ FactoryGirl.define do
     association :user
   end
 
-  factory :contract do
-    sequence(:name) {|n|"Contract-#{n}"}
-
-    trait :complete do
-      association :organization, factory: [:organization, :complete]
-      arr  60000
-      amt_booked  60000
-      start_date '2012-01-01'
-      end_date '2012-12-31'
-      cycle Contract::ANNUAL
-      plan  "engage"
-      max_users 100
-    end
-
-    trait :custom do
-      cycle Contract::CUSTOM
-    end
-
-    trait :canceled do
-      auto_renew false
-    end
-
-    trait :custom_valid do
-      custom
-      term 9
-    end
-
-    trait :active do
-      start_date  Date.current
-      end_date  1.year.from_now
-    end
-
-    factory :upgrade , class: Contract do
-      complete
-      trait :with_parent do
-        association :parent_contract, factory: [:contract, :complete]
-      end
-    end
-  end
-
   factory :user_intro do
     explore_intro_seen true
     explore_preview_copy_seen true
