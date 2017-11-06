@@ -101,7 +101,6 @@ group :assets do
   gem 'handlebars_assets', '~>0.22.0'
 end
 
-
 group :development, :test do
   gem 'faker'
   gem 'colored'

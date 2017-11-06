@@ -20,7 +20,6 @@ namespace :admin do
 
   resources :tile_features, only: [:index, :create, :update, :destroy, :new]
 
-  resources :historical_metrics, only: [:create]
   namespace :sales do
     resources :organizations, only: [:new, :create]
     resources :leads, only: [:index]
@@ -32,18 +31,12 @@ namespace :admin do
 
   resources :topics
 
-  resource :client_kpi_report
-  resource :financials_kpi_dashboard, only:[:show], controller: "financials/kpi_dashboard"
-
-  resources :metrics
   resources :topic_boards
   resources :organizations, as: :customers
   resources :organizations do
     collection do
       post "import"
     end
-    resources :contracts, controller: "contracts"
-    resources :billings
 
     resources :subscriptions, only: [:create, :destroy] do
       put 'cancel'
@@ -51,20 +44,9 @@ namespace :admin do
     end
   end
 
-  resources :contracts do
-    post "import", as: "import_contracts"
-    get "import", on: :collection
-
-
-    resources :upgrades, controller: "contracts"
-    resources :billings
-  end
-
   namespace :reference do
     get "styleguide"
   end
-
-  resources :billings
 
   resources :rule_values, :only => [:destroy]
 
