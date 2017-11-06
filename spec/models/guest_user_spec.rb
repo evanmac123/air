@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe GuestUser do
   it { is_expected.to have_many(:tile_viewings) }
-  it { is_expected.to have_many(:viewed_tiles) }
 
   let(:user) { FactoryGirl.create(:guest_user) }
 

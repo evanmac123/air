@@ -99,12 +99,11 @@ describe 'Digest email' do
       demo.save
       email = TilesDigestMailer.notify_one(digest, claimed_user.id, 'New Tiles', TilesDigestMailDigestPresenter)
 
-      expect(email).to have_selector "img[src *= 'tasty.png'][alt = 'Tasty']"
+      expect(email).to have_selector "img[src *= 'tasty.jpg'][alt = 'Tasty']"
     end
   end
 
   describe 'Text' do
-    # Note that the bottom text is the same for both original and follow-up
 
     context "original digest email should display its title" do
       subject { TilesDigestMailer.notify_one(digest, claimed_user.id, 'New Tiles', TilesDigestMailDigestPresenter) }

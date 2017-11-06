@@ -2,13 +2,6 @@ require "spec_helper"
 
 describe Mailer do
   describe '#activity_report' do
-
-    #FIXME this test initally specified "EDT" as time zone and seem to convert
-    # timestamp to 10am instead 1pm. 
-    #
-    # #NOTE investigate as part of general review of how the application is
-    # using time zone
-
     let(:report) { Mailer.activity_report('fake csv data', 'Weird Demo-Name #3!', Time.zone.parse("2011-05-01 13:00:00"), 'buddy@guy.com') }
 
     it 'should construct the correct name for the file attachment' do
@@ -16,10 +9,12 @@ describe Mailer do
     end
 
     it 'should construct an email with the correct parts' do
-      report.deliver
-      expect(Mailer).to have_sent_email.from('play@ourairbo.com')
-                                   .to('buddy@guy.com')
-                                   .with_part('text/csv', 'fake csv data')
+      mail = report.deliver
+
+      expect(mail.from).to eq(['play@ourairbo.com'])
+      expect(mail.to).to eq(['buddy@guy.com'])
+
+      expect(mail.body.parts[1].to_s).to include("fake csv data")
     end
   end
 end

@@ -2,13 +2,11 @@ require 'acceptance/acceptance_helper'
 
 feature 'Adds user' do
   let (:client_admin) { FactoryGirl.create(:client_admin) }
-  let (:demo)         { client_admin.demo }
+  let (:demo) { client_admin.demo }
+
   before do
     FactoryGirl.create :tile, demo: demo
   end
-
-
-
 
   before do
     visit client_admin_users_path(as: client_admin)
@@ -21,11 +19,6 @@ feature 'Adds user' do
     click_button "Add User"
 
     should_be_on client_admin_users_path
-
-    #FIXME this should be unit
-    #demo.users.reload.count.should == 2
-    #expect_new_user(demo)
-    #newest_user(demo).demos.should have(1).demo
   end
 
   it "should strip email", js: true do

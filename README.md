@@ -1,6 +1,6 @@
 Airbo 🎉
 ========
-[![Code Climate](https://codeclimate.com/repos/55e48aaee30ba07a20000264/badges/c3777803cac110be5c21/gpa.svg)](https://codeclimate.com/repos/55e48aaee30ba07a20000264/feed) [![Test Coverage](https://codeclimate.com/repos/55e48aaee30ba07a20000264/badges/c3777803cac110be5c21/coverage.svg)](https://codeclimate.com/repos/55e48aaee30ba07a20000264/coverage) [![Build Status](https://semaphoreci.com/api/v1/projects/ba420932-a062-4cec-916a-fedd904d027a/966697/shields_badge.svg)](https://semaphoreci.com/airbo/hengage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/6c71ef08e7a18ac5421e/maintainability)](https://codeclimate.com/repos/59fcddd7562e40028b0004ec/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/6c71ef08e7a18ac5421e/test_coverage)](https://codeclimate.com/repos/59fcddd7562e40028b0004ec/test_coverage) [![Build Status](https://semaphoreci.com/api/v1/projects/da66a2f8-2a2d-4768-b146-ce4be4f0e216/1607679/badge.svg)](https://semaphoreci.com/airbo/airbo)
 
 
 Developer Machine Setup

@@ -34,7 +34,7 @@ feature "Client admin creates tiles", js: true do
 
     scenario "Creates new free reponse tile", js: true do
       click_link "Add New Tile"
-      choose_question_type_and_subtype Tile::SURVEY,"free_response" 
+      choose_question_type_and_subtype Tile::SURVEY,"free_response"
       expect(page).to have_css ".js-free-form-response.free-text-entry"
     end
 
@@ -45,46 +45,6 @@ feature "Client admin creates tiles", js: true do
         page.find(".close-reveal-modal").click
         within ".tile_container.unfinished" do
           expect(page).to  have_content "Ten pounds of cheese"
-        end
-      end
-
-      scenario "creates only one tile when  " do
-        pending "unable to simulate this scenario in acceptance test"
-
-        #NOTE 
-        #this test attempts to simulate a bug #708 where two tiles 
-        # are created if the user uploads an image and quickly causes blur 
-        # and focus events on the supporting content field. 
-        # leaving it here as pending for future documentation
-        
-        #NOTE in ordr for it to be ignored by spec runner the expection is wrong
-        #on purpose
-
-        click_link "Add New Tile"
-        content = page.find(:css, "#supporting_content_editor", visible: false)
-        headline = page.find("#tile_headline")
-        fake_upload_image img_file1
-
-        content.trigger("focus")
-        content.set("This")
-        headline.trigger("focus")
-        headline.set("Ten pounds of cheese")
-        content.trigger("focus")
-        content.set("that")
-        headline.trigger("focus")
-        page.find(".close-reveal-modal").click
-        within ".tile_container.draft" do
-          expect(page).to  have_css(".tile_thumbnail", count: 2)
-        end
-      end
-
-      pending "create with only image" do
-        click_link "Add New Tile"
-        fake_upload_image img_file1
-        page.find(".close-reveal-modal").click
-        page.find(".tile_container.unfinished")
-        within ".tile_container.unfinished" do
-          expect(page).to  have_content "Incomplete"
         end
       end
     end
@@ -117,7 +77,7 @@ feature "Client admin creates tiles", js: true do
     scenario  "edit all tile fields" do
 
       fill_in_tile_form_entries edit_text: edit_text, points: points
-      select_correct_answer 0 
+      select_correct_answer 0
       click_create_button
 
       within ".viewer" do

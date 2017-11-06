@@ -106,7 +106,7 @@ module S3UploadHelper
     def signature
       Base64.encode64(
         OpenSSL::HMAC.digest(
-          OpenSSL::Digest::Digest.new('sha1'),
+          OpenSSL::Digest.new('sha1'),
           @options[:aws_secret_access_key], policy
         )
       ).gsub("\n", "")

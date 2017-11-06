@@ -464,12 +464,12 @@ describe Tile do
 
   end
 
-  describe '#search_data for songkick' do
+  describe '#search_data for songkick', search: true do
     let(:user) {FactoryGirl.create(:user) }
     let(:demo) { FactoryGirl.create(:demo) }
     let(:tile) { FactoryGirl.create(:multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true) }
 
-    it 'should be indexed', elasticsearch: true do
+    it 'should be indexed' do
       FactoryGirl.create(:tile, headline: "Food")
 
       Tile.reindex

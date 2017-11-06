@@ -9,80 +9,72 @@ describe GenericMailer do
   describe "#send_message" do
     it "should send a message" do
       @user = FactoryGirl.create :user
-      GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
+      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
 
-      is_expected.to have_sent_email.
-        to(@user.email).
-        with_subject("Here is the subject").
-        with_part('text/plain', /This is some text\s*/).
-        with_part('text/html', %r!<p>This is some HTML</p>!).
-        from("play@ourairbo.com")
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      expect(mail.subject).to eq("Here is the subject")
+      expect(mail.to).to eq([@user.email])
+      expect(mail.from).to eq(["play@ourairbo.com"])
+
+      plain_body = mail.body.parts[0]
+      html_body = mail.body.parts[1]
+
+      expect(plain_body.to_s).to include("This is some text")
+      expect(html_body.to_s).to include("<p>This is some HTML</p>")
     end
 
     it "should have an unsubscribe footer" do
       @user = FactoryGirl.create :user
-      GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
+      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
 
-      is_expected.to have_sent_email.to(@user.email)
-      is_expected.not_to have_sent_email.with_body /Please do not forward it to others/
-    end
-
-    it "should not try to send to an empty email address" do
-      user = FactoryGirl.create(:user)
-      user.update_attributes(email: nil)
-
-      GenericMailer.send_message(demo.id, user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
-
-      expect(ActionMailer::Base.deliveries).to be_empty
+      expect(mail.to).to eq([@user.email])
+      expect(mail.body.to_s).to_not include("Please do not forward it to others")
     end
 
     it "should be able to interpolate invitation URLs" do
       @user = FactoryGirl.create :user
-      GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text, and you should go to [invitation_url]", "<p>This is some HTML. Go to [invitation_url]</p>").deliver
+      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text, and you should go to [invitation_url]", "<p>This is some HTML. Go to [invitation_url]</p>").deliver
 
-      is_expected.to have_sent_email.
-        to(@user.email).
-        with_part('text/html', /#{@user.invitation_code}/).
-        with_part('text/plain', /#{@user.invitation_code}/)
+      plain_body = mail.body.parts[0]
+      html_body = mail.body.parts[1]
+
+      expect(plain_body.to_s).to include("#{@user.invitation_code}")
+      expect(html_body.to_s).to include("#{@user.invitation_code}")
     end
 
-    it "should be able to interpolate tile-digest style URLs" do
-      claimed_user = FactoryGirl.create :user, :claimed
-      unclaimed_user = FactoryGirl.create :user
+    context "when user is claimed" do
+      it "should be able to interpolate tile-digest style URLs" do
+        claimed_user = FactoryGirl.create :user, :claimed
 
-      [claimed_user, unclaimed_user].each do |user|
-        GenericMailer.send_message(demo.id, user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]").deliver
+        mail = GenericMailer.send_message(demo.id, claimed_user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]").deliver
+
+        html_body = mail.body.parts[1]
+
+        expect(html_body.to_s).to include("tile_token=#{EmailLink.generate_token(claimed_user)}")
       end
-
-      is_expected.to have_sent_email.
-        to(claimed_user.email).
-        with_part('text/html', /acts/).
-        with_part('text/html', /user_id=#{claimed_user.id}/).
-        with_part('text/html', /tile_token=#{EmailLink.generate_token(claimed_user)}/).
-        with_part('text/plain', /acts/).
-        with_part('text/plain', /user_id=#{claimed_user.id}/).
-        with_part('text/plain', /tile_token=#{EmailLink.generate_token(claimed_user)}/)
-
-      is_expected.to have_sent_email.
-        to(unclaimed_user.email).
-        with_part('text/html', %r!invitations/#{unclaimed_user.invitation_code}!).
-        with_part('text/plain', %r!invitations/#{unclaimed_user.invitation_code}!)
     end
 
-    context "when called with a user in a demo that has a custom reply address" do
+    context "when user is unclaimed" do
+      it "should be able to interpolate tile-digest style URLs" do
+        unclaimed_user = FactoryGirl.create :user
+
+        mail = GenericMailer.send_message(demo.id, unclaimed_user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]").deliver
+
+        html_body = mail.body.parts[1]
+
+        expect(html_body.to_s).to include("invitations/#{unclaimed_user.invitation_code}")
+      end
+    end
+
+    context "when called with a demo that has custom reply address" do
       it "should send from that address" do
         @demo = FactoryGirl.create :demo, :email => "someco@playhengage.com"
         @user = FactoryGirl.create :user, :demo => @demo
 
-        GenericMailer.send_message(@demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
+        mail = GenericMailer.send_message(@demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
 
-        is_expected.to have_sent_email.
-          to(@user.email).
-          with_subject("Here is the subject").
-          with_part('text/plain', /This is some text\s*/).
-          with_part('text/html', %r!<p>This is some HTML</p>!).
-          from("someco@playhengage.com")
-        end
+        expect(mail.from).to eq(["someco@playhengage.com"])
+      end
     end
   end
 

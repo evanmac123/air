@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'User searches for tile', js: true do
+feature 'User searches for tile', js: true, search: true do
 
   before do
     organization = FactoryGirl.create(:organization)
