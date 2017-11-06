@@ -93,9 +93,6 @@ gem 'chartmogul-ruby', require: 'chartmogul'
 gem 'descriptive_statistics', require: 'descriptive_statistics/safe'
 gem 'jbuilder'
 
-#
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
@@ -129,7 +126,7 @@ group :test do
   gem 'timecop'
   gem 'shoulda'
   gem 'shoulda-matchers'
-  gem 'email_spec', '~> 1.1'
+  gem 'email_spec'
   gem 'capybara-webkit'
   gem 'poltergeist'
   gem 'sinatra'

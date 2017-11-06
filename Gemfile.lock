@@ -57,8 +57,8 @@ GEM
       activerecord (>= 3.2, < 5)
     acts_as_singleton (0.0.8)
       activerecord (>= 3.1.0)
-    addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     after_commit_action (1.1.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -177,7 +177,7 @@ GEM
     elasticsearch-transport (5.0.0)
       faraday
       multi_json
-    email_spec (1.4.0)
+    email_spec (1.6.0)
       launchy (~> 2.1)
       mail (~> 2.2)
     email_validator (1.6.0)
@@ -330,7 +330,7 @@ GEM
       railties (>= 3)
     macaddr (1.6.1)
       systemu (~> 2.5.0)
-    mail (2.5.4)
+    mail (2.5.5)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     memoist (0.12.0)
@@ -410,7 +410,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    public_suffix (2.0.5)
+    public_suffix (3.0.0)
     pundit (1.0.1)
       activesupport (>= 3.0.0)
     quiet_assets (1.0.2)
@@ -647,7 +647,7 @@ DEPENDENCIES
   delighted
   descriptive_statistics
   draper (~> 1.3)
-  email_spec (~> 1.1)
+  email_spec
   factory_girl_rails
   faker
   fakeweb
