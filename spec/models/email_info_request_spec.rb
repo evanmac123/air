@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe EmailInfoRequest do
-  include Shoulda::Matchers::ActionMailer
-
   describe "#notify" do
     it "should create a job that notifies sales" do
       ActionMailer::Base.deliveries.clear
@@ -16,7 +14,6 @@ describe EmailInfoRequest do
       )
 
       request.notify
-      Delayed::Worker.new.work_off
 
       open_email 'team@airbo.com'
 
