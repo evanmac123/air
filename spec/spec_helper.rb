@@ -11,6 +11,7 @@ test_counter = 0
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'shoulda/matchers'
 require 'clearance/rspec'
 require 'capybara/rspec'
 require 'capybara/poltergeist'

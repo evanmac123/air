@@ -124,8 +124,7 @@ group :test do
   gem 'fakeweb'
   gem 'sham_rack'
   gem 'timecop'
-  gem 'shoulda'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', require: false
   gem 'email_spec'
   gem 'capybara-webkit'
   gem 'poltergeist'
