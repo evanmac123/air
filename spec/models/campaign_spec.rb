@@ -12,7 +12,7 @@ describe Campaign do
       campaign_ids = campaigns.map(&:id)
       excluded_campaigns = campaign_ids[0..1]
 
-      expect(Campaign.exclude(excluded_campaigns)).to eq(campaigns[2..-1])
+      expect(Campaign.exclude(excluded_campaigns).pluck(:id).sort).to eq(campaigns[2..-1].map(&:id).sort)
     end
   end
 
