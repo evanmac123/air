@@ -105,7 +105,7 @@ feature 'Adds user' do
 
       click_button "Add User"
       click_link "Next, send invite to #{user.name}"
-      crank_dj_clear
+      
 
       open_email user.email
       expect(current_email.to_s).not_to include(user.demo.name)

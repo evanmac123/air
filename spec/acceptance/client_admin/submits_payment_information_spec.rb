@@ -140,7 +140,7 @@ feature 'Submits payment information' do
 
   scenario 'and triggers an email to us', js: true do
     submit_valid_cc_entries
-    crank_dj_clear
+    
 
     open_email(BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS)
     expect(current_email).to have_body_text("Joey Bananas (joey@example.com) submitted payment information to Stripe for the #{@client_admin.demo.name} (#{@client_admin.demo_id})")

@@ -15,7 +15,7 @@ feature 'Admin resets tickets for demo' do
     click_link "Conduct raffle"
 
     click_button "Clear all tickets"
-    crank_dj_clear
+    
   end
 
   it "should drop the ticket count for all users in that demo to 0" do

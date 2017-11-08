@@ -99,7 +99,7 @@ describe BulkLoad::UserRemover do
     rig_user_ids_for_bulk_removal(remover, user_ids)
 
     remover.remove!
-    crank_dj_clear
+    
 
     expect(User.where(id: user_ids)).to be_empty
   end
@@ -118,7 +118,7 @@ describe BulkLoad::UserRemover do
     rig_user_ids_for_bulk_removal(remover, user_ids)
 
     remover.remove!
-    crank_dj_clear
+    
 
     expect(User.where(id: user_ids).size).to eq(2)
     users.each do |user|

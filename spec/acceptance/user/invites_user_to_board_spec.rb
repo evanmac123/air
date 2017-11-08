@@ -197,7 +197,7 @@ feature 'User invites user to board', broken: true do
 
   def should_send_email invitee, referrer, demo
     autocomplete_status AUTOCOMPLETE_STATUS[:sent]
-    crank_dj_clear
+    
 
     open_email invitee.email
     expect(current_email.to_s).to have_content "#{referrer.name} invited you to"

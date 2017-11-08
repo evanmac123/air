@@ -9,7 +9,7 @@ feature "User tries to friend someone" do
   # NOTE: For debugging, use statement below to create a file like /tmp/email-123456789.txt
   # EmailSpec::EmailViewer.save_and_open_email(current_email)
   def deliver_and_open_email_for(recipient)
-    crank_dj_clear
+    
     open_email(recipient.email)
   end
 

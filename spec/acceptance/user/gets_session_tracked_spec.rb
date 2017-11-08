@@ -1,5 +1,5 @@
 require 'acceptance/acceptance_helper'
-# FIXME: NICK to HERBY Revisit after Mixpanel audit.  Moving to controller specs was too involved. Instead, turned off delayed jobs and removed crank_dj_clear
+# FIXME: NICK to HERBY Revisit after Mixpanel audit.  Moving to controller specs was too involved. Instead, turned off delayed jobs and removed 
 feature "activity session tracking" do
   before do
     user = FactoryGirl.create(:user, email: 'fred@foobar.com')

@@ -304,7 +304,7 @@ describe User, "#invite" do
       Mailer.stubs(:invitation => invitation)
       invitation.stubs(:deliver)
       subject.invite
-      crank_dj_clear
+      
     end
 
     it "sends invitation to user" do
@@ -346,7 +346,7 @@ describe User, "#invite" do
 
         other_user = FactoryGirl.create(:user)
         subject.invite(other_user)
-        crank_dj_clear
+        
       end
 
       it "should not send another invitation email" do
@@ -475,7 +475,7 @@ end
 describe User, "on create" do
   it "should create an associated segmentation info record in mongo" do
     @user = FactoryGirl.create :user
-    crank_dj_clear
+    
 
     expect(@user.segmentation_data).to be_present
   end
@@ -563,11 +563,11 @@ describe User, "on save" do
     expected_new_value = expected_values.last || new_value
 
     user = FactoryGirl.create(:user, field_name => old_value)
-    crank_dj_clear
+    
     expect(user.segmentation_data[field_name]).to eq(expected_old_value)
 
     user.update_attributes(field_name => new_value)
-    crank_dj_clear
+    
     expect(user.segmentation_data.reload.send(field_name)).to eq(expected_new_value)
   end
 
@@ -589,12 +589,12 @@ describe User, "on save" do
   it "should sync to mongo when characteristics is changed" do
     user = FactoryGirl.create(:user)
     characteristic = FactoryGirl.create(:characteristic, :allowed_values => %w(foo bar baz))
-    crank_dj_clear
+    
     expect(user.segmentation_data.characteristics).to eq({})
 
     user.characteristics = {characteristic.id => 'foo'}
     user.save
-    crank_dj_clear
+    
     expect(user.segmentation_data.characteristics).to eq({characteristic.id => 'foo'}.stringify_keys)
   end
 
@@ -603,51 +603,51 @@ describe User, "on save" do
     first_demo = user.demo
     second_demo = FactoryGirl.create(:demo)
 
-    crank_dj_clear
+    
     expect(user.segmentation_data.demo_ids).to eq([first_demo.id])
 
     user.add_board(second_demo)
-    crank_dj_clear
+    
     expect(user.segmentation_data.demo_ids.sort).to eq([first_demo.id, second_demo.id].sort)
   end
 
   it "should sync to mongo when a user acts" do
     user = FactoryGirl.create :user
-    crank_dj_clear
+    
     expect(user.segmentation_data.last_acted_at).to be_nil
     act = FactoryGirl.create(:act, user: user)
-    crank_dj_clear
+    
     now = Time.current
     expect(user.segmentation_data.last_acted_at).not_to be_nil
   end
 
   it "should sync to mongo when accepted_invitation_at is changed, updating the value of claimed too" do
     user = FactoryGirl.create :user
-    crank_dj_clear
+    
     expect(user.segmentation_data.accepted_invitation_at).to be_nil
     expect(user.segmentation_data.claimed).to be_falsey
 
     accept_time = Chronic.parse("May 1, 2012, 3:00 PM")
     user.accepted_invitation_at = accept_time
     user.save!
-    crank_dj_clear
+    
     expect(user.segmentation_data.accepted_invitation_at).to eq(accept_time.utc)
     user.segmentation_data.claimed is_expected.to be_truthy
   end
 
   it "should sync to mongo whether or not the user has a phone number on record" do
     user = FactoryGirl.create :user
-    crank_dj_clear
+    
     expect(user.segmentation_data.has_phone_number).to be_falsey
 
     user.phone_number = "+14155551212"
     user.save!
-    crank_dj_clear
+    
     expect(user.segmentation_data.has_phone_number).to be_truthy
 
     user.phone_number = ""
     user.save!
-    crank_dj_clear
+    
     expect(user.segmentation_data.has_phone_number).to be_falsey
   end
 end
@@ -655,11 +655,11 @@ end
 describe User, "on destroy" do
   it "should destroy the associated mongo data" do
     user = FactoryGirl.create :user
-    crank_dj_clear
+    
     expect(User::SegmentationData.where(:ar_id => user.id).count).to eq(1)
 
     user.destroy
-    crank_dj_clear
+    
     expect(User::SegmentationData.where(:ar_id => user.id).count).to eq(0)
   end
 end
