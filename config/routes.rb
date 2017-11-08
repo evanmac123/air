@@ -16,10 +16,10 @@ Health::Application.routes.draw do
   end
 
   constraints Clearance::Constraints::SignedIn.new { |user| user.is_site_admin || user.is_client_admin } do
-    root to: 'explore#show'
+    root to: redirect('/explore')
   end
 
   constraints Clearance::Constraints::SignedIn.new do
-    root to: 'acts#index'
+    root to: redirect('/activity')
   end
 end
