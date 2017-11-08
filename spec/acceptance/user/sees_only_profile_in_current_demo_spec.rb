@@ -13,6 +13,6 @@ feature "User Sees Only Profile In Current Demo" do
 
     visit user_path(@user2)
     expect(page).not_to have_content(@user2.email)
-    expect(page.current_path).to eq(root_path)
+    expect(page.current_path).to eq(activity_path)
   end
 end

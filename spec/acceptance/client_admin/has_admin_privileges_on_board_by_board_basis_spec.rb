@@ -22,7 +22,7 @@ feature 'Has admin privileges on board by board basis' do
 
       visit client_admin_users_path
 
-      expect(current_path).to eq(root_path)
+      expect(current_path).to eq(activity_path)
     end
 
     scenario "gets them back when switching back to the original board" do
@@ -46,7 +46,7 @@ feature 'Has admin privileges on board by board basis' do
 
       visit client_admin_users_path
 
-      expect(current_path).to eq(root_path)
+      expect(current_path).to eq(activity_path)
     end
 
     scenario "and back to the original with privileges once more, and then I think we'll call it a day" do

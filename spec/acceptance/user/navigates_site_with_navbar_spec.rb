@@ -11,7 +11,7 @@ feature 'User navigates site with navbar' do
     'Site admin' => "admin_path",
     'Settings'   => "edit_account_settings_path",
     'Sign Out'   => "sign_in_path",
-    'Home'       => 'root_path',
+    'Home'       => 'explore_path',
     'My Profile' => 'user_path(@joe)',
     'Find users' => 'users_path'
   }.each do |link_text, page_path_code|
