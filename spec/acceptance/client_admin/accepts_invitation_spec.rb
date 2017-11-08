@@ -83,7 +83,7 @@ feature "Client Admin Accepts Invitation" do
     fill_in_required_invitation_fields
     click_button "Log in"
 
-    crank_dj_clear
+    
 
     expect(ActionMailer::Base.deliveries).to be_empty
   end

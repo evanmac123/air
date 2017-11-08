@@ -88,8 +88,6 @@ feature 'Admin conducts raffle' do
 
       4.times { FactoryGirl.create(:user, :claimed, characteristics: characteristic_hash, tickets: 15, demo: @demo) }
       3.times { FactoryGirl.create(:user, :claimed, location: @locations[0], tickets: 15, demo: @demo) }
-
-      crank_dj_clear
     end
 
     context "and no users in that segment have tickets" do
@@ -108,7 +106,7 @@ feature 'Admin conducts raffle' do
           user.update_attributes(tickets: i * 3)
         end
 
-        crank_dj_clear
+
       end
 
       it "should select a user pseudorandomly proportional to how many tickets they have", :js => true do

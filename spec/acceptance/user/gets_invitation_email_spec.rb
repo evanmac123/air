@@ -4,19 +4,19 @@ include EmailHelper
 
 feature 'User gets invitation email' do
   def expect_email_content(expected_content)
-    crank_dj_clear
+    
     open_email(@user.email)
     expect(current_email.to_s.gsub(/\r\n/, "\n")).to include(expected_content)
   end
 
   def expect_no_email_content(unexpected_content)
-    crank_dj_clear
+    
     open_email(@user.email)
     expect(current_email.to_s.gsub(/\r\n/, "\n")).not_to include(unexpected_content)
   end
 
   def expect_subject(expected_subject)
-    crank_dj_clear
+    
     open_email(@user.email)
     expect(current_email.subject).to eq(expected_subject)
   end
@@ -250,7 +250,7 @@ If you're smart you'll go to [invitation_url] and play.
 
     context "when there is a referrer" do
       before(:each) do
-        crank_dj_clear
+        
         ActionMailer::Base.deliveries.clear
 
         custom_html = <<-END_HTML

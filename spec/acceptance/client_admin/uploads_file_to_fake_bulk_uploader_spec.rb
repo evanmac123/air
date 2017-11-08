@@ -50,7 +50,7 @@ feature 'Uploads file to fake bulk uploader' do
     visit client_admin_users_path(as: @client_admin)
     simulate_upload
 
-    crank_dj_clear
+    
     open_email(BulkUploadNotificationMailer::ADDRESS_TO_NOTIFY)
 
     expect(current_email.body).to match(%r!https://s3.amazonaws.com/#{BULK_UPLOADER_BUCKET}/uploads/[0123456789abcdef-]{36}/arbitrary_csv.csv!)

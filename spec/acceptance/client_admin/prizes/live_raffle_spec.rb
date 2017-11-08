@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Live raffle' do
   let (:client_admin) { FactoryGirl.create(:client_admin)}
-  let (:demo)         { client_admin.demo }
+  let (:demo) { client_admin.demo }
 
   before(:each) do
     FactoryGirl.create(:tile, demo: demo, activated_at: Time.current)

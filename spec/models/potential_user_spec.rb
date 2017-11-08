@@ -67,7 +67,7 @@ describe PotentialUser do
         Mailer.stubs(:invitation => invitation)
         invitation.stubs(:deliver)
         user.is_invited_by @inviter
-        crank_dj_clear
+        
       end
 
       it "sends invitation to user" do
@@ -92,7 +92,7 @@ describe PotentialUser do
 
         other_user = FactoryGirl.create(:user)
         user.is_invited_by(other_user)
-        crank_dj_clear
+        
       end
 
       it "should not send another invitation email" do

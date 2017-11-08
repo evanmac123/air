@@ -164,7 +164,6 @@ feature 'Client admin and the digest email for tiles' do
           expect_tiles_to_send_header
 
           submit_button.click
-          crank_dj_clear
 
           expect_digest_sent_content
           expect(page).not_to contain 'Tiles to be sent'
@@ -210,7 +209,7 @@ feature 'Client admin and the digest email for tiles' do
             end
             change_send_to('All Users')
             submit_button.click
-            crank_dj_clear
+
 
             expect(all_emails.size).to eq(7)  # The above 5 for this demo, and the 'client-admin' and the 'user' created at top of tests
 
@@ -256,7 +255,7 @@ feature 'Client admin and the digest email for tiles' do
 
             change_send_to('Activated Users')
             submit_button.click
-            crank_dj_clear
+
 
             expect(all_emails.size).to eq(4)  # 2 claimed users, the 'site-admin', and the 'client-admin' (created at top of tests)
 
@@ -284,7 +283,7 @@ feature 'Client admin and the digest email for tiles' do
             fill_in "digest[custom_message]", with: buzzwordery
             submit_button.click
 
-            crank_dj_clear
+
 
             all_addresses.each do |address|
               open_email(address)
@@ -301,7 +300,7 @@ feature 'Client admin and the digest email for tiles' do
           end
 
           it "uses that" do
-            crank_dj_clear
+
 
             all_addresses.each do |address|
               open_email(address)
@@ -339,7 +338,7 @@ feature 'Client admin and the digest email for tiles' do
             @custom_headline = "Do the right thing, you"
             fill_in "digest[custom_headline]", with: @custom_headline
             submit_button.click
-            crank_dj_clear
+
           end
 
           it "uses that" do
@@ -354,7 +353,7 @@ feature 'Client admin and the digest email for tiles' do
         context "and the optional admin-supplied custom headline is not filled in" do
           it "has a reasonable default" do
             submit_button.click
-            crank_dj_clear
+
 
             all_addresses.each do |address|
               open_email(address)
