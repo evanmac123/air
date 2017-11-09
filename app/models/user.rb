@@ -464,6 +464,10 @@ class User < ActiveRecord::Base
     name.split.first.capitalize
   end
 
+  def last_name
+    name.split[1..-1].join(" ").try(:titleize)
+  end
+
   def send_new_phone_validation_token
     SmsSender.delay.send_message(
       to_number: new_phone_number,

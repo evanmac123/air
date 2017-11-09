@@ -431,10 +431,6 @@ feature 'Client admin and the digest email for tiles' do
       # don't block anything
       expect_no_content follow_up_header_copy
 
-      # sign out
-      page.find("#me_toggle").click
-      click_link "Sign Out"
-
       address = admin.email
       expect(all_emails.size).to eq(2)
 
@@ -449,12 +445,6 @@ feature 'Client admin and the digest email for tiles' do
       expect(current_email).to have_content "Don't miss your new tiles"
       expect(current_email).to have_content 'Custom Message'
       expect(current_email).to have_content 'Custom Subject'
-
-      email_link = /acts/
-      click_email_link_matching email_link
-
-      expect(page).to have_content "Log In"
-      expect_content "REMEMBER ME"
     end
 
     it "should save entered text in digest form fields", js: true do

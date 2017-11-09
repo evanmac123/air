@@ -70,8 +70,7 @@
         {
           "$email" => current_user.email,
           "$first_name" => current_user.first_name,
-          "Name" => current_user.name,
-          "Organization" => current_user.demo.try(:organization_name)
+          "$last_name" => current_user.last_name,
         }.to_json.html_safe
       %>'))
     <% end %>
