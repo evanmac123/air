@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe Organization do
+  it { should have_many(:subscriptions) }
+  it { should have_many(:lead_contacts) }
+  it { should have_many(:boards) }
+  it { should have_many(:tiles) }
+  it { should have_many(:board_memberships) }
+  it { should validate_presence_of(:name) }
 
   it "is valid when complete" do
     o = FactoryGirl.build(:organization, :complete)
@@ -49,6 +55,88 @@ describe Organization do
       _free_orgs = FactoryGirl.create_list(:organization, 2)
 
       expect(Organization.paid).to eq(paid_orgs)
+    end
+  end
+
+  describe "#free?" do
+    it "returns true if all demos are free or trial" do
+      free_org = FactoryGirl.create(:organization)
+      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
+      _free_demo_2 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
+      _trial_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:trial], organization_id: free_org.id)
+
+      expect(free_org.free?).to eq(true)
+    end
+
+    it "returns false if there is a paid demo" do
+      free_org = FactoryGirl.create(:organization)
+      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
+      _free_demo_2 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
+      _paid_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: free_org.id)
+
+      expect(free_org.free?).to eq(false)
+    end
+
+    it "returns true of org has no demos" do
+      org = Organization.new
+
+      expect(org.free?).to eq(true)
+    end
+  end
+
+  describe "#trial?" do
+    it "returns true if there is a trial demo" do
+      trial_org = FactoryGirl.create(:organization)
+      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: trial_org.id)
+      _trial_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:trial], organization_id: trial_org.id)
+
+      expect(trial_org.trial?).to eq(true)
+    end
+
+    it "returns false if there is no trial demo" do
+      org = Organization.new
+
+      expect(org.trial?).to eq(false)
+    end
+  end
+
+  describe "#paid?" do
+    it "returns true if there is a paid demo" do
+      paid_org = FactoryGirl.create(:organization)
+      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: paid_org.id)
+      _paid_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: paid_org.id)
+
+      expect(paid_org.paid?).to eq(true)
+    end
+
+    it "returns false if there is no paid demo" do
+      org = Organization.new
+
+      expect(org.paid?).to eq(false)
+    end
+  end
+
+  describe "#customer_status" do
+    it "returns :paid when paid?" do
+      paid_org = FactoryGirl.create(:organization)
+      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: paid_org.id)
+      _paid_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: paid_org.id)
+
+      expect(paid_org.customer_status).to eq(:paid)
+    end
+
+    it "returns :trial when trial?" do
+      trial_org = FactoryGirl.create(:organization)
+      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: trial_org.id)
+      _trial_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:trial], organization_id: trial_org.id)
+
+      expect(trial_org.customer_status).to eq(:trial)
+    end
+
+    it "returns :free when not paid? nor trial?" do
+      org = Organization.new
+
+      expect(org.customer_status).to eq(:free)
     end
   end
 end

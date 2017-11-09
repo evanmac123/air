@@ -98,4 +98,26 @@ class Organization < ActiveRecord::Base
     arel_users = User.arel_table
     users.non_site_admin.where(arel_users[:accepted_invitation_at].not_eq(nil))
   end
+
+  def customer_status
+    if paid?
+      :paid
+    elsif trial?
+      :trial
+    else
+      :free
+    end
+  end
+
+  def paid?
+    demos.where(demos: { customer_status_cd: Demo.customer_statuses[:paid] }).count > 0
+  end
+
+  def trial?
+    demos.where(demos: { customer_status_cd: Demo.customer_statuses[:trial] }).count > 0
+  end
+
+  def free?
+    !paid?
+  end
 end

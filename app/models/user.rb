@@ -530,6 +530,18 @@ class User < ActiveRecord::Base
     }
   end
 
+  def mixpanel_data_for_profile
+    {
+      "$email" => email,
+      "$first_name" => first_name,
+      "$last_name" => last_name,
+      "customer_status" => organization.try(:customer_status),
+      "org_size" => organization.try(:company_size),
+      "org_name" => organization.try(:name),
+      "internal" => organization.try(:internal?)
+    }
+  end
+
   def intercom_user_id_with_env
     id.to_s + "-" + Rails.env
   end
