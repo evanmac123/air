@@ -1076,7 +1076,7 @@ describe User, ".paid_client_admin" do
 end
 
 describe User do
-  describe ".first_name" do
+  describe "#first_name" do
     it "returns the first name" do
       u = User.new(name: "Test Wyatt Hess")
 
@@ -1084,7 +1084,7 @@ describe User do
     end
   end
 
-  describe ".last_name" do
+  describe "#last_name" do
     it "returns multiple last names if present" do
       u = User.new(name: "Test Wyatt Hess")
 
@@ -1101,6 +1101,33 @@ describe User do
       u = User.new(name: "Test wyatt hess")
 
       expect(u.last_name).to eq("Wyatt Hess")
+    end
+  end
+
+  describe "#mixpanel_data_for_profile" do
+    it "returns correct data to create mixpanel user profiles" do
+      fake_org = OpenStruct.new({
+        customer_status: :paid,
+        company_size: :smb,
+        name: "Org Name",
+        internal?: false
+      })
+
+      user = User.new(name: "test user", email: "email@example.com")
+
+      user.expects(:organization).returns(fake_org).at_most(4)
+
+      data = {
+        "$email" => "email@example.com",
+        "$first_name" => "Test",
+        "$last_name" => "User",
+        "customer_status" => :paid,
+        "org_size" => :smb,
+        "org_name" => "Org Name",
+        "internal" => false
+      }
+
+      expect(user.mixpanel_data_for_profile).to eq(data)
     end
   end
 end

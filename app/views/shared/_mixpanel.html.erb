@@ -66,13 +66,7 @@
     <%= javascript_tag do %>
       mixpanel.identify("<%= current_user.mixpanel_distinct_id %>");
 
-      mixpanel.people.set(JSON.parse('<%=
-        {
-          "$email" => current_user.email,
-          "$first_name" => current_user.first_name,
-          "$last_name" => current_user.last_name,
-        }.to_json.html_safe
-      %>'))
+      mixpanel.people.set(JSON.parse('<%= current_user.mixpanel_data_for_profile.to_json.html_safe %>'))
     <% end %>
   <% end %>
 <% end %>
