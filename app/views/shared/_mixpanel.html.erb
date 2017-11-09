@@ -3,10 +3,19 @@
     function MixPanelMock() {
       this.track = track;
       this.register = register;
+      this.identify = identify;
+      this.people = {
+        set: function(data) {
+        }
+      };
+
       function track(eventString, props) {
       }
 
       function register(registration) {
+      }
+
+      function identify(distinct_id) {
       }
     }
     window.mixpanel = new MixPanelMock();
@@ -16,14 +25,29 @@
     function MixPanelMock() {
       this.track = track;
       this.register = register;
+      this.identify = identify;
+      this.people = {
+        set: function(data) {
+          console.log("MP Set Client Admin Profile")
+          console.log(data);
+        }
+      };
+
       function track(eventString, props) {
+        console.log("MP Track Event")
         console.log(eventString, props);
       }
 
       function register(registration) {
+        console.log("MP Register Defaults")
         console.log(registration);
       }
+
+      function identify(distinct_id) {
+        console.log("MP Client Admin identified with distinct id: " + distinct_id)
+      }
     }
+
     window.mixpanel = new MixPanelMock();
   </script>
 <% else %>
@@ -37,9 +61,22 @@
   <%= javascript_tag do %>
     mixpanel.register(JSON.parse('<%= (current_user.data_for_mixpanel.merge({ signed_in: signed_in?})).to_json.html_safe %>'));
   <% end %>
+
+  <% if current_user.is_client_admin %>
+    <%= javascript_tag do %>
+      mixpanel.identify("<%= current_user.mixpanel_distinct_id %>");
+
+      mixpanel.people.set(JSON.parse('<%=
+        { "$email" => current_user.email }.to_json.html_safe
+      %>'))
+    <% end %>
+  <% end %>
 <% end %>
+
 <%= javascript_tag do %>
-  mixpanel.register({'device_type': '<%= device_type %>'});
-  mixpanel.register({'Current Controller': '<%= params[:controller] %>'});
-  mixpanel.register({'Current Path': '<%= request.path %>'});
+  mixpanel.register({
+    'device_type': '<%= device_type %>',
+    'Current Controller': '<%= params[:controller] %>',
+    'Current Path': '<%= request.path %>'
+  });
 <% end %>
