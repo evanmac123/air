@@ -20,23 +20,23 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     end
   end
 
-  describe "#update_deliver_date!" do
+  describe "#update_deliver_date" do
     it "calls #set_deliver_date and saves" do
       automator = TilesDigestAutomator.new
 
       automator.expects(:set_deliver_date)
       automator.expects(:save)
 
-      automator.update_deliver_date!
+      automator.update_deliver_date
     end
   end
 
   describe "#skip_next_delivery" do
-    it "calls #remove_job and update_deliver_date!" do
+    it "calls #remove_job and update_deliver_date" do
       automator = TilesDigestAutomator.new
 
       automator.expects(:remove_job)
-      automator.expects(:update_deliver_date!)
+      automator.expects(:update_deliver_date)
 
       automator.skip_next_delivery
     end
@@ -46,7 +46,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     it "schedules a new delivery job" do
       demo = FactoryGirl.create(:demo)
       automator = demo.build_tiles_digest_automator
-      automator.update_deliver_date!
+      automator.update_deliver_date
 
       automator.expects(:remove_job)
 
@@ -60,7 +60,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     it "schedules #deliver for the delivery job" do
       demo = FactoryGirl.create(:demo)
       automator = demo.build_tiles_digest_automator
-      automator.update_deliver_date!
+      automator.update_deliver_date
 
       automator.expects(:delay).with(run_at: automator.deliver_date, queue: "TilesDigestAutomation").returns(automator)
       automator.expects(:deliver).returns(OpenStruct.new({ id: "fake_job_id" }))
@@ -71,11 +71,11 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
   end
 
   describe "#deliver" do
-    it "calls #deliver_digest, #update_deliver_date!, and #schedule_delivery" do
+    it "calls #deliver_digest, #update_deliver_date, and #schedule_delivery" do
       automator = TilesDigestAutomator.new
 
       automator.expects(:deliver_digest)
-      automator.expects(:update_deliver_date!)
+      automator.expects(:update_deliver_date)
       automator.expects(:schedule_delivery)
 
       automator.deliver
@@ -86,7 +86,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     it "removes scheduled job" do
       demo = FactoryGirl.create(:demo)
       automator = demo.build_tiles_digest_automator
-      automator.update_deliver_date!
+      automator.update_deliver_date
       automator.schedule_delivery
 
       expect(automator.job.present?).to eq(true)
@@ -105,7 +105,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     it "gets called before destroy" do
       demo = FactoryGirl.create(:demo)
       automator = demo.build_tiles_digest_automator
-      automator.update_deliver_date!
+      automator.update_deliver_date
 
       automator.expects(:remove_job)
 
@@ -117,7 +117,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     it "returns related job" do
       demo = FactoryGirl.create(:demo)
       automator = demo.build_tiles_digest_automator
-      automator.update_deliver_date!
+      automator.update_deliver_date
       automator.schedule_delivery
 
       expect(automator.job).to eq(Delayed::Job.where(id: automator.job_id).first)
@@ -134,7 +134,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     it "returns nil if its demo has no digest_tiles" do
       demo = FactoryGirl.create(:demo)
       automator = demo.build_tiles_digest_automator
-      automator.update_deliver_date!
+      automator.update_deliver_date
 
       expect(demo.digest_tiles.present?).to eq(false)
       expect(automator.deliver_digest).to eq(nil)
@@ -143,7 +143,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     it "asks TilesDigestForm to deliver a digest if there are digest tiles" do
       demo = FactoryGirl.create(:demo)
       automator = demo.build_tiles_digest_automator
-      automator.update_deliver_date!
+      automator.update_deliver_date
 
       fake_tiles_digest_form = OpenStruct.new({ submit_schedule_digest_and_followup: true })
 
@@ -191,7 +191,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
       Timecop.freeze(Time.local(1990))
       demo = FactoryGirl.create(:demo)
       @automator = demo.build_tiles_digest_automator
-      @automator.update_deliver_date!
+      @automator.update_deliver_date
     end
 
     after do
@@ -266,7 +266,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
       it "returns the draft" do
         demo = FactoryGirl.create(:demo)
         automator = demo.build_tiles_digest_automator
-        automator.update_deliver_date!
+        automator.update_deliver_date
 
         automator.demo.expects(:get_tile_email_draft).returns("Fake Draft")
 
@@ -282,7 +282,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
           follow_up_day: 5,
           include_sms: true
         })
-        automator.update_deliver_date!
+        automator.update_deliver_date
 
         automator.demo.expects(:digest_tiles).returns([OpenStruct.new(headline: "CUSTOM SUBJECT!")])
 

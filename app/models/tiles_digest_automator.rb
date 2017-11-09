@@ -14,14 +14,14 @@ class TilesDigestAutomator < ActiveRecord::Base
     self.deliver_date = next_deliver_time
   end
 
-  def update_deliver_date!
+  def update_deliver_date
     set_deliver_date
     self.save
   end
 
   def skip_next_delivery
     remove_job
-    update_deliver_date!
+    update_deliver_date
   end
 
   def schedule_delivery
@@ -32,7 +32,7 @@ class TilesDigestAutomator < ActiveRecord::Base
 
   def deliver
     deliver_digest
-    update_deliver_date!
+    update_deliver_date
     schedule_delivery
   end
 
@@ -45,15 +45,14 @@ class TilesDigestAutomator < ActiveRecord::Base
   end
 
   def deliver_digest
-    if demo.digest_tiles.present?
-      form = TilesDigestForm.new(demo: demo, params: tiles_digest_params)
-      form.submit_schedule_digest_and_followup
-    end
+    return unless demo.digest_tiles.present?
+    form = TilesDigestForm.new(demo: demo, params: tiles_digest_params)
+    form.submit_schedule_digest_and_followup
   end
 
   def next_deliver_time
     date = next_deliver_date(current_deliver_date)
-    date.in_time_zone(demo.timezone).change({ hour: time })
+    date.in_time_zone(demo.timezone).change(hour: time)
   end
 
   def current_deliver_date
