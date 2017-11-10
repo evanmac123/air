@@ -1,22 +1,36 @@
-<section class="share_tools js-client-admin-tiles-digest-management">
-  <div id="public_board">
-    <div class="row">
-      <%= render 'public_board_controls' %>
-    </div>
+<div class="js-share-module">
+  <div class="tabs-component-full-width">
+    <ul class="inline-list js-share-module-tabs">
+      <li class="tab active" data-tab-content="js-share-deliver-component"><a href="#">Deliver</a></li>
+      <li class="tab" data-tab-content="js-share-automate-component"><a href="#">Automate</a></li>
+      <li class="tab" data-tab-content="js-share-follow-ups-component"><a href="#">Follow-Ups</a></li>
+    </ul>
   </div>
+  <section class="share_tools js-client-admin-tiles-digest-management">
+    <div id="public_board" class="hide">
+      <div class="row">
+        <%= render 'public_board_controls' %>
+      </div>
+    </div>
 
-  <div class="row">
-    <div class="cancel_follow_ups large-12 columns">
-      <%= render 'manage_follow_ups' %>
+    <div class="row js-share-follow-ups-component js-share-module-tab-content hidden">
+      <div class="cancel_follow_ups large-12 columns">
+        <%= render 'manage_follow_ups' %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="large-12 columns" id="digest_management">
-      <%= render partial: 'digest_management' %>
-    </div>
-  </div>
-</section>
 
-<% if @digest_sent_type.present? %>
-  <%= render partial: "digest_sent_modal" %>
-<% end %>
+    <div class="row js-share-automate-component js-share-module-tab-content hidden">
+
+    </div>
+
+    <div class="row js-share-deliver-component js-share-module-tab-content">
+      <div class="large-12 columns" id="digest_management">
+        <%= render partial: 'digest_management' %>
+      </div>
+    </div>
+  </section>
+
+  <% if @digest_sent_type.present? %>
+    <%= render partial: "digest_sent_modal" %>
+  <% end %>
+</div>
