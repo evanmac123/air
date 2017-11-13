@@ -70,10 +70,19 @@ class TilesDigestAutomator < ActiveRecord::Base
         {
           demo_id: demo.id,
           digest_send_to: include_unclaimed_users,
-          follow_up_day: Date::DAYNAMES[follow_up_day],
+          follow_up_day: get_follow_up_day,
           include_sms: include_sms,
           custom_subject: demo.digest_tiles.first.try(:headline)
         }
+      end
+    end
+
+    def get_follow_up_day
+      if has_follow_up
+        follow_up_day = (day + 3) % 7
+        Date::DAYNAMES[follow_up_day]
+      else
+        "Never"
       end
     end
 

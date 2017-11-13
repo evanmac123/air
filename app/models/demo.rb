@@ -81,6 +81,10 @@ class Demo < ActiveRecord::Base
 
   attr_accessor :unlink
 
+  def tiles_digest_automator
+    super || build_tiles_digest_automator
+  end
+
   def customer_status_for_mixpanel
     customer_status.to_s.capitalize
   end

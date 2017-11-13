@@ -1,0 +1,25 @@
+<div class="small-12 columns deliver-tiles-header">
+  <h3 class="header-text">Schedule Tiles Digests</h3>
+  <span class="last-sent-at">
+    <%= digest_email_sent_on_message %>
+  </span>
+</div>
+<div class="columns small-12" style="padding: 0;">
+  <div class="columns small-6" style="margin-top:3em;padding:0;">
+    <%= form_for [:api, :client_admin, current_board.tiles_digest_automator] do |f| %>
+      <p>Send a Tiles Digest...</p>
+      <%= f.select :include_sms, options_for_select([["by email and SMS", true], ["by email", false]], f.object.include_sms) %>
+      <%= f.select :include_unclaimed_users, options_for_select([["to all users", true], ["to activated users", false]], f.object.include_unclaimed_users) %>
+      <%= f.select :frequency_cd, options_for_select([
+        ["every week", TilesDigestAutomator.frequencies[:weekly]],
+        ["every two weeks", TilesDigestAutomator.frequencies[:biweekly]],
+        ["every day", TilesDigestAutomator.frequencies[:daily]],
+        ["every month", TilesDigestAutomator.frequencies[:monthly]],
+      ], f.object.frequency_cd) %>
+      <%= f.select :day, options_for_select(Date::DAYNAMES[1..-2].map.with_index { |d, i| ["on #{d}", i] }, f.object.day) %>
+      <%= f.select :time, options_for_select([*5..21].map { |t| display = t > 12 ? "at #{t - 12}pm" : "at #{t}am"; [display, t.to_s] }, f.object.time) %>
+
+      <%= f.submit tiles_digest_automator_save(f.object), class: "button js-update-tiles-digest-automator" %>
+    <% end %>
+  </div>
+</div>
