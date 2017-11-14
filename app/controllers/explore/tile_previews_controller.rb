@@ -33,9 +33,13 @@ class Explore::TilePreviewsController < ExploreBaseController
 
     def find_tile
       begin
-        @tile ||= Tile.explore.find(params[:id])
+        @tile ||= Tile.explore.where(id: params[:id]).first || current_org_tiles.find(params[:id])
       rescue
         not_found
       end
+    end
+
+    def current_org_tiles
+      current_user.organization.tiles
     end
 end

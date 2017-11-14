@@ -25,6 +25,12 @@ class AirboSearch
     end
   end
 
+  def client_admin_org_tiles(page = 1)
+    if admin_search
+      @client_admin_org_tiles ||= Tile.search(formatted_query, client_admin_org_tiles_options(page))
+    end
+  end
+
   def explore_tiles(page = 1)
     if explore_search
       @explore_tiles ||= Tile.search(formatted_query, explore_tiles_options(page))
@@ -83,6 +89,10 @@ class AirboSearch
       demo.id
     end
 
+    def org_demo_ids
+      demo.organization.demos.pluck(:id) - [demo_id]
+    end
+
     def user_tiles_options(tile_status, page)
       {
         where: {
@@ -92,11 +102,11 @@ class AirboSearch
       }.merge(default_tile_options(page))
     end
 
-    def client_admin_tiles_options(tile_status, page)
+    def client_admin_org_tiles_options(page)
       {
         where: {
-          demo_id: demo_id,
-          status:  tile_status
+          demo_id: org_demo_ids,
+          status:  [Tile::ACTIVE]
         }
       }.merge(default_tile_options(page))
     end

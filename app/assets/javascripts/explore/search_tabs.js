@@ -26,7 +26,7 @@ Airbo.SearchTabs = (function(){
       $(newTab).addClass('selected');
       var currentTab = $(this).attr('href');
       $('.searchTab').hide();
-      $('body').scrollTop(0);
+      $(document).scrollTop(0);
       $(currentTab).show();
       return false;
     });

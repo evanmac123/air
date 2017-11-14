@@ -37,6 +37,8 @@ class Explore::SearchesController < UserBaseController
       case params[:section]
       when "client_admin_tiles"
         { tiles_to_render: "client_admin_tiles", presenter_to_render: SingleAdminTilePresenter }
+      when "org_tiles"
+        { tiles_to_render: "client_admin_org_tiles", presenter_to_render: SingleExploreTilePresenter }
       when "explore_tiles"
         { tiles_to_render: "explore_tiles", presenter_to_render: SingleExploreTilePresenter }
       when "user_tiles"

@@ -1,23 +1,6 @@
 var Airbo = window.Airbo || {};
 
 Airbo.Search = (function(){
-
-  function addMoreTiles(data) {
-    var tilesContainer = $(this).closest(".contextual_tiles_container");
-    tilesContainer.data("count", tilesContainer.data("count") + data.added);
-    tilesContainer.data("page", data.page);
-
-    if (data.lastBatch === true) {
-      $(this).hide();
-    }
-
-    var tileGrid = tilesContainer.children(".tiles-row").children().children(".tile-grid");
-
-    tileGrid.append(data.content);
-
-    Airbo.Utils.ButtonSpinner.reset($(this));
-  }
-
   function bindSearchBarFocus() {
     $('.search-bar-input').focus( function() {
       $('.search-bar-wrapper').addClass('focus');
@@ -105,6 +88,10 @@ $(function(){
     Airbo.SearchTabs.init();
 
     $(".search.tile-grid.explore_tiles").each(function(index, container) {
+      Airbo.Search.loadResourcesInBackground($(container), Airbo.CopyTileToBoard.bindThumbnailCopyButton);
+    });
+
+    $(".search.tile-grid.org_tiles").each(function(index, container) {
       Airbo.Search.loadResourcesInBackground($(container), Airbo.CopyTileToBoard.bindThumbnailCopyButton);
     });
 

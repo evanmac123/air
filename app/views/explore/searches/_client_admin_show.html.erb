@@ -14,6 +14,12 @@
         My Tiles <span class="result-count"><%= "(#{search_service.client_admin_tiles.total_count})" %>
       <% end %>
 
+      <% if search_service.client_admin_org_tiles.present? %>
+        <%= link_to "#orgTiles", class:"searchTabLink", id: "orgTilesTab" do %>
+          Organization Tiles <span class="result-count"><%= "(#{search_service.client_admin_org_tiles.total_count})" %>
+        <% end %>
+      <% end %>
+
       <%= link_to "#exploreTiles", class:"searchTabLink", id: "exploreTilesTab" do %>
         Explore Tiles <span class="result-count"><%= "(#{search_service.explore_tiles.total_count})" %>
       <% end %>
@@ -26,14 +32,23 @@
   <div id="allResults" class="searchTab">
     <%= render 'explore/searches/search_overview', search_service: search_service %>
   </div>
+
   <div id="myTiles" class="searchTab">
     <div class="manage-section">
       <%= render "explore/searches/my_tiles", { search_service: search_service} %>
     </div>
   </div>
+
+  <% if search_service.client_admin_org_tiles.present? %>
+    <div id="orgTiles" class="searchTab tile_wall_explore">
+      <%= render "explore/searches/org_tiles", { search_service: search_service} %>
+    </div>
+  <% end %>
+
   <div id="exploreTiles" class="searchTab tile_wall_explore">
     <%= render "explore/searches/explore_tiles", { search_service: search_service} %>
   </div>
+
   <div id="campaigns" class="searchTab tile_wall_explore">
     <%= render "explore/searches/campaigns", { search_service: search_service} %>
   </div>
