@@ -274,12 +274,12 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
       end
     end
 
-    context "when there is no dreaft on the demo" do
+    context "when there is no draft on the demo" do
       it "returns the automator defaults" do
         demo = FactoryGirl.create(:demo)
         automator = demo.build_tiles_digest_automator({
           include_unclaimed_users: false,
-          follow_up_day: 5,
+          has_follow_up: false,
           include_sms: true
         })
         automator.update_deliver_date
@@ -289,7 +289,53 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
         tiles_digest_params = {
           demo_id: demo.id,
           digest_send_to: false,
-          follow_up_day: "Friday",
+          follow_up_day: "Never",
+          include_sms: true,
+          custom_subject: "CUSTOM SUBJECT!"
+        }
+
+        expect(automator.send(:tiles_digest_params)).to eq(tiles_digest_params)
+      end
+
+      it "defaults follow_up_day to 3 days after delivery if has_follow_up" do
+        demo = FactoryGirl.create(:demo)
+        automator = demo.build_tiles_digest_automator({
+          include_unclaimed_users: false,
+          has_follow_up: true,
+          include_sms: true,
+          day: 1
+        })
+        automator.update_deliver_date
+
+        automator.demo.expects(:digest_tiles).returns([OpenStruct.new(headline: "CUSTOM SUBJECT!")])
+
+        tiles_digest_params = {
+          demo_id: demo.id,
+          digest_send_to: false,
+          follow_up_day: "Thursday",
+          include_sms: true,
+          custom_subject: "CUSTOM SUBJECT!"
+        }
+
+        expect(automator.send(:tiles_digest_params)).to eq(tiles_digest_params)
+      end
+
+      it "does not send followup if frequency is daily regardless of has_follow_up" do
+        demo = FactoryGirl.create(:demo)
+        automator = demo.build_tiles_digest_automator({
+          include_unclaimed_users: false,
+          has_follow_up: true,
+          frequency_cd: TilesDigestAutomator.frequencies[:daily],
+          include_sms: true,
+        })
+        automator.update_deliver_date
+
+        automator.demo.expects(:digest_tiles).returns([OpenStruct.new(headline: "CUSTOM SUBJECT!")])
+
+        tiles_digest_params = {
+          demo_id: demo.id,
+          digest_send_to: false,
+          follow_up_day: "Never",
           include_sms: true,
           custom_subject: "CUSTOM SUBJECT!"
         }

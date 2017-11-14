@@ -33,7 +33,7 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
             day: 2,
             time: "11",
             frequency_cd: 2,
-            follow_up_day: 5,
+            has_follow_up: false,
             include_sms: true,
             include_unclaimed_users: false
           }
@@ -48,7 +48,7 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
 
         expect(body["tiles_digest_automator"]["day"]).to eq(2)
         expect(body["tiles_digest_automator"]["time"]).to eq("11")
-        expect(body["tiles_digest_automator"]["follow_up_day"]).to eq(5)
+        expect(body["tiles_digest_automator"]["has_follow_up"]).to eq(false)
         expect(body["tiles_digest_automator"]["frequency_cd"]).to eq(2)
         expect(body["tiles_digest_automator"]["include_sms"]).to eq(true)
         expect(body["tiles_digest_automator"]["include_unclaimed_users"]).to eq(false)

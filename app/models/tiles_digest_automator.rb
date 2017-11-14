@@ -78,7 +78,7 @@ class TilesDigestAutomator < ActiveRecord::Base
     end
 
     def get_follow_up_day
-      if has_follow_up
+      if has_follow_up && !daily?
         follow_up_day = (day + 3) % 7
         Date::DAYNAMES[follow_up_day]
       else
