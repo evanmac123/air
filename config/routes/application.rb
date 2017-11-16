@@ -32,8 +32,7 @@ namespace :invitation do
   resource :dependent_user_invitation, only: [:new, :create]
 end
 
-
-
+resources :case_studies, only: [:index]
 
 resources :acts,        :only => [:index, :create]
 resources :users,       :only => [:new, :index, :show] do
