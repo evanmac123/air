@@ -64,18 +64,4 @@ describe TileCompletion do
     u_3_t_2.destroy  # u_1 and u_2 and u_3 have not completed any tiles
     user_ids.each { |user_id| expect(TileCompletion.user_completed_any_tiles?(user_id, tile_ids)).to be_falsey }
   end
-
-  it "should change new creator's flag has_own_tile_completed to true" do
-    client = FactoryGirl.create :client_admin
-    user = FactoryGirl.create :user
-    expect(client.has_own_tile_completed).to be_falsey
-
-    tile = FactoryGirl.create :tile, creator_id: client.id
-    expect(client.reload.has_own_tile_completed).to be_falsey
-
-    tc = FactoryGirl.create(:tile_completion, tile_id: tile.id, user: user)
-    expect(client.reload.has_own_tile_completed).to be_truthy
-    expect(client.has_own_tile_completed_displayed).to be_falsey
-    expect(client.has_own_tile_completed_id).to eq(tile.id)
-  end
 end

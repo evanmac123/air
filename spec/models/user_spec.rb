@@ -479,12 +479,6 @@ describe User, "on create" do
 
     expect(@user.segmentation_data).to be_present
   end
-
-  it "should has_own_tile_completed equal to false" do
-    @user = FactoryGirl.create :user
-
-    expect(@user.has_own_tile_completed).to be_falsey
-  end
 end
 
 describe User, "on save" do
