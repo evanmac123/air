@@ -1,6 +1,6 @@
 class SingleTilePresenter < BasePresenter
 
-  attr_reader :tile, :type, :user_onboarding
+  attr_reader :tile, :type
   delegate  :id,
             :thumbnail,
             :headline,
@@ -21,7 +21,6 @@ class SingleTilePresenter < BasePresenter
     @type = options[:type] # explore or user
     @public_slug = options[:public_slug]
     @completed = options[:completed]
-    @user_onboarding = options[:user_onboarding]
     @options = options
   end
 
@@ -90,11 +89,7 @@ class SingleTilePresenter < BasePresenter
   end
 
   def show_tile_path(params = {})
-    if user_onboarding
-      user_onboarding_tile_path(user_onboarding, tile)
-    else
-      @public_slug ? public_tile_path(@public_slug, tile) : tile_path(tile, params)
-    end
+    @public_slug ? public_tile_path(@public_slug, tile) : tile_path(tile, params)
   end
 
   def from_search?

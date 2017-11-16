@@ -7,8 +7,6 @@ class Demo < ActiveRecord::Base
   belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id
 
   has_one  :campaign, dependent: :delete
-  has_one  :topic_board, dependent: :delete
-  has_one  :onboarding, dependent: :delete
   has_one :claim_state_machine, dependent: :delete
   has_one :custom_invitation_email, dependent: :delete
   has_one :raffle, dependent: :delete
@@ -77,8 +75,6 @@ class Demo < ActiveRecord::Base
     }.merge!(DEMO_LOGO_OPTIONS)
 
   validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error
-
-  scope :campaigns, -> { joins(:topic_board).where(topic_board: { is_library: true } ) }
 
   as_enum :customer_status, free: 0, paid: 1, trial: 2
 

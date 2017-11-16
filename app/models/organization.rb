@@ -16,7 +16,6 @@ class Organization < ActiveRecord::Base
   has_many :tiles, through: :boards
   has_many :board_memberships, through: :boards
   has_many :users
-  has_one :onboarding, autosave: true
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validate  :free_trial_cannot_start_before_created_at_or_in_future

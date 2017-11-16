@@ -12,18 +12,6 @@ match "ard/:public_slug/activity" => "acts#index", :as => "public_activity", :vi
 match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
 match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
 
-
-match "myairbo/:id" => "user_onboardings#show", as: "myairbo"
-match "newairbo" => "onboardings#new"
-
-resources :case_studies, only: [:index]
-
-# TODO: Deprecate onboarding code
-resources :onboardings, only: [:create, :new]
-resources :user_onboardings, only: [:show, :create] do
-  resources :tiles, only: [:show]
-end
-
 resources :tiles, :only => [:index, :show]
 resources :tile, :only => [:show], as: "sharable_tile"
 resources :tile_completions, :only => [:create]
