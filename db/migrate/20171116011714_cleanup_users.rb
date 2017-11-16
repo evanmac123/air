@@ -20,6 +20,8 @@ class CleanupUsers < ActiveRecord::Migration
     remove_column :users, :won_at
     remove_column :users, :last_suggested_items
     remove_column :users, :ranking_query_offset
+
+    remove_column :tile_completions, :displayed_one_final_time
   end
 
   def down

@@ -14,8 +14,4 @@ class TileCompletion < ActiveRecord::Base
   def custom_data
     @custom_form = OpenStruct.new(custom_form)
   end
-
-  def self.user_completed_any_tiles?(user_id, tile_ids)
-    where(user_id: user_id, tile_id: tile_ids).count > 0
-  end
 end
