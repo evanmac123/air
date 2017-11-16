@@ -13,6 +13,13 @@ class CleanupUsers < ActiveRecord::Migration
     remove_column :users, :displayed_tile_post_guide
     remove_column :users, :displayed_tile_success_guide
     remove_column :users, :displayed_active_tile_guide
+    remove_column :users, :displayed_activity_page_admin_guide
+    remove_column :users, :share_section_intro_seen
+    remove_column :users, :last_unmonitored_mailbox_response_at
+    remove_column :users, :submitted_tile_menu_intro_seen
+    remove_column :users, :won_at
+    remove_column :users, :last_suggested_items
+    remove_column :users, :ranking_query_offset
   end
 
   def down
@@ -28,5 +35,18 @@ class CleanupUsers < ActiveRecord::Migration
     add_column :users, :displayed_tile_post_guide, :boolean, default: false
     add_column :users, :displayed_tile_success_guide, :boolean, default: false
     add_column :users, :displayed_active_tile_guide, :boolean, default: false
+
+    add_column :users, :displayed_activity_page_admin_guide, :boolean, default: false
+    execute "UPDATE users SET displayed_activity_page_admin_guide = true"
+
+    add_column :users, :share_section_intro_seen, :boolean
+    add_column :users, :last_unmonitored_mailbox_response_at, :datetime
+    add_column :users, :submitted_tile_menu_intro_seen, :boolean, default: false, null: false
+
+    add_column :users, :won_at, :datetime
+
+    add_column :users, :last_suggested_items, :string, :null => false, :default => ''
+
+    add_column :users, :ranking_query_offset, :integer
   end
 end

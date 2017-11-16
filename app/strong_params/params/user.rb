@@ -9,9 +9,7 @@ module Params
     def user_attributes
      attrs = [:name, :email, :invited, :invitation_code,
      :phone_number, :points,  :remember_token, :slug,
-     :claim_code, :confirmation_token, :won_at, :sms_slug, :last_suggested_items,
-     :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at,
-     :ranking_query_offset, :accepted_invitation_at, :game_referrer_id,
+     :claim_code, :confirmation_token, :sms_slug, :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at, :accepted_invitation_at, :game_referrer_id,
      :notification_method, :location_id, :new_phone_number, :new_phone_validation,
      :date_of_birth, :gender, :privacy_level, :last_muted_at, :characteristics,
      :overflow_email, :tickets, :zip_code, :employee_id,
