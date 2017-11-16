@@ -6,9 +6,7 @@ class CleanupUsers < ActiveRecord::Migration
     remove_column :users, :follow_up_message_sent_at
     remove_column :users, :flashes_for_next_request
     remove_column :users, :ssn_hash
-    remove_index :users, :ssn_hash
     remove_column :users, :is_employee
-    remove_index :users, :is_employee
     remove_column :users, :sample_tile_completed
     remove_column :users, :displayed_tile_post_guide
     remove_column :users, :displayed_tile_success_guide
