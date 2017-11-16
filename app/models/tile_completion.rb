@@ -15,10 +15,11 @@ class TileCompletion < ActiveRecord::Base
   # accessible object
 
   def custom_data
-    @custom_form = OpenStruct.new(custom_form) 
+    @custom_form = OpenStruct.new(custom_form)
   end
 
   def creator_has_tile_completed
+    # TODO: wtf is this?
     # OPTZ: this can run asynchronously
 
     creator = self.tile.creator

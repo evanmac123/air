@@ -13,10 +13,8 @@ module Params
      :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at,
      :ranking_query_offset, :accepted_invitation_at, :game_referrer_id,
      :notification_method, :location_id, :new_phone_number, :new_phone_validation,
-     :date_of_birth, :gender, :privacy_level, :last_muted_at, 
-     :last_told_about_mute, :mt_texts_today, :suppress_mute_notice,
-     :follow_up_message_sent_at, :flashes_for_next_request, :characteristics,
-     :overflow_email, :tickets, :zip_code, :is_employee, :ssn_hash, :employee_id,
+     :date_of_birth, :gender, :privacy_level, :last_muted_at, :characteristics,
+     :overflow_email, :tickets, :zip_code, :employee_id,
      :spouse_id, :last_acted_at, :ticket_threshold_base, :terms_and_conditions,
      :get_started_lightbox_displayed, :send_weekly_activity_report
     ]

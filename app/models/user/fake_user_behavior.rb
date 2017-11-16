@@ -76,10 +76,6 @@ module User::FakeUserBehavior
     nil
   end
 
-  def flashes_for_next_request
-    nil
-  end
-
   def privacy_level
     'nobody'
   end

@@ -132,7 +132,6 @@ class User < ActiveRecord::Base
 
   validates_attachment_content_type :avatar, content_type: valid_image_mime_types, message: invalid_mime_type_error
 
-  serialize :flashes_for_next_request
   serialize :characteristics
 
   before_validation do
@@ -807,17 +806,6 @@ class User < ActiveRecord::Base
 
   def unclaimed?
     !(self.claimed?)
-  end
-
-  def flash_for_next_request!(body, flash_status)
-    _flash_status = flash_status.to_sym
-    new_flashes = self.flashes_for_next_request || {}
-    new_flashes[flash_status] ||= []
-    new_flashes[flash_status] << body
-
-    self.update_attributes(:flashes_for_next_request => new_flashes)
-
-    new_flashes
   end
 
   def profile_page_friends_list
