@@ -48,5 +48,7 @@ class CleanupUsers < ActiveRecord::Migration
     add_column :users, :last_suggested_items, :string, :null => false, :default => ''
 
     add_column :users, :ranking_query_offset, :integer
+
+    add_column :tile_completions, :displayed_one_final_time, :boolean, default: false
   end
 end
