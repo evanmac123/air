@@ -5,31 +5,6 @@ Airbo.TilePreviewModal = (function(){
   var modalId = "tile_preview_modal";
   var self;
 
-  function initSharing(){
-    Airbo.TileSharingMgr.init();
-    Airbo.TileTagger.init({
-      submitSuccess:  function(data){
-        // no need to update tags
-      }
-    });
-  }
-
-  function prepareToolTip(origin, content){
-    initSharing();
-    initStatusUpdate();
-  }
-
-  function initPreviewMenuTooltips(){
-    $(".tipsy:not(.disabled)").tooltipster({
-      theme: "tooltipster-shadow",
-      interactive: true,
-      position: "bottom",
-      contentAsHTML: true,
-      functionReady: prepareToolTip,
-      trigger: "click"
-    });
-  }
-
   function initDisabled(){
     $(".tipsy.disabled").click(function(){
       Airbo.Utils.alert(Airbo.Utils.Messages.incompleteTile);
@@ -64,7 +39,6 @@ Airbo.TilePreviewModal = (function(){
       Airbo.TileAction.makeDuplication($(this));
     });
 
-
     $(".preview_menu_item .accept").click(function(e){
       e.preventDefault();
       e.stopPropagation();
@@ -76,8 +50,6 @@ Airbo.TilePreviewModal = (function(){
 
     if($(".js-suggested-tile-preview").length > 0){
       initStatusUpdate();
-    }else{
-      initPreviewMenuTooltips();
     }
   }
 

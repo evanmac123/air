@@ -47,8 +47,6 @@ namespace :admin do
 
   resources :rule_values, :only => [:destroy]
 
-  resources :tags
-
   resources :labels
 
   post "lost_user", :controller => "lost_users", :action => :create, :as => "lost_user"

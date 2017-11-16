@@ -115,10 +115,6 @@ module TilePreviewsHelper
     raw s
   end
 
-  def share_via_explore(tile)
-    render 'client_admin/tiles/tile_preview/public_section', tile: tile
-  end
-
   def share_to_explore_css_config tile
     share_to_explore_classes = %w(share_to_explore button)
     share_to_explore_classes << "remove_from_explore outlined yellow" if tile.is_public

@@ -62,7 +62,6 @@ section:after{@include clear;}
   &#white,
   &#off-white,
   &#header-color,
-  &#tile-tag-border,
   &#body-bg,
   &#tile-wall-bg,
   &#form-bg
@@ -112,4 +111,3 @@ input[type="text"] {
 #demo_pen_editor {
   @include with-lists;
 }
-

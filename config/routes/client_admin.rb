@@ -68,12 +68,6 @@ namespace :client_admin do
 
   resources :public_boards, only: [:create, :destroy]
 
-  resources :tile_tags, only: [:index] do
-    collection do
-      get 'add'
-    end
-  end
-
   resource :billing_information
 
   resources :prizes, only: :index do

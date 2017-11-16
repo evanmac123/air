@@ -5,6 +5,7 @@ module TilePreview
       private
 
       def calculate_menu_cells
+        binding.pry
         menu_cells = [ TilePreview::MenuItem::Back.new(client_admin_tiles_path(path: tag, show_suggestion_box: tile.suggested?)) ]
 
         if has_client_admin_status?

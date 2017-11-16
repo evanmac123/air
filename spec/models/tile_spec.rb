@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Tile do
   it { is_expected.to belong_to(:demo) }
   it { is_expected.to belong_to(:creator) }
-  it { is_expected.to have_many(:tile_tags) }
   it { is_expected.to have_many(:tile_viewings) }
   it { is_expected.to have_many(:user_viewers) }
   it { is_expected.to have_many(:guest_user_viewers) }
@@ -477,16 +476,16 @@ describe Tile do
       expect(Tile.search("food").records.length).to eq(1)
     end
 
-    context 'no tags on tile' do
-      it 'should return a serializable hash of a tile object plus an empty string tags key/value' do
+    context 'no channels on tile' do
+      it 'should return a serializable hash of a tile object plus an empty string channels key/value' do
         expect(tile.search_data).to eql(tile.serializable_hash.merge({ channel_list: [], organization_name: tile.organization.try(:name)}))
       end
     end
 
-    context 'tags on tile' do
+    context 'channels on tile' do
       let(:tile_with_channels) { FactoryGirl.create(:tile, :public) }
 
-      it 'should return a serializable hash of a tile object plus tags containing comma separated tags' do
+      it 'should return a serializable hash of a tile object plus channels containing comma separated channels' do
         tile_with_channels.channel_list.add("wellness")
         tile_with_channels.save
 
