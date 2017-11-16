@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20171101224400) do
+ActiveRecord::Schema.define(:version => 20171116011714) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1118,7 +1118,6 @@ ActiveRecord::Schema.define(:version => 20171101224400) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "displayed_one_final_time",  :default => false, :null => false
     t.string   "user_type"
     t.integer  "answer_index"
     t.boolean  "not_show_in_tile_progress", :default => false
@@ -1297,12 +1296,15 @@ ActiveRecord::Schema.define(:version => 20171101224400) do
   create_table "tiles_digest_automators", :force => true do |t|
     t.integer  "demo_id"
     t.datetime "deliver_date"
-    t.integer  "day",          :default => 1
-    t.string   "timezone",     :default => "EST"
-    t.string   "time",         :default => "9"
-    t.integer  "frequency_cd", :default => 1
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.integer  "day",                     :default => 1
+    t.string   "time",                    :default => "9"
+    t.integer  "frequency_cd",            :default => 1
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.integer  "job_id"
+    t.boolean  "has_follow_up",           :default => true
+    t.boolean  "include_sms",             :default => false
+    t.boolean  "include_unclaimed_users", :default => true
   end
 
   add_index "tiles_digest_automators", ["demo_id"], :name => "index_tiles_digest_automators_on_demo_id"
@@ -1504,84 +1506,66 @@ ActiveRecord::Schema.define(:version => 20171101224400) do
   add_index "user_tile_likes", ["user_id"], :name => "index_user_tile_likes_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "name",                                                :default => "",          :null => false
-    t.string   "email",                                               :default => "",          :null => false
-    t.boolean  "invited",                                             :default => false
+    t.string   "name",                                            :default => "",          :null => false
+    t.string   "email",                                           :default => "",          :null => false
+    t.boolean  "invited",                                         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "invitation_code",                                     :default => "",          :null => false
-    t.string   "phone_number",                                        :default => "",          :null => false
-    t.integer  "points",                                              :default => 0,           :null => false
-    t.string   "encrypted_password",                   :limit => 128
-    t.string   "salt",                                 :limit => 128
-    t.string   "remember_token",                       :limit => 128
-    t.string   "slug",                                                :default => "",          :null => false
+    t.string   "invitation_code",                                 :default => "",          :null => false
+    t.string   "phone_number",                                    :default => "",          :null => false
+    t.integer  "points",                                          :default => 0,           :null => false
+    t.string   "encrypted_password",               :limit => 128
+    t.string   "salt",                             :limit => 128
+    t.string   "remember_token",                   :limit => 128
+    t.string   "slug",                                            :default => "",          :null => false
     t.string   "claim_code"
-    t.string   "confirmation_token",                   :limit => 128
-    t.datetime "won_at"
-    t.string   "sms_slug",                                            :default => "",          :null => false
-    t.string   "last_suggested_items",                                :default => "",          :null => false
+    t.string   "confirmation_token",               :limit => 128
+    t.string   "sms_slug",                                        :default => "",          :null => false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.integer  "ranking_query_offset"
     t.datetime "accepted_invitation_at"
     t.integer  "game_referrer_id"
-    t.boolean  "is_site_admin",                                       :default => false,       :null => false
-    t.string   "notification_method",                                 :default => "email",     :null => false
+    t.boolean  "is_site_admin",                                   :default => false,       :null => false
+    t.string   "notification_method",                             :default => "email",     :null => false
     t.integer  "location_id"
-    t.string   "new_phone_number",                                    :default => "",          :null => false
-    t.string   "new_phone_validation",                                :default => "",          :null => false
+    t.string   "new_phone_number",                                :default => "",          :null => false
+    t.string   "new_phone_validation",                            :default => "",          :null => false
     t.date     "date_of_birth"
     t.string   "gender"
-    t.string   "invitation_method",                                   :default => "",          :null => false
-    t.integer  "session_count",                                       :default => 0,           :null => false
-    t.string   "privacy_level",                                       :default => "connected", :null => false
+    t.string   "invitation_method",                               :default => "",          :null => false
+    t.integer  "session_count",                                   :default => 0,           :null => false
+    t.string   "privacy_level",                                   :default => "connected", :null => false
     t.datetime "last_muted_at"
-    t.datetime "last_told_about_mute"
-    t.integer  "mt_texts_today",                                      :default => 0,           :null => false
-    t.boolean  "suppress_mute_notice",                                :default => false
-    t.datetime "follow_up_message_sent_at"
-    t.text     "flashes_for_next_request"
     t.text     "characteristics"
-    t.string   "overflow_email",                                      :default => ""
-    t.integer  "tickets",                                             :default => 0,           :null => false
+    t.string   "overflow_email",                                  :default => ""
+    t.integer  "tickets",                                         :default => 0,           :null => false
     t.string   "zip_code"
-    t.string   "ssn_hash"
-    t.boolean  "is_employee",                                         :default => true
     t.string   "employee_id"
     t.integer  "spouse_id"
     t.datetime "last_acted_at"
-    t.boolean  "is_client_admin",                                     :default => false
-    t.integer  "ticket_threshold_base",                               :default => 0
-    t.boolean  "sample_tile_completed"
+    t.boolean  "is_client_admin",                                 :default => false
+    t.integer  "ticket_threshold_base",                           :default => 0
     t.boolean  "get_started_lightbox_displayed"
     t.integer  "original_guest_user_id"
     t.string   "cancel_account_token"
     t.datetime "last_session_activity_at"
-    t.boolean  "has_own_tile_completed",                              :default => false
-    t.boolean  "displayed_tile_post_guide",                           :default => false
-    t.boolean  "displayed_tile_success_guide",                        :default => false
-    t.boolean  "displayed_active_tile_guide",                         :default => false
-    t.boolean  "has_own_tile_completed_displayed",                    :default => false
+    t.boolean  "has_own_tile_completed",                          :default => false
+    t.boolean  "has_own_tile_completed_displayed",                :default => false
     t.integer  "has_own_tile_completed_id"
-    t.boolean  "displayed_activity_page_admin_guide",                 :default => false
     t.string   "explore_token"
     t.boolean  "is_test_user"
-    t.boolean  "share_section_intro_seen"
     t.string   "mixpanel_distinct_id"
-    t.datetime "last_unmonitored_mailbox_response_at"
-    t.boolean  "send_weekly_activity_report",                         :default => true
-    t.boolean  "allowed_to_make_tile_suggestions",                    :default => false,       :null => false
-    t.boolean  "submitted_tile_menu_intro_seen",                      :default => false,       :null => false
-    t.boolean  "suggestion_box_intro_seen",                           :default => false,       :null => false
-    t.boolean  "user_submitted_tile_intro_seen",                      :default => false,       :null => false
-    t.boolean  "manage_access_prompt_seen",                           :default => false,       :null => false
+    t.boolean  "send_weekly_activity_report",                     :default => true
+    t.boolean  "allowed_to_make_tile_suggestions",                :default => false,       :null => false
+    t.boolean  "suggestion_box_intro_seen",                       :default => false,       :null => false
+    t.boolean  "user_submitted_tile_intro_seen",                  :default => false,       :null => false
+    t.boolean  "manage_access_prompt_seen",                       :default => false,       :null => false
     t.integer  "primary_user_id"
     t.string   "official_email"
     t.integer  "organization_id"
-    t.boolean  "receives_sms",                                        :default => true
+    t.boolean  "receives_sms",                                    :default => true
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
@@ -1592,7 +1576,6 @@ ActiveRecord::Schema.define(:version => 20171101224400) do
   add_index "users", ["explore_token"], :name => "index_users_on_explore_token"
   add_index "users", ["game_referrer_id"], :name => "index_users_on_game_referrer_id"
   add_index "users", ["invitation_code"], :name => "index_users_on_invitation_code"
-  add_index "users", ["is_employee"], :name => "index_users_on_is_employee"
   add_index "users", ["is_site_admin"], :name => "index_users_on_is_site_admin"
   add_index "users", ["location_id"], :name => "index_users_on_location_id"
   add_index "users", ["name"], :name => "user_name_trigram"
@@ -1606,7 +1589,6 @@ ActiveRecord::Schema.define(:version => 20171101224400) do
   add_index "users", ["slug"], :name => "user_slug_trigram"
   add_index "users", ["sms_slug"], :name => "index_users_on_sms_slug"
   add_index "users", ["spouse_id"], :name => "index_users_on_spouse_id"
-  add_index "users", ["ssn_hash"], :name => "index_users_on_ssn_hash"
   add_index "users", ["zip_code"], :name => "index_users_on_zip_code"
 
   create_table "users_roles", :id => false, :force => true do |t|

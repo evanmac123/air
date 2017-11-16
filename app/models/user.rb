@@ -73,7 +73,6 @@ class User < ActiveRecord::Base
   has_many   :completed_tiles, source: :tile, through: :tile_completions
   has_many   :viewed_tiles, through: :tile_viewings, source: :tile
   has_many   :demos, through: :board_memberships
-  has_many   :creator_tile_completions, source: :tile_completions, through: :tiles
   has_many   :friends, :through => :friendships
 
 
@@ -132,7 +131,6 @@ class User < ActiveRecord::Base
 
   validates_attachment_content_type :avatar, content_type: valid_image_mime_types, message: invalid_mime_type_error
 
-  serialize :flashes_for_next_request
   serialize :characteristics
 
   before_validation do
@@ -809,17 +807,6 @@ class User < ActiveRecord::Base
     !(self.claimed?)
   end
 
-  def flash_for_next_request!(body, flash_status)
-    _flash_status = flash_status.to_sym
-    new_flashes = self.flashes_for_next_request || {}
-    new_flashes[flash_status] ||= []
-    new_flashes[flash_status] << body
-
-    self.update_attributes(:flashes_for_next_request => new_flashes)
-
-    new_flashes
-  end
-
   def profile_page_friends_list
     self.accepted_friends.sort_by {|ff| ff.name.downcase}
   end
@@ -928,14 +915,6 @@ class User < ActiveRecord::Base
     return "site admin" if self.is_site_admin
     return "client admin" if current_board_membership && current_board_membership.is_client_admin
     "ordinary user"
-  end
-
-  def mark_own_tile_completed(tile)
-    self.has_own_tile_completed = true
-    self.has_own_tile_completed_displayed = false
-    self.has_own_tile_completed_id = tile.id
-    self.save!
-    Mailer.delay(run_at: 15.minutes.from_now).congratulate_creator_with_first_completed_tile(self)
   end
 
   def can_start_over?

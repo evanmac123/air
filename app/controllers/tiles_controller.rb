@@ -71,22 +71,18 @@ class TilesController < ApplicationController
   private
 
     def find_start_tile
-      if start_tile_id.to_s == '0'
-        current_user.sample_tile
-      elsif start_tile_id.present?
-        candidate = Tile.find(start_tile_id)
-        if (candidate.is_sharable) || (candidate.demo_id == current_user.demo_id)
-          candidate
-        else
-          nil
-        end
-      else
-        nil
+      start_tile = Tile.where(id: start_tile_id).first
+      if start_tile.present? && tile_authorized?(start_tile)
+        start_tile
       end
     end
 
     def start_tile_id
       params[:tile_id] || session[:start_tile] || first_id
+    end
+
+    def tile_authorized?(tile)
+      tile.is_sharable || tile.demo_id == current_user.demo_id
     end
 
     def first_id
