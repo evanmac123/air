@@ -127,11 +127,6 @@ FactoryGirl.define do
     association :demo
   end
 
-  factory :tile_tagging do
-    association :tile_tag
-    association :tile
-  end
-
   factory :billing_information do
     expiration_month "2"
     expiration_year  "2019"
