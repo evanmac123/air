@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature 'Client Admin navigates site with tile manager navbar' do
   context "When all items are opened" do
     before(:each) do
-      demo = FactoryGirl.create :demo, :with_turned_off_onboarding
+      demo = FactoryGirl.create :demo
       @joe = FactoryGirl.create(:client_admin, demo: demo, name: 'Joe')
       has_password(@joe, 'foobar')
       signin_as(@joe, 'foobar')

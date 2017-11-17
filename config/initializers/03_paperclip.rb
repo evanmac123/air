@@ -33,11 +33,6 @@ when 'production', 'staging', 'production_local'
     bucket: S3_LOGO_BUCKET
   }
 
-  TOPIC_BOARD_OPTIONS = {
-    path: "/topic_board/:id/:hash__:filename",
-    bucket: S3_LOGO_BUCKET
-  }
-
   USER_AVATAR_OPTIONS = {
     path: "/avatars/:id/:style/:filename",
     bucket: S3_AVATAR_BUCKET
@@ -56,7 +51,6 @@ when 'test',  'development'
   TILE_IMAGE_OPTIONS = {}
   TILE_THUMBNAIL_OPTIONS = {}
   DEMO_LOGO_OPTIONS = {}
-  TOPIC_BOARD_OPTIONS = {}
   USER_AVATAR_OPTIONS = {}
 else
   raise 'Environment Not Found'

@@ -8,7 +8,7 @@ class ClientAdmin::TilePreviewsController < ClientAdminBaseController
     @prev_tile = params[:prev_tile] || @tile.id
 
     render partial: "client_admin/tile_previews/tile_preview_modal",
-           locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile },
+           locals: { tile: @tile, next_tile: @next_tile, prev_tile: @prev_tile },
            layout: false
   end
 

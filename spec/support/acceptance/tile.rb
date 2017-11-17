@@ -145,30 +145,8 @@ module TileHelpers
     page.find("#tile_question").set(text)
   end
 
-  def click_make_copyable
-    choose('allow_copying_on')
-  end
-
-  def click_make_noncopyable
-    choose('allow_copying_off')
-  end
-
   def select_correct_answer(index)
     page.find("input[type='radio'][value='#{index}'].correct-answer-button" ).trigger("click")
-  end
-
-  def add_tile_tag(tag)
-    field = 'add-tag'
-    fill_in field, with: tag
-    page.execute_script %Q{ $('##{field}').trigger('focus') }
-    page.execute_script %Q{ $('##{field}').trigger('keydown') }
-
-    normalized_tag = tag.strip.capitalize.gsub(/\s+/, ' ')
-
-    selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{normalized_tag}")}
-    expect(page).to have_selector("ul.ui-autocomplete li.ui-menu-item a:contains('#{normalized_tag}')")
-    page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
-    expect(page.find('.tile_tags>li', text: tag)).to have_content(normalized_tag(tag))
   end
 
   def after_tile_save_message(options={})
@@ -188,53 +166,6 @@ module TileHelpers
     #in few words about events: keydown deletes placeholder,
     #html inputs text, keyup copies text to real textarea
     page.execute_script( "$('.image_credit_view').keydown().html('#{text}').keyup()" )
-  end
-
-  def normalized_tag(tag)
-    tag.strip.gsub(/\s+/, ' ')
-  end
-
-  def add_new_tile_tag(tag)
-    write_new_tile_tag tag
-
-    a_text = "Click to add."
-    selector = %Q{ul.ui-autocomplete li.ui-menu-item a:contains("#{a_text}")}
-
-    expect(page).to have_selector("ul.ui-autocomplete li.ui-menu-item a:contains('#{a_text}')")
-    page.execute_script %Q{ $('#{selector}').trigger('mouseenter').click() }
-    expect(page.find('.tile_tags>li', text: normalized_tag(tag))).to have_content(normalized_tag(tag))
-  end
-
-  def write_new_tile_tag tag
-    field = 'add-tag'
-    fill_in field, with: tag
-
-    page.execute_script %Q{ $('##{field}').trigger('focus') }
-    page.execute_script %Q{ $('##{field}').trigger('keydown') }
-  end
-
-  def open_public_section
-    find(".share_via_explore").click
-  end
-
-  def click_make_public
-    find('#share_on').click
-  end
-
-  def click_make_sharable
-    find('#sharable_tile_link_on').click
-  end
-
-  def click_make_nonpublic
-    find('#share_off').trigger('click') # I know it's not visible, fuck you Poltergeist
-  end
-
-  def click_make_noncopyable
-    find('#allow_copying_off').click
-  end
-
-  def click_make_copyable
-    find('#allow_copying_on').click
   end
 
   def click_create_tile_button

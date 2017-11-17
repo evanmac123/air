@@ -48,14 +48,12 @@ FactoryGirl.define do
       is_sharable true
       is_public true
       status Tile::ACTIVE
-      tile_tags {[FactoryGirl.create(:tile_tag)]}
     end
 
     trait :copyable do
       is_sharable true
       is_public true
       status Tile::ACTIVE
-      tile_tags {[FactoryGirl.create(:tile_tag)]}
     end
 
     trait :user_drafted do
@@ -95,10 +93,7 @@ FactoryGirl.define do
   factory :sharable_and_public_tile, parent: :multiple_choice_tile do
     is_public true
     is_sharable true
-    tile_taggings do
-      [FactoryGirl.create(:tile_tagging)]
-    end
   end
 
- 
+
 end

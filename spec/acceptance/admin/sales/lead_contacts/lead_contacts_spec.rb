@@ -4,9 +4,11 @@ feature "LeadContacts", js: true do
     it "should create an organization, user and cloned board for lead contact" do
       admin = FactoryGirl.create(:site_admin)
       lead_contact = FactoryGirl.create(:lead_contact, organization_name: "Lead")
-      campaign = FactoryGirl.create(:demo, name: "airbo.com Board", public_slug: "internal-validation")
-      FactoryGirl.create(:tile, demo: campaign)
-      Demo.stubs(:campaigns).returns(Demo.where(name: campaign.name))
+      campaign_demo = FactoryGirl.create(:demo, name: "airbo.com Board", public_slug: "internal-validation")
+
+      Campaign.create(name:"test", demo: campaign_demo)
+
+      FactoryGirl.create(:tile, demo: campaign_demo)
 
       visit admin_sales_lead_contacts_path(as: admin)
 

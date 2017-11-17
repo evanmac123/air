@@ -36,10 +36,6 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_turned_off_onboarding do
-      turn_off_admin_onboarding true
-    end
-
     trait :paid do
       customer_status_cd Demo.customer_statuses[:paid]
     end
@@ -129,15 +125,6 @@ FactoryGirl.define do
 
   factory :follow_up_digest_email do
     association :demo
-  end
-
-  factory :tile_tagging do
-    association :tile_tag
-    association :tile
-  end
-
-  factory :topic do
-    sequence(:name) {|n| "Good Topic #{n}"}
   end
 
   factory :billing_information do

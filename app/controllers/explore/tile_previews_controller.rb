@@ -9,7 +9,7 @@ class Explore::TilePreviewsController < ExploreBaseController
       @next_tile = params[:next_tile] || @tile.id
       @prev_tile = params[:prev_tile] || @tile.id
       render partial: "explore/tile_previews/tile_preview",
-             locals: { tile: @tile, tag: @tag, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section] },
+             locals: { tile: @tile, next_tile: @next_tile, prev_tile: @prev_tile, section: params[:section] },
              layout: false
     else
       @explore_or_public = :explore

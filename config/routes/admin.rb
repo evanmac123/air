@@ -29,9 +29,6 @@ namespace :admin do
     end
   end
 
-  resources :topics
-
-  resources :topic_boards
   resources :organizations, as: :customers
   resources :organizations do
     collection do
@@ -49,8 +46,6 @@ namespace :admin do
   end
 
   resources :rule_values, :only => [:destroy]
-
-  resources :tags
 
   resources :labels
 

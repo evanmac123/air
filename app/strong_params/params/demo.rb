@@ -48,7 +48,6 @@ module Params
         :is_public,
         :upload_in_progress,
         :users_last_loaded,
-        :turn_off_admin_onboarding,
         :tile_last_posted_at,
         :use_location_in_conversion,
         :persistent_message,

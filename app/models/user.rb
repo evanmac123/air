@@ -42,7 +42,6 @@ class User < ActiveRecord::Base
   # ------------------------------------------------------------------
 
   has_one    :lead_contact, dependent: :delete
-  has_one    :user_onboarding, dependent: :delete
   has_one    :billing_information, dependent: :delete
   has_one    :user_intro, as: :userable, dependent: :delete #FIXME this is confusing since we have an intros method below
   has_one    :user_settings_change_log, dependent: :delete
