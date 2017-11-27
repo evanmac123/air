@@ -1,25 +1,96 @@
-<div class="small-12 columns deliver-tiles-header">
+<%= content_for :head do %>
+  <style media="screen">
+    .automate-tiles-header {
+      display: flex;
+    }
+
+    .automate-form-inputs {
+      display:flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .flex-group {
+      margin-top: 20px;
+      margin-right: 20px;
+    }
+
+    .frequency-flex-group {
+      width: 120px;
+    }
+
+    .time-flex-group {
+      width: 100px;
+    }
+
+    .day-flex-group {
+      width: 220px;
+    }
+
+    .flex-break {
+      flex-basis: 100%;
+      width: 0px;
+      height: 0px;
+      overflow: hidden;
+    }
+
+    .check_label {
+      margin-left: 3px;
+      display: inline;
+    }
+
+  </style>
+<% end %>
+<div class="large-12 columns automate-tiles-header">
   <h3 class="header-text">Schedule Tiles Digests</h3>
   <span class="last-sent-at">
     <%= digest_email_sent_on_message %>
   </span>
 </div>
-<div class="columns small-12" style="padding: 0;">
-  <div class="columns small-6" style="margin-top:3em;padding:0;">
-    <%= form_for [:api, :client_admin, current_board.tiles_digest_automator] do |f| %>
-      <p>Send a Tiles Digest...</p>
-      <%= f.select :include_sms, options_for_select([["by email and SMS", true], ["by email", false]], f.object.include_sms) %>
-      <%= f.select :include_unclaimed_users, options_for_select([["to all users", true], ["to activated users", false]], f.object.include_unclaimed_users) %>
-      <%= f.select :frequency_cd, options_for_select([
-        ["every week", TilesDigestAutomator.frequencies[:weekly]],
-        ["every two weeks", TilesDigestAutomator.frequencies[:biweekly]],
-        ["every day", TilesDigestAutomator.frequencies[:daily]],
-        ["every month", TilesDigestAutomator.frequencies[:monthly]],
-      ], f.object.frequency_cd) %>
-      <%= f.select :day, options_for_select(Date::DAYNAMES[1..-2].map.with_index { |d, i| ["on #{d}", i] }, f.object.day) %>
-      <%= f.select :time, options_for_select([*5..21].map { |t| display = t > 12 ? "at #{t - 12}pm" : "at #{t}am"; [display, t.to_s] }, f.object.time) %>
+<div class="columns small-12">
+  <%= form_for [:api, :client_admin, current_board.tiles_digest_automator] do |f| %>
+    <div class="automate-form-inputs">
+      
+      <div class="frequency-flex-group flex-group">
+        <%= f.label :frequency_cd, "Frequency" %>
+        <%= f.select :frequency_cd, options_for_select([
+          ["Weekly", TilesDigestAutomator.frequencies[:weekly]],
+          ["Biweekly", TilesDigestAutomator.frequencies[:biweekly]],
+          ["Daily", TilesDigestAutomator.frequencies[:daily]],
+          ["Monthly", TilesDigestAutomator.frequencies[:monthly]],
+          ], f.object.frequency_cd) %>
+      </div>
+      <div class="day-flex-group flex-group">
+        <%= f.label :day, "Day" %>
+        <%= f.select :day, options_for_select(Date::DAYNAMES[1..-2].map.with_index { |d, i| ["on #{d}", i] }, f.object.day) %>
+      </div>
+      <div class="time-flex-group flex-group">
+        <%= f.label :time, "Time" %>
+        <%= f.select :time, options_for_select([*5..21].map { |t| display = t > 12 ? "at #{t - 12}pm" : "at #{t}am"; [display, t.to_s] }, f.object.time) %>
+      </div>
+      <div class="flex-break"></div>
+      <div class="flex-group">
+        <%= f.check_box :include_sms %>
+        <%= f.label :include_sms, "Include Text Messages", class: "check_label" %>
+      </div>
+      <div class="flex-group">
+        <%= f.radio_button :include_unclaimed_users, true %>
+        <%= f.label :include_unclaimed_users, "All Users", value: true, class: "check_label" %>
+      </div>
+      <div class="flex-group">
+        <%= f.radio_button :include_unclaimed_users, false %>
+        <%= f.label :include_unclaimed_users, "Active Users", value: false, class: "check_label" %>
+      </div>
+      <div class="flex-group">
+        <%= f.check_box :has_follow_up %>
+        <%= f.label :has_follow_up, "Send Follow-Up", class: "check_label" %>
+      </div>
+      <div class="flex-break"></div>
 
-      <%= f.submit tiles_digest_automator_save(f.object), class: "button js-update-tiles-digest-automator" %>
-    <% end %>
-  </div>
+      <div class="flex-group">
+        <%= f.submit tiles_digest_automator_save(f.object), class: "button js-update-tiles-digest-automator" %>
+      </div>
+
+    </div>
+  <% end %>
 </div>

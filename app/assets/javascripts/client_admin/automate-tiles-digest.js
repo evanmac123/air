@@ -8,7 +8,7 @@ Airbo.ClientAdmin.AutomateTilesDigest = (function(){
   }
 
   function manageGrammer(frequency) {
-    if(frequency === "every month") {
+    if(frequency === "Monthly") {
       Array.from($("#tiles_digest_automator_day option")).forEach(function(option) {
         $(option).text($(option).text().replace('on', 'on the first'));
       });
@@ -18,7 +18,7 @@ Airbo.ClientAdmin.AutomateTilesDigest = (function(){
       });
     }
 
-    if(frequency === "every day") {
+    if(frequency === "Daily") {
       $("#tiles_digest_automator_day").hide();
     } else {
       $("#tiles_digest_automator_day").show();
