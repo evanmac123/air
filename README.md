@@ -1,7 +1,6 @@
 Airbo 🎉
 ========
-[![Maintainability](https://api.codeclimate.com/v1/badges/6c71ef08e7a18ac5421e/maintainability)](https://codeclimate.com/repos/59fcddd7562e40028b0004ec/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/6c71ef08e7a18ac5421e/test_coverage)](https://codeclimate.com/repos/59fcddd7562e40028b0004ec/test_coverage) [![Build Status](https://semaphoreci.com/api/v1/projects/da66a2f8-2a2d-4768-b146-ce4be4f0e216/1607679/badge.svg)](https://semaphoreci.com/airbo/airbo)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/6c71ef08e7a18ac5421e/maintainability)](https://codeclimate.com/repos/59fcddd7562e40028b0004ec/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/6c71ef08e7a18ac5421e/test_coverage)](https://codeclimate.com/repos/59fcddd7562e40028b0004ec/test_coverage) [![Build Status](https://semaphoreci.com/api/v1/projects/da66a2f8-2a2d-4768-b146-ce4be4f0e216/1626328/shields_badge.svg)](https://semaphoreci.com/airbo/airbo)
 
 Developer Machine Setup
 ------------
@@ -206,9 +205,9 @@ To deploy to production:
   * Run `script/deploy_production`
       * This:
         1. runs `git push production development:master`
-        2. runs `heroku run rake db:migrate -a hengage`
-        3. runs `heroku restart -a hengage`
-        4. runs `script/airbrake_deploy_production`
+        2. runs `script/airbrake_deploy_production`
+
+        *A Heroku release task will run migrations and restart the dynos automatically*
 
 ## Active Domains
 <table>
@@ -233,17 +232,6 @@ Auto Renew: True
 Auto Renew Date:  ?
 </td>
 <tr>
-<td>air.bo</td>
-<td>Legacy domain name.</td>
-<td>www.europeregistry.com</td>
-<td>Primary Contact: Vlad
-Secondary Contact: sysadmin@airbo.com
-Expiration:  December 12, 2017
-Auto Renew: True
-Auto Renew Date:  ?
-</td>
-</tr>
-<tr>
 <td>ourairbo.com</td>
 <td>Sendgrid white label domain</td>
 <td>iwantmyname.com</td>
@@ -259,8 +247,10 @@ Auto Renew Date:  November 9, 2017
 
 # Application Behaviors
 
+## Microservices
 
-
+### SendGrid to Mixpanel AWS Lambda Function
+* This microservice is stored on AWS Lambda and can be managed with Serveless and Node.js via the repo  [theairbo/sendgrid-webhook-to-mixpanel-lambda](https://github.com/theairbo/sendgrid-webhook-to-mixpanel-lambda).
 
 ## File and Image Storage
 
@@ -308,4 +298,10 @@ Heroku Scheduler does not have a setting for running jobs on a weekly basis. The
 </table>
 
 ## AWS
-https://hengage.signin.aws.amazon.com/console
+* Login: https://hengage.signin.aws.amazon.com/console
+
+### AWS Services we actively use
+* *S3* for file storage
+* *CloudFront* as a distributed CDN
+* *IAM* for permissions management
+* *Lambda* for Serverless microservices
