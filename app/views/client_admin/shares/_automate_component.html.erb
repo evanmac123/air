@@ -12,7 +12,12 @@
 
     .flex-group {
       margin-top: 20px;
+      margin-bottom: 20px;
       margin-right: 20px;
+    }
+
+    .flex-group select {
+      margin-bottom: 0;
     }
 
     .frequency-flex-group {
@@ -39,18 +44,43 @@
       display: inline;
     }
 
+    .info-div {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap-reverse;
+      margin: 1.5em 0;
+      font-size: 18px;
+    }
+
+    .info-div h3 {
+      margin-bottom: 5px;
+    }
+
+    .last-sent-at {
+      font-size: 14px;
+      color: #4fd4c0;
+    }
+
   </style>
 <% end %>
-<div class="large-12 columns automate-tiles-header">
-  <h3 class="header-text">Schedule Tiles Digests</h3>
-  <span class="last-sent-at">
-    <%= digest_email_sent_on_message %>
-  </span>
+
+<div class="small-12 columns info-div">
+  <div class="header">
+    <h3>Automate Tiles Digests <a href="http://learning.airbo.com/the-airbo-platform/features/automate-tiles-digests" target="_blank"></a></h3>
+    <span class="last-sent-at">
+      <%= tiles_digest_last_sent_or_scheduled_message %>
+    </span>
+  </div>
+  <% if current_board.tiles_digest_automator.present? %>
+    <%= link_to "Remove Automation", "#", class: "button outlined red" %>
+  <% end %>
 </div>
+
 <div class="columns small-12">
   <%= form_for [:api, :client_admin, current_board.tiles_digest_automator] do |f| %>
     <div class="automate-form-inputs">
-      
+
       <div class="frequency-flex-group flex-group">
         <%= f.label :frequency_cd, "Frequency" %>
         <%= f.select :frequency_cd, options_for_select([
@@ -70,6 +100,10 @@
       </div>
       <div class="flex-break"></div>
       <div class="flex-group">
+        <%= f.check_box :has_follow_up %>
+        <%= f.label :has_follow_up, "Send Follow-Up", class: "check_label" %>
+      </div>
+      <div class="flex-group">
         <%= f.check_box :include_sms %>
         <%= f.label :include_sms, "Include Text Messages", class: "check_label" %>
       </div>
@@ -80,10 +114,6 @@
       <div class="flex-group">
         <%= f.radio_button :include_unclaimed_users, false %>
         <%= f.label :include_unclaimed_users, "Active Users", value: false, class: "check_label" %>
-      </div>
-      <div class="flex-group">
-        <%= f.check_box :has_follow_up %>
-        <%= f.label :has_follow_up, "Send Follow-Up", class: "check_label" %>
       </div>
       <div class="flex-break"></div>
 

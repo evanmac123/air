@@ -49,7 +49,7 @@
     </div>
     <div class="include_sms share-form-component">
       <%= check_box_tag "digest[include_sms]", nil, @tiles_digest_form.include_sms %>
-      <label for="digest_include_sms" class="d-inline">Include SMS? <i class="fa fa-question-circle has-tip" data-tooltip="<%= true %>" title="By checking this box, we will also notify users who have entered their phone numbers via text message."></i></label>
+      <label for="digest_include_sms" class="d-inline">Include Text Messages <i class="fa fa-question-circle has-tip" data-tooltip="<%= true %>" title="By checking this box, we will also notify users who have entered their phone numbers via text message."></i></label>
     </div>
     <%= hidden_field_tag "digest_type", "digest_and_follow_up" %>
     <div class="mb-1">
