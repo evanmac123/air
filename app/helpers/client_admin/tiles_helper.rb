@@ -9,14 +9,6 @@ module ClientAdmin::TilesHelper
     "A digest email containing #{pluralize @digest_tiles.size, 'tile'} is set to go out on "
   end
 
-  def tiles_digest_last_sent_or_scheduled_message
-    if current_board.tiles_digest_automator.present?
-      "Tiles scheduled to send on #{current_board.tiles_digest_automator.next_deliver_time.to_s(:tile_digest_email_sent_at)}"
-    elsif current_board.tile_digest_email_sent_at.present?
-      "Last Tiles sent on #{current_board.tile_digest_email_sent_at.to_s(:tile_digest_email_sent_at)}"
-    end
-  end
-
   def email_site_link(user, demo, is_preview = false, email_type = "")
     # TODO: This is some of the worst Airbo code I have seen.
     _demo_id = demo.kind_of?(Demo) ? demo.id : demo

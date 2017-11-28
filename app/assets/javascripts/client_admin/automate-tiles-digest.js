@@ -19,9 +19,9 @@ Airbo.ClientAdmin.AutomateTilesDigest = (function(){
     }
 
     if(frequency === "Daily") {
-      $("#tiles_digest_automator_day").hide();
+      $(".day-flex-group").hide();
     } else {
-      $("#tiles_digest_automator_day").show();
+      $(".day-flex-group").show();
     }
   }
 
