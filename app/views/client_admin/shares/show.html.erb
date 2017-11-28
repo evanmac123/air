@@ -1,4 +1,4 @@
-<div class="js-share-module">
+<div class="js-share-module share-module">
   <div class="tabs-component-full-width">
     <ul class="inline-list js-share-module-tabs">
       <li class="tab active" data-tab-content="js-share-deliver-component"><a href="#">Deliver</a></li>
@@ -12,40 +12,32 @@
 
     <div class="js-share-deliver-component js-share-module-tab-content">
       <div class="row">
-        <div class="large-12 columns" id="digest_management">
-          <%= render partial: 'digest_management' %>
+        <div id="digest_management">
+          <%= render partial: 'deliver_component' %>
         </div>
       </div>
     </div>
 
-    <div class="js-share-automate-component js-share-module-tab-content hidden" >
+    <div class="js-share-automate-component js-share-module-tab-content share-automate-component hidden" >
       <div class="row">
         <%= render 'automate_component' %>
       </div>
     </div>
 
-    <div class="js-share-follow-ups-component js-share-module-tab-content hidden" >
+    <div class="share-follow-ups-component js-share-follow-ups-component js-share-module-tab-content hidden" >
       <div class="row">
-        <div class="cancel_follow_ups large-12 columns">
-          <%= render 'manage_follow_ups' %>
+        <div class="large-12 columns">
+          <%= render 'follow_ups_component' %>
         </div>
       </div>
     </div>
 
-    <div class="js-share-board-link-component js-share-module-tab-content hidden" >
+    <div class="share-board-share-link-component js-share-board-link-component js-share-module-tab-content hidden" >
       <div class="row">
         <div class="large-12 columns">
-          <div id="public_board">
-            <div class="row">
-              <%= render 'public_board_controls' %>
-            </div>
-          </div>
+          <%= render 'board_share_link_component' %>
         </div>
       </div>
     </div>
   </section>
-
-  <% if @digest_sent_type.present? %>
-    <%= render partial: "digest_sent_modal" %>
-  <% end %>
 </div>

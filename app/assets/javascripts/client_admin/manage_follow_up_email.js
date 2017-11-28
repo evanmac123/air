@@ -191,7 +191,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
     var tableBody = currRow.parents("tbody");
     currRow.remove();
     if (tableBody.children("tr:not(.no-follow-up)").length == 0){
-      $("#schedule_followups").hide();
+      $(".share-follow-ups-component .share-module-header h3").text("No Follow-Ups Scheduled");
     }
   }
 
