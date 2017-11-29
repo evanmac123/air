@@ -33,17 +33,6 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     end
   end
 
-  describe "#skip_next_delivery" do
-    it "calls #remove_job and update_deliver_date" do
-      automator = TilesDigestAutomator.new
-
-      automator.expects(:remove_job)
-      automator.expects(:update_deliver_date)
-
-      automator.skip_next_delivery
-    end
-  end
-
   describe "#schedule_delivery" do
     it "schedules a new delivery job" do
       demo = FactoryGirl.create(:demo)

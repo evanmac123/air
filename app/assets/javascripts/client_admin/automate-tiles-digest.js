@@ -3,28 +3,8 @@ Airbo.ClientAdmin = Airbo.ClientAdmin || {};
 
 Airbo.ClientAdmin.AutomateTilesDigest = (function(){
 
-  function automatorId() {
-    return $(".js-share-automate-component").data("automatorId");
-  }
-
-  function automatorPersited() {
-    return automatorId() !== "";
-  }
-
   function formPath() {
-    if (automatorPersited()) {
-      return "/api/client_admin/tiles_digest_automators/" + automatorId();
-    } else {
-      return "/api/client_admin/tiles_digest_automators";
-    }
-  }
-
-  function formMethod() {
-    if (automatorPersited()) {
-      return "PUT";
-    } else {
-      return "POST";
-    }
+    return $(".js-share-automate-component").data("automatorUrl");
   }
 
   function frequencyText() {
@@ -50,29 +30,35 @@ Airbo.ClientAdmin.AutomateTilesDigest = (function(){
   }
 
   function submitForm($form) {
+    $(".js-update-tiles-digest-automator").addClass("with_spinner");
+
     $.ajax({
       url: formPath(),
       data: $form.serialize(),
-      type: formMethod(),
+      type: $form.attr("method"),
       success: function(result) {
-        $(".js-share-automate-component").data("automatorId", result.id);
+        $(".js-share-automate-component").data("automator", result.tiles_digest_automator);
         $(".js-remove-tiles-digest-automator").show();
-        $(".js-update-tiles-digest-automator").val("Update");
+        $(".js-update-tiles-digest-automator").removeClass("with_spinner");
+        $(".js-update-tiles-digest-automator").text("Update");
         $(".js-last-sent-at").addClass("scheduled");
-        $(".js-last-sent-at").text(result.sendAtTime);
+        $(".js-last-sent-at").text(result.helpers.sendAtTime);
       }
     });
   }
 
   function submitRemove() {
+    $(".js-remove-tiles-digest-automator").addClass("with_spinner");
+
     $.ajax({
       url: formPath(),
       type: 'DELETE',
       success: function(result) {
         $(".js-remove-tiles-digest-automator").hide();
-        $(".js-update-tiles-digest-automator").val("Schedule Tiles Digests");
+        $(".js-remove-tiles-digest-automator").removeClass("with_spinner");
+        $(".js-update-tiles-digest-automator").text("Schedule Tiles Digests");
         $(".js-last-sent-at").removeClass("scheduled");
-        $(".js-last-sent-at").text(result.sendAtTime);
+        $(".js-last-sent-at").text(result.helpers.sendAtTime);
       }
     });
   }

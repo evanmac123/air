@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="js-share-automate-component js-share-module-tab-content share-automate-component hidden" data-automator-id="<%= current_board.tiles_digest_automator.id %>">
+    <div class="js-share-automate-component js-share-module-tab-content share-automate-component hidden" data-automator="<%= current_board.tiles_digest_automator.attributes %>" data-automator-url="<%= api_client_admin_demo_tiles_digest_automator_path(current_board) %>">
       <div class="row">
         <%= render 'automate_component' %>
       </div>

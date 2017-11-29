@@ -34,11 +34,6 @@ class TilesDigestAutomator < ActiveRecord::Base
     self.save
   end
 
-  def skip_next_delivery
-    remove_job
-    update_deliver_date
-  end
-
   def schedule_delivery
     remove_job
     new_job = delay(run_at: deliver_date, queue: "TilesDigestAutomation").deliver
