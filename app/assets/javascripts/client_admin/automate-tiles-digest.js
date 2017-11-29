@@ -3,8 +3,32 @@ Airbo.ClientAdmin = Airbo.ClientAdmin || {};
 
 Airbo.ClientAdmin.AutomateTilesDigest = (function(){
 
+  function automatorId() {
+    return $(".js-share-automate-component").data("automatorId");
+  }
+
+  function automatorPersited() {
+    return automatorId() !== "";
+  }
+
+  function formPath() {
+    if (automatorPersited()) {
+      return "/api/client_admin/tiles_digest_automators/" + automatorId();
+    } else {
+      return "/api/client_admin/tiles_digest_automators";
+    }
+  }
+
+  function formMethod() {
+    if (automatorPersited()) {
+      return "PUT";
+    } else {
+      return "POST";
+    }
+  }
+
   function frequencyText() {
-    $("#tiles_digest_automator_frequency_cd option[selected]").text();
+    return $("#tiles_digest_automator_frequency_cd option[selected]").text();
   }
 
   function manageGrammer(frequency) {
@@ -25,8 +49,32 @@ Airbo.ClientAdmin.AutomateTilesDigest = (function(){
     }
   }
 
-  function submitUpdate() {
-    debugger
+  function submitForm($form) {
+    $.ajax({
+      url: formPath(),
+      data: $form.serialize(),
+      type: formMethod(),
+      success: function(result) {
+        $(".js-share-automate-component").data("automatorId", result.id);
+        $(".js-remove-tiles-digest-automator").show();
+        $(".js-update-tiles-digest-automator").val("Update");
+        $(".js-last-sent-at").addClass("scheduled");
+        $(".js-last-sent-at").text(result.sendAtTime);
+      }
+    });
+  }
+
+  function submitRemove() {
+    $.ajax({
+      url: formPath(),
+      type: 'DELETE',
+      success: function(result) {
+        $(".js-remove-tiles-digest-automator").hide();
+        $(".js-update-tiles-digest-automator").val("Schedule Tiles Digests");
+        $(".js-last-sent-at").removeClass("scheduled");
+        $(".js-last-sent-at").text(result.sendAtTime);
+      }
+    });
   }
 
   function bindEvents() {
@@ -36,7 +84,12 @@ Airbo.ClientAdmin.AutomateTilesDigest = (function(){
 
     $(".js-update-tiles-digest-automator").on("click", function(e) {
       e.preventDefault();
-      submitUpdate();
+      submitForm($(this).closest("form"));
+    });
+
+    $(".js-remove-tiles-digest-automator").on("click", function(e) {
+      e.preventDefault();
+      submitRemove();
     });
   }
 

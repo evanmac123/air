@@ -9,8 +9,10 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
   it { should validate_presence_of(:deliver_date) }
 
   describe "#set_deliver_date" do
-    it "sets deliver_date equal to the result of #next_deliver_time" do
-      automator = TilesDigestAutomator.new
+    it "sets deliver_date equal to the result of #next_deliver_time with the current_deliver_date as the origin" do
+      demo = FactoryGirl.create(:demo)
+      automator = demo.build_tiles_digest_automator
+
       deliver_date = Time.zone.local(1990)
 
       automator.expects(:next_deliver_time).returns(deliver_date)
@@ -258,6 +260,59 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
 
         expect(@automator.next_deliver_time.wday).to eq(4)
       end
+    end
+  end
+
+  describe "#origin_for_reset" do
+    before do
+      Timecop.freeze(Time.local(1990))
+      demo = FactoryGirl.create(:demo)
+      @automator = demo.build_tiles_digest_automator
+    end
+
+    after do
+      Timecop.return
+    end
+
+    describe "when frequency is weekly" do
+      it "returns Time.current - 1.week" do
+        @automator.weekly!
+        expect(@automator.origin_for_reset).to eq(Time.current - 1.week)
+      end
+    end
+
+    describe "when frequency is biweekly" do
+      it "returns Time.current - 2.weeks" do
+        @automator.biweekly!
+        expect(@automator.origin_for_reset).to eq(Time.current - 2.weeks)
+      end
+    end
+
+    describe "when frequency is daily" do
+      it "returns Time.current" do
+        @automator.daily!
+        expect(@automator.origin_for_reset).to eq(Time.current)
+      end
+    end
+
+    describe "when frequency is monthly" do
+      it "returns Time.current" do
+        @automator.monthly!
+        expect(@automator.origin_for_reset).to eq(Time.current)
+      end
+    end
+  end
+
+  describe "#reset_deliver_date" do
+    it "sets deliver day to the result of next_deliver_time(origin_for_reset)" do
+      # This method prevents duplication of the next_deliver_time logic for weekly and biweekly automator updates. Without it, any update to these frequencies would skip the closest delivery date in favor of that date plus either 1 or 2 weeks. This way, we simply backtrack the time with origin_for_reset and use the same next_deliver_time method.
+
+      automator = TilesDigestAutomator.new
+
+      automator.expects(:origin_for_reset).returns("mock origin")
+      automator.expects(:next_deliver_time).with("mock origin")
+
+      automator.reset_deliver_date
     end
   end
 

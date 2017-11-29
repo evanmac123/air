@@ -14,6 +14,21 @@ class TilesDigestAutomator < ActiveRecord::Base
     self.deliver_date = next_deliver_time
   end
 
+  def reset_deliver_date
+    self.deliver_date = next_deliver_time(origin_for_reset)
+  end
+
+  def origin_for_reset
+    case frequency
+    when :weekly
+      Time.current - 1.week
+    when :biweekly
+      Time.current - 2.weeks
+    else
+      Time.current
+    end
+  end
+
   def update_deliver_date
     set_deliver_date
     self.save
@@ -50,8 +65,8 @@ class TilesDigestAutomator < ActiveRecord::Base
     form.submit_schedule_digest_and_followup
   end
 
-  def next_deliver_time
-    date = next_deliver_date(current_deliver_date)
+  def next_deliver_time(origin = current_deliver_date)
+    date = next_deliver_date(origin)
     date.in_time_zone(demo.timezone).change(hour: time)
   end
 
@@ -89,7 +104,7 @@ class TilesDigestAutomator < ActiveRecord::Base
     def next_deliver_date(origin)
       deliver_date = get_next_date(origin)
 
-      if deliver_date > Time.zone.today
+      if deliver_date > Time.zone.today.end_of_day
         deliver_date
       else
         next_deliver_date(deliver_date)

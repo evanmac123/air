@@ -54,7 +54,7 @@ module ClientAdmin::SharesHelper
     if object.persisted?
       "Update"
     else
-      "Save"
+      "Schedule Tiles Digests"
     end
   end
 
@@ -73,7 +73,7 @@ module ClientAdmin::SharesHelper
   end
 
   def tiles_digest_last_sent_or_scheduled_message
-    if current_board.tiles_digest_automator.present?
+    if tiles_digest_scheduled?
       tiles_digest_scheduled_message
     elsif current_board.tile_digest_email_sent_at.present?
       tiles_digest_last_sent_at_message
@@ -81,7 +81,7 @@ module ClientAdmin::SharesHelper
   end
 
   def tiles_digest_scheduled_message
-    "Tiles scheduled to send on #{current_board.tiles_digest_automator.next_deliver_time.strftime("%A, %B %d at %l:%M%p %Z")}"
+    "Tiles scheduled to send on #{current_board.tiles_digest_automator.current_deliver_date.strftime("%A, %B %d at %l:%M%p %Z")}"
   end
 
   def tiles_digest_last_sent_at_message
@@ -89,8 +89,12 @@ module ClientAdmin::SharesHelper
   end
 
   def tiles_digest_scheduled_time_class
-    if current_board.tiles_digest_automator.present?
+    if tiles_digest_scheduled?
       "scheduled"
     end
+  end
+
+  def tiles_digest_scheduled?
+    current_board.tiles_digest_automator.persisted?
   end
 end

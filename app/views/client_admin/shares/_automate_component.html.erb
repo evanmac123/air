@@ -1,13 +1,11 @@
 <div class="small-12 columns share-module-header">
   <div>
     <h3>Automate Tiles Digests <a href="http://learning.airbo.com/the-airbo-platform/features/automate-tiles-digests" target="_blank"></a></h3>
-    <span class="last-sent-at <%= tiles_digest_scheduled_time_class %>" data-last-sent-at-message="<%= tiles_digest_last_sent_at_message %>">
+    <span class="js-last-sent-at last-sent-at <%= tiles_digest_scheduled_time_class %>" data-last-sent-at-message="<%= tiles_digest_last_sent_at_message %>">
       <%= tiles_digest_last_sent_or_scheduled_message %>
     </span>
   </div>
-  <% if current_board.tiles_digest_automator.present? %>
-    <%= link_to "Remove Automation", "#", class: "button outlined red" %>
-  <% end %>
+  <%= link_to "Remove Automation", "#", class: "button outlined red js-remove-tiles-digest-automator #{"hidden" unless tiles_digest_scheduled?}" %>
 </div>
 
 <div class="columns small-12">
@@ -25,7 +23,7 @@
       </div>
       <div class="day-flex-group flex-group">
         <%= f.label :day, "Day" %>
-        <%= f.select :day, options_for_select(Date::DAYNAMES[1..-2].map.with_index { |d, i| ["on #{d}", i] }, f.object.day) %>
+        <%= f.select :day, options_for_select(Date::DAYNAMES[1..-2].map.with_index { |d, i| ["on #{d}", i + 1] }, f.object.day) %>
       </div>
       <div class="time-flex-group flex-group">
         <%= f.label :time, "Time" %>
