@@ -4,13 +4,13 @@ feature "Changes email via tile", js: true do
   let(:demo) {FactoryGirl.create :demo}
   let!(:next_tile){FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, demo: demo, headline: "next tile")}
   let!(:tile) do
-    FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, 
-                       demo: demo, 
-                       question_type: Tile::SURVEY, 
-                       question_subtype: Tile::CHANGE_EMAIL, 
-                       question: "Do you want to change your email address for digest?", 
-                       multiple_choice_answers: ["Change my email", "Keep my current email"], 
-                       correct_answer_index: 0, 
+    FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE,
+                       demo: demo,
+                       question_type: Tile::SURVEY,
+                       question_subtype: Tile::CHANGE_EMAIL,
+                       question: "Do you want to change your email address for digest?",
+                       multiple_choice_answers: ["Change my email", "Keep my current email"],
+                       correct_answer_index: 0,
                        headline: "email tile"
                       )
   end
@@ -28,6 +28,5 @@ feature "Changes email via tile", js: true do
       click_button "Change email"
     end
     expect_content "Success! Check old email to confirm"
-    expect(page).to have_content next_tile.headline, wait: 5
   end
 end

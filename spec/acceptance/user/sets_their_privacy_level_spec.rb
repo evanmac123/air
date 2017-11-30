@@ -64,10 +64,10 @@ feature 'Sets their privacy level', js: true do
 
   scenario "sets their privacy level in the settings page" do
     visit edit_account_settings_path(as: @user)
-
     expect(find('#user_privacy_level', visible: false).value).to eq('connected')
 
-    select 'Everybody', from: 'user[privacy_level]', visible: false
+    page.find(".custom.dropdown").click
+    page.find("li", text: "Everybody").click
 
     click_button "Update privacy"
     expect(page.find('#user_privacy_level', visible: false).value).to eq('everybody')
@@ -83,7 +83,10 @@ feature 'Sets their privacy level', js: true do
     expect_act_copy
 
     visit edit_account_settings_path(as: @user)
-    select "Connections I've accepted", from: 'user[privacy_level]', visible: false
+
+    page.find(".custom.dropdown").click
+    page.find("li", text: "Connections I've accepted").click
+
     click_button "Update privacy"
 
     visit acts_path(as: @user_in_same_board)
@@ -92,7 +95,9 @@ feature 'Sets their privacy level', js: true do
     expect_act_copy
 
     visit edit_account_settings_path(as: @user)
-    select "Everybody", from: 'user[privacy_level]', visible: false
+    page.find(".custom.dropdown").click
+    page.find("li", text: "Everybody").click
+
     click_button "Update privacy"
 
     visit acts_path(as: @user_in_same_board)

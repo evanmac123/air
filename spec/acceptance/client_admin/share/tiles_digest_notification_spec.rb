@@ -368,19 +368,9 @@ feature 'Client admin and the digest email for tiles' do
         it "recording if an optional message was also added", js: true do
           create_tile
           visit client_admin_share_path(as: admin)
-          submit_button.click
-          #expect_digest_sent_content
-
-          create_tile
-          visit client_admin_share_path(as: admin)
-          fill_in "digest[custom_message]", with: ''
-          submit_button.click
-          #expect_digest_sent_content
-
-          create_tile
-          visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: 'hey'
           submit_button.click
+          accept_alert
           expect_digest_sent_content
         end
 
@@ -389,6 +379,8 @@ feature 'Client admin and the digest email for tiles' do
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
           submit_button.click
+          accept_alert
+
           expect_digest_sent_content
         end
 
@@ -488,6 +480,8 @@ feature 'Client admin and the digest email for tiles' do
     describe "when sending digest" do
       it "should send with both subjects" do
         submit_button.click
+        accept_alert
+
         expect_digest_sent_content
 
         expect(ActionMailer::Base.deliveries.count).to eq(2)

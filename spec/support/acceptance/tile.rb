@@ -129,12 +129,13 @@ module TileHelpers
   end
 
   def answer_link_selector
-    "a.answer-btn"
+    ".js-answer-btn"
   end
 
   def fill_in_answer_field(index, text)
     page.all(answer_link_selector)[index].click
     page.find(answer_field_selector, visible: true).set(text)
+    page.find("#quiz-answer").click
   end
 
   def fill_in_external_link_field(text)
