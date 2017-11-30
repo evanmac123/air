@@ -11,6 +11,7 @@ $client-green: #bfd255;
   box-shadow: 0 0 4px 0 lighten($client-color, 5%);
   overflow: hidden;
   position: relative;
+  min-height: 1000px;
 
   &:before {
     background: $client-color;
