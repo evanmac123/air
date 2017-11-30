@@ -416,7 +416,7 @@ feature 'Client admin and the digest email for tiles' do
 
       fill_in "digest[custom_message]", with: 'Custom Message'
       fill_in "digest[custom_subject]", with: 'Custom Subject'
-      click_button "Send a Test Email to Myself"
+      click_button "Send Test Messages to Myself"
     end
 
     it "should send test digest and follow-up only to admin", js: true do
@@ -463,7 +463,7 @@ feature 'Client admin and the digest email for tiles' do
 
     describe "when sending test" do
       it "should send three test emails" do
-        click_button "Send a Test Email to Myself"
+        click_button "Send Test Messages to Myself"
 
         subjects_sent = ActionMailer::Base.deliveries.map(&:subject)
 
@@ -506,7 +506,7 @@ feature 'Client admin and the digest email for tiles' do
         find("li", text: "Sunday").click
       end
 
-      click_button "Send a Test Email to Myself"
+      click_button "Send Test Messages to Myself"
     end
 
     it "sends SMS to current_user" do
