@@ -98,19 +98,17 @@ textarea#dependent_user_invitation_body{
   resize:none;
 }
 
-
-
-
-
-// input[type="submit"],
-// button {
-//   @include button;
-// }
-
-select { // TODO: Move all selects to Nice Select
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
   background: url(/assets/angle-down.svg) no-repeat right center $n-white;
   background-size: 40px 15px;
   padding-right: 0;
+}
+select::-ms-expand {
+  display: none;
 }
 
 label.radio,

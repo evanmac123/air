@@ -13,12 +13,12 @@ Airbo.ClientAdmin.AutomateTilesDigest = (function(){
 
   function manageGrammer(frequency) {
     if(frequency === "Monthly") {
-      Array.from($("#tiles_digest_automator_day option")).forEach(function(option) {
-        $(option).text($(option).text().replace('on', 'on the first'));
+      $("#tiles_digest_automator_day option").each(function() {
+        $(this).text($(this).text().replace('on', 'on the first'));
       });
     } else {
-      Array.from($("#tiles_digest_automator_day option")).forEach(function(option) {
-        $(option).text($(option).text().replace('on the first', 'on'));
+      $("#tiles_digest_automator_day option").each(function() {
+        $(this).text($(this).text().replace('on the first', 'on'));
       });
     }
 

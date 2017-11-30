@@ -77,6 +77,8 @@ module ClientAdmin::SharesHelper
       tiles_digest_scheduled_message
     elsif current_board.tile_digest_email_sent_at.present?
       tiles_digest_last_sent_at_message
+    else
+      "No Tiles have been delivered."
     end
   end
 
