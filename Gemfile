@@ -119,16 +119,14 @@ group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'database_cleaner'
-  gem 'fakeweb'
   gem 'sham_rack'
   gem 'timecop'
   gem 'shoulda-matchers', require: false
   gem 'email_spec'
-  gem 'capybara-webkit'
-  gem 'poltergeist'
   gem 'sinatra'
   gem 'mocha'
-  gem 'selenium-webdriver', '~> 2.53.4'
+  gem 'selenium-webdriver'
+  gem 'capybara-selenium'
 end
 
 group :development do

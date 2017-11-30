@@ -2,12 +2,12 @@ require 'acceptance/acceptance_helper'
 
 feature "Client admin sets board's public status themself", js:true do
   let! (:client_admin) { FactoryGirl.create(:client_admin) }
-    
+
   before :each do
     client_admin.demo.update_attributes(public_slug: 'heyfriend')
     tile = FactoryGirl.create :tile, demo: client_admin.demo
     user = FactoryGirl.create :user, demo: client_admin.demo
-    FactoryGirl.create(:tile_completion, tile: tile, user: user)      
+    FactoryGirl.create(:tile_completion, tile: tile, user: user)
   end
 
   # not sure if it even helps
@@ -68,10 +68,10 @@ feature "Client admin sets board's public status themself", js:true do
     it "should show the public slug regardless" do
       expect_displayed_share_url('heyfriend')
     end
-    
+
     it "should display tooltip on mouseover question mark icon", js: true do
       within public_board_section do
-        page.find('.fa-question-circle').trigger(:mouseover)
+        page.find('.fa-question-circle').hover
       end
       expect(page).to have_content "In a public board, anyone can participate using the Board Link. In a private board, only users you specifically add can participate, and the Board Link isn't active."
     end

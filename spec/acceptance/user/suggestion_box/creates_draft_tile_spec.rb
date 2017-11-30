@@ -61,11 +61,11 @@ feature 'Creates draft tile' do
     fill_in_question "Who rules?#{edit_text}"
     fill_in_answer_field 0, "Me#{edit_text}"
     fill_in_answer_field 1, "You#{edit_text}"
-    select_correct_answer 1 
+    select_correct_answer 1
     fill_in_points points
   end
 
   def click_create_button
-    page.find(".submit_tile_form").trigger("click")
+    page.find(".submit_tile_form").click
   end
 end

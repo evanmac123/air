@@ -253,13 +253,6 @@ module SteakHelperMethods
     page.find("#next").click
   end
 
-  # First is Capybara capability. Second is auxiliary gem; info can be found at:
-  # https://github.com/mattheworiordan/capybara-screenshot
-  def show_me_the_page
-    save_and_open_page
-    screenshot_and_open_image
-  end
-
   def expect_marketing_page_blurb
     expect_content "Discover engaging employee programs"
   end

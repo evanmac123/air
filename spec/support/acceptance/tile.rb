@@ -146,7 +146,7 @@ module TileHelpers
   end
 
   def select_correct_answer(index)
-    page.find("input[type='radio'][value='#{index}'].correct-answer-button" ).trigger("click")
+    page.find("input[type='radio'][value='#{index}'].correct-answer-button" ).click
   end
 
   def after_tile_save_message(options={})
@@ -158,7 +158,7 @@ module TileHelpers
   end
 
   def click_add_answer
-    page.find(".add_answer").trigger("click")
+    page.find(".add_answer").click
   end
 
   def fill_in_image_credit text
@@ -237,7 +237,7 @@ module TileHelpers
 
   def choose_question_type_and_subtype question_type, question_subtype
     page.find("##{question_type.downcase}.type").click
-    page.find(".subtype.#{question_type.downcase}.#{question_subtype}").trigger("click")
+    page.find(".subtype.#{question_type.downcase}.#{question_subtype}").click
   end
 
 
@@ -263,7 +263,7 @@ module TileHelpers
   end
 
   def click_add_new_tile
-    page.find('#add_new_tile').trigger("click")
+    page.find('#add_new_tile').click
   end
 
   def expect_supporting_content(expected_content)
