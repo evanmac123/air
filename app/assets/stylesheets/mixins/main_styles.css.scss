@@ -499,9 +499,3 @@ body {
 .clearfix {
   @include clearfix();
 }
-
-.docs-link {
-  color: $text-color;
-  vertical-align: top;
-  font-size: 12px;
-}
