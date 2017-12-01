@@ -43,7 +43,7 @@ describe 'Digest email' do
     demo.tiles
   end
 
-  let(:digest) { TilesDigest.create(demo: demo, sender: claimed_user, tiles: tiles, sent_at: Date.current + 1.day) }
+  let(:digest) { TilesDigest.create(demo: demo, sender: claimed_user, tiles: tiles, sent_at: Date.current + 2.days) }
 
   describe 'Delivery' do
     subject do

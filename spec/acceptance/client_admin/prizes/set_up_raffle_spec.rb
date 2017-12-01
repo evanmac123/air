@@ -10,7 +10,7 @@ feature 'Create raffle' do
   end
 
   scenario 'fill some fields and save as draft', js: true do
-    start_date = to_calendar_format(DateTime.current)
+    start_date = to_calendar_format(DateTime.current + 1.day)
     end_date = to_calendar_format(DateTime.current - 7.days) #so end date is invalid and will be erased
 
     fill_in "Start", with: start_date
