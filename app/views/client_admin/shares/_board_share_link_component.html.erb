@@ -1,7 +1,9 @@
-<div class="new_public_board" id="<%= current_user.demo.id %>">
-  <div class="title_div">
-    <h3 class="public_board_title">Board Share Link <i class="fa fa-question-circle has-tip" data-tooltip="publicBoard" title="In a public board, anyone can participate using the Board Link. In a private board, only users you specifically add can participate, and the Board Link isn't active."></i></h3>
+<div class="share-module-header">
+  <div>
+    <h3>Board Share Link <i class="fa fa-question-circle has-tip" data-tooltip="publicBoard" title="In a public board, anyone can participate using the Board Link. In a private board, only users you specifically add can participate, and the Board Link isn't active."></i></h3>
   </div>
+</div>
+<div class="new_public_board" id="<%= current_user.demo.id %>">
   <div class="status_div switch-container">
     <% unless @board_is_public %>
       <div class="private engaged">Private</div>

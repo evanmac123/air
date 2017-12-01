@@ -14,11 +14,9 @@
     <%= render partial: 'explore/campaigns', locals: { campaigns: @campaigns, header: "Airbo Campaigns" } %>
   </section>
   <section class="manage_section" id="explore_tiles">
-    <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "Explore Tiles", more_tiles_path: explore_path } %>
+    <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "All Explore Tiles", more_tiles_path: explore_path } %>
   </section>
 </div>
 <% if @show_explore_onboarding %>
   <%= render partial: 'explore/explore_onboarding_modal' %>
 <% end %>
-
-

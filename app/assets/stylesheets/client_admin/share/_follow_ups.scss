@@ -1,0 +1,12 @@
+.share-follow-ups-component {
+  table:not(.first-column-header){
+    &.border-less{
+      td {
+        font-size: 14px;
+      }
+      td:first-of-type{
+        padding-left: 0;
+      }
+    }
+  }
+}

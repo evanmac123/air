@@ -2,12 +2,12 @@ require 'acceptance/acceptance_helper'
 
 feature "Client admin sets board's public status themself", js:true do
   let! (:client_admin) { FactoryGirl.create(:client_admin) }
-    
+
   before :each do
     client_admin.demo.update_attributes(public_slug: 'heyfriend')
     tile = FactoryGirl.create :tile, demo: client_admin.demo
     user = FactoryGirl.create :user, demo: client_admin.demo
-    FactoryGirl.create(:tile_completion, tile: tile, user: user)      
+    FactoryGirl.create(:tile_completion, tile: tile, user: user)
   end
 
   # not sure if it even helps
@@ -42,17 +42,16 @@ feature "Client admin sets board's public status themself", js:true do
 
   def expect_off_engaged
     expect(page).to have_css(".private.engaged")
-    #page.find('#private_button', visible: false)['checked'].should be_present
-    #page.find('#public_button', visible: false)['checked'].should_not be_present
   end
 
   def public_board_section
-    "#public_board"
+    ".js-share-board-link-component"
   end
 
   context "when the board is public" do
     before :each do
       visit client_admin_share_path(as: client_admin)
+      find('.js-share-board-link-component-tab').click
     end
 
     it "should tell the user the board's not private" do
@@ -68,10 +67,10 @@ feature "Client admin sets board's public status themself", js:true do
     it "should show the public slug regardless" do
       expect_displayed_share_url('heyfriend')
     end
-    
+
     it "should display tooltip on mouseover question mark icon", js: true do
       within public_board_section do
-        page.find('.fa-question-circle').trigger(:mouseover)
+        page.find('.fa-question-circle').hover
       end
       expect(page).to have_content "In a public board, anyone can participate using the Board Link. In a private board, only users you specifically add can participate, and the Board Link isn't active."
     end
@@ -81,6 +80,7 @@ feature "Client admin sets board's public status themself", js:true do
     before do
       client_admin.demo.update_attributes(is_public: false)
       visit client_admin_share_path(as: client_admin)
+      find('.js-share-board-link-component-tab').click
     end
 
     it "should show the URL" do

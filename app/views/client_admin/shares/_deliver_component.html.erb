@@ -1,0 +1,23 @@
+<div class="small-12 columns share-module-header">
+  <div>
+    <h3>Deliver Tiles <a href="http://learning.airbo.com/the-airbo-platform/features/automate-tiles-digests" target="_blank"></a></h3>
+    <span class="js-last-sent-at last-sent-at <%= tiles_digest_scheduled_time_class %>">
+      <%= tiles_digest_last_sent_or_scheduled_message %>
+    </span>
+  </div>
+</div>
+<div class="large-3 columns">
+  <%= render partial: 'form' %>
+</div>
+<div class="large-9 digest_preview">
+  <ul class="inline-list tabs-component js-digest-preview-tabs digest-preview-tabs">
+    <li class="tabs-component-active" id="show_digest_preview" data-preview-type="email">Tiles Email Preview</li>
+    <li id="show_follow_up_preview" data-preview-type="follow_up_email">Follow-Up Email Preview</li>
+    <li id="show_sms_preview" data-preview-type="sms">Text Message Preview</li>
+  </ul>
+  <%= render 'email_client_wrapper' %>
+</div>
+
+<% if @digest_sent_type.present? %>
+  <%= render 'digest_sent_modal' %>
+<% end %>

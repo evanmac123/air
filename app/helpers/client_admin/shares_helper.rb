@@ -41,4 +41,62 @@ module ClientAdmin::SharesHelper
       "No test text messages could be sent because your phone number is not set in Airbo. You may add your phone number #{link_to 'here', edit_account_settings_path}"
     end
   end
+
+  def shares_follow_ups_header(follow_ups)
+    if follow_ups.present?
+      "Scheduled Follow-Ups"
+    else
+      "No Follow-Ups Scheduled"
+    end
+  end
+
+  def tiles_digest_automator_save(object)
+    if object.persisted?
+      "Update"
+    else
+      "Schedule Tiles Digests"
+    end
+  end
+
+  def tiles_digest_automate_time_opts
+    [*5..21].map do |t|
+      if t > 12
+        display = "at #{t - 12}pm"
+      elsif t == 12
+        display = "at 12pm"
+      else
+        display = "at #{t}am"
+      end
+
+      [display, t.to_s]
+    end
+  end
+
+  def tiles_digest_last_sent_or_scheduled_message
+    if tiles_digest_scheduled?
+      tiles_digest_scheduled_message
+    elsif current_board.tile_digest_email_sent_at.present?
+      tiles_digest_last_sent_at_message
+    else
+      "No Tiles have been delivered."
+    end
+  end
+
+  def tiles_digest_scheduled_message
+    "Tiles scheduled to send on #{current_board.tiles_digest_automator.current_deliver_date.strftime("%A, %B %d at %l:%M%p %Z")}"
+  end
+
+  def tiles_digest_last_sent_at_message
+    "Last Tiles sent on #{current_board.tile_digest_email_sent_at.strftime("%A, %B %d at %l:%M%p %Z")}"
+  end
+
+  def tiles_digest_scheduled_time_class
+    if tiles_digest_scheduled?
+      "scheduled"
+    end
+  end
+
+  def tiles_digest_scheduled?
+    current_board.tiles_digest_automator.persisted?
+  end
 end

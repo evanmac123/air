@@ -48,7 +48,11 @@ namespace :client_admin do
   resources :sharable_tiles, only: :update
   resources :tile_images, only: :index
 
-  resource :tiles_digest_notification, only: :create
+  resource :tiles_digest_notification, only: :create do
+    member do
+      post 'save'
+    end
+  end
 
   resources :tiles_follow_up_email
 

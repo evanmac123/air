@@ -1,0 +1,61 @@
+// Digest email and followup controls
+@import 'mixins/tabs-component';
+@import 'email_client';
+
+#digest_management {
+  .notification_controls {
+    margin-top: 20px;
+
+    .custom_subject, .custom_headline {
+      textarea {
+        height: 4.5em;
+      }
+    }
+
+    .recipient-count {
+      border: 1px $light-gray solid;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 20px;
+      color: $gray;
+      overflow: auto;
+      h5 {
+        float: left;
+        margin: 0;
+        line-height: 1.7;
+        span {
+          margin-left: 10px;
+        }
+      }
+      p {
+        float: right;
+      }
+    }
+    .add_tiles_message{
+      @include regular-text;
+      padding-top: 10px;
+    }
+  }
+
+  .digest_preview {
+    @include tabs-component($active-color: $n-blue, $static-color: $white, $border-color: $n-blue, $component-margin: 0 0 10px 0, $font-size: 14px);
+
+    .digest-preview-tabs {
+      width: 100%;
+      li {
+        width: 33.3%;
+      }
+    }
+
+    float: left;
+    padding-left: 30px;
+    margin-top: 20px;
+  }
+
+  textarea {
+    height: 9em;
+    width: 100%;
+    resize: none;
+    max-width: 100%;
+  }
+}

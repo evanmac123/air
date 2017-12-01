@@ -19,6 +19,7 @@ feature 'Create new board' do
 
   def fill_in_new_board_name(board_name)
     fill_in "board_name", with: board_name
+    page.find("#new_board_creation").click
   end
 
   def try_to_create_new_board(user = a_regular_user)
@@ -38,30 +39,5 @@ feature 'Create new board' do
 
     expect_content "CURRENT BOARD Buttons Board"
     should_be_on client_admin_tiles_path
-  end
-
-  context "with a name that's already taken" do
-    before do
-      FactoryGirl.create(:demo, name: "Buttons Board")
-      visit activity_path(as: a_regular_user)
-      open_board_menu
-      click_create_board_link
-    end
-
-    it "should warn the user", js: true do
-      fill_in_new_board_name "Buttons"
-      expect_content board_name_taken_message
-    end
-
-    it "should ignore case when comparing names", js: true do
-      fill_in_new_board_name "buttons"
-      expect_content board_name_taken_message
-
-      fill_in_new_board_name "BUTTONS"
-      expect_content board_name_taken_message
-
-      fill_in_new_board_name "BuTtOnS"
-      expect_content board_name_taken_message
-    end
   end
 end

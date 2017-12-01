@@ -45,7 +45,6 @@ feature 'Creates draft tile' do
 
 
   def fill_in_tile_form_entries options = {}
-    click_answer = options[:click_answer] || 1
     question_type = options[:question_type] || Tile::QUIZ
     question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
     edit_text = options[:edit_text] || "foobar"
@@ -57,15 +56,16 @@ feature 'Creates draft tile' do
 
     fill_in_image_credit "by Society#{edit_text}"
     page.find("#tile_headline").set("Ten pounds of cheese#{edit_text}")
-    page.find("#tile_supporting_content_container").native.send_key("Ten pounds of cheese. Yes? Or no?#{edit_text}")
+    el = page.find(:css, "#supporting_content_editor", visible: false)
+    el.set("Ten pounds of cheese. Yes? Or no?#{edit_text}")
     fill_in_question "Who rules?#{edit_text}"
     fill_in_answer_field 0, "Me#{edit_text}"
     fill_in_answer_field 1, "You#{edit_text}"
-    select_correct_answer 1 
+    select_correct_answer 1
     fill_in_points points
   end
 
   def click_create_button
-    page.find(".submit_tile_form").trigger("click")
+    page.find(".submit_tile_form").click
   end
 end

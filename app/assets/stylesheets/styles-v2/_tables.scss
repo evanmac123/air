@@ -29,7 +29,7 @@ table:not(.first-column-header){
     border-bottom: 1px solid $border-color-1;
   }
 
-  &.border-less{ 
+  &.border-less{
 
     tr:hover,
     table tr.even:hover,
@@ -126,21 +126,6 @@ th {
   @include font-weight-bold;
 }
 
-//FIXME make this widget
-
-#scheduled_followups{
-  table:not(.first-column-header){
-    &.border-less{
-      td {
-        font-size: 14px;
-      }
-      td:first-of-type{
-        padding-left: 0;
-      }
-    }
-  }
-}
-
 table.scrollable {
   position: relative;
   width: 1200px;
@@ -180,7 +165,7 @@ table.scrollable {
 
   tbody td {
     min-width: 120px;
-    border-bottom: 1px solid #ddd; 
+    border-bottom: 1px solid #ddd;
   }
 
   tbody tr td:nth-child(1) {  /*the first cell in each tr*/
@@ -196,7 +181,7 @@ table.kpi{
   td:not(:nth-child(1)) {
     text-align: right;
   }
-  
+
   thead{
     background-color: rgb(238, 238, 238);
   }
@@ -242,4 +227,3 @@ table.kpi.scrollable  {
 
   }
 }
-

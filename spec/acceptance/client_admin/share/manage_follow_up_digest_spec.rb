@@ -4,37 +4,40 @@ require 'acceptance/acceptance_helper'
 feature "Client admin modifies the follow digest email", js: true do
 
   before do
-      @demo = FactoryGirl.create(:demo)
-      @admin = FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: @demo
+    @demo = FactoryGirl.create(:demo)
+    @admin = FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: @demo
 
-      @user1 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
-      @user2 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
-      @user3 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+    @user1 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+    @user2 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+    @user3 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
 
-      @tiles = FactoryGirl.create_list(:tile, 2, :active, demo: @demo, )
+    @tiles = FactoryGirl.create_list(:tile, 2, :active, demo: @demo, )
 
-      digest = TilesDigest.create(
-        demo: @demo,
-        tile_ids: @tiles.map(&:id),
-        subject: "orig subject",
-        headline: "headline",
-        include_unclaimed_users: true,
-        sender: @admin,
-        sent_at: Time.current + 1.day
-      )
+    digest = TilesDigest.create(
+      demo: @demo,
+      tile_ids: @tiles.map(&:id),
+      subject: "orig subject",
+      headline: "headline",
+      include_unclaimed_users: true,
+      sender: @admin,
+      sent_at: Time.current + 1.day
+    )
 
-      @fu = digest.create_follow_up_digest_email(
-        send_on: Time.current + 1.month
-      )
+    @fu = digest.create_follow_up_digest_email(
+      send_on: Time.current + 1.month
+    )
 
-      @rowSelector = ".followups #fu_#{@fu.id}"
+    @rowSelector = ".followups #fu_#{@fu.id}"
+
+    visit client_admin_share_path(as: @admin)
+
+    find('.js-share-follow-ups-component-tab').click
   end
 
   context "Editing subject" do
     scenario "confirms subject change"  do
-      visit client_admin_share_path(as: @admin)
 
-      within @rowSelector do
+      within(".share-follow-ups-component") do
         click_link "Edit"
       end
 
@@ -51,8 +54,6 @@ feature "Client admin modifies the follow digest email", js: true do
     end
 
     scenario "reverts to default subject" do
-      visit client_admin_share_path(as: @admin)
-
       within @rowSelector do
         click_link "Edit"
       end
@@ -85,8 +86,6 @@ feature "Client admin modifies the follow digest email", js: true do
 
   context "send now"  do
     before do
-      visit client_admin_share_path(as: @admin)
-
       within @rowSelector do
         click_link "Send Now"
       end
@@ -117,8 +116,6 @@ feature "Client admin modifies the follow digest email", js: true do
 
   context "delete"  do
     before do
-      visit client_admin_share_path(as: @admin)
-
       within @rowSelector do
         click_link "Cancel"
       end
@@ -147,6 +144,6 @@ feature "Client admin modifies the follow digest email", js: true do
   end
 
   def modal_form
-    "#manage_follow_up.reveal-modal"
+    ".follow-up-email-form"
   end
 end

@@ -7,7 +7,6 @@ class TilesDigest < ActiveRecord::Base
   belongs_to :demo
 
   validates_presence_of :demo
-  # validates_presence_of :sender ##add after migrations
 
   has_one :follow_up_digest_email, dependent: :destroy
   has_many :tiles_digest_tiles
@@ -42,6 +41,7 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def deliver(follow_up_days_index)
+    demo.clear_tile_email_draft
     send_emails_and_sms
     schedule_followup(follow_up_days_index)
     set_tile_email_report_notifications

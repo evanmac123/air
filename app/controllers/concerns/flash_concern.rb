@@ -28,4 +28,8 @@ module FlashConcern
     response.headers['X-Message-Type'] = type
     response.headers['X-Message'] = message
   end
+
+  def set_outdated_session_json_flash
+    add_flash_to_headers(type: :failure, message: I18n.t('flashes.failure_outdated_session'))
+  end
 end

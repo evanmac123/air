@@ -1,22 +1,45 @@
-<section class="share_tools js-client-admin-tiles-digest-management">
-  <div id="public_board">
-    <div class="row">
-      <%= render 'public_board_controls' %>
-    </div>
+<div class="js-share-module share-module">
+  <div class="tabs-component-full-width">
+    <ul class="inline-list js-share-module-tabs">
+      <li class="js-share-deliver-component-tab tab active" data-tab-content="js-share-deliver-component"><a href="#">Deliver</a></li>
+      <% if current_user.rdb[:has_automate].get  %>
+        <li class="js-share-automate-component-tab tab" data-tab-content="js-share-automate-component"><a href="#">Automate</a></li>
+      <% end %>
+      <li class="js-share-follow-ups-component-tab tab" data-tab-content="js-share-follow-ups-component"><a href="#">Follow-Ups</a></li>
+      <li class="js-share-board-link-component-tab tab" data-tab-content="js-share-board-link-component"><a href="#">Board Share Link</a></li>
+    </ul>
   </div>
 
-  <div class="row">
-    <div class="cancel_follow_ups large-12 columns">
-      <%= render 'manage_follow_ups' %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-12 columns" id="digest_management">
-      <%= render partial: 'digest_management' %>
-    </div>
-  </div>
-</section>
+  <section class="share_tools js-client-admin-tiles-digest-management">
 
-<% if @digest_sent_type.present? %>
-  <%= render partial: "digest_sent_modal" %>
-<% end %>
+    <div class="js-share-deliver-component js-share-module-tab-content">
+      <div class="row">
+        <div id="digest_management">
+          <%= render partial: 'deliver_component' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="js-share-automate-component js-share-module-tab-content share-automate-component hidden" data-automator="<%= current_board.tiles_digest_automator.attributes %>" data-automator-url="<%= api_client_admin_demo_tiles_digest_automator_path(current_board) %>">
+      <div class="row">
+        <%= render 'automate_component' %>
+      </div>
+    </div>
+
+    <div class="share-follow-ups-component js-share-follow-ups-component js-share-module-tab-content hidden" >
+      <div class="row">
+        <div class="large-12 columns">
+          <%= render 'follow_ups_component' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="share-board-share-link-component js-share-board-link-component js-share-module-tab-content hidden" >
+      <div class="row">
+        <div class="large-12 columns">
+          <%= render 'board_share_link_component' %>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

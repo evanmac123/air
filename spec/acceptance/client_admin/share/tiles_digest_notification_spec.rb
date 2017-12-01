@@ -368,19 +368,9 @@ feature 'Client admin and the digest email for tiles' do
         it "recording if an optional message was also added", js: true do
           create_tile
           visit client_admin_share_path(as: admin)
-          submit_button.click
-          #expect_digest_sent_content
-
-          create_tile
-          visit client_admin_share_path(as: admin)
-          fill_in "digest[custom_message]", with: ''
-          submit_button.click
-          #expect_digest_sent_content
-
-          create_tile
-          visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: 'hey'
           submit_button.click
+          accept_alert
           expect_digest_sent_content
         end
 
@@ -389,6 +379,8 @@ feature 'Client admin and the digest email for tiles' do
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
           submit_button.click
+          accept_alert
+
           expect_digest_sent_content
         end
 
@@ -424,7 +416,7 @@ feature 'Client admin and the digest email for tiles' do
 
       fill_in "digest[custom_message]", with: 'Custom Message'
       fill_in "digest[custom_subject]", with: 'Custom Subject'
-      click_button "Send a Test Email to Myself"
+      click_button "Send Test Messages to Myself"
     end
 
     it "should send test digest and follow-up only to admin", js: true do
@@ -471,7 +463,7 @@ feature 'Client admin and the digest email for tiles' do
 
     describe "when sending test" do
       it "should send three test emails" do
-        click_button "Send a Test Email to Myself"
+        click_button "Send Test Messages to Myself"
 
         subjects_sent = ActionMailer::Base.deliveries.map(&:subject)
 
@@ -488,6 +480,8 @@ feature 'Client admin and the digest email for tiles' do
     describe "when sending digest" do
       it "should send with both subjects" do
         submit_button.click
+        accept_alert
+
         expect_digest_sent_content
 
         expect(ActionMailer::Base.deliveries.count).to eq(2)
@@ -512,7 +506,7 @@ feature 'Client admin and the digest email for tiles' do
         find("li", text: "Sunday").click
       end
 
-      click_button "Send a Test Email to Myself"
+      click_button "Send Test Messages to Myself"
     end
 
     it "sends SMS to current_user" do

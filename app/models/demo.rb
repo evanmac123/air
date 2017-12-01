@@ -12,6 +12,7 @@ class Demo < ActiveRecord::Base
   has_one :raffle, dependent: :delete
   has_one :live_raffle, class_name: "Raffle", conditions: "status = '#{Raffle::LIVE}' and starts_at <= '#{Time.zone.now.to_time}'"
   has_one :custom_color_palette, dependent: :delete
+  has_one :tiles_digest_automator, dependent: :delete
 
   # NOTE m_tiles is an unfortunate hack to compensate for shitty code implementation of MultipleChoiceTile
   has_many :m_tiles, :dependent => :destroy, class_name: 'MultipleChoiceTile', dependent: :delete_all
@@ -79,6 +80,10 @@ class Demo < ActiveRecord::Base
   as_enum :customer_status, free: 0, paid: 1, trial: 2
 
   attr_accessor :unlink
+
+  def tiles_digest_automator
+    super || build_tiles_digest_automator
+  end
 
   def customer_status_for_mixpanel
     customer_status.to_s.capitalize
@@ -201,7 +206,7 @@ class Demo < ActiveRecord::Base
     (draft_tiles.map(&:position).compact.max ||0) + 1
   end
 
-  def digest_tiles(cutoff_time=self.tile_digest_email_sent_at)
+  def digest_tiles(cutoff_time = self.tile_digest_email_sent_at)
     tiles.digest(self, cutoff_time)
   end
 

@@ -8,7 +8,9 @@ Airbo.ClientAdminReportsInitializer = (function(){
 
       var $reportTab = $(this);
 
-      Airbo.ClientAdminReportsUtils.switchActiveTab($reportTab);
+      $reportTab.siblings().removeClass("active");
+      $reportTab.addClass("active");
+
       Airbo.ClientAdminReportsUtils.hideReports();
 
       $reportTabTarget = $($reportTab.data("target"));

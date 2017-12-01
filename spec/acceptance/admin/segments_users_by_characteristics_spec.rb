@@ -49,7 +49,7 @@ feature "Admin segmentation" do
       select characteristic_name, :from => "segment_column[0]"
       expect {
         select "#{operator}", :from => "segment_operator[0]"
-      }.to raise_error(Capybara::ElementNotFound, /Unable to find option "#{operator}"/)
+      }.to raise_error(Capybara::ElementNotFound, /Unable to find visible option "#{operator}"/)
     end
   end
 
@@ -350,7 +350,7 @@ feature "Admin segmentation" do
         3.times { users << FactoryGirl.create(:user, demo: demo, characteristics: {characteristic.id => false}) }
       end
 
-      
+
 
 
       visit admin_demo_segmentation_path(demo, as: an_admin)
@@ -378,6 +378,7 @@ feature "Admin segmentation" do
 
       select "Likes cheese", :from => "segment_column[0]"
       select "equals", :from => "segment_operator[0]"
+      uncheck "segment_value[0]"
 
       click_button "Find segment"
 
@@ -388,6 +389,7 @@ feature "Admin segmentation" do
 
       select "Likes cheese", :from => "segment_column[0]"
       select "does not equal", :from => "segment_operator[0]"
+      uncheck "segment_value[0]"
 
       click_button "Find segment"
 
@@ -406,7 +408,7 @@ feature "Admin segmentation" do
       0.upto(9) do |i|
         users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => i})
       end
-      
+
 
 
 
@@ -425,7 +427,7 @@ feature "Admin segmentation" do
           (-5).upto(4) do |i|
             users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_date + i.days).to_s})
           end
-          
+
           expect_all_continuous_operators_to_work "Date of last decapitation", reference_date, users
           expect_discrete_operators_to_not_be_present "Date of last decapitation"
         end
@@ -442,7 +444,7 @@ feature "Admin segmentation" do
           -5.upto(4) do |i|
             users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_time + i.hours).to_s})
           end
-          
+
 
 
           expect_all_continuous_operators_to_work "Lunchtime", reference_time, users
@@ -465,7 +467,7 @@ feature "Admin segmentation" do
     other_demo_location_names.each {|location_name| FactoryGirl.create(:location, demo: other_demo, name: location_name)}
 
     Location.all.each {|location| FactoryGirl.create(:user, location: location, demo: location.demo)}
-    
+
 
 
     visit admin_demo_segmentation_path(@demo, as: an_admin)
@@ -517,7 +519,7 @@ feature "Admin segmentation" do
       user_count.times {FactoryGirl.create(:user, location: location, demo: @demo) }
     end
 
-    
+
     visit admin_demo_segmentation_path(@demo, as: an_admin)
 
     select "Location", :from => "segment_column[0]"
@@ -548,7 +550,7 @@ feature "Admin segmentation" do
     other_demo_location_names.each {|location_name| FactoryGirl.create(:location, demo: other_demo, name: location_name)}
 
     Location.all.each {|location| 3.times{FactoryGirl.create(:user, location: location, demo: location.demo)}}
-    
+
 
 
     visit admin_demo_segmentation_path(@demo, as: an_admin)
@@ -574,7 +576,7 @@ feature "Admin segmentation" do
     0.upto(9) do |points|
       users << FactoryGirl.create(:user, :demo => @demo, :points => points)
     end
-    
+
 
 
     expect_all_operators_to_work "Points", 5, users
@@ -590,7 +592,7 @@ feature "Admin segmentation" do
     (-5).upto(4) do |i|
       users << FactoryGirl.create(:user, :demo => @demo, :date_of_birth => (reference_date + i.days).to_s)
     end
-    
+
 
 
 
@@ -608,7 +610,7 @@ feature "Admin segmentation" do
     (-5).upto(4) do |i|
       users << FactoryGirl.create(:user, :demo => @demo, :accepted_invitation_at => (reference_time + i.days).to_s)
     end
-    
+
 
     expect_all_continuous_operators_to_work "Joined at", reference_time, users
     expect_discrete_operators_to_not_be_present "Joined at"
@@ -624,7 +626,7 @@ feature "Admin segmentation" do
       expected_users['other'] << FactoryGirl.create(:user, demo: @demo, gender: 'other')
     end
 
-    
+
 
 
     visit admin_demo_segmentation_path(@demo, as: an_admin)
@@ -663,7 +665,7 @@ feature "Admin segmentation" do
 
     4.times {users_with_phone << FactoryGirl.create(:user, :with_phone_number, demo: @demo)}
     3.times {users_without_phone << (FactoryGirl.create :user, demo: @demo)}
-    
+
 
 
     visit admin_demo_segmentation_path(@demo, as: an_admin)
@@ -681,6 +683,7 @@ feature "Admin segmentation" do
 
     select 'Has phone number', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
+    uncheck "segment_value[0]"
 
     click_button "Find segment"
 
@@ -695,7 +698,7 @@ feature "Admin segmentation" do
 
     4.times {FactoryGirl.create :user, :claimed, demo: @demo}
     3.times {FactoryGirl.create :user, demo: @demo}
-    
+
 
 
     visit admin_demo_segmentation_path(@demo, as: an_admin)
@@ -705,15 +708,13 @@ feature "Admin segmentation" do
     check "segment_value[0]"
 
     click_button "Find segment"
-
-    expect_content "Segmented by JOINED? EQUALS TRUE"
+        expect_content "Segmented by JOINED? EQUALS TRUE"
     expect_content "Users in this segment: 4"
     click_link "Show users"
     @demo.users.claimed.each {|claimed_user| expect_user_content(claimed_user)}
 
     select 'Joined?', :from => "segment_column[0]"
     select "does not equal",  :from => "segment_operator[0]"
-    check "segment_value[0]"
 
     click_button "Find segment"
 
@@ -724,6 +725,7 @@ feature "Admin segmentation" do
 
     select 'Joined?', :from => "segment_column[0]"
     select "equals",  :from => "segment_operator[0]"
+    uncheck "segment_value[0]"
 
     click_button "Find segment"
 

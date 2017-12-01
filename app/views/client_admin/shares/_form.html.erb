@@ -49,16 +49,19 @@
     </div>
     <div class="include_sms share-form-component">
       <%= check_box_tag "digest[include_sms]", nil, @tiles_digest_form.include_sms %>
-      <label for="digest_include_sms" class="d-inline">Include SMS? <i class="fa fa-question-circle has-tip" data-tooltip="<%= true %>" title="By checking this box, we will also notify users who have entered their phone numbers via text message."></i></label>
+      <label for="digest_include_sms" class="d-inline">Include Text Messages <i class="fa fa-question-circle has-tip" data-tooltip="<%= true %>" title="By checking this box, we will also notify users who have entered their phone numbers via text message."></i></label>
     </div>
     <%= hidden_field_tag "digest_type", "digest_and_follow_up" %>
-    <div class="send_test mb-2">
-      <label>
-        Test <i class="fa fa-question-circle has-tip" data-tooltip="<%= true %>" title="Send yourself a test Tiles Email, and if scheduled, a test Follow-Up Email."></i>
-      </label>
+    <div class="mb-1">
+      <%= button_tag id: "save_draft_digest", disabled: @digest_tiles.empty?, class: "button outlined full_width icon green", data: { saved: true } do %>
+        <%= fa_icon "pencil-square-o" %>
+        Save
+      <% end %>
+    </div>
+    <div class="mb-2">
       <%= button_tag id: "send_test_digest", disabled: @digest_tiles.empty?, class: "button outlined full_width icon" do %>
         <%= fa_icon "envelope-o" %>
-        Send a Test Email to Myself
+        <span class="text">Send Test Messages to Myself</span>
       <% end %>
     </div>
     <label>Send to users</label>

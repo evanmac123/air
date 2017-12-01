@@ -17,7 +17,7 @@ feature 'Admin sends targeted messages using segmentation' do
     @demo_specific_characteristic = FactoryGirl.create(:characteristic, :number)
 
     10.upto(19) {|i| @users[i].update_attributes(characteristics: {@agnostic_characteristic.id.to_s => %w(foo bar baz)[i % 3], @demo_specific_characteristic.id.to_s => i % 5})}
-    
+
   end
 
   def select_common_form_entries
@@ -46,7 +46,7 @@ feature 'Admin sends targeted messages using segmentation' do
     click_button "It's going to be OK"
     expect_content "Scheduled email to #{expected_mail_count} users"
 
-    
+
 
     expect(ActionMailer::Base.deliveries.length).to eq(expected_mail_count)
 
@@ -65,7 +65,7 @@ feature 'Admin sends targeted messages using segmentation' do
       demo = FactoryGirl.create :demo, custom_reply_email_name: "Big Fun", email: "bigfun@ourairbo.com"
       user = FactoryGirl.create :user, email: 'joe@example.com'
       user.add_board(demo)
-      
+
 
       visit admin_demo_targeted_messages_path(demo, as: an_admin)
 
@@ -74,7 +74,7 @@ feature 'Admin sends targeted messages using segmentation' do
       fill_in "html_text",  :with => "some bullshit"
       fill_in "plain_text", :with => "some bullshit"
       click_button "It's going to be OK"
-      
+
 
       open_email 'joe@example.com'
       expect(current_email.to_s).to include("From: Big Fun <bigfun@ourairbo.com>")
@@ -107,7 +107,7 @@ feature 'Admin sends targeted messages using segmentation' do
     click_button "It's going to be OK"
     expect_content "Email text blank, no emails sent"
 
-    
+
     expect(ActionMailer::Base.deliveries).to be_empty
   end
 
@@ -122,7 +122,7 @@ feature 'Admin sends targeted messages using segmentation' do
       click_button "It's going to be OK"
       expect_content "Email text blank, no emails sent"
 
-      
+
       expect(ActionMailer::Base.deliveries).to be_empty
     end
 
@@ -137,7 +137,7 @@ feature 'Admin sends targeted messages using segmentation' do
         click_button "It's going to be OK"
         expect_no_content "Email text blank, no emails sent"
 
-        
+
         expect(ActionMailer::Base.deliveries).not_to be_empty
       end
     end
@@ -150,7 +150,7 @@ feature 'Admin sends targeted messages using segmentation' do
     click_button "It's going to be OK"
     expect_content "SMS text blank, no SMSes sent"
 
-    
+
 
     expect(FakeTwilio::Client.messages).to be_empty
   end
@@ -164,7 +164,7 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Email text blank, no emails sent"
     expect_content "SMS text blank, no SMSes sent"
 
-    
+
     expect(ActionMailer::Base.deliveries).to be_empty
     expect(FakeTwilio::Client.messages).to be_empty
   end
@@ -183,7 +183,7 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Scheduled email to 6 users"
     expect_content "Scheduled SMS to 6 users"
 
-    
+
     expect(ActionMailer::Base.deliveries.length).to eq(6)
     expect(FakeTwilio::Client.messages.length).to eq(6)
   end
@@ -233,7 +233,7 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Scheduled email to 6 users"
     expect_content "Scheduled SMS to 6 users"
 
-    
+
     expect(ActionMailer::Base.deliveries.size).to eq(6)
     expect(FakeTwilio::Client.messages.size).to eq(6)
   end
@@ -312,7 +312,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
     expect_content "Scheduled SMS to 20 users"
 
-    
+
     expect(FakeTwilio::Client.messages.size).to eq(20)
   end
 
@@ -332,7 +332,6 @@ feature 'Admin sends targeted messages using segmentation' do
     fill_in "sms_text", :with => sms_text
 
     click_button "It's going to be OK"
-    expect(page.status_code).to_not eq(500)
     expect(page.find('#html_text').value).to eq(long_text)
     expect(page.find('#plain_text').value).to eq(long_text)
     expect(page.find('#subject').value).to eq(mail_subject)

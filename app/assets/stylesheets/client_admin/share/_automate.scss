@@ -1,0 +1,41 @@
+.share-automate-component {
+  .automate-form-inputs {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .flex-group {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+  }
+
+  .flex-group select {
+    margin-bottom: 0;
+  }
+
+  .frequency-flex-group {
+    width: 120px;
+  }
+
+  .time-flex-group {
+    width: 100px;
+  }
+
+  .day-flex-group {
+    width: 220px;
+  }
+
+  .flex-break {
+    flex-basis: 100%;
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+  }
+
+  .check_label {
+    margin-left: 3px;
+    display: inline;
+  }
+}

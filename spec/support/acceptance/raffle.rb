@@ -31,8 +31,8 @@ module RaffleHelpers
   end
 
   def fill_prize_form
-    start_date = to_calendar_format(Time.current.midnight)
-    end_date = to_calendar_format(Time.current.end_of_day + 7.days)
+    start_date = to_calendar_format(Time.current.midnight + 1.day)
+    end_date = to_calendar_format(Time.current.midnight + 8.days)
 
     fill_in_start_date start_date
     fill_in_end_date end_date

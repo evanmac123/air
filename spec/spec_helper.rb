@@ -14,28 +14,31 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'clearance/rspec'
 require 'capybara/rspec'
-require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 Capybara::Screenshot.autosave_on_failure = false
 
-## Poltergeist Configuration
-#### If you'd like to run a feature spec in debug mode, change the Capybara js driver to :poltergeist_debug and you can insert page.driver.debug into your tests to pause the test and launch a browser which gives you the inspector to view your test run with.
-
-Capybara.register_driver :poltergeist_debug do |app|
-  Capybara::Poltergeist::Driver.new(app, inspector: true)
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, { js_errors: false,  window_size: [1920, 6000] })
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w(headless disable-gpu) }
+  )
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
 end
 
-Capybara.javascript_driver = :poltergeist
-# Capybara.javascript_driver = :poltergeist_debug
-# Capybara.javascript_driver = :selenium
+Capybara.register_driver :firefox do |app|
+  Capybara::Selenium::Driver.new(app, browser: :firefox)
+end
 
+# Capybara.javascript_driver = :firefox
+Capybara.javascript_driver = :chrome
+# Capybara.javascript_driver = :headless_chrome
 
 ##
 

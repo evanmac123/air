@@ -301,13 +301,10 @@
   &.with_spinner {
     @include button-with-spinner;
     &.outlined {
-      @include button-with-spinner;//($n-blue);
-      // &. {
-      //   @include button-with-spinner($gray-4);
-      // }
-      // &. {
-      //   @include button-with-spinner($n-blue);
-      // }
+      @include button-with-spinner($n-blue);
+      &.red {
+        @include button-with-spinner($n-red);
+      }
     }
   }
 

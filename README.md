@@ -6,7 +6,7 @@ Developer Machine Setup
 ------------
 
 ### Mac Only
-Install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, Qt, ImageMagick, elasticsearch
+Install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, chromedriver, geckodriver, ImageMagick, elasticsearch
 
 Git should be installed on your Mac if it's not do: brew install git.
 

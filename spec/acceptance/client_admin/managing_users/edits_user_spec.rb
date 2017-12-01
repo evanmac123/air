@@ -131,6 +131,8 @@ feature 'Edits user' do
     visit(edit_client_admin_user_path(user, as: client_admin))
     click_link "Delete user"
 
+    accept_alert
+
     should_be_on client_admin_users_path
     expect {user.reload}.to raise_error(ActiveRecord::RecordNotFound)
   end

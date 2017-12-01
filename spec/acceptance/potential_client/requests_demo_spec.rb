@@ -10,16 +10,14 @@ feature "Potential user requests demo", js: true do
         fill_in('lead_contact[email]', with: "test@example.com")
         fill_in('lead_contact[organization_name]', with: "Test Company")
         fill_in('lead_contact[phone]', with: "9018484848")
-
-        click_button("Submit")
-
-        expect_content("Please enter your first and last name.")
-
         fill_in('lead_contact[name]', with: "Test Name")
 
         click_button("Submit")
 
-        expect_content("Someone from our team will reach out to you in the next 24 hours to schedule a time to chat.")
+
+        within ".airbo-marketing-site" do
+          expect_content("Someone from our team will reach out to you in the next 24 hours to schedule a time to chat.")
+        end
       end
     end
   end
