@@ -20,34 +20,13 @@ describe TileCompletionsController do
   context "in board" do
 
     let(:demo) {FactoryGirl.create :demo}
-    let(:tile) {FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: demo)}
+    let(:tile) {FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: demo, points: 10)}
     let(:user) {FactoryGirl.create :user, demo: demo}
 
-    it "should create act if tile is anonymous" do
-
-      Tile.any_instance..stubs(:is_anonymous?).returns(true)
-      sign_in_as user
-      expect(Act.count).to eq(0)
-      post :create, tile_id: tile.id
-
-    end
-
-    it "should create act if tile is not anonymous" do
-
-      Tile.any_instance.stubs(:is_anonymous?).returns(false)
-      sign_in_as user
-      post :create, tile_id: tile.id
-
-      expect(Act.count).to eq(1)
-    end
-
-    it "should update points anonymously if tile is anonymous" do
-
+    it "should not create act if tile is anonymous" do
       Tile.any_instance.stubs(:is_anonymous?).returns(true)
       sign_in_as user
-      user.expects(:update_points)
       post :create, tile_id: tile.id
-
       expect(Act.count).to eq(0)
     end
   end

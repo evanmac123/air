@@ -16,20 +16,17 @@ class TileCompletionsController < ApplicationController
     remember_points_and_tickets
 
     if create_tile_completion(@tile)
-      if  @tile.is_anonymous?
-        update_user_points_anonymously @tile.points
-      else
+      current_user.update_points(@tile.points)
+      unless  @tile.is_anonymous?
         Act.delay.create_from_tile_completion(tile: @tile, user: current_user)
       end
     else
       flash[:failure] = "It looks like you've already done this tile, possibly in a different browser window or tab."
     end
 
-    persist_points_and_tickets
     add_start_over_if_guest
 
     decide_if_tiles_can_be_done(Tile.satisfiable_to_user(current_user))
-
     render json: {
       starting_points: @starting_points,
       starting_tickets: @starting_tickets
@@ -52,10 +49,6 @@ class TileCompletionsController < ApplicationController
       completion.save
     end
 
-    def update_user_points_anonymously points
-      current_user.update_points(points)
-    end
-
     def find_board_for_guest
       @demo ||= @tile.demo
     end
@@ -63,11 +56,6 @@ class TileCompletionsController < ApplicationController
     def remember_points_and_tickets
       @starting_points = current_user.points || 0
       @starting_tickets = current_user.tickets || 0
-    end
-
-    def persist_points_and_tickets
-      flash[:previous_points] = @previous_points
-      flash[:previous_tickets] = @previous_tickets
     end
 
     def add_start_over_if_guest
