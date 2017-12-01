@@ -1,16 +1,16 @@
 <div class="tabs-component-full-width">
   <ul class="inline-list js-search-tabs">
-    <li class="tab active" data-tab-content=".js-search-all-results"><a href="#">All Results <span class="result-count"><%= "(#{search_service.total_result_count})" %></a></li>
+    <li class="js-all-results-tab tab active" data-tab-content=".js-search-all-results"><a href="#">All Results <span class="result-count"><%= "(#{search_service.total_result_count})" %></a></li>
 
-    <li class="tab" data-tab-content=".js-search-my-tiles"><a href="#">My Tiles <span class="result-count"><%= "(#{search_service.client_admin_tiles.total_count})" %></a></li>
+    <li class="js-my-tiles-tab tab" data-tab-content=".js-search-my-tiles"><a href="#">My Tiles <span class="result-count"><%= "(#{search_service.client_admin_tiles.total_count})" %></a></li>
 
     <% if search_service.client_admin_org_tiles.present? %>
-      <li class="tab" data-tab-content=".js-search-organization-tiles"><a href="#">Organization Tiles <span class="result-count"><%= "(#{search_service.client_admin_org_tiles.total_count})" %></a></li>
+      <li class="js-organization-tiles-tab tab" data-tab-content=".js-search-organization-tiles"><a href="#">Organization Tiles <span class="result-count"><%= "(#{search_service.client_admin_org_tiles.total_count})" %></a></li>
     <% end %>
 
-    <li class="tab" data-tab-content=".js-search-explore-tiles"><a href="#">Explore Tiles <span class="result-count"><%= "(#{search_service.explore_tiles.total_count})" %></a></li>
+    <li class="js-explore-tiles-tab tab" data-tab-content=".js-search-explore-tiles"><a href="#">Explore Tiles <span class="result-count"><%= "(#{search_service.explore_tiles.total_count})" %></a></li>
 
-    <li class="tab" data-tab-content=".js-search-campaigns"><a href="#">Campaigns <span class="result-count"><%= "(#{search_service.campaigns.count})" %></a></li>
+    <li class="js-campaigns-tab tab" data-tab-content=".js-search-campaigns"><a href="#">Campaigns <span class="result-count"><%= "(#{search_service.campaigns.count})" %></a></li>
   </ul>
 </div>
 

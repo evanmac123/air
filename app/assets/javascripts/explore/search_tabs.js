@@ -9,6 +9,7 @@ Airbo.SearchTabs = (function(){
 
   function initTabToggle(){
     $('.js-search-tabs li').click(function(){
+      $(document).scrollTop(0);
       $('.js-search-tabs li').removeClass('active');
       $(this).addClass('active');
       var currentTab = $(this).data('tabContent');
@@ -19,14 +20,7 @@ Airbo.SearchTabs = (function(){
 
   function initMoreTabToggle(){
     $('.searchMoreTabLink').click(function(){
-      $('.searchTabLink').removeClass('selected');
-      var newTab = $(this).data('tabId');
-      $(newTab).addClass('selected');
-      var currentTab = $(this).attr('href');
-      $('.searchTab').hide();
-      $(document).scrollTop(0);
-      $(currentTab).show();
-      return false;
+      $('.js-my-tiles-tab').trigger("click")
     });
   }
 
