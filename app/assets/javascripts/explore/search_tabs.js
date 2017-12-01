@@ -3,32 +3,24 @@ Airbo.Utils = Airbo.Utils || {};
 
 Airbo.SearchTabs = (function(){
   function initTabs(){
-    $('.searchTab').hide();
-    $('.searchTab:first').show();
-    $('.searchTabLink:first').addClass('selected');
+    $('.js-search-tab-content').hide();
+    $('.js-search-tab-content:first').show();
   }
 
   function initTabToggle(){
-    $('.searchTabLink').click(function(){
-      $('.searchTabLink').removeClass('selected');
-      $(this).addClass('selected');
-      var currentTab = $(this).attr('href');
-      $('.searchTab').hide();
+    $('.js-search-tabs li').click(function(){
+      $(document).scrollTop(0);
+      $('.js-search-tabs li').removeClass('active');
+      $(this).addClass('active');
+      var currentTab = $(this).data('tabContent');
+      $('.js-search-tab-content').hide();
       $(currentTab).show();
-      return false;
     });
   }
 
   function initMoreTabToggle(){
     $('.searchMoreTabLink').click(function(){
-      $('.searchTabLink').removeClass('selected');
-      var newTab = $(this).data('tabId');
-      $(newTab).addClass('selected');
-      var currentTab = $(this).attr('href');
-      $('.searchTab').hide();
-      $('body').scrollTop(0);
-      $(currentTab).show();
-      return false;
+      $('.js-my-tiles-tab').trigger("click")
     });
   }
 

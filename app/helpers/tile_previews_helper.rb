@@ -130,7 +130,7 @@ module TilePreviewsHelper
   end
 
   def display_tile_share_options?(tile)
-    tile.is_sharable || params[:controller] == "explore/tile_previews"
+    tile.is_sharable || tile.is_public
   end
 
   def tile_link_source

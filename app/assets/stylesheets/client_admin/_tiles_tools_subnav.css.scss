@@ -13,7 +13,7 @@
   }
   li {
     position: relative;
-    border-bottom: 1px darken($dark-blue, 5%) solid;
+    border-bottom: 1px transparent solid;
     &:hover {
       background-color: darken($dark-blue, 5%);
     }
