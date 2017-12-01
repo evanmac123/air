@@ -73,11 +73,11 @@ module ApplicationHelper
   end
 
   def starting_points
-    flash[:previous_points].try(:to_i) || current_user.points
+    current_user.points
   end
 
   def starting_tickets
-    flash[:previous_tickets].try(:to_i) || current_user.tickets
+    current_user.tickets
   end
 
   def raffle_progress_bar

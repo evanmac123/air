@@ -14,7 +14,6 @@ class Act < ActiveRecord::Base
 
   after_create do
     user.update_last_acted_at
-    user.update_points(points) if points
   end
 
   scope :ordered, -> { order("created_at DESC") }
@@ -26,10 +25,6 @@ class Act < ActiveRecord::Base
       inherent_points: tile.points,
       text: "completed the tile: \"#{tile.headline}\""
     )
-  end
-
-  def points
-    self.inherent_points || 0
   end
 
   def self.unhidden

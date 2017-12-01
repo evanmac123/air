@@ -63,8 +63,8 @@ class GuestUser < ActiveRecord::Base
     update_attributes(last_acted_at: Time.current)
   end
 
-  def update_points(bump, *args)
-    PointIncrementer.new(self, bump).update_points
+  def update_points(point_increment)
+    PointIncrementer.call(user: self, increment: point_increment)
   end
 
   def mixpanel_distinct_id

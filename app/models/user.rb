@@ -625,7 +625,7 @@ class User < ActiveRecord::Base
   end
 
   def update_points(point_increment)
-    PointIncrementer.new(self, point_increment).update_points
+    PointIncrementer.call(user: self, increment: point_increment)
   end
 
   def password_optional?
