@@ -197,7 +197,7 @@ Airbo.TilesDigestManagement = (function() {
       var $btn = $("#save_draft_digest");
 
       if($btn.data("saved") === true) {
-        $btn.html('<i class="fa fa-pencil-square-o"></i> Save Draft');
+        $btn.html('<i class="fa fa-pencil-square-o"></i> Save');
         $btn.data("saved", false);
       }
     });
