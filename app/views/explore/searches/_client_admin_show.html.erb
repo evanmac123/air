@@ -1,55 +1,44 @@
+<div class="tabs-component-full-width">
+  <ul class="inline-list js-search-tabs">
+    <li class="tab active" data-tab-content=".js-search-all-results"><a href="#">All Results <span class="result-count"><%= "(#{search_service.total_result_count})" %></a></li>
+
+    <li class="tab" data-tab-content=".js-search-my-tiles"><a href="#">My Tiles <span class="result-count"><%= "(#{search_service.client_admin_tiles.total_count})" %></a></li>
+
+    <% if search_service.client_admin_org_tiles.present? %>
+      <li class="tab" data-tab-content=".js-search-organization-tiles"><a href="#">Organization Tiles <span class="result-count"><%= "(#{search_service.client_admin_org_tiles.total_count})" %></a></li>
+    <% end %>
+
+    <li class="tab" data-tab-content=".js-search-explore-tiles"><a href="#">Explore Tiles <span class="result-count"><%= "(#{search_service.explore_tiles.total_count})" %></a></li>
+
+    <li class="tab" data-tab-content=".js-search-campaigns"><a href="#">Campaigns <span class="result-count"><%= "(#{search_service.campaigns.count})" %></a></li>
+  </ul>
+</div>
+
 <div class="row">
   <div class="columns small-12">
     <p class="explore-headers search-results-description">Search results for "<%= params[:query] %>"</p>
   </div>
 </div>
-<div id="searchTabs">
-  <div class="row">
-    <div class="columns small-12 search-options tabs-component">
-      <%= link_to "#allResults", class:"first searchTabLink" do %>
-        All Results <span class="result-count"><%= "(#{search_service.total_result_count})" %>
-      <% end %>
+<div id="allResults" class="js-search-all-results js-search-tab-content searchTab">
+  <%= render 'explore/searches/search_overview', search_service: search_service %>
+</div>
 
-      <%= link_to "#myTiles", class:"searchTabLink", id: "myTilesTab" do %>
-        My Tiles <span class="result-count"><%= "(#{search_service.client_admin_tiles.total_count})" %>
-      <% end %>
-
-      <% if search_service.client_admin_org_tiles.present? %>
-        <%= link_to "#orgTiles", class:"searchTabLink", id: "orgTilesTab" do %>
-          Organization Tiles <span class="result-count"><%= "(#{search_service.client_admin_org_tiles.total_count})" %>
-        <% end %>
-      <% end %>
-
-      <%= link_to "#exploreTiles", class:"searchTabLink", id: "exploreTilesTab" do %>
-        Explore Tiles <span class="result-count"><%= "(#{search_service.explore_tiles.total_count})" %>
-      <% end %>
-
-      <%= link_to "#campaigns", class:"last searchTabLink", id: "campaignsTab" do %>
-        Campaigns <span class="result-count"><%= "(#{search_service.campaigns.count})" %>
-      <% end %>
-    </div>
+<div id="myTiles" class="js-search-my-tiles js-search-tab-content searchTab">
+  <div class="manage-section">
+    <%= render "explore/searches/my_tiles", { search_service: search_service} %>
   </div>
-  <div id="allResults" class="searchTab">
-    <%= render 'explore/searches/search_overview', search_service: search_service %>
-  </div>
+</div>
 
-  <div id="myTiles" class="searchTab">
-    <div class="manage-section">
-      <%= render "explore/searches/my_tiles", { search_service: search_service} %>
-    </div>
+<% if search_service.client_admin_org_tiles.present? %>
+  <div id="orgTiles" class="js-search-organization-tiles js-search-tab-content searchTab tile_wall_explore">
+    <%= render "explore/searches/org_tiles", { search_service: search_service} %>
   </div>
+<% end %>
 
-  <% if search_service.client_admin_org_tiles.present? %>
-    <div id="orgTiles" class="searchTab tile_wall_explore">
-      <%= render "explore/searches/org_tiles", { search_service: search_service} %>
-    </div>
-  <% end %>
+<div id="exploreTiles" class="js-search-explore-tiles js-search-tab-content searchTab tile_wall_explore">
+  <%= render "explore/searches/explore_tiles", { search_service: search_service} %>
+</div>
 
-  <div id="exploreTiles" class="searchTab tile_wall_explore">
-    <%= render "explore/searches/explore_tiles", { search_service: search_service} %>
-  </div>
-
-  <div id="campaigns" class="searchTab tile_wall_explore">
-    <%= render "explore/searches/campaigns", { search_service: search_service} %>
-  </div>
+<div id="campaigns" class="js-search-campaigns js-search-tab-content searchTab tile_wall_explore">
+  <%= render "explore/searches/campaigns", { search_service: search_service} %>
 </div>
