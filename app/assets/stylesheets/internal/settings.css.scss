@@ -24,27 +24,5 @@ body.settings {
           display: inline;
         }
         input[type="file"] {margin-bottom:1em; width:80%;}
-        // input[type="submit"].clear {@include app-button($light-gray);}
     }
 }
-
-#user_new_phone_validation {margin-bottom:1em;}
-label[for="user_new_phone_validation"] {padding-bottom:1em;}
-
-#password_change {
-    form {background:$white; padding-bottom:1em;}
-    ul {
-        margin-bottom:0;
-        input[type="password"] {width:97%;}
-    }
-    ul + ul {padding-top:0;}
-}
-
-// Right side
-#privacy_settings select {font-size:1.15em;}
-
-#notification_settings li {display:inline-block; margin-right:1em;}
-#notification_settings li label {display:inline-block; margin-left:.25em;}
-#settings_new_number_verification {margin-bottom: 2em;}
-
-#user_phone_number {width:100%;}

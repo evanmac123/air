@@ -6,6 +6,8 @@ class BoardMembership < ActiveRecord::Base
   belongs_to :demo, counter_cache: :users_count
   belongs_to :location
 
+  as_enum :notification_pref, email: 1, text_message: 2, both: 3, unsubscribe: 4
+
 	scope :admins, -> { where(:is_client_admin => true) }
 
   attr_accessor :role

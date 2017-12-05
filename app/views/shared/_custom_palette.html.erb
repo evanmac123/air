@@ -136,21 +136,21 @@ header #guest_user_start_over_button, header #guest_user_start_over_button[disab
   background-color:
 }
 
-.button.button {
+.button {
   <%=@solid_filled_styles%>
 }
-.button.button:not([disabled]):hover, .button.button:not([disabled]):focus, .button.button:not([disabled]):active {
+.button:not([disabled]):hover, .button:not([disabled]):focus, .button:not([disabled]):active {
   <%=@solid_filled_styles%>
   <%=@solid_hover_styles%>
 }
 
-.button.button.outlined {
+.button.outlined {
   border-color:<%=@primary_color%>;
   background-color: transparent;
   color:<%=@primary_color%>;
 }
 
-.button.button.outlined:not([disabled]):hover, .button.button.outlined:hover, .button.button.outlined:focus, .button.button.outlined:active {
+.button.outlined:not([disabled]):hover, .button.outlined:hover, .button.outlined:focus, .button.outlined:active {
   border-color: <%=@primary_color%>;
   background-color: <%=@primary_color%>;
   opacity: 1;

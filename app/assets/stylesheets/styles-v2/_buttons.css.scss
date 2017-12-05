@@ -95,7 +95,7 @@
   position: relative;
   min-width: 60px;
   min-height: 32px;
-  &, &:active, &:hover {
+  &, &:active, &:hover, &:focus {
     color: transparent;
   }
   &:before {
@@ -143,7 +143,7 @@
   }
 }
 
-.button.button {
+.button {
   @include button;
   // &. {
   //   @include button-color($gray-4);
@@ -298,7 +298,7 @@
     }
   }
 
-  &.with_spinner {
+  &.button.with_spinner {
     @include button-with-spinner;
     &.outlined {
       @include button-with-spinner($n-blue);
