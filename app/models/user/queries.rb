@@ -23,14 +23,6 @@ module User::Queries
     where("name ILIKE ?", "%" + text + "%")
   end
 
-  def wants_email
-    where(:notification_method => %w(email both))
-  end
-
-  def wants_sms
-    where(:notification_method => %w(sms both))
-  end
-
   def by_claim_code(claim_code)
     where(claim_code: claim_code)
   end
@@ -102,8 +94,8 @@ module User::Queries
     where(id: user_ids).where('users.id != ?', current_user.id)
   end
 
-  def push_message_recipients(respect_notification_method, user_ids)
-    users = User.where(:id => user_ids)
+  def push_message_recipients(user_ids:, demo_id:, respect_notification_method:)
+    users = users_with_bm_notification_pref(user_ids: user_ids, demo_id: demo_id)
 
     if respect_notification_method
       email_recipient_ids = users.wants_email.pluck(:id)
@@ -113,6 +105,18 @@ module User::Queries
     end
 
     return email_recipient_ids, sms_recipient_ids
+  end
+
+  def users_with_bm_notification_pref(user_ids:, demo_id:)
+    User.select("users.id, board_memberships.notification_pref_cd AS notification_pref_cd").joins(:board_memberships).where(id: user_ids, board_memberships: { demo_id: demo_id })
+  end
+
+  def wants_email
+    where("notification_pref_cd = ? OR notification_pref_cd = ?", BoardMembership.notification_prefs[:email], BoardMembership.notification_prefs[:both])
+  end
+
+  def wants_sms
+    where("notification_pref_cd = ? OR notification_pref_cd = ?", BoardMembership.notification_prefs[:text_message], BoardMembership.notification_prefs[:both])
   end
 
   def alphabetical_by_name

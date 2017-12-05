@@ -36,7 +36,10 @@ class Friendship < ActiveRecord::Base
 
   def send_follow_notification
     return unless self.state == State::INITIATED
-    return unless %w(both email).include?(friend.notification_method)
+
+    notification_prefs = friend.board_memberships.map(&:notification_pref)
+
+    return unless notification_prefs.include?(:email) || notification_prefs.include?(:both)
 
     send_follow_notification_by_email
   end

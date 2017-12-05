@@ -102,11 +102,7 @@ body.invitations-show form {
       }
     }
   }
-  #notification_prefs {
-    border:1px lighten($light-gray, 5%) dashed;
-    padding:1em;
-    .form-label {padding-bottom:.5em;}
-  }
+
   #check-terms {
     margin:.5em 0;
     #terms_label {
