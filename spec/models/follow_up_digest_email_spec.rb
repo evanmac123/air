@@ -67,12 +67,12 @@ describe FollowUpDigestEmail do
     before  do
       @demo = FactoryGirl.create(:demo)
       @sender = FactoryGirl.create(:client_admin, demo: @demo)
-      @sender.board_memberships.first.update_attributes(followup_muted: true)
+      @sender.board_memberships.first.update_attributes(digest_muted: true)
 
       @muted = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
 
       bm = @muted.board_memberships.first
-      bm.followup_muted = true
+      bm.digest_muted = true
       bm.save
 
       @user1 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)

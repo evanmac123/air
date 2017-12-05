@@ -447,7 +447,7 @@ describe 'Digest email' do
       unmuted_user = FactoryGirl.create(:user, demo: followup_board)
       muted_user   = FactoryGirl.create(:user, demo: followup_board)
 
-      muted_user.board_memberships.update_all(followup_muted: true)
+      muted_user.board_memberships.update_all(digest_muted: true)
 
       digest = TilesDigest.create(demo: followup_board, sender: unmuted_user, tile_ids: [], sent_at: Time.current, include_unclaimed_users: true)
 
