@@ -1,9 +1,0 @@
-class RemoveDemoIdFromUsers < ActiveRecord::Migration
-  def up
-    remove_column :users, :demo_id
-  end
-
-  def down
-    add_column :users, :demo_id, :integer
-  end
-end
