@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20171116011714) do
+ActiveRecord::Schema.define(:version => 20171205093043) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1564,8 +1564,8 @@ ActiveRecord::Schema.define(:version => 20171116011714) do
     t.boolean  "manage_access_prompt_seen",                       :default => false,       :null => false
     t.integer  "primary_user_id"
     t.string   "official_email"
-    t.integer  "organization_id"
     t.boolean  "receives_sms",                                    :default => true
+    t.integer  "organization_id"
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"
@@ -1580,7 +1580,6 @@ ActiveRecord::Schema.define(:version => 20171116011714) do
   add_index "users", ["location_id"], :name => "index_users_on_location_id"
   add_index "users", ["name"], :name => "user_name_trigram"
   add_index "users", ["official_email"], :name => "index_users_on_official_email"
-  add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
   add_index "users", ["overflow_email"], :name => "index_users_on_overflow_email"
   add_index "users", ["phone_number"], :name => "index_users_on_phone_number"
   add_index "users", ["privacy_level"], :name => "index_users_on_privacy_level"
