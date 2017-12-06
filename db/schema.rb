@@ -149,7 +149,7 @@ ActiveRecord::Schema.define(:version => 20171205200925) do
     t.boolean  "send_weekly_activity_report",      :default => true
     t.boolean  "allowed_to_make_tile_suggestions", :default => false, :null => false
     t.datetime "joined_board_at"
-    t.integer  "notification_pref_cd",             :default => 3
+    t.integer  "notification_pref_cd",             :default => 0
   end
 
   add_index "board_memberships", ["demo_id"], :name => "index_board_memberships_on_demo_id"
