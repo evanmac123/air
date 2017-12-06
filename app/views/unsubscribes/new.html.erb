@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="external-form-wrapper small-12 large-6 large-centered columns" id="unsubscribe-form">
+    <h2>Are you sure you want to unsubscribe?</h2>
+    <p><%= @copy %></p>
+    <%= form_tag unsubscribe_path do %>
+      <%= hidden_field_tag :user_id, @user_id %>
+      <%= hidden_field_tag :demo_id, @demo_id %>
+      <%= hidden_field_tag :email_type, @email_type %>
+      <%= hidden_field_tag :token, @token %>
+      <%= submit_tag "Unsubscribe" %>
+    <% end %>
+  </div>
+</div>
