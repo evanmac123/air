@@ -22,6 +22,6 @@ class SettingsController < UserBaseController
   private
 
     def user_params
-      params.require(:user).permit(:privacy_level, :receives_sms)
+      params.require(:user).permit(:privacy_level)
     end
 end

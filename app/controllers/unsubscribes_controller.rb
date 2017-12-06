@@ -2,19 +2,22 @@ class UnsubscribesController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @token = params[:token]
+    binding.pry
     render :layout => 'external'
   end
 
   def show
+    binding.pry
     render layout: 'external'
   end
 
   def create
+    binding.pry
     @user = User.find(params[:unsubscribe][:user_id])
     @reason = params[:unsubscribe][:reason] || ''
     if EmailLink.validate_token(@user, params[:unsubscribe][:token])
       answer = tell_sendgrid_to_unsub(@user)
-      @user.ping 'unsubscribed'
+      ping('unsubscribed')
       if answer.include? 'success'
         Unsubscribe.create(user: @user, reason: @reason)
         render :show, :layout => 'external'

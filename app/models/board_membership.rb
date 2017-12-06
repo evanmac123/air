@@ -77,6 +77,10 @@ class BoardMembership < ActiveRecord::Base
     claimed_for_digest.receives_text_messages
   end
 
+  def receives_text_messages
+    [:both, :text_message].include?(notification_pref)
+  end
+
   #TODO figure a better way to handle this
   def update_or_destroy_user
     if user.board_memberships.empty?

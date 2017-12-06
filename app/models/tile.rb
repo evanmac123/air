@@ -330,11 +330,6 @@ class Tile < ActiveRecord::Base
     tiles[tiles.index(tile) + offset] || first_tile
   end
 
-
-  def self.bulk_complete(demo_id, tile_id, emails)
-    Delayed::Job.enqueue TileBulkCompletionJob.new(demo_id, tile_id, emails)
-  end
-
   def self.find_additional_tiles_for_manage_section(status_name, presented_ids, tile_demo_id)
     FindAdditionalTilesForManageSection.new(status_name, presented_ids, tile_demo_id).find
   end
