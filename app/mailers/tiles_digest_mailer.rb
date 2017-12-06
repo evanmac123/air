@@ -56,7 +56,6 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
     def should_deliver_text_message?(user, demo)
       bm = user.board_memberships.where(demo_id: demo.id).first
-
-      [BoardMembership.notification_prefs[:both], BoardMembership.notification_prefs[:text_message]].include?(bm.notification_pref_cd)
+      bm.receives_text_messages
     end
 end
