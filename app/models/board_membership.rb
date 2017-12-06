@@ -33,8 +33,20 @@ class BoardMembership < ActiveRecord::Base
     end
   end
 
+  def self.non_site_admin
+    joins(:user).where(user: { is_site_admin: false })
+  end
+
   def self.claimed
     where("joined_board_at IS NOT NULL")
+  end
+
+  def self.subscribed
+    where("notification_pref_cd != ?", BoardMembership.unsubscribe)
+  end
+
+  def self.receives_text_messages
+    where(notification_pref_cd: [notification_prefs[:both], notification_prefs[:text_message]])
   end
 
   def self.current
@@ -47,6 +59,22 @@ class BoardMembership < ActiveRecord::Base
 
   def self.most_recently_posted_to
     includes(:demo).order("demos.tile_last_posted_at DESC")
+  end
+
+  def self.all_for_digest
+    subscribed
+  end
+
+  def self.claimed_for_digest
+    all_for_digest.claimed
+  end
+
+  def self.all_for_digest_sms
+    all_for_digest.receives_text_messages
+  end
+
+  def self.claimed_for_digest_sms
+    claimed_for_digest.receives_text_messages
   end
 
   #TODO figure a better way to handle this

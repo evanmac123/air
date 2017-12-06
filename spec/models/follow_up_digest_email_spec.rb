@@ -67,12 +67,12 @@ describe FollowUpDigestEmail do
     before  do
       @demo = FactoryGirl.create(:demo)
       @sender = FactoryGirl.create(:client_admin, demo: @demo)
-      @sender.board_memberships.first.update_attributes(digest_muted: true)
+      @sender.board_memberships.first.update_attributes(notification_pref_cd: BoardMembership.notification_prefs[:unsubscribe])
 
       @muted = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
 
       bm = @muted.board_memberships.first
-      bm.digest_muted = true
+      bm.notification_pref_cd = BoardMembership.notification_prefs[:unsubscribe]
       bm.save
 
       @user1 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
@@ -170,14 +170,6 @@ describe FollowUpDigestEmail do
           expect(@fu.tiles_digest.followup_delivered).to be true
         end
       end
-    end
-  end
-
-  def users_including_unclaimed include_unclaimed
-    if include_unclaimed
-      @demo.users.pluck(:id)
-    else
-      @demo.claimed_users.pluck(:id)
     end
   end
 end

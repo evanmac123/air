@@ -42,7 +42,7 @@ module User::Queries
   def claimed_on_board_membership(demo_id, excluded_uids=[])
     user_arel = User.arel_table
 
-    joins(:board_memberships).where(board_memberships: { demo_id: demo_id, digest_muted: false }).where("board_memberships.joined_board_at IS NOT NULL").where(user_arel[:id].not_in(excluded_uids))
+    joins(:board_memberships).where(board_memberships: { demo_id: demo_id }).where("board_memberships.joined_board_at IS NOT NULL").where(user_arel[:id].not_in(excluded_uids))
   end
 
   def unclaimed_on_board_membership(demo_id)

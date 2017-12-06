@@ -83,7 +83,6 @@ namespace :admin do
     resources :locations
     resource :reports, :only => :show
     namespace :reports do
-      resource :location_breakdown, :only => [:show]
       resource :points, :only => [:show]
       resource :interactions, :only => [:show, :keepalive]
       resource :friendships, :only => :show

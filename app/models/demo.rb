@@ -39,8 +39,6 @@ class Demo < ActiveRecord::Base
   validates_uniqueness_of :public_slug
   validates_presence_of :public_slug, on: :update
 
-  validate :ticket_fields_all_set, :if => :uses_tickets
-
   validates_with EmailFormatValidator, allow_blank: true
 
   before_validation :unlink_from_organization, if: :unlink
@@ -193,12 +191,10 @@ class Demo < ActiveRecord::Base
     tiles.draft
   end
 
-
   def  bracket tile
     arr = by_status_and_position_of_tile tile.status
     [prev_in_group(arr, tile.id), next_in_group(arr, tile.id)]
   end
-
 
   #NOTE technically position should never be nil so the use of compact should
   #not be necessary here
@@ -224,11 +220,6 @@ class Demo < ActiveRecord::Base
     @_num_tile_completions
   end
 
-  def example_tooltip_or_default
-    default = "went for a walk"
-    example_tooltip.blank? ? default : example_tooltip
-  end
-
   def welcome_message(user=nil)
     custom_message(
       :custom_welcome_message,
@@ -236,27 +227,6 @@ class Demo < ActiveRecord::Base
       user,
       :name => [:demo, :name],
       :unique_id    => [:sms_slug]
-    )
-  end
-
-  def prize_message(user = nil)
-    custom_message(
-      :prize,
-      "Sorry, no physical prizes this time. This one's just for the joy of the contest."
-    )
-  end
-
-  def help_response(user = nil)
-    custom_message(
-      :help_message,
-      "Text:\nRULES for command list\nPRIZES for prizes\nSUPPORT for help from the help desk"
-    )
-  end
-
-  def game_over_response
-    custom_message(
-      :act_too_late_message,
-      "Thanks for participating. Your administrator has disabled this board. If you'd like more information e-mailed to you, please text INFO."
     )
   end
 
@@ -286,36 +256,6 @@ class Demo < ActiveRecord::Base
     claim_state_machine_without_default || ClaimStateMachine.default_claim_state_machine(self)
   end
 
-  def user_with_phone_number_count
-    users.non_site_admin.with_phone_number.count
-  end
-
-  def claimed_user_count
-    claimed_users.non_site_admin.count
-  end
-
-  def claimed_user_with_phone_number_count
-    claimed_users.non_site_admin.with_phone_number.count
-  end
-
-  def claimed_user_with_phone_fraction
-    _claimed_user_count = claimed_user_count
-    if _claimed_user_count > 0
-      users.claimed.with_phone_number.count.to_f / claimed_user_count
-    else
-      0.0
-    end
-  end
-
-  def claimed_user_with_peer_invitation_fraction
-    _claimed_user_count = claimed_user_count
-    if _claimed_user_count > 0
-      users.claimed.with_game_referrer.count.to_f / claimed_user_count
-    else
-      0.0
-    end
-  end
-
   alias_method_chain :claim_state_machine, :default
 
   def number_not_found_response
@@ -341,12 +281,6 @@ class Demo < ActiveRecord::Base
     )
   end
 
-  def location_breakdown
-    {}.tap do |breakdown|
-      self.locations.each {|location| breakdown[location] = location.users.count}
-    end
-  end
-
   def self.number_not_found_response(receiving_number)
     demo = self.where(:phone_number => receiving_number).first
     demo ? demo.number_not_found_response : default_number_not_found_response
@@ -354,27 +288,6 @@ class Demo < ActiveRecord::Base
 
   def self.default_number_not_found_response
     "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."
-  end
-
-  def name_with_sponsor
-    if sponsor
-      "#{name} at #{sponsor}"
-    else
-      name
-    end
-  end
-
-  def print_pending_friendships
-    total_friendships = Friendship.where(:user_id => user_ids).count / 2
-    number_accepted = Friendship.where(:user_id => user_ids, :state => "accepted").count / 2
-    percent = 100.0 * number_accepted / total_friendships
-    "#{name} has #{total_friendships} initiated connections, #{number_accepted} of which have been accepted (#{percent}%)"
-  end
-
-  def ticket_spread
-    return nil unless self.uses_tickets
-
-    self.maximum_ticket_award - self.minimum_ticket_award
   end
 
   # TODO: This isn't great but a work around until we sort out referencing BMs vs Users for things like tickets.
@@ -431,7 +344,6 @@ class Demo < ActiveRecord::Base
       update_attributes(public_slug: candidate_slug)
     end
   end
-
 
   def self.public
     where(is_public: true)
@@ -535,78 +447,58 @@ class Demo < ActiveRecord::Base
     end
   end
 
-  protected
-
-  def unless_within(cutoff_time, last_done_time)
-    if last_done_time.nil? || cutoff_time >= last_done_time
-      Demo.transaction do
-        yield
-      end
-    end
-  end
-
-  def custom_message(custom_message_method_name, default_message, user = nil, method_chains_for_interpolation = {})
-    custom_message_text = self.send(custom_message_method_name)
-
-    semi_interpolated_text = if custom_message_text.blank?
-      default_message
-    else
-      custom_message_text
-    end
-
-    if user
-      interpolations = {}
-      method_chains_for_interpolation.each do |key, method_chain|
-        interpolations[key] = method_chain.inject(user) {|result, method_name| result.try(method_name)}
-      end
-      I18n.interpolate(semi_interpolated_text, interpolations)
-    else
-      semi_interpolated_text
-    end
-  end
-
-  def ticket_fields_all_set
-    unless ticket_threshold.present?
-      self.errors.add(:ticket_threshold, "must be set if you want to use gold coins on this demo")
-    end
-  end
-
-  def normalize_phone_number_if_changed
-    return unless self.changed.include?('phone_number')
-    self.phone_number = PhoneNumber.normalize(self.phone_number)
-  end
-
-  def resegment_everyone
-    self.user_ids.each {|user_id| User.find(user_id).send(:schedule_segmentation_update, true)}
-  end
-
-  def self.add_odd_row_placeholders!(tiles, row_size = 4)
-    odd_row_length = tiles.length % row_size
-    placeholders_to_add = odd_row_length == 0 ? 0 : row_size - odd_row_length
-
-    placeholders_to_add.times { tiles << TileOddRowPlaceholder.new }
-    tiles
-  end
-
   private
 
-  def unlink_from_organization
+    def custom_message(custom_message_method_name, default_message, user = nil, method_chains_for_interpolation = {})
+      custom_message_text = self.send(custom_message_method_name)
+
+      semi_interpolated_text = if custom_message_text.blank?
+        default_message
+      else
+        custom_message_text
+      end
+
+      if user
+        interpolations = {}
+        method_chains_for_interpolation.each do |key, method_chain|
+          interpolations[key] = method_chain.inject(user) {|result, method_name| result.try(method_name)}
+        end
+        I18n.interpolate(semi_interpolated_text, interpolations)
+      else
+        semi_interpolated_text
+      end
+    end
+
+    def normalize_phone_number_if_changed
+      return unless self.changed.include?('phone_number')
+      self.phone_number = PhoneNumber.normalize(self.phone_number)
+    end
+
+    def self.add_odd_row_placeholders!(tiles, row_size = 4)
+      odd_row_length = tiles.length % row_size
+      placeholders_to_add = odd_row_length == 0 ? 0 : row_size - odd_row_length
+
+      placeholders_to_add.times { tiles << TileOddRowPlaceholder.new }
+      tiles
+    end
+
+    def unlink_from_organization
       self.organization_id=nil
-  end
+    end
 
-  def next_in_group array, id
-   tile_offset(array, id, 1) || array.first
-  end
+    def next_in_group array, id
+     tile_offset(array, id, 1) || array.first
+    end
 
-  def prev_in_group array, id
-   tile_offset(array, id, -1) || array.last
-  end
+    def prev_in_group array, id
+     tile_offset(array, id, -1) || array.last
+    end
 
-  def tile_offset array, id, offset
-    array[array.index(id) + offset]
-  end
+    def tile_offset array, id, offset
+      array[array.index(id) + offset]
+    end
 
-  def by_status_and_position_of_tile status
-    tiles.where(status: status).ordered_by_position.map(&:id)
-  end
+    def by_status_and_position_of_tile status
+      tiles.where(status: status).ordered_by_position.map(&:id)
+    end
 end

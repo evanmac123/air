@@ -242,14 +242,14 @@ describe 'Digest email' do
   end
 
   describe '#notify_all' do
-    it 'should not send to a user with digests muted' do
+    it 'should not send to a user who is unsubscribed' do
       digest_users = [claimed_user]
       TilesDigestMailer.notify_all(digest)
 
       expect(ActionMailer::Base.deliveries.count).to eq(digest_users.count)
 
       ActionMailer::Base.deliveries.clear
-      claimed_user.board_memberships.update_all(digest_muted: true)
+      claimed_user.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:unsubscribe])
       TilesDigestMailer.notify_all(digest)
 
       expect(ActionMailer::Base.deliveries).to be_empty
@@ -442,12 +442,12 @@ describe 'Digest email' do
       end
     end
 
-    it 'should not send to a user with followups muted' do
+    it 'should not send to a user who is unsubscribed' do
       followup_board = FactoryGirl.create(:demo)
       unmuted_user = FactoryGirl.create(:user, demo: followup_board)
       muted_user   = FactoryGirl.create(:user, demo: followup_board)
 
-      muted_user.board_memberships.update_all(digest_muted: true)
+      muted_user.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:unsubscribe])
 
       digest = TilesDigest.create(demo: followup_board, sender: unmuted_user, tile_ids: [], sent_at: Time.current, include_unclaimed_users: true)
 

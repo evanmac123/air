@@ -95,22 +95,6 @@ describe Demo, ".alphabetical" do
   end
 end
 
-describe Demo, "#print_pending_friendships" do
-  it "tells us how many friendships have been initiated and accepted" do
-    demo = FactoryGirl.create(:demo)
-    user1 = FactoryGirl.create(:user, :demo => demo)
-    user2 = FactoryGirl.create(:user, :demo => demo)
-    user3 = FactoryGirl.create(:user, :demo => demo)
-    user4 = FactoryGirl.create(:user, :demo => demo)
-    user1.befriend user2
-    user1.befriend user3
-    user1.befriend user4
-    user4.accept_friendship_from user1
-    expected = "#{demo.name} has 3 initiated connections, 1 of which have been accepted (33.333333333333336%)"
-    expect(demo.print_pending_friendships).to eq(expected)
-  end
-end
-
 describe Demo, "ticket fields" do
   context "when uses_tickets is set" do
     before(:each) do

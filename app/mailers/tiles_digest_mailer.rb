@@ -1,7 +1,7 @@
 class TilesDigestMailer < BaseTilesDigestMailer
 
   def notify_one(digest, user_id, subject, presenter_class)
-    @user  = User.where(id: user_id).first
+    @user  = User.includes(:board_memberships).where(id: user_id).first
     return nil unless @user && @user.email.present?
 
     @demo = digest.demo
@@ -14,7 +14,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
       context: { demo: digest.demo, user: @user, follow_up_email: @presenter.follow_up_email, email_type: @presenter.email_type }
     )
 
-    if digest.include_sms && @user.receives_sms
+    if digest.include_sms && should_deliver_text_message?(@user, @demo)
       SmsSender.send_message(to_number: @user.phone_number, from_number: @demo.twilio_from_number, body: @presenter.body_for_text_message)
     end
 
@@ -52,5 +52,11 @@ class TilesDigestMailer < BaseTilesDigestMailer
     def is_invite_user
       board_membership = @demo.board_memberships.where(user_id: @user.id).first
       board_membership && !board_membership.joined_board_at.present?
+    end
+
+    def should_deliver_text_message?(user, demo)
+      bm = user.board_memberships.where(demo_id: demo.id).first
+
+      [BoardMembership.notification_prefs[:both], BoardMembership.notification_prefs[:text_message]].include?(bm.notification_pref_cd)
     end
 end
