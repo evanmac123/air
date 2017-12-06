@@ -95,11 +95,9 @@ module User::Queries
   end
 
   def push_message_recipients(user_ids:, demo_id:, respect_notification_method:)
-    users = users_with_bm_notification_pref(user_ids: user_ids, demo_id: demo_id)
-
     if respect_notification_method
-      email_recipient_ids = users.wants_email.pluck(:id)
-      sms_recipient_ids = users.wants_sms.with_phone_number.pluck(:id)
+      email_recipient_ids = User.wants_email(user_ids: user_ids, demo_id: demo_id).pluck(:id)
+      sms_recipient_ids = User.wants_sms(user_ids: user_ids, demo_id: demo_id).with_phone_number.pluck(:id)
     else
       email_recipient_ids = sms_recipient_ids = user_ids
     end
@@ -107,16 +105,16 @@ module User::Queries
     return email_recipient_ids, sms_recipient_ids
   end
 
-  def users_with_bm_notification_pref(user_ids:, demo_id:)
+  def users_with_bm_notification_pref(user_ids, demo_id)
     User.select("users.id, board_memberships.notification_pref_cd AS notification_pref_cd").joins(:board_memberships).where(id: user_ids, board_memberships: { demo_id: demo_id })
   end
 
-  def wants_email
-    where("notification_pref_cd = ? OR notification_pref_cd = ?", BoardMembership.notification_prefs[:email], BoardMembership.notification_prefs[:both])
+  def wants_email(user_ids:, demo_id:)
+    users_with_bm_notification_pref(user_ids, demo_id).where("notification_pref_cd = ? OR notification_pref_cd = ?", BoardMembership.notification_prefs[:email], BoardMembership.notification_prefs[:both])
   end
 
-  def wants_sms
-    where("notification_pref_cd = ? OR notification_pref_cd = ?", BoardMembership.notification_prefs[:text_message], BoardMembership.notification_prefs[:both])
+  def wants_sms(user_ids:, demo_id:)
+    users_with_bm_notification_pref(user_ids, demo_id).where("notification_pref_cd = ? OR notification_pref_cd = ?", BoardMembership.notification_prefs[:text_message], BoardMembership.notification_prefs[:both])
   end
 
   def alphabetical_by_name

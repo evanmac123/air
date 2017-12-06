@@ -21,7 +21,7 @@ class PushMessage < ActiveRecord::Base
                                                                   segment_query_values,
                                                                   demo_id)
 
-    email_recipient_ids, sms_recipient_ids = User.push_message_recipients(user_ids: user_ids, demo_id: demo_is, respect_notification_method: respect_notification_method?)
+    email_recipient_ids, sms_recipient_ids = User.push_message_recipients(user_ids: user_ids, demo_id: demo_id, respect_notification_method: respect_notification_method?)
 
     # Mailing list may have changed since job was created => Update list of recipients
     update_attributes email_recipient_ids: email_recipient_ids, sms_recipient_ids: sms_recipient_ids
