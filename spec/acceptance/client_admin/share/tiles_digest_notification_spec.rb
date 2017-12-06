@@ -369,8 +369,11 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: 'hey'
-          submit_button.click
-          accept_alert
+
+          accept_alert do
+            submit_button.click
+          end
+
           expect_digest_sent_content
         end
 
@@ -379,7 +382,10 @@ feature 'Client admin and the digest email for tiles' do
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
           submit_button.click
-          accept_alert
+
+          accept_alert do
+            submit_button.click
+          end
 
           expect_digest_sent_content
         end
@@ -479,8 +485,9 @@ feature 'Client admin and the digest email for tiles' do
 
     describe "when sending digest" do
       it "should send with both subjects" do
-        submit_button.click
-        accept_alert
+        accept_alert do
+          submit_button.click
+        end
 
         expect_digest_sent_content
 
