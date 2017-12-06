@@ -381,7 +381,6 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
-          submit_button.click
 
           accept_alert do
             submit_button.click
