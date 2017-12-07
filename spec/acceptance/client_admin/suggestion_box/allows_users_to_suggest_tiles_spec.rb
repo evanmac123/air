@@ -94,7 +94,6 @@ feature 'Client admin segments on characteristics', js: true do
           fill_in_username_autocomplete("Use")
           username_autocomplete_results_click 0
 
-          #wait_for_ajax
           expect(user_rows.first.find(".user_name").text).to eq("User1")
 
           save_button.click

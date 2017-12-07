@@ -287,7 +287,7 @@ feature 'Client admin and the digest email for tiles' do
 
             all_addresses.each do |address|
               open_email(address)
-              expect(current_email.html_part.body).to include(buzzwordery)
+              expect(current_email.body).to include(buzzwordery)
             end
           end
         end
@@ -344,8 +344,7 @@ feature 'Client admin and the digest email for tiles' do
           it "uses that" do
             all_addresses.each do |address|
               open_email(address)
-              expect(current_email.html_part.body).to contain(@custom_headline)
-              expect(current_email.text_part.body).to contain(@custom_headline)
+              expect(current_email.body).to contain(@custom_headline)
             end
           end
         end
@@ -357,8 +356,7 @@ feature 'Client admin and the digest email for tiles' do
 
             all_addresses.each do |address|
               open_email(address)
-              expect(current_email.html_part.body).to contain('Your New Tiles Are Here!')
-              expect(current_email.text_part.body).to contain('Your New Tiles Are Here!')
+              expect(current_email.body).to contain('Your New Tiles Are Here!')
             end
           end
         end
@@ -440,7 +438,6 @@ feature 'Client admin and the digest email for tiles' do
       # follow up
       open_email(address, with_subject: "[Test] Don't Miss: Custom Subject")
       expect(current_email).to have_content "Don't miss your new tiles"
-      expect(current_email).to have_content 'Custom Message'
       expect(current_email).to have_content 'Custom Subject'
     end
 

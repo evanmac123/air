@@ -109,7 +109,7 @@ feature 'In multiple boards appears present in all at once' do
       submit_button.click
 
       open_email(@user.email)
-      expect(current_email.html_part.body).to include(first_tile_headline(@first_board))
+      expect(current_email.body).to include(first_tile_headline(@first_board))
       visit_in_email "Your New Tiles Are Here!"
       should_be_on activity_path
       expect_current_board_header @first_boardz
@@ -120,7 +120,7 @@ feature 'In multiple boards appears present in all at once' do
       submit_button.click
 
       open_email(@user.email)
-      expect(current_email.html_part.body).to include(first_tile_headline(@second_board))
+      expect(current_email.body).to include(first_tile_headline(@second_board))
       visit_in_email "Your New Tiles Are Here!"
       should_be_on activity_path
       expect_current_board_header @second_board

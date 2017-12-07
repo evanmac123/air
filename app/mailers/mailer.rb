@@ -32,18 +32,6 @@ class Mailer < ApplicationMailer
          :from    => @demo.reply_email_address)
   end
 
-
-  def activity_report(csv_data, demo_name, report_time, address)
-    # Convert spaces to '_'s and remove any garbage characters
-    normalized_name = demo_name.gsub(/\s+/, '_').gsub(/[^A-Za-z0-9_]/, '')
-    attachment_name = normalized_name + '_' + report_time.strftime("%Y_%m_%d_%H%M") + '.csv'
-
-    attachments[attachment_name] = csv_data
-
-    mail :to      => address,
-         :subject => "Activity dump for #{demo_name} as of #{report_time.pretty}"
-  end
-
   def support_request(user_name, user_email, user_phone, game_name, sms_bodies)
     @user_name = user_name
     @user_email = user_email

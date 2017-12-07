@@ -67,12 +67,4 @@ module TileManagerHelpers
     new_place_tile = tile_from_thumbnail(tile2)
     selected_tile.drag_to new_place_tile
   end
-
-  def move_tile_between_sections(tile1, tile2)
-    selected_tile = tile_from_thumbnail(tile1)
-    new_place_tile = tile_from_thumbnail(tile2)
-    selected_tile.drag_to(new_place_tile)
-    wait_for_ajax
-    move_tile(tile1, tile2)
-  end
 end

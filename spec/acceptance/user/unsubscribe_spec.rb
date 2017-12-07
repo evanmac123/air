@@ -1,43 +1,29 @@
 require 'acceptance/acceptance_helper'
+include EmailHelper
 
-feature "Leah unsubscribes" do
+feature "user unsubscribes" do
   before(:each) do
-    Unsubscribe.delete_all
-    @leah = FactoryGirl.create(:user, name: 'Leah Eckles')
-    @token = EmailLink.generate_token(@leah)
-    @unsubscribe_url = new_unsubscribe_path({user_id: @leah.id, token: @token})
-    @reason = "I'm just having way too much fun on YouTube"
+    @user = FactoryGirl.create(:user, name: 'user Eckles')
+    @token = EmailLink.generate_token(@user)
+    @unsubscribe_url = email_unsubscribe_link(user: @user, email_type: "default", demo: @user.demo)
   end
 
-  it "should create an unsubscribe" do
-    expect(Unsubscribe.count).to eq(0)
+  it "should unsubscribe the user" do
     visit @unsubscribe_url
-    #fill_in 'unsubscribe_reason', with: @reason 
     click_button 'Unsubscribe'
-    expect(page).to have_content 'You have been unsubscribed'
-    expect(Unsubscribe.count).to eq(1)
-    a = Unsubscribe.first
-    expect(a.user_id).to eq(@leah.id)
-    #a.reason.should == @reason
+    expect(page).to have_content 'You have been unsubscribed.'
+
+    expect(current_path).to eq(activity_path)
   end
 
-  context "when Leah is unclaimed" do
+  context "when user is unclaimed" do
     before do
-      expect(@leah).not_to be_claimed
+      expect(@user).not_to be_claimed
     end
 
     it "should not have a link to the account preferences page" do
       visit @unsubscribe_url
       expect_no_content "change your contact preferences"
     end
-  end
-
-  context "when Leah is claimed" do
-    before do
-      @leah.update_attributes(accepted_invitation_at: Time.current)
-      has_password @leah, 'foobar'
-      signin_as @leah, 'foobar'
-    end
-
   end
 end

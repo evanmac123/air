@@ -95,24 +95,6 @@ describe Demo, ".alphabetical" do
   end
 end
 
-describe Demo, "ticket fields" do
-  context "when uses_tickets is set" do
-    before(:each) do
-      @demo = FactoryGirl.build_stubbed(:demo)
-      expect(@demo.uses_tickets).to be_truthy
-      @demo.ticket_threshold = nil
-    end
-
-    it "should validate that ticket_threshold is set" do
-      expect(@demo).not_to be_valid
-      expect(@demo.errors.keys).to include(:ticket_threshold)
-
-      @demo.ticket_threshold = 5
-      expect(@demo).to be_valid
-    end
-  end
-end
-
 describe Demo, "phone number" do
   it "should normalize itself on save" do
     @demo = FactoryGirl.build(:demo)

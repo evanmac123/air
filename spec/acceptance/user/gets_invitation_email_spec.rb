@@ -4,25 +4,22 @@ include EmailHelper
 
 feature 'User gets invitation email' do
   def expect_email_content(expected_content)
-    
     open_email(@user.email)
-    expect(current_email.to_s.gsub(/\r\n/, "\n")).to include(expected_content)
+    expect(current_email.body).to include(expected_content)
   end
 
   def expect_no_email_content(unexpected_content)
-    
     open_email(@user.email)
-    expect(current_email.to_s.gsub(/\r\n/, "\n")).not_to include(unexpected_content)
+    expect(current_email.body).not_to include(unexpected_content)
   end
 
   def expect_subject(expected_subject)
-    
     open_email(@user.email)
     expect(current_email.subject).to eq(expected_subject)
   end
 
   before(:each) do
-    @demo = FactoryGirl.create(:demo, :with_email)
+    @demo = FactoryGirl.create(:demo, :with_email, allow_unsubscribes: true)
     @user = FactoryGirl.create(:user, demo: @demo, name: "Dude Duderson")
     @referrer = FactoryGirl.create(:user, demo: @demo, name: "Andy McReferrer")
   end
@@ -34,7 +31,10 @@ feature 'User gets invitation email' do
     end
 
     it "should use that name in the From: field" do
-      expect_email_content("From: The Team At BigCo <#{@demo.email}>")
+      open_email(@user.email)
+
+      expect(current_email.from).to eq([@demo.email])
+      expect(current_email[:from].display_names).to eq(["The Team At BigCo"])
     end
   end
 
@@ -45,7 +45,10 @@ feature 'User gets invitation email' do
     end
 
     it "should use the name of the game in the From: field" do
-      expect_email_content("From: #{@demo.name} <#{@demo.email}>")
+      open_email(@user.email)
+
+      expect(current_email.from).to eq([@demo.email])
+      expect(current_email[:from].display_names).to eq([@demo.name])
     end
   end
 
@@ -96,86 +99,6 @@ feature 'User gets invitation email' do
 
         expect_email_content expected_html
       end
-    end
-  end
-
-  context "from a demo that has no custom HTML" do
-    it "should use the default HTML" do
-      @user.invite
-      expect_email_content "Your invitation to the #{@demo.name}"
-      expect_email_content "Our social space to feature what you should know and do."
-    end
-  end
-
-  context "from a demo with custom plain text" do
-    before(:each) do
-      @expected_text = <<-END_TEXT
-Some would say H.Engage is the greatest thing since sliced bread.
-We say it's better.
-      END_TEXT
-
-      @custom_invitation_email = FactoryGirl.create(:custom_invitation_email, demo: @demo, custom_plain_text: @expected_text)
-    end
-
-    it "should use that text" do
-      @user.invite
-      expect_email_content(@expected_text)
-    end
-
-    custom_plain_text_with_blocks = <<-END_PLAINTEXT
-Welcome to H.Engage!
-[referrer_block]You have a referrer.[/referrer_block]
-[no_referrer_block]You have no referrer.[/no_referrer_block]
-[referrer_block]That person must think you're awesome.[/referrer_block]
-[no_referrer_block]Nobody loves you.[/no_referrer_block]
-[referrer_block]Your friend [referrer] must love you very much.[/referrer_block]
-Either way, welcome.
-    END_PLAINTEXT
-
-
-    context "when there's a referrer" do
-      it "should render all referrer blocks, with interpolation, and no no-referrer blocks" do
-        @custom_invitation_email.custom_plain_text = custom_plain_text_with_blocks
-        @custom_invitation_email.save!
-
-        @user.invite(@referrer)
-
-        expected_text = <<-END_EXPECTED_TEXT
-Welcome to H.Engage!
-You have a referrer.
-That person must think you're awesome.
-Your friend #{@referrer.name} must love you very much.
-Either way, welcome.
-        END_EXPECTED_TEXT
-
-        expect_email_content(expected_text)
-      end
-    end
-
-    context "when there's no referrer" do
-      it "should render all noreferrer blocks, and no referrer blocks" do
-        @custom_invitation_email.custom_plain_text = custom_plain_text_with_blocks
-        @custom_invitation_email.save!
-
-        @user.invite
-
-        expected_text = <<-END_EXPECTED_TEXT
-Welcome to H.Engage!
-You have no referrer.
-Nobody loves you.
-Either way, welcome.
-        END_EXPECTED_TEXT
-
-        expect_email_content(expected_text)
-      end
-    end
-  end
-
-  context "from a demo with no custom plain text" do
-    it "should use the default text" do
-      @user.invite
-      expect_email_content "Your invitation to join the #{@demo.name}"
-      expect_email_content "Our social space to feature what you should know and do."
     end
   end
 
@@ -238,19 +161,13 @@ If you're smart you'll go to [invitation_url] and play.
       @user.invite
     end
 
-    it "should interpolate the game and user name" do
-      expect_subject("Play HealthAwesome! DO IT! WE COMMAND YOU #{@user.name}!")
-      expect_email_content("play HealthAwesome, #{@user.name}!</p>")
-      expect_email_content("play HealthAwesome in plain text, #{@user.name}!")
-    end
-
     it "should interpolate invitation URLs" do
-      expect_email_content("you'll go to #{invitation_url(@user.invitation_code)}")
+      expect_email_content("#{invitation_url(@user.invitation_code)}")
     end
 
     context "when there is a referrer" do
       before(:each) do
-        
+
         ActionMailer::Base.deliveries.clear
 
         custom_html = <<-END_HTML
@@ -271,8 +188,10 @@ If you're smart you'll go to [invitation_url] and play.
       end
 
       it "should interpolate the referrer name" do
-        expect_email_content "<p>#{@referrer.name} has invited you"
-        expect_email_content "Plainly, #{@referrer.name}"
+        open_email(@user.email)
+
+        expect(current_email.body).to include("#{@referrer.name} has invited you")
+
         expect_subject "#{@referrer.name} says you'd better play HealthAwesome"
       end
 
@@ -284,7 +203,10 @@ If you're smart you'll go to [invitation_url] and play.
 
   it "should get a footer with our address and an unsubscribe link, but no link to account settings" do
     @user.invite
-    expect_email_content "Our mailing address is:"
+
+    open_email(@user.email)
+    expect(current_email.body).to include("Our mailing address is")
+
     visit_in_email "unsubscribe"
     should_be_on new_unsubscribe_path
 

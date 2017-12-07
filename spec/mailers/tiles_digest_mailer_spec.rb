@@ -8,7 +8,7 @@ include EmailHelper
 # That method returns a 'mail' object, whose content is then tested.
 
 describe 'Digest email' do
-  let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday }
+  let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday, allow_unsubscribes: true }
 
 # TODO: Using the board_membership factory here is a side effect of how convoluted our factories have become as we've move to using BoardMemberships.  Although there are multiple issues, the particluar issue that necessitated using the board_membership factory is that FactoryGirl.create(:claimed_user) creates a user that is 'claimed' in the old sense of the term (i.e. User.activated_at != nil), whereas we now need 'claimed' to mean User.board_membership.joined_board_at != nil. Refactor factories when there is time.
 
@@ -417,8 +417,7 @@ describe 'Digest email' do
         TilesDigestMailer.notify_all_follow_up
 
         open_email(user.email)
-        expect(current_email.html_part).to contain('Kneel before Zod')
-        expect(current_email.text_part).to contain('Kneel before Zod')
+        expect(current_email.body).to contain('Kneel before Zod')
       end
     end
 
@@ -437,8 +436,7 @@ describe 'Digest email' do
         TilesDigestMailer.notify_all_follow_up
 
         open_email(user.email)
-        expect(current_email.html_part).to contain("Don't miss your new tiles")
-        expect(current_email.text_part).to contain("Don't miss your new tiles")
+        expect(current_email.body).to contain("Don't miss your new tiles")
       end
     end
 
