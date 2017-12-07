@@ -2,7 +2,6 @@ require 'acceptance/acceptance_helper'
 
 feature 'Client admin and tile manager page', js: true do
   include TileManagerHelpers
-  include WaitForAjax
 
   let(:admin) { FactoryGirl.create :client_admin }
   let(:demo)  { admin.demo  }

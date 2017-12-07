@@ -13,7 +13,7 @@ class UnsubscribesController < ApplicationController
     @user = User.find(params[:user_id])
     if EmailLink.validate_token(@user, params[:token])
       sign_in(@user, :remember_user) if @user.end_user_in_all_boards?
-      ping('Unsubscribed', { email: params[:email_type] }, @user)
+      ping('Unsubscribed', { email_type: params[:email_type] }, @user)
       unsubscribe_for_email_type(params[:email_type])
 
       flash[:success] = "You have been unsubscribed."

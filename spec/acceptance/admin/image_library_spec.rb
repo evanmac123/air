@@ -1,8 +1,6 @@
 require 'acceptance/acceptance_helper'
 
 feature "Site Admin works with Image Library" do
-  include WaitForAjax
-
   scenario "creates image", js: true do
     visit admin_tile_images_path(as: an_admin)
     expect_content "Image Library"

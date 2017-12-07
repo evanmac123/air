@@ -120,8 +120,6 @@ feature 'Client admin segments on characteristics', js: true do
           end
           save_button.click
 
-          #automatically waits for ajax without the need for any WaitForAjax
-          #This confirms that the modal was closed susccessfully
           expect(page).to_not have_content("Add people to suggestion box")
 
           manage_access_link.click #reopen modal
