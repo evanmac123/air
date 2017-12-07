@@ -7,18 +7,13 @@ ENV["AWS_SECRET_ACCESS_KEY"] ||= "fake_key"
 
 require 'fileutils'
 
-test_counter = 0
-
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'shoulda/matchers'
 require 'clearance/rspec'
 require 'capybara/rspec'
-require 'capybara-screenshot/rspec'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-
-Capybara::Screenshot.autosave_on_failure = false
 
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
@@ -47,8 +42,6 @@ RSpec.configure do |config|
   config.example_status_persistence_file_path = "#{Rails.root}/spec/specs_with_statuses.txt"
   config.infer_spec_type_from_file_location!
 
-  # config.fail_fast = true
-
   config.before(:all) do
     log_file = Rails.root.join("log/test.log")
     File.truncate(log_file, 0) if File.exist?(log_file)
@@ -59,10 +52,6 @@ RSpec.configure do |config|
 
     Mixpanel::Tracker.stubs(:new).with(MIXPANEL_TOKEN, Mocha::ParameterMatchers::KindOf.new(Hash)).returns(FakeMixpanelTracker)
     FakeMixpanelTracker.clear_tracked_events
-    path = example.metadata[:example_group][:file_path]
-    test_counter +=1
-    full_example_description = "Starting #{RSpec.current_example} "
-    Rails.logger.info("\n#{'-'*80}\n#{full_example_description} #{test_counter}--#{path}\n#{'-' * (full_example_description.length)}")
   end
 
   config.before(:each) do
@@ -78,7 +67,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-   FileUtils.rm_rf "#{Rails.root}/public/system/test"
+    FileUtils.rm_rf "#{Rails.root}/public/system/test"
   end
 end
 
