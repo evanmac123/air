@@ -73,22 +73,6 @@ feature "Client admin creates tiles", js: true do
         expect(page).to  have_content "A V8 Buick"
       end
     end
-
-    scenario  "edit all tile fields" do
-
-      fill_in_tile_form_entries edit_text: edit_text, points: points
-      select_correct_answer 0
-      click_create_button
-
-      within ".viewer" do
-        expect(page).to  have_content "by Society#{edit_text}"
-        expect(page).to  have_content "Ten pounds of cheese#{edit_text}"
-        expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?#{edit_text}"
-        expect(page).to  have_content "Who rules?#{edit_text}"
-      end
-      expect(page).to have_selector("a.multiple-choice-answer.correct", text: "Me#{edit_text}")
-      expect(page).to have_selector("#tile_point_value", text: points)
-    end
   end
 
 

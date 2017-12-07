@@ -1,0 +1,19 @@
+<%= form_for board, url: allow_unsubscribes_client_admin_board_settings_path, method: :put, html: { class: "js-board-settings-radio-form" } do |form|  %>
+  <%= label_tag :allow_unsubscribes, "Allow Users to Unsubscribe" %>
+  <i class="fa fa-question-circle has-tip" id="board_email_tooltip" data-tooltip="true" title="Determines whether users will have the option to unsubscribe from Tile Digests and other notifications."></i>
+
+  <div class="notification_settings">
+    <ul>
+      <li>
+        <%= form.radio_button :allow_unsubscribes, true, :class => 'notification_pref js-update-board-settings-radio' %>
+        <%= form.label :allow_unsubscribes, "Yes", value: true, :class => 'check_label' %>
+      </li>
+      <li>
+        <%= form.radio_button :allow_unsubscribes, false, :class => 'notification_pref js-update-board-settings-radio' %>
+        <%= form.label :allow_unsubscribes, "No", value: false , :class => 'check_label' %>
+      </li>
+    </ul>
+  </div>
+
+  <%= form.submit "Update", disabled: true, class: "button outlined js-board-settings-radio-submit" %>
+<% end %>

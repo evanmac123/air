@@ -15,23 +15,24 @@ Airbo.EditBoardSettings = (function() {
     });
   }
 
-  function initWeeklyActivitySettingsForm() {
-    $(".js-activity-report-pref").change(function() {
-      $("#report_submit").attr("disabled", false);
-      $("#weekly_activity_email").addClass("dirty");
+  function initUpdateSettingsRadioForm() {
+    $(".js-update-board-settings-radio").change(function() {
+      $(this).closest("form").children(".js-board-settings-radio-submit").attr("disabled", false);
+      $(this).closest("form").addClass("dirty");
     });
 
-    $("#weekly_activity_email").submit(function(e){
+    $(".js-board-settings-radio-form").submit(function(e){
       e.preventDefault();
-      var submitButton = $("#report_submit");
+      var $form = $(this);
+      var submitButton = $(this).children(".js-board-settings-radio-submit");
       submitButton.val("Updating...");
       $.ajax({
-        url: $(this).attr("action"),
-        data: $(this).serialize(),
+        url: $form.attr("action"),
+        data: $form.serialize(),
         type: "PUT"
       }).done(function(){
-        $("#weekly_activity_email").removeClass("dirty");
-        $("#report_submit").attr("disabled", true);
+        $form.removeClass("dirty");
+        submitButton.attr("disabled", true);
         submitButton.val("Update");
       });
     });
@@ -48,7 +49,7 @@ Airbo.EditBoardSettings = (function() {
   function init() {
     initCharacterCounters();
     initClearableForms();
-    initWeeklyActivitySettingsForm();
+    initUpdateSettingsRadioForm();
     initPublicLinkForm();
     initLogoUploadForm();
   }
