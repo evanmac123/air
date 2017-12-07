@@ -106,8 +106,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-screenshot (0.3.3)
-      capybara (>= 1.0, < 3)
     capybara-selenium (0.0.6)
       capybara
       selenium-webdriver
@@ -613,7 +611,6 @@ DEPENDENCIES
   bson_ext
   cache_digests
   capybara
-  capybara-screenshot
   capybara-selenium
   carrierwave_direct
   chartmogul-ruby
