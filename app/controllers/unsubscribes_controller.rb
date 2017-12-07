@@ -1,20 +1,19 @@
 class UnsubscribesController < ApplicationController
   def new
-    @user_id = params[:user_id]
-    @demo_id = params[:demo_id]
-    @email_type = params[:email_type]
-    @token = params[:token]
-    @copy = copy_for_new_unsubscribe(@email_type)
-
+    @unsubscribe_service = UnsubscribeService.new(unsubscribe_params)
     render layout: 'external'
   end
 
   def create
-    @user = User.find(params[:user_id])
-    if EmailLink.validate_token(@user, params[:token])
-      sign_in(@user, :remember_user) if @user.end_user_in_all_boards?
-      ping('Unsubscribed', { email_type: params[:email_type] }, @user)
-      unsubscribe_for_email_type(params[:email_type])
+    @service = UnsubscribeService.new(unsubscribe_params)
+
+    if @service.valid_unsubscribe?
+      if @service.user.end_user_in_all_boards?
+        sign_in_and_move_into_board
+      end
+
+      ping('Unsubscribed', { email_type: @service.email_type }, @service.user)
+      @service.unsubscribe
 
       flash[:success] = "You have been unsubscribed."
     else
@@ -26,46 +25,8 @@ class UnsubscribesController < ApplicationController
 
   private
 
-    def unsubscribe_for_email_type(email_type)
-      case email_type
-      when "activity"
-        unsubscribe_activity
-      when "explore"
-        unsubscribe_explore
-      else
-        unsubscribe_default
-      end
-    end
-
-    def unsubscribe_activity
-      bm = @user.board_memberships.where(demo_id: params[:demo_id]).first
-
-      if bm.present?
-        bm.update_attributes(send_weekly_activity_report: false)
-      end
-    end
-
-    def unsubscribe_explore
-      @user.update_attributes(receives_explore_email: false)
-    end
-
-    def unsubscribe_default
-      bm = @user.board_memberships.where(demo_id: params[:demo_id]).first
-
-      if bm.present?
-        bm.update_attributes(notification_pref_cd: BoardMembership.unsubscribe)
-      end
-    end
-
-    def copy_for_new_unsubscribe(email_type)
-      case email_type
-      when "activity"
-        "You will no longer receives weekly activity emails from Airbo."
-      when "explore"
-        "You will no longer receive Explore emails from Airbo."
-      else
-        "You may miss important updates about your benefits and other important programs from your employer."
-      end
+    def unsubscribe_params
+      params.permit(:user_id, :demo_id, :email_type, :token)
     end
 
     def path_after_unsubscribe
@@ -74,5 +35,11 @@ class UnsubscribesController < ApplicationController
       else
         sign_in_path
       end
+    end
+
+    def sign_in_and_move_into_board
+      sign_in(@service.user, :remember_user)
+
+      @service.user.move_to_new_demo(@service.demo_id) if @service.demo_id.present?
     end
 end
