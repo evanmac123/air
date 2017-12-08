@@ -61,9 +61,36 @@
           </div>
           <div class="row">
             <div class="columns large-6">
-              <%= submit_tag 'Save Change', :class => 'button' %>
+              <%= submit_tag 'Update Email', :class => 'button' %>
             </div>
           </div>
+        <% end %>
+
+        <h3>Change Phone Number</h3>
+        <%= form_for current_user, url: account_phone_path do |form| %>
+          <div class="row">
+            <div class="large-6 columns">
+              <%= label_tag 'user_phone_number', "Mobile number" %>
+              <%= form.text_field :phone_number, value: current_user.phone_number.try(:as_obfuscated_phone) %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="columns large-6">
+              <%= submit_tag 'Update Phone Number', class:'button js-update-phone-number' %>
+            </div>
+          </div>
+        <% end %>
+        <% if current_user.new_phone_number_needs_verification? %>
+          <%= form_for current_user, url: validate_account_phone_path, method: :put do |form| %>
+            <div class="row">
+              <div class="large-6 columns mt-2">
+                <%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_obfuscated_phone}, please enter the validation code we sent to that number:" %>
+                <%= form.text_field :new_phone_validation, :value => '' %>
+                <%= submit_tag 'Verify new number', :class => 'button' %>
+              </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -86,32 +113,34 @@
       <% end %>
 
       <div class="module other_settings" id="notification_settings">
-        <h3>Notifications</h3>
-        <%= form_for current_user, url: account_settings_path, html: {class: "custom"} do |form| %>
-          <div class="module_inner mb-1">
-            <%= form.check_box :receives_sms, class: "js-receives-sms-checkbox" %>
-            <%= form.label :receives_sms, "Allow text messages", class: "d-inline" %>
-          </div>
-          <%= form.submit 'Save Notification Settings', class: 'button_norm' %>
-        <% end %>
-      </div>
-        <%= form_for current_user, url: account_phone_path do |form| %>
-          <div class="module_inner settings_number">
-            <%= label_tag 'user_phone_number', "Mobile number" %>
-            <%= form.text_field :phone_number, value: current_user.phone_number.try(:as_obfuscated_phone) %>
-          </div>
+        <h3>Notifications for <%= current_board.name %></h3>
+        <%= form_for [:api, current_user.current_board_membership] do |f| %>
+          <div class="mb-1">
+            <div class="radio-input mr-1 d-inline">
+              <%= f.radio_button :notification_pref_cd, BoardMembership.notification_prefs[:email] %>
+              <%= f.label :notification_pref_cd, "Email", value: BoardMembership.notification_prefs[:email], class: "d-inline"  %>
+            </div>
 
-          <%= submit_tag 'Update Phone Number', :class => 'button_norm', :id => 'save-notification-settings' %>
-        <% end %>
-        <% if current_user.new_phone_number_needs_verification? %>
-          <div class="module_inner mt-2" id="settings_new_number_verification">
-            <%= form_for current_user, url: validate_account_phone_path, method: :put do |form| %>
-              <%= label_tag "user_new_phone_validation", "To verify the number #{current_user.new_phone_number.as_obfuscated_phone}, please enter the validation code we sent to that number:" %>
-              <%= form.text_field :new_phone_validation, :value => '' %>
-              <%= submit_tag 'Verify new number', :class => 'button_norm' %>
+            <div class="radio-input mr-1 d-inline">
+              <%= f.radio_button :notification_pref_cd, BoardMembership.notification_prefs[:text_message] %>
+              <%= f.label :notification_pref_cd, "Text Message", value: BoardMembership.notification_prefs[:text_message], class: "d-inline"  %>
+            </div>
+
+            <div class="radio-input mr-1 d-inline">
+              <%= f.radio_button :notification_pref_cd, BoardMembership.notification_prefs[:both] %>
+              <%= f.label :notification_pref_cd, "Both", value: BoardMembership.notification_prefs[:both], class: "d-inline"  %>
+            </div>
+
+            <% if current_board.allow_unsubscribes %>
+              <div class="radio-input mr-1 d-inline">
+                <%= f.radio_button :notification_pref_cd, BoardMembership.notification_prefs[:unsubscribe] %>
+                <%= f.label :notification_pref_cd, "Unsubscribe", value: BoardMembership.notification_prefs[:unsubscribe], class: "d-inline"  %>
+              </div>
             <% end %>
           </div>
+          <a href="#" class='button js-board-membership js-board-membership-api-update'>Save Notification Settings</a>
         <% end %>
+      </div>
     	</div>
     </div>
   </div>

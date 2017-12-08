@@ -26,11 +26,13 @@ class ClientAdmin::SharesController < ClientAdminBaseController
   private
 
     def get_recipient_counts
+      bms = @demo.board_memberships.non_site_admin
+
       {
-        all_user_email_recipient_count: @demo.users.non_site_admin.count,
-        activated_user_email_recipient_count: @demo.claimed_user_count,
-        all_user_sms_recipient_count: @demo.user_with_phone_number_count,
-        activated_user_sms_recipient_count: @demo.claimed_user_with_phone_number_count
+        all_user_email_recipient_count: bms.all_for_digest.count,
+        activated_user_email_recipient_count: bms.claimed_for_digest.count,
+        all_user_sms_recipient_count: bms.all_for_digest_sms.count,
+        activated_user_sms_recipient_count: bms.claimed_for_digest_sms.count
       }
     end
 

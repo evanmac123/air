@@ -2,7 +2,7 @@ class BulkCompleteMailer < ApplicationMailer
   has_delay_mail
 
   helper :email
-  default :to => Admin::BulkSatisfactionsController::REPORT_RECIPIENT,
+  default :to => "admin@airbo.com",
           :from => "donotreply@airbo.com"
 
   def report(states)

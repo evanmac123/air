@@ -17,7 +17,6 @@ feature 'Admin sends targeted messages using segmentation' do
     @demo_specific_characteristic = FactoryGirl.create(:characteristic, :number)
 
     10.upto(19) {|i| @users[i].update_attributes(characteristics: {@agnostic_characteristic.id.to_s => %w(foo bar baz)[i % 3], @demo_specific_characteristic.id.to_s => i % 5})}
-
   end
 
   def select_common_form_entries
@@ -193,7 +192,10 @@ feature 'Admin sends targeted messages using segmentation' do
     select_common_form_entries
 
     @expected_users.each_with_index do |expected_user, i|
-      expected_user.update_attributes(notification_method: %w(both email sms)[i % 3])
+      expected_user.current_board_membership.update_attributes(notification_pref_cd: [
+        BoardMembership.notification_prefs[:both],
+        BoardMembership.notification_prefs[:text_message],
+        BoardMembership.notification_prefs[:email]][i % 3])
     end
 
     expected_html_text = "<p>Be advised!</p>"
@@ -206,8 +208,15 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Scheduled email to 4 users"
     expect_content "Scheduled SMS to 4 users"
 
-    sms_users = @expected_users.select{|u| u.notification_method == 'sms' || u.notification_method == 'both'}
-    email_users = @expected_users.select{|u| u.notification_method == 'email' || u.notification_method == 'both'}
+    sms_users = @expected_users.select { |u|
+      pref = u.current_board_membership.notification_pref
+      pref == :text_message || pref == :both
+    }
+
+    email_users = @expected_users.select { |u|
+      pref = u.current_board_membership.notification_pref
+      pref == :email || pref == :both
+    }
 
     expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(email_users.map(&:email).sort)
 

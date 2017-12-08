@@ -23,7 +23,7 @@ class Admin::DemosController < AdminBaseController
   def show
     @users = @demo.users.alphabetical
     @user_with_mobile_count = @demo.users.with_phone_number.count
-    @claimed_user_count = @demo.claimed_user_count
+    @claimed_user_count = @demo.board_memberships.non_site_admin.claimed.count
     @user_with_game_referrer_count = @demo.users.with_game_referrer.count
     @locations = @demo.locations.alphabetical
   end

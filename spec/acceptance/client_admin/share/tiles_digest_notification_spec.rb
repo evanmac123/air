@@ -287,7 +287,7 @@ feature 'Client admin and the digest email for tiles' do
 
             all_addresses.each do |address|
               open_email(address)
-              expect(current_email.html_part.body).to include(buzzwordery)
+              expect(current_email.body).to include(buzzwordery)
             end
           end
         end
@@ -344,8 +344,7 @@ feature 'Client admin and the digest email for tiles' do
           it "uses that" do
             all_addresses.each do |address|
               open_email(address)
-              expect(current_email.html_part.body).to contain(@custom_headline)
-              expect(current_email.text_part.body).to contain(@custom_headline)
+              expect(current_email.body).to contain(@custom_headline)
             end
           end
         end
@@ -357,8 +356,7 @@ feature 'Client admin and the digest email for tiles' do
 
             all_addresses.each do |address|
               open_email(address)
-              expect(current_email.html_part.body).to contain('Your New Tiles Are Here!')
-              expect(current_email.text_part.body).to contain('Your New Tiles Are Here!')
+              expect(current_email.body).to contain('Your New Tiles Are Here!')
             end
           end
         end
@@ -369,8 +367,11 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: 'hey'
-          submit_button.click
-          accept_alert
+
+          accept_alert do
+            submit_button.click
+          end
+
           expect_digest_sent_content
         end
 
@@ -378,8 +379,10 @@ feature 'Client admin and the digest email for tiles' do
           create_tile
           visit client_admin_share_path(as: admin)
           fill_in "digest[custom_message]", with: ''
-          submit_button.click
-          accept_alert
+
+          accept_alert do
+            submit_button.click
+          end
 
           expect_digest_sent_content
         end
@@ -435,7 +438,6 @@ feature 'Client admin and the digest email for tiles' do
       # follow up
       open_email(address, with_subject: "[Test] Don't Miss: Custom Subject")
       expect(current_email).to have_content "Don't miss your new tiles"
-      expect(current_email).to have_content 'Custom Message'
       expect(current_email).to have_content 'Custom Subject'
     end
 
@@ -479,8 +481,9 @@ feature 'Client admin and the digest email for tiles' do
 
     describe "when sending digest" do
       it "should send with both subjects" do
-        submit_button.click
-        accept_alert
+        accept_alert do
+          submit_button.click
+        end
 
         expect_digest_sent_content
 

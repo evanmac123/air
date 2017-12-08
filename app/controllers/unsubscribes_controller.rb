@@ -1,47 +1,45 @@
 class UnsubscribesController < ApplicationController
   def new
-    @user = User.find(params[:user_id])
-    @token = params[:token]
-    render :layout => 'external'
-  end
-
-  def show
+    @unsubscribe_service = UnsubscribeService.new(unsubscribe_params)
     render layout: 'external'
   end
 
   def create
-    @user = User.find(params[:unsubscribe][:user_id])
-    @reason = params[:unsubscribe][:reason] || ''
-    if EmailLink.validate_token(@user, params[:unsubscribe][:token])
-      answer = tell_sendgrid_to_unsub(@user)
-      @user.ping 'unsubscribed'
-      if answer.include? 'success'
-        Unsubscribe.create(user: @user, reason: @reason)
-        render :show, :layout => 'external'
+    @service = UnsubscribeService.new(unsubscribe_params)
+
+    if @service.valid_unsubscribe?
+      if @service.user.end_user_in_all_boards?
+        sign_in_and_move_into_board
+      end
+
+      ping('Unsubscribed', { email_type: @service.email_type }, @service.user)
+      @service.unsubscribe
+
+      flash[:success] = "You have been unsubscribed."
+    else
+      flash[:failure] = "You could not be unsubscribed at this time. Please try again."
+    end
+
+    redirect_to path_after_unsubscribe
+  end
+
+  private
+
+    def unsubscribe_params
+      params.permit(:user_id, :demo_id, :email_type, :token)
+    end
+
+    def path_after_unsubscribe
+      if current_user.present?
+        activity_path
       else
-        raise "unable to unsubscribe user. Received: '#{answer}'"
+        sign_in_path
       end
     end
-  end
 
-  protected
+    def sign_in_and_move_into_board
+      sign_in(@service.user, :remember_user)
 
-  def fetch_url(in_url)
-    url = URI.parse(in_url)
-
-    r = Net::HTTP.start(url.host, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
-        http.get url.request_uri, 'User-Agent' => 'Hengage'
+      @service.user.move_to_new_demo(@service.demo_id) if @service.demo_id.present?
     end
-
-    if r.is_a? Net::HTTPSuccess
-      r.body
-    else
-      nil
-    end
-  end
-
-  def tell_sendgrid_to_unsub(user)
-    url = Unsubscribe.url(user)
-    fetch_url(url)
-  end
 end

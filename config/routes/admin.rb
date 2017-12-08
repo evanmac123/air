@@ -75,15 +75,9 @@ namespace :admin do
       resource :activities, :only => [:create]
     end
 
-    resources :tiles do
-      resource :bulk_satisfaction, :only => [:create]
-    end
-
-
     resources :locations
     resource :reports, :only => :show
     namespace :reports do
-      resource :location_breakdown, :only => [:show]
       resource :points, :only => [:show]
       resource :interactions, :only => [:show, :keepalive]
       resource :friendships, :only => :show

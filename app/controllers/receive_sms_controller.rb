@@ -20,11 +20,11 @@ class ReceiveSmsController < ActionController::Base
 
     def process_message(message, user)
       if message =~ /stop/i && user.present?
-        user.update_attributes(receives_sms: false)
+        user.current_board_membership.update_attributes(notification_pref_cd: BoardMembership.notification_prefs[:email])
         output = "Thanks for replying. You will no longer recieve texts from #{from_name(user)}."
       elsif message =~ /start/i
         if user.present?
-          user.update_attributes(receives_sms: true)
+          user.current_board_membership.update_attributes(notification_pref_cd: BoardMembership.notification_prefs[:both])
           output = "Thanks for replying. You will now recieve text messages from #{from_name(user)}."
         else
           output = "Sorry, we don't have your number in our system."

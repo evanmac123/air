@@ -15,7 +15,7 @@ feature "User sets their mobile number on settings page" do
 
   def set_new_number(new_number="617-867-5309")
     fill_in_mobile_number_field new_number
-    click_button "save-notification-settings"
+    find(".js-update-phone-number").click
   end
 
   def validate_new_number(token)

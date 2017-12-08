@@ -5,11 +5,11 @@ feature "Client admin creates tiles", js: true do
     let (:client_admin) { FactoryGirl.create(:client_admin)}
     let (:demo)         { client_admin.demo }
 
-    before do
+    before(:each) do
       visit client_admin_tiles_path(as: client_admin)
     end
 
-    scenario "Creates new tile", js: true do
+    scenario "Creates new tile" do
       click_link "Add New Tile"
       fill_in_tile_form_entries edit_text: "baz", points: "10"
       click_create_button
@@ -26,15 +26,15 @@ feature "Client admin creates tiles", js: true do
       expect(page).to have_selector("#tile_point_value", text: "10")
     end
 
-    scenario "Creates new optional free reponse tile", js: true do
+    scenario "Creates new optional free reponse tile" do
       click_link "Add New Tile"
-      choose_question_type_and_subtype Tile::SURVEY, Tile::MULTIPLE_CHOICE
+      choose_question_type_and_subtype Tile::SURVEY, "multiple_choice"
       expect(page).to have_content "Allow Free Response"
     end
 
-    scenario "Creates new free reponse tile", js: true do
+    scenario "Creates new free reponse tile" do
       click_link "Add New Tile"
-      choose_question_type_and_subtype Tile::SURVEY,"free_response"
+      choose_question_type_and_subtype Tile::SURVEY, "free_response"
       expect(page).to have_css ".js-free-form-response.free-text-entry"
     end
 
@@ -54,7 +54,7 @@ feature "Client admin creates tiles", js: true do
     let(:edit_text){"baz"}
     let(:points){"10"}
 
-    before do
+    before(:each) do
       @tile = FactoryGirl.create :multiple_choice_tile, question_type: "survey", question_subtype: "multiple_choice"
       @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
       visit client_admin_tiles_path(as: @client_admin)
@@ -72,22 +72,6 @@ feature "Client admin creates tiles", js: true do
         expect(page).to  have_content "Eggs"
         expect(page).to  have_content "A V8 Buick"
       end
-    end
-
-    scenario  "edit all tile fields" do
-
-      fill_in_tile_form_entries edit_text: edit_text, points: points
-      select_correct_answer 0
-      click_create_button
-
-      within ".viewer" do
-        expect(page).to  have_content "by Society#{edit_text}"
-        expect(page).to  have_content "Ten pounds of cheese#{edit_text}"
-        expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?#{edit_text}"
-        expect(page).to  have_content "Who rules?#{edit_text}"
-      end
-      expect(page).to have_selector("a.multiple-choice-answer.correct", text: "Me#{edit_text}")
-      expect(page).to have_selector("#tile_point_value", text: points)
     end
   end
 

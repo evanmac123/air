@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20171205093043) do
+ActiveRecord::Schema.define(:version => 20171206220106) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20171205093043) do
     t.boolean  "send_weekly_activity_report",      :default => true
     t.boolean  "allowed_to_make_tile_suggestions", :default => false, :null => false
     t.datetime "joined_board_at"
+    t.integer  "notification_pref_cd",             :default => 0
   end
 
   add_index "board_memberships", ["demo_id"], :name => "index_board_memberships_on_demo_id"
@@ -491,6 +492,7 @@ ActiveRecord::Schema.define(:version => 20171205093043) do
     t.integer  "current_health_score"
     t.boolean  "hide_social",                                          :default => false
     t.string   "timezone",                                             :default => "Eastern Time (US & Canada)"
+    t.boolean  "allow_unsubscribes",                                   :default => false
   end
 
   add_index "demos", ["dependent_board_id"], :name => "index_demos_on_dependent_board_id"
@@ -1564,8 +1566,9 @@ ActiveRecord::Schema.define(:version => 20171205093043) do
     t.boolean  "manage_access_prompt_seen",                       :default => false,       :null => false
     t.integer  "primary_user_id"
     t.string   "official_email"
-    t.boolean  "receives_sms",                                    :default => true
     t.integer  "organization_id"
+    t.boolean  "receives_sms",                                    :default => true
+    t.boolean  "receives_explore_email",                          :default => true
   end
 
   add_index "users", ["cancel_account_token"], :name => "index_users_on_cancel_account_token"

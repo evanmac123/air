@@ -12,9 +12,9 @@ module EmailHelper
     user_url(friend, user_id: user.id, token: token)
   end
 
-  def email_unsubscribe_link(user)
+  def email_unsubscribe_link(user:, email_type:, demo: nil)
     token = EmailLink.generate_token(user)
-    new_unsubscribe_url(:host => email_link_host, :protocol => email_link_protocol, user_id: user.id, token: token).html_safe
+    new_unsubscribe_url(:host => email_link_host, :protocol => email_link_protocol, user_id: user.id, demo_id: demo.try(:id), email_type: email_type, token: token).html_safe
   end
 
   def email_account_settings_link

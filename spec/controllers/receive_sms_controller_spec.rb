@@ -51,13 +51,13 @@ describe ReceiveSmsController do
         expect(response.status).to eq(200)
         expect(response.content_type).to eq("xml")
         expect(response.body).to eq(stop_response(@user.demo.name))
-        expect(@user.reload.receives_sms).to eq(false)
+        expect(@user.board_memberships.first.notification_pref).to eq(:email)
       end
     end
 
     describe "when an existing user responds with start" do
       it "updates their notification settings" do
-        @user.update_attributes(receives_sms: false)
+        @user.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:email])
 
         params = {
           "From" => @user.phone_number,
@@ -70,7 +70,7 @@ describe ReceiveSmsController do
         expect(response.status).to eq(200)
         expect(response.content_type).to eq("xml")
         expect(response.body).to eq(start_response_existing_user(@user.demo.name))
-        expect(@user.reload.receives_sms).to eq(true)
+        expect(@user.board_memberships.first.notification_pref).to eq(:both)
       end
     end
 

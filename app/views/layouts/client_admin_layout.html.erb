@@ -41,13 +41,11 @@
     <%= render 'shared/offcanvas_menu_signedin' %>
     <main class="main">
     <%= render partial: 'shared/tiles_tools_subnav/tiles_tools_subnav' %>
-    <div class="core">
-      <div class="content">
-        <%= yield %>
+      <div class="core pb-5">
+        <div class="content">
+          <%= yield %>
+        </div>
       </div>
-      <div id="footer">
-      </div>
-    </div>
     </main>
 
 

@@ -30,7 +30,8 @@ class Admin::TargetedMessagesController < AdminBaseController
     @html_text = '' unless sendable_html?(@html_text)
 
     user_ids = @segmentation_results.found_user_ids
-    email_recipient_ids, sms_recipient_ids = User.push_message_recipients(@respect_notification_method, user_ids)
+
+    email_recipient_ids, sms_recipient_ids = User.push_message_recipients(user_ids: user_ids, demo_id: @demo.id, respect_notification_method: @respect_notification_method)
 
     PushMessage.schedule(
       subject:    @subject,

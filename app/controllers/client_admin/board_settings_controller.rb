@@ -69,6 +69,11 @@ class ClientAdmin::BoardSettingsController < ClientAdminBaseController
     render json: { success: @board.save }
   end
 
+  def allow_unsubscribes
+    @board.allow_unsubscribes = params[:demo][:allow_unsubscribes]
+    render json: { success: @board.save }
+  end
+
   def cover_image
     @board.cover_image = if params[:demo].present? && params[:demo][:cover_image].present?
                           params[:demo][:cover_image]

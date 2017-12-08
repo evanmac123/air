@@ -898,27 +898,36 @@ describe User do
   end
 end
 
-describe User, ".wants_email" do
-  it "should select users who want email only or both email and SMS" do
-    User.delete_all
-    sms_only = FactoryGirl.create(:user, notification_method: 'sms')
-    email_only = FactoryGirl.create(:user, notification_method: 'email')
-    both = FactoryGirl.create(:user, notification_method: 'both')
+describe User, "notification preferences" do
+  before do
+    @demo = FactoryGirl.create(:demo)
+    @sms_only = FactoryGirl.create(:user, demo: @demo)
+    @sms_only.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:text_message])
 
-    expect(User.wants_email.all.sort).to eq([email_only, both].sort)
+    @email_only = FactoryGirl.create(:user, demo: @demo)
+    @email_only.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:email])
+
+    @both = FactoryGirl.create(:user, demo: @demo)
+    @both.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:both])
+  end
+
+  describe ".wants_email" do
+    it "should select users who want email only or both email and SMS" do
+      user_ids_that_want_email = User.wants_email(user_ids: User.pluck(:id), demo_id: @demo.id).pluck(:id)
+
+      expect(user_ids_that_want_email.sort).to eq([@email_only.id, @both.id].sort)
+    end
+  end
+
+  describe ".wants_sms" do
+    it "should select users who want SMS only or both email and SMS" do
+      user_ids_that_want_sms = User.wants_sms(user_ids: User.pluck(:id), demo_id: @demo.id).pluck(:id)
+
+      expect(user_ids_that_want_sms.sort).to eq([@sms_only.id, @both.id].sort)
+    end
   end
 end
 
-describe User, ".wants_sms" do
-  it "should select users who want SMS only or both email and SMS" do
-    User.delete_all
-    sms_only = FactoryGirl.create(:user, notification_method: 'sms')
-    email_only = FactoryGirl.create(:user, notification_method: 'email')
-    both = FactoryGirl.create(:user, notification_method: 'both')
-
-    expect(User.wants_sms.all.sort).to eq([sms_only, both].sort)
-  end
-end
 
 describe User, "default notification method" do
   it "should set the default notification method to 'email'" do

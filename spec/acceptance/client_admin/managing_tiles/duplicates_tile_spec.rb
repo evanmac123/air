@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Client admin duplicates tile' do
+feature 'Client admin duplicates tile', js: true do
   let!(:demo) { FactoryGirl.create :demo }
   let!(:client_admin) { FactoryGirl.create :client_admin, demo: demo }
   let!(:original_tile) { FactoryGirl.create :multiple_choice_tile, :active, demo: demo, headline: "Copy me!" }
@@ -9,7 +9,7 @@ feature 'Client admin duplicates tile' do
     visit client_admin_tiles_path(as: client_admin)
   end
 
-  it "should show only one tile in posted section", js: true do
+  it "should show only one tile in posted section" do
     expect(section_tile_headlines("#draft")).to eq([])
     expect(section_tile_headlines("#active")).to eq(["Copy me!"])
     expect(section_tile_headlines("#archive")).to eq([])
@@ -27,7 +27,7 @@ feature 'Client admin duplicates tile' do
       end
     end
 
-    it "should add tile to draft section", js: true do
+    it "should add tile to draft section" do
       expect(section_tile_headlines("#draft")).to eq(["Copy me!"])
     end
   end
@@ -37,10 +37,11 @@ feature 'Client admin duplicates tile' do
       find( ".tile_thumbnail[data-tile-id='#{original_tile.id}']").click
       within "#tile_preview_modal" do
         click_link "Copy"
+        find(".close-reveal-modal").click
       end
     end
 
-    it "should add tile to draft section", js: true do
+    it "should add tile to draft section" do
       expect(section_tile_headlines("#draft")).to eq(["Copy me!"])
     end
   end

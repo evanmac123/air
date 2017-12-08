@@ -59,7 +59,7 @@ class FollowUpDigestEmail < ActiveRecord::Base
   end
 
   def users
-    tiles_digest.users.joins(:board_memberships).where(board_memberships: { digest_muted: false })
+    tiles_digest.users
   end
 
   def recipient_ids

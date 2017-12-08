@@ -383,39 +383,6 @@ describe Tile do
     end
   end
 
-  describe "Bulk Complete" do
-    before(:each) do
-      Demo.find_each { |f| f.destroy }
-      @fun = FactoryGirl.create(:demo, name: 'Fun')
-      @not_fun = FactoryGirl.create(:demo, name: 'Not Fun')
-      @stretch = FactoryGirl.create(:tile, demo: @fun, headline: 'Stretch')
-      @sip = FactoryGirl.create(:tile, demo: @fun, headline: 'Sip')
-      @breathe = FactoryGirl.create(:tile, demo: @fun, headline: 'Breathe')
-
-      @lucy  = FactoryGirl.create(:user, demo: @fun, name: 'Lucy')
-      @james = FactoryGirl.create(:user, demo: @fun, name: 'James')
-      @reath = FactoryGirl.create(:user, demo: @not_fun, name: 'Reath')
-      @benji = FactoryGirl.create(:user, demo: @not_fun, name: 'Benji')
-
-      @random_email = "nothing@sucks_more.org"
-    end
-
-    it "completes only tiles for users in this demo" do
-      emails = [@reath.email, @lucy.email, @random_email]
-      Tile.bulk_complete(@fun.id, @stretch.id, emails)
-
-      expect(TileCompletion.count).to eq(1)
-      expect(TileCompletion.first.user).to eq(@lucy)
-      expect(TileCompletion.first.tile_id).to eq(@stretch.id)
-    end
-
-    it "does no completions if blank string sent" do
-      emails = []
-      Tile.bulk_complete(@fun.id, @stretch.id, emails)
-      expect(TileCompletion.count).to eq(0)
-    end
-  end
-
   describe "after save" do
     context "if a URL is specified that starts with http or https" do
       it "should leave it alone" do

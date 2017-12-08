@@ -8,7 +8,7 @@ include EmailHelper
 # That method returns a 'mail' object, whose content is then tested.
 
 describe 'Digest email' do
-  let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday }
+  let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday, allow_unsubscribes: true }
 
 # TODO: Using the board_membership factory here is a side effect of how convoluted our factories have become as we've move to using BoardMemberships.  Although there are multiple issues, the particluar issue that necessitated using the board_membership factory is that FactoryGirl.create(:claimed_user) creates a user that is 'claimed' in the old sense of the term (i.e. User.activated_at != nil), whereas we now need 'claimed' to mean User.board_membership.joined_board_at != nil. Refactor factories when there is time.
 
@@ -242,14 +242,14 @@ describe 'Digest email' do
   end
 
   describe '#notify_all' do
-    it 'should not send to a user with digests muted' do
+    it 'should not send to a user who is unsubscribed' do
       digest_users = [claimed_user]
       TilesDigestMailer.notify_all(digest)
 
       expect(ActionMailer::Base.deliveries.count).to eq(digest_users.count)
 
       ActionMailer::Base.deliveries.clear
-      claimed_user.board_memberships.update_all(digest_muted: true)
+      claimed_user.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:unsubscribe])
       TilesDigestMailer.notify_all(digest)
 
       expect(ActionMailer::Base.deliveries).to be_empty
@@ -417,8 +417,7 @@ describe 'Digest email' do
         TilesDigestMailer.notify_all_follow_up
 
         open_email(user.email)
-        expect(current_email.html_part).to contain('Kneel before Zod')
-        expect(current_email.text_part).to contain('Kneel before Zod')
+        expect(current_email.body).to contain('Kneel before Zod')
       end
     end
 
@@ -437,17 +436,16 @@ describe 'Digest email' do
         TilesDigestMailer.notify_all_follow_up
 
         open_email(user.email)
-        expect(current_email.html_part).to contain("Don't miss your new tiles")
-        expect(current_email.text_part).to contain("Don't miss your new tiles")
+        expect(current_email.body).to contain("Don't miss your new tiles")
       end
     end
 
-    it 'should not send to a user with followups muted' do
+    it 'should not send to a user who is unsubscribed' do
       followup_board = FactoryGirl.create(:demo)
       unmuted_user = FactoryGirl.create(:user, demo: followup_board)
       muted_user   = FactoryGirl.create(:user, demo: followup_board)
 
-      muted_user.board_memberships.update_all(digest_muted: true)
+      muted_user.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:unsubscribe])
 
       digest = TilesDigest.create(demo: followup_board, sender: unmuted_user, tile_ids: [], sent_at: Time.current, include_unclaimed_users: true)
 

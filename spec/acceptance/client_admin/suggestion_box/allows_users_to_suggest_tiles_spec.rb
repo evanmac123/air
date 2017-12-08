@@ -94,7 +94,6 @@ feature 'Client admin segments on characteristics', js: true do
           fill_in_username_autocomplete("Use")
           username_autocomplete_results_click 0
 
-          #wait_for_ajax
           expect(user_rows.first.find(".user_name").text).to eq("User1")
 
           save_button.click
@@ -121,8 +120,6 @@ feature 'Client admin segments on characteristics', js: true do
           end
           save_button.click
 
-          #automatically waits for ajax without the need for any WaitForAjax
-          #This confirms that the modal was closed susccessfully
           expect(page).to_not have_content("Add people to suggestion box")
 
           manage_access_link.click #reopen modal

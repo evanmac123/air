@@ -102,6 +102,7 @@ namespace :client_admin do
       put 'cover_message'
       put 'cover_image'
       put 'timezone'
+      put 'allow_unsubscribes'
     end
   end
 

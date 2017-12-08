@@ -204,7 +204,7 @@ class TilesDigest < ActiveRecord::Base
   private
 
     def users_for_digest
-      demo.users.joins(:board_memberships).where(board_memberships: { demo_id: demo.id, digest_muted: false }).where("board_memberships.created_at <= ?", sent_at)
+      demo.users.joins(:board_memberships).where(board_memberships: { demo_id: demo.id }).where("board_memberships.notification_pref_cd != ?", BoardMembership.unsubscribe).where("board_memberships.created_at <= ?", sent_at)
     end
 
     def claimed_users_for_digest

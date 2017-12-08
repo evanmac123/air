@@ -117,7 +117,6 @@ group :test do
   gem 'bourne'
   gem 'test_after_commit'
   gem 'capybara'
-  gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'sham_rack'
   gem 'timecop'
