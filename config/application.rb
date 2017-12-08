@@ -70,8 +70,6 @@ module Health
       for-modern-browsers.js
       file-uploader.js
       external/join.js
-      jquery.lightbox_me.js
-      rem.min.js
     )
 
 

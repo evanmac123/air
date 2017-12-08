@@ -304,16 +304,8 @@ module SteakHelperMethods
     end
   end
 
-  def site_tutorial_lightbox_selector
-    "#get_started_lightbox"
-  end
-
   def site_tutorial_content
     welcome_message # all the same for now
-  end
-
-  def expect_no_site_tutorial_lightbox
-    expect(page.all(site_tutorial_lightbox_selector)).to be_empty
   end
 
   def close_conversion_form
