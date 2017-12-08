@@ -26,7 +26,7 @@
       <% raffle.prizes.each do |prize| %>
         <div class="prize_section">
           <%= text_area_tag "raffle[prizes][]", prize, placeholder: "Enter a prize description (e.g., Grand Prize: Gift Card)", class: "prize_field", maxlength: 160 %>
-          <div class="remove_prize">
+          <div class="remove_prize pt-1">
             Remove
           </div>
         </div>

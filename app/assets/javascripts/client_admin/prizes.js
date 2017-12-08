@@ -283,48 +283,6 @@ function removePrize(index){
   }
 }
 
-function clearAll(){
-  //clear dates
-  $("#raffle_starts_at").val("");
-  $("#raffle_ends_at").val("");
-  //update dates in preview
-  validateStartDate();
-  validateEndDate();
-  //remove all prizes except first
-  $(".prize_section:gt(0)").remove();
-  //set first empty
-  $(".prize_field").val("");
-  //delete prizes from preview
-  $(".prize_row:gt(0)").remove();
-  //set first empty
-  updatePrivewPrizeField(0);
-  //clear other info
-  $("#raffle_other_info").val( $("#raffle_other_info").attr("placeholder") );
-  updatePreivewOtherInfo();
-  $("form textarea, form input").change();
-}
-
-function clearAllDialog(){
-  $( "#clear_dialog" ).dialog({
-    resizable: false,
-    height:200,
-    width: 400,
-    modal: true,
-    buttons: {
-      "Confirm": function() {
-        $( this ).dialog( "close" );
-        clearAll();
-        saveDraft();
-        rebindPrizeEvents();
-      },
-      Cancel: function() {
-        $( this ).dialog( "close" );
-      }
-    }
-  });
-  $( "#clear_dialog" ).dialog( "close" );
-}
-
 /*********************Live************************/
 
 function disableForm(){
