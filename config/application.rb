@@ -87,7 +87,6 @@ module Health
       ga.js
       ga-marketing.js
       admin/byte_counter.js
-      resizing_gears_fullsize.gif
       internal/guest_user_conversion.js
       client_admin/public_board_controls.js
       internal/explore.css
