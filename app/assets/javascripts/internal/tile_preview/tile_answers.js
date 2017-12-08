@@ -114,7 +114,7 @@ Airbo.TileAnswers = (function(){
   };
 
   function attachWrongAnswers() {
-    $.each($('.js-multiple-choice-answer.incorrect'), function(wrongAnswerLink) {
+    $('.js-multiple-choice-answer.incorrect').each(function(idx, wrongAnswerLink) {
       var target;
       wrongAnswerLink = $(wrongAnswerLink);
       target = wrongAnswerLink.siblings('.answer_target');
