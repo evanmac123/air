@@ -30,10 +30,6 @@ namespace :admin do
 
   resources :organizations, as: :customers
   resources :organizations do
-    collection do
-      post "import"
-    end
-
     resources :subscriptions, only: [:create, :destroy] do
       put 'cancel'
       resources :invoices, only: [:create, :destroy]

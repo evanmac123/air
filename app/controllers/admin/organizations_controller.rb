@@ -1,7 +1,5 @@
-require 'file_upload_wrapper'
 require 'custom_responder'
 class Admin::OrganizationsController < AdminBaseController
-  include CustomResponder
   include SalesAcquisitionConcern
 
   before_filter :find_organization, only: [:edit, :show, :update, :destroy]
@@ -29,16 +27,6 @@ class Admin::OrganizationsController < AdminBaseController
       flash[:failure] = "Organization not found."
       redirect_to admin_path
     end
-  end
-
-  def import
-    importer = OrganizationImporter.new(FileUploadWrapper.new(params[:file]))
-    org = nil
-    importer.rows.each do |row|
-      org = Organization.where(name: row["Company"]).first_or_initialize
-      org.save
-    end
-    redirect_to admin_organizations_path
   end
 
   def edit

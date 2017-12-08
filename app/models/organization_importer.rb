@@ -1,3 +1,0 @@
-class OrganizationImporter < SpreadsheetImporter
-
-end
