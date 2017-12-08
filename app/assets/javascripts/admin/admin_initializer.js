@@ -34,23 +34,11 @@ Airbo.SiteAdminInitializer = ( function(){
     );
   }
 
-  function initPickadate(){
-    $('.pickadate').pickadate({
-      hiddenName:true,
-      formatSubmit: "yyyy-mm-dd",
-      format: "mmm dd, yyyy",
-      container: ".custom-date-range"
-    });
-  }
-
-
-
   function init(){
     initBoardDeleter();
     initModalCloser();
     initBoardsAndOrgs();
     initKpiTooltips();
-    initPickadate();
     initZurbFoundation();
     Airbo.Utils.initChosen();
   }

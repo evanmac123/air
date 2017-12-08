@@ -2,7 +2,7 @@
 // it. --Phil, 9/11/2013.
 
 $(function() {
-  $('#add-new-user').live('click', function() {
+  $('#add-new-user').on('click', function() {
     $('#new_user').parent('.hidden-form').show();
     $('#user_name').focus();
     return false;
@@ -30,7 +30,7 @@ $(function() {
 
   resizeFaceboxToFitSuggestions();
 
-  $("#search_for_referrer .single_suggestion").live('click', fadeOutUnclickedSuggestions);
+  $("#search_for_referrer .single_suggestion").on('click', fadeOutUnclickedSuggestions);
 });
 
 function autoFocusColor(field, text){

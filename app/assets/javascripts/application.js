@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require jquery.validate
 //= require jquery.validate.additional-methods
+//= require_tree ../../../vendor/assets/javascripts/external/
 
 //= require handlebars
 //= require vendor_customization/handlebars

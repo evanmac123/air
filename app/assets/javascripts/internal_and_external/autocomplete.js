@@ -14,14 +14,14 @@ $(function() {
       markForSend();
   });
 
-  $('#search_for_friends_to_invite #autocomplete').live('keypress', function(){
+  $('#search_for_friends_to_invite #autocomplete').on('keypress', function(){
       var email = $('#user_email').val();
       var options = {email : email, calling_div : '#search_for_friends_to_invite'};
       startWatchDog(options);
       markForSend();
   });
 
-  $('#search_for_referrer .single_suggestion').live('click', function() {
+  $('#search_for_referrer .single_suggestion').on('click', function() {
     stopWatchDog();
     $('#user_game_referrer_id').val($(this).find('.suggested_user_id').text());
     $('#search_for_referrer #autocomplete').hide();
@@ -35,7 +35,7 @@ $(function() {
 
 
 
-  $('.remove_referrer').live('click', function() {
+  $('.remove_referrer').on('click', function() {
     $('#user_game_referrer_id').val('');
     $(this).parent('.single_suggestion').remove();
     $('#autocomplete').show();

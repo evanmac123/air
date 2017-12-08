@@ -1,11 +1,9 @@
 /*
 *= require ../../../vendor/assets/stylesheets/tablesorter/themes/blue/style
-*= require pickadate/classic
-*= require pickadate/classic.date
 *= require tooltipster/tooltipster.bundle.min
 *= require tooltipster/themes/tooltipster-sideTip-shadow.min
 *= require chosen
-*= require jquery-ui-1.8.10.custom
+*= require jquery-ui.min
 */
 
 /* MIXIN DEFINITIONS NEXT (so we can use them later) */
@@ -31,5 +29,4 @@
 @import "./admin/financials/base";
 
 @import "./vendor_customization/chosen.css.scss";
-@import "./vendor_customization/pickadate.css.scss";
 @import "admin/modules/organization-module.scss";

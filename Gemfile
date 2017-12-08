@@ -96,7 +96,6 @@ group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
-  gem 'jquery-ui-rails'
   gem 'handlebars_assets', '~>0.22.0'
 end
 

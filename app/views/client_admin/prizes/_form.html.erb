@@ -76,7 +76,7 @@
       $(".prize_field").unbind();
       $(".prize_section .character-counter").remove();
 
-      _.each($('.prize_field'), addCharacterCounterFor);
+      $.each($('.prize_field'), addCharacterCounterFor);
 
       //enable save draft button
       $(".prize_field").bind('input propertychange', function(){

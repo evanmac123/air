@@ -86,7 +86,7 @@
              }).join('');
     }
 
-    $('.segment-column').live('change', function(e) {
+    $('.segment-column').on('change', function(e) {
       characteristicId = $(e.target).val();
 
       if(characteristicId) {
@@ -104,7 +104,7 @@
       }
     });
 
-    $('.remove_this_characteristic').live('click', function(e) {
+    $('.remove_this_characteristic').on('click', function(e) {
       $(e.target).parent().remove();
     });
 

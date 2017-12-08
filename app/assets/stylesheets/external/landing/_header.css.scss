@@ -16,9 +16,6 @@ header#pageHeader{
       width: 68px;
     }
   }
-  .request_demo_block {
-    display: none;
-  }
   .headerMenu{
     float: right;
     overflow: auto;
@@ -102,14 +99,6 @@ header#pageHeader{
         height: 35px;
         background-image: url('landing/logo-blue.png');
       }
-    }
-    .request_demo_block {
-      display: block;
-      float: none;
-      width: auto;
-      overflow: hidden;
-      text-align: center;
-      margin-bottom: 8px;
     }
     .mobile-toggle {
       cursor: pointer;
