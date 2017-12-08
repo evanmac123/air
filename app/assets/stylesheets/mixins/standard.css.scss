@@ -26,7 +26,7 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 		font-weight:bold;
 		padding: 10px 0 5px 0;
 		text-align: center;
-		
+
 		a {
 			color: $dark-gray;
 			padding: 0 7px;
@@ -42,12 +42,12 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 		border-bottom: 1px $light-gray solid;
 		clear: both;
 		padding: 13px 0;
-		.act-details {	
+		.act-details {
 			float: left;
 			padding-left: 20px;
 			position:relative;
 			width: 85%;
-			
+
 			.description {
 				width: 80%;
 			}
@@ -101,7 +101,7 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 			height: 50px;
 			position:relative;
 			width: 50px;
-			
+
 			img {
 				@include rounded;
 				height: 100%;
@@ -115,7 +115,6 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 	-moz-box-shadow: 0 0 5px #c9c9c9;
 	-webkit-box-shadow: 0 0 5px #c9c9c9;
 	box-shadow: 0 0 5px #c9c9c9;
-	behavior: url(/css3pie/PIE.htc);
 }
 @mixin button-norm {
 	@include bg-black-rev;
@@ -144,7 +143,7 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 	padding-bottom:15px;
 	text-transform:uppercase;
 }
-@mixin heading-gray {	
+@mixin heading-gray {
 	color:$gray;
 	// font-family:$gotham;
 	font-size:14px;
@@ -168,7 +167,7 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 		border: 1px #c5c7c7 solid;
 		color:$header-bg;
 		padding:5px 10px;
-		
+
 		&:focus {
 			background-color:#fff;
 			border:1px $header-bg solid;
@@ -186,24 +185,18 @@ ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	
-	behavior: url(/css3pie/PIE.htc);
-//	position:relative;
 	z-index: 0;
 }
 @mixin rounded-nav {
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
-	behavior: url(/css3pie/PIE.htc);
   position: relative;
 }
 @mixin rounded-progress {
 	border-radius: 30px;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
-	
-	//behavior: url(/css3pie/PIE.htc);
 }
 @mixin shadow-side {
 	-webkit-box-shadow: 7px 0 6px -6px rgba(0, 0, 0, .5);
@@ -290,7 +283,7 @@ $c-competition:		#b65100;
 //			background: -o-linear-gradient(top,  rgba(0,116,97,1) 0%,rgba(0,133,112,1) 30%,rgba(0,162,139,1) 74%,rgba(0,164,137,1) 86%,rgba(1,156,125,1) 98%,rgba(0,186,155,1) 100%); /* Opera 11.10+ */
 //			background: -ms-linear-gradient(top,  rgba(0,116,97,1) 0%,rgba(0,133,112,1) 30%,rgba(0,162,139,1) 74%,rgba(0,164,137,1) 86%,rgba(1,156,125,1) 98%,rgba(0,186,155,1) 100%); /* IE10+ */
 //			background: linear-gradient(top,  rgba(0,116,97,1) 0%,rgba(0,133,112,1) 30%,rgba(0,162,139,1) 74%,rgba(0,164,137,1) 86%,rgba(1,156,125,1) 98%,rgba(0,186,155,1) 100%); /* W3C */
-			background: #005E50; 
+			background: #005E50;
 			border: {
 				bottom: {
 					color:lighten(#005E50, 15%);
@@ -330,7 +323,7 @@ $c-competition:		#b65100;
 			style: solid;
 		}
 	}
-	
+
 /* other colors */
 @mixin bg-black {
 	background: #1e1f1e; /* Old browsers */
@@ -371,7 +364,7 @@ $c-competition:		#b65100;
 				background: linear-gradient(top,  rgba(255,134,0,1) 0%,rgba(255,170,0,1) 6%,rgba(255,152,5,1) 49%,rgba(249,104,19,1) 50%,rgba(249,120,0,1) 91%,rgba(255,119,0,1) 100%); /* W3C */
 	//			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8600', endColorstr='#ff7700',GradientType=0 ); /* IE6-8 */
 			}
-			
+
 @mixin bg-progressbar {
 	background: #d5d5d5; /* Old browsers */
 	background: -moz-linear-gradient(top,  #d5d5d5 0%, #eaeaea 100%); /* FF3.6+ */
@@ -392,13 +385,12 @@ $c-competition:		#b65100;
 	-moz-box-shadow: 0 0 5px #c9c9c9;
 	-webkit-box-shadow: 0 0 5px #c9c9c9;
 	box-shadow: 0 0 5px #c9c9c9;
-	behavior: url(/css3pie/PIE.htc);
 	background-color:#ffffff;
 	margin-bottom:15px;
 	padding: 15px 10px 10px 10px;
 }
 @mixin bg-white {
-	.module {		
+	.module {
 		@include bg-white-free;
 	}
 	.module_inner {
