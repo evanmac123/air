@@ -69,7 +69,6 @@ module Health
       app-client-admin.js
       for-modern-browsers.js
       file-uploader.js
-      external/blog_rss.js
       external/join.js
       jquery.lightbox_me.js
       rem.min.js
@@ -86,7 +85,7 @@ module Health
     # config.autoload_paths += %W(#{config.root}/extras)
 
     config.autoload_paths += %W(
-      #{config.root}/app/presenters
+      #{Rails.root}/app/presenters/board_settings #{config.root}/app/presenters/digest #{config.root}/app/presenters/tile_preview
       #{config.root}/app/controllers/concerns
       #{config.root}/app/models/concerns
     )

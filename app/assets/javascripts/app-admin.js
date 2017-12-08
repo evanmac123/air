@@ -1,3 +1,5 @@
+// AIM FOR app-admin.js TO BE THE TOP LEVEL IMPORT FILE FORE ALL LEGACY JS (pre move to webpacker)
+
 //= require application
 //= require jquery.ui.datepicker
 //= require jquery.ui.autocomplete
@@ -5,12 +7,12 @@
 //= require mobvious-rails
 //= require tooltipster/tooltipster.bundle.min
 //= require jquery.ba-throttle-debounce.min.js
-//= require ../../../vendor/assets/javascripts/jquery.jpanelmenu.min
-//= require ../../../vendor/assets/javascripts/jRespond.min
-//= require ../../../vendor/assets/javascripts/jquery.form.min
-//= require jquery.floatThead.min
+//= require_tree ../../../vendor/assets/javascripts/external/
 
-//= require_tree ../../../vendor/assets/javascripts/admin/.
+
+//= require ../../../vendor/assets/javascripts/jquery.jpanelmenu.min
+//= require ../../../vendor/assets/javascripts/jquery.form.min
+
 //= require ./internal_and_external/underscore-min
 //= require ./file-uploader
 //= require_tree ./admin/.

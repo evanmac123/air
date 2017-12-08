@@ -1,7 +1,6 @@
 //= require mobvious-rails
 //= require_tree ./client_admin
 //= require_tree ./explore
-//= require_tree ../../../vendor/assets/javascripts/external/
 
 //= require ../../../vendor/assets/javascripts/progressbar
 //= require_tree ../../../vendor/assets/javascripts/highcharts
@@ -15,7 +14,6 @@
 //= require ../../../vendor/assets/javascripts/confirm_with_reveal.modified
 
 //= require ../../../vendor/assets/javascripts/jquery.jpanelmenu.min
-//= require ../../../vendor/assets/javascripts/jRespond.min
 //= require ../../../vendor/assets/javascripts/flickity.pkgd.min.js
 
 //= require ./internal_and_external/underscore-min
