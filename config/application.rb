@@ -10,7 +10,7 @@ require File.expand_path(__FILE__ + '/../../app/middleware/request_timestamp')
 # you've limited to :test, :development, or :production.
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(:assets => %w(development test))
+  Bundler.require(*Rails.groups(:assets => %w(development test)))
   # If you want your assets lazily compiled in production,use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -52,7 +52,6 @@ module Health
       app-client-admin_split4.css
       app-client-admin_split5.css
       app-client-admin_split6.css
-      client_admin_base.css
       app-external.css
       app-internal.css
       app-internal_split2.css
@@ -60,41 +59,20 @@ module Health
       app-internal_split4.css
       app-internal_split5.css
       app-landing.css
-      app-user-progress.css
-      app-user-progress_split2.css
-      styleguide.css
       external/external_ie8.css
-      external/standalone_ie8.css
       internal/internal_ie8.css
       client_admin/client_admin_ie8.css
       app-admin.js
-      app-highcharts-standalone.js
       app-internal.js
       app-external.js
       app-search.js
       app-client-admin.js
       for-modern-browsers.js
       file-uploader.js
-      client_admin/add_new_item_via_select.js
-      errors.css
       external/blog_rss.js
-      external/textscroll.js
       external/join.js
-      external/prefilled_input.js
       jquery.lightbox_me.js
       rem.min.js
-      flick/jquery-ui-1.8.10.custom.css
-      ga.js
-      ga-marketing.js
-      admin/byte_counter.js
-      internal/guest_user_conversion.js
-      client_admin/public_board_controls.js
-      internal/explore.css
-      video.png
-      internal/countUp.min.js
-      internal/point_and_ticket_animation.js
-      internal/validate_new_board.js
-      ie8-grid12-foundation-4.css
     )
 
 
@@ -108,7 +86,7 @@ module Health
     # config.autoload_paths += %W(#{config.root}/extras)
 
     config.autoload_paths += %W(
-      #{Rails.root}/app/presenters/board_settings #{config.root}/app/presenters/digest #{config.root}/app/presenters/tile_preview
+      #{config.root}/app/presenters
       #{config.root}/app/controllers/concerns
       #{config.root}/app/models/concerns
     )

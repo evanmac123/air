@@ -6,18 +6,16 @@
 //= require ../../../vendor/assets/javascripts/progressbar
 //= require_tree ../../../vendor/assets/javascripts/highcharts
 //= require vendor_customization/highcharts
-//= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min
-//= require ../../../vendor/assets/javascripts/client_admin/jquery.payment
-//= require ../../../vendor/assets/javascripts/client_admin/jquery-dialog.min
-//= require ../../../vendor/assets/javascripts/client_admin/jquery-sortable.min
-//= require ../../../vendor/assets/javascripts/client_admin/jquery.ui.touch-punch.min
-//= require ../../../vendor/assets/javascripts/client_admin/jquery.scrollTo.min
-//= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
-//= require ../../../vendor/assets/javascripts/client_admin/jquery.jscroll
+//= require ../../../vendor/assets/javascripts/jquery.slider.min
+//= require ../../../vendor/assets/javascripts/jquery.payment
+//= require ../../../vendor/assets/javascripts/jquery-sortable.min
+//= require ../../../vendor/assets/javascripts/jquery.ui.touch-punch.min
+//= require ../../../vendor/assets/javascripts/jquery.scrollTo.min
+//= require ../../../vendor/assets/javascripts/jquery.form.min
 //= require ../../../vendor/assets/javascripts/confirm_with_reveal.modified
 
-//= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
-//= require ../../../vendor/assets/javascripts/internal/jRespond.min
+//= require ../../../vendor/assets/javascripts/jquery.jpanelmenu.min
+//= require ../../../vendor/assets/javascripts/jRespond.min
 //= require ../../../vendor/assets/javascripts/flickity.pkgd.min.js
 
 //= require ./internal_and_external/underscore-min

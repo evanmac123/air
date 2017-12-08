@@ -8,13 +8,12 @@
 //= require mobvious-rails
 //= require tooltipster/tooltipster.bundle.min
 //= require jquery.ba-throttle-debounce.min.js
-//= require ../../../vendor/assets/javascripts/client_admin/jquery.slider.min.js
-//= require ../../../vendor/assets/javascripts/client_admin/jquery.jscroll
+//= require ../../../vendor/assets/javascripts/jquery.slider.min.js
 //= require ../../../vendor/assets/javascripts/intro.min
 //= require ../../../vendor/assets/javascripts/confirm_with_reveal.modified
-//= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
+//= require ../../../vendor/assets/javascripts/jquery.form.min
+//= require ../../../vendor/assets/javascripts/jquery.jpanelmenu.min
 //= require_tree ../../../vendor/assets/javascripts/external/
-//= require_tree ../../../vendor/assets/javascripts/internal/.
 //= require_tree ./internal
 //= require_tree ./internal_and_external/.
 //= require ./explore/searches

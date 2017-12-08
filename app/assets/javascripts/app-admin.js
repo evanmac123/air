@@ -5,9 +5,9 @@
 //= require mobvious-rails
 //= require tooltipster/tooltipster.bundle.min
 //= require jquery.ba-throttle-debounce.min.js
-//= require ../../../vendor/assets/javascripts/internal/jquery.jpanelmenu.min
-//= require ../../../vendor/assets/javascripts/internal/jRespond.min
-//= require ../../../vendor/assets/javascripts/client_admin/jquery.form.min
+//= require ../../../vendor/assets/javascripts/jquery.jpanelmenu.min
+//= require ../../../vendor/assets/javascripts/jRespond.min
+//= require ../../../vendor/assets/javascripts/jquery.form.min
 //= require jquery.floatThead.min
 
 //= require_tree ../../../vendor/assets/javascripts/admin/.
@@ -22,7 +22,6 @@
 //= require internal/board_switch_dropdown
 //= require internal/tile_manager/tile_polling
 //= require ./internal/byte_counter
-//= require  ../../../vendor/assets/javascripts/jquery.tablesorter.min.js
 //= require  ../../../vendor/assets/javascripts/pickadate/picker
 //= require  ../../../vendor/assets/javascripts/pickadate/picker.date
 //= require  ../../../vendor/assets/javascripts/pickadate/picker.time
