@@ -18,9 +18,8 @@
       <%= stylesheet_link_tag 'internal/internal_ie8' %>
     <![endif]-->
 
-    <%= javascript_include_tag 'app-internal' %>
-    <%= javascript_include_tag 'file-uploader' unless browser.ie8? %>
-    <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
+    <%= javascript_include_tag 'app-user' %>
+
     <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
     <%= render 'shared/integrations/google_analytics/marketing' %>

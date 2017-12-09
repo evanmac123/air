@@ -64,11 +64,6 @@ module Health
       client_admin/client_admin_ie8.css
       app-admin.js
       app-internal.js
-      app-external.js
-      app-search.js
-      app-client-admin.js
-      for-modern-browsers.js
-      file-uploader.js
       external/join.js
     )
 
