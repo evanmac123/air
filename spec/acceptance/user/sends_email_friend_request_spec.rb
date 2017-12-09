@@ -9,7 +9,7 @@ feature "User tries to friend someone" do
   # NOTE: For debugging, use statement below to create a file like /tmp/email-123456789.txt
   # EmailSpec::EmailViewer.save_and_open_email(current_email)
   def deliver_and_open_email_for(recipient)
-    
+
     open_email(recipient.email)
   end
 
@@ -70,7 +70,7 @@ feature "User tries to friend someone" do
     accept_the_friendship
 
     visit profile_page(user)
-    expect(page).to have_content "is now connected with #{first_name(friend)}"
+    expect(page).to have_content "now connected with #{first_name(friend)}"
 
     expect(user).to be_friends_with friend
     expect(friend).to be_friends_with user
