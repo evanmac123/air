@@ -35,8 +35,7 @@
 
 //= require airbo
 //= require_tree ./utils
-//= require_tree ./application
-//= require_tree ./app-user
+//= require_tree ./app-base
 
 $(function(){
   Airbo.init();

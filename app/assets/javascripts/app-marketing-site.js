@@ -9,6 +9,6 @@
 
 //= require airbo
 //= require_tree ./utils
-//= require_tree ./application
+//= require_tree ./app-base
 
 //= require_tree ./marketing_site

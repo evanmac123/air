@@ -33,7 +33,6 @@ gem 'groupdate'
 
 gem 'jquery-rails'
 gem 'jquery-validation-rails'
-gem 'historyjs-rails'
 
 gem 'nokogiri'
 gem 'json', '>= 1.7.7'

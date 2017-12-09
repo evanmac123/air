@@ -1,6 +1,5 @@
 //= require application
 
-//= require history_jquery
 //= require progressbar
 //= require jquery.payment
 //= require jquery.scrollTo.min
@@ -10,7 +9,7 @@
 //= require_tree ../../../vendor/assets/javascripts/highcharts
 //= require vendor_customization/highcharts
 
-//= require_tree ./application
+//= require_tree ./app-user
 //= require_tree ./app-admin
 
 $(function(){
