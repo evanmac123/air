@@ -44,7 +44,6 @@ module Health
     # Note that even though our files are named .scss, the ones in this list are the plain .css counterparts
     config.assets.precompile += %w(
       app-marketing-site.css
-      app-marketing-site.js
       app-admin.css
       app-client-admin.css
       app-client-admin_split2.css
@@ -62,9 +61,11 @@ module Health
       external/external_ie8.css
       internal/internal_ie8.css
       client_admin/client_admin_ie8.css
+
+      application.js
+      app-user.js
       app-admin.js
-      app-internal.js
-      external/join.js
+      app-marketing-site.js
     )
 
 
