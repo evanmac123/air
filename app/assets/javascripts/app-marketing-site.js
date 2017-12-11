@@ -1,7 +1,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require mobvious-rails
-//= require_tree ../../../vendor/assets/javascripts/external/
+//= require jquery-ui.min
+//= require jquery.textPlaceholder
+//= require jRespond.min
+//= require foundation.min
+//= require modernizr
+//= require moment.min
+
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require flickity.pkgd.min.js
