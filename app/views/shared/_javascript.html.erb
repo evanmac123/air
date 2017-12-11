@@ -1,4 +1,4 @@
-<%= render 'shared/javascript' %>
+<%= yield :javascript %>
 
 <% if Rails.env.test? %>
   <%= javascript_tag do %>
