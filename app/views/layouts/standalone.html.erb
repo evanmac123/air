@@ -8,7 +8,6 @@
     <%= render "shared/opengraph_meta_tags_marketing" %>
 
     <%= javascript_include_tag 'app-marketing-site' %>
-    <%= mobvious_javascript %>
     <%= stylesheet_link_tag 'app-landing' %>
 
     <%= render 'shared/mixpanel' %>
@@ -16,8 +15,7 @@
     <%= render 'shared/integrations/google_analytics/marketing' %>
     <%= render 'shared/integrations/facebook_pixel' %>
 
-    <%= render 'shared/nerf_animations_in_test' %>
-
+    <%= mobvious_javascript %>
     <%= content_for :head %>
   </head>
   <body class="<%= body_pages_class %> landing" style="-webkit-overflow-scrolling: touch; overflow:visible;">

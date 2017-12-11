@@ -5,9 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <%= render 'shared/opengraph_meta_tags_board', board: @board %>
-    <meta name="viewport" content="width=device-width" />
 
     <%= javascript_include_tag 'application' %>
     <%= stylesheet_link_tag 'app-external' %>
@@ -16,7 +14,6 @@
     <%= render 'shared/integrations/full_story' %>
 
     <%= mobvious_javascript %>
-    <%= render 'shared/nerf_animations_in_test' %>
   </head>
   <body class="<%= body_class %> marketing">
 

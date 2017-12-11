@@ -5,18 +5,17 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Airbo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%= csrf_meta_tag %>
     <%= content_for :meta %>
+    <%= csrf_meta_tag %>
 
     <%= split_stylesheet_link_tag "app-client-admin", :media => "all", :split_count => 6 %>
 
     <%= javascript_include_tag 'app-admin' %>
-    <%= mobvious_javascript %>
-    
-    <%= render 'shared/nerf_animations_in_test' %>
-    <%= render partial: '/shared/mixpanel' %>
+
+    <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
 
+    <%= mobvious_javascript %>
     <%= render "shared/custom_palette"  if @palette && @palette.enabled? %>
     <%= content_for :head %>
   </head>
@@ -43,7 +42,8 @@
       </div>
     </main>
     <div class="modals"></div>
-    <%= render partial: 'shared/javascript' %>
-    <div id='gradient-triangle'></div>
+
+    <%= yield :javascript %>
+
   </body>
 </html>

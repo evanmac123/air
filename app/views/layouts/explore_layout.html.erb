@@ -5,21 +5,19 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Airbo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%= csrf_meta_tag %>
     <%= content_for :meta %>
+    <%= csrf_meta_tag %>
 
     <%= split_stylesheet_link_tag "app-client-admin", :media => "all", :split_count => 6 %>
 
     <%= javascript_include_tag 'app-admin' %>
-
-    <%= mobvious_javascript %>
-    <%= render 'shared/nerf_animations_in_test' %>
 
     <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
     <%= render 'shared/integrations/google_analytics/marketing' %>
     <%= render 'shared/integrations/facebook_pixel' %>
 
+    <%= mobvious_javascript %>
     <%= content_for :head %>
   </head>
   <body class="<%= body_class %> client_admin_main"
@@ -52,7 +50,7 @@
 
     <div class="modals"></div>
 
-    <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
-    <div id='gradient-triangle'></div>
+    <%= yield :javascript %>
+
   </body>
 </html>

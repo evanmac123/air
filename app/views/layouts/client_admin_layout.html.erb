@@ -6,7 +6,6 @@
     <title>Airbo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= content_for :meta %>
-
     <%= csrf_meta_tag %>
 
     <%= split_stylesheet_link_tag "app-client-admin", :media => "all", :split_count => 6 %>
@@ -14,8 +13,8 @@
     <%= javascript_include_tag 'app-admin' %>
 
     <%= mobvious_javascript %>
-    <%= render 'shared/nerf_animations_in_test' %>
-    <%= render partial: '/shared/mixpanel' %>
+
+    <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
 
     <%= content_for :head %>
@@ -38,7 +37,8 @@
     </main>
 
     <div class="modals"></div>
-    <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
-    <div id='gradient-triangle'></div>
+
+    <%= yield :javascript %>
+
   </body>
 </html>
