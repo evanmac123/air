@@ -108,12 +108,12 @@ module SuggestionBox
   end
 
   def username_autocomplete_results_click num
-    selector = "#name_autocomplete_target li a:first"
+    selector = "#name_autocomplete_target li .ui-menu-item-wrapper:first"
     page.execute_script %Q{ $('#{selector}').eq(#{num}).trigger('mouseenter').click() }
   end
 
   def autocomplete_result_names
-    page.all("#name_autocomplete_target li a").map(&:text)
+    page.all("#name_autocomplete_target li .ui-menu-item-wrapper").map(&:text)
   end
 
   def warning_modal_mess
