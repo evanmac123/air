@@ -137,7 +137,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
   def add_user_json(normalized_name)
     name = normalized_name.split.map(&:capitalize).join(' ')
-    label = "No match for #{name}. <span class='add_user'>Click to add this user.</span>".html_safe
+    label = "No match for #{name}."
     [{
         label: label,
         value: {
