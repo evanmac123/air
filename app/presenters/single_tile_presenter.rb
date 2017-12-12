@@ -29,7 +29,7 @@ class SingleTilePresenter < BasePresenter
   end
 
   def partial
-    'client_admin/tiles/manage_tiles/no_cache_single_tile'
+    'client_admin/tiles/manage_tiles/single_tile'
   end
 
   #this method is redundant as to_param is notset for Tile, so it just returns id
@@ -99,7 +99,6 @@ class SingleTilePresenter < BasePresenter
   def cache_key
     @cache_key ||= [
       self.class,
-      'v2.ant',
       thumbnail,
       type,
       tile_id,

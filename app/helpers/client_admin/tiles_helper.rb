@@ -178,15 +178,6 @@ module ClientAdmin::TilesHelper
     tile.question_subtype = Tile::MULTIPLE_CHOICE
   end
 
-  def single_tile_for_sort_js(tile)
-    escape_javascript(
-      render(
-        partial: 'client_admin/tiles/manage_tiles/single_tile',
-        locals: {presenter: present(tile, SingleAdminTilePresenter, {is_ie: browser.ie?})}
-      )
-    )
-  end
-
   def tile_image_present(image_url)
     !image_url.nil? && !(image_url.include? Tile::MISSING_PREVIEW)
   end
@@ -203,9 +194,7 @@ module ClientAdmin::TilesHelper
   end
 
   def draftSectionClass
-    if !policy(:board).tile_suggestion_enabled?
-      "suggestion_box_gated draft_selected"
-    elsif params[:show_suggestion_box].present?
+    if params[:show_suggestion_box].present?
       "suggestion_box_selected"
     else
       'draft_selected'

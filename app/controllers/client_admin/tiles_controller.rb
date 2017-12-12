@@ -120,12 +120,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     render json: {
       tileId: @tile.id,
-      tileHTML: render_to_string( partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals: { presenter:  tile_presenter(@tile)}),
+      tileHTML: render_to_string( partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter:  tile_presenter(@tile)}),
       tilesToBeSentCount:  @demo.digest_tiles(@demo.tile_digest_email_sent_at).count,
       lastTiles: @last_tiles.map{|tile|
         {id: tile.id,
          status: tile.status,
-         html: render_to_string( partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals: { presenter:  tile_presenter(tile)})
+         html: render_to_string( partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter:  tile_presenter(tile)})
         }
       }
     }
@@ -173,7 +173,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def partial_to_render
-    'client_admin/tiles/manage_tiles/no_cache_single_tile'
+    'client_admin/tiles/manage_tiles/single_tile'
   end
 
   def permit_params
@@ -303,13 +303,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
 
     render_to_string(
-                     partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile',
+                     partial: 'client_admin/tiles/manage_tiles/single_tile',
                      locals: { presenter:  tile_presenter}
                     )
   end
 
   def render_single_tile
-    render partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals: { presenter: tile_presenter}
+    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: tile_presenter}
   end
 
   def tile_presenter tile=@tile
