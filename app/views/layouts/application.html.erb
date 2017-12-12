@@ -9,7 +9,7 @@
     <%= content_for :meta %>
     <%= csrf_meta_tag %>
 
-    <%= split_stylesheet_link_tag "app-internal", :media => "all", :split_count => 5 %>
+    <%= stylesheet_link_tag "app-internal", media: "all" %>
 
     <%= javascript_include_tag 'app-user' %>
 

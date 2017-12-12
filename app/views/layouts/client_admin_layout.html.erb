@@ -8,7 +8,7 @@
     <%= content_for :meta %>
     <%= csrf_meta_tag %>
 
-    <%= split_stylesheet_link_tag "app-client-admin", :media => "all", :split_count => 6 %>
+    <%= stylesheet_link_tag "app-client-admin", media: "all" %>
 
     <%= javascript_include_tag 'app-admin' %>
 

@@ -35,17 +35,8 @@ module Health
       app-marketing-site.css
       app-admin.css
       app-client-admin.css
-      app-client-admin_split2.css
-      app-client-admin_split3.css
-      app-client-admin_split4.css
-      app-client-admin_split5.css
-      app-client-admin_split6.css
       app-external.css
       app-internal.css
-      app-internal_split2.css
-      app-internal_split3.css
-      app-internal_split4.css
-      app-internal_split5.css
       app-landing.css
       external/external_ie8.css
       internal/internal_ie8.css

@@ -3,14 +3,15 @@ source 'https://www.rubygems.org'
 ruby '2.1.8'
 
 gem 'rails', '=3.2.22.1'
-gem 'rack', '~> 1.4.7'
-gem 'unicorn'
-gem 'high_voltage'
-gem 'paperclip', '~>3.3.0'
+gem 'rack', '~> 1.4.5'
+gem 'unicorn', '~> 5.3.1'
+gem 'pg', '~> 0.18'
+
+gem 'high_voltage', '~> 3.0.0'
+gem 'paperclip', '~> 3.3.0'
 gem 'paperclip-meta'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'aws-sdk'
-gem 'pg'
 gem 'flutie'
 gem 'twilio-ruby', '~> 5.2.3'
 gem 'clearance'
@@ -85,8 +86,6 @@ gem 'rails3_before_render'
 gem 'draper', '~> 1.3'
 gem 'strong_parameters'
 gem 'squeel'
-gem 'css_splitter', :git => 'https://github.com/theairbo/css_splitter.git' #Allow customization of MAX_SELECTORS_DEFAULT via environment variable
-
 #
 
 group :assets do
