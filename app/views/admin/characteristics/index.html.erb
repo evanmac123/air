@@ -32,7 +32,7 @@
       <% end %>
     </tbody>
   </table>
-  <%= semantic_form_for @characteristic, url: form_submit_path do |f| %>
+  <%= form_for @characteristic, url: form_submit_path do |f| %>
     <fieldset>
       <legend>Add New Characteristic</legend>
       <%= f.label :name %>

@@ -40,7 +40,6 @@ class Admin::UsersController < AdminBaseController
 
   def update
     new_demo_id = user_params.delete(:demo_id)
-
     @user.attributes = permitted_params.user if user_params.present?
     @user.claim_code = nil if params[:user].has_key?(:claim_code) && params[:user][:claim_code].blank?
 

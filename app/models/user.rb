@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
 
   GENDERS = ["female", "male", "other", nil].freeze
   ROLES = ['User', 'Administrator'].freeze
-  DEFAULT_MUTE_NOTICE_THRESHOLD = 10
 
   FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth gender demo_id accepted_invitation_at last_acted_at phone_number email)
 
@@ -1101,10 +1100,6 @@ class User < ActiveRecord::Base
     def name_present?
       # this is wrapped up like so so that we can use it in validations
       name.present?
-    end
-
-    def mute_notice_threshold
-      self.demo.mute_notice_threshold || DEFAULT_MUTE_NOTICE_THRESHOLD
     end
 
     def update_associated_act_privacy_levels

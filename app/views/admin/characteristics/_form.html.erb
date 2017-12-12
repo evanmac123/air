@@ -1,0 +1,39 @@
+<%= form_for characteristic, :url => form_submit_path do |f| %>
+  <fieldset>
+    <legend>Add New Characteristic</legend>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+    <%= f.select :datatype, options_for_select: Characteristic.datatype_names %>
+    <div id="allowed-values-wrapper">
+      <div id="allowed-values">
+        <%= label_tag "characteristic[allowed_values][]", "Allowed values" %>
+        <% (characteristic.allowed_values.present? ? characteristic.allowed_values : ['']).each do |allowed_value| %>
+          <%= text_field_tag "characteristic[allowed_values][]", allowed_value %>
+        <% end %>
+        <%= submit_tag "More allowed values", :id => "more-allowed-values-button" %>
+      </div>
+    </div>
+    <%= f.submit %>
+  </fieldset>
+<% end %>
+<%= content_for :javascript do %>
+  <script>
+
+    $('select[name="characteristic[datatype]"]').change(function(e) {
+      var newValue = enclosingSelect(e.target).val();
+      if ('Discrete' === newValue) {
+        $('#allowed-values').show();
+      } else {
+        $('#allowed-values').hide();
+      }
+    });
+
+    $('#more-allowed-values-button').click(function(e) {
+      e.preventDefault();
+      $('#allowed-values-wrapper').append('<input type="text" name="characteristic[allowed_values][]">');
+    });
+
+  </script>
+<% end %>

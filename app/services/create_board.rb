@@ -11,19 +11,12 @@ class CreateBoard
   def create
     @board = Demo.new(name: @board_name)
 
-    set_board_defaults
     board_saved_successfully = @board.save
     # We do this separately so that we know the board has a unique public slug
     set_board_email if board_saved_successfully
   end
 
   protected
-
-  def set_board_defaults
-    @board.game_referrer_bonus = 5
-    @board.referred_credit_bonus = 2
-    @board.credit_game_referrer_threshold = 100000
-  end
 
   def set_board_email
     email_local_part = @board.public_slug.gsub(/-/, '')

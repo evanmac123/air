@@ -1,6 +1,6 @@
 <h2 class="first">
   <%= link_to "Admin", admin_path %> »
-  <%= link_to @demo.name, admin_demo_path(@demo) %> » 
+  <%= link_to @demo.name, admin_demo_path(@demo) %> »
   Locations
 </h2>
 
@@ -17,7 +17,8 @@
   <p>No locations set for this demo.</p>
 <% end %>
 
-<%= semantic_form_for @location, :url => admin_demo_locations_path(@demo) do |form| %>
-  <%= form.input :name %>
+<%= form_for @location, :url => admin_demo_locations_path(@demo) do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
   <%= form.submit %>
 <% end %>
