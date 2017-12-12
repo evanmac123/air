@@ -1,6 +1,5 @@
 module Tile::TileImageable
   extend ActiveSupport::Concern
-  include Assets::Normalizer # normalize filename of paperclip attachment
 
   IMAGE_PROCESSING_URL =  ActionController::Base.helpers.asset_path("missing-search-image.png")
   TILE_IMAGE_PROCESSING_PRIORITY = -10
@@ -16,6 +15,7 @@ module Tile::TileImageable
         default_style: :viewer,
         default_url: MISSING_PREVIEW,
       }.merge!(TILE_IMAGE_OPTIONS)
+    validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
     has_attached_file :thumbnail,
       {
@@ -27,6 +27,7 @@ module Tile::TileImageable
         default_url: MISSING_THUMBNAIL,
         preserve_files: true
       }.merge!(TILE_THUMBNAIL_OPTIONS)
+    validates_attachment_content_type :thumbnail, content_type: /\Aimage\/.*\Z/
 
     process_in_background :image,
       processing_image_url: :processing_image_fallback,
@@ -56,9 +57,5 @@ module Tile::TileImageable
 
     full_width = 600.0 # px for full size tile
     ( height * full_width / width ).to_i
-  end
-
-  module ClassMethods
-    include ValidImageMimeTypes
   end
 end

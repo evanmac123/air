@@ -11,6 +11,7 @@ class Campaign < ActiveRecord::Base
       styles: { explore: "190x90#" },
       default_style: :explore,
     }
+  validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\Z/
 
   default_scope order(:name)
 

@@ -1,5 +1,5 @@
 case Rails.env
-when 'production', 'staging', 'production_local'
+when 'production', 'staging'
   Paperclip::Attachment.default_options.merge!(
     {
       storage: :s3,
@@ -43,6 +43,7 @@ when 'test',  'development'
   Paperclip::Attachment.default_options.merge!(
     {
       url: "/system/:rails_env/:class/:attachment/:id/:style/:filename",
+      use_timestamp: false
     }
   )
 

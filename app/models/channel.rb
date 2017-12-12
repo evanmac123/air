@@ -7,6 +7,7 @@ class Channel < ActiveRecord::Base
       styles: { explore: "190x90#" },
       default_style: :explore,
     }
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   scope :active, -> { where(active: true) }
   scope :active_ordered, -> { active.order("channels.rank DESC").order(:name) }

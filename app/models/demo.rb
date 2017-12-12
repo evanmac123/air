@@ -1,7 +1,5 @@
 class Demo < ActiveRecord::Base
   extend NormalizeBoardName
-  include Assets::Normalizer # normalize filename of paperclip attachment
-  extend ValidImageMimeTypes
 
   belongs_to :organization, counter_cache: true
   belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id
@@ -62,6 +60,7 @@ class Demo < ActiveRecord::Base
       default_url: "/assets/logo.png",
       keep_old_files: true
     }.merge!(DEMO_LOGO_OPTIONS)
+  validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
 
   has_attached_file :cover_image,
     {
@@ -70,8 +69,7 @@ class Demo < ActiveRecord::Base
       },
       default_url: "/assets/logo.png",
     }.merge!(DEMO_LOGO_OPTIONS)
-
-  validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error
+  validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\Z/
 
   as_enum :customer_status, free: 0, paid: 1, trial: 2
 

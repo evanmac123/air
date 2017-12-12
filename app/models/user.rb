@@ -19,7 +19,6 @@ class User < ActiveRecord::Base
   include User::ClientAdminNotifications
 
   extend User::Queries
-  extend ValidImageMimeTypes
 
   rolify strict: true
   acts_as_taggable_on :channels
@@ -126,8 +125,7 @@ class User < ActiveRecord::Base
       default_style: :thumb,
       default_url: MISSING_AVATAR_PATH
     }.merge!(USER_AVATAR_OPTIONS)
-
-  validates_attachment_content_type :avatar, content_type: valid_image_mime_types, message: invalid_mime_type_error
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   serialize :characteristics
 
