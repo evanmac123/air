@@ -353,8 +353,6 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     public_suffix (3.0.0)
-    pundit (1.1.0)
-      activesupport (>= 3.0.0)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.4.7)
@@ -592,7 +590,6 @@ DEPENDENCIES
   pg
   pry-byebug
   pry-rails
-  pundit
   quiet_assets
   rack (~> 1.4.7)
   rack-cors

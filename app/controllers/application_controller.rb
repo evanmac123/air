@@ -35,9 +35,6 @@ class ApplicationController < ActionController::Base
   include Mobvious::Rails::Controller
 
   ###### Airbo authentication/authorization
-	include Pundit
-  alias_method :pundit_authorize, :authorize
-
   include Clearance::Controller
   alias_method :clearance_authenticate, :authenticate
   alias_method :clearance_sign_in, :sign_in
