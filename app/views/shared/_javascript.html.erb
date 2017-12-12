@@ -1,6 +1,9 @@
 <%= yield :javascript %>
+
+<%# TODO: Test-specific JS settings. Should be able to refactor tests so this is no longer needed. %>
 <% if Rails.env.test? %>
   <%= javascript_tag do %>
     $.ajaxSetup({ async: false });
+    if (window.jQuery) { jQuery.fx.off = true; }
   <% end %>
 <% end %>

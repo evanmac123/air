@@ -260,82 +260,6 @@ body.client_admin-prizes {
       table {
         margin-bottom: 0;
       }
-      // .winners{
-      //   color: $med-gray;
-      //   font-size: 14px;
-      //   p{
-      //     padding: 0.55em;
-      //     line-height: 1.5;
-      //   }
-      //   table{
-      //     margin: 0;
-      //     color: $med-gray;
-      //     font-size: 10px;
-      //     .winner_number{
-      //       text-align: right;
-      //       padding-right: 0.4em;
-      //       width: 4%;
-      //     }
-      //     .winner_name{
-      //       text-align: left;
-      //       padding-left: 0.4em;
-      //       width: 25%;
-      //     }
-      //     .winner_chances{
-      //       text-align: right;
-      //       width:10%;
-      //     }
-      //     .winner_email{
-      //       padding-left: 5rem;
-      //       a{
-      //         color: $med-gray;
-      //       }
-      //     }
-      //     .winner_delete, .winner_repick{
-      //       width: 10%;
-      //       a{
-      //         color: $sky-blue;
-      //         visibility: hidden;
-      //       }
-      //     }
-      //     thead{
-      //       background: $blue;
-      //       color: $white;
-      //       text-transform: uppercase;
-      //       th{
-      //         border: 0;
-      //         padding-left: 1em;
-      //       }
-      //     }
-      //     tbody{
-      //       font-size: 12px;
-      //       font-weight: 700;
-      //       tr{
-      //         &:hover{
-      //           color: $sky-blue;
-      //           a{
-      //             color: $sky-blue;
-      //           }
-      //           .winner_delete a, .winner_repick a{
-      //             visibility: visible;
-      //           }
-      //           .winner_number, .winner_name, .winner_chances{
-      //             color: $text-color;
-      //           }
-      //         }
-      //         &:last-child{
-      //           td{
-      //             border: 0;
-      //           }
-      //         }
-      //       }
-      //       td{
-      //         padding-top: 1em;
-      //         padding-bottom: 1em;
-      //       }
-      //     }
-      //   }
-      // }
     }
     #no_potential_winners_error {
       font-size: 14px;
@@ -347,44 +271,6 @@ body.client_admin-prizes {
     display: inline;
   }
   //--------some standard things from jquery-ui or foundation changed-------//
-  .ui-widget-overlay{
-    z-index: 2;
-    display: none;
-  }
-  .ui-dialog{
-    z-index: 3;
-    .ui-dialog-titlebar-close:hover{
-        background: $sky-blue;
-      }
-    .ui-icon-closethick{
-      margin: 0;
-      margin-top: -8px;
-      margin-left: -9px;
-    }
-    .ui-dialog-buttonpane{
-      padding-right:0.4em;
-      .ui-dialog-buttonset{
-        width: 100%;
-        button{
-          width: 47.5%;
-          box-shadow: none;
-          padding-top: 0.2em !important;
-          padding-bottom: 0.2em !important;
-          &:nth-child(even){
-            @include light-button($sky-blue);
-            margin: 0;
-          }
-          &:nth-child(odd){
-            @include app-button($sky-blue);
-            margin-right: 5%;
-          }
-          span{
-            padding: 0;
-          }
-        }
-      }
-    }
-  }
   .tooltip.tip-bottom{
     width: 12.5em !important;
     margin-left: -0.7em !important;

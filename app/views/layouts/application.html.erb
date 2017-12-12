@@ -5,29 +5,21 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Airbo</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= content_for :meta %>
     <%= csrf_meta_tag %>
 
     <%= split_stylesheet_link_tag "app-internal", :media => "all", :split_count => 5 %>
 
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-      <style type="text/css">.gradient {filter: none;}</style>
-      <%= stylesheet_link_tag 'ie8-grid12-foundation-4.css' %>
-      <%= stylesheet_link_tag 'internal/internal_ie8' %>
-    <![endif]-->
+    <%= javascript_include_tag 'app-user' %>
 
-    <%= javascript_include_tag 'app-internal' %>
-    <%= javascript_include_tag 'file-uploader' unless browser.ie8? %>
-    <%= javascript_include_tag 'for-modern-browsers' unless browser.ie8? %>
     <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
     <%= render 'shared/integrations/google_analytics/marketing' %>
     <%= render 'shared/integrations/facebook_pixel' %>
 
     <%= mobvious_javascript %>
-    <%= render 'shared/nerf_animations_in_test' %>
+
     <%= render "shared/custom_palette"  if @palette && @palette.enabled? %>
     <%= content_for :head %>
   </head>
@@ -35,7 +27,7 @@
     data-current-user="<%= current_user.data_for_mixpanel.to_json %>"
     data-current-board="<%= board_data_for_dom %>"
     data-intercom-user="<%= current_user.intercom_data.to_json %>"
-    style="-webkit-overflow-scrolling: touch; overflow:visible;"><%# only works with inline style? WTF. but leave it: this fixes scroll problems in ios7 and doesn't seem to work if included via stylesheet. %>
+    style="-webkit-overflow-scrolling: touch; overflow:visible;">
 
     <%= render 'shared/header' %>
     <div id='js-flashes'><%= render 'shared/flashes' %> </div>
@@ -54,9 +46,7 @@
     <div class="modals">
     </div>
 
-    <%= render :partial => 'shared/javascript' %><!-- This is where 'yield :javascript' takes place -->
+    <%= render 'shared/javascript' %>
 
-    <div id='gradient-triangle'></div>
-    <%= javascript_include_tag 'rem.min.js' %>
   </body>
 </html>

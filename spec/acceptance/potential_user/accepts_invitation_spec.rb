@@ -34,7 +34,7 @@ feature "Potential User Accepts Invitation" do
     context "gives a name" do
       before(:each) do
         fill_in "potential_user_name", with: "my name"
-        click_link "Next"
+        click_button "Submit"
       end
 
       it "should register new user in the system", js: true do
@@ -62,9 +62,8 @@ feature "Potential User Accepts Invitation" do
         # first invitation
         should_be_on activity_path
         fill_in "potential_user_name", with: "my name"
-        click_link "Next"
+        click_button "Submit"
         expect_current_board_header(@demo)
-        new_user = User.last
         # second invitation
         visit invitation_path(@potential_user2.invitation_code, demo_id: @demo2.id, referrer_id: @user2.id)
         expect_current_board_header(@demo2)

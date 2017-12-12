@@ -27,7 +27,7 @@
 <% end %>
 
 <%= content_for :javascript do %>
-  <%= javascript_tag do %>
+  <script>
     var characteristicSelectHtml = $('#prototype-characteristic-select').html();
     $('#segment_column_0').append(characteristicSelectHtml).data('value_select_id', 'segment_value_0');
 
@@ -86,7 +86,7 @@
              }).join('');
     }
 
-    $('.segment-column').live('change', function(e) {
+    $('#segmentation-form').on('change', '.segment-column', function(e) {
       characteristicId = $(e.target).val();
 
       if(characteristicId) {
@@ -104,7 +104,7 @@
       }
     });
 
-    $('.remove_this_characteristic').live('click', function(e) {
+    $('#segmentation-form').on('click', '.remove_this_characteristic', function(e) {
       $(e.target).parent().remove();
     });
 
@@ -162,5 +162,5 @@
              },
              'html');
     });
-  <% end %>
+  </script>
 <% end %>

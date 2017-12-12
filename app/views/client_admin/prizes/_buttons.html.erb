@@ -7,25 +7,13 @@
       Start
     </div>
   </div>
-  <div class="clear_form">
-    Clear
-    <div id="clear_dialog" title="Clear the form?">
-      <p>
-        This form will be cleared. Are you sure?
-      </p>
-    </div>
-  </div>
   <% content_for :javascript do %>
     <script>
       $(function() {
-        clearAllDialog();
         window.draft_saved = true;
       });
       $("#save_draft").click(function() {
         saveDraft();
-      });
-      $(".clear_form").click(function(){
-        $( "#clear_dialog" ).dialog( "open" );
       });
       //enable save draft button
       $("form textarea, form input").bind('input propertychange', function(){

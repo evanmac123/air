@@ -49,7 +49,7 @@ class Friendship < ActiveRecord::Base
   end
 
   def record_follow_act
-    self.user.acts.create(:text => "is now connected with #{self.friend.name}")
+    self.user.acts.create(:text => "are now connected with #{self.friend.name}")
     self.friend.acts.create(:text => "is now connected with #{self.user.name}")
   end
 

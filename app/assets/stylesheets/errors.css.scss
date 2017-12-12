@@ -1,28 +1,22 @@
 body {
     background:#49ade9;
     color:black;
-    // font-family:Helvetica, Arial, sans-serif;
     font-size:18px;
     margin:0;
-
 }
 .cf {clear:both;}
-// h1 {color: white; font-family:'Ubuntu', Helvetica, Arial, sans-serif; font-weight:400; margin:40; padding:0; align: center;}
 
 .main-contain {background:#49ade9; height:410px; text-align: center;}
-.header, .dialog {margin:0 auto; width:960px;}
+.header {margin:0 auto; width:960px;}
 .header {
     color:#B9B9B9;
     font-size:14px;
-    // font-family:'Ubuntu', Helvetica, Arial, sans-serif;
     padding:20px 0 60px 0;
     text-align:left;
 }
 .header img {
     width: auto;
     height: 4em;}
-.dialog {margin-bottom:40px;}
-
 
 .footer {
     position: fixed;
@@ -31,16 +25,4 @@ body {
     text-align: center;
     padding-bottom: 10px;
     text-color: white;
-}
-
-p.copyright {
-    color:black;
-    font-size:12px;
-    margin:0;
-    padding:30px 0 0 0;
-}
-
-#sunshower_logo {
-  margin-top: 200px;
-  width: 232px;
 }

@@ -5,7 +5,6 @@
 /* For all */
 @import "./mixins/main_styles.css.scss";
 @import "./mixins/placeholder_color.css.scss";
-@import "./mixins/lightbox.css.scss";
 @import "./internal/flash.css.scss";
 
 @import './tile/tile_thumbnail/tiles_thumbnails_desktop';
@@ -24,7 +23,6 @@
 @import "./external/more_info/biz_built.css.scss";
 
 @import "./external/_case_study.css.scss";
-@import "./external/_request_demo.css.scss";
 @import "./external/_customer_tile.css.scss";
 
 /* External signup-login process pages */

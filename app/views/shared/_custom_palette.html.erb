@@ -30,12 +30,6 @@ a {
   color: <%=@primary_color%>
 }
 
-#register_potential_user_lightbox .submit {
-  color: #fff;
-  background-color: <%=@primary_color%>;
-  border-color: <%=@primary_color%>;
-}
-
 #t-and-c-notice a {
   color: <%=@primary_color%>
 }
@@ -139,7 +133,7 @@ header #guest_user_start_over_button, header #guest_user_start_over_button[disab
 .button {
   <%=@solid_filled_styles%>
 }
-.button:not([disabled]):hover, .button:not([disabled]):focus, .button:not([disabled]):active {
+.button:not([disabled]):hover, .button:not([disabled]):focus, .button:not([disabled]):active, .button[disabled], .button[disabled]:hover, .button[disabled]:active {
   <%=@solid_filled_styles%>
   <%=@solid_hover_styles%>
 }

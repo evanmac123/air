@@ -56,7 +56,7 @@
       }
     }
     .ui-slider-handle {
-      // visibility: hidden;
+      outline: 0 none !important;
       -webkit-transition: none; -moz-transition: none;
       border-radius: 12px;
       background: #58addb;

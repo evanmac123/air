@@ -45,16 +45,17 @@ class Act < ActiveRecord::Base
 
   def self.displayable_to_user(viewing_user:, page:, per_page:)
     board = viewing_user.demo
-    if board.hide_social || viewing_user.is_a?(PotentialUser)
+
+    if viewing_user.is_guest?
+      return viewing_user.acts.ordered.page(page).per(per_page)
+    end
+
+    if viewing_user.is_a?(PotentialUser) || board.hide_social
       return board.acts.ordered.where(user_id: viewing_user.id, user_type: User.to_s).page(page).per(per_page)
     end
 
     if viewing_user.is_client_admin || viewing_user.is_site_admin
       return board.acts.ordered.page(page).per(per_page)
-    end
-
-    if viewing_user.is_guest?
-      return board.acts.guest_user_acts.where(user_id: viewing_user.id, user_type: GuestUser.to_s).ordered.page(page).per(per_page)
     end
 
     friends = viewing_user.displayable_accepted_friends

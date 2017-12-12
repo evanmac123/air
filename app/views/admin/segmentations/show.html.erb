@@ -16,7 +16,7 @@
 
 <% content_for :javascript do %>
   <%= javascript_tag do %>
-    $('#show-user-link').live('click', function(e) {
+    $('#show-user-link').on('click', function(e) {
       e.preventDefault();
       $.get('<%= admin_demo_users_path(@demo, :format => :js) %>', function() { $('#show-user-spinner').hide()});
     });

@@ -23,3 +23,11 @@ Airbo.FlashHandler = (function(){
     showFlash: showFlash
   };
 }());
+
+
+$(function(){
+  $('#close-flash').click(function(event) {
+    $('#flash, .flash-js').slideUp();
+    $('#flash, .flash-js').css('overflow','visible');
+  });
+});

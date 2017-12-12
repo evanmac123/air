@@ -99,15 +99,6 @@ var Airbo = {
       }
     },
 
-    confirmWithRevealConfig: {
-      modal_class: 'tiny confirm-with-reveal destroy_confirm_modal',
-      ok_class: 'confirm',
-      cancel_class: 'cancel',
-      password: false,
-      title: "",
-      reverse_buttons: true
-    },
-
     htmlDecode: function(input){
       var e = document.createElement('div');
       e.innerHTML = input;

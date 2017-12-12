@@ -33,7 +33,6 @@ gem 'groupdate'
 
 gem 'jquery-rails'
 gem 'jquery-validation-rails'
-gem 'historyjs-rails'
 
 gem 'nokogiri'
 gem 'json', '>= 1.7.7'
@@ -96,7 +95,6 @@ group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
-  gem 'jquery-ui-rails'
   gem 'handlebars_assets', '~>0.22.0'
 end
 

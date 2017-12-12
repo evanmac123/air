@@ -1,5 +1,5 @@
 $max-page-width: 966px;
-.pages-company {  
+.pages-company {
   .shadow_overlay {
     display: block;
     position: absolute;
@@ -13,14 +13,6 @@ $max-page-width: 966px;
     &.non-landing{
       top:auto;
     }
-  }
-
-  a.request_demo_link {
-    @include app-button($sky-blue);
-    font-size: 14px;
-    font-weight: 400;
-    padding: 11px;
-    width: 140px;
   }
 
   .mobiile_only {
@@ -98,15 +90,6 @@ $max-page-width: 966px;
       padding-top: 38px;
     }
   }
-
-  #request_form {
-    .flag {
-      height: 37px;
-      margin-top: -4px;
-      font-size: 16px;
-    }
-  }
-
 
   @media only screen and (max-width: $foundation) {
     .mobiile_only {

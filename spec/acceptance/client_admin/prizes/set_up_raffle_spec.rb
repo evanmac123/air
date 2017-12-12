@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Create raffle' do
+feature 'Create raffle', js: true do
   let (:client_admin) { FactoryGirl.create(:client_admin)}
   let (:demo)         { client_admin.demo }
 
@@ -9,7 +9,7 @@ feature 'Create raffle' do
     visit client_admin_prizes_path(as: client_admin)
   end
 
-  scenario 'fill some fields and save as draft', js: true do
+  scenario 'fill some fields and save as draft' do
     start_date = to_calendar_format(DateTime.current + 1.day)
     end_date = to_calendar_format(DateTime.current - 7.days) #so end date is invalid and will be erased
 
@@ -27,20 +27,13 @@ feature 'Create raffle' do
 
   end
 
-  scenario 'fill all fields and start raffle', js: true do
+  scenario 'fill all fields and start raffle' do
     fill_prize_form
     click_start_raffle
     expect_content("Prize setup successfully")
   end
 
-  scenario "get error when try to start raffle with empty form", js: true do
-    click_start_raffle
-    expect_content "Sorry, we couldn't start the prize: start date can't be blank, end date can't be blank, should have at least one prize."
-  end
-
-  scenario "clear form", js: true do
-    fill_prize_form
-    click_clear_form
+  scenario "get error when try to start raffle with empty form" do
     click_start_raffle
     expect_content "Sorry, we couldn't start the prize: start date can't be blank, end date can't be blank, should have at least one prize."
   end
