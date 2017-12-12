@@ -1,1 +1,0 @@
-$rollout = Rollout.new($redis)
