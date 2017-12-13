@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/stripe/stripe-ruby
-  revision: 06c860aeeac012f251807322e49eb5eeb0380a58
-  specs:
-    stripe (1.8.6)
-      multi_json (>= 1.0.4, < 2)
-      rest-client (~> 1.4)
-
-GIT
   remote: https://github.com/theairbo/wice_grid
   revision: a3795c4953d325ec11229cc8127058803df4f145
   branch: rails3
@@ -17,6 +9,7 @@ GIT
 GEM
   remote: https://www.rubygems.org/
   specs:
+    CFPropertyList (2.3.6)
     actionmailer (3.2.22.1)
       actionpack (= 3.2.22.1)
       mail (~> 2.5.4)
@@ -567,7 +560,7 @@ GEM
     aws-sdk-translate (1.0.0)
       aws-sdk-core (~> 3)
       aws-sigv4 (~> 1.0)
-    aws-sdk-v1 (1.59.0)
+    aws-sdk-v1 (1.59.1)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
     aws-sdk-waf (1.3.0)
@@ -602,10 +595,10 @@ GEM
       debug_inspector (>= 0.0.1)
     bourne (1.6.0)
       mocha (~> 1.1)
-    browser (0.4.1)
-    bson (1.7.0)
-    bson_ext (1.7.0)
-      bson (~> 1.7.0)
+    browser (2.5.2)
+    bson (1.12.5)
+    bson_ext (1.12.5)
+      bson (~> 1.12.5)
     builder (3.0.4)
     byebug (4.0.5)
       columnize (= 0.9.0)
@@ -623,20 +616,23 @@ GEM
     capybara-selenium (0.0.6)
       capybara
       selenium-webdriver
-    carrierwave (0.8.0)
+    carrierwave (0.11.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
-    carrierwave_direct (0.0.8)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+      mimemagic (>= 0.3.0)
+    carrierwave_direct (0.0.15)
       carrierwave
       fog
-      uuid
-    chartkick (2.2.2)
-    chartmogul-ruby (1.1.4)
+      uuidtools
+    chartkick (2.2.5)
+    chartmogul-ruby (1.1.5)
       faraday (~> 0.9)
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
-    clearance (1.15.1)
+    clearance (1.16.1)
       bcrypt
       email_validator (~> 1.4)
       rails (>= 3.1)
@@ -659,11 +655,11 @@ GEM
     colored (1.2)
     columnize (0.9.0)
     concurrent-ruby (1.0.5)
-    counter_culture (1.7.0)
+    counter_culture (1.9.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
       after_commit_action (~> 1.0)
-    crass (1.0.2)
+    crass (1.0.3)
     daemons (1.2.2)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
@@ -674,7 +670,7 @@ GEM
       delayed_job (>= 3.0, < 5)
     delayed_paperclip (2.9.2)
       paperclip (>= 3.3)
-    delighted (1.5.1)
+    delighted (1.7.0)
       multi_json
     descriptive_statistics (2.5.1)
     diff-lcs (1.2.5)
@@ -699,8 +695,10 @@ GEM
       activemodel
     erubis (2.7.0)
     escape (0.0.4)
+    ethon (0.11.0)
+      ffi (>= 1.3.0)
     eventmachine (1.2.3)
-    excon (0.41.0)
+    excon (0.59.0)
     execjs (2.7.0)
     factory_girl (4.1.0)
       activesupport (>= 3.0.0)
@@ -709,45 +707,157 @@ GEM
       railties (>= 3.0.0)
     faker (1.6.6)
       i18n (~> 0.5)
-    faraday (0.9.2)
+    faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
-    flutie (1.3.3)
-    fog (1.24.0)
-      fog-brightbox
-      fog-core (~> 1.23)
+    fission (0.5.0)
+      CFPropertyList (~> 2.2)
+    flutie (2.0.0)
+    fog (1.41.0)
+      fog-aliyun (>= 0.1.0)
+      fog-atmos
+      fog-aws (>= 0.6.0)
+      fog-brightbox (~> 0.4)
+      fog-cloudatcost (~> 0.1.0)
+      fog-core (~> 1.45)
+      fog-digitalocean (>= 0.3.0)
+      fog-dnsimple (~> 1.0)
+      fog-dynect (~> 0.0.2)
+      fog-ecloud (~> 0.1)
+      fog-google (<= 0.1.0)
+      fog-internet-archive
+      fog-joyent
       fog-json
+      fog-local
+      fog-openstack
+      fog-powerdns (>= 0.1.1)
+      fog-profitbricks
+      fog-rackspace
       fog-radosgw (>= 0.0.2)
+      fog-riakcs
       fog-sakuracloud (>= 0.0.4)
+      fog-serverlove
       fog-softlayer
+      fog-storm_on_demand
+      fog-terremark
+      fog-vmfusion
+      fog-voxel
+      fog-vsphere (>= 0.4.0)
+      fog-xenserver
+      fog-xml (~> 0.1.1)
       ipaddress (~> 0.5)
-      nokogiri (~> 1.5, >= 1.5.11)
-    fog-brightbox (0.6.1)
+      json (>= 1.8, < 2.0)
+    fog-aliyun (0.2.0)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      ipaddress (~> 0.8)
+      xml-simple (~> 1.1)
+    fog-atmos (0.1.0)
+      fog-core
+      fog-xml
+    fog-aws (2.0.0)
+      fog-core (~> 1.38)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-brightbox (0.14.0)
       fog-core (~> 1.22)
       fog-json
-      inflecto
-    fog-core (1.24.0)
+      inflecto (~> 0.0.2)
+    fog-cloudatcost (0.1.2)
+      fog-core (~> 1.36)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-core (1.45.0)
       builder
-      excon (~> 0.38)
+      excon (~> 0.58)
       formatador (~> 0.2)
-      mime-types
-      net-scp (~> 1.1)
-      net-ssh (>= 2.1.3)
-    fog-json (1.0.0)
-      multi_json (~> 1.0)
-    fog-radosgw (0.0.3)
+    fog-digitalocean (0.3.0)
+      fog-core (~> 1.42)
+      fog-json (>= 1.0)
+      fog-xml (>= 0.1)
+      ipaddress (>= 0.5)
+    fog-dnsimple (1.0.0)
+      fog-core (~> 1.38)
+      fog-json (~> 1.0)
+    fog-dynect (0.0.3)
+      fog-core
+      fog-json
+      fog-xml
+    fog-ecloud (0.3.0)
+      fog-core
+      fog-xml
+    fog-google (0.1.0)
+      fog-core
+      fog-json
+      fog-xml
+    fog-internet-archive (0.0.1)
+      fog-core
+      fog-json
+      fog-xml
+    fog-joyent (0.0.1)
+      fog-core (~> 1.42)
+      fog-json (>= 1.0)
+    fog-json (1.0.2)
+      fog-core (~> 1.0)
+      multi_json (~> 1.10)
+    fog-local (0.4.0)
+      fog-core (~> 1.27)
+    fog-openstack (0.1.22)
+      fog-core (>= 1.40)
+      fog-json (>= 1.0)
+      ipaddress (>= 0.8)
+    fog-powerdns (0.1.1)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+    fog-profitbricks (4.1.1)
+      fog-core (~> 1.42)
+      fog-json (~> 1.0)
+    fog-rackspace (0.1.5)
+      fog-core (>= 1.35)
+      fog-json (>= 1.0)
+      fog-xml (>= 0.1)
+      ipaddress (>= 0.8)
+    fog-radosgw (0.0.5)
       fog-core (>= 1.21.0)
       fog-json
       fog-xml (>= 0.0.1)
-    fog-sakuracloud (0.1.1)
+    fog-riakcs (0.1.0)
       fog-core
       fog-json
-    fog-softlayer (0.3.24)
+      fog-xml
+    fog-sakuracloud (1.7.5)
       fog-core
       fog-json
-    fog-xml (0.1.1)
+    fog-serverlove (0.1.2)
       fog-core
-      nokogiri (~> 1.5, >= 1.5.11)
+      fog-json
+    fog-softlayer (1.1.4)
+      fog-core
+      fog-json
+    fog-storm_on_demand (0.1.1)
+      fog-core
+      fog-json
+    fog-terremark (0.1.0)
+      fog-core
+      fog-xml
+    fog-vmfusion (0.1.0)
+      fission
+      fog-core
+    fog-voxel (0.1.0)
+      fog-core
+      fog-xml
+    fog-vsphere (1.13.1)
+      fog-core
+      rbvmomi (~> 1.9)
+    fog-xenserver (0.3.0)
+      fog-core
+      fog-xml
+    fog-xml (0.1.3)
+      fog-core
+      nokogiri (>= 1.5.11, < 2.0.0)
     font-awesome-rails (4.7.0.2)
       railties (>= 3.2, < 5.2)
     foreman (0.82.0)
@@ -755,11 +865,12 @@ GEM
     formatador (0.2.5)
     groupdate (3.2.0)
       activesupport (>= 3)
-    haml (3.1.7)
-    haml-rails (0.3.5)
+    haml (4.0.7)
+      tilt
+    haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
       activesupport (>= 3.1, < 4.1)
-      haml (~> 3.1)
+      haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
     handlebars_assets (0.22.0)
       execjs (~> 2.0)
@@ -771,8 +882,6 @@ GEM
     hike (1.2.3)
     hiredis (0.6.1)
     htmlentities (4.3.3)
-    humanize_boolean (0.0.2)
-      i18n
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     inflecto (0.0.2)
@@ -780,7 +889,7 @@ GEM
       json
     intercom-rails (0.3.4)
       activesupport (> 3.0)
-    ipaddress (0.8.0)
+    ipaddress (0.8.3)
     jbuilder (2.6.4)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2)
@@ -796,7 +905,7 @@ GEM
     jquery-validation-rails (1.16.0)
     json (1.8.6)
     jwt (1.5.1)
-    kaminari (0.16.3)
+    kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.11.0)
@@ -805,9 +914,7 @@ GEM
     letter_opener (1.4.1)
       launchy (~> 2.2)
     libxml-ruby (3.0.0)
-    macaddr (1.6.1)
-      systemu (~> 2.5.0)
-    mail (2.5.4)
+    mail (2.5.5)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     meta_request (0.3.4)
@@ -824,8 +931,8 @@ GEM
       escape
       json
       rack
-    mixpanel_client (3.0.0)
-      json (~> 1.6)
+    mixpanel_client (4.1.6)
+      typhoeus
     mobileesp_converted (0.2.2)
     mobvious (0.3.2)
       mobileesp_converted (~> 0.2.0)
@@ -835,24 +942,21 @@ GEM
       mobvious
     mocha (1.2.1)
       metaclass (~> 0.0.1)
-    mongoid (3.0.13)
-      activemodel (~> 3.1)
-      moped (~> 1.1)
+    mongoid (3.1.7)
+      activemodel (~> 3.2)
+      moped (~> 1.4)
       origin (~> 1.0)
-      tzinfo (~> 0.3.22)
-    moped (1.3.0)
+      tzinfo (~> 0.3.29)
+    moped (1.5.3)
     multi_json (1.12.2)
     multipart-post (2.0.0)
     nest (2.0.0)
       redic
-    net-scp (1.2.1)
-      net-ssh (>= 2.6.5)
-    net-ssh (2.9.1)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
-    nokogumbo (1.4.1)
+    nokogumbo (1.4.13)
       nokogiri
-    origin (1.0.10)
+    origin (1.1.0)
     paperclip (4.3.7)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -911,11 +1015,16 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.19.0)
     rake (12.3.0)
+    rbvmomi (1.11.6)
+      builder (~> 3.0)
+      json (>= 1.8)
+      nokogiri (~> 1.5)
+      trollop (~> 2.1)
     rdoc (3.12.2)
       json (~> 1.4)
     redic (1.5.0)
       hiredis
-    redis (3.3.3)
+    redis (3.3.5)
     redis-actionpack (3.2.4)
       actionpack (~> 3.2.0)
       redis-rack (~> 1.4.4)
@@ -933,8 +1042,6 @@ GEM
     redis-store (1.1.7)
       redis (>= 2.2)
     request_store (1.0.8)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     rolify (5.1.0)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
@@ -954,10 +1061,10 @@ GEM
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
     rubyzip (1.1.7)
-    sanitize (4.0.0)
+    sanitize (4.5.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
-      nokogumbo (= 1.4.1)
+      nokogumbo (~> 1.4.1)
     sass (3.2.3)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -1003,12 +1110,13 @@ GEM
     steak (2.0.0)
       capybara (>= 1.0.0)
       rspec-rails (>= 2.5.0)
+    stripe (3.9.0)
+      faraday (~> 0.10)
     strong_parameters (0.2.3)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
       activesupport (~> 3.0)
       railties (~> 3.0)
-    systemu (2.5.2)
     test_after_commit (1.1.0)
       activerecord (>= 3.2)
     thin (1.6.3)
@@ -1016,16 +1124,19 @@ GEM
       eventmachine (~> 1.0)
       rack (~> 1.0)
     thor (0.19.4)
-    thread_safe (0.3.5)
+    thread_safe (0.3.6)
     tilt (1.4.1)
     timecop (0.5.3)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    trollop (2.1.2)
     twilio-ruby (5.2.3)
       faraday (~> 0.9)
       jwt (~> 1.5)
       libxml-ruby (>= 2.0, < 4.0)
+    typhoeus (1.3.0)
+      ethon (>= 0.9.0)
     tzinfo (0.3.53)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
@@ -1033,8 +1144,8 @@ GEM
     unicorn (5.3.1)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    uuid (2.3.6)
-      macaddr (~> 1.0)
+    uuidtools (2.1.5)
+    xml-simple (1.1.5)
     xpath (2.1.0)
       nokogiri (~> 1.3)
 
@@ -1042,68 +1153,67 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-collection_cache_key
+  activerecord-collection_cache_key (~> 0.1.3)
   acts-as-taggable-on (~> 3.5.0)
-  acts_as_singleton
-  addressable
+  acts_as_singleton (~> 0.0.8)
+  addressable (~> 2.5.2)
   airbrake (~> 5.4)
   awesome_print
   aws-sdk (~> 3)
-  aws-sdk-v1
+  aws-sdk-v1 (~> 1.59.0)
   axlsx (= 2.1.0.pre)
   better_errors
   binding_of_caller
   bourne
-  browser
-  bson_ext
-  cache_digests
+  browser (~> 2.5.0)
+  bson_ext (~> 1.12)
+  cache_digests (~> 0.3.1)
   capybara
   capybara-selenium
-  carrierwave_direct
-  chartmogul-ruby
-  chronic
-  clearance
-  clearance-deprecated_password_strategies
+  carrierwave_direct (~> 0.0.15)
+  chartmogul-ruby (~> 1.1.4)
+  chronic (~> 0.10.2)
+  clearance (~> 1.16.0)
+  clearance-deprecated_password_strategies (~> 1.10.0)
   codeclimate-test-reporter (~> 1.0.0)
   coffee-rails
   colored
-  counter_culture
+  counter_culture (~> 1.9.0)
   database_cleaner
   delayed_job (~> 4.1.0)
-  delayed_job_active_record
+  delayed_job_active_record (~> 4.1.2)
   delayed_paperclip (~> 2.9.0)
-  delighted
-  descriptive_statistics
+  delighted (~> 1.7.0)
+  descriptive_statistics (~> 2.5.1)
   draper (~> 1.3)
   email_spec
   factory_girl_rails
   faker
-  flutie
+  flutie (~> 2.0)
   font-awesome-rails (>= 4.7)
   foreman
-  groupdate
-  haml-rails
+  groupdate (~> 3.2.0)
+  haml-rails (~> 0.4)
   handlebars_assets (~> 0.22.0)
   high_voltage (~> 3.0.0)
-  htmlentities
-  humanize_boolean
+  htmlentities (~> 4.3.3)
   intercom (~> 2.4.2)
-  intercom-rails
-  jbuilder
-  jquery-fileupload-rails
-  jquery-rails
-  jquery-validation-rails
+  intercom-rails (~> 0.3.4)
+  jbuilder (~> 2.6.4)
+  jquery-fileupload-rails (~> 0.4.5)
+  jquery-rails (~> 3.1.4)
+  jquery-validation-rails (~> 1.16.0)
   json (>= 1.7.7)
-  kaminari
+  kaminari (~> 0.16)
   letter_opener
   meta_request
-  mixpanel
-  mixpanel_client
-  mobvious-rails
+  mixpanel (~> 4.1.1)
+  mixpanel_client (~> 4.1.6)
+  mobvious-rails (~> 0.1.2)
   mocha
-  mongoid
+  mongoid (~> 3.0)
   nest (~> 2.0)
-  nokogiri
+  nokogiri (~> 1.8.1)
   paperclip (~> 4.3)
   pg (~> 0.18)
   pry-byebug
@@ -1115,25 +1225,25 @@ DEPENDENCIES
   rails (= 3.2.22.1)
   rails3_before_render
   rails_12factor
-  redis
-  redis-rails
-  rolify
+  redis (~> 3.3.3)
+  redis-rails (~> 3.2.4)
+  rolify (~> 5.1.0)
   rspec-rails (~> 3.0)
   rubyzip (~> 1.1.0)
-  sanitize
+  sanitize (~> 4.5.0)
   sass-rails
   scout_apm (~> 2.3)
-  searchjoy
-  searchkick
+  searchjoy (~> 0.1.0)
+  searchkick (~> 1.5.1)
   selenium-webdriver
   sham_rack
   shoulda-matchers
   simple_enum (~> 1.6.9)
   simplecov
   sinatra
-  squeel
+  squeel (~> 1.2.2)
   steak
-  stripe!
+  stripe (~> 3.9.0)
   strong_parameters
   test_after_commit
   thin

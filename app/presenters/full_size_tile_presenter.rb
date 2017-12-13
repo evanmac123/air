@@ -67,7 +67,7 @@ class FullSizeTilePresenter
   end
 
   def old_browser?
-    browser.ie8?
+    browser.ie?(8)
   end
 
   def extracted_video_link

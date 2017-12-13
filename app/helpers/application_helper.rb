@@ -150,7 +150,7 @@ module ApplicationHelper
   end
 
   def ie9_or_older?
-    browser.ie6? || browser.ie7? || browser.ie8? || browser.ie9?
+    browser.ie?(6) || browser.ie?(7) || browser.ie?(8) || browser.ie?(9)
   end
 
   def nr_trace(name)
