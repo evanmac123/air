@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe User do
-  before do
-    FactoryGirl.create(:user)
-  end
-
   it { is_expected.to have_one(:demo) }
   it { is_expected.to have_many (:demos) }
   it { is_expected.to belong_to(:location) }
@@ -18,7 +14,8 @@ describe User do
   # Note that our validates_uniqueness_of :email is called in the Clearance gem
   it { is_expected.to validate_uniqueness_of(:email) }
   it { is_expected.to validate_presence_of(:name).with_message("Please enter a first and last name") }
-  it { should_have_valid_mime_type(User, :avatar_content_type) }
+  it { should have_attached_file(:avatar) }
+  it { should validate_attachment_content_type(:avatar).allowing('image/*') }
 end
 
 describe User do

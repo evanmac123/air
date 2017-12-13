@@ -5,8 +5,8 @@ describe Demo do
   it { is_expected.to have_many(:tiles) }
   it { is_expected.to have_many(:locations) }
   it { is_expected.to have_many(:characteristics) }
-
-  it { should_have_valid_mime_type(Demo, :logo_content_type) }
+  it { should have_attached_file(:logo) }
+  it { should validate_attachment_content_type(:logo).allowing('image/*') }
 
   describe "#customer_status_for_mixpanel" do
     it "returns 'Free' if demo is free" do

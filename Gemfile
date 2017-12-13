@@ -86,7 +86,7 @@ gem 'rails3_before_render'
 gem 'draper', '~> 1.3'
 gem 'strong_parameters'
 gem 'squeel'
-gem 'aws-sdk-v1' # V1 used for bulk upload and Tile attachments (migrate)
+gem 'aws-sdk-v1' # V1 used for bulk upload and Tile attachments (migrate to v3 in rewrites)
 #
 
 group :assets do

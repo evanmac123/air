@@ -10,6 +10,7 @@ require 'fileutils'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'shoulda/matchers'
+require 'paperclip/matchers'
 require 'clearance/rspec'
 require 'capybara/rspec'
 
@@ -39,6 +40,7 @@ Capybara.javascript_driver = :chrome
 
 RSpec.configure do |config|
   config.mock_with :mocha
+  config.include Paperclip::Shoulda::Matchers
   config.example_status_persistence_file_path = "#{Rails.root}/spec/specs_with_statuses.txt"
   config.infer_spec_type_from_file_location!
 

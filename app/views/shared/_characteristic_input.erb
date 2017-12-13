@@ -2,12 +2,11 @@
 <% input_name = "#{namespace}[#{characteristic.to_param}]" %>
 <% initial_value = user.characteristics.try(:[], characteristic.id) %>
 <%= label_tag input_name, characteristic.name %>
-<% case characteristic.datatype.input_type %>
-  <% when :select %>
-    <%= select_tag input_name, options_for_select(characteristic.allowed_values, :selected => initial_value), :include_blank => true %>
-  <% when :text %>
-    <%= text_field_tag input_name, (initial_value && characteristic.format_value(initial_value)) %>
-  <% when :checkbox %>
-    <%= check_box_tag input_name, '1', initial_value %>
-  <% end %>
+<% case characteristic.datatype.input_type
+when :select %>
+  <%= select_tag input_name, options_for_select(characteristic.allowed_values, :selected => initial_value), :include_blank => true %>
+<% when :text %>
+  <%= text_field_tag input_name, (initial_value && characteristic.format_value(initial_value)) %>
+<% when :checkbox %>
+  <%= check_box_tag input_name, '1', initial_value %>
 <% end %>
