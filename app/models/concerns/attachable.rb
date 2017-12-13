@@ -1,4 +1,3 @@
-require 'aws-sdk'
 module Attachable
   # This module provides some basic functionality for managing files on S3
   # when mixed in to an AR model that has a textfield called file_attachments

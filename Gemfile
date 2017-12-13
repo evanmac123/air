@@ -12,7 +12,7 @@ gem 'jbuilder', '~> 2.6.4'
 gem 'mongoid', '~> 3.0'
 gem 'bson_ext', '~> 1.12'
 
-gem 'aws-sdk', '~> 3'
+gem 'aws-sdk-s3', '~> 1'
 gem 'paperclip', '~> 4.3'
 gem 'delayed_paperclip', '~> 2.9.0'
 
@@ -61,7 +61,7 @@ gem 'delighted', '~> 1.7.0'
 gem 'airbrake', '~> 5.4'
 gem 'scout_apm', '~> 2.3'
 gem 'chartmogul-ruby', '~> 1.1.4', require: 'chartmogul'
-gem 'intercom', '~> 2.4.2'
+gem 'intercom', '~> 2.4.3'
 gem 'intercom-rails', '~> 0.3.4'
 gem 'mixpanel_client', '~> 4.1.6'
 ###

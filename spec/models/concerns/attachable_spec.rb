@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'aws-sdk'
 describe Attachable do
 
   let(:t){FactoryGirl.create(:multiple_choice_tile)}

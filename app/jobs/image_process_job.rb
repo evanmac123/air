@@ -1,5 +1,3 @@
-require 'aws-sdk'
-
 # Since image file Uploads are asynchronous for new and updated tiles
 # We need to manually set the image attachment that would normally have been
 # submitted via the file field on the form.
