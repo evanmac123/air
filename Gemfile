@@ -11,6 +11,8 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'aws-sdk'
 gem 'paperclip', '~> 4.3'
 gem 'delayed_paperclip', '~> 2.9.0'
+gem 'paperclip-meta', '~> 2.0.0'
+
 gem 'high_voltage', '~> 3.0.0'
 gem 'flutie'
 gem 'twilio-ruby', '~> 5.2.3'

@@ -333,6 +333,8 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    paperclip-meta (2.0.2)
+      paperclip (~> 4.0)
     pg (0.18.0)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
@@ -578,6 +580,7 @@ DEPENDENCIES
   nest (~> 2.0)
   nokogiri
   paperclip (~> 4.3)
+  paperclip-meta (~> 2.0.0)
   pg (~> 0.18)
   pry-byebug
   pry-rails
