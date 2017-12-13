@@ -43,19 +43,4 @@ module Tile::TileImageable
   def processing_image_fallback
     remote_media_url || IMAGE_PROCESSING_URL
   end
-
-  # need this function to set height of image place in ie8 while image is loading
-  def full_size_image_height
-    return nil if image_file_name.nil?
-
-   #FIXME  this fails if height or width are nil?
-    height, width = if image_processing? || image.height.nil? || image.width.nil?
-                      [484, 666]
-                    else
-                      [image.height, image.width]
-                    end
-
-    full_width = 600.0 # px for full size tile
-    ( height * full_width / width ).to_i
-  end
 end

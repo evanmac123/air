@@ -16,7 +16,6 @@ class FullSizeTilePresenter
     :is_action?,
     :original_creator,
     :tile_completions,
-    :full_size_image_height,
     :embed_video,
     :question_type,
     :question_subtype,
@@ -57,14 +56,6 @@ class FullSizeTilePresenter
 
   def adjacent_tile_image_urls
     Tile.where(id: adjacent_tile_ids).map{|tile| tile.image.url}
-  end
-
-
-  def image_styles
-    styles = ""
-    styles += (is_preview || ie9_or_older?) ? "height:#{full_size_image_height}px;" : ""
-    # styles += "display:#{show_image? ? 'none' : 'block'};"
-    styles
   end
 
   def show_image?

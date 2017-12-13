@@ -19,7 +19,7 @@
   <div id="image_uploader" class="intro-tipsy content_sections">
     <% image_class = tile_image_present(@tile.remote_media_url) ? "present" : "missing" %>
 
-    <div class="intro-tipsy image_preview limited-height <%= image_class %>" data-img-height='<%= @tile.full_size_image_height%>'>
+    <div class="intro-tipsy image_preview limited-height <%= image_class %>">
       <%= image_tag @tile.image.url, class: "tile_image", id: "upload_preview" %>
       <div class="shadow_overlay"></div>
       <div class="image_credit ">

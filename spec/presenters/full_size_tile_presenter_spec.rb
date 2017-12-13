@@ -25,18 +25,5 @@ describe FullSizeTilePresenter do
       presenter = FullSizeTilePresenter.new(tile, user, false, [], Browser.new)
       expect(presenter.supporting_content).to eq("<p>&lt;script&gt;alert(&#x27;Bad evil!&#x27;)&lt;/script&gt;</p>")
     end
-
-    it "should have styles for ie8" do
-      tile = FactoryGirl.build_stubbed(:tile)
-      browser = Browser.new(ua: ie8)
-      presenter = FullSizeTilePresenter.new(tile, user, false, [], browser)
-      expect(presenter.image_styles).to be_present
-    end
-
-    it "should not have styles be default" do
-      tile = FactoryGirl.build_stubbed(:tile)
-      presenter = FullSizeTilePresenter.new(tile, user, false, [], Browser.new)
-      expect(presenter.image_styles).not_to be_present
-    end
   end
 end
