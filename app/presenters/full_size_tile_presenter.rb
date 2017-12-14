@@ -58,18 +58,6 @@ class FullSizeTilePresenter
     Tile.where(id: adjacent_tile_ids).map{|tile| tile.image.url}
   end
 
-  def show_image?
-    !show_video?
-  end
-
-  def show_video?
-    tile.embed_video.present? && !old_browser?
-  end
-
-  def old_browser?
-    browser.ie?(8)
-  end
-
   def extracted_video_link
     Nokogiri::HTML::Document.parse( tile.embed_video).xpath("//iframe").attribute("src").value
   end

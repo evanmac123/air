@@ -31,10 +31,6 @@ class UserProgressPresenter
     @points ||= number_with_delimiter(@user.points)
   end
 
-  def old_browser?
-    @browser.ie?(6) || @browser.ie?(7) || @browser.ie?(8)  
-  end
-
   def persist_locally?
     false
   end
@@ -56,7 +52,6 @@ class UserProgressPresenter
      completed: completed_tile_count,
      points: points,
      persistLocally: persist_locally?,
-     legacyBrowser: old_browser?,
      key: storage_key
     }
   end

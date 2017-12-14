@@ -9,7 +9,8 @@ module Tile::TileImageable
   included do
 
     has_attached_file :image,
-      { styles: {
+      {
+        styles: {
           viewer: "666>"
         },
         default_style: :viewer,

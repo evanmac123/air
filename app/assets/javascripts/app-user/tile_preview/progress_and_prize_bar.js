@@ -6,26 +6,24 @@ Airbo.ProgressAndPrizeBar = (function(){
   //
   //  All tile progress functions and set up
   //
-  var  tileCompletedBarSel = "#completed_tiles"
-    , tileCompletedNumSel = "#completed_tiles_num"
-    , tileCongratSel = "#congrat_header"
-    , tileFullBarSel = "#tile_progress_bar"
-    , tileCompleteDataSel = "#complete_info"
-    , tileAllSel = "#all_tiles"
-    , progressBarSel = '#completed_progress'
-    , radialProgressBarSel  = '.progress-radial'
-    , tileCompletedBar
-    , tileCompletedNum
-    , tileCongrat
-    , tileFullBar
-    , tileCompleteData
-    , tileAll
-    , progressBar
-    , radialProgressBar
-    , legacyBrowser
-    , config
-    , progress
-  ;
+  var  tileCompletedBarSel = "#completed_tiles";
+  var tileCompletedNumSel = "#completed_tiles_num";
+  var tileCongratSel = "#congrat_header";
+  var tileFullBarSel = "#tile_progress_bar";
+  var tileCompleteDataSel = "#complete_info";
+  var tileAllSel = "#all_tiles";
+  var progressBarSel = '#completed_progress';
+  var radialProgressBarSel  = '.progress-radial';
+  var tileCompletedBar;
+  var tileCompletedNum;
+  var tileCongrat;
+  var tileFullBar;
+  var tileCompleteData;
+  var tileAll;
+  var progressBar;
+  var radialProgressBar;
+  var config;
+  var progress;
 
 function initDom(){
 
@@ -146,7 +144,7 @@ function initDom(){
 
   function setCongratText(){
     mq = window.matchMedia( "(min-width: 500px)" );
-    if (mq.matches || legacyBrowser) {
+    if (mq.matches) {
       $("#congrat_text").text("You've finished all new tiles!");
     }
   }
@@ -269,7 +267,6 @@ function initDom(){
       setCompletedTiles();
     }
 
-    legacyBrowser= config.legacyBrowser;
     initDom();
     setTileBar(config.available, completedCount);
     setCongratText();

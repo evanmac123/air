@@ -69,7 +69,6 @@ class TileCopier
     end
 
     def set_new_data_for_copy(status)
-
       copy.status = status
       copy.original_creator = tile.creator || tile.original_creator
       copy.original_created_at = tile.created_at || tile.original_created_at
