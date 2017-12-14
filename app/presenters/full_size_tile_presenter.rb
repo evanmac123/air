@@ -62,26 +62,30 @@ class FullSizeTilePresenter
     Nokogiri::HTML::Document.parse( tile.embed_video).xpath("//iframe").attribute("src").value
   end
 
-  protected
+  def show_video?
+    tile.embed_video.present?
+  end
 
-  def adjacent_tile_ids
-    return [] unless @current_tile_ids.present?
+  private
 
-    current_tile_index = @current_tile_ids.index(tile.id)
-    return [] unless current_tile_index
+    def adjacent_tile_ids
+      return [] unless @current_tile_ids.present?
 
-    adjacent_indices = [1,-1].map do |offset|
-      (current_tile_index + offset) % @current_tile_ids.length
+      current_tile_index = @current_tile_ids.index(tile.id)
+      return [] unless current_tile_index
+
+      adjacent_indices = [1,-1].map do |offset|
+        (current_tile_index + offset) % @current_tile_ids.length
+      end
+
+      adjacent_indices.map{|adjacent_index| @current_tile_ids[adjacent_index]}
     end
 
-    adjacent_indices.map{|adjacent_index| @current_tile_ids[adjacent_index]}
-  end
+    def content_tag(*args, &block)
+      ActionController::Base.helpers.content_tag(*args, &block).html_safe
+    end
 
-  def content_tag(*args, &block)
-    ActionController::Base.helpers.content_tag(*args, &block).html_safe
-  end
-
-  def html_escape(*args)
-    ERB::Util.h(*args)
-  end
+    def html_escape(*args)
+      ERB::Util.h(*args)
+    end
 end
