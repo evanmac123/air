@@ -2,8 +2,7 @@ source 'https://www.rubygems.org'
 
 ruby '2.1.8'
 
-gem 'rails', '=3.2.22.1'
-gem 'rack', '~> 1.4.5'
+gem 'rails', '4.0.0'
 gem 'unicorn', '~> 5.3.1'
 gem 'pg', '~> 0.18'
 gem 'rack-cors', require: 'rack/cors'

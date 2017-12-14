@@ -4,7 +4,6 @@ require ::File.expand_path('../config/environment',  __FILE__)
 
 run Health::Application
 
-
 # Additional mime types
 Rack::Mime::MIME_TYPES.merge!({
   ".eot" => "application/vnd.ms-fontobject",
