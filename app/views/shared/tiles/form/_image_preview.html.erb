@@ -23,16 +23,10 @@
       <%= image_tag @tile.image.url, class: "tile_image", id: "upload_preview" %>
       <div class="shadow_overlay"></div>
       <div class="image_credit ">
-        <% if ie9_or_older? %>
-          <div class="image_credit_view">
-            <%= @tile.image_credit %>
-          </div>
-        <% else %>
-          <div class="image_credit_view no_outline" contenteditable="true">
-            <%= @tile.image_credit%>
-          </div>
-          <%= form.text_area :image_credit %>
-        <% end %>
+        <div class="image_credit_view no_outline" contenteditable="true">
+          <%= @tile.image_credit%>
+        </div>
+        <%= form.text_area :image_credit %>
       </div>
       <div class="image-menu">
         <ul>

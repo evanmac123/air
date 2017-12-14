@@ -4,9 +4,7 @@
 .tile_full_image {
   text-align: center;
   position: relative;
-  // img {
-  //   width:100%;
-  // }
+  min-height: 400px;
   &:after{@include clear;}
   &.loading{
     background-color: $off-white;
@@ -37,22 +35,6 @@
   transition: all 0.5s;
   background: white;
 }
-
-#tile_full_img_loading{
- background: white;
-}
-
-.video_old_browser {
-  background: $white;
-  padding: 100px;
-  i {
-    font-size: 200px;
-  }
-  &:hover {
-    color: $n-blue;
-  }
-}
-
 
 .shadow_overlay {
   display: block;
