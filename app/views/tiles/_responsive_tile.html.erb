@@ -9,7 +9,7 @@
 } do %>
 
   <div class="<%=tile_class(tile)%>">
-    <div class="video_section" style="display:<%= tile.show_video? ? 'block' : 'none' %>">
+    <div class="video_section" style="display:block;">
       <%= unescape_html(tile.embed_video) %>
     </div>
 

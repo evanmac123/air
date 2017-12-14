@@ -58,15 +58,6 @@ class FullSizeTilePresenter
     Tile.where(id: adjacent_tile_ids).map{|tile| tile.image.url}
   end
 
-<<<<<<< HEAD
-  def extracted_video_link
-    Nokogiri::HTML::Document.parse( tile.embed_video).xpath("//iframe").attribute("src").value
-=======
-  def show_image?
-    !show_video?
->>>>>>> Re deprecates paperclip-meta and removes tile builder support for ie8
-  end
-
   def show_video?
     tile.embed_video.present?
   end
