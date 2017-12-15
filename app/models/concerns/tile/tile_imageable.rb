@@ -1,4 +1,4 @@
-module Concerns::TileImageable
+module Tile::TileImageable
   extend ActiveSupport::Concern
   include Assets::Normalizer # normalize filename of paperclip attachment
 

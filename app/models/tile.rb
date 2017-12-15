@@ -1,8 +1,8 @@
 class Tile < ActiveRecord::Base
-  include Concerns::TileImageable
-  include Concerns::Attachable
-  include TileAnswers
-  include TileLinkTrackingConcern
+  include Tile::TileImageable
+  include Tile::TileAnswers
+  include Tile::TileLinkTracking
+  include Attachable
 
   ACTIVE  = 'active'.freeze
   ARCHIVE = 'archive'.freeze

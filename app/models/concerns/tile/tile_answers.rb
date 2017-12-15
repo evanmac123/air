@@ -1,29 +1,15 @@
-module TileAnswers
+module Tile::TileAnswers
   extend ActiveSupport::Concern
+
+  PRESET_CORRECT_ANSWER_INDEX = ["change_email", "custom_form", "invite_spouse"]
 
   included do
     serialize :multiple_choice_answers, Array
-    validate  :points_positive
-    validate :at_least_one_answer_present
 
-    before_validation :set_answers, :if => :answers_populated?
-
-    PRESET_CORRECT_ANSWER_INDEX = ["change_email", "custom_form", "invite_spouse"]
+    before_validation :set_answers, if: :answers_populated?
   end
 
   #FIXME should not need to have separate answers field but some processing on the field needs to happen and the client side creates an answers field instead of multiple_choice_answers
-
-  def points_positive
-    unless points.present? && points > 0
-      errors.add :base, "points can't be blank"
-    end
-  end
-
-  def at_least_one_answer_present
-    unless multiple_choice_answers && multiple_choice_answers.any?(&:present?)
-      errors.add :base, 'must have at least one answer'
-    end
-  end
 
   def answers
     @answers || []

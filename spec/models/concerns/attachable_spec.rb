@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'aws-sdk'
-describe Concerns::Attachable do
+describe Attachable do
 
   let(:t){FactoryGirl.create(:multiple_choice_tile)}
   let(:t2){FactoryGirl.create(:multiple_choice_tile)}
@@ -128,7 +128,7 @@ describe Concerns::Attachable do
         t.file_attachments = {"file1.pdf"=>"/airbo-development/file1.pdf", "file2.pdf"=>"/airbo-development/file2.pdf", "file3.pdf"=>"/airbo-development/file3.pdf"}
         t.attachments = ["DELETE", "https://s3.amazonaws.com/#{APP_BUCKET}/file1.pdf", "https://s3.amazonaws.com/#{APP_BUCKET}/file3.pdf"]
         expect{t.save}.to change{t.file_attachments}.from({
-          "file1.pdf"=>"/airbo-development/file1.pdf", 
+          "file1.pdf"=>"/airbo-development/file1.pdf",
           "file2.pdf"=>"/airbo-development/file2.pdf",
           "file3.pdf"=>"/airbo-development/file3.pdf"
         }).to({"file1_dot_pdf"=>"/airbo-development/file1.pdf", "file3_dot_pdf"=>"/airbo-development/file3.pdf"})

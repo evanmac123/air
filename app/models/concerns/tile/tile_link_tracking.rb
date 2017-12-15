@@ -1,4 +1,4 @@
-module TileLinkTrackingConcern
+module Tile::TileLinkTracking
   TILE_LINK_TRACKING_RELEASE_DATE = "2017-09-28".to_date
 
   def track_link_click(clicked_link:, user:)

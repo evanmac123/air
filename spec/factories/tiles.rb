@@ -10,8 +10,6 @@ FactoryGirl.define do
     question_type Tile::QUIZ
     question_subtype Tile::MULTIPLE_CHOICE
     remote_media_url "/images/cov1.jpg"
-    multiple_choice_answers ["Ham"]
-    points 20
 
     trait :with_creator do
       association :creator, :factory => :user

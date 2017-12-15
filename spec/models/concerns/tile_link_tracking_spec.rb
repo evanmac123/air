@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe TileLinkTrackingConcern do
-  let(:trackable_tile) { FactoryGirl.build(:tile, activated_at: TileLinkTrackingConcern::TILE_LINK_TRACKING_RELEASE_DATE) }
+describe TileLinkTracking do
+  let(:trackable_tile) { FactoryGirl.build(:tile, activated_at: TileLinkTracking::TILE_LINK_TRACKING_RELEASE_DATE) }
 
   describe "#track_link_click" do
     it "tracks unique link clicks" do
@@ -115,7 +115,7 @@ describe TileLinkTrackingConcern do
     end
 
     it "returns false if the tile was activated before the TILE_LINK_TRACKING_RELEASE_DATE" do
-      untrackable_tile = FactoryGirl.build(:tile, activated_at: TileLinkTrackingConcern::TILE_LINK_TRACKING_RELEASE_DATE - 1.day)
+      untrackable_tile = FactoryGirl.build(:tile, activated_at: TileLinkTracking::TILE_LINK_TRACKING_RELEASE_DATE - 1.day)
 
       expect(untrackable_tile.has_link_tracking?).to eq(false)
     end
@@ -129,7 +129,7 @@ describe TileLinkTrackingConcern do
 
   describe "TILE_LINK_TRACKING_RELEASE_DATE" do
     it "is the correct date" do
-      expect(TileLinkTrackingConcern::TILE_LINK_TRACKING_RELEASE_DATE).to eq("2017-09-28".to_date)
+      expect(TileLinkTracking::TILE_LINK_TRACKING_RELEASE_DATE).to eq("2017-09-28".to_date)
     end
   end
 end
