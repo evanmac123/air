@@ -5,15 +5,16 @@ describe ApplicationMailer do
     def notify_with_default_headers(user: user)
       mail to: user.email,
         from: "admin@example.com",
-        subject: "Set Default Headers"
+        subject: "Set Default Headers",
+        body: 'Fake Mailer'
     end
 
     def notify_with_custom_headers(user: user, category: "Custom", unique_args: {})
       set_x_smtpapi_headers(category: category, unique_args: unique_args)
-
       mail to: user.email,
         from: "admin@example.com",
-        subject: "Set Default Headers"
+        subject: "Set Default Headers",
+        body: 'Fake Mailer'
     end
   end
 
