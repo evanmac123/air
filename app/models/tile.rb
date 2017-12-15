@@ -1,6 +1,7 @@
 class Tile < ActiveRecord::Base
   include Concerns::TileImageable
   include Concerns::Attachable
+  include TileAnswers
   include TileLinkTrackingConcern
 
   ACTIVE  = 'active'.freeze
@@ -38,7 +39,6 @@ class Tile < ActiveRecord::Base
   VIDEO_UPLOAD = "video-upload"
   MAX_REMOTE_MEDIA_URL_LENGTH = 2000
 
-  PRESET_CORRECT_ANSWER_INDEX = ["change_email", "custom_form", "invite_spouse"]
   acts_as_taggable_on :channels
 
   #enum column: creation_source_cd
