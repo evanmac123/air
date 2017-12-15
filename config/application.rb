@@ -5,7 +5,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "sprockets/railtie"
 require "mobvious"
-require File.expand_path(__FILE__ + "/../../app/middleware/request_timestamp")
+require_relative "../lib/request_timestamp"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -45,8 +45,6 @@ module Health
 
     config.autoload_paths += %W(
       #{config.root}/app/presenters/digest
-      #{config.root}/app/controllers/concerns
-      #{config.root}/app/models/concerns
     )
 
 

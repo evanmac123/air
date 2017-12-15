@@ -70,7 +70,7 @@ class User
     protected
 
     def cast_characteristics
-      return unless changed.include?('characteristics')
+      return unless changes["characteristics"].compact.present?
 
       self.characteristics.keys.each do |characteristic_id|
         characteristic = Characteristic.find(characteristic_id)
