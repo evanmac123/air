@@ -1,7 +1,7 @@
 class Raffle < ActiveRecord::Base
   belongs_to :demo
   has_many :user_in_raffle_infos, dependent: :delete_all
-  has_many :winners, -> { where is_winner: true }, through: :user_in_raffle_infos, source: :user, source_type: "User"
+  has_many :winners, -> { where(user_in_raffle_infos: { is_winner: true }) }, through: :user_in_raffle_infos, source: :user, source_type: "User"
   serialize :prizes, Array
 
   after_initialize :default_values
@@ -17,7 +17,7 @@ class Raffle < ActiveRecord::Base
   validates_presence_of :ends_at, :allow_blank => false, :message => "end date can't be blank"
   validates_presence_of :other_info, :allow_blank => false, :message => "other info can't be blank"
   validate :prizes_presence
-  scope :live, ->(){where("status = ? and starts_at <= ?", LIVE, Time.current)}
+  scope :live, -> { where("status = ? and starts_at <= ?", LIVE, Time.current) }
 
   def live?
     self.status == LIVE && self.starts_at <= Time.current

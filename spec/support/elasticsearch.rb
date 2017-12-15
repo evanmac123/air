@@ -4,9 +4,6 @@ RSpec.configure do |config|
   end
 
   config.around(:each, search: true) do |example|
-    Tile.reindex
-    Campaign.reindex
-
     Searchkick.enable_callbacks
     example.run
     Searchkick.disable_callbacks

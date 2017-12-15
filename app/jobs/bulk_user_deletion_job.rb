@@ -18,7 +18,7 @@ class BulkUserDeletionJob
   end
 
   def users_to_delete
-    User.joins(:board_memberships).where("board_memberships.demo_id =?", @demo_id).where(users_to_delete_condition)
+    User.includes(:board_memberships).where("board_memberships.demo_id =?", @demo_id).where(users_to_delete_condition).references(:board_memberships)
   end
 
   def users_to_delete_condition

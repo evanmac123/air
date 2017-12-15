@@ -816,8 +816,7 @@ class User < ActiveRecord::Base
 
   def reset_tiles(demo = nil)
     demo ||= self.demo
-
-    tile_completions.joins(tile: :demo).where(tile: { demo: demo }).destroy_all
+    tile_completions.select([:id, :tile_id]).joins(tile: :demo).where(tile: { demo: demo }).destroy_all
   end
 
   def has_tiles_tools_subnav?

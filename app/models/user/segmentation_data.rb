@@ -26,6 +26,6 @@ class User::SegmentationData
   end
 
   def self.destroy_from_user(user)
-    self.delete_all(conditions: {ar_id: user.id})
+    where(ar_id: user.id).destroy
   end
 end
