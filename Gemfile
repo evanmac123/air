@@ -86,7 +86,6 @@ gem 'nokogiri', '~> 1.8.1'
 gem 'carrierwave_direct', '~> 0.0.15'
 gem 'draper', '~> 1.3'
 gem 'aws-sdk-v1', '~> 1.59.0' # V1 used for bulk upload and Tile attachments (migrate to v3 in rewrites)
-gem 'kaminari-mongoid' # Remove after resolving Kaminari dependency issue with mongoid and wice grid.
 ###
 
 gem 'sass-rails', '~> 4.0.0'
@@ -95,7 +94,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'handlebars_assets', '~> 0.22.0'
 
 group :development, :test do
-  gem 'faker'
   gem 'colored'
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'

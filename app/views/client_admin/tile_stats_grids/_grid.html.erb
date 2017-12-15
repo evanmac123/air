@@ -2,10 +2,9 @@
 <% tile ||= @tile %>
 
 <%= grid(tile_stats_grid, hide_csv_button: true) do |g|
-
   g.column name: 'Date', model: 'TileCompletion', attribute: 'created_at', html: { class: "date" }  do |row|
     if row.completion_date
-      Time.zone.parse(row.completion_date + " UTC").in_time_zone.strftime("%-m/%-d")
+      row.completion_date.in_time_zone.strftime("%-m/%-d")
     else
       "-"
     end
