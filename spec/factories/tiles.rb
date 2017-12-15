@@ -10,6 +10,8 @@ FactoryGirl.define do
     question_type Tile::QUIZ
     question_subtype Tile::MULTIPLE_CHOICE
     remote_media_url "/images/cov1.jpg"
+    multiple_choice_answers ["Ham"]
+    points 20
 
     trait :with_creator do
       association :creator, :factory => :user
@@ -68,8 +70,7 @@ FactoryGirl.define do
     image_credit "by Human"
   end
 
-  factory :multiple_choice_tile, parent: :client_created_tile, class: MultipleChoiceTile do
-    type 'MultipleChoiceTile'
+  factory :multiple_choice_tile, parent: :client_created_tile do
     question "Which of the following comes out of a bird?"
     points 99
     #TODO fix this so that the tile uses the native multiple_choice_answers_field
