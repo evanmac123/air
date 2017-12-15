@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
 
   # Indirect relationships don't require a deletion strategy
   # --------------------------------------------------------
-  has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
+  has_one    :current_board_membership, -> { where is_current: true }, class_name: "BoardMembership"
   has_one    :demo, through: :current_board_membership
   has_one    :raffle, through: :demo
 
@@ -653,8 +653,7 @@ class User < ActiveRecord::Base
   end
 
   def find_same_slug(possible_slug)
-    User.first(:conditions => ["slug = ? OR sms_slug = ?", possible_slug, possible_slug],
-               :order      => "created_at desc")
+    User.where("slug = ? OR sms_slug = ?", possible_slug, possible_slug).order("created_at desc").first
   end
 
 

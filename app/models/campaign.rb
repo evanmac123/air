@@ -13,9 +13,11 @@ class Campaign < ActiveRecord::Base
     }
   validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\Z/
 
-  default_scope order(:name)
-
   searchkick word_start: [:channel_list, :tile_headlines], callbacks: :async
+
+  def self.default_scope
+    order(:name)
+  end
 
   def search_data
     extra_data = {

@@ -10,7 +10,7 @@ feature "Explore", js: true do
     @tile_feature_2 = FactoryGirl.create(:tile_feature, name: "tile_feature_2", rank: 2, active: false)
     @tile_feature_3 = FactoryGirl.create(:tile_feature, name: "tile_feature_3", rank: 3, active: true)
 
-    TileFeature.scoped.each_with_index do |tf, i|
+    TileFeature.all.each_with_index do |tf, i|
       tf.dispatch_redis_updates({
         header_copy: tf.name,
         tile_ids: @tiles[i].id.to_s

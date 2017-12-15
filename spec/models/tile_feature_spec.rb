@@ -75,7 +75,7 @@ describe TileFeature do
       tile_id_2 = Tile.last.id
 
       tile_feature.dispatch_redis_updates({ tile_ids: "#{tile_id_2},#{tile_id_3},#{tile_id_1}" })
-      feature_tiles = tile_feature.get_tiles(Tile.scoped)
+      feature_tiles = tile_feature.get_tiles(Tile.all)
 
       expect(feature_tiles.map(&:id).join(",")).to eq("#{tile_id_2},#{tile_id_3},#{tile_id_1}")
     end

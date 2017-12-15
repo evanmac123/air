@@ -3,7 +3,6 @@ class TileImage < ActiveRecord::Base
 
   ROW = 3
   LINES = 6
-  paginates_per (ROW * LINES) # 6 lines
   PAGINATION_PADDING = (ROW * LINES - 1) # 6 lines
 
   def self.all_ready

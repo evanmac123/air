@@ -300,7 +300,7 @@ class Tile < ActiveRecord::Base
     if related_features.present?
       tile_features = TileFeature.where(id: related_features.pluck(:id))
     else
-      tile_features = TileFeature.scoped
+      tile_features = TileFeature.all
     end
 
     tile_features.active.flat_map(&:tile_ids).compact

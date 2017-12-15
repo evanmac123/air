@@ -9,6 +9,7 @@ when 'production', 'staging'
         'Expires' => 1.year.from_now.httpdate,
         'Cache-Control' => 'max-age=315576000'
       },
+      s3_region: 'us-east-1',
       bucket: APP_BUCKET,
       url: ":s3_domain_url",
       hash_secret: "Kid Sister Diary Secure",

@@ -1,6 +1,7 @@
 Clearance.configure do |config|
   config.mailer_sender = 'Airbo <donotreply@airbo.com>'
   config.password_strategy = Clearance::PasswordStrategies::SHA1
+  config.routes = false
 
   config.cookie_expiration = lambda do |cookies|
     if cookies[:remember_me]

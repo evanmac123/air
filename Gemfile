@@ -2,17 +2,17 @@ source 'https://www.rubygems.org'
 
 ruby '2.1.8'
 
-gem 'rails', '4.0.0'
+gem 'rails', '=4.0.13'
 gem 'unicorn', '~> 5.3.1'
 gem 'pg', '~> 0.18'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-timeout', require: false
 gem 'jbuilder', '~> 2.6.4'
-gem 'mongoid', '~> 3.0'
-gem 'bson_ext', '~> 1.12'
+gem 'mongoid', '~> 4.0'
+gem 'bson', '~> 2.2'
 
 gem 'aws-sdk-s3', '~> 1'
-gem 'paperclip', '~> 4.3'
+gem 'paperclip', '=4.3.5'
 gem 'delayed_paperclip', '~> 2.9.0'
 
 gem 'twilio-ruby', '~> 5.2.3'
@@ -44,7 +44,7 @@ gem 'searchkick', '~> 1.5.1'
 gem 'searchjoy', '~> 0.1.0'
 gem 'groupdate', '~> 3.2.0'
 gem 'redis', '~> 3.3.3'
-gem 'redis-rails', '~> 3.2.4'
+gem 'redis-rails', '~> 4.0.0'
 gem 'jquery-rails', '~> 3.1.4'
 
 # Redis
@@ -70,12 +70,6 @@ gem 'jquery-validation-rails', '~> 1.16.0'
 gem 'jquery-fileupload-rails', '~> 0.4.5'
 ###
 
-### No support for Rails 4
-gem 'strong_parameters' # built-in
-gem 'cache_digests', '~> 0.3.1'
-gem 'rails3_before_render'
-###
-
 ### No support for Rails 5
 gem 'squeel', '~> 1.2.2'
 gem 'wice_grid', git: 'https://github.com/theairbo/wice_grid', branch: 'rails3'
@@ -92,14 +86,13 @@ gem 'nokogiri', '~> 1.8.1'
 gem 'carrierwave_direct', '~> 0.0.15'
 gem 'draper', '~> 1.3'
 gem 'aws-sdk-v1', '~> 1.59.0' # V1 used for bulk upload and Tile attachments (migrate to v3 in rewrites)
+gem 'kaminari-mongoid' # Remove after resolving Kaminari dependency issue with mongoid and wice grid.
 ###
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-  gem 'handlebars_assets', '~>0.22.0'
-end
+gem 'sass-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'handlebars_assets', '~> 0.22.0'
 
 group :development, :test do
   gem 'faker'
@@ -137,6 +130,8 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
 end
 
 group :production do

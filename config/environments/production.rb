@@ -5,31 +5,52 @@ Health::Application.configure do
   # Code is not reloaded between requests
   config.cache_classes = true
 
-  # Full error reports are disabled and caching is turned on
+  # Eager load code on boot. This eager loads most of Rails and
+  # your application in memory, allowing both thread web servers
+  # and those relying on copy on write to perform better.
+  # Rake tasks automatically ignore this option for performance.
+  config.eager_load = true
+
+  # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
+
+  # Enable Rack::Cache to put a simple HTTP cache in front of your application
+  # Add `rack-cache` to your Gemfile before enabling this.
+  # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
+  # config.action_dispatch.rack_cache = true
+
+  # Disable Rails's static asset server (Apache or nginx will already do this).
+  config.serve_static_assets = false
+
+  # Compress JavaScripts and CSS.
+  config.assets.js_compressor = :uglifier
+  # config.assets.css_compressor = :sass
+
+  # Do not fallback to assets pipeline if a precompiled asset is missed.
+  config.assets.compile = false
+
+  # Generate digests for assets URLs.
+  config.assets.digest = true
+
+  config.assets.version = '0.0.3'
+
 
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
-  # For nginx:
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
-
-  # If you have no front-end server that supports something like X-Sendfile,
-  # just comment this out and Rails will serve the files
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = true
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :info
 
-  # Use a different logger for distributed setups
-  # config.logger = SyslogLogger.new
+  # Use default logging formatter so that PID and timestamp are not suppressed.
+  config.log_formatter = ::Logger::Formatter.new
 
   # Use a different cache store in production
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :redis_store, ENV['REDIS_CACHE'], { expires_in: 5.years }
 
-  # Disable Rails's static asset server
-  # In production, Apache or nginx will already do this
-  config.serve_static_assets = false
 
   # Set AWS Cloudfront as asset host
   config.action_controller.asset_host = ENV['CLOUDFRONT_DOMAIN']
@@ -51,19 +72,6 @@ Health::Application.configure do
 
   config.action_mailer.default_url_options = { :host => ENV["APP_HOST"] }
 
-  ############  ASSETS   ###############
-  config.assets.enabled = true
-
-  # Compress JavaScript and CSS
-  config.assets.compress = true
-
-  # Don't fallback to assets pipeline
-  config.assets.compile = false
-
-  # Generate digests for assets URLs
-  config.assets.digest = true
-  #######################################
-
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
     :port           => '587',
@@ -72,6 +80,6 @@ Health::Application.configure do
     :password       => ENV['SENDGRID_PASSWORD'],
     :domain         => 'airbo.com'
   }
-  ActionMailer::Base.delivery_method = :smtp
 
+  ActionMailer::Base.delivery_method = :smtp
 end

@@ -1,5 +1,6 @@
 class User::SegmentationData
   include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
 
   field :ar_id
   field :demo_ids

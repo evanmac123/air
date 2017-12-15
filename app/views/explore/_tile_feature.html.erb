@@ -1,4 +1,4 @@
-<% if feature_tiles ||= feature.get_tiles(Tile.scoped) %>
+<% if feature_tiles ||= feature.get_tiles(Tile.all) %>
   <section class="manage_section channel_container" id="<%= feature.name %>" style="background:<%= feature.background_color %>">
     <div class="row">
       <div class="large-12 columns">

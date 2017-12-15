@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::RoutingError, with: :not_found
@@ -13,12 +13,6 @@ class ApplicationController < ActionController::Base
   before_filter :refresh_activity_session
   before_filter :set_eager_caches
 
-  ##AirboSecurityConcern
-  before_filter :force_ssl
-  before_filter :disable_mime_sniffing
-  before_filter :disable_framing
-  ##
-
   ##AirboFlashConcern
   before_filter :initialize_flashes
   after_filter :merge_flashes
@@ -28,7 +22,6 @@ class ApplicationController < ActionController::Base
 
   include ActivitySessionConcern
   include CachingConcern
-  include SecurityConcern
   include MixpanelConcern
   include FlashConcern
   include ApplicationPerformanceConcern

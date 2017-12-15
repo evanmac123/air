@@ -4,9 +4,8 @@ require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "sprockets/railtie"
-require 'mobvious'
-require 'htmlentities'
-require File.expand_path(__FILE__ + '/../../app/middleware/request_timestamp')
+require "mobvious"
+require File.expand_path(__FILE__ + "/../../app/middleware/request_timestamp")
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -15,15 +14,8 @@ Bundler.require(:default, Rails.env)
 module Health
   class Application < Rails::Application
     ###################  ASSET PIPELINE  ###########################
-    # Enable the asset pipeline
-    config.assets.enabled = true
-    # Tell heroku not to try to talk to the mongo database while it precompiles assets
-    config.assets.initialize_on_precompile = false
-    # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '0.0.3'
     config.assets.paths += Dir["#{Rails.root}/vendor/assets/stylesheets"].sort_by { |dir| -dir.size }
-    # Tell rake which assets to precompile (default is application.css and application.js)
-    # Note that even though our files are named .scss, the ones in this list are the plain .css counterparts
+
     config.assets.precompile += %w(
       app-marketing-site.css
       app-admin.css
@@ -65,9 +57,6 @@ module Health
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
 
-    # JavaScript files you want as :defaults (application.js is always included).
-    config.action_view.javascript_expansions[:defaults] = %w()
-
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
@@ -88,7 +77,6 @@ module Health
     # Compresses response bodies
     config.middleware.use Rack::Deflater
 
-    config.cache_store = :redis_store, ENV['REDIS_CACHE'], { expires_in: 5.years }
 
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do

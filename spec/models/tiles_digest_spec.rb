@@ -327,7 +327,7 @@ RSpec.describe TilesDigest, :type => :model do
       _free_board = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free])
       _trial_board = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:trial])
 
-      Demo.scoped.each do |demo|
+      Demo.all.each do |demo|
         demo.tiles_digests.create
       end
 

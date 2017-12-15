@@ -1,10 +1,10 @@
 class Admin::UserMigratorsController < AdminBaseController
   def index
-    @demos = Demo.scoped.order("name asc").all
+    @demos = Demo.all.order("name asc").all
   end
 
   def new
-    @demos = Demo.scoped.order("name asc").all
+    @demos = Demo.all.order("name asc").all
   end
 
   def create

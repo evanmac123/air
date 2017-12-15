@@ -1,7 +1,7 @@
 class Raffle < ActiveRecord::Base
   belongs_to :demo
   has_many :user_in_raffle_infos, dependent: :delete_all
-  has_many :winners, through: :user_in_raffle_infos, source: :user, source_type: "User", :conditions => "is_winner = true"
+  has_many :winners, -> { where is_winner: true }, through: :user_in_raffle_infos, source: :user, source_type: "User"
   serialize :prizes, Array
 
   after_initialize :default_values
