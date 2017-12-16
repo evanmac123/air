@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20171206220106) do
+ActiveRecord::Schema.define(:version => 20171216005808) do
 
   create_table "acts", :force => true do |t|
     t.integer  "user_id"
@@ -1255,7 +1255,6 @@ ActiveRecord::Schema.define(:version => 20171206220106) do
     t.datetime "activated_at"
     t.datetime "archived_at"
     t.text     "multiple_choice_answers"
-    t.string   "type"
     t.integer  "correct_answer_index"
     t.integer  "points"
     t.boolean  "image_processing"
