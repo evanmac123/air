@@ -70,7 +70,7 @@ class Tile < ActiveRecord::Base
 
   before_create :set_on_first_position
   before_save :update_timestamps, if: :status_changed?
-  before_save :ensure_protocol_on_link_address, :handle_suggested_tile_status_change
+  before_save :handle_suggested_tile_status_change
   before_save :set_image_credit_to_blank_if_default
   before_save :prep_image_processing, if: :image_changed?
   after_save :process_image, if: :image_changed?
@@ -370,14 +370,6 @@ class Tile < ActiveRecord::Base
     @cloned = val
   end
 
-  def custom_supporting_content_class
-    use_old_line_break_css? ? 'old_line_break_css' : ''
-  end
-
-  def show_external_link?
-    use_old_line_break_css
-  end
-
   def prevent_activated_at_reset
     @activated_at_reset_allowed = false
   end
@@ -392,14 +384,6 @@ class Tile < ActiveRecord::Base
 
   def set_on_first_position
     self.position = find_new_first_position
-  end
-
-  def ensure_protocol_on_link_address
-    return unless link_address_changed?
-    return if link_address =~ %r{^(http://|https://)}i
-    return if link_address.blank?
-
-    self[:link_address] = "http://#{link_address}"
   end
 
   def no_post_process_on_copy

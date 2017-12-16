@@ -56,12 +56,6 @@ label.show_if_ie9{
 #tile_supporting_content {
   display: none;
 }
-#tile_external_link {
-  height: 58px;
-  input {
-    padding-top: 10px;
-  }
-}
 .medium-editor-placeholder:after {
   content: attr(data-placeholder)!important;
   color: #a9a9a9;

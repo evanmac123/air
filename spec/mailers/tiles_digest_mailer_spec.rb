@@ -32,9 +32,9 @@ describe 'Digest email' do
   end
 
   let(:tiles) do
-    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 1', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_1', link_address: "http://www.google.com")
+    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 1', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_1')
 
-    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 2', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_2', link_address: "https://www.nsa.gov")
+    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 2', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_2')
 
     FactoryGirl.create(:tile, demo: demo, headline: 'Headline 3', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_3')
 

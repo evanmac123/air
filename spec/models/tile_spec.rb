@@ -383,38 +383,6 @@ describe Tile do
     end
   end
 
-  describe "after save" do
-    context "if a URL is specified that starts with http or https" do
-      it "should leave it alone" do
-        http_tile = FactoryGirl.create(:tile, link_address: "http://www.google.com")
-        https_tile = FactoryGirl.create(:tile, link_address: "https://www.nsa.gov")
-
-        expect(http_tile.reload.link_address).to eq('http://www.google.com')
-        expect(https_tile.reload.link_address).to eq('https://www.nsa.gov')
-      end
-    end
-
-    context "if a URL is specified with no protocol" do
-      it "should prepend HTTP" do
-        tile = FactoryGirl.create(:tile, link_address: 'google.com')
-        expect(tile.reload.link_address).to eq('http://google.com')
-
-        tile.update_attributes(link_address: 'nsa.gov')
-        expect(tile.reload.link_address).to eq('http://nsa.gov')
-      end
-    end
-
-    context "if no URL is specified" do
-      it "should leave it blank" do
-        nil_tile = FactoryGirl.create(:tile, link_address: nil)
-        blank_tile = FactoryGirl.create(:tile, link_address: '')
-
-        expect(nil_tile.reload.link_address).to be_nil
-        expect(blank_tile.reload.link_address).to eq('')
-      end
-    end
-  end
-
   describe "#survey_chart" do
     it "should return array with right statistic" do
       tile = FactoryGirl.create(:survey_tile,

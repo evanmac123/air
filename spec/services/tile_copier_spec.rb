@@ -91,13 +91,11 @@ describe TileCopier do
     [
       "correct_answer_index",
       "headline",
-      "link_address",
       "multiple_choice_answers",
       "points",
       "question",
       "embed_video",
       "supporting_content",
-      "use_old_line_break_css",
       "question_type",
       "question_subtype"
     ]

@@ -20,7 +20,7 @@ class TileCopier
     copy.save
     #NOTE copy attachments after save so attachment has an iD
     tile.copy_s3_attachments_to copy
-    copy.tap(&:save)  
+    copy.tap(&:save)
   end
 
   def copy_from_own_board(status = Tile::DRAFT, tile_source = OWN_BOARD_SOURCE)
@@ -29,7 +29,7 @@ class TileCopier
     copy.save
     #NOTE copy attachments after save so attachment has an iD
     tile.copy_s3_attachments_to copy
-    copy.tap(&:save)  
+    copy.tap(&:save)
   end
 
 
@@ -52,7 +52,6 @@ class TileCopier
       [
         "correct_answer_index",
         "headline",
-        "link_address",
         "multiple_choice_answers",
         "points",
         "question",
@@ -60,7 +59,6 @@ class TileCopier
         "image",
         "embed_video",
         "thumbnail",
-        "use_old_line_break_css",
         "question_type",
         "question_subtype",
         "allow_free_response",
