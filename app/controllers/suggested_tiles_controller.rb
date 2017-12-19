@@ -1,11 +1,11 @@
 class SuggestedTilesController < UserBaseController
   def new
-    @tile = current_board.m_tiles.build(status: Tile::USER_SUBMITTED, user_created: true)
+    @tile = current_board.tiles.build(status: Tile::USER_SUBMITTED, user_created: true)
     render partial: "client_admin/tiles/form", layout: false
   end
 
   def create
-    @tile = current_user.demo.m_tiles.new(tile_params)
+    @tile = current_user.demo.tiles.new(tile_params)
 
     if @tile.save
       render_preview

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Concerns::TileImageable do
+describe Tile::TileImageable do
   context "#full_size_image_height" do
     it "should return default size if height or width is nil but image is not processed" do
       t = FactoryGirl.create(:multiple_choice_tile, image: File.open(Rails.root.join "spec/support/fixtures/tiles/cov'1.jpg"))

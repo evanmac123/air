@@ -32,9 +32,9 @@ describe 'Digest email' do
   end
 
   let(:tiles) do
-    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 1', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_1', link_address: "http://www.google.com")
+    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 1', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_1')
 
-    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 2', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_2', link_address: "https://www.nsa.gov")
+    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 2', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_2')
 
     FactoryGirl.create(:tile, demo: demo, headline: 'Headline 3', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_3')
 
@@ -185,28 +185,6 @@ describe 'Digest email' do
       it { is_expected.to have_body_text 'supporting_content_1' }
       it { is_expected.to have_body_text 'supporting_content_2' }
       it { is_expected.to have_body_text 'supporting_content_3' }
-    end
-  end
-
-  describe "Link" do
-    context "original digest email should not display the tile's link" do
-      subject { TilesDigestMailer.notify_one(digest, claimed_user.id, 'New Tiles', TilesDigestMailDigestPresenter) }
-
-      it { is_expected.not_to have_link 'http://www.google.com' }
-      it { is_expected.not_to have_selector "a[href *= 'http://www.google.com']" }
-
-      it { is_expected.not_to have_link 'https://www.nsa.gov' }
-      it { is_expected.not_to have_selector "a[href *= 'https://www.nsa.gov']" }
-    end
-
-    context "follow-up digest email should display the tile's link if present" do
-      subject { TilesDigestMailer.notify_one(digest, claimed_user.id, "Don't Miss Your New Tiles", TilesDigestMailFollowUpPresenter) }
-
-      it { is_expected.to have_link 'http://www.google.com' }
-      it { is_expected.to have_selector "a[href *= 'http://www.google.com']" }
-
-      it { is_expected.to have_link 'https://www.nsa.gov' }
-      it { is_expected.to have_selector "a[href *= 'https://www.nsa.gov']" }
     end
   end
 

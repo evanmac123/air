@@ -1,5 +1,5 @@
 require 'aws-sdk'
-module Concerns::Attachable
+module Attachable
   # This module provides some basic functionality for managing files on S3
   # when mixed in to an AR model that has a textfield called file_attachments
   # it will convert a an array of AWS S3 urls submitted via the tile builder
@@ -46,7 +46,7 @@ module Concerns::Attachable
   def copy_s3_attachments_to tile
     file_attachments.map do |filename, path|
      obj = get_s3_object s3_key_from(path)
-     #NOTE get_s3_object now returns nil if no key exception is raisedt 
+     #NOTE get_s3_object now returns nil if no key exception is raisedt
      if obj
        copy_attachment obj, filename, tile unless already_attached?(path, tile)
      end

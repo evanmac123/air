@@ -1,5 +1,5 @@
 class TileImage < ActiveRecord::Base
-  include Concerns::TileImageable
+  include Tile::TileImageable
 
   ROW = 3
   LINES = 6

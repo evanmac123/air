@@ -18,8 +18,6 @@ namespace :client_admin do
 
   resources :locations, :only => :create
 
-  resources :multiple_choice_tiles, controller: 'tiles'
-
   resources :tiles do
     collection do
       get "blank"
@@ -45,7 +43,6 @@ namespace :client_admin do
   end
 
   resources :public_tiles, only: :update
-  resources :sharable_tiles, only: :update
   resources :tile_images, only: :index
 
   resource :tiles_digest_notification, only: :create do

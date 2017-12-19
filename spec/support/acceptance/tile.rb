@@ -138,10 +138,6 @@ module TileHelpers
     page.find("#quiz-answer").click
   end
 
-  def fill_in_external_link_field(text)
-    page.find("#tile_link_address").set(text)
-  end
-
   def fill_in_question text
     page.find("#tile_question").set(text)
   end

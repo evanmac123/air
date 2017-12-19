@@ -47,7 +47,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
 
   def new
-   @tile = @demo.m_tiles.build(status: Tile::DRAFT)
+   @tile = @demo.tiles.build(status: Tile::DRAFT)
     new_or_edit @tile
   end
 
@@ -70,7 +70,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def create
-    @tile = @demo.m_tiles.build(params[:tile].merge(creator_id: current_user.id))
+    @tile = @demo.tiles.build(params[:tile].merge(creator_id: current_user.id))
 
     update_or_create @tile do
       schedule_tile_creation_ping(@tile, "Self Created")
