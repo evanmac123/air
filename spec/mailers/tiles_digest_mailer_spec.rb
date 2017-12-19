@@ -188,28 +188,6 @@ describe 'Digest email' do
     end
   end
 
-  describe "Link" do
-    context "original digest email should not display the tile's link" do
-      subject { TilesDigestMailer.notify_one(digest, claimed_user.id, 'New Tiles', TilesDigestMailDigestPresenter) }
-
-      it { is_expected.not_to have_link 'http://www.google.com' }
-      it { is_expected.not_to have_selector "a[href *= 'http://www.google.com']" }
-
-      it { is_expected.not_to have_link 'https://www.nsa.gov' }
-      it { is_expected.not_to have_selector "a[href *= 'https://www.nsa.gov']" }
-    end
-
-    context "follow-up digest email should display the tile's link if present" do
-      subject { TilesDigestMailer.notify_one(digest, claimed_user.id, "Don't Miss Your New Tiles", TilesDigestMailFollowUpPresenter) }
-
-      it { is_expected.to have_link 'http://www.google.com' }
-      it { is_expected.to have_selector "a[href *= 'http://www.google.com']" }
-
-      it { is_expected.to have_link 'https://www.nsa.gov' }
-      it { is_expected.to have_selector "a[href *= 'https://www.nsa.gov']" }
-    end
-  end
-
   describe 'Footer' do
     context 'all users' do
       subject { TilesDigestMailer.notify_one(digest, claimed_user.id, 'New Tiles', TilesDigestMailDigestPresenter) }
