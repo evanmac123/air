@@ -17,7 +17,7 @@ describe ReceiveSmsController do
         post "create", params
 
         expect(response.status).to eq(200)
-        expect(response.content_type).to eq("xml")
+        expect(response.content_type).to eq("application/xml")
         expect(response.body).to eq(normal_response(@user.demo.name))
       end
     end
@@ -33,7 +33,7 @@ describe ReceiveSmsController do
         post "create", params
 
         expect(response.status).to eq(200)
-        expect(response.content_type).to eq("xml")
+        expect(response.content_type).to eq("application/xml")
         expect(response.body).to eq(normal_response("Airbo"))
       end
     end
@@ -49,7 +49,7 @@ describe ReceiveSmsController do
         post "create", params
 
         expect(response.status).to eq(200)
-        expect(response.content_type).to eq("xml")
+        expect(response.content_type).to eq("application/xml")
         expect(response.body).to eq(stop_response(@user.demo.name))
         expect(@user.board_memberships.first.notification_pref).to eq(:email)
       end
@@ -68,7 +68,7 @@ describe ReceiveSmsController do
         post "create", params
 
         expect(response.status).to eq(200)
-        expect(response.content_type).to eq("xml")
+        expect(response.content_type).to eq("application/xml")
         expect(response.body).to eq(start_response_existing_user(@user.demo.name))
         expect(@user.board_memberships.first.notification_pref).to eq(:both)
       end
@@ -85,7 +85,7 @@ describe ReceiveSmsController do
         post "create", params
 
         expect(response.status).to eq(200)
-        expect(response.content_type).to eq("xml")
+        expect(response.content_type).to eq("application/xml")
         expect(response.body).to eq(start_response_unknown_user)
       end
     end

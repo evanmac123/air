@@ -26,7 +26,7 @@ describe ClientAdmin::TileUserNotificationsController do
           post :create, tile_user_notification: { tile_id: tile.id, subject: "subject", message: "message", answer_idx: 0, scope_cd: 1 }
 
           expect(response.status).to eq(200)
-          expect(response.content_type.json?).to eq(true)
+          expect(response.content_type).to eq("application/json")
 
           mock_json_response = {
             "tile_id"=>tile.id,
@@ -34,12 +34,12 @@ describe ClientAdmin::TileUserNotificationsController do
             "subject"=>"subject",
             "message"=>"message",
             "scope_cd"=>1,
-            "delivered_at"=>"1989-12-31T19:00:00-05:00",
+            "delivered_at"=>"1989-12-31T19:00:00.000-05:00",
             "recipient_count"=>0,
             "send_at"=>nil,
             "delayed_job_id"=>nil,
-            "created_at"=>"1989-12-31T19:00:00-05:00",
-            "updated_at"=>"1989-12-31T19:00:00-05:00",
+            "created_at"=>"1989-12-31T19:00:00.000-05:00",
+            "updated_at"=>"1989-12-31T19:00:00.000-05:00",
             "answer_idx"=>0,
             "answer"=>"a",
             "scope"=>"did not answer"
@@ -54,7 +54,7 @@ describe ClientAdmin::TileUserNotificationsController do
           post :create, tile_user_notification: { tile_id: tile.id, subject: nil, message: nil, answer_idx: 0, scope_cd: 1, send_at: Time.current + 1.day }
 
           expect(response.status).to eq(422)
-          expect(response.content_type.json?).to eq(true)
+          expect(response.content_type).to eq("application/json")
 
           json_response = {"errors"=>["Subject can't be blank", "Message can't be blank"]}
 
@@ -70,7 +70,7 @@ describe ClientAdmin::TileUserNotificationsController do
         post :create, tile_user_notification: { tile_id: tile.id, subject: "subject", message: "message", answer_idx: 0, scope_cd: 1 }, test_notification: true
 
         expect(response.status).to eq(200)
-        expect(response.content_type.json?).to eq(true)
+        expect(response.content_type).to eq("application/json")
 
         mock_json_response = { "tile_user_notification"=>
           {
@@ -100,7 +100,7 @@ describe ClientAdmin::TileUserNotificationsController do
         post :create, tile_user_notification: { tile_id: tile.id, subject: nil, message: nil, answer_idx: 0, scope_cd: 1 }, test_notification: true
 
         expect(response.status).to eq(422)
-        expect(response.content_type.json?).to eq(true)
+        expect(response.content_type).to eq("application/json")
 
         json_response = {"errors"=>["Subject can't be blank", "Message can't be blank"]}
 
@@ -112,7 +112,7 @@ describe ClientAdmin::TileUserNotificationsController do
       post :create, tile_user_notification: { tile_id: 0 }
 
       expect(response.status).to eq(403)
-      expect(response.content_type.json?).to eq(true)
+      expect(response.content_type).to eq("application/json")
 
       json_response = {"errors"=>"Access Denied"}
 
@@ -125,7 +125,7 @@ describe ClientAdmin::TileUserNotificationsController do
       get :new, tile_user_notification: { tile_id: tile.id, scope_cd: 1, answer_idx: 0 }
 
       expect(response.status).to eq(200)
-      expect(response.content_type.json?).to eq(true)
+      expect(response.content_type).to eq("application/json")
 
       mock_json_response = { "tile_user_notification"=>
         {
@@ -152,7 +152,7 @@ describe ClientAdmin::TileUserNotificationsController do
       get :new, tile_user_notification: { tile_id: 0 }
 
       expect(response.status).to eq(403)
-      expect(response.content_type.json?).to eq(true)
+      expect(response.content_type).to eq("application/json")
 
       json_response = {"errors"=>"Access Denied"}
 

@@ -331,11 +331,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  def load_image_library
-    @tile_images = TileImage.all_ready.first(TileImage::PAGINATION_PADDING)
-    @curr_page = 0
-  end
-
   def builder_options
     {
       form_params: params[:tile],
