@@ -13,27 +13,6 @@ Bundler.require(:default, Rails.env)
 
 module Health
   class Application < Rails::Application
-    ###################  ASSET PIPELINE  ###########################
-    config.assets.paths += Dir["#{Rails.root}/vendor/assets/stylesheets"].sort_by { |dir| -dir.size }
-
-    config.assets.precompile += %w(
-      app-marketing-site.css
-      app-admin.css
-      app-client-admin.css
-      app-external.css
-      app-internal.css
-      app-landing.css
-      external/external_ie8.css
-      internal/internal_ie8.css
-      client_admin/client_admin_ie8.css
-
-      application.js
-      app-user.js
-      app-admin.js
-      app-marketing-site.js
-    )
-
-
     ################################################################
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -57,9 +36,6 @@ module Health
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
-
-    # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
 
     # Add this block so mongo doesn't scream when we do a rails migration
     # Reference: http://groups.google.com/group/mongoid/browse_thread/thread/df278a11dba4d331?pli=1
