@@ -2,8 +2,8 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   include ClientAdmin::TilesHelper
 
 
-  prepend_before_filter :allow_same_origin_framing, only: [:preview_tiles_digest_email]
-  skip_after_filter :intercom_rails_auto_include, only: [:preview_tiles_digest_email]
+  prepend_before_action :allow_same_origin_framing, only: [:preview_tiles_digest_email]
+  skip_after_action :intercom_rails_auto_include, only: [:preview_tiles_digest_email]
 
   def create
     params[:users_invite][:demo_id] = current_user.demo_id

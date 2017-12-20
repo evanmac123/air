@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Invitation::AcceptancesController < ApplicationController
-  before_filter :find_user
+  before_action :find_user
 
   layout "external"
 

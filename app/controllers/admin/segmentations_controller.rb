@@ -1,7 +1,7 @@
 class Admin::SegmentationsController < AdminBaseController
   include SegmentationConcern
   
-  before_filter :find_demo_by_demo_id
+  before_action :find_demo_by_demo_id
 
   def show
     load_characteristics(@demo)

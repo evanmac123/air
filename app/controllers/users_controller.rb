@@ -1,5 +1,5 @@
 class UsersController < UserBaseController
-  prepend_before_filter :authenticate
+  prepend_before_action :authenticate
 
   include ActsHelper
 

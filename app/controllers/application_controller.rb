@@ -4,21 +4,21 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::RoutingError, with: :not_found
 
-  before_filter :authorize!
+  before_action :authorize!
 
   ##ApplicationPerformanceConcern
-  before_filter :set_scout_context
+  before_action :set_scout_context
   ##
 
-  before_filter :refresh_activity_session
-  before_filter :set_eager_caches
+  before_action :refresh_activity_session
+  before_action :set_eager_caches
 
   ##AirboFlashConcern
-  before_filter :initialize_flashes
-  after_filter :merge_flashes
+  before_action :initialize_flashes
+  after_action :merge_flashes
   ##
 
-  around_filter :set_time_zone, if: :current_board
+  around_action :set_time_zone, if: :current_board
 
   include ActivitySessionConcern
   include CachingConcern

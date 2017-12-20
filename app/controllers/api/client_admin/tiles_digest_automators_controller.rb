@@ -2,8 +2,8 @@ class Api::ClientAdmin::TilesDigestAutomatorsController < Api::ClientAdminBaseCo
 
   include ClientAdmin::SharesHelper
 
-  before_filter :authorize_tenant
-  before_filter :get_automator
+  before_action :authorize_tenant
+  before_action :get_automator
 
   def update
     @automator.assign_attributes(tiles_digest_automator_params)

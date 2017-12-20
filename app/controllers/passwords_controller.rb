@@ -1,6 +1,6 @@
 class PasswordsController < Clearance::PasswordsController
-  before_filter :force_html_format
-  before_filter :downcase_email
+  before_action :force_html_format
+  before_action :downcase_email
 
   layout 'external'
 

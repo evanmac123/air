@@ -1,10 +1,10 @@
 class ClientAdmin::UsersController < ClientAdminBaseController
   include ClientAdmin::UsersHelper
 
-  before_filter :create_uploader
-  before_filter :find_user, only: [:edit, :update, :destroy]
-  before_filter :normalize_characteristic_ids_to_integers, only: [:create, :update]
-  before_filter :count_total_users, only: :index
+  before_action :create_uploader
+  before_action :find_user, only: [:edit, :update, :destroy]
+  before_action :normalize_characteristic_ids_to_integers, only: [:create, :update]
+  before_action :count_total_users, only: :index
 
   # Attributes that admins are allowed to set
   SETTABLE_USER_ATTRIBUTES = [:name, :email, :role, :phone_number]

@@ -2,7 +2,7 @@ require 'custom_responder'
 class Admin::OrganizationsController < AdminBaseController
   include SalesAcquisitionConcern
 
-  before_filter :find_organization, only: [:edit, :show, :update, :destroy]
+  before_action :find_organization, only: [:edit, :show, :update, :destroy]
 
   def index
     @organizations = Organization.name_order

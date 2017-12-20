@@ -1,5 +1,5 @@
 class ClientAdmin::PrizesController < ClientAdminBaseController
-  before_filter :find_raffle
+  before_action :find_raffle
 
   def index
   end

@@ -4,8 +4,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesPingsHelper
   include CustomResponder
 
-  before_filter :get_demo
-  before_filter :permit_params, only: [:create, :update]
+  before_action :get_demo
+  before_action :permit_params, only: [:create, :update]
 
   def index
     @all_tiles = @demo.tiles.group_by { |t| t.status }

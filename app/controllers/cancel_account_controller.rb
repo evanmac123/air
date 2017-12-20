@@ -1,5 +1,5 @@
 class CancelAccountController < ApplicationController
-  before_filter :find_user
+  before_action :find_user
 
   layout "external"
 

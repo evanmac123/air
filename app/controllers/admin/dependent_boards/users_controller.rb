@@ -1,5 +1,5 @@
 class Admin::DependentBoards::UsersController < AdminBaseController
-  before_filter :find_demo_by_demo_id
+  before_action :find_demo_by_demo_id
 
   def index
     @active = params[:active]

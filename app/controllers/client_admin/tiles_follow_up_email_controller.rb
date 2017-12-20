@@ -1,5 +1,5 @@
 class ClientAdmin::TilesFollowUpEmailController < ClientAdminBaseController
-  before_filter :get_followup, only:[:edit, :update, :destroy]
+  before_action :get_followup, only:[:edit, :update, :destroy]
 
   SAVE_SUCCESS = "Your follow up email has been updated"
   SEND_NOW_SUCCESS = "Your follow up email has been rescheduled for immediate delivery"

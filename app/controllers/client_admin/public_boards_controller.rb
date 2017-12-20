@@ -1,6 +1,6 @@
 class ClientAdmin::PublicBoardsController < ClientAdminBaseController
-  before_filter :require_xhr
-  before_filter :find_demo
+  before_action :require_xhr
+  before_action :find_demo
 
   def create
     @demo.update_attributes(is_public: true)

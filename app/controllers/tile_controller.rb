@@ -1,7 +1,7 @@
 class TileController < ApplicationController
   include AllowGuestUsersConcern
 
-  prepend_before_filter :find_tile
+  prepend_before_action :find_tile
 
   def show
     @public_tile_page = true

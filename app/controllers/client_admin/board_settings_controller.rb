@@ -1,6 +1,6 @@
 class ClientAdmin::BoardSettingsController < ClientAdminBaseController
   # FIXME Fucking ridiculous.
-  before_filter :get_board
+  before_action :get_board
 
   def index
   end

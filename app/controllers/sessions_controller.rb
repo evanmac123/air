@@ -1,5 +1,5 @@
 class SessionsController < Clearance::SessionsController
-  before_filter :downcase_email
+  before_action :downcase_email
 
   layout "external"
 

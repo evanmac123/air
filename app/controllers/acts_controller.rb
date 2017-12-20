@@ -6,7 +6,7 @@ class ActsController < ApplicationController
   include ActsHelper
   include TileEmailTrackingConcern
 
-  prepend_before_filter :authenticate
+  prepend_before_action :authenticate
 
   def index
     @demo ||= current_user.demo

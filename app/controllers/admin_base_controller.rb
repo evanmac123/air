@@ -1,5 +1,5 @@
 class AdminBaseController < UserBaseController
-  skip_after_filter :intercom_rails_auto_include
+  skip_after_action :intercom_rails_auto_include
 
   layout 'admin'
 

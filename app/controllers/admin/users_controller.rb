@@ -1,8 +1,8 @@
 require 'csv'
 
 class Admin::UsersController < AdminBaseController
-  before_filter :find_demo_by_demo_id
-  before_filter :find_user, :only => [:edit, :update, :destroy]
+  before_action :find_demo_by_demo_id
+  before_action :find_user, :only => [:edit, :update, :destroy]
 
   def index
     respond_to do |format|
