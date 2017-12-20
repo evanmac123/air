@@ -13,6 +13,7 @@ class PushMessage < ActiveRecord::Base
   serialize :segment_query_columns,   Hash
   serialize :segment_query_operators, Hash
   serialize :segment_query_values,    Hash
+  serialize :segment_description,   Array
 
   def perform
     update_attributes(state: SENDING)

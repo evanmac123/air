@@ -79,7 +79,7 @@ resources :cancel_account, :only => [:show, :destroy]
 
 resource :account, :only => [:update] do
   resource :phone, only: [:update] do
-    put :validate
+    patch :validate
   end
   resource :avatar, :only => [:update, :destroy]
   resource :sms_slug, :only => [:update]
