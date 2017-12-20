@@ -6,7 +6,7 @@ end
 
 describe Reports::TileEmailReport do
   describe "#attributes" do
-    let(:client_admin) { FactoryGirl.create(:client_admin) }
+    let(:client_admin) { FactoryBot.create(:client_admin) }
     let(:demo) { client_admin.demo }
 
     let(:tile_email) {
@@ -48,7 +48,7 @@ describe Reports::TileEmailReport do
     end
 
     it "returns the correct tiles count" do
-      tiles = FactoryGirl.create_list(:tile, 5, demo: demo)
+      tiles = FactoryBot.create_list(:tile, 5, demo: demo)
       tile_email.tiles << tiles
 
       report = new_tile_email_report(tile_email)
@@ -93,7 +93,7 @@ describe Reports::TileEmailReport do
     end
 
     it "returns the correct tile attributes" do
-      tile = FactoryGirl.create(:tile, demo: demo)
+      tile = FactoryBot.create(:tile, demo: demo)
       tile_email.tiles << tile
 
       report = new_tile_email_report(tile_email)

@@ -11,8 +11,8 @@ describe BulkLoad::S3BoardAdditionChopper do
 
   describe "#add_users_to_board" do
     it "adds users, with ID one per line, to the given board" do
-      board = FactoryGirl.create(:demo)
-      users = FactoryGirl.create_list(:user, 3)
+      board = FactoryBot.create(:demo)
+      users = FactoryBot.create_list(:user, 3)
       expect(board.users.count).to eq(0)
 
       mock_s3 = MockS3.install

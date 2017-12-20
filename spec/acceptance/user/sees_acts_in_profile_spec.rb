@@ -2,12 +2,12 @@ require 'acceptance/acceptance_helper'
 
 feature 'User sees acts in profile' do
   def make_acts
-    %w(a b c d e f g h i j k).each {|letter| FactoryGirl.create(:act, user: @user, text: "did #{letter}")}
+    %w(a b c d e f g h i j k).each {|letter| FactoryBot.create(:act, user: @user, text: "did #{letter}")}
   end
 
   before do
-    @user = FactoryGirl.create(:user)
-    @other_user_in_same_demo = FactoryGirl.create(:user, demo: @user.demo)
+    @user = FactoryBot.create(:user)
+    @other_user_in_same_demo = FactoryBot.create(:user, demo: @user.demo)
     has_password @other_user_in_same_demo, 'foobar'
     signin_as @other_user_in_same_demo, 'foobar'
   end
@@ -63,7 +63,7 @@ feature 'User sees acts in profile' do
 
     context 'and the viewing user is a friend of the acting user' do
       before do
-        FactoryGirl.create(:friendship, user: @other_user_in_same_demo, friend: @user, state: Friendship::State::ACCEPTED)
+        FactoryBot.create(:friendship, user: @other_user_in_same_demo, friend: @user, state: Friendship::State::ACCEPTED)
       end
 
       scenario "should be able to see that user's acts", js: true do

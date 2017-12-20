@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Api::BoardMembershipsController do
   describe "PUT update" do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it "renders access denied if not authenticated" do
       put(:update, { id: user.board_memberships.first.id, board_membership: { notification_pref_cd: BoardMembership.unsubscribe }, format: :json })

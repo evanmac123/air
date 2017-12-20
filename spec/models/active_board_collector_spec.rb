@@ -47,7 +47,7 @@ describe ActiveBoardCollector do
 
 	describe "#board_admins" do
 
-		let(:user){FactoryGirl.create(:user,demo: nil)}
+		let(:user){FactoryBot.create(:user,demo: nil)}
 
 		it "returns one" do
 			@collector = ActiveBoardCollector.new
@@ -99,11 +99,11 @@ describe ActiveBoardCollector do
 	end
 
 	def setup_viewing user, tile
-		FactoryGirl.create(:tile_viewing, tile: tile, user: user, created_at: 1.day.ago)
+		FactoryBot.create(:tile_viewing, tile: tile, user: user, created_at: 1.day.ago)
 	end
 
 	def setup_completion user, tile
-		FactoryGirl.create(:tile_completion, tile: tile, user: user, created_at: 1.day.ago)
+		FactoryBot.create(:tile_completion, tile: tile, user: user, created_at: 1.day.ago)
 	end
 
 	def setup_board_membership bm, user, board, is_admin=true
@@ -115,15 +115,15 @@ describe ActiveBoardCollector do
 	end
 
 	def setup_user_board user_is_client_admin=false
-		demo=FactoryGirl.create(:demo)
-		user=FactoryGirl.create(:user, demo: demo, is_client_admin: user_is_client_admin)
+		demo=FactoryBot.create(:demo)
+		user=FactoryBot.create(:user, demo: demo, is_client_admin: user_is_client_admin)
 		tile1=create_demo_tile(demo)
 		tile2=create_demo_tile(demo)
 		return demo, user, tile1, tile2
 	end
 
 	def create_demo_tile demo
-		FactoryGirl.create(:tile, demo: demo)
+		FactoryBot.create(:tile, demo: demo)
 	end
 
 	def create_date_range_collector

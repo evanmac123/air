@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe AirboSearch, search: true do
   let(:query) { 'health insurance' }
-  let(:user) { FactoryGirl.create(:client_admin) }
+  let(:user) { FactoryBot.create(:client_admin) }
   let(:demo) { user.demos.first }
 
   let(:options) { { per_page: 2 } } # low per_page to make testing easier

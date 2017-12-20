@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe PotentialUser do
-  let(:demo) { FactoryGirl.create :demo }
-  let(:user) { FactoryGirl.create(:potential_user, email: "bill@jo.com", demo: demo, primary_user: nil) }
+  let(:demo) { FactoryBot.create :demo }
+  let(:user) { FactoryBot.create(:potential_user, email: "bill@jo.com", demo: demo, primary_user: nil) }
 
   it { is_expected.to belong_to(:demo) }
   it { is_expected.to belong_to(:game_referrer) }
@@ -13,9 +13,9 @@ describe PotentialUser do
 
   context "primary user is destroyed" do
     it "should also be destroyed" do
-      user = FactoryGirl.create(:user)
-      FactoryGirl.create(:potential_user, primary_user_id: user.id)
-      FactoryGirl.create(:potential_user, primary_user_id: user.id)
+      user = FactoryBot.create(:user)
+      FactoryBot.create(:potential_user, primary_user_id: user.id)
+      FactoryBot.create(:potential_user, primary_user_id: user.id)
 
       expect(PotentialUser.count).to eq(2)
 
@@ -62,7 +62,7 @@ describe PotentialUser do
       let(:invitation) { stub('invitation') }
 
       before do
-        @inviter = FactoryGirl.create :user, demo: demo
+        @inviter = FactoryBot.create :user, demo: demo
 
         Mailer.stubs(:invitation => invitation)
         invitation.stubs(:deliver)
@@ -87,10 +87,10 @@ describe PotentialUser do
 
     context "user already has #{PeerInvitation::CUTOFF} invitations" do
       before(:each) do
-        PeerInvitation::CUTOFF.times {FactoryGirl.create(:peer_invitation, invitee: user, demo: user.demo)}
+        PeerInvitation::CUTOFF.times {FactoryBot.create(:peer_invitation, invitee: user, demo: user.demo)}
         expect(user.reload.peer_invitations.count).to eq(PeerInvitation::CUTOFF)
 
-        other_user = FactoryGirl.create(:user)
+        other_user = FactoryBot.create(:user)
         user.is_invited_by(other_user)
         
       end

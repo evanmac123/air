@@ -11,7 +11,7 @@ feature "Site Admin works with Image Library" do
   end
 
   scenario "deletes image", js: true do
-    t1, t2  =   FactoryGirl.create_list(:tile_image, 2)
+    t1, t2  =   FactoryBot.create_list(:tile_image, 2)
     visit admin_tile_images_path(as: an_admin)
 
     within tile_image_block(t1) do

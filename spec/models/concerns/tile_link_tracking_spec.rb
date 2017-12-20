@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Tile::TileLinkTracking do
-  let(:trackable_tile) { FactoryGirl.build(:tile, activated_at: Tile::TileLinkTracking::TILE_LINK_TRACKING_RELEASE_DATE) }
+  let(:trackable_tile) { FactoryBot.build(:tile, activated_at: Tile::TileLinkTracking::TILE_LINK_TRACKING_RELEASE_DATE) }
 
   describe "#track_link_click" do
     it "tracks unique link clicks" do
@@ -115,13 +115,13 @@ describe Tile::TileLinkTracking do
     end
 
     it "returns false if the tile was activated before the TILE_LINK_TRACKING_RELEASE_DATE" do
-      untrackable_tile = FactoryGirl.build(:tile, activated_at: Tile::TileLinkTracking::TILE_LINK_TRACKING_RELEASE_DATE - 1.day)
+      untrackable_tile = FactoryBot.build(:tile, activated_at: Tile::TileLinkTracking::TILE_LINK_TRACKING_RELEASE_DATE - 1.day)
 
       expect(untrackable_tile.has_link_tracking?).to eq(false)
     end
 
     it "returns false if the tile is not activated" do
-      untrackable_tile = FactoryGirl.build(:tile, activated_at: nil)
+      untrackable_tile = FactoryBot.build(:tile, activated_at: nil)
 
       expect(untrackable_tile.has_link_tracking?).to eq(false)
     end

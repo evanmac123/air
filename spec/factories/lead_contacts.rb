@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :lead_contact do
     email "testlead@airbo.com"
     name "Test Lead"

@@ -31,7 +31,7 @@ feature "User sets their mobile number on settings page" do
     expect(page.all('#user_new_phone_validation', visible: true)).to be_empty
   end
 
-  let(:user) { FactoryGirl.create(:user, phone_number: "+14155551212") }
+  let(:user) { FactoryBot.create(:user, phone_number: "+14155551212") }
 
   describe "when demo has default number" do
     before do

@@ -3,8 +3,8 @@ require "spec_helper"
 describe ClientAdmin::TilesDigestNotificationsController do
   context "create" do
     it "should send test digests" do
-      demo = FactoryGirl.create(:demo)
-      client_admin = FactoryGirl.create(:client_admin, demo: demo)
+      demo = FactoryBot.create(:demo)
+      client_admin = FactoryBot.create(:client_admin, demo: demo)
 
       TilesDigestForm.any_instance.expects(:submit_send_test_digest)
 
@@ -14,8 +14,8 @@ describe ClientAdmin::TilesDigestNotificationsController do
     end
 
     it "should schedule digests and followups" do
-      demo = FactoryGirl.create(:demo)
-      client_admin = FactoryGirl.create(:client_admin, demo: demo)
+      demo = FactoryBot.create(:demo)
+      client_admin = FactoryBot.create(:client_admin, demo: demo)
 
       TilesDigestForm.any_instance.expects(:submit_schedule_digest_and_followup)
 
@@ -25,8 +25,8 @@ describe ClientAdmin::TilesDigestNotificationsController do
     end
 
     it "should prevent digests from being sent if the current user's demo does not match the demo on the DOM" do
-      demo = FactoryGirl.create(:demo)
-      client_admin = FactoryGirl.create(:client_admin, demo: demo)
+      demo = FactoryBot.create(:demo)
+      client_admin = FactoryBot.create(:client_admin, demo: demo)
 
       TilesDigestForm.expects(:new).never
 

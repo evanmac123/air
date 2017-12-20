@@ -4,8 +4,8 @@ feature "Find a lost user" do
   before(:each) do
     @lost_email = 'lost@frost.net'
     @lost_personal = 'more_lost@frost.net'
-    @lost = FactoryGirl.create(:user, email: @lost_personal, overflow_email: @lost_email)
-    FactoryGirl.create(:user, name: 'Someone Else')
+    @lost = FactoryBot.create(:user, email: @lost_personal, overflow_email: @lost_email)
+    FactoryBot.create(:user, name: 'Someone Else')
   end
 
   it "should take me to the lost user" do

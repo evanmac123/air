@@ -14,7 +14,7 @@ feature 'Sees add user button' do
   end
 
   before do
-    @user = FactoryGirl.create :user
+    @user = FactoryBot.create :user
   end
 
   it "on their own profile page" do
@@ -23,7 +23,7 @@ feature 'Sees add user button' do
   end
 
   it "not on another user's profile page" do
-    other_user = FactoryGirl.create :user, demo: @user.demo
+    other_user = FactoryBot.create :user, demo: @user.demo
     visit user_path(other_user, as: @user)
     expect_no_add_user_button
   end

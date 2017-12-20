@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Api::TileLinkTrackingsController do
   describe "POST create" do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     let(:guest_user) { GuestUser.create }
-    let(:tile) { FactoryGirl.create(:tile, activated_at: Tile::TileLinkTracking::TILE_LINK_TRACKING_RELEASE_DATE) }
+    let(:tile) { FactoryBot.create(:tile, activated_at: Tile::TileLinkTracking::TILE_LINK_TRACKING_RELEASE_DATE) }
 
     it "renders access denied if tile is not present" do
       sign_in_as(user)

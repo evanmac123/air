@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 feature "Client admin creates tiles", js: true do
 
   context "new tile" do
-    let (:client_admin) { FactoryGirl.create(:client_admin)}
+    let (:client_admin) { FactoryBot.create(:client_admin)}
     let (:demo)         { client_admin.demo }
 
     before(:each) do
@@ -43,8 +43,8 @@ feature "Client admin creates tiles", js: true do
     let(:points){"10"}
 
     before(:each) do
-      @tile = FactoryGirl.create :multiple_choice_tile, question_type: "survey", question_subtype: "multiple_choice"
-      @client_admin = FactoryGirl.create(:client_admin, demo: @tile.demo)
+      @tile = FactoryBot.create :multiple_choice_tile, question_type: "survey", question_subtype: "multiple_choice"
+      @client_admin = FactoryBot.create(:client_admin, demo: @tile.demo)
       visit client_admin_tiles_path(as: @client_admin)
       within "#single-tile-#{@tile.id}" do
         page.find(".tile-wrapper").hover

@@ -1,13 +1,13 @@
 require 'acceptance/acceptance_helper'
 
 feature "Client admin sets board's public status themself", js:true do
-  let! (:client_admin) { FactoryGirl.create(:client_admin) }
+  let! (:client_admin) { FactoryBot.create(:client_admin) }
 
   before :each do
     client_admin.demo.update_attributes(public_slug: 'heyfriend')
-    tile = FactoryGirl.create :tile, demo: client_admin.demo
-    user = FactoryGirl.create :user, demo: client_admin.demo
-    FactoryGirl.create(:tile_completion, tile: tile, user: user)
+    tile = FactoryBot.create :tile, demo: client_admin.demo
+    user = FactoryBot.create :user, demo: client_admin.demo
+    FactoryBot.create(:tile_completion, tile: tile, user: user)
   end
 
   # not sure if it even helps

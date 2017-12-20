@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SalesOrganizationCreator do
-  let(:sa) { FactoryGirl.create(:site_admin) }
+  let(:sa) { FactoryBot.create(:site_admin) }
 
   def org_params
     {"name"=>"Test Org",
@@ -33,7 +33,7 @@ describe SalesOrganizationCreator do
 
     describe "with copy board" do
       it "instantiates with a demo to copy" do
-        demo = FactoryGirl.create(:demo)
+        demo = FactoryBot.create(:demo)
         service = SalesOrganizationCreator.new(sa, demo, org_params)
 
         expect(service.copy_board).to eq(demo)
@@ -140,8 +140,8 @@ describe SalesOrganizationCreator do
       end
 
       it "copies the tiles of the provided copy board" do
-        copy_board = FactoryGirl.create(:demo)
-        tiles = FactoryGirl.create_list(:tile, 3, demo: copy_board)
+        copy_board = FactoryBot.create(:demo)
+        tiles = FactoryBot.create_list(:tile, 3, demo: copy_board)
 
         service = SalesOrganizationCreator.new(sa, copy_board.id.to_s, org_params).create!
 

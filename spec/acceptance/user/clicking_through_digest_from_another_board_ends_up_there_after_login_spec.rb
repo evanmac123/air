@@ -4,10 +4,10 @@ feature 'Clicking through digest from another board when claimed and logged out'
   include SessionHelpers
 
   before do
-    @user = FactoryGirl.create(:user, :claimed, email: "johnny@heythere.co.uk")
+    @user = FactoryBot.create(:user, :claimed, email: "johnny@heythere.co.uk")
     @user.password = @user.password_confirmation = "foobar"
     @user.save!
-    @other_board = FactoryGirl.create(:demo)
+    @other_board = FactoryBot.create(:demo)
     @user.add_board(@other_board)
 
     @user.invite(nil, demo_id: @other_board.id)

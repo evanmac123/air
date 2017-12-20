@@ -79,7 +79,7 @@ module TileHelpers
 
     options.merge!(demo: demo) unless options.has_key?(:demo)
 
-    FactoryGirl.create :tile, options
+    FactoryBot.create :tile, options
   end
 
   # -------------------------------------------------
@@ -244,7 +244,7 @@ module TileHelpers
   end
 
   def create_existing_tiles(demo, status, num)
-    FactoryGirl.create_list :tile, num, demo: demo, status: status
+    FactoryBot.create_list :tile, num, demo: demo, status: status
   end
 
   def have_first_tile(tile, status)

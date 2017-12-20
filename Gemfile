@@ -96,7 +96,7 @@ gem 'handlebars_assets', '~> 0.22.0'
 group :development, :test do
   gem 'colored'
   gem 'rspec-rails', '~> 3.0'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'steak'
   gem 'pry-rails'
 	gem 'pry-byebug'

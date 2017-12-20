@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :board_membership do
     demo
     user factory: :user

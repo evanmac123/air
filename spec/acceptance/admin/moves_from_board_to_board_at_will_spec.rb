@@ -2,8 +2,8 @@ require 'acceptance/acceptance_helper'
 
 feature 'Site admin' do
   scenario 'moves from board to board at will', js: true do
-    first_board, second_board = FactoryGirl.create_list(:demo, 2)
-    admin = FactoryGirl.create(:site_admin)
+    first_board, second_board = FactoryBot.create_list(:demo, 2)
+    admin = FactoryBot.create(:site_admin)
     expect(admin.demos.size).to eq(1)
     visit activity_path(as: admin)
 

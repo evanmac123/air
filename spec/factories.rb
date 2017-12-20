@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   #USER
 
 
@@ -32,7 +32,7 @@ FactoryGirl.define do
     trait :activated do |demo|
 
       after(:create) do |demo, evaluator|
-        FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, demo: demo,  activated_at: Time.current, headline: "Tile #{SecureRandom.uuid}")
+        FactoryBot.create(:multiple_choice_tile, status: Tile::ACTIVE, demo: demo,  activated_at: Time.current, headline: "Tile #{SecureRandom.uuid}")
       end
     end
 

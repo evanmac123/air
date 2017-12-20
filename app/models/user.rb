@@ -244,7 +244,7 @@ class User < ActiveRecord::Base
   end
 
   def organization
-    demo.organization
+    demo.try(:organization)
   end
 
   def organization_id

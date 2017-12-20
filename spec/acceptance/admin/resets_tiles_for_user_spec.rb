@@ -2,11 +2,11 @@ require 'acceptance/acceptance_helper'
 
 feature 'Admin resets tiles for user' do
   scenario 'when the user is someone else' do
-    user = FactoryGirl.create(:user)
-    tile = FactoryGirl.create(:tile, demo: user.demo)
+    user = FactoryBot.create(:user)
+    tile = FactoryBot.create(:tile, demo: user.demo)
 
-    FactoryGirl.create(:act, user: user, demo: user.demo)
-    FactoryGirl.create(:tile_completion, user: user, tile: tile)
+    FactoryBot.create(:act, user: user, demo: user.demo)
+    FactoryBot.create(:tile_completion, user: user, tile: tile)
     expect(TileCompletion.count).to eq(1)
     expect(Act.count).to eq(1)
 

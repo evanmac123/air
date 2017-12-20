@@ -18,7 +18,7 @@ describe UserSettingsChangeLog do
 
   it "should validate email uniqueness" do
     email = "present@email.com"
-    FactoryGirl.create :user, email: email
+    FactoryBot.create :user, email: email
 
     uscl = UserSettingsChangeLog.new(email: "fine@email.com")
     expect(uscl).to be_valid

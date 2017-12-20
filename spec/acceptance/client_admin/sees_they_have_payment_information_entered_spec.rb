@@ -2,8 +2,8 @@ require 'acceptance/acceptance_helper'
 
 feature 'Sees they have payment information already entered' do
   before do
-    @client_admin = FactoryGirl.create(:client_admin)
-    @billing_information = FactoryGirl.create(:billing_information, user: @client_admin)
+    @client_admin = FactoryBot.create(:client_admin)
+    @billing_information = FactoryBot.create(:billing_information, user: @client_admin)
   end
 
   scenario 'when they go to the billing information page' do

@@ -27,7 +27,7 @@ describe User do
   it { is_expected.to validate_presence_of :privacy_level }
 
   it "should validate that privacy level is set to a valid value" do
-    user = FactoryGirl.create :user
+    user = FactoryBot.create :user
     expect(user).to be_valid
 
     User::PRIVACY_LEVELS.each do |privacy_level|
@@ -40,12 +40,12 @@ describe User do
   end
 
   it "should validate uniqueness of phone number when not blank" do
-    user1 = FactoryGirl.create :user, :phone_number => '+14152613077'
-    user2 = FactoryGirl.create :user, :phone_number => ''
-    user3 = FactoryGirl.build :user, :phone_number => '+14152613077'
-    user4 = FactoryGirl.build :user, :phone_number => ''
-    user5 = FactoryGirl.build :user, :phone_number => "(415) 261-3077"
-    user6 = FactoryGirl.build :user, :new_phone_number => FactoryGirl.create(:demo, phone_number: "+12125551212").phone_number
+    user1 = FactoryBot.create :user, :phone_number => '+14152613077'
+    user2 = FactoryBot.create :user, :phone_number => ''
+    user3 = FactoryBot.build :user, :phone_number => '+14152613077'
+    user4 = FactoryBot.build :user, :phone_number => ''
+    user5 = FactoryBot.build :user, :phone_number => "(415) 261-3077"
+    user6 = FactoryBot.build :user, :new_phone_number => FactoryBot.create(:demo, phone_number: "+12125551212").phone_number
 
     expect(user1).to be_valid
     expect(user2).to be_valid
@@ -63,19 +63,19 @@ describe User do
     good_numbers = ["(415) 999-1234", "617-404-8008"]
 
     bad_numbers.each do |bad_number|
-      user = FactoryGirl.build :user, new_phone_number: bad_number
+      user = FactoryBot.build :user, new_phone_number: bad_number
       expect(user).not_to be_valid
       expect(user.errors[:new_phone_number]).to include(expected_error)
     end
 
     good_numbers.each do |good_number|
-      user = FactoryGirl.build :user, new_phone_number: good_number
+      user = FactoryBot.build :user, new_phone_number: good_number
       expect(user).to be_valid
     end
   end
 
   it 'should validate 5-digit zipcode' do
-    user = FactoryGirl.build :user
+    user = FactoryBot.build :user
     expect(user).to be_valid  # no zipcode is okay
 
     user.zip_code = 'xxxxx'
@@ -89,14 +89,14 @@ describe User do
   end
 
   it "should validate uniqueness of SMS slug when not blank" do
-    user1 = FactoryGirl.create(:claimed_user)
-    user2 = FactoryGirl.create(:claimed_user)
+    user1 = FactoryBot.create(:claimed_user)
+    user2 = FactoryBot.create(:claimed_user)
     user2.sms_slug = user1.sms_slug
     expect(user2).not_to be_valid
   end
 
   it "should validate that the SMS slug, if not blank, consists of all letters and digits" do
-    user = FactoryGirl.create :claimed_user
+    user = FactoryBot.create :claimed_user
     expect(user).to be_valid
 
     user.sms_slug = "i rule"
@@ -115,7 +115,7 @@ describe User do
     Timecop.freeze(Time.current)
 
     begin
-      user = FactoryGirl.create :claimed_user
+      user = FactoryBot.create :claimed_user
       expect(user).to be_valid
 
       user.date_of_birth = Date.current
@@ -130,37 +130,37 @@ describe User do
   end
 
   it "should downcase an SMS slug before validation" do
-    user1 = FactoryGirl.create :user
+    user1 = FactoryBot.create :user
     user1.update_attributes(:sms_slug => "somedude")
 
-    user2 = FactoryGirl.create :claimed_user
+    user2 = FactoryBot.create :claimed_user
     expect(user2).to be_valid
 
     user2.sms_slug = 'SomeDude'
     expect(user2).not_to be_valid
     expect(user2.errors[:sms_slug]).to eq(["Sorry, that username is already taken."])
-    user3 = FactoryGirl.create :user
+    user3 = FactoryBot.create :user
     user3.update_attributes(:sms_slug => "OtherDude")
     expect(user3.reload.sms_slug).to eq("otherdude")
   end
 
   it "should allow multiple users, each with the same (blank) sms slugs" do
-    FactoryGirl.create(:user, :sms_slug => '')
-    user = FactoryGirl.build(:user, :sms_slug => '')
+    FactoryBot.create(:user, :sms_slug => '')
+    user = FactoryBot.build(:user, :sms_slug => '')
     expect(user).to be_valid
   end
 
   describe "on create" do
     it "should set their explore_token" do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       expect(user.explore_token).to be_present
     end
   end
 
   describe "on destroy" do
     it "should destroy any Friendships where this user is the friend on destroy" do
-      user1 = FactoryGirl.create(:user)
-      user2 = FactoryGirl.create(:user)
+      user1 = FactoryBot.create(:user)
+      user2 = FactoryBot.create(:user)
       Friendship.create!(:user => user1, :friend => user2)
 
       user2.destroy
@@ -176,30 +176,30 @@ describe User do
 
   it "should not require a slug if there is no name" do
     # That way, there's only the one error if the name is blank
-    a = FactoryGirl.build(:user, :name => "")
+    a = FactoryBot.build(:user, :name => "")
     expect(a).not_to be_valid
     expect(a.errors[:slug]).to be_empty
     expect(a.errors[:sms_slug]).to be_empty
   end
 
   it "should create a slug upon validation if there is a name" do
-    a = FactoryGirl.build(:user, :name => "present")
+    a = FactoryBot.build(:user, :name => "present")
     expect(a).to be_valid   # Slugs generated before_validation
     expect(a.slug).to eq("present")
     expect(a.sms_slug).to eq("present")
   end
 
   it "should create slugs when you create" do
-    a = FactoryGirl.create(:user, :name => "present")
+    a = FactoryBot.create(:user, :name => "present")
     expect(a.slug).to eq("present")
     expect(a.sms_slug).to eq("present")
   end
 
   it "should validate the uniqueness of :slug if name is present" do
-    a = FactoryGirl.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
+    a = FactoryBot.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
     expect(a).to be_valid
     a.save
-    bb = FactoryGirl.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
+    bb = FactoryBot.build(:user, :name =>"present", :slug => "areallylongstring", :sms_slug => "areallylongstring")
     expect(bb).not_to be_valid # since slugs are already present, set_slugs will not be called
     expect(bb.errors[:slug]).to include("has already been taken")
     expect(bb.errors[:sms_slug]).to include("Sorry, that username is already taken.")
@@ -215,7 +215,7 @@ describe User, "#update_password" do
     # User. But #update_password should never let a blank password be set.
 
     it "should return false and not update" do
-      user = FactoryGirl.create :user
+      user = FactoryBot.create :user
       user.password = "foobar"
       user.save!
 
@@ -228,7 +228,7 @@ end
 describe User, "#invitation_code" do
   before do
     Timecop.freeze("1/1/11") do
-      @user     = FactoryGirl.create(:user)
+      @user     = FactoryBot.create(:user)
       @expected = Digest::SHA1.hexdigest("--#{Time.current.to_f}--#{@user.email}--#{@user.name}--")
     end
   end
@@ -243,8 +243,8 @@ describe User, "#invitation_code" do
 
   context "when invitation code is not blank" do
     it "should validate uniqueness" do
-      user1 = FactoryGirl.create(:user)
-      user2 = FactoryGirl.create(:user)
+      user1 = FactoryBot.create(:user)
+      user2 = FactoryBot.create(:user)
 
       expect(user1.invitation_code).not_to be_blank
       expect(user2).to be_valid
@@ -260,8 +260,8 @@ describe User, '#set_invitation_code' do
     first_code = "asdasdasdasdasd"
     second_code = "qweqweqweqweqwe"
 
-    user1 = FactoryGirl.create(:user)
-    user2 = FactoryGirl.create(:user)
+    user1 = FactoryBot.create(:user)
+    user2 = FactoryBot.create(:user)
 
     user1.update_attributes(invitation_code: first_code)
 
@@ -278,8 +278,8 @@ end
 describe User, ".alphabetical" do
   before do
     User.delete_all
-    @jobs  = FactoryGirl.create(:user, :name => "Steve Jobs")
-    @gates = FactoryGirl.create(:user, :name => "Bill Gates")
+    @jobs  = FactoryBot.create(:user, :name => "Steve Jobs")
+    @gates = FactoryBot.create(:user, :name => "Bill Gates")
   end
 
   it "finds all users, sorted alphaetically" do
@@ -288,7 +288,7 @@ describe User, ".alphabetical" do
 end
 
 describe User, "#invite" do
-  subject { FactoryGirl.create(:user) }
+  subject { FactoryBot.create(:user) }
 
   context "when added to demo" do
     it { is_expected.not_to be_invited }
@@ -323,7 +323,7 @@ describe User, "#invite" do
 
   context "when a referrer is given" do
     it "should record a PeerInvitation" do
-      other_user = FactoryGirl.create(:user)
+      other_user = FactoryBot.create(:user)
 
       expect(PeerInvitation.count).to eq(0)
       subject.invite(other_user)
@@ -338,10 +338,10 @@ describe User, "#invite" do
 
     context "and the user already has #{PeerInvitation::CUTOFF} invitations" do
       before(:each) do
-        PeerInvitation::CUTOFF.times {FactoryGirl.create(:peer_invitation, invitee: subject, demo: subject.demo)}
+        PeerInvitation::CUTOFF.times {FactoryBot.create(:peer_invitation, invitee: subject, demo: subject.demo)}
         expect(subject.reload.peer_invitations_as_invitee.count).to eq(PeerInvitation::CUTOFF)
 
-        other_user = FactoryGirl.create(:user)
+        other_user = FactoryBot.create(:user)
         subject.invite(other_user)
 
       end
@@ -360,7 +360,7 @@ end
 describe User, "#slug" do
   context "when John Smith is created" do
     before do
-      @first = FactoryGirl.create(:user, :name => "John Smith")
+      @first = FactoryBot.create(:user, :name => "John Smith")
     end
 
     it "has text-only slugs" do
@@ -370,7 +370,7 @@ describe User, "#slug" do
 
     context "and another John Smith is created" do
       before do
-        @second = FactoryGirl.create(:user, :name => "John Smith")
+        @second = FactoryBot.create(:user, :name => "John Smith")
       end
 
       it "has text-and-digit slugs" do
@@ -380,7 +380,7 @@ describe User, "#slug" do
 
       context "and another John Smith is created" do
         before do
-          @third = FactoryGirl.create(:user, :name => "John Smith")
+          @third = FactoryBot.create(:user, :name => "John Smith")
         end
 
         it "has a unique text-and-digit slug" do
@@ -396,7 +396,7 @@ end
 
 describe User, '#generate_simple_claim_code!' do
   before(:each) do
-    @first = FactoryGirl.create :user
+    @first = FactoryBot.create :user
   end
 
   it "should set the claim code" do
@@ -407,8 +407,8 @@ describe User, '#generate_simple_claim_code!' do
 
   context "for multiple users with the same name" do
     before(:each) do
-      @second = FactoryGirl.create :user, :name => @first.name
-      @third = FactoryGirl.create :user, :name => @first.name
+      @second = FactoryBot.create :user, :name => @first.name
+      @third = FactoryBot.create :user, :name => @first.name
     end
 
     it "should generate the same claim codes" do
@@ -423,9 +423,9 @@ describe User, '#generate_simple_claim_code!' do
 
   context "for a user with middle names" do
     before(:each) do
-      @first = FactoryGirl.create :user, :name => "Lyndon Baines Johnson"
-      @second = FactoryGirl.create :user, :name => "Arthur Andrew Alabama Anderson"
-      @third = FactoryGirl.create :user, :name => "Elizabeth II, Queen of England"
+      @first = FactoryBot.create :user, :name => "Lyndon Baines Johnson"
+      @second = FactoryBot.create :user, :name => "Arthur Andrew Alabama Anderson"
+      @third = FactoryBot.create :user, :name => "Elizabeth II, Queen of England"
     end
 
     it "should use just first and last name" do
@@ -442,7 +442,7 @@ end
 
 describe User, '#generate_unique_claim_code!' do
   before(:each) do
-    @first = FactoryGirl.create :user
+    @first = FactoryBot.create :user
   end
 
   it "should set the claim code" do
@@ -453,8 +453,8 @@ describe User, '#generate_unique_claim_code!' do
 
   context "for multiple users with the same name" do
     before(:each) do
-      @second = FactoryGirl.create :user, :name => @first.name
-      @third = FactoryGirl.create :user, :name => @first.name
+      @second = FactoryBot.create :user, :name => @first.name
+      @third = FactoryBot.create :user, :name => @first.name
     end
 
     it "should generate unique claim codes" do
@@ -471,7 +471,7 @@ end
 
 describe User, "on create" do
   it "should create an associated segmentation info record in mongo" do
-    @user = FactoryGirl.create :user
+    @user = FactoryBot.create :user
 
 
     expect(@user.segmentation_data).to be_present
@@ -480,28 +480,28 @@ end
 
 describe User, "on save" do
   it "should downcase email" do
-    @user = FactoryGirl.build(:user, :email => 'YELLING_GUY@Uppercase.cOm')
+    @user = FactoryBot.build(:user, :email => 'YELLING_GUY@Uppercase.cOm')
     @user.save!
     expect(@user.reload.email).to eq('yelling_guy@uppercase.com')
   end
 
   describe 'spousal relationship synchronization' do
-    let(:member) { FactoryGirl.create :user }
+    let(:member) { FactoryBot.create :user }
 
     describe 'on create' do
       it 'should not link spouse if not specfied' do
-        user = FactoryGirl.create :user
+        user = FactoryBot.create :user
         expect(member.reload.spouse_id).to be_nil
       end
 
       it 'should link spouse if specfied' do
-        user = FactoryGirl.create :user, spouse_id: member.id
+        user = FactoryBot.create :user, spouse_id: member.id
         expect(member.reload.spouse_id).to eq(user.id)
       end
     end
 
     describe 'on update' do
-      let(:user) { FactoryGirl.create :user }
+      let(:user) { FactoryBot.create :user }
 
       it 'should not link spouse if other field updated' do
         user.update_attribute :name, "Fred Flintstone"
@@ -516,7 +516,7 @@ describe User, "on save" do
       end
 
       it 'should unlink spouse if nullified' do
-        user = FactoryGirl.create :user, spouse_id: member.id
+        user = FactoryBot.create :user, spouse_id: member.id
         expect(member.reload.spouse_id).to eq(user.id)
 
         user.update_attribute :spouse_id, nil
@@ -526,12 +526,12 @@ describe User, "on save" do
   end
 
   it "should parse characteristics according to the datatypes" do
-    user = FactoryGirl.build :user
+    user = FactoryBot.build :user
 
-    discrete_characteristic = FactoryGirl.create :characteristic, :datatype => Characteristic::DiscreteType, :allowed_values => %w(foo bar baz)
-    number_characteristic = FactoryGirl.create :characteristic, :datatype => Characteristic::NumberType
-    date_characteristic = FactoryGirl.create :characteristic, :datatype => Characteristic::DateType
-    boolean_characteristic = FactoryGirl.create :characteristic, :datatype => Characteristic::BooleanType
+    discrete_characteristic = FactoryBot.create :characteristic, :datatype => Characteristic::DiscreteType, :allowed_values => %w(foo bar baz)
+    number_characteristic = FactoryBot.create :characteristic, :datatype => Characteristic::NumberType
+    date_characteristic = FactoryBot.create :characteristic, :datatype => Characteristic::DateType
+    boolean_characteristic = FactoryBot.create :characteristic, :datatype => Characteristic::BooleanType
 
     user.characteristics = {
       discrete_characteristic.id => 'foo',
@@ -553,7 +553,7 @@ describe User, "on save" do
     expected_old_value = expected_values.first || old_value
     expected_new_value = expected_values.last || new_value
 
-    user = FactoryGirl.create(:user, field_name => old_value)
+    user = FactoryBot.create(:user, field_name => old_value)
 
     expect(user.segmentation_data[field_name]).to eq(expected_old_value)
 
@@ -578,8 +578,8 @@ describe User, "on save" do
   end
 
   it "should sync to mongo when characteristics is changed" do
-    user = FactoryGirl.create(:user)
-    characteristic = FactoryGirl.create(:characteristic, :allowed_values => %w(foo bar baz))
+    user = FactoryBot.create(:user)
+    characteristic = FactoryBot.create(:characteristic, :allowed_values => %w(foo bar baz))
 
     expect(user.segmentation_data.characteristics).to eq({})
 
@@ -590,9 +590,9 @@ describe User, "on save" do
   end
 
   it "should sync to mongo when a user is added to a board" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     first_demo = user.demo
-    second_demo = FactoryGirl.create(:demo)
+    second_demo = FactoryBot.create(:demo)
 
 
     expect(user.segmentation_data.demo_ids).to eq([first_demo.id])
@@ -603,17 +603,17 @@ describe User, "on save" do
   end
 
   it "should sync to mongo when a user acts" do
-    user = FactoryGirl.create :user
+    user = FactoryBot.create :user
 
     expect(user.segmentation_data.last_acted_at).to be_nil
-    act = FactoryGirl.create(:act, user: user)
+    act = FactoryBot.create(:act, user: user)
 
     now = Time.current
     expect(user.segmentation_data.last_acted_at).not_to be_nil
   end
 
   it "should sync to mongo when accepted_invitation_at is changed, updating the value of claimed too" do
-    user = FactoryGirl.create :user
+    user = FactoryBot.create :user
 
     expect(user.segmentation_data.accepted_invitation_at).to be_nil
     expect(user.segmentation_data.claimed).to be_falsey
@@ -627,7 +627,7 @@ describe User, "on save" do
   end
 
   it "should sync to mongo whether or not the user has a phone number on record" do
-    user = FactoryGirl.create :user
+    user = FactoryBot.create :user
 
     expect(user.segmentation_data.has_phone_number).to be_falsey
 
@@ -645,7 +645,7 @@ end
 
 describe User, "on destroy" do
   it "should destroy the associated mongo data" do
-    user = FactoryGirl.create :user
+    user = FactoryBot.create :user
 
     expect(User::SegmentationData.where(:ar_id => user.id).count).to eq(1)
 
@@ -657,8 +657,8 @@ end
 
 describe User, "#move_to_new_demo" do
   before(:each) do
-    @user = FactoryGirl.create :user
-    @new_demo = FactoryGirl.create :demo
+    @user = FactoryBot.create :user
+    @new_demo = FactoryBot.create :demo
   end
 
   context "when the user belongs to the new demo" do
@@ -678,7 +678,7 @@ describe User, "#move_to_new_demo" do
 
     it "should keep the value of their board-specific fields consistent with the BoardMembership corresponding to the board they move into" do
       original_demo = @user.demo
-      original_location = FactoryGirl.create(:location, demo: original_demo)
+      original_location = FactoryBot.create(:location, demo: original_demo)
       @user.is_client_admin = true
       @user.points = 43
       @user.ticket_threshold_base = 21
@@ -739,10 +739,10 @@ end
 
 describe User, "#add_board" do
   it "should be idempotent, i.e. not create redundant BoardMemberships if called more than once with the same arguments" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     expect(user.board_memberships.length).to eq(1)
 
-    board = FactoryGirl.create(:demo)
+    board = FactoryBot.create(:demo)
 
     user.add_board(board)
     user.add_board(board)
@@ -754,7 +754,7 @@ end
 
 describe "#mark_as_claimed" do
   before(:each) do
-    @user = FactoryGirl.create :user
+    @user = FactoryBot.create :user
     Timecop.freeze(1)
   end
 
@@ -782,7 +782,7 @@ end
 describe User do
   describe "#generate_new_phone_validation_token" do
     it "should generate a token" do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       user.generate_new_phone_validation_token
       expect(user.new_phone_validation.length).to eq(6)
     end
@@ -790,7 +790,7 @@ describe User do
 
   describe "#send_new_phone_validation_token" do
     it "asks SmsSender to send a message in the background" do
-      user = FactoryGirl.create(:user, :email => "a@a.com")
+      user = FactoryBot.create(:user, :email => "a@a.com")
       token = user.generate_new_phone_validation_token
       user.new_phone_number = "3333333333"
 
@@ -809,8 +809,8 @@ end
 describe User do
   describe "Privacy Settings" do
     it "should allow anyone to view the activity of a user whose privacy status is 'everybody'" do
-      follower = FactoryGirl.create :user
-      artist = FactoryGirl.create(:user, :privacy_level => "everybody")
+      follower = FactoryBot.create :user
+      artist = FactoryBot.create(:user, :privacy_level => "everybody")
       expect(follower.can_see_activity_of(artist)).to eq(true)
     end
   end
@@ -818,9 +818,9 @@ end
 
 describe User, "#befriend" do
   before(:each) do
-    @demo = FactoryGirl.create(:demo, :name => "It's just a game")
-    @left_user = FactoryGirl.create(:claimed_user, :name => "Lefty Loosey", :demo => @demo)
-    @right_user = FactoryGirl.create(:claimed_user, :name => "Righty Tighty", :demo => @demo)
+    @demo = FactoryBot.create(:demo, :name => "It's just a game")
+    @left_user = FactoryBot.create(:claimed_user, :name => "Lefty Loosey", :demo => @demo)
+    @right_user = FactoryBot.create(:claimed_user, :name => "Righty Tighty", :demo => @demo)
   end
 
   it "should create two friendships, one initiated and one pending" do
@@ -877,8 +877,8 @@ describe User do
     first_email = '123@hi.com'
     second_email = '456@hi.com'
     third_email = 'something_crafty@sexy.com'
-    FactoryGirl.create(:user, email: first_email, overflow_email: second_email)
-    @user2 = FactoryGirl.build(:user, name: 'henry')
+    FactoryBot.create(:user, email: first_email, overflow_email: second_email)
+    @user2 = FactoryBot.build(:user, name: 'henry')
     expect(@user2).to be_valid
     @user2.email = first_email
     expect(@user2).not_to be_valid
@@ -890,21 +890,21 @@ describe User do
     expect(@user2).not_to be_valid
     @user2.overflow_email = second_email
     expect(@user2).not_to be_valid
-    @user10 = FactoryGirl.build(:user, email: third_email, overflow_email: third_email)
+    @user10 = FactoryBot.build(:user, email: third_email, overflow_email: third_email)
     expect(@user10).not_to be_valid
   end
 end
 
 describe User, "notification preferences" do
   before do
-    @demo = FactoryGirl.create(:demo)
-    @sms_only = FactoryGirl.create(:user, demo: @demo)
+    @demo = FactoryBot.create(:demo)
+    @sms_only = FactoryBot.create(:user, demo: @demo)
     @sms_only.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:text_message])
 
-    @email_only = FactoryGirl.create(:user, demo: @demo)
+    @email_only = FactoryBot.create(:user, demo: @demo)
     @email_only.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:email])
 
-    @both = FactoryGirl.create(:user, demo: @demo)
+    @both = FactoryBot.create(:user, demo: @demo)
     @both.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:both])
   end
 
@@ -936,7 +936,7 @@ describe User, "loads personal email" do
   before(:each) do
     @email = 'hi@hi.com'
     @alternate_email = 'there@there.com'
-    @leah = FactoryGirl.create(:user, email: @email)
+    @leah = FactoryBot.create(:user, email: @email)
   end
 
   it "should return nil if fed a bogus email address" do
@@ -957,13 +957,13 @@ describe User, "finds by either email" do
   before(:each) do
     @leah_email = 'leah@princess.net'
     @leah_personal = 'leah@personal.net'
-    @leah = FactoryGirl.create(:user, email: @leah_personal, overflow_email: @leah_email)
+    @leah = FactoryBot.create(:user, email: @leah_personal, overflow_email: @leah_email)
     @rice_email = 'rice@princess.net'
     @rice_personal = 'rice@personal.net'
-    @rice = FactoryGirl.create(:user, email: @rice_personal, overflow_email: @rice_email)
+    @rice = FactoryBot.create(:user, email: @rice_personal, overflow_email: @rice_email)
     @jay_email = 'jay@princess.net'
     @jay_personal = 'jay@personal.net'
-    @jay = FactoryGirl.create(:user, email: @jay_personal, overflow_email: @jay_email)
+    @jay = FactoryBot.create(:user, email: @jay_personal, overflow_email: @jay_email)
   end
 
   it "should find by either email" do
@@ -978,13 +978,13 @@ end
 
 describe User, "#reset_tiles" do
   it "resets Leah's tiles for one demo only" do
-    demo = FactoryGirl.create(:demo)
-    user = FactoryGirl.create(:user, demo: demo)
-    tile = FactoryGirl.create(:tile, demo: demo)
+    demo = FactoryBot.create(:demo)
+    user = FactoryBot.create(:user, demo: demo)
+    tile = FactoryBot.create(:tile, demo: demo)
     completion = TileCompletion.create(user: user, tile: tile)
 
     # A completion by someone else
-    FactoryGirl.create(:tile_completion)
+    FactoryBot.create(:tile_completion)
 
     expect(TileCompletion.count).to eq(2)
 
@@ -996,7 +996,7 @@ end
 
 describe User, "add_tickets" do
   it "should use the user's ticket threshold base" do
-    @user = FactoryGirl.create(:user, points: 19, ticket_threshold_base: 19)
+    @user = FactoryBot.create(:user, points: 19, ticket_threshold_base: 19)
     expect(@user.tickets).to be_zero
 
     @user.update_points(@user.demo.ticket_threshold - 1)
@@ -1019,7 +1019,7 @@ end
 
 describe User, "#not_in_any_paid_or_trial_boards?" do
   it "returns what you'd think" do
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     expect(user.not_in_any_paid_or_trial_boards?).to be_truthy
 
     user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:paid])
@@ -1029,7 +1029,7 @@ describe User, "#not_in_any_paid_or_trial_boards?" do
     expect(user.not_in_any_paid_or_trial_boards?).to be_falsey
 
     user.demo.update_attributes(customer_status_cd: Demo.customer_statuses[:free])
-    user.add_board(FactoryGirl.create(:demo, :paid))
+    user.add_board(FactoryBot.create(:demo, :paid))
     expect(user.not_in_any_paid_or_trial_boards?).to be_falsey
   end
 end
@@ -1037,8 +1037,8 @@ end
 describe User, "#data_for_mixpanel" do
 
   it "should include a user's email address only if they're a client admin" do
-    peon = FactoryGirl.build(:user, email: 'peon@example.com', created_at: Time.current)
-    client_admin = FactoryGirl.build(:client_admin, email: 'ca@example.com', created_at: Time.current)
+    peon = FactoryBot.build(:user, email: 'peon@example.com', created_at: Time.current)
+    client_admin = FactoryBot.build(:client_admin, email: 'ca@example.com', created_at: Time.current)
 
     expect(peon.data_for_mixpanel[:email]).to be_nil
     expect(client_admin.data_for_mixpanel[:email]).to eq(client_admin.email)
@@ -1047,13 +1047,13 @@ end
 
 describe User, "#email_for_vendor" do
   it "should return nil for end users" do
-    end_user = FactoryGirl.build(:user, email: 'end_user@example.com')
+    end_user = FactoryBot.build(:user, email: 'end_user@example.com')
 
     expect(end_user.email_for_vendor).to eq(nil)
   end
 
   it "should return email for client admin" do
-    client_admin = FactoryGirl.build(:client_admin, email: 'ca@example.com')
+    client_admin = FactoryBot.build(:client_admin, email: 'ca@example.com')
 
     expect(client_admin.email_for_vendor).to eq(client_admin.email)
   end
@@ -1061,13 +1061,13 @@ end
 
 describe User, ".paid_client_admin" do
   it "should return users who have a client admin board membership in a demo that is paid" do
-    paid_demo = FactoryGirl.create(:demo, name: "Paid", customer_status_cd: Demo.customer_statuses[:paid])
-    unpaid_demo = FactoryGirl.create(:demo, name: "Unpaid", customer_status_cd: Demo.customer_statuses[:free])
+    paid_demo = FactoryBot.create(:demo, name: "Paid", customer_status_cd: Demo.customer_statuses[:paid])
+    unpaid_demo = FactoryBot.create(:demo, name: "Unpaid", customer_status_cd: Demo.customer_statuses[:free])
 
-    paid_client_admin = FactoryGirl.create(:user, name: "Paid Ca")
+    paid_client_admin = FactoryBot.create(:user, name: "Paid Ca")
     paid_client_admin.board_memberships.create(demo: paid_demo, is_client_admin: true)
 
-    unpaid_client_admin = FactoryGirl.create(:user, name: "Unpaid Ca")
+    unpaid_client_admin = FactoryBot.create(:user, name: "Unpaid Ca")
     unpaid_client_admin.board_memberships.create(demo: paid_demo, is_client_admin: false)
     unpaid_client_admin.board_memberships.create(demo: unpaid_demo, is_client_admin: false)
 

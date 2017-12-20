@@ -3,12 +3,12 @@ require 'acceptance/acceptance_helper'
 feature 'Client uses suggestion box' do
   include SuggestionBox
 
-  let!(:demo) { FactoryGirl.create :demo }
-  let!(:client_admin) { FactoryGirl.create :site_admin, demo: demo }
+  let!(:demo) { FactoryBot.create :demo }
+  let!(:client_admin) { FactoryBot.create :site_admin, demo: demo }
 
   context "Submitted Tile", js: true do
 
-    let!(:tile) { FactoryGirl.create :multiple_choice_tile, :user_submitted, demo: demo }
+    let!(:tile) { FactoryBot.create :multiple_choice_tile, :user_submitted, demo: demo }
 
     before do
       visit client_admin_tiles_path(as: client_admin)

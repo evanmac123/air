@@ -5,10 +5,10 @@ describe TileFeature do
   it { is_expected.to validate_uniqueness_of :name}
   it { is_expected.to validate_presence_of :rank}
 
-  let(:tile_feature) {FactoryGirl.create(:tile_feature, active: true)}
+  let(:tile_feature) {FactoryBot.create(:tile_feature, active: true)}
 
   it "assigns redis values given hash of parameters" do
-    FactoryGirl.create_list(:tile, 6, is_public: true)
+    FactoryBot.create_list(:tile, 6, is_public: true)
     tile_feature.dispatch_redis_updates(redis_params)
 
     expect(tile_feature.custom_icon_url).to eq(redis_params["custom_icon_url"])
@@ -35,7 +35,7 @@ describe TileFeature do
     end
 
     it "removes non integers" do
-      tile_id = FactoryGirl.create(:tile, is_public: true).id
+      tile_id = FactoryBot.create(:tile, is_public: true).id
       tile_feature.dispatch_redis_updates({ tile_ids: "word, ##32, #{tile_id}" })
 
       expect(tile_feature.tile_ids).to eq(["#{tile_id}"])
@@ -44,10 +44,10 @@ describe TileFeature do
 
   context "active scope" do
     it "selects only active tile features" do
-      FactoryGirl.create(:tile_feature, active: nil)
-      FactoryGirl.create(:tile_feature, active: true)
-      FactoryGirl.create(:tile_feature, active: false)
-      FactoryGirl.create(:tile_feature, active: false)
+      FactoryBot.create(:tile_feature, active: nil)
+      FactoryBot.create(:tile_feature, active: true)
+      FactoryBot.create(:tile_feature, active: false)
+      FactoryBot.create(:tile_feature, active: false)
 
       expect(TileFeature.active.length).to eq(1)
     end
@@ -55,9 +55,9 @@ describe TileFeature do
 
   context "order scope" do
     it "selects only active tile features" do
-      last = FactoryGirl.create(:tile_feature, active: true, rank: 10)
-      first = FactoryGirl.create(:tile_feature, active: true, rank: 1)
-      FactoryGirl.create(:tile_feature, active: true, rank: 5)
+      last = FactoryBot.create(:tile_feature, active: true, rank: 10)
+      first = FactoryBot.create(:tile_feature, active: true, rank: 1)
+      FactoryBot.create(:tile_feature, active: true, rank: 5)
 
       tile_features = TileFeature.ordered
 
@@ -69,7 +69,7 @@ describe TileFeature do
 
   context "tile retrieval" do
     it "gets tiles in the correct order" do
-      FactoryGirl.create_list(:tile, 5, is_public: true)
+      FactoryBot.create_list(:tile, 5, is_public: true)
       tile_id_1 = Tile.first.id
       tile_id_3 = Tile.all[3].id
       tile_id_2 = Tile.last.id
@@ -83,12 +83,12 @@ describe TileFeature do
 
   context "tile collections in explore do not include featured tiles" do
     it "excludes featured tiles in the Tile.explore_without_featured_tiles query" do
-      org = FactoryGirl.create(:organization, name: "Airbo")
-      FactoryGirl.create_list(:tile, 10, organization: org, is_public: true)
+      org = FactoryBot.create(:organization, name: "Airbo")
+      FactoryBot.create_list(:tile, 10, organization: org, is_public: true)
 
       expect(Tile.explore_without_featured_tiles.count).to eq(10)
 
-      tile_feature = FactoryGirl.create(:tile_feature, active: true)
+      tile_feature = FactoryBot.create(:tile_feature, active: true)
 
       tile_ids = Tile.limit(5).pluck(:id).join(",")
       tile_feature.dispatch_redis_updates({ tile_ids: tile_ids })

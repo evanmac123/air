@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Creates draft tile' do
   let(:user) do
-    user = FactoryGirl.create :user, allowed_to_make_tile_suggestions: true
+    user = FactoryBot.create :user, allowed_to_make_tile_suggestions: true
     user.board_memberships.first.update_attribute :allowed_to_make_tile_suggestions, true
     user
   end

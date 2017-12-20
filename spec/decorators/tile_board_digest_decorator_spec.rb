@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe TileBoardDigestDecorator do
   before(:each) do
-  	@demo = FactoryGirl.create :demo
-    @user = FactoryGirl.create :client_admin, demo: @demo
-    @tile = FactoryGirl.create :multiple_choice_tile, demo: @demo
+  	@demo = FactoryBot.create :demo
+    @user = FactoryBot.create :client_admin, demo: @demo
+    @tile = FactoryBot.create :multiple_choice_tile, demo: @demo
   end
 
   context "#email_site_link" do

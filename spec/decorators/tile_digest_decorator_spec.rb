@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TileDigestDecorator do
   before(:each) do
-    @tile = FactoryGirl.create :multiple_choice_tile
+    @tile = FactoryBot.create :multiple_choice_tile
     @tile.reload
   end
   context "#email_img_url" do

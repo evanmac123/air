@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe ReviewSubmittedTileMailer do
-  let!(:demo) {FactoryGirl.create :demo, email: "demo@gmail.com"}
+  let!(:demo) {FactoryBot.create :demo, email: "demo@gmail.com"}
 
 
   def update_board_memberships
@@ -13,8 +13,8 @@ describe ReviewSubmittedTileMailer do
 
   describe "#notify_one" do
     before do
-      @client_admin = FactoryGirl.create :client_admin, email: "ca@airbo.com"
-      @tile_sender =  FactoryGirl.create :user, email: "user@airbo.com", name: "Tile Sender"
+      @client_admin = FactoryBot.create :client_admin, email: "ca@airbo.com"
+      @tile_sender =  FactoryBot.create :user, email: "user@airbo.com", name: "Tile Sender"
     end
 
     let(:mail) do 
@@ -45,13 +45,13 @@ describe ReviewSubmittedTileMailer do
 
   describe "#notify_all" do
     before do
-      john   = FactoryGirl.create :client_admin, demo: demo, name: 'CA John',   email: 'john@beatles.com'
-      paul   = FactoryGirl.create :client_admin, demo: demo, name: 'CA Paul',   email: 'paul@beatles.com'
-      george = FactoryGirl.create :client_admin, demo: demo, name: 'CA George', email: 'george@beatles.com'
-      ringo  = FactoryGirl.create :client_admin, name: 'CA Ringo',  email: 'ringo@beatles.com'
+      john   = FactoryBot.create :client_admin, demo: demo, name: 'CA John',   email: 'john@beatles.com'
+      paul   = FactoryBot.create :client_admin, demo: demo, name: 'CA Paul',   email: 'paul@beatles.com'
+      george = FactoryBot.create :client_admin, demo: demo, name: 'CA George', email: 'george@beatles.com'
+      ringo  = FactoryBot.create :client_admin, name: 'CA Ringo',  email: 'ringo@beatles.com'
 
       @admins = [john, paul, george]
-      @tile_sender =  FactoryGirl.create :user, demo: demo, email: "user@airbo.com", name: "Tile Sender"
+      @tile_sender =  FactoryBot.create :user, demo: demo, email: "user@airbo.com", name: "Tile Sender"
 
       update_board_memberships
     end

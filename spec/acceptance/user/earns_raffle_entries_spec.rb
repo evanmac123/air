@@ -2,9 +2,9 @@ require 'acceptance/acceptance_helper'
 
 feature 'User earns tickets' do
   before(:each) do
-    @demo = FactoryGirl.create(:demo, :with_tickets, ticket_threshold: 10)
-    @user = FactoryGirl.create(:user, :claimed, :with_phone_number, demo: @demo)
-    @raffle = @demo.raffle = FactoryGirl.create(:raffle, :live, demo: @demo)
+    @demo = FactoryBot.create(:demo, :with_tickets, ticket_threshold: 10)
+    @user = FactoryBot.create(:user, :claimed, :with_phone_number, demo: @demo)
+    @raffle = @demo.raffle = FactoryBot.create(:raffle, :live, demo: @demo)
 
     visit acts_path(as: @user)
     expect_raffle_entries 0

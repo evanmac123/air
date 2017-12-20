@@ -2,9 +2,9 @@ require 'acceptance/acceptance_helper'
 
 feature 'Signed-in user going to a public board' do
   before(:each) do
-    @board = FactoryGirl.create(:demo, :with_public_slug)
-    @users_board = FactoryGirl.create(:demo, :with_public_slug)
-    @user = FactoryGirl.create(:user, :claimed, demo: @users_board)
+    @board = FactoryBot.create(:demo, :with_public_slug)
+    @users_board = FactoryBot.create(:demo, :with_public_slug)
+    @user = FactoryBot.create(:user, :claimed, demo: @users_board)
     visit activity_path(as: @user) # even by the back door, this sets the cookie
     visit public_board_path(@board.public_slug)
   end

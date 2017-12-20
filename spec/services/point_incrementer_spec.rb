@@ -17,7 +17,7 @@ describe PointIncrementer do
 
   describe "#update_points" do
     before do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
     end
 
     it "updates points and adds ticket if it should" do

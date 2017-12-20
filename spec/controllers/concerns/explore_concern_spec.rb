@@ -14,7 +14,7 @@ describe ExploreConcern do
 
   describe '#explore_email_clicked_ping' do
     it "sends a ping with the correct properties" do
-      user = FactoryGirl.create(:client_admin)
+      user = FactoryBot.create(:client_admin)
       email_type = "explore_digest"
       email_version = "1,1,17"
 

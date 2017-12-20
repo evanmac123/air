@@ -7,14 +7,14 @@ feature 'Admin sends targeted messages using segmentation' do
   def set_up_models(options={})
     user_model_name = options[:use_phone] ? :user_with_phone : :user
 
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
     @users = []
-    20.times {|i| @users << FactoryGirl.create(user_model_name, points: i, demo: @demo)}
+    20.times {|i| @users << FactoryBot.create(user_model_name, points: i, demo: @demo)}
     # Also let's make someUsers in a different demo to make sure we don't get leakage.
-    5.times {FactoryGirl.create(user_model_name)}
+    5.times {FactoryBot.create(user_model_name)}
 
-    @agnostic_characteristic = FactoryGirl.create(:characteristic, name: "Metasyntactic variable", allowed_values: %w(foo bar baz))
-    @demo_specific_characteristic = FactoryGirl.create(:characteristic, :number)
+    @agnostic_characteristic = FactoryBot.create(:characteristic, name: "Metasyntactic variable", allowed_values: %w(foo bar baz))
+    @demo_specific_characteristic = FactoryBot.create(:characteristic, :number)
 
     10.upto(19) {|i| @users[i].update_attributes(characteristics: {@agnostic_characteristic.id.to_s => %w(foo bar baz)[i % 3], @demo_specific_characteristic.id.to_s => i % 5})}
   end
@@ -61,8 +61,8 @@ feature 'Admin sends targeted messages using segmentation' do
 
   context "across boards" do
     it "should have the right sender", js: true do
-      demo = FactoryGirl.create :demo, custom_reply_email_name: "Big Fun", email: "bigfun@ourairbo.com"
-      user = FactoryGirl.create :user, email: 'joe@example.com'
+      demo = FactoryBot.create :demo, custom_reply_email_name: "Big Fun", email: "bigfun@ourairbo.com"
+      user = FactoryBot.create :user, email: 'joe@example.com'
       user.add_board(demo)
 
 
@@ -248,7 +248,7 @@ feature 'Admin sends targeted messages using segmentation' do
   end
 
   it "should have a link from somewhere in the admin side" do
-    demo = FactoryGirl.create(:demo)
+    demo = FactoryBot.create(:demo)
 
 
     visit admin_demo_path(demo, as: an_admin)
@@ -307,7 +307,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
   it "should not attempt to send an SMS to a user with a blank phone number", :js => true do
     set_up_models(use_phone: true)
-    3.times {FactoryGirl.create(:user, demo: @demo)}
+    3.times {FactoryBot.create(:user, demo: @demo)}
 
 
     visit admin_demo_targeted_messages_path(@demo, as: an_admin)

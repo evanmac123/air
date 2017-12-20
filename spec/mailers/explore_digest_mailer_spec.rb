@@ -5,7 +5,7 @@ include EmailHelper
 
 describe ExploreDigestMailer do
   before(:each) do
-    FactoryGirl.create_list(:tile, 6, is_public: true)
+    FactoryBot.create_list(:tile, 6, is_public: true)
 
     @explore_digest = ExploreDigest.create
     @params = explore_digest_params
@@ -14,7 +14,7 @@ describe ExploreDigestMailer do
 
   describe "#notify_one" do
     it "should send a message with correct data" do
-      user = FactoryGirl.create(:user, is_client_admin: true)
+      user = FactoryBot.create(:user, is_client_admin: true)
 
       ExploreDigestMailer.notify_one(@explore_digest, user).deliver
 
@@ -31,7 +31,7 @@ describe ExploreDigestMailer do
     end
 
     it "adds custom X-SMTPAPI header" do
-      user = FactoryGirl.create(:user, is_client_admin: true)
+      user = FactoryBot.create(:user, is_client_admin: true)
       mail = ExploreDigestMailer.notify_one(@explore_digest, user)
 
       x_smtpapi_header = JSON.parse(mail.header["X-SMTPAPI"].value)
@@ -48,8 +48,8 @@ describe ExploreDigestMailer do
 
   describe "#notify_all" do
     it "should send a message to all client admin" do
-      FactoryGirl.create_list(:user, 3, is_client_admin: true)
-      FactoryGirl.create_list(:user, 2, is_client_admin: false)
+      FactoryBot.create_list(:user, 3, is_client_admin: true)
+      FactoryBot.create_list(:user, 2, is_client_admin: false)
 
       ExploreDigestMailer.notify_all(@explore_digest)
 

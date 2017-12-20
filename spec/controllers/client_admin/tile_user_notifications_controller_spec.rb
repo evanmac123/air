@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe ClientAdmin::TileUserNotificationsController do
-  let(:client_admin) { FactoryGirl.create(:client_admin) }
-  let!(:tile) { FactoryGirl.create(:multiple_choice_tile, multiple_choice_answers: ["a", "b", "c"], correct_answer_index: 0, demo: client_admin.demo) }
+  let(:client_admin) { FactoryBot.create(:client_admin) }
+  let!(:tile) { FactoryBot.create(:multiple_choice_tile, multiple_choice_answers: ["a", "b", "c"], correct_answer_index: 0, demo: client_admin.demo) }
 
   before do
     Timecop.freeze(Time.utc(1990))

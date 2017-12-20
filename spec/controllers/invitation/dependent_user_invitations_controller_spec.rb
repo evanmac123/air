@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Invitation::DependentUserInvitationsController do
   describe "#create" do
     before do
-      demo = FactoryGirl.create(:demo, :with_dependent_board)
-      sign_in_as(FactoryGirl.create(:user, demo: demo))
+      demo = FactoryBot.create(:demo, :with_dependent_board)
+      sign_in_as(FactoryBot.create(:user, demo: demo))
     end
 
     context "when email present" do

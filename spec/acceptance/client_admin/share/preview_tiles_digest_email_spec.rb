@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature "Client admin previews invite email", js: true do
-  let! (:client_admin) { FactoryGirl.create(:client_admin) }
+  let! (:client_admin) { FactoryBot.create(:client_admin) }
 
   context "without tiles in demo" do
     context "digest email" do

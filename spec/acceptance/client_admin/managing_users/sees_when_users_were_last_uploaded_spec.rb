@@ -2,9 +2,9 @@ require 'acceptance/acceptance_helper'
 
 feature 'Sees when users were last uploaded' do
   before do
-    @client_admin = FactoryGirl.create(:client_admin)
+    @client_admin = FactoryBot.create(:client_admin)
     @demo = @client_admin.demo
-    FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: @demo) # unlock the users page
+    FactoryBot.create(:tile, status: Tile::ACTIVE, demo: @demo) # unlock the users page
   end
 
   context "when they never actually were" do

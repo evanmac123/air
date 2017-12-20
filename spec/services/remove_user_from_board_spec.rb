@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe RemoveUserFromBoard do
   def create_happy_path_user
-    user = FactoryGirl.create(:user)
-    other_board = FactoryGirl.create(:demo)
+    user = FactoryBot.create(:user)
+    other_board = FactoryBot.create(:demo)
     user.add_board(other_board)
     expect(user.reload.demos.size).to eq(2)
     [user, other_board]
@@ -12,8 +12,8 @@ describe RemoveUserFromBoard do
   describe "#remove!" do
     context "when it's a paid board" do
       before do
-        @user = FactoryGirl.create(:user)
-        @paid_board = FactoryGirl.create(:demo, :paid)
+        @user = FactoryBot.create(:user)
+        @paid_board = FactoryBot.create(:demo, :paid)
         @user.add_board(@paid_board)
 
         expect(@user.demos.size).to eq(2)
@@ -43,7 +43,7 @@ describe RemoveUserFromBoard do
 
     context "when it's their only board" do
       before do
-        @user = FactoryGirl.create(:user)
+        @user = FactoryBot.create(:user)
         expect(@user.demos.size).to eq(1)
         @original_demo_id = @user.demo_id
         @remover = RemoveUserFromBoard.new(@user, @original_demo_id)
@@ -62,8 +62,8 @@ describe RemoveUserFromBoard do
 
     context "when removing the current board" do
       before do
-        @user = FactoryGirl.create(:user)
-        @user.add_board FactoryGirl.create(:demo)
+        @user = FactoryBot.create(:user)
+        @user.add_board FactoryBot.create(:demo)
       end
 
       it "leaves them in exactly one other board" do
@@ -73,7 +73,7 @@ describe RemoveUserFromBoard do
       end
 
       it "leaves them in the board where a tile was most recently posted" do
-        2.times {@user.add_board FactoryGirl.create(:demo)}
+        2.times {@user.add_board FactoryBot.create(:demo)}
         uncurrent_memberships = @user.board_memberships.where(is_current: false).to_a
         uncurrent_memberships.each_with_index do |membership, i|
           membership.demo.update_attributes(tile_last_posted_at: (i + 5).days.ago)
@@ -90,8 +90,8 @@ describe RemoveUserFromBoard do
     end
 
     it "leaves them without membership in the board in question, but still in others as previously" do
-      user = FactoryGirl.create(:user)
-      2.times {user.add_board(FactoryGirl.create(:demo))}
+      user = FactoryBot.create(:user)
+      2.times {user.add_board(FactoryBot.create(:demo))}
       expect(user.demos.size).to eq(3)
       original_demo_ids = user.demo_ids
       id_to_delete = original_demo_ids.last
@@ -124,7 +124,7 @@ describe RemoveUserFromBoard do
 
     context "when this is their only board" do
       it "should have an appropriate message" do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         expect(user.demos.size).to eq(1)
 
         remover = RemoveUserFromBoard.new(user, user.demo)
@@ -134,8 +134,8 @@ describe RemoveUserFromBoard do
 
     context "when this is a paid board" do
       it "should have an appropriate message" do
-        user = FactoryGirl.create(:user)
-        board_to_remove = FactoryGirl.create(:demo, :paid)
+        user = FactoryBot.create(:user)
+        board_to_remove = FactoryBot.create(:demo, :paid)
         user.add_board(board_to_remove)
 
         remover = RemoveUserFromBoard.new(user, board_to_remove)

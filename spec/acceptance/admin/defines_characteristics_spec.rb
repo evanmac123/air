@@ -15,10 +15,10 @@ feature "Admin Defines Characteristics" do
 
   # We have all this nonsense because before(:each) and :js=>true do not play well together.
   def set_up_demo_and_characteristics
-    @demo = FactoryGirl.create :demo
-    @agnostic_characteristic = FactoryGirl.create :characteristic, :name => "Favorite pill", :description => "what kind of pill you like", :allowed_values => %w(Viagra Clonozepam Warfarin)
-    @characteristic_1 = FactoryGirl.create :characteristic, :demo_specific, :demo => @demo, :name => "Cheese preference", :description => "what sort of cheese does you best", :allowed_values => %w(Stinky Extra-Smelly)
-    @characteristic_2 = FactoryGirl.create :characteristic, :demo_specific, :name => "Cake or death", :description => "A simple question really", :allowed_values => %w(Cake Death)
+    @demo = FactoryBot.create :demo
+    @agnostic_characteristic = FactoryBot.create :characteristic, :name => "Favorite pill", :description => "what kind of pill you like", :allowed_values => %w(Viagra Clonozepam Warfarin)
+    @characteristic_1 = FactoryBot.create :characteristic, :demo_specific, :demo => @demo, :name => "Cheese preference", :description => "what sort of cheese does you best", :allowed_values => %w(Stinky Extra-Smelly)
+    @characteristic_2 = FactoryBot.create :characteristic, :demo_specific, :name => "Cake or death", :description => "A simple question really", :allowed_values => %w(Cake Death)
 
     expect(@characteristic_2.demo).not_to eq(@demo)
   end

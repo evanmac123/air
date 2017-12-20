@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Admin::DemosController do
   describe "POST create" do
     it "creates board" do
-      attrs = FactoryGirl.attributes_for(:demo)
-      admin = FactoryGirl.create(:site_admin)
+      attrs = FactoryBot.attributes_for(:demo)
+      admin = FactoryBot.create(:site_admin)
 
       expect(Demo.count).to eq(1)
 

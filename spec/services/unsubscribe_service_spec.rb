@@ -31,7 +31,7 @@ describe UnsubscribeService do
   end
 
   def build_data_for_email_type(email_type)
-    user = FactoryGirl.create(:user)
+    user = FactoryBot.create(:user)
     @unsubscribe_service = UnsubscribeService.new({
       user_id: user.id,
       demo_id: user.demo.id,

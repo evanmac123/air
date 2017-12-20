@@ -2,12 +2,12 @@ require 'acceptance/acceptance_helper'
 
 feature 'User navigates to different tiles' do
 
-  let(:demo)    { FactoryGirl.create :demo }
-  let(:user)    { FactoryGirl.create :user, :claimed, demo: demo }
+  let(:demo)    { FactoryBot.create :demo }
+  let(:user)    { FactoryBot.create :user, :claimed, demo: demo }
 
-  let!(:tile_1) { FactoryGirl.create :tile, demo: demo }
-  let!(:tile_2) { FactoryGirl.create :tile, demo: demo }
-  let!(:tile_3) { FactoryGirl.create :tile, demo: demo }
+  let!(:tile_1) { FactoryBot.create :tile, demo: demo }
+  let!(:tile_2) { FactoryBot.create :tile, demo: demo }
+  let!(:tile_3) { FactoryBot.create :tile, demo: demo }
 
   before(:each) do
     bypass_modal_overlays(user)

@@ -1,8 +1,8 @@
 require 'spec_helper'
 describe Attachable do
 
-  let(:t){FactoryGirl.create(:multiple_choice_tile)}
-  let(:t2){FactoryGirl.create(:multiple_choice_tile)}
+  let(:t){FactoryBot.create(:multiple_choice_tile)}
+  let(:t2){FactoryBot.create(:multiple_choice_tile)}
   let(:s3){mock()}
   let(:bucket){ mock()}
   let(:buckets){ mock()}
@@ -20,7 +20,7 @@ describe Attachable do
 
   describe "#documents" do
     it "should return a document hash with two elements" do
-      t = FactoryGirl.create(:multiple_choice_tile)
+      t = FactoryBot.create(:multiple_choice_tile)
       t.stubs(:file_attachments).returns({"file1" =>"/file1.pdf", "file2" =>"/file2.pdf"})
       expect(t.documents).to eq({
         "file1" =>"https://#{APP_BUCKET}.s3.amazonaws.com/file1.pdf",
@@ -30,7 +30,7 @@ describe Attachable do
 
 
     it "should return a document hash with 1 elements" do
-      t = FactoryGirl.create(:multiple_choice_tile)
+      t = FactoryBot.create(:multiple_choice_tile)
       t.stubs(:file_attachments).returns({"file1" =>"/file1.pdf"})
       expect(t.documents).to eq({
         "file1" =>"https://#{APP_BUCKET}.s3.amazonaws.com/file1.pdf"
@@ -38,7 +38,7 @@ describe Attachable do
     end
 
     it "should return a document hash with 0 elements" do
-      t = FactoryGirl.create(:multiple_choice_tile)
+      t = FactoryBot.create(:multiple_choice_tile)
       t.stubs(:file_attachments).returns({})
       expect(t.documents).to eq({})
     end
@@ -46,7 +46,7 @@ describe Attachable do
 
   describe "#delete_s3_attachments" do
 
-    let(:t){FactoryGirl.create(:multiple_choice_tile)}
+    let(:t){FactoryBot.create(:multiple_choice_tile)}
     context "deleting objecs" do
       let(:s3){mock()}
       let(:bucket){ mock()}

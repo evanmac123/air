@@ -2,9 +2,9 @@ require "spec_helper"
 include ClientAdmin::TilesHelper
 
 describe SuggestedTileStatusMailer do
-  let(:user) { FactoryGirl.create(:claimed_user) }
-  let(:demo) { FactoryGirl.create :demo }
-  let(:tile) { FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, original_creator: user }
+  let(:user) { FactoryBot.create(:claimed_user) }
+  let(:demo) { FactoryBot.create :demo }
+  let(:tile) { FactoryBot.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, original_creator: user }
 
   describe "#notify" do
     describe "when tile is accepted" do

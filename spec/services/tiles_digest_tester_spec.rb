@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TilesDigestTester do
   describe "#deliver_test" do
     before do
-      @client_admin = FactoryGirl.create(:client_admin)
+      @client_admin = FactoryBot.create(:client_admin)
     end
 
     it "attempts to send a test Tile Email and test Follow Up Email if follow_up_day != Never" do

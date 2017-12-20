@@ -4,14 +4,14 @@ require 'acceptance/acceptance_helper'
 feature "Client admin modifies the follow digest email", js: true do
 
   before do
-    @demo = FactoryGirl.create(:demo)
-    @admin = FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: @demo
+    @demo = FactoryBot.create(:demo)
+    @admin = FactoryBot.create :client_admin, email: 'client-admin@hengage.com', demo: @demo
 
-    @user1 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
-    @user2 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
-    @user3 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+    @user1 = FactoryBot.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+    @user2 = FactoryBot.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+    @user3 = FactoryBot.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
 
-    @tiles = FactoryGirl.create_list(:tile, 2, :active, demo: @demo, )
+    @tiles = FactoryBot.create_list(:tile, 2, :active, demo: @demo, )
 
     digest = TilesDigest.create(
       demo: @demo,

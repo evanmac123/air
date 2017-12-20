@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe TileUserNotificationMailer do
-  let(:users) { FactoryGirl.create_list(:user, 2) }
-  let(:tile) { FactoryGirl.create(:tile) }
+  let(:users) { FactoryBot.create_list(:user, 2) }
+  let(:tile) { FactoryBot.create(:tile) }
   let(:tile_user_notification) { TileUserNotification.create(tile: tile, creator: users.first, subject: "A SUBJECT", message: "A MESSAGE") }
 
   describe "#notify_all" do

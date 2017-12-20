@@ -3,7 +3,7 @@ require 'spec_helper'
 describe GuestUser do
   it { is_expected.to have_many(:tile_viewings) }
 
-  let(:user) { FactoryGirl.create(:guest_user) }
+  let(:user) { FactoryBot.create(:guest_user) }
 
   def convert
     user.convert_to_full_user!("Jimmy Smits", "jimmy@example.com", "weakpassword")
@@ -11,13 +11,13 @@ describe GuestUser do
 
   describe '#convert_to_full_user!' do
     it "should transfer over all the tile viewings, tile completions and acts that belong to the guest" do
-      3.times { FactoryGirl.create :tile_viewing }
-      3.times { FactoryGirl.create :tile_completion }
-      3.times { FactoryGirl.create :act }
+      3.times { FactoryBot.create :tile_viewing }
+      3.times { FactoryBot.create :tile_completion }
+      3.times { FactoryBot.create :act }
 
-      2.times { FactoryGirl.create :tile_viewing, user: user }
-      2.times { FactoryGirl.create :tile_completion, user: user }
-      2.times { FactoryGirl.create :act, user: user }
+      2.times { FactoryBot.create :tile_viewing, user: user }
+      2.times { FactoryBot.create :tile_completion, user: user }
+      2.times { FactoryBot.create :act, user: user }
 
       tile_viewing_ids = user.tile_viewing_ids
       tile_completion_ids = user.tile_completion_ids
@@ -40,10 +40,10 @@ describe GuestUser do
     end
 
     it "copies user in raffle information" do
-      raffle1 = FactoryGirl.create(:raffle)
-      user_in_raffle_info1 = FactoryGirl.create(:user_in_raffle_info, user: user, raffle: raffle1)
-      raffle2 = FactoryGirl.create(:raffle)
-      user_in_raffle_info2 = FactoryGirl.create(:user_in_raffle_info, user: user, raffle: raffle2)
+      raffle1 = FactoryBot.create(:raffle)
+      user_in_raffle_info1 = FactoryBot.create(:user_in_raffle_info, user: user, raffle: raffle1)
+      raffle2 = FactoryBot.create(:raffle)
+      user_in_raffle_info2 = FactoryBot.create(:user_in_raffle_info, user: user, raffle: raffle2)
 
       expect(user.user_in_raffle_infos).to eq([user_in_raffle_info1, user_in_raffle_info2])
       converted_user = convert
@@ -119,7 +119,7 @@ describe GuestUser do
     end
 
     it "requires the email be unique if the email belongs to a claimed user" do
-      FactoryGirl.create(:user, :claimed, email: "jimmy@example.com")
+      FactoryBot.create(:user, :claimed, email: "jimmy@example.com")
       convert
       expect(user.errors.keys).to include(:email)
     end

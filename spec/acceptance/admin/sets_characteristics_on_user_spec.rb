@@ -3,14 +3,14 @@ require 'acceptance/acceptance_helper'
 feature "Admin Sets Characteristics On User" do
 
   scenario "should allow both generic and demo-specific characteristics to be set" do
-    @demo = FactoryGirl.create :demo
-    @generic_characteristic = FactoryGirl.create :characteristic, :name => 'generic', :allowed_values => %w(foo bar baz)
-    @demo_characteristic = FactoryGirl.create :characteristic, :demo_specific, :name => 'demo specific', :allowed_values => %w(oh hai dere), :demo => @demo
-    @number_characteristic = FactoryGirl.create :characteristic, :demo_specific, :name => 'number type', :datatype => Characteristic::NumberType, :demo => @demo
-    @date_characteristic = FactoryGirl.create :characteristic, :demo_specific, :name => 'date type', :datatype => Characteristic::DateType, :demo => @demo
-    @boolean_characteristic = FactoryGirl.create :characteristic, :demo_specific, :name => 'boolean type', :datatype => Characteristic::BooleanType, :demo => @demo
-    @other_demo_characteristic = FactoryGirl.create :characteristic, :demo_specific, :name => 'other demo characteristic', :allowed_values => %w(and so on)
-    @user = FactoryGirl.create :user, :demo => @demo, :name => "Hank Robertson"
+    @demo = FactoryBot.create :demo
+    @generic_characteristic = FactoryBot.create :characteristic, :name => 'generic', :allowed_values => %w(foo bar baz)
+    @demo_characteristic = FactoryBot.create :characteristic, :demo_specific, :name => 'demo specific', :allowed_values => %w(oh hai dere), :demo => @demo
+    @number_characteristic = FactoryBot.create :characteristic, :demo_specific, :name => 'number type', :datatype => Characteristic::NumberType, :demo => @demo
+    @date_characteristic = FactoryBot.create :characteristic, :demo_specific, :name => 'date type', :datatype => Characteristic::DateType, :demo => @demo
+    @boolean_characteristic = FactoryBot.create :characteristic, :demo_specific, :name => 'boolean type', :datatype => Characteristic::BooleanType, :demo => @demo
+    @other_demo_characteristic = FactoryBot.create :characteristic, :demo_specific, :name => 'other demo characteristic', :allowed_values => %w(and so on)
+    @user = FactoryBot.create :user, :demo => @demo, :name => "Hank Robertson"
 
     visit edit_admin_demo_user_path(@user.demo, @user, as: an_admin)
     expect_no_content('other demo characteristic')

@@ -21,7 +21,7 @@ describe TilesDigestScheduler do
   end
 
   def digest_form
-    current_user = FactoryGirl.create(:client_admin)
+    current_user = FactoryBot.create(:client_admin)
 
     params = {
       demo: current_user.demo,

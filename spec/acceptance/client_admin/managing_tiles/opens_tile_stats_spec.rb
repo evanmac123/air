@@ -2,12 +2,12 @@ require 'acceptance/acceptance_helper'
 
 feature "Client admin opens tile stats", js: true, type: :feature do
 
-  let!(:demo) { FactoryGirl.create :demo }
-  let!(:client_admin) { FactoryGirl.create :client_admin, demo: demo }
-  let(:user_1) { FactoryGirl.create(:user, demo: demo, name: 'One') }
-  let(:user_2) { FactoryGirl.create(:user, demo: demo, name: 'Two') }
+  let!(:demo) { FactoryBot.create :demo }
+  let!(:client_admin) { FactoryBot.create :client_admin, demo: demo }
+  let(:user_1) { FactoryBot.create(:user, demo: demo, name: 'One') }
+  let(:user_2) { FactoryBot.create(:user, demo: demo, name: 'Two') }
 
-  let!(:tile) { FactoryGirl.create(:multiple_choice_tile,
+  let!(:tile) { FactoryBot.create(:multiple_choice_tile,
     status: Tile::ACTIVE,
     demo: demo,
     activated_at: Time.current,
@@ -18,10 +18,10 @@ feature "Client admin opens tile stats", js: true, type: :feature do
   )}
 
   def create_user_data_for_sorting(tile)
-    FactoryGirl.create(:tile_completion, user: user_1, tile: tile, created_at: 10.minutes.from_now, answer_index: 0)
-    FactoryGirl.create(:tile_viewing, user: user_1, tile: tile, created_at: 11.minutes.from_now)
+    FactoryBot.create(:tile_completion, user: user_1, tile: tile, created_at: 10.minutes.from_now, answer_index: 0)
+    FactoryBot.create(:tile_viewing, user: user_1, tile: tile, created_at: 11.minutes.from_now)
 
-    FactoryGirl.create(:tile_viewing, user: user_2, tile: tile, created_at: 61.minutes.from_now)
+    FactoryBot.create(:tile_viewing, user: user_2, tile: tile, created_at: 61.minutes.from_now)
   end
 
   def open_stats(tile)

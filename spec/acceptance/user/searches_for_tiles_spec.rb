@@ -3,16 +3,16 @@ require 'acceptance/acceptance_helper'
 feature 'User searches for tile', js: true, search: true do
 
   before do
-    organization = FactoryGirl.create(:organization)
-    demo = FactoryGirl.create(:demo, organization: organization)
+    organization = FactoryBot.create(:organization)
+    demo = FactoryBot.create(:demo, organization: organization)
 
-    _active_tiles = FactoryGirl.create_list(:tile, 3, headline: "active-tile", demo: demo, status: Tile::ACTIVE)
-    archived_tiles = FactoryGirl.create_list(:tile, 3, demo: demo, headline: "archived-tile", status: Tile::ARCHIVE)
-    _draft_tiles = FactoryGirl.create_list(:tile, 3, demo: demo, headline: "draft-tile", status: Tile::DRAFT)
+    _active_tiles = FactoryBot.create_list(:tile, 3, headline: "active-tile", demo: demo, status: Tile::ACTIVE)
+    archived_tiles = FactoryBot.create_list(:tile, 3, demo: demo, headline: "archived-tile", status: Tile::ARCHIVE)
+    _draft_tiles = FactoryBot.create_list(:tile, 3, demo: demo, headline: "draft-tile", status: Tile::DRAFT)
 
     Tile.reindex
 
-    user = FactoryGirl.create(:user, demo: demo)
+    user = FactoryBot.create(:user, demo: demo)
     TileCompletion.create(tile: archived_tiles.first, user: user)
 
     visit root_path(as: user)

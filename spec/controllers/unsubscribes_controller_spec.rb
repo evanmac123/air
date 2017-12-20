@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UnsubscribesController do
   describe "POST create" do
     it "unsubscribes user and sends ping" do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
 
       subject.expects(:ping).with('Unsubscribed', { email_type: 'default' }, user)
       UnsubscribeService.any_instance.expects(:valid_unsubscribe?).returns(true)
@@ -15,7 +15,7 @@ describe UnsubscribesController do
     end
 
     it "returns a flash if invalid unsubscribe" do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       UnsubscribeService.any_instance.expects(:valid_unsubscribe?).returns(false)
 
       post(:create, { user_id: user.id, demo_id: user.demo.id, email_type: 'default', token: '123' })

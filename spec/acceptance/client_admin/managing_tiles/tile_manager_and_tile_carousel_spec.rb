@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Ensure carousel are in synch', js: true do
 
-  let(:admin) { FactoryGirl.create(:client_admin) }
+  let(:admin) { FactoryBot.create(:client_admin) }
   let(:demo) { admin.demo }
   let(:tiles) { [] }
 
@@ -10,7 +10,7 @@ feature 'Ensure carousel are in synch', js: true do
     UserIntro.any_instance.stubs(:displayed_first_tile_hint).returns(true)
 
     1.upto(4) do |i|
-      tiles << FactoryGirl.create(:tile,  demo: demo, headline: "Tile #{i}", created_at: Time.current + i.days)
+      tiles << FactoryBot.create(:tile,  demo: demo, headline: "Tile #{i}", created_at: Time.current + i.days)
     end
 
     bypass_modal_overlays(admin)

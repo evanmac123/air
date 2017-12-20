@@ -4,9 +4,9 @@ describe ClientAdmin::TileImagesController do
   describe "GET index" do
     it "should return correct tiles" do
       subject.stubs(:ping)
-      demo = FactoryGirl.create(:demo)
-      client_admin = FactoryGirl.create(:client_admin, demo: demo)
-      tile_images = FactoryGirl.create_list :tile_image, 55
+      demo = FactoryBot.create(:demo)
+      client_admin = FactoryBot.create(:client_admin, demo: demo)
+      tile_images = FactoryBot.create_list :tile_image, 55
       TileImage.update_all(image_processing: false, thumbnail_processing: false)
 
       sign_in_as(client_admin)

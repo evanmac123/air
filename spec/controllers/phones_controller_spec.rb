@@ -8,8 +8,8 @@ describe PhonesController do
       original_number = "+14155551212"
       new_number = "+18089761234"
 
-      user = FactoryGirl.create(:user, phone_number: original_number)
-      FactoryGirl.create(:user, phone_number: new_number)
+      user = FactoryBot.create(:user, phone_number: original_number)
+      FactoryBot.create(:user, phone_number: new_number)
 
       sign_in_as(user)
       request.env['HTTP_REFERER'] = account_settings_path
@@ -33,7 +33,7 @@ describe PhonesController do
       before do
         subject.stubs(:ping)
 
-        @user = FactoryGirl.create(:user, phone_number: old_phone_number, new_phone_number: new_phone_number, new_phone_validation: "1234")
+        @user = FactoryBot.create(:user, phone_number: old_phone_number, new_phone_number: new_phone_number, new_phone_validation: "1234")
 
         sign_in_as(@user)
         request.env['HTTP_REFERER'] = edit_account_settings_path

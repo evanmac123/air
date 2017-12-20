@@ -13,7 +13,7 @@ describe TilesDigestForm do
   end
 
   before do
-    @client_admin = FactoryGirl.create(:client_admin)
+    @client_admin = FactoryBot.create(:client_admin)
     @tiles_digest_form = TilesDigestForm.new(demo: @client_admin.demo, user: @client_admin, params: digest_params)
   end
 

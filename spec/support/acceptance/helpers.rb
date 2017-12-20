@@ -27,21 +27,21 @@ module SteakHelperMethods
   end
 
   def signin_as_admin
-    admin = FactoryGirl.create :user, :is_site_admin => true
+    admin = FactoryBot.create :user, :is_site_admin => true
     has_password(admin, 'foobar')
     signin_as(admin, 'foobar')
     admin
   end
 
   def signin_as_client_admin
-    admin = FactoryGirl.create :user, :is_client_admin => true
+    admin = FactoryBot.create :user, :is_client_admin => true
     has_password(admin, 'foobar')
     signin_as(admin, 'foobar')
     admin
   end
 
   def clearance_signin_as_admin
-    admin = FactoryGirl.create :user, :is_site_admin => true
+    admin = FactoryBot.create :user, :is_site_admin => true
     sign_in_as(admin) # This is clearance's built in method
   end
 
@@ -52,26 +52,26 @@ module SteakHelperMethods
   # visit foo_path(as: a_client_admin)
   # visit foo_path(as: a_regular_user)
   #
-  # reads much better than the alternative using just FactoryGirl
+  # reads much better than the alternative using just FactoryBot
 
   def an_admin
-    FactoryGirl.create :user, is_site_admin: true
+    FactoryBot.create :user, is_site_admin: true
   end
 
   def a_client_admin(demo = nil)
     if demo
-      FactoryGirl.create :user, is_client_admin: true, demo: demo
+      FactoryBot.create :user, is_client_admin: true, demo: demo
     else
-      FactoryGirl.create :user, is_client_admin: true
+      FactoryBot.create :user, is_client_admin: true
     end
   end
 
   def a_regular_user
-    FactoryGirl.create :user
+    FactoryBot.create :user
   end
 
   def a_guest_user
-    FactoryGirl.create :guest_user
+    FactoryBot.create :guest_user
   end
 
   def has_password(user, password)

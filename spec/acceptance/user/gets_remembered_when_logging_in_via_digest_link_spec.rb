@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Gets remembered when logging in via digest link' do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
   after(:each) do
     Timecop.return

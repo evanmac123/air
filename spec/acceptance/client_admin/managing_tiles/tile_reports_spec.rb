@@ -5,7 +5,7 @@ TestAfterCommit.enabled = true
 feature 'client admin views tiles reports', broken: true do
   # TODO: There's is an issue with times here when run on CI.
 
-  let(:admin) { FactoryGirl.create :client_admin }
+  let(:admin) { FactoryBot.create :client_admin }
   let(:demo)  { admin.demo  }
 
   def download_links
@@ -24,8 +24,8 @@ feature 'client admin views tiles reports', broken: true do
     # Chronologically-speaking, creating tiles "up" from 0 to 'nun_tiles' and then checking "down" from 'num_tiles' to 0
     let(:num_tiles) { 10 }
 
-    let!(:claimed_users)   { FactoryGirl.create_list(:user, 99, :claimed, demo: demo) << admin }  # admin + 99 = 100
-    let!(:unclaimed_users) { FactoryGirl.create_list :user, 5,            demo: demo }
+    let!(:claimed_users)   { FactoryBot.create_list(:user, 99, :claimed, demo: demo) << admin }  # admin + 99 = 100
+    let!(:unclaimed_users) { FactoryBot.create_list :user, 5,            demo: demo }
 
     let!(:tiles) do
       # Active tiles: 9, 5, 7, 3, 1
@@ -34,7 +34,7 @@ feature 'client admin views tiles reports', broken: true do
       on_day '7/4/2013' do
         num_tiles.times do |i|
           awhile_from_now = Time.zone.now + i.days
-          tile = FactoryGirl.create :tile, demo: demo, headline: "Tile , #{i}", created_at: awhile_from_now, activated_at: awhile_from_now, archived_at: awhile_from_now + 1.day, status: Tile::ACTIVE
+          tile = FactoryBot.create :tile, demo: demo, headline: "Tile , #{i}", created_at: awhile_from_now, activated_at: awhile_from_now, archived_at: awhile_from_now + 1.day, status: Tile::ACTIVE
 
           if i.even?
             awhile_ago = tile.created_at - 2.weeks
@@ -42,7 +42,7 @@ feature 'client admin views tiles reports', broken: true do
           end
 
           (i * 10).times do |j|
-            FactoryGirl.create :tile_completion, tile: tile, user: claimed_users[j]
+            FactoryBot.create :tile_completion, tile: tile, user: claimed_users[j]
             2.times { TileViewing.add tile, claimed_users[j] }
           end
         end

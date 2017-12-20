@@ -4,18 +4,18 @@ feature 'In multiple boards appears present in all at once' do
   USER_NAME = "Mister Multiple"
 
   def create_two_boards(*args)
-    @first_board = FactoryGirl.create(:demo, *args)
-    @second_board = FactoryGirl.create(:demo, *args)
+    @first_board = FactoryBot.create(:demo, *args)
+    @second_board = FactoryBot.create(:demo, *args)
   end
 
   def create_user
-    @user = FactoryGirl.create(:user, :claimed, name: USER_NAME, demo: @first_board)
+    @user = FactoryBot.create(:user, :claimed, name: USER_NAME, demo: @first_board)
     @user.add_board(@second_board)
   end
 
   def create_two_admins
-    @first_admin = FactoryGirl.create(:client_admin, demo: @first_board)
-    @second_admin = FactoryGirl.create(:client_admin, demo: @second_board)
+    @first_admin = FactoryBot.create(:client_admin, demo: @first_board)
+    @second_admin = FactoryBot.create(:client_admin, demo: @second_board)
   end
 
   def first_tile_headline(board)
@@ -68,11 +68,11 @@ feature 'In multiple boards appears present in all at once' do
 
   context "in connection lists of friends" do
     it "should appear regardless of which board you look from" do
-      @first_friend = FactoryGirl.create(:user)
-      @second_friend = FactoryGirl.create(:user)
-      @random_dude = FactoryGirl.create(:user)
+      @first_friend = FactoryBot.create(:user)
+      @second_friend = FactoryBot.create(:user)
+      @random_dude = FactoryBot.create(:user)
 
-      @user = FactoryGirl.create(:user, demo: @first_friend.demo, name: USER_NAME)
+      @user = FactoryBot.create(:user, demo: @first_friend.demo, name: USER_NAME)
       @user.add_board(@second_friend.demo)
 
       @user.befriend(@first_friend)
@@ -95,7 +95,7 @@ feature 'In multiple boards appears present in all at once' do
     before do
       create_two_boards(:activated)
       create_two_admins
-      Tile.all.each { |tile| FactoryGirl.create(:tile_completion, tile: tile) } # gets us past the "invite users" share screen
+      Tile.all.each { |tile| FactoryBot.create(:tile_completion, tile: tile) } # gets us past the "invite users" share screen
 
       create_user
     end

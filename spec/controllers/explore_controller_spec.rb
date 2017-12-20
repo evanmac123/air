@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ExploreController do
   describe "pings" do
-    let(:client_admin) { FactoryGirl.create :client_admin }
+    let(:client_admin) { FactoryBot.create :client_admin }
     it "should send tile email tracking ping when there is a user and the params specify email type and a tile email id" do
       subject.stubs(:explore_email_clicked_ping)
 

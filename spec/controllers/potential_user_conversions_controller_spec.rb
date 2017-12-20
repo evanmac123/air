@@ -4,10 +4,10 @@ describe PotentialUserConversionsController do
   describe "POST #create" do
     context 'when session hash includes potential_user_id' do
       before do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         demo = user.demo
 
-        potential_user = FactoryGirl.create(:potential_user, email: "john@snow.com", demo: demo, primary_user: user)
+        potential_user = FactoryBot.create(:potential_user, email: "john@snow.com", demo: demo, primary_user: user)
 
         potential_user.is_invited_by(user)
 

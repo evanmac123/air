@@ -2,13 +2,13 @@ require 'acceptance/acceptance_helper'
 
 feature "Explore", js: true do
   before do
-    @demo = FactoryGirl.create(:demo)
-    @user = FactoryGirl.create(:user, is_client_admin: true, demo: @demo)
-    @tiles = FactoryGirl.create_list(:tile, 3, is_public: true, demo: @demo)
+    @demo = FactoryBot.create(:demo)
+    @user = FactoryBot.create(:user, is_client_admin: true, demo: @demo)
+    @tiles = FactoryBot.create_list(:tile, 3, is_public: true, demo: @demo)
 
-    @tile_feature_1 = FactoryGirl.create(:tile_feature, name: "tile_feature_1", rank: 1, active: true)
-    @tile_feature_2 = FactoryGirl.create(:tile_feature, name: "tile_feature_2", rank: 2, active: false)
-    @tile_feature_3 = FactoryGirl.create(:tile_feature, name: "tile_feature_3", rank: 3, active: true)
+    @tile_feature_1 = FactoryBot.create(:tile_feature, name: "tile_feature_1", rank: 1, active: true)
+    @tile_feature_2 = FactoryBot.create(:tile_feature, name: "tile_feature_2", rank: 2, active: false)
+    @tile_feature_3 = FactoryBot.create(:tile_feature, name: "tile_feature_3", rank: 3, active: true)
 
     TileFeature.all.each_with_index do |tf, i|
       tf.dispatch_redis_updates({
@@ -17,8 +17,8 @@ feature "Explore", js: true do
       })
     end
 
-    FactoryGirl.create_list(:channel, 12, active: true)
-    FactoryGirl.create(:channel, active: false)
+    FactoryBot.create_list(:channel, 12, active: true)
+    FactoryBot.create(:channel, active: false)
 
     visit explore_path(as: @user)
   end

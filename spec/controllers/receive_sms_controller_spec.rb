@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ReceiveSmsController do
   describe "#create" do
     before(:each) do
-      @user = FactoryGirl.create(:user, phone_number: "+14152613077")
+      @user = FactoryBot.create(:user, phone_number: "+14152613077")
     end
 
     describe "when existing user responds with anything but 'stop'" do

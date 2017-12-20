@@ -9,15 +9,15 @@ feature "interacts with a tile from the explore-preview page" do
     @user.nil? || @user.class == GuestUser
   end
 
-  let (:creator) {FactoryGirl.create(:client_admin, name: "Charlotte McTilecreator")}
-  let (:actor) {FactoryGirl.create(:client_admin, name: "Joe Copier")}
-  let (:last_actor) {FactoryGirl.create(:client_admin, name: "John Lastactor")}
-  let (:second_actor) {FactoryGirl.create(:client_admin, name: "Suzanne von Secondactor")}
+  let (:creator) {FactoryBot.create(:client_admin, name: "Charlotte McTilecreator")}
+  let (:actor) {FactoryBot.create(:client_admin, name: "Joe Copier")}
+  let (:last_actor) {FactoryBot.create(:client_admin, name: "John Lastactor")}
+  let (:second_actor) {FactoryBot.create(:client_admin, name: "Suzanne von Secondactor")}
 
   context "as Nobody", js: true  do
     before do
       UserIntro.any_instance.stubs(:explore_intro_seen).returns(true)
-      @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
+      @original_tile = FactoryBot.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
 
       visit explore_tile_preview_path(@original_tile, as: nil)
     end
@@ -56,8 +56,8 @@ feature "interacts with a tile from the explore-preview page" do
     before do
 
       UserIntro.any_instance.stubs(:explore_intro_seen).returns(true)
-      @original_tile = FactoryGirl.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
-      @user = FactoryGirl.create(:guest_user)
+      @original_tile = FactoryBot.create(:multiple_choice_tile, :copyable, creator: creator, demo: creator.demo)
+      @user = FactoryBot.create(:guest_user)
 
       visit explore_tile_preview_path(@original_tile, as: @user)
     end
@@ -94,8 +94,8 @@ feature "interacts with a tile from the explore-preview page" do
 
   context "as guest for a public tile in a private board" do
     it "should allow the guest to see the tile", js: true do
-      private_board = FactoryGirl.create(:demo, is_public: false)
-      tile = FactoryGirl.create(:multiple_choice_tile, :copyable, :sharable, demo: private_board)
+      private_board = FactoryBot.create(:demo, is_public: false)
+      tile = FactoryBot.create(:multiple_choice_tile, :copyable, :sharable, demo: private_board)
 
       visit sharable_tile_path(tile)
 

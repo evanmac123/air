@@ -8,12 +8,12 @@ include EmailHelper
 # That method returns a 'mail' object, whose content is then tested.
 
 describe 'Digest email' do
-  let(:demo) { FactoryGirl.create :demo, tile_digest_email_sent_at: Date.yesterday, allow_unsubscribes: true }
+  let(:demo) { FactoryBot.create :demo, tile_digest_email_sent_at: Date.yesterday, allow_unsubscribes: true }
 
-# TODO: Using the board_membership factory here is a side effect of how convoluted our factories have become as we've move to using BoardMemberships.  Although there are multiple issues, the particluar issue that necessitated using the board_membership factory is that FactoryGirl.create(:claimed_user) creates a user that is 'claimed' in the old sense of the term (i.e. User.activated_at != nil), whereas we now need 'claimed' to mean User.board_membership.joined_board_at != nil. Refactor factories when there is time.
+# TODO: Using the board_membership factory here is a side effect of how convoluted our factories have become as we've move to using BoardMemberships.  Although there are multiple issues, the particluar issue that necessitated using the board_membership factory is that FactoryBot.create(:claimed_user) creates a user that is 'claimed' in the old sense of the term (i.e. User.activated_at != nil), whereas we now need 'claimed' to mean User.board_membership.joined_board_at != nil. Refactor factories when there is time.
 
   let!(:claimed_user) do
-    user = FactoryGirl.create(:claimed_user,
+    user = FactoryBot.create(:claimed_user,
       name: 'John Campbell',
       email: 'john@campbell.com',
       demo: demo
@@ -24,7 +24,7 @@ describe 'Digest email' do
   end
 
   let!(:unclaimed_user) do
-    FactoryGirl.create(:user,
+    FactoryBot.create(:user,
       name: 'Irma Thomas',
       email: 'irma@thomas.com',
       demo: demo
@@ -32,13 +32,13 @@ describe 'Digest email' do
   end
 
   let(:tiles) do
-    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 1', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_1')
+    FactoryBot.create(:tile, demo: demo, headline: 'Headline 1', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_1')
 
-    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 2', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_2')
+    FactoryBot.create(:tile, demo: demo, headline: 'Headline 2', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_2')
 
-    FactoryGirl.create(:tile, demo: demo, headline: 'Headline 3', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_3')
+    FactoryBot.create(:tile, demo: demo, headline: 'Headline 3', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_3')
 
-    FactoryGirl.create(:tile, demo: demo, headline: "Archive Tile", status: Tile::ARCHIVE)  # This guy shouldn't show up in the email
+    FactoryBot.create(:tile, demo: demo, headline: "Archive Tile", status: Tile::ARCHIVE)  # This guy shouldn't show up in the email
 
     demo.tiles
   end
@@ -121,8 +121,8 @@ describe 'Digest email' do
   end
 
   describe 'Links' do
-    let(:client_admin) { FactoryGirl.create :client_admin, demo: demo }
-    let(:site_admin)   { FactoryGirl.create :site_admin,   demo: demo }
+    let(:client_admin) { FactoryBot.create :client_admin, demo: demo }
+    let(:site_admin)   { FactoryBot.create :site_admin,   demo: demo }
 
     # There should be 11 links in all: 9 tile links(3 for each tile) and 2 text links. All links should contain a security token
     # that is used to sign the user in when they click on any of the links in the tile-digest email.
@@ -292,25 +292,25 @@ describe 'Digest email' do
     end
 
     it 'should be delivered only to users who did no tiles' do
-      demo = FactoryGirl.create :demo
-      sender = FactoryGirl.create(:client_admin, demo: demo)
+      demo = FactoryBot.create :demo
+      sender = FactoryBot.create(:client_admin, demo: demo)
 
-      john = FactoryGirl.create :claimed_user, demo: demo, name: 'John',   email: 'john@beatles.com'
-      _paul = FactoryGirl.create :user,         demo: demo, name: 'Paul',   email: 'paul@beatles.com'
-      _george = FactoryGirl.create :claimed_user, demo: demo, name: 'George', email: 'george@beatles.com'
-      ringo = FactoryGirl.create :user,         demo: demo, name: 'Ringo',  email: 'ringo@beatles.com'
+      john = FactoryBot.create :claimed_user, demo: demo, name: 'John',   email: 'john@beatles.com'
+      _paul = FactoryBot.create :user,         demo: demo, name: 'Paul',   email: 'paul@beatles.com'
+      _george = FactoryBot.create :claimed_user, demo: demo, name: 'George', email: 'george@beatles.com'
+      ringo = FactoryBot.create :user,         demo: demo, name: 'Ringo',  email: 'ringo@beatles.com'
 
-      tiles    = FactoryGirl.create_list :tile, 3, demo: demo
+      tiles    = FactoryBot.create_list :tile, 3, demo: demo
       tile_ids = tiles.collect(&:id)
 
       digest = TilesDigest.create(demo: demo, sender: sender, tile_ids: tile_ids, sent_at: Time.current, include_unclaimed_users: true)
 
       digest.create_follow_up_digest_email(send_on: Date.current)
 
-      FactoryGirl.create :tile_completion, user: john,  tile: tiles[0]
-      FactoryGirl.create :tile_completion, user: john,  tile: tiles[1]
-      FactoryGirl.create :tile_completion, user: ringo, tile: tiles[2]
-      FactoryGirl.create :tile_completion, user: sender, tile: tiles[2]
+      FactoryBot.create :tile_completion, user: john,  tile: tiles[0]
+      FactoryBot.create :tile_completion, user: john,  tile: tiles[1]
+      FactoryBot.create :tile_completion, user: ringo, tile: tiles[2]
+      FactoryBot.create :tile_completion, user: sender, tile: tiles[2]
 
       TilesDigestMailer.notify_all_follow_up
 
@@ -324,15 +324,15 @@ describe 'Digest email' do
     end
 
     it "should not deliver to users who did not get the original digest" do
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
 
-      users_to_deliver_to = FactoryGirl.create_list(:user, 2, demo: demo)
+      users_to_deliver_to = FactoryBot.create_list(:user, 2, demo: demo)
 
       digest = TilesDigest.create(demo: demo, sender: users_to_deliver_to.first, sent_at: Time.current, tile_ids: [], include_unclaimed_users: true)
 
       digest.create_follow_up_digest_email(send_on: Date.current)
 
-      _users_to_not_deliver_to = FactoryGirl.create_list(:user, 2, demo: demo)
+      _users_to_not_deliver_to = FactoryBot.create_list(:user, 2, demo: demo)
 
       TilesDigestMailer.notify_all_follow_up
 
@@ -344,8 +344,8 @@ describe 'Digest email' do
       it "should base the subject on that" do
         custom_original_digest_subject = "Et tu, Brute?"
 
-        user = FactoryGirl.create(:user)
-        tile = FactoryGirl.create(:tile, demo: user.demo)
+        user = FactoryBot.create(:user)
+        tile = FactoryBot.create(:tile, demo: user.demo)
 
         digest = TilesDigest.create(demo: user.demo, sender: user, tile_ids: [tile.id], subject: custom_original_digest_subject, include_unclaimed_users: true, sent_at: Time.current)
 
@@ -362,10 +362,10 @@ describe 'Digest email' do
 
     context "when a custom subject is not used in the original" do
       it "should have a reasonable default" do
-        sender = FactoryGirl.create(:client_admin)
-        user = FactoryGirl.create(:claimed_user)
+        sender = FactoryBot.create(:client_admin)
+        user = FactoryBot.create(:claimed_user)
 
-        tile = FactoryGirl.create(:tile, demo: user.demo)
+        tile = FactoryBot.create(:tile, demo: user.demo)
 
         digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id], include_unclaimed_users: true, sent_at: Time.current)
 
@@ -382,9 +382,9 @@ describe 'Digest email' do
 
     context "when a custom headline is used in the original" do
       it "should use the same for the followup" do
-        sender = FactoryGirl.create(:client_admin)
-        user = FactoryGirl.create(:claimed_user)
-        tile = FactoryGirl.create(:tile, demo: user.demo)
+        sender = FactoryBot.create(:client_admin)
+        user = FactoryBot.create(:claimed_user)
+        tile = FactoryBot.create(:tile, demo: user.demo)
 
         digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id], headline: 'Kneel before Zod', include_unclaimed_users: true, sent_at: Time.current)
 
@@ -401,9 +401,9 @@ describe 'Digest email' do
 
     context "when a custom headline is not used in the original" do
       it "should have a reasonable default" do
-        sender = FactoryGirl.create(:client_admin)
-        user = FactoryGirl.create(:claimed_user)
-        tile = FactoryGirl.create(:tile, demo: user.demo)
+        sender = FactoryBot.create(:client_admin)
+        user = FactoryBot.create(:claimed_user)
+        tile = FactoryBot.create(:tile, demo: user.demo)
 
         digest = TilesDigest.create(demo: user.demo, sender: sender, tile_ids: [tile.id], include_unclaimed_users: true, sent_at: Time.current)
 
@@ -419,9 +419,9 @@ describe 'Digest email' do
     end
 
     it 'should not send to a user who is unsubscribed' do
-      followup_board = FactoryGirl.create(:demo)
-      unmuted_user = FactoryGirl.create(:user, demo: followup_board)
-      muted_user   = FactoryGirl.create(:user, demo: followup_board)
+      followup_board = FactoryBot.create(:demo)
+      unmuted_user = FactoryBot.create(:user, demo: followup_board)
+      muted_user   = FactoryBot.create(:user, demo: followup_board)
 
       muted_user.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:unsubscribe])
 

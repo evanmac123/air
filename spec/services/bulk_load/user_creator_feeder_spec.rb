@@ -29,7 +29,7 @@ describe BulkLoad::UserCreatorFeeder do
     end
 
     it "should log errors to some queue somewhere" do
-      existing_user = FactoryGirl.create(:user)
+      existing_user = FactoryBot.create(:user)
       demo_id = existing_user.demo.id
       email = existing_user.email
       expect(email).to be_present

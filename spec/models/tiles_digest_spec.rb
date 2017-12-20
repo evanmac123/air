@@ -14,7 +14,7 @@ RSpec.describe TilesDigest, :type => :model do
     }
   end
 
-  let(:client_admin) { FactoryGirl.create(:client_admin) }
+  let(:client_admin) { FactoryBot.create(:client_admin) }
   let(:demo) { client_admin.demo }
 
   describe "#after_destroy" do
@@ -73,7 +73,7 @@ RSpec.describe TilesDigest, :type => :model do
     it "creates a tiles_digest object with correct attrs and tiles" do
       demo.update_attributes(tile_digest_email_sent_at: Time.current)
       params = digest_params(demo, client_admin, true)
-      tiles = FactoryGirl.create_list(:tile, 5, demo: demo)
+      tiles = FactoryBot.create_list(:tile, 5, demo: demo)
       digest = TilesDigest.dispatch(params)
 
       expect(digest.persisted?).to be true
@@ -104,8 +104,8 @@ RSpec.describe TilesDigest, :type => :model do
   describe "#send_emails_and_sms" do
     before do
       params = digest_params(demo, client_admin, true)
-      _tiles = FactoryGirl.create_list(:tile, 5, demo: demo)
-      _users = FactoryGirl.create_list(:user, 5, demo: demo)
+      _tiles = FactoryBot.create_list(:tile, 5, demo: demo)
+      _users = FactoryBot.create_list(:user, 5, demo: demo)
       @digest = TilesDigest.dispatch(params)
     end
 
@@ -153,7 +153,7 @@ RSpec.describe TilesDigest, :type => :model do
 
   describe "#tile_ids" do
     it "returns tile_ids from associated tiles" do
-      tiles = FactoryGirl.create_list(:tile, 5, demo: demo)
+      tiles = FactoryBot.create_list(:tile, 5, demo: demo)
       digest = TilesDigest.create(demo: demo, sender: client_admin)
 
       tiles.each do |tile|
@@ -323,9 +323,9 @@ RSpec.describe TilesDigest, :type => :model do
 
   describe ".paid" do
     it "returns a collection of TilesDigests that came from paid boards" do
-      paid_board = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
-      _free_board = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free])
-      _trial_board = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:trial])
+      paid_board = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
+      _free_board = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:free])
+      _trial_board = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:trial])
 
       Demo.all.each do |demo|
         demo.tiles_digests.create

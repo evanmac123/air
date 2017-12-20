@@ -4,8 +4,8 @@ require 'spec_helper'
 describe UserBoardMigrator do
 
   before do
-    @board_a = FactoryGirl.create(:demo)
-    @board_b = FactoryGirl.create(:demo)
+    @board_a = FactoryBot.create(:demo)
+    @board_b = FactoryBot.create(:demo)
     @users_a =[]
     @users_b =[]
 
@@ -16,11 +16,11 @@ describe UserBoardMigrator do
 
       before do
         {"john"=> 50, "paul" =>75}.each do |name, point|
-          @users_a << FactoryGirl.create(:user, name: name,   points: point, demo: @board_a)
+          @users_a << FactoryBot.create(:user, name: name,   points: point, demo: @board_a)
         end
 
         {"mathew" => 72, "luke" => 57}.each do |name, point|
-          @users_b << FactoryGirl.create(:user, name: name, points: point, demo: @board_b)
+          @users_b << FactoryBot.create(:user, name: name, points: point, demo: @board_b)
         end
 
         @john = @users_a.select{|u|u.name =="john"}.first
@@ -77,19 +77,19 @@ describe UserBoardMigrator do
     context "with common users between boards" do
       before do
         {"john"=> 50, "paul" =>75, "timothy" => 20}.each do |name, point|
-          @users_a << FactoryGirl.create(:user, name: name,   points: point, demo: @board_a)
+          @users_a << FactoryBot.create(:user, name: name,   points: point, demo: @board_a)
         end
 
         {"mathew" => 72, "luke" => 57}.each do |name, point|
-          @users_b << FactoryGirl.create(:user, name: name, points: point, demo: @board_b)
+          @users_b << FactoryBot.create(:user, name: name, points: point, demo: @board_b)
         end
 
         @john = @users_a.select{|u|u.name =="john"}.first
         @paul = @users_a.select{|u|u.name =="paul"}.first
         @timothy = @users_a.select{|u|u.name =="timothy"}.first
 
-        FactoryGirl.create(:board_membership,user: @john, demo: @board_b, points: 0)
-        FactoryGirl.create(:board_membership,user: @paul, demo: @board_b, points: 25)
+        FactoryBot.create(:board_membership,user: @john, demo: @board_b, points: 0)
+        FactoryBot.create(:board_membership,user: @paul, demo: @board_b, points: 25)
 
         @board_a_bms = @board_a.board_memberships
         @bard_b_bms= @board_b.board_memberships

@@ -4,7 +4,7 @@ feature "User Chooses To Be Remembered Or Not" do
   include SessionHelpers
 
   before do
-    @user = FactoryGirl.create :user
+    @user = FactoryBot.create :user
     has_password(@user, 'foobar')
 
     visit signin_page

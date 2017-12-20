@@ -18,7 +18,7 @@ describe ApplicationMailer do
     end
   end
 
-  let(:user) { FactoryGirl.build(:user) }
+  let(:user) { FactoryBot.build(:user) }
 
   describe "on initialize it calls #set_default_x_smtpapi_headers" do
     it "sets deault X-SMTPAPI headers if they are not already set" do

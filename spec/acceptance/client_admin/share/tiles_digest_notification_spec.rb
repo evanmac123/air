@@ -6,15 +6,15 @@ include EmailHelper
 
 feature 'Client admin and the digest email for tiles' do
 
-  let!(:demo)  { FactoryGirl.create :demo, email: 'foobar@playhengage.com' }
-  let!(:admin) { FactoryGirl.create :client_admin, email: 'client-admin@hengage.com', demo: demo, phone_number: "+3333333333" }
+  let!(:demo)  { FactoryBot.create :demo, email: 'foobar@playhengage.com' }
+  let!(:admin) { FactoryBot.create :client_admin, email: 'client-admin@hengage.com', demo: demo, phone_number: "+3333333333" }
 
   before do
     on_day '7/5/2013' do
       admin.board_memberships.update_all(created_at: Time.current)
-      user = FactoryGirl.create :user, demo: demo
+      user = FactoryBot.create :user, demo: demo
       tile = create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, demo: demo, headline: "Tile completed"
-      FactoryGirl.create(:tile_completion, tile: tile, user: user)
+      FactoryBot.create(:tile_completion, tile: tile, user: user)
     end
   end
 
@@ -106,7 +106,7 @@ feature 'Client admin and the digest email for tiles' do
 
   context 'No tiles exist for digest email' do
     before(:each) do
-      FactoryGirl.create :tile, demo: demo
+      FactoryBot.create :tile, demo: demo
       visit client_admin_share_path(as: admin)
     end
 
@@ -185,16 +185,16 @@ feature 'Client admin and the digest email for tiles' do
 
         before do
           on_day '7/5/2013' do
-            FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
-            FactoryGirl.create :user, demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'
+            FactoryBot.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
+            FactoryBot.create :user, demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'
 
-            FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
-            FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
+            FactoryBot.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
+            FactoryBot.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
 
-            FactoryGirl.create :site_admin, demo: demo, name: 'Eric Claption',  email: 'site-admin@hengage.com'
+            FactoryBot.create :site_admin, demo: demo, name: 'Eric Claption',  email: 'site-admin@hengage.com'
 
-            FactoryGirl.create :user,         demo: FactoryGirl.create(:demo)  # Make sure these users from other
-            FactoryGirl.create :claimed_user, demo: FactoryGirl.create(:demo)  # demos don't get an email
+            FactoryBot.create :user,         demo: FactoryBot.create(:demo)  # Make sure these users from other
+            FactoryBot.create :claimed_user, demo: FactoryBot.create(:demo)  # demos don't get an email
           end
 
             visit client_admin_share_path(as: admin)
@@ -391,13 +391,13 @@ feature 'Client admin and the digest email for tiles' do
           let (:all_addresses) {%w(client-admin@hengage.com site-admin@hengage.com john@campbell.com irma@thomas.com wc@clark.com taj@mahal.com)}
 
           before do
-            FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
-            FactoryGirl.create :user, demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'
+            FactoryBot.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
+            FactoryBot.create :user, demo: demo, name: 'Irma Thomas',   email: 'irma@thomas.com'
 
-            FactoryGirl.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
-            FactoryGirl.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
+            FactoryBot.create :claimed_user, demo: demo, name: 'W.C. Clark', email: 'wc@clark.com'
+            FactoryBot.create :claimed_user, demo: demo, name: 'Taj Mahal',  email: 'taj@mahal.com'
 
-            FactoryGirl.create :site_admin, demo: demo, name: 'Eric Claption',  email: 'site-admin@hengage.com'
+            FactoryBot.create :site_admin, demo: demo, name: 'Eric Claption',  email: 'site-admin@hengage.com'
           end
         end
       end
@@ -407,7 +407,7 @@ feature 'Client admin and the digest email for tiles' do
   context "Send test digest or follow-up to self" do
     before do
       create_tile
-      FactoryGirl.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
+      FactoryBot.create :user, demo: demo, name: 'John Campbell', email: 'john@campbell.com'
       visit client_admin_share_path(as: admin)
       expect_tiles_to_send_header
 

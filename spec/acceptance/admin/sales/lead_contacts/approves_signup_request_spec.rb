@@ -3,8 +3,8 @@ require 'acceptance/acceptance_helper'
 feature 'Admin aproves a signup request', js: true do
   describe "with matched organization" do
     it "changes lead contact status to denied and updates organization" do
-      organization = FactoryGirl.create(:organization, name: "Client")
-      lead_contact = FactoryGirl.create(:lead_contact, organization_name: "Fake Client")
+      organization = FactoryBot.create(:organization, name: "Client")
+      lead_contact = FactoryBot.create(:lead_contact, organization_name: "Fake Client")
       admin = an_admin
 
       visit admin_sales_lead_contacts_path(as: admin)
@@ -29,7 +29,7 @@ feature 'Admin aproves a signup request', js: true do
 
   describe "with new organization" do
     it "changes lead contact status to denied and updates organization" do
-      lead_contact = FactoryGirl.create(:lead_contact, organization_name: "Fake Client")
+      lead_contact = FactoryBot.create(:lead_contact, organization_name: "Fake Client")
 
       admin = an_admin
 

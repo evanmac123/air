@@ -11,10 +11,10 @@ describe Reports::TileStatsReport do
   end
 
   def build_data
-    client_admin = FactoryGirl.create(:client_admin)
-    users = FactoryGirl.create_list(:user, 5, demo: client_admin.demo)
+    client_admin = FactoryBot.create(:client_admin)
+    users = FactoryBot.create_list(:user, 5, demo: client_admin.demo)
 
-    @tile = FactoryGirl.create(:multiple_choice_tile, multiple_choice_answers: ["a", "b", "c"], correct_answer_index: 0, demo: client_admin.demo)
+    @tile = FactoryBot.create(:multiple_choice_tile, multiple_choice_answers: ["a", "b", "c"], correct_answer_index: 0, demo: client_admin.demo)
 
     @tile.tile_viewings.create(user_id: client_admin.id)
     users.each do |user|

@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'User navigates site with navbar' do
   before(:each) do
-    @joe = FactoryGirl.create(:site_admin, name: 'Joe')
+    @joe = FactoryBot.create(:site_admin, name: 'Joe')
     has_password(@joe, 'foobar')
     signin_as(@joe, 'foobar')
   end

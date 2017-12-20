@@ -4,11 +4,11 @@ feature 'Client admin segments on characteristics', js: true do
   include SuggestionBox
 
   context "user is not site admin" do
-    let!(:admin) { FactoryGirl.create :client_admin, is_site_admin: false}
+    let!(:admin) { FactoryBot.create :client_admin, is_site_admin: false}
     let!(:demo)  { admin.demo  }
     let!(:users) do
       (1..2).to_a.map do |num|
-        FactoryGirl.create :user, demo: demo, name: "User#{num}"
+        FactoryBot.create :user, demo: demo, name: "User#{num}"
       end
     end
 
@@ -27,11 +27,11 @@ feature 'Client admin segments on characteristics', js: true do
   end
 
   context "user is site admin" do
-    let!(:admin) { FactoryGirl.create :client_admin, is_site_admin: true }
+    let!(:admin) { FactoryBot.create :client_admin, is_site_admin: true }
     let!(:demo)  { admin.demo  }
     let!(:users) do
       (1..4).to_a.map do |num|
-        FactoryGirl.create :user, demo: demo, name: "User#{num}"
+        FactoryBot.create :user, demo: demo, name: "User#{num}"
       end
     end
 
@@ -41,7 +41,7 @@ feature 'Client admin segments on characteristics', js: true do
     end
 
     before do
-      FactoryGirl.create :tile, demo: demo
+      FactoryBot.create :tile, demo: demo
       visit client_admin_tiles_path()
       suggestion_box_title.click
     end

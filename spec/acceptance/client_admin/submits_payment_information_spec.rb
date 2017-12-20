@@ -93,7 +93,7 @@ feature 'Submits payment information' do
 
     Stripe::Customer.stubs(:create).returns(@dummy_customer)
 
-    @client_admin = FactoryGirl.create(:client_admin, name: "Joey Bananas", email: "joey@example.com")
+    @client_admin = FactoryBot.create(:client_admin, name: "Joey Bananas", email: "joey@example.com")
     visit client_admin_billing_information_path(as: @client_admin)
   end
 

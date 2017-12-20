@@ -19,7 +19,7 @@ describe DummyController do
   end
 
   before(:each) do
-    sign_in_as(FactoryGirl.create(:site_admin))
+    sign_in_as(FactoryBot.create(:site_admin))
   end
 
   describe "#strip_smart_punctuation" do

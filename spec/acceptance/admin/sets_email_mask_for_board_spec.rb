@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Sets email mask for board' do
   scenario "via the basic settings page" do
-    demo = FactoryGirl.create(:demo)
+    demo = FactoryBot.create(:demo)
     expect(demo.custom_reply_email_name).to be_blank
 
     visit edit_admin_demo_path(demo, as: an_admin)

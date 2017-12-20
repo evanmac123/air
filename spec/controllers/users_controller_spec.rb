@@ -4,19 +4,19 @@ describe ::UsersController do
   describe "#show" do
     before(:each) do
       subject.stubs(:ping)
-      @demo = FactoryGirl.create :demo
-      @user_we_are_viewing = FactoryGirl.create :claimed_user, :demo => @demo
-      @friend = FactoryGirl.create :claimed_user, :demo => @demo
-      @pending_friend = FactoryGirl.create :claimed_user, :demo => @demo
+      @demo = FactoryBot.create :demo
+      @user_we_are_viewing = FactoryBot.create :claimed_user, :demo => @demo
+      @friend = FactoryBot.create :claimed_user, :demo => @demo
+      @pending_friend = FactoryBot.create :claimed_user, :demo => @demo
       @pending_friend.befriend @user_we_are_viewing
       @user_we_are_viewing.befriend @friend
       @friend.accept_friendship_from @user_we_are_viewing
-      @random_user = FactoryGirl.create :claimed_user, :demo => @demo
+      @random_user = FactoryBot.create :claimed_user, :demo => @demo
       $test_force_ssl = false
     end
 
     it "should allow admin to view information" do
-      site_admin = FactoryGirl.create(:site_admin, demo: @demo)
+      site_admin = FactoryBot.create(:site_admin, demo: @demo)
       sign_in_as(site_admin)
       get :show, id: @user_we_are_viewing.slug
       expect(response).to be_success

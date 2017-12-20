@@ -12,8 +12,8 @@ class SalesOrganizationCreator
   def create!
     update_board_name_and_email(board)
     set_sales_defaults
-    link_board_and_user(user, board)
     if @organization.save
+      link_board_and_user(user, board)
       setup_sales_org
     end
 
@@ -58,7 +58,7 @@ class SalesOrganizationCreator
     end
 
     def link_board_and_user(user, board)
-      user.board_memberships.build(demo: board)
+      user.board_memberships.create(demo: board)
     end
 
     def copy_tiles_to_board(board)

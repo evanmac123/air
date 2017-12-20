@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Admin::OrganizationsController do
   describe "POST destroy" do
     it "destroys org" do
-      admin = FactoryGirl.create(:site_admin)
-      org = FactoryGirl.create(:organization)
+      admin = FactoryBot.create(:site_admin)
+      org = FactoryBot.create(:organization)
 
       sign_in_as(admin)
       post :destroy, id: org.slug

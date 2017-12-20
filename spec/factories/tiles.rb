@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :tile do
     headline {"Tile #{SecureRandom.uuid}, y'all"}
     require_images false

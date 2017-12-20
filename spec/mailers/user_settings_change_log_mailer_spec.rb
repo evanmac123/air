@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe UserSettingsChangeLogMailer do
   it "should send confirmation for email" do
-    uscl = FactoryGirl.create :user_settings_change_log, email: "this@email.com"
+    uscl = FactoryBot.create :user_settings_change_log, email: "this@email.com"
     u = uscl.user
     mail = UserSettingsChangeLogMailer.change_email(uscl.id)
 

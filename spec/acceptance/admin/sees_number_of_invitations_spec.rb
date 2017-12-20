@@ -3,12 +3,12 @@ require 'acceptance/acceptance_helper'
 feature 'Admin sees number of invitations' do
   before(:each) do
     @base_time = Chronic.parse("May 1, 2012, 12:00 PM")
-    @demo = FactoryGirl.create(:demo)
-    other_demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
+    other_demo = FactoryBot.create(:demo)
 
     1.upto(10) do |offset|
-      invitation = FactoryGirl.create(:peer_invitation, demo: @demo)
-      FactoryGirl.create(:peer_invitation, demo: other_demo)
+      invitation = FactoryBot.create(:peer_invitation, demo: @demo)
+      FactoryBot.create(:peer_invitation, demo: other_demo)
 
       invitation.update_attributes(created_at: @base_time - offset.hours)
     end

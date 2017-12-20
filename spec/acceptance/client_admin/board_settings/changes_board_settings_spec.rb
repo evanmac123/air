@@ -1,8 +1,8 @@
 require 'acceptance/acceptance_helper'
 
 feature "Client Admin Changes Board Settings" do
-  let!(:demo) { FactoryGirl.create :demo, name: "Board 1", email: "board1@ourairbo.com" }
-  let(:client_admin) { FactoryGirl.create(:client_admin, demo: demo)}
+  let!(:demo) { FactoryBot.create :demo, name: "Board 1", email: "board1@ourairbo.com" }
+  let(:client_admin) { FactoryBot.create(:client_admin, demo: demo)}
 
   def board_name_form
     "#edit_board_name"
@@ -40,7 +40,7 @@ feature "Client Admin Changes Board Settings" do
   context "board name form" do
     before(:each) do
       (2..4).to_a.each do |i|
-        FactoryGirl.create :demo, name: "Board #{i}"
+        FactoryBot.create :demo, name: "Board #{i}"
       end
 
       visit client_admin_board_settings_path(as: client_admin)
@@ -122,7 +122,7 @@ feature "Client Admin Changes Board Settings" do
   context "board email form" do
     before(:each) do
       (2..4).to_a.each do |i|
-        FactoryGirl.create :demo, email: "board#{i}@ourairbo.com"
+        FactoryBot.create :demo, email: "board#{i}@ourairbo.com"
       end
 
       visit client_admin_board_settings_path(as: client_admin)
@@ -185,7 +185,7 @@ feature "Client Admin Changes Board Settings" do
   context "board public link form" do
     before(:each) do
       (2..4).to_a.each do |i|
-        FactoryGirl.create :demo, name: "Board #{i}"
+        FactoryBot.create :demo, name: "Board #{i}"
       end
 
       visit client_admin_board_settings_path(as: client_admin)

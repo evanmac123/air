@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 describe TileUserTargeter do
-  let(:demo) { FactoryGirl.create(:demo) }
+  let(:demo) { FactoryBot.create(:demo) }
 
-  let(:user_1) { FactoryGirl.create(:user, email: "user_1@airbo.com", name: "user 1", demo: demo) }
-  let(:user_2) { FactoryGirl.create(:user, email: "user_2@airbo.com", name: "user 2", demo: demo) }
-  let(:user_3) { FactoryGirl.create(:user, email: "user_3@airbo.com", name: "user 3", demo: demo) }
-  let(:user_4) { FactoryGirl.create(:user, email: "user_4@airbo.com", name: "user 4", demo: demo) }
-  let(:user_5) { FactoryGirl.create(:user, email: "user_5@airbo.com", name: "user 5", demo: demo) }
-  let(:user_6) { FactoryGirl.create(:user, email: "user_6@airbo.com", name: "user 6", demo: demo) }
-  let(:user_7) { FactoryGirl.create(:user, email: "user_7@airbo.com", name: "user 7", demo: demo) }
+  let(:user_1) { FactoryBot.create(:user, email: "user_1@airbo.com", name: "user 1", demo: demo) }
+  let(:user_2) { FactoryBot.create(:user, email: "user_2@airbo.com", name: "user 2", demo: demo) }
+  let(:user_3) { FactoryBot.create(:user, email: "user_3@airbo.com", name: "user 3", demo: demo) }
+  let(:user_4) { FactoryBot.create(:user, email: "user_4@airbo.com", name: "user 4", demo: demo) }
+  let(:user_5) { FactoryBot.create(:user, email: "user_5@airbo.com", name: "user 5", demo: demo) }
+  let(:user_6) { FactoryBot.create(:user, email: "user_6@airbo.com", name: "user 6", demo: demo) }
+  let(:user_7) { FactoryBot.create(:user, email: "user_7@airbo.com", name: "user 7", demo: demo) }
 
-  let(:tile) { FactoryGirl.create(:tile, multiple_choice_answers: ["a", "b", "c"], correct_answer_index: 0, demo: demo) }
+  let(:tile) { FactoryBot.create(:tile, multiple_choice_answers: ["a", "b", "c"], correct_answer_index: 0, demo: demo) }
 
   before do
     Timecop.freeze(Time.local(1990))

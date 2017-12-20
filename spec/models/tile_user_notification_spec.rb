@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe TileUserNotification, :type => :model do
-  let(:user) { FactoryGirl.create(:client_admin) }
-  let(:tile) { FactoryGirl.create(:tile) }
+  let(:user) { FactoryBot.create(:client_admin) }
+  let(:tile) { FactoryBot.create(:tile) }
 
   it { is_expected.to belong_to(:tile) }
   it { is_expected.to belong_to(:creator) }
@@ -147,14 +147,14 @@ RSpec.describe TileUserNotification, :type => :model do
 
   describe "#answer" do
     it "returns the string answer based on the answer_idx" do
-      survey_tile = FactoryGirl.build(:multiple_choice_tile, multiple_choice_answers: ["a", "b", "c"])
+      survey_tile = FactoryBot.build(:multiple_choice_tile, multiple_choice_answers: ["a", "b", "c"])
       tile_user_notification = TileUserNotification.new(answer_idx: 1, tile: survey_tile)
 
       expect(tile_user_notification.answer).to eq("b")
     end
 
     it "returns BASE_ANSWER_OPTION when answer_idx is nil" do
-      survey_tile = FactoryGirl.build(:multiple_choice_tile, multiple_choice_answers: ["a", "b", "c"])
+      survey_tile = FactoryBot.build(:multiple_choice_tile, multiple_choice_answers: ["a", "b", "c"])
       tile_user_notification = TileUserNotification.new(answer_idx: nil, tile: survey_tile)
 
       expect(tile_user_notification.answer).to eq(TileUserNotification::BASE_ANSWER_OPTION)
@@ -171,7 +171,7 @@ RSpec.describe TileUserNotification, :type => :model do
 
   describe "#decorate_for_tile_stats_table" do
     it "adds 'answer' and 'scope' ui helper attributes to the base attibutes" do
-      survey_tile = FactoryGirl.build(:multiple_choice_tile, multiple_choice_answers: ["a", "b", "c"])
+      survey_tile = FactoryBot.build(:multiple_choice_tile, multiple_choice_answers: ["a", "b", "c"])
       tile_user_notification = TileUserNotification.new(scope_cd: 1, answer_idx: 2, tile: survey_tile, creator: user)
 
       mock_attributes_hash = {}

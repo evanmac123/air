@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe TileCopier do
   describe "#copy_tile" do
-    let(:original_tile) { FactoryGirl.create(:tile, points: 10) }
-    let(:copying_user)  { FactoryGirl.create(:client_admin) }
+    let(:original_tile) { FactoryBot.create(:tile, points: 10) }
+    let(:copying_user)  { FactoryBot.create(:client_admin) }
 
     describe "#copy_tile_from_explore" do
       let(:tile_copier)   { TileCopier.new(copying_user.demo, original_tile, copying_user) }

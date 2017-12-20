@@ -1,9 +1,9 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Client admin duplicates tile', js: true do
-  let!(:demo) { FactoryGirl.create :demo }
-  let!(:client_admin) { FactoryGirl.create :client_admin, demo: demo }
-  let!(:original_tile) { FactoryGirl.create :multiple_choice_tile, :active, demo: demo, headline: "Copy me!" }
+  let!(:demo) { FactoryBot.create :demo }
+  let!(:client_admin) { FactoryBot.create :client_admin, demo: demo }
+  let!(:original_tile) { FactoryBot.create :multiple_choice_tile, :active, demo: demo, headline: "Copy me!" }
 
   before do
     visit client_admin_tiles_path(as: client_admin)

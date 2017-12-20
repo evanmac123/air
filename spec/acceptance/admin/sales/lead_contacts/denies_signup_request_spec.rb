@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Admin denies a signup request' do
   it "changes lead contact status to denied and sends email to lead contact" do
-    lead_contact = FactoryGirl.create(:lead_contact)
+    lead_contact = FactoryBot.create(:lead_contact)
     admin = an_admin
 
     visit admin_sales_lead_contacts_path(as: admin)

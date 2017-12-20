@@ -8,7 +8,7 @@ describe BoardMembership do
   describe "after_destroy#update_or_destroy_user" do
 
     it "should destroy the user if the user has no other board memberships" do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
 
       user.demo.board_memberships.first.destroy
 
@@ -17,8 +17,8 @@ describe BoardMembership do
     end
 
     it "should set the current board_membership to another board_membership if the current board membership is destroyed" do
-      user = FactoryGirl.create(:user)
-      board_2 = FactoryGirl.create(:demo)
+      user = FactoryBot.create(:user)
+      board_2 = FactoryBot.create(:demo)
 
       board_membership_2 = BoardMembership.create(user: user, demo: board_2, is_current: false)
 
