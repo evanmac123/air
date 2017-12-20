@@ -24,7 +24,7 @@ class TileUserTargeter
     if answer_idx.present?
       users_who_chose_different_answer(answer_idx: answer_idx)
     else
-      targetable_users.where("users.id NOT IN (?)", users_who_answered)
+      targetable_users.where("users.id NOT IN (?)", users_who_answered.pluck(:id))
     end
   end
 

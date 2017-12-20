@@ -7,7 +7,9 @@ feature 'Live raffle' do
   before(:each) do
     FactoryBot.create(:tile, demo: demo, activated_at: Time.current)
     demo.raffle = FactoryBot.create(:raffle, :live, demo: demo)
+    binding.pry
     visit client_admin_prizes_path(as: client_admin)
+    binding.pry
   end
 
   scenario "edit raffle in live", js: true do

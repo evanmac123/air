@@ -35,8 +35,8 @@ namespace :client_admin do
     end
     member do
       post 'sort'
-      put  'status_change' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile status update.
-      put  'update_explore_settings' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile explore settings update.
+      patch  'status_change' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile status update.
+      patch  'update_explore_settings' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile explore settings update.
       post 'duplicate'
       get 'next_tile'
     end
@@ -71,11 +71,10 @@ namespace :client_admin do
 
   resource :billing_information
 
-  resources :prizes, only: :index do
+  resources :prizes, only: [:index, :update] do
     collection do
       post 'save_draft'
       post 'start'
-      post 'update'
       get 'cancel'
       get 'end_early'
       post 'pick_winners'
@@ -89,17 +88,17 @@ namespace :client_admin do
 
   resources :board_settings, only: :index do
     collection do
-      put 'name'
-      put 'logo'
-      put 'email'
-      put 'email_name'
-      put 'public_link'
-      put 'welcome_message'
-      put 'weekly_activity_email'
-      put 'cover_message'
-      put 'cover_image'
-      put 'timezone'
-      put 'allow_unsubscribes'
+      patch 'name'
+      patch 'logo'
+      patch 'email'
+      patch 'email_name'
+      patch 'public_link'
+      patch 'welcome_message'
+      patch 'weekly_activity_email'
+      patch 'cover_message'
+      patch 'cover_image'
+      patch 'timezone'
+      patch 'allow_unsubscribes'
     end
   end
 
