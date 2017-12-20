@@ -84,7 +84,7 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
         put(:update, demo_id: automator.demo.id, format: :json)
 
         expect(response.status).to eq(403)
-        expect(response.content_type.json?).to eq(true)
+        expect(response.content_type).to eq("application/json")
         expect(response.headers["X-Message-Type"]).to eq(:failure)
         expect(response.headers["X-Message"]).to eq(I18n.t('flashes.failure_outdated_session'))
       end
@@ -139,7 +139,7 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
         delete(:destroy, demo_id: automator.demo.id, format: :json)
 
         expect(response.status).to eq(403)
-        expect(response.content_type.json?).to eq(true)
+        expect(response.content_type).to eq("application/json")
         expect(response.headers["X-Message-Type"]).to eq(:failure)
         expect(response.headers["X-Message"]).to eq(I18n.t('flashes.failure_outdated_session'))
       end

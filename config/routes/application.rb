@@ -51,9 +51,8 @@ resources :passwords,
   :controller => 'passwords',
   :only       => [:new, :create]
 
-post "sign_in"  => "sessions#new", via: [:post]
-get "sign_up"  => "users#new"
-post "sign_out" => "sessions#destroy", via: [:post]
+get "sign_in"  => "sessions#new", as: "sign_in"
+delete "sign_out" => "sessions#destroy", as: "sign_out"
 
 get "marketing_site_home" => 'pages#home', as: 'marketing_site_home'
 get "about" => 'pages#about', as: 'about'
