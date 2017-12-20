@@ -71,7 +71,7 @@ namespace :client_admin do
 
   resource :billing_information
 
-  resources :prizes, only: [:index, :update] do
+  resources :prizes, only: [:index, :create] do
     collection do
       post 'save_draft'
       post 'start'

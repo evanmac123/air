@@ -140,9 +140,8 @@ feature 'Submits payment information' do
 
   scenario 'and triggers an email to us', js: true do
     submit_valid_cc_entries
-
-    open_email(BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS)
-    expect(current_email).to have_body_text("Joey Bananas (joey@example.com) submitted payment information to Stripe for the #{@client_admin.demo.name} (#{@client_admin.demo_id})")
+    email = ActionMailer::Base.deliveries.first
+    expect(email).to have_body_text("Joey Bananas (joey@example.com) submitted payment information to Stripe for the #{@client_admin.demo.name} (#{@client_admin.demo_id})")
   end
 
   scenario 'sees a link back to the tiles page', js: true do
