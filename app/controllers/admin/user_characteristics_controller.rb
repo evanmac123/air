@@ -1,9 +1,9 @@
 class Admin::UserCharacteristicsController < AdminBaseController
   def update
-    user = User.find_by_slug(params[:user_id])
+    user = User.find_by(slug: params[:user_id])
 
     # So stupid that this is still the simplest way to do this...but
-    # Hash#select and the like return a list of two-element lists rather than 
+    # Hash#select and the like return a list of two-element lists rather than
     # a Hash, for doubtless the best of reasons.
 
     unblank_characteristics = params[:characteristic].select{|k,v| v.present?}

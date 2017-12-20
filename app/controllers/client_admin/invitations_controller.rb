@@ -1,6 +1,6 @@
 class ClientAdmin::InvitationsController < ClientAdminBaseController
   def create
-    user = current_user.demo.users.find_by_slug(params[:user_id])
+    user = current_user.demo.users.find_by(slug: params[:user_id])
     user.invitation_method = "client_admin"
     user.invite(nil, demo_id: current_user.demo.id)
 

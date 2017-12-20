@@ -57,7 +57,7 @@ class Admin::OrganizationsController < AdminBaseController
   private
 
     def find_organization
-      @organization = Organization.find_by_slug(params[:id])
+      @organization = Organization.find_by(slug: params[:id])
     end
 
     def organization_params

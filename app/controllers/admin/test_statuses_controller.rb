@@ -1,7 +1,7 @@
 class Admin::TestStatusesController < AdminBaseController
   def update
     new_test_user_status = params[:user][:is_test_user]
-    user = User.find_by_slug(params[:user_id])
+    user = User.find_by(slug: params[:user_id])
     user.is_test_user = new_test_user_status
     user.save!
 

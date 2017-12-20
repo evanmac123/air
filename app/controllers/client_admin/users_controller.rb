@@ -153,7 +153,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   end
 
   def find_user
-    @user = current_user.demo.users.find_by_slug(params[:id]) ||
+    @user = current_user.demo.users.find_by(slug: params[:id]) ||
               current_user.demo.users.find(params[:id])
   end
 

@@ -43,7 +43,7 @@ class ConvertToFullUser
   end
 
   def convert!
-    @converted_user = User.find_by_email(@email)
+    @converted_user = User.find_by(email: @email)
     if @converted_user && @converted_user.unclaimed?
       set_basic_data_for_existing_user
     else

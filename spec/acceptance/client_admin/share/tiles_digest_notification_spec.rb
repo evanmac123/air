@@ -218,7 +218,7 @@ feature 'Client admin and the digest email for tiles' do
 
               open_email(address)
               expect(current_email).to have_content "Your New Tiles Are Here!"
-              name = User.find_by_email(address).first_name
+              name = User.find_by(email: address).first_name
               if %w(wc@clark.com taj@mahal.com).include?(address)  # Claimed, non-client-admin user?
                 email_link = /tile_token/
                 page_text_1 = "Welcome back, #{name}"

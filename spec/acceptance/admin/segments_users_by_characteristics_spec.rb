@@ -485,8 +485,8 @@ feature "Admin segmentation" do
     expect_content "Segmented by Location equals North Southerton (AwesomeCo)"
     expect_content "Users in this segment: 1"
 
-    expected_location = Location.find_by_name "North Southerton"
-    expected_user = User.find_by_location_id(expected_location.id)
+    expected_location = Location.find_by(name: "North Southerton")
+    expected_user = User.find_by(location_id: expected_location.id)
 
     click_link "Show users"
     expect_user_content expected_user
@@ -563,7 +563,7 @@ feature "Admin segmentation" do
     expect_content "Segmented by Location equals Puddingville (Site B) (AwesomeCo)"
     expect_content "Users in this segment: 3"
 
-    expected_location = Location.find_by_name "Puddingville (Site B)"
+    expected_location = Location.find_by(name: "Puddingville (Site B)")
     expected_users = User.where(location_id: expected_location.id)
 
     click_link "Show users"

@@ -332,7 +332,7 @@ class Demo < ActiveRecord::Base
     offset = 2 # in case of a collision on the slug "foobar", we'll try "foobar-2" first
 
     Demo.transaction do
-      while (demo = Demo.find_by_public_slug(candidate_slug)).present?
+      while (demo = Demo.find_by(public_slug: candidate_slug)).present?
         break if demo.id == self.id
         candidate_slug = slug_prefix + "-" + offset.to_s
         offset += 1

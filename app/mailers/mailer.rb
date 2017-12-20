@@ -61,7 +61,7 @@ class Mailer < ApplicationMailer
   end
 
   def follow_notification_acceptance(user_name, user_address, reply_address, friend_name, friend_id)
-    @user = User.find_by_email(user_address)
+    @user = User.find_by(email: user_address)
     @demo = @user.demo
 
     @user_name   = user_name.split[0]

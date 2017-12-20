@@ -75,7 +75,7 @@ class LocationDummyCharacteristic < DummyCharacteristic
     # Value comes in like "LocationName (DemoName)"
     value =~ /^(.*) \((.*?)\)$/
     location_name, demo_name = [$1, $2]
-    Demo.find_by_name(demo_name).locations.find_by_name(location_name).id
+    Demo.find_by(name: demo_name).locations.find_by(name: location_name).id
   end
 
   protected

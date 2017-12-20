@@ -7,13 +7,13 @@ class User
       count = 0
       list.each do |name|
         in_email = name + '@airbo.com'
-        unless User.find_by_email(in_email)
-          User.create(name: name, 
-                      demo_id: demo.id, 
-                      email: in_email, 
+        unless User.find_by(email: in_email)
+          User.create(name: name,
+                      demo_id: demo.id,
+                      email: in_email,
                       slug: name,
                       sms_slug: name,
-                      accepted_invitation_at: Time.current, 
+                      accepted_invitation_at: Time.current,
                       password: 'airbo-password')
           count += 1
         end
@@ -23,4 +23,3 @@ class User
 
   end
 end
-

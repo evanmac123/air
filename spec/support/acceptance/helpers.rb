@@ -87,7 +87,7 @@ module SteakHelperMethods
   end
 
   def expect_suggestion_recorded(user_or_username, suggestion_text)
-    user = user_or_username.kind_of?(User) ? user_or_username : User.find_by_name(user_or_username)
+    user = user_or_username.kind_of?(User) ? user_or_username : User.find_by(name: user_or_username)
     expect(Suggestion.where(:user_id => user.id, :value => suggestion_text).first).not_to be_nil
   end
 

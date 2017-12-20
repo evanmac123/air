@@ -24,7 +24,7 @@ class Explore::OrganizationsController < ExploreBaseController
   private
 
     def find_organization
-      @organization = Organization.find_by_slug(params[:id])
+      @organization = Organization.find_by(slug: params[:id])
     end
 
     def get_tiles

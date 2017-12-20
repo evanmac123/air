@@ -21,7 +21,7 @@ describe BulkLoad::UserCreatorFromCsv do
   let(:date_characteristic)     {FactoryBot.create(:characteristic, demo: demo, datatype: Characteristic::DateType)}
   let(:time_characteristic)     {FactoryBot.create(:characteristic, demo: demo, datatype: Characteristic::TimeType)}
   let(:boolean_characteristic)  {FactoryBot.create(:characteristic, demo: demo, datatype: Characteristic::BooleanType)}
- 
+
   describe "#create_user" do
     it "should build and attempt to save a user" do
       expect(demo.users.count).to be_zero
@@ -45,17 +45,17 @@ describe BulkLoad::UserCreatorFromCsv do
       end
 
       it "should not overwrite their characteristics, when those characteristics are not in the schema" do
-        # lose the boolean characteristic      
+        # lose the boolean characteristic
         schema_with_most_characteristics = schema_with_characteristics.dup
-        schema_with_most_characteristics.pop 
+        schema_with_most_characteristics.pop
         attributes_with_most_characteristics = attributes_with_characteristics.dup
         attributes_with_most_characteristics.pop
 
         creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema_with_most_characteristics, :email, 1)
 
         user = FactoryBot.create(
-          :user, 
-          demo:  demo, 
+          :user,
+          demo:  demo,
           email: 'bigjim@example.com',
           characteristics: {
             number_characteristic.id  =>  999,
@@ -177,7 +177,7 @@ describe BulkLoad::UserCreatorFromCsv do
       end
 
       it "should try to create a separate user in the board we're loading into" do
-        new_user = demo.users.find_by_employee_id('12345')
+        new_user = demo.users.find_by(employee_id: '12345')
         expect(new_user.demo_ids).to eq([demo.id])
         expect(new_user.name).to eq('John Smith')
         expect(new_user.email).to eq('john@smith.com')

@@ -270,7 +270,7 @@ class User < ActiveRecord::Base
   end
 
   def role_in(demo)
-    board_membership = self.board_memberships.find_by_demo_id(demo.id)
+    board_membership = self.board_memberships.find_by(demo_id: demo.id)
     if board_membership && board_membership.is_client_admin
       'Administrator'
     else
@@ -694,9 +694,9 @@ class User < ActiveRecord::Base
       begin
         suffix += rand(50)
         potential_claim_code = claim_code_prefix + suffix.to_s
-      end while User.find_by_claim_code(potential_claim_code)
+      end while User.find_by(claim_code: potential_claim_code)
 
-      self.update_attributes(:claim_code => potential_claim_code)
+      self.update_attributes(claim_code: potential_claim_code)
     end
 
     potential_claim_code
@@ -919,7 +919,7 @@ class User < ActiveRecord::Base
     if board == self.demo
       self.is_client_admin
     else
-      board_memberships.find_by_demo_id(board.id).try(:is_client_admin)
+      board_memberships.find_by(demo_id: board.id).try(:is_client_admin)
     end
   end
 
@@ -1072,7 +1072,7 @@ class User < ActiveRecord::Base
       num = PhoneNumber.normalize(new_phone_number)
       return unless num.present?
 
-      found = Demo.find_by_phone_number(num)
+      found = Demo.find_by(phone_number: num)
       if found
         self.errors.add(:new_phone_number, TAKEN_PHONE_NUMBER_ERR_MSG)
         return false

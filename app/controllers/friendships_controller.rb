@@ -8,7 +8,7 @@ class FriendshipsController < UserBaseController
       mixpanel_properties[:friend_link] = :follow_to_see_activity
     end
 
-    @user = User.find_by_slug(params[:user_id])
+    @user = User.find_by(slug: params[:user_id])
     unless current_user.has_board_in_common_with(@user)
       not_found('flashes.failure_friendships_need_common_board')
       return false
@@ -31,7 +31,7 @@ class FriendshipsController < UserBaseController
   end
 
   def update
-    @user = User.find_by_slug(params[:user_id])
+    @user = User.find_by(slug: params[:user_id])
     friendship = Friendship.where(:user_id => @user.id, :friend_id => current_user.id).first
     if friendship && friendship.accept
       add_success "You are now connected to #{@user.name}"
@@ -40,7 +40,7 @@ class FriendshipsController < UserBaseController
   end
 
   def destroy
-    @friend = User.find_by_slug(params[:user_id])
+    @friend = User.find_by(slug: params[:user_id])
     friendship = current_user.friendships.where(:friend_id => @friend.id).first
     reciprocal_friendship = @friend.friendships.where(:friend_id => current_user.id).first
     if friendship || reciprocal_friendship

@@ -14,7 +14,7 @@ namespace :env_sync do
       }
     }
     #adds images to Take5
-    Demo.find_by_id(222).tiles.each { |tile|
+    Demo.find_by(id: 222).tiles.each { |tile|
       tiles_to_update << tile
     }
 
@@ -22,7 +22,7 @@ namespace :env_sync do
       tiles_to_update << tile
     }
 
-    Organization.find(37).demos.each { |demo|
+    Organization.find_by(id: 37).demos.each { |demo|
       demo.tiles.each { |tile|
         tiles_to_update << tile
       }

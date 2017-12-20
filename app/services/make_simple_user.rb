@@ -58,7 +58,7 @@ class MakeSimpleUser
 
   def set_existing_user
     if email.present?
-      User.find_by_email(email)
+      User.find_by(email: email)
     end
   end
 

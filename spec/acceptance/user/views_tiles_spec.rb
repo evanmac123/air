@@ -17,8 +17,8 @@ feature 'User views tile' do
       FactoryBot.create(:tile, headline: tile_headline, demo: @demo)
     end
 
-    @make_toast = Tile.find_by_headline('make toast')
-    @discover_fire = Tile.find_by_headline('discover fire')
+    @make_toast = Tile.find_by(headline: 'make toast')
+    @discover_fire = Tile.find_by(headline: 'discover fire')
     @make_toast.update_attributes(activated_at: Time.current - 60.minutes)
     @discover_fire.update_attributes(activated_at: Time.current)
   end

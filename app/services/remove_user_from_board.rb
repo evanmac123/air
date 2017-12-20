@@ -60,7 +60,7 @@ class RemoveUserFromBoard
   end
 
   def board_membership_to_leave
-    @board_membership_to_leave ||= board_memberships.find_by_demo_id(@board_id)
+    @board_membership_to_leave ||= board_memberships.find_by(demo_id: @board_id)
   end
 
   def most_recently_posted_board

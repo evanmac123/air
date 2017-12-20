@@ -79,7 +79,7 @@ class Admin::UsersController < AdminBaseController
 
 
   def find_user
-    @user = @demo.users.find_by_slug(params[:id])
+    @user = @demo.users.find_by(slug: params[:id])
   end
 
   def ping_if_made_client_admin(user, was_changed)

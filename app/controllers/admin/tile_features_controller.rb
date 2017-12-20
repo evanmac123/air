@@ -15,7 +15,7 @@ class Admin::TileFeaturesController < AdminBaseController
 
   def update
     @tile_features = TileFeature.all
-    @tile_feature = TileFeature.find_by_slug(params[:id])
+    @tile_feature = TileFeature.find_by(slug: params[:id])
     if @tile_feature.update_attributes(tile_feature_ar_params)
       @tile_feature.dispatch_redis_updates(tile_feature_redis_params)
     else

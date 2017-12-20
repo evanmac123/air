@@ -21,7 +21,7 @@ class TilesController < ApplicationController
     if params[:partial_only]
       render_tile_wall_as_partial
     elsif params[:from_search] == "true"
-      @start_tile = current_board.tiles.find_by_id(params[:tile_id])
+      @start_tile = current_board.tiles.find_by(id: params[:tile_id])
       @current_tile_ids = params[:tile_ids].split(", ")
     else
       @in_public_board = params[:public_slug].present?

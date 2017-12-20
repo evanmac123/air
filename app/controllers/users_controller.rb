@@ -26,7 +26,7 @@ class UsersController < UserBaseController
   def show
     return not_found if current_board.hide_social && params[:id] != current_user.slug
 
-    @user = current_board.users.find_by_slug(params[:id])
+    @user = current_board.users.find_by(slug: params[:id])
     return not_found unless @user
 
     @palette = current_board.custom_color_palette

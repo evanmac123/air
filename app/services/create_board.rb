@@ -23,7 +23,7 @@ class CreateBoard
     offset = 2 # in case of a collision on the slug "foobar", we'll try "foobar2" first
 
     Demo.transaction do
-      while (demo = Demo.find_by_email(email_local_part + "@ourairbo.com")).present?
+      while (demo = Demo.find_by(email: email_local_part + "@ourairbo.com")).present?
         break if demo.id == @board.id
         email_local_part += offset.to_s
         offset += 1
