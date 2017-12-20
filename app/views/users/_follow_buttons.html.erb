@@ -36,7 +36,7 @@
             <%= submit_tag "add_friend", :class => :hidden, :id => submit_tag_id %>
           <% end %>
         <% elsif approve_friend %>
-          <%= form_tag user_friendship_path(user), :method => :put do %>
+          <%= form_tag user_friendship_path(user), :method => :patch do %>
             <%= submit_tag "add_friend", :class => :hidden, :id => submit_tag_id %>
           <% end %>
         <% end %>

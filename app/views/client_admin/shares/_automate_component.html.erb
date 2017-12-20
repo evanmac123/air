@@ -9,7 +9,7 @@
 </div>
 
 <div class="columns small-12">
-  <%= form_for current_board.tiles_digest_automator, url: api_client_admin_demo_tiles_digest_automator_path(current_board), method: :put do |f| %>
+  <%= form_for current_board.tiles_digest_automator, url: api_client_admin_demo_tiles_digest_automator_path(current_board), method: :patch do |f| %>
     <div class="automate-form-inputs">
 
       <div class="frequency-flex-group flex-group">

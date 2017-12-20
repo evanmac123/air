@@ -3,7 +3,7 @@ Airbo.BoardsAndOrganizationMgr = (function(){
   function unlink(url){
     $.ajax({
       url: url,
-      type: "PUT",
+      type: "PATCH",
       data: {demo: {unlink: true}}
     })
     .done(function(){

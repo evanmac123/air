@@ -15,7 +15,7 @@
           <%= image_tag @demo.logo.url, alt: "#{@demo.name} logo" %>
         </div>
         <div class="columns small-6">
-          <%= link_to "View Board", current_board_path({ board_id: @demo.id, admin_view_board: true }), method: :put, class: "right outlined-alt green button", form_class: "inline", target: "_blank" %>
+          <%= link_to "View Board", current_board_path({ board_id: @demo.id, admin_view_board: true }), method: :patch, class: "right outlined-alt green button", form_class: "inline", target: "_blank" %>
         </div>
       </div>
       <div class="row">

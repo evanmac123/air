@@ -151,7 +151,7 @@ submitEmptyForm = (form) ->
   submit.val "Updating..."
 
   $.ajax
-    type: "PUT"
+    type: "PATCH"
     url: form.attr("action")
     success: formResponse form
     dataType: 'json'
@@ -187,12 +187,11 @@ window.formWithClearableTextField = (fieldSelector) ->
 
     disableSubmit(form, true)
 
-window.formWithClearableLogoField = (fieldSelector, old_ie) ->
+window.formWithClearableLogoField = (fieldSelector) ->
   field = $(fieldSelector)
   bindClearLinkAndField field
   fieldEvents field
-  unless old_ie
-    formSubmitHandler field
+  formSubmitHandler field
 
   findForm(field).find(".clear_form").click ->
     field = connectedField $(@)

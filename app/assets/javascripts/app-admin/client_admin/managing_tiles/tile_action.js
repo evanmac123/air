@@ -60,7 +60,7 @@ Airbo.TileAction = (function(){
     function submit(){
       $.ajax({
         url: link.data("url") || link.attr("href"),
-        type: "put",
+        type: "PATCH",
         data: data,
         dataType: "html",
         success: function(tileData, status,xhr){

@@ -198,7 +198,7 @@ Airbo.TileFormModal = (function(){
   function autoSaveSuccess(data){
     clearTimeout(timer);
     currform.attr("action", data.updatePath);
-    currform.attr("method", "PUT");
+    currform.attr("method", "PATCH");
     updateThumbnail(data);
     enablesubmitLink();
     setAutoSavingFalse();
