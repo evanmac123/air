@@ -1,11 +1,24 @@
 Rails.application.configure do
+  # Settings specified here will take precedence over those in config/application.rb.
+
+  # The test environment is used exclusively to run your application's
+  # test suite. You never need to work with it otherwise. Remember that
+  # your test database is "scratch space" for the test suite and is wiped
+  # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = true
+
+  # Do not eager load code on boot. This avoids loading your whole application
+  # just for the purpose of running a single test. If you are using a tool that
+  # preloads Rails for running tests, you may have to set it to true.
+  config.eager_load = false
+
+  # Configure static file server for tests with Cache-Control for performance.
+  config.serve_static_files   = true
+  config.static_cache_control = 'public, max-age=3600'
 
   config.log_level = :debug
 
-  config.eager_load = false
-
-  # Show full error reports and disable caching
+  # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
@@ -20,21 +33,15 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Randomize the order test cases are executed.
+  config.active_support.test_order = :sorted
+
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
   config.action_mailer.default_url_options = { :host => 'www.example.com' }
 
 	Rails.application.routes.default_url_options[:host] = 'www.example.com'
-
-  #########  ASSETS   ##################################################################
-  # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
-  config.static_cache_control = "public, max-age=3600"
-
-  # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
-  config.assets.allow_debugging = true
-  ##########################################################################################
 
   config.middleware.use Clearance::BackDoor do |slug|
     Clearance.configuration.user_model.find_by_slug(slug)
