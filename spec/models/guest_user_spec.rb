@@ -68,12 +68,6 @@ describe GuestUser do
       expect(convert.demo_id).to eq(user.demo_id)
     end
 
-    it "remembers a connection between the converted user and the guest" do
-      converted_user = convert
-      expect(converted_user.original_guest_user).to eq(user)
-      expect(user.converted_user).to eq(converted_user)
-    end
-
     it "claims to converted user" do
       expect(convert).to be_claimed
     end

@@ -14,10 +14,9 @@ class GuestUserConversionsController < ApplicationController
     )
 
     if full_user
-      original_guest_user = current_user
       sign_in(full_user, :remember_user)
       flash[:success] = "Account created! A confirmation email will be sent to #{full_user.email}."
-      ping('User - New', {source: 'public link'}, original_guest_user)
+      ping('User - New', {source: 'public link'}, current_user)
       render_success_json
     else
       render_failure_json

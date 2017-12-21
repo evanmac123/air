@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   # Use destroy strategy to allow callbacks to run for these relations
   # ------------------------------------------------------------------
   has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id, dependent: :destroy
-  has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user, dependent: :destroy
 
   has_many   :potential_users, foreign_key: "primary_user_id", dependent: :destroy
   has_many   :tile_user_notifications, foreign_key: "creator_id"
@@ -1100,7 +1099,7 @@ class User < ActiveRecord::Base
 
     def update_associated_act_privacy_levels
       # See Act for an explanation of why we denormalize privacy_level onto it.
-      Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
+      Act.update_all(privacy_level: self.privacy_level, user_id: self.id) if self.changed.include?('privacy_level')
     end
 
     def self.claimable_by_first_name_and_claim_code(claim_string)

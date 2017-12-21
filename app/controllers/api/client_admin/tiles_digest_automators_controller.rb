@@ -36,6 +36,10 @@ class Api::ClientAdmin::TilesDigestAutomatorsController < Api::ClientAdminBaseCo
     end
 
     def tiles_digest_automator_params
-      params.require(:tiles_digest_automator).permit(:day, :time, :frequency_cd, :has_follow_up, :include_sms, :include_unclaimed_users) if params[:tiles_digest_automator].present?
+      if params[:tiles_digest_automator].present?
+        params.require(:tiles_digest_automator).permit(:day, :time, :frequency_cd, :has_follow_up, :include_sms, :include_unclaimed_users)
+      else
+        {}
+      end
     end
 end

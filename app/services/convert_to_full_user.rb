@@ -22,17 +22,10 @@ class ConvertToFullUser
     @converted_user.cancel_account_token = @converted_user.generate_cancel_account_token(@converted_user)
 
     if @pre_user && @pre_user.is_guest?
-      @converted_user.original_guest_user = @pre_user
       @converted_user.mixpanel_distinct_id = @pre_user.mixpanel_distinct_id
     end
 
     if @converted_user.save
-      if @pre_user && @pre_user.is_guest?
-        @pre_user.converted_user = @converted_user
-        @pre_user.save!
-
-        @converted_user.save!
-      end
       @converted_user.add_board(demo.id, { is_current: true })
       @converted_user.reload
       @converted_user.send_conversion_email
@@ -83,7 +76,6 @@ class ConvertToFullUser
 
   def set_common_data_for_user
     @converted_user.password = @converted_user.password_confirmation = @password
-    @converted_user.original_guest_user = @pre_user if @converting_from_guest
     @converted_user.cancel_account_token = @pre_user.generate_cancel_account_token(@converted_user)
     @converted_user.last_acted_at = @pre_user.last_acted_at
     @converted_user.location_id = find_location @location_name

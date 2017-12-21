@@ -7,17 +7,14 @@ class GuestUser < ActiveRecord::Base
   # Plus, common behavior between this and User is good leverage to refactor
   # stuff out of User, which User could use.
 
+  # Dear Phil, really dumb decision.
+
   belongs_to :demo
 
   has_many :tile_completions, :as => :user, :dependent => :nullify
   has_many :tile_viewings, as: :user, :dependent => :nullify
   has_many :acts, :as => :user, :dependent => :delete_all
   has_many :user_in_raffle_infos, as: :user, dependent: :delete_all
-
-  has_one :converted_user,
-    :class_name => "User",
-    :foreign_key => :original_guest_user_id,
-    :inverse_of => :original_guest_user
 
   has_one :user_intro, as: :userable, dependent: :delete
 
