@@ -548,6 +548,9 @@ GEM
     redis-store (1.1.7)
       redis (>= 2.2)
     request_store (1.0.8)
+    responders (2.4.0)
+      actionpack (>= 4.2.0, < 5.3)
+      railties (>= 4.2.0, < 5.3)
     rolify (5.1.0)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
@@ -737,6 +740,7 @@ DEPENDENCIES
   rails_12factor
   redis (~> 3.3.3)
   redis-rails (~> 4.0.0)
+  responders (~> 2.0)
   rolify (~> 5.1.0)
   rspec-rails (~> 3.0)
   rubyzip (~> 1.1.0)

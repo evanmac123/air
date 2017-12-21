@@ -86,6 +86,7 @@ gem 'nokogiri', '~> 1.8.1'
 gem 'carrierwave_direct', '~> 0.0.15'
 gem 'draper', '~> 1.3'
 gem 'aws-sdk-v1', '~> 1.59.0' # V1 used for bulk upload and Tile attachments (migrate to v3 in rewrites)
+gem 'responders', '~> 2.0'
 ###
 
 gem 'sass-rails', '~> 4.0.0'
