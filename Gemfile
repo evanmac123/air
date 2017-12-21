@@ -2,7 +2,7 @@ source 'https://www.rubygems.org'
 
 ruby '2.1.8'
 
-gem 'rails', '=4.0.13'
+gem 'rails', '=4.1.8'
 gem 'unicorn', '~> 5.3.1'
 gem 'pg', '~> 0.18'
 gem 'rack-cors', require: 'rack/cors'
@@ -81,7 +81,7 @@ gem 'addressable', '~> 2.5.2'
 gem 'acts_as_singleton', '~> 0.0.8'
 gem 'mixpanel', '~> 4.1.1' # Migrate to official gem
 gem 'chronic', '~> 0.10.2'
-gem 'haml-rails', '~> 0.4'
+gem 'haml-rails', '~> 1.0.0'
 gem 'nokogiri', '~> 1.8.1'
 gem 'carrierwave_direct', '~> 0.0.15'
 gem 'draper', '~> 1.3'
