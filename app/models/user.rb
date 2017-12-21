@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth gender demo_id accepted_invitation_at last_acted_at phone_number email)
 
-  MISSING_AVATAR_PATH = "/assets/avatars/thumb/missing.png"
+  MISSING_AVATAR_PATH = "avatars/thumb/missing.png"
   TAKEN_PHONE_NUMBER_ERR_MSG = "Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com"
 
   include Clearance::User

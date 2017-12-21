@@ -4,7 +4,7 @@ class ActionDispatch::Routing::Mapper
   end
 end
 
-Health::Application.routes.draw do
+Rails.application.routes.draw do
   draw :application
   draw :client_admin
   draw :explore

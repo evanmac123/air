@@ -57,7 +57,7 @@ class Demo < ActiveRecord::Base
         :thumb => "x46>"
       },
       default_style: :thumb,
-      default_url: "/assets/logo.png",
+      default_url: "logo.png",
       keep_old_files: true
     }.merge!(DEMO_LOGO_OPTIONS)
   validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
@@ -67,7 +67,7 @@ class Demo < ActiveRecord::Base
       styles: {
         thumb: "30x30#"
       },
-      default_url: "/assets/logo.png",
+      default_url: "logo.png",
     }.merge!(DEMO_LOGO_OPTIONS)
   validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\Z/
 

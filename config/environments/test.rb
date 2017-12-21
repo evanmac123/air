@@ -1,4 +1,4 @@
-Health::Application.configure do
+Rails.application.configure do
   config.cache_classes = true
 
   config.log_level = :debug
