@@ -8,11 +8,7 @@
           <%= submit_tag "Save edits", class: "button" %>
         </li>
 
-        <%= link_to "Delete user",
-          client_admin_user_path(user),
-           confirm: "Deleting users is irrevocable. There is no undo. All the history we have on this user (activities, connections, everything) will be gone forever if you push this button.", method: :delete ,
-           id: "delete-user"
-        %>
+        <%= link_to "Delete user", client_admin_user_path(user), data: { confirm: "Deleting users is irrevocable. There is no undo. All the history we have on this user (activities, connections, everything) will be gone forever if you push this button." }, method: :delete, id: "delete-user" %>
       </ul>
     </div>
   </div>

@@ -27,7 +27,7 @@
           <td><%= characteristic.datatype.name %></td>
           <td><%= characteristic.allowed_values.join(", ") %></td>
           <td><%= link_to "Edit", edit_admin_characteristic_path(characteristic), class: "button primary" %></td>
-          <td><%= button_to "Destroy", admin_characteristic_path(characteristic), method: :delete, confirm: "Really destroy \"#{characteristic.name}\"?", class: "button primary" %></td>
+          <td><%= button_to "Destroy", admin_characteristic_path(characteristic), method: :delete, data: { confirm: "Really destroy \"#{characteristic.name}\"?" }, class: "button primary" %></td>
         </tr>
       <% end %>
     </tbody>

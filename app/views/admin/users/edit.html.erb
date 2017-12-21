@@ -126,7 +126,7 @@
         <br>
         <div class="row">
           <div class="columns small-12">
-            <%= submit_tag 'Destroy user', :confirm => "Don't say I didn't warn you. Are you sure you want to delete #{@user.name}?", class: "button red" %>
+            <%= submit_tag 'Destroy user', data: { confirm: "Don't say I didn't warn you. Are you sure you want to delete #{@user.name}?" }, class: "button red" %>
           </div>
         </div>
       </fieldset>

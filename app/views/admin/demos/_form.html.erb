@@ -91,7 +91,7 @@
 
       <fieldset>
         <legend>Confirmation</legend>
-        <%= f.submit "Save", disable_with: 'Please wait...', class: "button" %>
+        <%= f.submit "Save", data: { disable_with: 'Please wait...' }, class: "button" %>
       </fieldset>
 
     <% end %>

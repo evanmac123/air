@@ -12,7 +12,7 @@ feature "Admin segmentation" do
     @demo_specific_characteristic_3 = FactoryBot.create(:characteristic, :demo_specific, :name => "MomPhrase", :demo => @demo, :allowed_values => %w(hi mom))
 
     %w(Here There Everywhere).each {|location_name| FactoryBot.create(:location, name: location_name, demo: @demo)}
-    @locations = @demo.locations.all
+    @locations = @demo.locations
 
     @reds = []
     @blues = []

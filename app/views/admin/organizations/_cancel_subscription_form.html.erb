@@ -18,6 +18,6 @@
 <% end %>
 <div class="row mt-3" style="border-top: solid 1px #33445c;">
   <div class="small-12 columns">
-    <%= link_to "Delete Subscription", admin_organization_subscription_path(@organization, subscription), method: :delete, class: "button tiny red float-right mt-2", confirm: "Are you sure you want to delete this subscription?" %>
+    <%= link_to "Delete Subscription", admin_organization_subscription_path(@organization, subscription), method: :delete, class: "button tiny red float-right mt-2", data: { confirm: "Are you sure you want to delete this subscription?" } %>
   </div>
 </div>
