@@ -6,7 +6,7 @@ describe Tile do
   it { is_expected.to have_many(:tile_viewings) }
   it { is_expected.to have_many(:user_viewers) }
   it { is_expected.to have_many(:guest_user_viewers) }
-  it { is_expected.to ensure_inclusion_of(:status).in_array(Tile::STATUS) }
+  it { is_expected.to validate_inclusion_of(:status).in_array(Tile::STATUS) }
 
   describe "after_save" do
     let(:tile) { FactoryBot.create(:tile) }
