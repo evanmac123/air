@@ -1,3 +1,4 @@
+# Remove WiceGrid and deprecate this endpoint.  Move to API endpoint and front-end component.
 class ClientAdmin::TileStatsGridsController < ClientAdminBaseController
   def index
     @tile = Tile.find(params[:tile_id])

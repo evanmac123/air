@@ -1,13 +1,13 @@
 source 'https://www.rubygems.org'
 
-ruby '2.1.8'
+ruby '2.2.9'
 
-gem 'rails', '=4.2.5'
+gem 'rails', '=4.2.10'
 gem 'unicorn', '~> 5.3.1'
-gem 'pg', '~> 0.18'
+gem 'pg', '~> 0.18.0'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-timeout', require: false
-gem 'jbuilder', '~> 2.6.4'
+gem 'jbuilder', '~> 2.7.0'
 gem 'mongoid', '~> 4.0'
 gem 'bson', '~> 2.2'
 
@@ -127,7 +127,6 @@ group :development do
   gem 'letter_opener'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'meta_request'
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
