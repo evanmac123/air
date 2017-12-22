@@ -38,11 +38,11 @@ gem 'acts-as-taggable-on', '~> 3.5.0'
 gem 'simple_enum', '~> 1.6.9'
 gem 'descriptive_statistics', '~> 2.5.1', require: 'descriptive_statistics/safe'
 gem 'mobvious-rails', '~> 0.1.2'
+gem 'groupdate', '~> 3.2.0'
 
 # Upgrade for Rails 4.2
 gem 'searchkick', '~> 1.5.1'
 gem 'searchjoy', '~> 0.1.0'
-gem 'groupdate', '~> 3.2.0'
 gem 'redis', '~> 3.3.3'
 gem 'redis-rails', '~> 4.0.0'
 gem 'jquery-rails', '~> 3.1.4'

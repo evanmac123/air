@@ -65,7 +65,7 @@ class InsertTileBetweenTiles
 
   def update_tile_positions_to_the_left
     @tile.demo.tiles.where(status: @tile.status).where('position >= ?', @tile.position).where.not(id: @tile.id).order(position: :asc).each_with_index do |tile, index|
-      tile.update_attribute :position, (tile_position + index + 1)
+      tile.update_column(:position, @tile.position + index + 1)
     end
   end
 end

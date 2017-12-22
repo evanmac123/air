@@ -34,7 +34,7 @@ class BoardMembership < ActiveRecord::Base
   end
 
   def self.non_site_admin
-    joins(:user).where(user: { is_site_admin: false })
+    joins(:user).where(users: { is_site_admin: false })
   end
 
   def self.claimed

@@ -981,7 +981,7 @@ class User < ActiveRecord::Base
 
   def self.allow_to_make_tile_suggestions(user_ids, demo)
     transaction do
-      demo.board_memberships.where(allow_to_make_tile_suggestions: true).update_all(allowed_to_make_tile_suggestions: false)
+      demo.board_memberships.where(allowed_to_make_tile_suggestions: true).update_all(allowed_to_make_tile_suggestions: false)
 
       demo.board_memberships.where(user_id: user_ids).update_all(allowed_to_make_tile_suggestions: true)
     end

@@ -55,7 +55,7 @@ class FullSizeTilePresenter
   end
 
   def adjacent_tile_image_urls
-    Tile.where(id: adjacent_tile_ids).map{|tile| tile.image.url}
+    Tile.where(id: adjacent_tile_ids).map{|tile| ActionController::Base.helpers.image_path(tile.image.url) }
   end
 
   def show_video?
