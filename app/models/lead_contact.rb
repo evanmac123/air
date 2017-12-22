@@ -16,7 +16,7 @@ class LeadContact < ActiveRecord::Base
 
   scope :pending, -> { where(status: "pending").order(:updated_at).reverse_order }
   scope :approved, -> { where(status: "approved").order(:updated_at).reverse_order }
-  scope :processed, -> { joins(:demo).where(status: "processed").where(demo: { tile_digest_email_sent_at: nil } ).order(:updated_at).reverse_order }
+  scope :processed, -> { joins(:demo).where(status: "processed").where(demos: { tile_digest_email_sent_at: nil } ).order(:updated_at).reverse_order }
 
   after_destroy do
     destroy_board_and_users

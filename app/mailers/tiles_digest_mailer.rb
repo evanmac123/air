@@ -29,25 +29,20 @@ class TilesDigestMailer < BaseTilesDigestMailer
     mail to: @user.email_with_name, from: @presenter.from_email, subject: subject
   end
 
-  def notify_all(digest)
+  def self.notify_all(digest)
     digest.user_ids_to_deliver_to.each_with_index do |user_id, idx|
-      subject = resolve_subject(digest.subject, digest.alt_subject, idx)
+      subject = digest.resolve_subject(idx)
       TilesDigestMailer.delay.notify_one(digest, user_id, subject, TilesDigestMailDigestPresenter)
     end
   end
 
-  def notify_all_follow_up
+  def self.notify_all_follow_up
     FollowUpDigestEmail.send_follow_up_digest_email.each do |followup|
       followup.delay(run_at: noon_est).trigger_deliveries
     end
   end
 
   private
-
-    def resolve_subject(subject, alt_subject, idx)
-      return subject unless alt_subject
-      idx.even? ? alt_subject : subject
-    end
 
     def is_invite_user
       board_membership = @demo.board_memberships.where(user_id: @user.id).first

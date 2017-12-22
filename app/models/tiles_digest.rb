@@ -22,15 +22,15 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def self.paid
-    joins(:demo).where(demo: { customer_status_cd: Demo.customer_statuses[:paid] })
+    joins(:demo).where(demos: { customer_status_cd: Demo.customer_statuses[:paid] })
   end
 
   def self.smb
-    joins(demo: :organization).where(demo: { organization: { company_size_cd: Organization.company_sizes[:smb] } })
+    joins(demo: :organization).where(organizations: { company_size_cd: Organization.company_sizes[:smb] })
   end
 
   def self.enterprise
-    joins(demo: :organization).where(demo: { organization: { company_size_cd: Organization.company_sizes[:enterprise] } })
+    joins(demo: :organization).where(organizations: { company_size_cd: Organization.company_sizes[:enterprise] })
   end
 
   def self.dispatch(digest_params)
@@ -197,6 +197,11 @@ class TilesDigest < ActiveRecord::Base
     else
       (sent_at + 5.days).end_of_day
     end
+  end
+
+  def resolve_subject(idx)
+    return subject unless alt_subject
+    idx.even? ? alt_subject : subject
   end
 
   ###

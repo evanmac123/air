@@ -2,7 +2,7 @@ class ReviewSubmittedTileMailer < ApplicationMailer
   layout "mailer"
   helper :email
 
-  def notify_all tile_sender_id, _demo_id
+  def self.notify_all tile_sender_id, _demo_id
     user  = User.find(tile_sender_id)
 
     client_admin_ids = user.demo.board_memberships.where(is_client_admin: true).pluck(:id)

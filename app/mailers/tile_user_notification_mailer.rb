@@ -2,7 +2,7 @@ class TileUserNotificationMailer < ApplicationMailer
   helper :email
   layout 'mailer'
 
-  def notify_all(tile_user_notification:)
+  def self.notify_all(tile_user_notification:)
     recipients = tile_user_notification.users
 
     recipients.each do |user|

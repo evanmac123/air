@@ -15,7 +15,7 @@ class UsersController < UserBaseController
 
     if @search_string
       @search_string = @search_string.downcase.strip.gsub(/\s+/, ' ')
-      @other_users = current_user.demo.claimed_users(excluded_uids: [current_user.id]).alphabetical.name_like(@search_string)
+      @other_users = current_user.demo.claimed_users(excluded_uids: [current_user.id]).alphabetical.name_like(@search_string).uniq
       @users_cropped = USER_LIMIT if @other_users.length > USER_LIMIT
       @other_users = @other_users[0, USER_LIMIT]
 

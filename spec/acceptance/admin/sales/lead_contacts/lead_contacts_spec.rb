@@ -5,7 +5,6 @@ feature "LeadContacts", js: true do
       admin = FactoryBot.create(:site_admin)
       lead_contact = FactoryBot.create(:lead_contact, organization_name: "Lead")
       campaign_demo = FactoryBot.create(:demo, name: "airbo.com Board", public_slug: "internal-validation")
-
       Campaign.create(name:"test", demo: campaign_demo)
 
       FactoryBot.create(:tile, demo: campaign_demo)
