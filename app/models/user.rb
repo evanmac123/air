@@ -196,7 +196,7 @@ class User < ActiveRecord::Base
   scope :client_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin = ?', true, true) }
 
   def self.paid_client_admin
-    joins(board_memberships: :demo).where(board_memberships: { is_client_admin: true }).where(board_memberships: { demo: { customer_status_cd: Demo.customer_statuses[:paid] } }).uniq
+    joins(board_memberships: :demo).where(board_memberships: { is_client_admin: true }).where(demos: { customer_status_cd: Demo.customer_statuses[:paid] }).uniq
   end
 
   # TODO: Rewrite this method to use roles architecture and deprecate explore family:
@@ -815,7 +815,7 @@ class User < ActiveRecord::Base
 
   def reset_tiles(demo = nil)
     demo ||= self.demo
-    tile_completions.select([:id, :tile_id]).joins(tile: :demo).where(tile: { demo: demo }).destroy_all
+    demo.tile_completions.select([:id, :tile_id]).where(user_id: self.id).destroy_all
   end
 
   def has_tiles_tools_subnav?

@@ -469,8 +469,6 @@ GEM
       mime-types
       mimemagic (= 0.3.0)
     pg (0.18.0)
-    polyamorous (1.1.0)
-      activerecord (>= 3.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -621,10 +619,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    squeel (1.2.2)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      polyamorous (~> 1.1.0)
     steak (2.0.0)
       capybara (>= 1.0.0)
       rspec-rails (>= 2.5.0)
@@ -756,7 +750,6 @@ DEPENDENCIES
   simplecov
   sinatra
   spring
-  squeel (~> 1.2.2)
   steak
   stripe (~> 3.9.0)
   test_after_commit

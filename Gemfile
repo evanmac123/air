@@ -71,7 +71,6 @@ gem 'jquery-fileupload-rails', '~> 0.4.5'
 ###
 
 ### No support for Rails 5
-gem 'squeel', '~> 1.2.2'
 gem 'wice_grid', git: 'https://github.com/theairbo/wice_grid', branch: 'rails3'
 ###
 
