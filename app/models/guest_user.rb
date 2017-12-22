@@ -13,7 +13,7 @@ class GuestUser < ActiveRecord::Base
 
   has_many :tile_completions, :as => :user, :dependent => :nullify
   has_many :tile_viewings, as: :user, :dependent => :nullify
-  has_many :acts, :as => :user, :dependent => :delete_all
+  has_many :acts, :as => :user, :dependent => :destroy
   has_many :user_in_raffle_infos, as: :user, dependent: :delete_all
 
   has_one :user_intro, as: :userable, dependent: :delete

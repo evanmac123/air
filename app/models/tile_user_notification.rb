@@ -40,7 +40,7 @@ class TileUserNotification < ActiveRecord::Base
   end
 
   def user_count
-    users.count
+    users.count(:id)
   end
 
   def deliver_notifications

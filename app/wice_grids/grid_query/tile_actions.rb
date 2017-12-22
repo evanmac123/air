@@ -20,7 +20,7 @@ class GridQuery::TileActions
     result = self.send(query_type.to_sym)
     if answer_filter
       index = answer_index
-      result.where{tile_completions.answer_index == index}
+      result.where(tile_completions: { answer_index: index })
     else
       result
     end
@@ -32,23 +32,23 @@ class GridQuery::TileActions
     end
 
     def live
-      all.where{ tile_viewings.id != nil }
+      all.where.not(tile_viewings: { id: nil })
     end
 
     def viewed_only
-      all.where{ tile_viewings.id != nil }.where{ tile_completions.id == nil }
+      live.where(tile_completions: { id: nil })
     end
 
     def interacted
-      all.where{ tile_viewings.id != nil }.where{ tile_completions.id != nil }
+      live.where.not(tile_completions: { id: nil })
     end
 
     def not_viewed
-      all.where{ tile_viewings.id == nil }
+      all.where(tile_viewings: { id: nil })
     end
 
     def free_response
-      all.where{tile_completions.free_form_response !=""}
+      all.where.not(tile_completions: { free_form_response: "" })
     end
 
     def all

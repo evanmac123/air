@@ -91,9 +91,6 @@ class Tile < ActiveRecord::Base
 
   before_post_process :no_post_process_on_copy
 
-  scope :after_start_time, -> { where("start_time < ? OR start_time IS NULL", Time.current) }
-  scope :before_end_time, -> { where("end_time > ? OR end_time IS NULL", Time.current) }
-  scope :after_start_time_and_before_end_time, -> { after_start_time.before_end_time }
 
   #FIXME suggested and status are not the same thing!
 
@@ -318,9 +315,10 @@ class Tile < ActiveRecord::Base
 
   def self.satisfiable_to_user(user, curr_demo=nil)
     board = curr_demo || user.demo.id
-    tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: board, status: ACTIVE)
-    ids_completed = user.tile_completions.map(&:tile_id)
-    satisfiable_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
+
+    ids_completed = user.tile_completions.pluck(:tile_id)
+
+    satisfiable_tiles = Tile.active.where(demo_id: board).reject { |t| ids_completed.include? t.id }
     satisfiable_tiles.sort_by(&:position).reverse
   end
 
@@ -350,7 +348,7 @@ class Tile < ActiveRecord::Base
     self_position = self.position
     Tile.where(demo: self.demo)
       .where(status: self.status)
-      .where{position < self_position}
+      .where("position < ?", self_position)
       .ordered_by_position.first
   end
 
@@ -358,7 +356,7 @@ class Tile < ActiveRecord::Base
     self_position = self.position
     Tile.where(demo: self.demo)
       .where(status: self.status)
-      .where{position > self_position}
+      .where("position > ?", self_position)
       .order("position ASC").first
   end
 

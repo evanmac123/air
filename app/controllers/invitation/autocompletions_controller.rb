@@ -15,10 +15,8 @@ class Invitation::AutocompletionsController < UserBaseController
 
   def search_user_by_email email, demo
     return [] if email.is_not_email_address?
-    user =  User.joins(:board_memberships)
-                .where{(users.email == email) & (board_memberships.demo == demo)}
-                .first
+    user = demo.users.find_by(email: email)
     user =  User.new(email: email, name: email) unless user
     [user]
   end
-end 
+end

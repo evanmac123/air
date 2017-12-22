@@ -47,13 +47,7 @@ class User
       end
 
       def tiles_not_used user_id, demo_id
-        Tile.joins(:tile_completions).
-          where do
-          (status == Tile::ACTIVE) &
-            (tile_completions.user_id == user_id) &
-            (tile_completions.not_show_in_tile_progress == true) &
-            (demo_id == demo_id)
-        end
+        @user.demo.tiles.active.joins(:tile_completions).where(tile_completions: { user_id: @user.id, not_show_in_tile_progress: true })
       end
 
       def available_differs_from_completed?

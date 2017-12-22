@@ -50,10 +50,7 @@ class InsertTileBetweenTiles
       left_demo = @left_tile.demo
       left_status = @left_tile.status
       left_position = @left_tile.position
-      @right_tile = left_demo.tiles.where{
-        (status == left_status) & 
-        (position < left_position)
-      }.ordered_by_position.first
+      @right_tile = left_demo.tiles.where(status: left_status).where('position < ?', left_position).ordered_by_position.first
     end
   end
 
@@ -67,15 +64,7 @@ class InsertTileBetweenTiles
   end
 
   def update_tile_positions_to_the_left
-    tile_demo = @tile.demo
-    tile_status = @tile.status
-    tile_position = @tile.position
-    tile_id = @tile.id
-    Tile.where{ (demo == tile_demo) & 
-                (status == tile_status) & 
-                (position >= tile_position) &
-                (id != tile_id)
-    }.order("position ASC").each_with_index do |tile, index|
+    @tile.demo.tiles.where(status: @tile.status).where('position >= ?', @tile.position).where.not(id: @tile.id).order(position: :asc).each_with_index do |tile, index|
       tile.update_attribute :position, (tile_position + index + 1)
     end
   end

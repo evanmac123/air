@@ -975,50 +975,20 @@ class User < ActiveRecord::Base
     !get_started_lightbox_displayed && demo.tiles.active.present?
   end
 
-  # TODO: This is a shitstorm and a big performance hit.
   def can_make_tile_suggestions? _demo = demo
-    bm = board_memberships.where(demo: _demo).first
-    _demo.everyone_can_make_tile_suggestions ||
-      bm.allowed_to_make_tile_suggestions
+    demo.everyone_can_make_tile_suggestions || current_board_membership.allowed_to_make_tile_suggestions
   end
 
-  def self.allow_to_make_tile_suggestions _user_ids, _demo
+  def self.allow_to_make_tile_suggestions(user_ids, demo)
     transaction do
-      BoardMembership
-        .where(demo: _demo, allowed_to_make_tile_suggestions: true)
-        .update_all(allowed_to_make_tile_suggestions: false)
+      demo.board_memberships.where(allow_to_make_tile_suggestions: true).update_all(allowed_to_make_tile_suggestions: false)
 
-      BoardMembership
-        .where do
-          (user_id.in _user_ids) &
-          (demo == _demo)
-        end
-        .update_all(allowed_to_make_tile_suggestions: true)
-
-      joins{board_memberships}
-        .where do
-          (board_memberships.demo == _demo) &
-          (board_memberships.is_current == true) &
-          (allowed_to_make_tile_suggestions == true)
-        end
-        .update_all(allowed_to_make_tile_suggestions: false)
-
-      joins{board_memberships}
-        .where do
-          (board_memberships.demo == _demo) &
-          (board_memberships.is_current == true) &
-          (id.in _user_ids)
-        end
-        .update_all(allowed_to_make_tile_suggestions: true)
+      demo.board_memberships.where(user_id: user_ids).update_all(allowed_to_make_tile_suggestions: true)
     end
   end
 
-  def self.allowed_to_suggest_tiles _demo
-    joins{board_memberships}
-      .where do
-        (board_memberships.demo == _demo) &
-        (board_memberships.allowed_to_make_tile_suggestions == true)
-      end
+  def self.allowed_to_suggest_tiles(demo)
+    joins(:board_memberships).where(board_memberships: { demo: demo, allowed_to_make_tile_suggestions: true })
   end
 
   def intros
