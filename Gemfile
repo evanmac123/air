@@ -10,6 +10,8 @@ gem 'rack-timeout', require: false
 gem 'jbuilder', '~> 2.7.0'
 gem 'mongoid', '~> 4.0'
 gem 'bson', '~> 2.2'
+gem 'redis', '~> 3.3.3'
+gem 'redis-rails', '~> 5.0.2'
 
 gem 'aws-sdk-s3', '~> 1'
 gem 'paperclip', '=4.3.5'
@@ -26,7 +28,6 @@ gem 'delayed_job', '~> 4.1.0'
 gem 'delayed_job_active_record', '~> 4.1.2'
 gem 'activerecord-collection_cache_key', '~> 0.1.3'
 
-gem 'json', '>= 1.7.7'
 gem 'stripe', '~> 3.9.0'
 gem 'font-awesome-rails', '>= 4.7'
 gem 'kaminari', '~> 0.16'
@@ -43,14 +44,11 @@ gem 'groupdate', '~> 3.2.0'
 # Upgrade for Rails 4.2
 gem 'searchkick', '~> 1.5.1'
 gem 'searchjoy', '~> 0.1.0'
-gem 'redis', '~> 3.3.3'
-gem 'redis-rails', '~> 4.0.0'
-gem 'jquery-rails', '~> 3.1.4'
 
 # Redis
 gem 'nest', '~> 2.0'
 
-### Complex spreadsheet creation
+### Spreadsheet creation
 gem 'rubyzip', '~> 1.1.0'
 gem 'axlsx', '2.1.0.pre'
 ###
@@ -66,6 +64,7 @@ gem 'mixpanel_client', '~> 4.1.6'
 ###
 
 ### Move to Yarn
+gem 'jquery-rails', '~> 4.3.1'
 gem 'jquery-validation-rails', '~> 1.16.0'
 gem 'jquery-fileupload-rails', '~> 0.4.5'
 ###
