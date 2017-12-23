@@ -23,6 +23,7 @@ describe GridQuery::TileActions do
     query.map(&:attributes).map do |row|
       row.delete("completion_date")
       row.delete("user_id")
+      row.delete("id")
       row
     end.map(&:values)
   end
@@ -69,7 +70,9 @@ describe GridQuery::TileActions do
   it "should return 'interacted'" do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_an,nilswer_index
-    table = make_table(GridQuery::TileActions.new(tile, "interacted").query.order("users.id ASC"))
+    tile_actions = GridQuery::TileActions.new(tile, "interacted").query.order("users.id ASC")
+
+    table = make_table(tile_actions)
 
     expect(table.map(&:first)).to eq(["Good guy0", "Good guy1", "Good guy2"])
   end
