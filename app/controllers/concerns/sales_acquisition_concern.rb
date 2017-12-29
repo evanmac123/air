@@ -5,12 +5,12 @@ module SalesAcquisitionConcern
 
   def notify_sales_activated(user)
     ping_lead_activation(user)
-    SalesNotifier.delay_mail(:lead_activated, user)
+    SalesNotifier.lead_activated(user).deliver_later
   end
 
   def notify_sales_return(user)
     ping_lead_return_via_invite_link(user)
-    SalesNotifier.delay_mail(:lead_returned_via_invite_link, user)
+    SalesNotifier.lead_returned_via_invite_link(user).deliver_later
   end
 
   private

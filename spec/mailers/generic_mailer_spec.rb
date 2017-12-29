@@ -80,13 +80,12 @@ describe GenericMailer do
 
   describe "BulkSender#bulk_generic_messages" do
     it "should send a batch of messages" do
-      GenericMailer.stubs(:delay_mail)
 
       user_ids = []
       5.times {user_ids << (FactoryBot.create :user).id}
       GenericMailer::BulkSender.new(demo.id, user_ids, "This is a subject", "This is plain text", "<p>This is HTML</p>").send_bulk_mails
 
-      expect(GenericMailer).to have_received(:delay_mail).times(5)
+      expect(ActionMailer::Base.deliveries.count).to eq(5)
     end
   end
 end

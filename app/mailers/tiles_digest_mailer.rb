@@ -7,7 +7,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
     @demo = digest.demo
     @tile_ids = digest.tile_ids_for_email
 
-    @presenter = presenter_class.new(digest, @user, subject, is_invite_user)
+    @presenter = presenter_class.constantize.new(digest, @user, subject, is_invite_user)
 
     @tiles = TileBoardDigestDecorator.decorate_collection(
       tiles_by_position,
@@ -27,19 +27,6 @@ class TilesDigestMailer < BaseTilesDigestMailer
     set_x_smtpapi_headers(category: @presenter.email_type, unique_args: x_smtpapi_unique_args)
 
     mail to: @user.email_with_name, from: @presenter.from_email, subject: subject
-  end
-
-  def self.notify_all(digest)
-    digest.user_ids_to_deliver_to.each_with_index do |user_id, idx|
-      subject = digest.resolve_subject(idx)
-      TilesDigestMailer.delay.notify_one(digest, user_id, subject, TilesDigestMailDigestPresenter)
-    end
-  end
-
-  def self.notify_all_follow_up
-    FollowUpDigestEmail.send_follow_up_digest_email.each do |followup|
-      followup.delay(run_at: noon_est).trigger_deliveries
-    end
   end
 
   private

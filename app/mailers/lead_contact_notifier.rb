@@ -1,7 +1,6 @@
 class LeadContactNotifier < ApplicationMailer
   default :from => "team@airbo.com"
   helper :email
-  has_delay_mail
 
   def signup_request(lead_contact)
     @lead_contact = lead_contact

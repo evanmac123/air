@@ -56,7 +56,7 @@ class TilesDigest < ActiveRecord::Base
     self.sent_at = Time.current
     self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true)
 
-    TilesDigestMailer.delay.notify_all(self)
+    TilesDigestBulkMailJob.perform_now(self)
   end
 
   def all_related_subject_lines

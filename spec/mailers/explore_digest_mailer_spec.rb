@@ -46,17 +46,6 @@ describe ExploreDigestMailer do
     end
   end
 
-  describe "#notify_all" do
-    it "should send a message to all client admin" do
-      FactoryBot.create_list(:user, 3, is_client_admin: true)
-      FactoryBot.create_list(:user, 2, is_client_admin: false)
-
-      ExploreDigestMailer.notify_all(@explore_digest)
-
-      expect(ActionMailer::Base.deliveries.size).to eq(3)
-    end
-  end
-
   def explore_digest_params
     {
       "defaults"=> {

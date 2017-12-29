@@ -17,14 +17,14 @@ describe TilesDigestTester do
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] #{digest_params[:custom_subject]}",
-        TilesDigestMailDigestPresenter
+        "TilesDigestMailDigestPresenter"
       ).once
 
       TilesDigestMailer.expects(:notify_one).with(
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] Don't Miss: #{digest_params[:custom_subject]}",
-        TilesDigestMailFollowUpPresenter
+        "TilesDigestMailFollowUpPresenter"
       ).once
 
 
@@ -44,7 +44,7 @@ describe TilesDigestTester do
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] #{params[:custom_subject]}",
-        TilesDigestMailDigestPresenter
+        "TilesDigestMailDigestPresenter"
       ).once
 
       tiles_digest_tester.deliver_test!
@@ -63,14 +63,14 @@ describe TilesDigestTester do
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] #{TilesDigest::DEFAULT_DIGEST_SUBJECT}",
-        TilesDigestMailDigestPresenter
+        "TilesDigestMailDigestPresenter"
       ).once
 
       TilesDigestMailer.expects(:notify_one).with(
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] Don't Miss: #{TilesDigest::DEFAULT_DIGEST_SUBJECT}",
-        TilesDigestMailFollowUpPresenter
+        "TilesDigestMailFollowUpPresenter"
       ).once
 
       tiles_digest_tester.deliver_test!

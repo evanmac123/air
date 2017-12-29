@@ -22,23 +22,23 @@ class TilesDigestTester
 
     def deliver_test_tile_email
       [subject, alt_subject].compact.each do |s|
-        TilesDigestMailer.delay.notify_one(
+        TilesDigestMailer.notify_one(
           digest,
           current_user.id,
           "[Test] #{s}",
-          TilesDigestMailDigestPresenter
-        )
+          "TilesDigestMailDigestPresenter"
+        ).deliver_later
       end
     end
 
     def deliver_test_follow_up_email
       unless follow_up_day == 'Never'
-        TilesDigestMailer.delay.notify_one(
+        TilesDigestMailer.notify_one(
           digest,
           current_user.id,
           test_follow_up_subject,
-          TilesDigestMailFollowUpPresenter
-        )
+          "TilesDigestMailFollowUpPresenter"
+        ).deliver_later
       end
     end
 

@@ -1,6 +1,6 @@
 class EmailInfoRequest < ActiveRecord::Base
   def notify
-    EmailInfoRequestNotifier.delay_mail(:info_requested, self)
+    EmailInfoRequestNotifier.info_requested(self).deliver_later
   end
 
   def pretty_source

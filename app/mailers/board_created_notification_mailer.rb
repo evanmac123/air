@@ -4,8 +4,6 @@ class BoardCreatedNotificationMailer < ApplicationMailer
   default from: "notify@airbo.com"
   default to:   ADDRESS_TO_NOTIFY
 
-  has_delay_mail
-
   def notify(user_id, board_id)
     @user = User.find(user_id)
     @board = Demo.find(board_id)

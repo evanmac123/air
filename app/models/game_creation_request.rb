@@ -2,6 +2,6 @@ class GameCreationRequest < ActiveRecord::Base
   serialize :interests
 
   def schedule_notification
-    GameCreationRequestMailer.delay_mail(:notify_ks, self)
+    GameCreationRequestMailer.notify_ks(self).deliver_later
   end
 end

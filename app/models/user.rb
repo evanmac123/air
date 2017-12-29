@@ -580,7 +580,7 @@ class User < ActiveRecord::Base
       return if peer_num >= PeerInvitation::CUTOFF
     end
 
-    Mailer.delay_mail(:invitation, self, referrer, options)
+    Mailer.invitation(self, referrer, options).deliver_later
 
     if referrer && !(options[:ignore_invitation_limit])
       PeerInvitation.create!(inviter: referrer, invitee: self, demo: referrer.demo)
@@ -842,7 +842,7 @@ class User < ActiveRecord::Base
   end
 
   def send_conversion_email
-    Mailer.delay_mail(:guest_user_converted_to_real_user, self)
+    Mailer.guest_user_converted_to_real_user(self).deliver_later
   end
 
   def self.referrer_hash(referrer)

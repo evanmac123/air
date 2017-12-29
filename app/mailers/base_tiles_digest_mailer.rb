@@ -3,7 +3,6 @@ class BaseTilesDigestMailer < ApplicationMailer
   helper 'client_admin/tiles'
   helper ApplicationHelper
 
-  has_delay_mail       # Some kind of monkey-patch workaround (not even sure need)
   include EmailHelper
   include ClientAdmin::TilesHelper
 
@@ -18,10 +17,6 @@ class BaseTilesDigestMailer < ApplicationMailer
       "explore_digest"  => "Explore - v. 1/1/17",
       "weekly_activity_report"  => "Weekly Report - v. 5/20/15",
     }
-  end
-
-  def noon_est
-    Time.current.in_time_zone("Eastern Time (US & Canada)").midnight.advance(hours: 12)
   end
 
   private

@@ -24,9 +24,9 @@ class LeadContact < ActiveRecord::Base
 
   def notify!
     if source == "Inbound: Signup Request"
-      LeadContactNotifier.delay_mail(:signup_request, self)
+      LeadContactNotifier.signup_request(self).deliver_later
     elsif source == "Inbound: Demo Request"
-      LeadContactNotifier.delay_mail(:demo_request, self)
+      LeadContactNotifier.demo_request(self).deliver_later
     end
   end
 

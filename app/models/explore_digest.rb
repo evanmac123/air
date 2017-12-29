@@ -61,18 +61,18 @@ class ExploreDigest < ActiveRecord::Base
   end
 
   def deliver_test_digest!(current_user)
-    ExploreDigestMailer.notify_one(self, current_user).deliver
+    ExploreDigestMailer.notify_one(self, current_user).deliver_now
   end
 
   def deliver_targeted_digest!(user_ids = @targeted_digest_ids)
     users = User.client_admin.where(id: user_ids)
 
-    ExploreDigestMailer.notify_all(self, users)
+    ExploreDigestBulkMailJob.perform_later(self, users)
     self.update_attributes(delivered: true, delivered_at: Time.current)
   end
 
   def deliver_digest!
-    ExploreDigestMailer.delay.notify_all(self)
+    ExploreDigestBulkMailJob.perform_later(self)
     self.update_attributes(delivered: true, delivered_at: Time.current)
   end
 

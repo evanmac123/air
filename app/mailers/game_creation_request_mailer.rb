@@ -1,6 +1,4 @@
 class GameCreationRequestMailer < ApplicationMailer
-  has_delay_mail
-
   def notify_ks(game_creation_request)
     @interests = game_creation_request.interests
     @name = game_creation_request.customer_name

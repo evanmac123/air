@@ -45,7 +45,7 @@ class TileCopier
     end
 
     def deliver_tile_copied_notification
-      Mailer.delay_mail(:notify_creator_for_social_interaction, tile, copying_user, 'copied')
+      Mailer.notify_creator_for_social_interaction(tile, copying_user, 'copied').deliver_later
     end
 
     def copy_tile_data

@@ -33,7 +33,7 @@ class LeadContactUpdater
 
   def deny
     lead_contact.update_attributes(status: "denied")
-    LeadContactNotifier.delay_mail(:denial, lead_contact)
+    LeadContactNotifier.denial(lead_contact).deliver_later
   end
 
   def process

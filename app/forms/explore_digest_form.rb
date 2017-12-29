@@ -45,11 +45,6 @@ class ExploreDigestForm
     @custom_message ||= @params[:custom_message]
   end
 
-  def send_digest!
-    reorder_explore_page_tiles!
-    TilesDigestMailer.delay.notify_all_explore tile_ids, subject, headline, custom_message
-  end
-
   def self.model_name
     ActiveModel::Name.new(ExploreDigestForm)
   end
@@ -99,11 +94,6 @@ class ExploreDigestTestForm < ExploreDigestForm
 
   def user
     @user
-  end
-
-  def send_digest!
-    reorder_explore_page_tiles!
-    TilesDigestMailer.delay.notify_one_explore(user.id, tile_ids, subject, headline, custom_message)
   end
 end
 

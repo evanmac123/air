@@ -1,6 +1,4 @@
 class Mailer < ApplicationMailer
-  has_delay_mail
-
   include EmailPreviewsHelper # TODO: DEPRECATE This module is useless
   helper :email  # loads app/helpers/email_helper.rb & includes EmailHelper into the VIEW
 

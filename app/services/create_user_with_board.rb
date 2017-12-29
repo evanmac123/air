@@ -104,7 +104,7 @@ class CreateUserWithBoard
   end
 
   def send_notification_email
-    BoardCreatedNotificationMailer.delay_mail(:notify, @user.id, @board.id)
+    BoardCreatedNotificationMailer.notify(@user.id, @board.id).deliver_later
   end
 
   def schedule_creation_pings

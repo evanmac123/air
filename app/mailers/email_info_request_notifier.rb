@@ -1,7 +1,6 @@
 class EmailInfoRequestNotifier < ApplicationMailer
   default :from => "email_info_requested@airbo.com"
   helper :email
-  has_delay_mail
 
   def info_requested(email_info_request)
     begin

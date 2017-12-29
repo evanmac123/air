@@ -3,7 +3,6 @@ class GenericMailer < ApplicationMailer
   include EmailInterpolations::TileDigestUrl
 
   helper :email
-  has_delay_mail
 
   layout 'mailer'
 
@@ -52,7 +51,7 @@ class GenericMailer < ApplicationMailer
 
     def send_bulk_mails
       @user_ids.each do |user_id|
-        GenericMailer.delay_mail(:send_message, @demo_id, user_id, @subject, @plain_text, @html_text, @potential_users)
+        GenericMailer.send_message(@demo_id, user_id, @subject, @plain_text, @html_text, @potential_users).deliver_later
       end
     end
   end

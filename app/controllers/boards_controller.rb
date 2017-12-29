@@ -18,7 +18,7 @@ class BoardsController < UserBaseController
       board = board_creator.board
       current_user.add_board(board, { is_current: false, is_client_admin: true })
       current_user.move_to_new_demo(board)
-      BoardCreatedNotificationMailer.delay_mail(:notify, current_user.id, board.id)
+      BoardCreatedNotificationMailer.notify(current_user.id, board.id).deliver_later
       redirect_to client_admin_tiles_path
     else
       redirect_to :back

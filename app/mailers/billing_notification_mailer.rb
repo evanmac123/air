@@ -1,6 +1,4 @@
 class BillingNotificationMailer < ApplicationMailer
-  has_delay_mail
-
   default from: "billing_notification@airbo.com"
 
   def notify(user_id, board_id)

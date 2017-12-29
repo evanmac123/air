@@ -50,7 +50,7 @@ class TileUserNotification < ActiveRecord::Base
   end
 
   def deliver_test_notification(user:)
-    TileUserNotificationMailer.notify_one(user: user, tile_user_notification: self).deliver
+    TileUserNotificationMailer.notify_one(user: user, tile_user_notification: self).deliver_now
   end
 
   def from_email
