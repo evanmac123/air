@@ -142,54 +142,13 @@ describe TileUserTargeter do
     end
 
     describe "#targetable_users" do
-      describe "when the tile has a tiles_digest and the tiles_digest does not include unclaimed users" do
-        it "calls #targetable_users_all" do
-          tiles_digest = demo.tiles_digests.create(include_unclaimed_users: false)
-          tiles_digest.tiles << tile
-
-          rule = { scope: :answered, answer_idx: 0 }
-          tile_user_targeter = TileUserTargeter.new(tile: tile, rule: rule)
-
-          tile_user_targeter.expects(:targetable_users_all).once
-
-          tile_user_targeter.send(:targetable_users)
-        end
-      end
-
-      describe "when the tile does not have a tiles digest" do
-        it "calls #targetable_users_all" do
-          rule = { scope: :answered, answer_idx: 0 }
-          tile_user_targeter = TileUserTargeter.new(tile: tile, rule: rule)
-
-          tile_user_targeter.expects(:targetable_users_all).once
-
-          tile_user_targeter.send(:targetable_users)
-        end
-      end
-
-      describe "when the tile has a tiles digest that includes unclaimed users" do
-        it "calls #targetable_users_all" do
-          tiles_digest = demo.tiles_digests.create(include_unclaimed_users: true)
-          tiles_digest.tiles << tile
-
-          rule = { scope: :answered, answer_idx: 0 }
-          tile_user_targeter = TileUserTargeter.new(tile: tile, rule: rule)
-
-          tile_user_targeter.expects(:targetable_users_all).once
-
-          tile_user_targeter.send(:targetable_users)
-        end
-      end
-    end
-
-    describe "#targetable_users_all" do
       it "returns all the users that have access to the tile" do
         rule = { scope: :answered, answer_idx: 0 }
         tile_user_targeter = TileUserTargeter.new(tile: tile, rule: rule)
 
-        tageted_users = tile_user_targeter.send(:targetable_users_all)
+        targeted_users = tile_user_targeter.send(:targetable_users)
 
-        expect(tageted_users.pluck(:email).sort).to eq(@users.map(&:email).sort)
+        expect(targeted_users.pluck(:email).sort).to eq(@users.map(&:email).sort)
       end
     end
   end

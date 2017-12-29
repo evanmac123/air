@@ -103,13 +103,10 @@ RSpec.describe TileUserNotification, :type => :model do
       tile_user_notification = TileUserNotification.new(tile: tile, creator: user)
       tile_user_notification.expects(:user_count).returns(5)
 
-      TileUserNotificationMailer.expects(:delay).with(queue: TileUserNotification::DELAYED_JOB_QUEUE).returns(TileUserNotificationMailer)
-
-      TileUserNotificationMailer.expects(:notify_all).with(tile_user_notification: tile_user_notification).returns(OpenStruct.new(id: 1))
+      TileUserNotificationBulkMailJob.expects(:perform_later).with(tile_user_notification: tile_user_notification).returns(OpenStruct.new(id: 1))
 
       tile_user_notification.deliver_notifications
       expect(tile_user_notification.recipient_count).to eq(5)
-      expect(tile_user_notification.delayed_job_id).to eq(1)
     end
   end
 
@@ -139,7 +136,7 @@ RSpec.describe TileUserNotification, :type => :model do
         tile_user_notification: tile_user_notification
       }).returns(mock_mail_object)
 
-      mock_mail_object.expects(:deliver)
+      mock_mail_object.expects(:deliver_now)
 
       tile_user_notification.deliver_test_notification(user: user)
     end

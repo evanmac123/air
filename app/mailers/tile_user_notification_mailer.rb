@@ -2,16 +2,6 @@ class TileUserNotificationMailer < ApplicationMailer
   helper :email
   layout 'mailer'
 
-  def self.notify_all(tile_user_notification:)
-    recipients = tile_user_notification.users
-
-    recipients.each do |user|
-      TileUserNotificationMailer.delay(queue: TileUserNotification::DELAYED_JOB_QUEUE).notify_one(user: user, tile_user_notification: tile_user_notification)
-    end
-
-    tile_user_notification.update_attributes(delivered_at: Time.current)
-  end
-
   def notify_one(user:, tile_user_notification:)
     @user = user
     return nil unless @user && @user.email.present?

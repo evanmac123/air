@@ -13,7 +13,6 @@ class TileUserNotification < ActiveRecord::Base
 
   as_enum :scope, answered: 0, did_not_answer: 1
 
-  DELAYED_JOB_QUEUE = "TileUserNotifications"
   BASE_ANSWER_OPTION = "the Tile"
 
   def self.options_for_scope_cd
@@ -40,13 +39,13 @@ class TileUserNotification < ActiveRecord::Base
   end
 
   def user_count
-    users.count(:id)
+    users.count
   end
 
   def deliver_notifications
-    delayed_job = TileUserNotificationMailer.delay(queue: DELAYED_JOB_QUEUE).notify_all(tile_user_notification: self)
+    TileUserNotificationBulkMailJob.perform_later(tile_user_notification: self)
 
-    self.update_attributes(recipient_count: user_count, delayed_job_id: delayed_job.id)
+    self.update_attributes(recipient_count: user_count)
   end
 
   def deliver_test_notification(user:)
