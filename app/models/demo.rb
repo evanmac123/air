@@ -84,7 +84,7 @@ class Demo < ActiveRecord::Base
   end
 
   def client_admin
-    users.joins(:board_memberships).where(board_memberships: { is_client_admin: true, demo_id: self.id } )
+    users.where(board_memberships: { is_client_admin: true } )
   end
 
   def twilio_from_number
@@ -290,7 +290,7 @@ class Demo < ActiveRecord::Base
   def flush_all_user_tickets
     guest_users.update_all("tickets = 0, ticket_threshold_base = points")
     board_memberships.update_all("tickets = 0, ticket_threshold_base = points")
-    users.joins(:board_memberships).where(board_memberships: { demo_id: id, is_current: true }).update_all("tickets = 0, ticket_threshold_base = points")
+    users.where(board_memberships: { is_current: true }).update_all("tickets = 0, ticket_threshold_base = points")
   end
 
   # TODO: Deprecate below
