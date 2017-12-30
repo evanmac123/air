@@ -144,14 +144,13 @@ describe FollowUpDigestEmail do
 
       describe "#trigger_deliveries" do
         it "mails all recipients with no tile completions for the current digest tiles" do
-          TilesDigestMailer.stubs(:delay).returns TilesDigestMailer
-          TilesDigestMailer.expects(:notify_one).at_most(5)
+          mock_delivery = ActionMailer::Base::NullMail.new
+
+          TilesDigestMailer.expects(:notify_one).returns(mock_delivery).at_most(5)
           @fu.trigger_deliveries
         end
 
         it "marks tiles_digest.followup_delivered as true" do
-          TilesDigestMailer.stubs(:delay).returns TilesDigestMailer
-
           expect(@fu.tiles_digest.followup_delivered).to be false
 
           @fu.trigger_deliveries

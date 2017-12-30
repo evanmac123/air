@@ -65,14 +65,14 @@ describe PotentialUser do
         @inviter = FactoryBot.create :user, demo: demo
 
         Mailer.stubs(:invitation => invitation)
-        invitation.stubs(:deliver)
+        invitation.stubs(:deliver_later)
         user.is_invited_by @inviter
-        
+
       end
 
       it "sends invitation to user" do
         expect(Mailer).to     have_received(:invitation)
-        expect(invitation).to have_received(:deliver)
+        expect(invitation).to have_received(:deliver_later)
       end
 
       it "should record a PeerInvitation" do
@@ -92,7 +92,7 @@ describe PotentialUser do
 
         other_user = FactoryBot.create(:user)
         user.is_invited_by(other_user)
-        
+
       end
 
       it "should not send another invitation email" do
