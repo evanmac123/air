@@ -121,7 +121,7 @@ class User < ActiveRecord::Base
         thumb: "96x96#"
       },
       default_style: :thumb,
-      default_url: ActionController::Base.helpers.asset_path("avatars/thumb/missing.png")
+      default_url: ->(attachment) { ActionController::Base.helpers.asset_path("avatars/thumb/missing.png") }
     }.merge!(USER_AVATAR_OPTIONS)
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
