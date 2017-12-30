@@ -14,7 +14,7 @@ module Tile::TileImageable
           viewer: "666>"
         },
         default_style: :viewer,
-        default_url: MISSING_PREVIEW,
+        default_url: ActionController::Base.helpers.asset_path(MISSING_PREVIEW),
         validate_media_type: false
       }.merge!(TILE_IMAGE_OPTIONS)
     validates_attachment_content_type :image, content_type: [/\Aimage\/.*\Z/, /\A*\/octet-stream\Z/]
@@ -26,7 +26,7 @@ module Tile::TileImageable
           email_digest: "190x160#"
         },
         default_style: :carousel,
-        default_url: MISSING_THUMBNAIL,
+        default_url: ActionController::Base.helpers.asset_path(MISSING_THUMBNAIL),
         preserve_files: true,
         validate_media_type: false
       }.merge!(TILE_THUMBNAIL_OPTIONS)

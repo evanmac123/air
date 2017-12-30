@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
 
   FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth gender demo_id accepted_invitation_at last_acted_at phone_number email)
 
-  MISSING_AVATAR_PATH = "avatars/thumb/missing.png"
   TAKEN_PHONE_NUMBER_ERR_MSG = "Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com"
 
   include Clearance::User
@@ -122,7 +121,7 @@ class User < ActiveRecord::Base
         thumb: "96x96#"
       },
       default_style: :thumb,
-      default_url: MISSING_AVATAR_PATH
+      default_url: ActionController::Base.helpers.asset_path("avatars/thumb/missing.png")
     }.merge!(USER_AVATAR_OPTIONS)
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
