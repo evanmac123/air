@@ -25,7 +25,7 @@ class SuggestedTileStatusChangeManager
   end
 
   def send_submitted_email
-    ReviewSubmittedTileMailer.delay.notify_all @tile.creator.id,@tile.demo.id
+    ReviewSubmittedTileMailer.notify_all @tile.creator.id,@tile.demo.id
   end
 
   def send_mail msg_type

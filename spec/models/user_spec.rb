@@ -299,14 +299,13 @@ describe User, "#invite" do
 
     before do
       Mailer.stubs(:invitation => invitation)
-      invitation.stubs(:deliver)
+      invitation.stubs(:deliver_later)
       subject.invite
-
     end
 
     it "sends invitation to user" do
       expect(Mailer).to     have_received(:invitation).with(subject, nil, {})
-      expect(invitation).to have_received(:deliver)
+      expect(invitation).to have_received(:deliver_later)
     end
 
     it { is_expected.to be_invited }

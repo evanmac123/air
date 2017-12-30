@@ -34,7 +34,7 @@ describe ClientAdmin::TileUserNotificationsController do
             "subject"=>"subject",
             "message"=>"message",
             "scope_cd"=>1,
-            "delivered_at"=>"1989-12-31T19:00:00.000-05:00",
+            "delivered_at"=>nil,
             "recipient_count"=>0,
             "send_at"=>nil,
             "delayed_job_id"=>nil,

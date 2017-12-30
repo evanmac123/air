@@ -17,8 +17,8 @@ describe ReviewSubmittedTileMailer do
       @tile_sender =  FactoryBot.create :user, email: "user@airbo.com", name: "Tile Sender"
     end
 
-    let(:mail) do 
-      ReviewSubmittedTileMailer.notify_one  @client_admin.id, demo.id, 
+    let(:mail) do
+      ReviewSubmittedTileMailer.notify_one  @client_admin.id, demo.id,
                                               @tile_sender.name, @tile_sender.email
     end
 
@@ -57,12 +57,10 @@ describe ReviewSubmittedTileMailer do
     end
 
     it 'should be delivered only to client admins of selected demo' do
-      object = mock('delay')
-      ReviewSubmittedTileMailer.stubs(:delay).returns(object)
+      mock_delivery = ActionMailer::Base::NullMail.new
 
-      object.expects(:notify_one).at_most(3)
       @admins.each do |ca|
-        object.expects(:notify_one).with(ca.id, demo.id, @tile_sender.name, @tile_sender.email)
+        ReviewSubmittedTileMailer.expects(:notify_one).with(ca.id, demo.id, @tile_sender.name, @tile_sender.email).returns(mock_delivery)
       end
 
       ReviewSubmittedTileMailer.notify_all @tile_sender.id, demo.id

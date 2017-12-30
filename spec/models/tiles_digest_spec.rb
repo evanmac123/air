@@ -109,12 +109,10 @@ RSpec.describe TilesDigest, :type => :model do
       @digest = TilesDigest.dispatch(params)
     end
 
-    it "calls notify_all on TilesDigestMailer" do
-      TilesDigestMailer.stubs(:delay).returns(TilesDigestMailer)
+    it "performs TilesDigestBulkMailJob" do
+      ActiveJob::Base.queue_adapter = :test
 
-      TilesDigestMailer.expects(:notify_all).with(@digest)
-
-      @digest.send_emails_and_sms
+      expect { @digest.send_emails_and_sms }.to have_enqueued_job(TilesDigestBulkMailJob).with(@digest)
     end
 
     it "updates recipient_count to the demo.users count at the time excluding site admins" do

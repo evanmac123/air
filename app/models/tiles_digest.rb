@@ -49,14 +49,14 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def set_tile_email_report_notifications
-    ClientAdmin::NotificationsManager.delay.set_tile_email_report_notifications(board: self.demo)
+    ClientAdmin::NotificationsManager.delay(run_at: 1.hour.from_now).set_tile_email_report_notifications(board: self.demo)
   end
 
   def send_emails_and_sms
     self.sent_at = Time.current
     self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true)
 
-    TilesDigestBulkMailJob.perform_now(self)
+    TilesDigestBulkMailJob.perform_later(self)
   end
 
   def all_related_subject_lines
