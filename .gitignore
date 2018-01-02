@@ -68,3 +68,6 @@ rspec.history
 .tmp_prod_mixpanel
 .tmp_prod_env
 spec/specs_with_statuses.txt
+/public/packs
+/public/packs-test
+/node_modules

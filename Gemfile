@@ -12,6 +12,7 @@ gem 'mongoid', '~> 4.0'
 gem 'bson', '~> 2.2'
 gem 'redis', '~> 3.3.3'
 gem 'redis-rails', '~> 5.0.2'
+gem 'webpacker', '~> 3.0'
 
 gem 'aws-sdk-s3', '~> 1'
 gem 'paperclip', '=4.3.5'

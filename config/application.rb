@@ -43,6 +43,8 @@ module Health
     # Reference: http://groups.google.com/group/mongoid/browse_thread/thread/df278a11dba4d331?pli=1
     config.generators do |g|
       g.orm :active_record
+      g.stylesheets false
+      g.javascripts false
     end
 
     config.middleware.use RequestTimestamp

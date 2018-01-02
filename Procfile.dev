@@ -2,3 +2,4 @@ airbo_worker: bundle exec rake jobs:work
 airbo_elastic_search: elasticsearch
 airbo_redis: redis-server
 airbo_log: tail -f log/development.log
+webpack: ./bin/webpack-dev-server
