@@ -23,7 +23,7 @@ module EmailHelper
 
   def email_logo(demo = nil)
     image_options = { border: "0", style: "display:block;", width: "90"}
-    if demo && demo.logo_file_name.blank?
+    if demo.nil? || demo.logo_file_name.blank?
       logo_url = ActionController::Base.helpers.asset_path('logo.png')
       image_options.merge!(alt: 'Airbo')
     else

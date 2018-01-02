@@ -23,7 +23,9 @@ feature 'Completes tiles' do
   scenario 'and sees the completion in the activity feed', js: true do
     click_right_answer
     visit public_activity_path(board.public_slug)
-    expect_content "completed the tile: \"#{tile_1.headline}\""
+    within ".feeds" do
+      expect_content "completed the tile: \"#{tile_1.headline}\""
+    end
   end
 
   scenario 'and doesn\'t see the tile in question anymore as completed', js: true do

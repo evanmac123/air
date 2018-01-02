@@ -91,7 +91,7 @@ describe 'Digest email' do
     it 'should display the HEngage logo and alt-text if an alternative one is not provided' do
       email = TilesDigestMailer.notify_one(digest, claimed_user.id, 'New Tiles', "TilesDigestMailDigestPresenter")
 
-      expect(email).to have_selector "img[src $= '/assets/airbo_logo_lightblue.png'][alt = 'Airbo']"
+      expect(email).to have_selector "img[src $= '/assets/logo.png'][alt = 'Airbo']"
     end
 
     it "should display another company's logo if they have provided one" do
