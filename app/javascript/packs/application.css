@@ -1,6 +1,0 @@
-element {
-  --main-bg-color: brown;
-}
-#tile_manager_nav {
-  background: var(--main-bg-color);
-}
