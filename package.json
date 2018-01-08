@@ -39,6 +39,16 @@
       "prettier --write",
       "stylelint --fix",
       "git add"
+    ],
+    "app/assets/javascripts/**/*.js": [
+      "prettier --write",
+      "eslint",
+      "git add"
+    ],
+    "app/assets/stylesheets/**/*.scss": [
+      "prettier --write",
+      "stylelint --fix",
+      "git add"
     ]
   },
   "pre-commit": [
