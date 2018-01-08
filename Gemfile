@@ -129,6 +129,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'rubocop'
 end
 
 group :production do

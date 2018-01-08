@@ -31,24 +31,18 @@
       "eslint",
       "git add"
     ],
-    "app/javascript/**/*.js": [
+    "app/**/*.js": [
       "prettier --write",
       "eslint",
       "git add"
     ],
-    "app/javascript/**/*.css": [
+    "app/**/*.{css, scss}": [
       "prettier --write",
       "stylelint --fix",
       "git add"
     ],
-    "app/assets/javascripts/**/*.js": [
-      "prettier --write",
-      "eslint",
-      "git add"
-    ],
-    "app/assets/stylesheets/**/*.scss": [
-      "prettier --write",
-      "stylelint --fix",
+    "{app, test}/**/*.rb": [
+      "bundle exec rubocop -a",
       "git add"
     ]
   },
