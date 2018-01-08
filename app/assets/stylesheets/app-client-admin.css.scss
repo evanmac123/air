@@ -12,8 +12,6 @@
 *= require marvel_devices.min
 */
 
-
-
 /*
 ***************************************************
 TODO remove commented out lines that have been pused into
@@ -22,7 +20,6 @@ styles changes haven't broken anything.
 *****************************************************/
 
 @import "./_common_user_client_admin.css.scss";
-
 @import "wice_grid";
 @import "./client_admin/share/shares.css.scss";
 @import "./client_admin/board_activity.css.scss";
@@ -36,10 +33,10 @@ styles changes haven't broken anything.
 @import "./tile/tile_stats/tile_stats.css.scss";
 @import "./explore/explore.css.scss";
 
-/*New scss direction*/
+/* New scss direction */
 @import "client_admin/modules/reporting-module";
+@import "mixins/airbo-layout-defaults";
 
-@import 'mixins/airbo-layout-defaults';
 @include airbo-layout-defaults();
 
-@import "./application/**/*"
+@import "./application/**/*";
