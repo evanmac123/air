@@ -47,7 +47,7 @@
       "stylelint --fix",
       "git add"
     ],
-    "{app, test}/**/*.rb": [
+    "{app, spec}/**/*.rb": [
       "bundle exec rubocop -a",
       "bundle exec reek",
       "git add"
