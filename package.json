@@ -49,6 +49,7 @@
     ],
     "{app, test}/**/*.rb": [
       "bundle exec rubocop -a",
+      "bundle exec reek",
       "git add"
     ]
   },

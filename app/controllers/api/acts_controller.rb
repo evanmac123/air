@@ -9,6 +9,6 @@ class Api::ActsController < Api::ApiController
   private
 
     def find_requested_acts
-      Act.displayable_to_user(viewing_user: current_user, page: params[:page], per_page: params[:perPage])
+      ActFinder.call(viewing_user: current_user, page: params[:page], per_page: params[:perPage])
     end
 end

@@ -28,11 +28,11 @@ class Act < ActiveRecord::Base
   end
 
   def self.unhidden
-    where(:hidden => false)
+    where(hidden: false)
   end
 
   def self.same_demo(user)
-    where(:demo_id => user.demo_id)
+    where(demo_id: user.demo_id)
   end
 
   def self.guest_user_acts
@@ -41,30 +41,5 @@ class Act < ActiveRecord::Base
 
   def self.user_acts
     where(user_type: User.to_s)
-  end
-
-  def self.displayable_to_user(viewing_user:, page:, per_page:)
-    board = viewing_user.demo
-
-    if viewing_user.is_guest?
-      return viewing_user.acts.ordered.page(page).per(per_page)
-    end
-
-    if viewing_user.is_a?(PotentialUser) || board.hide_social
-      return board.acts.ordered.where(user_id: viewing_user.id, user_type: User.to_s).page(page).per(per_page)
-    end
-
-    if viewing_user.is_client_admin || viewing_user.is_site_admin
-      return board.acts.ordered.page(page).per(per_page)
-    end
-
-    friends = viewing_user.displayable_accepted_friends
-    viewable_user_ids = friends.pluck(:id) + [viewing_user.id]
-
-    board.acts.user_acts.unhidden.where("(user_id in (?) or privacy_level='everybody')", viewable_user_ids).ordered.page(page).per(per_page)
-  end
-
-  def self.for_profile(viewing_user)
-    displayable_to_user(viewing_user, viewing_user.demo, 1, 10)
   end
 end
