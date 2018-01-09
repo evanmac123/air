@@ -1,7 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ActsFeedManager = (function(){
-
+Airbo.ActsFeedManager = (function() {
   function renderActs(acts) {
     acts.forEach(function(act) {
       var actTemplate = HandlebarsTemplates["acts/act"](act);
@@ -10,10 +9,10 @@ Airbo.ActsFeedManager = (function(){
   }
 
   function bindMore() {
-    $('.js-see-more-acts').on('click', function(e) {
+    $(".js-see-more-acts").on("click", function(e) {
       e.preventDefault();
-      $('#see-more-spinner').show();
-      $('.js-see-more-acts .button_text').hide();
+      $("#see-more-spinner").show();
+      $(".js-see-more-acts .button_text").hide();
       getActs(displayMoreActs);
     });
   }
@@ -21,11 +20,11 @@ Airbo.ActsFeedManager = (function(){
   function displayMoreActs(data) {
     renderActs(data.acts);
     if (data.meta.lastPage === true) {
-      $('.js-see-more-acts').hide();
+      $(".js-see-more-acts").hide();
     } else {
       $(".js-activity-feed-component").data("page", data.meta.nextPage);
-      $('.js-see-more-acts .button_text').show();
-      $('#see-more-spinner').hide();
+      $(".js-see-more-acts .button_text").show();
+      $("#see-more-spinner").hide();
     }
   }
 
@@ -37,24 +36,36 @@ Airbo.ActsFeedManager = (function(){
   }
 
   function setInitialActs(data) {
-    if(data.acts.length > 0) {
+    if (data.acts.length > 0) {
       $(".js-placeholder-act").fadeOut();
       renderActs(data.acts);
       $(".js-activity-feed-component").data("page", data.meta.nextPage);
       $(".js-user-acts").fadeIn();
-      if(data.meta.lastPage !== true) $('.js-see-more-acts').show();
+      if (data.meta.lastPage !== true) $(".js-see-more-acts").show();
     } else {
       $(".js-placeholder-act").fadeOut("slow", function() {
-        $(".js-user-acts").append(HandlebarsTemplates["acts/exampleAct"]);
+        var exampleAct = HandlebarsTemplates["acts/exampleAct"]({
+          helpers: { avatarPath: missingAvatarPath() }
+        });
+        $(".js-user-acts").append(exampleAct);
         $(".js-user-acts").fadeIn();
       });
     }
   }
 
+  function missingAvatarPath() {
+    return $(".js-activity-feed-component").data("missingAvatarPath");
+  }
+
   function init() {
     var $component = $(".js-activity-feed-component");
     $component.append(HandlebarsTemplates["acts/actsFeed"]);
-    $component.append(HandlebarsTemplates["acts/placeholderAct"]);
+
+    var placeholderAct = HandlebarsTemplates["acts/placeholderAct"]({
+      helpers: { avatarPath: missingAvatarPath() }
+    });
+    $component.append(placeholderAct);
+
     getActs(setInitialActs);
     bindMore();
   }
@@ -62,9 +73,9 @@ Airbo.ActsFeedManager = (function(){
   return {
     init: init
   };
-}());
+})();
 
-$(function(){
+$(function() {
   if ($(".js-activity-feed-component").length > 0) {
     Airbo.ActsFeedManager.init();
   }

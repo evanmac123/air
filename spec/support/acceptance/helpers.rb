@@ -98,7 +98,7 @@ module SteakHelperMethods
   end
 
   def expect_default_avatar_in_masthead
-    expect_avatar_in_masthead('missing.png')
+    expect_avatar_in_masthead('avatar_missing.png')
   end
 
   def expect_logo_in_header expected_filename

@@ -1,4 +1,3 @@
-
 var Airbo = window.Airbo || {};
 
 /************************************************
@@ -9,65 +8,68 @@ var Airbo = window.Airbo || {};
  *
  * **********************************************/
 
-
-Airbo.TileImagePreviewer = (function(){
-  var  remoteMediaUrlSelector = '#remote_media_url';
-  var remoteMediaTypeSelector = '#remote_media_type';
-  var clearImageSelector = '.img-menu-item.clear';
-  var imagePreviewSelector = '.image_preview';
+Airbo.TileImagePreviewer = (function() {
+  var remoteMediaUrlSelector = "#remote_media_url";
+  var remoteMediaTypeSelector = "#remote_media_type";
+  var clearImageSelector = ".img-menu-item.clear";
+  var imagePreviewSelector = ".image_preview";
   var clearImage;
 
   function removeImageCredit() {
-    $('.image_credit_view').text('').trigger('keyup').trigger('focusout');
+    $(".image_credit_view")
+      .text("")
+      .trigger("keyup")
+      .trigger("focusout");
   }
 
   function setPreviewImage(imageUrl, imgWidth, imgHeight) {
-    $('#upload_preview').attr("src", imageUrl);
+    $("#upload_preview").attr("src", imageUrl);
     $(imagePreviewSelector).addClass("present");
     $("#tile_form_modal").animate({ scrollTop: 0 }, "fast");
   }
 
-  function removeImage(){
-    $("#upload_preview").attr("src","/assets/missing-search-image.png");
+  function removeImage() {
+    var missingImage = $("#upload_preview").data("missingTilePreviewImage");
+    $("#upload_preview").attr("src", missingImage);
+
     $(imagePreviewSelector).removeClass("present");
     removeImageCredit();
-    remoteMediaUrl.val('');
+    remoteMediaUrl.val("");
     remoteMediaUrl.change();
   }
 
-  function initDom(){
+  function initDom() {
     clearImage = $(clearImageSelector);
     remoteMediaUrl = $(remoteMediaUrlSelector);
     remoteMediaType = $(remoteMediaTypeSelector);
     initExpand();
   }
 
-  function initClearImage(){
+  function initClearImage() {
     clearImage.click(function(event) {
       removeImage();
       event.stopPropagation();
     });
   }
 
-  function initExpand(){
-
+  function initExpand() {
     $(".img-menu-item .fa-compress").hide();
 
-    $(".img-menu-item .fa-expand").click(function(){
-       $(".image_preview").removeClass("limited-height");
-       $(this).hide();
-       $(".img-menu-item .fa-compress").show();
+    $(".img-menu-item .fa-expand").click(function() {
+      $(".image_preview").removeClass("limited-height");
+      $(this).hide();
+      $(".img-menu-item .fa-compress").show();
     });
 
-    $(".img-menu-item .fa-compress").click(function(){
-       $(".image_preview").addClass("limited-height");
-       $(".img-menu-item .fa-expand").show();
-       $(this).hide();
+    $(".img-menu-item .fa-compress").click(function() {
+      $(".image_preview").addClass("limited-height");
+      $(".img-menu-item .fa-expand").show();
+      $(this).hide();
     });
   }
 
-  function initImageSelectedListener(){
-    Airbo.PubSub.subscribe('image-selected', function(event, imgProps){
+  function initImageSelectedListener() {
+    Airbo.PubSub.subscribe("image-selected", function(event, imgProps) {
       setPreviewImage(imgProps.url, imgProps.w, imgProps.h);
     });
   }
@@ -87,25 +89,24 @@ Airbo.TileImagePreviewer = (function(){
         Airbo.ImageSearcher.setImageProvider("giphy");
       }
 
-      if($(".search-input").val().length > 0) {
+      if ($(".search-input").val().length > 0) {
         Airbo.ImageSearcher.executeSearch();
       }
     });
   }
 
-  function init(mgr){
+  function init(mgr) {
     initDom();
     initClearImage();
     initImageSelectedListener();
     initGifSearchToggle();
 
-    $('.menu-tooltip').tooltipster({theme: 'tooltipster-shadow'});
+    $(".menu-tooltip").tooltipster({ theme: "tooltipster-shadow" });
 
     return this;
   }
 
   return {
-    init: init,
+    init: init
   };
-
 })();
