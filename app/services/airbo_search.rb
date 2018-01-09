@@ -1,4 +1,3 @@
-
 class AirboSearch
   ADMIN_PER_PAGE = 28
   USER_PER_PAGE = 32
@@ -39,7 +38,7 @@ class AirboSearch
 
   def campaigns
     if explore_search
-      @campaigns ||= Campaign.search(query, { order: [_score: :desc, created_at: :desc] })
+      @campaigns ||= Campaign.search(query, order: [_score: :desc, created_at: :desc])
     end
   end
 
@@ -77,7 +76,7 @@ class AirboSearch
     end
 
     def formatted_query
-      return '*' if query.blank?
+      return "*" if query.blank?
       query
     end
 
