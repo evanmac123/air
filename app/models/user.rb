@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   TAKEN_PHONE_NUMBER_ERR_MSG = "Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com"
 
-  MISSING_AVATAR_PATH = ActionController::Base.helpers.asset_path("missing.png")
+  MISSING_AVATAR_PATH = "avatar_missing.png"
 
   include Clearance::User
   include User::Segmentation
@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
         thumb: "96x96#"
       },
       default_style: :thumb,
-      default_url: ->(attachment) { MISSING_AVATAR_PATH }
+      default_url: ->(attachment) { ActionController::Base.helpers.asset_path(MISSING_AVATAR_PATH) }
     }.merge!(USER_AVATAR_OPTIONS)
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
