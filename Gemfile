@@ -16,7 +16,7 @@ gem 'webpacker', '~> 3.0'
 
 gem 'aws-sdk-s3', '~> 1'
 gem 'paperclip', '=4.3.5'
-gem 'delayed_paperclip', '~> 2.9.0'
+gem 'delayed_paperclip', '~> 3.0.0'
 
 gem 'twilio-ruby', '~> 5.2.3'
 gem 'high_voltage', '~> 3.0.0'

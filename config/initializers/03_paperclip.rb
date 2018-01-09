@@ -13,8 +13,7 @@ when 'production', 'staging'
       bucket: APP_BUCKET,
       url: ":s3_domain_url",
       hash_secret: "Kid Sister Diary Secure",
-      path: ":class/:attachment/:id/:style/:filename",
-      escape_url: false # Remove after Rails upgrade. (https://github.com/thoughtbot/paperclip/issues/1706)
+      path: ":class/:attachment/:id/:style/:filename"
     }
   )
 
@@ -44,8 +43,7 @@ when 'test',  'development'
 
   Paperclip::Attachment.default_options.merge!(
     {
-      url: "/system/:rails_env/:class/:attachment/:id/:style/:filename",
-      escape_url: false
+      url: "/system/:rails_env/:class/:attachment/:id/:style/:filename"
     }
   )
 
