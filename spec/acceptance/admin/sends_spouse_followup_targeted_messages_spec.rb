@@ -17,7 +17,6 @@ feature 'Admin sends spouse followup messages' do
   end
 
   it "should send email to all invited spouses who are not active users", :js => true do
-    Delayed::Worker.delay_jobs = false
     set_up_models
 
     visit admin_demo_dependent_board_path(@primary_demo, as: an_admin)
@@ -31,8 +30,6 @@ feature 'Admin sends spouse followup messages' do
   end
 
   it "should send email to current user when send test message to current user is selected", js: true do
-    Delayed::Worker.delay_jobs = false
-
     @spouse_demo = FactoryBot.create(:demo, name: "Spouse Board")
     @primary_demo = FactoryBot.create(:demo, name: "Primary Board", dependent_board_enabled: true, dependent_board_id: @spouse_demo.id)
 

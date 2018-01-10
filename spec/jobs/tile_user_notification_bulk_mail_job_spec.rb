@@ -5,7 +5,7 @@ RSpec.describe TileUserNotificationBulkMailJob, type: :job do
   let(:tile) { FactoryBot.create(:tile) }
   let(:tile_user_notification) { TileUserNotification.create(tile: tile, creator: users.first, subject: "A SUBJECT", message: "A MESSAGE") }
 
-  describe "#perform" do
+  describe ".perform" do
     it "asks itself to notify_one for each recipient and updates the tile_user_notification delivered_at" do
       tile_user_notification.expects(:users).returns(users)
 

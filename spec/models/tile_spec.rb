@@ -60,13 +60,6 @@ describe Tile do
       tile.send(:prep_image_processing)
     end
 
-    it "does not calla #validate_remote_media_url if remote_media_url is nil" do
-      tile.expects(:validate_remote_media_url).never
-      tile.remote_media_url = nil
-
-      tile.send(:prep_image_processing)
-    end
-
     it "sets thumbnail_processing and image_processing to true if remote_media_url is present" do
       tile.thumbnail_processing = false
       tile.image_processing = false

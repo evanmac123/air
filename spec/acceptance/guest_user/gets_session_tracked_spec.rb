@@ -5,7 +5,6 @@ feature "Guest user activity session tracking", wonky: true do
   let (:threshold) {ApplicationController::ACTIVITY_SESSION_THRESHOLD}
 
   before(:each) do
-    Delayed::Worker.delay_jobs = false
     FakeMixpanelTracker.clear_tracked_events
   end
 

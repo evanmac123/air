@@ -52,8 +52,8 @@ class Tile < ActiveRecord::Base
 
   before_create :set_on_first_position
   before_save :update_timestamps, if: :status_changed?
-  before_save :handle_suggested_tile_status_change
   before_save :set_image_credit_to_blank_if_default
+  after_save :handle_suggested_tile_status_change
 
   validates_presence_of :headline, allow_blank: false, message: "headline can't be blank",  if: :state_is_anything_but_draft?
   validates_presence_of :supporting_content, allow_blank: false, message: "supporting content can't be blank", if: :state_is_anything_but_draft?
@@ -481,7 +481,7 @@ class Tile < ActiveRecord::Base
     end
 
     def handle_suggested_tile_status_change
-      if changed.map(&:to_sym).include?(:status)
+      if suggestion_box_created? && changes.include?(:status)
         SuggestedTileStatusChangeManager.new(self).process
       end
     end
