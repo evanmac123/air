@@ -20,7 +20,7 @@
 
     <div class="image_section" style="<%= 'height: 0px' if tile.show_video? %>">
       <div class="tile_full_image <%= image_is_loading ? 'loading' : '' %>">
-        <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, id:"tile_img_preview", style:"height: 400px;" %>
+        <%= image_tag tile.image.url, :class => :tile_image, :alt => tile.headline, id:"tile_img_preview" %>
         <div class="shadow_overlay non-landing"></div>
         <div class="image_credit">
           <div class="image_credit_view">
