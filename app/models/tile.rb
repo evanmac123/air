@@ -367,14 +367,6 @@ class Tile < ActiveRecord::Base
       .order("position ASC").first
   end
 
-  def is_cloned?
-    @cloned || false
-  end
-
-  def is_cloned=(val)
-    @cloned = val
-  end
-
   def prevent_activated_at_reset
     @activated_at_reset_allowed = false
   end
@@ -531,7 +523,7 @@ class Tile < ActiveRecord::Base
     end
 
     def process_image
-      ImageProcessJob.new(id, image_from_library).perform unless is_cloned?
+      ImageProcessJob.perform_later(id: self.id)
     end
 
     def image_changed?

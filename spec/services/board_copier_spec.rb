@@ -28,7 +28,7 @@ describe BoardCopier do
       it "copies each active tile to new board" do
         FactoryBot.create_list(:tile, 3, demo: orignal_board, status: Tile::ACTIVE)
 
-        TileCopier.any_instance.expects(:copy_from_own_board).with(Tile::ACTIVE, "Initial Board Setup").times(3)
+        TileCopier.any_instance.expects(:copy_from_template).times(3)
 
         board_copier.copy_active_tiles_from_board
       end

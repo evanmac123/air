@@ -38,7 +38,7 @@ class ActFinder
 
   def display_friends_acts
     friends = user.displayable_accepted_friends
-    viewable_user_ids = friends.pluck(:id) + [viewing_user.id]
+    viewable_user_ids = friends.pluck(:id) + [user.id]
 
     board.acts.user_acts.unhidden.where("(user_id in (?) or privacy_level='everybody')", viewable_user_ids).ordered.page(page).per(per_page)
   end

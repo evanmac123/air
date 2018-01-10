@@ -8,7 +8,7 @@ class BoardCopier
 
   def copy_active_tiles_from_board
     board_template.active_tiles.reverse.each do |tile|
-      TileCopier.new(new_board, tile).copy_from_own_board(Tile::ACTIVE, "Initial Board Setup")
+      TileCopier.new(new_board, tile).copy_from_template
     end
   end
 end
