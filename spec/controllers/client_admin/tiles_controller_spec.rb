@@ -21,7 +21,6 @@ describe ClientAdmin::TilesController do
   def tile
     {"status"=>"draft",
      "remote_media_type"=>"image/jpeg",
-     "image_from_library"=>"",
      "remote_media_url"=>"http://some/remote/s3/image",
      "image_credit"=>"",
      "embed_video"=>"",

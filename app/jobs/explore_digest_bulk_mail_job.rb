@@ -1,5 +1,5 @@
 class ExploreDigestBulkMailJob < ActiveJob::Base
-  queue_as :explore_digest_bulk_mail
+  queue_as :bulk_mail
 
   def perform(explore_digest, users = nil)
     users ||= User.client_admin.where(receives_explore_email: true)

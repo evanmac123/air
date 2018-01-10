@@ -1,5 +1,5 @@
 class FollowUpDigestBulkMailJob < ActiveJob::Base
-  queue_as :follow_up_digest_bulk_mail
+  queue_as :bulk_mail
 
   def perform
     FollowUpDigestEmail.send_follow_up_digest_email.each do |followup|

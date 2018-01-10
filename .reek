@@ -16,6 +16,9 @@
 "app/mailers":
   InstanceVariableAssumption:
     enabled: false
+"app/jobs":
+  UtilityFunction:
+    enabled: false
 
 Attribute:
   enabled: true

@@ -1,5 +1,5 @@
 class TileUserNotificationBulkMailJob < ActiveJob::Base
-  queue_as :tile_user_notifications
+  queue_as :bulk_mail
 
   def perform(tile_user_notification:)
     recipients = tile_user_notification.users

@@ -41,8 +41,6 @@ module Tile::TileImageable
       priority: TILE_IMAGE_PROCESSING_PRIORITY
   end
 
-  attr_accessor :image_from_library
-
   def processing_image_fallback
     remote_media_url || IMAGE_PROCESSING_URL
   end

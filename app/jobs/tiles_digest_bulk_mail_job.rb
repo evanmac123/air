@@ -1,5 +1,5 @@
 class TilesDigestBulkMailJob < ActiveJob::Base
-  queue_as :tiles_digest_bulk_mail
+  queue_as :bulk_mail
 
   def perform(digest)
     digest.user_ids_to_deliver_to.each_with_index do |user_id, idx|
