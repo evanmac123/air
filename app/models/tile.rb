@@ -1,6 +1,7 @@
 class Tile < ActiveRecord::Base
   include Tile::TileImageable
   include Tile::TileImageProcessing
+  include Tile::TileQuestionTypes
   include Tile::TileAnswers
   include Tile::TileLinkTracking
   include Attachable
@@ -13,26 +14,7 @@ class Tile < ActiveRecord::Base
   IGNORED = "ignored".freeze
 
   STATUS  = [ACTIVE, ARCHIVE, DRAFT, USER_DRAFT, USER_SUBMITTED, IGNORED].freeze
-  #TODO remove these question type constant declarations if not needed
 
-  # Question Types
-  ACTION = "Action".freeze
-  QUIZ   = "Quiz".freeze
-  SURVEY = "Survey".freeze
-
-  # Question Subtypes
-  TAKE_ACTION           = "Take Action".parameterize("_").freeze
-  READ_TILE             = "Read Tile".parameterize("_").freeze
-  READ_ARTICLE          = "Read Article".parameterize("_").freeze
-  SHARE_ON_SOCIAL_MEDIA = "Share On Social Media".parameterize("_").freeze
-  VISIT_WEB_SITE        = "Visit Web Site".parameterize("_").freeze
-  WATCH_VIDEO           = "Watch Video".parameterize("_").freeze
-  CUSTOM                = "Custom...".parameterize("_").freeze
-  TRUE_FALSE            = "True / False".parameterize("_").freeze
-  MULTIPLE_CHOICE       = "Multiple Choice".parameterize("_").freeze
-  RSVP_TO_EVENT         = "RSVP to event".parameterize("_").freeze
-  INVITE_SPOUSE         = "Invite Spouse".parameterize("_").freeze
-  CHANGE_EMAIL = "Change Email".parameterize("_").freeze
   MAX_HEADLINE_LEN = 75
   MAX_SUPPORTING_CONTENT_LEN = 700
   IMAGE_UPLOAD = "image-upload"
