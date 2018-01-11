@@ -8,7 +8,7 @@ describe SuggestedTileStatusMailer do
 
   describe "#notify" do
     describe "when tile is accepted" do
-      let(:mail) { SuggestedTileStatusMailer.notify(message_type: :accepted, user: user, tile: tile) }
+      let(:mail) { SuggestedTileStatusMailer.notify_accepted(user: user, tile: tile) }
 
       it 'renders the subject' do
         expect(mail.subject).to eql(SuggestedTileStatusMailer::ACCEPTED_SUBJECT)
@@ -20,7 +20,7 @@ describe SuggestedTileStatusMailer do
     end
 
     describe "when tile is posted" do
-      let(:mail) { SuggestedTileStatusMailer.notify(message_type: :posted, user: user, tile: tile) }
+      let(:mail) { SuggestedTileStatusMailer.notify_posted(user: user, tile: tile) }
 
       it 'renders the subject' do
         expect(mail.subject).to eql(SuggestedTileStatusMailer::POSTED_SUBJECT)

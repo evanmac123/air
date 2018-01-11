@@ -19,11 +19,11 @@ class SuggestedTileStatusChangeManager
   private
 
     def send_acceptance_email
-      SuggestedTileStatusMailer.notify(message_type: :accepted, user: tile.creator, tile: tile).deliver_later
+      SuggestedTileStatusMailer.notify_accepted(user: tile.creator, tile: tile).deliver_later
     end
 
     def send_posted_email
-      SuggestedTileStatusMailer.notify(message_type: :posted, user: tile.creator, tile: tile).deliver_later
+      SuggestedTileStatusMailer.notify_posted(user: tile.creator, tile: tile).deliver_later
     end
 
     def send_submitted_email

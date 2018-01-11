@@ -280,7 +280,7 @@ describe Tile do
   context "status changes" do
     let(:user){FactoryBot.create(:user)}
     let(:demo) { FactoryBot.create :demo }
-    let(:tile) { FactoryBot.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true }
+    let(:tile) { FactoryBot.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, creation_source: Tile.creation_sources[:suggestion_box_created] }
 
     it "triggers status change manager if status has changed" do
       tile.status = Tile::DRAFT
@@ -296,7 +296,7 @@ describe Tile do
 
     it "triggers status change manager on creation " do
       SuggestedTileStatusChangeManager.any_instance.expects(:process)
-      FactoryBot.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true
+      FactoryBot.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, creation_source: Tile.creation_sources[:suggestion_box_created]
     end
   end
 
