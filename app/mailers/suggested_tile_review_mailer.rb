@@ -11,7 +11,7 @@ class SuggestedTileReviewMailer < ApplicationMailer
     @email = tile_sender_email
     @link = submitted_tile_notifications_url(demo_id: demo_id)
 
-    mail  from:     @demo.email,
+    mail  from:     @demo.reply_email_address,
           to:       @user.email,
           subject:  "New Tile Submitted Needs Review"
   end
