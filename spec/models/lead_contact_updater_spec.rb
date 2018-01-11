@@ -3,7 +3,7 @@ require 'spec_helper'
 describe LeadContactUpdater do
   describe "LeadContact evaluation" do
     before do
-      @lead_contact = FactoryGirl.create(:lead_contact, status: "pending")
+      @lead_contact = FactoryBot.create(:lead_contact, status: "pending")
 
       @attributes = {
         "name"=>"Name",

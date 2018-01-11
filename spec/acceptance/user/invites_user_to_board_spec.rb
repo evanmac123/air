@@ -10,22 +10,22 @@ feature 'User invites user to board', broken: true do
 
 
   before(:each) do
-    @demo1 = FactoryGirl.create(:demo, :name => "Bratwurst")
-    @demo2 = FactoryGirl.create(:demo, :name => "Gleason")
+    @demo1 = FactoryBot.create(:demo, :name => "Bratwurst")
+    @demo2 = FactoryBot.create(:demo, :name => "Gleason")
 
-    @user = FactoryGirl.create(:user, :claimed, demo: @demo1, name: "Cool guy", slug: "cool_guy", password: "foobar")
+    @user = FactoryBot.create(:user, :claimed, demo: @demo1, name: "Cool guy", slug: "cool_guy", password: "foobar")
     signin_as @user, 'foobar'
 
-    @user0 = FactoryGirl.create(:user, :unclaimed, :name => "Joining Now 1", :demo => @demo1, :email => "angel@hopper.com", :slug => "angelfire", :sms_slug => "angelfire")
-    @user1 = FactoryGirl.create(:claimed_user, :name => "mad house",      :demo => @demo1, :email => "manly@hopper.com", :slug => "beau", :sms_slug => "beau")
-    @user2 = FactoryGirl.create(:claimed_user, :name => "Lucy",           :demo => @demo1, :email => "boob@hopper.com", :slug => "lou", :sms_slug => "lou")
-    @user3 = FactoryGirl.create(:claimed_user, :name => "Strange",        :demo => @demo1, :email => "surround@hopper.com", :slug => "think", :sms_slug => "think")
-    @user4 = FactoryGirl.create(:claimed_user, :name => "Parking Lot",    :demo => @demo1, :email => "chevo@hopper.com", :slug => "master", :sms_slug => "master")
-    @user5 = FactoryGirl.create(:claimed_user, :name => "Lucy",           :demo => @demo2, :email => "boob@biker.com", :slug => "sterling", :sms_slug => "sterling")
-    @user6 = FactoryGirl.create(:claimed_user, :name => "Brewski",        :demo => @demo2, :email => "three@biker.com", :slug => "gold", :sms_slug => "gold")
-    @user7 = FactoryGirl.create(:claimed_user, :name => "Latino",         :demo => @demo2, :email => "four@biker.com", :slug => "nutcase", :sms_slug => "nutcase")
-    @user8 = FactoryGirl.create(:user, :unclaimed, :name => "Va Va Va Voom",  :demo => @demo2, :email => "seven@biker.com", :slug => "sixpack", :sms_slug => "sixpack")
-    @user9 = FactoryGirl.create(:claimed_user, :name => "Joining Now 2",  :demo => @demo2, :email => "angel@biker.com", :slug => "damnation", :sms_slug => "damnation")
+    @user0 = FactoryBot.create(:user, :unclaimed, :name => "Joining Now 1", :demo => @demo1, :email => "angel@hopper.com", :slug => "angelfire", :sms_slug => "angelfire")
+    @user1 = FactoryBot.create(:claimed_user, :name => "mad house",      :demo => @demo1, :email => "manly@hopper.com", :slug => "beau", :sms_slug => "beau")
+    @user2 = FactoryBot.create(:claimed_user, :name => "Lucy",           :demo => @demo1, :email => "boob@hopper.com", :slug => "lou", :sms_slug => "lou")
+    @user3 = FactoryBot.create(:claimed_user, :name => "Strange",        :demo => @demo1, :email => "surround@hopper.com", :slug => "think", :sms_slug => "think")
+    @user4 = FactoryBot.create(:claimed_user, :name => "Parking Lot",    :demo => @demo1, :email => "chevo@hopper.com", :slug => "master", :sms_slug => "master")
+    @user5 = FactoryBot.create(:claimed_user, :name => "Lucy",           :demo => @demo2, :email => "boob@biker.com", :slug => "sterling", :sms_slug => "sterling")
+    @user6 = FactoryBot.create(:claimed_user, :name => "Brewski",        :demo => @demo2, :email => "three@biker.com", :slug => "gold", :sms_slug => "gold")
+    @user7 = FactoryBot.create(:claimed_user, :name => "Latino",         :demo => @demo2, :email => "four@biker.com", :slug => "nutcase", :sms_slug => "nutcase")
+    @user8 = FactoryBot.create(:user, :unclaimed, :name => "Va Va Va Voom",  :demo => @demo2, :email => "seven@biker.com", :slug => "sixpack", :sms_slug => "sixpack")
+    @user9 = FactoryBot.create(:claimed_user, :name => "Joining Now 2",  :demo => @demo2, :email => "angel@biker.com", :slug => "damnation", :sms_slug => "damnation")
 
     visit activity_path
   end

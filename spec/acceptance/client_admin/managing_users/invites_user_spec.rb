@@ -3,8 +3,8 @@ require 'acceptance/acceptance_helper'
 feature 'Invites user' do
   context "from the edit page" do
     before do
-      @user = FactoryGirl.create(:user)
-      @client_admin = FactoryGirl.create(:client_admin, demo: @user.demo)
+      @user = FactoryBot.create(:user)
+      @client_admin = FactoryBot.create(:client_admin, demo: @user.demo)
       expect(@user).not_to be_invited
     end
 
@@ -33,9 +33,9 @@ feature 'Invites user' do
 
   context "from the add page after creating a user" do
     before do
-      client_admin = FactoryGirl.create(:client_admin)
+      client_admin = FactoryBot.create(:client_admin)
       @demo = client_admin.demo
-      FactoryGirl.create :tile, demo: @demo
+      FactoryBot.create :tile, demo: @demo
       visit client_admin_users_path(as: client_admin)
       fill_in "user[name]", with: "Bob Jones"
     end

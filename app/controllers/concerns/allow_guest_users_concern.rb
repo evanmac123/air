@@ -25,7 +25,7 @@ module AllowGuestUsersConcern
   end
 
   def attach_board_to_guest_user
-    board = Demo.find_by_public_slug(params[:public_slug])
+    board = Demo.find_by(public_slug: params[:public_slug])
     if board && @cached_guest_user.demo_id != board.id
       @cached_guest_user.demo = board
       @cached_guest_user.save!
@@ -34,6 +34,6 @@ module AllowGuestUsersConcern
 
   def authenticate_as_potential_user
     return false unless session[:potential_user_id]
-    @potential_user = PotentialUser.find_by_id(session[:potential_user_id])
+    @potential_user = PotentialUser.find_by(id: session[:potential_user_id])
   end
 end

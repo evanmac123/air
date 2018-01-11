@@ -1,17 +1,16 @@
-require 'digest/sha1'
+require "digest/sha1"
 
 class User < ActiveRecord::Base
-
   PRIVACY_LEVELS = %w(everybody connected nobody).freeze
 
   GENDERS = ["female", "male", "other", nil].freeze
-  ROLES = ['User', 'Administrator'].freeze
-  DEFAULT_MUTE_NOTICE_THRESHOLD = 10
+  ROLES = ["User", "Administrator"].freeze
 
   FIELDS_TRIGGERING_SEGMENTATION_UPDATE = %w(characteristics points location_id date_of_birth gender demo_id accepted_invitation_at last_acted_at phone_number email)
 
-  MISSING_AVATAR_PATH = "/assets/avatars/thumb/missing.png"
   TAKEN_PHONE_NUMBER_ERR_MSG = "Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com"
+
+  MISSING_AVATAR_PATH = "avatar_missing.png"
 
   include Clearance::User
   include User::Segmentation
@@ -20,20 +19,18 @@ class User < ActiveRecord::Base
   include User::ClientAdminNotifications
 
   extend User::Queries
-  extend ValidImageMimeTypes
 
   rolify strict: true
   acts_as_taggable_on :channels
 
   belongs_to :location
-  belongs_to :game_referrer, :class_name => "User"
-  belongs_to :spouse, :class_name => "User"
+  belongs_to :game_referrer, class_name: "User"
+  belongs_to :spouse, class_name: "User"
   belongs_to :primary_user, class_name: "User"
 
   # Use destroy strategy to allow callbacks to run for these relations
   # ------------------------------------------------------------------
   has_one    :dependent_user,  class_name: "User", foreign_key: :primary_user_id, dependent: :destroy
-  has_one    :original_guest_user, :class_name => "GuestUser", :foreign_key => :converted_user_id, :inverse_of => :converted_user, dependent: :destroy
 
   has_many   :potential_users, foreign_key: "primary_user_id", dependent: :destroy
   has_many   :tile_user_notifications, foreign_key: "creator_id"
@@ -46,33 +43,33 @@ class User < ActiveRecord::Base
   has_one    :user_intro, as: :userable, dependent: :delete #FIXME this is confusing since we have an intros method below
   has_one    :user_settings_change_log, dependent: :delete
 
-  has_many   :peer_invitations_as_inviter, :class_name => "PeerInvitation", :foreign_key => :inviter_id, dependent: :delete_all
+  has_many   :peer_invitations_as_inviter, class_name: "PeerInvitation", foreign_key: :inviter_id, dependent: :delete_all
   has_many   :user_in_raffle_infos, as: :user, dependent: :delete_all
-  has_many   :acts, :as => :user, :dependent => :delete_all
-  has_many   :friendships, :dependent => :delete_all
-  has_many   :unsubscribes, :dependent => :delete_all
+  has_many   :acts, as: :user, dependent: :delete_all
+  has_many   :friendships, dependent: :delete_all
+  has_many   :unsubscribes, dependent: :delete_all
   has_many   :board_memberships, dependent: :delete_all
 
   # Use nullify (default) strategy because these relations are shared by other objects
   # --------------------------------------------------------------------------------------
 
-  has_many   :peer_invitations_as_invitee, :class_name => "PeerInvitation", as: :invitee, dependent: :nullify
-  has_many   :tiles, :foreign_key => :creator_id, dependent: :nullify
-  has_many   :tile_completions, :as => :user, :dependent => :nullify
-  has_many   :tile_viewings, as: :user, :dependent => :nullify
+  has_many   :peer_invitations_as_invitee, class_name: "PeerInvitation", as: :invitee, dependent: :nullify
+  has_many   :tiles, foreign_key: :creator_id, dependent: :nullify
+  has_many   :tile_completions, as: :user, dependent: :nullify
+  has_many   :tile_viewings, as: :user, dependent: :nullify
   has_many   :user_tile_likes, dependent: :nullify
 
 
   # Indirect relationships don't require a deletion strategy
   # --------------------------------------------------------
-  has_one    :current_board_membership, :class_name => "BoardMembership", :conditions => "is_current = true"
+  has_one    :current_board_membership, -> { where is_current: true }, class_name: "BoardMembership"
   has_one    :demo, through: :current_board_membership
   has_one    :raffle, through: :demo
 
   has_many   :completed_tiles, source: :tile, through: :tile_completions
   has_many   :viewed_tiles, through: :tile_viewings, source: :tile
   has_many   :demos, through: :board_memberships
-  has_many   :friends, :through => :friendships
+  has_many   :friends, through: :friendships
 
 
   validate :normalized_phone_number_unique, :normalized_new_phone_number_unique, :normalized_new_phone_number_not_taken_by_board
@@ -80,43 +77,43 @@ class User < ActiveRecord::Base
   validate :date_of_birth_in_the_past
 
   validates_uniqueness_of :slug
-  validates_uniqueness_of :sms_slug, :message => "Sorry, that username is already taken."
+  validates_uniqueness_of :sms_slug, message: "Sorry, that username is already taken."
   # validates_uniqueness_of :email comes from Clearance
-  validates_uniqueness_of :invitation_code, :allow_blank => true
+  validates_uniqueness_of :invitation_code, allow_blank: true
 
-  validates_presence_of :name, :message => "Please enter a first and last name"
-  validates_presence_of :sms_slug, :if => :name_present?, :message => "Please choose a username"
-  validates_presence_of :slug, :if => :name_present?
+  validates_presence_of :name, message: "Please enter a first and last name"
+  validates_presence_of :sms_slug, if: :name_present?, message: "Please choose a username"
+  validates_presence_of :slug, if: :name_present?
 
   validates_presence_of :privacy_level
-  validates_inclusion_of :privacy_level, :in => PRIVACY_LEVELS
+  validates_inclusion_of :privacy_level, in: PRIVACY_LEVELS
 
-  validates_inclusion_of :gender, :in => GENDERS, :allow_blank => true
+  validates_inclusion_of :gender, in: GENDERS, allow_blank: true
 
-  validates_format_of :slug, :with => /\A[0-9a-z]+\z/, :if => :name_present?
-  validates_format_of :sms_slug, :with => /\A[0-9a-z]{2,}\z/,
-                      :message => "Sorry, the username must consist of letters or digits only.",
-                      :if => :name_present?
+  validates_format_of :slug, with: /\A[0-9a-z]+\z/, if: :name_present?
+  validates_format_of :sms_slug, with: /\A[0-9a-z]{2,}\z/,
+                      message: "Sorry, the username must consist of letters or digits only.",
+                      if: :name_present?
 
   validates_format_of :zip_code, with: /\A\d{5}\z/, allow_blank: true
 
-  validates_length_of :password, :minimum => 6, :allow_blank => true, :message => 'must have at least 6 characters', :unless => :converting_from_guest
+  validates_length_of :password, minimum: 6, allow_blank: true, message: "must have at least 6 characters", unless: :converting_from_guest
 
-  validates_uniqueness_of :overflow_email, :allow_blank => true
+  validates_uniqueness_of :overflow_email, allow_blank: true
   validates_uniqueness_of :email
-  validates :email, :with => :email_distinct_from_all_overflow_emails
-  validates :overflow_email, :with => :overflow_email_distinct_from_all_emails
-  validates_presence_of :email, :if => :converting_from_guest, :message => "Please enter a valid email address"
+  validates :email, with: :email_distinct_from_all_overflow_emails
+  validates :overflow_email, with: :overflow_email_distinct_from_all_emails
+  validates_presence_of :email, if: :converting_from_guest, message: "Please enter a valid email address"
   validates_presence_of :official_email
   validates_with EmailFormatValidator, field: :official_email
-  validates_presence_of :email, :if => :creating_board, :message => "can't be blank"
-  validates_with EmailFormatValidator, if: Proc.new {|u| u.invitation_method == :client_admin_invites}
+  validates_presence_of :email, if: :creating_board, message: "can't be blank"
+  validates_with EmailFormatValidator, if: Proc.new { |u| u.invitation_method == :client_admin_invites }
 
-  validates_presence_of :password, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
-  validates_length_of :password, :minimum => 6, :if => :converting_from_guest, :message => "Please enter a password at least 6 characters long"
+  validates_presence_of :password, if: :converting_from_guest, message: "Please enter a password at least 6 characters long"
+  validates_length_of :password, minimum: 6, if: :converting_from_guest, message: "Please enter a password at least 6 characters long"
   validates_presence_of :location_id, if: :must_have_location
 
-  validates_presence_of :password, :if => :creating_board, :message => "please enter a password at least 6 characters long"
+  validates_presence_of :password, if: :creating_board, message: "please enter a password at least 6 characters long"
 
 
   has_attached_file :avatar,
@@ -125,10 +122,9 @@ class User < ActiveRecord::Base
         thumb: "96x96#"
       },
       default_style: :thumb,
-      default_url: MISSING_AVATAR_PATH
+      default_url: ->(attachment) { ActionController::Base.helpers.asset_path(MISSING_AVATAR_PATH) }
     }.merge!(USER_AVATAR_OPTIONS)
-
-  validates_attachment_content_type :avatar, content_type: valid_image_mime_types, message: invalid_mime_type_error
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   serialize :characteristics
 
@@ -149,7 +145,7 @@ class User < ActiveRecord::Base
 
   before_validation do
     if @role.present?
-      self.is_client_admin = self.role == 'Administrator'
+      self.is_client_admin = self.role == "Administrator"
       if self.current_board_membership
         self.current_board_membership.is_client_admin = self.is_client_admin
         self.current_board_membership.save
@@ -195,12 +191,12 @@ class User < ActiveRecord::Base
 
   scope :non_site_admin, -> { where(is_site_admin: false) }
 
-  scope :non_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin <> ?', true, true) }
+  scope :non_admin, -> { where("users.is_site_admin <> ? AND users.is_client_admin <> ?", true, true) }
 
-  scope :client_admin, -> { where('users.is_site_admin <> ? AND users.is_client_admin = ?', true, true) }
+  scope :client_admin, -> { where("users.is_site_admin <> ? AND users.is_client_admin = ?", true, true) }
 
   def self.paid_client_admin
-    joins(board_memberships: :demo).where(board_memberships: { is_client_admin: true }).where(board_memberships: { demo: { customer_status_cd: Demo.customer_statuses[:paid] } }).uniq
+    joins(board_memberships: :demo).where(board_memberships: { is_client_admin: true }, demos: { customer_status_cd: Demo.customer_statuses[:paid] }).uniq
   end
 
   # TODO: Rewrite this method to use roles architecture and deprecate explore family:
@@ -247,7 +243,7 @@ class User < ActiveRecord::Base
   end
 
   def organization
-    demo.organization
+    demo.try(:organization)
   end
 
   def organization_id
@@ -265,19 +261,19 @@ class User < ActiveRecord::Base
   def role
     @role ||= begin
       if self.is_client_admin || (self.current_board_membership && self.current_board_membership.is_client_admin)
-        'Administrator'
+        "Administrator"
       else
-        'User'
+        "User"
       end
     end
   end
 
   def role_in(demo)
-    board_membership = self.board_memberships.find_by_demo_id(demo.id)
+    board_membership = self.board_memberships.find_by(demo_id: demo.id)
     if board_membership && board_membership.is_client_admin
-      'Administrator'
+      "Administrator"
     else
-      'User'
+      "User"
     end
   end
   def update_last_acted_at
@@ -294,10 +290,10 @@ class User < ActiveRecord::Base
   def email_distinct_from_all_overflow_emails
     return if email.blank? && overflow_email.blank?
     if email.blank? && overflow_email.present?
-      self.errors.add(:email, 'must have a primary email if you have a secondary email')
+      self.errors.add(:email, "must have a primary email if you have a secondary email")
     else
       # HRFF: no need to check this unless emails changed
-      users_with_your_email = User.where(overflow_email: email).reject{|ff| ff == self}
+      users_with_your_email = User.where(overflow_email: email).reject { |ff| ff == self }
       self.errors.add(:email, "'#{email}' is already taken") if users_with_your_email.present?
     end
   end
@@ -305,11 +301,11 @@ class User < ActiveRecord::Base
   def overflow_email_distinct_from_all_emails
     return if overflow_email.blank?
     # HRFF: no need to check this unless emails changed
-    if User.where(email: overflow_email).reject{|ff| ff == self}.present?
-      self.errors.add(:overflow_email, 'someone else has your secondary email as their primary email')
+    if User.where(email: overflow_email).reject { |ff| ff == self }.present?
+      self.errors.add(:overflow_email, "someone else has your secondary email as their primary email")
     end
     if email == overflow_email
-      self.errors.add(:overflow_email, 'your primary and secondary emails cannot be the same')
+      self.errors.add(:overflow_email, "your primary and secondary emails cannot be the same")
     end
   end
 
@@ -324,22 +320,22 @@ class User < ActiveRecord::Base
   def her_him
     case self.gender
     when "female"
-      return "her"
+      "her"
     when "male"
-      return "him"
+      "him"
     else
-      return "them"
+      "them"
     end
   end
 
   def her_his
     case self.gender
     when "female"
-      return "her"
+      "her"
     when "male"
-      return "his"
+      "his"
     else
-      return "their"
+      "their"
     end
   end
 
@@ -347,24 +343,24 @@ class User < ActiveRecord::Base
     return true if self == user
     return true if self.is_site_admin
     case user.privacy_level
-    when 'everybody'
+    when "everybody"
       return true
-    when 'connected'
+    when "connected"
       return true if self.friends_with? user
     end
-    return false
+    false
   end
 
   def reason_for_privacy
     case self.privacy_level
-    when 'everybody'
+    when "everybody"
       reason = " allows everyone to see their activity"
-    when 'connected'
+    when "connected"
       reason = " only allows connections to see their activity"
-    when 'nobody'
+    when "nobody"
       reason = " does not allow anyone to see their activity"
     end
-    return reason
+    reason
   end
 
   module UpdatePasswordWithBlankForbidden
@@ -385,23 +381,23 @@ class User < ActiveRecord::Base
     # You'd think you could do this with an association, and if you can figure
     # out how to get that to work, please, be my guest.
 
-    self.class.joins("INNER JOIN friendships on users.id = friendships.user_id").where('friendships.friend_id = ?', self.id)
+    self.class.joins("INNER JOIN friendships on users.id = friendships.user_id").where("friendships.friend_id = ?", self.id)
   end
 
   def accepted_followers
-    followers.where('friendships.state' => 'accepted')
+    followers.where("friendships.state" => "accepted")
   end
 
   def pending_friends
-    friends.where('friendships.state' => 'pending')
+    friends.where("friendships.state" => "pending")
   end
 
   def initiated_friends
-    friends.where('friendships.state' => 'initiated')
+    friends.where("friendships.state" => "initiated")
   end
 
   def accepted_friends
-    friends.where('friendships.state' => 'accepted')
+    friends.where("friendships.state" => "accepted")
   end
 
   def displayable_accepted_friends
@@ -414,9 +410,9 @@ class User < ActiveRecord::Base
 
   def relationship_with(other)
     return "self" if self == other
-    from_me   = Friendship.where(:user_id => self.id, :friend_id => other.id).first
+    from_me = Friendship.where(user_id: self.id, friend_id: other.id).first
     from_me_state = from_me ? from_me.state : nil
-    from_them = Friendship.where(:friend_id => self.id, :user_id => other.id).first
+    from_them = Friendship.where(friend_id: self.id, user_id: other.id).first
     from_them_state = from_them ? from_them.state : nil
 
     if from_me.nil? && (from_them.nil?)
@@ -492,7 +488,7 @@ class User < ActiveRecord::Base
   end
 
   def cancel_new_phone_number
-    self.update_attributes(:new_phone_number => '', :new_phone_validation => '')
+    self.update_attributes(new_phone_number: "", new_phone_validation: "")
   end
 
   def reply_email_address(include_name = true)
@@ -551,7 +547,7 @@ class User < ActiveRecord::Base
       demo: demo_id,
       organization: organization_id,
       board_type: demo.try(:customer_status_for_mixpanel),
-      user_hash: OpenSSL::HMAC.hexdigest('sha256', ENV["INTERCOM_API_SECRET"], id.to_s)
+      user_hash: OpenSSL::HMAC.hexdigest("sha256", ENV["INTERCOM_API_SECRET"], id.to_s)
     }
   end
 
@@ -576,7 +572,7 @@ class User < ActiveRecord::Base
     board_memberships.where(demo_id: demo_id).present?
   end
 
-  def invite(referrer = nil, options ={})
+  def invite(referrer = nil, options = {})
     board = options[:demo_id].present? ? Demo.find(options[:demo_id]) : self.demo
 
     if referrer && !(options[:ignore_invitation_limit])
@@ -584,7 +580,7 @@ class User < ActiveRecord::Base
       return if peer_num >= PeerInvitation::CUTOFF
     end
 
-    Mailer.delay_mail(:invitation, self, referrer, options)
+    Mailer.invitation(self, referrer, options).deliver_later
 
     if referrer && !(options[:ignore_invitation_limit])
       PeerInvitation.create!(inviter: referrer, invitee: self, demo: referrer.demo)
@@ -597,8 +593,8 @@ class User < ActiveRecord::Base
     email.present?
   end
 
-  def mark_as_claimed(options={})
-    _options = {:channel => :web}.merge(options)
+  def mark_as_claimed(options = {})
+    _options = { channel: :web }.merge(options)
     channel = _options[:channel]
     phone_number = _options[:phone_number]
     email = _options[:email]
@@ -621,7 +617,7 @@ class User < ActiveRecord::Base
   end
 
   def record_claim_in_mixpanel(channel)
-    TrackEvent.ping('claimed account', {:channel => channel, source: "Joined via invite"}, self)
+    TrackEvent.ping("claimed account", { channel: channel, source: "Joined via invite" }, self)
   end
 
   def update_points(point_increment)
@@ -635,7 +631,7 @@ class User < ActiveRecord::Base
   def set_invitation_code
     possibly_finished = false
 
-    until(possibly_finished && (self.valid? || self.errors[:invitation_code].empty?))
+    until (possibly_finished && (self.valid? || self.errors[:invitation_code].empty?))
       possibly_finished = true
       self.invitation_code = Digest::SHA1.hexdigest("--#{Time.current.to_f}--#{self.email}--#{self.name}--")
     end
@@ -656,8 +652,7 @@ class User < ActiveRecord::Base
   end
 
   def find_same_slug(possible_slug)
-    User.first(:conditions => ["slug = ? OR sms_slug = ?", possible_slug, possible_slug],
-               :order      => "created_at desc")
+    User.where("slug = ? OR sms_slug = ?", possible_slug, possible_slug).order("created_at desc").first
   end
 
 
@@ -686,7 +681,7 @@ class User < ActiveRecord::Base
 
 
   def generate_simple_claim_code!
-    update_attributes(:claim_code => claim_code_prefix)
+    update_attributes(claim_code: claim_code_prefix)
   end
 
   def generate_unique_claim_code!
@@ -698,9 +693,9 @@ class User < ActiveRecord::Base
       begin
         suffix += rand(50)
         potential_claim_code = claim_code_prefix + suffix.to_s
-      end while User.find_by_claim_code(potential_claim_code)
+      end while User.find_by(claim_code: potential_claim_code)
 
-      self.update_attributes(:claim_code => potential_claim_code)
+      self.update_attributes(claim_code: potential_claim_code)
     end
 
     potential_claim_code
@@ -719,7 +714,7 @@ class User < ActiveRecord::Base
       names = user.name.downcase.split.map(&:remove_non_words)
       first_name = names.first
       last_name = names.last
-      [first_name.first, last_name].join('')
+      [first_name.first, last_name].join("")
     end
   end
 
@@ -733,7 +728,7 @@ class User < ActiveRecord::Base
     Demo.transaction do
       unless member_of_demo?(new_demo)
         if is_site_admin
-          add_board(new_demo, { is_client_admin: true, is_current: false })
+          add_board(new_demo, is_client_admin: true, is_current: false)
         else
           return false
         end
@@ -749,12 +744,12 @@ class User < ActiveRecord::Base
     board_membership.set_as_current
   end
 
-  def befriend(other, mixpanel_properties={})
+  def befriend(other, mixpanel_properties = {})
     friendship = nil
     Friendship.transaction do
-      return nil if self.friendships.where(:friend_id => other.id).present?
-      friendship = self.friendships.create(:friend_id => other.id, :state => 'initiated')
-      reciprocal_friendship = other.friendships.create(:friend_id => self.id, :state => 'pending')
+      return nil if self.friendships.where(friend_id: other.id).present?
+      friendship = self.friendships.create(friend_id: other.id, state: "initiated")
+      reciprocal_friendship = other.friendships.create(friend_id: self.id, state: "pending")
       reciprocal_friendship.update_attribute(:request_index, friendship.request_index)
     end
 
@@ -762,23 +757,23 @@ class User < ActiveRecord::Base
   end
 
   def accept_friendship_from(other)
-    Friendship.where(:user_id => other.id, :friend_id => self.id).first.accept
+    Friendship.where(user_id: other.id, friend_id: self.id).first.accept
   end
 
   def follow_requested_message
     I18n.t(
       "activerecord.models.user.base_follow_message",
-      :default => "OK, you'll be connected with %{followed_user_name}, pending %{her_his} acceptance.",
-      :followed_user_name => self.name,
-      :her_his => self.her_his
+      default: "OK, you'll be connected with %{followed_user_name}, pending %{her_his} acceptance.",
+      followed_user_name: self.name,
+      her_his: self.her_his
     )
   end
 
   def follow_removed_message
     I18n.t(
       "activerecord.models.user.base_follow_message",
-      :default => "OK, you're no longer connected to %{followed_user_name}.",
-      :followed_user_name => self.name
+      default: "OK, you're no longer connected to %{followed_user_name}.",
+      followed_user_name: self.name
     )
   end
 
@@ -791,7 +786,7 @@ class User < ActiveRecord::Base
   end
 
   def mute_for_now
-    self.update_attributes(:last_muted_at => Time.current)
+    self.update_attributes(last_muted_at: Time.current)
   end
 
   def invitation_sent_text
@@ -807,7 +802,7 @@ class User < ActiveRecord::Base
   end
 
   def profile_page_friends_list
-    self.accepted_friends.sort_by {|ff| ff.name.downcase}
+    self.accepted_friends.sort_by { |ff| ff.name.downcase }
   end
 
   def scoreboard_friends_list_by_tickets
@@ -815,20 +810,19 @@ class User < ActiveRecord::Base
   end
 
   def scoreboard_friends_list_by_name
-    (self.accepted_friends + [self]).sort_by {|ff| ff.name.downcase}
+    (self.accepted_friends + [self]).sort_by { |ff| ff.name.downcase }
   end
 
   def reset_tiles(demo = nil)
     demo ||= self.demo
-
-    tile_completions.joins(tile: :demo).where(tile: { demo: demo }).destroy_all
+    demo.tile_completions.select([:id, :tile_id]).where(user_id: self.id).destroy_all
   end
 
   def has_tiles_tools_subnav?
     is_client_admin || is_site_admin
   end
 
-  def self.send_invitation_if_claimed_sms_user_texts_us_an_email_address(from_phone, text, options={})
+  def self.send_invitation_if_claimed_sms_user_texts_us_an_email_address(from_phone, text, options = {})
     return nil unless from_phone =~ /^(\+1\d{10})$/
 
     _text = text.downcase.strip.gsub(" ", "")
@@ -844,18 +838,18 @@ class User < ActiveRecord::Base
     return "The email #{_text} #{user.errors.messages[:email].first}." unless user.errors.blank?
     options_password_only = options.merge(password_only: true)
     user.reload.invite(nil, options_password_only)
-    return user.invitation_sent_text
+    user.invitation_sent_text
   end
 
   def send_conversion_email
-    Mailer.delay_mail(:guest_user_converted_to_real_user, self)
+    Mailer.guest_user_converted_to_real_user(self).deliver_later
   end
 
   def self.referrer_hash(referrer)
     if referrer
-      {:referrer_id => referrer.id}
+      { referrer_id: referrer.id }
     else
-      {:referrer_id => nil}
+      { referrer_id: nil }
     end
   end
 
@@ -863,7 +857,7 @@ class User < ActiveRecord::Base
     update_attributes(confirmation_token: SecureRandom.hex(16))
   end
 
-  def ping(event, properties={})
+  def ping(event, properties = {})
     data = data_for_mixpanel.merge(properties)
     TrackEvent.ping(event, data)
   end
@@ -878,18 +872,18 @@ class User < ActiveRecord::Base
     referring_user = User.where(id: referring_user).first
     return unless referring_user
 
-    referrer_act_text = I18n.t('special_command.credit_game_referrer.activity_feed_text', :default => "got credit for recruiting %{referred_name}", :referred_name => self.name)
+    referrer_act_text = I18n.t("special_command.credit_game_referrer.activity_feed_text", default: "got credit for recruiting %{referred_name}", referred_name: self.name)
 
-    referred_act_text = I18n.t('special_command.credit_game_referrer.referred_activity_feed_text', :default => "credited %{referrer_name} for recruiting them", :referrer_name => referring_user.name)
+    referred_act_text = I18n.t("special_command.credit_game_referrer.referred_activity_feed_text", default: "credited %{referrer_name} for recruiting them", referrer_name: referring_user.name)
 
     referring_user.acts.create!(
-      :text            => referrer_act_text,
-      :inherent_points => demo.game_referrer_bonus
+      text: referrer_act_text,
+      inherent_points: demo.game_referrer_bonus
     )
 
     self.acts.create!(
-      :text            => referred_act_text,
-      :inherent_points => demo.referred_credit_bonus
+      text: referred_act_text,
+      inherent_points: demo.referred_credit_bonus
     )
   end
 
@@ -924,7 +918,7 @@ class User < ActiveRecord::Base
     if board == self.demo
       self.is_client_admin
     else
-      board_memberships.find_by_demo_id(board.id).try(:is_client_admin)
+      board_memberships.find_by(demo_id: board.id).try(:is_client_admin)
     end
   end
 
@@ -981,50 +975,20 @@ class User < ActiveRecord::Base
     !get_started_lightbox_displayed && demo.tiles.active.present?
   end
 
-  # TODO: This is a shitstorm and a big performance hit.
-  def can_make_tile_suggestions? _demo = demo
-    bm = board_memberships.where(demo: _demo).first
-    _demo.everyone_can_make_tile_suggestions ||
-      bm.allowed_to_make_tile_suggestions
+  def can_make_tile_suggestions?(_demo = demo)
+    demo.everyone_can_make_tile_suggestions || current_board_membership.allowed_to_make_tile_suggestions
   end
 
-  def self.allow_to_make_tile_suggestions _user_ids, _demo
+  def self.allow_to_make_tile_suggestions(user_ids, demo)
     transaction do
-      BoardMembership
-        .where(demo: _demo, allowed_to_make_tile_suggestions: true)
-        .update_all(allowed_to_make_tile_suggestions: false)
+      demo.board_memberships.where(allowed_to_make_tile_suggestions: true).update_all(allowed_to_make_tile_suggestions: false)
 
-      BoardMembership
-        .where do
-          (user_id.in _user_ids) &
-          (demo == _demo)
-        end
-        .update_all(allowed_to_make_tile_suggestions: true)
-
-      joins{board_memberships}
-        .where do
-          (board_memberships.demo == _demo) &
-          (board_memberships.is_current == true) &
-          (allowed_to_make_tile_suggestions == true)
-        end
-        .update_all(allowed_to_make_tile_suggestions: false)
-
-      joins{board_memberships}
-        .where do
-          (board_memberships.demo == _demo) &
-          (board_memberships.is_current == true) &
-          (id.in _user_ids)
-        end
-        .update_all(allowed_to_make_tile_suggestions: true)
+      demo.board_memberships.where(user_id: user_ids).update_all(allowed_to_make_tile_suggestions: true)
     end
   end
 
-  def self.allowed_to_suggest_tiles _demo
-    joins{board_memberships}
-      .where do
-        (board_memberships.demo == _demo) &
-        (board_memberships.allowed_to_make_tile_suggestions == true)
-      end
+  def self.allowed_to_suggest_tiles(demo)
+    joins(:board_memberships).where(board_memberships: { demo: demo, allowed_to_make_tile_suggestions: true })
   end
 
   def intros
@@ -1048,7 +1012,7 @@ class User < ActiveRecord::Base
     end
 
     def destroy_friendships_where_secondary
-      Friendship.destroy_all(:friend_id => self.id)
+      Friendship.destroy_all(friend_id: self.id)
     end
 
     def normalized_new_phone_number_unique
@@ -1063,11 +1027,12 @@ class User < ActiveRecord::Base
       return if self[input].blank?
       normalized_number = PhoneNumber.normalize(self[input])
 
-      where_conditions = if self.new_record?
-                           ["phone_number = ?", normalized_number]
-                         else
-                           ["phone_number = ? AND id != ?", normalized_number, self.id]
-                         end
+      if self.new_record?
+        where_conditions = ["phone_number = ?", normalized_number]
+      else
+        where_conditions = ["phone_number = ? AND id != ?", normalized_number, self.id]
+      end
+
       if self.class.where(where_conditions).limit(1).present?
         self.errors.add(input, TAKEN_PHONE_NUMBER_ERR_MSG)
       end
@@ -1077,7 +1042,7 @@ class User < ActiveRecord::Base
       num = PhoneNumber.normalize(new_phone_number)
       return unless num.present?
 
-      found = Demo.find_by_phone_number(num)
+      found = Demo.find_by(phone_number: num)
       if found
         self.errors.add(:new_phone_number, TAKEN_PHONE_NUMBER_ERR_MSG)
         return false
@@ -1103,27 +1068,23 @@ class User < ActiveRecord::Base
       name.present?
     end
 
-    def mute_notice_threshold
-      self.demo.mute_notice_threshold || DEFAULT_MUTE_NOTICE_THRESHOLD
-    end
-
     def update_associated_act_privacy_levels
       # See Act for an explanation of why we denormalize privacy_level onto it.
-      Act.update_all({:privacy_level => self.privacy_level}, {:user_id => self.id}) if self.changed.include?('privacy_level')
+      Act.update_all(privacy_level: self.privacy_level, user_id: self.id) if self.changed.include?("privacy_level")
     end
 
     def self.claimable_by_first_name_and_claim_code(claim_string)
-      normalized_claim_string = claim_string.downcase.gsub(/\s+/, ' ').strip
+      normalized_claim_string = claim_string.downcase.gsub(/\s+/, " ").strip
       first_name, claim_code = normalized_claim_string.split
       return nil unless (first_name && claim_code)
-      User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + '%', claim_code]).first
+      User.where(["name ILIKE ? AND claim_code = ?", first_name.like_escape + "%", claim_code]).first
     end
 
     def self.add_joining_to_activity_stream(user)
       Act.create!(
-        :user            => user,
-        :text            => 'joined!',
-        :inherent_points => user.demo.seed_points
+        user: user,
+        text: "joined!",
+        inherent_points: user.demo.seed_points
       )
     end
 

@@ -4,9 +4,9 @@ describe "tiles/_multiple_choice_answers.html.erb" do
   context "when the tile in question is completed by the current user, and not a preview" do
 
     before do
-      tile = FactoryGirl.create(:multiple_choice_tile, multiple_choice_answers: %w(Zero One))
-      user = FactoryGirl.create(:user) 
-      FactoryGirl.create(:tile_completion, tile: tile, user: user, answer_index: 0) 
+      tile = FactoryBot.create(:multiple_choice_tile, multiple_choice_answers: %w(Zero One))
+      user = FactoryBot.create(:user) 
+      FactoryBot.create(:tile_completion, tile: tile, user: user, answer_index: 0) 
 
       view.stubs(:current_user).returns(user)
       render partial: "tiles/multiple_choice_answers", locals: {tile: tile, is_preview: false}

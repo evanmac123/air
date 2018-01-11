@@ -117,7 +117,7 @@ class UserInHeaderPresenter
   end
 
   def can_submit_tile?(browser)
-    return false if browser.ie8?
+    return false if browser.ie?(8)
     (can_make_tile_suggestions? || is_client_admin || current_user.is_site_admin) &&
       ["acts", "tiles"].include?(request[:controller]) &&
       !request.original_url.include?("client_admin") &&
@@ -125,7 +125,7 @@ class UserInHeaderPresenter
   end
 
   def show_search_bar?(browser)
-    unless browser.ie8?
+    unless browser.ie?(8)
       return true
     end
   end

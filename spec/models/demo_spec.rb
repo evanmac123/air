@@ -5,8 +5,8 @@ describe Demo do
   it { is_expected.to have_many(:tiles) }
   it { is_expected.to have_many(:locations) }
   it { is_expected.to have_many(:characteristics) }
-
-  it { should_have_valid_mime_type(Demo, :logo_content_type) }
+  it { should have_attached_file(:logo) }
+  it { should validate_attachment_content_type(:logo).allowing('image/*') }
 
   describe "#customer_status_for_mixpanel" do
     it "returns 'Free' if demo is free" do
@@ -30,8 +30,8 @@ describe Demo do
 
   describe ".paid" do
     it "returns a collection of all paid demos" do
-      paid_demos = FactoryGirl.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:paid])
-      _free_demos = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free])
+      paid_demos = FactoryBot.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:paid])
+      _free_demos = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:free])
 
       expect(Demo.paid).to eq(paid_demos)
     end
@@ -39,8 +39,8 @@ describe Demo do
 
   describe ".free" do
     it "returns a collection of all free demos" do
-      free_demos = FactoryGirl.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:free])
-      _paid_demos = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
+      free_demos = FactoryBot.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:free])
+      _paid_demos = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
 
       expect(Demo.free).to eq(free_demos)
     end
@@ -48,8 +48,8 @@ describe Demo do
 
   describe ".free_trial" do
     it "returns a collection of all trial demos" do
-      trial_demos = FactoryGirl.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:trial])
-      _paid_demos = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
+      trial_demos = FactoryBot.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:trial])
+      _paid_demos = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
 
       expect(Demo.free_trial).to eq(trial_demos)
     end
@@ -58,8 +58,8 @@ end
 
 describe Demo, "#welcome_message" do
   before(:each) do
-    @demo = FactoryGirl.create :demo
-    @user = FactoryGirl.create :user, :demo => @demo
+    @demo = FactoryBot.create :demo
+    @user = FactoryBot.create :user, :demo => @demo
   end
 
   context "when the demo has no custom welcome message" do
@@ -86,8 +86,8 @@ end
 describe Demo, ".alphabetical" do
   before do
     Demo.delete_all
-    @red_sox  = FactoryGirl.create(:demo, :name => "Red Sox")
-    @gillette = FactoryGirl.create(:demo, :name => "Gillette")
+    @red_sox  = FactoryBot.create(:demo, :name => "Red Sox")
+    @gillette = FactoryBot.create(:demo, :name => "Gillette")
   end
 
   it "finds all demos, sorted alphabetically" do
@@ -97,7 +97,7 @@ end
 
 describe Demo, "phone number" do
   it "should normalize itself on save" do
-    @demo = FactoryGirl.build(:demo)
+    @demo = FactoryBot.build(:demo)
     @demo.phone_number = "(617) 555-1212"
     @demo.save
     expect(@demo.reload.phone_number).to eq("+16175551212")
@@ -108,29 +108,29 @@ describe Demo, '#num_tile_completions' do
   it 'returns the number of users who have completed each of the tiles for this demo' do
 
     # Create some tile-completions (and thus users and tiles) that have nothing to do with this demo
-    3.times { FactoryGirl.create :tile_completion }
+    3.times { FactoryBot.create :tile_completion }
 
-    demo  = FactoryGirl.create :demo
-    users = FactoryGirl.create_list :user, 9, demo: demo
+    demo  = FactoryBot.create :demo
+    users = FactoryBot.create_list :user, 9, demo: demo
 
     # Create some tiles that belong to this demo but that no users have completed
-    tile_0   = FactoryGirl.create :tile, demo: demo
-    tile_00  = FactoryGirl.create :tile, demo: demo
-    tile_000 = FactoryGirl.create :tile, demo: demo
+    tile_0   = FactoryBot.create :tile, demo: demo
+    tile_00  = FactoryBot.create :tile, demo: demo
+    tile_000 = FactoryBot.create :tile, demo: demo
 
     # The status doesn't matter, but mix 'em up anyway just to show that it doesn't
-    tile_1 = FactoryGirl.create :tile, demo: demo, status: Tile::ACTIVE
-    tile_3 = FactoryGirl.create :tile, demo: demo, status: Tile::ARCHIVE
-    tile_5 = FactoryGirl.create :tile, demo: demo, status: Tile::ACTIVE
-    tile_7 = FactoryGirl.create :tile, demo: demo, status: Tile::ARCHIVE
-    tile_9 = FactoryGirl.create :tile, demo: demo, status: Tile::ACTIVE
+    tile_1 = FactoryBot.create :tile, demo: demo, status: Tile::ACTIVE
+    tile_3 = FactoryBot.create :tile, demo: demo, status: Tile::ARCHIVE
+    tile_5 = FactoryBot.create :tile, demo: demo, status: Tile::ACTIVE
+    tile_7 = FactoryBot.create :tile, demo: demo, status: Tile::ARCHIVE
+    tile_9 = FactoryBot.create :tile, demo: demo, status: Tile::ACTIVE
 
 
-    1.times { |i| FactoryGirl.create :tile_completion, tile: tile_1,  user: users[i] }
-    3.times { |i| FactoryGirl.create :tile_completion, tile: tile_3,  user: users[i] }
-    5.times { |i| FactoryGirl.create :tile_completion, tile: tile_5,  user: users[i] }
-    7.times { |i| FactoryGirl.create :tile_completion, tile: tile_7,  user: users[i] }
-    9.times { |i| FactoryGirl.create :tile_completion, tile: tile_9,  user: users[i] }
+    1.times { |i| FactoryBot.create :tile_completion, tile: tile_1,  user: users[i] }
+    3.times { |i| FactoryBot.create :tile_completion, tile: tile_3,  user: users[i] }
+    5.times { |i| FactoryBot.create :tile_completion, tile: tile_5,  user: users[i] }
+    7.times { |i| FactoryBot.create :tile_completion, tile: tile_7,  user: users[i] }
+    9.times { |i| FactoryBot.create :tile_completion, tile: tile_9,  user: users[i] }
 
     num_tile_completions = demo.num_tile_completions
 
@@ -170,20 +170,20 @@ end
 
 describe Demo, 'on create' do
   it 'should set the public slug' do
-    d = FactoryGirl.create(:demo)
+    d = FactoryBot.create(:demo)
     expect(d.public_slug).to be_present
   end
 
   it 'should be public' do
-    d = FactoryGirl.create(:demo)
+    d = FactoryBot.create(:demo)
     expect(d.is_public?).to be_truthy
   end
 end
 
 describe Demo, '#name_and_org_name' do
   it "returns a string witht he demo name and org name" do
-    org = FactoryGirl.build(:organization)
-    demo = FactoryGirl.build(:demo, organization: org)
+    org = FactoryBot.build(:organization)
+    demo = FactoryBot.build(:demo, organization: org)
 
     expect(demo.name_and_org_name).to eq("#{demo.name}, #{org.name}")
   end
@@ -192,7 +192,7 @@ end
 describe Demo do
   describe "#data_for_dom" do
     it "returns hash of board data for dom access" do
-      demo = FactoryGirl.build(:demo, name: "Board", dependent_board_enabled: true)
+      demo = FactoryBot.build(:demo, name: "Board", dependent_board_enabled: true)
 
       data = {
         id: nil,
@@ -206,7 +206,7 @@ describe Demo do
 
   describe "#set_tile_email_draft" do
     it "sets the passed in hash as the values to its tile_email_draft redis key" do
-      demo = FactoryGirl.build(:demo)
+      demo = FactoryBot.build(:demo)
       params = { a: 1, b: "A string." }
 
       expect(demo.set_tile_email_draft(params)).to eq("OK")
@@ -216,7 +216,7 @@ describe Demo do
 
   describe "#clear_tile_email_draft" do
     it "removes any saved draft" do
-      demo = FactoryGirl.build(:demo)
+      demo = FactoryBot.build(:demo)
       params = { a: 1, b: "A string." }
       demo.set_tile_email_draft(params)
 
@@ -231,7 +231,7 @@ describe Demo do
   describe "#get_tile_email_draft" do
     context "when draft exists" do
       it "returns the draft parsed into a ruby hash" do
-        demo = FactoryGirl.build(:demo)
+        demo = FactoryBot.build(:demo)
         params = { a: 1, b: "A string." }
         demo.set_tile_email_draft(params)
 
@@ -241,7 +241,7 @@ describe Demo do
 
     context "when there is no draft" do
       it "returns nil" do
-        demo = FactoryGirl.build(:demo)
+        demo = FactoryBot.build(:demo)
 
         expect(demo.get_tile_email_draft).to eq(nil)
       end

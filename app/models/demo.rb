@@ -1,7 +1,5 @@
 class Demo < ActiveRecord::Base
   extend NormalizeBoardName
-  include Assets::Normalizer # normalize filename of paperclip attachment
-  extend ValidImageMimeTypes
 
   belongs_to :organization, counter_cache: true
   belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id
@@ -10,7 +8,7 @@ class Demo < ActiveRecord::Base
   has_one :claim_state_machine, dependent: :delete
   has_one :custom_invitation_email, dependent: :delete
   has_one :raffle, dependent: :delete
-  has_one :live_raffle, class_name: "Raffle", conditions: "status = '#{Raffle::LIVE}' and starts_at <= '#{Time.zone.now.to_time}'"
+  has_one :live_raffle, -> { where "status = '#{Raffle::LIVE}' and starts_at <= '#{Time.zone.now.to_time}'"}, class_name: "Raffle"
   has_one :custom_color_palette, dependent: :delete
   has_one :tiles_digest_automator, dependent: :delete
 
@@ -49,7 +47,7 @@ class Demo < ActiveRecord::Base
   scope :name_order, ->{order("LOWER(name)")}
   scope :health_score_order, -> { order("current_health_score DESC") }
 
-  scope :airbo, -> { joins(:organization).where(organization: {name: "Airbo"}) }
+  scope :airbo, -> { joins(:organization).where(organizations: {name: "Airbo"}) }
   scope :active, ->{ where(marked_for_deletion: false) }
   has_alphabetical_column :name
 
@@ -59,19 +57,19 @@ class Demo < ActiveRecord::Base
         :thumb => "x46>"
       },
       default_style: :thumb,
-      default_url: "/assets/logo.png",
+      default_url: ->(attachment) { ActionController::Base.helpers.asset_path("logo.png") },
       keep_old_files: true
     }.merge!(DEMO_LOGO_OPTIONS)
+  validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
 
   has_attached_file :cover_image,
     {
       styles: {
         thumb: "30x30#"
       },
-      default_url: "/assets/logo.png",
+      default_url: ->(attachment) { ActionController::Base.helpers.asset_path("logo.png") },
     }.merge!(DEMO_LOGO_OPTIONS)
-
-  validates_attachment_content_type :logo, content_type: valid_image_mime_types, message: invalid_mime_type_error
+  validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\Z/
 
   as_enum :customer_status, free: 0, paid: 1, trial: 2
 
@@ -86,7 +84,7 @@ class Demo < ActiveRecord::Base
   end
 
   def client_admin
-    users.joins(:board_memberships).where(board_memberships: { is_client_admin: true, demo_id: self.id } )
+    users.where(board_memberships: { is_client_admin: true } )
   end
 
   def twilio_from_number
@@ -292,7 +290,7 @@ class Demo < ActiveRecord::Base
   def flush_all_user_tickets
     guest_users.update_all("tickets = 0, ticket_threshold_base = points")
     board_memberships.update_all("tickets = 0, ticket_threshold_base = points")
-    users.joins(:board_memberships).where(board_memberships: { demo_id: id, is_current: true }).update_all("tickets = 0, ticket_threshold_base = points")
+    users.where(board_memberships: { is_current: true }).update_all("tickets = 0, ticket_threshold_base = points")
   end
 
   # TODO: Deprecate below
@@ -334,7 +332,7 @@ class Demo < ActiveRecord::Base
     offset = 2 # in case of a collision on the slug "foobar", we'll try "foobar-2" first
 
     Demo.transaction do
-      while (demo = Demo.find_by_public_slug(candidate_slug)).present?
+      while (demo = Demo.find_by(public_slug: candidate_slug)).present?
         break if demo.id == self.id
         candidate_slug = slug_prefix + "-" + offset.to_s
         offset += 1

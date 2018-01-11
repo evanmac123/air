@@ -1,14 +1,14 @@
 var ImageSearchServiceFactory = {
-  getProvider: function(name){
+  getProvider: function(name) {
     var service;
 
-    switch(name){
+    switch (name) {
       case "pixabay":
         service = new PixabayImageHandler();
-      break;
+        break;
       case "giphy":
         service = new GiphyImageHandler();
-      break;
+        break;
     }
     return service;
   }
@@ -17,11 +17,11 @@ var ImageSearchServiceFactory = {
 function ImageSearchService() {
   this.totalImages = 0;
 
-  this.buildGroups = function (thumbnails) {
+  this.buildGroups = function(thumbnails) {
     var groups = [];
     var groupSize = 12;
 
-    for(var i = 0; i < thumbnails.length; i += groupSize) {
+    for (var i = 0; i < thumbnails.length; i += groupSize) {
       groups.push(thumbnails.slice(i, i + groupSize));
     }
 
@@ -30,7 +30,7 @@ function ImageSearchService() {
 
   this.buildHtml = function buildHtml(groups) {
     return groups.reduce(function(val, currGrp, i, arr) {
-      return val +  "<div class='cell-group'>" + currGrp.join("") + "</div>";
+      return val + "<div class='cell-group'>" + currGrp.join("") + "</div>";
     }, "");
   };
 
@@ -38,7 +38,7 @@ function ImageSearchService() {
     var groups;
     var thumbnails = this.buildThumbnails(data);
 
-    if(thumbnails.length > 0) {
+    if (thumbnails.length > 0) {
       groups = this.buildGroups(thumbnails);
       return this.buildHtml(groups);
     }
@@ -54,22 +54,33 @@ function PixabayImageHandler() {
 
   this.url = "https://pixabay.com/api";
 
-  this.setAttribution = function () {
-    var attributionHTML = '<a href="http://www.pixabay.com" target="_blank">Powered by<img alt="Pixabay_logo" class="pixabay" src="/assets/pixabay_logo.svg"></a>';
+  this.setAttribution = function() {
+    var attributionHTML =
+      '<a href="http://www.pixabay.com" target="_blank">Powered by<img alt="Pixabay_logo" class="pixabay" src="' +
+      $(".attribution").data("pixabayImage") +
+      '"></a>';
 
     $(".attribution").html(attributionHTML);
   };
 
   this.buildThumbnails = function(data) {
-    var thumbnails = [] ;
+    var thumbnails = [];
     this.results = parseInt(data.totalHits);
-    function getAltSize(item){
+    function getAltSize(item) {
       return item.webformatURL.replace("_640", "_180");
     }
 
-    if (this.results > 0){
-      thumbnails =  data.hits.map(function(item, i){
-        return "<div class='img-wrap'><img src1='" + item.previewURL  + "' data-flickity-lazyload='" + getAltSize(item) +     "' data-preview='" + item.webformatURL +"'/></div>";
+    if (this.results > 0) {
+      thumbnails = data.hits.map(function(item, i) {
+        return (
+          "<div class='img-wrap'><img src1='" +
+          item.previewURL +
+          "' data-flickity-lazyload='" +
+          getAltSize(item) +
+          "' data-preview='" +
+          item.webformatURL +
+          "'/></div>"
+        );
       });
     }
     return thumbnails;
@@ -77,8 +88,8 @@ function PixabayImageHandler() {
 
   this.data = function(query, key) {
     return {
-      "key": key,
-      "q": query,
+      key: key,
+      q: query,
       safesearch: true,
       per_page: 200,
       image_type: "photo"
@@ -94,8 +105,11 @@ function GiphyImageHandler() {
 
   this.url = "https://api.giphy.com/v1/gifs/search";
 
-  this.setAttribution = function () {
-    var attributionHTML = '<a href="http://www.giphy.com" target="_blank"><img alt="Giphy" style="width:105px;" src="/assets/giphy_attribution.png"></a>';
+  this.setAttribution = function() {
+    var attributionHTML =
+      '<a href="http://www.giphy.com" target="_blank"><img alt="Giphy" style="width:105px;" src="' +
+      $(".attribution").data("giphyImage") +
+      '"></a>';
 
     $(".attribution").html(attributionHTML);
   };
@@ -103,9 +117,15 @@ function GiphyImageHandler() {
   this.buildThumbnails = function(data) {
     var thumbnails = [];
 
-    if(this.data.length > 0) {
+    if (this.data.length > 0) {
       thumbnails = data.data.map(function(gif) {
-        return "<div class='img-wrap'><img data-flickity-lazyload='" + gif.images.fixed_width_still.url + "' data-preview='" + gif.images.original.url + "'/></div>";
+        return (
+          "<div class='img-wrap'><img data-flickity-lazyload='" +
+          gif.images.fixed_width_still.url +
+          "' data-preview='" +
+          gif.images.original.url +
+          "'/></div>"
+        );
       });
     }
 

@@ -6,9 +6,9 @@ describe ClientAdmin::UsersController do
       it "should set their is_client_admin flag on the BoardMembership for the new board, not the one they're currently in" do
         subject.stubs(:ping)
 
-        existing_user = FactoryGirl.create(:user, email: 'john@doe.com', is_client_admin: true)
+        existing_user = FactoryBot.create(:user, email: 'john@doe.com', is_client_admin: true)
         original_board = existing_user.demo
-        client_admin = FactoryGirl.create(:client_admin)
+        client_admin = FactoryBot.create(:client_admin)
 
         sign_in_as(client_admin)
 
@@ -26,8 +26,8 @@ describe ClientAdmin::UsersController do
       it "should send appropriate pings" do
         subject.stubs(:ping)
 
-        existing_user = FactoryGirl.create(:user)
-        client_admin = FactoryGirl.create(:client_admin)
+        existing_user = FactoryBot.create(:user)
+        client_admin = FactoryBot.create(:client_admin)
 
         sign_in_as(client_admin)
 
@@ -41,7 +41,7 @@ describe ClientAdmin::UsersController do
       it "should send appropriate pings" do
         subject.stubs(:ping)
 
-        client_admin = FactoryGirl.create(:client_admin)
+        client_admin = FactoryBot.create(:client_admin)
 
         sign_in_as(client_admin)
 

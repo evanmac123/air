@@ -4,7 +4,7 @@ feature "User Confirms Phone number" do
 
   before(:each) do
     @phone_number = "+12224443321"
-    @leah = FactoryGirl.create(:user, new_phone_number: @phone_number)
+    @leah = FactoryBot.create(:user, new_phone_number: @phone_number)
     @leah.generate_new_phone_validation_token
     @leah.save
 

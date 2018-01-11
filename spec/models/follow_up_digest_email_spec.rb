@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe FollowUpDigestEmail do
-  let(:demo) { FactoryGirl.create(:demo) }
+  let(:demo) { FactoryBot.create(:demo) }
   let(:tiles_digest) { TilesDigest.create(demo: demo, subject: "Subject A", alt_subject: "Subject B") }
 
   describe '#follow_up_days' do
@@ -65,33 +65,33 @@ describe FollowUpDigestEmail do
 
   context "Sending follow emails" do
     before  do
-      @demo = FactoryGirl.create(:demo)
-      @sender = FactoryGirl.create(:client_admin, demo: @demo)
+      @demo = FactoryBot.create(:demo)
+      @sender = FactoryBot.create(:client_admin, demo: @demo)
       @sender.board_memberships.first.update_attributes(notification_pref_cd: BoardMembership.notification_prefs[:unsubscribe])
 
-      @muted = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+      @muted = FactoryBot.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
 
       bm = @muted.board_memberships.first
       bm.notification_pref_cd = BoardMembership.notification_prefs[:unsubscribe]
       bm.save
 
-      @user1 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
-      @user2 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
-      @user3 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
-      @user4 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
-      @user5 = FactoryGirl.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+      @user1 = FactoryBot.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+      @user2 = FactoryBot.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+      @user3 = FactoryBot.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+      @user4 = FactoryBot.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
+      @user5 = FactoryBot.create(:user, accepted_invitation_at: 1.month.ago, demo: @demo)
 
-      @user6 = FactoryGirl.create(:user, demo: @demo) #unclaimed
+      @user6 = FactoryBot.create(:user, demo: @demo) #unclaimed
 
 
-      @not_in_digest = FactoryGirl.create(:tile, :active, demo: @demo, )
-      @tiles = FactoryGirl.create_list(:tile, 2, :active, demo: @demo, )
+      @not_in_digest = FactoryBot.create(:tile, :active, demo: @demo, )
+      @tiles = FactoryBot.create_list(:tile, 2, :active, demo: @demo, )
 
-      FactoryGirl.create(:tile_completion, user: @user4, tile: @not_in_digest, created_at: 2.weeks.ago)
+      FactoryBot.create(:tile_completion, user: @user4, tile: @not_in_digest, created_at: 2.weeks.ago)
 
-      FactoryGirl.create(:tile_completion, user: @user1, tile: @tiles[0], created_at: 2.weeks.ago)
-      FactoryGirl.create(:tile_completion, user: @user2, tile: @tiles[0], created_at: 2.weeks.ago)
-      FactoryGirl.create(:tile_completion, user: @user3, tile: @tiles[1], created_at: 2.weeks.ago)
+      FactoryBot.create(:tile_completion, user: @user1, tile: @tiles[0], created_at: 2.weeks.ago)
+      FactoryBot.create(:tile_completion, user: @user2, tile: @tiles[0], created_at: 2.weeks.ago)
+      FactoryBot.create(:tile_completion, user: @user3, tile: @tiles[1], created_at: 2.weeks.ago)
 
 
       User.claimed.each do |user|
@@ -144,14 +144,13 @@ describe FollowUpDigestEmail do
 
       describe "#trigger_deliveries" do
         it "mails all recipients with no tile completions for the current digest tiles" do
-          TilesDigestMailer.stubs(:delay).returns TilesDigestMailer
-          TilesDigestMailer.expects(:notify_one).at_most(5)
+          mock_delivery = ActionMailer::Base::NullMail.new
+
+          TilesDigestMailer.expects(:notify_one).returns(mock_delivery).at_most(5)
           @fu.trigger_deliveries
         end
 
         it "marks tiles_digest.followup_delivered as true" do
-          TilesDigestMailer.stubs(:delay).returns TilesDigestMailer
-
           expect(@fu.tiles_digest.followup_delivered).to be false
 
           @fu.trigger_deliveries

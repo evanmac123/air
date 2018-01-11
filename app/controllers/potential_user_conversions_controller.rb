@@ -1,6 +1,6 @@
 class PotentialUserConversionsController < ApplicationController
   def create
-    @potential_user = PotentialUser.find_by_id(session[:potential_user_id])
+    @potential_user = PotentialUser.find_by(id: session[:potential_user_id])
     if @potential_user
       full_user = @potential_user.convert_to_full_user!(params[:potential_user_name])
       if full_user

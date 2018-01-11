@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TilesDigestTester do
   describe "#deliver_test" do
     before do
-      @client_admin = FactoryGirl.create(:client_admin)
+      @client_admin = FactoryBot.create(:client_admin)
     end
 
     it "attempts to send a test Tile Email and test Follow Up Email if follow_up_day != Never" do
@@ -11,22 +11,23 @@ describe TilesDigestTester do
 
       tiles_digest_tester = TilesDigestTester.new(digest_form: tiles_digest_form)
 
-      TilesDigestMailer.expects(:delay).twice.returns(TilesDigestMailer)
+      mock_delivery = ActionMailer::Base::NullMail.new
 
       TilesDigestMailer.expects(:notify_one).with(
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] #{digest_params[:custom_subject]}",
-        TilesDigestMailDigestPresenter
-      ).once
+        "TilesDigestMailDigestPresenter"
+      ).once.returns(mock_delivery)
 
       TilesDigestMailer.expects(:notify_one).with(
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] Don't Miss: #{digest_params[:custom_subject]}",
-        TilesDigestMailFollowUpPresenter
-      ).once
+        "TilesDigestMailFollowUpPresenter"
+      ).once.returns(mock_delivery)
 
+      mock_delivery.expects(:deliver_now).twice
 
       tiles_digest_tester.deliver_test!
     end
@@ -38,14 +39,14 @@ describe TilesDigestTester do
 
       tiles_digest_tester = TilesDigestTester.new(digest_form: tiles_digest_form)
 
-      TilesDigestMailer.expects(:delay).once.returns(TilesDigestMailer)
+      mock_delivery = ActionMailer::Base::NullMail.new
 
       TilesDigestMailer.expects(:notify_one).with(
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] #{params[:custom_subject]}",
-        TilesDigestMailDigestPresenter
-      ).once
+        "TilesDigestMailDigestPresenter"
+      ).once.returns(mock_delivery)
 
       tiles_digest_tester.deliver_test!
     end
@@ -57,21 +58,21 @@ describe TilesDigestTester do
 
       tiles_digest_tester = TilesDigestTester.new(digest_form: tiles_digest_form)
 
-      TilesDigestMailer.expects(:delay).twice.returns(TilesDigestMailer)
+      mock_delivery = ActionMailer::Base::NullMail.new
 
       TilesDigestMailer.expects(:notify_one).with(
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] #{TilesDigest::DEFAULT_DIGEST_SUBJECT}",
-        TilesDigestMailDigestPresenter
-      ).once
+        "TilesDigestMailDigestPresenter"
+      ).once.returns(mock_delivery)
 
       TilesDigestMailer.expects(:notify_one).with(
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] Don't Miss: #{TilesDigest::DEFAULT_DIGEST_SUBJECT}",
-        TilesDigestMailFollowUpPresenter
-      ).once
+        "TilesDigestMailFollowUpPresenter"
+      ).once.returns(mock_delivery)
 
       tiles_digest_tester.deliver_test!
     end

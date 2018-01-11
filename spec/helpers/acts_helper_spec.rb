@@ -28,9 +28,9 @@ describe ClientAdmin::ReportsHelper do
 
   describe "#get_tile_from_params" do
     it "returns requested tile if it exists and current_user is present" do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       board = user.demo
-      tile = FactoryGirl.create(:tile, demo: board)
+      tile = FactoryBot.create(:tile, demo: board)
 
       helper.expects(:current_user).returns(user)
       helper.expects(:params).returns({ tile_id: tile.id }).twice

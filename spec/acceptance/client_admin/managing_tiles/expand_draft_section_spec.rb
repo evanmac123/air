@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Client expands draft section' do
-  let(:admin) { FactoryGirl.create :client_admin }
+  let(:admin) { FactoryBot.create :client_admin }
   let(:demo)  { admin.demo  }
 
   def tile_selector
@@ -14,7 +14,7 @@ feature 'Client expands draft section' do
   end
 
   before do
-    FactoryGirl.create_list :multiple_choice_tile, 7, :draft, demo: demo
+    FactoryBot.create_list :multiple_choice_tile, 7, :draft, demo: demo
     visit client_admin_tiles_path
   end
 

@@ -2,11 +2,11 @@ require 'acceptance/acceptance_helper'
 
 feature 'Admin resets tickets for demo' do
   before(:each) do
-    @demo = FactoryGirl.create(:demo, :with_tickets)
-    @user1 = FactoryGirl.create(:user, :claimed, demo: @demo, tickets: 5, points: 104)
-    @user2 = FactoryGirl.create(:user, :claimed, demo: @demo, tickets: 0, points: 7)
-    @user3 = FactoryGirl.create(:user, :claimed, demo: @demo, tickets: 2, points: 59)
-    @other_demo_user = FactoryGirl.create(:user, :claimed, tickets: 666)
+    @demo = FactoryBot.create(:demo, :with_tickets)
+    @user1 = FactoryBot.create(:user, :claimed, demo: @demo, tickets: 5, points: 104)
+    @user2 = FactoryBot.create(:user, :claimed, demo: @demo, tickets: 0, points: 7)
+    @user3 = FactoryBot.create(:user, :claimed, demo: @demo, tickets: 2, points: 59)
+    @other_demo_user = FactoryBot.create(:user, :claimed, tickets: 666)
 
     [@user1, @user2, @user3, @other_demo_user].each{|user| has_password(user, 'foobar')}
 

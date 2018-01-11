@@ -33,7 +33,7 @@ describe ClientAdmin::ReportsHelper do
     end
 
     it "returns Demo.launch_date.beginning_of_year" do
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       demo.created_at = Time.current - 1.year
       demo.launch_date = Time.current
       demo.save
@@ -44,7 +44,7 @@ describe ClientAdmin::ReportsHelper do
     end
 
     it "returns Demo.created_at.beginning_of_year if launch_date is not present" do
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       demo.created_at = Time.current - 1.year
       demo.launch_date = nil
       demo.save
@@ -65,7 +65,7 @@ describe ClientAdmin::ReportsHelper do
     end
 
     it "returns an array of options with the correct formatted names for boards older that 5 years" do
-      demo = FactoryGirl.create(:demo, created_at: 7.years.ago)
+      demo = FactoryBot.create(:demo, created_at: 7.years.ago)
 
       helper.stubs(:current_demo).returns(demo)
 
@@ -77,7 +77,7 @@ describe ClientAdmin::ReportsHelper do
     end
 
     it "returns an arry of options with the correct formatted names for boards older than 1 year" do
-      demo = FactoryGirl.create(:demo, created_at: 400.days.ago)
+      demo = FactoryBot.create(:demo, created_at: 400.days.ago)
 
       helper.stubs(:current_demo).returns(demo)
 
@@ -90,7 +90,7 @@ describe ClientAdmin::ReportsHelper do
 
     describe "#five_years_or_older" do
       it "returns true if demo_launch is older than 5 years" do
-        demo = FactoryGirl.create(:demo, created_at: 1825.days.ago - 1.day)
+        demo = FactoryBot.create(:demo, created_at: 1825.days.ago - 1.day)
 
         helper.stubs(:current_demo).returns(demo)
 
@@ -98,7 +98,7 @@ describe ClientAdmin::ReportsHelper do
       end
 
       it "returns false if demo_launch is not older than five years" do
-        demo = FactoryGirl.create(:demo, created_at: 1825.days.ago + 1.year)
+        demo = FactoryBot.create(:demo, created_at: 1825.days.ago + 1.year)
 
         helper.stubs(:current_demo).returns(demo)
 

@@ -1,0 +1,33 @@
+<% form_submit_protocol = Rails.env.production? ? "https" : "http" #we need https for staging %>
+<% headline ||= "See and be inspired by what other companies have created." %>
+<% remote_type ||= nil %>
+<div class="inspire_headline">
+  <%= headline %>
+</div>
+<%= form_tag set_new_board_url, id: "create_account_form", remote: remote_type do %>
+  <div class="errors_field"></div>
+  <div class="text_field">
+    <%= text_field_tag "user[name]", user.name, placeholder: "First and Last Name" %>
+  </div>
+  <div class="text_field">
+    <%= text_field_tag "user[email]", user.email, placeholder: "Work Email" %>
+  </div>
+  <div class="text_field">
+    <%= text_field_tag "board[name]", board.name, placeholder: "Name Your Airbo (ex.: Company Name)" %>
+  </div>
+  <div class="text_field">
+    <%= password_field_tag "user[password]", user.password, placeholder: "Password" %>
+  </div>
+  <%= hidden_field_tag "page_name", sign_up_form_page_name(params) %>
+  <%= hidden_field_tag "creation_source_board", creation_source(params) %>
+  <%= hidden_field_tag "creation_source_creator", creation_source(params) %>
+  <div class="submit_field">
+    <%= submit_tag "Create Free Account", class: "button", id: "submit_account_form" %>
+  </div>
+<% end %>
+<footer>
+  By using our site, you agree to our
+  <%= link_to "Terms and Conditions", page_path("terms"), target: "_blank"  %>
+  and
+  <%= link_to "Privacy Policy", page_path("privacy"), target: "_blank"  %>.
+</footer>

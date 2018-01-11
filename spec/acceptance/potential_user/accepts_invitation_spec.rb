@@ -5,9 +5,9 @@ feature "Potential User Accepts Invitation" do
 
   context "with no raffle" do
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       @demo = @user.demo
-      @potential_user = FactoryGirl.create(:potential_user, email: "john@snow.com", demo: @demo, primary_user: @user)
+      @potential_user = FactoryBot.create(:potential_user, email: "john@snow.com", demo: @demo, primary_user: @user)
       @potential_user.is_invited_by @user
       visit invitation_path(@potential_user.invitation_code, demo_id: @demo.id, referrer_id: @user.id)
     end
@@ -51,9 +51,9 @@ feature "Potential User Accepts Invitation" do
 
     context "is invited to different boards simultaneusly" do
       before(:each) do
-        @user2 = FactoryGirl.create(:user)
+        @user2 = FactoryBot.create(:user)
         @demo2 = @user2.demo
-        @potential_user2 = FactoryGirl.create(:potential_user, email: "john@snow.com", demo: @demo2, primary_user: @user2)
+        @potential_user2 = FactoryBot.create(:potential_user, email: "john@snow.com", demo: @demo2, primary_user: @user2)
         @potential_user2.is_invited_by @user2
       end
 
@@ -73,11 +73,11 @@ feature "Potential User Accepts Invitation" do
 
   context "in a board with a raffle" do
     it "should not show the prize modal", js: true do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       @demo = @user.demo
-      @potential_user = FactoryGirl.create(:potential_user, email: "john@snow.com", demo: @demo)
+      @potential_user = FactoryBot.create(:potential_user, email: "john@snow.com", demo: @demo)
       @potential_user.is_invited_by @user
-      FactoryGirl.create(:raffle, :live, demo: @demo)
+      FactoryBot.create(:raffle, :live, demo: @demo)
 
       visit invitation_path(@potential_user.invitation_code, demo_id: @demo.id, referrer_id: @user.id)
       expect_content "Enter your first and last name to continue:".upcase

@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature "visits sharable tile page", js: true do
   include SignUpModalHelpers
 
-  let!(:tile) { FactoryGirl.create(:multiple_choice_tile, is_sharable: true) }
+  let!(:tile) { FactoryBot.create(:multiple_choice_tile, is_sharable: true) }
 
   shared_examples_for "answers the tile" do
     scenario "should get feedback", js: true do
@@ -25,8 +25,8 @@ feature "visits sharable tile page", js: true do
   end
 
   it "should allow the user to see a shared tile in a private board" do
-    private_board = FactoryGirl.create(:demo, is_public: false)
-    tile = FactoryGirl.create(:multiple_choice_tile, is_sharable: true, demo: private_board)
+    private_board = FactoryBot.create(:demo, is_public: false)
+    tile = FactoryBot.create(:multiple_choice_tile, is_sharable: true, demo: private_board)
 
     visit sharable_tile_path(tile)
 
@@ -53,7 +53,7 @@ feature "visits sharable tile page", js: true do
   end
 
   scenario "redirect to root for not sharable tile with flash" do
-    tile2 = FactoryGirl.create :multiple_choice_tile
+    tile2 = FactoryBot.create :multiple_choice_tile
     visit sharable_tile_path(tile2)
     expect(page).to have_content(I18n.t('flashes.failure_tile_not_public'))
   end

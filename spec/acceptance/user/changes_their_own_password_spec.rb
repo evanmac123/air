@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'User changes their own password' do
   before(:each) do
-    @user = FactoryGirl.create(:user, :claimed)
+    @user = FactoryBot.create(:user, :claimed)
     has_password(@user, 'foobar')
     signin_as(@user, 'foobar')
     visit edit_account_settings_path

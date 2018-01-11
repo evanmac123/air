@@ -4,7 +4,7 @@ class ActionDispatch::Routing::Mapper
   end
 end
 
-Health::Application.routes.draw do
+Rails.application.routes.draw do
   draw :application
   draw :client_admin
   draw :explore
@@ -16,10 +16,10 @@ Health::Application.routes.draw do
   end
 
   constraints Clearance::Constraints::SignedIn.new { |user| user.is_site_admin || user.is_client_admin } do
-    root to: redirect('/explore')
+    get '/', to: redirect('/explore'), as: 'admin_root'
   end
 
   constraints Clearance::Constraints::SignedIn.new do
-    root to: redirect('/activity')
+    get '/', to: redirect('/activity'), as: 'user_root'
   end
 end

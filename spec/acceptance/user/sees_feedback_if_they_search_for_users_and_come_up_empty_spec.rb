@@ -10,7 +10,7 @@ feature 'Sees feedback if they search for users and come up empty' do
   end
 
   it "should have a cheerful message" do
-    user = FactoryGirl.create(:user, :claimed)
+    user = FactoryBot.create(:user, :claimed)
     visit users_path(as: user)
 
     expect_no_empty_result_message

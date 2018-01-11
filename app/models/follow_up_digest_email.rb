@@ -34,7 +34,7 @@ class FollowUpDigestEmail < ActiveRecord::Base
   def trigger_deliveries
     set_subject
     recipient_ids.each do |recipient_id|
-      TilesDigestMailer.delay.notify_one(tiles_digest, recipient_id, subject, TilesDigestMailFollowUpPresenter)
+      TilesDigestMailer.notify_one(tiles_digest, recipient_id, subject, "TilesDigestMailFollowUpPresenter").deliver_later
     end
 
     post_process_delivery

@@ -1,17 +1,11 @@
 <div class="hidden-form">
-  <%= semantic_form_for [:admin, @demo, User.new] do |form| %>
-    <%= form.inputs do %>
-      <%= form.input :name,  :label => "Name" %>
-      <%= form.input :email, :label => "Email" %>
-      <% if @locations.present? %>
-        <%= form.input :location, :label => "Location", :collection => @locations %>
-      <% end %>
-      <%= label_tag :set_claim_code %>
-      <%= check_box_tag :set_claim_code %>
-    <% end %>
+  <%= form_for [:admin, @demo, User.new] do |form| %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
 
-    <%= form.actions do %>
-      <%= form.submit 'Submit' %>
-    <% end %>
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+
+    <%= form.submit 'Submit' %>
   <% end %>
 </div>

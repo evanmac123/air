@@ -1,6 +1,6 @@
 class Admin::Sales::LeadContactsController < AdminBaseController
   def index
-    @lead_contacts = LeadContact.scoped
+    @lead_contacts = LeadContact.all
   end
 
   def destroy

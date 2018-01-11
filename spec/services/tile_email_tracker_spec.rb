@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TileEmailTracker do
-  let (:user) { FactoryGirl.create(:user) }
+  let (:user) { FactoryBot.create(:user) }
   let (:demo) { user.demo }
   let (:tile_email) { demo.tiles_digests.create }
   let (:email_type) { "tile_email" }
@@ -64,7 +64,7 @@ describe TileEmailTracker do
 
     describe "when the user is a site_admin" do
       it "returns false" do
-        site_admin = FactoryGirl.create(:site_admin)
+        site_admin = FactoryBot.create(:site_admin)
         tile_email_tracker = TileEmailTracker.new(user: site_admin, email_type: email_type, subject_line: tile_email.subject, tile_email_id: tile_email.id, from_sms: false)
 
         expect(tile_email_tracker.track).to be(false)

@@ -17,11 +17,11 @@ feature 'Switches boards' do
   context "via the desktop menu" do
     context "when in multiple boards" do
       before do
-        @user = FactoryGirl.create(:user)
+        @user = FactoryBot.create(:user)
         @first_board = @user.demo
 
-        @second_board = FactoryGirl.create(:demo)
-        @third_board = FactoryGirl.create(:demo)
+        @second_board = FactoryBot.create(:demo)
+        @third_board = FactoryBot.create(:demo)
         @user.add_board(@second_board)
         @user.add_board(@third_board)
 
@@ -43,7 +43,7 @@ feature 'Switches boards' do
 
       it "allows switching between them" do
         [@first_board, @second_board, @third_board].each do |board|
-          FactoryGirl.create(:multiple_choice_tile, demo: board, status: Tile::ACTIVE)
+          FactoryBot.create(:multiple_choice_tile, demo: board, status: Tile::ACTIVE)
         end
 
         visit activity_path(as: @user)

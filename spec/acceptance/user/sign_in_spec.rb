@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature 'Sign in' do
   let(:user) do
-    u = FactoryGirl.create(:user)
+    u = FactoryBot.create(:user)
     has_password(u, "foobar")
     u
   end

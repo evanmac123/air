@@ -3,7 +3,7 @@ include EmailHelper
 
 feature "user unsubscribes" do
   before(:each) do
-    @user = FactoryGirl.create(:user, name: 'user Eckles')
+    @user = FactoryBot.create(:user, name: 'user Eckles')
     @token = EmailLink.generate_token(@user)
     @unsubscribe_url = email_unsubscribe_link(user: @user, email_type: "default", demo: @user.demo)
   end

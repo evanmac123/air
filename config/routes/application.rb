@@ -1,16 +1,14 @@
 get "users/index"
 
-match "sms"           => "receive_sms#create", :via => :post
-match "activity"      => "acts#index"
-match "activity/admin_return_guide_displayed" => "acts#admin_return_guide_displayed"
-match "scoreboard"    => "scores#index"
-match "join"          => "signup_requests#new"
+post "sms"           => "receive_sms#create"
+get "activity"      => "acts#index"
+get "join"          => "signup_requests#new"
 
 # moved these to top level but don't want to break old links
-match "ard/:public_slug" => "public_boards#show", :as => "public_board", :via => :get
-match "ard/:public_slug/activity" => "acts#index", :as => "public_activity", :via => :get
-match "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles", :via => :get
-match "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile", :via => :get
+get "ard/:public_slug" => "public_boards#show", :as => "public_board"
+get "ard/:public_slug/activity" => "acts#index", :as => "public_activity"
+get "ard/:public_slug/tiles" => "tiles#index", :as => "public_tiles"
+get "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile"
 
 resources :tiles, :only => [:index, :show]
 resources :tile, :only => [:show], as: "sharable_tile"
@@ -53,19 +51,15 @@ resources :passwords,
   :controller => 'passwords',
   :only       => [:new, :create]
 
-match "sign_in"  => "sessions#new"
-match "sign_up"  => "users#new"
-match "sign_out" => "sessions#destroy"
+get "sign_in"  => "sessions#new", as: "sign_in"
+delete "sign_out" => "sessions#destroy", as: "sign_out"
 
 get "marketing_site_home" => 'pages#home', as: 'marketing_site_home'
 get "about" => 'pages#about', as: 'about'
 get "demo_link" => "pages#demo_link", as: "demo_link"
 get "terms" => "pages#terms", as: "terms"
 get "privacy" => "pages#privacy", as: "privacy"
-
-resources :pages, only: :show
-
-resource :home,  :only => :show
+get "pages/fujifilm" => "pages#fujifilm"
 
 resources :boards, only: [:new, :create, :update]
 resources :copy_boards, only: [:create]
@@ -86,7 +80,7 @@ resources :cancel_account, :only => [:show, :destroy]
 
 resource :account, :only => [:update] do
   resource :phone, only: [:update] do
-    put :validate
+    patch :validate
   end
   resource :avatar, :only => [:update, :destroy]
   resource :sms_slug, :only => [:update]

@@ -1,4 +1,4 @@
-<%= form_for :board_membership, url: weekly_activity_email_client_admin_board_settings_path, method: :put, html: { class: "js-board-settings-radio-form" } do |form|  %>
+<%= form_for :board_membership, url: weekly_activity_email_client_admin_board_settings_path, method: :patch, html: { class: "js-board-settings-radio-form" } do |form|  %>
   <%= label_tag :weekly_report, "Receive weekly activity report" %>
   <i class="fa fa-question-circle has-tip" id="board_email_tooltip" data-tooltip="true" title="Determines whether you receive a weekly Tile activity report for this board."></i>
 

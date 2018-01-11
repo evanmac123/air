@@ -3,9 +3,9 @@ require 'spec_helper'
 describe ClientAdmin::TilesFollowUpEmailController do
   describe "DELETE destroy" do
     it "should delete follow up email " do
-      demo = FactoryGirl.create(:demo)
-      client_admin = FactoryGirl.create(:client_admin, demo: demo)
-      tile = FactoryGirl.create(:tile, demo: demo)
+      demo = FactoryBot.create(:demo)
+      client_admin = FactoryBot.create(:client_admin, demo: demo)
+      tile = FactoryBot.create(:tile, demo: demo)
       digest = TilesDigest.create(demo: demo, sender: client_admin)
       digest.tiles << tile
 

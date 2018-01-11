@@ -4,8 +4,6 @@ class User::PointAndTicketSummarizer
   end
 
   def point_and_ticket_summary(prefix = [])
-    return "" unless @user.demo.use_post_act_summaries
-
     result_parts = prefix.clone
     result_parts << point_summary
     result_parts << ticket_summary

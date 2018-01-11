@@ -1,5 +1,5 @@
 class User::NullAvatar
   def url
-    User::MISSING_AVATAR_PATH
+    ActionController::Base.helpers.asset_path(User::MISSING_AVATAR_PATH)
   end
 end

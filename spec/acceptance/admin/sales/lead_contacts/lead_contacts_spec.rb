@@ -2,13 +2,12 @@ require 'acceptance/acceptance_helper'
 feature "LeadContacts", js: true do
   context "An SDR takes a lead contact from pending to processed" do
     it "should create an organization, user and cloned board for lead contact" do
-      admin = FactoryGirl.create(:site_admin)
-      lead_contact = FactoryGirl.create(:lead_contact, organization_name: "Lead")
-      campaign_demo = FactoryGirl.create(:demo, name: "airbo.com Board", public_slug: "internal-validation")
-
+      admin = FactoryBot.create(:site_admin)
+      lead_contact = FactoryBot.create(:lead_contact, organization_name: "Lead")
+      campaign_demo = FactoryBot.create(:demo, name: "airbo.com Board", public_slug: "internal-validation")
       Campaign.create(name:"test", demo: campaign_demo)
 
-      FactoryGirl.create(:tile, demo: campaign_demo)
+      FactoryBot.create(:tile, demo: campaign_demo)
 
       visit admin_sales_lead_contacts_path(as: admin)
 

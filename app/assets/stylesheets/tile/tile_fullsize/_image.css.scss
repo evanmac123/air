@@ -1,16 +1,17 @@
 .image_section {
   overflow: auto;
 }
+
 .tile_full_image {
   text-align: center;
   position: relative;
-  // img {
-  //   width:100%;
-  // }
-  &:after{@include clear;}
-  &.loading{
+  &:after { @include clear; }
+
+  &.loading {
     background-color: $off-white;
     border-bottom: 1px solid $secondary-gray;
+    min-height: 400px;
+
     &:before {
       content: "\f1c5";
       font-family: FontAwesome;
@@ -19,8 +20,8 @@
       text-decoration: inherit;
       position: absolute;
       font-size: 70px;
-      color: #A2A3A4;
-      top: 50%;
+      color: #a2a3a4;
+      top: 40%;
       left: 0;
       margin: auto;
       z-index: 1;
@@ -37,22 +38,6 @@
   transition: all 0.5s;
   background: white;
 }
-
-#tile_full_img_loading{
- background: white;
-}
-
-.video_old_browser {
-  background: $white;
-  padding: 100px;
-  i {
-    font-size: 200px;
-  }
-  &:hover {
-    color: $n-blue;
-  }
-}
-
 
 .shadow_overlay {
   display: block;

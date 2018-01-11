@@ -2,13 +2,13 @@ require 'acceptance/acceptance_helper'
 
 feature 'Has admin privileges on board by board basis' do
   before do
-    @client_admin = FactoryGirl.create(:client_admin)
+    @client_admin = FactoryBot.create(:client_admin)
   end
 
   context 'goes to a board where they are a peon' do
     before do
       @original_board = @client_admin.demo
-      @other_board = FactoryGirl.create :demo
+      @other_board = FactoryBot.create :demo
       @client_admin.add_board @other_board
       visit client_admin_users_path(as: @client_admin)
 

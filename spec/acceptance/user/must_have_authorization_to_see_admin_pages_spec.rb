@@ -44,7 +44,7 @@ feature 'User must have authorization to see admin pages' do
 
   context "as an ordinary schmuck" do
     before do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       has_password user, 'foobar'
       signin_as user, 'foobar'
     end

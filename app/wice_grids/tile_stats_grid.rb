@@ -1,3 +1,4 @@
+# Deprecate and move to front end grid solution
 class TileStatsGrid
   attr_reader :tile, :query_type, :answer_filter
 

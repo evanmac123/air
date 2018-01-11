@@ -5,13 +5,13 @@ describe ActiveTileCollector do
   describe "#collect" do
 
     before do
-      @user=FactoryGirl.create(:user)
+      @user=FactoryBot.create(:user)
       @demo=@user.demo
-      @tile1=FactoryGirl.create(:tile, demo: @demo)
-      @tile2=FactoryGirl.create(:tile, demo: @demo)
-      @viewing=FactoryGirl.create(:tile_viewing, tile: 
+      @tile1=FactoryBot.create(:tile, demo: @demo)
+      @tile2=FactoryBot.create(:tile, demo: @demo)
+      @viewing=FactoryBot.create(:tile_viewing, tile: 
                                   @tile1, user: @user)
-      @completion=FactoryGirl.create(:tile_completion, 
+      @completion=FactoryBot.create(:tile_completion, 
                                      tile: @tile2, user: @user)
       @beg_date=1.week.ago
       @end_date=Time.current

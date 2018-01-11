@@ -1,6 +1,5 @@
 class ClientAdmin::TilesDigestPreviewsController < ClientAdminBaseController
   layout false
-  prepend_before_filter :allow_same_origin_framing
 
   def sms
     @tile = first_tile_for_digest

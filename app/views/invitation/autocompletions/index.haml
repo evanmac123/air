@@ -16,4 +16,4 @@
       = form_tag invitation_invite_friend_path, :autocomplete => :off, :remote => true, :style => 'display: inline' do
         = hidden_field_tag 'invitee_id', user.id
         = hidden_field_tag 'invitee_email', user.email # if we invite by new email
-        = submit_tag "Invite", :disable_with => "Just a moment..", :class => "single_click_invite button outlined", :id => submit_id
+        = submit_tag "Invite", data: { disable_with: "Just a moment.." }, :class => "single_click_invite button outlined", :id => submit_id

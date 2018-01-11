@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature 'Client admin and tile manager page', js: true do
   include TileManagerHelpers
 
-  let(:admin) { FactoryGirl.create :client_admin }
+  let(:admin) { FactoryBot.create :client_admin }
   let(:demo)  { admin.demo  }
 
   before(:each) do
@@ -104,8 +104,8 @@ feature 'Client admin and tile manager page', js: true do
   context "New client admin visits client_admin/tiles page" do
     context "when there is atleast one activated tile in demo", js: true do
       before do
-        @tile = FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin
-        FactoryGirl.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin
+        @tile = FactoryBot.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin
+        FactoryBot.create :tile, demo: admin.demo, status: Tile::ACTIVE, creator: admin
         visit(client_admin_tiles_path)
       end
 
@@ -123,7 +123,7 @@ feature 'Client admin and tile manager page', js: true do
     # Chronologically-speaking, creating tiles "up" from 0 to 10 and then checking "down" from 10 to 0
     let!(:tiles) do
       10.times do |i|
-        tile = FactoryGirl.create :tile, demo: demo, headline: "Tile #{i}", created_at: Time.current + i.days
+        tile = FactoryBot.create :tile, demo: demo, headline: "Tile #{i}", created_at: Time.current + i.days
         # We now sort by activated_at/archived_at, and if those times aren't present we fall back on created_at
         # Make it so that all odd tiles should be listed before all even ones, and that odd/even each should be sorted in descending order.
         if i.even?
@@ -142,19 +142,19 @@ feature 'Client admin and tile manager page', js: true do
   it "pads odd rows, in both the inactive and active sections, with blank placeholder cells, so the table comes out right", js: true do
 
     # 1 tile, 6 places in row, so
-    FactoryGirl.create_list(:tile, 1, :draft, demo: admin.demo)
+    FactoryBot.create_list(:tile, 1, :draft, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_draft_tile_placeholders(5)
 
-    FactoryGirl.create_list(:tile, 3, :draft, demo: admin.demo)
+    FactoryBot.create_list(:tile, 3, :draft, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_draft_tile_placeholders(2)
 
-    FactoryGirl.create(:tile, :draft, demo: admin.demo)
+    FactoryBot.create(:tile, :draft, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_draft_tile_placeholders(1)
 
-    FactoryGirl.create(:tile, :draft, demo: admin.demo)
+    FactoryBot.create(:tile, :draft, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_draft_tile_placeholders(0)
 
@@ -163,52 +163,52 @@ feature 'Client admin and tile manager page', js: true do
     # expect 3 placeholders. But we only show the first 4 draft tiles
     # (really the first 3 + creation placeholder) and those two rows are full
     # now, so...
-    FactoryGirl.create(:tile, :draft, demo: admin.demo)
+    FactoryBot.create(:tile, :draft, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_draft_tile_placeholders(0)
 
     # And now let's do the active ones
     expect_active_tile_placeholders(0)
 
-    FactoryGirl.create(:tile, :active, demo: admin.demo)
+    FactoryBot.create(:tile, :active, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_active_tile_placeholders(3)
 
-    FactoryGirl.create(:tile, :active, demo: admin.demo)
+    FactoryBot.create(:tile, :active, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_active_tile_placeholders(2)
 
-    FactoryGirl.create(:tile, :active, demo: admin.demo)
+    FactoryBot.create(:tile, :active, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_active_tile_placeholders(1)
 
-    FactoryGirl.create(:tile, :active, demo: admin.demo)
+    FactoryBot.create(:tile, :active, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_active_tile_placeholders(0)
 
-    FactoryGirl.create(:tile, :active, demo: admin.demo)
+    FactoryBot.create(:tile, :active, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_active_tile_placeholders(3)
 
     #And now let's look at archived sction(It's similiar to active)
     expect_inactive_tile_placeholders(0)
 
-    FactoryGirl.create(:tile, :archived, demo: admin.demo)
+    FactoryBot.create(:tile, :archived, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_inactive_tile_placeholders(3)
 
-    FactoryGirl.create(:tile, :archived, demo: admin.demo)
+    FactoryBot.create(:tile, :archived, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_inactive_tile_placeholders(2)
 
-    FactoryGirl.create(:tile, :archived, demo: admin.demo)
+    FactoryBot.create(:tile, :archived, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_inactive_tile_placeholders(1)
 
-    FactoryGirl.create(:tile, :archived, demo: admin.demo)
+    FactoryBot.create(:tile, :archived, demo: admin.demo)
     visit(client_admin_tiles_path)
     expect_inactive_tile_placeholders(0)
-    5.times { FactoryGirl.create(:tile, :archived, demo: admin.demo) }
+    5.times { FactoryBot.create(:tile, :archived, demo: admin.demo) }
 
     # There's now the creation placeholder, plus eight other archived tiles.
     # If we DID show all of them, there's be an odd row with 1 tile, and we'd

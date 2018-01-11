@@ -29,7 +29,7 @@ Airbo.Channels = (function(){
 
   function initForm() {
     $(".update_channel").on("click", function(e) {
-      routeForm($(this), "PUT");
+      routeForm($(this), "PATCH");
     });
   }
 
@@ -61,7 +61,7 @@ Airbo.Channels = (function(){
 
             $(".update_channel").unbind();
             $(".update_channel").on("click", function(e) {
-              routeForm($(this), "PUT");
+              routeForm($(this), "PATCH");
             });
           });
         } else {

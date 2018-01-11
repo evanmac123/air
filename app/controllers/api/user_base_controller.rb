@@ -1,5 +1,5 @@
-module Api
-  class UserBaseController < UserBaseController
-    protect_from_forgery with: :null_session
+class Api::UserBaseController < Api::ApiController
+  def authorized?
+    signed_in?
   end
 end

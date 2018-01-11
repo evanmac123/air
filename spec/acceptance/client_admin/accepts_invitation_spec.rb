@@ -4,9 +4,9 @@ feature "Client Admin Accepts Invitation" do
   include SessionHelpers
 
   before(:each) do
-    @demo = @demo = FactoryGirl.create :demo, :activated
-    FactoryGirl.create(:tile, is_public: true)
-    @user = FactoryGirl.create :user, is_client_admin: true, demo: @demo
+    @demo = @demo = FactoryBot.create :demo, :activated
+    FactoryBot.create(:tile, is_public: true)
+    @user = FactoryBot.create :user, is_client_admin: true, demo: @demo
   end
 
   def fill_in_required_invitation_fields
@@ -27,7 +27,7 @@ feature "Client Admin Accepts Invitation" do
 
   scenario "across boards" do
     original_board = @user.demo
-    @other_board = FactoryGirl.create(:demo)
+    @other_board = FactoryBot.create(:demo)
     @user.add_board(@other_board)
     expect(@user.demos.size).to eq(2)
     expect(@user.demo).to eq(original_board)

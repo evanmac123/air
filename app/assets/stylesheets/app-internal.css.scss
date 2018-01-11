@@ -11,16 +11,6 @@
 *= require jssocials
 */
 
-/* MIXIN DEFINITIONS NEXT (so we can use them later) */
-/*@import "./mixins/main_styles.css.scss";*/
-
-/*
-***************************************************
-TODO remove commented out lines that have been pused into
-_common_user_client_admin completely once I've confirmed that that
-styles changes haven't broken anything.
-*****************************************************/
-
 @import "./_common_user_client_admin.css.scss";
 @import "./mixins/campaigns.css.scss";
 @import "./internal/autocompletion.css.scss";
@@ -40,5 +30,4 @@ styles changes haven't broken anything.
 @import "./external/landing/header.css.scss";
 @import "./external/landing/hero.css.scss";
 @import "./external/landing/footer.css.scss";
-
-@import "./application/**/*"
+@import "./application/**/*";

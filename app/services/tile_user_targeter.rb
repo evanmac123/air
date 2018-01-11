@@ -24,7 +24,7 @@ class TileUserTargeter
     if answer_idx.present?
       users_who_chose_different_answer(answer_idx: answer_idx)
     else
-      targetable_users.where("users.id NOT IN (?)", users_who_answered)
+      targetable_users.where("users.id NOT IN (?)", users_who_answered.pluck(:id))
     end
   end
 
@@ -39,23 +39,15 @@ class TileUserTargeter
     end
 
     def tiles_digest
-      @_tiles_digest ||= tile.tiles_digest
+      tile.tiles_digest
     end
 
     def tile_id
       tile.id
     end
 
-    def user_select_clause
-      User.select([:id, :name, :email]).joins(:board_memberships)
-    end
-
-    def targetable_users_all
-      user_select_clause.where("board_memberships.demo_id = ?", tile.demo_id)
-    end
-
     def targetable_users
-      targetable_users_all
+      tile.demo.users
     end
 
     def users_who_answered_specific_answer(answer_idx:)

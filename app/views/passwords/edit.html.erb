@@ -8,7 +8,7 @@
     <%= form_for(
       @user,
       :url     => user_password_path(@user, :token => @user.confirmation_token),
-      :html    => { :method => :put },
+      :html    => { :method => :patch },
       :builder => FancyFormBuilder
     ) do |form| %>
       <p>Your email: <%= @user.email %></p>

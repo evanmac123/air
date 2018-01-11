@@ -1,6 +1,6 @@
 class Explore::TileFeaturesController < ExploreBaseController
   def show
-    @tile_feature = TileFeature.find_by_slug(params[:id])
+    @tile_feature = TileFeature.find_by(slug: params[:id])
     @related_tiles = @tile_feature.related_tiles.page(params[:page]).per(28)
 
     if request.xhr?

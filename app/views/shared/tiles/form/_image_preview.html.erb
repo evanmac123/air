@@ -19,20 +19,14 @@
   <div id="image_uploader" class="intro-tipsy content_sections">
     <% image_class = tile_image_present(@tile.remote_media_url) ? "present" : "missing" %>
 
-    <div class="intro-tipsy image_preview limited-height <%= image_class %>" data-img-height='<%= @tile.full_size_image_height%>'>
-      <%= image_tag @tile.image.url, class: "tile_image", id: "upload_preview" %>
+    <div class="intro-tipsy image_preview limited-height <%= image_class %>">
+      <%= image_tag @tile.image.url, class: "tile_image", id: "upload_preview", data: { missing_tile_preview_image: asset_path(Tile::TileImageable::MISSING_PREVIEW) }%>
       <div class="shadow_overlay"></div>
       <div class="image_credit ">
-        <% if ie9_or_older? %>
-          <div class="image_credit_view">
-            <%= @tile.image_credit %>
-          </div>
-        <% else %>
-          <div class="image_credit_view no_outline" contenteditable="true">
-            <%= @tile.image_credit%>
-          </div>
-          <%= form.text_area :image_credit %>
-        <% end %>
+        <div class="image_credit_view no_outline" contenteditable="true">
+          <%= @tile.image_credit%>
+        </div>
+        <%= form.text_area :image_credit %>
       </div>
       <div class="image-menu">
         <ul>
@@ -78,7 +72,7 @@
     </div>
     <div class="images-wrapper">
       <div id="images"></div>
-      <h6 class="attribution"></h6>
+      <h6 class="attribution" data-pixabay-image="<%= asset_path("pixabay_logo.svg") %>" data-giphy-image="<%= asset_path("giphy_attribution.png") %>"></h6>
     </div>
 
     <div class="embed-video-container">

@@ -20,14 +20,14 @@ describe BulkLoad::UserRemover do
     def create_users_from_employee_ids(board, employee_ids)
       users = []
       employee_ids.each do |employee_id|
-        users << FactoryGirl.create(:user, employee_id: employee_id, demo: board)
+        users << FactoryBot.create(:user, employee_id: employee_id, demo: board)
       end
       users
     end
 
     before do
-      @board = FactoryGirl.create(:demo)
-      @other_board = FactoryGirl.create(:demo)
+      @board = FactoryBot.create(:demo)
+      @other_board = FactoryBot.create(:demo)
 
       create_users_from_employee_ids(@board, employee_ids_to_keep) + create_users_from_employee_ids(@other_board, employee_ids_to_keep + employee_ids_to_remove)
       @users_to_remove = create_users_from_employee_ids(@board, employee_ids_to_remove)
@@ -55,8 +55,8 @@ describe BulkLoad::UserRemover do
   end
 
   it "should exclude site admins" do
-    board = FactoryGirl.create(:demo)
-    user = FactoryGirl.create(:user, demo: board)
+    board = FactoryBot.create(:demo)
+    user = FactoryBot.create(:user, demo: board)
     user.is_site_admin = true
     user.save!
 
@@ -65,18 +65,18 @@ describe BulkLoad::UserRemover do
   end
 
   it "should exclude anyone with a \"usual suspects\" email domain" do
-    board = FactoryGirl.create(:demo)
+    board = FactoryBot.create(:demo)
     usual_suspect_emails = %w(jimmy@airbo.com jane.doe@towerswatson.com bob@air.bo frieda@hengage.com)
-    usual_suspect_emails.each{|email| FactoryGirl.create(:user, email: email, demo: board)}
+    usual_suspect_emails.each{|email| FactoryBot.create(:user, email: email, demo: board)}
 
-    guys_to_delete = FactoryGirl.create_list(:user, 2, demo: board)
+    guys_to_delete = FactoryBot.create_list(:user, 2, demo: board)
     remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
     expect_user_ids_in_queue_and_object(remover, guys_to_delete.map(&:id))
   end
 
   it "should easily let you iterate over users by means of a block" do
-    board = FactoryGirl.create(:demo)
-    users = FactoryGirl.create_list(:user, 2, demo: board)
+    board = FactoryBot.create(:demo)
+    users = FactoryBot.create_list(:user, 2, demo: board)
 
     remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
     rig_user_ids_for_bulk_removal(remover, users.map(&:id))
@@ -91,8 +91,8 @@ describe BulkLoad::UserRemover do
   end
 
   it "should delete users in just the one board" do
-    board = FactoryGirl.create(:demo)
-    users = FactoryGirl.create_list(:user, 2, demo: board)
+    board = FactoryBot.create(:demo)
+    users = FactoryBot.create_list(:user, 2, demo: board)
     user_ids = users.map(&:id)
 
     remover = BulkLoad::UserRemover.new(board.id, object_key, :employee_id)
@@ -105,8 +105,8 @@ describe BulkLoad::UserRemover do
   end
 
   it "should un-join users in multiple boards" do
-    board = FactoryGirl.create(:demo)
-    users = FactoryGirl.create_list(:user, 2)
+    board = FactoryBot.create(:demo)
+    users = FactoryBot.create_list(:user, 2)
     users.each {|user| user.add_board(board)}
     users.each do |user|
       expect(user.demo_ids.size).to eq(2)

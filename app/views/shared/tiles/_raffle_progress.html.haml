@@ -1,5 +1,5 @@
 - if raffle.live?
-  - raffle_type = (browser.ie6? || browser.ie7? || browser.ie8? || browser.ie9?) ? "line_bar" : "round_bar"
+  - raffle_type = (browser.ie?(6) || browser.ie?(7) || browser.ie?(8) || browser.ie?(9)) ? "line_bar" : "round_bar"
   #raffle_section{class: raffle_type }
     #raffle_header.progress_header
       Your Entries
@@ -11,7 +11,7 @@
       #raffle_info
         %span.fa.fa-trophy
         Info
-    -#FIXME a small hack to disable radial progress color fill when using custom colors 
+    -#FIXME a small hack to disable radial progress color fill when using custom colors
     .progress-radial{class: @palette ? '' : ("progress-" + (raffle_progress_bar * 10).to_s), "data-progress" => raffle_progress_bar * 10}
       #raffle_entries.overlay
         = starting_tickets

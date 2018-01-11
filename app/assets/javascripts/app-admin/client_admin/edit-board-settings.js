@@ -29,7 +29,7 @@ Airbo.EditBoardSettings = (function() {
       $.ajax({
         url: $form.attr("action"),
         data: $form.serialize(),
-        type: "PUT"
+        type: "PATCH"
       }).done(function(){
         $form.removeClass("dirty");
         submitButton.attr("disabled", true);

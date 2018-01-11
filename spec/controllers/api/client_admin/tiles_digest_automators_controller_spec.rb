@@ -6,7 +6,7 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
   describe "PUT update" do
     context "when no automator is saved yet" do
       it "creates a new tiles_digest_automator" do
-        client_admin = FactoryGirl.create(:client_admin)
+        client_admin = FactoryBot.create(:client_admin)
         sign_in_as(client_admin)
 
         put(:update, { demo_id: client_admin.demo.id, tiles_digest_automator: {}, format: :json })
@@ -22,7 +22,7 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
 
     context "when user has access" do
       it "updates the automator" do
-        client_admin = FactoryGirl.create(:client_admin)
+        client_admin = FactoryBot.create(:client_admin)
         _automator = client_admin.demo.create_tiles_digest_automator(deliver_date: 2.days.from_now)
 
         sign_in_as(client_admin)
@@ -54,7 +54,7 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
       end
 
       it "returns a decorated sendAtTime" do
-        client_admin = FactoryGirl.create(:client_admin)
+        client_admin = FactoryBot.create(:client_admin)
         sign_in_as(client_admin)
 
         update_params = {
@@ -72,10 +72,10 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
 
     context "when user is in wrong board (outdated session)" do
       it "responds with access denied and helpful flash" do
-        site_admin = FactoryGirl.create(:site_admin)
+        site_admin = FactoryBot.create(:site_admin)
         automator = site_admin.demo.create_tiles_digest_automator(deliver_date: 2.days.from_now)
 
-        other_demo = FactoryGirl.create(:demo, name: "Other Demo")
+        other_demo = FactoryBot.create(:demo, name: "Other Demo")
 
         site_admin.move_to_new_demo(other_demo)
 
@@ -84,7 +84,7 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
         put(:update, demo_id: automator.demo.id, format: :json)
 
         expect(response.status).to eq(403)
-        expect(response.content_type.json?).to eq(true)
+        expect(response.content_type).to eq("application/json")
         expect(response.headers["X-Message-Type"]).to eq(:failure)
         expect(response.headers["X-Message"]).to eq(I18n.t('flashes.failure_outdated_session'))
       end
@@ -94,7 +94,7 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
   describe "DELETE destroy" do
     context "when user has access" do
       it "removes the automator" do
-        client_admin = FactoryGirl.create(:client_admin)
+        client_admin = FactoryBot.create(:client_admin)
         automator = client_admin.demo.create_tiles_digest_automator(deliver_date: 2.days.from_now)
 
         automator.schedule_delivery
@@ -112,7 +112,7 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
 
 
       it "returns a decorated sendAtTime" do
-        client_admin = FactoryGirl.create(:client_admin)
+        client_admin = FactoryBot.create(:client_admin)
         _automator = client_admin.demo.create_tiles_digest_automator(deliver_date: 2.days.from_now)
 
         sign_in_as(client_admin)
@@ -127,10 +127,10 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
 
     context "when user is in wrong board (outdated session)" do
       it "responds with access denied and helpful flash" do
-        site_admin = FactoryGirl.create(:site_admin)
+        site_admin = FactoryBot.create(:site_admin)
         automator = site_admin.demo.create_tiles_digest_automator(deliver_date: 2.days.from_now)
 
-        other_demo = FactoryGirl.create(:demo, name: "Other Demo")
+        other_demo = FactoryBot.create(:demo, name: "Other Demo")
 
         site_admin.move_to_new_demo(other_demo)
 
@@ -139,7 +139,7 @@ describe Api::ClientAdmin::TilesDigestAutomatorsController, delay_jobs: true do
         delete(:destroy, demo_id: automator.demo.id, format: :json)
 
         expect(response.status).to eq(403)
-        expect(response.content_type.json?).to eq(true)
+        expect(response.content_type).to eq("application/json")
         expect(response.headers["X-Message-Type"]).to eq(:failure)
         expect(response.headers["X-Message"]).to eq(I18n.t('flashes.failure_outdated_session'))
       end

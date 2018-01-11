@@ -4,7 +4,7 @@ describe CreateBoard do
   describe "#create" do
     context "board email" do
       it "should create board with unique email based on public slug" do
-        b = FactoryGirl.create :demo, 
+        b = FactoryBot.create :demo, 
                                 name: "scooby doo Board", 
                                 public_slug: "scooby-doo", 
                                 email: "scoobydoo@ourairbo.com"

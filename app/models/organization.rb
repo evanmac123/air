@@ -31,6 +31,7 @@ class Organization < ActiveRecord::Base
       styles: { small: "x40>", medium: "x120>" },
       default_style: :small
     }
+  validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
 
   as_enum :company_size, smb: 0, enterprise: 1
 

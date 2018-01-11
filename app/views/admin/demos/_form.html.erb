@@ -1,92 +1,99 @@
 <div class="row">
   <div class="columns small-12">
 
-  <%= semantic_form_for [:admin, demo] do |form| %>
-    <%= form.inputs name: "Sales" do %>
-      <%= form.input :launch_date %>
-    <% end %>
-    <%= form.inputs name: "General Settings" do %>
-      <br>
-      <%= form.input :name, label: "Board Name" %>
-      <%= form.input :client_name %>
-      <%= form.input :phone_number %>
-      <%= form.input :email %>
-      <%= form.input :custom_reply_email_name, label: "Email mask" %>
-      <%= form.input :seed_points, :label => "Starting player score" %>
-      <%= form.input :custom_welcome_message, {:maxlength => 160} %>
-      <%= add_byte_counter_for 'Custom welcome message' %>
-      <%= form.input :prize, :label => "Prize text", :as => :text %>
-      <%= form.input :help_message, :as => :text %>
-      <%= form.input :unrecognized_user_message, :label => 'Phone-number-not-recognized message', :input_html => {:maxlength => 160} %>
-      <%= add_byte_counter_for "Phone-number-not-recognized message" %>
-      <%= form.input :act_too_early_message, :label => "Response to command before game begins", :input_html => {:maxlength => 160} %>
-      <%= add_byte_counter_for "Response to command before game begins" %>
-      <%= form.input :act_too_late_message, :label => "Response to command after game ends", :input_html => {:maxlength => 160} %>
-      <%= add_byte_counter_for "Response to command after game ends" %>
-      <%= form.input :custom_already_claimed_message, :label => "Custom already-claimed message", :input_html => {:maxlength => 160} %>
-      <%= add_byte_counter_for "Custom already-claimed message" %>
-      <%= form.input :custom_support_reply %>
-      <%= add_byte_counter_for "Custom support reply" %>
-      <%= form.input :persistent_message, :label => "Persistent message", :input_html => {:maxlength => 400} %>
-      <%= add_byte_counter_for "Persistent message" %>
-      <%= form.input :login_announcement, :label => "Message user sees on login" %>
-      <%= form.input :mute_notice_threshold %>
-      <%= form.input :ticket_threshold, :label => "Points for ticket award"  %>
-      <%= form.input :use_location_in_conversion, label: " Use location in conversion" %>
-      <br>
-      <%= form.input :use_post_act_summaries, label: " Send post-act summaries with act replies" %>
-      <br>
-      <%= form.input :guest_user_conversion_modal, label: " Show guest user conversion modal?" %>
-      <br>
-      <%= form.input :hide_social, label: " Hide social components?" %>
-    <% end %>
+    <%= form_for [:admin, demo] do |f| %>
+      <fieldset>
+        <legend>General Settings</legend>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
 
-    <%= form.inputs :name => "Referral Bonus" do %>
-      <p>Note that for this functionality to be active, you need to set both the threshold and the bonus for referring another.</p>
-      <%= form.input :game_referrer_bonus, :label => 'Bonus for referring another to the game' %>
-      <%= form.input :referred_credit_bonus, :label => 'Bonus for crediting the user who referred you to the game' %>
-      <%= form.input :credit_game_referrer_threshold, :label => "Threshold to credit user who referred you to the game (in minutes)" %>
-    <% end %>
+        <%= f.label :phone_number %>
+        <%= f.telephone_field :phone_number %>
 
-    <%= form.inputs :name => "Misc" do %>
-      <br>
-      <%= form.input :is_public, :label => " Is public?" %>
-      <br>
-    <% end %>
-    <%= form.inputs :name => "Dependent Board Settings" do %>
-      <br>
-      <%= form.input :dependent_board_enabled, :label => " Dependent board enabled (Turns on 'Invite spouse' item in Survey)" %>
-      <br>
-      <%= form.label :dependent_board_id, "Dependent board" %>
-      <%= select :demo, :dependent_board_id, Demo.order(:name).map { |d| [d.name, d.id] }, {seleced: demo.dependent_board_id, :include_blank => true} %>
-      <%= form.input :dependent_board_email_subject %>
-      <%= form.input :dependent_board_email_body, type: :text %>
-    <% end %>
-      <%= form.semantic_fields_for :custom_color_palette do|palette| %>
-        <%= palette.inputs :name => "Custom Colors" do %>
-        <br>
-          <%= palette.input :enabled,  :label => ' Enabled' %>
-          <br>
-          <%= palette.input :primary_color, :label => 'Primary text color' %>
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+
+        <%= f.label :custom_reply_email_name %>
+        <%= f.text_field :custom_reply_email_name, { maxlength: 160 } %>
+
+        <%= f.label :custom_welcome_message %>
+        <%= f.text_area :custom_welcome_message, { maxlength: 160 } %>
+
+        <%= f.label :persistent_message %>
+        <%= f.text_area :persistent_message, { maxlength: 160 } %>
+
+        <div class="mb-1">
+          <%= f.check_box :guest_user_conversion_modal %>
+          <%= f.label :guest_user_conversion_modal,  " Show guest user conversion modal?", class: "d-inline" %>
+        </div>
+
+        <div class="mb-1">
+          <%= f.check_box :hide_social %>
+          <%= f.label :hide_social,  " Hide social components?", class: "d-inline" %>
+        </div>
+        <div class="mb-1">
+          <%= f.check_box :is_public %>
+          <%= f.label :is_public,  " Is public?", class: "d-inline" %>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Dependent Board Settings</legend>
+        <div class="mb-1">
+          <%= f.check_box :dependent_board_enabled %>
+          <%= f.label :dependent_board_enabled,  " Dependent board enabled (Turns on 'Invite spouse' item in Survey)", class: "d-inline" %>
+        </div>
+
+        <%= f.label :dependent_board_id, "Dependent board" %>
+        <%= f.select :dependent_board_id, options_for_select(Demo.order(:name).map { |d| [d.name, d.id] }, {seleced: demo.dependent_board_id, :include_blank => true}) %>
+
+        <%= f.label :dependent_board_email_subject %>
+        <%= f.text_field :dependent_board_email_subject %>
+
+        <%= f.label :dependent_board_email_body %>
+        <%= f.text_field :dependent_board_email_body %>
+      </fieldset>
+
+      <fieldset>
+        <legend>Custom Colors</legend>
+
+        <%= f.fields_for :custom_color_palette do |palette| %>
+          <div class="mb-1">
+            <%= palette.check_box :enabled %>
+            <%= palette.label :enabled,  " Enabled?", class: "d-inline" %>
+          </div>
+
+          <%= palette.label :primary_color %>
+          <%= palette.text_field :primary_color %>
+
+
+          <div class="mb-1">
+            <%= palette.check_box :enable_reset %>
+            <%= palette.label :enable_reset, "Enable a customizable neutral color palette in case client branding is unfriendly", class:"d-inline" %>
+          </div>
+
+          <%= palette.label :static_text_color, "color for h1,h2,...headers and  label text (recommended: #4C4C4C -> default text color on airbo)" %>
+          <%= palette.text_field :static_text_color %>
+
+          <%= palette.label :content_background_reset, "Main page background (recommended: #eeeeee)" %>
+          <%= palette.text_field :content_background_reset %>
+
+          <%= palette.label :tile_progress_background_reset, "Tile Progress Background (recommended: #f7f7f7 -> neutral gray)" %>
+          <%= palette.text_field :tile_progress_background_reset %>
+
+          <%= palette.label :tile_progress_completed_tiles_text_reset, "Tile Progress Completed Tiles Text (recommended: #FFFFFF -> white primary color not white itself)" %>
+          <%= palette.text_field :tile_progress_completed_tiles_text_reset %>
+
+          <%= palette.label :tile_progress_all_tiles_text_reset, "Tile Progress All Tiles Text (recommended: primary color)" %>
+          <%= palette.text_field :tile_progress_all_tiles_text_reset %>
         <% end %>
+      </fieldset>
 
-        <%= palette.inputs :name => " Custom Colors: Page Style Resets" do %>
-          <br>
-          <%= palette.input :enable_reset, :label => ' Enable a customizable neutral color palette in case client branding is unfriendly' %>
-          <br>
-          <%= palette.input :static_text_color, :label => "color for h1,h2,...headers and  label text (recommended: #4C4C4C -> default text color on airbo)"%>
-          <%= palette.input :content_background_reset, :label => "Main page background (recommended: #eeeeee)"%>
-          <%= palette.input :tile_progress_background_reset, :label => "Tile Progress Background (recommended: #f7f7f7 -> neutral gray)"%>
-          <%= palette.input :tile_progress_completed_tiles_text_reset, :label => "Tile Progress Completed Tiles Text (recommended: #FFFFFF -> white primary color not white itself)"%>
-          <%= palette.input :tile_progress_all_tiles_text_reset, :label => "Tile Progress All Tiles Text (recommended: primary color)"%>
-        <% end %>
-      <% end %>
+      <fieldset>
+        <legend>Confirmation</legend>
+        <%= f.submit "Save", data: { disable_with: 'Please wait...' }, class: "button" %>
+      </fieldset>
 
-      <%= form.inputs :name => "Confirmation" do %>
-        <br>
-        <% button_text = demo.new_record? ? 'Create Board' : 'Update Board' %>
-        <%= form.submit button_text, disable_with: 'Please wait...', class: "button" %>
-      <% end %>
     <% end %>
   </div>
 </div>

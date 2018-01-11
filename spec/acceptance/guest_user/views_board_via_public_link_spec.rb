@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 feature "Guest user visits airbo" do
   before(:each) do
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
     @slug_path = "/ard/#{@demo.public_slug}"
     @slug_activity_path = "#{@slug_path}/activity"
     @slug_tiles_path = "#{@slug_path}/tiles"
@@ -28,7 +28,7 @@ feature "Guest user visits airbo" do
   end
 
   scenario "sees error when arriving via non public link" do
-    board = FactoryGirl.create(:demo, is_public: false)
+    board = FactoryBot.create(:demo, is_public: false)
 
     visit public_board_path(board.public_slug)
     expect_bad_public_board_message

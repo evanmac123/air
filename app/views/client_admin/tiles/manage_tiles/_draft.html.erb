@@ -12,28 +12,26 @@
           <span>Add New Tile</span>
         <% end %>
       </li>
-      <%if  policy(:board).tile_suggestion_enabled?%>
-        <li id="suggestion_box_title" class="<%= draft_tab_class("suggestion_box") %>">
-          <a href="#" class="<%= draft_tab_class("suggestion_box") %>">Suggestion Box
-            <span class="num-items">
-              (<%= @user_submitted_tiles_counter %>)
-            </span>
-          </a>
-          <ul id="suggestion_box_sub_menu" class="margin-right-5pct horizontal righty gray-5 <%= hide_suggestion_box_sub_menu %>">
-            <li class="">
-              <a href="#" id="manage_access" class="mini-text">
-                <i class="fa fa-users"></i>
-                Manage Access
-              </a>
-            </li>
-            <li >
-              <a href="#" class="mini-text help"><i class="fa fa-info-circle"></i>
-                Help
-              </a>
-            </li>
-          </ul>
-        </li>
-      <%end%>
+      <li id="suggestion_box_title" class="<%= draft_tab_class("suggestion_box") %>">
+        <a href="#" class="<%= draft_tab_class("suggestion_box") %>">Suggestion Box
+          <span class="num-items">
+            (<%= @user_submitted_tiles_counter %>)
+          </span>
+        </a>
+        <ul id="suggestion_box_sub_menu" class="margin-right-5pct horizontal righty gray-5 <%= hide_suggestion_box_sub_menu %>">
+          <li class="">
+            <a href="#" id="manage_access" class="mini-text">
+              <i class="fa fa-users"></i>
+              Manage Access
+            </a>
+          </li>
+          <li >
+            <a href="#" class="mini-text help"><i class="fa fa-info-circle"></i>
+              Help
+            </a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
 </div>
@@ -52,4 +50,3 @@
 
 <%= render partial: 'client_admin/suggestions_access/modal' %>
 <%= render partial: 'client_admin/suggestions_access/help_modal' %>
-

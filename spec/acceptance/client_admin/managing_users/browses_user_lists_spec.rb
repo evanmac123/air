@@ -1,9 +1,9 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Browses user lists' do
-  let(:client_admin) { FactoryGirl.create(:client_admin) }
+  let(:client_admin) { FactoryBot.create(:client_admin) }
   before do
-    FactoryGirl.create :tile, demo: client_admin.demo
+    FactoryBot.create :tile, demo: client_admin.demo
   end
 
 
@@ -28,12 +28,12 @@ feature 'Browses user lists' do
 
   it "should show everyone except site admin if asked" do
     5.times do |i|
-      user = FactoryGirl.create(:user, name: "Dude #{i}", demo: client_admin.demo)
+      user = FactoryBot.create(:user, name: "Dude #{i}", demo: client_admin.demo)
     end
 
-    other_demo_guy = FactoryGirl.create(:user, name: "Johnny Otherdemo")
+    other_demo_guy = FactoryBot.create(:user, name: "Johnny Otherdemo")
     expect(other_demo_guy.demo).not_to eq(client_admin.demo)
-    site_admin_guy = FactoryGirl.create(:site_admin, name: "Site Dude", demo: client_admin.demo)
+    site_admin_guy = FactoryBot.create(:site_admin, name: "Site Dude", demo: client_admin.demo)
 
     non_site_admins = client_admin.demo.users.where(is_site_admin: false)
 
@@ -52,12 +52,12 @@ feature 'Browses user lists' do
     page_size = ClientAdmin::UsersController::PAGE_SIZE
 
     (page_size + 1).times do |i|
-      FactoryGirl.create(:user, name: "Dude #{i}", demo: client_admin.demo)
+      FactoryBot.create(:user, name: "Dude #{i}", demo: client_admin.demo)
     end
 
     users = client_admin.demo.users
 
-    other_demo_guy = FactoryGirl.create(:user, name: "Johnny Otherdemo")
+    other_demo_guy = FactoryBot.create(:user, name: "Johnny Otherdemo")
     expect(other_demo_guy.demo).to_not eq(client_admin.demo)
 
     visit client_admin_users_path(as: client_admin)
@@ -79,7 +79,7 @@ feature 'Browses user lists' do
   end
 
   it "allows admin to invite user from the browse results page, assuming they have an email address", js:true do
-    alfred = FactoryGirl.create(:user, name: "Alfred Jones", demo: client_admin.demo)
+    alfred = FactoryBot.create(:user, name: "Alfred Jones", demo: client_admin.demo)
     expect(alfred).not_to be_invited
     visit client_admin_users_path(show_everyone: true, as: client_admin)
    within("tr.found-user[data-user-id='#{alfred.id}']") do
@@ -89,7 +89,7 @@ feature 'Browses user lists' do
   end
 
   it "should not present the option for an admin to try to invite a user without an email" do
-    alfred = FactoryGirl.create(:user, name: "Alfred Jones", demo: client_admin.demo, email: '', official_email:"yada@yada.com")
+    alfred = FactoryBot.create(:user, name: "Alfred Jones", demo: client_admin.demo, email: '', official_email:"yada@yada.com")
     expect(alfred).not_to be_invited
     visit client_admin_users_path(show_everyone: true, as: client_admin)
     expect(page.all("a[href='#{client_admin_user_invitation_path(alfred)}']")).to be_empty

@@ -1,8 +1,5 @@
 RSpec.configure do |config|
   config.before(:suite) do
-    Tile.reindex
-    Campaign.reindex
-
     Searchkick.disable_callbacks
   end
 

@@ -8,14 +8,13 @@
     <%= content_for :meta %>
     <%= csrf_meta_tag %>
 
-    <%= split_stylesheet_link_tag "app-client-admin", :media => "all", :split_count => 6 %>
+    <%= stylesheet_link_tag "app-client-admin", media: "all" %>
 
     <%= javascript_include_tag 'app-admin' %>
 
     <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
 
-    <%= mobvious_javascript %>
     <%= render "shared/custom_palette"  if @palette && @palette.enabled? %>
     <%= content_for :head %>
   </head>

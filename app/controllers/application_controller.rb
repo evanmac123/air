@@ -1,43 +1,33 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::RoutingError, with: :not_found
 
-  before_filter :authorize!
+  before_action :authorize!
 
   ##ApplicationPerformanceConcern
-  before_filter :set_scout_context
+  before_action :set_scout_context
   ##
 
-  before_filter :refresh_activity_session
-  before_filter :set_eager_caches
-
-  ##AirboSecurityConcern
-  before_filter :force_ssl
-  before_filter :disable_mime_sniffing
-  before_filter :disable_framing
-  ##
+  before_action :refresh_activity_session
+  before_action :set_eager_caches
 
   ##AirboFlashConcern
-  before_filter :initialize_flashes
-  after_filter :merge_flashes
+  before_action :initialize_flashes
+  after_action :merge_flashes
   ##
 
-  around_filter :set_time_zone, if: :current_board
+  around_action :set_time_zone, if: :current_board
 
   include ActivitySessionConcern
   include CachingConcern
-  include SecurityConcern
   include MixpanelConcern
   include FlashConcern
   include ApplicationPerformanceConcern
   include Mobvious::Rails::Controller
 
   ###### Airbo authentication/authorization
-	include Pundit
-  alias_method :pundit_authorize, :authorize
-
   include Clearance::Controller
   alias_method :clearance_authenticate, :authenticate
   alias_method :clearance_sign_in, :sign_in

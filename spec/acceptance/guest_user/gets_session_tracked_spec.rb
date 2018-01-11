@@ -1,11 +1,10 @@
 require 'acceptance/acceptance_helper'
 
 feature "Guest user activity session tracking", wonky: true do
-  let (:board) { FactoryGirl.create(:demo, is_public: true) }
+  let (:board) { FactoryBot.create(:demo, is_public: true) }
   let (:threshold) {ApplicationController::ACTIVITY_SESSION_THRESHOLD}
 
   before(:each) do
-    Delayed::Worker.delay_jobs = false
     FakeMixpanelTracker.clear_tracked_events
   end
 

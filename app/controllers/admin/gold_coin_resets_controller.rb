@@ -1,5 +1,5 @@
 class Admin::GoldCoinResetsController < AdminBaseController
-  before_filter :find_demo_by_demo_id
+  before_action :find_demo_by_demo_id
 
   def create
     @demo.delay.flush_all_user_tickets

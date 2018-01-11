@@ -14,7 +14,7 @@
       <% if @user.demo %>
         <p style="margin-top:0"><%= invitation_url(@user.invitation_code, { demo_id: @user.demo.id, new_lead: true }) %></p>
         <%= label_tag "Current Demo (User view)"%>
-        <p style="margin-top:0"><%= link_to(@user.demo.name, current_board_path(board_id: @user.demo.id, admin_view_board: true), method: :put, target: "_blank") %></p>
+        <p style="margin-top:0"><%= link_to(@user.demo.name, current_board_path(board_id: @user.demo.id, admin_view_board: true), method: :patch, target: "_blank") %></p>
         <p style="margin-top:0"><%= link_to("Edit Demo", admin_demo_path(@user.demo), target: "_blank") %></p>
       <% else %>
         <p style="margin-top:0">ERROR: This user has no current board. Notify Customer Success.</p>
@@ -82,7 +82,7 @@
   <div class="columns small-12">
     <fieldset>
       <legend>Characteristics</legend>
-      <%= form_tag admin_demo_user_characteristics_path(@user.demo, @user), method: :put do %>
+      <%= form_tag admin_demo_user_characteristics_path(@user.demo, @user), method: :patch do %>
         <div id="agnostic-characteristics">
           <h3>Demo-agnostic characteristics</h3>
           <%= characteristic_inputs @agnostic_characteristics, @user %>
@@ -99,13 +99,14 @@
   </div>
 </div>
 
-<%= semantic_form_for @user, :url => admin_demo_user_path(@user.demo, @user) do |f| %>
+<%= form_for @user, :url => admin_demo_user_path(@user.demo, @user) do |f| %>
   <div class="row">
     <div class="columns small-12">
       <fieldset>
         <legend>Move User To A Different Demo</legend>
         <p>If you move this user, any actions they did under the original demo will still exist in the database, but won't show up until such time as you move them back to that original demo.</p>
-        <%= f.input :demo, collection: @demos, label_method: :name, include_blank: false %>
+        <%= f.label :demo_id, "Demo" %>
+        <%= f.select :demo_id, options_from_collection_for_select(@demos, :id, :name, selected: @user.demo_id) %>
         <%= f.submit 'Move User', class: "button" %>
       </fieldset>
     </div>
@@ -125,7 +126,7 @@
         <br>
         <div class="row">
           <div class="columns small-12">
-            <%= submit_tag 'Destroy user', :confirm => "Don't say I didn't warn you. Are you sure you want to delete #{@user.name}?", class: "button red" %>
+            <%= submit_tag 'Destroy user', data: { confirm: "Don't say I didn't warn you. Are you sure you want to delete #{@user.name}?" }, class: "button red" %>
           </div>
         </div>
       </fieldset>

@@ -1,7 +1,7 @@
 class Admin::CharacteristicsController < AdminBaseController
-  before_filter :find_demo
-  before_filter :find_characteristic, :only => [:edit, :update, :destroy]
-  before_filter :remove_blank_allowed_values, :only => [:create, :update]
+  before_action :find_demo
+  before_action :find_characteristic, :only => [:edit, :update, :destroy]
+  before_action :remove_blank_allowed_values, :only => [:create, :update]
 
   def index
     @characteristics = Characteristic.where(:demo_id => @demo.try(:id))

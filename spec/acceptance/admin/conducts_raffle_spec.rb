@@ -3,13 +3,13 @@ require 'acceptance/acceptance_helper'
 feature 'Admin conducts raffle' do
 
   before(:each) do
-    @demo = FactoryGirl.create(:demo, :with_tickets)
+    @demo = FactoryBot.create(:demo, :with_tickets)
   end
 
   context "when no segment is selected" do
     context "and no users have tickets" do
       before do
-        5.times{ FactoryGirl.create(:user, demo: @demo)}
+        5.times{ FactoryBot.create(:user, demo: @demo)}
         @admin = an_admin
         expect(@demo.users.map(&:tickets).sum).to be_zero
       end
@@ -26,7 +26,7 @@ feature 'Admin conducts raffle' do
     context "and some users have tickets" do
       before(:each) do
         @users = []
-        5.times{|i| @users << FactoryGirl.create(:user, demo: @demo, name: "Dude #{i}", tickets: i * 3)}
+        5.times{|i| @users << FactoryBot.create(:user, demo: @demo, name: "Dude #{i}", tickets: i * 3)}
         expect(@demo.users.map(&:tickets).sum).to eq(30)
       end
 
@@ -78,16 +78,16 @@ feature 'Admin conducts raffle' do
     end
 
     before(:each) do
-      @characteristic = FactoryGirl.create(:characteristic, :discrete, name: "Shirt size", allowed_values: %w(small medium large), demo: @demo)
+      @characteristic = FactoryBot.create(:characteristic, :discrete, name: "Shirt size", allowed_values: %w(small medium large), demo: @demo)
       @locations = []
-      3.times { @locations << FactoryGirl.create(:location, demo: @demo) }
+      3.times { @locations << FactoryBot.create(:location, demo: @demo) }
 
       @expected_segment_users = []
       characteristic_hash = {@characteristic.id => 'medium'}
-      5.times { @expected_segment_users << FactoryGirl.create(:user, :claimed, characteristics: characteristic_hash, location: @locations[0], demo: @demo) }
+      5.times { @expected_segment_users << FactoryBot.create(:user, :claimed, characteristics: characteristic_hash, location: @locations[0], demo: @demo) }
 
-      4.times { FactoryGirl.create(:user, :claimed, characteristics: characteristic_hash, tickets: 15, demo: @demo) }
-      3.times { FactoryGirl.create(:user, :claimed, location: @locations[0], tickets: 15, demo: @demo) }
+      4.times { FactoryBot.create(:user, :claimed, characteristics: characteristic_hash, tickets: 15, demo: @demo) }
+      3.times { FactoryBot.create(:user, :claimed, location: @locations[0], tickets: 15, demo: @demo) }
     end
 
     context "and no users in that segment have tickets" do

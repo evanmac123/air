@@ -1,5 +1,5 @@
 class ClientAdmin::PrizesController < ClientAdminBaseController
-  before_filter :find_raffle
+  before_action :find_raffle
 
   def index
   end
@@ -8,7 +8,7 @@ class ClientAdmin::PrizesController < ClientAdminBaseController
     @raffle.update_attributes_without_validations(raffle_params)
   end
 
-  def update
+  def create
     if @raffle.update_attributes(raffle_params)
       @raffle.set_timer_to_end_live
       flash_message = "Prize updated."

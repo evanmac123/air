@@ -3,7 +3,7 @@
 # require 'uri'
 #
 # describe DeskSSO, "#url" do
-#   let (:user)    { FactoryGirl.build_stubbed(:user, email: 'johndoe@example.com', name: 'John Doe') }
+#   let (:user)    { FactoryBot.build_stubbed(:user, email: 'johndoe@example.com', name: 'John Doe') }
 #   let (:desksso) { DeskSSO.new(user) }
 #
 #   describe "#url" do

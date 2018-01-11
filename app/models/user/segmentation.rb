@@ -1,5 +1,6 @@
 class User
   module Segmentation
+
     SEGMENTATION_CREATE_PRIORITY = 100
     SEGMENTATION_UPDATE_PRIORITY = 100
 
@@ -55,7 +56,7 @@ class User
     end
 
     def schedule_segmentation_update(force = false)
-      #FIXME not clear why this needs to run in a delayed job 
+      #FIXME not clear why this needs to run in a delayed job
       return unless force || FIELDS_TRIGGERING_SEGMENTATION_UPDATE.any?{|field_name| changed.include?(field_name)}
 
       self.delay(priority: SEGMENTATION_UPDATE_PRIORITY).update_segmentation_info(force)
@@ -69,7 +70,7 @@ class User
     protected
 
     def cast_characteristics
-      return unless changed.include?('characteristics')
+      return unless changes["characteristics"].present? && changes["characteristics"].compact.present?
 
       self.characteristics.keys.each do |characteristic_id|
         characteristic = Characteristic.find(characteristic_id)

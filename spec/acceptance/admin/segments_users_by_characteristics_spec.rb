@@ -2,26 +2,26 @@ require 'acceptance/acceptance_helper'
 
 feature "Admin segmentation" do
   def create_characteristics_and_users
-    @demo = FactoryGirl.create(:demo)
-    @loser = FactoryGirl.create(:user, :demo => @demo)
-    @generic_characteristic_1 = FactoryGirl.create(:characteristic, :name => "Color", :allowed_values => %w(red orange yellow green blue indigo violet))
-    @generic_characteristic_2 = FactoryGirl.create(:characteristic, :name => "Favorite Beatle", :allowed_values => %w(john paul george ringo))
-    @generic_characteristic_3 = FactoryGirl.create(:characteristic, :name => "LOLPhrase", :allowed_values => %w(i can haz cheezburger))
-    @demo_specific_characteristic_1 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Brain size", :demo => @demo, :allowed_values => %w(low medium high))
-    @demo_specific_characteristic_2 = FactoryGirl.create(:characteristic, :demo_specific, :name => "Favorite number", :demo => @demo, :allowed_values => %w(seven eight nine))
-    @demo_specific_characteristic_3 = FactoryGirl.create(:characteristic, :demo_specific, :name => "MomPhrase", :demo => @demo, :allowed_values => %w(hi mom))
+    @demo = FactoryBot.create(:demo)
+    @loser = FactoryBot.create(:user, :demo => @demo)
+    @generic_characteristic_1 = FactoryBot.create(:characteristic, :name => "Color", :allowed_values => %w(red orange yellow green blue indigo violet))
+    @generic_characteristic_2 = FactoryBot.create(:characteristic, :name => "Favorite Beatle", :allowed_values => %w(john paul george ringo))
+    @generic_characteristic_3 = FactoryBot.create(:characteristic, :name => "LOLPhrase", :allowed_values => %w(i can haz cheezburger))
+    @demo_specific_characteristic_1 = FactoryBot.create(:characteristic, :demo_specific, :name => "Brain size", :demo => @demo, :allowed_values => %w(low medium high))
+    @demo_specific_characteristic_2 = FactoryBot.create(:characteristic, :demo_specific, :name => "Favorite number", :demo => @demo, :allowed_values => %w(seven eight nine))
+    @demo_specific_characteristic_3 = FactoryBot.create(:characteristic, :demo_specific, :name => "MomPhrase", :demo => @demo, :allowed_values => %w(hi mom))
 
-    %w(Here There Everywhere).each {|location_name| FactoryGirl.create(:location, name: location_name, demo: @demo)}
-    @locations = @demo.locations.all
+    %w(Here There Everywhere).each {|location_name| FactoryBot.create(:location, name: location_name, demo: @demo)}
+    @locations = @demo.locations
 
     @reds = []
     @blues = []
     @greens = []
 
     14.times do |i|
-      @reds << FactoryGirl.build(:user, :name => "Red Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "reddude#{i}", :characteristics => {@generic_characteristic_1.id => "red"})
-      @blues << FactoryGirl.build(:user, :name => "Blue Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "bluedude#{i}", :characteristics => {@generic_characteristic_1.id => "blue"})
-      @greens << FactoryGirl.build(:user, :name => "Green Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "greendude#{i}", :characteristics => {@generic_characteristic_1.id => "green"})
+      @reds << FactoryBot.build(:user, :name => "Red Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "reddude#{i}", :characteristics => {@generic_characteristic_1.id => "red"})
+      @blues << FactoryBot.build(:user, :name => "Blue Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "bluedude#{i}", :characteristics => {@generic_characteristic_1.id => "blue"})
+      @greens << FactoryBot.build(:user, :name => "Green Guy #{i}", :demo => @demo, :location => @locations[rand(3)], :employee_id => "greendude#{i}", :characteristics => {@generic_characteristic_1.id => "green"})
     end
 
     %w(john john paul paul paul george george george george ringo ringo ringo ringo ringo).each_with_index do |name, i|
@@ -339,15 +339,15 @@ feature "Admin segmentation" do
   context "segmenting on a boolean characteristic" do
     it "should work with equals and does-not-equal", :js => true do
       create_characteristics_and_users
-      characteristic = FactoryGirl.create(:characteristic, :boolean, name: "Likes cheese")
-      demo = FactoryGirl.create(:demo)
+      characteristic = FactoryBot.create(:characteristic, :boolean, name: "Likes cheese")
+      demo = FactoryBot.create(:demo)
       users = []
 
       # This leaves the "Likes cheese" characteristic set to true on users
       # 0, 1, 2, 6, 7, and 8; and set to false on 3, 4, 5, 9, 10 and 11.
       2.times do
-        3.times { users << FactoryGirl.create(:user, demo: demo, characteristics: {characteristic.id => true}) }
-        3.times { users << FactoryGirl.create(:user, demo: demo, characteristics: {characteristic.id => false}) }
+        3.times { users << FactoryBot.create(:user, demo: demo, characteristics: {characteristic.id => true}) }
+        3.times { users << FactoryBot.create(:user, demo: demo, characteristics: {characteristic.id => false}) }
       end
 
 
@@ -402,11 +402,11 @@ feature "Admin segmentation" do
 
   context "of numeric type" do
     it "should work with all operators", :js => true do
-      characteristic = FactoryGirl.create(:characteristic, :number, :name => "Foo count")
-      @demo = FactoryGirl.create(:demo)
+      characteristic = FactoryBot.create(:characteristic, :number, :name => "Foo count")
+      @demo = FactoryBot.create(:demo)
       users = []
       0.upto(9) do |i|
-        users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => i})
+        users << FactoryBot.create(:user, :demo => @demo, :characteristics => {characteristic.id => i})
       end
 
 
@@ -418,14 +418,14 @@ feature "Admin segmentation" do
     context "segmenting on a continuous characteristic" do
       context "of date type" do
         it "should work with all continuous operators, but not discrete one", :js => true do
-          @demo = FactoryGirl.create(:demo)
+          @demo = FactoryBot.create(:demo)
           reference_value = "May 10, 2010"
           reference_date = Chronic.parse(reference_value).to_date
 
-          characteristic = FactoryGirl.create(:characteristic, :date, :name => "Date of last decapitation")
+          characteristic = FactoryBot.create(:characteristic, :date, :name => "Date of last decapitation")
           users = []
           (-5).upto(4) do |i|
-            users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_date + i.days).to_s})
+            users << FactoryBot.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_date + i.days).to_s})
           end
 
           expect_all_continuous_operators_to_work "Date of last decapitation", reference_date, users
@@ -435,14 +435,14 @@ feature "Admin segmentation" do
 
       context "of time type" do
         it "should work with all continuous operators, but not discrete ones", :js => true do
-          @demo = FactoryGirl.create(:demo)
+          @demo = FactoryBot.create(:demo)
           reference_value = "May 10, 2010, 12:00 PM"
           reference_time = Chronic.parse(reference_value)
 
-          characteristic = FactoryGirl.create(:characteristic, :time, :name => "Lunchtime")
+          characteristic = FactoryBot.create(:characteristic, :time, :name => "Lunchtime")
           users = []
           -5.upto(4) do |i|
-            users << FactoryGirl.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_time + i.hours).to_s})
+            users << FactoryBot.create(:user, :demo => @demo, :characteristics => {characteristic.id => (reference_time + i.hours).to_s})
           end
 
 
@@ -457,16 +457,16 @@ feature "Admin segmentation" do
   it "can segment on location", :js => true do
     Location.delete_all
     Demo.delete_all
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
     @demo.update_attributes(name: "AwesomeCo")
-    other_demo = FactoryGirl.create(:demo, name: "Dewey, Cheatem and Howe")
+    other_demo = FactoryBot.create(:demo, name: "Dewey, Cheatem and Howe")
 
     demo_location_names = ["Puddingville", "North Southerton", "Blahdeblahham"]
     other_demo_location_names = ["Under the Sea", "Pantstown"]
-    demo_location_names.each {|location_name| FactoryGirl.create(:location, demo: @demo, name: location_name)}
-    other_demo_location_names.each {|location_name| FactoryGirl.create(:location, demo: other_demo, name: location_name)}
+    demo_location_names.each {|location_name| FactoryBot.create(:location, demo: @demo, name: location_name)}
+    other_demo_location_names.each {|location_name| FactoryBot.create(:location, demo: other_demo, name: location_name)}
 
-    Location.all.each {|location| FactoryGirl.create(:user, location: location, demo: location.demo)}
+    Location.all.each {|location| FactoryBot.create(:user, location: location, demo: location.demo)}
 
 
 
@@ -485,8 +485,8 @@ feature "Admin segmentation" do
     expect_content "Segmented by Location equals North Southerton (AwesomeCo)"
     expect_content "Users in this segment: 1"
 
-    expected_location = Location.find_by_name "North Southerton"
-    expected_user = User.find_by_location_id(expected_location.id)
+    expected_location = Location.find_by(name: "North Southerton")
+    expected_user = User.find_by(location_id: expected_location.id)
 
     click_link "Show users"
     expect_user_content expected_user
@@ -507,7 +507,7 @@ feature "Admin segmentation" do
   it "can segment on multiple location not-equal parameters", :js => true do
     Location.delete_all
     Demo.delete_all
-    @demo = FactoryGirl.create(:demo, name: 'MilesDavis')
+    @demo = FactoryBot.create(:demo, name: 'MilesDavis')
 
     {
       "Boston"     => 2,
@@ -515,8 +515,8 @@ feature "Admin segmentation" do
       "Brookline"  => 5,
       "Somerville" => 8
     }.each do |location_name, user_count|
-      location = FactoryGirl.create(:location, name: location_name, demo: @demo)
-      user_count.times {FactoryGirl.create(:user, location: location, demo: @demo) }
+      location = FactoryBot.create(:location, name: location_name, demo: @demo)
+      user_count.times {FactoryBot.create(:user, location: location, demo: @demo) }
     end
 
 
@@ -540,16 +540,16 @@ feature "Admin segmentation" do
   it "can segment on location when the location name has parentheses", :js => true do
     Location.delete_all
     Demo.delete_all
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
     @demo.update_attributes(name: "AwesomeCo")
-    other_demo = FactoryGirl.create(:demo, name: "Dewey, Cheatem and Howe")
+    other_demo = FactoryBot.create(:demo, name: "Dewey, Cheatem and Howe")
 
     demo_location_names = ["Puddingville (Site A)", "Puddingville (Site B)", "Puddingville (Down The Road A Little)", "Pantstown"]
     other_demo_location_names = ["Under the Sea", "Pantstown"]
-    demo_location_names.each {|location_name| FactoryGirl.create(:location, demo: @demo, name: location_name)}
-    other_demo_location_names.each {|location_name| FactoryGirl.create(:location, demo: other_demo, name: location_name)}
+    demo_location_names.each {|location_name| FactoryBot.create(:location, demo: @demo, name: location_name)}
+    other_demo_location_names.each {|location_name| FactoryBot.create(:location, demo: other_demo, name: location_name)}
 
-    Location.all.each {|location| 3.times{FactoryGirl.create(:user, location: location, demo: location.demo)}}
+    Location.all.each {|location| 3.times{FactoryBot.create(:user, location: location, demo: location.demo)}}
 
 
 
@@ -563,7 +563,7 @@ feature "Admin segmentation" do
     expect_content "Segmented by Location equals Puddingville (Site B) (AwesomeCo)"
     expect_content "Users in this segment: 3"
 
-    expected_location = Location.find_by_name "Puddingville (Site B)"
+    expected_location = Location.find_by(name: "Puddingville (Site B)")
     expected_users = User.where(location_id: expected_location.id)
 
     click_link "Show users"
@@ -571,10 +571,10 @@ feature "Admin segmentation" do
   end
 
   it 'can segment on points', :js => true do
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
     users = []
     0.upto(9) do |points|
-      users << FactoryGirl.create(:user, :demo => @demo, :points => points)
+      users << FactoryBot.create(:user, :demo => @demo, :points => points)
     end
 
 
@@ -583,14 +583,14 @@ feature "Admin segmentation" do
   end
 
   it 'can segment on date of birth, and discrete operators should not be present', :js => true do
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
 
     reference_value = "May 10, 2010"
     reference_date = Chronic.parse(reference_value).to_date
 
     users = []
     (-5).upto(4) do |i|
-      users << FactoryGirl.create(:user, :demo => @demo, :date_of_birth => (reference_date + i.days).to_s)
+      users << FactoryBot.create(:user, :demo => @demo, :date_of_birth => (reference_date + i.days).to_s)
     end
 
 
@@ -601,14 +601,14 @@ feature "Admin segmentation" do
   end
 
   it 'can segment on accepted_invitation_at, and discrete operators should not be present', :js => true do
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
 
     reference_value = "May 10, 2010, 9:00 AM"
     reference_time = Chronic.parse(reference_value)
 
     users = []
     (-5).upto(4) do |i|
-      users << FactoryGirl.create(:user, :demo => @demo, :accepted_invitation_at => (reference_time + i.days).to_s)
+      users << FactoryBot.create(:user, :demo => @demo, :accepted_invitation_at => (reference_time + i.days).to_s)
     end
 
 
@@ -617,13 +617,13 @@ feature "Admin segmentation" do
   end
 
   it 'can segment on gender', :js => true do
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
 
     expected_users = {'male' => [], 'female' => [], 'other' => []}
     3.times do
-      expected_users['male'] << FactoryGirl.create(:user, demo: @demo, gender: 'male')
-      expected_users['female'] << FactoryGirl.create(:user, demo: @demo, gender: 'female')
-      expected_users['other'] << FactoryGirl.create(:user, demo: @demo, gender: 'other')
+      expected_users['male'] << FactoryBot.create(:user, demo: @demo, gender: 'male')
+      expected_users['female'] << FactoryBot.create(:user, demo: @demo, gender: 'female')
+      expected_users['other'] << FactoryBot.create(:user, demo: @demo, gender: 'other')
     end
 
 
@@ -658,13 +658,13 @@ feature "Admin segmentation" do
   end
 
   it "can segment on has_phone_number", :js => true do
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
 
     users_with_phone = []
     users_without_phone = []
 
-    4.times {users_with_phone << FactoryGirl.create(:user, :with_phone_number, demo: @demo)}
-    3.times {users_without_phone << (FactoryGirl.create :user, demo: @demo)}
+    4.times {users_with_phone << FactoryBot.create(:user, :with_phone_number, demo: @demo)}
+    3.times {users_without_phone << (FactoryBot.create :user, demo: @demo)}
 
 
 
@@ -694,10 +694,10 @@ feature "Admin segmentation" do
   end
 
   it "can segment on claimed", :js => true do
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
 
-    4.times {FactoryGirl.create :user, :claimed, demo: @demo}
-    3.times {FactoryGirl.create :user, demo: @demo}
+    4.times {FactoryBot.create :user, :claimed, demo: @demo}
+    3.times {FactoryBot.create :user, demo: @demo}
 
 
 
@@ -746,7 +746,7 @@ feature "Admin segmentation" do
   end
 
   it 'should have a proper link from somewhere' do
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
 
     visit admin_demo_path(@demo, as: an_admin)
     click_link "Segment users"
@@ -755,7 +755,7 @@ feature "Admin segmentation" do
 
   it 'should give the user an idea of when the segment was looked up', :js => true do
     #Timecop.freeze(Time.zone.now)
-    @demo = FactoryGirl.create(:demo)
+    @demo = FactoryBot.create(:demo)
 
 
     visit admin_demo_segmentation_path(@demo, as: an_admin)
@@ -784,7 +784,7 @@ feature "Admin segmentation" do
   context 'blank search fields' do
     SEGMENTATION_ERROR_MESSAGE = 'One or more of your characteristic fields is blank'
 
-    let(:demo) { FactoryGirl.create(:demo) }
+    let(:demo) { FactoryBot.create(:demo) }
 
     before(:each) do
 

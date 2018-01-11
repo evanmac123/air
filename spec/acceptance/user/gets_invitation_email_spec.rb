@@ -19,9 +19,9 @@ feature 'User gets invitation email' do
   end
 
   before(:each) do
-    @demo = FactoryGirl.create(:demo, :with_email, allow_unsubscribes: true)
-    @user = FactoryGirl.create(:user, demo: @demo, name: "Dude Duderson")
-    @referrer = FactoryGirl.create(:user, demo: @demo, name: "Andy McReferrer")
+    @demo = FactoryBot.create(:demo, :with_email, allow_unsubscribes: true)
+    @user = FactoryBot.create(:user, demo: @demo, name: "Dude Duderson")
+    @referrer = FactoryBot.create(:user, demo: @demo, name: "Andy McReferrer")
   end
 
   context "from a demo that has a reply email name set" do
@@ -59,7 +59,7 @@ feature 'User gets invitation email' do
 <p>It's awesome. You'll love it.</p>
       END_HTML
 
-      @custom_invitation_email = FactoryGirl.create(:custom_invitation_email, demo: @demo, custom_html_text: @expected_html)
+      @custom_invitation_email = FactoryBot.create(:custom_invitation_email, demo: @demo, custom_html_text: @expected_html)
     end
 
     it "should use that HTML" do
@@ -106,7 +106,7 @@ feature 'User gets invitation email' do
     context "and there's a custom subject-with-referrer" do
       before(:each) do
         email_subject = "[referrer] wants you to buy in to our deal, [user]"
-        FactoryGirl.create(:custom_invitation_email, demo: @demo, custom_subject_with_referrer: email_subject)
+        FactoryBot.create(:custom_invitation_email, demo: @demo, custom_subject_with_referrer: email_subject)
       end
 
       it "should use that" do
@@ -126,7 +126,7 @@ feature 'User gets invitation email' do
   context "with no referrer" do
     context "and there's a custom subject" do
       it "should use that" do
-        FactoryGirl.create(:custom_invitation_email, demo_id: @demo.id, custom_subject: "KNEEL BEFORE ZOD")
+        FactoryBot.create(:custom_invitation_email, demo_id: @demo.id, custom_subject: "KNEEL BEFORE ZOD")
         @user.invite
         expect_subject "KNEEL BEFORE ZOD"
       end
@@ -155,7 +155,7 @@ If you're smart you'll go to [invitation_url] and play.
 
       custom_subject = "Play [game_name]! DO IT! WE COMMAND YOU [user]!"
 
-      @custom_invitation_email = FactoryGirl.create(:custom_invitation_email, demo: @demo, custom_plain_text: custom_plain_text, custom_html_text: custom_html, custom_subject: custom_subject)
+      @custom_invitation_email = FactoryBot.create(:custom_invitation_email, demo: @demo, custom_plain_text: custom_plain_text, custom_html_text: custom_html, custom_subject: custom_subject)
       @demo.update_attributes(name: "HealthAwesome")
 
       @user.invite

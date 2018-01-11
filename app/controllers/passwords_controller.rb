@@ -1,11 +1,11 @@
 class PasswordsController < Clearance::PasswordsController
-  before_filter :force_html_format
-  before_filter :downcase_email
+  before_action :force_html_format
+  before_action :downcase_email
 
   layout 'external'
 
   def create
-    @user = User.find_by_email params[:password][:email]
+    @user = User.find_by(email: params[:password][:email])
 
     if @user.nil?
       flash.now[:failure] = "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance."
@@ -21,12 +21,12 @@ class PasswordsController < Clearance::PasswordsController
   end
 
   def edit
-    @user = ::User.find_by_slug_and_confirmation_token(params[:user_id], params[:token])
+    @user = User.find_by(slug: params[:user_id], confirmation_token: params[:token])
     render :template => 'passwords/edit'
   end
 
   def update
-    @user = ::User.find_by_slug_and_confirmation_token(params[:user_id], params[:token])
+    @user = User.find_by(slug: params[:user_id], confirmation_token: params[:token])
 
     password = params[:user][:password]
     password_confirmation = params[:user][:password_confirmation]
@@ -49,10 +49,6 @@ class PasswordsController < Clearance::PasswordsController
 
 
   private
-
-    def find_user_by_id_and_confirmation_token
-      User.find_by_slug_and_confirmation_token(params[:user_id], params[:token])
-    end
 
     def downcase_email
       if params[:password] && params[:password][:email]

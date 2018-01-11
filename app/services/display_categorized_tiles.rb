@@ -36,9 +36,7 @@ class DisplayCategorizedTiles
   end
 
   def tiles_due_in_demo
-    Tile
-      .after_start_time_and_before_end_time
-      .where(demo_id: @demo.id, status: Tile::ACTIVE)
+    @demo.tiles.active
   end
 
   def completed_tiles
@@ -46,15 +44,7 @@ class DisplayCategorizedTiles
   end
 
   def all_completed_tiles
-    _user_id = @user.id
-    _user_type = @user.class.to_s
-    _demo_id = @demo.id
-
-    Tile.joins{tile_completions}.where do
-        (tile_completions.user_id == _user_id) &
-        (tile_completions.user_type == _user_type) &
-        (demo_id == _demo_id)
-      end.order{tile_completions.id.desc}
+    @demo.tiles.joins(:tile_completions).where(tile_completions: { user_id: @user.id, user_type: @user.class.to_s }).order("tile_completions.id DESC")
   end
 
   def active_completed_tiles
@@ -64,8 +54,6 @@ class DisplayCategorizedTiles
   def not_completed_tiles
     completed_ids = completed_tiles.pluck(:id)
 
-    tiles_due_in_demo
-      .where{ id.not_in completed_ids }
-      .order{position.desc}
+    tiles_due_in_demo.where.not(id: completed_ids).order(position: :desc)
   end
 end

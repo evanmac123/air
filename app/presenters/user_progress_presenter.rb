@@ -10,7 +10,7 @@ class UserProgressPresenter
 
 #  def cache_key
     #@cache_key ||= [
-      #self.class.to_s, 
+      #self.class.to_s,
       #'v1.pwd'
     #].join('-')
   #end
@@ -24,15 +24,11 @@ class UserProgressPresenter
   end
 
   def some_tiles_undone?
-    available_tile_count != completed_tile_count  
+    available_tile_count != completed_tile_count
   end
 
   def points
     @points ||= number_with_delimiter(@user.points)
-  end
-
-  def old_browser?
-    @browser.ie6? || @browser.ie7? || @browser.ie8?  
   end
 
   def persist_locally?
@@ -48,15 +44,14 @@ class UserProgressPresenter
   end
 
   def config
-    {user: @user.id, 
-     demo: @demo.id, 
+    {user: @user.id,
+     demo: @demo.id,
      tileIds: tile_ids,
      tileCount: tile_ids.size,
-     available: available_tile_count, 
-     completed: completed_tile_count, 
-     points: points, 
-     persistLocally: persist_locally?, 
-     legacyBrowser: old_browser?,
+     available: available_tile_count,
+     completed: completed_tile_count,
+     points: points,
+     persistLocally: persist_locally?,
      key: storage_key
     }
   end

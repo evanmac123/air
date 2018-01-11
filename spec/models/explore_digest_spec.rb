@@ -22,10 +22,10 @@ describe ExploreDigest do
   end
 
   it "validates copyable tiles appropriately" do
-    FactoryGirl.create_list(:tile, 3, is_public: true)
-    FactoryGirl.create_list(:tile, 2, is_public: true)
-    FactoryGirl.create_list(:tile, 2, is_public: false)
-    FactoryGirl.create_list(:tile, 2, is_public: false)
+    FactoryBot.create_list(:tile, 3, is_public: true)
+    FactoryBot.create_list(:tile, 2, is_public: true)
+    FactoryBot.create_list(:tile, 2, is_public: false)
+    FactoryBot.create_list(:tile, 2, is_public: false)
 
     explore_digest = ExploreDigest.create
     params = { "features" => { "1" => { "tile_ids"=> Tile.pluck(:id).sort.join(", ") } } }
@@ -46,10 +46,10 @@ describe ExploreDigest do
   end
 
   it "retrieves tiles in correct order" do
-    FactoryGirl.create_list(:tile, 3, is_public: true)
-    FactoryGirl.create_list(:tile, 2, is_public: true)
-    FactoryGirl.create_list(:tile, 2, is_public: false)
-    FactoryGirl.create_list(:tile, 2, is_public: false)
+    FactoryBot.create_list(:tile, 3, is_public: true)
+    FactoryBot.create_list(:tile, 2, is_public: true)
+    FactoryBot.create_list(:tile, 2, is_public: false)
+    FactoryBot.create_list(:tile, 2, is_public: false)
 
     explore_digest = ExploreDigest.create
     tile_ids = Tile.explore.pluck(:id).shuffle.join(", ")

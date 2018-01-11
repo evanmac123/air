@@ -1,11 +1,11 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Adds user' do
-  let (:client_admin) { FactoryGirl.create(:client_admin) }
+  let (:client_admin) { FactoryBot.create(:client_admin) }
   let (:demo) { client_admin.demo }
 
   before do
-    FactoryGirl.create :tile, demo: demo
+    FactoryBot.create :tile, demo: demo
   end
 
   before do
@@ -77,7 +77,7 @@ feature 'Adds user' do
 
   context "if we try to add an existing user" do
     it "should allow them, if not already in the board, to be invited", js: true do
-      FactoryGirl.create(:user, email: USER_EMAIL)
+      FactoryBot.create(:user, email: USER_EMAIL)
       fill_in_user_information
 
       click_button "Add User"
@@ -90,7 +90,7 @@ feature 'Adds user' do
     end
 
     it "shouldn't appear to allow you to re-invite an existing user", js: true do
-      FactoryGirl.create(:user, email: USER_EMAIL, demo: demo)
+      FactoryBot.create(:user, email: USER_EMAIL, demo: demo)
       fill_in_user_information
 
       click_button "Add User"
@@ -98,7 +98,7 @@ feature 'Adds user' do
     end
 
     it "should have the correct board name in the invitation", js: true do
-      user = FactoryGirl.create(:user, email: USER_EMAIL)
+      user = FactoryBot.create(:user, email: USER_EMAIL)
       expect(user.demo).not_to eq(demo)
 
       fill_in_user_information

@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe InvitationsController do
   describe "GET show" do
-    let(:inviter) { FactoryGirl.create(:client_admin) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:inviter) { FactoryBot.create(:client_admin) }
+    let(:user) { FactoryBot.create(:user) }
 
     it "should require_login if user is not found" do
       subject.stubs(:require_login)

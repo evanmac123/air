@@ -6,7 +6,7 @@ class ActsController < ApplicationController
   include ActsHelper
   include TileEmailTrackingConcern
 
-  prepend_before_filter :authenticate
+  prepend_before_action :authenticate
 
   def index
     @demo ||= current_user.demo
@@ -31,7 +31,7 @@ class ActsController < ApplicationController
     def authenticate_by_tile_token
       # TODO: This is too coupled to authentication and a huge mess...
       return false unless params[:tile_token]
-      user = User.find_by_id(params[:user_id])
+      user = User.find_by(id: params[:user_id])
 
       if should_authenticate_by_tile_token?(params[:tile_token], user)
         user.move_to_new_demo(params[:demo_id]) if params[:demo_id].present?

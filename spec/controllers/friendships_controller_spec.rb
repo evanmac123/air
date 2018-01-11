@@ -4,8 +4,8 @@ describe FriendshipsController do
   it "should not let a user try to friend someone without a board in common" do
     subject.stubs(:ping)
 
-    friender = FactoryGirl.create(:user)
-    friendee = FactoryGirl.create(:user)
+    friender = FactoryBot.create(:user)
+    friendee = FactoryBot.create(:user)
 
     sign_in_as(friender)
     post :create, user_id: friendee.slug

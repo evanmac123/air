@@ -1,152 +1,115 @@
 require 'spec_helper'
 
 describe SuggestedTileStatusChangeManager do
-  let(:user){FactoryGirl.create(:user)}
-  let(:demo) { FactoryGirl.create :demo }
+  let(:user){FactoryBot.create(:user)}
+  let(:demo) { FactoryBot.create :demo }
   describe "#process" do
 
-    context "user_submitted" do
-      #use 'Factory.build'  to avoid weird behaviors caused by callback implentation
-      it "doesn't send admin email if not a new record" do
-        tile = FactoryGirl.build :multiple_choice_tile, status: Tile::USER_SUBMITTED,  demo: demo, creator: user, user_created: true
-        tile.stubs(:new_record?).returns(false)
-        do_no_admin_email_sent tile
-      end
+    def mock_tile(suggestion_box_created:, status_changes:, creator: User.new)
+      OpenStruct.new({
+        suggestion_box_created?: suggestion_box_created,
+        creator: creator,
+        changes: {
+          status: status_changes
+        }
+      })
+    end
 
+    def process_change_expectation(expected_method:, tile:)
+      mgr = SuggestedTileStatusChangeManager.new(tile)
+      mgr.expects(expected_method)
+      mgr.process
+    end
+
+    def process_change_negation(expected_method:, tile:)
+      mgr = SuggestedTileStatusChangeManager.new(tile)
+      mgr.expects(expected_method).never
+      mgr.process
+    end
+
+    context "user_submitted" do
       it "sends admin email if new record and status is USER_SUBMITTED" do
-        tile = FactoryGirl.build :multiple_choice_tile, status: Tile::USER_SUBMITTED,  demo: demo, creator: user, user_created: true
-        do_user_submitted tile
+        tile = mock_tile(suggestion_box_created: true, status_changes: [nil, Tile::USER_SUBMITTED])
+
+        process_change_expectation(expected_method: :send_submitted_email, tile: tile)
       end
 
       it "doesn't sends emails status not user_submitted" do
-        tile = FactoryGirl.build :multiple_choice_tile,  status: Tile::DRAFT, demo: demo, creator: user, user_created: true
-        do_no_admin_email_sent tile
-      end
+        tile = mock_tile(suggestion_box_created: true, status_changes: [nil, Tile::DRAFT])
 
-      it "doesn't sends emails if user_created is nil" do
-        tile = FactoryGirl.build :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: nil
-        do_no_admin_email_sent tile
-      end
-
-      it "doesn't sends emails if user_created is false" do
-        tile = FactoryGirl.build :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: false
-        tile.user_created =  false
-        do_no_admin_email_sent tile
+        process_change_negation(expected_method: :send_submitted_email, tile: tile)
       end
 
       it "doesn't sends emails if it has no creator" do
-        tile = FactoryGirl.build :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: nil, user_created: true
-        do_no_admin_email_sent tile
+        tile = mock_tile(suggestion_box_created: true, status_changes: [nil, Tile::USER_SUBMITTED], creator: nil)
+
+        process_change_negation(expected_method: :send_submitted_email, tile: tile)
       end
     end
 
     context "accepted" do
       context "original status USER_SUBMITTED" do
-        let(:tile) { FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true }
+        it "sends email if status is changed to DRAFT" do
+          tile = mock_tile(suggestion_box_created: true, status_changes: [Tile::USER_SUBMITTED, Tile::DRAFT])
 
-        it "sends email if status is change to DRAFT" do
-          tile.status = Tile::DRAFT
-          mgr = SuggestedTileStatusChangeManager.new(tile)
-          mgr.expects(:send_acceptance_email)
-          mgr.process
+          process_change_expectation(expected_method: :send_acceptance_email, tile: tile)
         end
 
         it "doesn't send email if status has not changed to DRAFT" do
-          tile.status = Tile::ACTIVE
-          mgr = SuggestedTileStatusChangeManager.new(tile)
-          mgr.expects(:send_acceptance_email).never
-          mgr.process
+          tile = mock_tile(suggestion_box_created: true, status_changes: [Tile::USER_SUBMITTED, Tile::IGNORED])
+
+          process_change_negation(expected_method: :send_acceptance_email, tile: tile)
         end
       end
 
 
       it "doesn't sends emails original status not USER_SUBMITTED" do
-        tile = FactoryGirl.create :multiple_choice_tile, status: Tile::USER_DRAFT, demo: demo, creator: user, user_created: true
-        tile.status = Tile::DRAFT
-        mgr = SuggestedTileStatusChangeManager.new(tile)
-        mgr.expects(:send_acceptance_email).never
-        mgr.process
+        tile = mock_tile(suggestion_box_created: true, status_changes: [Tile::USER_DRAFT, Tile::DRAFT])
+
+        process_change_negation(expected_method: :send_acceptance_email, tile: tile)
       end
 
       context "is not user created" do
-        let(:tile) { FactoryGirl.create :multiple_choice_tile, status: Tile::USER_DRAFT, demo: demo, creator: user, user_created: nil  }
-        it "doesn't sends emails if user_created is nil" do
-          tile.status = Tile::DRAFT
-          mgr = SuggestedTileStatusChangeManager.new(tile)
-          mgr.expects(:send_acceptance_email).never
-          mgr.process
-        end
+        it "doesn't sends emails if creation source is not suggestion_box_created" do
+          tile = mock_tile(suggestion_box_created: false, status_changes: [nil, Tile::DRAFT])
 
-        it "doesn't sends emails if user_created is false" do
-          tile.user_created =  false
-          tile.status = Tile::DRAFT
-          mgr = SuggestedTileStatusChangeManager.new(tile)
-          mgr.expects(:send_acceptance_email).never
-          mgr.process
+          process_change_negation(expected_method: :send_acceptance_email, tile: tile)
         end
       end
 
       it "doesn't sends emails if it has no creator" do
-        tile = FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: nil, user_created: true
-        tile.status = Tile::DRAFT
-        mgr = SuggestedTileStatusChangeManager.new(tile)
-        mgr.expects(:send_acceptance_email).never
-        mgr.process
+        tile = mock_tile(suggestion_box_created: true, status_changes: [Tile::USER_SUBMITTED, Tile::DRAFT], creator: nil)
+
+        process_change_negation(expected_method: :send_acceptance_email, tile: tile)
       end
     end
 
     context "posted" do
-
       context "original status DRAFT" do
-        let(:tile) { FactoryGirl.create :multiple_choice_tile, status: Tile::DRAFT, demo: demo, creator: user, user_created: true }
-
         it "sends email if status is change to ACTIVE" do
-          tile.status = Tile::ACTIVE
-          mgr = SuggestedTileStatusChangeManager.new(tile)
-          mgr.expects(:send_posted_email)
-          mgr.process
+          tile = mock_tile(suggestion_box_created: true, status_changes: [Tile::DRAFT, Tile::ACTIVE])
+
+          process_change_expectation(expected_method: :send_posted_email, tile: tile)
         end
 
         it "doesn't send email if status has not changed to ACTIVE" do
-          tile.status = Tile::IGNORED
-          mgr = SuggestedTileStatusChangeManager.new(tile)
-          mgr.expects(:send_posted_email).never
-          mgr.process
+          tile = mock_tile(suggestion_box_created: true, status_changes: [Tile::DRAFT, Tile::IGNORED])
+
+          process_change_negation(expected_method: :send_posted_email, tile: tile)
         end
       end
 
-
       it "doesn't sends emails original status not DRAFT" do
-        tile = FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true
-        tile.status = Tile::ACTIVE
-        mgr = SuggestedTileStatusChangeManager.new(tile)
-        mgr.expects(:send_posted_email).never
-        mgr.process
+        tile = mock_tile(suggestion_box_created: true, status_changes: [nil, Tile::ACTIVE])
+
+        process_change_negation(expected_method: :send_posted_email, tile: tile)
       end
-
-
 
       it "doesn't sends emails if has no creator" do
-        tile = FactoryGirl.create :multiple_choice_tile, status: Tile::DRAFT, demo: demo, creator: nil, user_created: true
-        tile.status = Tile::ACTIVE
-        mgr = SuggestedTileStatusChangeManager.new(tile)
-        mgr.expects(:send_posted_email).never
-        mgr.process
-      end
+        tile = mock_tile(suggestion_box_created: true, status_changes: [Tile::DRAFT, Tile::ACTIVE], creator: nil)
 
+        process_change_negation(expected_method: :send_posted_email, tile: tile)
+      end
     end
   end
-
-  def do_user_submitted tile
-    mgr = SuggestedTileStatusChangeManager.new(tile)
-    mgr.expects(:send_submitted_email)
-    mgr.process
-  end
-
-  def do_no_admin_email_sent tile
-    mgr = SuggestedTileStatusChangeManager.new(tile)
-    mgr.expects(:send_submitted_email).never
-    mgr.process
-  end
-
 end

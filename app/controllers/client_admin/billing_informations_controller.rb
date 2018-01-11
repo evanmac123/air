@@ -45,7 +45,7 @@ class ClientAdmin::BillingInformationsController < ClientAdminBaseController
   end
 
   def notify_us_of_new_billing_information(user)
-    BillingNotificationMailer.delay_mail(:notify, user.id, user.demo_id)
+    BillingNotificationMailer.notify(user.id, user.demo_id).deliver_later
   end
 
   def credit_card_errors
@@ -59,7 +59,7 @@ class ClientAdmin::BillingInformationsController < ClientAdminBaseController
     # Note that we can't just do message.downcase because sometimes the error
     # is multiple sentences--we just wanna downcase the very first letter, so
     # it then fits into our error schema "Sorry, something went wrong: [something]"
-   
+
     message = stripe_error.message.clone
     message[0] = message[0].downcase
 
@@ -70,7 +70,7 @@ class ClientAdmin::BillingInformationsController < ClientAdminBaseController
 
   def post_billing_information_to_stripe
     Stripe::Customer.create(
-      email:       current_user.email, 
+      email:       current_user.email,
       description: user_description(current_user),
       card:        @credit_card.to_stripe_params
     )

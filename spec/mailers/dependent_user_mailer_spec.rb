@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe DependentUserMailer do
   it "should send invitation" do
-    u = FactoryGirl.create :potential_user
+    u = FactoryBot.create :potential_user
     subject = "Please, join us"
     body = "It would be really nice"
     mail = DependentUserMailer.notify(u, subject, body)

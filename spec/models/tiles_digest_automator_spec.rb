@@ -10,7 +10,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
 
   describe "#set_deliver_date" do
     it "sets deliver_date equal to the result of #next_deliver_time with the current_deliver_date as the origin" do
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       automator = demo.build_tiles_digest_automator
 
       deliver_date = Time.zone.local(1990)
@@ -35,7 +35,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
 
   describe "#schedule_delivery" do
     it "schedules a new delivery job" do
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       automator = demo.build_tiles_digest_automator
       automator.update_deliver_date
 
@@ -49,7 +49,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     end
 
     it "schedules #deliver for the delivery job" do
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       automator = demo.build_tiles_digest_automator
       automator.update_deliver_date
 
@@ -75,7 +75,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
 
   describe "#remove_job" do
     it "removes scheduled job" do
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       automator = demo.build_tiles_digest_automator
       automator.update_deliver_date
       automator.schedule_delivery
@@ -94,7 +94,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     end
 
     it "gets called before destroy" do
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       automator = demo.build_tiles_digest_automator
       automator.update_deliver_date
 
@@ -106,7 +106,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
 
   describe "#job" do
     it "returns related job" do
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       automator = demo.build_tiles_digest_automator
       automator.update_deliver_date
       automator.schedule_delivery
@@ -123,7 +123,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
 
   describe "#deliver_digest" do
     it "returns nil if its demo has no digest_tiles" do
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       automator = demo.build_tiles_digest_automator
       automator.update_deliver_date
 
@@ -132,7 +132,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
     end
 
     it "asks TilesDigestForm to deliver a digest if there are digest tiles" do
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       automator = demo.build_tiles_digest_automator
       automator.update_deliver_date
 
@@ -158,7 +158,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
 
     context "when deliver_date is not set, but demo.tile_digest_email_sent_at is set" do
       it "returns demo.tile_digest_email_sent_at" do
-        demo = FactoryGirl.create(:demo, tile_digest_email_sent_at: Time.zone.local(1990))
+        demo = FactoryBot.create(:demo, tile_digest_email_sent_at: Time.zone.local(1990))
         automator = demo.build_tiles_digest_automator
 
         expect(automator.current_deliver_date).to eq(Time.zone.local(1990))
@@ -167,7 +167,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
 
     context "when when neither deliver_date nor demo.tile_digest_email_sent_at is set" do
       it "returns Time.current" do
-        demo = FactoryGirl.create(:demo)
+        demo = FactoryBot.create(:demo)
         automator = demo.build_tiles_digest_automator
 
         Time.expects(:current)
@@ -180,7 +180,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
   describe "#next_deliver_time" do
     before do
       Timecop.freeze(Time.local(1990))
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       @automator = demo.build_tiles_digest_automator
       @automator.update_deliver_date
     end
@@ -255,7 +255,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
   describe "#origin_for_reset" do
     before do
       Timecop.freeze(Time.local(1990))
-      demo = FactoryGirl.create(:demo)
+      demo = FactoryBot.create(:demo)
       @automator = demo.build_tiles_digest_automator
     end
 
@@ -308,7 +308,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
   describe "#tiles_digest_params" do
     context "when there is a draft on the demo" do
       it "returns the draft" do
-        demo = FactoryGirl.create(:demo)
+        demo = FactoryBot.create(:demo)
         automator = demo.build_tiles_digest_automator
         automator.update_deliver_date
 
@@ -320,7 +320,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
 
     context "when there is no draft on the demo" do
       it "returns the automator defaults" do
-        demo = FactoryGirl.create(:demo)
+        demo = FactoryBot.create(:demo)
         automator = demo.build_tiles_digest_automator({
           include_unclaimed_users: false,
           has_follow_up: false,
@@ -342,7 +342,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
       end
 
       it "defaults follow_up_day to 3 days after delivery if has_follow_up" do
-        demo = FactoryGirl.create(:demo)
+        demo = FactoryBot.create(:demo)
         automator = demo.build_tiles_digest_automator({
           include_unclaimed_users: false,
           has_follow_up: true,
@@ -365,7 +365,7 @@ RSpec.describe TilesDigestAutomator, type: :model, delay_jobs: true do
       end
 
       it "does not send followup if frequency is daily regardless of has_follow_up" do
-        demo = FactoryGirl.create(:demo)
+        demo = FactoryBot.create(:demo)
         automator = demo.build_tiles_digest_automator({
           include_unclaimed_users: false,
           has_follow_up: true,

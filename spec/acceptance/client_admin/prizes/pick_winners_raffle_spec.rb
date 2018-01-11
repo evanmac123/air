@@ -1,17 +1,17 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Pick winners after raffle', js: true do
-  let (:client_admin) { FactoryGirl.create(:client_admin)}
+  let (:client_admin) { FactoryBot.create(:client_admin)}
   let (:demo)         { client_admin.demo }
 
   before(:each) do
-    FactoryGirl.create(:tile, demo: demo, activated_at: DateTime.current) #to active demo
-    @users = FactoryGirl.create_list(:user, 4, :with_tickets, demo: demo)
+    FactoryBot.create(:tile, demo: demo, activated_at: DateTime.current) #to active demo
+    @users = FactoryBot.create_list(:user, 4, :with_tickets, demo: demo)
   end
 
   context "pick all list of winners" do
     before(:each) do
-      @raffle = demo.raffle = FactoryGirl.create(:raffle, :pick_winners, demo: demo)
+      @raffle = demo.raffle = FactoryBot.create(:raffle, :pick_winners, demo: demo)
       visit client_admin_prizes_path(as: client_admin)
     end
 

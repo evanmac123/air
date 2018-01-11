@@ -1,7 +1,7 @@
 require 'email_info_request'
 
 class EmailInfoRequestsController < ApplicationController
-  skip_before_filter :force_ssl
+  skip_before_action :force_ssl
 
   def create
     hash = {

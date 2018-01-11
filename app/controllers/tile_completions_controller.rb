@@ -2,7 +2,7 @@ class TileCompletionsController < ApplicationController
   include AllowGuestUsersConcern
   include ActsHelper
 
-  prepend_before_filter :find_tile
+  prepend_before_action :find_tile
 
   #FIXME most of this functionality needs to to be moved into the TileCompletion
   #model

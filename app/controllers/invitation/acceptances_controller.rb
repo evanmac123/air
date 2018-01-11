@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Invitation::AcceptancesController < ApplicationController
-  before_filter :find_user
+  before_action :find_user
 
   layout "external"
 
@@ -59,9 +59,9 @@ class Invitation::AcceptancesController < ApplicationController
   def add_user_to_board_if_allowed(board)
     return unless (invitation_code = @user.invitation_code)
 
-    if PotentialUser.find_by_invitation_code(invitation_code)
+    if PotentialUser.find_by(invitation_code: invitation_code)
       add_user_to_board_and_move(PotentialUser.demo)
-    elsif (user = User.find_by_invitation_code(invitation_code))
+    elsif (user = User.find_by(invitation_code: invitation_code))
       add_user_to_board_and_move(board) if user.in_board?(board.id) || board.is_public?
     end
   end

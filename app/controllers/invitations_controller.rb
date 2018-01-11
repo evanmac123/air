@@ -32,7 +32,7 @@ class InvitationsController < ApplicationController
     @user = find_user
     if @user
       @referrer = get_referrer
-      @demo = Demo.find_by_id(params[:demo_id])
+      @demo = Demo.find_by(id: params[:demo_id])
       schedule_pings
       process_invitation
     else
@@ -43,7 +43,7 @@ class InvitationsController < ApplicationController
   private
 
     def find_user
-      User.find_by_invitation_code(params[:id]) || PotentialUser.search_by_invitation_code(params[:id])
+      User.find_by(invitation_code: params[:id]) || PotentialUser.search_by_invitation_code(params[:id])
     end
 
     def get_referrer

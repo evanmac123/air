@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe BulkLoad::UserCreatorFromCsv do
-  let(:demo)                    {FactoryGirl.create(:demo)}
+  let(:demo)                    {FactoryBot.create(:demo)}
 
   let(:basic_schema)                {%w(name email)} # that's enough to get a user going
   let(:schema_with_characteristics) do
@@ -16,12 +16,12 @@ describe BulkLoad::UserCreatorFromCsv do
   let(:attributes_with_characteristics) {basic_attributes + ["bar", "1945", "2013-02-07", "2013-02-07 18:12:51 -0500", "false"]}
 
   let(:basic_creator) {BulkLoad::UserCreatorFromCsv.new(demo.id, basic_schema, :email, 1)}
-  let(:discrete_characteristic) {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::DiscreteType, allowed_values: %w(foo bar baz))}
-  let(:number_characteristic)   {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::NumberType)}
-  let(:date_characteristic)     {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::DateType)}
-  let(:time_characteristic)     {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::TimeType)}
-  let(:boolean_characteristic)  {FactoryGirl.create(:characteristic, demo: demo, datatype: Characteristic::BooleanType)}
- 
+  let(:discrete_characteristic) {FactoryBot.create(:characteristic, demo: demo, datatype: Characteristic::DiscreteType, allowed_values: %w(foo bar baz))}
+  let(:number_characteristic)   {FactoryBot.create(:characteristic, demo: demo, datatype: Characteristic::NumberType)}
+  let(:date_characteristic)     {FactoryBot.create(:characteristic, demo: demo, datatype: Characteristic::DateType)}
+  let(:time_characteristic)     {FactoryBot.create(:characteristic, demo: demo, datatype: Characteristic::TimeType)}
+  let(:boolean_characteristic)  {FactoryBot.create(:characteristic, demo: demo, datatype: Characteristic::BooleanType)}
+
   describe "#create_user" do
     it "should build and attempt to save a user" do
       expect(demo.users.count).to be_zero
@@ -45,17 +45,17 @@ describe BulkLoad::UserCreatorFromCsv do
       end
 
       it "should not overwrite their characteristics, when those characteristics are not in the schema" do
-        # lose the boolean characteristic      
+        # lose the boolean characteristic
         schema_with_most_characteristics = schema_with_characteristics.dup
-        schema_with_most_characteristics.pop 
+        schema_with_most_characteristics.pop
         attributes_with_most_characteristics = attributes_with_characteristics.dup
         attributes_with_most_characteristics.pop
 
         creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema_with_most_characteristics, :email, 1)
 
-        user = FactoryGirl.create(
-          :user, 
-          demo:  demo, 
+        user = FactoryBot.create(
+          :user,
+          demo:  demo,
           email: 'bigjim@example.com',
           characteristics: {
             number_characteristic.id  =>  999,
@@ -73,7 +73,7 @@ describe BulkLoad::UserCreatorFromCsv do
       end
 
       it "should not try to set an email from the census, if the email in the census is in the user's overflow email, but should set the rest of the attributes" do
-        user = FactoryGirl.create(:user, demo: demo, employee_id: "12345", email: "jimmy@gmail.com", overflow_email: "bigjim@example.com")
+        user = FactoryBot.create(:user, demo: demo, employee_id: "12345", email: "jimmy@gmail.com", overflow_email: "bigjim@example.com")
 
         schema = basic_schema + ['employee_id']
         attributes = basic_attributes + ['12345']
@@ -111,7 +111,7 @@ describe BulkLoad::UserCreatorFromCsv do
 
     it "should allow locations to be set by name" do
       schema = basic_schema + ['location_name']
-      boston_location = FactoryGirl.create(:location, demo: demo, name: 'Boston')
+      boston_location = FactoryBot.create(:location, demo: demo, name: 'Boston')
       attributes = basic_attributes + ['Boston']
 
       creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
@@ -149,7 +149,7 @@ describe BulkLoad::UserCreatorFromCsv do
 
     context "when using email as the unique ID" do
       it "should downcase email in the input before trying to locate a user based on it" do
-        user = FactoryGirl.create(:user, name: "John Q. Doe", email: "john@doe.com")
+        user = FactoryBot.create(:user, name: "John Q. Doe", email: "john@doe.com")
         user.add_board(demo)
         expect(demo.users.count).to eq(1)
 
@@ -177,7 +177,7 @@ describe BulkLoad::UserCreatorFromCsv do
       end
 
       it "should try to create a separate user in the board we're loading into" do
-        new_user = demo.users.find_by_employee_id('12345')
+        new_user = demo.users.find_by(employee_id: '12345')
         expect(new_user.demo_ids).to eq([demo.id])
         expect(new_user.name).to eq('John Smith')
         expect(new_user.email).to eq('john@smith.com')
@@ -187,7 +187,7 @@ describe BulkLoad::UserCreatorFromCsv do
 
     context "when there is a user matching that unique ID in another board" do
       before do
-        @other_user = FactoryGirl.create(:user, name: "John Doe", email: "john@doe.com", employee_id: '12345')
+        @other_user = FactoryBot.create(:user, name: "John Doe", email: "john@doe.com", employee_id: '12345')
 
         @schema = %w(name email employee_id)
         @csv = CSV.generate_line(["John Smith", "john@smith.com", "12345"])
@@ -204,7 +204,7 @@ describe BulkLoad::UserCreatorFromCsv do
 
       context "when we have a list of alternate board IDs, but that user isn't in one of them" do
         before do
-          other_boards = FactoryGirl.create_list(:demo, 3)
+          other_boards = FactoryBot.create_list(:demo, 3)
           other_board_ids = other_boards.map(&:id)
           creator = BulkLoad::UserCreatorFromCsv.new(demo.id, @schema, :employee_id, 2, other_board_ids)
           creator.create_user(@csv)
@@ -215,7 +215,7 @@ describe BulkLoad::UserCreatorFromCsv do
 
       context "when we have a list of alternate board IDs, and that user is in one of them" do
         before do
-          other_boards = FactoryGirl.create_list(:demo, 3)
+          other_boards = FactoryBot.create_list(:demo, 3)
           other_board_ids = other_boards.map(&:id) + @other_user.demo_ids
           creator = BulkLoad::UserCreatorFromCsv.new(demo.id, @schema, :employee_id, 2, other_board_ids)
           creator.create_user(@csv)

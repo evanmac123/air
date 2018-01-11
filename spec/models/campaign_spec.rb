@@ -8,7 +8,7 @@ describe Campaign do
 
   describe "self.exclude" do
     it "excludes campaigns given an array of ids" do
-      campaigns = FactoryGirl.create_list(:campaign, 5)
+      campaigns = FactoryBot.create_list(:campaign, 5)
       campaign_ids = campaigns.map(&:id)
       excluded_campaigns = campaign_ids[0..1]
 
@@ -18,7 +18,7 @@ describe Campaign do
 
   describe "#update_slug" do
     it "triggers on save" do
-      campaign = FactoryGirl.build(:campaign)
+      campaign = FactoryBot.build(:campaign)
 
       campaign.expects(:update_slug)
 
@@ -26,7 +26,7 @@ describe Campaign do
     end
 
     it "updates the slug" do
-      campaign = FactoryGirl.build(:campaign, name: "Campaign Name")
+      campaign = FactoryBot.build(:campaign, name: "Campaign Name")
       expect(campaign.slug).to eq(nil)
 
       campaign.save
@@ -36,11 +36,11 @@ describe Campaign do
 
   describe "#active_tiles" do
     it "returns tiles that are active, archived and public" do
-      demo = FactoryGirl.create(:demo)
-      active_tile = FactoryGirl.create(:tile, demo: demo, is_public: true, status: Tile::ACTIVE)
-      _inactive_tile = FactoryGirl.create(:tile, demo: demo, is_public: true, status: Tile::DRAFT)
+      demo = FactoryBot.create(:demo)
+      active_tile = FactoryBot.create(:tile, demo: demo, is_public: true, status: Tile::ACTIVE)
+      _inactive_tile = FactoryBot.create(:tile, demo: demo, is_public: true, status: Tile::DRAFT)
 
-      campaign = FactoryGirl.create(:campaign, demo: demo)
+      campaign = FactoryBot.create(:campaign, demo: demo)
 
       expect(campaign.active_tiles.first).to eq(active_tile)
       expect(campaign.active_tiles.count).to eq(1)
@@ -49,11 +49,11 @@ describe Campaign do
 
   describe "#tile_count" do
     it "only counts active tiles" do
-      demo = FactoryGirl.create(:demo)
-      _active_tiles = FactoryGirl.create_list(:tile, 3, demo: demo, is_public: true, status: Tile::ACTIVE)
-      _inactive_tiles = FactoryGirl.create(:tile, demo: demo, is_public: true, status: Tile::DRAFT)
+      demo = FactoryBot.create(:demo)
+      _active_tiles = FactoryBot.create_list(:tile, 3, demo: demo, is_public: true, status: Tile::ACTIVE)
+      _inactive_tiles = FactoryBot.create(:tile, demo: demo, is_public: true, status: Tile::DRAFT)
 
-      campaign = FactoryGirl.create(:campaign, demo: demo)
+      campaign = FactoryBot.create(:campaign, demo: demo)
 
       expect(campaign.tile_count).to eq(3)
     end
@@ -61,13 +61,13 @@ describe Campaign do
 
   describe "#to_param" do
     it "hyphenates id and slug to optimize seo while still relying on id for look ups" do
-      campaign = FactoryGirl.create(:campaign)
+      campaign = FactoryBot.create(:campaign)
 
       expect(campaign.to_param).to eq("#{campaign.id}-#{campaign.slug}")
     end
 
     it "only returns the id when the result of to_param calls to_i" do
-      campaign = FactoryGirl.create(:campaign)
+      campaign = FactoryBot.create(:campaign)
 
       expect(campaign.to_param.to_i).to eq(campaign.id)
     end
@@ -75,9 +75,9 @@ describe Campaign do
 
   describe "#related_channels" do
     it "returns a collection of channels that match the campain's channel_list" do
-      channels = FactoryGirl.create_list(:channel, 3)
-      _excluded_channel = FactoryGirl.create(:channel, name: "Excluded Channel")
-      campaign = FactoryGirl.create(:campaign)
+      channels = FactoryBot.create_list(:channel, 3)
+      _excluded_channel = FactoryBot.create(:channel, name: "Excluded Channel")
+      campaign = FactoryBot.create(:campaign)
 
       channels.map(&:name).each { |c|
         campaign.channel_list.add(c)
@@ -89,7 +89,7 @@ describe Campaign do
 
   describe "#formatted_instructions" do
     it "splits instructions on \n" do
-      campaign = FactoryGirl.build(:campaign, instructions: "line 1\nline 2\nline 3")
+      campaign = FactoryBot.build(:campaign, instructions: "line 1\nline 2\nline 3")
 
       expect(campaign.formatted_instructions).to eq(["line 1", "line 2", "line 3"])
     end
@@ -97,7 +97,7 @@ describe Campaign do
 
   describe "#formatted_sources" do
     it "splits sources on commas, strips whitespace and groups name with url" do
-      campaign = FactoryGirl.build(:campaign, sources: "place1, url1, place2, url2")
+      campaign = FactoryBot.build(:campaign, sources: "place1, url1, place2, url2")
 
       expect(campaign.formatted_sources).to eq([["place1", "url1"], ["place2", "url2"]])
     end
@@ -105,7 +105,7 @@ describe Campaign do
 
   describe "#search_data" do
     it "indexes the correct data" do
-      campaign = FactoryGirl.create(:campaign)
+      campaign = FactoryBot.create(:campaign)
 
       required_fields = ["name", "description", :channel_list, :tile_headlines, :tile_content]
 
@@ -115,24 +115,24 @@ describe Campaign do
     end
 
     it "indexes channel_lists correctly" do
-      campaign = FactoryGirl.create(:campaign)
+      campaign = FactoryBot.create(:campaign)
       campaign.channel_list.add("channel")
 
       expect(campaign.search_data[:channel_list]).to eq(["channel"])
     end
 
     it "indexes tile_headlines correctly" do
-      demo = FactoryGirl.create(:demo)
-      tile = FactoryGirl.create(:tile, demo: demo)
-      campaign = FactoryGirl.create(:campaign, demo: demo)
+      demo = FactoryBot.create(:demo)
+      tile = FactoryBot.create(:tile, demo: demo)
+      campaign = FactoryBot.create(:campaign, demo: demo)
 
       expect(campaign.search_data[:tile_headlines]).to eq([tile.headline])
     end
 
     it "indexes tile_content correctly" do
-      demo = FactoryGirl.create(:demo)
-      tile = FactoryGirl.create(:tile, demo: demo)
-      campaign = FactoryGirl.create(:campaign, demo: demo)
+      demo = FactoryBot.create(:demo)
+      tile = FactoryBot.create(:tile, demo: demo)
+      campaign = FactoryBot.create(:campaign, demo: demo)
 
       expect(campaign.search_data[:tile_content]).to eq([tile.supporting_content])
     end

@@ -12,14 +12,14 @@ describe Friendship do
   describe "after create" do
     context "when the friended user has no phone number" do
       before :each do
-        @user_1 = FactoryGirl.create :user
-        @user_2 = FactoryGirl.create :user
-        @user_3 = FactoryGirl.create :user
-        @friend = FactoryGirl.create :user, :phone_number => '', :notification_method => 'both'
+        @user_1 = FactoryBot.create :user
+        @user_2 = FactoryBot.create :user
+        @user_3 = FactoryBot.create :user
+        @friend = FactoryBot.create :user, :phone_number => '', :notification_method => 'both'
       end
 
       it "should not try to send an SMS to that blank number" do
-        FactoryGirl.create(:friendship, user: @user_1, friend: @friend)
+        FactoryBot.create(:friendship, user: @user_1, friend: @friend)
         expect(FakeTwilio::Client).to have_received(:messages).never
       end
 

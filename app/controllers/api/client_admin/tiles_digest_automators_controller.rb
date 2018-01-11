@@ -2,8 +2,8 @@ class Api::ClientAdmin::TilesDigestAutomatorsController < Api::ClientAdminBaseCo
 
   include ClientAdmin::SharesHelper
 
-  before_filter :authorize_tenant
-  before_filter :get_automator
+  before_action :authorize_tenant
+  before_action :get_automator
 
   def update
     @automator.assign_attributes(tiles_digest_automator_params)
@@ -36,6 +36,10 @@ class Api::ClientAdmin::TilesDigestAutomatorsController < Api::ClientAdminBaseCo
     end
 
     def tiles_digest_automator_params
-      params.require(:tiles_digest_automator).permit(:day, :time, :frequency_cd, :has_follow_up, :include_sms, :include_unclaimed_users) if params[:tiles_digest_automator].present?
+      if params[:tiles_digest_automator].present?
+        params.require(:tiles_digest_automator).permit(:day, :time, :frequency_cd, :has_follow_up, :include_sms, :include_unclaimed_users)
+      else
+        {}
+      end
     end
 end

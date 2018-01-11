@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UserInterpolateService do
-  let(:user) { FactoryGirl.create(:user, name: "Test User") }
+  let(:user) { FactoryBot.create(:user, name: "Test User") }
 
   describe "#interpolate" do
     it "interpolates default keywords" do

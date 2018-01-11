@@ -9,8 +9,8 @@ describe Admin::UsersController do
     context "admin status is updated" do
       it "updates user and sends ping" do
         subject.stubs(:ping)
-        admin = FactoryGirl.create(:site_admin)
-        user = FactoryGirl.create(:user)
+        admin = FactoryBot.create(:site_admin)
+        user = FactoryBot.create(:user)
         user.demos << Demo.first
         user.save
 
@@ -26,8 +26,8 @@ describe Admin::UsersController do
     context "admin status is not updated" do
       it "updates user and does not send ping" do
         subject.stubs(:ping)
-        admin = FactoryGirl.create(:site_admin)
-        user = FactoryGirl.create(:user)
+        admin = FactoryBot.create(:site_admin)
+        user = FactoryBot.create(:user)
         user.demos << Demo.first
         user.save
 

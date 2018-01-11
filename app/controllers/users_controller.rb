@@ -1,5 +1,5 @@
 class UsersController < UserBaseController
-  prepend_before_filter :authenticate
+  prepend_before_action :authenticate
 
   include ActsHelper
 
@@ -15,7 +15,7 @@ class UsersController < UserBaseController
 
     if @search_string
       @search_string = @search_string.downcase.strip.gsub(/\s+/, ' ')
-      @other_users = current_user.demo.claimed_users(excluded_uids: [current_user.id]).alphabetical.name_like(@search_string)
+      @other_users = current_user.demo.claimed_users(excluded_uids: [current_user.id]).alphabetical.name_like(@search_string).uniq
       @users_cropped = USER_LIMIT if @other_users.length > USER_LIMIT
       @other_users = @other_users[0, USER_LIMIT]
 
@@ -26,7 +26,7 @@ class UsersController < UserBaseController
   def show
     return not_found if current_board.hide_social && params[:id] != current_user.slug
 
-    @user = current_board.users.find_by_slug(params[:id])
+    @user = current_board.users.find_by(slug: params[:id])
     return not_found unless @user
 
     @palette = current_board.custom_color_palette

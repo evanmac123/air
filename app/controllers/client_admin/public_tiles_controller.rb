@@ -1,6 +1,6 @@
 #FIXME delete this controller and refactor functionality back into TilePublicForm
 class ClientAdmin::PublicTilesController < ClientAdminBaseController
-  before_filter :get_tile
+  before_action :get_tile
 
   def update
     TilePublicForm.new(@tile, params[:tile_public_form]).save

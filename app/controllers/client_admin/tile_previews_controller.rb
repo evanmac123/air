@@ -1,5 +1,5 @@
 class ClientAdmin::TilePreviewsController < ClientAdminBaseController
-  prepend_before_filter :find_tile
+  prepend_before_action :find_tile
 
   def show
     ping_tile_viewed

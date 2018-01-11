@@ -1,8 +1,8 @@
 class ExploreController < ExploreBaseController
   include ExploreConcern
 
-  before_filter :set_initial_objects
-  before_filter :schedule_explore_pings
+  before_action :set_initial_objects
+  before_action :schedule_explore_pings
 
   def show
     @tiles = Tile.explore_without_featured_tiles.page(params[:page]).per(28)

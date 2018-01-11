@@ -3,7 +3,7 @@ require 'spec_helper'
 describe BoardMetricsGenerator do
   describe ".set_cache" do
     it "only sets the cache for the current demo" do
-      ca = FactoryGirl.create(:client_admin)
+      ca = FactoryBot.create(:client_admin)
       generator = BoardMetricsGenerator.new(board: ca.demo)
 
       BoardMetricsGenerator.expects(:new).with(board: ca.demo).returns(generator)
@@ -16,7 +16,7 @@ describe BoardMetricsGenerator do
   describe "#update_metrics_caches" do
     describe "#update_metrics_caches_for_board" do
       it "calls sets the cache for designated queries" do
-        ca = FactoryGirl.create(:client_admin)
+        ca = FactoryBot.create(:client_admin)
         generator = BoardMetricsGenerator.new(board: ca.demo)
 
         queries.each do |query|

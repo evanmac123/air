@@ -1,12 +1,12 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Live raffle' do
-  let (:client_admin) { FactoryGirl.create(:client_admin)}
+  let (:client_admin) { FactoryBot.create(:client_admin)}
   let (:demo) { client_admin.demo }
 
   before(:each) do
-    FactoryGirl.create(:tile, demo: demo, activated_at: Time.current)
-    demo.raffle = FactoryGirl.create(:raffle, :live, demo: demo)
+    FactoryBot.create(:tile, demo: demo, activated_at: Time.current)
+    demo.raffle = FactoryBot.create(:raffle, :live, demo: demo)
     visit client_admin_prizes_path(as: client_admin)
   end
 

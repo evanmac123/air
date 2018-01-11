@@ -1,13 +1,13 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Edits user' do
-  let (:client_admin)   { FactoryGirl.create(:client_admin) }
+  let (:client_admin)   { FactoryBot.create(:client_admin) }
   let (:demo)           { client_admin.demo }
-  let!(:demo2)          { FactoryGirl.create :demo }
-  let (:unclaimed_user) { FactoryGirl.create(:user, demo: demo) }
+  let!(:demo2)          { FactoryBot.create :demo }
+  let (:unclaimed_user) { FactoryBot.create(:user, demo: demo) }
 
   let (:user) do
-    FactoryGirl.create(:user,
+    FactoryBot.create(:user,
                        :claimed,
                        demo:          demo,
                        name:          "Francis X. McGillicuddy",
@@ -21,7 +21,7 @@ feature 'Edits user' do
   end
 
   before do
-    FactoryGirl.create :tile, demo: demo
+    FactoryBot.create :tile, demo: demo
   end
 
   def expect_name(expected_name)

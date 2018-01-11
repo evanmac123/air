@@ -25,10 +25,10 @@ feature "User tries to friend someone" do
 
   # ========================================================================================
 
-  let(:demo)    { FactoryGirl.create :demo }
-  let(:user)    { FactoryGirl.create :user, :claimed, demo: demo, name: 'Joe User'   }
-  let(:friend) { FactoryGirl.create(:user, :claimed, name: 'Sue Friend')}
-  let!(:board_membership) { FactoryGirl.create(:board_membership, :claimed, user: friend, demo: demo)}
+  let(:demo)    { FactoryBot.create :demo }
+  let(:user)    { FactoryBot.create :user, :claimed, demo: demo, name: 'Joe User'   }
+  let(:friend) { FactoryBot.create(:user, :claimed, name: 'Sue Friend')}
+  let!(:board_membership) { FactoryBot.create(:board_membership, :claimed, user: friend, demo: demo)}
 
 
   before(:each) do

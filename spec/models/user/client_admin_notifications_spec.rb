@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
   # User::ClientAdminNotifications
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   let(:demo_id) { user.demo_id }
 
   describe "#set_tile_email_report_notification" do
@@ -56,7 +56,7 @@ describe User do
 
   describe "when a user gets notifications in different boards" do
     it "posts and removes notifications to the right boards" do
-      demo_2 = FactoryGirl.create(:demo, name: "Demo 2")
+      demo_2 = FactoryBot.create(:demo, name: "Demo 2")
       _board_membership_2 = BoardMembership.create(user: user, demo: demo_2, is_current: false)
 
       3.times do

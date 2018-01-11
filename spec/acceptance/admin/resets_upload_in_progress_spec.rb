@@ -10,7 +10,7 @@ feature 'Resets upload in progress' do
   end
 
   scenario "by pushing a button" do
-    board = FactoryGirl.create(:demo, upload_in_progress: true)
+    board = FactoryBot.create(:demo, upload_in_progress: true)
     visit admin_demo_path(board, as: an_admin)
 
     expect(page).to have_content(upload_in_progress_message)
@@ -20,7 +20,7 @@ feature 'Resets upload in progress' do
 
   context "except that board isn't actually in progress" do
     it "should say so" do
-      board = FactoryGirl.create(:demo)
+      board = FactoryBot.create(:demo)
       visit admin_demo_path(board, as: an_admin)
 
       expect(page).to have_no_content(upload_in_progress_message)

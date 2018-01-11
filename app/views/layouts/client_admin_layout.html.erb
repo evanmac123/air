@@ -8,11 +8,8 @@
     <%= content_for :meta %>
     <%= csrf_meta_tag %>
 
-    <%= split_stylesheet_link_tag "app-client-admin", :media => "all", :split_count => 6 %>
-
     <%= javascript_include_tag 'app-admin' %>
-
-    <%= mobvious_javascript %>
+    <%= stylesheet_link_tag "app-client-admin", media: "all" %>
 
     <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>

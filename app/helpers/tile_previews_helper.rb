@@ -104,7 +104,7 @@ module TilePreviewsHelper
   end
 
   def tile_share_public_link_form tile
-    s = form_for tile, url: client_admin_sharable_tile_path(tile), method: :put, remote: true, html: { id: "sharable_link_form"} do |form|
+    s = form_for tile, url: client_admin_sharable_tile_path(tile), method: :patch, remote: true, html: { id: "sharable_link_form"} do |form|
       content_tag :div,  class:"switch tiny round" do
         s1 = form.radio_button :is_sharable, true, id: 'sharable_tile_link_on'
         s1+=  form.radio_button :is_sharable, false, id: 'sharable_tile_link_off'

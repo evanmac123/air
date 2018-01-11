@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe TileExploreDigestDecorator do
   before(:each) do
-    @tile = FactoryGirl.create :multiple_choice_tile
-    @user = FactoryGirl.build_stubbed(:user)
+    @tile = FactoryBot.create :multiple_choice_tile
+    @user = FactoryBot.build_stubbed(:user)
     @user.stubs(:explore_token).returns("fake_token")
   end
 

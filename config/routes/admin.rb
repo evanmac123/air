@@ -31,7 +31,7 @@ namespace :admin do
   resources :organizations, as: :customers
   resources :organizations do
     resources :subscriptions, only: [:create, :destroy] do
-      put 'cancel'
+      patch 'cancel'
       resources :invoices, only: [:create, :destroy]
     end
   end
@@ -72,12 +72,6 @@ namespace :admin do
     end
 
     resources :locations
-    resource :reports, :only => :show
-    namespace :reports do
-      resource :points, :only => [:show]
-      resource :interactions, :only => [:show, :keepalive]
-      resource :friendships, :only => :show
-    end
 
     resources :characteristics
 

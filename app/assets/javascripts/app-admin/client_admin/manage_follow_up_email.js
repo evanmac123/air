@@ -35,7 +35,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
       function failed(xhr, status, error){
       }
 
-      execute("PUT", cmd.attr("href"), cmd.parents("form").serialize(), ok, failed);
+      execute("PATCH", cmd.attr("href"), cmd.parents("form").serialize(), ok, failed);
     }
 
     function initSave(){
@@ -132,7 +132,7 @@ Airbo.DigestEmailFollowUpManager = (function(){
     }
 
     approve("Are you sure want to send this follow up immediately?", function(){
-      execute("PUT", cmd.attr("href"), {now: "true"}, ok, failed);
+      execute("PATCH", cmd.attr("href"), {now: "true"}, ok, failed);
     });
   }
 

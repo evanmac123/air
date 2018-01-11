@@ -2,12 +2,12 @@ require 'acceptance/acceptance_helper'
 
 feature 'Board Welcome Modal for users' do
 
-  let (:board) { FactoryGirl.create(:demo, :with_public_slug) }
-  let (:user) { FactoryGirl.create(:user, demo: board) }
+  let (:board) { FactoryBot.create(:demo, :with_public_slug) }
+  let (:user) { FactoryBot.create(:user, demo: board) }
 
   context 'When a user in a board with active tiles', js: true do
     before do
-      FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: board)
+      FactoryBot.create(:tile, status: Tile::ACTIVE, demo: board)
       visit activity_path(as: user)
     end
 

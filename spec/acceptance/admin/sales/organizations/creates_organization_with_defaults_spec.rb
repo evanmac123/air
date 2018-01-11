@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature 'Creates organization', js: true do
   describe "with defaults" do
     it "brings salesperson to Explore with helpful flash" do
-      FactoryGirl.create(:demo, name: "HR Bulletin Board")
+      FactoryBot.create(:demo, name: "HR Bulletin Board")
       admin = an_admin
 
       visit new_admin_sales_organization_path(as: admin)

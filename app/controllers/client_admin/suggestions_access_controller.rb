@@ -1,5 +1,5 @@
 class ClientAdmin::SuggestionsAccessController < ClientAdminBaseController
-  before_filter :find_demo
+  before_action :find_demo
 
   def update
     @demo.update_attribute :everyone_can_make_tile_suggestions, 

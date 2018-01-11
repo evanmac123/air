@@ -2,14 +2,17 @@ require 'spec_helper'
 
 describe TileCopier do
   describe "#copy_tile" do
-    let(:original_tile) { FactoryGirl.create(:tile, points: 10) }
-    let(:copying_user)  { FactoryGirl.create(:client_admin) }
+    let(:original_tile) { FactoryBot.create(:tile, points: 10) }
+    let(:copying_user)  { FactoryBot.create(:client_admin) }
 
     describe "#copy_tile_from_explore" do
       let(:tile_copier)   { TileCopier.new(copying_user.demo, original_tile, copying_user) }
 
       it "delivers tile copied notification" do
-        Mailer.expects(:delay_mail).with(:notify_creator_for_social_interaction, original_tile, copying_user, 'copied')
+        delivery = mock()
+
+        delivery.expects(:deliver_later).once
+        Mailer.expects(:notify_creator_for_social_interaction).with(original_tile, copying_user, 'copied').returns(delivery)
 
         tile_copier.copy_tile_from_explore
       end

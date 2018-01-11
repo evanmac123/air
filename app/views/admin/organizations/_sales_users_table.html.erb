@@ -21,7 +21,7 @@
           <%= user.email %>
         </td>
         <td width="50">
-          <%= link_to(user.demo.id, current_board_path(board_id: user.demo.id, admin_view_board: true), method: :put, target: "_blank") %>
+          <%= link_to(user.demo.id, current_board_path(board_id: user.demo.id, admin_view_board: true), method: :patch, target: "_blank") %>
         </td>
         <td width="150">
           <%= user.rdb[:invite_link_click_count].get %>

@@ -4,9 +4,9 @@ feature "User Accepts Invitation" do
   include SessionHelpers
 
   before(:each) do
-    @demo = FactoryGirl.create :demo, :activated
-    @user = FactoryGirl.create :claimed_user, demo: @demo, name: "Bob Q. Smith, III", password: "foobar"
-    @unclaimed_user = FactoryGirl.create :user, name: "Bob Q. Smith, III"
+    @demo = FactoryBot.create :demo, :activated
+    @user = FactoryBot.create :claimed_user, demo: @demo, name: "Bob Q. Smith, III", password: "foobar"
+    @unclaimed_user = FactoryBot.create :user, name: "Bob Q. Smith, III"
   end
 
   def set_password_if_needed
@@ -55,7 +55,7 @@ feature "User Accepts Invitation" do
     describe "if user is already in the board" do
       before(:each) do
         @original_board = @user.demo
-        @other_board = FactoryGirl.create(:demo)
+        @other_board = FactoryBot.create(:demo)
         @user.add_board(@other_board)
         expect(@user.demos.size).to eq(2)
         expect(@user.demo).to eq(@original_board)
@@ -87,7 +87,7 @@ feature "User Accepts Invitation" do
 
       scenario "and is invited to private board then he is not added to it" do
         original_board = @user.demo
-        @other_board = FactoryGirl.create(:demo, is_public: false)
+        @other_board = FactoryBot.create(:demo, is_public: false)
 
         visit invitation_url(@user.invitation_code, demo_id: @other_board.id)
 

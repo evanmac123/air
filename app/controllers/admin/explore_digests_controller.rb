@@ -4,7 +4,7 @@ class Admin::ExploreDigestsController < AdminBaseController
   end
 
   def index
-    @explore_digests = ExploreDigest.scoped
+    @explore_digests = ExploreDigest.all
   end
 
   def create

@@ -1,108 +1,105 @@
 source 'https://www.rubygems.org'
 
-ruby '2.1.8'
+ruby '2.3.5'
 
-gem 'rails', '=3.2.22.1'
-gem 'rack', '~> 1.4.7'
-gem 'high_voltage'
-gem 'paperclip', '~>3.3.0'
-gem 'paperclip-meta'
-gem 'rack-cors', :require => 'rack/cors'
-gem 'aws-sdk'
-gem 'formtastic'
-gem 'pg'
-gem 'flutie'
+gem 'rails', '=4.2.10'
+gem 'unicorn', '~> 5.3.1'
+gem 'pg', '~> 0.18.0'
+gem 'rack-cors', require: 'rack/cors'
+gem 'rack-timeout', require: false
+gem 'jbuilder', '~> 2.7.0'
+gem 'mongoid', '~> 4.0'
+gem 'bson', '~> 2.2'
+gem 'redis', '~> 3.3.3'
+gem 'redis-rails', '~> 5.0.2'
+gem 'webpacker', '~> 3.0'
+
+gem 'aws-sdk-s3', '~> 1'
+gem 'paperclip', '=4.3.5'
+gem 'delayed_paperclip', '~> 3.0.0'
+
 gem 'twilio-ruby', '~> 5.2.3'
-gem 'clearance'
+gem 'high_voltage', '~> 3.0.0'
+gem 'flutie', '~> 2.0'
+gem 'clearance', '~> 1.16.0'
 ### Remove after porting passwords to BCRYPT:
-gem 'clearance-deprecated_password_strategies'
+gem 'clearance-deprecated_password_strategies', '~> 1.10.0'
 ###
 gem 'delayed_job', '~> 4.1.0'
-gem 'delayed_job_active_record'
-gem 'haml-rails'
-gem 'chronic'
-gem 'mixpanel'
-gem 'mixpanel_client'
-gem 'mongoid'
-gem 'bson_ext'
-gem 'pundit'
-gem 'google_drive'
-gem 'cache_digests'
-gem 'activerecord-collection_cache_key'
-gem 'groupdate'
+gem 'delayed_job_active_record', '~> 4.1.2'
+gem 'activerecord-collection_cache_key', '~> 0.1.3'
 
-gem 'jquery-rails'
-gem 'jquery-validation-rails'
-
-gem 'nokogiri'
-gem 'json', '>= 1.7.7'
-gem 'carrierwave_direct'
-gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
-gem 'rack-timeout', require: false
-gem 'delayed_paperclip'
-gem 'mobvious-rails'
-gem 'rails3_before_render'
-gem 'rollout'
+gem 'stripe', '~> 3.9.0'
 gem 'font-awesome-rails', '>= 4.7'
-gem 'wice_grid', git: 'https://github.com/theairbo/wice_grid', branch: 'rails3'
-gem 'kaminari'
-gem 'browser'
-gem 'squeel'
-gem 'draper', '~> 1.3'
-gem 'strong_parameters'
-gem 'intercom-rails'
-gem 'intercom','~>2.4.2'
-gem 'counter_culture'
-gem 'css_splitter', :git => 'https://github.com/theairbo/css_splitter.git' #Allow customization of MAX_SELECTORS_DEFAULT via environment variable
-gem 'sanitize'
-gem 'htmlentities'
-gem 'unicorn'   # Some of our capybara webkit tests fail with thin, so we use unicorn
-gem 'jquery-fileupload-rails'#
-gem 'acts_as_singleton'
+gem 'kaminari', '~> 0.16'
+gem 'browser', '~> 2.5.0'
+gem 'counter_culture', '~> 1.9.0'
+gem 'sanitize', '~> 4.5.0'
+gem 'htmlentities', '~> 4.3.3'
 gem 'acts-as-taggable-on', '~> 3.5.0'
-#redis + caching
-gem 'redis'
-gem 'redis-rails'
-gem 'nest'
+gem 'simple_enum', '~> 1.6.9'
+gem 'descriptive_statistics', '~> 2.5.1', require: 'descriptive_statistics/safe'
+gem 'mobvious-rails', '~> 0.1.2'
+gem 'groupdate', '~> 3.2.0'
 
-gem 'lograge'
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'roo'
-gem 'roo-xls'
+# Upgrade for Rails 4.2
+gem 'searchkick', '~> 1.5.1'
+gem 'searchjoy', '~> 0.1.0'
 
-# Complex spreadsheet creation
+# Redis
+gem 'nest', '~> 2.0'
+
+### Spreadsheet creation
 gem 'rubyzip', '~> 1.1.0'
 gem 'axlsx', '2.1.0.pre'
-#
+###
 
-gem 'addressable'
-gem 'humanize_boolean'
-
-gem 'delighted'
+### Integrations
+gem 'delighted', '~> 1.7.0'
 gem 'airbrake', '~> 5.4'
-
 gem 'scout_apm', '~> 2.3'
+gem 'chartmogul-ruby', '~> 1.1.4', require: 'chartmogul'
+gem 'intercom', '~> 2.4.3'
+gem 'intercom-rails', '~> 0.3.4'
+gem 'mixpanel_client', '~> 4.1.6'
+###
 
-gem 'searchkick'
-gem 'searchjoy'
-gem 'rolify'
-gem 'simple_enum', '~> 1.6.9'
-gem 'chartmogul-ruby', require: 'chartmogul'
-gem 'descriptive_statistics', require: 'descriptive_statistics/safe'
-gem 'jbuilder'
+### Move to Yarn
+gem 'jquery-rails', '~> 4.3.1'
+gem 'jquery-validation-rails', '~> 1.16.0'
+gem 'jquery-fileupload-rails', '~> 0.4.5'
+###
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-  gem 'handlebars_assets', '~>0.22.0'
-end
+### No support for Rails 5
+gem 'wice_grid', git: 'https://github.com/theairbo/wice_grid', branch: 'rails3'
+###
+
+### Plan to Remove
+gem 'rolify', '~> 5.1.0'
+gem 'addressable', '~> 2.5.2'
+gem 'acts_as_singleton', '~> 0.0.8'
+gem 'mixpanel', '~> 4.1.1' # Migrate to official gem
+gem 'chronic', '~> 0.10.2'
+gem 'haml-rails', '~> 1.0.0'
+gem 'nokogiri', '~> 1.8.1'
+gem 'carrierwave_direct', '~> 0.0.15'
+gem 'draper', '~> 1.3'
+gem 'aws-sdk-v1', '~> 1.59.0' # V1 used for bulk upload and Tile attachments (migrate to v3 in rewrites)
+gem 'responders', '~> 2.0'
+###
+
+gem 'sass-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'handlebars_assets', '~> 0.22.0'
 
 group :development, :test do
-  gem 'faker'
   gem 'colored'
   gem 'rspec-rails', '~> 3.0'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'steak'
   gem 'pry-rails'
 	gem 'pry-byebug'
@@ -133,7 +130,10 @@ group :development do
   gem 'letter_opener'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'meta_request'
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
+  gem 'rubocop', require: false
+  gem 'reek', '~> 4.7.3', require: false
 end
 
 group :production do

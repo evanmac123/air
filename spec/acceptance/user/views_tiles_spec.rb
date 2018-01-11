@@ -10,15 +10,15 @@ feature 'User views tile' do
   end
 
   def setup_data
-    @demo = FactoryGirl.create(:demo)
-    @kendra = FactoryGirl.create(:user, demo: @demo, password: 'milking', session_count: 5)
+    @demo = FactoryBot.create(:demo)
+    @kendra = FactoryBot.create(:user, demo: @demo, password: 'milking', session_count: 5)
 
     ['make toast', 'discover fire'].each do |tile_headline|
-      FactoryGirl.create(:tile, headline: tile_headline, demo: @demo)
+      FactoryBot.create(:tile, headline: tile_headline, demo: @demo)
     end
 
-    @make_toast = Tile.find_by_headline('make toast')
-    @discover_fire = Tile.find_by_headline('discover fire')
+    @make_toast = Tile.find_by(headline: 'make toast')
+    @discover_fire = Tile.find_by(headline: 'discover fire')
     @make_toast.update_attributes(activated_at: Time.current - 60.minutes)
     @discover_fire.update_attributes(activated_at: Time.current)
   end
@@ -46,7 +46,7 @@ feature 'User views tile' do
 
   context "when there are no tiles to be seen" do
     it "should show 4 placeholders" do
-      user = FactoryGirl.create(:user, :claimed)
+      user = FactoryBot.create(:user, :claimed)
       expect(user.demo.tiles).to be_empty
 
       visit activity_path(as: user)

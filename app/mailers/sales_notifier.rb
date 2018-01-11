@@ -1,6 +1,5 @@
 class SalesNotifier < ApplicationMailer
   helper :email
-  has_delay_mail
 
   def lead_activated(user)
     @user = user

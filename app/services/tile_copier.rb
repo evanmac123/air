@@ -1,51 +1,52 @@
 class TileCopier
-  EXPLORE_SOURCE = "Explore Page"
-  OWN_BOARD_SOURCE = "Self Created - Duplicated"
+  EXPLORE_PING = "Explore Page"
+  OWN_BOARD_PING = "Self Created - Duplicated"
+  TEMPLATE_PING = "Initial Board Setup"
 
-  attr_reader :new_demo, :copying_user, :tile, :copy
+  attr_reader :copying_user, :tile, :copy
+
   def initialize(new_demo, tile, copying_user = nil)
-    @new_demo = new_demo
     @copying_user = copying_user
     @tile = tile
-    @copy = tile.class.new
+    @copy = new_demo.tiles.new
   end
 
   def copy_tile_from_explore
-    copy_tile
-    copy.creation_source = :explore_created
-    ping_tile_created(EXPLORE_SOURCE)
+    copy_tile(status: Tile::DRAFT, creation_source: :explore_created, ping_source: EXPLORE_PING)
+
     deliver_tile_copied_notification
     tile.increment!(:copy_count)
-
-    copy.save
-    #NOTE copy attachments after save so attachment has an iD
-    tile.copy_s3_attachments_to copy
-    copy.tap(&:save)
+    copy
   end
 
-  def copy_from_own_board(status = Tile::DRAFT, tile_source = OWN_BOARD_SOURCE)
-    copy_tile(status)
-    ping_tile_created(tile_source)
-    copy.save
-    #NOTE copy attachments after save so attachment has an iD
-    tile.copy_s3_attachments_to copy
-    copy.tap(&:save)
+  def copy_from_own_board
+    copy_tile(status: Tile::DRAFT, creation_source: :client_admin_created, ping_source: OWN_BOARD_PING)
   end
 
+  def copy_from_template
+    copy_tile(status: Tile::ACTIVE, creation_source: :client_admin_created, ping_source: TEMPLATE_PING)
+  end
 
   private
 
-    def copy_tile(status = Tile::DRAFT)
+    def copy_tile(status:, creation_source:, ping_source:)
       copy_tile_data
-      set_new_data_for_copy(status)
+      set_new_data_for_copy(status: status, creation_source: creation_source)
+      ping_tile_created(ping_source)
+
+      # NOTE copy attachments after save so attachment has an id
+      copy.save
+      tile.copy_s3_attachments_to(copy)
+
+      copy.tap(&:save)
     end
 
     def ping_tile_created(copy_source)
-      TrackEvent.ping('Tile - New', { tile_source: copy_source }, copying_user )
+      TrackEvent.ping("Tile - New", { tile_source: copy_source }, copying_user)
     end
 
     def deliver_tile_copied_notification
-      Mailer.delay_mail(:notify_creator_for_social_interaction, tile, copying_user, 'copied')
+      Mailer.notify_creator_for_social_interaction(tile, copying_user, "copied").deliver_later
     end
 
     def copy_tile_data
@@ -68,16 +69,16 @@ class TileCopier
       end
     end
 
-    def set_new_data_for_copy(status)
-
-      copy.status = status
-      copy.original_creator = tile.creator || tile.original_creator
-      copy.original_created_at = tile.created_at || tile.original_created_at
-      copy.demo = new_demo
-      copy.creator = copying_user
-      copy.position = copy.find_new_first_position
-      copy.remote_media_url = tile.image.url(:original)
-      copy.media_source = "tile-copy"
-      copy.is_cloned = true
+    def set_new_data_for_copy(status:, creation_source:)
+      copy.assign_attributes(
+        status: status,
+        original_creator: tile.creator || tile.original_creator,
+        original_created_at: tile.created_at || tile.original_created_at,
+        creator: copying_user,
+        remote_media_url: tile.image.url(:original, timestamp: false),
+        media_source: "tile-copy",
+        creation_source: creation_source,
+        position: copy.find_new_first_position
+      )
     end
 end

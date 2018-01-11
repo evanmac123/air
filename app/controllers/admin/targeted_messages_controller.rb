@@ -3,9 +3,9 @@ class Admin::TargetedMessagesController < AdminBaseController
 
   FIELDS_TO_KEEP = %w(subject plain_text html_text sms_text)
 
-  before_filter :find_demo_by_demo_id
-  before_filter :find_segmentation_results
-  before_filter do
+  before_action :find_demo_by_demo_id
+  before_action :find_segmentation_results
+  before_action do
     load_characteristics(@demo)
     @scheduled_pushes = @demo.push_messages.incomplete.in_time_order
   end

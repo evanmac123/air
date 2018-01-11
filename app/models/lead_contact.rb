@@ -1,5 +1,4 @@
 class LeadContact < ActiveRecord::Base
-
   belongs_to :user
   belongs_to :organization
 
@@ -16,7 +15,7 @@ class LeadContact < ActiveRecord::Base
 
   scope :pending, -> { where(status: "pending").order(:updated_at).reverse_order }
   scope :approved, -> { where(status: "approved").order(:updated_at).reverse_order }
-  scope :processed, -> { joins(:demo).where(status: "processed").where(demo: { tile_digest_email_sent_at: nil } ).order(:updated_at).reverse_order }
+  scope :processed, -> { joins(:demo).where(status: "processed").where(demos: { tile_digest_email_sent_at: nil }).order(:updated_at).reverse_order }
 
   after_destroy do
     destroy_board_and_users
@@ -24,9 +23,9 @@ class LeadContact < ActiveRecord::Base
 
   def notify!
     if source == "Inbound: Signup Request"
-      LeadContactNotifier.delay_mail(:signup_request, self)
+      LeadContactNotifier.signup_request(self).deliver_later
     elsif source == "Inbound: Demo Request"
-      LeadContactNotifier.delay_mail(:demo_request, self)
+      LeadContactNotifier.demo_request(self).deliver_later
     end
   end
 
@@ -39,7 +38,7 @@ class LeadContact < ActiveRecord::Base
 
     def add_deleted_lead_contacts_to_redis
       attrs = {
-        name:name,
+        name: name,
         email: email,
         phone: phone,
         org: organization_name
@@ -59,7 +58,7 @@ class LeadContact < ActiveRecord::Base
     end
 
     def parse_phone_number
-      self.phone = phone.gsub(/\D/, '')
+      self.phone = phone.gsub(/\D/, "")
     end
 
     def parse_organization_name

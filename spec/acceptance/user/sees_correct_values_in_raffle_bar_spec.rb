@@ -16,13 +16,13 @@ feature "User sees correct values in rafle bar" do
   end
 
   before(:each) do
-    @demo = FactoryGirl.create(:demo, :with_tickets)
-    raffle = @demo.raffle = FactoryGirl.create(:raffle, :live, demo: @demo)
+    @demo = FactoryBot.create(:demo, :with_tickets)
+    raffle = @demo.raffle = FactoryBot.create(:raffle, :live, demo: @demo)
   end
 
   user_information.each do |user_attributes, expected_values|
     scenario "#{user_attributes[:name]} with #{user_attributes[:points]} points should see #{expected_values[:points]}/#{expected_values[:points_denominator]} points for #{expected_values[:percent]}%" do
-      user = FactoryGirl.create :user, user_attributes
+      user = FactoryBot.create :user, user_attributes
       user.demo = @demo
       user.save
       

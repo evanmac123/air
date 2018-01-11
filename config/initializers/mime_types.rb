@@ -4,3 +4,9 @@
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register_alias "text/html", :iphone
 Mime::Type.register_alias "text/html", :mobile
+
+# Additional mime types
+Rack::Mime::MIME_TYPES.merge!({
+  ".ttf" => "font/ttf",
+  ".otf" => "font/otf",
+})

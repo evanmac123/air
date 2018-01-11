@@ -1,9 +1,9 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Completes tiles' do
-  let (:board) { FactoryGirl.create(:demo, :with_public_slug) }
-  let! (:tile_1) { FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, headline: "Tile the first", points: 30, demo: board) }
-  let! (:tile_2) { FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, headline: "Tile the second", demo: board) }
+  let (:board) { FactoryBot.create(:demo, :with_public_slug) }
+  let! (:tile_1) { FactoryBot.create(:multiple_choice_tile, status: Tile::ACTIVE, headline: "Tile the first", points: 30, demo: board) }
+  let! (:tile_2) { FactoryBot.create(:multiple_choice_tile, status: Tile::ACTIVE, headline: "Tile the second", demo: board) }
 
   def click_right_answer
     answer(tile_1.correct_answer_index).click
@@ -23,7 +23,9 @@ feature 'Completes tiles' do
   scenario 'and sees the completion in the activity feed', js: true do
     click_right_answer
     visit public_activity_path(board.public_slug)
-    expect_content "completed the tile: \"#{tile_1.headline}\""
+    within ".feeds" do
+      expect_content "completed the tile: \"#{tile_1.headline}\""
+    end
   end
 
   scenario 'and doesn\'t see the tile in question anymore as completed', js: true do

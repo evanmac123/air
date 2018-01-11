@@ -2,11 +2,11 @@ require 'acceptance/acceptance_helper'
 
 feature 'Sets their privacy level', js: true do
   before do
-    @user = FactoryGirl.create(:user, name: 'MainGuy')
+    @user = FactoryBot.create(:user, name: 'MainGuy')
 
-    @user_in_same_board = FactoryGirl.create(:user, demo: @user.demo)
+    @user_in_same_board = FactoryBot.create(:user, demo: @user.demo)
 
-    @follower = FactoryGirl.create(:user, demo: @user.demo)
+    @follower = FactoryBot.create(:user, demo: @user.demo)
     @follower.befriend(@user)
     @user.accept_friendship_from(@follower)
   end
@@ -20,7 +20,7 @@ feature 'Sets their privacy level', js: true do
   end
 
   def create_act
-    FactoryGirl.create(:act, user: @user, text: 'ate puppy')
+    FactoryBot.create(:act, user: @user, text: 'ate puppy')
   end
 
   scenario 'Privacy level of "everybody" shows act to everybody in board' do

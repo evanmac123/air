@@ -22,15 +22,15 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def self.paid
-    joins(:demo).where(demo: { customer_status_cd: Demo.customer_statuses[:paid] })
+    joins(:demo).where(demos: { customer_status_cd: Demo.customer_statuses[:paid] })
   end
 
   def self.smb
-    joins(demo: :organization).where(demo: { organization: { company_size_cd: Organization.company_sizes[:smb] } })
+    joins(demo: :organization).where(organizations: { company_size_cd: Organization.company_sizes[:smb] })
   end
 
   def self.enterprise
-    joins(demo: :organization).where(demo: { organization: { company_size_cd: Organization.company_sizes[:enterprise] } })
+    joins(demo: :organization).where(organizations: { company_size_cd: Organization.company_sizes[:enterprise] })
   end
 
   def self.dispatch(digest_params)
@@ -56,7 +56,7 @@ class TilesDigest < ActiveRecord::Base
     self.sent_at = Time.current
     self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true)
 
-    TilesDigestMailer.delay.notify_all(self)
+    TilesDigestBulkMailJob.perform_later(self)
   end
 
   def all_related_subject_lines
@@ -199,12 +199,17 @@ class TilesDigest < ActiveRecord::Base
     end
   end
 
+  def resolve_subject(idx)
+    return subject unless alt_subject
+    idx.even? ? alt_subject : subject
+  end
+
   ###
 
   private
 
     def users_for_digest
-      demo.users.joins(:board_memberships).where(board_memberships: { demo_id: demo.id }).where("board_memberships.notification_pref_cd != ?", BoardMembership.unsubscribe).where("board_memberships.created_at <= ?", sent_at)
+      demo.users.where("board_memberships.notification_pref_cd != ?", BoardMembership.unsubscribe).where("board_memberships.created_at <= ?", sent_at)
     end
 
     def claimed_users_for_digest

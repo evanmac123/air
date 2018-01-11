@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe ActsController do
   it 'should reject attempts to sign in with an invalid security token (as found in tile links in digest email)' do
-    user = FactoryGirl.create :user
+    user = FactoryBot.create :user
     get :index, tile_token: '123456789', user_id: user.id
     expect(response).to redirect_to sign_in_url
   end
 
   describe "pings" do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { FactoryBot.create :user }
     it "should send tile email tracking ping when there is a user and the params specify email type and a tile email id" do
       TileEmailTracker.stubs(:delay).returns(TileEmailTracker)
       TileEmailTracker.stubs(:dispatch)

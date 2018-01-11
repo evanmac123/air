@@ -1,6 +1,5 @@
 module Tile::TileImageable
   extend ActiveSupport::Concern
-  include Assets::Normalizer # normalize filename of paperclip attachment
 
   IMAGE_PROCESSING_URL =  ActionController::Base.helpers.asset_path("missing-search-image.png")
   TILE_IMAGE_PROCESSING_PRIORITY = -10
@@ -10,12 +9,15 @@ module Tile::TileImageable
   included do
 
     has_attached_file :image,
-      { styles: {
+      {
+        styles: {
           viewer: "666>"
         },
         default_style: :viewer,
-        default_url: MISSING_PREVIEW,
+        default_url: ->(attachment) { ActionController::Base.helpers.asset_path(MISSING_PREVIEW) },
+        validate_media_type: false
       }.merge!(TILE_IMAGE_OPTIONS)
+    validates_attachment_content_type :image, content_type: [/\Aimage\/.*\Z/, /\A*\/octet-stream\Z/]
 
     has_attached_file :thumbnail,
       {
@@ -24,9 +26,11 @@ module Tile::TileImageable
           email_digest: "190x160#"
         },
         default_style: :carousel,
-        default_url: MISSING_THUMBNAIL,
-        preserve_files: true
+        default_url: ->(attachment) { ActionController::Base.helpers.asset_path(MISSING_THUMBNAIL) },
+        preserve_files: true,
+        validate_media_type: false
       }.merge!(TILE_THUMBNAIL_OPTIONS)
+    validates_attachment_content_type :thumbnail, content_type: [/\Aimage\/.*\Z/, /\A*\/octet-stream\Z/]
 
     process_in_background :image,
       processing_image_url: :processing_image_fallback,
@@ -37,28 +41,7 @@ module Tile::TileImageable
       priority: TILE_IMAGE_PROCESSING_PRIORITY
   end
 
-  attr_accessor :image_from_library
-
   def processing_image_fallback
     remote_media_url || IMAGE_PROCESSING_URL
-  end
-
-  # need this function to set height of image place in ie8 while image is loading
-  def full_size_image_height
-    return nil if image_file_name.nil?
-
-   #FIXME  this fails if height or width are nil?
-    height, width = if image_processing? || image.height.nil? || image.width.nil?
-                      [484, 666]
-                    else
-                      [image.height, image.width]
-                    end
-
-    full_width = 600.0 # px for full size tile
-    ( height * full_width / width ).to_i
-  end
-
-  module ClassMethods
-    include ValidImageMimeTypes
   end
 end

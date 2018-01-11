@@ -2,8 +2,8 @@ require 'acceptance/acceptance_helper'
 
 feature "User Sees Only Profile In Current Demo" do
   scenario "User sees only profile in current demo" do
-    @user1 = FactoryGirl.create :claimed_user
-    @user2 = FactoryGirl.create :claimed_user
+    @user1 = FactoryBot.create :claimed_user
+    @user2 = FactoryBot.create :claimed_user
 
     expect(@user1.demo).to_not eq(@user2.demo)
 

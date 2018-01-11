@@ -1,6 +1,6 @@
 class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseController
 
-  before_filter :authorize_digest
+  before_action :authorize_digest
 
   def create
     @tiles_digest_form = TilesDigestForm.new(demo: current_user.demo, user: current_user, params: params[:digest])

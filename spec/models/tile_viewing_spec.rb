@@ -7,7 +7,7 @@ describe TileViewing do
 
   describe TileViewing, "#increment" do
     before do
-      @tile_viewing = FactoryGirl.create(:tile_viewing)
+      @tile_viewing = FactoryBot.create(:tile_viewing)
     end
 
     it "views should = 1 by default" do
@@ -22,8 +22,8 @@ describe TileViewing do
 
   describe TileViewing, ".add" do
     before do
-      @tile = FactoryGirl.create(:tile)
-      @user = FactoryGirl.create(:user)
+      @tile = FactoryBot.create(:tile)
+      @user = FactoryBot.create(:user)
     end
 
     it "should create tile viewing or increase views" do
@@ -38,8 +38,8 @@ describe TileViewing do
     end
 
     it "should increase tile's counters" do
-      tile = FactoryGirl.create(:tile)
-      user = FactoryGirl.create(:user)
+      tile = FactoryBot.create(:tile)
+      user = FactoryBot.create(:user)
       TileViewing.add(tile, user)
       TileViewing.add(tile, user)
 
@@ -50,8 +50,8 @@ describe TileViewing do
 
   describe TileViewing, ".views" do
     before do
-      @tile = FactoryGirl.create :tile
-      @user = FactoryGirl.create :user
+      @tile = FactoryBot.create :tile
+      @user = FactoryBot.create :user
     end
 
     it "should return number of views" do

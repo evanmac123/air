@@ -9,7 +9,7 @@ describe Organization do
   it { should validate_presence_of(:name) }
 
   it "is valid when complete" do
-    o = FactoryGirl.build(:organization, :complete)
+    o = FactoryBot.build(:organization, :complete)
     expect(o.valid?).to be_truthy
   end
 
@@ -17,11 +17,11 @@ describe Organization do
     describe "#normalize_blank_values" do
       it "calls method from mixin" do
         Organization.any_instance.expects(:normalize_blank_values).once
-        FactoryGirl.create(:organization)
+        FactoryBot.create(:organization)
       end
 
       it "forces blank values to nil" do
-        org = FactoryGirl.create(:organization, email: "")
+        org = FactoryBot.create(:organization, email: "")
 
         expect(org.email).to eq(nil)
       end
@@ -30,8 +30,8 @@ describe Organization do
 
   describe ".smb" do
     it "returns a collection of all smb orgs" do
-      smb_orgs = FactoryGirl.create_list(:organization, 3, company_size_cd: Organization.company_sizes[:smb])
-      _enterprise_orgs = FactoryGirl.create_list(:organization, 2, company_size_cd: Organization.company_sizes[:enterprise])
+      smb_orgs = FactoryBot.create_list(:organization, 3, company_size_cd: Organization.company_sizes[:smb])
+      _enterprise_orgs = FactoryBot.create_list(:organization, 2, company_size_cd: Organization.company_sizes[:enterprise])
 
       expect(Organization.smb).to eq(smb_orgs)
     end
@@ -39,8 +39,8 @@ describe Organization do
 
   describe ".enterprise" do
     it "returns a collection of all enterprise orgs" do
-      enterprise_orgs = FactoryGirl.create_list(:organization, 3, company_size_cd: Organization.company_sizes[:enterprise])
-      _smb_orgs = FactoryGirl.create_list(:organization, 2, company_size_cd: Organization.company_sizes[:smb])
+      enterprise_orgs = FactoryBot.create_list(:organization, 3, company_size_cd: Organization.company_sizes[:enterprise])
+      _smb_orgs = FactoryBot.create_list(:organization, 2, company_size_cd: Organization.company_sizes[:smb])
 
       expect(Organization.enterprise).to eq(enterprise_orgs)
     end
@@ -48,11 +48,11 @@ describe Organization do
 
   describe ".paid" do
     it "returns a collection of all organizations with paid demos" do
-      paid_orgs = FactoryGirl.create_list(:organization, 2)
-      _paid_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: paid_orgs[0].id)
-      _paid_demo_2 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: paid_orgs[1].id)
+      paid_orgs = FactoryBot.create_list(:organization, 2)
+      _paid_demo_1 = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: paid_orgs[0].id)
+      _paid_demo_2 = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: paid_orgs[1].id)
 
-      _free_orgs = FactoryGirl.create_list(:organization, 2)
+      _free_orgs = FactoryBot.create_list(:organization, 2)
 
       expect(Organization.paid).to eq(paid_orgs)
     end
@@ -60,19 +60,19 @@ describe Organization do
 
   describe "#free?" do
     it "returns true if all demos are free or trial" do
-      free_org = FactoryGirl.create(:organization)
-      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
-      _free_demo_2 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
-      _trial_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:trial], organization_id: free_org.id)
+      free_org = FactoryBot.create(:organization)
+      _free_demo_1 = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
+      _free_demo_2 = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
+      _trial_demo = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:trial], organization_id: free_org.id)
 
       expect(free_org.free?).to eq(true)
     end
 
     it "returns false if there is a paid demo" do
-      free_org = FactoryGirl.create(:organization)
-      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
-      _free_demo_2 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
-      _paid_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: free_org.id)
+      free_org = FactoryBot.create(:organization)
+      _free_demo_1 = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
+      _free_demo_2 = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: free_org.id)
+      _paid_demo = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: free_org.id)
 
       expect(free_org.free?).to eq(false)
     end
@@ -86,9 +86,9 @@ describe Organization do
 
   describe "#trial?" do
     it "returns true if there is a trial demo" do
-      trial_org = FactoryGirl.create(:organization)
-      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: trial_org.id)
-      _trial_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:trial], organization_id: trial_org.id)
+      trial_org = FactoryBot.create(:organization)
+      _free_demo_1 = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: trial_org.id)
+      _trial_demo = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:trial], organization_id: trial_org.id)
 
       expect(trial_org.trial?).to eq(true)
     end
@@ -102,9 +102,9 @@ describe Organization do
 
   describe "#paid?" do
     it "returns true if there is a paid demo" do
-      paid_org = FactoryGirl.create(:organization)
-      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: paid_org.id)
-      _paid_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: paid_org.id)
+      paid_org = FactoryBot.create(:organization)
+      _free_demo_1 = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: paid_org.id)
+      _paid_demo = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: paid_org.id)
 
       expect(paid_org.paid?).to eq(true)
     end
@@ -118,17 +118,17 @@ describe Organization do
 
   describe "#customer_status" do
     it "returns :paid when paid?" do
-      paid_org = FactoryGirl.create(:organization)
-      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: paid_org.id)
-      _paid_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: paid_org.id)
+      paid_org = FactoryBot.create(:organization)
+      _free_demo_1 = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: paid_org.id)
+      _paid_demo = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid], organization_id: paid_org.id)
 
       expect(paid_org.customer_status).to eq(:paid)
     end
 
     it "returns :trial when trial?" do
-      trial_org = FactoryGirl.create(:organization)
-      _free_demo_1 = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: trial_org.id)
-      _trial_demo = FactoryGirl.create(:demo, customer_status_cd: Demo.customer_statuses[:trial], organization_id: trial_org.id)
+      trial_org = FactoryBot.create(:organization)
+      _free_demo_1 = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:free], organization_id: trial_org.id)
+      _trial_demo = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:trial], organization_id: trial_org.id)
 
       expect(trial_org.customer_status).to eq(:trial)
     end

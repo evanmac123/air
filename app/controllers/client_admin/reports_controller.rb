@@ -1,6 +1,6 @@
 class ClientAdmin::ReportsController < ClientAdminBaseController
 
-  before_filter :activity_email_ping
+  before_action :activity_email_ping
 
   def show
     current_user.remove_tile_email_report_notification

@@ -1,21 +1,21 @@
 require "spec_helper"
 
 describe GridQuery::TileActions do
-  let!(:demo) { FactoryGirl.create :demo }
-  let!(:other_demo) { FactoryGirl.create :demo }
-  let!(:tile) { FactoryGirl.create :tile, demo: demo, multiple_choice_answers: ["Ham", "Eggs", "A V8 Buick"] }
-  let!(:other_tile) { FactoryGirl.create :tile, demo: demo, multiple_choice_answers: ["Good", "Bad", "Ugly"] }
+  let!(:demo) { FactoryBot.create :demo }
+  let!(:other_demo) { FactoryBot.create :demo }
+  let!(:tile) { FactoryBot.create :tile, demo: demo, multiple_choice_answers: ["Ham", "Eggs", "A V8 Buick"] }
+  let!(:other_tile) { FactoryBot.create :tile, demo: demo, multiple_choice_answers: ["Good", "Bad", "Ugly"] }
 
   def user_actions user, tile, views = 1, interacted = false, answer_index = nil
-    FactoryGirl.create :tile_viewing, user: user, tile: tile, views: views
+    FactoryBot.create :tile_viewing, user: user, tile: tile, views: views
     if interacted
-      FactoryGirl.create :tile_completion, user: user, tile: tile, answer_index: answer_index
+      FactoryBot.create :tile_completion, user: user, tile: tile, answer_index: answer_index
     end
   end
 
   def create_users num, demo, name
     (0..num).to_a.map do |i|
-      FactoryGirl.create :user, name: "#{name.humanize}#{i}", email: "#{name}#{i}@gmail.com", demo: demo
+      FactoryBot.create :user, name: "#{name.humanize}#{i}", email: "#{name}#{i}@gmail.com", demo: demo
     end
   end
 
@@ -23,6 +23,7 @@ describe GridQuery::TileActions do
     query.map(&:attributes).map do |row|
       row.delete("completion_date")
       row.delete("user_id")
+      row.delete("id")
       row
     end.map(&:values)
   end
@@ -69,7 +70,9 @@ describe GridQuery::TileActions do
   it "should return 'interacted'" do
     # result is set of rows(arrays) with columns:
     # user_name | user_email | tile_views | tile_an,nilswer_index
-    table = make_table(GridQuery::TileActions.new(tile, "interacted").query.order("users.id ASC"))
+    tile_actions = GridQuery::TileActions.new(tile, "interacted").query.order("users.id ASC")
+
+    table = make_table(tile_actions)
 
     expect(table.map(&:first)).to eq(["Good guy0", "Good guy1", "Good guy2"])
   end

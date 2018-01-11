@@ -1,5 +1,5 @@
 class CancelAccountController < ApplicationController
-  before_filter :find_user
+  before_action :find_user
 
   layout "external"
 
@@ -15,6 +15,6 @@ class CancelAccountController < ApplicationController
   protected
 
   def find_user
-    @user = User.find_by_cancel_account_token(params[:id])
+    @user = User.find_by(cancel_account_token: params[:id])
   end
 end

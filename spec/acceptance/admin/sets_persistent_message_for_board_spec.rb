@@ -6,12 +6,12 @@ feature 'Admin sets persistent message for board' do
   end
 
   scenario "in the basic settings" do
-    board = FactoryGirl.create(:demo)
+    board = FactoryBot.create(:demo)
     visit edit_admin_demo_path(board, as: an_admin)
 
     message = "This is the funnest possible thing"
     fill_in_persistent_message(message)
-    click_button "Update Board"
+    click_button "Save"
 
     expect(board.reload.persistent_message).to eq(message)
   end

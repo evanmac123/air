@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TilesController do
   describe "#index" do
     def expect_no_start_tile_set_for_user(user)
-      tile = FactoryGirl.create(:tile)
+      tile = FactoryBot.create(:tile)
       expect(tile.demo_id).to_not eq(user.demo_id)
       expect(tile.is_sharable).to be_falsey
 
@@ -14,8 +14,8 @@ describe TilesController do
     context "as a regular user requesting a tile that's not sharable in a board you're not in" do
       it "should not assign that to @start_tile" do
         subject.stubs(:ping)
-        tile = FactoryGirl.create(:tile)
-        user = FactoryGirl.create(:user)
+        tile = FactoryBot.create(:tile)
+        user = FactoryBot.create(:user)
 
         expect(tile.demo_id).to_not eq(user.demo_id)
         expect(tile.is_sharable).to be_falsey
@@ -30,8 +30,8 @@ describe TilesController do
     context "as a guest requesting a tile that's not sharable in a board you're not in" do
       it "should not assign that to @start_tile" do
         subject.stubs(:ping)
-        tile = FactoryGirl.create(:tile)
-        user = FactoryGirl.create(:guest_user)
+        tile = FactoryBot.create(:tile)
+        user = FactoryBot.create(:guest_user)
 
         expect(tile.demo_id).to_not eq(user.demo_id)
         expect(tile.is_sharable).to be_falsey
@@ -47,9 +47,9 @@ describe TilesController do
       # FIXME: MIXPANEL additional test cases related to this ping should be tested client side after mixpanel audit.  i.e. clicking to next tile.
       subject.stubs(:ping)
 
-      demo = FactoryGirl.create(:demo)
-      tile = FactoryGirl.create(:tile, demo: demo, is_sharable: true)
-      client_admin = FactoryGirl.create(:client_admin)
+      demo = FactoryBot.create(:demo)
+      tile = FactoryBot.create(:tile, demo: demo, is_sharable: true)
+      client_admin = FactoryBot.create(:client_admin)
 
       sign_in_as(client_admin)
 

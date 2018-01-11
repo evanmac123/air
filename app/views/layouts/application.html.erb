@@ -9,16 +9,13 @@
     <%= content_for :meta %>
     <%= csrf_meta_tag %>
 
-    <%= split_stylesheet_link_tag "app-internal", :media => "all", :split_count => 5 %>
-
     <%= javascript_include_tag 'app-user' %>
+    <%= stylesheet_link_tag "app-internal", media: "all" %>
 
     <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
     <%= render 'shared/integrations/google_analytics/marketing' %>
     <%= render 'shared/integrations/facebook_pixel' %>
-
-    <%= mobvious_javascript %>
 
     <%= render "shared/custom_palette"  if @palette && @palette.enabled? %>
     <%= content_for :head %>

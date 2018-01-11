@@ -5,8 +5,8 @@ describe BulkLoad::UserRetainer do
 
   describe "#retain_user" do
     it "should easily let you remove a user from the set to be removed" do
-      board = FactoryGirl.create(:demo)
-      users = FactoryGirl.create_list(:user, 2, demo: board)
+      board = FactoryBot.create(:demo)
+      users = FactoryBot.create_list(:user, 2, demo: board)
 
       retainer = BulkLoad::UserRetainer.new(object_key)
       rig_user_ids_for_bulk_removal(retainer, users.map(&:id))

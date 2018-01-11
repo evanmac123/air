@@ -14,7 +14,7 @@ feature "User interacts with the 'Forgot password?' functionality" do
   end
 
   scenario 'Claimed user enters a valid email address' do
-    FactoryGirl.create :claimed_user, email: 'buddy@guy.com'
+    FactoryBot.create :claimed_user, email: 'buddy@guy.com'
 
     fill_in 'password_email', with: 'buddy@guy.com'
     click_button 'Reset password'
@@ -22,7 +22,7 @@ feature "User interacts with the 'Forgot password?' functionality" do
   end
 
   scenario 'Unclaimed user enters a valid email address' do
-    FactoryGirl.create :user, email: 'buddy@guy.com'
+    FactoryBot.create :user, email: 'buddy@guy.com'
 
     fill_in 'password_email', with: 'buddy@guy.com'
     click_button 'Reset password'

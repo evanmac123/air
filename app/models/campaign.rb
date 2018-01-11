@@ -11,10 +11,13 @@ class Campaign < ActiveRecord::Base
       styles: { explore: "190x90#" },
       default_style: :explore,
     }
-
-  default_scope order(:name)
+  validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\Z/
 
   searchkick word_start: [:channel_list, :tile_headlines], callbacks: :async
+
+  def self.default_scope
+    order(:name)
+  end
 
   def search_data
     extra_data = {

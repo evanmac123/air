@@ -9,8 +9,8 @@ class UserBoardMigrator
     @users = User.where("id in (?)", @ids).order("id asc")
     @from_board = Demo.find(from)
     @to_board = Demo.find(to)
-    @from_bms = @from_board.board_memberships.where("user_id in (?)",@ids).all
-    @to_bms = @to_board.board_memberships.where("user_id in (?)", @ids).all
+    @from_bms = @from_board.board_memberships.where("user_id in (?)", @ids)
+    @to_bms = @to_board.board_memberships.where("user_id in (?)", @ids)
 
     setup_summary
   end
@@ -42,14 +42,14 @@ class UserBoardMigrator
     starting_to_points = to.points
 
     user.points = starting_user_points + starting_from_points + starting_to_points
-    to.points = user.points 
+    to.points = user.points
 
     add_to_confirmation_report({
-      id: user.id, 
-      user: user.name, 
+      id: user.id,
+      user: user.name,
       starting_user_points: starting_user_points,
-      from_board_points: starting_from_points, 
-      to_board_starting_points: starting_to_points, 
+      from_board_points: starting_from_points,
+      to_board_starting_points: starting_to_points,
       final_user_points: user.points,
       to_board_points: to.points
     });
@@ -58,7 +58,7 @@ class UserBoardMigrator
   def setup_summary
     @summary = Summary.new
     @summary.user_ids = @ids.join(",")
-    @summary.from_id = @from_board.id 
+    @summary.from_id = @from_board.id
     @summary.to_id = @to_board.id
     @summary.from = @from_board.name
     @summary.to = @to_board.name

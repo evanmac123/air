@@ -4,8 +4,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesPingsHelper
   include CustomResponder
 
-  before_filter :get_demo
-  before_filter :permit_params, only: [:create, :update]
+  before_action :get_demo
+  before_action :permit_params, only: [:create, :update]
 
   def index
     @all_tiles = @demo.tiles.group_by { |t| t.status }
@@ -120,12 +120,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     render json: {
       tileId: @tile.id,
-      tileHTML: render_to_string( partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals: { presenter:  tile_presenter(@tile)}),
+      tileHTML: render_to_string( partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter:  tile_presenter(@tile)}),
       tilesToBeSentCount:  @demo.digest_tiles(@demo.tile_digest_email_sent_at).count,
       lastTiles: @last_tiles.map{|tile|
         {id: tile.id,
          status: tile.status,
-         html: render_to_string( partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals: { presenter:  tile_presenter(tile)})
+         html: render_to_string( partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter:  tile_presenter(tile)})
         }
       }
     }
@@ -173,7 +173,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def partial_to_render
-    'client_admin/tiles/manage_tiles/no_cache_single_tile'
+    'client_admin/tiles/manage_tiles/single_tile'
   end
 
   def permit_params
@@ -303,13 +303,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
 
     render_to_string(
-                     partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile',
+                     partial: 'client_admin/tiles/manage_tiles/single_tile',
                      locals: { presenter:  tile_presenter}
                     )
   end
 
   def render_single_tile
-    render partial: 'client_admin/tiles/manage_tiles/no_cache_single_tile', locals: { presenter: tile_presenter}
+    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: tile_presenter}
   end
 
   def tile_presenter tile=@tile
@@ -329,11 +329,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       flash.now[:failure] = render_to_string("client_admin/tiles/form/save_tile_without_an_image", layout: false, locals: { tile: @tile.tile })
       flash[:failure_allow_raw] = true
     end
-  end
-
-  def load_image_library
-    @tile_images = TileImage.all_ready.first(TileImage::PAGINATION_PADDING)
-    @curr_page = 0
   end
 
   def builder_options

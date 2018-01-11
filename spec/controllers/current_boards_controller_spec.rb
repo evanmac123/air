@@ -6,11 +6,11 @@ describe CurrentBoardsController do
       it "redirects to activity_path for non admin" do
         subject.stubs(:ping_board_switch)
 
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         sign_in_as(user)
 
         _board_1 = user.demo
-        board_2 = FactoryGirl.create(:demo, name: "board_2")
+        board_2 = FactoryBot.create(:demo, name: "board_2")
 
         board_2.users << user
 
@@ -23,11 +23,11 @@ describe CurrentBoardsController do
         request.env["HTTP_REFERER"] = "back_path"
         subject.stubs(:ping_board_switch)
 
-        client_admin = FactoryGirl.create(:client_admin)
+        client_admin = FactoryBot.create(:client_admin)
         sign_in_as(client_admin)
 
         _board_1 = client_admin.demo
-        board_2 = FactoryGirl.create(:demo, name: "board_2")
+        board_2 = FactoryBot.create(:demo, name: "board_2")
 
         board_2.board_memberships.create(user: client_admin, is_client_admin: true)
 
@@ -39,11 +39,11 @@ describe CurrentBoardsController do
       it "sends correct pings" do
         subject.stubs(:ping_board_switch)
 
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         sign_in_as(user)
 
         _board_1 = user.demo
-        board_2 = FactoryGirl.create(:demo, name: "board_2")
+        board_2 = FactoryBot.create(:demo, name: "board_2")
 
         board_2.users << user
 
@@ -57,11 +57,11 @@ describe CurrentBoardsController do
       it "redirects to activity_path for non admin" do
         subject.stubs(:ping_board_switch)
 
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         sign_in_as(user)
 
         _board_1 = user.demo
-        board_2 = FactoryGirl.create(:demo, name: "board_2")
+        board_2 = FactoryBot.create(:demo, name: "board_2")
 
         put :update, board_id: board_2.id
 

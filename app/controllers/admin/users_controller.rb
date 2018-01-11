@@ -1,8 +1,8 @@
 require 'csv'
 
 class Admin::UsersController < AdminBaseController
-  before_filter :find_demo_by_demo_id
-  before_filter :find_user, :only => [:edit, :update, :destroy]
+  before_action :find_demo_by_demo_id
+  before_action :find_user, :only => [:edit, :update, :destroy]
 
   def index
     respond_to do |format|
@@ -15,7 +15,7 @@ class Admin::UsersController < AdminBaseController
         else
           @users = @demo.users
         end
-        @users = @users.order{ name.asc }
+        @users = @users.order(name: :asc)
       end
 
       format.js do
@@ -40,7 +40,6 @@ class Admin::UsersController < AdminBaseController
 
   def update
     new_demo_id = user_params.delete(:demo_id)
-
     @user.attributes = permitted_params.user if user_params.present?
     @user.claim_code = nil if params[:user].has_key?(:claim_code) && params[:user][:claim_code].blank?
 
@@ -80,7 +79,7 @@ class Admin::UsersController < AdminBaseController
 
 
   def find_user
-    @user = @demo.users.find_by_slug(params[:id])
+    @user = @demo.users.find_by(slug: params[:id])
   end
 
   def ping_if_made_client_admin(user, was_changed)

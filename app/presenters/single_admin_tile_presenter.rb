@@ -31,7 +31,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def partial
-    'client_admin/tiles/manage_tiles/no_cache_single_tile'
+    'client_admin/tiles/manage_tiles/single_tile'
   end
 
   def tile_id
@@ -201,7 +201,6 @@ class SingleAdminTilePresenter < BasePresenter
   def cache_key
     @cache_key ||= [
       self.class,
-      'v2.ant',
       timestamp,
       thumbnail,
       tile_status,

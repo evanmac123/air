@@ -2,7 +2,7 @@ require 'custom_responder'
 class Admin::OrganizationsController < AdminBaseController
   include SalesAcquisitionConcern
 
-  before_filter :find_organization, only: [:edit, :show, :update, :destroy]
+  before_action :find_organization, only: [:edit, :show, :update, :destroy]
 
   def index
     @organizations = Organization.name_order
@@ -57,7 +57,7 @@ class Admin::OrganizationsController < AdminBaseController
   private
 
     def find_organization
-      @organization = Organization.find_by_slug(params[:id])
+      @organization = Organization.find_by(slug: params[:id])
     end
 
     def organization_params

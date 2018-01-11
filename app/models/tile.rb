@@ -1,43 +1,25 @@
 class Tile < ActiveRecord::Base
   include Tile::TileImageable
+  include Tile::TileImageProcessing
+  include Tile::TileQuestionTypes
   include Tile::TileAnswers
   include Tile::TileLinkTracking
   include Attachable
 
-  ACTIVE  = 'active'.freeze
-  ARCHIVE = 'archive'.freeze
-  DRAFT   = 'draft'.freeze
-  USER_DRAFT = 'user_draft'.freeze
-  USER_SUBMITTED   = 'user_submitted'.freeze
-  IGNORED = 'ignored'.freeze
+  ACTIVE  = "active".freeze
+  ARCHIVE = "archive".freeze
+  DRAFT   = "draft".freeze
+  USER_DRAFT = "user_draft".freeze
+  USER_SUBMITTED = "user_submitted".freeze
+  IGNORED = "ignored".freeze
 
   STATUS  = [ACTIVE, ARCHIVE, DRAFT, USER_DRAFT, USER_SUBMITTED, IGNORED].freeze
-  #TODO remove these question type constant declarations if not needed
 
-  # Question Types
-  ACTION = 'Action'.freeze
-  QUIZ   = 'Quiz'.freeze
-  SURVEY = 'Survey'.freeze
-
-  # Question Subtypes
-  TAKE_ACTION           = "Take Action".parameterize("_").freeze
-  READ_TILE             = "Read Tile".parameterize("_").freeze
-  READ_ARTICLE          = "Read Article".parameterize("_").freeze
-  SHARE_ON_SOCIAL_MEDIA = "Share On Social Media".parameterize("_").freeze
-  VISIT_WEB_SITE        = "Visit Web Site".parameterize("_").freeze
-  WATCH_VIDEO           = "Watch Video".parameterize("_").freeze
-  CUSTOM                = "Custom...".parameterize("_").freeze
-  TRUE_FALSE            = "True / False".parameterize("_").freeze
-  MULTIPLE_CHOICE       = "Multiple Choice".parameterize("_").freeze
-  RSVP_TO_EVENT         = "RSVP to event".parameterize("_").freeze
-  INVITE_SPOUSE         = "Invite Spouse".parameterize("_").freeze
-  CHANGE_EMAIL         = "Change Email".parameterize("_").freeze
   MAX_HEADLINE_LEN = 75
   MAX_SUPPORTING_CONTENT_LEN = 700
   IMAGE_UPLOAD = "image-upload"
   IMAGE_SEARCH = "image-search"
   VIDEO_UPLOAD = "video-upload"
-  MAX_REMOTE_MEDIA_URL_LENGTH = 2000
 
   acts_as_taggable_on :channels
 
@@ -45,12 +27,12 @@ class Tile < ActiveRecord::Base
   as_enum :creation_source, client_admin_created: 0, explore_created: 1, suggestion_box_created: 2
 
   belongs_to :demo
-  belongs_to :creator, class_name: 'User'
-  belongs_to :original_creator, class_name: 'User'
+  belongs_to :creator, class_name: "User"
+  belongs_to :original_creator, class_name: "User"
 
   has_one :organization, through: :demo
 
-  has_many :tile_completions, :dependent => :nullify
+  has_many :tile_completions, dependent: :nullify
   has_many :tile_viewings, dependent: :nullify
   has_many :tile_taggings, dependent: :nullify
   has_many :user_tile_likes, dependent: :nullify
@@ -58,9 +40,9 @@ class Tile < ActiveRecord::Base
   has_many :tiles_digests, through: :tiles_digest_tiles
   has_many :tile_user_notifications
 
-  has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: 'GuestUser'
+  has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: "GuestUser"
   has_many :completed_tiles, source: :tile, through: :tile_completions
-  has_many :user_viewers, through: :tile_viewings, source: :user, source_type: 'User'
+  has_many :user_viewers, through: :tile_viewings, source: :user, source_type: "User"
 
   has_alphabetical_column :headline
 
@@ -70,14 +52,12 @@ class Tile < ActiveRecord::Base
 
   before_create :set_on_first_position
   before_save :update_timestamps, if: :status_changed?
-  before_save :handle_suggested_tile_status_change
   before_save :set_image_credit_to_blank_if_default
-  before_save :prep_image_processing, if: :image_changed?
-  after_save :process_image, if: :image_changed?
+  after_save :handle_suggested_tile_status_change
 
-  validates_presence_of :headline, :allow_blank => false, :message => "headline can't be blank",  if: :state_is_anything_but_draft?
-  validates_presence_of :supporting_content, :allow_blank => false, :message => "supporting content can't be blank", if: :state_is_anything_but_draft?
-  validates_presence_of :question, :allow_blank => false, :message => "question can't be blank",  if: :state_is_anything_but_draft?
+  validates_presence_of :headline, allow_blank: false, message: "headline can't be blank",  if: :state_is_anything_but_draft?
+  validates_presence_of :supporting_content, allow_blank: false, message: "supporting content can't be blank", if: :state_is_anything_but_draft?
+  validates_presence_of :question, allow_blank: false, message: "question can't be blank",  if: :state_is_anything_but_draft?
   validates_presence_of :remote_media_url, message: "image is missing" , if: :state_is_anything_but_draft?
   validate :multiple_choice_question_answer_selected, if: :state_is_anything_but_draft?
   validates_inclusion_of :status, in: STATUS
@@ -91,15 +71,12 @@ class Tile < ActiveRecord::Base
 
   before_post_process :no_post_process_on_copy
 
-  scope :after_start_time, -> { where("start_time < ? OR start_time IS NULL", Time.current) }
-  scope :before_end_time, -> { where("end_time > ? OR end_time IS NULL", Time.current) }
-  scope :after_start_time_and_before_end_time, -> { after_start_time.before_end_time }
 
   #FIXME suggested and status are not the same thing!
 
   scope :suggested, -> do
-    where{ (status == USER_SUBMITTED) | (status == IGNORED) }
-      .order{ status.desc } # first submitted then ignored
+    where { (status == USER_SUBMITTED) | (status == IGNORED) }
+      .order { status.desc } # first submitted then ignored
       .ordered_by_position
   end
   scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
@@ -126,6 +103,18 @@ class Tile < ActiveRecord::Base
     }
 
     serializable_hash.merge(extra_data)
+  end
+
+  def remote_media_url
+    if has_video?
+      ActionController::Base.helpers.asset_path("video.png")
+    else
+      super
+    end
+  end
+
+  def has_video?
+    embed_video.present?
   end
 
   def should_reindex?
@@ -177,12 +166,11 @@ class Tile < ActiveRecord::Base
         self.activated_at = Time.current
       end
     when ARCHIVE then
-      self.archived_at  = Time.current
+      self.archived_at = Time.current
     end
-
   end
 
-  def update_status params
+  def update_status(params)
     handle_unarchived(params["status"], params["redigest"])
 
     self.status = params["status"]
@@ -202,8 +190,8 @@ class Tile < ActiveRecord::Base
     status == Tile::ARCHIVE
   end
 
-  def handle_unarchived new_status, redigest
-    if status == ARCHIVE && new_status == ACTIVE && redigest=="true"
+  def handle_unarchived(new_status, redigest)
+    if status == ARCHIVE && new_status == ACTIVE && redigest == "true"
       allow_activated_at_reset
     end
   end
@@ -212,11 +200,11 @@ class Tile < ActiveRecord::Base
     headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content_raw_text.length <= MAX_SUPPORTING_CONTENT_LEN && has_correct_answer_selected? && has_unique_answers? && has_required_number_of_answers?
   end
 
-  def points= p
+  def points=(p)
     write_attribute(:points, p.to_i)
   end
 
-  def image_credit= text
+  def image_credit=(text)
     write_attribute(:image_credit, text.try(:strip))
   end
 
@@ -229,7 +217,7 @@ class Tile < ActiveRecord::Base
   end
 
   def question_config
-    if(question_type && question_subtype)
+    if (question_type && question_subtype)
       {
         type: normalized_question_type,
         subtype: question_subtype,
@@ -292,7 +280,7 @@ class Tile < ActiveRecord::Base
     Tile.where(demo: self.demo, status: self.status).maximum(:position).to_i + 1
   end
 
-  def viewed_by user
+  def viewed_by(user)
     TileViewing.add(self, user) if user
   end
 
@@ -300,7 +288,7 @@ class Tile < ActiveRecord::Base
     if related_features.present?
       tile_features = TileFeature.where(id: related_features.pluck(:id))
     else
-      tile_features = TileFeature.scoped
+      tile_features = TileFeature.all
     end
 
     tile_features.active.flat_map(&:tile_ids).compact
@@ -316,15 +304,16 @@ class Tile < ActiveRecord::Base
     DisplayCategorizedTiles.new(user, maximum_tiles).displayable_categorized_tiles
   end
 
-  def self.satisfiable_to_user(user, curr_demo=nil)
+  def self.satisfiable_to_user(user, curr_demo = nil)
     board = curr_demo || user.demo.id
-    tiles_due_in_demo = after_start_time_and_before_end_time.where(demo_id: board, status: ACTIVE)
-    ids_completed = user.tile_completions.map(&:tile_id)
-    satisfiable_tiles = tiles_due_in_demo.reject {|t| ids_completed.include? t.id}
+
+    ids_completed = user.tile_completions.pluck(:tile_id)
+
+    satisfiable_tiles = Tile.active.where(demo_id: board).reject { |t| ids_completed.include? t.id }
     satisfiable_tiles.sort_by(&:position).reverse
   end
 
-  def self.next_manage_tile tile, offset, carousel = true
+  def self.next_manage_tile(tile, offset, carousel = true)
     tiles = where(status: tile.status, demo: tile.demo).ordered_by_position
     first_tile = carousel ? tiles.first : nil
     tiles[tiles.index(tile) + offset] || first_tile
@@ -334,11 +323,11 @@ class Tile < ActiveRecord::Base
     FindAdditionalTilesForManageSection.new(status_name, presented_ids, tile_demo_id).find
   end
 
-  def self.insert_tile_between left_tile_id, tile_id, right_tile_id, new_status = nil, redigest=false
+  def self.insert_tile_between(left_tile_id, tile_id, right_tile_id, new_status = nil, redigest = false)
     InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status, redigest).insert!
   end
 
-  def self.reorder_explore_page_tiles! tile_ids
+  def self.reorder_explore_page_tiles!(tile_ids)
     ReorderExplorePageTiles.new(tile_ids).reorder
   end
 
@@ -350,7 +339,7 @@ class Tile < ActiveRecord::Base
     self_position = self.position
     Tile.where(demo: self.demo)
       .where(status: self.status)
-      .where{position < self_position}
+      .where("position < ?", self_position)
       .ordered_by_position.first
   end
 
@@ -358,16 +347,8 @@ class Tile < ActiveRecord::Base
     self_position = self.position
     Tile.where(demo: self.demo)
       .where(status: self.status)
-      .where{position > self_position}
+      .where("position > ?", self_position)
       .order("position ASC").first
-  end
-
-  def is_cloned?
-    @cloned || false
-  end
-
-  def is_cloned= val
-    @cloned = val
   end
 
   def prevent_activated_at_reset
@@ -375,7 +356,7 @@ class Tile < ActiveRecord::Base
   end
 
   def allow_activated_at_reset
-   @activated_at_reset_allowed = true
+    @activated_at_reset_allowed = true
   end
 
   def activated_at_reset_allowed?
@@ -404,136 +385,112 @@ class Tile < ActiveRecord::Base
 
   private
 
-  def add_config_options_to_base_signature base
-    base.push "free_response" if allow_free_response
-    base.push "is_anonymous" if  is_anonymous
-    base
-  end
-
-  #TODO run migratio to downcase question type in DB remove this method
-  def normalized_question_type
-    question_type.try(:downcase)
-  end
-
-  def multiple_choice_question_answer_selected
-    unless( has_correct_answer_selected?)
-      errors.add(:base, "Please select correct answer")
+    def add_config_options_to_base_signature(base)
+      base.push "free_response" if allow_free_response
+      base.push "is_anonymous" if  is_anonymous
+      base
     end
-  end
 
-  def has_required_number_of_answers?
-    if multiple_choice_answers.present?
-      if(min_one_answer_required)
-        multiple_choice_answers.length > 0
-      else
-        multiple_choice_answers.length > 1
+    #TODO run migratio to downcase question type in DB remove this method
+    def normalized_question_type
+      question_type.try(:downcase)
+    end
+
+    def multiple_choice_question_answer_selected
+      unless (has_correct_answer_selected?)
+        errors.add(:base, "Please select correct answer")
       end
-    else
-      true
     end
-  end
 
-  def has_unique_answers?
-    if multiple_choice_answers.present?
-      multiple_choice_answers.length == multiple_choice_answers.uniq.length
-    else
-      true
+    def has_required_number_of_answers?
+      if multiple_choice_answers.present?
+        if (min_one_answer_required)
+          multiple_choice_answers.length > 0
+        else
+          multiple_choice_answers.length > 1
+        end
+      else
+        true
+      end
     end
-  end
 
-  def has_correct_answer_selected?
-    if(normalized_question_type == QUIZ.downcase)
-      correct_answer_index != -1
-    else
-      true
+    def has_unique_answers?
+      if multiple_choice_answers.present?
+        multiple_choice_answers.length == multiple_choice_answers.uniq.length
+      else
+        true
+      end
     end
-  end
 
-
-  def image_set_to_blank
-    remote_media_url == ""
-  end
-
-  def remove_images
-    write_attribute(:remote_media_url, nil)
-    image.destroy
-
-    # NOTE this destroy call is for consistency only. Paperclip is configured
-    # with preserve_files: true for thumbnails so that thumbnails are never
-    # deleted #see  TileImageable module for details
-    thumbnail.destroy
-  end
-
-  #FIXME the code around handling update status has gotten quite ugly
-  def already_activated
-    (status == ACTIVE || status==ARCHIVE) && activated_at.present?
-  end
-
-  def never_activated
-    !already_activated
-  end
-
-  def sanitize_supporting_content
-    self.supporting_content = Sanitize.fragment(
-      strip_content,
-      elements: [
-        'ul', 'ol', 'li',
-        'b', 'strong', 'i', 'em', 'u',
-        'span', 'div', 'p',
-        'br', 'a'
-      ],
-      attributes: { 'a' => ['href', 'target'] }
-    ).strip
-  end
-
-  def sanitize_embed_video
-    self.embed_video = Sanitize.fragment(
-      (self.embed_video.try(:strip) || ""),
-      elements: ['iframe'],
-      attributes: { 'iframe' => ['src', 'width', 'height', 'allowfullscreen', 'webkitallowfullscreen', 'mozAllowFullScreen', 'frameborder', 'allowtransparency', 'frameborder', 'scrolling', 'class', 'oallowfullscreen'] }
-    ).strip
-  end
-
-  def strip_content
-    supporting_content.try(:strip) || ""
-  end
-
-
-  def set_image_credit_to_blank_if_default
-    self.image_credit ="" if image_credit == "Add Image Credit"
-  end
-
-  def handle_suggested_tile_status_change
-    if changed.map(&:to_sym).include?(:status)
-      SuggestedTileStatusChangeManager.new(self).process
+    def has_correct_answer_selected?
+      if (normalized_question_type == QUIZ.downcase)
+        correct_answer_index != -1
+      else
+        true
+      end
     end
-  end
 
-  def prep_image_processing
-    validate_remote_media_url if remote_media_url.present?
 
-    if remote_media_url.present?
-      self.thumbnail_processing = true
-      self.image_processing = true
+    def image_set_to_blank
+      remote_media_url == ""
     end
-  end
 
-  def validate_remote_media_url
-    # Prevent remote_media_urls that are too long without preventing the entire tile from saving.
-    if remote_media_url.length > MAX_REMOTE_MEDIA_URL_LENGTH
-      self.remote_media_url = nil
+    def remove_images
+      write_attribute(:remote_media_url, nil)
+      image.destroy
+
+      # NOTE this destroy call is for consistency only. Paperclip is configured
+      # with preserve_files: true for thumbnails so that thumbnails are never
+      # deleted #see  TileImageable module for details
+      thumbnail.destroy
     end
-  end
 
-  def process_image
-    ImageProcessJob.new(id, image_from_library).perform unless is_cloned?
-  end
+    #FIXME the code around handling update status has gotten quite ugly
+    def already_activated
+      (status == ACTIVE || status == ARCHIVE) && activated_at.present?
+    end
 
-  def image_changed?
-    changes.keys.include? "remote_media_url"
-  end
+    def never_activated
+      !already_activated
+    end
 
-  def min_one_answer_required
-    normalized_question_type == ACTION.downcase || ["free_response","custom_form"].include?(question_subtype)
-  end
+    def sanitize_supporting_content
+      self.supporting_content = Sanitize.fragment(
+        strip_content,
+        elements: [
+          "ul", "ol", "li",
+          "b", "strong", "i", "em", "u",
+          "span", "div", "p",
+          "br", "a"
+        ],
+        attributes: { "a" => ["href", "target"] }
+      ).strip
+    end
+
+    def sanitize_embed_video
+      self.embed_video = Sanitize.fragment(
+        (self.embed_video.try(:strip) || ""),
+        elements: ["iframe"],
+        attributes: { "iframe" => ["src", "width", "height", "allowfullscreen", "webkitallowfullscreen", "mozAllowFullScreen", "frameborder", "allowtransparency", "frameborder", "scrolling", "class", "oallowfullscreen"] }
+      ).strip
+    end
+
+    def strip_content
+      supporting_content.try(:strip) || ""
+    end
+
+
+    def set_image_credit_to_blank_if_default
+      self.image_credit = "" if image_credit == "Add Image Credit"
+    end
+
+    def handle_suggested_tile_status_change
+      if suggestion_box_created? && changes.include?(:status)
+        SuggestedTileStatusChangeManager.new(self).process
+      end
+    end
+
+    def min_one_answer_required
+      normalized_question_type == ACTION.downcase || ["free_response", "custom_form"].include?(question_subtype)
+    end
 end

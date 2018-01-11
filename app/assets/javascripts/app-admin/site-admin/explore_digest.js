@@ -67,7 +67,7 @@ Airbo.ExploreDigest = (function(){
     });
 
     $("#update_explore_digest").on("click", function(e) {
-      routeForm($(this), "PUT");
+      routeForm($(this), "PATCH");
     });
   }
 

@@ -1,10 +1,10 @@
 require 'acceptance/acceptance_helper'
 
 feature "Changes email via tile", js: true do
-  let(:demo) {FactoryGirl.create :demo}
-  let!(:next_tile){FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE, demo: demo, headline: "next tile")}
+  let(:demo) {FactoryBot.create :demo}
+  let!(:next_tile){FactoryBot.create(:multiple_choice_tile, status: Tile::ACTIVE, demo: demo, headline: "next tile")}
   let!(:tile) do
-    FactoryGirl.create(:multiple_choice_tile, status: Tile::ACTIVE,
+    FactoryBot.create(:multiple_choice_tile, status: Tile::ACTIVE,
                        demo: demo,
                        question_type: Tile::SURVEY,
                        question_subtype: Tile::CHANGE_EMAIL,
@@ -14,7 +14,7 @@ feature "Changes email via tile", js: true do
                        headline: "email tile"
                       )
   end
-  let(:user) {FactoryGirl.create :user, demo: demo, email: "old@email.com"}
+  let(:user) {FactoryBot.create :user, demo: demo, email: "old@email.com"}
 
   scenario "user should complete form for changing email" do
     visit tiles_path(as: user)

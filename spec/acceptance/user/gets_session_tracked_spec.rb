@@ -1,8 +1,8 @@
 require 'acceptance/acceptance_helper'
-# FIXME: NICK to HERBY Revisit after Mixpanel audit.  Moving to controller specs was too involved. Instead, turned off delayed jobs and removed 
+# FIXME: NICK to HERBY Revisit after Mixpanel audit.  Moving to controller specs was too involved. Instead, turned off delayed jobs and removed
 feature "activity session tracking" do
   before do
-    user = FactoryGirl.create(:user, email: 'fred@foobar.com')
+    user = FactoryBot.create(:user, email: 'fred@foobar.com')
     user.password = user.password_confirmation = "foobar"
     user.save!
     Timecop.freeze
@@ -15,8 +15,6 @@ feature "activity session tracking" do
   let (:threshold) {ApplicationController::ACTIVITY_SESSION_THRESHOLD}
 
   def do_real_login
-    Delayed::Worker.delay_jobs = false
-
     visit new_session_path
     fill_in "session[email]", with: "fred@foobar.com"
     fill_in "session[password]", with: "foobar"

@@ -52,7 +52,7 @@ module TileManagerHelpers
 
     params.each do |section, number|
       (1..number).to_a.map do |i|
-        FactoryGirl.create(
+        FactoryBot.create(
           :multiple_choice_tile,
           section.to_sym,
           demo: demo,

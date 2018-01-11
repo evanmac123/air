@@ -5,11 +5,11 @@ feature 'Board Welcome Modal for guest users' do
     "Already a user? Sign in."
   end
 
-  let (:board) { FactoryGirl.create(:demo, :with_public_slug) }
+  let (:board) { FactoryBot.create(:demo, :with_public_slug) }
 
   context 'When a guest in a board with active tiles', js: true do
     before do
-      FactoryGirl.create(:tile, status: Tile::ACTIVE, demo: board)
+      FactoryBot.create(:tile, status: Tile::ACTIVE, demo: board)
       visit public_board_path(board.public_slug)
     end
 

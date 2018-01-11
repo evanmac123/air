@@ -1,10 +1,10 @@
 require 'acceptance/acceptance_helper'
 
 feature 'can go to different boards' do
-  let (:board_1) { FactoryGirl.create(:demo, :with_public_slug) }
-  let (:board_2) { FactoryGirl.create(:demo, :with_public_slug) }
-  let! (:tile_1)  { FactoryGirl.create(:multiple_choice_tile, demo: board_1, headline: "You are in board 1", status: Tile::ACTIVE) }
-  let! (:tile_2)  { FactoryGirl.create(:multiple_choice_tile, demo: board_2, headline: "You are in board 2", status: Tile::ACTIVE) }
+  let (:board_1) { FactoryBot.create(:demo, :with_public_slug) }
+  let (:board_2) { FactoryBot.create(:demo, :with_public_slug) }
+  let! (:tile_1)  { FactoryBot.create(:multiple_choice_tile, demo: board_1, headline: "You are in board 1", status: Tile::ACTIVE) }
+  let! (:tile_2)  { FactoryBot.create(:multiple_choice_tile, demo: board_2, headline: "You are in board 2", status: Tile::ACTIVE) }
 
   it "should leave them in the last board they visited" do
     visit public_board_path(board_1.public_slug)

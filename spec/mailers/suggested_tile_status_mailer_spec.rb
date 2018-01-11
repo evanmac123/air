@@ -2,13 +2,13 @@ require "spec_helper"
 include ClientAdmin::TilesHelper
 
 describe SuggestedTileStatusMailer do
-  let(:user) { FactoryGirl.create(:claimed_user) }
-  let(:demo) { FactoryGirl.create :demo }
-  let(:tile) { FactoryGirl.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, original_creator: user }
+  let(:user) { FactoryBot.create(:claimed_user) }
+  let(:demo) { FactoryBot.create :demo }
+  let(:tile) { FactoryBot.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, original_creator: user }
 
   describe "#notify" do
     describe "when tile is accepted" do
-      let(:mail) { SuggestedTileStatusMailer.notify(message_type: :accepted, user: user, tile: tile) }
+      let(:mail) { SuggestedTileStatusMailer.notify_accepted(user: user, tile: tile) }
 
       it 'renders the subject' do
         expect(mail.subject).to eql(SuggestedTileStatusMailer::ACCEPTED_SUBJECT)
@@ -20,7 +20,7 @@ describe SuggestedTileStatusMailer do
     end
 
     describe "when tile is posted" do
-      let(:mail) { SuggestedTileStatusMailer.notify(message_type: :posted, user: user, tile: tile) }
+      let(:mail) { SuggestedTileStatusMailer.notify_posted(user: user, tile: tile) }
 
       it 'renders the subject' do
         expect(mail.subject).to eql(SuggestedTileStatusMailer::POSTED_SUBJECT)

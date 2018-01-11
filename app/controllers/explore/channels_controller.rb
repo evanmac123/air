@@ -32,6 +32,6 @@ class Explore::ChannelsController < ExploreBaseController
     end
 
     def find_channel
-      Channel.find_by_id(params[:id].to_i) || virtual_channel
+      Channel.find_by(id: params[:id].to_i) || virtual_channel
     end
 end

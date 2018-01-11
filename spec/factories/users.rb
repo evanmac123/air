@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :unnamed_user, :class => User do
     association(:demo)
     association :user_intro

@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 describe TileUserTargeter do
-  let(:demo) { FactoryGirl.create(:demo) }
+  let(:demo) { FactoryBot.create(:demo) }
 
-  let(:user_1) { FactoryGirl.create(:user, email: "user_1@airbo.com", name: "user 1", demo: demo) }
-  let(:user_2) { FactoryGirl.create(:user, email: "user_2@airbo.com", name: "user 2", demo: demo) }
-  let(:user_3) { FactoryGirl.create(:user, email: "user_3@airbo.com", name: "user 3", demo: demo) }
-  let(:user_4) { FactoryGirl.create(:user, email: "user_4@airbo.com", name: "user 4", demo: demo) }
-  let(:user_5) { FactoryGirl.create(:user, email: "user_5@airbo.com", name: "user 5", demo: demo) }
-  let(:user_6) { FactoryGirl.create(:user, email: "user_6@airbo.com", name: "user 6", demo: demo) }
-  let(:user_7) { FactoryGirl.create(:user, email: "user_7@airbo.com", name: "user 7", demo: demo) }
+  let(:user_1) { FactoryBot.create(:user, email: "user_1@airbo.com", name: "user 1", demo: demo) }
+  let(:user_2) { FactoryBot.create(:user, email: "user_2@airbo.com", name: "user 2", demo: demo) }
+  let(:user_3) { FactoryBot.create(:user, email: "user_3@airbo.com", name: "user 3", demo: demo) }
+  let(:user_4) { FactoryBot.create(:user, email: "user_4@airbo.com", name: "user 4", demo: demo) }
+  let(:user_5) { FactoryBot.create(:user, email: "user_5@airbo.com", name: "user 5", demo: demo) }
+  let(:user_6) { FactoryBot.create(:user, email: "user_6@airbo.com", name: "user 6", demo: demo) }
+  let(:user_7) { FactoryBot.create(:user, email: "user_7@airbo.com", name: "user 7", demo: demo) }
 
-  let(:tile) { FactoryGirl.create(:tile, multiple_choice_answers: ["a", "b", "c"], correct_answer_index: 0, demo: demo) }
+  let(:tile) { FactoryBot.create(:tile, multiple_choice_answers: ["a", "b", "c"], correct_answer_index: 0, demo: demo) }
 
   before do
     Timecop.freeze(Time.local(1990))
@@ -142,54 +142,13 @@ describe TileUserTargeter do
     end
 
     describe "#targetable_users" do
-      describe "when the tile has a tiles_digest and the tiles_digest does not include unclaimed users" do
-        it "calls #targetable_users_all" do
-          tiles_digest = demo.tiles_digests.create(include_unclaimed_users: false)
-          tiles_digest.tiles << tile
-
-          rule = { scope: :answered, answer_idx: 0 }
-          tile_user_targeter = TileUserTargeter.new(tile: tile, rule: rule)
-
-          tile_user_targeter.expects(:targetable_users_all).once
-
-          tile_user_targeter.send(:targetable_users)
-        end
-      end
-
-      describe "when the tile does not have a tiles digest" do
-        it "calls #targetable_users_all" do
-          rule = { scope: :answered, answer_idx: 0 }
-          tile_user_targeter = TileUserTargeter.new(tile: tile, rule: rule)
-
-          tile_user_targeter.expects(:targetable_users_all).once
-
-          tile_user_targeter.send(:targetable_users)
-        end
-      end
-
-      describe "when the tile has a tiles digest that includes unclaimed users" do
-        it "calls #targetable_users_all" do
-          tiles_digest = demo.tiles_digests.create(include_unclaimed_users: true)
-          tiles_digest.tiles << tile
-
-          rule = { scope: :answered, answer_idx: 0 }
-          tile_user_targeter = TileUserTargeter.new(tile: tile, rule: rule)
-
-          tile_user_targeter.expects(:targetable_users_all).once
-
-          tile_user_targeter.send(:targetable_users)
-        end
-      end
-    end
-
-    describe "#targetable_users_all" do
       it "returns all the users that have access to the tile" do
         rule = { scope: :answered, answer_idx: 0 }
         tile_user_targeter = TileUserTargeter.new(tile: tile, rule: rule)
 
-        tageted_users = tile_user_targeter.send(:targetable_users_all)
+        targeted_users = tile_user_targeter.send(:targetable_users)
 
-        expect(tageted_users.pluck(:email).sort).to eq(@users.map(&:email).sort)
+        expect(targeted_users.pluck(:email).sort).to eq(@users.map(&:email).sort)
       end
     end
   end

@@ -19,7 +19,7 @@
   <br>
   <div id="winner-target"></div>
   <%= form_tag admin_demo_gold_coin_reset_path(@demo) do %>
-    <%= submit_tag "Clear all tickets", :confirm => "Really clear out tickets for all users in this demo?", class: "button primary" %>
+    <%= submit_tag "Clear all tickets", data: { confirm: "Really clear out tickets for all users in this demo?" }, class: "button primary" %>
   <% end %>
   <% content_for :javascript do %>
     <script>

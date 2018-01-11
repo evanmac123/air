@@ -17,10 +17,10 @@ feature 'Submits payment information' do
   VALID_COMPANY          = "American Excess"
 
   VALID_STRIPE_CARD_PARAMETERS  = {
-    number:      VALID_CC_NUMBER, 
-    exp_month:   VALID_EXPIRATION_MONTH, 
-    exp_year:    VALID_EXPIRATION_YEAR, 
-    cvc:         VALID_CVC, 
+    number:      VALID_CC_NUMBER,
+    exp_month:   VALID_EXPIRATION_MONTH,
+    exp_year:    VALID_EXPIRATION_YEAR,
+    cvc:         VALID_CVC,
     address_zip: VALID_ZIP
   }
 
@@ -58,8 +58,8 @@ feature 'Submits payment information' do
 
   def expect_stripe_called_with_happy_path_parameters
     expect(Stripe::Customer).to have_received(:create).with(
-      card:  VALID_STRIPE_CARD_PARAMETERS, 
-      email: @client_admin.email, 
+      card:  VALID_STRIPE_CARD_PARAMETERS,
+      email: @client_admin.email,
       description: "#{@client_admin.name} (#{@client_admin.email})"
     )
   end
@@ -93,7 +93,7 @@ feature 'Submits payment information' do
 
     Stripe::Customer.stubs(:create).returns(@dummy_customer)
 
-    @client_admin = FactoryGirl.create(:client_admin, name: "Joey Bananas", email: "joey@example.com")
+    @client_admin = FactoryBot.create(:client_admin, name: "Joey Bananas", email: "joey@example.com")
     visit client_admin_billing_information_path(as: @client_admin)
   end
 
@@ -121,7 +121,7 @@ feature 'Submits payment information' do
 
     expect_stripe_called_with_happy_path_parameters
   end
-  
+
   scenario "normalizes the month and year in a short format", js: true do
     fill_in_valid_cc_entries
     fill_in expiration_field, with: "219"
@@ -140,10 +140,8 @@ feature 'Submits payment information' do
 
   scenario 'and triggers an email to us', js: true do
     submit_valid_cc_entries
-    
-
-    open_email(BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS)
-    expect(current_email).to have_body_text("Joey Bananas (joey@example.com) submitted payment information to Stripe for the #{@client_admin.demo.name} (#{@client_admin.demo_id})")
+    email = ActionMailer::Base.deliveries.first
+    expect(email).to have_body_text("Joey Bananas (joey@example.com) submitted payment information to Stripe for the #{@client_admin.demo.name} (#{@client_admin.demo_id})")
   end
 
   scenario 'sees a link back to the tiles page', js: true do
