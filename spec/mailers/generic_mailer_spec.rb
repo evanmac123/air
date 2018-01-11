@@ -9,7 +9,7 @@ describe GenericMailer do
   describe "#send_message" do
     it "should send a message" do
       @user = FactoryBot.create :user
-      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
+      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver_later
 
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       expect(mail.subject).to eq("Here is the subject")
@@ -25,7 +25,7 @@ describe GenericMailer do
 
     it "should have an unsubscribe footer" do
       @user = FactoryBot.create :user
-      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
+      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver_later
 
       expect(mail.to).to eq([@user.email])
       expect(mail.body.to_s).to_not include("Please do not forward it to others")
@@ -33,7 +33,7 @@ describe GenericMailer do
 
     it "should be able to interpolate invitation URLs" do
       @user = FactoryBot.create :user
-      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text, and you should go to [invitation_url]", "<p>This is some HTML. Go to [invitation_url]</p>").deliver
+      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text, and you should go to [invitation_url]", "<p>This is some HTML. Go to [invitation_url]</p>").deliver_later
 
       plain_body = mail.body.parts[0]
       html_body = mail.body.parts[1]
@@ -46,7 +46,7 @@ describe GenericMailer do
       it "should be able to interpolate tile-digest style URLs" do
         claimed_user = FactoryBot.create :user, :claimed
 
-        mail = GenericMailer.send_message(demo.id, claimed_user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]").deliver
+        mail = GenericMailer.send_message(demo.id, claimed_user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]").deliver_later
 
         html_body = mail.body.parts[1]
 
@@ -58,7 +58,7 @@ describe GenericMailer do
       it "should be able to interpolate tile-digest style URLs" do
         unclaimed_user = FactoryBot.create :user
 
-        mail = GenericMailer.send_message(demo.id, unclaimed_user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]").deliver
+        mail = GenericMailer.send_message(demo.id, unclaimed_user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]").deliver_later
 
         html_body = mail.body.parts[1]
 
@@ -71,7 +71,7 @@ describe GenericMailer do
         @demo = FactoryBot.create :demo, :email => "someco@playhengage.com"
         @user = FactoryBot.create :user, :demo => @demo
 
-        mail = GenericMailer.send_message(@demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver
+        mail = GenericMailer.send_message(@demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver_later
 
         expect(mail.from).to eq(["someco@playhengage.com"])
       end
