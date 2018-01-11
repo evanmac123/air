@@ -3,7 +3,7 @@ class TilesDigest < ActiveRecord::Base
 
   include TilesDigestConcern
 
-  belongs_to :sender, class_name: 'User'
+  belongs_to :sender, class_name: "User"
   belongs_to :demo
 
   validates_presence_of :demo
@@ -167,19 +167,19 @@ class TilesDigest < ActiveRecord::Base
 
   def tile_completion_rate
     if eligible_tile_action_count > 0
-      tile_completions_from_recipients.where(tile_completions: { created_at: sent_at..reporting_cutoff_for_tile_action}).count / eligible_tile_action_count
+      tile_completions_from_recipients.where(tile_completions: { created_at: sent_at..reporting_cutoff_for_tile_action }).count / eligible_tile_action_count
     end
   end
 
   def tile_view_rate
     if eligible_tile_action_count > 0
-      tile_viewings_from_recipients.where(tile_viewings: { created_at: sent_at..reporting_cutoff_for_tile_action}).count / eligible_tile_action_count
+      tile_viewings_from_recipients.where(tile_viewings: { created_at: sent_at..reporting_cutoff_for_tile_action }).count / eligible_tile_action_count
     end
   end
 
   def active_user_rate
     if recipient_count.to_i > 0
-      tile_completions_from_recipients.where(tile_completions: { created_at: sent_at..reporting_cutoff_for_tile_action}).pluck(tile_completions: :user_id).uniq.count / recipient_count.to_f
+      tile_completions_from_recipients.where(tile_completions: { created_at: sent_at..reporting_cutoff_for_tile_action }).pluck(:user_id).uniq.count / recipient_count.to_f
     end
   end
 
@@ -193,10 +193,14 @@ class TilesDigest < ActiveRecord::Base
 
   def reporting_cutoff_for_tile_action
     if follow_up_digest_email.present?
-      (follow_up_digest_email.send_on + 5.days).end_of_day
+      (follow_up_digest_email.send_on + reporting_buffer_period).end_of_day
     else
-      (sent_at + 5.days).end_of_day
+      (sent_at + reporting_buffer_period).end_of_day
     end
+  end
+
+  def reporting_buffer_period
+    5.days
   end
 
   def resolve_subject(idx)
@@ -226,7 +230,7 @@ class TilesDigest < ActiveRecord::Base
     end
 
     def set_default_subject
-      if subject.nil?
+      if subject.blank?
         self.subject = DEFAULT_DIGEST_SUBJECT
       end
     end
