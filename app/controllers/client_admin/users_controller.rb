@@ -100,7 +100,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
     @next_page_url = client_admin_users_path(params.merge(offset: @offset + PAGE_SIZE))
     @previous_page_url = client_admin_users_path(params.merge(offset: @offset - PAGE_SIZE))
-    render "browse"
+    render :browse
   end
 
   def render_main_index_page
