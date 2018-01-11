@@ -74,7 +74,7 @@ gem 'jquery-fileupload-rails', '~> 0.4.5'
 ###
 
 ### DO NOT USE. We are just maintaining compatibility with current features until with remove the dependency (just tile stats modal). No support for Rails 5
-gem 'airbo_wice_grid', git: 'https://github.com/theairbo/wice_grid', branch: 'rails_4_2_10'
+gem 'wice_grid', git: 'https://github.com/theairbo/wice_grid', branch: 'rails_4_2_10'
 ###
 
 ### Plan to Remove

@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/theairbo/wice_grid
-  revision: 616b66a413c30b9c0d08f1b54a3c6f82fbc59bca
+  revision: 2f12d66e8a974d7eeae0fc782074db6a6e5c877c
   branch: rails_4_2_10
   specs:
-    airbo_wice_grid (4.2.10)
+    wice_grid (4.2.10)
       kaminari (~> 1.1.1)
 
 GEM
@@ -717,7 +717,6 @@ DEPENDENCIES
   acts-as-taggable-on (~> 3.5.0)
   acts_as_singleton (~> 0.0.8)
   addressable (~> 2.5.2)
-  airbo_wice_grid!
   airbrake (~> 5.4)
   awesome_print
   aws-sdk-s3 (~> 1)
@@ -811,6 +810,7 @@ DEPENDENCIES
   unicorn (~> 5.3.1)
   web-console (~> 2.0)
   webpacker (~> 3.0)
+  wice_grid!
 
 RUBY VERSION
    ruby 2.3.5p376
