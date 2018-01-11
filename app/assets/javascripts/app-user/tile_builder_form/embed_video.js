@@ -4,7 +4,6 @@ Airbo.EmbedVideo = (function() {
 
   function addVideo(embedCode) {
     $(".video_frame_block").html(embedCode);
-    $("#remote_media_url").val("/assets/video.png");
     $("#media_source").val("video-upload");
     timer = waitForVideoLoad();
     $(".video_frame_block iframe").on("load", function(event) {

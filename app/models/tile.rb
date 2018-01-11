@@ -106,11 +106,15 @@ class Tile < ActiveRecord::Base
   end
 
   def remote_media_url
-    if media_source == VIDEO_UPLOAD
+    if has_video?
       ActionController::Base.helpers.asset_path("video.png")
     else
       super
     end
+  end
+
+  def has_video?
+    embed_video.present?
   end
 
   def should_reindex?
