@@ -31,7 +31,7 @@ gem 'activerecord-collection_cache_key', '~> 0.1.3'
 
 gem 'stripe', '~> 3.9.0'
 gem 'font-awesome-rails', '>= 4.7'
-gem 'kaminari', '~> 0.16'
+gem 'kaminari', '~> 1.1.1'
 gem 'browser', '~> 2.5.0'
 gem 'counter_culture', '~> 1.9.0'
 gem 'sanitize', '~> 4.5.0'
@@ -73,8 +73,8 @@ gem 'jquery-validation-rails', '~> 1.16.0'
 gem 'jquery-fileupload-rails', '~> 0.4.5'
 ###
 
-### No support for Rails 5
-gem 'wice_grid', git: 'https://github.com/theairbo/wice_grid', branch: 'rails3'
+### DO NOT USE. We are just maintaining compatibility with current features until with remove the dependency (just tile stats modal). No support for Rails 5
+gem 'airbo_wice_grid', git: 'https://github.com/theairbo/wice_grid', branch: 'rails_4_2_10'
 ###
 
 ### Plan to Remove
