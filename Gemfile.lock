@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/theairbo/wice_grid
-  revision: a3795c4953d325ec11229cc8127058803df4f145
-  branch: rails3
+  revision: 2f12d66e8a974d7eeae0fc782074db6a6e5c877c
+  branch: rails_4_2_10
   specs:
-    wice_grid (3.5.0)
-      kaminari (~> 0.16)
+    wice_grid (4.2.10)
+      kaminari (~> 1.1.1)
 
 GEM
   remote: https://www.rubygems.org/
@@ -416,9 +416,18 @@ GEM
     jquery-validation-rails (1.16.0)
     json (1.8.6)
     jwt (1.5.1)
-    kaminari (0.17.0)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
+    kaminari (1.1.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
+      actionview
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
+      activerecord
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     kgio (2.11.0)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -753,7 +762,7 @@ DEPENDENCIES
   jquery-fileupload-rails (~> 0.4.5)
   jquery-rails (~> 4.3.1)
   jquery-validation-rails (~> 1.16.0)
-  kaminari (~> 0.16)
+  kaminari (~> 1.1.1)
   letter_opener
   mixpanel (~> 4.1.1)
   mixpanel_client (~> 4.1.6)

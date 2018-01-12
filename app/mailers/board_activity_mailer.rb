@@ -4,8 +4,8 @@ class BoardActivityMailer < BaseTilesDigestMailer
 
   default reply_to: 'support@airbo.com'
 
-  def notify(demo_id, user_id, tile_ids, beg_date, end_date)
-    @user  = User.find(user_id)
+  def notify(demo_id, user, tile_ids, beg_date, end_date)
+    @user  = user
 
     @beg_date = beg_date
     @end_date = end_date

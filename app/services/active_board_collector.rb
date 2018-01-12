@@ -21,7 +21,7 @@ class ActiveBoardCollector
 
   def send_for_admin(active_board)
     active_board.admins.each do |admin|
-      BoardActivityMailer.notify(active_board.board, admin, active_board.tiles, @beg_date, @end_date).deliver
+      BoardActivityMailer.notify(active_board.board, admin, active_board.tiles, @beg_date, @end_date).deliver_now
     end
   end
 
@@ -33,7 +33,7 @@ class ActiveBoardCollector
   def collect
     obj = Struct.new(:board, :admins, :tiles )
     @active_boards = []
-    @board_admins.each do |board, admins| 
+    @board_admins.each do |board, admins|
       tile_collector =ActiveTileCollector.new(board, @beg_date, @end_date)
       tiles = tile_collector.collect
       @active_boards.push obj.new(board,admins,tiles ) if tiles.any?
@@ -47,11 +47,11 @@ class ActiveBoardCollector
     period_start = opts[:beg_date]
     period_end = opts[:end_date]
 
-    if period_start && period_end && period_start.is_a?(Time) && 
+    if period_start && period_end && period_start.is_a?(Time) &&
         period_end.is_a?(Time) && period_start < period_end
 
-      @beg_date = period_start 
-      @end_date = period_end 
+      @beg_date = period_start
+      @end_date = period_end
     else
       #NOTE Default to last week
       @beg_date = Date.current.beginning_of_week(:sunday).prev_week(:sunday).at_midnight
@@ -61,7 +61,7 @@ class ActiveBoardCollector
 
   def map_admins_to_boards
     @board_admins = Hash.new{|h,k|h[k]=[]}
-    @admin_board_memberships.each do |mem| 
+    @admin_board_memberships.each do |mem|
       @board_admins[mem.demo].push(mem.user)
     end
   end
@@ -82,5 +82,3 @@ class ActiveBoardCollector
     )	end
 
 end
-
-
