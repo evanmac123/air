@@ -97,7 +97,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
       @show_previous_link = @offset > 0
       @show_next_link = @offset + PAGE_SIZE < current_user.demo.users.count
-      binding.pry
+
       @next_page_url = client_admin_users_path(show_everyone: params[:show_everyone], offset: @offset + PAGE_SIZE)
       @previous_page_url = client_admin_users_path(show_everyone: params[:show_everyone], offset: @offset - PAGE_SIZE)
       render :browse
