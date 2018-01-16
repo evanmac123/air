@@ -75,8 +75,8 @@ Airbo.DirectToS3FileUploader = (function() {
           Airbo.PubSub.publish(eventPrefix + "stop", data);
         })
         .on("fileuploadfail", function(e, data) {
-          var error = "Image upload failed, please try again.";
           console.log(data);
+          alert("Image upload failed, please try again.");
         });
     });
   }
