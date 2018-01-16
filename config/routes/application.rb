@@ -60,6 +60,7 @@ get "demo_link" => "pages#demo_link", as: "demo_link"
 get "terms" => "pages#terms", as: "terms"
 get "privacy" => "pages#privacy", as: "privacy"
 get "pages/fujifilm" => "pages#fujifilm"
+get "pages/employee_engagement_content_calendar" => "pages#employee_engagement_content_calendar"
 
 resources :boards, only: [:new, :create, :update]
 resources :copy_boards, only: [:create]
