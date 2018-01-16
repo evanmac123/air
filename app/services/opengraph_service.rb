@@ -10,8 +10,12 @@ class OpengraphService
       end
     end
 
-    def default_image
-      ActionController::Base.helpers.asset_path("marketing_site/airbo-marketing-open-graph.png")
+    def image(image_path)
+      if image_path.present?
+        image_path
+      else
+        ActionController::Base.helpers.asset_path("marketing_site/airbo-marketing-open-graph.png")
+      end
     end
 
     def title(custom_title)
@@ -22,8 +26,12 @@ class OpengraphService
       end
     end
 
-    def default_description
-      "Airbo is a simple micro site that's used by HR to drive employee education, appreciation, and participation."
+    def description(description)
+      if description.present?
+        description
+      else
+        "Airbo is a simple micro site that's used by HR to drive employee education, appreciation, and participation."
+      end
     end
   end
 end

@@ -1,17 +1,11 @@
-<%= content_for :head do %>
-  <title>Employee Engagement Content Calendar Template for HR Professionals</title>
-  <meta property="og:image" content="<%= pages_employee_engagement_content_calendar_url %> Employee-Engagement-Content-Calendar-Airbo-OG-Image.png"/>
-  <meta property="og:title" content="Employee Engagement Content Calendar Template for HR Professionals"/>
-  <meta property="og:description" content="Get a free, step-by-step guide to plan out your employee messaging for the entire year so it aligns with your HR goals."/>
-  <meta property="og:type" content="article"/>
-  <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="Airbo"/>
+<% content_for :page_title, "Employee Engagement Content Calendar Template for HR Professionals" %>
+<% content_for :og_description, "Get a free, step-by-step guide to plan out your employee messaging for the entire year so it aligns with your HR goals." %>
+<% content_for :og_image, image_path('marketing_site/content-calendar.png') %>
+
+<% content_for :head do %>
   <meta property="og:url" content="<%= pages_employee_engagement_content_calendar_url %>"/>
-  <meta property="twitter:title" content="Employee Engagement Content Calendar Template for HR Professionals"/>
-  <meta property="twitter:description" content="Get a free, step-by-step guide to plan out your employee messaging for the entire year so it aligns with your HR goals. "/>
   <meta property="twitter:card" content="summary_large_image"/>
-  <meta property="twitter:image:src" content="<%= image_path('marketing_site/content-calendar.png')%>"/>
-  <meta name="description" content="Get a free, step-by-step guide to plan out your employee messaging for the entire year so it aligns with your HR goals."/>
+
   <link rel="canonical" href="<%= pages_employee_engagement_content_calendar_url %>"/>
   <script type="application/ld+json">
     {
@@ -24,7 +18,7 @@
       "headline": "Employee Engagement Content Calendar Template for HR Professionals",
       "image": {
         "@type": "ImageObject",
-        "url": "<%= image_path('marketing_site/content-calendar.png')%>",
+        "url": "<%= image_path('marketing_site/content-calendar.png') %>",
         "height": 630,
         "width": 1200
       },
