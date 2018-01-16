@@ -75,9 +75,7 @@ class Tile < ActiveRecord::Base
   #FIXME suggested and status are not the same thing!
 
   scope :suggested, -> do
-    where { (status == USER_SUBMITTED) | (status == IGNORED) }
-      .order { status.desc } # first submitted then ignored
-      .ordered_by_position
+    where(status: [USER_SUBMITTED, IGNORED]).order(status: :desc).ordered_by_position
   end
   scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
 

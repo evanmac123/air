@@ -3,7 +3,7 @@ Clearance.configure do |config|
   config.password_strategy = Clearance::PasswordStrategies::SHA1
   config.routes = false
   config.allow_sign_up = false
-  config.rotate_csrf_on_sign_in = true
+  config.rotate_csrf_on_sign_in = false
 
   config.cookie_expiration = lambda do |cookies|
     if cookies[:remember_me]
