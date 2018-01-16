@@ -75,12 +75,8 @@ Airbo.DirectToS3FileUploader = (function() {
           Airbo.PubSub.publish(eventPrefix + "stop", data);
         })
         .on("fileuploadfail", function(e, data) {
-          var error = "Upload failed due to the following server error: ";
-          error += $(data.jqXHR.responseXML)
-            .find("Message")
-            .text();
-          alert(error);
-          console.log(data.files[0].name + " " + error);
+          var error = "Image upload failed, please try again.";
+          console.log(data);
         });
     });
   }
