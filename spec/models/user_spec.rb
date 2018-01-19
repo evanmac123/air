@@ -788,13 +788,12 @@ describe User do
   end
 
   describe "#send_new_phone_validation_token" do
-    it "asks SmsSender to send a message in the background" do
+    it "asks SmsSenderJob to send a message in the background" do
       user = FactoryBot.create(:user, :email => "a@a.com")
       token = user.generate_new_phone_validation_token
       user.new_phone_number = "3333333333"
 
-      SmsSender.expects(:delay).returns(SmsSender)
-      SmsSender.expects(:send_message).with(
+      SmsSenderJob.expects(:perform_later).with(
         to_number: user.new_phone_number,
         body: "Your code to verify this phone with Airbo is #{token}.",
         from_number: user.demo.twilio_from_number
