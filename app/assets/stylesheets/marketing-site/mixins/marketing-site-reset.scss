@@ -67,10 +67,13 @@
   ul:after {clear:both;content:'';display:table;}
 
   .align-li {
+    padding-left: 1.4em;
+    text-indent: -1.4em;
+  }
+
+  .pad-li {
     padding-top: 3px;
     padding-bottom: 3px;
-    padding-left: 21px;
-    text-indent: -21px;
   }
 
 }
