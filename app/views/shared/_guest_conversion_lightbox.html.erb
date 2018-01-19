@@ -13,11 +13,9 @@
     <%= password_field_tag "user[password]" %>
     <%= hidden_field_tag "user[demo_id]", user.demo.id %>
 
-    <%= render partial: "shared/button_with_spinner", locals: { button_id: "guest_user_conversion_button", button_classes: "", button_text: "Create Account" } %>
+    <%= render partial: "shared/button_with_spinner", locals: { button_id: "guest_user_conversion_button", button_classes: "mb-1", button_text: "Create Account" } %>
   <% end %>
-  <div id="t-and-c-notice">
-    By submitting this form, you are agreeing to the
-    <%= link_to('terms and conditions', terms_path, target: '_blank') + '.' %>
-  </div>
+  <small>By submitting this form, you are agreeing to the
+  <%= link_to('terms and conditions', terms_path, target: '_blank') + '.' %></small>
   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
