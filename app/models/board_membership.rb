@@ -8,12 +8,12 @@ class BoardMembership < ActiveRecord::Base
 
   as_enum :notification_pref, both: 0, email: 1, text_message: 2, unsubscribe: 3
 
-	scope :admins, -> { where(:is_client_admin => true) }
+  scope :admins, -> { where(is_client_admin: true) }
 
   attr_accessor :role
   before_validation do
     if @role.present?
-      self.is_client_admin = self.role == 'Administrator'
+      self.is_client_admin = self.role == "Administrator"
     end
     true
   end
@@ -26,9 +26,9 @@ class BoardMembership < ActiveRecord::Base
     # FIXME: What is this? Are we using roles meaningfully? #REWRITE AUTH
     @role ||= begin
       if self.is_client_admin
-        'Administrator'
+        "Administrator"
       else
-        'User'
+        "User"
       end
     end
   end
@@ -46,7 +46,7 @@ class BoardMembership < ActiveRecord::Base
   end
 
   def self.receives_text_messages
-    where(notification_pref_cd: [notification_prefs[:both], notification_prefs[:text_message]])
+    where(notification_pref_cd: [notification_prefs[:both], notification_prefs[:text_message]]).where.not(users: { phone_number: [nil, ""] })
   end
 
   def self.current
