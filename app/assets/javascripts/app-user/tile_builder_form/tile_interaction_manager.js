@@ -136,13 +136,13 @@ Airbo.TileInteractionManager = (function() {
 
       field.data("text", field.val());
       highlightText(field);
+    });
 
-      $(field).keypress(function(event) {
-        if (event.keyCode == 13) {
-          event.preventDefault();
-          field.focusout();
-        }
-      });
+    $("body").on("keypress", ".answer-editable", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        $(this).focusout();
+      }
     });
   }
 
