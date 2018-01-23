@@ -32,7 +32,7 @@ class PushMessage < ActiveRecord::Base
     end
 
     if sms_text.present?
-      SmsSender.delay.bulk_send_messages(sms_recipient_ids, sms_text)
+      SmsBulkSenderJob.perform_later(user_ids: sms_recipient_ids, body: sms_text, from_number: demo.twilio_from_number)
     end
 
     update_attributes(state: COMPLETED)

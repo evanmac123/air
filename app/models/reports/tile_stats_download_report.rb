@@ -100,9 +100,19 @@ class Reports::TileStatsDownloadReport
         get_answer(row.send(column))
       elsif column == "viewed_date" || column == "completion_date"
         row.send(column).in_time_zone.strftime("%m/%d/%Y")
+      elsif column == "user_name" || column == "user_email"
+        set_user_info(row.send(column))
       else
         row.send(column)
       end
+    end
+  end
+
+  def set_user_info(data)
+    if tile.is_anonymous?
+      "Anonymous"
+    else
+      data
     end
   end
 

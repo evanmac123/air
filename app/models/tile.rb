@@ -69,9 +69,6 @@ class Tile < ActiveRecord::Base
     status != DRAFT
   end
 
-  before_post_process :no_post_process_on_copy
-
-
   #FIXME suggested and status are not the same thing!
 
   scope :suggested, -> do
@@ -156,14 +153,15 @@ class Tile < ActiveRecord::Base
     scope status_name.to_sym, -> { where(status: status_name).ordered_by_position }
   end
 
-  # Custom Attribute Setter: ensure that setting/updating the 'status' updates the corresponding time-stamp
   def update_timestamps
     case status
-    when ACTIVE  then
-      if  never_activated || activated_at_reset_allowed?
+    when DRAFT
+      self.activated_at = nil
+    when ACTIVE
+      if  activated_at.nil? || activated_at_reset_allowed?
         self.activated_at = Time.current
       end
-    when ARCHIVE then
+    when ARCHIVE
       self.archived_at = Time.current
     end
   end
@@ -239,7 +237,6 @@ class Tile < ActiveRecord::Base
     add_config_options_to_base_signature([question_type, question_subtype]).join("_")
   end
 
-
   def is_survey?
     normalized_question_type == SURVEY.downcase || (question_type.nil? && correct_answer_index == -1)
   end
@@ -256,11 +253,9 @@ class Tile < ActiveRecord::Base
     question_subtype == INVITE_SPOUSE
   end
 
-
   def survey_chart
     SurveyChart.new(self).build
   end
-
 
   def is_placeholder?
     false
@@ -349,10 +344,6 @@ class Tile < ActiveRecord::Base
       .order("position ASC").first
   end
 
-  def prevent_activated_at_reset
-    @activated_at_reset_allowed = false
-  end
-
   def allow_activated_at_reset
     @activated_at_reset_allowed = true
   end
@@ -363,10 +354,6 @@ class Tile < ActiveRecord::Base
 
   def set_on_first_position
     self.position = find_new_first_position
-  end
-
-  def no_post_process_on_copy
-    !(@making_copy)
   end
 
   def supporting_content_raw_text
@@ -428,7 +415,6 @@ class Tile < ActiveRecord::Base
       end
     end
 
-
     def image_set_to_blank
       remote_media_url == ""
     end
@@ -441,15 +427,6 @@ class Tile < ActiveRecord::Base
       # with preserve_files: true for thumbnails so that thumbnails are never
       # deleted #see  TileImageable module for details
       thumbnail.destroy
-    end
-
-    #FIXME the code around handling update status has gotten quite ugly
-    def already_activated
-      (status == ACTIVE || status == ARCHIVE) && activated_at.present?
-    end
-
-    def never_activated
-      !already_activated
     end
 
     def sanitize_supporting_content
@@ -476,7 +453,6 @@ class Tile < ActiveRecord::Base
     def strip_content
       supporting_content.try(:strip) || ""
     end
-
 
     def set_image_credit_to_blank_if_default
       self.image_credit = "" if image_credit == "Add Image Credit"

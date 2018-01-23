@@ -9,10 +9,12 @@
 
     <p>Over the last six years, we’ve worked to understand how to make HR communications as delightful as an employee’s favorite app. Through R&D with some of the world's greatest companies, We developed a methodology and technology that’s used by over 100,000 employees at organizations in every major industry.</p>
   </div>
-  <div class="timeline-image mx-auto">
-    <%= image_tag "marketing_site/airbo_timeline_web.svg" %>
-  </div>
-  <div class="timeline-image-mobile mx-auto">
-    <%= image_tag "marketing_site/airbo_timeline_mobile.svg" %>
-  </div>
+  <% unless browser.ie? %>
+    <div class="timeline-image mx-auto">
+      <%= image_tag "marketing_site/airbo_timeline_web.svg" %>
+    </div>
+    <div class="timeline-image-mobile mx-auto">
+      <%= image_tag "marketing_site/airbo_timeline_mobile.svg" %>
+    </div>
+  <% end %>
 </div>
