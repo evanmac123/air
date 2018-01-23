@@ -16,6 +16,9 @@ Airbo.Utils.mediumEditor = (function() {
 
     $(".medium-editable").each(function() {
       defaultParams = {
+        anchor: {
+          linkValidation: true
+        },
         autoLink: true,
         buttonLabels: "fontawesome",
         targetBlank: true,
