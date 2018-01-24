@@ -17,7 +17,7 @@
 //= require flickity.pkgd.min.js
 //= require tooltipster/tooltipster.bundle.min
 //= require sweetalert/sweetalert.min
-//= require medium-editor.min
+//= require medium-editor/dist/js/medium-editor
 //= require chosen.jquery.min
 //= require intro.min
 //= require autosize
@@ -44,7 +44,7 @@
 //= require_tree ./utils
 //= require_tree ./app-base
 
-$(function(){
+$(function() {
   Airbo.init();
   $(document).foundation();
 });

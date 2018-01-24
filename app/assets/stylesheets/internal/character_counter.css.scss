@@ -1,42 +1,44 @@
 .character-counter {
-  color:$med-gray;
-  font-size:10px;
-  font-weight:bold;
+  color: $med-gray;
+  font-size: 10px;
+  font-weight: bold;
   text-transform: uppercase;
   margin-top: 5px;
+  margin-bottom: 5px;
   float: right;
-  &.for-free-repsponse{
+
+  &.for-free-repsponse {
     margin-bottom: 10px;
-
   }
+
   &.exceeded_maxlength_counter {
-    color:  $n-red;
+    color: $n-red;
   }
 
-  &.tile-builder-component{
-    margin-top: 0px;
+  &.tile-builder-component {
+    margin-top: 0;
     margin-bottom: 10px;
   }
 }
 
-/* Character counter for text and textarea*/
+/* Character counter for text and textarea */
 .share_tools {
   .character-counter {
     margin-right: 3px;
   }
 }
 
-.image_credit{
-  .character-counter{
-    display:block;
+.image_credit {
+  .character-counter {
+    display: block;
     position: absolute;
     bottom: 1px;
-    right:2px;
+    right: 2px;
     font-size: 0.6rem;
   }
 }
 
-.free-form-response ~.character-counter,
+.free-form-response ~ .character-counter,
 .free-text-entry ~ .character-counter {
-  margin-bottom:20px
+  margin-bottom: 20px;
 }
