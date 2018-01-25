@@ -24,6 +24,10 @@ class Tile::PlaceholderManager
     end
 
     def placeholders_to_add
-      row_size - incomplete_row_length
+      if incomplete_row_length == 0
+        0
+      else
+        row_size - incomplete_row_length
+      end
     end
 end
