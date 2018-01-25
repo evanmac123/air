@@ -38,7 +38,6 @@ namespace :client_admin do
       patch  'status_change' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile status update.
       patch  'update_explore_settings' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile explore settings update.
       post 'duplicate'
-      get 'next_tile'
     end
   end
 

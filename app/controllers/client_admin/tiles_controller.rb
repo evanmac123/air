@@ -133,15 +133,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     render_preview_and_single
   end
 
-  def next_tile
-    @tile = Tile.next_manage_tile get_tile, 1, false
-    if @tile
-      render_preview_and_single
-    else
-      render nothing: true
-    end
-  end
-
   private
 
     def partial_to_render
@@ -195,7 +186,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     def prepTilePreview
       unless from_search?
-        @prev, @next = @demo.bracket @tile
+        @next_tile = @tile.next_tile_in_board
+        @prev_tile = @tile.prev_tile_in_board
       end
     end
 
@@ -204,13 +196,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
 
     def get_tile
-      # FIXME what is this offset
-      tile = current_user.demo.tiles.where(id: params[:id]).first
-      if params[:offset].present?
-        tile = Tile.next_manage_tile(tile, params[:offset].to_i)
-      end
-
-      tile
+      current_user.demo.tiles.find_by(id: params[:id])
     end
 
     def flash_status_messages

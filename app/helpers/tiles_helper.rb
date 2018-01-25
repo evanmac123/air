@@ -1,7 +1,14 @@
-module TilesHelper
+# frozen_string_literal: true
 
+module TilesHelper
   def tile_class(tile)
-    (@show_completed_tiles == true) || current_user.tile_completions.where(tile_id: tile.id).exists? ? 'completed' : 'not_completed'
+    (@show_completed_tiles == true) || current_user.tile_completions.where(tile_id: tile.id).exists? ? "completed" : "not_completed"
+  end
+
+  def tile_id(tile)
+    if tile.present?
+      tile.id
+    end
   end
 
   # nil is definitely not a url
@@ -10,7 +17,7 @@ module TilesHelper
   # have at least one letter
   # no two dots together
   # starts with letter, ends with not dot
-  def is_url? str
+  def is_url?(str)
     !str.nil? && \
     str.include?(".") && \
     !str.include?(" ") && \
@@ -19,7 +26,7 @@ module TilesHelper
     str[/^[\w].*[^.]$/]
   end
 
-  def make_full_url str
+  def make_full_url(str)
     if is_url? str
       (str.start_with?("http://", "https://") ? "" : "http://") + str
     else
@@ -49,9 +56,9 @@ module TilesHelper
 
   def display_tile_for_search(tile)
     if do_not_display_unanswered_archived_tiles(tile)
-      return false
+      false
     else
-      return true
+      true
     end
   end
 

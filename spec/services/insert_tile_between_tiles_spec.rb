@@ -17,30 +17,26 @@ describe InsertTileBetweenTiles do
       right_tile = tiles[2]
       InsertTileBetweenTiles.new(left_tile.id, tile.id, right_tile.id, Tile::DRAFT).insert!
       tile.reload
-      expect(tile.left_tile).to eq(left_tile)
-      expect(tile.right_tile).to eq(right_tile)
+      expect(tile.prev_tile_in_board).to eq(left_tile)
+      expect(tile.next_tile_in_board).to eq(right_tile)
     end
 
     it "should work with only left tile" do
       tiles = create_tiles 4, :draft
       tile = tiles[3]
       left_tile = tiles[0]
-      right_tile = nil
       InsertTileBetweenTiles.new(left_tile.id, tile.id, nil, Tile::DRAFT).insert!
       tile.reload
-      expect(tile.left_tile).to eq(left_tile)
-      expect(tile.right_tile).to eq(right_tile)
+      expect(tile.prev_tile_in_board).to eq(left_tile)
     end
 
     it "should work only with right tile" do
       tiles = create_tiles 4, :draft
       tile = tiles[1]
-      left_tile = nil
       right_tile = tiles[3]
       InsertTileBetweenTiles.new(nil, tile.id, right_tile.id, Tile::DRAFT).insert!
       tile.reload
-      expect(tile.left_tile).to eq(left_tile)
-      expect(tile.right_tile).to eq(right_tile)
+      expect(tile.next_tile_in_board).to eq(right_tile)
     end
 
     it "should work set status if needed" do
@@ -68,7 +64,7 @@ describe InsertTileBetweenTiles do
       right_tile = tiles[1]
       InsertTileBetweenTiles.new(left_tile.id, tile.id, right_tile.id, Tile::DRAFT).insert!
       tile.reload
-      expect(tiles[2].reload.position).to eq(tile.position + 1) 
+      expect(tiles[2].reload.position).to eq(tile.position + 1)
       expect(tiles[3].reload.position).to eq(tile.position + 2)
     end
   end

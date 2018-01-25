@@ -171,17 +171,6 @@ class Demo < ActiveRecord::Base
     tiles.draft
   end
 
-  def  bracket(tile)
-    arr = by_status_and_position_of_tile tile.status
-    [prev_in_group(arr, tile.id), next_in_group(arr, tile.id)]
-  end
-
-  # NOTE technically position should never be nil so the use of compact should
-  # not be necessary here
-  def next_draft_tile_position
-    (draft_tiles.map(&:position).compact.max || 0) + 1
-  end
-
   def digest_tiles(cutoff_time = self.tile_digest_email_sent_at)
     tiles.digest(self, cutoff_time)
   end
@@ -388,21 +377,5 @@ class Demo < ActiveRecord::Base
 
     def unlink_from_organization
       self.organization_id = nil
-    end
-
-    def next_in_group(array, id)
-      tile_offset(array, id, 1) || array.first
-    end
-
-    def prev_in_group(array, id)
-      tile_offset(array, id, -1) || array.last
-    end
-
-    def tile_offset(array, id, offset)
-      array[array.index(id) + offset]
-    end
-
-    def by_status_and_position_of_tile(status)
-      tiles.where(status: status).ordered_by_position.map(&:id)
     end
 end

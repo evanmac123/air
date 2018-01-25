@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class InsertTileBetweenTiles
-  def initialize left_tile_id, tile_id, right_tile_id, status = nil, redigest=false
+  def initialize(left_tile_id, tile_id, right_tile_id, status = nil, redigest = false)
     @left_tile = Tile.where(id: left_tile_id).first
     @tile = Tile.where(id: tile_id).first
     @right_tile = Tile.where(id: right_tile_id).first
@@ -21,51 +23,51 @@ class InsertTileBetweenTiles
 
   protected
 
-  def tile_is_already_on_this_place
-    if  (@left_tile.present? && @left_tile == @tile.left_tile) ||
-        (@right_tile.present? && @right_tile == @tile.right_tile)
-      if @status.present? && @status != @tile.status
-        false
+    def tile_is_already_on_this_place
+      if  (@left_tile.present? && @left_tile == @tile.prev_tile_in_board) ||
+          (@right_tile.present? && @right_tile == @tile.next_tile_in_board)
+        if @status.present? && @status != @tile.status
+          false
+        else
+          true
+        end
       else
-        true
+        false
       end
-    else
-      false
     end
-  end
 
-  def set_new_status
-    @tile.status = @status if @status.present? && @status != @tile.status
-  end
+    def set_new_status
+      @tile.status = @status if @status.present? && @status != @tile.status
+    end
 
-  def first_and_only_in_section
-    unless @right_tile || @left_tile
-      @tile.position = 0
+    def first_and_only_in_section
+      unless @right_tile || @left_tile
+        @tile.position = 0
+        @tile.save
+      end
+    end
+
+    def search_for_right_tile
+      unless @right_tile
+        left_demo = @left_tile.demo
+        left_status = @left_tile.status
+        left_position = @left_tile.position
+        @right_tile = left_demo.tiles.where(status: left_status).where("position < ?", left_position).ordered_by_position.first
+      end
+    end
+
+    def set_tile_position
+      if @right_tile
+        @tile.position = @right_tile.position.to_i + 1
+      else
+        @tile.position = @left_tile.position.to_i
+      end
       @tile.save
     end
-  end
 
-  def search_for_right_tile
-    unless @right_tile
-      left_demo = @left_tile.demo
-      left_status = @left_tile.status
-      left_position = @left_tile.position
-      @right_tile = left_demo.tiles.where(status: left_status).where('position < ?', left_position).ordered_by_position.first
+    def update_tile_positions_to_the_left
+      @tile.demo.tiles.where(status: @tile.status).where("position >= ?", @tile.position).where.not(id: @tile.id).order(position: :asc).each_with_index do |tile, index|
+        tile.update_column(:position, @tile.position + index + 1)
+      end
     end
-  end
-
-  def set_tile_position
-    if @right_tile
-      @tile.position = @right_tile.position.to_i + 1
-    else
-      @tile.position = @left_tile.position.to_i
-    end
-    @tile.save
-  end
-
-  def update_tile_positions_to_the_left
-    @tile.demo.tiles.where(status: @tile.status).where('position >= ?', @tile.position).where.not(id: @tile.id).order(position: :asc).each_with_index do |tile, index|
-      tile.update_column(:position, @tile.position + index + 1)
-    end
-  end
 end

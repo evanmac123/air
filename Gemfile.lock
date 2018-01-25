@@ -59,7 +59,7 @@ GEM
       airbrake-ruby (~> 1.8)
     airbrake-ruby (1.8.0)
     arel (6.0.4)
-    ast (2.3.0)
+    ast (2.4.0)
     awesome_print (1.7.0)
     aws-partitions (1.47.0)
     aws-sdk-core (3.11.0)
