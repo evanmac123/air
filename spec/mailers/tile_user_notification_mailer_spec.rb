@@ -17,7 +17,7 @@ describe TileUserNotificationMailer do
       email = TileUserNotificationMailer.notify_one(user: user, tile_user_notification: tile_user_notification)
 
       expect(email.subject).to eq("A SUBJECT")
-      expect(email.from).to eq([tile.demo.reply_email_address(false)])
+      expect(email.from).to eq([Demo::DEFAULT_EMAIL])
       expect(email.to).to eq([user.email])
     end
 

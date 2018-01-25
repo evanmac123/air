@@ -3,6 +3,8 @@
 class Demo < ActiveRecord::Base
   extend NormalizeBoardName
 
+  DEFAULT_EMAIL = "play@ourairbo.com"
+
   belongs_to :organization, counter_cache: true
   belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id
 
@@ -216,17 +218,11 @@ class Demo < ActiveRecord::Base
     end
   end
 
-  def reply_email_address(include_name = true)
-    email_name, email_address = if self.email.present?
-      [self.reply_email_name, self.email]
+  def reply_email_address
+    if email.present?
+      "#{reply_email_name} <#{email}>"
     else
-      ["Airbo", "play@ourairbo.com"]
-    end
-
-    if include_name
-      "#{email_name} <#{email_address}>"
-    else
-      email_address
+      "Airbo <#{DEFAULT_EMAIL}>"
     end
   end
 
