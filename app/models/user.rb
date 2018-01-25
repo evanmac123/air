@@ -609,8 +609,6 @@ class User < ActiveRecord::Base
 
   def finish_claim
     add_joining_to_activity_stream
-
-    demo.welcome_message(self)
   end
 
   def join_board

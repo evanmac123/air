@@ -200,16 +200,6 @@ class Demo < ActiveRecord::Base
     @_num_tile_completions
   end
 
-  def welcome_message(user = nil)
-    custom_message(
-      :custom_welcome_message,
-      "You've joined the %{name} game! @{reply here}",
-      user,
-      name: [:demo, :name],
-      unique_id: [:sms_slug]
-    )
-  end
-
   def reply_email_name
     if custom_reply_email_name.present?
       custom_reply_email_name
@@ -231,38 +221,6 @@ class Demo < ActiveRecord::Base
   end
 
   alias_method_chain :claim_state_machine, :default
-
-  def number_not_found_response
-    custom_message(
-      :unrecognized_user_message,
-      self.class.default_number_not_found_response
-    )
-  end
-
-  def already_claimed_message(user)
-    custom_message(
-      :custom_already_claimed_message,
-      "You've already claimed your account, and have %{points} pts. If you're trying to credit another user, ask them to check their username with the MYID command.",
-      user,
-      points: [:points]
-    )
-  end
-
-  def support_reply
-    custom_message(
-      :custom_support_reply,
-      "Got it. We'll have someone email you shortly. Tech support is open 9 AM to 6 PM ET. If it's outside those hours, we'll follow-up first thing when we open."
-    )
-  end
-
-  def self.number_not_found_response(receiving_number)
-    demo = self.find_by(phone_number: receiving_number)
-    demo ? demo.number_not_found_response : default_number_not_found_response
-  end
-
-  def self.default_number_not_found_response
-    "I can't find your number in my records. Did you claim your account yet? If not, text your first initial and last name (if you are John Smith, text \"jsmith\")."
-  end
 
   # TODO: This isn't great but a work around until we sort out referencing BMs vs Users for things like tickets.
   def flush_all_user_tickets
@@ -422,26 +380,6 @@ class Demo < ActiveRecord::Base
   end
 
   private
-
-    def custom_message(custom_message_method_name, default_message, user = nil, method_chains_for_interpolation = {})
-      custom_message_text = self.send(custom_message_method_name)
-
-      semi_interpolated_text = if custom_message_text.blank?
-        default_message
-      else
-        custom_message_text
-      end
-
-      if user
-        interpolations = {}
-        method_chains_for_interpolation.each do |key, method_chain|
-          interpolations[key] = method_chain.inject(user) { |result, method_name| result.try(method_name) }
-        end
-        I18n.interpolate(semi_interpolated_text, interpolations)
-      else
-        semi_interpolated_text
-      end
-    end
 
     def normalize_phone_number_if_changed
       return unless self.changed.include?("phone_number")

@@ -1,18 +1,18 @@
+# frozen_string_literal: true
+
 module Params
   module Demo
-
     def demo
       params.require(:demo).permit(*demo_attributes)
     end
 
-    #Todo make all fields allowed if site admin
+    # Todo make all fields allowed if site admin
     def demo_attributes
       attrs = [
         :organization_id,
         :unlink,
         :name,
         :seed_points,
-        :custom_welcome_message,
         :ends_at,
         :credit_game_referrer_threshold,
         :game_referrer_bonus,
@@ -75,8 +75,8 @@ module Params
         ]
       end
 
-     attrs.concat [ ] if current_user.is_client_admin?
-     attrs
+      attrs.concat [ ] if current_user.is_client_admin?
+      attrs
     end
   end
 end
