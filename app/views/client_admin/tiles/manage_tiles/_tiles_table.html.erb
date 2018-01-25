@@ -1,7 +1,6 @@
 <% tiles.each do |tile| %>
-
   <% if tile.is_placeholder? %>
-    <%= render "client_admin/tiles/manage_tiles/single_#{tile.class.to_s.underscore}", placeholder: tile %>
+    <%= render "client_admin/tiles/manage_tiles/single_tile_placeholder", placeholder: tile %>
   <% else %>
     <% present(tile, SingleAdminTilePresenter, {is_ie: browser.ie?}) do |presenter| %>
       <% cache(presenter) do %>

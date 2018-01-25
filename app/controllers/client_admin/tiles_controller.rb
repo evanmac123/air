@@ -6,32 +6,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesPingsHelper
   include CustomResponder
 
-  before_action :get_demo
+  before_action :get_demo, except: [:index]
   before_action :permit_params, only: [:create, :update]
 
   def index
-    @all_tiles = @demo.tiles.group_by { |t| t.status }
-
-    @actives = tiles_by_grp(Tile::ACTIVE)
-    @archives = tiles_by_grp(Tile::ARCHIVE)
-    @drafts = tiles_by_grp(Tile::DRAFT)
-    @suggesteds = tiles_by_grp(Tile::USER_SUBMITTED) | tiles_by_grp(Tile::IGNORED)
-
-    @submitteds = tiles_by_grp(Tile::USER_SUBMITTED)
-
-    @active_tiles  = @demo.active_tiles_with_placeholders(@actives)
-
-    @archive_tiles = (@demo.archive_tiles_with_placeholders @archives)[0, 4]
-    @draft_tiles = @demo.draft_tiles_with_placeholders @drafts
-    @suggested_tiles = @demo.suggested_tiles_with_placeholders @suggesteds
-    @user_submitted_tiles_counter = @submitteds.count
-
-
-    @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
-
-    @accepted_tile = Tile.find(session.delete(:accepted_tile_id)) if session[:accepted_tile_id]
+    @tiles_facade = ClientAdminTilesFacade.new(demo: current_user.demo)
   end
-
 
   def show
     @tile = get_tile
@@ -45,12 +25,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     render "blank", layout: "empty_layout"
   end
 
-
   def new
     @tile = @demo.tiles.build(status: Tile::DRAFT)
     new_or_edit @tile
   end
-
 
   def edit
     @tile = get_tile
@@ -166,11 +144,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   private
 
-    def tiles_by_grp(grp)
-      tiles = @all_tiles[grp] || []
-      tiles.sort_by { |t| t.position }.reverse
-    end
-
     def partial_to_render
       "client_admin/tiles/manage_tiles/single_tile"
     end
@@ -224,12 +197,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       unless from_search?
         @prev, @next = @demo.bracket @tile
       end
-    end
-
-    def tile_suggestion_enabled?
-      @user_submitted_tiles_counter > 0 ||
-        @allowed_to_suggest_users.count > 0 ||
-        @demo.everyone_can_make_tile_suggestions
     end
 
     def get_demo
