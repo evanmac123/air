@@ -2,7 +2,7 @@
 
 replaceMovedTile = function(tile_id, updated_tile_container) {
   //TODO  reference tile container directly instead of going through single tile
-  tile = $("#single-tile-" + tile_id).closest(".tile_container");
+  var tile = $("#single-tile-" + tile_id).closest(".tile_container");
   tile.replaceWith(updated_tile_container);
   tile = $("#single-tile-" + tile_id).closest(".tile_container");
   Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".pill.more"));
@@ -13,7 +13,7 @@ updateShareTilesNumber = function(number) {
 };
 
 updateShowMoreDraftTilesButton = function() {
-  button = $(".show_all_draft_section");
+  var button = $(".show_all_draft_section");
   if (showMoreDraftTiles() || showMoreSuggestionBox()) {
     button.show();
   } else {
@@ -26,7 +26,7 @@ updateShowMoreArchiveTilesButton = function() {
     return;
   }
 
-  button = $(".show_all_inactive_section");
+  var button = $(".show_all_inactive_section");
 
   if (notTilePlaceholdersInSection($("#archive")).length > 4) {
     button.show();
@@ -41,13 +41,14 @@ updateShowMoreButtons = function() {
 };
 
 showMoreDraftTiles = function() {
-  draftTilesCount = notTilePlaceholdersInSection($("#draft")).length;
+  var draftTilesCount = notTilePlaceholdersInSection($("#draft")).length;
   return draftTilesCount > 6 && selectedSection() === "draft";
 };
 
 showMoreSuggestionBox = function() {
-  suggestionBoxTilesCount = notTilePlaceholdersInSection($("#suggestion_box"))
-    .length;
+  var suggestionBoxTilesCount = notTilePlaceholdersInSection(
+    $("#suggestion_box")
+  ).length;
   return suggestionBoxTilesCount > 6 && selectedSection() === "box";
 };
 
@@ -60,19 +61,19 @@ selectedSection = function() {
 };
 
 fillInLastTile = function(tile_id, section_name, tile_container) {
-  section = $("#" + section_name);
+  var section = $("#" + section_name);
   if (sectionHasFreePlace(section) && tileIsNotPresent(tile_id)) {
     addTileOnFreePlace(section, tile_container);
   }
 };
 
 addTileOnFreePlace = function(section, tile_container) {
-  free_place = freePlaceForTile(section);
+  var free_place = freePlaceForTile(section);
   free_place.removeClass("placeholder_container").replaceWith(tile_container);
 };
 
 freePlaceForTile = function(section) {
-  free_place = $(tilePlaceholdersInSection(section)[0]);
+  var free_place = $(tilePlaceholdersInSection(section)[0]);
   if (free_place.length === 0) {
     free_place = $('<div class="tile_container"></div>');
     section.append(free_place);
@@ -117,14 +118,7 @@ tilePlaceholderSelector = function() {
 
 /*-----------------    tile_drag_drop_sort.js  ------------------------------------------------------------------------------------------------------------------*/
 var Airbo = window.Airbo || {};
-String.prototype.times = function(n) {
-  return Array.prototype.join.call(
-    {
-      length: n + 1
-    },
-    this
-  );
-};
+
 var allowRedigest = false;
 
 Airbo.TileDragDropSort = (function() {
@@ -138,7 +132,6 @@ Airbo.TileDragDropSort = (function() {
       '<div class="tile_container placeholder_container">' +
       '<div class="tile_thumbnail placeholder_tile"></div>' +
       "</div>",
-    sourceSectionName,
     moveConfirmationDeferred,
     moveConfirmation;
 
@@ -383,7 +376,7 @@ Airbo.TileDragDropSort = (function() {
   }
 
   function addPlaceholders(section, number) {
-    $("#" + section).append(placeholderHTML.times(number));
+    $("#" + section).append(placeholderHTML.repeat(number));
   }
 
   function updateAllNoTilesSections() {
@@ -570,7 +563,8 @@ Airbo.TileDragDropSort = (function() {
 })();
 
 $(function() {
-  if (Airbo.Utils.nodePresent(".client_admin-tiles-index"))
+  if (Airbo.Utils.nodePresent(".client_admin-tiles-index")) {
     Airbo.TileDragDropSort.init();
-  Airbo.DraftSectionExpander.init();
+    Airbo.DraftSectionExpander.init();
+  }
 });
