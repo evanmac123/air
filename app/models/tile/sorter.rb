@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tile::Sorter
   def self.call(tile:, sort_params:)
     InsertTileBetweenTiles.new(
