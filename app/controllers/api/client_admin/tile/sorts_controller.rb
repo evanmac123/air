@@ -6,8 +6,6 @@ class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
 
     Tile::Sorter.call(tile: @tile, sort_params: sort_params)
 
-    @tile.reload
-
     render json: {
       tileId: @tile.id,
       tilesToBeSentCount: demo.digest_tiles_count,

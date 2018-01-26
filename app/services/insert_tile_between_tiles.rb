@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class InsertTileBetweenTiles
-  def initialize(tile_id, left_tile_id, right_tile_id, status = nil, redigest = false)
-    @left_tile = Tile.where(id: left_tile_id).first
-    @tile = Tile.where(id: tile_id).first
-    @right_tile = Tile.where(id: right_tile_id).first
+  def initialize(tile, left_tile_id, right_tile_id, status = nil, redigest = false)
+    @tile = tile
+    @left_tile = Tile.find_by(id: left_tile_id)
+    @right_tile = Tile.find_by(id: right_tile_id)
     @tile.handle_unarchived(status, redigest)
 
     @status = status if Tile::STATUS.include?(status)
