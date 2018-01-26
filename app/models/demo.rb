@@ -175,6 +175,10 @@ class Demo < ActiveRecord::Base
     tiles.digest(self, cutoff_time)
   end
 
+  def digest_tiles_count
+    digest_tiles.count
+  end
+
   def claimed_users(excluded_uids: [])
     users.claimed_on_board_membership(self.id, excluded_uids)
   end

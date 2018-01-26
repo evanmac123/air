@@ -71,44 +71,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  def sort
-    # FIXME this code sucks!!! simply posting of tile ids and current positions
-    # would simplify this whole process
-    @tile = get_tile
-
-    Tile.insert_tile_between(
-      params[:left_tile_id],
-      @tile.id,
-      params[:right_tile_id],
-      params[:status],
-      params[:redigest]
-    )
-    @tile.reload
-
-    @last_tiles = []
-
-    if params[:source_section].present?
-      @last_tiles = Tile.find_additional_tiles_for_manage_section(
-        params[:source_section][:name],
-        params[:source_section][:presented_ids],
-        get_demo.id
-      )
-
-    end
-
-    render json: {
-      tileId: @tile.id,
-      tileHTML: render_to_string(partial: "client_admin/tiles/manage_tiles/single_tile", locals: { presenter:  tile_presenter(@tile) }),
-      tilesToBeSentCount:  @demo.digest_tiles(@demo.tile_digest_email_sent_at).count,
-      lastTiles: @last_tiles.map { |tile|
-        { id: tile.id,
-         status: tile.status,
-         html: render_to_string(partial: "client_admin/tiles/manage_tiles/single_tile", locals: { presenter:  tile_presenter(tile) })
-        }
-      }
-    }
-  end
-
   # FIXME should refactor and cosolidate the existing update method but the functionality is too
   # convoluted to fix now.
 

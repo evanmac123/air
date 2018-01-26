@@ -1,52 +1,6 @@
-
-/*-----------------    drag_and_drop_in_section.js  ------------------------------------------------------------------------------------------------------------------*/
-
-window.dragAndDropInSection = function() {
-  var findTileId, saveTilePosition, saveUrl;
-
-  $(".manage_section").sortable($.extend(window.dragAndDropProperties, {
-    update: function(event, ui) {
-      return saveTilePosition(ui.item);
-    }
-  })).disableSelection();
-
-  saveTilePosition = function(tile) {
-    var id, left_tile_id, right_tile_id;
-
-    id = findTileId(tile);
-    left_tile_id = findTileId(tile.prev());
-    right_tile_id = findTileId(tile.next());
-
-    return $.ajax({
-      data: {
-        left_tile_id: left_tile_id,
-        right_tile_id: right_tile_id
-      },
-
-      type: 'POST',
-      url: saveUrl(id)
-    });
-  };
-
-  findTileId = function(tile) {
-    return tile.find(".tile_thumbnail").data("tile-id");
-  };
-
-  return saveUrl = function(id) {
-    var section_name, url_section_name;
-    section_name = $(".manage_section").attr("id");
-    url_section_name = "inactive_tiles";
-    return '/client_admin/' + url_section_name + '/' + id + '/sort';
-  };
-};
-
-
-
 /*-----------------    drag_drop_sorting.js  ------------------------------------------------------------------------------------------------------------------*/
 
-
-
-replaceMovedTile = function(tile_id, updated_tile_container){
+replaceMovedTile = function(tile_id, updated_tile_container) {
   //TODO  reference tile container directly instead of going through single tile
   tile = $("#single-tile-" + tile_id).closest(".tile_container");
   tile.replaceWith(updated_tile_container);
@@ -442,17 +396,12 @@ Airbo.TileDragDropSort = (function(){
     }
   }
 
-
-  function onSortSuccess(result){
-
+  function onSortSuccess(result) {
     replaceMovedTile(result.tileId, result.tileHTML);
     updateShareTilesNumber(result.tilesToBeSentCount);
     updateShowMoreDraftTilesButton();
 
     updateShowMoreButtons();
-    result.lastTiles.forEach(function(tile){
-      fillInLastTile( tile.id , tile.status, tile.html);
-    });
   }
 
   function saveTilePosition(tile) {
@@ -461,34 +410,23 @@ Airbo.TileDragDropSort = (function(){
     left_tile_id = findTileId(tile.prev());
     right_tile_id = findTileId(tile.next());
     status = getTilesSection(tile);
-     $.ajax({
+    $.ajax({
       data: {
-        left_tile_id: left_tile_id,
-        right_tile_id: right_tile_id,
-        status: status,
-        source_section: sourceSectionParams(),
-        redigest: allowRedigest
+        sort: {
+          left_tile_id: left_tile_id,
+          right_tile_id: right_tile_id,
+          status: status,
+          redigest: allowRedigest
+        }
       },
-      type: 'POST',
-      url: '/client_admin/tiles/' + id + '/sort',
+      type: "POST",
+      url: "/api/client_admin/tiles/" + id + "/sorts",
       success: function(result) {
         onSortSuccess(result);
         updateTileVisibility();
       }
     });
   }
-
-  function sourceSectionParams() {
-    var section;
-    if (sourceSectionName) {
-      section = $("#" + sourceSectionName);
-      sourceSectionName = null;
-      return sectionParams(section);
-    } else {
-      return null;
-    }
-  }
-
 
   function sectionParams(section) {
     var name, presented_ids, tile, tiles;

@@ -15,6 +15,12 @@ namespace :api, defaults: { format: :json } do
     resources :demos, only: [] do
       resource :tiles_digest_automator, only: [:update, :destroy]
     end
+
+    resources :tiles, only: [] do
+      scope module: "tile" do
+        resources :sorts, only: [:create]
+      end
+    end
   end
 
   namespace :v1 do

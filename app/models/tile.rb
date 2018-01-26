@@ -307,16 +307,8 @@ class Tile < ActiveRecord::Base
     satisfiable_tiles.sort_by(&:position).reverse
   end
 
-  def self.find_additional_tiles_for_manage_section(status_name, presented_ids, tile_demo_id)
-    FindAdditionalTilesForManageSection.new(status_name, presented_ids, tile_demo_id).find
-  end
-
   def self.insert_tile_between(left_tile_id, tile_id, right_tile_id, new_status = nil, redigest = false)
     InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status, redigest).insert!
-  end
-
-  def self.reorder_explore_page_tiles!(tile_ids)
-    ReorderExplorePageTiles.new(tile_ids).reorder
   end
 
   def self.displayable_tiles_select_clause
