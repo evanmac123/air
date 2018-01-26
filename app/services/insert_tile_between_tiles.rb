@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class InsertTileBetweenTiles
-  def initialize(left_tile_id, tile_id, right_tile_id, status = nil, redigest = false)
+  def initialize(tile_id, left_tile_id, right_tile_id, status = nil, redigest = false)
     @left_tile = Tile.where(id: left_tile_id).first
     @tile = Tile.where(id: tile_id).first
     @right_tile = Tile.where(id: right_tile_id).first

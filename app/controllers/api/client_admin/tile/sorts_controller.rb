@@ -4,16 +4,10 @@ class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
   def create
     @tile = current_user.demo.tiles.find_by(id: params[:tile_id])
 
-    Tile.insert_tile_between(
-      params[:sort][:left_tile_id],
-      @tile.id,
-      params[:sort][:right_tile_id],
-      params[:sort][:status],
-      params[:sort][:redigest]
-    )
+    Tile::Sorter.call(tile: @tile, sort_params: sort_params)
 
     @tile.reload
-
+    
     render json: {
       tileId: @tile.id,
       tilesToBeSentCount: demo.digest_tiles_count,

@@ -307,10 +307,6 @@ class Tile < ActiveRecord::Base
     satisfiable_tiles.sort_by(&:position).reverse
   end
 
-  def self.insert_tile_between(left_tile_id, tile_id, right_tile_id, new_status = nil, redigest = false)
-    InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status, redigest).insert!
-  end
-
   def self.displayable_tiles_select_clause
     [:id, :headline, :demo_id, :tile_completions_count, :thumbnail_file_name, :thumbnail_content_type, :thumbnail_file_size, :thumbnail_updated_at, :position]
   end
