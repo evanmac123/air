@@ -22,13 +22,13 @@ Airbo.TileAction = (function() {
     Airbo.Utils.ping("Tile " + mess[status], {
       action: action,
       tile_id: data["tile-container-id"],
-      media_source: data["mediaSource"],
+      media_source: data.mediaSource,
       tile_module: config.type,
       tile_type: config.signature,
       allow_free_reponse: config.allowFreeResponse,
       is_anonymous: config.isAnonymous,
-      has_attachments: data["hasAttachments"],
-      attachment_count: data["attachmentCount"]
+      has_attachments: data.hasAttachments,
+      attachment_count: data.attachmentCount
     });
   }
 
