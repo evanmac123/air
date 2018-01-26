@@ -53,7 +53,7 @@ Airbo.TileAdminActionObserver = (function() {
       return currTile.data("status") == "user_submitted" || status == "ignored";
     }
 
-    sections = {
+    var sections = {
       active: "active",
       draft: "draft",
       archive: "archive",

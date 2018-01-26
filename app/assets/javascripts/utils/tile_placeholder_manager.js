@@ -1,15 +1,15 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
-Airbo.Utils.TilePlaceHolderManager = (function(){
-
-  var placeholderSelector =".tile_container.placeholder_container:not(.hidden_tile)"
-    , notDraggedTileSelector = ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)"
-    , sectionNames = ["draft", "active", "archive", "suggestion_box"]
-    , placeholderHTML = '<div class="tile_container placeholder_container">' +
-  '<div class="tile_thumbnail placeholder_tile"></div></div>'
-;
-
+Airbo.Utils.TilePlaceHolderManager = (function() {
+  var placeholderSelector =
+      ".tile_container.placeholder_container:not(.hidden_tile)",
+    notDraggedTileSelector =
+      ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)",
+    sectionNames = ["draft", "active", "archive", "suggestion_box"],
+    placeholderHTML =
+      '<div class="tile_container placeholder_container">' +
+      '<div class="tile_thumbnail placeholder_tile"></div></div>';
 
   function updateNoTilesSection(section) {
     var no_tiles_section;
@@ -19,7 +19,7 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
     } else {
       return no_tiles_section.hide();
     }
-  };
+  }
 
   function numberInRow(section) {
     if (section === "draft" || section === "suggestion_box") {
@@ -27,7 +27,7 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
     } else {
       return 4;
     }
-  };
+  }
 
   /*TODO refactor and combine these three functions
    * updateAllNoTilesSections
@@ -36,27 +36,36 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
   */
 
   function updateAllNoTilesSections() {
-    var i, len, section, results=[];
+    var i,
+      len,
+      section,
+      results = [];
 
     for (i = 0, len = sectionNames.length; i < len; i++) {
       section = sectionNames[i];
       results.push(updateNoTilesSection(section));
     }
     return results;
-  };
+  }
 
   function updateTileVisibility() {
-    var i, len, section, results=[];
+    var i,
+      len,
+      section,
+      results = [];
 
     for (i = 0, len = sectionNames.length; i < len; i++) {
       section = sectionNames[i];
       results.push(updateTileVisibilityIn(section));
     }
     return results;
-  };
+  }
 
   function updateAllPlaceholders() {
-    var i, len, section, results=[];
+    var i,
+      len,
+      section,
+      results = [];
 
     for (i = 0, len = sectionNames.length; i < len; i++) {
       section = sectionNames[i];
@@ -76,7 +85,7 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
     } else if (section === "archive") {
       //TODO Delete reference to getManagerType
 
-      if( isOnClientAdminDashboard() ){
+      if (isOnClientAdminDashboard()) {
         return numberInRow(section);
       } else {
         return 9999;
@@ -84,10 +93,10 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
     } else {
       return 9999;
     }
-  };
+  }
 
-  function isOnClientAdminDashboard(){
-   return  $(".manage_tiles").length === 3;
+  function isOnClientAdminDashboard() {
+    return $(".manage_tiles").length === 3;
   }
 
   function updateTileVisibilityIn(section) {
@@ -104,36 +113,39 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
       }
     }
     return results;
-  };
-
+  }
 
   function draftSectionIsCompressed() {
     return $("#draft_tiles").hasClass("compressed_section");
-  };
+  }
 
   function updatePlaceholders(section) {
-    var allTilesNumber, expectedPlaceholdersNumber, placeholdersNumber, tilesNumber;
+    var allTilesNumber,
+      expectedPlaceholdersNumber,
+      placeholdersNumber,
+      tilesNumber;
 
     allTilesNumber = $("#" + section).find(notDraggedTileSelector).length;
     placeholdersNumber = $("#" + section).find(placeholderSelector).length;
     tilesNumber = allTilesNumber - placeholdersNumber;
 
-    expectedPlaceholdersNumber = (numberInRow(section) - (tilesNumber % numberInRow(section))) % numberInRow(section);
+    expectedPlaceholdersNumber =
+      (numberInRow(section) - tilesNumber % numberInRow(section)) %
+      numberInRow(section);
 
     removePlaceholders(section);
     addPlaceholders(section, expectedPlaceholdersNumber);
-
-  };
-
+  }
 
   function removePlaceholders(section) {
-    $("#" + section).children(placeholderSelector).remove();
+    $("#" + section)
+      .children(placeholderSelector)
+      .remove();
   }
 
   function addPlaceholders(section, number) {
-    $("#" + section).append(placeholderHTML.times(number));
+    $("#" + section).append(placeholderHTML.repeat(number));
   }
-
 
   function updateTilesAndPlaceholdersAppearance() {
     updateAllPlaceholders();
@@ -141,13 +153,12 @@ Airbo.Utils.TilePlaceHolderManager = (function(){
     updateTileVisibility();
   }
 
-  function init(){
-   //noop
+  function init() {
+    //noop
   }
   return {
     init: init,
     updateTilesAndPlaceholdersAppearance: updateTilesAndPlaceholdersAppearance,
     visibleTilesNumberIn: visibleTilesNumberIn
   };
-
-}());
+})();
