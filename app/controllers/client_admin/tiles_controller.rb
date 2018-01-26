@@ -35,6 +35,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     new_or_edit @tile
   end
 
+  # TODO: I don't think the first conditional branch ever gets hit.  See not about update_status endpoint.
+
   def update
     @tile = get_tile
     if params[:update_status]
@@ -71,8 +73,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  # FIXME should refactor and cosolidate the existing update method but the functionality is too
-  # convoluted to fix now.
+  # FIXME Move status change to Api::Tile::StatusChangesController as a temp fix before moving to simple Tile api that manages templateing on teh fron end. This will clean up multiple separation of concerns issues with status changes and sorting as well as clena up this controller.
 
   def status_change
     @tile = get_tile

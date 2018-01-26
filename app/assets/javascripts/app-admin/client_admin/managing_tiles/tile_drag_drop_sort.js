@@ -424,16 +424,14 @@ Airbo.TileDragDropSort = (function() {
   }
 
   function saveTilePosition(tile) {
-    var id, left_tile_id, right_tile_id, status;
+    var id, left_tile_id, status;
     id = findTileId(tile);
     left_tile_id = findTileId(tile.prev());
-    right_tile_id = findTileId(tile.next());
     status = getTilesSection(tile);
     $.ajax({
       data: {
         sort: {
           left_tile_id: left_tile_id,
-          right_tile_id: right_tile_id,
           status: status,
           redigest: allowRedigest
         }

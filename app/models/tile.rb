@@ -167,6 +167,7 @@ class Tile < ActiveRecord::Base
     end
   end
 
+  # TODO: Decouple updating status from setting position.
   def update_status(params)
     handle_unarchived(params["status"], params["redigest"])
 

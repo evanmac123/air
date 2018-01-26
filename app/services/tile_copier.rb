@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TileCopier
   EXPLORE_PING = "Explore Page"
   OWN_BOARD_PING = "Self Created - Duplicated"
@@ -77,8 +79,7 @@ class TileCopier
         creator: copying_user,
         remote_media_url: tile.image.url(:original, timestamp: false),
         media_source: "tile-copy",
-        creation_source: creation_source,
-        position: copy.find_new_first_position
+        creation_source: creation_source
       )
     end
 end

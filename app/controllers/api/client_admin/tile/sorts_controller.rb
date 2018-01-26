@@ -20,7 +20,7 @@ class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
     end
 
     def sort_params
-      params.require(:sort).permit(:left_tile_id, :right_tile_id, :status, :redigest)
+      params.require(:sort).permit(:left_tile_id, :status, :redigest)
     end
 
     def tile_presenter(tile)

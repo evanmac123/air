@@ -5,7 +5,6 @@ class Tile::Sorter
     InsertTileBetweenTiles.new(
       tile,
       sort_params[:left_tile_id],
-      sort_params[:right_tile_id],
       sort_params[:status],
       sort_params[:redigest]
     ).insert!
