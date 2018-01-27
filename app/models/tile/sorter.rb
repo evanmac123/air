@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 class Tile::Sorter
-  def self.call(tile:, sort_params:)
-    InsertTileBetweenTiles.new(
-      tile,
-      sort_params[:left_tile_id],
-      sort_params[:status],
-      sort_params[:redigest]
-    ).insert!
+  def self.call(tile:, params:)
+    if params[:new_status].present?
+      Tile::StatusUpdater.call(tile: tile, new_status: params[:new_status], redigest: params[:redigest])
+    end
+
+    InsertTileBetweenTiles.new(tile, params[:left_tile_id]).insert!
   end
 end

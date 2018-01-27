@@ -205,21 +205,6 @@ describe Tile do
 
   end
 
-
-
-  describe ".update_status" do
-    it "doesn't change activated_it when status is active but allowdigest is false " do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
-      expect{ tile.update_status({"status" => "active", "redigest" => "false"}) }.to_not change{tile.activated_at}
-    end
-
-    it "doesn't change activated_it when status is active but allowdigest is false " do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
-      expect{ tile.update_status({"status" => "active"}) }.to_not change{tile.activated_at}
-    end
-  end
-
-
   describe 'finders based on status' do
     # The test below was written first and exercises all tile-status combinations pretty thoroughly.
     # We then decided to not initially set a demo's 'tile_digest_email_sent_at' => all 'active' tiles should

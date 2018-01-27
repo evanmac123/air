@@ -1,16 +1,12 @@
 # frozen_string_literal: true
 
 class InsertTileBetweenTiles
-  def initialize(tile, left_tile_id, status = nil, redigest = false)
+  def initialize(tile, left_tile_id)
     @tile = tile
     @left_tile = Tile.find_by(id: left_tile_id)
-    @tile.handle_unarchived(status, redigest)
-
-    @status = status if Tile::STATUS.include?(status)
   end
 
   def insert!
-    set_new_status
     Tile.transaction do
       set_tile_position
       update_tile_positions_to_the_left
@@ -18,10 +14,6 @@ class InsertTileBetweenTiles
   end
 
   private
-
-    def set_new_status
-      @tile.status = @status if @status.present? && @status != @tile.status
-    end
 
     def set_tile_position
       @tile.position = new_tile_position

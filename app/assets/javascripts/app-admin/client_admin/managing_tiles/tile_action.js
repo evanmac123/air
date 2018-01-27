@@ -35,9 +35,8 @@ Airbo.TileAction = (function() {
   function updateStatus(link) {
     var currTile = tileByStatusChangeTriggerLocation(link);
     var data = {
-      update_status: {
-        status: link.data("status"),
-        allowRedigest: false
+      sort: {
+        new_status: link.data("status")
       }
     };
 
@@ -81,7 +80,7 @@ Airbo.TileAction = (function() {
       confirmUnarchive(function(isConfirm) {
         if (isConfirm) {
           if (Airbo.Utils.userIsSiteAdmin()) {
-            data.update_status.redigest = $(".sweet-alert input#digestable").is(
+            data.sort.redigest = $(".sweet-alert input#digestable").is(
               ":checked"
             );
           }

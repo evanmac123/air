@@ -159,21 +159,12 @@ class Tile < ActiveRecord::Base
     when DRAFT
       self.activated_at = nil
     when ACTIVE
-      if  activated_at.nil? || activated_at_reset_allowed?
+      if activated_at.nil?
         self.activated_at = Time.current
       end
     when ARCHIVE
       self.archived_at = Time.current
     end
-  end
-
-  # TODO: Decouple updating status from setting position.
-  def update_status(params)
-    handle_unarchived(params["status"], params["redigest"])
-
-    self.status = params["status"]
-    self.position = find_new_first_position
-    self.save
   end
 
   def organization_slug
@@ -186,12 +177,6 @@ class Tile < ActiveRecord::Base
 
   def archived?
     status == Tile::ARCHIVE
-  end
-
-  def handle_unarchived(new_status, redigest)
-    if status == ARCHIVE && new_status == ACTIVE && redigest == "true"
-      allow_activated_at_reset
-    end
   end
 
   def is_fully_assembled?
@@ -318,14 +303,6 @@ class Tile < ActiveRecord::Base
 
   def next_tile_in_board
     Tile::NeighborInBoardFinder.new(self).next
-  end
-
-  def allow_activated_at_reset
-    @activated_at_reset_allowed = true
-  end
-
-  def activated_at_reset_allowed?
-    @activated_at_reset_allowed == true
   end
 
   def set_on_first_position

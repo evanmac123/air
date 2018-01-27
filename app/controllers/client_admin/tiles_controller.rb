@@ -39,13 +39,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def update
     @tile = get_tile
-    if params[:update_status]
-      update_status
-    else
-      @tile.assign_attributes(params[:tile])
-      update_or_create @tile do
-        render_preview_and_single
-      end
+
+    @tile.assign_attributes(params[:tile])
+    update_or_create @tile do
+      render_preview_and_single
     end
   end
 
@@ -77,8 +74,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def status_change
     @tile = get_tile
-    @tile.update_status(params[:update_status])
-    ping("Tile - Status Change", { tile_id: @tile.id, status: @tile.status, "Current URL" => request.referrer }, current_user)
+    Tile::Sorter.call(tile: @tile, params: params[:sort])
 
     presenter = present(@tile, SingleAdminTilePresenter, is_ie: browser.ie?, from_search: params[:from_search])
     render partial: partial_to_render, locals: { presenter: presenter }
@@ -105,47 +101,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     def permit_params
       params.require(:tile).permit!
     end
-
-    def update_status
-      result = @tile.update_status(params[:update_status])
-      respond_to do |format|
-        format.js { update_status_js(result) }
-        format.html { update_status_html(result) }
-      end
-    end
-
-    def update_status_html(result)
-      success, failure = flash_status_messages
-      # is_new = @tile.activated_at.nil?
-      if result
-        tile_status_updated_ping @tile, "Clicked button to move"
-        if @tile.draft?
-          session[:accepted_tile_id] = @tile.id
-          redirect_to client_admin_tiles_path
-        else
-          flash[:success] = "The #{@tile.headline} tile has been #{success}"
-          redirect_to :back
-        end
-      else
-        flash[:failure] = "There was a problem #{failure} this tile. Please try again."
-        redirect_to :back
-      end
-    end
-
-    def update_status_js(result)
-      if result
-        tile_in_box_updated_ping @tile
-
-        render json: {
-          success: true,
-          tile: render_tile_string,
-          tile_id: @tile.id
-        }
-      else
-        render json: { success: false }
-      end
-    end
-
 
     def prepTilePreview
       unless from_search?

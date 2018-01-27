@@ -3,8 +3,7 @@
 class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
   def create
     @tile = current_user.demo.tiles.find_by(id: params[:tile_id])
-
-    Tile::Sorter.call(tile: @tile, sort_params: sort_params)
+    Tile::Sorter.call(tile: @tile, params: sort_params)
 
     render json: {
       tileId: @tile.id,
@@ -20,11 +19,11 @@ class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
     end
 
     def sort_params
-      params.require(:sort).permit(:left_tile_id, :status, :redigest)
+      params.require(:sort).permit(:left_tile_id, :new_status, :redigest)
     end
 
     def tile_presenter(tile)
-      @presenter ||= present(tile, SingleAdminTilePresenter, is_ie: browser.ie?)
+      @presenter ||= present(tile, SingleAdminTilePresenter, is_ie: browser.ie?, from_search: params[:from_search])
     end
 
     def tile_html

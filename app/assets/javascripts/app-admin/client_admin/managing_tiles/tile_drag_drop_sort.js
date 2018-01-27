@@ -119,7 +119,7 @@ tilePlaceholderSelector = function() {
 /*-----------------    tile_drag_drop_sort.js  ------------------------------------------------------------------------------------------------------------------*/
 var Airbo = window.Airbo || {};
 
-var allowRedigest = false;
+var allowRedigest;
 
 Airbo.TileDragDropSort = (function() {
   var sourceSectionName,
@@ -424,15 +424,15 @@ Airbo.TileDragDropSort = (function() {
   }
 
   function saveTilePosition(tile) {
-    var id, left_tile_id, status;
-    id = findTileId(tile);
-    left_tile_id = findTileId(tile.prev());
-    status = getTilesSection(tile);
+    var id = findTileId(tile);
+    var leftTileId = findTileId(tile.prev());
+    var newStatus = getTilesSection(tile);
+
     $.ajax({
       data: {
         sort: {
-          left_tile_id: left_tile_id,
-          status: status,
+          left_tile_id: leftTileId,
+          new_status: newStatus,
           redigest: allowRedigest
         }
       },
