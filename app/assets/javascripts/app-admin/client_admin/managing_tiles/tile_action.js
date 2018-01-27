@@ -53,11 +53,10 @@ Airbo.TileAction = (function() {
     function submit() {
       $.ajax({
         url: link.data("url") || link.attr("href"),
-        type: "PATCH",
+        type: "POST",
         data: data,
-        dataType: "html",
         success: function(tileData, status, xhr) {
-          updatedTile = $(tileData);
+          updatedTile = $(tileData.tileHTML);
           closeAnyToolTips();
           movePing(
             updatedTile,

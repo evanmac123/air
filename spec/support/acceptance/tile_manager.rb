@@ -4,7 +4,7 @@ module TileManagerHelpers
   end
 
   def have_reactivate_link_for(tile)
-    have_selector("a[data-status='active'][href='#{status_change_client_admin_tile_path(tile)}']")
+    have_selector("a[data-status='active'][href='#{api_client_admin_tile_sorts_path(tile)}']")
   end
 
   def edit_link_for(tile)
