@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TODO: Deprecate InsertTileBetweenTiles and add to Sorter. Move new_status conditional into instance.
 class Tile::Sorter
   def self.call(tile:, params:)
     if params[:new_status].present?

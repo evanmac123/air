@@ -35,8 +35,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     new_or_edit @tile
   end
 
-  # TODO: I don't think the first conditional branch ever gets hit.  See not about update_status endpoint.
-
   def update
     @tile = get_tile
 
@@ -70,16 +68,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  # FIXME Move status change to Api::Tile::StatusChangesController as a temp fix before moving to simple Tile api that manages templateing on teh fron end. This will clean up multiple separation of concerns issues with status changes and sorting as well as clena up this controller.
-
-  def status_change
-    @tile = get_tile
-    Tile::Sorter.call(tile: @tile, params: params[:sort])
-
-    presenter = present(@tile, SingleAdminTilePresenter, is_ie: browser.ie?, from_search: params[:from_search])
-    render partial: partial_to_render, locals: { presenter: presenter }
-  end
-
   def update_explore_settings
     tpf = TilePublicForm.new(get_tile, params[:tile_public_form])
     tpf.save
@@ -93,10 +81,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   private
-
-    def partial_to_render
-      "client_admin/tiles/manage_tiles/single_tile"
-    end
 
     def permit_params
       params.require(:tile).permit!
@@ -115,24 +99,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
     def get_tile
       current_user.demo.tiles.find_by(id: params[:id])
-    end
-
-    def flash_status_messages
-      success, failure = case params[:update_status]
-                         when Tile::ARCHIVE
-                           ["archived", "archiving"]
-                         when Tile::ACTIVE
-                           ["published", "publishing"]
-                         when Tile::USER_SUBMITTED
-                           ["moved to submitted", "with moving to submitted"]
-                         when Tile::IGNORED
-                           ["ignored", "ignoring"]
-                         when Tile::DRAFT
-                           ["accepted", "accepting"]
-                         else
-                           ["", ""]
-      end
-      [success, failure]
     end
 
     def render_tile_string
