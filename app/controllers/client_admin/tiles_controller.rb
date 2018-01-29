@@ -1,90 +1,94 @@
 # frozen_string_literal: true
 
-require "custom_responder"
+# TODO: Move partial templates to front end.
 class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesHelper
   include ClientAdmin::TilesPingsHelper
-  include CustomResponder
-
-  before_action :get_demo, except: [:index]
-  before_action :permit_params, only: [:create, :update]
 
   def index
     @tiles_facade = ClientAdminTilesFacade.new(demo: current_user.demo)
   end
 
   def show
-    @tile = get_tile
-    prepTilePreview
-    if request.xhr?
-      render layout: false
-    end
+    @tile = find_tile
+    add_prev_next_tiles
+
+    render json: {
+      tilePreview: render_tile_preview_string
+    }
   end
 
   def new
-    @tile = @demo.tiles.build(status: Tile::DRAFT)
-    new_or_edit @tile
+    @tile = current_board.tiles.build(status: Tile::DRAFT)
+
+    render json: {
+      tileForm: render_tile_form_string
+    }
   end
 
   def edit
-    @tile = get_tile
-    new_or_edit @tile
+    @tile = find_tile
+
+    render json: {
+      tileForm: render_tile_form_string
+    }
   end
 
   def update
-    @tile = get_tile
+    @tile = find_tile
 
-    @tile.assign_attributes(params[:tile])
-    update_or_create @tile do
+    if @tile.update_attributes(tile_params)
       render_preview_and_single
+    else
+      tile_error(@tile)
     end
   end
 
   def create
-    @tile = @demo.tiles.build(params[:tile].merge(creator_id: current_user.id))
+    @tile = current_board.tiles.build(tile_params.merge(creator_id: current_user.id))
 
-    update_or_create @tile do
+    if @tile.save
       schedule_tile_creation_ping(@tile, "Self Created")
       render_preview_and_single
+    else
+      tile_error(@tile)
     end
   end
 
   def destroy
-    @tile = get_tile
+    @tile = find_tile
     if @tile
       @tile.destroy
     end
 
-    if request.xhr?
-      head :ok
-    else
-      redirect_to client_admin_tiles_path
-    end
+    head :ok
   end
 
   def duplicate
-    @tile = get_tile.copy_inside_demo(current_user.demo, current_user)
+    @tile = find_tile.copy_inside_demo(current_user.demo, current_user)
     render_preview_and_single
   end
 
   private
 
-    def permit_params
+    def tile_params
       params.require(:tile).permit!
     end
 
-    def prepTilePreview
+    def tile_error(tile)
+      message = tile.errors.full_messages.to_sentence
+      response.headers["X-Message"] = message
+      head :unprocessable_entity
+    end
+
+    def add_prev_next_tiles
       unless from_search?
         @next_tile = @tile.next_tile_in_board
         @prev_tile = @tile.prev_tile_in_board
       end
     end
 
-    def get_demo
-      @demo = current_user.demo
-    end
-
-    def get_tile
+    def find_tile
       current_user.demo.tiles.find_by(id: params[:id])
     end
 
@@ -99,10 +103,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       )
     end
 
-    def render_single_tile
-      render partial: "client_admin/tiles/manage_tiles/single_tile", locals: { presenter: tile_presenter }
-    end
-
     def tile_presenter(tile = @tile)
       @presenter ||= present(tile, SingleAdminTilePresenter, is_ie: browser.ie?)
     end
@@ -111,27 +111,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       render_to_string(action: "show", layout: false)
     end
 
-    def set_after_save_flash(new_tile)
-      flash[:success] = "Tile #{params[:action] || 'create' }d! We're resizing the graphics, which usually takes less than a minute."
-    end
-
-    def set_flash_for_no_image
-      if @tile.no_image
-        flash.now[:failure] = render_to_string("client_admin/tiles/form/save_tile_without_an_image", layout: false, locals: { tile: @tile.tile })
-        flash[:failure_allow_raw] = true
-      end
-    end
-
-    def builder_options
-      {
-        form_params: params[:tile],
-        creator: current_user,
-        action: params[:action]
-      }
+    def render_tile_form_string
+      render_to_string(partial: "form", layout: false)
     end
 
     def render_preview_and_single
-      prepTilePreview
+      add_prev_next_tiles
       render json: {
         tileStatus: @tile.status,
         tileId: @tile.id,
@@ -143,6 +128,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
 
     def from_search?
-      request.referrer && request.referrer.include?("explore/search")
+      request.referrer.to_s.include?("explore/search")
     end
 end
