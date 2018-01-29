@@ -15,10 +15,6 @@ module ClientAdmin::TilesPingsHelper
     end
   end
 
-  def destroy_tile_ping(page)
-    ping("Tile - Deleted", { page: page, "Current URL" => request.referrer }, current_user)
-  end
-
   def schedule_tile_creation_ping(tile, source)
     ping("Tile - New", tile_creation_ping_props(tile, source), current_user)
   end

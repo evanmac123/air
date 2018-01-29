@@ -19,10 +19,6 @@ namespace :client_admin do
   resources :locations, :only => :create
 
   resources :tiles do
-    collection do
-      get "blank"
-    end
-
     get 'download_tile_report', to: 'tile_stats#download_report', as: 'download_report'
 
     resource :image, :only => [:update, :show]
@@ -34,8 +30,6 @@ namespace :client_admin do
       end
     end
     member do
-      patch  'status_change' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile status update.
-      patch  'update_explore_settings' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile explore settings update.
       post 'duplicate'
     end
   end

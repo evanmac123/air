@@ -21,10 +21,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
   end
 
-  def blank
-    render "blank", layout: "empty_layout"
-  end
-
   def new
     @tile = @demo.tiles.build(status: Tile::DRAFT)
     new_or_edit @tile
@@ -57,8 +53,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = get_tile
     if @tile
       @tile.destroy
-      # FIXME why is the ping destroy tile ping necessary?
-      destroy_tile_ping params[:page]
     end
 
     if request.xhr?
@@ -66,13 +60,6 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     else
       redirect_to client_admin_tiles_path
     end
-  end
-
-  def update_explore_settings
-    tpf = TilePublicForm.new(get_tile, params[:tile_public_form])
-    tpf.save
-    @tile = tpf.tile
-    render_preview_and_single
   end
 
   def duplicate
@@ -109,7 +96,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       render_to_string(
         partial: "client_admin/tiles/manage_tiles/single_tile",
         locals: { presenter:  tile_presenter }
-                      )
+      )
     end
 
     def render_single_tile
