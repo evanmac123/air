@@ -67,6 +67,10 @@ Airbo.TileAction = (function() {
             currTile: currTile,
             updatedTile: updatedTile
           });
+
+          Airbo.PubSub.publish("updateShareTabNotification", {
+            number: tileData.tilesToBeSentCount
+          });
         }
       });
     }

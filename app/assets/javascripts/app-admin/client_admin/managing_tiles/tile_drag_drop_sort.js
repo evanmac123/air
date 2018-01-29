@@ -8,10 +8,6 @@ replaceMovedTile = function(tile_id, updated_tile_container) {
   Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".pill.more"));
 };
 
-updateShareTilesNumber = function(number) {
-  Airbo.PubSub.publish("updateShareTabNotification", { number: number });
-};
-
 updateShowMoreDraftTilesButton = function() {
   var button = $(".show_all_draft_section");
   if (showMoreDraftTiles() || showMoreSuggestionBox()) {
@@ -417,8 +413,11 @@ Airbo.TileDragDropSort = (function() {
 
   function onSortSuccess(result) {
     replaceMovedTile(result.tileId, result.tileHTML);
-    updateShareTilesNumber(result.tilesToBeSentCount);
     updateShowMoreDraftTilesButton();
+
+    Airbo.PubSub.publish("updateShareTabNotification", {
+      number: result.tilesToBeSentCount
+    });
 
     updateShowMoreButtons();
   }
