@@ -25,17 +25,6 @@ feature "Client admin creates tiles", js: true do
       expect(page).to have_selector("a.multiple-choice-answer.correct ", text: "Youbaz")
       expect(page).to have_selector("#tile_point_value", text: "10")
     end
-
-    context "autosave" do
-      scenario "create with only headline" do
-        click_link "Add New Tile"
-        page.find("#tile_headline").set("Ten pounds of cheese")
-        page.find(".close-reveal-modal").click
-        within ".tile_container.unfinished" do
-          expect(page).to  have_content "Ten pounds of cheese"
-        end
-      end
-    end
   end
 
   context "existing tile" do
