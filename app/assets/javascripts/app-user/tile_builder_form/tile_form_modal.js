@@ -115,16 +115,13 @@ Airbo.TileFormModal = (function() {
   }
 
   function initSubmitButtonClick() {
-    submitLink.click(
-      $.debounce(500, function(e) {
-        e.preventDefault();
-        if (timer) {
-          clearTimeout(timer);
-        }
-        addSavingIndicator();
-        currform.submit();
-      })
-    );
+    submitLink.on("click", function(e) {
+      e.preventDefault();
+      if (isAutoSaving()) return;
+
+      addSavingIndicator();
+      currform.submit();
+    });
   }
 
   function initImageClick() {
@@ -221,6 +218,7 @@ Airbo.TileFormModal = (function() {
         initFormElements();
 
         if (currform.data("tileid") !== null) {
+          initAutoSave();
           saveable = true;
           addForceValidation();
           currform.valid();
@@ -229,7 +227,6 @@ Airbo.TileFormModal = (function() {
         }
         modalObj.open();
         setTileCreationPingProps();
-        initAutoSave();
         removeForceValidation();
       }.bind(self),
 
