@@ -7,7 +7,6 @@ feature 'Creates draft tile' do
     user
   end
 
-
   before do
     visit activity_path(as: user)
   end

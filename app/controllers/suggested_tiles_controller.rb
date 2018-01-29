@@ -3,14 +3,19 @@
 class SuggestedTilesController < UserBaseController
   def new
     @tile = current_board.tiles.build(status: Tile::USER_SUBMITTED, user_created: true)
-    render partial: "client_admin/tiles/form", layout: false
+
+    render json: {
+      tileForm: render_tile_form_string
+    }
   end
 
   def create
     @tile = current_user.demo.tiles.new(tile_params)
 
     if @tile.save
-      render_preview
+      render json: {
+        preview: render_preview_string
+      }
     else
       render json: { errors: @tile.errors }
     end
@@ -18,10 +23,12 @@ class SuggestedTilesController < UserBaseController
 
   private
 
-    def render_preview
-      render json: {
-        preview: render_to_string(action: "show", layout: false)
-      }
+    def render_tile_form_string
+      render_to_string(partial: "client_admin/tiles/form", layout: false)
+    end
+
+    def render_preview_string
+      render_to_string(action: "show", layout: false)
     end
 
     def tile_params
