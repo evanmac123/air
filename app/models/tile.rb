@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tile < ActiveRecord::Base
   include Tile::TileImageable
   include Tile::TileImageProcessing
@@ -23,7 +25,6 @@ class Tile < ActiveRecord::Base
 
   acts_as_taggable_on :channels
 
-  #enum column: creation_source_cd
   as_enum :creation_source, client_admin_created: 0, explore_created: 1, suggestion_box_created: 2
 
   belongs_to :demo
@@ -58,7 +59,7 @@ class Tile < ActiveRecord::Base
   validates_presence_of :headline, allow_blank: false, message: "headline can't be blank",  if: :state_is_anything_but_draft?
   validates_presence_of :supporting_content, allow_blank: false, message: "supporting content can't be blank", if: :state_is_anything_but_draft?
   validates_presence_of :question, allow_blank: false, message: "question can't be blank",  if: :state_is_anything_but_draft?
-  validates_presence_of :remote_media_url, message: "image is missing" , if: :state_is_anything_but_draft?
+  validates_presence_of :remote_media_url, message: "image is missing", if: :state_is_anything_but_draft?
   validate :multiple_choice_question_answer_selected, if: :state_is_anything_but_draft?
   validates_inclusion_of :status, in: STATUS
 
@@ -69,7 +70,7 @@ class Tile < ActiveRecord::Base
     status != DRAFT
   end
 
-  #FIXME suggested and status are not the same thing!
+  # FIXME suggested and status are not the same thing!
 
   scope :suggested, -> do
     where(status: [USER_SUBMITTED, IGNORED]).order(status: :desc).ordered_by_position
@@ -158,20 +159,12 @@ class Tile < ActiveRecord::Base
     when DRAFT
       self.activated_at = nil
     when ACTIVE
-      if  activated_at.nil? || activated_at_reset_allowed?
+      if activated_at.nil?
         self.activated_at = Time.current
       end
     when ARCHIVE
       self.archived_at = Time.current
     end
-  end
-
-  def update_status(params)
-    handle_unarchived(params["status"], params["redigest"])
-
-    self.status = params["status"]
-    self.position = find_new_first_position
-    self.save
   end
 
   def organization_slug
@@ -184,12 +177,6 @@ class Tile < ActiveRecord::Base
 
   def archived?
     status == Tile::ARCHIVE
-  end
-
-  def handle_unarchived(new_status, redigest)
-    if status == ARCHIVE && new_status == ACTIVE && redigest == "true"
-      allow_activated_at_reset
-    end
   end
 
   def is_fully_assembled?
@@ -306,50 +293,16 @@ class Tile < ActiveRecord::Base
     satisfiable_tiles.sort_by(&:position).reverse
   end
 
-  def self.next_manage_tile(tile, offset, carousel = true)
-    tiles = where(status: tile.status, demo: tile.demo).ordered_by_position
-    first_tile = carousel ? tiles.first : nil
-    tiles[tiles.index(tile) + offset] || first_tile
-  end
-
-  def self.find_additional_tiles_for_manage_section(status_name, presented_ids, tile_demo_id)
-    FindAdditionalTilesForManageSection.new(status_name, presented_ids, tile_demo_id).find
-  end
-
-  def self.insert_tile_between(left_tile_id, tile_id, right_tile_id, new_status = nil, redigest = false)
-    InsertTileBetweenTiles.new(left_tile_id, tile_id, right_tile_id, new_status, redigest).insert!
-  end
-
-  def self.reorder_explore_page_tiles!(tile_ids)
-    ReorderExplorePageTiles.new(tile_ids).reorder
-  end
-
   def self.displayable_tiles_select_clause
     [:id, :headline, :demo_id, :tile_completions_count, :thumbnail_file_name, :thumbnail_content_type, :thumbnail_file_size, :thumbnail_updated_at, :position]
   end
 
-  def right_tile
-    self_position = self.position
-    Tile.where(demo: self.demo)
-      .where(status: self.status)
-      .where("position < ?", self_position)
-      .ordered_by_position.first
+  def prev_tile_in_board
+    Tile::NeighborInBoardFinder.new(self).prev
   end
 
-  def left_tile
-    self_position = self.position
-    Tile.where(demo: self.demo)
-      .where(status: self.status)
-      .where("position > ?", self_position)
-      .order("position ASC").first
-  end
-
-  def allow_activated_at_reset
-    @activated_at_reset_allowed = true
-  end
-
-  def activated_at_reset_allowed?
-    @activated_at_reset_allowed == true
+  def next_tile_in_board
+    Tile::NeighborInBoardFinder.new(self).next
   end
 
   def set_on_first_position
@@ -376,7 +329,7 @@ class Tile < ActiveRecord::Base
       base
     end
 
-    #TODO run migratio to downcase question type in DB remove this method
+    # TODO run migratio to downcase question type in DB remove this method
     def normalized_question_type
       question_type.try(:downcase)
     end

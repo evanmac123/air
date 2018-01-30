@@ -1,4 +1,5 @@
-require 'custom_responder'
+# frozen_string_literal: true
+
 class Admin::OrganizationsController < AdminBaseController
   include SalesAcquisitionConcern
 
@@ -15,7 +16,7 @@ class Admin::OrganizationsController < AdminBaseController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
-      flash[:success] = t('controllers.admin.organizations.flash_create', name: @organization.name)
+      flash[:success] = t("controllers.admin.organizations.flash_create", name: @organization.name)
       redirect_to admin_organization_path(@organization)
     else
       render :new
@@ -48,7 +49,7 @@ class Admin::OrganizationsController < AdminBaseController
       flash[:failure] = "Switch out of #{@organization.name}'s demos in order to delete the organization."
     else
       @organization.delay.destroy
-      flash[:success] = t('controllers.admin.organizations.flash_destroy', name: @organization.name)
+      flash[:success] = t("controllers.admin.organizations.flash_destroy", name: @organization.name)
     end
 
     redirect_to admin_path

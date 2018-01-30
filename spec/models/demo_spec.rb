@@ -56,33 +56,6 @@ describe Demo do
   end
 end
 
-describe Demo, "#welcome_message" do
-  before(:each) do
-    @demo = FactoryBot.create :demo
-    @user = FactoryBot.create :user, :demo => @demo
-  end
-
-  context "when the demo has no custom welcome message" do
-    before(:each) do
-      expect(@demo.custom_welcome_message).to be_nil
-    end
-
-    it "should return a reasonable default" do
-      expect(@demo.welcome_message(@user)).to eq("You've joined the #{@demo.name} game! @{reply here}")
-    end
-  end
-
-  context "when the demo has a custom welcome message" do
-    before(:each) do
-      @demo.custom_welcome_message = "Derp derp! Let's play! You are %{unique_id}, we are %{name}!"
-    end
-
-    it "should use that" do
-      expect(@demo.welcome_message(@user)).to eq("Derp derp! Let's play! You are #{@user.sms_slug}, we are #{@demo.name}!")
-    end
-  end
-end
-
 describe Demo, ".alphabetical" do
   before do
     Demo.delete_all

@@ -63,7 +63,7 @@ module SuggestionBox
 
   def thumbnail_action_button tile, status
     show_thumbnail_buttons
-    page.find("a[href *= '#{status_change_client_admin_tile_path(tile)}'][data-status='#{status}']")
+    page.find("a[href *= '#{api_client_admin_tile_sorts_path(tile)}'][data-status='#{status}']")
   end
 
   def headline tile

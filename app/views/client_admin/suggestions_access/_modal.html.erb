@@ -1,7 +1,7 @@
 <div data-reveal class='reveal-modal' id='suggestions_access_modal'>
   <h2>Add people to suggestion box</h2>
 
-  <%= render partial: 'client_admin/suggestions_access/form', locals: { demo: current_user.demo, users: @allowed_to_suggest_users } %>
+  <%= render partial: 'client_admin/suggestions_access/form', locals: { demo: current_user.demo, users: @tiles_facade.allowed_to_suggest_users } %>
 
   <%= link_to '&#215;'.html_safe, '', id: "close-suggestions-access-modal", class: "close-reveal-modal" %>
 </div>

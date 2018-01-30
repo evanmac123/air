@@ -210,11 +210,6 @@ feature 'Client admin and tile manager page', js: true do
     expect_inactive_tile_placeholders(0)
     5.times { FactoryBot.create(:tile, :archived, demo: admin.demo) }
 
-    # There's now the creation placeholder, plus eight other archived tiles.
-    # If we DID show all of them, there's be an odd row with 1 tile, and we'd
-    # expect 3 placeholders. But we only show the first 8 archive tiles
-    # and those two rows are full
-    # now, so...
     visit(client_admin_tiles_path)
     expect_inactive_tile_placeholders(0)
 

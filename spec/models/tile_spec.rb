@@ -167,20 +167,10 @@ describe Tile do
 
   context "status and activated_at" do
 
-    it "forbids updating activated_at when unarchiving tiles be default" do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE
-      expect(tile.activated_at_reset_allowed?).to be_falsey
-    end
 
     it "doesnt change activated_at on un-archival if not explicitly set" do
       tile  = FactoryBot.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
       expect{tile.status=Tile::ACTIVE;tile.save}.to_not change{tile.activated_at}
-    end
-
-    it "allows updating activated_at when unarchiving tiles when explicitly set" do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE
-      tile.allow_activated_at_reset
-      expect(tile.activated_at_reset_allowed?).to be_truthy
     end
 
     it "updates activated_at if the status changes from DRAFT to ACTIVE" do
@@ -188,37 +178,6 @@ describe Tile do
       expect{tile.status=Tile::ACTIVE; tile.save}.to change{tile.activated_at}
     end
   end
-
-  describe "handle_unarchive" do
-    it "allows activated_at reset if allow digest flag is true" do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE
-      tile.handle_unarchived(Tile::ACTIVE, "true")
-      expect(tile.activated_at_reset_allowed?).to be_truthy
-    end
-
-
-    it "prevents activated_at reset if allow digest flag is false" do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE
-      tile.handle_unarchived(Tile::ACTIVE, "false")
-      expect(tile.activated_at_reset_allowed?).to be_falsey
-    end
-
-  end
-
-
-
-  describe ".update_status" do
-    it "doesn't change activated_it when status is active but allowdigest is false " do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
-      expect{ tile.update_status({"status" => "active", "redigest" => "false"}) }.to_not change{tile.activated_at}
-    end
-
-    it "doesn't change activated_it when status is active but allowdigest is false " do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
-      expect{ tile.update_status({"status" => "active"}) }.to_not change{tile.activated_at}
-    end
-  end
-
 
   describe 'finders based on status' do
     # The test below was written first and exercises all tile-status combinations pretty thoroughly.

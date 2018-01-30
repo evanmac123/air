@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "digest/sha1"
 
 class User < ActiveRecord::Base
@@ -40,7 +42,7 @@ class User < ActiveRecord::Base
 
   has_one    :lead_contact, dependent: :delete
   has_one    :billing_information, dependent: :delete
-  has_one    :user_intro, as: :userable, dependent: :delete #FIXME this is confusing since we have an intros method below
+  has_one    :user_intro, as: :userable, dependent: :delete # FIXME this is confusing since we have an intros method below
   has_one    :user_settings_change_log, dependent: :delete
 
   has_many   :peer_invitations_as_inviter, class_name: "PeerInvitation", foreign_key: :inviter_id, dependent: :delete_all
@@ -491,8 +493,8 @@ class User < ActiveRecord::Base
     self.update_attributes(new_phone_number: "", new_phone_validation: "")
   end
 
-  def reply_email_address(include_name = true)
-    self.demo.reply_email_address(include_name)
+  def reply_email_address
+    demo.reply_email_address
   end
 
   def email_for_vendor
@@ -607,8 +609,6 @@ class User < ActiveRecord::Base
 
   def finish_claim
     add_joining_to_activity_stream
-
-    demo.welcome_message(self)
   end
 
   def join_board
@@ -992,8 +992,8 @@ class User < ActiveRecord::Base
   end
 
   def intros
-    #FIXME should use appropriate AR first_or_create idiom
-    user_intro || self.create_user_intro #UserIntro.create(user: self)
+    # FIXME should use appropriate AR first_or_create idiom
+    user_intro || self.create_user_intro # UserIntro.create(user: self)
   end
 
   private
