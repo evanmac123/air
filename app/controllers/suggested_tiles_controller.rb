@@ -2,7 +2,7 @@
 
 class SuggestedTilesController < UserBaseController
   def new
-    @tile = current_board.tiles.build(status: Tile::USER_SUBMITTED, user_created: true)
+    @tile = current_board.tiles.new(status: Tile::USER_SUBMITTED)
 
     render json: {
       tileForm: render_tile_form_string
@@ -35,7 +35,7 @@ class SuggestedTilesController < UserBaseController
       params.require(:tile).permit!.merge(
         creator: current_user,
         status: Tile::USER_SUBMITTED,
-        creation_source: :suggestion_box_created
+        creation_source_cd: Tile.suggestion_box_created
       )
     end
 end

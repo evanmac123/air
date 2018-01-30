@@ -353,7 +353,7 @@ describe Tile do
   describe '#search_data for songkick', search: true do
     let(:user) {FactoryBot.create(:user) }
     let(:demo) { FactoryBot.create(:demo) }
-    let(:tile) { FactoryBot.create(:multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true) }
+    let(:tile) { FactoryBot.create(:multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user) }
 
     it 'should be indexed' do
       FactoryBot.create(:tile, headline: "Food")
