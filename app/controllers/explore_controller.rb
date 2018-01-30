@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExploreController < ExploreBaseController
   include ExploreConcern
 
@@ -9,8 +11,8 @@ class ExploreController < ExploreBaseController
 
     if request.xhr?
       content = render_to_string(
-                  partial: "explore/tiles",
-                  locals: { tiles: @tiles, section: "Explore" })
+        partial: "explore/tiles",
+        locals: { tiles: @tiles, section: "Explore" })
 
       render json: {
         success:   true,
@@ -38,8 +40,7 @@ class ExploreController < ExploreBaseController
         set_intro_slides
         @tile_features = TileFeature.ordered
         @campaigns = Campaign.all
-        @featured_organizations = Organization.featured
-        @channels = Channel.display_channels('explore')
+        @channels = Channel.display_channels("explore")
       end
     end
 

@@ -5,11 +5,6 @@
   <% @tile_features.each do |feature| %>
     <%= render partial: 'explore/tile_feature', locals: { feature: feature } %>
   <% end %>
-  <% if @featured_organizations.present? && false %>
-    <section class="manage_section channel_container" id="organizations">
-      <%= render partial: 'explore/organizations', locals: { organizations: Organization.featured, header: "Organizations" } %>
-    </section>
-  <% end %>
   <section class="manage_section" id="campaign_boards">
     <%= render partial: 'explore/campaigns', locals: { campaigns: @campaigns, header: "Airbo Campaigns" } %>
   </section>
