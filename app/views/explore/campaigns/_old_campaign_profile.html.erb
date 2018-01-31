@@ -1,13 +1,7 @@
 <section class="manage_section" id="explore_tiles">
   <div class="row">
     <div class="explore-tiles-titles small-12 columns">
-        <span class="explore-sub-page-header"><%= campaign.name %></span>
-        <br>
-        <div class="related-channel-tags">
-          <% campaign.related_channels.each do |channel| %>
-            <%= link_to channel.name, explore_channel_path(channel), class: "button outlined gray explore-tag explore-tag-campaign" %>
-          <% end %>
-        </div>
+      <span class="explore-sub-page-header"><%= campaign.name %></span>
     </div>
   </div>
 

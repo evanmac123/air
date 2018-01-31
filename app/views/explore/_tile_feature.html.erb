@@ -1,9 +1,9 @@
 <% if feature_tiles ||= feature.get_tiles(Tile.all) %>
-  <section class="manage_section channel_container" id="<%= feature.name %>" style="background:<%= feature.background_color %>">
+  <section class="manage_section campaign-tiles-container with-divider" id="<%= feature.name %>" style="background:<%= feature.background_color %>">
     <div class="row">
       <div class="large-12 columns">
         <% if feature.custom_icon_url.present? %>
-          <%= image_tag feature.custom_icon_url, class: "recommended-tiles-custom-icon" %>
+          <%= image_tag feature.custom_icon_url, class: "campaign-custom-icon" %>
           <% if show_feature_related_content_link?(feature) %>
             <%= link_to explore_tile_feature_path(feature) do %>
               <h4 class="explore-headers link" style="color:<%= feature.text_color %>; margin-left:0"><%= feature.header_copy || "Recommended Tiles" %></h4>

@@ -1,26 +1,26 @@
 <div class="explore" data-campaign-id="<%= @campaign.id %>">
-  <section class="manage_section" id="channels">
-    <% cache @display_channels do %>
-      <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
-    <% end %>
-  </section>
-  <% if @campaign.instructions.present? #temporary conditional as we update campaigns %>
-    <%= render 'campaign_profile', campaign: @campaign %>
-  <% else %>
-    <%= render 'old_campaign_profile', campaign: @campaign %>
-  <% end %>
+  <%= render partial: 'explore/campaign_nav_row', locals: { channels: @display_channels } %>
 
-  <section class="manage_section" id="explore_tiles">
-    <div class="manage_section explore_tiles_section" style="margin-bottom:80px;">
-      <div class="row">
-        <div class="large-12 columns">
-          <div class="tile_wall_explore">
-            <%= render partial: 'explore/tiles', locals: {tiles: @tiles, section: "Campaign Tile" } %>
-          </div>
+  <%= render partial: 'explore/campaign_header', locals: { campaign: @campaign } %>
+
+  <% unless current_user.is_a?(GuestUser) || current_user.end_user? %>
+    <div class="row">
+      <div class="columns large-12">
+        <div id="copy-all-tiles-button" class="button">
+          Copy Campaign
         </div>
       </div>
     </div>
-  </section>
+  <% end %>
+
+  <div class="campaign-tiles-container with-divider">
+    <div class="row">
+      <div class="large-12 columns">
+        <%= render partial: 'explore/tiles', locals: {tiles: @tiles, section: "Campaign Tile" } %>
+      </div>
+    </div>
+  </div>
+
   <% Campaign.exclude([@campaign.id]).each do |campaign| %>
     <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>
   <% end %>

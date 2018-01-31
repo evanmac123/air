@@ -13,14 +13,6 @@
 @import "./internal/dashboard.css.scss";
 @import "./internal/scoreboard.css.scss";
 
-
-.explore-campaigns, .explore-channels, .explore-tile_features, .explore-organizations {
-  .content {
-    background: #fff;
-    padding: 0;
-  }
-}
-
 .endless_scroll_loading {
   width: 100%;
   display: inline-block;
@@ -30,17 +22,47 @@
   @include airbo_search;
 }
 
-body.explore, .explore {
-
-  .manage_section {
+.explore {
+  .campaign-tiles-container {
     position: relative;
-    color: $text-color;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    z-index: 1;
+  }
 
-    h4 {
-      display: inline-block;
-      margin-bottom: 30px;
-      margin-left: 1em;
-      margin-top: 10px;
+  .with-divider {
+    border-bottom: solid 1px $secondary-gray;
+  }
+
+  .campaign-custom-icon {
+    float: left;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    margin-left: 0.5em;
+  }
+
+  .explore-headers {
+    color: $text-color;
+    display: inline-block;
+    margin-bottom: 30px;
+    margin-left: 10px;
+    margin-top: 15px;
+    font-size: 25px;
+
+    &.link {
+      &:hover {
+        color: $n-blue;
+        cursor: pointer;
+      }
+
+      &:after {
+        font-family: FontAwesome;
+        top: 0;
+        left: -5px;
+        padding-left: 10px;
+        content: "\f105";
+      }
     }
   }
 
@@ -57,8 +79,10 @@ body.explore, .explore {
   .channel-row {
     height: 120px;
     padding: 10px 12px;
+
     .channels {
       display: none;
+
       @include flickity;
       @include channels;
     }
@@ -69,68 +93,6 @@ body.explore, .explore {
     color: $darker-gray;
     font-weight: 800;
     margin-bottom: 0;
-  }
-
-  .campaign-row {
-    padding: 10px 15px;
-    .campaigns {
-      @include flickity;
-      @include campaigns;
-      .flickity-prev-next-button.next {
-        right: 20px;
-      }
-      .flickity-prev-next-button.previous {
-        left: 20px;
-      }
-      background: transparent;
-    }
-    h4 {
-      margin-left: 0.4em;
-    }
-  }
-
-  .organization-row {
-    padding: 10px 15px 35px 15px;
-    @include flickity;
-    .carousel-cell {
-      cursor: auto;
-    }
-    .flickity-organizations-carousel {
-      display: none;
-    }
-    .flickity-prev-next-button.next {
-      right: 20px;
-    }
-    .flickity-prev-next-button.previous {
-      left: 20px;
-    }
-    .flickity-prev-next-button {
-      background: transparent;
-    }
-    .organization-card {
-      @include organization-card;
-    }
-    h4 {
-      margin-left: 0.4em;
-    }
-  }
-
-  .explore-headers {
-    font-size: 25px;
-    color: $darker-gray;
-    &.link {
-      &:hover {
-        color: $n-blue;
-        cursor: pointer;
-      }
-      &:after {
-        font-family: FontAwesome;
-        top:0;
-        left:-5px;
-        padding-left:10px;
-        content: "\f105";
-      }
-    }
   }
 
   #copy-all-tiles-button {
@@ -145,109 +107,6 @@ body.explore, .explore {
       text-decoration: none;
       cursor: default;
       border-bottom: 3px solid #48bfff;
-    }
-  }
-
-  .show-more-content-div{
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 40px;
-    .show_more_tiles, .show_more_campaigns {
-      width: 140px;
-      &[disabled] {
-        display: none;
-      }
-    }
-  }
-
-  .channel_container {
-    .recommended-tiles-custom-icon {
-      float: left;
-      width: 50px;
-      height: 50px;
-      padding: 5px;
-      margin-left: 0.5em;
-    }
-  }
-
-  .core {
-    background: #fff;
-  }
-  .content {
-    background: #fff;
-    padding: 0;
-  }
-  #footer {
-    background: #fff;
-  }
-
-  .explore-tiles-tabs {
-    z-index: 1;
-  }
-
-  .explore-tiles-tab {
-    &:hover {
-      color: $n-blue;
-    }
-  }
-
-  .channel_container, #campaign_boards, #explore_tiles, .explore_content {
-    background: #fff;
-    padding: 1em 0 0 0;
-  }
-
-  .channel_container {
-    border-bottom: solid 1px $secondary-gray;
-    z-index: 1;
-    .tile_container {
-      margin-top: 7px;
-    }
-  }
-
-  #campaign_boards {
-    border-bottom: solid 1px $secondary-gray;
-    padding-bottom: 20px;
-    z-index: 1;
-  }
-
-  //
-
-  #explore_tiles {
-    background: #fff;
-    padding-top: 21px;
-    #verified {
-      margin-left: 6px;
-      margin-right: 6px;
-      &:after {
-        @include clear;
-      }
-    }
-    //
-    // => Draft Header States
-    //
-    &.verified_selected {
-      #verified {
-        display: block;
-      }
-    }
-    &.community_tiles_selected {
-      #verified {
-        display: none;
-      }
-      #community_tiles {
-        display: block;
-      }
-    }
-
-    .explore-tiles-titles {
-      margin: 0 0 0.5em 1.3em;
-    }
-
-    .copy-all-tiles {
-      margin-top: 0;
-    }
-    &.organization {
-      padding-top: 0;
     }
   }
 
@@ -279,20 +138,21 @@ body.explore, .explore {
     }
   }
 
-  .channel_header {
-    z-index: 2;
-    box-shadow: 0px 1px 2px 1.2px $med-gray;
+  .campaign-header {
     padding-top: 30px;
     padding-bottom: 10px;
+
     .explore-sub-page-header {
       padding-left: 10px;
     }
+
     .channel-description {
       margin-top: 10px;
-      margin-bottom: 0px;
-      margin-left: 0.5em;
+      margin-bottom: 0;
+      margin-left: 10px;
       font-size: 20px;
     }
+
     &:after{
       height: 5px;
       width: 100%;
@@ -300,20 +160,6 @@ body.explore, .explore {
       content: '';
       position: absolute;
       bottom: -5px;
-    };
-  }
-
-  .org-profile {
-    .explore-sub-page-header {
-      padding-left: 30px;
-      margin:0;
-    }
-    .explore-org-stats {
-      color: $darker-gray;
-      margin: 0.3em 30px;
-    }
-    .stat {
-      font-weight: 800;
     }
   }
 
@@ -386,6 +232,4 @@ body.explore, .explore {
       margin-bottom: 0;
     }
   }
-
-
 }
