@@ -52,7 +52,7 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem "nest", "~> 2.0"
 
 ### Spreadsheet creation
-gem "rubyzip", "~> 1.1.0"
+gem "rubyzip", "~> 1.1.7"
 gem "axlsx", "2.1.0.pre"
 ###
 

@@ -783,7 +783,7 @@ DEPENDENCIES
   rolify (~> 5.1.0)
   rspec-rails (~> 3.0)
   rubocop
-  rubyzip (~> 1.1.0)
+  rubyzip (~> 1.1.7)
   sanitize (~> 4.5.0)
   sass-rails (~> 4.0.0)
   scout_apm (~> 2.3)
