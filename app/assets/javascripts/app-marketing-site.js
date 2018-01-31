@@ -10,7 +10,7 @@
 
 //= require jquery.validate
 //= require jquery.validate.additional-methods
-//= require flickity.pkgd.min.js
+//= require flickity/dist/flickity.pkgd.min.js
 //= require clipboard.js
 
 //= require airbo
