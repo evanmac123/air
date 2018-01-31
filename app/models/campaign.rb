@@ -1,32 +1,24 @@
+# frozen_string_literal: true
+
 class Campaign < ActiveRecord::Base
   before_save :update_slug
   validates :name, uniqueness: true, presence: true
 
   belongs_to :demo
-  has_many :tiles, through: :demo
-  acts_as_taggable_on :channels
+  has_many :tiles, -> { explore_non_ordered.ordered_by_position }, through: :demo
 
-  has_attached_file :cover_image,
-    {
-      styles: { explore: "190x90#" },
-      default_style: :explore,
-    }
-  validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\Z/
-
-  searchkick word_start: [:channel_list, :tile_headlines], callbacks: :async
+  searchkick
 
   def self.default_scope
     order(:name)
   end
 
   def search_data
-    extra_data = {
-      channel_list: channel_list,
+    {
+      name: name,
       tile_headlines: tiles.pluck(:headline),
       tile_content: tiles.pluck(:supporting_content)
     }
-
-    serializable_hash.merge(extra_data)
   end
 
   def self.exclude(excluded_campaigns)
@@ -36,10 +28,6 @@ class Campaign < ActiveRecord::Base
 
   def update_slug
     self.slug = name.parameterize
-  end
-
-  def tile_count
-    active_tiles.count
   end
 
   def to_param
@@ -56,9 +44,5 @@ class Campaign < ActiveRecord::Base
 
   def formatted_sources
     sources.split(",").map(&:strip).in_groups_of(2)
-  end
-
-  def active_tiles
-    tiles.explore.active
   end
 end

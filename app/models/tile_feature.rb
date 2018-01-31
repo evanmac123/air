@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TileFeature < ActiveRecord::Base
   before_save :update_slug
 
@@ -27,7 +29,7 @@ class TileFeature < ActiveRecord::Base
   end
 
   def related_campaigns
-    Campaign.tagged_with(channels.split(","), on: :channels, any: true)
+    []
   end
 
   def tile_ids=(tile_ids)

@@ -11,18 +11,8 @@
             <%= f.text_field :name, placeholder: "Wellness" %>
           </div>
           <div class="large-6 columns">
-            <%= f.label :cover_image, "Cover Image"  %>
-            <%= f.file_field :cover_image, { id: "file_input" } %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="large-6 columns">
             <%= f.label :description, "Description"  %>
             <%= f.text_area :description %>
-          </div>
-          <div class="large-6 columns">
-            <%= f.label :channel_tag_list, "Channel Tags (comma separated tags)" %>
-            <%= f.text_area :channel_list, value: f.object.channels.join(", ") %>
           </div>
         </div>
         <div class="row">

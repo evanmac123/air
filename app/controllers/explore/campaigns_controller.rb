@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Explore::CampaignsController < ExploreBaseController
   def show
     @campaign = find_campaign
-    @tiles = @campaign.tiles.ordered_by_position.explore_non_ordered.active
+    @tiles = @campaign.tiles
     @display_channels = Channel.display_channels
   end
 

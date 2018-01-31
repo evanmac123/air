@@ -1,13 +1,8 @@
+# frozen_string_literal: true
+
 class Channel < ActiveRecord::Base
   before_save :update_slug
   validates :name, uniqueness: { case_sensitive: false }, presence: true
-
-  has_attached_file :image,
-    {
-      styles: { explore: "190x90#" },
-      default_style: :explore,
-    }
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   scope :active, -> { where(active: true) }
   scope :active_ordered, -> { active.order("channels.rank DESC").order(:name) }
@@ -29,7 +24,7 @@ class Channel < ActiveRecord::Base
   end
 
   def related_campaigns
-    Campaign.tagged_with(self.name, on: :channels, any: true)
+    []
   end
 
   def related_features

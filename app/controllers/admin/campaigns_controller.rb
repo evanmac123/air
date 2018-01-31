@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::CampaignsController < AdminBaseController
   def new
     @campaign = Campaign.new
@@ -37,7 +39,7 @@ class Admin::CampaignsController < AdminBaseController
 
   private
     def campaign_params
-      params.require(:campaign).permit(:name, :description, :demo_id, :cover_image, :channel_list, :active, :sources, :instructions, :duration, :duration_description)
+      params.require(:campaign).permit(:name, :description, :demo_id, :active, :sources, :instructions, :duration, :duration_description)
     end
 
     def find_campaign
