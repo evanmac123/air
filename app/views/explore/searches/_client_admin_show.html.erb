@@ -9,8 +9,6 @@
     <% end %>
 
     <li class="js-explore-tiles-tab tab" data-tab-content=".js-search-explore-tiles"><a href="#">Explore Tiles <span class="result-count"><%= "(#{search_service.explore_tiles.total_count})" %></a></li>
-
-    <li class="js-campaigns-tab tab" data-tab-content=".js-search-campaigns"><a href="#">Campaigns <span class="result-count"><%= "(#{search_service.campaigns.count})" %></a></li>
   </ul>
 </div>
 
@@ -37,8 +35,4 @@
 
 <div id="exploreTiles" class="js-search-explore-tiles js-search-tab-content searchTab tile_wall_explore">
   <%= render "explore/searches/explore_tiles", { search_service: search_service} %>
-</div>
-
-<div id="campaigns" class="js-search-campaigns js-search-tab-content searchTab tile_wall_explore">
-  <%= render "explore/searches/campaigns", { search_service: search_service} %>
 </div>

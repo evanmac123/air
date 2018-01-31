@@ -1,5 +1,0 @@
-<% if search_service.campaigns.present? %>
-  <%= render 'explore/campaigns/campaign_grid', campaigns: search_service.campaigns %>
-<% else %>
-  <%= render 'explore/searches/no_results', text: t("views.explore.searches.no_results.campaigns_html", query: params[:query], path: link_to("Airbo Explore", explore_path)) %></p>
-<% end %>

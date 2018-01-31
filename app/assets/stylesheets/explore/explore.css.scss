@@ -56,7 +56,7 @@ body.explore, .explore {
 
   .channel-row {
     height: 120px;
-    padding: 10px 20px;
+    padding: 10px 12px;
     .channels {
       display: none;
       @include flickity;
@@ -197,7 +197,7 @@ body.explore, .explore {
   }
 
   .channel_container {
-    border-top: solid 1px $secondary-gray;
+    border-bottom: solid 1px $secondary-gray;
     z-index: 1;
     .tile_container {
       margin-top: 7px;
@@ -208,12 +208,6 @@ body.explore, .explore {
     border-bottom: solid 1px $secondary-gray;
     padding-bottom: 20px;
     z-index: 1;
-  }
-
-  #organizations { }
-
-  #channel_tiles {
-    padding-left: 10px;
   }
 
   //

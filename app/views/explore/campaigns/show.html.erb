@@ -21,7 +21,7 @@
       </div>
     </div>
   </section>
-  <section class="manage_section" id="campaign_boards" style="box-shadow:0 -5px 5px -5px #a8a8a8">
-    <%= render partial: 'explore/campaigns', locals: { campaigns: Campaign.exclude([@campaign.id]), header: "More Campaigns" } %>
-  </section>
+  <% Campaign.exclude([@campaign.id]).each do |campaign| %>
+    <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>
+  <% end %>
 </div>

@@ -37,11 +37,7 @@ body {
 #tile_wall {
   a, a:link, a:visited, .tile-wrapper .headline .text {@include font-regular;}
 }
-.all_tile_thumbnails {
-  text-align:justify;
-  #justifier {max-width:238px;}
-  #push_left {width:50%}
-}
+
 @import 'tile/tile_thumbnail/tiles_thumbnails_desktop';
 
 /* -- Activity page -- */
@@ -59,20 +55,3 @@ body {
   .avatar_image {width:15%;}
   .avatar_inputs {width:85%;}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

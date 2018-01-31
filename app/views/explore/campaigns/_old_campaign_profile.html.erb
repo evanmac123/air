@@ -14,7 +14,7 @@
   <section class="campaign-description">
     <div class="row collapse" >
       <div class="columns small-10">
-        <h4><%= campaign.description.html_safe %></h4>
+        <h4><%= campaign.description.to_s.html_safe %></h4>
       </div>
     </div>
   </section>

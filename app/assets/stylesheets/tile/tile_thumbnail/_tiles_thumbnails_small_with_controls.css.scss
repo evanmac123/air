@@ -2,9 +2,9 @@
 // => Small tile thumbnail (66.7%)
 //
 #draft_tiles .tile_container:not(.tile_in_active):not(.tile_in_archive),
-.tile_container.tile_in_draft, #channel_tiles .tile_container:not(.tile_in_active):not(.tile_in_archive) {
+.tile_container.tile_in_draft, .tiles-6-row .tile_container {
   height: 240px;
-  width: 16%;
+  width: 16.66%;
   @media only screen and (max-width: 1100px) {
     width: 20%;
   }
@@ -22,7 +22,7 @@
   }
   .tile_thumbnail {
     max-width: 159px;
-    max-height: 211px;
+    max-height: 218px;
     .shadow_overlay, .tile_thumbnail_image {
       height: 8em;
     }

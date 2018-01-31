@@ -18,7 +18,7 @@
           <div class="content-section-header">
             <p>Campaign description</p>
           </div>
-          <h4><%= campaign.description.html_safe %></h4>
+          <h4><%= campaign.description.to_s.html_safe %></h4>
         </div>
         <div class="content-section">
           <div class="content-section-header">
