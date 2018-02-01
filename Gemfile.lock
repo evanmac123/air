@@ -182,12 +182,12 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0.3)
-    elasticsearch (5.0.0)
-      elasticsearch-api (= 5.0.0)
-      elasticsearch-transport (= 5.0.0)
-    elasticsearch-api (5.0.0)
+    elasticsearch (6.0.1)
+      elasticsearch-api (= 6.0.1)
+      elasticsearch-transport (= 6.0.1)
+    elasticsearch-api (6.0.1)
       multi_json
-    elasticsearch-transport (5.0.0)
+    elasticsearch-transport (6.0.1)
       faraday
       multi_json
     email_spec (1.6.0)
@@ -208,7 +208,7 @@ GEM
     factory_bot_rails (4.8.2)
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
-    faraday (0.13.1)
+    faraday (0.14.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     fission (0.5.0)
@@ -382,7 +382,7 @@ GEM
       multi_json (~> 1.0)
       sprockets (>= 2.0.0, < 4.0)
       tilt (~> 1.2)
-    hashie (3.4.6)
+    hashie (3.5.7)
     high_voltage (3.0.0)
     hike (1.2.3)
     hiredis (0.6.1)
@@ -392,7 +392,7 @@ GEM
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
     htmlentities (4.3.3)
-    i18n (0.9.1)
+    i18n (0.9.3)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     inflecto (0.0.2)
@@ -447,7 +447,7 @@ GEM
     mimemagic (0.3.0)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.11.1)
+    minitest (5.11.3)
     mixpanel (4.1.1)
       escape
       json
@@ -473,7 +473,7 @@ GEM
       connection_pool (~> 2.0)
       optionable (~> 0.2.0)
     msgpack (1.2.2)
-    multi_json (1.12.2)
+    multi_json (1.13.1)
     multipart-post (2.0.0)
     nest (2.0.0)
       redic
@@ -617,12 +617,12 @@ GEM
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
     scout_apm (2.3.1)
-    searchjoy (0.1.0)
-      activerecord
-      chartkick
-      groupdate
-    searchkick (1.5.1)
-      activemodel
+    searchjoy (0.3.1)
+      activerecord (>= 4)
+      chartkick (>= 2)
+      groupdate (>= 3)
+    searchkick (2.4.0)
+      activemodel (>= 4.1)
       elasticsearch (>= 1)
       hashie
     selenium-webdriver (3.7.0)
@@ -787,8 +787,8 @@ DEPENDENCIES
   sanitize (~> 4.5.0)
   sass-rails (~> 4.0.0)
   scout_apm (~> 2.3)
-  searchjoy (~> 0.1.0)
-  searchkick (~> 1.5.1)
+  searchjoy (~> 0.3.1)
+  searchkick (~> 2.4.0)
   selenium-webdriver
   sham_rack
   shoulda-matchers

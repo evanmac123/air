@@ -82,10 +82,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
 
     def add_prev_next_tiles
-      unless from_search?
-        @next_tile = @tile.next_tile_in_board
-        @prev_tile = @tile.prev_tile_in_board
-      end
+      @next_tile = @tile.next_tile_in_board
+      @prev_tile = @tile.prev_tile_in_board
     end
 
     def find_tile

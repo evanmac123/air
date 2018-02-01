@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class AirboSearch
   ADMIN_PER_PAGE = 28
   USER_PER_PAGE = 32
-  OVERVIEW_LIMIT = 3 #index value
+  OVERVIEW_LIMIT = 3 # index value
 
   attr_accessor :query, :user, :demo, :options
 
@@ -38,7 +40,7 @@ class AirboSearch
 
   def campaigns
     if explore_search
-      @campaigns ||= Campaign.search(query, order: [_score: :desc, created_at: :desc])
+      @campaigns ||= Campaign.search(query, fields: [:name, :tile_headlines, :tile_content], order: [_score: :desc, created_at: :desc])
     end
   end
 
@@ -61,7 +63,7 @@ class AirboSearch
       results_count: total_result_count,
     )
 
-    #Quick fix to SearchJoy incompatibility with Rails 3.2 mass asignment.  Explore alternate options.
+    # Quick fix to SearchJoy incompatibility with Rails 3.2 mass asignment.  Explore alternate options.
     tracking.user_id = user_id_tracking,
     tracking.demo_id = demo_id_tracking,
     tracking.user_email = user_email_tracking
@@ -80,7 +82,7 @@ class AirboSearch
       query
     end
 
-    def default_fields
+    def tile_search_fields
       ["headline^10", "supporting_content^8", :channel_list, :organization_name]
     end
 
@@ -121,7 +123,7 @@ class AirboSearch
 
     def default_tile_options(page)
       {
-        fields: default_fields,
+        fields: tile_search_fields,
         order: [_score: :desc, created_at: :desc],
         page: page,
         per_page: per_page

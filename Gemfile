@@ -41,13 +41,12 @@ gem "simple_enum", "~> 1.6.9"
 gem "descriptive_statistics", "~> 2.5.1", require: "descriptive_statistics/safe"
 gem "mobvious-rails", "~> 0.1.2"
 gem "groupdate", "~> 3.2.0"
+gem "searchkick", "~> 2.4.0"
+gem "searchjoy", "~> 0.3.1"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.1.0", require: false
 
-# Upgrade for Rails 4.2
-gem "searchkick", "~> 1.5.1"
-gem "searchjoy", "~> 0.1.0"
 
 # Redis
 gem "nest", "~> 2.0"

@@ -90,7 +90,7 @@ class Tile < ActiveRecord::Base
   after_save :reindex, if: :should_reindex?
   after_destroy :reindex
 
-  searchkick word_start: [:channel_list, :headline], callbacks: false
+  searchkick word_start: [:headline], callbacks: false
 
   def search_data
     extra_data = {
@@ -99,6 +99,10 @@ class Tile < ActiveRecord::Base
     }
 
     serializable_hash.merge(extra_data)
+  end
+
+  def should_reindex?
+    self.changes.key?("headline") || self.changes.key?("supporting_content") || self.changes.key?("is_public") || self.changes.key?("status")
   end
 
   def remote_media_url
@@ -111,10 +115,6 @@ class Tile < ActiveRecord::Base
 
   def has_video?
     embed_video.present?
-  end
-
-  def should_reindex?
-    self.changes.key?("headline") || self.changes.key?("supporting_content") || self.changes.key?("is_public") || self.changes.key?("status")
   end
 
   def self.not_completed

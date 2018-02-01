@@ -23,7 +23,7 @@ class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
     end
 
     def tile_presenter(tile)
-      @presenter ||= present(tile, SingleAdminTilePresenter, is_ie: browser.ie?, from_search: params[:from_search])
+      @presenter ||= present(tile, SingleAdminTilePresenter, is_ie: browser.ie?)
     end
 
     def tile_html
