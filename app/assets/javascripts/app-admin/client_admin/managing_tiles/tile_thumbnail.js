@@ -100,6 +100,7 @@ Airbo.TileThumbnail = (function() {
     var tile = tileContainerByDataTileId(id);
     var next = nextTile(tile).data("tileContainerId");
     var prev = prevTile(tile).data("tileContainerId");
+
     $.ajax({
       type: "GET",
       dataType: "JSON",
