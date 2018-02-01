@@ -1,20 +1,24 @@
-<div class="settings-module mt-2 js-edit-board-settings">
-  <div class="row board_settings">
-    <div class="large-6 columns">
-      <div class="two-panel-layout panel-left">
-        <%= render partial: "name_form", locals: { board: @board } %>
-        <%= render partial: "logo_form", locals: { board: @board } %>
-        <%= render partial: "email_form", locals: { board: @board } %>
-        <%= render partial: "email_name_form", locals: { board: @board } %>
-        <%= render partial: "timezone_form", locals: { board: @board } %>
-      </div>
+<div class="js-board-settings-module board-settings-module">
+  <div class="tabs-component-full-width">
+    <div class="row">
+      <ul class="inline-list js-board-settings-module-tabs">
+        <li class="js-board-settings-component-tab tab active" data-tab-content="js-board-settings-component"><a href="#">Board Settings</a></li>
+        <% if current_user.is_site_admin %>
+          <li class="js-campaigns-component-tab tab" data-tab-content="js-campaigns-component"><a href="#">Campaign Settings</a></li>
+        <% end %>
+      </ul>
     </div>
-    <div class="large-6 columns">
-      <div class="two-panel-layout panel-right">
-        <%= render partial: "welcome_message_form", locals: { board: @board } %>
-        <%= render partial: "public_link_form", locals: { board: @board } %>
-        <%= render partial: "allow_unsubscribes", locals: { board: @board } %>
-        <%= render partial: "weekly_activity_report", locals: { board: @board } %>
+  </div>
+
+  <div class="js-board-settings-component board-settings-component js-board-settings-module-tab-content" >
+    <div class="row">
+      <%= render 'board_settings_component' %>
+    </div>
+  </div>
+
+  <div class="js-campaigns-component campaigns-component js-board-settings-module-tab-content hidden" >
+    <div class="row">
+      <div class="large-12 columns">
       </div>
     </div>
   </div>
