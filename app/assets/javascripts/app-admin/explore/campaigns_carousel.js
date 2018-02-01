@@ -3,15 +3,19 @@ var Airbo = window.Airbo || {};
 Airbo.CampaignsCarousel = (function() {
   function init() {
     var $carousel = $(".flickity-campaigns-carousel");
-
-    $carousel.fadeIn();
-    $carousel.flickity({
+    var flickityParams = {
       cellAlign: "left",
       contain: true,
       groupCells: true,
-      // wrapAround: true,
       pageDots: false
-    });
+    };
+
+    if ($carousel.children().length > 6) {
+      flickityParams.wrapAround = true;
+    }
+
+    $carousel.fadeIn();
+    $carousel.flickity(flickityParams);
 
     $carousel.on("staticClick.flickity", function(
       event,
@@ -32,11 +36,7 @@ Airbo.CampaignsCarousel = (function() {
 
         Airbo.Utils.ping("Explore page - Interaction", properties);
 
-        if (slug === "explore") {
-          window.location = "/explore";
-        } else {
-          window.location = path;
-        }
+        window.location = path;
       }
     });
   }
