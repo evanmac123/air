@@ -32,9 +32,9 @@ describe AirboSearch, search: true do
       end
     end
 
-    describe '#default_fields' do
+    describe '#tile_search_fields' do
       it 'defaults to headline, supporting_content, and tag_titles' do
-        expect(service.send(:default_fields)).to eql(["headline^10", "supporting_content^8", :channel_list, :organization_name])
+        expect(service.send(:tile_search_fields)).to eql(["headline^10", "supporting_content^8", :channel_list, :organization_name])
       end
     end
   end
