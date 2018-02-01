@@ -1,5 +1,5 @@
 <div class="explore" data-campaign-id="<%= @campaign.id %>">
-  <%= render partial: 'explore/campaign_nav_row', locals: { channels: @display_channels } %>
+  <%= render partial: 'explore/campaign_nav_row', locals: { campaigns: @related_campaigns } %>
 
   <%= render partial: 'explore/campaign_header', locals: { campaign: @campaign } %>
 
@@ -16,12 +16,12 @@
   <div class="campaign-tiles-container with-divider">
     <div class="row">
       <div class="large-12 columns">
-        <%= render partial: 'explore/tiles', locals: {tiles: @tiles, section: "Campaign Tile" } %>
+        <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "", more_tiles_path: explore_campaign_path(@campaign) } %>
       </div>
     </div>
   </div>
 
-  <% Campaign.exclude([@campaign.id]).each do |campaign| %>
+  <% @related_campaigns.each do |campaign| %>
     <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>
   <% end %>
 </div>

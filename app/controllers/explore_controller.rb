@@ -39,7 +39,7 @@ class ExploreController < ExploreBaseController
       unless request.xhr?
         set_intro_slides
         @tile_features = TileFeature.ordered
-        @campaigns = Campaign.all
+        @related_campaigns = Campaign.all
         @channels = Channel.display_channels("explore")
       end
     end

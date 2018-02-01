@@ -24,7 +24,7 @@ class Channel < ActiveRecord::Base
   end
 
   def related_campaigns
-    []
+    Campaign.search(name)
   end
 
   def related_features

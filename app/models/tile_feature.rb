@@ -29,7 +29,7 @@ class TileFeature < ActiveRecord::Base
   end
 
   def related_campaigns
-    []
+    Campaign.search(name)
   end
 
   def tile_ids=(tile_ids)

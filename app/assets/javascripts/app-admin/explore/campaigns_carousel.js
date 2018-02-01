@@ -1,31 +1,42 @@
 var Airbo = window.Airbo || {};
 
-Airbo.CampaignsCarousel = (function(){
+Airbo.CampaignsCarousel = (function() {
   function init() {
-    var $carousel = $('.flickity-campaigns-carousel');
-    var $campaign_sel = $('.campaign');
+    var $carousel = $(".flickity-campaigns-carousel");
 
+    $carousel.fadeIn();
     $carousel.flickity({
-      cellAlign: 'left',
+      cellAlign: "left",
       contain: true,
       groupCells: true,
-      wrapAround: true,
-      pageDots: false,
-      draggable: true,
+      // wrapAround: true,
+      pageDots: false
     });
 
-    $carousel.on( 'staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {
+    $carousel.on("staticClick.flickity", function(
+      event,
+      pointer,
+      cellElement,
+      cellIndex
+    ) {
       var path = $(cellElement).data("path");
       var slug = $(cellElement).data("slug");
       if (slug) {
         var name = $(cellElement).data("name");
         var currentUserData = $("body").data("currentUser");
 
-        var properties = $.extend({ action: "Clicked Campaign", campaign: name }, currentUserData);
+        var properties = $.extend(
+          { action: "Clicked Campaign", campaign: name },
+          currentUserData
+        );
 
         Airbo.Utils.ping("Explore page - Interaction", properties);
 
-        window.location = path;
+        if (slug === "explore") {
+          window.location = "/explore";
+        } else {
+          window.location = path;
+        }
       }
     });
   }
@@ -33,10 +44,9 @@ Airbo.CampaignsCarousel = (function(){
   return {
     init: init
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   if ($(".flickity-campaigns-carousel").length > 0) {
     Airbo.CampaignsCarousel.init();
   }

@@ -7,7 +7,7 @@ class Campaign < ActiveRecord::Base
   belongs_to :demo
   has_many :tiles, -> { explore_non_ordered.ordered_by_position }, through: :demo
 
-  searchkick
+  searchkick default_fields: [:name, :tile_headlines, :tile_content]
 
   def self.default_scope
     order(:name)

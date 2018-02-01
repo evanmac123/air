@@ -10,7 +10,9 @@
   <% end %>
 
   <% unless @related_campaigns.empty? %>
-    <%= render partial: 'explore/campaigns', locals: { campaigns: @related_campaigns, header: "Related Campaigns" } %>
+    <% @related_campaigns.each do |campaign| %>
+      <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>
+    <% end %>
   <% end %>
 
   <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "", more_tiles_path: explore_channel_path(@channel) } %>
