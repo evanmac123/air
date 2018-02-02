@@ -18,7 +18,7 @@ describe LeadContact do
     expect(lead_contact.organization_name).to eq("My Company")
   end
 
-  describe ".notify!" do
+  describe ".notify" do
     describe "when a lead contact is created and the lead contact source is Inbound: Signup Request" do
       it "should create a job that notifies sales" do
         LeadContact.create(
