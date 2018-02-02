@@ -8,7 +8,7 @@
     .name {
       width: 100%;
       margin: 0;
-      font-size: 16px;
+      font-size: 15px;
       color: $white;
       position: relative;
       font-weight: 300;
@@ -39,7 +39,7 @@
       -moz-transition: opacity 0.5s ease;
       -o-transition: opacity 0.5s ease;
       transition: opacity 0.5s ease;
-      opacity: 0.15;
+      opacity: 0.2;
     }
 
     &:hover {

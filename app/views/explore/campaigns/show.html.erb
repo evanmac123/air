@@ -3,6 +3,14 @@
 
   <%= render partial: 'explore/campaign_header', locals: { campaign: @campaign } %>
 
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="campaign-description">
+        <p><%= @campaign.description.try(:html_safe) %></p>
+      </div>
+    </div>
+  </div>
+
   <% unless current_user.is_a?(GuestUser) || current_user.end_user? %>
     <div class="row">
       <div class="columns large-12">
