@@ -1,5 +1,5 @@
-@mixin channels() {
-  .channel-image-container {
+@mixin campaign-nav-links() {
+  .campaign-nav-image-container {
     height: 65px;
     width: 160px;
     margin: 15px;
@@ -18,7 +18,7 @@
       transform: translate(-50%, -50%);
     }
 
-    .channel_overlay {
+    .campaign-nav-overlay {
       position: absolute;
       top: 0;
       left: 0;
@@ -27,7 +27,7 @@
       border-radius: 4px;
     }
 
-    .channel_shadow_overlay {
+    .campaign-nav-shadow-overlay {
       position: absolute;
       top: 0;
       left: 0;
@@ -43,7 +43,7 @@
     }
 
     &:hover {
-      .channel_shadow_overlay {
+      .campaign-nav-shadow-overlay {
         cursor: hand;
         opacity: 0.35;
       }

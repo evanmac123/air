@@ -18,9 +18,8 @@
 
 <div class="bars">
   <% if prev_tile && next_tile %>
-  <div class="bg-white center bar_for_preview align_left offset_top">
-    <%=render partial: 'creator', locals: { tile: tile } %>
-    <%= render partial: 'categories', locals: { tile: tile } %>
-  </div>
+    <div class="center bar_for_preview align_left offset_top">
+      <%=render partial: 'creator', locals: { tile: tile } %>
+    </div>
   <% end %>
 </div>

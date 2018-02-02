@@ -1,18 +1,18 @@
 <section class="with-divider pt-0">
   <div class="row campaign-nav-row">
     <div class="large-12 columns">
-      <div class="channels flickity-campaigns-carousel">
-        <div class="carousel-cell channel-image-container" style="background-image: url('<%= Tile.explore.offset(10).first.thumbnail %>')" data-slug="explore" data-name="Explore" data-path="<%= explore_path %>">
-          <div class="channel_shadow_overlay"></div>
-          <div class="channel_overlay"></div>
+      <div class="campaign-nav-links flickity-campaigns-carousel">
+        <div class="carousel-cell campaign-nav-image-container" style="background-image: url('<%= Tile.explore.offset(10).first.thumbnail %>')" data-slug="explore" data-name="Explore" data-path="<%= explore_path %>">
+          <div class="campaign-nav-shadow-overlay"></div>
+          <div class="campaign-nav-overlay"></div>
           <h3 class="name">Explore</h3>
         </div>
         <% campaigns.each do |campaign| %>
           <% if campaign.explore_tiles.present? %>
             <% cache campaign do %>
-              <div class="carousel-cell channel-image-container" style="background-image: url('<%= campaign.explore_tiles.first.thumbnail %>')" data-slug="<%= campaign.slug %>" data-name="<%= campaign.name %>" data-id="<%= campaign.id %>" data-path="<%= explore_campaign_path(campaign) %>">
-                <div class="channel_shadow_overlay"></div>
-                <div class="channel_overlay"></div>
+              <div class="carousel-cell campaign-nav-image-container" style="background-image: url('<%= campaign.explore_tiles.first.thumbnail %>')" data-slug="<%= campaign.slug %>" data-name="<%= campaign.name %>" data-id="<%= campaign.id %>" data-path="<%= explore_campaign_path(campaign) %>">
+                <div class="campaign-nav-shadow-overlay"></div>
+                <div class="campaign-nav-overlay"></div>
                 <h3 class="name"><%= campaign.name  %></h3>
               </div>
             <% end %>

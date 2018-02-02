@@ -1,11 +1,11 @@
 var Airbo = window.Airbo || {};
 
-Airbo.Channels = (function(){
+Airbo.Channels = (function() {
   var id;
   var path;
 
   function bindAddNewChannelForm() {
-    $('#new-channel').click(function(event) {
+    $("#new-channel").click(function(event) {
       event.preventDefault();
       addNewChannel($(this));
     });
@@ -15,7 +15,7 @@ Airbo.Channels = (function(){
     if ($(".new_channel").length === 0) {
       Airbo.Utils.ButtonSpinner.trigger(self);
       $.get("/admin/channels/new").done(function(data) {
-        $('#new-channel-container').prepend(data.html);
+        $("#new-channel-container").prepend(data.html);
 
         $(".create_channel").unbind();
         $(".create_channel").on("click", function(e) {
@@ -47,17 +47,20 @@ Airbo.Channels = (function(){
       url: form.attr("action"),
       data: formData,
       processData: false,
-      contentType: false,
+      contentType: false
     }).done(function(data) {
       var form = self.parents("form");
       if (data.errors) {
-        form.children("#response_explanation").text(data.errors).css("color", "red");
+        form
+          .children("#response_explanation")
+          .text(data.errors)
+          .css("color", "red");
         Airbo.Utils.ButtonSpinner.completeError(self);
       } else {
         if (method === "POST") {
           $.get("/admin/channels/" + data.channel.slug).done(function(data) {
             $(".new-channel-section").remove();
-            $('#channel-container').prepend(data.html);
+            $("#channel-container").prepend(data.html);
 
             $(".update_channel").unbind();
             $(".update_channel").on("click", function(e) {
@@ -65,7 +68,10 @@ Airbo.Channels = (function(){
             });
           });
         } else {
-          form.children(".image-row").children(".channel-image-container").css("background-image", "url(" + data.channel.image_url + ")");
+          form
+            .children(".image-row")
+            .children(".campaign-nav-image-container")
+            .css("background-image", "url(" + data.channel.image_url + ")");
         }
 
         Airbo.Utils.ButtonSpinner.completeSuccess(self, true);
@@ -81,7 +87,7 @@ Airbo.Channels = (function(){
   return {
     init: init
   };
-}());
+})();
 
 $(function() {
   if ($(".admin-channels").length > 0) {
