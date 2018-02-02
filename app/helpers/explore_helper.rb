@@ -2,6 +2,7 @@
 
 module ExploreHelper
   def explore_campaign_nav_link_image
-    Tile.explore.offset(10).first.try(:thumbnail)
+    offset = rand(10) + 5
+    Tile.explore.offset(offset).first.try(:thumbnail)
   end
 end
