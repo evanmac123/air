@@ -32,7 +32,7 @@ describe LeadContact do
 
         open_email 'team@airbo.com'
 
-        expect(current_email.subject).to include('New Inbound Lead: Signup Request')
+        expect(current_email.subject).to include('Inbound: Signup Request')
         [
           'Lead Contact',
           'sales@leadco.com',
