@@ -362,23 +362,6 @@ describe Tile do
 
       expect(Tile.search("food").records.length).to eq(1)
     end
-
-    context 'no channels on tile' do
-      it 'should return a serializable hash of a tile object plus an empty string channels key/value' do
-        expect(tile.search_data).to eql(tile.serializable_hash.merge({ channel_list: [], organization_name: tile.organization.try(:name)}))
-      end
-    end
-
-    context 'channels on tile' do
-      let(:tile_with_channels) { FactoryBot.create(:tile, :public) }
-
-      it 'should return a serializable hash of a tile object plus channels containing comma separated channels' do
-        tile_with_channels.channel_list.add("wellness")
-        tile_with_channels.save
-
-        expect(tile_with_channels.search_data).to eql(tile_with_channels.serializable_hash.merge({ channel_list: ["wellness"], organization_name: tile_with_channels.organization.try(:name)}))
-      end
-    end
   end
 
   describe "#should_reindex?" do

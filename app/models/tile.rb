@@ -23,8 +23,6 @@ class Tile < ActiveRecord::Base
   IMAGE_SEARCH = "image-search"
   VIDEO_UPLOAD = "video-upload"
 
-  acts_as_taggable_on :channels
-
   as_enum :creation_source, client_admin_created: 0, explore_created: 1, suggestion_box_created: 2
 
   belongs_to :demo
@@ -97,9 +95,13 @@ class Tile < ActiveRecord::Base
 
   searchkick word_start: [:headline], callbacks: false
 
+  def self.default_search_fields
+    ["headline^10", "supporting_content^8", :campaigns, :organization_name]
+  end
+
   def search_data
     extra_data = {
-      channel_list: channel_list,
+      campaigns: campaigns.pluck(:name),
       organization_name: organization.try(:name)
     }
 

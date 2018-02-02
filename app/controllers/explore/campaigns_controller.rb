@@ -17,7 +17,6 @@ class Explore::CampaignsController < ExploreBaseController
       }
     else
       @related_campaigns = @campaign.similar(fields: [:name, :tile_headlines, :tile_content])
-      @display_channels = Channel.display_channels
     end
   end
 

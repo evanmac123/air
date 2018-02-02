@@ -2,7 +2,6 @@
 
 class Organization < ActiveRecord::Base
   resourcify
-  acts_as_taggable_on :channels
   include NormalizeBlankValues
 
   before_save :update_slug
@@ -78,11 +77,6 @@ class Organization < ActiveRecord::Base
 
   def is_in_sales?
     roles.pluck(:name).include?("sales")
-  end
-
-  def track_channels(channels)
-    channel_list.add(channels)
-    self.save
   end
 
   def user_activation_rate

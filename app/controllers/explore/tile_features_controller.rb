@@ -3,7 +3,7 @@
 class Explore::TileFeaturesController < ExploreBaseController
   def show
     @tile_feature = TileFeature.find_by(slug: params[:id])
-    @tiles = @tile_feature.related_tiles.page(params[:page]).per(28)
+    @tiles = @tile_feature.related_tiles(page: params[:page], per: 28)
 
     if request.xhr?
       content = render_to_string(
@@ -18,7 +18,6 @@ class Explore::TileFeaturesController < ExploreBaseController
       }
     else
       @related_campaigns = @tile_feature.related_campaigns
-      @display_channels = Channel.display_channels(@tile_feature.slug)
     end
   end
 end

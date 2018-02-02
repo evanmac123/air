@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
   extend User::Queries
 
   rolify strict: true
-  acts_as_taggable_on :channels
 
   belongs_to :location
   belongs_to :game_referrer, class_name: "User"
@@ -216,12 +215,6 @@ class User < ActiveRecord::Base
     else
       false
     end
-  end
-
-  def track_channels(channels)
-    channel_list.add(channels)
-    organization.track_channels(channel_list) if organization
-    self.save
   end
 
   def displayable_tiles(select_clause = Tile.displayable_tiles_select_clause)

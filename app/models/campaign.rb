@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class Campaign < ActiveRecord::Base
-  before_save :update_slug
-  validates :name, uniqueness: true, presence: true
-
   belongs_to :demo
   has_many :campaign_tiles
   has_many :tiles, through: :campaign_tiles
+
+  validates :name, presence: true
+
+  before_save :update_slug
 
   searchkick default_fields: [:name, :tile_headlines, :tile_content]
 
@@ -32,17 +33,5 @@ class Campaign < ActiveRecord::Base
 
   def to_param
     [id, name.parameterize].join("-")
-  end
-
-  def related_channels
-    Channel.where(slug: self.channel_list.map(&:parameterize))
-  end
-
-  def formatted_instructions
-    instructions.split("\n")
-  end
-
-  def formatted_sources
-    sources.split(",").map(&:strip).in_groups_of(2)
   end
 end

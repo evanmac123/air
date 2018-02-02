@@ -47,10 +47,6 @@
           <%= label_tag "redis[tile_ids]", "Tile Ids (in order and comma separated)" %>
           <%= text_area_tag "redis[tile_ids]", feature.tile_ids_formatted, { placeholder: "1, 2, 3, 4, 5, 6" } %>
         </div>
-        <div class="small-6 columns">
-          <%= label_tag "tile_feature[channel_list]", "Related Channels (comma separated)" %>
-          <%= text_area_tag "tile_feature[channel_list]", feature.channel_list, { placeholder: "wellness, open enrollment, health" } %>
-        </div>
       </div>
       <div class="row">
         <div class="small-6 columns">

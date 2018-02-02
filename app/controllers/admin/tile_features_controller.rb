@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::TileFeaturesController < AdminBaseController
   def index
     @tile_features = TileFeature.order(:name)
@@ -32,7 +34,7 @@ class Admin::TileFeaturesController < AdminBaseController
   private
 
     def tile_feature_ar_params
-      params.require(:tile_feature).permit(:name, :rank, :active, :channel_list, :show_related_content_link)
+      params.require(:tile_feature).permit(:name, :rank, :active, :show_related_content_link)
     end
 
     def tile_feature_redis_params

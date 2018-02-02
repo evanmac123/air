@@ -5,7 +5,6 @@ class TileFeature < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
   validates :rank, presence: true, uniqueness: true
-  acts_as_taggable_on :channels
 
   scope :active, -> { where(active: true) }
   scope :ordered, -> { active.order(:rank) }
@@ -24,8 +23,17 @@ class TileFeature < ActiveRecord::Base
     }
   end
 
-  def related_tiles
-    Tile.explore_without_featured_tiles.tagged_with(channels.split(","), on: :channels, any: true)
+  def related_tiles(page:, per:)
+    Tile.search(name,
+      fields: Tile.default_search_fields,
+      page: page,
+      per_page: per,
+      order: [_score: :desc, created_at: :desc],
+      where: {
+        is_public: true,
+        status: [Tile::ACTIVE, Tile::ARCHIVE]
+      }
+    )
   end
 
   def related_campaigns

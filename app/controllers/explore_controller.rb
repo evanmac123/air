@@ -40,7 +40,6 @@ class ExploreController < ExploreBaseController
         set_intro_slides
         @tile_features = TileFeature.ordered
         @related_campaigns = Campaign.all
-        @channels = Channel.display_channels("explore")
       end
     end
 

@@ -13,7 +13,6 @@ namespace :admin do
 
   resources :user_migrators
   resource  :sales, only: [:show]
-  resources :channels
   resources :campaigns
   resources :case_studies, except: :show
 

@@ -36,18 +36,6 @@ namespace :env_sync do
       tile.save
     }
 
-    Channel.all.each { |channel|
-      puts "Adding image for Channel #{channel.id}"
-      channel.image = image_urls.sample
-      channel.save
-    }
-
-    Campaign.all.each { |campaign|
-      puts "Adding image for Campaign #{campaign.id}"
-      campaign.cover_image = image_urls.sample
-      campaign.save
-    }
-
     Demo.where("logo_file_name IS NOT NULL").each { |d|
       d.logo = nil
       d.save

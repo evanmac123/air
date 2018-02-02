@@ -76,10 +76,6 @@ class AirboSearch
       query
     end
 
-    def tile_search_fields
-      ["headline^10", "supporting_content^8", :channel_list, :organization_name]
-    end
-
     def demo_id
       demo.id
     end
@@ -117,7 +113,7 @@ class AirboSearch
 
     def default_tile_options(page)
       {
-        fields: tile_search_fields,
+        fields: Tile.default_search_fields,
         order: [_score: :desc, created_at: :desc],
         page: page,
         per_page: per_page
