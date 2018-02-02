@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 20180202000127) do
   enable_extension "plpgsql"
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
+  enable_extension "btree_gin"
+  enable_extension "btree_gist"
 
   create_table "acts", force: :cascade do |t|
     t.integer  "user_id"
