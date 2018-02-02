@@ -5,12 +5,17 @@ class Campaign < ActiveRecord::Base
   validates :name, uniqueness: true, presence: true
 
   belongs_to :demo
-  has_many :tiles, -> { explore_non_ordered.ordered_by_position }, through: :demo
+  has_many :campaign_tiles
+  has_many :tiles, through: :campaign_tiles
 
   searchkick default_fields: [:name, :tile_headlines, :tile_content]
 
   def self.default_scope
-    order(:name)
+    order(updated_at: :desc)
+  end
+
+  def explore_tiles
+    tiles.active.ordered_by_position.where(is_public: true)
   end
 
   def search_data
@@ -19,11 +24,6 @@ class Campaign < ActiveRecord::Base
       tile_headlines: tiles.pluck(:headline),
       tile_content: tiles.pluck(:supporting_content)
     }
-  end
-
-  def self.exclude(excluded_campaigns)
-    campaigns = Campaign.arel_table
-    Campaign.where(campaigns[:id].not_in(excluded_campaigns))
   end
 
   def update_slug

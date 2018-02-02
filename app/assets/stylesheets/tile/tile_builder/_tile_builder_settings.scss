@@ -1,17 +1,37 @@
 .tile-builder-settings {
   background: #f3f3f3;
   border-top: 2px dashed #dfdfdf;
-  padding: 10px 40px 20px 40px;
+  padding: 15px 40px;
   font-size: 14px;
+
   .header {
-    padding: 10px 0;
+    padding-bottom: 5px;
     font-size: 16px;
     margin: 0;
-    &:before {
-      font-family: "FontAwesome";
-      content: "\f013";
+
+    &.public-settings {
+      &:before {
+        font-family: "FontAwesome";
+        content: "\f013";
+      }
+    }
+
+    &.campaign-settings {
+      &:before {
+        font-family: "FontAwesome";
+        content: "\f013";
+      }
     }
   }
+
+  .settings-input-group {
+    display: flex;
+
+    .settings-input {
+      margin-right: 20px;
+    }
+  }
+
   .settings-input {
     padding-top: 10px;
     margin: 0;
