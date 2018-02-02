@@ -1,33 +1,23 @@
-/// Default padding inside badges.
-/// @type Number
-$badge-padding: 0.3em !default;
-
-/// Minimum width of a badge.
-/// @type Number
-$badge-minwidth: 1.6em !default;
-
-/// Default font size for badges.
-/// @type Number
-$badge-font-size: 11px !default;
-
 .badge {
   display: inline-block;
-  padding: 0.35em;
-  min-width: 1.7em;
-  font-size: 0.7rem;
-  border-radius: 50%;
+  padding: 3px 6px 3px 7px;
+  min-width: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 10px;
+  line-height: 1;
   text-align: center;
-
-  background: transparent;
+  white-space: nowrap;
   color: #fff;
+  vertical-align: middle;
+  background: transparent;
 
   &.success {
-    background: $n-green
+    background: $n-green;
   }
 
   &.alert {
     background: $n-red;
-    color: #fff;
   }
 
   &.warning {

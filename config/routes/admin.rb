@@ -20,8 +20,7 @@ namespace :admin do
 
   namespace :sales do
     resources :organizations, only: [:new, :create]
-    resources :leads, only: [:index]
-    resources :lead_contacts, only: [:index, :edit, :update, :create, :destroy] do
+    resources :lead_contacts, only: [:index, :create, :destroy] do
       resources :invites, only: [:new]
       resources :tiles, only: [:index]
     end
