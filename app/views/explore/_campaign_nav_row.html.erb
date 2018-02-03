@@ -9,13 +9,11 @@
         </div>
         <% campaigns.each do |campaign| %>
           <% if campaign.explore_tiles.present? %>
-            <% cache campaign do %>
-              <div class="carousel-cell campaign-nav-image-container" style="background-image: url('<%= campaign.explore_tiles.first.thumbnail %>')" data-slug="<%= campaign.slug %>" data-name="<%= campaign.name %>" data-id="<%= campaign.id %>" data-path="<%= explore_campaign_path(campaign) %>">
-                <div class="campaign-nav-shadow-overlay"></div>
-                <div class="campaign-nav-overlay"></div>
-                <h3 class="name"><%= campaign.name  %></h3>
-              </div>
-            <% end %>
+            <div class="carousel-cell campaign-nav-image-container" style="background-image: url('<%= campaign.explore_tiles.first.thumbnail %>')" data-slug="<%= campaign.slug %>" data-name="<%= campaign.name %>" data-id="<%= campaign.id %>" data-path="<%= explore_campaign_path(campaign) %>">
+              <div class="campaign-nav-shadow-overlay"></div>
+              <div class="campaign-nav-overlay"></div>
+              <h3 class="name"><%= campaign.name  %></h3>
+            </div>
           <% end %>
         <% end %>
       </div>
