@@ -109,7 +109,7 @@ class Tile < ActiveRecord::Base
   end
 
   def should_reindex?
-    self.changes.key?("headline") || self.changes.key?("supporting_content") || self.changes.key?("is_public") || self.changes.key?("status")
+    ["headline", "supporting_content", "is_public", "status"].any? { |key| self.changes.key?(key) }
   end
 
   def remote_media_url
@@ -190,8 +190,8 @@ class Tile < ActiveRecord::Base
     headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content_raw_text.length <= MAX_SUPPORTING_CONTENT_LEN && has_correct_answer_selected? && has_unique_answers? && has_required_number_of_answers?
   end
 
-  def points=(p)
-    write_attribute(:points, p.to_i)
+  def points=(number)
+    write_attribute(:points, number.to_i)
   end
 
   def image_credit=(text)
@@ -288,7 +288,7 @@ class Tile < ActiveRecord::Base
 
     ids_completed = user.tile_completions.pluck(:tile_id)
 
-    satisfiable_tiles = Tile.active.where(demo_id: board).reject { |t| ids_completed.include? t.id }
+    satisfiable_tiles = Tile.active.where(demo_id: board).reject { |tile| ids_completed.include? tile.id }
     satisfiable_tiles.sort_by(&:position).reverse
   end
 
@@ -340,14 +340,12 @@ class Tile < ActiveRecord::Base
     end
 
     def has_required_number_of_answers?
-      if multiple_choice_answers.present?
-        if (min_one_answer_required)
-          multiple_choice_answers.length > 0
-        else
-          multiple_choice_answers.length > 1
-        end
+      answers_count = multiple_choice_answers.length
+
+      if min_one_answer_required
+        answers_count > 0
       else
-        true
+        answers_count > 1
       end
     end
 
@@ -374,10 +372,6 @@ class Tile < ActiveRecord::Base
     def remove_images
       write_attribute(:remote_media_url, nil)
       image.destroy
-
-      # NOTE this destroy call is for consistency only. Paperclip is configured
-      # with preserve_files: true for thumbnails so that thumbnails are never
-      # deleted #see  TileImageable module for details
       thumbnail.destroy
     end
 

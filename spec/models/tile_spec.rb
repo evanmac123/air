@@ -360,7 +360,7 @@ describe Tile do
 
       Tile.reindex
 
-      expect(Tile.search("food").records.length).to eq(1)
+      expect(Tile.search("food", fields: [:headline]).records.length).to eq(1)
     end
   end
 
