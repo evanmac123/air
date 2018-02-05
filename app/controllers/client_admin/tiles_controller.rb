@@ -65,7 +65,8 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def duplicate
-    @tile = find_tile.copy_inside_demo(current_user.demo, current_user)
+    @tile = TileDuplicateJob.perform_now(tile: find_tile, demo: current_user.demo, user: current_user)
+
     render_preview_and_single
   end
 

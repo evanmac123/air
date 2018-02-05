@@ -255,14 +255,6 @@ class Tile < ActiveRecord::Base
     false
   end
 
-  def copy_inside_demo(new_demo, copying_user)
-    TileCopier.new(new_demo, self, copying_user).copy_from_own_board
-  end
-
-  def copy_to_new_demo(new_demo, copying_user)
-    TileCopier.new(new_demo, self, copying_user).copy_tile_from_explore
-  end
-
   def find_new_first_position
     Tile.where(demo: self.demo, status: self.status).maximum(:position).to_i + 1
   end
