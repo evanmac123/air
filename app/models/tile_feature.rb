@@ -37,7 +37,7 @@ class TileFeature < ActiveRecord::Base
   end
 
   def related_campaigns
-    Campaign.search(name)
+    Campaign.search(name, order: { _score: :desc })
   end
 
   def tile_ids=(tile_ids)

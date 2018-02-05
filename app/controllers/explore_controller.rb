@@ -39,7 +39,7 @@ class ExploreController < ExploreBaseController
       unless request.xhr?
         set_intro_slides
         @tile_features = TileFeature.ordered
-        @related_campaigns = Campaign.all
+        @related_campaigns = Campaign.order(updated_at: :desc)
       end
     end
 

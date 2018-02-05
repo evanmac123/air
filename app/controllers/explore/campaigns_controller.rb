@@ -16,7 +16,7 @@ class Explore::CampaignsController < ExploreBaseController
         lastBatch: params[:count] == @tiles.total_count.to_s
       }
     else
-      @related_campaigns = @campaign.similar(fields: [:name, :tile_headlines, :tile_content])
+      @related_campaigns = @campaign.similar(fields: [:name, :tile_headlines, :tile_content], order: { _score: :desc })
     end
   end
 

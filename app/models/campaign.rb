@@ -11,10 +11,6 @@ class Campaign < ActiveRecord::Base
 
   searchkick default_fields: [:name, :tile_headlines, :tile_content]
 
-  def self.default_scope
-    order(updated_at: :desc)
-  end
-
   def explore_tiles
     tiles.active.ordered_by_position.where(is_public: true)
   end
