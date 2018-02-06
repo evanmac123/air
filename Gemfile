@@ -51,7 +51,7 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem "nest", "~> 2.0"
 
 ### Spreadsheet creation
-gem "axlsx", "~> 2.1.0.pre"
+gem 'axlsx', git: 'https://github.com/NoRedInk/axlsx.git', ref: '1a4a6387bf398e2782933ee6607e5589cd15bee3'
 ###
 
 ### Integrations

@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/NoRedInk/axlsx.git
+  revision: 1a4a6387bf398e2782933ee6607e5589cd15bee3
+  ref: 1a4a6387bf398e2782933ee6607e5589cd15bee3
+  specs:
+    axlsx (2.1.0.pre)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (~> 1.2.1)
+
+GIT
   remote: https://github.com/theairbo/wice_grid
   revision: 2f12d66e8a974d7eeae0fc782074db6a6e5c877c
   branch: rails_4_2_10
@@ -81,10 +91,6 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    axlsx (2.1.0.pre)
-      htmlentities (~> 4.3.1)
-      nokogiri (>= 1.4.1)
-      rubyzip (~> 1.1.7)
     bcrypt (3.1.11)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -605,7 +611,7 @@ GEM
     ruby-progressbar (1.9.0)
     ruby_parser (3.10.1)
       sexp_processor (~> 4.9)
-    rubyzip (1.1.7)
+    rubyzip (1.2.1)
     sanitize (4.5.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
@@ -718,7 +724,7 @@ DEPENDENCIES
   awesome_print
   aws-sdk-s3 (~> 1)
   aws-sdk-v1 (~> 1.59.0)
-  axlsx (~> 2.1.0.pre)
+  axlsx!
   better_errors
   binding_of_caller
   bootsnap (>= 1.1.0)
