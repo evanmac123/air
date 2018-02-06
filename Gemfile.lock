@@ -391,7 +391,7 @@ GEM
       haml (>= 4.0, < 6)
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
-    htmlentities (4.3.3)
+    htmlentities (4.3.4)
     i18n (0.9.3)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -477,7 +477,7 @@ GEM
     multipart-post (2.0.0)
     nest (2.0.0)
       redic
-    nokogiri (1.8.1)
+    nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     nokogumbo (1.4.13)
       nokogiri
@@ -718,7 +718,7 @@ DEPENDENCIES
   awesome_print
   aws-sdk-s3 (~> 1)
   aws-sdk-v1 (~> 1.59.0)
-  axlsx (= 2.1.0.pre)
+  axlsx (~> 2.1.0.pre)
   better_errors
   binding_of_caller
   bootsnap (>= 1.1.0)
@@ -783,7 +783,6 @@ DEPENDENCIES
   rolify (~> 5.1.0)
   rspec-rails (~> 3.0)
   rubocop
-  rubyzip (~> 1.1.7)
   sanitize (~> 4.5.0)
   sass-rails (~> 4.0.0)
   scout_apm (~> 2.3)
