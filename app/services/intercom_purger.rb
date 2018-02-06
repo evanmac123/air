@@ -13,7 +13,9 @@ class IntercomPurger
   end
 
   def perform
-    user_collection.each { |intercom_user| intercom_user.delete }
+    user_collection.each do |intercom_user|
+      intercom_client.users.delete(intercom_user)
+    end
   end
 
   private

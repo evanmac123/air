@@ -33,11 +33,11 @@ describe IntercomPurger do
       fake_intercom_user_collection = mock('Intercom::CollectionProxy')
       fake_intercom_user_collection.stubs(:each).multiple_yields(*@fake_users)
 
-      purger.intercom_client.expects(:users).returns(fake_intercom_user_service)
+      purger.intercom_client.expects(:users).returns(fake_intercom_user_service).times(4)
       fake_intercom_user_service.expects(:find_all).with(segment_id: segment_id).returns(fake_intercom_user_collection)
 
       @fake_users.each do |fake_user|
-        fake_user.expects(:delete)
+        fake_intercom_user_service.expects(:delete).with(fake_user)
       end
 
       purger.perform
