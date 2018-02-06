@@ -11,6 +11,12 @@
             <%= f.text_field :name, placeholder: "Wellness" %>
           </div>
           <div class="large-6 columns">
+            <%= f.label :icon_link, "Icon Link"  %>
+            <%= f.text_field :icon_link %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-6 columns">
             <%= f.label :description, "Description"  %>
             <%= f.text_area :description %>
           </div>
@@ -21,6 +27,17 @@
             <%= f.select :demo_id, options_from_collection_for_select(demos, :id,  :name, f.object.demo_id), {include_blank: true}, class: "airbo-chosen-select" %>
           </div>
         </div>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.label :ongoing, "Ongoing?" %>
+            <%= f.check_box :ongoing %>
+          </div>
+          <div class="large-6 columns">
+            <%= f.label :active, "Active?" %>
+            <%= f.check_box :active %>
+          </div>
+        </div>
+        <br>
         <div class="row">
           <div class="large-2 columns">
             <%= f.submit "Save", class: "button" %>

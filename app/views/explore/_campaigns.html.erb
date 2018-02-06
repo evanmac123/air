@@ -2,6 +2,9 @@
   <section class="manage_section campaign-tiles-container with-divider">
     <div class="row">
       <div class="large-12 columns">
+        <% if campaign.icon_link.present? %>
+          <%= image_tag campaign.icon_link, class: "campaign-custom-icon" %>
+        <% end %>
         <%= link_to explore_campaign_path(campaign) do %>
           <h4 class="explore-headers link"><%= campaign.name %></h4>
         <% end %>

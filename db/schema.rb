@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180202000127) do
+ActiveRecord::Schema.define(version: 20180205230247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,19 +196,13 @@ ActiveRecord::Schema.define(version: 20180202000127) do
   create_table "campaigns", force: :cascade do |t|
     t.integer  "demo_id"
     t.text     "description"
-    t.string   "cover_image_file_name",    limit: 255
-    t.string   "cover_image_content_type", limit: 255
-    t.integer  "cover_image_file_size"
-    t.datetime "cover_image_updated_at"
-    t.string   "name",                     limit: 255
-    t.boolean  "active",                               default: false
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
-    t.string   "slug",                     limit: 255
-    t.text     "instructions"
-    t.integer  "duration"
-    t.text     "sources"
-    t.string   "duration_description",     limit: 255
+    t.string   "name",        limit: 255
+    t.boolean  "active",                  default: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "slug",        limit: 255
+    t.boolean  "ongoing",                 default: false
+    t.string   "icon_link"
   end
 
   add_index "campaigns", ["demo_id"], name: "index_campaigns_on_demo_id", using: :btree

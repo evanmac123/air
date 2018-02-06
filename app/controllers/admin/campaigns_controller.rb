@@ -17,7 +17,6 @@ class Admin::CampaignsController < AdminBaseController
 
   def create
     @campaign = Campaign.new(campaign_params)
-
     if @campaign.save
       redirect_to admin_campaigns_path
     else
@@ -28,6 +27,7 @@ class Admin::CampaignsController < AdminBaseController
 
   def update
     @campaign = find_campaign
+
     if @campaign.update_attributes(campaign_params)
       redirect_to admin_campaigns_path
     else
@@ -39,7 +39,7 @@ class Admin::CampaignsController < AdminBaseController
 
   private
     def campaign_params
-      params.require(:campaign).permit(:name, :description, :demo_id, :active, :sources, :instructions, :duration, :duration_description)
+      params.require(:campaign).permit(:name, :description, :demo_id, :active, :icon_link, :ongoing)
     end
 
     def find_campaign

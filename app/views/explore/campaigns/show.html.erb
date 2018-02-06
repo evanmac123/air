@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <% unless current_user.is_a?(GuestUser) || current_user.end_user? %>
+  <% unless @campaign.ongoing || current_user.is_a?(GuestUser) || current_user.end_user? %>
     <div class="row">
       <div class="columns large-12">
         <div class="button js-copy-all-tiles-button" style="margin: 10px;">
