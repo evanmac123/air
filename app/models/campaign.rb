@@ -2,7 +2,7 @@
 
 class Campaign < ActiveRecord::Base
   belongs_to :demo
-  has_many :campaign_tiles
+  has_many :campaign_tiles, dependent: :destroy
   has_many :tiles, through: :campaign_tiles
 
   validates :name, presence: true

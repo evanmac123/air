@@ -64,7 +64,7 @@ class Tile < ActiveRecord::Base
   validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
   validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: MAX_SUPPORTING_CONTENT_LEN, message: "supporting content is too long (maximum is #{MAX_SUPPORTING_CONTENT_LEN} characters)"
 
-  has_many :campaign_tiles
+  has_many :campaign_tiles, dependent: :destroy
   has_many :campaigns, through: :campaign_tiles
 
   accepts_nested_attributes_for :campaign_tiles
