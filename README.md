@@ -84,7 +84,7 @@ GAME_CREATION_REQUEST_ADDRESS                    | team@airbo.com            | E
 HEROKU_APP_NAME                                  | [APP_NAME]                | Heroku Specfic Setting
 IMAGE_PROVIDERS                                  | Pixabay                   | Comma separated list of image services used by image search feature
 INTERCOM_ACCESS_TOKEN     | [TOKEN]              |
-INTERCOM_SECURE_SECRET    | [TOKEN]              |
+INTERCOM_API_SECRET    | [TOKEN]              |
 INTERCOM_APP_ID           | [ID]                 |
 INTERCOM_OLD_USERS_SEGMENT_IDS                   | [SEGMENT_ID]              |
 LOG_LEVEL                                        | WARN                      | Heroku logging config
@@ -130,7 +130,7 @@ AWS_SECRET_ACCESS_KEY                            | [KEY]               | AIM Use
 AWS_BULK_UPLOAD_SECRET_ACCESS_KEY                | [KEY]               | AIM User AWS Secret Access Key                                 
 IMAGE_PROVIDERS                                  | pixabay             | Default image provider for image search
 INTERCOM_ACCESS_TOKEN                            | [TOKEN]             |
-INTERCOM_SECURE_SECRET                           | [TOKEN]             |
+INTERCOM_API_SECRET                           | [TOKEN]             |
 INTERCOM_APP_ID                                  | [ID]                |
 INTERCOM_OLD_USERS_SEGMENT_IDS                   | [SEGMENT_ID]        |
 MIXPANEL_API_KEY                                 | [KEY]               | Dev Mixpanel API Access                                        
