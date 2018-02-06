@@ -51,6 +51,7 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem "nest", "~> 2.0"
 
 ### Spreadsheet creation
+# TODO: Update to a more maintained gem. This fork from NoRedInk just pins the 'zubyzip' dependency at a non vulnerable version.
 gem 'axlsx', git: 'https://github.com/NoRedInk/axlsx.git', ref: '1a4a6387bf398e2782933ee6607e5589cd15bee3'
 ###
 
