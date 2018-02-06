@@ -542,7 +542,7 @@ class User < ActiveRecord::Base
       demo: demo_id,
       organization: organization_id,
       board_type: demo.try(:customer_status_for_mixpanel),
-      user_hash: OpenSSL::HMAC.hexdigest("sha256", ENV["INTERCOM_SECURE_SECRET"], id.to_s)
+      user_hash: OpenSSL::HMAC.hexdigest("sha256", IntercomRails.config.api_secret, id.to_s)
     }
   end
 
