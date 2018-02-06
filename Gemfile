@@ -15,7 +15,7 @@ gem "redis-rails", "~> 5.0.2"
 gem "webpacker", "~> 3.0"
 
 gem "aws-sdk-s3", "~> 1"
-gem "paperclip", "=4.3.5"
+gem "paperclip", "~> 5.2.0"
 gem "delayed_paperclip", "~> 3.0.0"
 
 gem "twilio-ruby", "~> 5.2.3"
