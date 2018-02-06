@@ -5,32 +5,42 @@ describe IntercomPurger do
     "fake_segment_id"
   end
 
-  describe "#purge!" do
+  describe ".call" do
+    it "initializes an IntercomPurger and calls perform" do
+      fake_intercom_purger = mock('IntercomPurger')
+
+      IntercomPurger.expects(:new).with(segment_id).returns(fake_intercom_purger)
+
+      fake_intercom_purger.expects(:perform)
+
+      IntercomPurger.call(segment_id: segment_id)
+    end
+  end
+
+  describe "#perform" do
     before do
       @fake_user_ids = %w(abcdef 123456 foobar)
       @fake_users = @fake_user_ids.map do |fake_user_id|
         fake_user = mock("Intercom::User")
-        fake_user.stubs(:id).returns(fake_user_id)
-        fake_user.stubs(:delete)
-        Intercom::User.stubs(:find).with(id: fake_user_id).returns(fake_user)
         fake_user
       end
+    end
 
+    it "should delete all users in the segment" do
+      purger = IntercomPurger.new(segment_id)
+
+      fake_intercom_user_service = mock('Intercom::Service::User')
       fake_intercom_user_collection = mock('Intercom::CollectionProxy')
       fake_intercom_user_collection.stubs(:each).multiple_yields(*@fake_users)
 
-      Intercom::User.stubs(:find_all).with(segment_id: segment_id).returns(fake_intercom_user_collection)
-    end
-
-    it "should schedule deletion of all users in the segment" do
-      purger = IntercomPurger.new(segment_id)
-      purger.stubs(:schedule_deletion)
-
-      purger.purge!
+      purger.intercom_client.expects(:users).returns(fake_intercom_user_service)
+      fake_intercom_user_service.expects(:find_all).with(segment_id: segment_id).returns(fake_intercom_user_collection)
 
       @fake_users.each do |fake_user|
-        expect(purger).to have_received(:schedule_deletion).with(fake_user)
+        fake_user.expects(:delete)
       end
+
+      purger.perform
     end
   end
 end

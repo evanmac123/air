@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PotentialUser < ActiveRecord::Base
   belongs_to :demo
   belongs_to :game_referrer, class_name: "User"
@@ -6,14 +8,14 @@ class PotentialUser < ActiveRecord::Base
   has_many   :peer_invitations, as: :invitee, dependent: :delete_all
   has_one :user_intro, as: :userable, dependent: :delete
 
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
   validates_uniqueness_of :invitation_code
   before_create :set_invitation_code
 
   include CancelAccountToken
   include User::FakeUserBehavior
 
-  def is_invited_by referrer
+  def is_invited_by(referrer)
     return if self.peer_invitations.length >= PeerInvitation::CUTOFF
     Mailer.invitation(self, referrer).deliver_later
     PeerInvitation.create!(inviter: referrer, invitee: self, demo: demo)
@@ -58,7 +60,7 @@ class PotentialUser < ActiveRecord::Base
     {
       user_id: id,
       name: "Guest User",
-      user_hash: OpenSSL::HMAC.hexdigest('sha256', ENV["INTERCOM_API_SECRET"], id.to_s)
+      user_hash: OpenSSL::HMAC.hexdigest("sha256", ENV["INTERCOM_ACCESS_TOKEN"], id.to_s)
     }
   end
 
@@ -66,13 +68,13 @@ class PotentialUser < ActiveRecord::Base
     "potential user"
   end
 
-  def convert_to_full_user! name
-    ConvertToFullUser.new({
+  def convert_to_full_user!(name)
+    ConvertToFullUser.new(
       pre_user: self,
       name: name,
       email: email,
       password: SecureRandom.hex(8)
-    }).convert!
+    ).convert!
   end
 
   def is_guest?
@@ -130,21 +132,21 @@ class PotentialUser < ActiveRecord::Base
 
   protected
 
-  def set_invitation_code
-    possibly_finished = false
+    def set_invitation_code
+      possibly_finished = false
 
-    until(possibly_finished && (self.valid? || self.errors[:invitation_code].empty?))
-      possibly_finished = true
-      self.invitation_code = Digest::SHA1.hexdigest("--#{Time.current.to_f}--#{self.email}--")
-    end
-  end
-
-  class NullTicketProgressCalculator
-    def initialize
+      until (possibly_finished && (self.valid? || self.errors[:invitation_code].empty?))
+        possibly_finished = true
+        self.invitation_code = Digest::SHA1.hexdigest("--#{Time.current.to_f}--#{self.email}--")
+      end
     end
 
-    def points_towards_next_threshold
-      0
+    class NullTicketProgressCalculator
+      def initialize
+      end
+
+      def points_towards_next_threshold
+        0
+      end
     end
-  end
 end

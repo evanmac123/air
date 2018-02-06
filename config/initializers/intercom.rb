@@ -1,10 +1,3 @@
-##Deprecate after upgrade to Ruby 2.1. This is no longer supported by interom-ruby:
-unless Rails.env.test?
-  Intercom.app_id = ENV['INTERCOM_APP_ID']
-  Intercom.app_api_key = ENV['INTERCOM_API_KEY']
-end
-#######
-
 IntercomRails.config do |config|
   # == Intercom app_id
   #
@@ -12,11 +5,6 @@ IntercomRails.config do |config|
   # == Intercom session_duration
   #
   # config.session_duration = 300000
-  # == Intercom secret key
-  # This is required to enable secure mode, you can find it on your Setup
-  # guide in the "Secure Mode" step.
-  #
-  config.api_secret = ENV["INTERCOM_API_SECRET"] unless Rails.env.test?
 
   # == Enabled Environments
   # Which environments is auto inclusion of the Javascript enabled for

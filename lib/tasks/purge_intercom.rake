@@ -7,7 +7,7 @@ namespace :intercom do
     end
 
     segment_ids.split(',').each do |segment_id|
-      IntercomPurger.new(segment_id).delay.purge!
+      IntercomPurger.call(segment_id: segment_id)
     end
   end
 end
