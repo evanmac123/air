@@ -40,14 +40,11 @@ when 'production', 'staging'
   }
 
 when 'test',  'development'
-
   Paperclip::Attachment.default_options.merge!(
     {
       url: "/system/:rails_env/:class/:attachment/:id/:style/:filename"
     }
   )
-
-  #We need these because because they were originally implemented with custom paths. If we want to move away from the custom pattern, we can do a mass S3 sync. Also, if we want to move away from the merge pattern in the modals for Paperclip, we likely have to setup a mock S3 for dev.
 
   TILE_IMAGE_OPTIONS = {}
   TILE_THUMBNAIL_OPTIONS = {}
@@ -55,4 +52,8 @@ when 'test',  'development'
   USER_AVATAR_OPTIONS = {}
 else
   raise 'Environment Not Found'
+end
+
+if Rails.env.test?
+  Paperclip::UriAdapter.register
 end
