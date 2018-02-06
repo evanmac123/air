@@ -59,9 +59,9 @@ Airbo.SuggestionBox = (function() {
   }
 
   function initTabs() {
-    $(".tabs>li>a").on("click", function() {
+    $(".draft-tabs>li>a").on("click", function() {
       $(this)
-        .parents(".tabs")
+        .parents(".draft-tabs")
         .find("a")
         .removeClass("selected");
       $(this).addClass("selected");

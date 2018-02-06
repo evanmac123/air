@@ -3,17 +3,19 @@
   float: left;
   padding: 0 10px;
   width: 25%;
-  float: left;
   display: block;
-  margin-bottom:1em;
+  margin-bottom: 1em;
+
   @media only screen and (max-width: 1100px) {
-    width:33.3%;
+    width: 33.3%;
   }
+
   @media only screen and (max-width: 600px) {
-    width:50%;
+    width: 50%;
   }
+
   @media only screen and (max-width: 410px) {
-    width:100%;
+    width: 100%;
     padding-left: 2px;
     padding-right: 2px;
   }
@@ -21,87 +23,97 @@
 
 .tile_thumbnail {
   display: inline-block;
-  // float: left;
-  text-align:center;
   min-width: 140px;
-  width:100%;
-  max-width: 238px;
+  width: 100%;
+  max-width: 255px;
   position: relative;
   vertical-align: top;
+
   &.completed {
     .tile-wrapper {
       @include ease(.5s);
+
       filter: alpha(opacity=25);
       opacity: 0.25;
+
       &:hover {
         filter: alpha(opacity=75);
-        opacity: .75;
+        opacity: 0.75;
       }
     }
   }
+
   li {
     list-style-type: none;
-    padding-bottom:.5em;
+    padding-bottom: 0.5em;
     position: relative;
-    width:100%;
+    width: 100%;
   }
+
   a, a:link, a:visited {
     display: block;
-    width:100%;
-    &:after {@include clear;}
+    width: 100%;
+
+    &:after {
+      @include clear;
+    }
   }
-  .tile-wrapper{
+
+  .tile-wrapper {
     @include ease(.025s);
-    border-radius:$border-radius;
+
+    border-radius: $border-radius;
     display: inline-block;
     overflow: hidden;
     position: relative;
-    width:100%;
+    width: 100%;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.22);
 
     .tile_thumbnail_image, .headline {
-      margin:0 auto;
-      width:100%;
+      margin: 0 auto;
+      width: 100%;
     }
-    .tile_thumbnail_image{
+
+    .tile_thumbnail_image {
       background-color: $secondary-gray;
       border: none;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
+
       img {
         flex-shrink: 0;
         min-width: 100%;
-        min-height: 100%
+        min-height: 100%;
       }
     }
-    .headline{
-      background:$white;
-      min-height:7.25em;
+
+    .headline {
+      background: $white;
+      min-height: 7.25em;
       position: relative;
-      padding: .5em;
+      padding: 0.5em;
       text-align: left;
-      &:after{@include clear;}
-      .text{
-        color: $dark-gray;
-        @include font-semibold;
-        font-size:1em;
+
+      &:after {
+        @include clear;
       }
-    }
-  }
-  &.explore {
-    .tile-wrapper {
-      box-shadow: 1px 1px 8px 1px rgba(0,0,0,0.2);
+
+      .text {
+        @include font-semibold;
+
+        color: $dark-gray;
+        font-size: 1em;
+      }
     }
   }
 }
 
-// Placeholder tile thumbnail
 .tile_thumbnail.placeholder_tile {
-  border:2px lighten($tile-wall-bg, 7%) dashed;
-  border-radius:6px;
-  height:16.25em;
+  border: 2px lighten($tile-wall-bg, 7%) dashed;
+  border-radius: 6px;
+  height: 16.25em;
 }
 
 .back-to-search-results {

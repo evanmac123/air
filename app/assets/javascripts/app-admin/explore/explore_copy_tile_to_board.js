@@ -1,16 +1,18 @@
 var Airbo = window.Airbo || {};
 
-Airbo.CopyTileToBoard = (function(){
+Airbo.CopyTileToBoard = (function() {
   function copyToBoard(self, source) {
     var path = self.attr("href");
     changeCopyButtonText(self, source);
-    $.post(path, {},
+    $.post(
+      path,
+      {},
       function(data) {
-        if(data.success) {
+        if (data.success) {
           copySuccess(self, source, data);
         }
       },
-      'json'
+      "json"
     );
   }
 
@@ -57,9 +59,11 @@ Airbo.CopyTileToBoard = (function(){
   }
 
   function bindCopyAllTiles() {
-    $("#copy-all-tiles-button").one("click", function(e) {
+    $(".js-copy-all-tiles-button").one("click", function(e) {
       e.preventDefault();
-      $(this).on("click", function(e) { e.preventDefault(); });
+      $(this).on("click", function(e) {
+        e.preventDefault();
+      });
       copyAllTiles($(this));
     });
   }
@@ -68,8 +72,8 @@ Airbo.CopyTileToBoard = (function(){
     Airbo.ExploreKpis.copyAllTilesPing(self);
     self.text("Copying...");
 
-    $.when.apply($, $(".explore_copy_link")).done(function () {
-      for (var i = (arguments.length - 1); i > -1; i--) {
+    $.when.apply($, $(".explore_copy_link")).done(function() {
+      for (var i = arguments.length - 1; i > -1; i--) {
         var tile = arguments[i];
         copyToBoard($(tile), "thumbnail");
       }
@@ -89,10 +93,10 @@ Airbo.CopyTileToBoard = (function(){
     init: init,
     bindThumbnailCopyButton: bindThumbnailCopyButton
   };
-}());
+})();
 
-$(function(){
-  if( $(".tile_wall_explore, .explore-tile_previews-show").length > 0 ) {
+$(function() {
+  if ($(".tile_wall_explore, .explore-tile_previews-show").length > 0) {
     Airbo.CopyTileToBoard.init();
   }
 });

@@ -1,8 +1,4 @@
 FactoryBot.define do
-  #USER
-
-
-
   #DEMO
   factory :demo do
     association :organization

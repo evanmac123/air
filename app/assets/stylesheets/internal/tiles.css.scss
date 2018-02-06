@@ -16,19 +16,6 @@
     }
   }
 }
-.all_tile_thumbnails {
-  @include clear;
-  background: transparent;
-  margin:2em auto 1em auto;
-  padding:0 1em;
-  text-align: center;
-}
-// .tile_thumbnail {
-//   .tile-wrapper {
-//     border-bottom:3px $light-gray solid;
-//     &:hover {border-bottom-color:$sky-blue;}
-//   }
-// }
 
 .tiles.tiles-index,
 .tile_previews.tile_previews-show, .explore-tile_previews.explore-tile_previews-show,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::CampaignsController < AdminBaseController
   def new
     @campaign = Campaign.new
@@ -15,7 +17,6 @@ class Admin::CampaignsController < AdminBaseController
 
   def create
     @campaign = Campaign.new(campaign_params)
-
     if @campaign.save
       redirect_to admin_campaigns_path
     else
@@ -26,18 +27,19 @@ class Admin::CampaignsController < AdminBaseController
 
   def update
     @campaign = find_campaign
+
     if @campaign.update_attributes(campaign_params)
       redirect_to admin_campaigns_path
     else
       @demos = Demo.select([:name, :id]).airbo
-      flash.now[:failure] = "Channels may be invalid." + @campaign.errors.full_messages.join(", ")
+      flash.now[:failure] = @campaign.errors.full_messages.join(", ")
       render :edit
     end
   end
 
   private
     def campaign_params
-      params.require(:campaign).permit(:name, :description, :demo_id, :cover_image, :channel_list, :active, :sources, :instructions, :duration, :duration_description)
+      params.require(:campaign).permit(:name, :description, :demo_id, :active, :icon_link, :ongoing)
     end
 
     def find_campaign

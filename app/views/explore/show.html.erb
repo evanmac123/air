@@ -1,22 +1,8 @@
-<div id="tile_wall_explore">
-  <section class="manage_section" id="channels">
-    <%= render partial: 'explore/channels', locals: { channels: @channels } %>
-  </section>
-  <% @tile_features.each do |feature| %>
-    <%= render partial: 'explore/tile_feature', locals: { feature: feature } %>
-  <% end %>
-  <% if @featured_organizations.present? && false %>
-    <section class="manage_section channel_container" id="organizations">
-      <%= render partial: 'explore/organizations', locals: { organizations: Organization.featured, header: "Organizations" } %>
-    </section>
-  <% end %>
-  <section class="manage_section" id="campaign_boards">
-    <%= render partial: 'explore/campaigns', locals: { campaigns: @campaigns, header: "Airbo Campaigns" } %>
-  </section>
-  <section class="manage_section" id="explore_tiles">
-    <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "All Explore Tiles", more_tiles_path: explore_path } %>
-  </section>
-</div>
-<% if @show_explore_onboarding %>
-  <%= render partial: 'explore/explore_onboarding_modal' %>
+<%= render partial: 'explore/campaign_nav_row', locals: { campaigns: @related_campaigns } %>
+<% @tile_features.each do |feature| %>
+  <%= render partial: 'explore/tile_feature', locals: { feature: feature } %>
 <% end %>
+<% @related_campaigns.each do |campaign| %>
+  <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>
+<% end %>
+<%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "All Explore Tiles", more_tiles_path: explore_path } %>

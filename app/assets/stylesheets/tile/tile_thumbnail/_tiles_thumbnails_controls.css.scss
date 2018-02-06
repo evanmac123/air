@@ -129,7 +129,7 @@
 
 }
 
-.channel_container{
+.campaign-tiles-container{
   .tile_container.explore{
     .tile_buttons {
       top: 86%;
@@ -249,7 +249,7 @@
   .unique_views, .views, .completions {
     @extend %stat_item;
     float: left;
-    width: 76px;
+    width: 32.5%;
     border: 1px solid #b5b5b5;
     color: #616161;
     text-align: left;
@@ -263,7 +263,7 @@
   }
 
   .unique_views, .views {
-    margin-right: 5px;
+    margin-right: 3px;
   }
 
   .creator {

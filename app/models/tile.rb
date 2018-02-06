@@ -23,8 +23,6 @@ class Tile < ActiveRecord::Base
   IMAGE_SEARCH = "image-search"
   VIDEO_UPLOAD = "video-upload"
 
-  acts_as_taggable_on :channels
-
   as_enum :creation_source, client_admin_created: 0, explore_created: 1, suggestion_box_created: 2
 
   belongs_to :demo
@@ -66,6 +64,11 @@ class Tile < ActiveRecord::Base
   validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
   validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: MAX_SUPPORTING_CONTENT_LEN, message: "supporting content is too long (maximum is #{MAX_SUPPORTING_CONTENT_LEN} characters)"
 
+  has_many :campaign_tiles
+  has_many :campaigns, through: :campaign_tiles
+
+  accepts_nested_attributes_for :campaign_tiles
+
   def state_is_anything_but_draft?
     status != DRAFT
   end
@@ -77,7 +80,7 @@ class Tile < ActiveRecord::Base
   end
   scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
 
-  scope :explore, -> { explore_non_ordered.order("created_at DESC") }
+  scope :explore, -> { explore_non_ordered.order("tiles.created_at DESC") }
   scope :explore_non_ordered, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
 
   scope :ordered_by_position, -> { order "position DESC" }
@@ -92,9 +95,13 @@ class Tile < ActiveRecord::Base
 
   searchkick word_start: [:headline], callbacks: false
 
+  def self.default_search_fields
+    ["headline^10", "supporting_content^8", :campaigns, :organization_name]
+  end
+
   def search_data
     extra_data = {
-      channel_list: channel_list,
+      campaigns: campaigns.pluck(:name),
       organization_name: organization.try(:name)
     }
 
@@ -102,7 +109,7 @@ class Tile < ActiveRecord::Base
   end
 
   def should_reindex?
-    self.changes.key?("headline") || self.changes.key?("supporting_content") || self.changes.key?("is_public") || self.changes.key?("status")
+    ["headline", "supporting_content", "is_public", "status"].any? { |key| self.changes.key?(key) }
   end
 
   def remote_media_url
@@ -183,8 +190,8 @@ class Tile < ActiveRecord::Base
     headline.present? && supporting_content.present? && question.present? && remote_media_url.present? && supporting_content_raw_text.length <= MAX_SUPPORTING_CONTENT_LEN && has_correct_answer_selected? && has_unique_answers? && has_required_number_of_answers?
   end
 
-  def points=(p)
-    write_attribute(:points, p.to_i)
+  def points=(number)
+    write_attribute(:points, number.to_i)
   end
 
   def image_credit=(text)
@@ -248,14 +255,6 @@ class Tile < ActiveRecord::Base
     false
   end
 
-  def copy_inside_demo(new_demo, copying_user)
-    TileCopier.new(new_demo, self, copying_user).copy_from_own_board
-  end
-
-  def copy_to_new_demo(new_demo, copying_user)
-    TileCopier.new(new_demo, self, copying_user).copy_tile_from_explore
-  end
-
   def find_new_first_position
     Tile.where(demo: self.demo, status: self.status).maximum(:position).to_i + 1
   end
@@ -289,7 +288,7 @@ class Tile < ActiveRecord::Base
 
     ids_completed = user.tile_completions.pluck(:tile_id)
 
-    satisfiable_tiles = Tile.active.where(demo_id: board).reject { |t| ids_completed.include? t.id }
+    satisfiable_tiles = Tile.active.where(demo_id: board).reject { |tile| ids_completed.include? tile.id }
     satisfiable_tiles.sort_by(&:position).reverse
   end
 
@@ -340,12 +339,14 @@ class Tile < ActiveRecord::Base
       end
     end
 
+    # TODO This method runs a check for something that should be impossible: !multiple_choice_answers.present?. I think this stems from poor coupling to test factories and is not actually necessary.
     def has_required_number_of_answers?
       if multiple_choice_answers.present?
-        if (min_one_answer_required)
-          multiple_choice_answers.length > 0
+        answers_count = multiple_choice_answers.length
+        if min_one_answer_required
+          answers_count > 0
         else
-          multiple_choice_answers.length > 1
+          answers_count > 1
         end
       else
         true
@@ -375,10 +376,6 @@ class Tile < ActiveRecord::Base
     def remove_images
       write_attribute(:remote_media_url, nil)
       image.destroy
-
-      # NOTE this destroy call is for consistency only. Paperclip is configured
-      # with preserve_files: true for thumbnails so that thumbnails are never
-      # deleted #see  TileImageable module for details
       thumbnail.destroy
     end
 

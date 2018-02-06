@@ -25,4 +25,14 @@
       <p class="settings-input"><%= form.check_box :is_public %> Share to Airbo Explore when this Tile is posted?</p>
     </div>
   <% end %>
+  <% if @tile.demo.campaigns.present? %>
+    <div class="tile-builder-settings">
+      <p class="header"> Campaigns</p>
+      <div class="settings-input-group">
+        <%= form.collection_check_boxes(:campaign_ids, @tile.demo.campaigns, :id, :name) do |campaign_checkbox| %>
+        <p class="settings-input"><%= campaign_checkbox.check_box %> <%= campaign_checkbox.label(class: "d-inline") %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>

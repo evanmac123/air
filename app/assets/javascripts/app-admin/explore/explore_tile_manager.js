@@ -1,21 +1,21 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ExploreTileManager = (function(){
+Airbo.ExploreTileManager = (function() {
   function initEvents() {
-    $("body").on("click", ".tile_thumb_link_explore", function(e){
+    $("body").on("click", ".tile_thumb_link_explore", function(e) {
       e.preventDefault();
-      getExploreTile($(this).attr('href'), $(this).data('tileId'));
+      getExploreTile($(this).attr("href"), $(this).data("tileId"));
     });
   }
 
-  function tileContainerByDataTileId(id){
-    return  $(".tile_container[data-tile-container-id=" + id + "]");
+  function tileContainerByDataTileId(id) {
+    return $(".tile_container[data-tile-container-id=" + id + "]");
   }
 
   function getExploreTile(link, id, tilePreview) {
     var tile = tileContainerByDataTileId(id);
-    var next = nextTile(tile).data('tileContainerId');
-    var prev = prevTile(tile).data('tileContainerId');
+    var next = nextTile(tile).data("tileContainerId");
+    var prev = prevTile(tile).data("tileContainerId");
 
     if (!tilePreview) {
       tilePreview = Airbo.ExploreTilePreview;
@@ -26,12 +26,12 @@ Airbo.ExploreTileManager = (function(){
       dataType: "html",
       url: link,
       data: { partial_only: true, next_tile: next, prev_tile: prev },
-      success: function(data, status, xhr){
+      success: function(data, status, xhr) {
         tilePreview.init();
         tilePreview.open(data);
       },
 
-      error: function(jqXHR, textStatus, error){
+      error: function(jqXHR, textStatus, error) {
         console.log(error);
       }
     });
@@ -62,12 +62,10 @@ Airbo.ExploreTileManager = (function(){
     init: init,
     getExploreTile: getExploreTile
   };
+})();
 
-}());
-
-$(function(){
-
-  if( $(".tile_wall_explore").length > 0) {
+$(function() {
+  if ($(".explore").length > 0) {
     Airbo.ExploreTileManager.init();
   }
 });

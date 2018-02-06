@@ -1,27 +1,31 @@
 <div class="explore" data-campaign-id="<%= @campaign.id %>">
-  <section class="manage_section" id="channels">
-    <% cache @display_channels do %>
-      <%= render partial: 'explore/channels', locals: { channels: @display_channels } %>
-    <% end %>
-  </section>
-  <% if @campaign.instructions.present? #temporary conditional as we update campaigns %>
-    <%= render 'campaign_profile', campaign: @campaign %>
-  <% else %>
-    <%= render 'old_campaign_profile', campaign: @campaign %>
-  <% end %>
+  <%= render partial: 'explore/campaign_nav_row', locals: { campaigns: @related_campaigns } %>
 
-  <section class="manage_section" id="explore_tiles">
-    <div class="manage_section explore_tiles_section" style="margin-bottom:80px;">
-      <div class="row">
-        <div class="large-12 columns">
-          <div class="tile_wall_explore">
-            <%= render partial: 'explore/tiles', locals: {tiles: @tiles, section: "Campaign Tile" } %>
-          </div>
+  <%= render partial: 'explore/campaign_header', locals: { campaign: @campaign } %>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="campaign-description">
+        <p><%= @campaign.description.try(:html_safe) %></p>
+      </div>
+    </div>
+  </div>
+
+  <% unless @campaign.ongoing || current_user.is_a?(GuestUser) || current_user.end_user? %>
+    <div class="row">
+      <div class="columns large-12">
+        <div class="button js-copy-all-tiles-button" style="margin: 10px;">
+          Copy Campaign
         </div>
       </div>
     </div>
-  </section>
-  <section class="manage_section" id="campaign_boards" style="box-shadow:0 -5px 5px -5px #a8a8a8">
-    <%= render partial: 'explore/campaigns', locals: { campaigns: Campaign.exclude([@campaign.id]), header: "More Campaigns" } %>
-  </section>
+  <% end %>
+
+  <div class="campaign-tiles-container with-divider">
+    <div class="row">
+      <div class="large-12 columns">
+        <%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "", more_tiles_path: explore_campaign_path(@campaign) } %>
+      </div>
+    </div>
+  </div>
 </div>

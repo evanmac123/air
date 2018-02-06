@@ -36,7 +36,6 @@ gem "browser", "~> 2.5.0"
 gem "counter_culture", "~> 1.9.0"
 gem "sanitize", "~> 4.5.0"
 gem "htmlentities", "~> 4.3.3"
-gem "acts-as-taggable-on", "~> 3.5.0"
 gem "simple_enum", "~> 1.6.9"
 gem "descriptive_statistics", "~> 2.5.1", require: "descriptive_statistics/safe"
 gem "mobvious-rails", "~> 0.1.2"
@@ -52,7 +51,7 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem "nest", "~> 2.0"
 
 ### Spreadsheet creation
-gem "rubyzip", "~> 1.1.0"
+gem "rubyzip", "~> 1.1.7"
 gem "axlsx", "2.1.0.pre"
 ###
 
@@ -77,6 +76,7 @@ gem "wice_grid", git: "https://github.com/theairbo/wice_grid", branch: "rails_4_
 ###
 
 ### Plan to Remove
+gem "acts-as-taggable-on", "~> 3.5.0"
 gem "rolify", "~> 5.1.0"
 gem "addressable", "~> 2.5.2"
 gem "acts_as_singleton", "~> 0.0.8"

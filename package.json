@@ -3,6 +3,7 @@
   "dependencies": {
     "@rails/webpacker": "^3.2.0",
     "axios": "^0.17.1",
+    "flickity": "^2.0.10",
     "medium-editor": "github:weilandia/medium-editor#1402_resolves_anchor_toolbar_for_ie",
     "vue": "^2.5.13",
     "vue-loader": "^13.6.2",

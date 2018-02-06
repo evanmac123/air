@@ -38,14 +38,8 @@ class AirboSearch
     end
   end
 
-  def campaigns
-    if explore_search
-      @campaigns ||= Campaign.search(query, fields: [:name, :tile_headlines, :tile_content], order: [_score: :desc, created_at: :desc])
-    end
-  end
-
   def total_result_count
-    [user_tiles, client_admin_tiles, explore_tiles, campaigns].map { |results| get_count(results) }.sum
+    [user_tiles, client_admin_tiles, explore_tiles].map { |results| get_count(results) }.sum
   end
 
   def overview_limit
@@ -53,7 +47,7 @@ class AirboSearch
   end
 
   def tiles_present?
-    user_tiles.present? || client_admin_tiles.present? || explore_tiles.present? || campaigns.present?
+    user_tiles.present? || client_admin_tiles.present? || explore_tiles.present?
   end
 
   def track_initial_search
@@ -80,10 +74,6 @@ class AirboSearch
     def formatted_query
       return "*" if query.blank?
       query
-    end
-
-    def tile_search_fields
-      ["headline^10", "supporting_content^8", :channel_list, :organization_name]
     end
 
     def demo_id
@@ -123,7 +113,7 @@ class AirboSearch
 
     def default_tile_options(page)
       {
-        fields: tile_search_fields,
+        fields: Tile.default_search_fields,
         order: [_score: :desc, created_at: :desc],
         page: page,
         per_page: per_page

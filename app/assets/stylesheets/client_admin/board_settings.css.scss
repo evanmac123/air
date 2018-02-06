@@ -1,80 +1,94 @@
-body.client_admin-board_settings-index{
-  .board_settings{
+.board-settings-module {
+  .board-settings-component {
+    margin-top: 35px;
+
     .check_label {
       margin-bottom: 20px;
       margin-right: 15px;
     }
 
-    .notification_settings{
+    .notification_settings {
       li {
         display: inline-block;
       }
     }
-    input::-ms-clear { // hide 'x' for ie
+
+    input::-ms-clear {
       width: 0;
       height: 0;
     }
-    .error_message, .empty_error_message{
+
+    .error_message,
+    .empty_error_message {
       @include regular-text;
+
       color: $red;
       display: none;
       padding-bottom: 1em;
     }
+
     label {
       display: inline-block;
     }
-    .clear_form{
+
+    .clear_form {
       @include regular-text;
+
       cursor: pointer;
       padding-left: 1em;
       display: none;
     }
-    form{
+
+    form {
       margin-bottom: 2em;
+
       &.dirty {
-        .clear_form{
+        .clear_form {
           display: inline-block;
         }
       }
+
       &.has_error {
-        input[type="text"]{
+        input[type="text"] {
           background: rgba(198, 15, 19, 0.0980392);
         }
+
         .error_message {
           display: block;
         }
-        &.has_empty_error{
+
+        &.has_empty_error {
           .error_message {
             display: none;
           }
+
           .empty_error_message {
             display: block;
           }
         }
       }
     }
-    form#edit_board_logo{
-      .clear_form{
+
+    form#edit_board_logo {
+      .clear_form {
         display: inline-block;
       }
     }
+
     form#edit_board_email {
-      .input_with_postfix{
+      .input_with_postfix {
         @include input-with-fix;
       }
     }
+
     form#edit_board_public_link {
-      .input_with_prefix{
+      .input_with_prefix {
         @include input-with-fix($type: pre);
       }
     }
-    form#edit_board_welcome_message{
+
+    form#edit_board_welcome_message {
       margin-bottom: 35px;
     }
   }
-}
-
-.two-panel-layout{
-  position: relative;
-  width: 80%;
 }

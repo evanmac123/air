@@ -45,11 +45,12 @@ class Admin::OrganizationsController < AdminBaseController
   end
 
   def destroy
+    org_name = @organization.name
     if @organization == current_user.demo.organization
-      flash[:failure] = "Switch out of #{@organization.name}'s demos in order to delete the organization."
+      flash[:failure] = "Switch out of #{org_name}'s demos in order to delete the organization."
     else
       @organization.delay.destroy
-      flash[:success] = t("controllers.admin.organizations.flash_destroy", name: @organization.name)
+      flash[:success] = t("controllers.admin.organizations.flash_destroy", name: org_name)
     end
 
     redirect_to admin_path
@@ -62,6 +63,6 @@ class Admin::OrganizationsController < AdminBaseController
     end
 
     def organization_params
-      params.require(:organization).permit(:name, :logo, :num_employees, :featured, :email, :internal, :free_trial_started_at, :company_size_cd)
+      params.require(:organization).permit(:name, :logo, :num_employees, :email, :internal, :free_trial_started_at, :company_size_cd)
     end
 end
