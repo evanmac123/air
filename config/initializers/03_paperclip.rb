@@ -54,6 +54,7 @@ else
   raise 'Environment Not Found'
 end
 
-if Rails.env.test?
-  Paperclip::UriAdapter.register
-end
+# NOTE: Paperclip stopped autoloading remote adapters in 5.2. See: https://github.com/thoughtbot/paperclip#io-adapters
+Paperclip::UriAdapter.register
+Paperclip::HttpUrlProxyAdapter.register
+Paperclip::DataUriAdapter.register
