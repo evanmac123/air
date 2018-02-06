@@ -339,6 +339,7 @@ class Tile < ActiveRecord::Base
       end
     end
 
+    # TODO This method runs a check for something that should be impossible: !multiple_choice_answers.present?. I think this stems from poor coupling to test factories and is not actually necessary.
     def has_required_number_of_answers?
       if multiple_choice_answers.present?
         answers_count = multiple_choice_answers.length
