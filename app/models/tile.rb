@@ -340,12 +340,15 @@ class Tile < ActiveRecord::Base
     end
 
     def has_required_number_of_answers?
-      answers_count = multiple_choice_answers.length
-
-      if min_one_answer_required
-        answers_count > 0
+      if multiple_choice_answers.present?
+        answers_count = multiple_choice_answers.length
+        if min_one_answer_required
+          answers_count > 0
+        else
+          answers_count > 1
+        end
       else
-        answers_count > 1
+        true
       end
     end
 

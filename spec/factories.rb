@@ -1,12 +1,4 @@
 FactoryBot.define do
-  factory :campaign_tile do
-    tile nil
-    campaign nil
-  end
-  #USER
-
-
-
   #DEMO
   factory :demo do
     association :organization
