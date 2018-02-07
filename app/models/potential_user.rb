@@ -60,7 +60,7 @@ class PotentialUser < ActiveRecord::Base
     {
       user_id: id,
       name: "Guest User",
-      user_hash: OpenSSL::HMAC.hexdigest("sha256", IntercomRails.config.api_secret, id.to_s)
+      user_hash: OpenSSL::HMAC.hexdigest("sha256", IntercomRails.config.api_secret.to_s, id.to_s)
     }
   end
 

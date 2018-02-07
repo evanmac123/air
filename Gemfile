@@ -59,7 +59,7 @@ gem "axlsx", git: "https://github.com/theairbo/axlsx.git"
 ### Integrations
 gem "delighted", "~> 1.7.0"
 gem "airbrake", "~> 5.4"
-gem "scout_apm", "~> 2.3"
+gem "scout_apm", "~> 2.4"
 gem "chartmogul-ruby", "~> 1.1.4", require: "chartmogul"
 gem "intercom", "~> 3.5.23"
 gem "intercom-rails", "~> 0.3.8"
