@@ -197,33 +197,6 @@ module TileHelpers
     page.execute_script("$('#supporting_content_editor').focus().html('#{text}').blur()")
   end
 
-  def fill_in_valid_form_entries options = {}
-    click_answer = options[:click_answer] || 1
-    question_type = options[:question_type] || Tile::QUIZ
-    question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
-
-    choose_question_type_and_subtype question_type, question_subtype
-
-    fake_upload_image  img_file1
-    fill_in_image_credit "by Society"
-    fill_in "Headline",           with: "Ten pounds of cheese"
-    fill_in_supporting_content("Ten pounds of cheese. Yes? Or no?")
-
-    fill_in_question "Who rules?"
-
-    2.times { click_add_answer }
-
-    fill_in_answer_field 0, "Me"
-    fill_in_answer_field 1, "You"
-    fill_in_answer_field 2, "Hipster"
-
-    click_answer.times { select_correct_answer 2 } if question_type == Tile::QUIZ
-
-    fill_in_points "18"
-
-    fill_in_external_link_field  "http://www.google.com/foobar"
-  end
-
   def click_edit_link
     click_here_link[1].click
   end
@@ -235,12 +208,6 @@ module TileHelpers
   def choose_question_type_and_subtype question_type, question_subtype
     page.find("##{question_type.downcase}.type").click
     page.find(".subtype.#{question_type.downcase}.#{question_subtype}").click
-  end
-
-
-  def create_good_tile
-    fill_in_valid_form_entries
-    click_create_button
   end
 
   def create_existing_tiles(demo, status, num)
@@ -364,7 +331,6 @@ module TileHelpers
     expect(page).not_to have_selector('#tile_manager_nav')
   end
 
-
   def fake_upload_image filename
     uri = URI.join('file:///', "#{Rails.root}/spec/support/fixtures/tiles/#{filename}")
     url = uri.path
@@ -372,12 +338,35 @@ module TileHelpers
     page.execute_script("$('#upload_preview').attr('src', '#{url}');")
   end
 
-    def img_file1
-      "cov1.jpg"
-    end
+  def img_file1
+    "cov1.jpg"
+  end
 
-    def img_file2
-      "cov2.jpg"
-    end
+  def img_file2
+    "cov2.jpg"
+  end
 
+  def click_tile_create_button
+    page.find(".submit_tile_form").click
+  end
+
+  def fill_in_tile_form_entries(options = {})
+    question_type = options[:question_type] || Tile::QUIZ.downcase
+    question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
+    edit_text = options[:edit_text] || "foobar"
+    points = options[:points] || "18"
+
+
+    choose_question_type_and_subtype question_type, question_subtype
+    fake_upload_image img_file1
+
+    fill_in_image_credit "by Society#{edit_text}"
+    page.find("#tile_headline").set("Ten pounds of cheese#{edit_text}")
+    el = page.find(:css, "#supporting_content_editor", visible: false)
+    el.set("Ten pounds of cheese. Yes? Or no?#{edit_text}")
+    fill_in_question "Who rules?#{edit_text}"
+    fill_in_answer_field 0, "Me#{edit_text}"
+    fill_in_answer_field 1, "You#{edit_text}"
+    select_correct_answer 1
+  end
 end

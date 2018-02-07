@@ -138,10 +138,6 @@ Airbo.TileFormModal = (function() {
       if (formObj.valid()) {
         disablesubmitLink();
         Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("save"));
-        Airbo.IntercomEventService.trackEvent(
-          "Tile Creation",
-          getTileCreationPingProps("save")
-        );
         ajaxHandler.submit(formObj, submitSuccess, resetSubmit);
       } else {
         saveable = false;

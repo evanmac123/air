@@ -40,14 +40,11 @@ when 'production', 'staging'
   }
 
 when 'test',  'development'
-
   Paperclip::Attachment.default_options.merge!(
     {
       url: "/system/:rails_env/:class/:attachment/:id/:style/:filename"
     }
   )
-
-  #We need these because because they were originally implemented with custom paths. If we want to move away from the custom pattern, we can do a mass S3 sync. Also, if we want to move away from the merge pattern in the modals for Paperclip, we likely have to setup a mock S3 for dev.
 
   TILE_IMAGE_OPTIONS = {}
   TILE_THUMBNAIL_OPTIONS = {}
@@ -56,3 +53,8 @@ when 'test',  'development'
 else
   raise 'Environment Not Found'
 end
+
+# NOTE: Paperclip stopped autoloading remote adapters in 5.2. See: https://github.com/thoughtbot/paperclip#io-adapters
+Paperclip::UriAdapter.register
+Paperclip::HttpUrlProxyAdapter.register
+Paperclip::DataUriAdapter.register

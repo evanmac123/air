@@ -139,27 +139,16 @@ module SteakHelperMethods
     expect(page).to have_no_content(unexpected_content)
   end
 
-  def find_select_element(select_identifier)
-    page.find(:xpath, XPath::HTML.select(select_identifier).to_xpath)
-  end
-
-  def find_select_element(select_identifier)
-    page.find(:xpath, XPath::HTML.select(select_identifier).to_xpath)
-  end
-
   def find_input_element(input_identifier)
-    page.find(:xpath, XPath::HTML.field(input_identifier).to_xpath)
+    find_field(input_identifier)
   end
 
-  def expect_selected(expected_value, select_identifier = nil)
-    option_context = select_identifier ? find_select_element(select_identifier) : page
-    option_expected_to_be_selected = option_context.find %{option[@value="#{expected_value}"]}
-    expect(option_expected_to_be_selected['selected']).to be_present
+  def expect_selected(expected_value, select_identifier)
+    expect(page).to have_select(select_identifier, selected: [expected_value])
   end
 
   def expect_no_option_selected(select_identifier)
-    select = find_select_element(select_identifier)
-    expect(select.all("option[@select]")).to be_empty
+    expect(page).to have_select(select_identifier, selected: [])
   end
 
   def expect_value(input_identifier, expected_value)

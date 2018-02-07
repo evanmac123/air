@@ -1,10 +1,3 @@
-##Deprecate after upgrade to Ruby 2.1. This is no longer supported by interom-ruby:
-unless Rails.env.test?
-  Intercom.app_id = ENV['INTERCOM_APP_ID']
-  Intercom.app_api_key = ENV['INTERCOM_API_KEY']
-end
-#######
-
 IntercomRails.config do |config|
   # == Intercom app_id
   #

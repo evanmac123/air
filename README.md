@@ -83,10 +83,10 @@ FOG_PROVIDER                                     | AWS                       | S
 GAME_CREATION_REQUEST_ADDRESS                    | team@airbo.com            | Email recipient to notify new boards(deprecate for better solution)
 HEROKU_APP_NAME                                  | [APP_NAME]                | Heroku Specfic Setting
 IMAGE_PROVIDERS                                  | Pixabay                   | Comma separated list of image services used by image search feature
-INTERCOM_API_SECRET                              | [SECRET]                  | Intercom API Access Settings
-INTERCOM_API_KEY                                 | [KEY]                     | Intercom API Access Settings
-INTERCOM_APP_ID                                  | [ID]                      | Intercom API Access Settings
-INTERCOM_OLD_USERS_SEGMENT_IDS                   | [SEGMENT_ID]              | Intercom Segment ID used to purge stale intercom users
+INTERCOM_ACCESS_TOKEN     | [TOKEN]              |
+INTERCOM_API_SECRET    | [TOKEN]              |
+INTERCOM_APP_ID           | [ID]                 |
+INTERCOM_OLD_USERS_SEGMENT_IDS                   | [SEGMENT_ID]              |
 LOG_LEVEL                                        | WARN                      | Heroku logging config
 MAINTENANCE_PAGE_URL                             | [URL]                     | AWS hosted maintenance page URL
 MAX_SELECTORS_DEFAULT                            | 3072                      | Used by css splitter to limit # CSS selectors per file for Compatibility
@@ -129,10 +129,10 @@ AWS_BULK_UPLOAD_ACCESS_KEY_ID                    | [ID]                | AIM Use
 AWS_SECRET_ACCESS_KEY                            | [KEY]               | AIM User AWS Secret Access Key                                 
 AWS_BULK_UPLOAD_SECRET_ACCESS_KEY                | [KEY]               | AIM User AWS Secret Access Key                                 
 IMAGE_PROVIDERS                                  | pixabay             | Default image provider for image search
-INTERCOM_API_SECRET                              | [SECRET]            | Dev Intercom API Access                                        
-INTERCOM_API_KEY                                 | [KEY]               | Dev Intercom API Access                                        
-INTERCOM_APP_ID                                  | [ID]                | Dev Intercom API Access                                        
-INTERCOM_OLD_USERS_SEGMENT_IDS                   | [IDS]               | Intercom segment necessary for running Intercom purge script   
+INTERCOM_ACCESS_TOKEN                            | [TOKEN]             |
+INTERCOM_API_SECRET                           | [TOKEN]             |
+INTERCOM_APP_ID                                  | [ID]                |
+INTERCOM_OLD_USERS_SEGMENT_IDS                   | [SEGMENT_ID]        |
 MIXPANEL_API_KEY                                 | [KEY]               | Dev Mixpanel API Access                                        
 MIXPANEL_API_SECRET                              | [SECRET]            | Dev Mixpanel API Access                                        
 PIXABAY_KEY                                      | [KEY]               | Dev Pixabay API Access                                         

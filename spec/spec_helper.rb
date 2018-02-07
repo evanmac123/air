@@ -1,6 +1,6 @@
 require "simplecov"
 SimpleCov.start
-
+SCOUT_MONITOR=false
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 ENV["AWS_SECRET_ACCESS_KEY"] ||= "fake_key"
