@@ -6,7 +6,12 @@ Airbo.MarketingSite.Pings = (function() {
     $(".js-marketing-site-cta").on("click", function(e) {
       e.preventDefault();
 
-      Airbo.Utils.ping("Marketing Site Action", { action: "CTA Clicked", cta: $(this).data("cta"), copy: $(this).text(), color: $(this).css("background-color") });
+      Airbo.Utils.ping("Marketing Site Action", {
+        action: "CTA Clicked",
+        cta: $(this).data("cta"),
+        copy: $(this).text(),
+        color: $(this).css("background-color")
+      });
 
       window.location = $(this).data("path");
     });
@@ -14,7 +19,10 @@ Airbo.MarketingSite.Pings = (function() {
     $(".js-marketing-site-gallery-item").on("click", function(e) {
       e.preventDefault();
 
-      Airbo.Utils.ping("Marketing Site Action", { action: "Clicked Gallery Board", board: $(this).data("board") });
+      Airbo.Utils.ping("Marketing Site Action", {
+        action: "Clicked Gallery Board",
+        board: $(this).data("board")
+      });
 
       window.location = $(this).data("path");
     });
@@ -24,7 +32,12 @@ Airbo.MarketingSite.Pings = (function() {
     $(".js-case-study-view-button").on("click", function(e) {
       e.preventDefault();
 
-      Airbo.Utils.ping("Marketing Site Action", { action: "Viewed Case Study", case_study: $(this).data("caseStudy"), copy: $(this).text(), color: $(this).css("background-color") });
+      Airbo.Utils.ping("Marketing Site Action", {
+        action: "Viewed Case Study",
+        case_study: $(this).data("caseStudy"),
+        copy: $(this).text(),
+        color: $(this).css("background-color")
+      });
 
       window.open($(this).attr("href"));
     });
@@ -43,7 +56,7 @@ Airbo.MarketingSite.Pings = (function() {
     init: init,
     standaloneFormPings: standaloneFormPings
   };
-}());
+})();
 
 $(function() {
   if (Airbo.Utils.nodePresent(".airbo-marketing-site")) {

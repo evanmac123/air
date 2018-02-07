@@ -1,12 +1,16 @@
 var Airbo = window.Airbo || {};
 
-Airbo.SubComponentFlash = (function(){
+Airbo.SubComponentFlash = (function() {
   function insert($lowerNode, message, flashClass) {
+    var flashNode = HandlebarsTemplates.flashMessage({
+      message: message,
+      flashClass: flashClass || "success"
+    });
 
-    var flashNode = HandlebarsTemplates.flashMessage({ message: message, flashClass: flashClass || "success" });
-
-    if($(".js-sub-component-flash").length > 0) {
-      $(".js-sub-component-flash").first().replaceWith(flashNode);
+    if ($(".js-sub-component-flash").length > 0) {
+      $(".js-sub-component-flash")
+        .first()
+        .replaceWith(flashNode);
       $(".js-sub-component-flash").show();
     } else {
       $lowerNode.before(flashNode);
@@ -33,5 +37,4 @@ Airbo.SubComponentFlash = (function(){
     insert: insert,
     destroy: destroy
   };
-
-}());
+})();

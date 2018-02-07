@@ -1,11 +1,10 @@
-Airbo.TileBuilderInteractionMenuBuilder = (function(){
-
-  function buildMenu(){
+Airbo.TileBuilderInteractionMenuBuilder = (function() {
+  function buildMenu() {
     var interactions = Airbo.TileBuilderInteractionConfig.interactionSet();
-    var dropdownMenuGroup= document.createElement("ul");
+    var dropdownMenuGroup = document.createElement("ul");
     var types = Object.keys(interactions);
     var interaction;
-    var dropDownTriggerLink ;
+    var dropDownTriggerLink;
     var interactionVariantsList;
     var caret;
     var variants;
@@ -13,26 +12,28 @@ Airbo.TileBuilderInteractionMenuBuilder = (function(){
 
     dropdownMenuGroup.setAttribute("class", "button-group");
 
-    for(var idx = 0; idx < types.length; idx++) {
+    for (var idx = 0; idx < types.length; idx++) {
       interaction = types[idx];
       variants = Object.keys(interactions[interaction]);
       dropDownTriggerLink = document.createElement("a");
       interactionVariantsList = document.createElement("li");
       caret = document.createElement("i");
-      variantDropdownMenu= document.createElement("ul");
+      variantDropdownMenu = document.createElement("ul");
       interactionVariantsList.setAttribute("class", "tile_type");
 
       dropDownTriggerLink.setAttribute("id", interaction);
-      dropDownTriggerLink.setAttribute("data-dropdown","drop_" + interaction );
+      dropDownTriggerLink.setAttribute("data-dropdown", "drop_" + interaction);
       dropDownTriggerLink.setAttribute("class", "button type dropdown");
-      dropDownTriggerLink.appendChild(document.createTextNode(interaction + " "));
+      dropDownTriggerLink.appendChild(
+        document.createTextNode(interaction + " ")
+      );
       dropDownTriggerLink.appendChild(caret);
 
       caret.setAttribute("class", "js-menu-toggle fa fa-caret-down");
 
       variantDropdownMenu.setAttribute("id", "drop_" + interaction);
       variantDropdownMenu.setAttribute("class", "f-dropdown");
-      variantDropdownMenu.setAttribute("data-dropdown-content",undefined);
+      variantDropdownMenu.setAttribute("data-dropdown-content", undefined);
 
       interactionVariantsList.appendChild(dropDownTriggerLink);
 
@@ -40,8 +41,11 @@ Airbo.TileBuilderInteractionMenuBuilder = (function(){
         var variant = interactions[interaction][key];
         var variantListItem = document.createElement("li");
 
-        config = JSON.stringify({type: interaction, subtype: key});
-        variantListItem.setAttribute("class", "subtype " + interaction + " " + key);
+        config = JSON.stringify({ type: interaction, subtype: key });
+        variantListItem.setAttribute(
+          "class",
+          "subtype " + interaction + " " + key
+        );
 
         variantListItem.setAttribute("data-config", config);
         variantListItem.appendChild(document.createTextNode(variant.name));
@@ -55,7 +59,7 @@ Airbo.TileBuilderInteractionMenuBuilder = (function(){
     return dropdownMenuGroup;
   }
 
-  function render(){
+  function render() {
     var menu = document.getElementById("interaction-menu");
     menu.appendChild(buildMenu());
   }
@@ -63,5 +67,4 @@ Airbo.TileBuilderInteractionMenuBuilder = (function(){
   return {
     render: render
   };
-
-}());
+})();

@@ -1,38 +1,41 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TilePointsSlider = (function() {
-  var pointsSlider
-    , formPoints
-    , pointSliderSelector =  "#points_slider"
-    , formPointsSelector = "#tile_points"
+  var pointsSlider,
+    formPoints,
+    pointSliderSelector = "#points_slider",
+    formPointsSelector = "#tile_points";
 
-  function refreshPointsField(){
+  function refreshPointsField() {
     //max points 20, max slider 200. so:
-    var points = Math.ceil($( "#points_slider" ).slider( "value" )/10);
+    var points = Math.ceil($("#points_slider").slider("value") / 10);
     formPoints.val(points);
     $(".points_num").text(points);
   }
 
-  function addPointsPopUp(){
+  function addPointsPopUp() {
     $(".ui-slider-range-min").append(
-      [ '<div class="points_pop_up">',
+      [
+        '<div class="points_pop_up">',
         '<span class="tooltip tip-top">',
         '<div class="points_num"></div>',
         '<div class="points_text">POINTS</div>',
         '<span class="points_nub"></span>',
-        '</span>',
-        '</div>'].join('') );
+        "</span>",
+        "</div>"
+      ].join("")
+    );
   }
 
-  function initjQueryObjects(){
+  function initjQueryObjects() {
     formPoints = $(formPointsSelector);
-    pointsSlider =$("#points_slider");
+    pointsSlider = $("#points_slider");
   }
 
-  function init(){
+  function init() {
     initjQueryObjects();
 
-    $(pointSliderSelector ).slider({
+    $(pointSliderSelector).slider({
       orientation: "horizontal",
       range: "min",
       max: 200,
@@ -43,15 +46,13 @@ Airbo.TilePointsSlider = (function() {
     });
 
     var startPoints = (formPoints.val() ? formPoints.val() : 10) * 10;
-    $( "#points_slider" ).slider( "value", startPoints );
+    $("#points_slider").slider("value", startPoints);
 
     addPointsPopUp();
     refreshPointsField();
-
   }
 
   return {
-   init: init
-  }
-
-}())
+    init: init
+  };
+})();

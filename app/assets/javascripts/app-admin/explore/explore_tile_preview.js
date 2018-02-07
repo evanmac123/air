@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ExploreTilePreview = (function(){
+Airbo.ExploreTilePreview = (function() {
   var modalObj = Airbo.Utils.StandardModal();
   var modalId = "explore_tile_preview";
   var introShowed = false;
@@ -9,7 +9,10 @@ Airbo.ExploreTilePreview = (function(){
   function ping(action) {
     var tile_id;
     tile_id = $("[data-current-tile-id]").data("current-tile-id");
-    Airbo.Utils.ping('Explore page - Interaction', {action: action, tile_id: tile_id});
+    Airbo.Utils.ping("Explore page - Interaction", {
+      action: action,
+      tile_id: tile_id
+    });
   }
 
   function initEvents() {
@@ -17,7 +20,7 @@ Airbo.ExploreTilePreview = (function(){
     Airbo.CopyTileToBoard.init();
     Airbo.ImageLoadingPlaceholder.init();
 
-    $('.js-multiple-choice-answer.correct').one("click", function(event) {
+    $(".js-multiple-choice-answer.correct").one("click", function(event) {
       event.preventDefault();
       $("#next_tile").trigger("click");
       ping("Clicked Answer");
@@ -32,7 +35,6 @@ Airbo.ExploreTilePreview = (function(){
     initEvents();
     initAnonymousTooltip();
 
-
     //This handles issue where the onboarding modal css interferes with the tile modal css.
     $(".reveal-modal").css("top", 0);
   }
@@ -46,13 +48,14 @@ Airbo.ExploreTilePreview = (function(){
   function initModalObj() {
     modalObj.init({
       modalId: modalId,
-      modalClass: "tile_previews explore-tile_previews tile_previews-show explore-tile_previews-show bg-user-side",
+      modalClass:
+        "tile_previews explore-tile_previews tile_previews-show explore-tile_previews-show bg-user-side",
       useAjaxModal: true,
       closeSticky: true
     });
   }
 
-  function initAnonymousTooltip(){
+  function initAnonymousTooltip() {
     $(".js-anonymous-tile-tooltip").tooltipster({
       theme: "tooltipster-shadow"
     });
@@ -69,9 +72,9 @@ Airbo.ExploreTilePreview = (function(){
     open: open,
     modalId: modalId
   };
-}());
+})();
 
-Airbo.ExploreTileNonModal = (function(){
+Airbo.ExploreTileNonModal = (function() {
   function init() {
     Airbo.ShareLink.init();
     Airbo.TileCarouselPage.init();
@@ -81,10 +84,10 @@ Airbo.ExploreTileNonModal = (function(){
   return {
     init: init
   };
-}());
+})();
 
-$(function(){
-  if( $(".single-tile-base, .explore-tile_previews-show").length > 0 ) {
+$(function() {
+  if ($(".single-tile-base, .explore-tile_previews-show").length > 0) {
     Airbo.ExploreTileNonModal.init();
   }
 });

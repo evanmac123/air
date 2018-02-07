@@ -1,7 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminSummaryReportsDashboardCharts = (function(){
-
+Airbo.ClientAdminSummaryReportsDashboardCharts = (function() {
   function buildChart($chart, $module) {
     var $parentModule = $module;
 
@@ -21,9 +20,17 @@ Airbo.ClientAdminSummaryReportsDashboardCharts = (function(){
         var chartData = response.data.attributes;
 
         Airbo.HighchartsBase.convertSeriesToJsDates(chartData.series);
-        Airbo.HighchartsBase.specifyIncompleteZones(chartData.series, $chart.data("intervalType"));
+        Airbo.HighchartsBase.specifyIncompleteZones(
+          chartData.series,
+          $chart.data("intervalType")
+        );
 
-        var chartAttrs = $.extend(true, {}, Airbo.HighchartsBase.chartTemplate($chart, chartData), chartData);
+        var chartAttrs = $.extend(
+          true,
+          {},
+          Airbo.HighchartsBase.chartTemplate($chart, chartData),
+          chartData
+        );
         $chart.highcharts(chartAttrs);
         initExport($chart);
         downloadButton($chart).show();
@@ -34,8 +41,7 @@ Airbo.ClientAdminSummaryReportsDashboardCharts = (function(){
           manageNoData($chart);
         }
       },
-      fail: function(response, status, xhr) {
-      }
+      fail: function(response, status, xhr) {}
     });
   }
 
@@ -68,14 +74,17 @@ Airbo.ClientAdminSummaryReportsDashboardCharts = (function(){
   }
 
   function formateExportFilename($chart) {
-    var parsedTitle = $chart.data("title").replace(/ /g,"_");
-    var snakeDate = moment().format('MM_DD_YYYY');
+    var parsedTitle = $chart.data("title").replace(/ /g, "_");
+    var snakeDate = moment().format("MM_DD_YYYY");
 
     return "Airbo_" + parsedTitle + "_" + snakeDate;
   }
 
   function showChartControls($chart) {
-    $chart.parents(".chart-group-container").children(".chart-controls-group").fadeIn();
+    $chart
+      .parents(".chart-group-container")
+      .children(".chart-controls-group")
+      .fadeIn();
   }
 
   function chartHasNoData(seriesList) {
@@ -123,10 +132,9 @@ Airbo.ClientAdminSummaryReportsDashboardCharts = (function(){
     buildChart: buildChart,
     init: init
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   if (Airbo.Utils.nodePresent(".client_admin-reports")) {
     Airbo.ClientAdminSummaryReportsDashboardCharts.init();
   }

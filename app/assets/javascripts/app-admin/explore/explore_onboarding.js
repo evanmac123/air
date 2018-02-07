@@ -1,11 +1,11 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ExploreOnboarding = (function(){
+Airbo.ExploreOnboarding = (function() {
   var currentUserData;
 
   function init() {
     currentUserData = $("body").data("currentUser");
-    var $carousel = $('.flickity-explore-oboarding-carousel');
+    var $carousel = $(".flickity-explore-oboarding-carousel");
 
     $carousel.flickity({
       imagesLoaded: true,
@@ -15,22 +15,21 @@ Airbo.ExploreOnboarding = (function(){
       prevNextButtons: false
     });
 
-
-    $('#exploreOnboardingModal').bind('opened', function() {
-      $carousel.fadeIn().flickity('resize');
+    $("#exploreOnboardingModal").bind("opened", function() {
+      $carousel.fadeIn().flickity("resize");
     });
 
     bindNextOnboardingSlide();
     bindCloseOnboarding();
 
-    $('#exploreOnboardingModal').foundation('reveal', 'open');
+    $("#exploreOnboardingModal").foundation("reveal", "open");
   }
 
   function bindNextOnboardingSlide() {
     $(".next-onboarding-slide").on("click", function(e) {
       e.preventDefault();
       pingSlideComplete("next_slide", $(this));
-      $('.flickity-explore-oboarding-carousel').flickity('next');
+      $(".flickity-explore-oboarding-carousel").flickity("next");
     });
   }
 
@@ -38,12 +37,15 @@ Airbo.ExploreOnboarding = (function(){
     $(".close-onboarding").on("click", function(e) {
       e.preventDefault();
       pingSlideComplete("complete", $(this));
-      $('#exploreOnboardingModal').foundation('reveal', 'close');
+      $("#exploreOnboardingModal").foundation("reveal", "close");
     });
   }
 
   function pingSlideComplete(action, button) {
-    var properties = $.extend({ action: action, slide: button.data("slide") }, currentUserData);
+    var properties = $.extend(
+      { action: action, slide: button.data("slide") },
+      currentUserData
+    );
 
     Airbo.Utils.ping("Explore page - Onboarding", properties);
   }
@@ -51,10 +53,9 @@ Airbo.ExploreOnboarding = (function(){
   return {
     init: init
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   if ($(".flickity-explore-oboarding-carousel").length > 0) {
     Airbo.ExploreOnboarding.init();
   }

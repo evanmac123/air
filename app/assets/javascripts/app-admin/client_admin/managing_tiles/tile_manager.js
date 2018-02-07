@@ -1,32 +1,32 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileManager = (function(){
+Airbo.TileManager = (function() {
   var newTileBtnSel = "#add_new_tile";
   var sectionSelector = ".manage_section";
-  var tileWrapperSelector =".tile_container";
+  var tileWrapperSelector = ".tile_container";
   var managerType; // main or archived
   var newTileBtn;
   var thumbnailMenu;
 
-  function pageSectionByStatus(status){
+  function pageSectionByStatus(status) {
     return $("#" + status + sectionSelector);
   }
 
-  function tileContainerByDataTileId(id){
-    return  $(tileWrapperSelector + "[data-tile-container-id=" + id + "]");
+  function tileContainerByDataTileId(id) {
+    return $(tileWrapperSelector + "[data-tile-container-id=" + id + "]");
   }
 
-  function updateTileSection(data){
+  function updateTileSection(data) {
     var selector,
-    section = pageSectionByStatus(data.tileStatus),
+      section = pageSectionByStatus(data.tileStatus),
       tile = $(data.tile),
       img = tile.find(".tile_thumbnail_image>img")[0];
 
-    $(img).css({height:"100%",width:"100%"});
+    $(img).css({ height: "100%", width: "100%" });
 
-    if (tileContainerByDataTileId(data.tileId).length > 0){
+    if (tileContainerByDataTileId(data.tileId).length > 0) {
       replaceTileContent(tile, data.tileId);
-    } else{
+    } else {
       section.prepend(tile); //Add tile to section
       Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
     }
@@ -34,49 +34,48 @@ Airbo.TileManager = (function(){
     Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".pill.more"));
   }
 
-  function replaceTileContent(tile, id){
-    if($(".explore-search-results-client_admin").length > 0){
+  function replaceTileContent(tile, id) {
+    if ($(".explore-search-results-client_admin").length > 0) {
       replaceTileContentSearch(tile, id);
-    }else{
+    } else {
       replaceTileContentNormal(tile, id);
     }
   }
 
-  function replaceTileContentNormal(tile, id){
+  function replaceTileContentNormal(tile, id) {
     selector = tileContainerByDataTileId(id);
     $(selector).replaceWith(tile);
   }
 
-  function replaceTileContentSearch(tile, id){
+  function replaceTileContentSearch(tile, id) {
     selector = tileContainerByDataTileId(id);
-    $(selector).each(function(idx, oldTile){
+    $(selector).each(function(idx, oldTile) {
       var newTile = $(tile);
       $(oldTile).replaceWith(newTile);
       Airbo.TileThumbnailMenu.initMoreBtn(newTile.find(".pill.more"));
     });
   }
 
-  function updateSectionsNormal(data){
+  function updateSectionsNormal(data) {
     updateTileSection(data);
     updateShowMoreDraftTilesButton();
   }
 
-  function updateSectionsSearch(data){
+  function updateSectionsSearch(data) {
     var tile = data.tile;
     replaceTileContent(tile, data.tileId);
   }
 
   function updateSections(data) {
-
-    if($(".explore-search-results-client_admin").length > 0){
+    if ($(".explore-search-results-client_admin").length > 0) {
       updateSectionsSearch(data);
-    }else{
+    } else {
       updateSectionsNormal(data);
     }
   }
 
   function initEvents() {
-    $(newTileBtnSel).click(function(e){
+    $(newTileBtnSel).click(function(e) {
       e.preventDefault();
       url = $(this).attr("href");
 
@@ -109,7 +108,7 @@ Airbo.TileManager = (function(){
   }
 
   function init() {
-    if($(".explore-search").length > 0){
+    if ($(".explore-search").length > 0) {
       initSearch();
     } else {
       Airbo.TileThumbnail.init();
@@ -125,11 +124,13 @@ Airbo.TileManager = (function(){
     forceValidationOnNew: forceValidationOnNew,
     hasAutoSave: hasAutoSave
   };
-}());
+})();
 
-$(function(){
-  if(  $(".manage_tiles").length > 0 || $(".explore-search-results").length > 0) {
+$(function() {
+  if (
+    $(".manage_tiles").length > 0 ||
+    $(".explore-search-results").length > 0
+  ) {
     Airbo.TileManager.init();
   }
-
 });

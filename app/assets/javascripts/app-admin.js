@@ -12,6 +12,6 @@
 //= require_tree ./app-user
 //= require_tree ./app-admin
 
-$(function(){
-  $(document).foundation('reveal', { animation: "none" });
+$(function() {
+  $(document).foundation("reveal", { animation: "none" });
 });

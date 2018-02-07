@@ -1,8 +1,7 @@
 var Airbo = window.Airbo || {};
 Airbo.ClientAdmin = Airbo.ClientAdmin || {};
 
-
-Airbo.ClientAdmin.SideNavNotificationsManager = (function(){
+Airbo.ClientAdmin.SideNavNotificationsManager = (function() {
   var noColorClass = "no-color";
   var greenClass = "success";
   var yellowClass = "warning";
@@ -30,9 +29,13 @@ Airbo.ClientAdmin.SideNavNotificationsManager = (function(){
   function initShareTabNotification() {
     Airbo.PubSub.subscribe("updateShareTabNotification", updateShareTab);
 
-    var sharableTilesCount = $(".js-notification-share_tiles").data("notificationContent");
+    var sharableTilesCount = $(".js-notification-share_tiles").data(
+      "notificationContent"
+    );
 
-    Airbo.PubSub.publish("updateShareTabNotification", { number: sharableTilesCount });
+    Airbo.PubSub.publish("updateShareTabNotification", {
+      number: sharableTilesCount
+    });
   }
 
   function updateShareTab(event, options) {
@@ -67,10 +70,9 @@ Airbo.ClientAdmin.SideNavNotificationsManager = (function(){
   return {
     init: init
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   if (Airbo.Utils.nodePresent(".js-client-admin-side-nav")) {
     Airbo.ClientAdmin.SideNavNotificationsManager.init();
   }

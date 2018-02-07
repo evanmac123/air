@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminReportsDashboardSubmodules = (function(){
+Airbo.ClientAdminReportsDashboardSubmodules = (function() {
   var $parentModule;
 
   function buildSubmodule($submodule, $module) {
@@ -18,15 +18,17 @@ Airbo.ClientAdminReportsDashboardSubmodules = (function(){
         buildSubmoduleGraphs(reportData, $submodule);
         displaySubmodule($submodule);
       },
-      fail: function(response, status, xhr) {
-      }
+      fail: function(response, status, xhr) {}
     });
   }
 
   function prepNewSubmodule($submodule) {
     $submodule.hide();
     $submodule.siblings(".card-header-content-loader").show();
-    $submodule.find(".circle-progress-chart").children("svg").remove();
+    $submodule
+      .find(".circle-progress-chart")
+      .children("svg")
+      .remove();
   }
 
   function submoduleStrongParams($submodule) {
@@ -66,10 +68,10 @@ Airbo.ClientAdminReportsDashboardSubmodules = (function(){
   function buildAndAnimateProgressGraph($graph) {
     var progressGraph = new ProgressBar.Circle($graph.data("target"), {
       strokeWidth: 6,
-      easing: 'easeInOut',
+      easing: "easeInOut",
       duration: 1400,
       color: $graph.data("graphColor"),
-      trailColor: '#26374f',
+      trailColor: "#26374f",
       trailWidth: 6
     });
 
@@ -94,12 +96,11 @@ Airbo.ClientAdminReportsDashboardSubmodules = (function(){
 
   function decorateInteger(dataPoint) {
     if (dataPoint) {
-      return dataPoint.toLocaleString('en-US');
+      return dataPoint.toLocaleString("en-US");
     }
   }
 
   return {
     buildSubmodule: buildSubmodule
   };
-
-}());
+})();

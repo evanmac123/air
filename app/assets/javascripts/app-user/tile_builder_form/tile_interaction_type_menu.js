@@ -1,36 +1,34 @@
 var Airbo = window.Airbo || {};
-Airbo.TileInteractionMenuHandler =(function(){
-  var subtypeSelectedCallback
-    , dropdownSelector = ".f-dropdown"
-    , typeSelector = ".type"
-    , subtypeSelector = ".subtype"
-  ;
+Airbo.TileInteractionMenuHandler = (function() {
+  var subtypeSelectedCallback,
+    dropdownSelector = ".f-dropdown",
+    typeSelector = ".type",
+    subtypeSelector = ".subtype";
 
-  function initQuestionTypeMenus(){
-    $("body").on("click", typeSelector, function(event){
-      var menu = $(this) ;
+  function initQuestionTypeMenus() {
+    $("body").on("click", typeSelector, function(event) {
+      var menu = $(this);
 
-      if(menu.hasClass("open")){
-        menu.removeClass("open")
-      }else{
+      if (menu.hasClass("open")) {
+        menu.removeClass("open");
+      } else {
         menu.addClass("open");
       }
-
     });
   }
 
-
-  function closeMenuDropDowns(){
+  function closeMenuDropDowns() {
     $(dropdownSelector).each(function() {
       var menu = $(this);
       menu.removeClass("open").removeAttr("style");
-      menu.find(".js-menu-toggle").removeClass("fa-caret-up").addClass("fa-caret-down");
+      menu
+        .find(".js-menu-toggle")
+        .removeClass("fa-caret-up")
+        .addClass("fa-caret-down");
     });
   }
 
-
   function setSelected(type, subtype) {
-
     $(".button.selected").removeClass("selected");
     $(".subtype.selected").removeClass("selected");
 
@@ -38,14 +36,12 @@ Airbo.TileInteractionMenuHandler =(function(){
     $(".subtype." + type + "." + subtype).addClass("selected");
   }
 
-
   function initSubType(callback) {
-    $("body").on("click", subtypeSelector, function(event){
-      var target = $(this)
-        , config = target.data().config
-      ;
-    closeMenuDropDowns();
-      if(!(target.hasClass("selected"))){
+    $("body").on("click", subtypeSelector, function(event) {
+      var target = $(this),
+        config = target.data().config;
+      closeMenuDropDowns();
+      if (!target.hasClass("selected")) {
         callback(config);
 
         setSelected(config.type, config.subtype);
@@ -53,32 +49,25 @@ Airbo.TileInteractionMenuHandler =(function(){
         Airbo.Utils.ping("Tile Type Selected", {
           tile_id: tileId(),
           type: config.type,
-          subtype: config.subtype,
+          subtype: config.subtype
         });
-
       }
-    })
+    });
   }
 
-  function tileId(){
-    var id = $("#question_type_container").data('config').tileId
-      , pseudoId = $("#pseudo_tile_id").data("props").pseudoTileId
-    ;
+  function tileId() {
+    var id = $("#question_type_container").data("config").tileId,
+      pseudoId = $("#pseudo_tile_id").data("props").pseudoTileId;
     return id || pseudoId;
   }
 
-
-
-  function init(callback){
+  function init(callback) {
     initSubType(callback);
     initQuestionTypeMenus();
   }
 
   return {
-
     init: init,
     setSelected: setSelected
   };
-
-}());
-
+})();

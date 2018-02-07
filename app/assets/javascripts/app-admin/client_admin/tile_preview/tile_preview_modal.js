@@ -1,12 +1,12 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TilePreviewModal = (function(){
+Airbo.TilePreviewModal = (function() {
   var modalObj = Airbo.Utils.StandardModal();
   var modalId = "tile_preview_modal";
   var self;
 
-  function initDisabled(){
-    $(".tipsy.disabled").click(function(){
+  function initDisabled() {
+    $(".tipsy.disabled").click(function() {
       Airbo.Utils.alert(Airbo.Utils.Messages.incompleteTile);
     });
   }
@@ -19,7 +19,7 @@ Airbo.TilePreviewModal = (function(){
     // FIXME
     // there are same events in Airbo.TileThumbnail (edit, update, delete, duplicate)
     // reason: i want to have object, its elements and its events in one place
-    $(".preview_menu_item.edit a").click(function(e){
+    $(".preview_menu_item.edit a").click(function(e) {
       e.preventDefault();
       url = $(this).attr("href");
 
@@ -29,17 +29,17 @@ Airbo.TilePreviewModal = (function(){
       tileForm.open(url);
     });
 
-    $(".preview_menu_item .delete_tile").click(function(event){
+    $(".preview_menu_item .delete_tile").click(function(event) {
       event.preventDefault();
       Airbo.TileAction.confirmDeletion($(this));
     });
 
-    $(".preview_menu_item .duplicate_tile").click(function(event){
+    $(".preview_menu_item .duplicate_tile").click(function(event) {
       event.preventDefault();
       Airbo.TileAction.makeDuplication($(this));
     });
 
-    $(".preview_menu_item .accept").click(function(e){
+    $(".preview_menu_item .accept").click(function(e) {
       e.preventDefault();
       e.stopPropagation();
       target = $(this);
@@ -48,20 +48,20 @@ Airbo.TilePreviewModal = (function(){
 
     initDisabled();
 
-    if($(".js-suggested-tile-preview").length > 0){
+    if ($(".js-suggested-tile-preview").length > 0) {
       initStatusUpdate();
     }
   }
 
-  function initStatusUpdate(){
-    $(".preview_menu_item .update_status").click(function(e){
+  function initStatusUpdate() {
+    $(".preview_menu_item .update_status").click(function(e) {
       e.preventDefault();
       e.stopPropagation();
       Airbo.TileAction.updateStatus($(this));
     });
   }
 
-  function initAnonymousTooltip(){
+  function initAnonymousTooltip() {
     $(".js-anonymous-tile-tooltip").tooltipster({
       theme: "tooltipster-shadow"
     });
@@ -94,7 +94,7 @@ Airbo.TilePreviewModal = (function(){
       }
     });
   }
-  function init(AirboTileManager){
+  function init(AirboTileManager) {
     self = this;
     initModalObj();
     tileManager = AirboTileManager;
@@ -106,4 +106,4 @@ Airbo.TilePreviewModal = (function(){
     close: close,
     modalId: modalId
   };
-}());
+})();

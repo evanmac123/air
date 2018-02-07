@@ -1,6 +1,14 @@
 var Airbo = window.Airbo || {};
 
-var addExplainBtn, askUsSel, closeBtn, explainBtnClass, infoIcon, modal, suggestLink, tooltip, tooltipClass;
+var addExplainBtn,
+  askUsSel,
+  closeBtn,
+  explainBtnClass,
+  infoIcon,
+  modal,
+  suggestLink,
+  tooltip,
+  tooltipClass;
 
 tooltipClass = function() {
   return "submit_tile_intro";
@@ -11,11 +19,13 @@ tooltip = function() {
 };
 
 explainBtnClass = function() {
-  return 'intojs-explainbutton';
+  return "intojs-explainbutton";
 };
 
 addExplainBtn = function() {
-  return tooltip().find(".introjs-tooltipbuttons").append("<a class='" + (explainBtnClass()) + "'>How it works</a>");
+  return tooltip()
+    .find(".introjs-tooltipbuttons")
+    .append("<a class='" + explainBtnClass() + "'>How it works</a>");
 };
 
 window.submitTileIntro = function() {
@@ -23,17 +33,17 @@ window.submitTileIntro = function() {
   intro = introJs();
   intro.setOptions({
     showStepNumbers: false,
-    skipLabel: 'Got it',
+    skipLabel: "Got it",
     tooltipClass: tooltipClass()
   });
-  $(window).on('load', function() {
+  $(window).on("load", function() {
     intro.start();
     return addExplainBtn();
   });
   return $(document).on("click", "." + explainBtnClass(), function(e) {
     e.preventDefault();
     intro.exit();
-    return modal().foundation('reveal', 'open', {
+    return modal().foundation("reveal", "open", {
       animation: "fade",
       closeOnBackgroundClick: true
     });
@@ -49,7 +59,7 @@ closeBtn = function() {
 };
 
 askUsSel = function() {
-  return '#ask_us';
+  return "#ask_us";
 };
 
 suggestLink = function() {
@@ -63,11 +73,11 @@ infoIcon = function() {
 window.submitTileModal = function() {
   closeBtn().click(function(e) {
     e.preventDefault();
-    return modal().foundation('reveal', 'close');
+    return modal().foundation("reveal", "close");
   });
   return infoIcon().click(function(e) {
     e.preventDefault();
-    return modal().foundation('reveal', 'open', {
+    return modal().foundation("reveal", "open", {
       animation: "fade",
       closeOnBackgroundClick: true
     });

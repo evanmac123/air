@@ -1,10 +1,10 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
-Airbo.Utils.Modals = (function(){
+Airbo.Utils.Modals = (function() {
   function trigger(modalSelector, action) {
-    $(modalSelector).foundation('reveal', action, {
-      animation: 'fadeAndPop',
+    $(modalSelector).foundation("reveal", action, {
+      animation: "fadeAndPop",
       animation_speed: 350
     });
   }
@@ -25,5 +25,4 @@ Airbo.Utils.Modals = (function(){
     close: close,
     bindClose: bindClose
   };
-
-}());
+})();

@@ -1,7 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminSummaryReportsDashboard = (function(){
-
+Airbo.ClientAdminSummaryReportsDashboard = (function() {
   function activateReportModules() {
     $.each($(".summary-report-module"), function(i, module) {
       activateReportModule($(module));
@@ -16,14 +15,20 @@ Airbo.ClientAdminSummaryReportsDashboard = (function(){
   function requestSubmoduleData($module) {
     var submodules = $module.find(".reports-submodule");
     $.each(submodules, function(i, submodule) {
-      Airbo.ClientAdminReportsDashboardSubmodules.buildSubmodule($(submodule), $module);
+      Airbo.ClientAdminReportsDashboardSubmodules.buildSubmodule(
+        $(submodule),
+        $module
+      );
     });
   }
 
   function requestModuleCharts($module) {
     var charts = $module.find(".chart-container");
     $.each(charts, function(i, chart) {
-      Airbo.ClientAdminSummaryReportsDashboardCharts.buildChart($(chart), $module);
+      Airbo.ClientAdminSummaryReportsDashboardCharts.buildChart(
+        $(chart),
+        $module
+      );
     });
   }
 
@@ -58,10 +63,9 @@ Airbo.ClientAdminSummaryReportsDashboard = (function(){
     init: init,
     showReports: showReports
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   if (Airbo.Utils.nodePresent(".client_admin-reports")) {
     Airbo.ClientAdminSummaryReportsDashboard.init();
   }

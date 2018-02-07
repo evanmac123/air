@@ -1,13 +1,14 @@
 var Airbo = window.Airbo || {};
 
-Airbo.QuillStandaloneEditor = (function(){
-
+Airbo.QuillStandaloneEditor = (function() {
   function removeTabEventsFromToolbar() {
-    $(".ql-formats").children().attr("tabindex", "-1");
+    $(".ql-formats")
+      .children()
+      .attr("tabindex", "-1");
   }
 
   function setIcons() {
-    var icons = Quill.import('ui/icons');
+    var icons = Quill.import("ui/icons");
     icons.bold = '<i class="fa fa-bold" aria-hidden="true"></i>';
     icons.italic = '<i class="fa fa-italic" aria-hidden="true"></i>';
     icons.underline = '<i class="fa fa-underline" aria-hidden="true"></i>';
@@ -16,26 +17,35 @@ Airbo.QuillStandaloneEditor = (function(){
   function toolbarOptions() {
     return {
       container: [
-        ['bold', 'italic', 'underline'],
-        [{ align: ''}, { align: 'center'}, { align: 'right'}, { align: 'justify'}],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'color': [] }, { 'background': [] }],
-        ['link'],
-        ['insertName'],
-        ['insertAirboLink']
+        ["bold", "italic", "underline"],
+        [
+          { align: "" },
+          { align: "center" },
+          { align: "right" },
+          { align: "justify" }
+        ],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ color: [] }, { background: [] }],
+        ["link"],
+        ["insertName"],
+        ["insertAirboLink"]
       ],
       handlers: {
-        'insertName': function() {
+        insertName: function() {
           var range = this.quill.getSelection();
           if (range) {
             this.quill.insertEmbed(range.index, "variable", "{{name}}");
             this.quill.setSelection(range.index + 1, Quill.sources.SILENT);
           }
         },
-        'insertAirboLink': function() {
+        insertAirboLink: function() {
           var range = this.quill.getSelection();
           if (range) {
-            this.quill.insertEmbed(range.index, "variable", "{{link_to_airbo}}");
+            this.quill.insertEmbed(
+              range.index,
+              "variable",
+              "{{link_to_airbo}}"
+            );
             this.quill.setSelection(range.index + 1, Quill.sources.SILENT);
           }
         }
@@ -49,8 +59,8 @@ Airbo.QuillStandaloneEditor = (function(){
       modules: {
         toolbar: toolbarOptions()
       },
-      placeholder: 'Enter your message...',
-      theme: 'snow'
+      placeholder: "Enter your message...",
+      theme: "snow"
     });
 
     removeTabEventsFromToolbar();
@@ -60,5 +70,4 @@ Airbo.QuillStandaloneEditor = (function(){
   return {
     init: init
   };
-
-}());
+})();

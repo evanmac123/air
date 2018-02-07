@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminTileEmailReports = (function(){
+Airbo.ClientAdminTileEmailReports = (function() {
   var reportSelector = ".js-tile-email-report-module";
   var nextTileEmailReportSelector = ".js-next-tile-email-report";
   var $reportContainer;
@@ -15,7 +15,7 @@ Airbo.ClientAdminTileEmailReports = (function(){
     $.ajax({
       url: $reportContainer.data("path"),
       type: "GET",
-      data: { limit: reportLimit, page: reportPage},
+      data: { limit: reportLimit, page: reportPage },
       dataType: "json",
       success: function(response, status, xhr) {
         successCallback(response);
@@ -145,10 +145,9 @@ Airbo.ClientAdminTileEmailReports = (function(){
     init: init,
     reportContainer: $reportContainer
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   if (Airbo.Utils.nodePresent(".client_admin-reports")) {
     Airbo.ClientAdminTileEmailReports.init();
   }

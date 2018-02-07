@@ -1,22 +1,24 @@
 var Airbo = window.Airbo || {};
 Airbo.MarketingSite = Airbo.MarketingSite || {};
 
-Airbo.MarketingSite.StandaloneMarketingSiteForms = (function(){
-
+Airbo.MarketingSite.StandaloneMarketingSiteForms = (function() {
   function validateSignupRequest() {
     var validCharactersRegex = /^[a-z][- a-z]*[- ]{1}[- a-z]*[a-z]$/i;
     function fullname_valid(value) {
-        return validCharactersRegex.test(value);
+      return validCharactersRegex.test(value);
     }
 
-    $.validator.addMethod("custom_fullname", function(value, element) {
+    $.validator.addMethod(
+      "custom_fullname",
+      function(value, element) {
         return fullname_valid(value);
-    }, "Please enter your first and last name.");
+      },
+      "Please enter your first and last name."
+    );
 
-
-    $("#standalone-marketing-site-form").submit(function(event){
+    $("#standalone-marketing-site-form").submit(function(event) {
       var form = $("#standalone-marketing-site-form");
-      var config={
+      var config = {
         onkeyup: false,
         rules: {
           "lead_contact[organization_name]": {
@@ -53,7 +55,7 @@ Airbo.MarketingSite.StandaloneMarketingSiteForms = (function(){
           }
         },
         errorPlacement: function(error, element) {
-          var placement = $(element).data('error');
+          var placement = $(element).data("error");
           if (placement) {
             $(placement).append(error);
           } else {
@@ -65,7 +67,7 @@ Airbo.MarketingSite.StandaloneMarketingSiteForms = (function(){
       config = $.extend({}, Airbo.Utils.validationConfig, config);
       var validator = form.validate(config);
 
-      if(!form.valid()){
+      if (!form.valid()) {
         event.preventDefault();
         validator.focusInvalid();
       } else {
@@ -83,10 +85,9 @@ Airbo.MarketingSite.StandaloneMarketingSiteForms = (function(){
   return {
     init: init
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   if (Airbo.Utils.nodePresent("#standalone-marketing-site-form")) {
     Airbo.MarketingSite.StandaloneMarketingSiteForms.init();
   }

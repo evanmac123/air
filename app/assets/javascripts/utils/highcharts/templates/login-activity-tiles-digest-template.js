@@ -1,7 +1,7 @@
 var Airbo = window.Airbo || {};
 Airbo.Highcharts = Airbo.Highcharts || {};
 
-Airbo.Highcharts.loginActivityTilesDigestTemplate = function($chart, data){
+Airbo.Highcharts.loginActivityTilesDigestTemplate = function($chart, data) {
   var tilesDigestYAxisMax;
 
   if (data) {
@@ -20,7 +20,14 @@ Airbo.Highcharts.loginActivityTilesDigestTemplate = function($chart, data){
 
     var seriesVisible = name === "Follow Up Emails Sent" ? false : true;
 
-    s =  { name: name, type: $chart.data("chartTypes")[configIndex], color: $chart.data("colorList")[i], yAxis: configIndex, zIndex: zIndex, visible: seriesVisible };
+    s = {
+      name: name,
+      type: $chart.data("chartTypes")[configIndex],
+      color: $chart.data("colorList")[i],
+      yAxis: configIndex,
+      zIndex: zIndex,
+      visible: seriesVisible
+    };
 
     zIndex--;
     return s;
@@ -29,52 +36,57 @@ Airbo.Highcharts.loginActivityTilesDigestTemplate = function($chart, data){
   return {
     chart: {
       type: null,
-      zoomType: 'xy'
+      zoomType: "xy"
     },
     exporting: {
       chartOptions: {
-        yAxis: [{
-          labels: {
-            enabled: true
+        yAxis: [
+          {
+            labels: {
+              enabled: true
+            },
+            title: {
+              text: "Logins"
+            }
           },
-          title: {
-            text: "Logins"
+          {
+            max: tilesDigestYAxisMax * 3,
+            allowDecimals: false,
+            gridLineColor: "transparent",
+            opposite: true,
+            labels: {
+              enabled: true
+            },
+            title: {
+              text: "Emails Sent"
+            }
           }
-        },
-        {
-          max: tilesDigestYAxisMax * 3,
-          allowDecimals: false,
-          gridLineColor: 'transparent',
-          opposite: true,
-          labels: {
-            enabled: true
-          },
-          title: {
-            text: "Emails Sent"
-          }
-        }]
+        ]
       }
     },
-    yAxis: [{ // Primary yAxis
+    yAxis: [
+      {
+        // Primary yAxis
         min: 0,
         tickAmount: 5,
-        labels: {
-
-        },
+        labels: {},
         title: {
           text: null
         }
-    }, { // Secondary yAxis
-    		max: tilesDigestYAxisMax * 3,
-        gridLineColor: 'transparent',
+      },
+      {
+        // Secondary yAxis
+        max: tilesDigestYAxisMax * 3,
+        gridLineColor: "transparent",
         title: {
           text: null
         },
         labels: {
-        	enabled: false
+          enabled: false
         },
         opposite: true
-    }],
-    series: series,
+      }
+    ],
+    series: series
   };
 };

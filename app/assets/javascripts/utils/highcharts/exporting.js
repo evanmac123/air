@@ -1,8 +1,7 @@
 var Airbo = window.Airbo || {};
 Airbo.Highcharts = Airbo.Highcharts || {};
 
-Airbo.Highcharts.Exporting = (function(){
-
+Airbo.Highcharts.Exporting = (function() {
   function defaultExportingConfig($chart) {
     return {
       enabled: false,
@@ -12,7 +11,7 @@ Airbo.Highcharts.Exporting = (function(){
         chart: {
           marginTop: 100,
           style: {
-            fontFamily: 'Tahoma'
+            fontFamily: "Tahoma"
           }
         },
         title: {
@@ -36,6 +35,6 @@ Airbo.Highcharts.Exporting = (function(){
   }
 
   return {
-     defaultExportingConfig:  defaultExportingConfig
+    defaultExportingConfig: defaultExportingConfig
   };
-}());
+})();

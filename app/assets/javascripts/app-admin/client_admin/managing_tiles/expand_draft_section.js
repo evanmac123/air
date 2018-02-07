@@ -1,16 +1,15 @@
-var Airbo = window.Airbo || {}
+var Airbo = window.Airbo || {};
 
-Airbo.DraftSectionExpander = (function(){
-
+Airbo.DraftSectionExpander = (function() {
   function section() {
     return $("#draft_tiles");
   }
 
   function selectedBlockName() {
     if ($("#draft_tiles.draft_selected").length > 0) {
-      return 'draft';
+      return "draft";
     } else {
-      return 'suggestion_box';
+      return "suggestion_box";
     }
   }
 
@@ -27,11 +26,10 @@ Airbo.DraftSectionExpander = (function(){
     }
   }
 
-
   function compressSectionMargin() {
     var cutHeight, initialHeight;
     initialHeight = section().outerHeight();
-    return cutHeight = compressSectionHeight() - initialHeight;
+    return (cutHeight = compressSectionHeight() - initialHeight);
   }
 
   function compressSectionHeight() {
@@ -51,7 +49,7 @@ Airbo.DraftSectionExpander = (function(){
     var startProgress;
     makeVisibleAllDraftTilesButHideThem();
     startProgress = parseInt(section().css("margin-bottom"));
-     animateSectionSliding(-startProgress, startProgress, "down");
+    animateSectionSliding(-startProgress, startProgress, "down");
   }
 
   function animateSectionSliding(stepsNum, startProgress, direction) {
@@ -59,33 +57,39 @@ Airbo.DraftSectionExpander = (function(){
       direction = "down";
     }
     section().addClass("counting");
-     $({
+    $({
       progressCount: 0
-    }).animate({
-      progressCount: stepsNum
-    }, {
-      duration: stepsNum,
-      easing: 'linear',
-      step: function(progressCount) {
-        var progressNew;
-        progressNew = direction === "down" ? startProgress + parseInt(progressCount) : startProgress - parseInt(progressCount);
-         moveBottomBoundOfSection(progressNew + "px");
+    }).animate(
+      {
+        progressCount: stepsNum
       },
-      complete: function() {
-        section().removeClass("counting");
-        moveBottomBoundOfSection("");
-        if (direction === "down") {
-          setCompressedSectionClass("remove");
-        } else {
-           setCompressedSectionClass("add");
+      {
+        duration: stepsNum,
+        easing: "linear",
+        step: function(progressCount) {
+          var progressNew;
+          progressNew =
+            direction === "down"
+              ? startProgress + parseInt(progressCount)
+              : startProgress - parseInt(progressCount);
+          moveBottomBoundOfSection(progressNew + "px");
+        },
+        complete: function() {
+          section().removeClass("counting");
+          moveBottomBoundOfSection("");
+          if (direction === "down") {
+            setCompressedSectionClass("remove");
+          } else {
+            setCompressedSectionClass("add");
+          }
         }
       }
-    });
+    );
   }
 
   function scrollUp(duration) {
     if (!iOSdevice()) {
-       $('html, body').scrollTo(section(), {
+      $("html, body").scrollTo(section(), {
         duration: duration
       });
     }
@@ -93,7 +97,7 @@ Airbo.DraftSectionExpander = (function(){
 
   function iOSdevice() {
     return navigator.userAgent.match(/(iPad|iPhone|iPod)/g);
-  };
+  }
 
   function setCompressedSectionClass(action) {
     if (action == null) {
@@ -109,7 +113,7 @@ Airbo.DraftSectionExpander = (function(){
 
   function sectionIsCompressed() {
     return section().hasClass(compressedSectionClass());
-  };
+  }
 
   function compressedSectionClass() {
     return "compressed_section";
@@ -129,7 +133,7 @@ Airbo.DraftSectionExpander = (function(){
     });
   }
 
-  function init(){
+  function init() {
     expandDraftSectionOrSuggestionBox();
   }
 
@@ -137,5 +141,4 @@ Airbo.DraftSectionExpander = (function(){
     init: init,
     compressSection: compressSection
   };
-
 })();

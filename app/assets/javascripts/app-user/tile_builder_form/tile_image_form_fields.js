@@ -1,13 +1,13 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileImageFormFields = (function(){
-  var  remoteMediaUrl;
-  var  remoteMediaType;
-  var  mediasource;
+Airbo.TileImageFormFields = (function() {
+  var remoteMediaUrl;
+  var remoteMediaType;
+  var mediasource;
 
-  function initDom(){
-    remoteMediaUrl = $('#remote_media_url');
-    remoteMediaType = $('#remote_media_type');
+  function initDom() {
+    remoteMediaUrl = $("#remote_media_url");
+    remoteMediaType = $("#remote_media_type");
     mediaSource = $("#media_source");
   }
 
@@ -26,19 +26,19 @@ Airbo.TileImageFormFields = (function(){
   }
 
   function initImageSelectedListener() {
-    Airbo.PubSub.subscribe('image-selected', function(event, formFieldArgs) {
+    Airbo.PubSub.subscribe("image-selected", function(event, formFieldArgs) {
       setFormFieldsForSelectedImage(formFieldArgs);
     });
   }
 
-  function initImageDoneListener(){
-    Airbo.PubSub.subscribe('image-done', function(event, formFieldArgs){
+  function initImageDoneListener() {
+    Airbo.PubSub.subscribe("image-done", function(event, formFieldArgs) {
       setFormFieldsForSelectedImage(formFieldArgs);
       remoteMediaUrl.change();
     });
   }
 
-  function init(){
+  function init() {
     initDom();
     initImageSelectedListener();
     initImageDoneListener();
@@ -47,5 +47,4 @@ Airbo.TileImageFormFields = (function(){
   return {
     init: init
   };
-
-}());
+})();

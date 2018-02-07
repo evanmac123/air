@@ -2,33 +2,38 @@
 // TODO: Deprecate the use of this endless scroll.
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
-Airbo.Utils.EndlessScroll = (function(){
+Airbo.Utils.EndlessScroll = (function() {
   function init(content_container, bindCallback) {
     var approachingBottomOfPage,
-        isLoadingNextPage,
-        minCount,
-        lastLoadAt,
-        spaceAboveBottom,
-        minTimeBetweenPages,
-        nextPage,
-        viewMore,
-        waitedLongEnoughBetweenPages,
-        lastBatch;
+      isLoadingNextPage,
+      minCount,
+      lastLoadAt,
+      spaceAboveBottom,
+      minTimeBetweenPages,
+      nextPage,
+      viewMore,
+      waitedLongEnoughBetweenPages,
+      lastBatch;
 
     isLoadingNextPage = false;
     lastLoadAt = null;
 
-    viewMore = content_container.siblings($('.endless_scroll_loading'));
+    viewMore = content_container.siblings($(".endless_scroll_loading"));
     minTimeBetweenPages = content_container.data("minTimeBetweenPages") || 500;
     spaceAboveBottom = content_container.data("spaceAboveBottom") || 1500;
     minCount = content_container.data("minCount") || 28;
 
     waitedLongEnoughBetweenPages = function() {
-      return lastLoadAt === null || new Date() - lastLoadAt > minTimeBetweenPages;
+      return (
+        lastLoadAt === null || new Date() - lastLoadAt > minTimeBetweenPages
+      );
     };
 
     approachingBottomOfPage = function() {
-      return $(window).scrollTop() + $(window).height() > $(document).height() - spaceAboveBottom;
+      return (
+        $(window).scrollTop() + $(window).height() >
+        $(document).height() - spaceAboveBottom
+      );
     };
 
     nextPage = function() {
@@ -50,8 +55,8 @@ Airbo.Utils.EndlessScroll = (function(){
         $.ajax({
           url: path,
           data: $.extend(content_container.data(), { page: page }),
-          method: 'GET',
-          dataType: 'json',
+          method: "GET",
+          dataType: "json",
           success: function(data) {
             lastBatch = data.lastBatch;
             if (lastBatch === true) {
@@ -70,7 +75,11 @@ Airbo.Utils.EndlessScroll = (function(){
     };
 
     $(window).scroll(function() {
-      if (content_container.is(':visible') && approachingBottomOfPage() && waitedLongEnoughBetweenPages()) {
+      if (
+        content_container.is(":visible") &&
+        approachingBottomOfPage() &&
+        waitedLongEnoughBetweenPages()
+      ) {
         if (lastBatch === false || lastBatch === undefined) {
           return nextPage();
         }
@@ -81,5 +90,4 @@ Airbo.Utils.EndlessScroll = (function(){
   return {
     init: init
   };
-
-}());
+})();

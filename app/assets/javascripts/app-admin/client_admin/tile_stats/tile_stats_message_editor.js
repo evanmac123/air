@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileStatsMessageEditor = (function(){
+Airbo.TileStatsMessageEditor = (function() {
   var quillEditor;
 
   function init() {
@@ -10,7 +10,9 @@ Airbo.TileStatsMessageEditor = (function(){
   }
 
   function initEvents() {
-    $(".js-tile-targeted-message-scope-cd, .js-tile-targeted-message-answer-idx").on("change", function(e) {
+    $(
+      ".js-tile-targeted-message-scope-cd, .js-tile-targeted-message-answer-idx"
+    ).on("change", function(e) {
       Airbo.TileStatsMessageSender.getRecipientCount();
     });
   }
@@ -32,4 +34,4 @@ Airbo.TileStatsMessageEditor = (function(){
     message: message,
     editor: editor
   };
-}());
+})();

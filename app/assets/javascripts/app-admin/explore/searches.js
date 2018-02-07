@@ -1,20 +1,22 @@
 var Airbo = window.Airbo || {};
 
-Airbo.Search = (function(){
+Airbo.Search = (function() {
   function bindSearchBarFocus() {
-    $('.search-bar-input').focus( function() {
-      $('.search-bar-wrapper').addClass('focus');
+    $(".search-bar-input").focus(function() {
+      $(".search-bar-wrapper").addClass("focus");
     });
 
-    $('.search-bar-input').blur( function() {
-      $('.search-bar-wrapper').removeClass('focus');
+    $(".search-bar-input").blur(function() {
+      $(".search-bar-wrapper").removeClass("focus");
     });
   }
 
   function bindSearchSubmit() {
     $("#nav-bar-search-submit").on("click", function(e) {
       e.preventDefault();
-      $(this).closest("form").submit();
+      $(this)
+        .closest("form")
+        .submit();
     });
 
     $("#airbo-search").submit(function(e) {
@@ -23,23 +25,29 @@ Airbo.Search = (function(){
       validateForm(form);
 
       if (form.valid()) {
-        $(this).children(".search-bar-wrapper").removeClass("error");
+        $(this)
+          .children(".search-bar-wrapper")
+          .removeClass("error");
         return true;
       } else {
         e.preventDefault();
-        $(this).children(".search-bar-wrapper").addClass("error");
+        $(this)
+          .children(".search-bar-wrapper")
+          .addClass("error");
       }
     });
 
     $(".search-bar-input").on("focusout", function(e) {
-      $(this).closest(".search-bar-wrapper").removeClass("error");
+      $(this)
+        .closest(".search-bar-wrapper")
+        .removeClass("error");
     });
   }
 
   function validateForm(form) {
     form.validate({
       rules: {
-        query: "required",
+        query: "required"
       },
       errorPlacement: function(error) {
         return true;
@@ -58,8 +66,8 @@ Airbo.Search = (function(){
     $.ajax({
       url: path,
       data: $.extend(content_container.data(), { page: page }),
-      method: 'GET',
-      dataType: 'json',
+      method: "GET",
+      dataType: "json",
       success: function(data) {
         content_container.data("page", page);
         content_container.data("count", count + data.added);
@@ -78,21 +86,26 @@ Airbo.Search = (function(){
     init: init,
     loadResourcesInBackground: loadResourcesInBackground
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   Airbo.Search.init();
 
-  if( $(".explore-search-results").length > 0 ) {
+  if ($(".explore-search-results").length > 0) {
     Airbo.SearchTabs.init();
 
     $(".search.tile-grid.explore_tiles").each(function(index, container) {
-      Airbo.Search.loadResourcesInBackground($(container), Airbo.CopyTileToBoard.bindThumbnailCopyButton);
+      Airbo.Search.loadResourcesInBackground(
+        $(container),
+        Airbo.CopyTileToBoard.bindThumbnailCopyButton
+      );
     });
 
     $(".search.tile-grid.org_tiles").each(function(index, container) {
-      Airbo.Search.loadResourcesInBackground($(container), Airbo.CopyTileToBoard.bindThumbnailCopyButton);
+      Airbo.Search.loadResourcesInBackground(
+        $(container),
+        Airbo.CopyTileToBoard.bindThumbnailCopyButton
+      );
     });
 
     $(".search.tile-grid.client_admin_tiles").each(function(index, container) {

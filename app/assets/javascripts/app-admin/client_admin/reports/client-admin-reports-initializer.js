@@ -1,7 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminReportsInitializer = (function(){
-
+Airbo.ClientAdminReportsInitializer = (function() {
   function initReportSwitcher() {
     $(".js-report-switcher-tab").on("click", function(e) {
       e.preventDefault();
@@ -22,7 +21,9 @@ Airbo.ClientAdminReportsInitializer = (function(){
 
   function reflowHighcharts() {
     $.each($(".js-highcharts-chart"), function(i, chart) {
-      $(chart).highcharts().reflow();
+      $(chart)
+        .highcharts()
+        .reflow();
     });
   }
 
@@ -33,10 +34,9 @@ Airbo.ClientAdminReportsInitializer = (function(){
   return {
     init: init
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   if (Airbo.Utils.nodePresent(".client_admin-reports")) {
     Airbo.ClientAdminReportsInitializer.init();
   }

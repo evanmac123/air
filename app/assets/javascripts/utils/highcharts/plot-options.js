@@ -1,9 +1,7 @@
 var Airbo = window.Airbo || {};
 Airbo.Highcharts = Airbo.Highcharts || {};
 
-Airbo.Highcharts.PlotOptions = (function(){
-
-
+Airbo.Highcharts.PlotOptions = (function() {
   function defaultPlotOptions($chart) {
     return {
       series: {
@@ -13,7 +11,7 @@ Airbo.Highcharts.PlotOptions = (function(){
       },
       line: {
         marker: {
-          fillColor: '#FFFFFF',
+          fillColor: "#FFFFFF",
           radius: 4.5,
           lineWidth: 2,
           lineColor: null // inherit from series
@@ -52,5 +50,4 @@ Airbo.Highcharts.PlotOptions = (function(){
   return {
     defaultPlotOptions: defaultPlotOptions
   };
-
-}());
+})();
