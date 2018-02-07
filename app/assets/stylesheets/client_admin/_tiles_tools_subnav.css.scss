@@ -25,10 +25,10 @@
 
   .blocked_nav,
   a {
-    display: block;
-    text-align: center;
     border-bottom: 0;
+    display: block;
     padding: 1.15em 0 1em;
+    text-align: center;
     width: $ca-subnav-size;
 
     .fa {

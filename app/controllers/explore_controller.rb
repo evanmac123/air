@@ -2,7 +2,7 @@
 
 class ExploreController < ExploreBaseController
   def show
-    @tiles = Tile.explore.page(params[:page]).per(28)
+    @tiles = Tile.explore_not_in_campaign.page(params[:page]).per(28)
 
     if request.xhr?
       content = render_to_string(
