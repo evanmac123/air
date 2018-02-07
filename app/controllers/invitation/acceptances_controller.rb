@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 class Invitation::AcceptancesController < ApplicationController
   before_action :find_user
@@ -20,7 +21,7 @@ class Invitation::AcceptancesController < ApplicationController
     if @user.errors.present?
       @html_body_controller_name = "invitations"
       @html_body_action_name = "show"
-      render "/invitations/show" and return
+      render("/invitations/show") && (return)
     end
 
     unless @user.accepted_invitation_at
@@ -39,14 +40,14 @@ class Invitation::AcceptancesController < ApplicationController
     sign_in(@user, params[:remember_me])
 
     if current_user.is_client_admin || current_user.is_site_admin
-      redirect_to explore_path(show_explore_onboarding: true)
+      redirect_to explore_path
     else
       flash[:success] = "Welcome, #{current_user.first_name}!"
       redirect_to activity_path
     end
   end
 
-  #this is called to create not admin user by setting random password for him
+  # this is called to create not admin user by setting random password for him
   def generate_password
     params[:user] = @user.attributes
     params[:user][:password] = SecureRandom.hex(8)
@@ -56,29 +57,29 @@ class Invitation::AcceptancesController < ApplicationController
 
   protected
 
-  def add_user_to_board_if_allowed(board)
-    return unless (invitation_code = @user.invitation_code)
+    def add_user_to_board_if_allowed(board)
+      return unless (invitation_code = @user.invitation_code)
 
-    if PotentialUser.find_by(invitation_code: invitation_code)
-      add_user_to_board_and_move(PotentialUser.demo)
-    elsif (user = User.find_by(invitation_code: invitation_code))
-      add_user_to_board_and_move(board) if user.in_board?(board.id) || board.is_public?
+      if PotentialUser.find_by(invitation_code: invitation_code)
+        add_user_to_board_and_move(PotentialUser.demo)
+      elsif (user = User.find_by(invitation_code: invitation_code))
+        add_user_to_board_and_move(board) if user.in_board?(board.id) || board.is_public?
+      end
     end
-  end
 
-  def add_user_to_board_and_move(board)
-    @user.add_board(board)
-    @user.move_to_new_demo(board)
-  end
-
-  def find_user
-    @user = User.where(id: params[:user_id], invitation_code: params[:invitation_code]).first
-  end
-
-  def add_user_errors
-    @user.valid?
-    if params[:user][:password].blank?
-      @user.errors.add(:password, "Please choose a password")
+    def add_user_to_board_and_move(board)
+      @user.add_board(board)
+      @user.move_to_new_demo(board)
     end
-  end
+
+    def find_user
+      @user = User.where(id: params[:user_id], invitation_code: params[:invitation_code]).first
+    end
+
+    def add_user_errors
+      @user.valid?
+      if params[:user][:password].blank?
+        @user.errors.add(:password, "Please choose a password")
+      end
+    end
 end

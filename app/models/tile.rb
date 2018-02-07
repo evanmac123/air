@@ -263,22 +263,6 @@ class Tile < ActiveRecord::Base
     TileViewing.add(self, user) if user
   end
 
-  def self.featured_tile_ids(related_features)
-    if related_features.present?
-      tile_features = TileFeature.where(id: related_features.pluck(:id))
-    else
-      tile_features = TileFeature.all
-    end
-
-    tile_features.active.flat_map(&:tile_ids).compact
-  end
-
-  def self.explore_without_featured_tiles(related_features = nil)
-    tiles_table = Arel::Table.new(:tiles)
-
-    explore.where(tiles_table[:id].not_in(featured_tile_ids(related_features)))
-  end
-
   def self.displayable_categorized_to_user(user, maximum_tiles)
     DisplayCategorizedTiles.new(user, maximum_tiles).displayable_categorized_tiles
   end
