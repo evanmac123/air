@@ -61,8 +61,9 @@ gem "delighted", "~> 1.7.0"
 gem "airbrake", "~> 5.4"
 gem "scout_apm", "~> 2.4"
 gem "chartmogul-ruby", "~> 1.1.4", require: "chartmogul"
+# NOTE: Our hack to prevent too users from making it to Intercom unless they click the messenger gets harder after intercom-rails 0.3.4: https://github.com/intercom/intercom-rails/commit/b1c730bc6dcb3c9b4655c364d168288eed1dbef5
+gem "intercom-rails", "0.3.4"
 gem "intercom", "~> 3.5.23"
-gem "intercom-rails", "~> 0.3.8"
 gem "mixpanel_client", "~> 4.1.6"
 ###
 
