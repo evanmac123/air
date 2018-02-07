@@ -5,10 +5,6 @@ feature "interacts with a tile from the explore-preview page" do
   include SignUpModalHelpers
   include TilePreviewHelpers
 
-  def show_register_form?
-    @user.nil? || @user.class == GuestUser
-  end
-
   let (:creator) {FactoryBot.create(:client_admin, name: "Charlotte McTilecreator")}
   let (:actor) {FactoryBot.create(:client_admin, name: "Joe Copier")}
   let (:last_actor) {FactoryBot.create(:client_admin, name: "John Lastactor")}
