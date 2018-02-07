@@ -23,11 +23,10 @@
 }
 
 .explore {
-  .campaign-tiles-container {
-    position: relative;
+  .explore-small-tiles-container,
+  .explore-tiles-container {
     padding-top: 1em;
     padding-bottom: 1em;
-    z-index: 1;
   }
 
   .with-divider {
