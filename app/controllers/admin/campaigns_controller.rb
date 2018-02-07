@@ -12,7 +12,7 @@ class Admin::CampaignsController < AdminBaseController
   end
 
   def index
-    @campaigns = Campaign.all
+    @campaigns = Campaign.order(:name)
   end
 
   def create
