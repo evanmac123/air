@@ -2,7 +2,6 @@ require 'acceptance/acceptance_helper'
 
 feature "interacts with a tile from the explore-preview page" do
   include GuestUserConversionHelpers
-  include SignUpModalHelpers
   include TilePreviewHelpers
 
   let (:creator) {FactoryBot.create(:client_admin, name: "Charlotte McTilecreator")}
