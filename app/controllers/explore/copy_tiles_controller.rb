@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class Explore::CopyTilesController < ClientAdminBaseController
-  include ClientAdmin::TilesPingsHelper
-  include ExploreConcern
-
   def create
     tile = explore_tile || organization_tile
     return render_json_access_denied unless tile

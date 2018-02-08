@@ -61,9 +61,6 @@ Airbo.CopyTileToBoard = (function() {
   function bindCopyAllTiles() {
     $(".js-copy-all-tiles-button").one("click", function(e) {
       e.preventDefault();
-      $(this).on("click", function(e) {
-        e.preventDefault();
-      });
       copyAllTiles($(this));
     });
   }
@@ -72,11 +69,8 @@ Airbo.CopyTileToBoard = (function() {
     Airbo.ExploreKpis.copyAllTilesPing(self);
     self.text("Copying...");
 
-    $.when.apply($, $(".explore_copy_link")).done(function() {
-      for (var i = arguments.length - 1; i > -1; i--) {
-        var tile = arguments[i];
-        copyToBoard($(tile), "thumbnail");
-      }
+    $(".explore_copy_link").each(function(index, tile) {
+      copyToBoard($(tile), "thumbnail");
     });
 
     self.text("Campaign Copied");

@@ -1,19 +1,18 @@
-var Airbo = window.Airbo || {Utils:{}};
+var Airbo = window.Airbo || { Utils: {} };
 Airbo.Utils.Messages = {
-
-  incompleteTile: "This Tile is incomplete. Please add all required fields and fix any errors before posting."
-
+  incompleteTile:
+    "This Tile is incomplete. Please add all required fields and fix any errors before posting."
 };
 
-Airbo.Utils.alert = function (text) {
+Airbo.Utils.alert = function(text) {
   swal({
     title: "",
     text: text,
-    customClass: "airbo",
+    customClass: "airbo"
   });
 };
 
-Airbo.Utils.alertSuccess = function (title, text, buttonText) {
+Airbo.Utils.alertSuccess = function(title, text, buttonText) {
   swal({
     title: title,
     text: text,
@@ -23,7 +22,7 @@ Airbo.Utils.alertSuccess = function (title, text, buttonText) {
   });
 };
 
-Airbo.Utils.approve = function (text, cb) {
+Airbo.Utils.approve = function(text, cb) {
   swal(
     {
       title: "",
@@ -36,10 +35,9 @@ Airbo.Utils.approve = function (text, cb) {
       closeOnCancel: true
     },
 
-    function(isConfirm){
+    function(isConfirm) {
       if (isConfirm) {
-
-        cb &&cb();
+        cb && cb();
       }
     }
   );

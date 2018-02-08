@@ -1,89 +1,94 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileVisualPreviewMgr = (function(){
-
-  function hideImageWrapper(){
+Airbo.TileVisualPreviewMgr = (function() {
+  function hideImageWrapper() {
     $(".images-wrapper").hide();
   }
 
-  function showImageWrapper(){
+  function showImageWrapper() {
     $(".images-wrapper").show();
   }
 
-  function showEmbedVideo(){
-    $(".embed-video-container").addClass("present").show();
+  function showEmbedVideo() {
+    $(".embed-video-container")
+      .addClass("present")
+      .show();
     $("#tile_embed_video").focus();
   }
 
-  function hideEmbedVideo(){
-    $(".embed-video-container").removeClass("present").hide();
+  function hideEmbedVideo() {
+    $(".embed-video-container")
+      .removeClass("present")
+      .hide();
   }
 
-  function showVideoPreview(){
+  function showVideoPreview() {
     $(".video_section").show();
   }
 
-  function hideVideoPreview(){
+  function hideVideoPreview() {
     $(".video_section").hide();
   }
 
-  function resetSearchInput(){
+  function resetSearchInput() {
     $(".search-input").val("");
   }
 
-  function openSearch(){
-    $(".search-input").animate({width:'200px'}, 500, "linear", function(){
-      $(".search-input").addClass("isOpen").focus();
+  function openSearch() {
+    $(".search-input").animate({ width: "200px" }, 500, "linear", function() {
+      $(".search-input")
+        .addClass("isOpen")
+        .focus();
     });
   }
 
-  function hideLoader(){
+  function hideLoader() {
     $(".endless_scroll_loading").hide();
   }
 
-  function showLoader(){
+  function showLoader() {
     $(".endless_scroll_loading").show();
   }
 
-  function hideUnparsableError(){
+  function hideUnparsableError() {
     $(".unparsable").hide();
   }
 
-  function showUnparsableError(){
+  function showUnparsableError() {
     $(".unparsable").show();
   }
 
-  function hideUnloadableError(){
+  function hideUnloadableError() {
     $(".unloadable").hide();
   }
 
-  function emptyImages(){
-   var grid = $("#images");
-   if(grid.data('flickity')){
-     grid.flickity('destroy');
-   }
-   grid.empty();
+  function emptyImages() {
+    var grid = $("#images");
+    if (grid.data("flickity")) {
+      grid.flickity("destroy");
+    }
+    grid.empty();
   }
 
-  function hideVisualContentPanel(){
-    var dest = jQuery('.image_preview').offset().top;
+  function hideVisualContentPanel() {
+    var dest = jQuery(".image_preview").offset().top;
     $(".visual-content-container").slideUp();
     hideImageWrapper();
     hideEmbedVideo();
-    $('.reveal-modal').animate({ scrollTop: 0 }, 700);
+    $(".reveal-modal").animate({ scrollTop: 0 }, 700);
   }
 
-  function hideVideoErrors(){
+  function hideVideoErrors() {
     hideLoader();
     hideUnloadableError();
     hideUnparsableError();
   }
 
-  function showVisualContentPanel(){
+  function showVisualContentPanel() {
     $(".visual-content-container").slideDown();
   }
 
-  function toggleOffVideo(){
+  function toggleOffVideo() {
     hideEmbedVideo();
   }
 
@@ -92,8 +97,8 @@ Airbo.TileVisualPreviewMgr = (function(){
     showImageWrapper();
   }
 
-  function initShowVideoPanel(){
-    $("body").on("click", ".img-menu-item.video", function(event){
+  function initShowVideoPanel() {
+    $("body").on("click", ".img-menu-item.video", function(event) {
       hideImageWrapper();
       emptyImages();
       resetSearchInput();
@@ -103,60 +108,60 @@ Airbo.TileVisualPreviewMgr = (function(){
     });
   }
 
-  function initVisualContent(){
+  function initVisualContent() {
     initHideVisualContent();
     initShowVideoPanel();
   }
 
-  function showMediaPanelCloseButton(){
+  function showMediaPanelCloseButton() {
     $(".hide-media-panel-button").show();
   }
 
-  function hideMediaPanelCloseButton(){
+  function hideMediaPanelCloseButton() {
     $(".hide-media-panel-button").hide();
   }
 
-  function initCustomEventsSubscriber(){
-    Airbo.PubSub.subscribe("image-results-added", function(){
+  function initCustomEventsSubscriber() {
+    Airbo.PubSub.subscribe("image-results-added", function() {
       hideLoader();
     });
 
-    Airbo.PubSub.subscribe("video-added", function(){
+    Airbo.PubSub.subscribe("video-added", function() {
       hideVisualContentPanel();
       hideLoader();
       $(".video_section").show();
       $("#image_uploader").hide();
     });
 
-    Airbo.PubSub.subscribe("video-link-entered", function(){
+    Airbo.PubSub.subscribe("video-link-entered", function() {
       showLoader();
     });
 
-    Airbo.PubSub.subscribe("video-link-cleared", function(){
+    Airbo.PubSub.subscribe("video-link-cleared", function() {
       hideVideoErrors();
     });
 
-    Airbo.PubSub.subscribe("video-load-error", function(){
+    Airbo.PubSub.subscribe("video-load-error", function() {
       hideLoader();
       $(".unloadable").show();
     });
 
-    Airbo.PubSub.subscribe("video-removed", function(){
+    Airbo.PubSub.subscribe("video-removed", function() {
       $("#image_uploader").show();
       hideLoader();
       hideVideoPreview();
     });
 
-    Airbo.PubSub.subscribe("video-link-parse-error", function(){
+    Airbo.PubSub.subscribe("video-link-parse-error", function() {
       hideLoader();
       showUnparsableError();
     });
 
-    Airbo.PubSub.subscribe("media-request-done", function(){
+    Airbo.PubSub.subscribe("media-request-done", function() {
       showMediaPanelCloseButton();
     });
 
-    Airbo.PubSub.subscribe("inititiating-image-search", function(){
+    Airbo.PubSub.subscribe("inititiating-image-search", function() {
       hideVideoPreview();
       hideEmbedVideo();
       showSearchResults();
@@ -164,34 +169,32 @@ Airbo.TileVisualPreviewMgr = (function(){
     });
   }
 
-  function initPreviewByType(){
-    if( $("#tile_embed_video").val().length > 0 ) {
+  function initPreviewByType() {
+    if ($("#tile_embed_video").val().length > 0) {
       $("#image_uploader").hide();
       showVideoPreview();
     }
   }
 
-  function initHideVisualContent(){
-    $("body").on("click", ".hide-media-panel-button", function(event){
+  function initHideVisualContent() {
+    $("body").on("click", ".hide-media-panel-button", function(event) {
       resetSearchInput();
       hideVisualContentPanel();
 
-      if($(".unparsable").is(":visible")){
+      if ($(".unparsable").is(":visible")) {
         $("#remote_media_url").val("");
         $("#tile_embed_video").val("");
       }
-
     });
   }
 
-  function init(){
+  function init() {
     initCustomEventsSubscriber();
     initPreviewByType();
     initVisualContent();
   }
 
   return {
-    init: init,
+    init: init
   };
-
-}());
+})();

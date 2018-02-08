@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileStatsPings = (function(){
+Airbo.TileStatsPings = (function() {
   function ping(properties) {
     var currentUser = $("body").data("currentUser");
     Airbo.Utils.ping("Tile Stats Action", $.extend(properties, currentUser));
@@ -9,5 +9,4 @@ Airbo.TileStatsPings = (function(){
   return {
     ping: ping
   };
-
-}());
+})();

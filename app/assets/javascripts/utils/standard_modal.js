@@ -1,10 +1,8 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
-Airbo.Utils.StandardModal = (function(){
-
-  return function(){
-
+Airbo.Utils.StandardModal = (function() {
+  return function() {
     var modal;
     var modalSel;
     var modalContainer;
@@ -23,11 +21,13 @@ Airbo.Utils.StandardModal = (function(){
       scrollOnOpen: true,
       smallModal: false,
       modalClass: "",
-      closeMessage: function() { return "Are you sure"; }
+      closeMessage: function() {
+        return "Are you sure";
+      }
     };
 
     function scrollModalToTop() {
-      if(params.scrollOnOpen) {
+      if (params.scrollOnOpen) {
         modal.scrollTop(0);
       }
     }
@@ -38,16 +38,16 @@ Airbo.Utils.StandardModal = (function(){
     }
 
     function closeModal() {
-     var msg = params.closeMessage();
+      var msg = params.closeMessage();
       Airbo.Utils.approve(msg, modal.foundation.bind(modal, "reveal", "close"));
     }
 
     function close() {
-      if(params.closeAlt){
+      if (params.closeAlt) {
         params.closeAlt();
-      } else if(params.confirmOnClose){
+      } else if (params.confirmOnClose) {
         closeModal();
-      }else{
+      } else {
         modal.foundation("reveal", "close");
       }
     }
@@ -59,48 +59,52 @@ Airbo.Utils.StandardModal = (function(){
     function bodyScrollVisibility(show) {
       var overflow = "";
       var width = "";
-      if(!show) {
+      if (!show) {
         overflow = "hidden";
         width = $("body").width();
       }
 
-      $("body").css({"overflow-y": overflow});
+      $("body").css({ "overflow-y": overflow });
       $("body, header").css("width", width);
     }
 
     function triggerStickyX() {
-      if(params.closeSticky) {
+      if (params.closeSticky) {
         sizes = $(modalXSel)[0].getBoundingClientRect();
         if (modal.scrollTop() > 50) {
-          $(modalXSel).addClass('sticky').css("left", sizes.left);
+          $(modalXSel)
+            .addClass("sticky")
+            .css("left", sizes.left);
         } else {
-          $(modalXSel).removeClass('sticky').css("left", "");
+          $(modalXSel)
+            .removeClass("sticky")
+            .css("left", "");
         }
       }
     }
 
     function initEvents() {
-      modal.bind('open.fndtn.reveal', function(){
+      modal.bind("open.fndtn.reveal", function() {
         bodyScrollVisibility(false);
         triggerStickyX();
       });
 
-      modal.bind('opened.fndtn.reveal', function(event){
-        if (!$(event.target).hasClass("reveal-modal")){
+      modal.bind("opened.fndtn.reveal", function(event) {
+        if (!$(event.target).hasClass("reveal-modal")) {
           return;
         }
         scrollModalToTop();
         params.onOpenedEvent();
       });
 
-      modal.bind('closed.fndtn.reveal', function(){
-        if( $(".reveal-modal.open").length === 0 ) {
+      modal.bind("closed.fndtn.reveal", function() {
+        if ($(".reveal-modal.open").length === 0) {
           bodyScrollVisibility(true);
         }
         params.onClosedEvent();
       });
 
-      $(modalXSel).click(function(e){
+      $(modalXSel).click(function(e) {
         e.preventDefault();
         e.stopPropagation();
         close();
@@ -111,15 +115,15 @@ Airbo.Utils.StandardModal = (function(){
         triggerStickyX();
       });
 
-      $(params.closeSel).click(function(e){
+      $(params.closeSel).click(function(e) {
         e.preventDefault();
         close();
       });
 
-      if(params.closeOnBgClick) {
-        [modalSel, modalContainerSel, modalContentSel].forEach(function(el){
-          $("body").on("click", el, function(event){
-            if($(event.target).is(el)){
+      if (params.closeOnBgClick) {
+        [modalSel, modalContainerSel, modalContentSel].forEach(function(el) {
+          $("body").on("click", el, function(event) {
+            if ($(event.target).is(el)) {
               close();
             }
           });
@@ -128,7 +132,8 @@ Airbo.Utils.StandardModal = (function(){
     }
 
     function dynamicModal() {
-      var modalTemplate = params.template || HandlebarsTemplates.standardModal();
+      var modalTemplate =
+        params.template || HandlebarsTemplates.standardModal();
 
       return $(modalTemplate).clone();
     }
@@ -138,9 +143,9 @@ Airbo.Utils.StandardModal = (function(){
       modalSel = "#" + modalId;
       modal = $(modalSel);
       // make ajax modal
-      if( params.useAjaxModal && modal.length === 0 ) {
+      if (params.useAjaxModal && modal.length === 0) {
         modal = dynamicModal();
-        modal.appendTo( $(".modals") );
+        modal.appendTo($(".modals"));
         modal.attr("id", modalId);
       }
       modal.addClass(params.modalClass);
@@ -149,15 +154,15 @@ Airbo.Utils.StandardModal = (function(){
       modalContentSel = modalSel + " #modal_content";
       modalXSel = modalSel + " .close-reveal-modal";
       // small modals for some messages etc.
-      if(params.smallModal) {
+      if (params.smallModal) {
         modal.addClass("standard_small_modal");
       }
-      if(params.closeSticky) {
+      if (params.closeSticky) {
         $(modalXSel).addClass("stickable");
       }
     }
 
-    function setConfirmOnClose(val){
+    function setConfirmOnClose(val) {
       params.confirmOnClose = val;
     }
 
@@ -175,4 +180,4 @@ Airbo.Utils.StandardModal = (function(){
       setConfirmOnClose: setConfirmOnClose
     };
   };
-}());
+})();

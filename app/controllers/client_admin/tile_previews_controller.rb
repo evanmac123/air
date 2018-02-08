@@ -6,9 +6,7 @@ class ClientAdmin::TilePreviewsController < ClientAdminBaseController
 
   def show
     ping_tile_viewed
-
-    @next_tile = params[:next_tile] || @tile.id
-    @prev_tile = params[:prev_tile] || @tile.id
+    set_next_prev_tiles
 
     render json: {
       tilePreview: tile_preview_html
@@ -19,10 +17,19 @@ class ClientAdmin::TilePreviewsController < ClientAdminBaseController
 
     def find_tile
       begin
-        @tile ||= Tile.find(params[:id])
+        @tile = Tile.find(params[:id])
       rescue
         not_found
       end
+    end
+
+    def tile_id
+      @tile.id
+    end
+
+    def set_next_prev_tiles
+      @next_tile = params[:next_tile] || tile_id
+      @prev_tile = params[:prev_tile] || tile_id
     end
 
     def tile_preview_html

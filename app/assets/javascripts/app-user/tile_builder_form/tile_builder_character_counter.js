@@ -1,10 +1,8 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileBuilderCharacterCounter = (function(){
-
-
+Airbo.TileBuilderCharacterCounter = (function() {
   function currentText(field) {
-    if( field.is("input") || $(field).is("textarea") ) {
+    if (field.is("input") || $(field).is("textarea")) {
       return field.val();
     } else {
       return field.text();
@@ -12,21 +10,20 @@ Airbo.TileBuilderCharacterCounter = (function(){
   }
 
   function updateCharacterCount(field, counter) {
-    var currentLength = currentText(field).length
-      , leftLength = parseInt(field.attr('maxlength'), 10) - currentLength
-    ;
+    var currentLength = currentText(field).length,
+      leftLength = parseInt(field.attr("maxlength"), 10) - currentLength;
 
-    counter.text('' + leftLength + ' characters');
-    exceededMaxLength(field, counter, leftLength)
+    counter.text("" + leftLength + " characters");
+    exceededMaxLength(field, counter, leftLength);
   }
 
   function canExceedMaxlength(field) {
-    return field.data('exceed');
+    return field.data("exceed");
   }
 
-  function exceededMaxLength(field, counter, leftLength){
-    if( !canExceedMaxlength(field) ) return;
-    if( leftLength < 0 ) {
+  function exceededMaxLength(field, counter, leftLength) {
+    if (!canExceedMaxlength(field)) return;
+    if (leftLength < 0) {
       field.addClass("exceeded_maxlength_field");
       counter.addClass("exceeded_maxlength_counter");
     } else {
@@ -35,17 +32,19 @@ Airbo.TileBuilderCharacterCounter = (function(){
     }
   }
 
-  function init(){
-    $("body").on("keyup paste", "textarea.answer-editable,  textarea.free-text-entry", function(event) {
-      var field = $(event.target)
-        , counterId = "#" +field.data("counterid") 
-        , counter = $(counterId)
-      ;
-      updateCharacterCount(field, counter);
-    });
+  function init() {
+    $("body").on(
+      "keyup paste",
+      "textarea.answer-editable,  textarea.free-text-entry",
+      function(event) {
+        var field = $(event.target),
+          counterId = "#" + field.data("counterid"),
+          counter = $(counterId);
+        updateCharacterCount(field, counter);
+      }
+    );
   }
   return {
     init: init
-  }
-
-}())
+  };
+})();

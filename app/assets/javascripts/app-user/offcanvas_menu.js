@@ -1,24 +1,25 @@
 function bindOffcanvasMenu(boardSwitchingAllowed) {
   var jPM = $.jPanelMenu({
-    menu: 'header nav',
-    direction: 'right',
-    trigger: '.off-canvas-toggle a',
+    menu: "header nav",
+    direction: "right",
+    trigger: ".off-canvas-toggle a",
     closeOnContentClick: false
   });
   var jRes = jRespond([
     {
-      label: 'small',
+      label: "small",
       enter: 0,
       exit: 767
-    },{
-      label: 'large',
+    },
+    {
+      label: "large",
       enter: 768,
       exit: 10000
     }
   ]);
   jRes.addFunc([
     {
-      breakpoint: 'small',
+      breakpoint: "small",
       enter: function() {
         jPM.on();
         desktop_user_menu().show();
@@ -29,8 +30,9 @@ function bindOffcanvasMenu(boardSwitchingAllowed) {
         hideUserMenu();
         hideAdminMenu();
       }
-    },{
-      breakpoint: 'large',
+    },
+    {
+      breakpoint: "large",
       enter: function() {
         user_toggler().on();
         admin_toggler().on();

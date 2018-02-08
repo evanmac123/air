@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileStatsGrid = (function(){
+Airbo.TileStatsGrid = (function() {
   // Selectros
   var tileGridSectionSel = ".tile_grid_section .tile-stats-grid";
   var paginationLinkSel = tileGridSectionSel + " .pagination a";
@@ -14,9 +14,9 @@ Airbo.TileStatsGrid = (function(){
   var updatesChecker;
   var eventsInitialized;
 
-  function ajaxResponse(){
-    return function (data){
-      if(data.success){
+  function ajaxResponse() {
+    return function(data) {
+      if (data.success) {
         tileGridSection.html(data.grid);
         initVars();
         $(document).foundation();
@@ -25,7 +25,7 @@ Airbo.TileStatsGrid = (function(){
   }
 
   function getLinkParams(path) {
-    return path.attr("href").split('?')[1] || "";
+    return path.attr("href").split("?")[1] || "";
   }
 
   function gridRequest(url) {
@@ -39,14 +39,14 @@ Airbo.TileStatsGrid = (function(){
   }
 
   function updateGrid(link) {
-    gridRequest( updateLink + "?" + getLinkParams(link) );
+    gridRequest(updateLink + "?" + getLinkParams(link));
   }
 
-  function initVars(){
+  function initVars() {
     tileGridSection = $(tileGridSectionSel);
     updateLink = $(".tile_grid_section").data("update-link");
 
-    if(updatesChecker){
+    if (updatesChecker) {
       updatesChecker.restart();
     } else {
       updatesChecker = Airbo.GridUpdatesChecker.init();
@@ -61,18 +61,18 @@ Airbo.TileStatsGrid = (function(){
       eventsInitialized = true;
     }
 
-    $(document).on("click", linkInGridSel, function(e){
+    $(document).on("click", linkInGridSel, function(e) {
       e.preventDefault();
       updateGrid($(this));
     });
 
-    $(document).on("change", gridTypeSel, function(e){
+    $(document).on("change", gridTypeSel, function(e) {
       e.preventDefault();
       gridRequest(updateLink + "?grid_type=" + $(this).val());
     });
   }
 
-  function init(){
+  function init() {
     initVars();
     initEvents();
   }
@@ -81,4 +81,4 @@ Airbo.TileStatsGrid = (function(){
     init: init,
     gridRequest: gridRequest
   };
-}());
+})();

@@ -1,14 +1,16 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ImageLoadingPlaceholder = (function(){
+Airbo.ImageLoadingPlaceholder = (function() {
   function removeLoadingPlaceholder() {
-    $(".tile_full_image").removeClass("loading").css("min-height", "");
+    $(".tile_full_image")
+      .removeClass("loading")
+      .css("min-height", "");
   }
   function loadImage() {
-    if( $("#tile_img_preview")[0].complete ) {
+    if ($("#tile_img_preview")[0].complete) {
       removeLoadingPlaceholder();
-    } else{
-      $("#tile_img_preview").on("load", function(){
+    } else {
+      $("#tile_img_preview").on("load", function() {
         removeLoadingPlaceholder();
       });
     }
@@ -19,4 +21,4 @@ Airbo.ImageLoadingPlaceholder = (function(){
   return {
     init: init
   };
-}());
+})();

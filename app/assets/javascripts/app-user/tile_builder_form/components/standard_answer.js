@@ -1,9 +1,8 @@
-
 var Airbo = window.Airbo || {};
 
 Airbo.StandardAnswer = Object.create(Airbo.BaseAnswer);
 
-Airbo.StandardAnswer.init = function (config, container){
+Airbo.StandardAnswer.init = function(config, container) {
   this.answers = config.answers;
   this.correctAnswerIndex = config.index;
   this.extendable = config.extendable;
@@ -19,29 +18,29 @@ Airbo.StandardAnswer.init = function (config, container){
   return this;
 };
 
-Airbo.StandardAnswer.render = function(){
+Airbo.StandardAnswer.render = function() {
   Airbo.BaseAnswer.render.call(this);
 
-  if(this.extendable){
+  if (this.extendable) {
     this.includeAnswerRemovers();
     this.includeAnswerAdder();
   }
 
-  if(this.wrongable){
+  if (this.wrongable) {
     this.includeRadioButtons();
   }
 
   this.renderOptionalFeatures();
 };
 
-Airbo.StandardAnswer.setupOptionalFeatures = function(){
+Airbo.StandardAnswer.setupOptionalFeatures = function() {
   Airbo.BaseAnswer.setupOptionalFeatures.call(this);
-  if(this.freeResponse){
+  if (this.freeResponse) {
     this.optionalFeatures.unshift(this.includeFreeResponse.bind(this));
   }
 };
 
-Airbo.StandardAnswer.includeAnswerAdder = function(){
+Airbo.StandardAnswer.includeAnswerAdder = function() {
   var panel;
   var path;
   var icon;
@@ -60,12 +59,12 @@ Airbo.StandardAnswer.includeAnswerAdder = function(){
   this.controlPanel.appendChild(path);
 };
 
-Airbo.StandardAnswer.removeAnswerAdder = function(){
+Airbo.StandardAnswer.removeAnswerAdder = function() {
   var answerAdder = document.querySelector(".js-add-answer");
   this.controlPanel.removeChild(answerAdder);
 };
 
-Airbo.StandardAnswer.answerNodes = function(){
+Airbo.StandardAnswer.answerNodes = function() {
   return this.answerPanel.querySelectorAll(".answer-div");
 };
 
@@ -74,30 +73,32 @@ Airbo.StandardAnswer.includeAnswerRemovers = function() {
   var numAnswers = answers.length;
   var i;
 
-  for ( i=0; i < numAnswers; i++) {
+  for (i = 0; i < numAnswers; i++) {
     this.addAnswerRemover(answers[i]);
   }
 };
 
-Airbo.StandardAnswer.addAnswerRemover = function(answer){
-  var remover =document.createElement("i");
-  remover.setAttribute('class', 'js-remove-answer fa fa-remove fa-1x cursor-pointer' );
+Airbo.StandardAnswer.addAnswerRemover = function(answer) {
+  var remover = document.createElement("i");
+  remover.setAttribute(
+    "class",
+    "js-remove-answer fa fa-remove fa-1x cursor-pointer"
+  );
   answer.appendChild(remover);
 };
 
-Airbo.StandardAnswer.addRadioButton = function(answer, value, checked){
-
+Airbo.StandardAnswer.addRadioButton = function(answer, value, checked) {
   var radiobutton = document.createElement("input");
   var wrapper = document.createElement("div");
   var answerButton = answer.querySelector(".answer-btn");
 
-  radiobutton.setAttribute('type', 'radio');
-  radiobutton.setAttribute('name', 'tile[correct_answer_index]');
-  radiobutton.setAttribute('class', "correct-answer-button cursor-pointer");
+  radiobutton.setAttribute("type", "radio");
+  radiobutton.setAttribute("name", "tile[correct_answer_index]");
+  radiobutton.setAttribute("class", "correct-answer-button cursor-pointer");
 
-  radiobutton.setAttribute('value', value);
-  if(checked){
-    radiobutton.setAttribute('checked', 'checked');
+  radiobutton.setAttribute("value", value);
+  if (checked) {
+    radiobutton.setAttribute("checked", "checked");
   }
 
   wrapper.setAttribute("class", "tile-radio-button-wrapper");
@@ -106,23 +107,22 @@ Airbo.StandardAnswer.addRadioButton = function(answer, value, checked){
   answer.insertBefore(wrapper, answerButton);
 };
 
-Airbo.StandardAnswer.includeRadioButtons = function(){
+Airbo.StandardAnswer.includeRadioButtons = function() {
   var checked;
   var answers = this.answerNodes();
   var i;
 
-  for( i=0; i < answers.length; i++){
+  for (i = 0; i < answers.length; i++) {
     checked = this.correctAnswerIndex === i ? true : false;
     this.addRadioButton(answers[i], i, checked);
   }
 };
 
+Airbo.StandardAnswer.setupAnswers = function() {
+  var idx,
+    numAnswers = this.answers.length;
 
-Airbo.StandardAnswer.setupAnswers = function(){
-  var idx, numAnswers = this.answers.length
-  ;
-
-  for(idx = 0; idx < numAnswers; idx++){
+  for (idx = 0; idx < numAnswers; idx++) {
     this.answerSet.push(this.createTileAnswerButton(this.answers[idx]));
   }
 };
@@ -133,7 +133,7 @@ Airbo.StandardAnswer.buildAnswerNodeList = function() {
   });
 };
 
-Airbo.StandardAnswer.includeFreeResponse = function(){
+Airbo.StandardAnswer.includeFreeResponse = function() {
   var checkbox = document.createElement("input");
   var hidden = document.createElement("input");
   var label = document.createElement("label");
@@ -143,37 +143,51 @@ Airbo.StandardAnswer.includeFreeResponse = function(){
   var tooltipContent = document.createElement("div");
   var tooltipTarget = document.createElement("div");
   var node = document.createDocumentFragment();
-  var btnClass = 'answer-btn js-btn-free-text hover-help';
-  var answerWrapperClass = "answer-div js-free-text-btn-wrapper free-text-btn-wrapper ";
+  var btnClass = "answer-btn js-btn-free-text hover-help";
+  var answerWrapperClass =
+    "answer-div js-free-text-btn-wrapper free-text-btn-wrapper ";
   var answerWrapper;
 
-  if(this.allowFreeResponse){
+  if (this.allowFreeResponse) {
     checkbox.checked = true;
     answerWrapperClass += " enabled";
   }
 
-  btn.setAttribute('class', btnClass);
+  btn.setAttribute("class", btnClass);
   btn.appendChild(document.createTextNode("Other"));
 
-  hidden.setAttribute('name', 'tile[allow_free_response]');
-  hidden.setAttribute('type', 'hidden');
-  hidden.setAttribute('value', "0");
+  hidden.setAttribute("name", "tile[allow_free_response]");
+  hidden.setAttribute("type", "hidden");
+  hidden.setAttribute("value", "0");
 
-  checkbox.setAttribute('type', 'checkbox');
-  checkbox.setAttribute('class', 'js-chk-free-text chk-tile-optional-feature-toggle');
-  checkbox.setAttribute('name', 'tile[allow_free_response]');
+  checkbox.setAttribute("type", "checkbox");
+  checkbox.setAttribute(
+    "class",
+    "js-chk-free-text chk-tile-optional-feature-toggle"
+  );
+  checkbox.setAttribute("name", "tile[allow_free_response]");
 
-  label.setAttribute('class', 'tile-optional-feature-toggle-wrapper');
+  label.setAttribute("class", "tile-optional-feature-toggle-wrapper");
   label.appendChild(hidden);
   label.appendChild(checkbox);
   label.appendChild(document.createTextNode("Allow Free Response"));
 
-  tooltipTemplate.setAttribute('class', 'js-tooltip-template tooltip-template free-response' );
-  tooltipContent.setAttribute('class', 'js-tooltip-content tooltip-content free-response' );
+  tooltipTemplate.setAttribute(
+    "class",
+    "js-tooltip-template tooltip-template free-response"
+  );
+  tooltipContent.setAttribute(
+    "class",
+    "js-tooltip-content tooltip-content free-response"
+  );
 
-  iconHelp.setAttribute('class', 'fa fa-question-circle fa-1x');
+  iconHelp.setAttribute("class", "fa fa-question-circle fa-1x");
 
-  tooltipContent.appendChild(document.createTextNode("When users choose Other as their answer, they will be shown a free response text box."));
+  tooltipContent.appendChild(
+    document.createTextNode(
+      "When users choose Other as their answer, they will be shown a free response text box."
+    )
+  );
 
   tooltipTemplate.appendChild(tooltipContent);
 
@@ -182,7 +196,10 @@ Airbo.StandardAnswer.includeFreeResponse = function(){
   node.appendChild(iconHelp);
 
   tooltipTarget.setAttribute("class", "js-free-text-tooltip hover-help");
-  tooltipTarget.setAttribute('data-tooltip-content', ".js-tooltip-content.free-response");
+  tooltipTarget.setAttribute(
+    "data-tooltip-content",
+    ".js-tooltip-content.free-response"
+  );
   tooltipTarget.appendChild(node);
 
   answerWrapper = this.answerWrapper(tooltipTarget);
@@ -196,14 +213,14 @@ Airbo.StandardAnswer.includeFreeResponse = function(){
 Airbo.StandardAnswer.addAnswer = function() {
   var len = this.answerPanel.querySelectorAll(".answer-div").length;
   var answer = this.createTileAnswerButton("Add Answer Option");
-  var wrapper = this.answerWrapper(answer.asDomNode(), len-1 );
+  var wrapper = this.answerWrapper(answer.asDomNode(), len - 1);
   var freeTextBtn = document.querySelector(".js-free-text-btn-wrapper");
 
-  if(this.wrongable){
+  if (this.wrongable) {
     this.addRadioButton(wrapper);
   }
 
-  if(this.extendable){
+  if (this.extendable) {
     this.addAnswerRemover(wrapper);
   }
 

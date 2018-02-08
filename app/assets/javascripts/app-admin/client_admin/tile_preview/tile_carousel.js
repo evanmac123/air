@@ -1,9 +1,9 @@
 Airbo.TileCarouselPage = (function() {
-  function initLinkFixer(){
+  function initLinkFixer() {
     Airbo.Utils.TileLinkHandler.init();
   }
 
-  function init(){
+  function init() {
     Airbo.TileAnswers.init();
     initLinkFixer();
   }
@@ -11,5 +11,4 @@ Airbo.TileCarouselPage = (function() {
   return {
     init: init
   };
-
-}());
+})();

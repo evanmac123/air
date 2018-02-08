@@ -1,38 +1,36 @@
-var Airbo = window.Airbo || {}
+var Airbo = window.Airbo || {};
 
-
-Airbo.BulkUserDeleter = (function(){
+Airbo.BulkUserDeleter = (function() {
   var form;
 
-  function initFormSubmit(){
-    form.submit(function(event){
+  function initFormSubmit() {
+    form.submit(function(event) {
       var confirmation;
-      if(form.find("input[type=checkbox]:checked").length ===0){
+      if (form.find("input[type=checkbox]:checked").length === 0) {
         alert("You must select at least one group of users to to delete");
         return false;
-      }else{
-        if(confirm("Are you sure? This action cannot be undone")){
+      } else {
+        if (confirm("Are you sure? This action cannot be undone")) {
           return true;
-        }else{
+        } else {
           return false;
         }
       }
     });
   }
 
-  function init(){
+  function init() {
     form = $("#admin_bulk_user_delete");
-    initFormSubmit()
+    initFormSubmit();
   }
 
- return {
-  init: init
- }
+  return {
+    init: init
+  };
+})();
 
-}())
-
-$(function(){
-  if($("#admin_bulk_user_delete").length > 0){
+$(function() {
+  if ($("#admin_bulk_user_delete").length > 0) {
     Airbo.BulkUserDeleter.init();
   }
-})
+});

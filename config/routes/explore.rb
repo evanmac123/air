@@ -5,5 +5,4 @@ namespace :explore do
   resource  :copy_tile, only: [:create]
   resources :tile_previews, only: [:show], path: "tile"
   resources :campaigns, only: [:show]
-  resources :tile_features, only: [:show]
 end

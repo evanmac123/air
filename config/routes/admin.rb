@@ -16,8 +16,6 @@ namespace :admin do
   resources :campaigns
   resources :case_studies, except: :show
 
-  resources :tile_features, only: [:index, :create, :update, :destroy, :new]
-
   namespace :sales do
     resources :organizations, only: [:new, :create]
     resources :lead_contacts, only: [:index, :create, :destroy] do

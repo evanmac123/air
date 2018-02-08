@@ -1,7 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.UserTileShareOptions = (function(){
-
+Airbo.UserTileShareOptions = (function() {
   function init() {
     initSocialShareLinks($(".social-share"));
     initSharePings();
@@ -9,7 +8,7 @@ Airbo.UserTileShareOptions = (function(){
 
   function initSocialShareLinks($selector) {
     jsSocials.setDefaults("pinterest", {
-    	media: $("meta[property='og:image']").attr("content")
+      media: $("meta[property='og:image']").attr("content")
     });
 
     jsSocials.setDefaults("twitter", {
@@ -37,11 +36,13 @@ Airbo.UserTileShareOptions = (function(){
   }
 
   function sharePing(shareOption) {
-    Airbo.Utils.ping("Tile Sharing", { action: "Share option clicked", shareOption: shareOption });
+    Airbo.Utils.ping("Tile Sharing", {
+      action: "Share option clicked",
+      shareOption: shareOption
+    });
   }
 
   return {
     init: init
   };
-
-}());
+})();

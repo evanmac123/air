@@ -10,14 +10,16 @@ Handlebars.registerHelper("debugger", function(optionalValue) {
   }
 });
 
-Handlebars.registerHelper('formatLocalTime', function(utc, format) {
+Handlebars.registerHelper("formatLocalTime", function(utc, format) {
   var utcTime = moment.utc(utc).toDate();
-  return moment(utcTime).local().format(format);
+  return moment(utcTime)
+    .local()
+    .format(format);
 });
 
 Handlebars.registerHelper("numAddCommas", function(num) {
   if (num) {
-    return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+    return num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
   } else {
     return 0;
   }
@@ -35,12 +37,16 @@ Handlebars.registerHelper("arrExists", function(arr) {
   return arr !== undefined || arr.length !== 0;
 });
 
-Handlebars.registerHelper('link', function(text, options) {
+Handlebars.registerHelper("link", function(text, options) {
   var attrs = [];
 
   for (var prop in options.hash) {
     attrs.push(
-      Handlebars.escapeExpression(prop) + '="' + Handlebars.escapeExpression(options.hash[prop]) + '"');
+      Handlebars.escapeExpression(prop) +
+        '="' +
+        Handlebars.escapeExpression(options.hash[prop]) +
+        '"'
+    );
   }
 
   return new Handlebars.SafeString(
@@ -56,18 +62,36 @@ Handlebars.registerHelper("compare", function(lvalue, rvalue, options) {
   var operator = options.hash.operator || "==";
 
   var operators = {
-    '==':       function(l,r) { return l == r; },
-    '===':      function(l,r) { return l === r; },
-    '!=':       function(l,r) { return l != r; },
-    '<':        function(l,r) { return l < r; },
-    '>':        function(l,r) { return l > r; },
-    '<=':       function(l,r) { return l <= r; },
-    '>=':       function(l,r) { return l >= r; },
-    'typeof':   function(l,r) { return typeof l == r; }
+    "==": function(l, r) {
+      return l == r;
+    },
+    "===": function(l, r) {
+      return l === r;
+    },
+    "!=": function(l, r) {
+      return l != r;
+    },
+    "<": function(l, r) {
+      return l < r;
+    },
+    ">": function(l, r) {
+      return l > r;
+    },
+    "<=": function(l, r) {
+      return l <= r;
+    },
+    ">=": function(l, r) {
+      return l >= r;
+    },
+    typeof: function(l, r) {
+      return typeof l == r;
+    }
   };
 
   if (!operators[operator]) {
-    throw new Error("Handlerbars Helper 'compare' doesn't know the operator " +  operator);
+    throw new Error(
+      "Handlerbars Helper 'compare' doesn't know the operator " + operator
+    );
   }
 
   var result = operators[operator](lvalue, rvalue);
@@ -80,46 +104,46 @@ Handlebars.registerHelper("compare", function(lvalue, rvalue, options) {
 });
 
 Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
-    lvalue = parseFloat(lvalue);
-    rvalue = parseFloat(rvalue);
+  lvalue = parseFloat(lvalue);
+  rvalue = parseFloat(rvalue);
 
-    return {
-        "+": lvalue + rvalue,
-        "-": lvalue - rvalue,
-        "*": lvalue * rvalue,
-        "/": lvalue / rvalue,
-        "%": lvalue % rvalue
-    }[operator];
+  return {
+    "+": lvalue + rvalue,
+    "-": lvalue - rvalue,
+    "*": lvalue * rvalue,
+    "/": lvalue / rvalue,
+    "%": lvalue % rvalue
+  }[operator];
 });
 
-Handlebars.registerHelper('toJSON', function(string) {
-    return JSON.stringify(string);
+Handlebars.registerHelper("toJSON", function(string) {
+  return JSON.stringify(string);
 });
 
-Handlebars.registerHelper('renderPartial', function(template, options) {
+Handlebars.registerHelper("renderPartial", function(template, options) {
   return new Handlebars.SafeString(HandlebarsTemplates[template](options.hash));
 });
 
-Handlebars.registerHelper('truncate', function(str, len) {
-  if(str && str.length > len) {
+Handlebars.registerHelper("truncate", function(str, len) {
+  if (str && str.length > len) {
     var newStr = str + " ";
     newStr = str.substr(0, len);
     newStr = str.substr(0, newStr.lastIndexOf(" "));
-    newStr = (newStr.length > 0) ? newStr : str.substr(0, len);
-    return new Handlebars.SafeString(newStr + '...');
+    newStr = newStr.length > 0 ? newStr : str.substr(0, len);
+    return new Handlebars.SafeString(newStr + "...");
   }
 
   return str;
 });
 
-Handlebars.registerHelper('decorateUriForTileStats', function(uri) {
-  if(uri.includes("s3.amazonaws.com/tile_attachments")) {
+Handlebars.registerHelper("decorateUriForTileStats", function(uri) {
+  if (uri.includes("s3.amazonaws.com/tile_attachments")) {
     uri = uri.split("/").pop();
   }
 
   return Handlebars.helpers.truncate(uri, 65);
 });
 
-Handlebars.registerHelper('uriEncode', function(uri) {
+Handlebars.registerHelper("uriEncode", function(uri) {
   return encodeURI(uri);
 });

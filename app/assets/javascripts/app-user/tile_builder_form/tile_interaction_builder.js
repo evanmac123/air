@@ -1,5 +1,4 @@
-
-Airbo.TileInteractionBuilder = (function(){
+Airbo.TileInteractionBuilder = (function() {
   var question;
   var questionPlaceholder;
   var answer;
@@ -10,7 +9,7 @@ Airbo.TileInteractionBuilder = (function(){
     container.setAttribute("class", type + "-interaction " + subtype);
   }
 
-  function renderQuestion () {
+  function renderQuestion() {
     var textArea = document.getElementById("tile_question");
     textArea.innerText = question;
     textArea.placeholder = questionPlaceholder;
@@ -21,7 +20,7 @@ Airbo.TileInteractionBuilder = (function(){
     renderQuestion();
   }
 
-  function addAnswer(){
+  function addAnswer() {
     answer.addAnswer();
   }
 
@@ -39,4 +38,4 @@ Airbo.TileInteractionBuilder = (function(){
     render: render,
     addAnswer: addAnswer
   };
-}());
+})();

@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.OutboundLeads = (function(){
+Airbo.OutboundLeads = (function() {
   function openTab() {
     $(".tablinks").on("click", function() {
       $(".tablinks").removeClass("active");
@@ -20,9 +20,9 @@ Airbo.OutboundLeads = (function(){
   return {
     init: init
   };
-}());
+})();
 
-$(function(){
+$(function() {
   if ($(".leads-container").length > 0) {
     Airbo.OutboundLeads.init();
   }

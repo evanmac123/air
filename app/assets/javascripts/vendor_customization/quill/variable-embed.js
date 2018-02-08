@@ -105,8 +105,10 @@ var Variable = (function(_Embed) {
 
     return _possibleConstructorReturn(
       this,
-      (Variable.__proto__ || Object.getPrototypeOf(Variable))
-        .apply(this, arguments)
+      (Variable.__proto__ || Object.getPrototypeOf(Variable)).apply(
+        this,
+        arguments
+      )
     );
   }
 

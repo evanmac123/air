@@ -12,18 +12,17 @@ Airbo.DependentEmailForm = (function() {
       e.preventDefault();
 
       var formObj = $(this);
-      if(formObj.valid()){
-       formObj.ajaxSubmit({
-          dataType: 'html',
+      if (formObj.valid()) {
+        formObj.ajaxSubmit({
+          dataType: "html",
           success: function(data, status, xhr) {
             $(formSel).replaceWith(data);
             setTimeout(deferred.resolve, 1000);
           }
         });
-      }else{
-       console.log("invalid form");
+      } else {
+        console.log("invalid form");
       }
-
     });
 
     $(exitFormSel).click(function(e) {
@@ -35,14 +34,13 @@ Airbo.DependentEmailForm = (function() {
     });
   }
 
-  function initValidator(){
+  function initValidator() {
     var config = {
-
-    errorClass: "dependent_user_invitation_error",
+      errorClass: "dependent_user_invitation_error",
       rules: {
-    "dependent_user_invitation[email]":{ required: true },
-    "dependent_user_invitation[subject]": { required: true },
-    "dependent_user_invitation[body]": { required: true }
+        "dependent_user_invitation[email]": { required: true },
+        "dependent_user_invitation[subject]": { required: true },
+        "dependent_user_invitation[body]": { required: true }
       },
       messages: {
         "dependent_user_invitation[email]": "Email is required",
@@ -59,7 +57,7 @@ Airbo.DependentEmailForm = (function() {
     return form.validate(config);
   }
 
-  function init(){
+  function init() {
     form = $(formSel);
     initValidator();
     initEvents();
@@ -68,14 +66,16 @@ Airbo.DependentEmailForm = (function() {
   function get() {
     $.ajax({
       type: "GET",
-      url: '/invitation/dependent_user_invitation/new',
+      url: "/invitation/dependent_user_invitation/new",
       dataType: "html",
       success: function(data, status, xhr) {
-        $(tileQuizSecSel).hide().after(data);
+        $(tileQuizSecSel)
+          .hide()
+          .after(data);
         init();
 
         var tileId = $(".tile_holder").data("current-tile-id");
-        Airbo.Utils.ping('Opened Invite Form', {tile_id: tileId});
+        Airbo.Utils.ping("Opened Invite Form", { tile_id: tileId });
       }
     });
 
@@ -86,5 +86,4 @@ Airbo.DependentEmailForm = (function() {
   return {
     get: get
   };
-
-}());
+})();

@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileStatsMessageSender = (function(){
+Airbo.TileStatsMessageSender = (function() {
   function initEvents() {
     initSendMessage();
     initSendTestMessage();
@@ -49,7 +49,11 @@ Airbo.TileStatsMessageSender = (function(){
   }
 
   function messageSentSuccess(data) {
-    Airbo.SubComponentFlash.insert($(".tile-stats-card-content"), "Your message has been delivered.", "success");
+    Airbo.SubComponentFlash.insert(
+      $(".tile-stats-card-content"),
+      "Your message has been delivered.",
+      "success"
+    );
     Airbo.TileStatsPings.ping({ action: "Tile Targeted Message Sent" });
 
     addNewMessageToSentTable(data);
@@ -58,7 +62,9 @@ Airbo.TileStatsMessageSender = (function(){
   }
 
   function addNewMessageToSentTable(data) {
-    template = HandlebarsTemplates["client-admin/tile-stats-modal/tile-user-notification-row"]({notification: data.tile_user_notification});
+    template = HandlebarsTemplates[
+      "client-admin/tile-stats-modal/tile-user-notification-row"
+    ]({ notification: data.tile_user_notification });
 
     $(".messages-sent-table-body").prepend(template);
     $(".messages-sent-table").show();
@@ -66,7 +72,11 @@ Airbo.TileStatsMessageSender = (function(){
   }
 
   function testMessageSentSuccess() {
-    Airbo.SubComponentFlash.insert($(".tile-stats-card-content"), "A test message has been sent to your email address.", "success");
+    Airbo.SubComponentFlash.insert(
+      $(".tile-stats-card-content"),
+      "A test message has been sent to your email address.",
+      "success"
+    );
     Airbo.TileStatsPings.ping({ action: "Test Tile Targeted Message Sent" });
 
     initSendTestMessage();
@@ -76,7 +86,11 @@ Airbo.TileStatsMessageSender = (function(){
     var flashMessage = xhr.getResponseHeader("X-Message");
     var flashType = xhr.getResponseHeader("X-Message-Type");
 
-    Airbo.SubComponentFlash.insert($(".tile-stats-card-content"), flashMessage, flashType);
+    Airbo.SubComponentFlash.insert(
+      $(".tile-stats-card-content"),
+      flashMessage,
+      flashType
+    );
 
     initSendTestMessage();
   }
@@ -87,13 +101,15 @@ Airbo.TileStatsMessageSender = (function(){
   }
 
   function tileUserNotificationParams() {
-    return { tile_user_notification: {
-      tile_id: $(".tile-stats-modal").data("tileStatsData").id,
-      subject: currentMessageSubject(),
-      message: currentMessageHTML(),
-      scope_cd: currentMessageScope(),
-      answer_idx: currentMessageAnswerIdx(),
-    } };
+    return {
+      tile_user_notification: {
+        tile_id: $(".tile-stats-modal").data("tileStatsData").id,
+        subject: currentMessageSubject(),
+        message: currentMessageHTML(),
+        scope_cd: currentMessageScope(),
+        answer_idx: currentMessageAnswerIdx()
+      }
+    };
   }
 
   function currentMessageSubject() {
@@ -117,7 +133,9 @@ Airbo.TileStatsMessageSender = (function(){
   }
 
   function getRecipientCount() {
-    $(".js-recipient-count").html('<i class="load-wheel fa fa-spin fa-spinner"> </i> people');
+    $(".js-recipient-count").html(
+      '<i class="load-wheel fa fa-spin fa-spinner"> </i> people'
+    );
 
     $.ajax({
       url: "/client_admin/tile_user_notifications/new",
@@ -133,7 +151,11 @@ Airbo.TileStatsMessageSender = (function(){
   function setRecipientCount(data, status) {
     var recipientCount = data.tile_user_notification.recipient_count;
 
-    $(".js-recipient-count").html(Handlebars.helpers.numAddCommas(recipientCount) + " " + Handlebars.helpers.pluralize(recipientCount, "person", "people"));
+    $(".js-recipient-count").html(
+      Handlebars.helpers.numAddCommas(recipientCount) +
+        " " +
+        Handlebars.helpers.pluralize(recipientCount, "person", "people")
+    );
   }
 
   function init() {
@@ -144,4 +166,4 @@ Airbo.TileStatsMessageSender = (function(){
     init: init,
     getRecipientCount: getRecipientCount
   };
-}());
+})();
