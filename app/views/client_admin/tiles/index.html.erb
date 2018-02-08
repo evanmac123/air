@@ -9,6 +9,10 @@
         <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-active-tiles-component"><a href="#">Live</a></li>
         <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-archive-tiles-component"><a href="#">Archive</a></li>
       </ul>
+      <%= link_to new_client_admin_tile_path, class: "new-tile-button js-new-tile-button float-right button icon" do %>
+        <%= fa_icon "plus" %>
+        <span>Add New Tile</span>
+      <% end %>
     </div>
   </div>
 

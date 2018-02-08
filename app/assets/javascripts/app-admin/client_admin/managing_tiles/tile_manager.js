@@ -1,7 +1,7 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileManager = (function() {
-  var newTileBtnSel = "#add_new_tile";
+  var newTileBtnSel = ".js-new-tile-button";
   var sectionSelector = ".manage_section";
   var tileWrapperSelector = ".tile_container";
   var managerType; // main or archived

@@ -23,18 +23,7 @@
       }
     }
   }
-  &.suggestion_box_selected {
-    #draft {
-      display: none;
-    }
-    #add_new_tile {
-      display: none;
-    }
-    #suggestion_box {
-      display: block;
-    }
 
-  }
   &.suggestion_box_gated {
     margin-top: 0;
     padding-top: 2em;
@@ -45,12 +34,10 @@
 //
 
 // Add New Tile Btn
-#add_new_tile {
+.new-tile-button {
   position: absolute;
-  top: 3px;
-  right: 35px;
-  z-index: 1;
-  border: 1px solid #48bfff;
+  top: 15px;
+  right: 58px;
 }
 //
 // => Draft Header Block
