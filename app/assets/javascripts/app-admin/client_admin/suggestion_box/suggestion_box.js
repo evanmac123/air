@@ -20,7 +20,7 @@ Airbo.SuggestionBox = (function() {
         .addClass("suggestion_box_selected");
       $("#suggestion_box_sub_menu").show();
     }
-    updateShowMoreDraftTilesButton();
+
     Airbo.DraftSectionExpander.compressSection();
   }
 
@@ -91,6 +91,6 @@ Airbo.SuggestionBox = (function() {
 
 $(function() {
   if ($(".draft-and-suggested-tiles").length > 0) {
-    Airbo.SuggestionBox.init();
+    // Airbo.SuggestionBox.init();
   }
 });

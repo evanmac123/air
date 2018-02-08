@@ -8,44 +8,9 @@ replaceMovedTile = function(tile_id, updated_tile_container) {
   Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".pill.more"));
 };
 
-updateShowMoreDraftTilesButton = function() {
-  var button = $(".show_all_draft_section");
-  if (showMoreDraftTiles() || showMoreSuggestionBox()) {
-    button.show();
-  } else {
-    button.hide();
-  }
-};
-
-updateShowMoreArchiveTilesButton = function() {
-  if (Airbo.TileManager.managerType === "archived") {
-    return;
-  }
-
-  var button = $(".show_all_inactive_section");
-
-  if (notTilePlaceholdersInSection($("#archive")).length > 4) {
-    button.show();
-  } else {
-    button.hide();
-  }
-};
-
-updateShowMoreButtons = function() {
-  updateShowMoreDraftTilesButton();
-  updateShowMoreArchiveTilesButton();
-};
-
 showMoreDraftTiles = function() {
   var draftTilesCount = notTilePlaceholdersInSection($("#draft")).length;
   return draftTilesCount > 6 && selectedSection() === "draft";
-};
-
-showMoreSuggestionBox = function() {
-  var suggestionBoxTilesCount = notTilePlaceholdersInSection(
-    $("#suggestion_box")
-  ).length;
-  return suggestionBoxTilesCount > 6 && selectedSection() === "box";
 };
 
 selectedSection = function() {
@@ -310,11 +275,7 @@ Airbo.TileDragDropSort = (function() {
   }
 
   function numberInRow(section) {
-    if (section === "draft" || section === "suggestion_box") {
-      return 6;
-    } else {
-      return 4;
-    }
+    return 4;
   }
 
   function findTileId(tile) {
@@ -413,13 +374,10 @@ Airbo.TileDragDropSort = (function() {
 
   function onSortSuccess(result) {
     replaceMovedTile(result.tileId, result.tileHTML);
-    updateShowMoreDraftTilesButton();
 
     Airbo.PubSub.publish("updateShareTabNotification", {
       number: result.tilesToBeSentCount
     });
-
-    updateShowMoreButtons();
   }
 
   function saveTilePosition(tile) {
@@ -563,5 +521,6 @@ $(function() {
   if (Airbo.Utils.nodePresent(".client_admin-tiles-index")) {
     Airbo.TileDragDropSort.init();
     Airbo.DraftSectionExpander.init();
+    Airbo.TabsComponentManager.init(".js-ca-tiles-index-module");
   }
 });

@@ -1,24 +1,58 @@
-<section class="<%= draftSectionClass %> manage_tiles compressed_section" id="draft_tiles">
-  <%= render partial: 'client_admin/tiles/manage_tiles/draft' %>
-</section>
-<%= render partial: 'client_admin/tiles/manage_tiles/show_all_draft' %>
+<div class="js-ca-tiles-index-module ca-tiles-index-module">
+  <div class="tabs-component-full-width">
+    <div class="row">
+      <ul class="inline-list js-ca-tiles-index-module-tabs">
+        <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-suggested-tiles-component"><a href="#">Suggested</a></li>
+        <!-- <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-pinned-tiles-component"><a href="#">Planning</a></li> -->
+        <li style="color: #8da0ab">|</li>
+        <li class="js-ca-tiles-index-component-tab tab active" data-tab-content="js-draft-tiles-component"><a href="#">Draft</a></li>
+        <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-active-tiles-component"><a href="#">Live</a></li>
+        <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-archive-tiles-component"><a href="#">Archive</a></li>
+      </ul>
+    </div>
+  </div>
 
-<div class="completed_tiles_containment">
-  <section class="manage_tiles" id="active_tiles">
-    <div class="draft_overlay">
-      <div class="overlay_message">
-        <%= fa_icon "ban" %>
+  <section class="manage_tiles js-suggested-tiles-component js-ca-tiles-index-module-tab-content hidden pt-2">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="manage_section" id="suggested">
+          <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @tiles_facade.suggested_tiles.empty? } %>
+          <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @tiles_facade.suggested_tiles} %>
+        </div>
       </div>
     </div>
-    <%= render partial: 'client_admin/tiles/manage_tiles/active' %>
   </section>
-  <section class="manage_tiles" id="archived_tiles">
-    <div class="draft_overlay">
-      <div class="overlay_message">
-        <%= fa_icon "ban" %>
+
+  <section class="manage_tiles js-draft-tiles-component js-ca-tiles-index-module-tab-content pt-2">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="manage_section" id="draft">
+          <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @tiles_facade.draft_tiles.empty? } %>
+          <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @tiles_facade.draft_tiles} %>
+        </div>
       </div>
     </div>
-    <%= render partial: 'client_admin/tiles/manage_tiles/archive' %>
   </section>
-  <%= render partial: 'client_admin/tiles/manage_tiles/show_all_archive' %>
+
+  <section class="manage_tiles js-active-tiles-component js-ca-tiles-index-module-tab-content hidden pt-2">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="manage_section" id="active">
+          <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: { display_no_tiles_section: @tiles_facade.active_tiles.empty? } %>
+          <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: { tiles: @tiles_facade.active_tiles } %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="manage_tiles js-archive-tiles-component js-ca-tiles-index-module-tab-content hidden pt-2">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="manage_section" id="archive">
+          <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: { display_no_tiles_section: @tiles_facade.archive_tiles.empty? } %>
+          <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: { tiles: @tiles_facade.archive_tiles } %>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

@@ -40,7 +40,6 @@
     ],
     "app/assets/javascripts/**/*.js": [
       "prettier --write",
-      "eslint",
       "git add"
     ],
     "app/**/*.{css, scss}": [

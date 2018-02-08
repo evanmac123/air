@@ -58,7 +58,6 @@ Airbo.TileManager = (function() {
 
   function updateSectionsNormal(data) {
     updateTileSection(data);
-    updateShowMoreDraftTilesButton();
   }
 
   function updateSectionsSearch(data) {

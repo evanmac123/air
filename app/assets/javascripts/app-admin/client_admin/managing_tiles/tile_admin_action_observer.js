@@ -13,7 +13,6 @@ Airbo.TileAdminActionObserver = (function() {
 
     Airbo.PubSub.subscribe("/tile-admin/tile-copied", function(event, payload) {
       Airbo.TileManager.updateTileSection(payload.data);
-      updateShowMoreDraftTilesButton();
     });
 
     Airbo.PubSub.subscribe("/tile-admin/tile-deleted", function(
@@ -23,7 +22,6 @@ Airbo.TileAdminActionObserver = (function() {
       var isArchiveSection = payload.tile.data("status") == "archive";
       payload.tile.remove();
       Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
-      updateShowMoreDraftTilesButton();
     });
   }
 
@@ -49,29 +47,30 @@ Airbo.TileAdminActionObserver = (function() {
   }
 
   function moveTile(currTile, updatedTile) {
-    function fromSuggestionBox() {
-      return currTile.data("status") == "user_submitted" || status == "ignored";
-    }
-
     var sections = {
       active: "active",
       draft: "draft",
       archive: "archive",
-      user_submitted: "suggestion_box",
-      ignored: "suggestion_box"
+      user_submitted: "suggested",
+      ignored: "suggested"
     };
 
     var status = updatedTile.data("status");
     var newSection = "#" + sections[status];
 
     currTile.remove();
-    $(newSection).prepend(updatedTile);
-    Airbo.TileDragDropSort.updateTilesAndPlaceholdersAppearance();
 
-    if (fromSuggestionBox(currTile)) {
-      updateUserSubmittedTilesCounter();
+    if (status === "ignored") {
+      $(updatedTile).insertAfter(
+        $(newSection)
+          .children(".tile_container.finished")
+          .last()
+      );
+    } else {
+      $(newSection).prepend(updatedTile);
     }
 
+    Airbo.TileDragDropSort.updateTilesAndPlaceholdersAppearance();
     Airbo.TileThumbnailMenu.initMoreBtn(updatedTile.find(".pill.more"));
   }
 

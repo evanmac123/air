@@ -20,12 +20,12 @@ class ClientAdminTilesFacade
 
   def draft_tiles
     tiles = tiles_by_grp(Tile::DRAFT)
-    Tile::PlaceholderManager.call(tiles, 6)
+    Tile::PlaceholderManager.call(tiles)
   end
 
   def suggested_tiles
     tiles = suggesteds
-    Tile::PlaceholderManager.call(tiles, 6)
+    Tile::PlaceholderManager.call(tiles)
   end
 
   def user_submitted_tiles_counter
