@@ -1,3 +1,4 @@
+// deprecate
 var Airbo = window.Airbo || {};
 
 Airbo.DraftSectionExpander = (function() {

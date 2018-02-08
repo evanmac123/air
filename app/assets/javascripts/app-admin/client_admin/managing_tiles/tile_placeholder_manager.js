@@ -155,7 +155,6 @@ Airbo.TilePlaceHolderManager = (function() {
     init: init,
     updateTilesAndPlaceholdersAppearance: updateTilesAndPlaceholdersAppearance,
     updateTileVisibilityIn: updateTileVisibilityIn,
-    updateTileVisibility: updateTileVisibility,
     visibleTilesNumberIn: visibleTilesNumberIn
   };
 })();
