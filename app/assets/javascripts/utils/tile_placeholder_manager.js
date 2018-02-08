@@ -22,11 +22,7 @@ Airbo.Utils.TilePlaceHolderManager = (function() {
   }
 
   function numberInRow(section) {
-    if (section === "draft" || section === "suggestion_box") {
-      return 6;
-    } else {
-      return 4;
-    }
+    return 4;
   }
 
   /*TODO refactor and combine these three functions
