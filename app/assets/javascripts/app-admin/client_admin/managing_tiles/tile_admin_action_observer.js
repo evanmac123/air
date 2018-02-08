@@ -21,7 +21,7 @@ Airbo.TileAdminActionObserver = (function() {
     ) {
       var isArchiveSection = payload.tile.data("status") == "archive";
       payload.tile.remove();
-      Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+      Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
     });
   }
 
@@ -36,7 +36,7 @@ Airbo.TileAdminActionObserver = (function() {
     var currTile = payload.currTile;
     var updatedTile = payload.updatedTile;
 
-    Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+    Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
     swal.close();
     if (window.location.pathname.indexOf("inactive_tiles") > 0) {
       currTile.hide();
@@ -70,7 +70,7 @@ Airbo.TileAdminActionObserver = (function() {
       $(newSection).prepend(updatedTile);
     }
 
-    Airbo.TileDragDropSort.updateTilesAndPlaceholdersAppearance();
+    Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
     Airbo.TileThumbnailMenu.initMoreBtn(updatedTile.find(".pill.more"));
   }
 

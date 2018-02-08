@@ -55,9 +55,7 @@ sectionHasFreePlace = function(section) {
 };
 
 sectionIsFull = function(section) {
-  var tileNum = Airbo.Utils.TilePlaceHolderManager.visibleTilesNumberIn(
-    section
-  );
+  var tileNum = Airbo.TilePlaceHolderManager.visibleTilesNumberIn(section);
   return notTilePlaceholdersInSection(section).length >= tileNum;
 };
 
@@ -145,7 +143,7 @@ Airbo.TileDragDropSort = (function() {
         },
         function() {
           cancelTileMoving();
-          return updateTilesAndPlaceholdersAppearance();
+          return Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
         }
       );
     }
@@ -193,7 +191,7 @@ Airbo.TileDragDropSort = (function() {
   }
 
   function overEvent(event, tile, section) {
-    updateTilesAndPlaceholdersAppearance();
+    Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
     updateTileInSectionClass(tile, section);
   }
 
@@ -222,7 +220,7 @@ Airbo.TileDragDropSort = (function() {
     $("#active").sortable("enable");
     turnOffDraftBlocking(tile, section);
     showDraftBlockedOverlay(false);
-    updateTilesAndPlaceholdersAppearance();
+    Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
     tileInfo(tile, "show");
   }
 
@@ -294,69 +292,6 @@ Airbo.TileDragDropSort = (function() {
       .addClass("tile_in_" + section.attr("id"));
   }
 
-  function updateTilesAndPlaceholdersAppearance() {
-    updateAllPlaceholders();
-    updateAllNoTilesSections();
-    updateTileVisibility();
-  }
-
-  function updateAllPlaceholders() {
-    var i, len, ref, results, section;
-    ref = sectionNames;
-    results = [];
-    for (i = 0, len = ref.length; i < len; i++) {
-      section = ref[i];
-      results.push(updatePlaceholders(section));
-    }
-    return results;
-  }
-
-  function updatePlaceholders(section) {
-    var allTilesNumber,
-      expectedPlaceholdersNumber,
-      placeholdersNumber,
-      tilesNumber;
-    allTilesNumber = $("#" + section).find(notDraggedTileSelector).length;
-    placeholdersNumber = $("#" + section).find(placeholderSelector).length;
-    tilesNumber = allTilesNumber - placeholdersNumber;
-    expectedPlaceholdersNumber =
-      (numberInRow(section) - tilesNumber % numberInRow(section)) %
-      numberInRow(section);
-    removePlaceholders(section);
-    return addPlaceholders(section, expectedPlaceholdersNumber);
-  }
-
-  function removePlaceholders(section) {
-    return $("#" + section)
-      .children(placeholderSelector)
-      .remove();
-  }
-
-  function addPlaceholders(section, number) {
-    $("#" + section).append(placeholderHTML.repeat(number));
-  }
-
-  function updateAllNoTilesSections() {
-    var i, len, ref, results, section;
-    ref = sectionNames;
-    results = [];
-    for (i = 0, len = ref.length; i < len; i++) {
-      section = ref[i];
-      results.push(updateNoTilesSection(section));
-    }
-    return results;
-  }
-
-  function updateNoTilesSection(section) {
-    var no_tiles_section;
-    no_tiles_section = $("#" + section).find(".no_tiles_section");
-    if ($("#" + section).children(notDraggedTileSelector).length === 0) {
-      no_tiles_section.show();
-    } else {
-      no_tiles_section.hide();
-    }
-  }
-
   function tileInfo(tile, action) {
     var controlElements, shadowOverlay;
     controlElements = tile.find(".tile_buttons, .tile_stats");
@@ -397,7 +332,7 @@ Airbo.TileDragDropSort = (function() {
       url: "/api/client_admin/tiles/" + id + "/sorts",
       success: function(result) {
         onSortSuccess(result);
-        updateTileVisibility();
+        Airbo.TilePlaceHolderManager.updateTileVisibility();
       }
     });
   }
@@ -433,17 +368,6 @@ Airbo.TileDragDropSort = (function() {
     );
   }
 
-  function updateTileVisibility() {
-    var i, len, ref, results, section;
-    ref = sectionNames;
-    results = [];
-    for (i = 0, len = ref.length; i < len; i++) {
-      section = ref[i];
-      results.push(updateTileVisibilityIn(section));
-    }
-    return results;
-  }
-
   function draftSectionIsCompressed() {
     return $("#draft_tiles").hasClass("compressed_section");
   }
@@ -460,22 +384,6 @@ Airbo.TileDragDropSort = (function() {
     } else {
       return 9999;
     }
-  }
-
-  function updateTileVisibilityIn(section) {
-    var i, index, len, results, tile, tiles, visibleTilesNumber;
-    tiles = $("#" + section).find("> " + notDraggedTileSelector);
-    visibleTilesNumber = visibleTilesNumberIn(section);
-    results = [];
-    for (index = i = 0, len = tiles.length; i < len; index = ++i) {
-      tile = tiles[index];
-      if (index < visibleTilesNumber) {
-        results.push($(tile).css("display", "block"));
-      } else {
-        results.push($(tile).css("display", "none"));
-      }
-    }
-    return results;
   }
 
   function moveComfirmationModal(tile) {
@@ -511,16 +419,13 @@ Airbo.TileDragDropSort = (function() {
   }
 
   return {
-    init: init,
-    updateTileVisibilityIn: updateTileVisibilityIn,
-    updateTilesAndPlaceholdersAppearance: updateTilesAndPlaceholdersAppearance
+    init: init
   };
 })();
 
 $(function() {
-  if (Airbo.Utils.nodePresent(".client_admin-tiles-index")) {
+  if (Airbo.Utils.nodePresent(".js-ca-tiles-index-module")) {
     Airbo.TileDragDropSort.init();
     Airbo.DraftSectionExpander.init();
-    Airbo.TabsComponentManager.init(".js-ca-tiles-index-module");
   }
 });

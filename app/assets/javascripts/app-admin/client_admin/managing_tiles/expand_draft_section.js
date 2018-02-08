@@ -108,7 +108,7 @@ Airbo.DraftSectionExpander = (function() {
     } else {
       section().addClass(compressedSectionClass());
     }
-    Airbo.TileDragDropSort.updateTileVisibilityIn(selectedBlockName());
+    Airbo.TilePlaceHolderManager.updateTileVisibilityIn(selectedBlockName());
   }
 
   function sectionIsCompressed() {

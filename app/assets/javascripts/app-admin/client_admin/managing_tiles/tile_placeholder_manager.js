@@ -1,7 +1,6 @@
 var Airbo = window.Airbo || {};
-Airbo.Utils = Airbo.Utils || {};
 
-Airbo.Utils.TilePlaceHolderManager = (function() {
+Airbo.TilePlaceHolderManager = (function() {
   var placeholderSelector =
       ".tile_container.placeholder_container:not(.hidden_tile)",
     notDraggedTileSelector =
@@ -155,6 +154,8 @@ Airbo.Utils.TilePlaceHolderManager = (function() {
   return {
     init: init,
     updateTilesAndPlaceholdersAppearance: updateTilesAndPlaceholdersAppearance,
+    updateTileVisibilityIn: updateTileVisibilityIn,
+    updateTileVisibility: updateTileVisibility,
     visibleTilesNumberIn: visibleTilesNumberIn
   };
 })();
