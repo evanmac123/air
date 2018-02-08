@@ -13,7 +13,6 @@
     "babel-eslint": "^8.0.1",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.1",
-    "eslint-config-es5": "^0.5.0",
     "eslint-config-prettier": "^2.6.0",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-import": "^2.7.0",
@@ -32,7 +31,6 @@
   "lint-staged": {
     "config/webpack/**/*.js": [
       "prettier --write",
-      "eslint",
       "git add"
     ],
     "app/javascript/**/*.js": [
@@ -42,6 +40,7 @@
     ],
     "app/assets/javascripts/**/*.js": [
       "prettier --write",
+      "eslint",
       "git add"
     ],
     "app/**/*.{css, scss}": [
