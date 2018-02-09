@@ -28,7 +28,7 @@ Airbo.TileManager = (function() {
       replaceTileContent(tile, data.tileId);
     } else {
       section.prepend(tile); //Add tile to section
-      Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+      Airbo.TilePlaceHolderManager.perform();
     }
 
     Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".pill.more"));

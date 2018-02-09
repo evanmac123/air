@@ -19,6 +19,7 @@ Airbo.TilesIndexEndlessScroll = (function() {
         $contentContainer.data("nextPage", data.nextPage);
         $contentContainer.data("lastPage", data.lastPage);
         $contentContainer.append(data.content);
+        Airbo.TilePlaceHolderManager.perform();
         Airbo.TileThumbnailMenu.initMoreBtn();
       }
     });

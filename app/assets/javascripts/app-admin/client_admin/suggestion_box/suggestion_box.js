@@ -33,7 +33,7 @@ Airbo.SuggestionBox = (function() {
       tile.remove();
     }
 
-    Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+    Airbo.TilePlaceHolderManager.perform();
   }
 
   function removeNewTileTip() {
@@ -77,7 +77,7 @@ Airbo.SuggestionBox = (function() {
 
     $(".draft-toggler a.unfinished").click(function() {
       $(".tile_container.unfinished").hide();
-      Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+      Airbo.TilePlaceHolderManager.perform();
     });
 
     Airbo.SuggestionBoxAccessManager.init();

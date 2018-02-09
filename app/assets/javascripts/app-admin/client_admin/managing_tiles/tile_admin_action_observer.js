@@ -21,7 +21,7 @@ Airbo.TileAdminActionObserver = (function() {
     ) {
       var isArchiveSection = payload.tile.data("status") == "archive";
       payload.tile.remove();
-      Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+      Airbo.TilePlaceHolderManager.perform();
     });
   }
 
@@ -55,7 +55,7 @@ Airbo.TileAdminActionObserver = (function() {
     currTile.remove();
     $(newSection).prepend(updatedTile);
 
-    Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+    Airbo.TilePlaceHolderManager.perform();
     Airbo.TileThumbnailMenu.initMoreBtn(updatedTile.find(".pill.more"));
   }
 

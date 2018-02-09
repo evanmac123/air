@@ -6,13 +6,6 @@ Airbo.TilePlaceHolderManager = (function() {
   var tileWithPlaceholderSel = tileSel + ", " + placeholderSel;
   var sectionNames = ["draft", "active", "archive", "suggested"];
   var numInRow = 4;
-  var tilesPerPage = 16;
-
-  function updateTileVisibility() {
-    $(sectionNames).each(function(index, section) {
-      updateTileVisibilityIn($("#" + section));
-    });
-  }
 
   function updateAllPlaceholders() {
     $(sectionNames).each(function(index, section) {
@@ -20,16 +13,9 @@ Airbo.TilePlaceHolderManager = (function() {
     });
   }
 
-  function updateTileVisibilityIn($section) {
-    var tiles = $section.find("> " + tileWithPlaceholderSel);
-    $(tiles).each(function(index, tile) {
-      $(tile).css("display", "block");
-    });
-  }
-
   function updatePlaceholders($section) {
     var allTilesNum = $section.find(tileWithPlaceholderSel).length;
-    if (allTilesNum < tilesPerPage) {
+    if ($section.data("lastPage") === true) {
       var tilesNum = $section.find(tileSel).length;
       var expectedPlaceholdersNum = numInRow - tilesNum % numInRow;
 
@@ -49,23 +35,17 @@ Airbo.TilePlaceHolderManager = (function() {
     $section.append(placeholderHTML.repeat(number));
   }
 
-  function updateTilesAndPlaceholdersAppearance() {
-    updateAllPlaceholders();
-    // updateTileVisibility();
-  }
-
-  function init() {
+  function perform() {
     updateAllPlaceholders();
   }
 
   return {
-    init: init,
-    updateTilesAndPlaceholdersAppearance: updateTilesAndPlaceholdersAppearance
+    perform: perform
   };
 })();
 
 $(function() {
   if ($(".js-tiles-index-section").length > 0) {
-    Airbo.TilePlaceHolderManager.init();
+    Airbo.TilePlaceHolderManager.perform();
   }
 });
