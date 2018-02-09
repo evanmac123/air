@@ -7,7 +7,7 @@ class Api::ClientAdmin::TileThumbnailsController < Api::ClientAdminBaseControlle
     content = render_to_string(
       formats: [:html],
       partial: "client_admin/tiles/manage_tiles/tiles_table",
-      locals: { tiles: Tile::PlaceholderManager.call(@tiles) }
+      locals: { tiles: @tiles }
     )
 
     render json: {

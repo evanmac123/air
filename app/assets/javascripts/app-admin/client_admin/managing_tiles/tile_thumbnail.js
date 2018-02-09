@@ -27,15 +27,12 @@ Airbo.TileThumbnail = (function() {
         case "unarchive":
         case "ignore":
         case "unignore":
+        case "accept":
           handleUpdate(link);
           break;
 
         case "delete":
           handleDelete(link);
-          break;
-
-        case "accept":
-          handleAccept(link);
           break;
       }
     });
@@ -43,10 +40,6 @@ Airbo.TileThumbnail = (function() {
 
   function handleUpdate(link) {
     Airbo.TileAction.updateStatus(link);
-  }
-
-  function handleAccept(link) {
-    Airbo.TileAction.confirmAcceptance(link);
   }
 
   function handleDelete(link) {

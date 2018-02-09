@@ -33,13 +33,6 @@ Airbo.TileDragDropSort = (function() {
       });
     },
 
-    over: function(event, ui) {
-      var section, tile;
-      section = $(this);
-      tile = ui.item;
-      return overEvent(event, tile, section);
-    },
-
     start: function(event, ui) {
       var section, tile;
       section = $(this);
@@ -49,49 +42,8 @@ Airbo.TileDragDropSort = (function() {
 
     receive: function(event, ui) {
       return;
-    },
-
-    stop: function(event, ui) {
-      var section, tile;
-      section = $(this);
-      tile = ui.item;
-      return $.when(moveConfirmation).then(
-        function() {
-          return stopEvent(event, tile, section);
-        },
-        function() {
-          cancelTileMoving();
-          return Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
-        }
-      );
     }
   };
-
-  function initDraftDroppable() {
-    $("#draft").droppable({
-      accept: ".tile_container",
-      over: function(event, ui) {
-        if ($("#draft").sortable("option", "disabled")) {
-          showDraftBlockedOverlay(true, $("#draft"));
-          Airbo.Utils.alert(
-            "You may not move tiles that have already been completed back to drafts"
-          );
-        }
-      }
-    });
-  }
-
-  function initActiveDroppable() {
-    $("#active").droppable({
-      accept: ".tile_container",
-      over: function(event, ui) {
-        if ($("#active").sortable("option", "disabled")) {
-          showDraftBlockedOverlay(true, $("#active"));
-          Airbo.Utils.alert(Airbo.Utils.Messages.incompleteTile);
-        }
-      }
-    });
-  }
 
   function initTileSorting() {
     $("#draft, #active, #archive")
@@ -100,30 +52,13 @@ Airbo.TileDragDropSort = (function() {
   }
 
   function updateEvent(event, tile, section) {
-    if (isTileInSection(tile, section)) {
-      tileInfo(tile, "remove");
-      saveTilePosition(tile);
-    } else {
-      sourceSectionName = section.attr("id");
-    }
-  }
-
-  function overEvent(event, tile, section) {
-    Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
-    updateTileInSectionClass(tile, section);
+    tileInfo(tile, "remove");
+    saveTilePosition(tile);
   }
 
   function startEvent(event, tile, section) {
     disableActiveSorting(event, tile, section);
     tileInfo(tile, "hide");
-  }
-
-  function stopEvent(event, tile, section) {
-    $("#active").sortable("enable");
-    turnOffDraftBlocking(tile, section);
-    showDraftBlockedOverlay(false);
-    Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
-    tileInfo(tile, "show");
   }
 
   function showDraftBlockedOverlay(isOn, node) {
@@ -134,10 +69,6 @@ Airbo.TileDragDropSort = (function() {
     } else {
       $(".draft_overlay").hide();
     }
-  }
-
-  function isTileInSection(tile, section) {
-    return getTilesSection(tile) === section.attr("id");
   }
 
   function cancelTileMoving() {
@@ -170,14 +101,6 @@ Airbo.TileDragDropSort = (function() {
 
   function getTilesSection(tile) {
     return tile.closest(".manage_section").attr("id");
-  }
-
-  function updateTileInSectionClass(tile, section) {
-    tile
-      .removeClass("tile_in_draft")
-      .removeClass("tile_in_active")
-      .removeClass("tile_in_archive")
-      .addClass("tile_in_" + section.attr("id"));
   }
 
   function tileInfo(tile, action) {
@@ -276,8 +199,6 @@ Airbo.TileDragDropSort = (function() {
 
   function init() {
     initTileSorting();
-    initDraftDroppable();
-    initActiveDroppable();
   }
 
   return {

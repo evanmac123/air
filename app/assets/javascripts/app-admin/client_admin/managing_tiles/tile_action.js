@@ -206,40 +206,11 @@ Airbo.TileAction = (function() {
     );
   }
 
-  //
-  // => Acceptance
-  //
-  function confirmAcceptance(trigger) {
-    var tile = tileByStatusChangeTriggerLocation(trigger);
-
-    function postProcess() {}
-
-    swal(
-      {
-        title: "",
-        text: "Are you sure you want to accept this tile?",
-        customClass: "airbo",
-        animation: false,
-        closeOnConfirm: false,
-        showCancelButton: true,
-        showLoaderOnConfirm: true
-      },
-
-      function(isConfirm) {
-        if (isConfirm) {
-          updateStatus(trigger);
-        }
-      }
-    );
-    swapModalButtons();
-  }
-
   return {
     movePing: movePing,
     updateStatus: updateStatus,
     makeDuplication: makeDuplication,
     confirmDeletion: confirmDeletion,
-    confirmAcceptance: confirmAcceptance,
     confirmUnarchive: confirmUnarchive,
     tileByStatusChangeTriggerLocation: tileByStatusChangeTriggerLocation
   };

@@ -8,7 +8,7 @@ Airbo.TileAdminActionObserver = (function() {
       event,
       payload
     ) {
-      tileUpdateStatusSucces(payload);
+      tileUpdateStatusSuccess(payload);
     });
 
     Airbo.PubSub.subscribe("/tile-admin/tile-copied", function(event, payload) {
@@ -32,18 +32,12 @@ Airbo.TileAdminActionObserver = (function() {
       .html("(" + submittedTile.length + ")");
   }
 
-  function tileUpdateStatusSucces(payload) {
+  function tileUpdateStatusSuccess(payload) {
     var currTile = payload.currTile;
     var updatedTile = payload.updatedTile;
 
-    Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
-    swal.close();
-    if (window.location.pathname.indexOf("inactive_tiles") > 0) {
-      currTile.hide();
-    } else {
-      $(tileModalSelector).foundation("reveal", "close");
-      moveTile(currTile, updatedTile);
-    }
+    moveTile(currTile, updatedTile);
+    $(tileModalSelector).foundation("reveal", "close");
   }
 
   function moveTile(currTile, updatedTile) {
@@ -59,16 +53,7 @@ Airbo.TileAdminActionObserver = (function() {
     var newSection = "#" + sections[status];
 
     currTile.remove();
-
-    if (status === "ignored") {
-      $(updatedTile).insertAfter(
-        $(newSection)
-          .children(".tile_container.finished")
-          .last()
-      );
-    } else {
-      $(newSection).prepend(updatedTile);
-    }
+    $(newSection).prepend(updatedTile);
 
     Airbo.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
     Airbo.TileThumbnailMenu.initMoreBtn(updatedTile.find(".pill.more"));

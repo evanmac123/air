@@ -6,9 +6,8 @@
         data-page="<%= tiles.current_page %>"
         data-next-page="<%= tiles.next_page %>"
         data-count="<%= tiles.count %>"
-        data-last-page="<%= tiles.last_page? %>"
+        data-last-page="<%= tiles.empty? || tiles.last_page? %>"
         data-status="<%= status %>">
-        <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: { display_no_tiles_section: tiles.empty? } %>
         <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: { tiles: tiles } %>
       </div>
       <div class="js-endless-scroll-loading text-center" style="display:none;">

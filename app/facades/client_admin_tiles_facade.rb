@@ -9,23 +9,19 @@ class ClientAdminTilesFacade
   end
 
   def active_tiles
-    tiles = demo.tiles.active.page(1).per(16)
-    Tile::PlaceholderManager.call(tiles)
+    demo.tiles.active.page(1).per(16)
   end
 
   def archive_tiles
-    tiles = demo.tiles.archive.page(1).per(16)
-    Tile::PlaceholderManager.call(tiles)
+    demo.tiles.archive.page(1).per(16)
   end
 
   def draft_tiles
-    tiles = demo.tiles.draft.page(1).per(16)
-    Tile::PlaceholderManager.call(tiles)
+    demo.tiles.draft.page(1).per(16)
   end
 
   def suggested_tiles
-    tiles = demo.tiles.suggested.page(1).per(16)
-    Tile::PlaceholderManager.call(tiles)
+    demo.tiles.suggested.page(1).per(16)
   end
 
   def allowed_to_suggest_users
