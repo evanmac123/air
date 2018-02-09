@@ -16,47 +16,27 @@
     </div>
   </div>
 
-  <section class="manage_tiles js-suggested-tiles-component js-ca-tiles-index-module-tab-content hidden pt-2">
-    <div class="row">
-      <div class="large-12 columns">
-        <div class="manage_section" id="suggested">
-          <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @tiles_facade.suggested_tiles.empty? } %>
-          <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @tiles_facade.suggested_tiles} %>
-        </div>
-      </div>
-    </div>
-  </section>
+  <%= render partial: 'client_admin/tiles/tiles_container', locals: {
+    component_classes: "js-suggested-tiles-component hidden",
+    id: "suggested",
+    tiles: @tiles_facade.suggested_tiles
+  } %>
 
-  <section class="manage_tiles js-draft-tiles-component js-ca-tiles-index-module-tab-content pt-2">
-    <div class="row">
-      <div class="large-12 columns">
-        <div class="manage_section" id="draft">
-          <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: {display_no_tiles_section: @tiles_facade.draft_tiles.empty? } %>
-          <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: {tiles: @tiles_facade.draft_tiles} %>
-        </div>
-      </div>
-    </div>
-  </section>
+  <%= render partial: 'client_admin/tiles/tiles_container', locals: {
+    component_classes: "js-draft-tiles-component",
+    id: "draft",
+    tiles: @tiles_facade.draft_tiles
+  } %>
 
-  <section class="manage_tiles js-active-tiles-component js-ca-tiles-index-module-tab-content hidden pt-2">
-    <div class="row">
-      <div class="large-12 columns">
-        <div class="manage_section" id="active">
-          <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: { display_no_tiles_section: @tiles_facade.active_tiles.empty? } %>
-          <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: { tiles: @tiles_facade.active_tiles } %>
-        </div>
-      </div>
-    </div>
-  </section>
+  <%= render partial: 'client_admin/tiles/tiles_container', locals: {
+    component_classes: "js-active-tiles-component hidden",
+    id: "active",
+    tiles: @tiles_facade.active_tiles
+  } %>
 
-  <section class="manage_tiles js-archive-tiles-component js-ca-tiles-index-module-tab-content hidden pt-2">
-    <div class="row">
-      <div class="large-12 columns">
-        <div class="manage_section" id="archive">
-          <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: { display_no_tiles_section: @tiles_facade.archive_tiles.empty? } %>
-          <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: { tiles: @tiles_facade.archive_tiles } %>
-        </div>
-      </div>
-    </div>
-  </section>
+  <%= render partial: 'client_admin/tiles/tiles_container', locals: {
+    component_classes: "js-archive-tiles-component hidden",
+    id: "archive",
+    tiles: @tiles_facade.archive_tiles
+  } %>
 </div>
