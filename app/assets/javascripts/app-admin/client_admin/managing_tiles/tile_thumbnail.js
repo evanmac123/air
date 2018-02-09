@@ -60,10 +60,6 @@ Airbo.TileThumbnail = (function() {
     return Airbo.TileThumbnailManagerBase.prevTile(tile);
   }
 
-  function tileContainerByDataTileId(id) {
-    return $(".tile_container[data-tile-container-id=" + id + "]");
-  }
-
   function initTilePreview() {
     $("body").on(
       "click",
@@ -90,7 +86,7 @@ Airbo.TileThumbnail = (function() {
   }
 
   function getPreview(path, id) {
-    var tile = tileContainerByDataTileId(id);
+    var tile = Airbo.TileManager.tileContainerByDataTileId(id);
     var next = nextTile(tile).data("tileContainerId");
     var prev = prevTile(tile).data("tileContainerId");
 

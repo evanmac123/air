@@ -1,7 +1,7 @@
 var Airbo = window.Airbo || {};
 
 Airbo.SuggestedTileManager = (function() {
-  function updateSections(data) {
+  function refreshOrAddTileThumb(data) {
     Airbo.Utils.alertSuccess(
       "Thanks for suggesting a Tile!",
       "You will be notified when the Tile is posted."
@@ -40,7 +40,7 @@ Airbo.SuggestedTileManager = (function() {
 
   return {
     init: init,
-    updateSections: updateSections,
+    refreshOrAddTileThumb: refreshOrAddTileThumb,
     forceValidationOnNew: forceValidationOnNew,
     hasAutoSave: hasAutoSave
   };

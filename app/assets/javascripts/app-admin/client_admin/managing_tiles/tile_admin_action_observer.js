@@ -12,7 +12,7 @@ Airbo.TileAdminActionObserver = (function() {
     });
 
     Airbo.PubSub.subscribe("/tile-admin/tile-copied", function(event, payload) {
-      Airbo.TileManager.updateTileSection(payload.data);
+      Airbo.TileManager.refreshOrAddTileThumb(payload.data);
     });
 
     Airbo.PubSub.subscribe("/tile-admin/tile-deleted", function(

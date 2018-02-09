@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class ClientAdminTilesFacade
-  attr_reader :demo, :all_tiles
+  attr_reader :demo, :tile_counts
 
   def initialize(demo:)
     @demo = demo
-    @all_tiles = demo.tiles.group_by { |tile| tile.status }
+    @tile_counts = demo.tiles.group(:status).count
   end
 
   def active_tiles
