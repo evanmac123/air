@@ -6,11 +6,18 @@
     ul {
       margin: 0;
 
+      &.with-tiles {
+        margin-left: 12px;
+      }
+
       li {
-        cursor: pointer;
         font-size: 18px;
         margin-left: 15px;
         padding: 20px 30px 20px 0;
+
+        &.tab {
+          cursor: pointer;
+        }
 
         a {
           color: $color;

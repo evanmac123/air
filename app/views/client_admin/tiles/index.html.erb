@@ -2,7 +2,7 @@
   data-tile-counts="<%= @tiles_facade.tile_counts.to_json %>">
   <div class="tabs-component-full-width">
     <div class="row">
-      <ul class="inline-list js-ca-tiles-index-module-tabs">
+      <ul class="inline-list js-ca-tiles-index-module-tabs with-tiles">
         <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-suggested-tiles-component"><a href="#">Suggested <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["user_submitted"].to_i})" %></span></a></li>
         <!-- <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-pinned-tiles-component"><a href="#">Planning</a></li> -->
         <li style="color: #8da0ab">|</li>

@@ -5,7 +5,7 @@ Airbo.TabsComponentManager = (function() {
   var pingAction;
 
   function initTabs() {
-    $(moduleName + "-tabs li").on("click", function(e) {
+    $(moduleName + "-tabs .tab").on("click", function(e) {
       e.preventDefault();
       switchTabs($(this));
     });
