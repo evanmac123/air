@@ -11,6 +11,7 @@ namespace :api, defaults: { format: :json } do
     resource :reports, only: [:show]
     resource :reports, only: [:show]
     resources :tile_email_reports, only: [:index]
+    resources :tile_thumbnails, only: [:index]
 
     resources :demos, only: [] do
       resource :tiles_digest_automator, only: [:update, :destroy]

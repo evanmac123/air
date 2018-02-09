@@ -9,49 +9,26 @@ class ClientAdminTilesFacade
   end
 
   def active_tiles
-    tiles = tiles_by_grp(Tile::ACTIVE)
+    tiles = demo.tiles.active.page(1).per(16)
     Tile::PlaceholderManager.call(tiles)
   end
 
   def archive_tiles
-    tiles = tiles_by_grp(Tile::ARCHIVE)[0, 4]
+    tiles = demo.tiles.archive.page(1).per(16)
     Tile::PlaceholderManager.call(tiles)
   end
 
   def draft_tiles
-    tiles = tiles_by_grp(Tile::DRAFT)
+    tiles = demo.tiles.draft.page(1).per(16)
     Tile::PlaceholderManager.call(tiles)
   end
 
   def suggested_tiles
-    tiles = suggesteds
+    tiles = demo.tiles.suggested.page(1).per(16)
     Tile::PlaceholderManager.call(tiles)
-  end
-
-  def user_submitted_tiles_counter
-    submitteds.count
   end
 
   def allowed_to_suggest_users
     demo.users_that_allowed_to_suggest_tiles
   end
-
-  private
-
-    def tiles_by_grp(grp)
-      tiles = all_tiles[grp] || []
-      tiles.sort_by { |tile| tile.position }.reverse
-    end
-
-    def ignoreds
-      tiles_by_grp(Tile::IGNORED)
-    end
-
-    def submitteds
-      tiles_by_grp(Tile::USER_SUBMITTED)
-    end
-
-    def suggesteds
-      submitteds.concat(ignoreds)
-    end
 end

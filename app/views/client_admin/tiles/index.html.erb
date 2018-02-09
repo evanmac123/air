@@ -19,24 +19,28 @@
   <%= render partial: 'client_admin/tiles/tiles_container', locals: {
     component_classes: "js-suggested-tiles-component hidden",
     id: "suggested",
+    status: [Tile::USER_SUBMITTED, Tile::IGNORED],
     tiles: @tiles_facade.suggested_tiles
   } %>
 
   <%= render partial: 'client_admin/tiles/tiles_container', locals: {
     component_classes: "js-draft-tiles-component",
     id: "draft",
+    status: Tile::DRAFT,
     tiles: @tiles_facade.draft_tiles
   } %>
 
   <%= render partial: 'client_admin/tiles/tiles_container', locals: {
     component_classes: "js-active-tiles-component hidden",
     id: "active",
+    status: Tile::ACTIVE,
     tiles: @tiles_facade.active_tiles
   } %>
 
   <%= render partial: 'client_admin/tiles/tiles_container', locals: {
     component_classes: "js-archive-tiles-component hidden",
     id: "archive",
+    status: Tile::ARCHIVE,
     tiles: @tiles_facade.archive_tiles
   } %>
 </div>

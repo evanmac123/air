@@ -18,7 +18,7 @@ Airbo.Utils.EndlessScroll = (function() {
     isLoadingNextPage = false;
     lastLoadAt = null;
 
-    viewMore = content_container.siblings($(".endless_scroll_loading"));
+    viewMore = content_container.siblings($(".js-endless-scroll-loading"));
     minTimeBetweenPages = content_container.data("minTimeBetweenPages") || 500;
     spaceAboveBottom = content_container.data("spaceAboveBottom") || 1500;
     minCount = content_container.data("minCount") || 28;

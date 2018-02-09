@@ -1,9 +1,18 @@
 <section class="manage_tiles js-ca-tiles-index-module-tab-content pt-2 <%= component_classes %>">
   <div class="row">
     <div class="large-12 columns">
-      <div class="manage_section" id="<%= id %>">
+      <div id="<%= id %>"
+        class="js-tiles-index-section js-endless-scroll"
+        data-page="<%= tiles.current_page %>"
+        data-next-page="<%= tiles.next_page %>"
+        data-count="<%= tiles.count %>"
+        data-last-page="<%= tiles.last_page? %>"
+        data-status="<%= status %>">
         <%= render partial: 'client_admin/tiles/manage_tiles/no_tiles_section', locals: { display_no_tiles_section: tiles.empty? } %>
         <%= render partial: 'client_admin/tiles/manage_tiles/tiles_table', locals: { tiles: tiles } %>
+      </div>
+      <div class="js-endless-scroll-loading text-center" style="display:none;">
+        <i class="fa fa-spinner fa-spin fa-3x text-center" style="color:#48BFFF;margin-top:30px;"></i>
       </div>
     </div>
   </div>
