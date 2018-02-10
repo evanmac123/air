@@ -10,7 +10,7 @@ feature "Client admin creates tiles", js: true do
     end
 
     scenario "Creates new tile" do
-      click_link "Add New Tile"
+      click_link "New Tile"
       fill_in_tile_form_entries(edit_text: "baz", points: "10")
       click_tile_create_button
       page.find(".viewer")
