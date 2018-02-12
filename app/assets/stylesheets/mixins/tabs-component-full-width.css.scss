@@ -4,13 +4,17 @@
     border-bottom: solid 1px $border-color;
 
     ul {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      flex-wrap: wrap;
       margin: 0;
 
       &.with-tiles {
-        margin-left: 12px;
+        margin: 0 12px;
       }
 
-      li {
+      li.tab {
         font-size: 18px;
         margin-left: 15px;
         padding: 20px 30px 20px 0;
@@ -29,15 +33,46 @@
           a {
             color: $active-color;
             border-bottom: solid 2px $active-color;
-            padding-bottom: 18px;
+            padding-bottom: 17px;
           }
+        }
+      }
+
+      li.buttons {
+        margin-right: 15px;
+        margin-left: auto;
+        padding-top: 14px;
+
+        .button {
+          margin-left: 10px;
+        }
+      }
+
+      @media (max-width: 770px) {
+        li.tab {
+          &.active {
+            padding-bottom: 20px;
+
+            a {
+              color: $active-color;
+              border-bottom: none;
+            }
+          }
+        }
+
+        li.buttons {
+          display: none;
         }
       }
     }
 
     &.in-modal {
-      li {
+      li.tab {
         margin-left: 30px;
+      }
+
+      li.buttons {
+        margin-right: 30px;
       }
     }
   }

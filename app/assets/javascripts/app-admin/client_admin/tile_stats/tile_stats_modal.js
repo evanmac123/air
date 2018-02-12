@@ -116,7 +116,7 @@ Airbo.TileStatsModal = (function() {
       getTileStatsReport(path);
     });
 
-    $(document).on("click", ".tile-stats-download-report", function(e) {
+    $(document).on("click", ".js-tile-stats-download-report", function(e) {
       Airbo.TileStatsPings.ping({
         action: "Download Stats Report",
         reportPath: $(this).attr("href")
