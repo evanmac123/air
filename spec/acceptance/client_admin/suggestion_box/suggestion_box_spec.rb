@@ -12,7 +12,7 @@ feature 'Client uses suggestion box' do
 
     before do
       visit client_admin_tiles_path(as: client_admin)
-      page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-suggested-tiles-component']").click
+      suggestion_box_title.click
     end
 
     scenario "tile preview works properly" do

@@ -18,11 +18,11 @@ module SuggestionBox
   end
 
   def suggestion_box_title
-    page.find("#suggestion_box_title")
+    page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-suggested-tiles-component']")
   end
 
   def draft_title
-    page.find("#draft_title")
+    page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-draft-tiles-component']")
   end
 
   def show_thumbnail_buttons
@@ -79,7 +79,7 @@ module SuggestionBox
   # => Manage Access Modal
   #
   def manage_access_link
-    page.find("#manage_access")
+    page.find(".js-suggestion-box-manage-access")
   end
 
   def all_users_switcher_on
@@ -95,7 +95,7 @@ module SuggestionBox
   end
 
   def save_button
-    page.find(".js-js-save-suggestions-access")
+    page.find(".js-save-suggestions-access")
   end
 
   def autocomplete_input
