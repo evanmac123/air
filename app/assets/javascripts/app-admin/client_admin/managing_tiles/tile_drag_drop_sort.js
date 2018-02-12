@@ -2,18 +2,9 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileDragDropSort = (function() {
   var allowRedigest;
-  var sourceSectionName,
-    placeholderSelector =
-      ".tile_container.placeholder_container:not(.hidden_tile)",
-    notDraggedTileSelector =
-      ".tile_container:not(.ui-sortable-helper):not(.hidden_tile)",
-    sectionNames = ["draft", "active", "archive", "suggestion_box"],
-    placeholderHTML =
-      '<div class="tile_container placeholder_container">' +
-      '<div class="tile_thumbnail placeholder_tile"></div>' +
-      "</div>",
-    moveConfirmationDeferred,
-    moveConfirmation;
+  var sourceSectionName;
+  var moveConfirmationDeferred;
+  var moveConfirmation;
 
   var sortableConfig = {
     items: ".tile_container:not(.placeholder_container)",
