@@ -1,14 +1,13 @@
-<%#TODO reimplement this so that the placement of buttons and controls on tile thumbnails is explicit%>
 <% if presenter.has_tile_buttons? %>
   <ul class="tile_buttons">
     <% if presenter.has_activate_button? %>
       <li class="activate_button">
-
         <%= link_to api_client_admin_tile_sorts_path(presenter), class: "button  update_status", data: { action: "post", status: Tile::ACTIVE, "tile-id " => presenter.tile_id} do %>
           <%= presenter.post_link_text %>
         <% end %>
       </li>
     <% end %>
+
     <% if presenter.has_archive_button? %>
       <li class="archive_button">
         <%= link_to api_client_admin_tile_sorts_path(presenter), class: "button update_status", data: {action: "archive", status: Tile::ARCHIVE, "tile-id" => presenter.tile_id} do %>
@@ -59,7 +58,7 @@
     <% end %>
 
     <% if presenter.has_edit_button? %>
-      <li class="edit_button pill">
+      <li class="edit_button pill right">
         <%= link_to edit_client_admin_tile_path(presenter), class: "edit",  data:{action: "edit", "tile-id" => presenter.tile_id, status: presenter.status} do %>
           <%= fa_icon 'pencil' %>
         <% end %>
@@ -67,7 +66,7 @@
     <% end %>
 
     <% if presenter.has_incomplete_destroy_button? %>
-      <li class="destroy pill">
+      <li class="destroy pill right">
         <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile", data: { action: "delete", "tile-id" => presenter.tile_id}  do %>
 
           <%= fa_icon 'trash' %>
@@ -76,7 +75,7 @@
     <% end %>
 
     <% if presenter.has_menu? %>
-      <li class="pill more" >
+      <li class="pill more right">
         <%= tile_thumbnail_menu(presenter) %>
         <span class="dot"></span>
         <span class="dot"></span>

@@ -43,6 +43,11 @@
     cursor: pointer;
     margin-left: 5px;
 
+    &.right {
+      margin-left: 0;
+      margin-right: 5px;
+    }
+
     &:hover {
       i {
         color: #262626;
@@ -110,19 +115,6 @@
       }
     }
   }
-}
-
-.archive,
-.active,
-.explore {
-  .tile_buttons {
-    float: right;
-    margin-right: 11px;
-  }
-}
-
-.incomplete_button {
-  float: left;
 }
 
 .tile_container.explore {

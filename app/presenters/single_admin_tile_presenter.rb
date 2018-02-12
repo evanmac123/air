@@ -125,7 +125,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def has_incomplete_destroy_button?
-    tile_status_matches?(:draft) && !tile_fully_assembled?
+    tile_status_matches?(:draft) && !tile_fully_assembled? || tile_status_matches?(:ignored)
   end
 
   def has_edit_button?
