@@ -4,23 +4,27 @@
     <div class="row">
       <ul class="js-ca-tiles-index-module-tabs with-tiles">
         <li class="js-ca-tiles-index-component-tab tab"
+          data-status="suggested"
           data-tab-content="js-suggested-tiles-component"
           data-show-suggestion-box-controls="<%= true %>">
           <a href="#">Suggested <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["user_submitted"].to_i})" %></span></a>
         </li>
         <!-- <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-pinned-tiles-component"><a href="#">Planning</a></li> -->
         <li class="js-ca-tiles-index-component-tab tab active"
+          data-status="draft"
           data-tab-content="js-draft-tiles-component">
           <a href="#">Draft <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["draft"].to_i})" %></span></a>
         </li>
 
         <li class="js-ca-tiles-index-component-tab tab"
+          data-status="active"
           data-tab-content="js-active-tiles-component"
           data-stats-link="<%= client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv") %>">
           <a href="#">Live <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["active"].to_i})" %></span></a>
         </li>
 
         <li class="js-ca-tiles-index-component-tab tab"
+          data-status="archive"
           data-tab-content="js-archive-tiles-component"
           data-stats-link="<%= client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv") %>">
           <a href="#">Archive <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["archive"].to_i})" %></span></a>

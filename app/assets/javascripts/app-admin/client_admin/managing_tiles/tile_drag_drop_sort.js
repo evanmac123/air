@@ -125,10 +125,6 @@ Airbo.TileDragDropSort = (function() {
 
   function onSortSuccess(tile, result) {
     replaceMovedTile(tile, result.tileHTML);
-
-    Airbo.PubSub.publish("updateShareTabNotification", {
-      number: result.tilesToBeSentCount
-    });
   }
 
   function saveTilePosition(tile) {
