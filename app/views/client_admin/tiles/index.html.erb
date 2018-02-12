@@ -10,6 +10,11 @@
         <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-active-tiles-component"><a href="#">Live <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["active"].to_i})" %></span></a></li>
         <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-archive-tiles-component"><a href="#">Archive <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["archive"].to_i})" %></span></a></li>
       </ul>
+      <%= link_to "#download_stats", class: "hidden download-stats-button js-download-stats-button float-right button outlined icon", title: "Download Excel file with statistics for all of the Tiles in this section.", data: { tooltip: true } do %>
+        <%= fa_icon "download" %>
+        <span>Download Stats</span>
+      <% end %>
+
       <%= link_to new_client_admin_tile_path, class: "new-tile-button js-new-tile-button float-right button icon" do %>
         <%= fa_icon "plus" %>
         <span>New Tile</span>
@@ -21,27 +26,31 @@
     component_classes: "js-suggested-tiles-component hidden",
     id: "suggested",
     status: [Tile::USER_SUBMITTED, Tile::IGNORED],
-    tiles: @tiles_facade.suggested_tiles
+    tiles: @tiles_facade.suggested_tiles,
+    stats_link: nil
   } %>
 
   <%= render partial: 'client_admin/tiles/tiles_container', locals: {
     component_classes: "js-draft-tiles-component",
     id: "draft",
     status: Tile::DRAFT,
-    tiles: @tiles_facade.draft_tiles
+    tiles: @tiles_facade.draft_tiles,
+    stats_link: nil
   } %>
 
   <%= render partial: 'client_admin/tiles/tiles_container', locals: {
     component_classes: "js-active-tiles-component hidden",
     id: "active",
     status: Tile::ACTIVE,
-    tiles: @tiles_facade.active_tiles
+    tiles: @tiles_facade.active_tiles,
+    stats_link: client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv")
   } %>
 
   <%= render partial: 'client_admin/tiles/tiles_container', locals: {
     component_classes: "js-archive-tiles-component hidden",
     id: "archive",
     status: Tile::ARCHIVE,
-    tiles: @tiles_facade.archive_tiles
+    tiles: @tiles_facade.archive_tiles,
+    stats_link: client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv")
   } %>
 </div>
