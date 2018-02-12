@@ -68,13 +68,7 @@ Airbo.TileAction = (function() {
             updatedTile: updatedTile
           });
 
-          Airbo.PubSub.publish("updateShareTabNotification", {
-            number: tileData.tilesToBeSentCount
-          });
-
-          Airbo.PubSub.publish("updateTileCounts", {
-            tileCounts: tileData.tileCounts
-          });
+          Airbo.PubSub.publish("updateTileCounts", tileData);
         }
       });
     }
@@ -126,6 +120,7 @@ Airbo.TileAction = (function() {
       success: function(data, status, xhr) {
         swal.close();
         Airbo.PubSub.publish("/tile-admin/tile-copied", { data: data });
+        Airbo.PubSub.publish("incrementTileCounts", { status: "draft" });
       },
 
       error: function(jqXHR, textStatus, error) {
@@ -148,6 +143,7 @@ Airbo.TileAction = (function() {
           swal.close();
           closeModal($(tileModalSelector));
           Airbo.PubSub.publish("/tile-admin/tile-deleted", { tile: tile });
+          Airbo.PubSub.publish("updateTileCounts", data);
         }
       });
     }

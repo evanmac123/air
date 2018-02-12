@@ -61,7 +61,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       @tile.destroy
     end
 
-    head :ok
+    render json: {
+      tilesToBeSentCount: current_board.digest_tiles_count,
+      tileCounts: current_board.tiles.group(:status).count,
+    }
   end
 
   def duplicate
