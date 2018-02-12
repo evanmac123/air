@@ -1,17 +1,17 @@
 <div class="access_to_suggestion_block">
-  <p>
-    Who would you like to give access to?
-  </p>
+  <div>
+    <p class="switcher-label">Who would you like to give access to?</p>
+  </div>
   <div class="switcher">
-    <div class="specific_users_copy <%= 'on' if display_specific_users %>">Specific Users</div>
+    <span class="specific_users_copy <%= 'on' if display_specific_users %>">Specific Users</span>
     <div class='switch small round suggestion_switcher_block'>
       <%= form.radio_button :everyone_can_make_tile_suggestions, true, id: 'suggestion_switcher_on' %>
       <%= form.radio_button :everyone_can_make_tile_suggestions, false, id: 'suggestion_switcher_off' %>
 
       <span class='green-paddle'></span>
     </div>
-    <div class="all_users_copy <%= 'on' if display_all_users %>">
+    <span class="all_users_copy <%= 'on' if display_all_users %>">
       All Users
-    </div>
+    </span>
   </div>
 </div>

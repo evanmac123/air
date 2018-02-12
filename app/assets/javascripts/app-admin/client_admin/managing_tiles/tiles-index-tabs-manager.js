@@ -31,9 +31,3 @@ Airbo.TilesIndexTabManager = (function() {
     init: init
   };
 })();
-
-$(function() {
-  if (Airbo.Utils.nodePresent(".js-ca-tiles-index-module")) {
-    Airbo.TilesIndexTabManager.init();
-  }
-});

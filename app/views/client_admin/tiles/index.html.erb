@@ -5,18 +5,32 @@
       <ul class="js-ca-tiles-index-module-tabs with-tiles">
         <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-suggested-tiles-component"><a href="#">Suggested <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["user_submitted"].to_i})" %></span></a></li>
         <!-- <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-pinned-tiles-component"><a href="#">Planning</a></li> -->
-        <!-- <li style="color: #8da0ab">|</li> -->
-        <li class="js-ca-tiles-index-component-tab tab active" data-tab-content="js-draft-tiles-component"><a href="#">Draft <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["draft"].to_i})" %></span></a></li>
-        <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-active-tiles-component"><a href="#">Live <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["active"].to_i})" %></span></a></li>
-        <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-archive-tiles-component"><a href="#">Archive <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["archive"].to_i})" %></span></a></li>
+        <li class="js-ca-tiles-index-component-tab tab active" data-tab-content="js-draft-tiles-component">
+          <a href="#">Draft <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["draft"].to_i})" %></span></a>
+        </li>
+
+        <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-active-tiles-component">
+          <a href="#">Live <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["active"].to_i})" %></span></a>
+        </li>
+
+        <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-archive-tiles-component">
+          <a href="#">Archive <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["archive"].to_i})" %></span></a>
+        </li>
+
         <li class="buttons">
-          <%= link_to new_client_admin_tile_path, class: "new-tile-button js-new-tile-button float-right button icon" do %>
+          <%= link_to "#download_stats", class: "hidden download-stats-button js-download-stats-button button outlined icon", title: "Download Excel file with statistics for all of the Tiles in this section.", data: { tooltip: true } do %>
+          <%= fa_icon "download" %>
+          <span>Download Stats</span>
+          <% end %>
+
+          <%= link_to "#suggestion_box_manage_access", class: "js-suggestion-box-manage-access button outlined icon hidden" do %>
+          <%= fa_icon "users" %>
+          <span>Manage Access</span>
+          <% end %>
+
+          <%= link_to new_client_admin_tile_path, class: "new-tile-button js-new-tile-button button icon" do %>
             <%= fa_icon "plus" %>
             <span>New Tile</span>
-          <% end %>
-          <%= link_to "#download_stats", class: "hidden download-stats-button js-download-stats-button float-right button outlined icon", title: "Download Excel file with statistics for all of the Tiles in this section.", data: { tooltip: true } do %>
-            <%= fa_icon "download" %>
-            <span>Download Stats</span>
           <% end %>
         </li>
       </ul>
@@ -55,3 +69,5 @@
     stats_link: client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv")
   } %>
 </div>
+
+<%= render partial: 'client_admin/suggestions_access/modal' %>

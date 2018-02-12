@@ -95,7 +95,7 @@ module SuggestionBox
   end
 
   def save_button
-    page.find("#save_suggestions_access")
+    page.find(".js-js-save-suggestions-access")
   end
 
   def autocomplete_input
