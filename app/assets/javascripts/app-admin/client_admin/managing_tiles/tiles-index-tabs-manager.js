@@ -9,20 +9,28 @@ Airbo.TilesIndexTabManager = (function() {
     );
   }
 
-  function changeTabsCallback() {
-    manageDownloadStatsButton();
+  function changeTabsCallback($tab) {
+    manageDownloadStatsButton($tab);
+    manageSuggestionBoxAccessButton($tab);
   }
 
-  function manageDownloadStatsButton() {
+  function manageDownloadStatsButton($tab) {
     var $button = $(".download-stats-button");
-    var path = $(".js-ca-tiles-index-module-tab-content:visible").data(
-      "statsLink"
-    );
+    var path = $tab.data("statsLink");
 
     $button.hide();
     $button.attr("href", path);
 
-    if (path.length > 0) {
+    if (path !== undefined) {
+      $button.show();
+    }
+  }
+
+  function manageSuggestionBoxAccessButton($tab) {
+    var $button = $(".js-suggestion-box-manage-access");
+    $button.hide();
+
+    if ($tab.data("showSuggestionBoxControls") === true) {
       $button.show();
     }
   }

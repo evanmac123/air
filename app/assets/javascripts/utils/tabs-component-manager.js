@@ -19,7 +19,7 @@ Airbo.TabsComponentManager = (function() {
     showNewTab($tab);
 
     if (callback !== undefined) {
-      callback();
+      callback($tab);
     }
   }
 

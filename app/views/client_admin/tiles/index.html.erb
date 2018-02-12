@@ -3,17 +3,26 @@
   <div class="tabs-component-full-width">
     <div class="row">
       <ul class="js-ca-tiles-index-module-tabs with-tiles">
-        <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-suggested-tiles-component"><a href="#">Suggested <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["user_submitted"].to_i})" %></span></a></li>
+        <li class="js-ca-tiles-index-component-tab tab"
+          data-tab-content="js-suggested-tiles-component"
+          data-show-suggestion-box-controls="<%= true %>">
+          <a href="#">Suggested <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["user_submitted"].to_i})" %></span></a>
+        </li>
         <!-- <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-pinned-tiles-component"><a href="#">Planning</a></li> -->
-        <li class="js-ca-tiles-index-component-tab tab active" data-tab-content="js-draft-tiles-component">
+        <li class="js-ca-tiles-index-component-tab tab active"
+          data-tab-content="js-draft-tiles-component">
           <a href="#">Draft <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["draft"].to_i})" %></span></a>
         </li>
 
-        <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-active-tiles-component">
+        <li class="js-ca-tiles-index-component-tab tab"
+          data-tab-content="js-active-tiles-component"
+          data-stats-link="<%= client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv") %>">
           <a href="#">Live <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["active"].to_i})" %></span></a>
         </li>
 
-        <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-archive-tiles-component">
+        <li class="js-ca-tiles-index-component-tab tab"
+          data-tab-content="js-archive-tiles-component"
+          data-stats-link="<%= client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv") %>">
           <a href="#">Archive <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["archive"].to_i})" %></span></a>
         </li>
 
@@ -41,32 +50,28 @@
     component_classes: "js-suggested-tiles-component hidden",
     id: "suggested",
     status: [Tile::USER_SUBMITTED, Tile::IGNORED],
-    tiles: @tiles_facade.suggested_tiles,
-    stats_link: nil
+    tiles: @tiles_facade.suggested_tiles
   } %>
 
   <%= render partial: 'client_admin/tiles/tiles_container', locals: {
     component_classes: "js-draft-tiles-component",
     id: "draft",
     status: Tile::DRAFT,
-    tiles: @tiles_facade.draft_tiles,
-    stats_link: nil
+    tiles: @tiles_facade.draft_tiles
   } %>
 
   <%= render partial: 'client_admin/tiles/tiles_container', locals: {
     component_classes: "js-active-tiles-component hidden",
     id: "active",
     status: Tile::ACTIVE,
-    tiles: @tiles_facade.active_tiles,
-    stats_link: client_admin_tiles_report_path(report: Tile::ACTIVE, format: "csv")
+    tiles: @tiles_facade.active_tiles
   } %>
 
   <%= render partial: 'client_admin/tiles/tiles_container', locals: {
     component_classes: "js-archive-tiles-component hidden",
     id: "archive",
     status: Tile::ARCHIVE,
-    tiles: @tiles_facade.archive_tiles,
-    stats_link: client_admin_tiles_report_path(report: Tile::ARCHIVE, format: "csv")
+    tiles: @tiles_facade.archive_tiles
   } %>
 </div>
 
