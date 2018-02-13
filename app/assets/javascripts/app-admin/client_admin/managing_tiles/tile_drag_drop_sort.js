@@ -1,11 +1,6 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileDragDropSort = (function() {
-  var allowRedigest;
-  var sourceSectionName;
-  var moveConfirmationDeferred;
-  var moveConfirmation;
-
   var sortableConfig = {
     items: ".tile_container:not(.placeholder_container)",
     connectWith: ".manage_section",
@@ -19,9 +14,7 @@ Airbo.TileDragDropSort = (function() {
       var section, tile;
       section = $(this);
       tile = ui.item;
-      return $.when(moveConfirmation).then(function() {
-        return updateEvent(event, tile, section);
-      });
+      return updateEvent(event, tile, section);
     },
 
     start: function(event, ui) {
@@ -52,24 +45,6 @@ Airbo.TileDragDropSort = (function() {
     tileInfo(tile, "hide");
   }
 
-  function showDraftBlockedOverlay(isOn, node) {
-    var overlay;
-    if (isOn && node) {
-      overlay = node.parents(".manage_tiles").children(".draft_overlay");
-      overlay.show();
-    } else {
-      $(".draft_overlay").hide();
-    }
-  }
-
-  function cancelTileMoving() {
-    if (sourceSectionName) {
-      return $("#" + sourceSectionName)
-        .sortable("cancel")
-        .sortable("refresh");
-    }
-  }
-
   function disableActiveSorting(event, tile, section) {
     if (tile.data("assemblyRequired") === true) {
       $("#active").sortable("disable");
@@ -77,27 +52,14 @@ Airbo.TileDragDropSort = (function() {
     }
   }
 
-  function turnOffDraftBlocking(tile, section) {
-    $("#draft").sortable("enable");
-    section.sortable("refresh");
-  }
-
-  function numberInRow(section) {
-    return 4;
-  }
-
   function findTileId(tile) {
     return tile.find(".tile_thumbnail").data("tile-id");
   }
 
-  function getTilesSection(tile) {
-    return tile.closest(".manage_section").attr("id");
-  }
-
   function tileInfo(tile, action) {
-    var controlElements, shadowOverlay;
-    controlElements = tile.find(".tile_buttons, .tile_stats");
-    shadowOverlay = tile.find(".shadow_overlay");
+    var controlElements = tile.find(".tile_buttons, .tile_stats");
+    var shadowOverlay = tile.find(".shadow_overlay");
+
     if (action === "show") {
       controlElements.css("display", "");
       shadowOverlay.css("opacity", "");
@@ -121,14 +83,11 @@ Airbo.TileDragDropSort = (function() {
   function saveTilePosition(tile) {
     var id = findTileId(tile);
     var leftTileId = findTileId(tile.prev());
-    var newStatus = getTilesSection(tile);
 
     $.ajax({
       data: {
         sort: {
-          left_tile_id: leftTileId,
-          new_status: newStatus,
-          redigest: allowRedigest
+          left_tile_id: leftTileId
         }
       },
       type: "POST",
@@ -156,32 +115,6 @@ Airbo.TileDragDropSort = (function() {
       name: name,
       presented_ids: presented_ids
     };
-  }
-
-  function moveComfirmationModal(tile) {
-    moveConfirmationDeferred = $.Deferred();
-    moveConfirmation = moveConfirmationDeferred.promise();
-    confirmReposting(tile);
-  }
-
-  function confirmReposting(tile) {
-    var checkConfirm = function(isConfirm) {
-      if (isConfirm) {
-        allowRedigest = $(".sweet-alert input#digestable").is(":checked");
-        moveConfirmationDeferred.resolve();
-      } else {
-        tileInfo(tile, "show");
-        moveConfirmationDeferred.reject();
-      }
-    };
-    Airbo.TileAction.confirmUnarchive(checkConfirm);
-  }
-
-  function isTileMoved(tile, fromSectionName, toSectionName) {
-    return (
-      getTilesSection(tile) === toSectionName &&
-      sourceSectionName === fromSectionName
-    );
   }
 
   function init() {

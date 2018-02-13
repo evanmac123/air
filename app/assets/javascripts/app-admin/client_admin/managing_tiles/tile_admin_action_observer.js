@@ -25,13 +25,6 @@ Airbo.TileAdminActionObserver = (function() {
     });
   }
 
-  function updateUserSubmittedTilesCounter() {
-    submittedTile = $(".tile_thumbnail.user_submitted");
-    $("#suggestion_box_title")
-      .find(".num-items")
-      .html("(" + submittedTile.length + ")");
-  }
-
   function tileUpdateStatusSuccess(payload) {
     var currTile = payload.currTile;
     var updatedTile = payload.updatedTile;
