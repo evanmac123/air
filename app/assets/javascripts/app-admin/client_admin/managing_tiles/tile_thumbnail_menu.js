@@ -59,6 +59,8 @@ Airbo.TileThumbnailMenu = (function() {
         var content = $(helper.origin)
           .find(".tooltip-content")
           .detach();
+
+        content.show();
         instance.content(content);
       },
 

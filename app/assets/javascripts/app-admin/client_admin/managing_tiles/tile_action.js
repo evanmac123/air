@@ -1,8 +1,8 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileAction = (function() {
-  var tileWrapperSelector = ".tile_container",
-    tileModalSelector = "#tile_preview_modal";
+  var tileWrapperSelector = ".tile_container";
+  var tileModalSelector = "#tile_preview_modal";
 
   //
   // => Update Status
@@ -129,6 +129,7 @@ Airbo.TileAction = (function() {
       }
     });
   }
+
   //
   // => Deletion
   //
@@ -148,6 +149,7 @@ Airbo.TileAction = (function() {
         }
       });
     }
+
     swal(
       {
         title: "",
@@ -208,11 +210,8 @@ Airbo.TileAction = (function() {
   }
 
   return {
-    movePing: movePing,
     updateStatus: updateStatus,
     makeDuplication: makeDuplication,
-    confirmDeletion: confirmDeletion,
-    confirmUnarchive: confirmUnarchive,
-    tileByStatusChangeTriggerLocation: tileByStatusChangeTriggerLocation
+    confirmDeletion: confirmDeletion
   };
 })();

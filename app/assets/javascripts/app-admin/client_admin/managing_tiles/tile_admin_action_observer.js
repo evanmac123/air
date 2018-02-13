@@ -19,7 +19,6 @@ Airbo.TileAdminActionObserver = (function() {
       event,
       payload
     ) {
-      var isArchiveSection = payload.tile.data("status") == "archive";
       payload.tile.remove();
       Airbo.TilePlaceHolderManager.perform();
     });
