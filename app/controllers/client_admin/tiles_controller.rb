@@ -62,8 +62,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
 
     render json: {
-      tilesToBeSentCount: current_board.digest_tiles_count,
-      tileCounts: current_board.tiles.group(:status).count,
+      meta: {
+        tilesToBeSentCount: current_board.digest_tiles_count,
+        tileCounts: current_board.tiles.group(:status).count
+      }
     }
   end
 

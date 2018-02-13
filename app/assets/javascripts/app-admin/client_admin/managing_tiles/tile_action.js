@@ -55,20 +55,21 @@ Airbo.TileAction = (function() {
         url: link.data("url") || link.attr("href"),
         type: "POST",
         data: data,
-        success: function(tileData, status, xhr) {
-          updatedTile = $(tileData.tileHTML);
+        success: function(data, status, xhr) {
+          updatedTile = $(data.tileHTML);
           closeAnyToolTips();
           movePing(
             updatedTile,
             updatedTile.data("status"),
             "Clicked button to move"
           );
+
           Airbo.PubSub.publish("/tile-admin/tile-status-updated", {
             currTile: currTile,
             updatedTile: updatedTile
           });
 
-          Airbo.PubSub.publish("updateTileCounts", tileData);
+          Airbo.PubSub.publish("updateTileCounts", data.meta);
         }
       });
     }
@@ -143,7 +144,7 @@ Airbo.TileAction = (function() {
           swal.close();
           closeModal($(tileModalSelector));
           Airbo.PubSub.publish("/tile-admin/tile-deleted", { tile: tile });
-          Airbo.PubSub.publish("updateTileCounts", data);
+          Airbo.PubSub.publish("updateTileCounts", data.meta);
         }
       });
     }

@@ -7,9 +7,11 @@ class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
 
     render json: {
       tileId: @tile.id,
-      tilesToBeSentCount: demo.digest_tiles_count,
-      tileCounts: demo.tiles.group(:status).count,
-      tileHTML: tile_html
+      tileHTML: tile_html,
+      meta: {
+        tilesToBeSentCount: demo.digest_tiles_count,
+        tileCounts: demo.tiles.group(:status).count
+      }
     }
   end
 

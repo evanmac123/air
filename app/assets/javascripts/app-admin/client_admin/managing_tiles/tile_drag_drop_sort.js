@@ -10,21 +10,17 @@ Airbo.TileDragDropSort = (function() {
     placeholder: "tile_container",
     handle: ".tile-wrapper",
 
-    update: function(event, ui) {
-      var section, tile;
-      section = $(this);
-      tile = ui.item;
-      return updateEvent(event, tile, section);
-    },
-
     start: function(event, ui) {
-      var section, tile;
-      section = $(this);
-      tile = ui.item;
+      var section = $(this);
+      var tile = ui.item;
       return startEvent(event, tile, section);
     },
 
-    receive: function(event, ui) {}
+    update: function(event, ui) {
+      var section = $(this);
+      var tile = ui.item;
+      return updateEvent(event, tile, section);
+    }
   };
 
   function initTileSorting() {
@@ -33,7 +29,7 @@ Airbo.TileDragDropSort = (function() {
       .disableSelection();
   }
 
-  function updateEvent(event, tile, section) {
+  function updateEvent(event, tile) {
     tileInfo(tile, "remove");
     saveTilePosition(tile);
   }
@@ -85,7 +81,7 @@ Airbo.TileDragDropSort = (function() {
     $.ajax({
       data: {
         sort: {
-          left_tile_id: leftTileId
+          left_tile_id: leftTileId || null
         }
       },
       type: "POST",
