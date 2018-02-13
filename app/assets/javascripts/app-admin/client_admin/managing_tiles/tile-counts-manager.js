@@ -34,7 +34,12 @@ Airbo.TileCountsManager = (function() {
 
   function incrementStatus(status) {
     var tileCounts = $moduleContainer.data("tileCounts");
-    tileCounts[status] += 1;
+
+    if (tileCounts[status] !== undefined) {
+      tileCounts[status] += 1;
+    } else {
+      tileCounts[status] = 1;
+    }
 
     $moduleContainer.data("tileCounts", tileCounts);
   }
