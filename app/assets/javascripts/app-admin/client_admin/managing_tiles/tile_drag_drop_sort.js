@@ -24,9 +24,7 @@ Airbo.TileDragDropSort = (function() {
       return startEvent(event, tile, section);
     },
 
-    receive: function(event, ui) {
-      return;
-    }
+    receive: function(event, ui) {}
   };
 
   function initTileSorting() {
