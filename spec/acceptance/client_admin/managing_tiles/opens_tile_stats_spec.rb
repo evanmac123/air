@@ -26,6 +26,7 @@ feature "Client admin opens tile stats", js: true, type: :feature do
 
   def open_stats(tile)
     visit client_admin_tiles_path(as: client_admin)
+    active_tab.click
 
     within ".tile_thumbnail[data-tile-id='#{tile.id}']" do
       first('.js-open-tile-stats-modal').click

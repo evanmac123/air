@@ -10,7 +10,7 @@ feature "Client admin creates tiles", js: true do
     end
 
     scenario "Creates new tile" do
-      click_link "New Tile"
+      click_add_new_tile
       fill_in_tile_form_entries(edit_text: "baz", points: "10")
       click_tile_create_button
       page.find(".viewer")
@@ -32,10 +32,13 @@ feature "Client admin creates tiles", js: true do
     let(:points){"10"}
 
     before(:each) do
-      @tile = FactoryBot.create :multiple_choice_tile, question_type: "survey", question_subtype: "multiple_choice"
-      @client_admin = FactoryBot.create(:client_admin, demo: @tile.demo)
-      visit client_admin_tiles_path(as: @client_admin)
-      within "#single-tile-#{@tile.id}" do
+      tile = FactoryBot.create :multiple_choice_tile, question_type: "survey", question_subtype: "multiple_choice"
+      client_admin = FactoryBot.create(:client_admin, demo: tile.demo)
+      visit client_admin_tiles_path(as: client_admin)
+
+      active_tab.click
+
+      within "#single-tile-#{tile.id}" do
         page.find(".tile-wrapper").hover
         page.find("li.edit_button a").click
       end
