@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 class TileCompletionsController < ApplicationController
   include AllowGuestUsersConcern
   include ActsHelper
 
   prepend_before_action :find_tile
 
-  #FIXME most of this functionality needs to to be moved into the TileCompletion
-  #model
+  # FIXME most of this functionality needs to to be moved into the TileCompletion
+  # model
 
   def create
     unless current_user.in_board?(@tile.demo_id)
-      not_found('flashes.failure_cannot_complete_tile_in_different_board')
+      not_found("flashes.failure_cannot_complete_tile_in_different_board")
       return false
     end
 
@@ -26,7 +28,7 @@ class TileCompletionsController < ApplicationController
 
     add_start_over_if_guest
 
-    decide_if_tiles_can_be_done(Tile.satisfiable_to_user(current_user))
+    decide_if_tiles_can_be_done(current_user.tiles_to_complete)
     render json: {
       starting_points: @starting_points,
       starting_tickets: @starting_tickets
@@ -41,10 +43,10 @@ class TileCompletionsController < ApplicationController
 
     def create_tile_completion(tile)
       completion = TileCompletion.new(
-        :tile_id => tile.id, :user => current_user,
-        :answer_index => params[:answer_index],
-        :free_form_response => params[:free_form_response],
-        :custom_form => params[:custom_form]
+        tile_id: tile.id, user: current_user,
+        answer_index: params[:answer_index],
+        free_form_response: params[:free_form_response],
+        custom_form: params[:custom_form]
       )
       completion.save
     end

@@ -268,15 +268,6 @@ class Tile < ActiveRecord::Base
     DisplayCategorizedTiles.new(user, maximum_tiles).displayable_categorized_tiles
   end
 
-  def self.satisfiable_to_user(user, curr_demo = nil)
-    board = curr_demo || user.demo.id
-
-    ids_completed = user.tile_completions.pluck(:tile_id)
-
-    satisfiable_tiles = Tile.active.where(demo_id: board).reject { |tile| ids_completed.include? tile.id }
-    satisfiable_tiles.sort_by(&:position).reverse
-  end
-
   def self.displayable_tiles_select_clause
     [:id, :headline, :demo_id, :tile_completions_count, :thumbnail_file_name, :thumbnail_content_type, :thumbnail_file_size, :thumbnail_updated_at, :position]
   end

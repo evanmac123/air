@@ -187,7 +187,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :password_confirmation, :converting_from_guest, :must_have_location, :creating_board, :role
 
-
   has_alphabetical_column :name
 
   scope :non_site_admin, -> { where(is_site_admin: false) }
@@ -217,6 +216,19 @@ class User < ActiveRecord::Base
     end
   end
 
+
+
+  def tiles_to_complete
+    return [] unless demo && active_tiles_in_demo.present?
+
+    ids_completed = tile_completions.pluck(:tile_id)
+    active_tiles_in_demo.where.not(id: ids_completed).ordered_by_position
+  end
+
+  def active_tiles_in_demo
+    demo.tiles.active
+  end
+
   def displayable_tiles(select_clause = Tile.displayable_tiles_select_clause)
     tile_arel = Tile.arel_table
 
@@ -234,7 +246,7 @@ class User < ActiveRecord::Base
   end
 
   def demo_id
-    self.demo.try(&:id)
+    self.demo.try(:id)
   end
 
   def organization
@@ -671,8 +683,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
-
   def generate_simple_claim_code!
     update_attributes(claim_code: claim_code_prefix)
   end
@@ -733,7 +743,7 @@ class User < ActiveRecord::Base
   end
 
   def set_current_board_membership(demo)
-    board_membership = board_memberships.where(demo_id: demo.id).first
+    board_membership = board_memberships.find_by(demo_id: demo.id)
     board_membership.set_as_current
   end
 

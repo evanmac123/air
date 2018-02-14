@@ -320,21 +320,6 @@ describe Tile do
     Timecop.return
   end
 
-  describe "satisfiable to a particular user" do
-    before(:each) do
-      Demo.find_each {|f| f.destroy}
-      @fun = FactoryBot.create(:demo, name: 'A Good Time')
-      @mud_bath = FactoryBot.create(:tile, headline: 'Mud Bath', demo: @fun)
-      @leah = FactoryBot.create(:user, name: 'Leah Eckles', demo: @fun)
-    end
-
-    it "looks good to the average user" do
-      tiles = Tile.satisfiable_to_user(@leah)
-      expect(tiles.count).to eq(1)
-      expect(tiles.first.id).to eq(@mud_bath.id)
-    end
-  end
-
   describe "#survey_chart" do
     it "should return array with right statistic" do
       tile = FactoryBot.create(:survey_tile,
