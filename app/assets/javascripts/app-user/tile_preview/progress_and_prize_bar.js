@@ -140,7 +140,8 @@ Airbo.ProgressAndPrizeBar = (function() {
       fullWidth -= tileAll.outerWidth();
     }
     newWidth = parseInt(fullWidth * completedTiles / allTiles);
-    if (completedTiles == 0) {
+
+    if (completedTiles === 0) {
       newWidth = 0;
     } else if (minWidth > newWidth) {
       newWidth = minWidth;

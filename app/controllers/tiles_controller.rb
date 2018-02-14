@@ -96,9 +96,9 @@ class TilesController < ApplicationController
 
     def render_new_tile
       after_posting = params[:afterPosting] == "true"
-      all_tiles_done = user_satisfiable_tiles.empty?
-      all_tiles = current_user.available_tiles_on_current_demo.count
-      completed_tiles = current_user.completed_tiles_on_current_demo.count
+      all_tiles_done = user_tiles_to_complete.empty?
+      all_tiles = current_user.available_tiles_for_points_progress.count
+      completed_tiles = current_user.completed_tiles_for_points_progress.count
       render json: {
         ending_points: current_user.points,
         ending_tickets: current_user.tickets,
@@ -187,17 +187,15 @@ class TilesController < ApplicationController
           current_user.tile_completions.where(tile_id: session[:start_tile]).exists?) || false
     end
 
-    def user_satisfiable_tiles
+    def user_tiles_to_complete
       current_user.tiles_to_complete
     end
 
     def satisfiable_tiles
-      @_satisfiable_tiles ||= begin
-        unless show_completed_tiles
-          user_satisfiable_tiles
-        else
-          current_user.tile_completions.order("#{TileCompletion.table_name}.id desc").includes(:tile).where("#{Tile.table_name}.demo_id" => current_user.demo_id).map(&:tile)
-        end
+      if show_completed_tiles
+        current_user.completed_tiles_in_demo
+      else
+        current_user.tiles_to_complete
       end
     end
 
@@ -213,7 +211,7 @@ class TilesController < ApplicationController
     end
 
     def mark_all_completed_tiles
-      if user_satisfiable_tiles
+      if user_tiles_to_complete.empty?
         current_user.not_show_all_completed_tiles_in_progress
       end
     end

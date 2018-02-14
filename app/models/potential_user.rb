@@ -14,6 +14,7 @@ class PotentialUser < ActiveRecord::Base
 
   include CancelAccountToken
   include User::FakeUserBehavior
+  include User::Tiles
 
   def is_invited_by(referrer)
     return if self.peer_invitations.length >= PeerInvitation::CUTOFF

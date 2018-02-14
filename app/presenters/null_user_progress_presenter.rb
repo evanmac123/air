@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NullUserProgressPresenter
   def initialize(user_id, demo, tile_value)
     @user_id = user_id
@@ -5,8 +7,8 @@ class NullUserProgressPresenter
     @demo_id = demo.id
     @available_tile_count = demo.tiles.active.count
     @completed_tile_count = nil
-    @points =0
-    @tile_points = tile_value;
+    @points = 0
+    @tile_points = tile_value
   end
 
   attr_reader :available_tile_count, :completed_tile_count, :points, :tile_points
@@ -24,7 +26,7 @@ class NullUserProgressPresenter
   end
 
   def tile_ids
-     @demo.tiles.active.map(&:id)
+    @demo.tiles.active.pluck(:id)
   end
 
 
@@ -40,8 +42,7 @@ class NullUserProgressPresenter
       points: 0,
       tile_points: tile_points,
       persistLocally: persist_locally?,
-      key:storage_key
+      key: storage_key
     }
   end
-
 end

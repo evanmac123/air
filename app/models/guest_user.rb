@@ -21,10 +21,10 @@ class GuestUser < ActiveRecord::Base
   has_one :user_intro, as: :userable, dependent: :delete
 
   has_many :viewed_tiles, through: :tile_viewings
-  has_many :completed_tiles, source: :tile, through: :tile_completions
 
   include CancelAccountToken
   include User::FakeUserBehavior
+  include User::Tiles
 
   def is_guest?
     true
@@ -120,10 +120,6 @@ class GuestUser < ActiveRecord::Base
 
   def can_start_over?
     tile_completions.first.present?
-  end
-
-  def not_show_all_completed_tiles_in_progress
-    User::TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
   end
 
   def can_see_raffle_modal?

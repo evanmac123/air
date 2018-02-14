@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module User::FakeUserBehavior
   def unclaimed?
     true
@@ -7,7 +9,7 @@ module User::FakeUserBehavior
     false
   end
 
-  def ping(event, properties={})
+  def ping(event, properties = {})
     data = data_for_mixpanel.merge(properties)
     TrackEvent.ping(event, data)
   end
@@ -26,14 +28,6 @@ module User::FakeUserBehavior
 
   def on_first_login
     true
-  end
-
-  def available_tiles_on_current_demo
-    User::TileProgressCalculator.new(self).available_tiles_on_current_demo
-  end
-
-  def completed_tiles_on_current_demo
-    User::TileProgressCalculator.new(self).completed_tiles_on_current_demo
   end
 
   def has_friends
@@ -77,7 +71,7 @@ module User::FakeUserBehavior
   end
 
   def privacy_level
-    'nobody'
+    "nobody"
   end
 
   def location
@@ -102,17 +96,17 @@ module User::FakeUserBehavior
     !get_started_lightbox_displayed && demo.tiles.active.present?
   end
 
-  def can_make_tile_suggestions? _demo = nil
+  def can_make_tile_suggestions?(_demo = nil)
     false
   end
 
-  #FIXME Deprecated
+  # FIXME Deprecated
   def show_submit_tile_intro!
     false
   end
 
   def intros
-   user_intro || self.create_user_intro()
+    user_intro || self.create_user_intro()
   end
 
   def is_potential_user?
