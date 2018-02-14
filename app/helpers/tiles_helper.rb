@@ -63,6 +63,6 @@ module TilesHelper
   end
 
   def do_not_display_unanswered_archived_tiles(tile)
-    current_user.end_user? && tile.archived? && !tile_completed?(tile)
+    current_user.end_user? && tile.archive? && !tile_completed?(tile)
   end
 end

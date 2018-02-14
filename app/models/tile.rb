@@ -73,11 +73,10 @@ class Tile < ActiveRecord::Base
     status != DRAFT
   end
 
-  # FIXME suggested and status are not the same thing!
-
   scope :suggested, -> do
     where(status: [USER_SUBMITTED, IGNORED]).order(status: :desc).ordered_by_position
   end
+
   scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
 
   scope :explore, -> { explore_non_ordered.order("tiles.created_at DESC") }
@@ -125,16 +124,6 @@ class Tile < ActiveRecord::Base
     embed_video.present?
   end
 
-  def self.not_completed
-    tiles = Tile.arel_table
-
-    where(tiles[:id].not_in(completed.pluck(:id)))
-  end
-
-  def self.completed
-    joins(:completed_tiles)
-  end
-
   def airbo_created?
     organization.present? && organization.internal
   end
@@ -150,9 +139,6 @@ class Tile < ActiveRecord::Base
   def sent_at
     tiles_digest.try(:sent_at)
   end
-
-  # Dynamically define 'status?' instance methods  and scopes
-  # TODO consider refactoring to remove metaprogramming here. prob not needed
 
   STATUS.each do |status_name|
     define_method(status_name + "?") do
@@ -175,16 +161,8 @@ class Tile < ActiveRecord::Base
     end
   end
 
-  def organization_slug
-    organization ? organization.slug : "airbo"
-  end
-
   def organization_name
     organization ? organization.name : "airbo"
-  end
-
-  def archived?
-    status == Tile::ARCHIVE
   end
 
   def is_fully_assembled?
@@ -201,10 +179,6 @@ class Tile < ActiveRecord::Base
 
   def suggested?
     ignored? || user_submitted?
-  end
-
-  def has_client_admin_status?
-    active? || archive? || draft?
   end
 
   def question_config
