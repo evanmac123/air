@@ -10,8 +10,6 @@ describe User do
   it { is_expected.to have_many(:tile_completions) }
   it { is_expected.to have_many(:tiles) }
   it { is_expected.to have_many(:tile_viewings) }
-  it { is_expected.to have_many(:viewed_tiles) }
-  # Note that our validates_uniqueness_of :email is called in the Clearance gem
   it { is_expected.to validate_uniqueness_of(:email) }
   it { is_expected.to validate_presence_of(:name).with_message("Please enter a first and last name") }
   it { should have_attached_file(:avatar) }
