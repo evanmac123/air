@@ -28,7 +28,7 @@ class TileCompletionsController < ApplicationController
 
     add_start_over_if_guest
 
-    decide_if_tiles_can_be_done(current_user.tiles_to_complete)
+    decide_if_tiles_can_be_done(current_user.tiles_to_complete_in_demo)
     render json: {
       starting_points: @starting_points,
       starting_tickets: @starting_tickets

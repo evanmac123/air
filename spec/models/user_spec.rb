@@ -18,14 +18,14 @@ describe User do
 end
 
 describe User do
-  describe "#tiles_to_complete" do
+  describe "#tiles_to_complete_in_demo" do
     let(:demo)  { FactoryBot.create(:demo) }
     let!(:active_tiles) { FactoryBot.create_list(:tile, 5, demo: demo, status: Tile::ACTIVE) }
     let!(:draft_tiles) { FactoryBot.create(:tile, demo: demo, status: Tile::DRAFT) }
     let(:user)  { FactoryBot.create(:user, demo: demo) }
 
     it "returns all active tiles if not completions exist" do
-      tiles = user.tiles_to_complete
+      tiles = user.tiles_to_complete_in_demo
       expect(tiles.count).to eq(5)
       expect(tiles).to eq(demo.tiles.active.ordered_by_position)
     end
@@ -35,8 +35,8 @@ describe User do
 
       user.tile_completions.create(tile: tile)
 
-      expect(user.tiles_to_complete.count).to eq(4)
-      expect(user.tiles_to_complete).to eq(demo.tiles.active.ordered_by_position[1..-1])
+      expect(user.tiles_to_complete_in_demo.count).to eq(4)
+      expect(user.tiles_to_complete_in_demo).to eq(demo.tiles.active.ordered_by_position[1..-1])
     end
   end
 

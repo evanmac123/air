@@ -228,10 +228,6 @@ class Tile < ActiveRecord::Base
     DisplayCategorizedTiles.new(user, maximum_tiles).displayable_categorized_tiles
   end
 
-  def self.displayable_tiles_select_clause
-    [:id, :headline, :demo_id, :tile_completions_count, :thumbnail_file_name, :thumbnail_content_type, :thumbnail_file_size, :thumbnail_updated_at, :position]
-  end
-
   def prev_tile_in_board
     Tile::NeighborInBoardFinder.new(self).prev
   end

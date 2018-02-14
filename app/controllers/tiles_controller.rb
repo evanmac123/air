@@ -188,14 +188,14 @@ class TilesController < ApplicationController
     end
 
     def user_tiles_to_complete
-      current_user.tiles_to_complete
+      current_user.tiles_to_complete_in_demo
     end
 
     def satisfiable_tiles
       if show_completed_tiles
         current_user.completed_tiles_in_demo
       else
-        current_user.tiles_to_complete
+        user_tiles_to_complete
       end
     end
 
