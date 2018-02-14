@@ -2,20 +2,40 @@
 
 class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
   def create
-    @tile = current_user.demo.tiles.find_by(id: params[:tile_id])
-    Tile::Sorter.call(tile: @tile, params: sort_params)
+    @tile = demo_tiles.find_by(id: params[:tile_id])
+
+    update_tile_status
+    sort_tile
 
     render json: {
       tileId: @tile.id,
       tileHTML: tile_html,
       meta: {
         tilesToBeSentCount: demo.digest_tiles_count,
-        tileCounts: demo.tiles.group(:status).count
+        tileCounts: demo_tiles.group(:status).count
       }
     }
   end
 
   private
+
+    def update_tile_status
+      if new_status.present?
+        Tile::StatusUpdater.call(tile: @tile, new_status: new_status, redigest: sort_params[:redigest])
+      end
+    end
+
+    def sort_tile
+      Tile::Sorter.call(tile: @tile, left_tile_id: sort_params[:left_tile_id])
+    end
+
+    def new_status
+      sort_params[:new_status]
+    end
+
+    def demo_tiles
+      demo.tiles
+    end
 
     def demo
       current_user.demo

@@ -21,34 +21,24 @@ Airbo.TileDragDropSort = (function() {
   }
 
   function updateEvent(event, tile) {
-    showTileControls(tile);
+    toggleTileControls(tile);
     saveTilePosition(tile);
   }
 
   function startEvent(event, tile) {
-    hideTileControls(tile);
+    toggleTileControls(tile);
   }
 
   function findTileId(tile) {
     return tile.find(".tile_thumbnail").data("tile-id");
   }
 
-  function hideTileControls(tile) {
+  function toggleTileControls(tile) {
     var controlElements = tile.find(".tile_buttons, .tile_stats");
     var shadowOverlay = tile.find(".shadow_overlay");
 
-    controlElements.hide();
-    shadowOverlay.css("opacity", "0");
-  }
-
-  function showTileControls(tile) {
-    var controlElements = tile.find(".tile_buttons, .tile_stats");
-    controlElements.show();
-  }
-
-  function replaceMovedTile(tile, updatedTileContainer) {
-    tile.replaceWith(updatedTileContainer);
-    Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".pill.more"));
+    controlElements.toggle();
+    shadowOverlay.toggle();
   }
 
   function saveTilePosition(tile) {
@@ -65,7 +55,7 @@ Airbo.TileDragDropSort = (function() {
       type: "POST",
       url: "/api/client_admin/tiles/" + id + "/sorts",
       success: function(result) {
-        replaceMovedTile(tile, result.tileHTML);
+        return;
       }
     });
   }
