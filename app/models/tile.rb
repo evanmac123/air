@@ -8,14 +8,14 @@ class Tile < ActiveRecord::Base
   include Tile::TileLinkTracking
   include Attachable
 
-  ACTIVE  = "active".freeze
-  ARCHIVE = "archive".freeze
-  DRAFT   = "draft".freeze
-  USER_DRAFT = "user_draft".freeze
-  USER_SUBMITTED = "user_submitted".freeze
-  IGNORED = "ignored".freeze
+  ARCHIVE = "archive"
+  ACTIVE  = "active"
+  DRAFT   = "draft"
+  PLAN    = "plan"
+  USER_SUBMITTED = "user_submitted"
+  IGNORED = "ignored"
 
-  STATUS  = [ACTIVE, ARCHIVE, DRAFT, USER_DRAFT, USER_SUBMITTED, IGNORED].freeze
+  STATUS  = [ACTIVE, ARCHIVE, DRAFT, USER_SUBMITTED, IGNORED].freeze
 
   MAX_HEADLINE_LEN = 75
   MAX_SUPPORTING_CONTENT_LEN = 700

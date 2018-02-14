@@ -27,10 +27,6 @@ FactoryBot.define do
       status Tile::DRAFT
     end
 
-    trait :user_draft do
-      status Tile::USER_DRAFT
-    end
-
     trait :user_submitted do
       status Tile::USER_SUBMITTED
       association :creator, factory: :user
@@ -54,11 +50,6 @@ FactoryBot.define do
       is_sharable true
       is_public true
       status Tile::ACTIVE
-    end
-
-    trait :user_drafted do
-      status Tile::USER_DRAFT
-      association :creator, factory: :user
     end
   end
 

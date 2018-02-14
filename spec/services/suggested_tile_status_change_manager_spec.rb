@@ -62,13 +62,6 @@ describe SuggestedTileStatusChangeManager do
         end
       end
 
-
-      it "doesn't sends emails original status not USER_SUBMITTED" do
-        tile = mock_tile(suggestion_box_created: true, status_changes: [Tile::USER_DRAFT, Tile::DRAFT])
-
-        process_change_negation(expected_method: :send_acceptance_email, tile: tile)
-      end
-
       context "is not user created" do
         it "doesn't sends emails if creation source is not suggestion_box_created" do
           tile = mock_tile(suggestion_box_created: false, status_changes: [nil, Tile::DRAFT])
