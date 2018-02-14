@@ -29,21 +29,18 @@ class Tile < ActiveRecord::Base
   belongs_to :creator, class_name: "User"
   belongs_to :original_creator, class_name: "User"
 
-  has_one :organization, through: :demo
-
+  has_one  :organization, through: :demo
   has_many :tile_completions, dependent: :nullify
   has_many :tile_viewings, dependent: :nullify
-  has_many :tile_taggings, dependent: :nullify
-  has_many :user_tile_likes, dependent: :nullify
-  has_many :tiles_digest_tiles
+  has_many :tiles_digest_tiles, dependent: :destroy
   has_many :tiles_digests, through: :tiles_digest_tiles
-  has_many :tile_user_notifications
+  has_many :tile_user_notifications, dependent: :destroy
+  has_many :campaign_tiles, dependent: :destroy
+  has_many :campaigns, through: :campaign_tiles
 
-  has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: "GuestUser"
-  has_many :completed_tiles, source: :tile, through: :tile_completions
-  has_many :user_viewers, through: :tile_viewings, source: :user, source_type: "User"
-
-  has_alphabetical_column :headline
+  alias_attribute :total_views, :total_viewings_count
+  alias_attribute :unique_views, :unique_viewings_count
+  alias_attribute :interactions, :tile_completions_count
 
   before_validation :sanitize_supporting_content
   before_validation :sanitize_embed_video
@@ -60,18 +57,8 @@ class Tile < ActiveRecord::Base
   validates_presence_of :remote_media_url, message: "image is missing", if: :state_is_anything_but_draft?
   validate :multiple_choice_question_answer_selected, if: :state_is_anything_but_draft?
   validates_inclusion_of :status, in: STATUS
-
   validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
   validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: MAX_SUPPORTING_CONTENT_LEN, message: "supporting content is too long (maximum is #{MAX_SUPPORTING_CONTENT_LEN} characters)"
-
-  has_many :campaign_tiles, dependent: :destroy
-  has_many :campaigns, through: :campaign_tiles
-
-  accepts_nested_attributes_for :campaign_tiles
-
-  def state_is_anything_but_draft?
-    status != DRAFT
-  end
 
   scope :suggested, -> do
     where(status: [USER_SUBMITTED, IGNORED]).order(status: :desc).ordered_by_position
@@ -84,11 +71,6 @@ class Tile < ActiveRecord::Base
   scope :explore_non_ordered, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
 
   scope :ordered_by_position, -> { order "position DESC" }
-
-  alias_attribute :like_count, :user_tile_likes_count
-  alias_attribute :total_views, :total_viewings_count
-  alias_attribute :unique_views, :unique_viewings_count
-  alias_attribute :interactions, :tile_completions_count
 
   after_save :reindex, if: :should_reindex?
   after_destroy :reindex
@@ -110,6 +92,10 @@ class Tile < ActiveRecord::Base
 
   def should_reindex?
     ["headline", "supporting_content", "is_public", "status"].any? { |key| self.changes.key?(key) }
+  end
+
+  def state_is_anything_but_draft?
+    status != DRAFT
   end
 
   def remote_media_url

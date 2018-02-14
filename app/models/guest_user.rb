@@ -20,8 +20,6 @@ class GuestUser < ActiveRecord::Base
 
   has_one :user_intro, as: :userable, dependent: :delete
 
-  has_many :viewed_tiles, through: :tile_viewings
-
   include CancelAccountToken
   include User::FakeUserBehavior
   include User::Tiles

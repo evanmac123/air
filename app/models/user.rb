@@ -59,7 +59,6 @@ class User < ActiveRecord::Base
   has_many   :tiles, foreign_key: :creator_id, dependent: :nullify
   has_many   :tile_completions, as: :user, dependent: :nullify
   has_many   :tile_viewings, as: :user, dependent: :nullify
-  has_many   :user_tile_likes, dependent: :nullify
 
 
   # Indirect relationships don't require a deletion strategy
@@ -68,7 +67,6 @@ class User < ActiveRecord::Base
   has_one    :demo, through: :current_board_membership
   has_one    :raffle, through: :demo
 
-  has_many   :viewed_tiles, through: :tile_viewings, source: :tile
   has_many   :demos, through: :board_memberships
   has_many   :friends, through: :friendships
 
