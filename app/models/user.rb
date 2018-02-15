@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   include CancelAccountToken
   include User::ClientAdminNotifications
+  include User::Tiles
 
   extend User::Queries
 
@@ -58,7 +59,6 @@ class User < ActiveRecord::Base
   has_many   :tiles, foreign_key: :creator_id, dependent: :nullify
   has_many   :tile_completions, as: :user, dependent: :nullify
   has_many   :tile_viewings, as: :user, dependent: :nullify
-  has_many   :user_tile_likes, dependent: :nullify
 
 
   # Indirect relationships don't require a deletion strategy
@@ -67,8 +67,6 @@ class User < ActiveRecord::Base
   has_one    :demo, through: :current_board_membership
   has_one    :raffle, through: :demo
 
-  has_many   :completed_tiles, source: :tile, through: :tile_completions
-  has_many   :viewed_tiles, through: :tile_viewings, source: :tile
   has_many   :demos, through: :board_memberships
   has_many   :friends, through: :friendships
 
@@ -187,7 +185,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :password_confirmation, :converting_from_guest, :must_have_location, :creating_board, :role
 
-
   has_alphabetical_column :name
 
   scope :non_site_admin, -> { where(is_site_admin: false) }
@@ -217,14 +214,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def displayable_tiles(select_clause = Tile.displayable_tiles_select_clause)
-    tile_arel = Tile.arel_table
-
-    user_tile_completions = demo.tiles.select(:id).joins(:tile_completions).where(tile_completions: { user_id: id })
-
-    demo.tiles.select(select_clause).where(tile_arel[:status].eq([Tile::ACTIVE]).or(tile_arel[:id].in(user_tile_completions.pluck(:id)))).order(:position)
-  end
-
   def end_user_in_all_boards?
     !is_site_admin && !is_client_admin_in_any_board
   end
@@ -234,7 +223,7 @@ class User < ActiveRecord::Base
   end
 
   def demo_id
-    self.demo.try(&:id)
+    self.demo.try(:id)
   end
 
   def organization
@@ -671,8 +660,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
-
   def generate_simple_claim_code!
     update_attributes(claim_code: claim_code_prefix)
   end
@@ -733,7 +720,7 @@ class User < ActiveRecord::Base
   end
 
   def set_current_board_membership(demo)
-    board_membership = board_memberships.where(demo_id: demo.id).first
+    board_membership = board_memberships.find_by(demo_id: demo.id)
     board_membership.set_as_current
   end
 
@@ -804,11 +791,6 @@ class User < ActiveRecord::Base
 
   def scoreboard_friends_list_by_name
     (self.accepted_friends + [self]).sort_by { |ff| ff.name.downcase }
-  end
-
-  def reset_tiles(demo = nil)
-    demo ||= self.demo
-    demo.tile_completions.select([:id, :tile_id]).where(user_id: self.id).destroy_all
   end
 
   def has_tiles_tools_subnav?
@@ -918,18 +900,6 @@ class User < ActiveRecord::Base
   def has_board_in_common_with(other_user)
     board_ids = self.board_memberships.pluck(:demo_id)
     other_user.board_memberships.where(demo_id: board_ids).first.present?
-  end
-
-  def available_tiles_on_current_demo
-    TileProgressCalculator.new(self).available_tiles_on_current_demo
-  end
-
-  def completed_tiles_on_current_demo
-    TileProgressCalculator.new(self).completed_tiles_on_current_demo
-  end
-
-  def not_show_all_completed_tiles_in_progress
-    TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
   end
 
   def is_client_admin_in_any_board

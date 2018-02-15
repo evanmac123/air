@@ -29,21 +29,18 @@ class Tile < ActiveRecord::Base
   belongs_to :creator, class_name: "User"
   belongs_to :original_creator, class_name: "User"
 
-  has_one :organization, through: :demo
-
+  has_one  :organization, through: :demo
   has_many :tile_completions, dependent: :nullify
   has_many :tile_viewings, dependent: :nullify
-  has_many :tile_taggings, dependent: :nullify
-  has_many :user_tile_likes, dependent: :nullify
-  has_many :tiles_digest_tiles
+  has_many :tiles_digest_tiles, dependent: :destroy
   has_many :tiles_digests, through: :tiles_digest_tiles
-  has_many :tile_user_notifications
+  has_many :tile_user_notifications, dependent: :destroy
+  has_many :campaign_tiles, dependent: :destroy
+  has_many :campaigns, through: :campaign_tiles
 
-  has_many :guest_user_viewers, through: :tile_viewings, source: :user, source_type: "GuestUser"
-  has_many :completed_tiles, source: :tile, through: :tile_completions
-  has_many :user_viewers, through: :tile_viewings, source: :user, source_type: "User"
-
-  has_alphabetical_column :headline
+  alias_attribute :total_views, :total_viewings_count
+  alias_attribute :unique_views, :unique_viewings_count
+  alias_attribute :interactions, :tile_completions_count
 
   before_validation :sanitize_supporting_content
   before_validation :sanitize_embed_video
@@ -60,24 +57,13 @@ class Tile < ActiveRecord::Base
   validates_presence_of :remote_media_url, message: "image is missing", if: :state_is_anything_but_draft?
   validate :multiple_choice_question_answer_selected, if: :state_is_anything_but_draft?
   validates_inclusion_of :status, in: STATUS
-
   validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
   validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: MAX_SUPPORTING_CONTENT_LEN, message: "supporting content is too long (maximum is #{MAX_SUPPORTING_CONTENT_LEN} characters)"
-
-  has_many :campaign_tiles, dependent: :destroy
-  has_many :campaigns, through: :campaign_tiles
-
-  accepts_nested_attributes_for :campaign_tiles
-
-  def state_is_anything_but_draft?
-    status != DRAFT
-  end
-
-  # FIXME suggested and status are not the same thing!
 
   scope :suggested, -> do
     where(status: [USER_SUBMITTED, IGNORED]).order(status: :desc).ordered_by_position
   end
+
   scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
 
   scope :explore, -> { explore_non_ordered.order("tiles.created_at DESC") }
@@ -85,11 +71,6 @@ class Tile < ActiveRecord::Base
   scope :explore_non_ordered, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
 
   scope :ordered_by_position, -> { order "position DESC" }
-
-  alias_attribute :like_count, :user_tile_likes_count
-  alias_attribute :total_views, :total_viewings_count
-  alias_attribute :unique_views, :unique_viewings_count
-  alias_attribute :interactions, :tile_completions_count
 
   after_save :reindex, if: :should_reindex?
   after_destroy :reindex
@@ -113,6 +94,10 @@ class Tile < ActiveRecord::Base
     ["headline", "supporting_content", "is_public", "status"].any? { |key| self.changes.key?(key) }
   end
 
+  def state_is_anything_but_draft?
+    status != DRAFT
+  end
+
   def remote_media_url
     if has_video?
       ActionController::Base.helpers.asset_path("video.png")
@@ -123,16 +108,6 @@ class Tile < ActiveRecord::Base
 
   def has_video?
     embed_video.present?
-  end
-
-  def self.not_completed
-    tiles = Tile.arel_table
-
-    where(tiles[:id].not_in(completed.pluck(:id)))
-  end
-
-  def self.completed
-    joins(:completed_tiles)
   end
 
   def airbo_created?
@@ -150,9 +125,6 @@ class Tile < ActiveRecord::Base
   def sent_at
     tiles_digest.try(:sent_at)
   end
-
-  # Dynamically define 'status?' instance methods  and scopes
-  # TODO consider refactoring to remove metaprogramming here. prob not needed
 
   STATUS.each do |status_name|
     define_method(status_name + "?") do
@@ -175,16 +147,8 @@ class Tile < ActiveRecord::Base
     end
   end
 
-  def organization_slug
-    organization ? organization.slug : "airbo"
-  end
-
   def organization_name
     organization ? organization.name : "airbo"
-  end
-
-  def archived?
-    status == Tile::ARCHIVE
   end
 
   def is_fully_assembled?
@@ -201,10 +165,6 @@ class Tile < ActiveRecord::Base
 
   def suggested?
     ignored? || user_submitted?
-  end
-
-  def has_client_admin_status?
-    active? || archive? || draft?
   end
 
   def question_config
@@ -266,19 +226,6 @@ class Tile < ActiveRecord::Base
 
   def self.displayable_categorized_to_user(user, maximum_tiles)
     DisplayCategorizedTiles.new(user, maximum_tiles).displayable_categorized_tiles
-  end
-
-  def self.satisfiable_to_user(user, curr_demo = nil)
-    board = curr_demo || user.demo.id
-
-    ids_completed = user.tile_completions.pluck(:tile_id)
-
-    satisfiable_tiles = Tile.active.where(demo_id: board).reject { |tile| ids_completed.include? tile.id }
-    satisfiable_tiles.sort_by(&:position).reverse
-  end
-
-  def self.displayable_tiles_select_clause
-    [:id, :headline, :demo_id, :tile_completions_count, :thumbnail_file_name, :thumbnail_content_type, :thumbnail_file_size, :thumbnail_updated_at, :position]
   end
 
   def prev_tile_in_board

@@ -10,21 +10,35 @@ describe User do
   it { is_expected.to have_many(:tile_completions) }
   it { is_expected.to have_many(:tiles) }
   it { is_expected.to have_many(:tile_viewings) }
-  it { is_expected.to have_many(:viewed_tiles) }
-  # Note that our validates_uniqueness_of :email is called in the Clearance gem
   it { is_expected.to validate_uniqueness_of(:email) }
   it { is_expected.to validate_presence_of(:name).with_message("Please enter a first and last name") }
   it { should have_attached_file(:avatar) }
   it { should validate_attachment_content_type(:avatar).allowing('image/*') }
+  it { is_expected.to validate_presence_of :privacy_level }
 end
 
 describe User do
-  before do
-    User.delete_all
-    ActionMailer::Base.deliveries.clear
-  end
+  describe "#tiles_to_complete_in_demo" do
+    let(:demo)  { FactoryBot.create(:demo) }
+    let!(:active_tiles) { FactoryBot.create_list(:tile, 5, demo: demo, status: Tile::ACTIVE) }
+    let!(:draft_tiles) { FactoryBot.create(:tile, demo: demo, status: Tile::DRAFT) }
+    let(:user)  { FactoryBot.create(:user, demo: demo) }
 
-  it { is_expected.to validate_presence_of :privacy_level }
+    it "returns all active tiles if not completions exist" do
+      tiles = user.tiles_to_complete_in_demo
+      expect(tiles.count).to eq(5)
+      expect(tiles).to eq(demo.tiles.active.ordered_by_position)
+    end
+
+    it "returns only active tiles that have not been completed" do
+      tile = demo.tiles.active.ordered_by_position[0]
+
+      user.tile_completions.create(tile: tile)
+
+      expect(user.tiles_to_complete_in_demo.count).to eq(4)
+      expect(user.tiles_to_complete_in_demo).to eq(demo.tiles.active.ordered_by_position[1..-1])
+    end
+  end
 
   it "should validate that privacy level is set to a valid value" do
     user = FactoryBot.create :user

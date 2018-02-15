@@ -4,8 +4,6 @@ describe Tile do
   it { is_expected.to belong_to(:demo) }
   it { is_expected.to belong_to(:creator) }
   it { is_expected.to have_many(:tile_viewings) }
-  it { is_expected.to have_many(:user_viewers) }
-  it { is_expected.to have_many(:guest_user_viewers) }
   it { is_expected.to validate_inclusion_of(:status).in_array(Tile::STATUS) }
 
   describe "after_save" do
@@ -318,21 +316,6 @@ describe Tile do
     expect(tile_2.activated_at.to_s).to eq(time_2.to_s)
 
     Timecop.return
-  end
-
-  describe "satisfiable to a particular user" do
-    before(:each) do
-      Demo.find_each {|f| f.destroy}
-      @fun = FactoryBot.create(:demo, name: 'A Good Time')
-      @mud_bath = FactoryBot.create(:tile, headline: 'Mud Bath', demo: @fun)
-      @leah = FactoryBot.create(:user, name: 'Leah Eckles', demo: @fun)
-    end
-
-    it "looks good to the average user" do
-      tiles = Tile.satisfiable_to_user(@leah)
-      expect(tiles.count).to eq(1)
-      expect(tiles.first.id).to eq(@mud_bath.id)
-    end
   end
 
   describe "#survey_chart" do

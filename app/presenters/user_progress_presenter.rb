@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserProgressPresenter
   include ActionView::Helpers::NumberHelper
 
@@ -8,19 +10,12 @@ class UserProgressPresenter
     @demo = user.demo
   end
 
-#  def cache_key
-    #@cache_key ||= [
-      #self.class.to_s,
-      #'v1.pwd'
-    #].join('-')
-  #end
-
   def available_tile_count
-    @available_tile_count ||= @user.available_tiles_on_current_demo.count
+    @user.available_tiles_for_points_progress.count
   end
 
   def completed_tile_count
-    @completed_tile_count ||= @user.completed_tiles_on_current_demo.count
+    @user.completed_tiles_for_points_progress.count
   end
 
   def some_tiles_undone?
@@ -40,11 +35,11 @@ class UserProgressPresenter
   end
 
   def tile_ids
-     @active_ids ||= @demo.tiles.active.map(&:id)
+    @active_ids ||= @demo.tiles.active.pluck(:id)
   end
 
   def config
-    {user: @user.id,
+    { user: @user.id,
      demo: @demo.id,
      tileIds: tile_ids,
      tileCount: tile_ids.size,

@@ -1,8 +1,10 @@
-require 'csv'
+# frozen_string_literal: true
+
+require "csv"
 
 class Admin::UsersController < AdminBaseController
   before_action :find_demo_by_demo_id
-  before_action :find_user, :only => [:edit, :update, :destroy]
+  before_action :find_user, only: [:edit, :update, :destroy]
 
   def index
     respond_to do |format|
@@ -19,19 +21,18 @@ class Admin::UsersController < AdminBaseController
       end
 
       format.js do
-        @users = @demo.users.where(:id => current_user.segmentation_results.found_user_ids).sort_by(&:name)
+        @users = @demo.users.where(id: current_user.segmentation_results.found_user_ids).sort_by(&:name)
       end
 
       format.csv do
-        @users = @demo.users.where(:id => current_user.segmentation_results.found_user_ids)
-        render :index, :content_type => "text/csv", :layout => false
+        @users = @demo.users.where(id: current_user.segmentation_results.found_user_ids)
+        render :index, content_type: "text/csv", layout: false
       end
     end
   end
 
   def edit
     @demos = Demo.alphabetical
-    @satisfiable_tiles = Tile.satisfiable_to_user(@user)
     @agnostic_characteristics = Characteristic.agnostic
     @demo_specific_characteristics = Characteristic.in_demo(@user.demo)
 
@@ -43,15 +44,15 @@ class Admin::UsersController < AdminBaseController
     @user.attributes = permitted_params.user if user_params.present?
     @user.claim_code = nil if params[:user].has_key?(:claim_code) && params[:user][:claim_code].blank?
 
-    #TODO this kind of logic should not be in the controller!!!!!!
-    #FIXME aaaaargh!
+    # TODO this kind of logic should not be in the controller!!!!!!
+    # FIXME aaaaargh!
     if ! params[:user][:phone_number].blank?
       @user.new_phone_number = @user.new_phone_validation = ""
       @user.phone_number = PhoneNumber.normalize @user.phone_number
     end
 
     # calling #save wipes this out so we have to remember it now
-    client_admin_changed = @user.changed.include?('is_client_admin')
+    client_admin_changed = @user.changed.include?("is_client_admin")
     if @user.save
       if new_demo_id
         @user.add_board(new_demo_id)
@@ -78,19 +79,19 @@ class Admin::UsersController < AdminBaseController
 
 
 
-  def find_user
-    @user = @demo.users.find_by(slug: params[:id])
-  end
-
-  def ping_if_made_client_admin(user, was_changed)
-    if user.is_client_admin && was_changed
-      ping('claimed account', {source: 'Site Admin'}, current_user)
+    def find_user
+      @user = @demo.users.find_by(slug: params[:id])
     end
-  end
+
+    def ping_if_made_client_admin(user, was_changed)
+      if user.is_client_admin && was_changed
+        ping("claimed account", { source: "Site Admin" }, current_user)
+      end
+    end
 
   private
 
-  def user_params
-   params[:user]
-  end
+    def user_params
+      params[:user]
+    end
 end
