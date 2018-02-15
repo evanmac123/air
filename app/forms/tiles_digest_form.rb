@@ -71,6 +71,6 @@ class TilesDigestForm
   end
 
   def submit_send_test_digest
-    TilesDigestTester.new(digest_form: self).deliver_test!
+    TilesDigestTester.new(digest_form: self).deliver_test
   end
 end
