@@ -29,6 +29,8 @@ Airbo.TileManager = (function() {
   function addNewTile($tile, status) {
     var $section = $("#" + status);
     $section.prepend($tile);
+
+    Airbo.PubSub.publish("incrementTileCounts", { status: "plan" });
     Airbo.TilePlaceHolderManager.perform();
   }
 

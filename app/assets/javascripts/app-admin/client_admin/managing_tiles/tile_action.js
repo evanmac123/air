@@ -82,11 +82,6 @@ Airbo.TileAction = (function() {
     if (isRepostingArchivedTile()) {
       confirmUnarchive(function(isConfirm) {
         if (isConfirm) {
-          if (Airbo.Utils.userIsSiteAdmin()) {
-            data.sort.redigest = $(".sweet-alert input#digestable").is(
-              ":checked"
-            );
-          }
           submit();
         }
       });
@@ -123,7 +118,6 @@ Airbo.TileAction = (function() {
       success: function(data, status, xhr) {
         swal.close();
         Airbo.PubSub.publish("/tile-admin/tile-copied", { data: data });
-        Airbo.PubSub.publish("incrementTileCounts", { status: "draft" });
       },
 
       error: function(jqXHR, textStatus, error) {
@@ -181,48 +175,36 @@ Airbo.TileAction = (function() {
   }
 
   function confirmPost(confirmCallback) {
+    var prompt =
+      "Tiles are posted automatically when they a delivered. If you manually post a Tile, it will not appear in your next Tile Digest.";
+    var confirmText = "Post";
+
+    swapTemplate(prompt, confirmText, confirmCallback);
+  }
+
+  function confirmUnarchive(confirmCallback) {
+    var prompt =
+      "Users who completed this Tile before won't see it again. If you want to re-use the content, it may be better to create a copy.";
+    var confirmText = "Post Again";
+
+    swapTemplate(prompt, confirmText, confirmCallback);
+  }
+
+  function swapTemplate(prompt, confirmText, callback) {
     swal(
       {
         title: "Are you sure about that?",
-        text:
-          "Tiles are posted automatically when they a delivered. If you manually post a Tile, it will not appear in your next Tile Digest.",
+        text: prompt,
         customClass: "airbo",
         showConfirmationButton: true,
         showCancelButton: true,
         cancelButtonText: "Cancel",
-        confirmButtonText: "Post",
+        confirmButtonText: confirmText,
         closeOnConfirm: true,
         closeOnCancel: true,
         allowEscapeKey: true
       },
-      confirmCallback
-    );
-  }
-
-  function confirmUnarchive(confirmCallback) {
-    var unarchivePrompt =
-      "Users who completed it before won't see it again. If you want to re-use the content, please create a new Tile.";
-    var adminUnarchivePrompt =
-      "<p class='extra-interaction'><label>Click to include in the digest when reposted: <input type='checkbox' value='yes' id='digestable'/> </label></p>";
-    var txt = Airbo.Utils.userIsSiteAdmin()
-      ? adminUnarchivePrompt
-      : unarchivePrompt;
-    swal(
-      {
-        title: "Are you sure you want to repost this Tile?",
-        text: txt,
-        customClass: "airbo",
-        showConfirmationButton: true,
-        showCancelButton: true,
-        cancelButtonText: "Cancel",
-        confirmButtonText: "Confirm",
-        closeOnConfirm: true,
-        closeOnCancel: true,
-        allowEscapeKey: true,
-        html: true,
-        animation: false
-      },
-      confirmCallback
+      callback
     );
   }
 

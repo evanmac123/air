@@ -7,7 +7,7 @@ describe Tile::StatusUpdater do
       Tile::StatusUpdater.expects(:new).with("tile", "active", false).returns(mock_status_updater)
       mock_status_updater.expects(:perform)
 
-      Tile::StatusUpdater.call(tile: "tile", new_status: "active", redigest: false)
+      Tile::StatusUpdater.call(tile: "tile", new_status: "active")
     end
   end
 
@@ -32,28 +32,6 @@ describe Tile::StatusUpdater do
 
       Tile::StatusUpdater.new(tile, Tile::DRAFT, false).perform
       expect(tile.status).to eq(Tile::DRAFT)
-    end
-
-    it "scrubs activated_at when reposting archived tiles and redigesting" do
-      Tile::StatusUpdater.new(tile, Tile::ACTIVE, false).perform
-      old_activated_at = tile.activated_at
-      expect(old_activated_at.present?).to eq(true)
-
-      Tile::StatusUpdater.new(tile, Tile::ARCHIVE, false).perform
-      Tile::StatusUpdater.new(tile, Tile::ACTIVE, "true").perform
-
-      expect(tile.activated_at).to_not eq(old_activated_at)
-    end
-
-    it "does not scrub activated_at when reposting archived tiles and not redigesting" do
-      Tile::StatusUpdater.new(tile, Tile::ACTIVE, false).perform
-      old_activated_at = tile.activated_at
-      expect(old_activated_at.present?).to eq(true)
-
-      Tile::StatusUpdater.new(tile, Tile::ARCHIVE, false).perform
-      Tile::StatusUpdater.new(tile, Tile::ACTIVE, false).perform
-
-      expect(tile.activated_at).to eq(old_activated_at)
     end
   end
 end

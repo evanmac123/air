@@ -21,7 +21,7 @@ class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
 
     def update_tile_status
       if new_status.present?
-        Tile::StatusUpdater.call(tile: @tile, new_status: new_status, redigest: sort_params[:redigest])
+        Tile::StatusUpdater.call(tile: @tile, new_status: new_status)
       end
     end
 
@@ -42,7 +42,7 @@ class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
     end
 
     def sort_params
-      params.require(:sort).permit(:left_tile_id, :new_status, :redigest)
+      params.require(:sort).permit(:left_tile_id, :new_status)
     end
 
     def tile_presenter(tile)

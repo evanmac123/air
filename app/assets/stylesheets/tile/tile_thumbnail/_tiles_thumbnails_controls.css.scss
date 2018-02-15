@@ -240,6 +240,11 @@
   padding: 4px;
 
   &.draft {
+    border: 1px solid $n-blue;
+    color: $n-blue;
+  }
+
+  &.plan {
     border: 1px solid $n-yellow;
     color: $n-yellow;
   }
