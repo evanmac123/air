@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TilesDigest < ActiveRecord::Base
   DEFAULT_DIGEST_SUBJECT = "New Tiles"
 
@@ -55,8 +57,19 @@ class TilesDigest < ActiveRecord::Base
   def send_emails_and_sms
     self.sent_at = Time.current
     self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true)
+    update_tiles
 
     TilesDigestBulkMailJob.perform_later(self)
+  end
+
+  def update_tiles
+    max_tile_position = demo.tiles.active.maximum(:position).to_i
+
+    tiles.order(position: :asc).each do |tile|
+      max_tile_position += 1
+      tile.assign_attributes(status: Tile::ACTIVE, position: max_tile_position)
+      tile.save
+    end
   end
 
   def all_related_subject_lines
@@ -107,14 +120,6 @@ class TilesDigest < ActiveRecord::Base
     tiles.pluck(:id)
   end
 
-  def tiles_for_email
-    tiles.active
-  end
-
-  def tile_ids_for_email
-    tiles_for_email.pluck(:id)
-  end
-
   def users
     include_unclaimed_users ? users_for_digest : claimed_users_for_digest
   end
@@ -125,7 +130,7 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def set_tiles
-    demo.digest_tiles(cutoff_time).each do |tile|
+    demo.digest_tiles.each do |tile|
       self.tiles << tile
     end
   end

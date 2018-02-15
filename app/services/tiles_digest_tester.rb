@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TilesDigestTester
   include TilesDigestConcern
 
@@ -32,7 +34,7 @@ class TilesDigestTester
     end
 
     def deliver_test_follow_up_email
-      unless follow_up_day == 'Never'
+      unless follow_up_day == "Never"
         TilesDigestMailer.notify_one(
           digest,
           current_user.id,
@@ -52,7 +54,7 @@ class TilesDigestTester
 
     def test_digest_params(digest_form)
       cutoff_time = digest_form.demo.tile_digest_email_sent_at
-      tile_ids = digest_form.demo.digest_tiles(cutoff_time).pluck(:id)
+      tile_ids = digest_form.demo.digest_tiles.pluck(:id)
 
       {
         id: "test",

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class TilesDigestMailer < BaseTilesDigestMailer
   def notify_one(digest, user_id, subject, presenter_class)
     @user = User.includes(:board_memberships).find_by(id: user_id)
     return nil unless @user && @user.email.present?
 
     @demo = digest.demo
-    @tile_ids = digest.tile_ids_for_email
+    @tile_ids = digest.tile_ids
 
     @presenter = presenter_class.constantize.new(digest, @user, subject, is_invite_user)
 

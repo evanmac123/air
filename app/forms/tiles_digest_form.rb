@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TilesDigestForm
   attr_reader :demo,
               :current_user,
@@ -14,11 +16,11 @@ class TilesDigestForm
     @demo = demo
 
     if params.present?
-      set_attribtues(params)
+      set_attrs(params)
     end
   end
 
-  def set_attribtues(params)
+  def set_attrs(params)
     @unclaimed_users_also_get_digest = set_unclaimed_users_also_get_digest?(params[:digest_send_to])
     @follow_up_day   = params[:follow_up_day]   if params[:follow_up_day].present?
     @custom_message  = params[:custom_message]  if params[:custom_message].present?
@@ -33,15 +35,15 @@ class TilesDigestForm
   end
 
   def set_unclaimed_users_also_get_digest?(digest_send_to)
-    if digest_send_to == 'true'
+    if digest_send_to == "true"
       true
-    elsif digest_send_to == 'false'
+    elsif digest_send_to == "false"
       false
     end
   end
 
   def digest_send_to_options
-    [['All Users', true], ['Activated Users', false]]
+    [["All Users", true], ["Activated Users", false]]
   end
 
   def digest_send_to_selected

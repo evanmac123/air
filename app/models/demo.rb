@@ -171,12 +171,8 @@ class Demo < ActiveRecord::Base
     tiles.draft
   end
 
-  def digest_tiles(cutoff_time = self.tile_digest_email_sent_at)
-    tiles.digest(self, cutoff_time)
-  end
-
-  def digest_tiles_count
-    digest_tiles.count
+  def digest_tiles
+    tiles.draft
   end
 
   def claimed_users(excluded_uids: [])

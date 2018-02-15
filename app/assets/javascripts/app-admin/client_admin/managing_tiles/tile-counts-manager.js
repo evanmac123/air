@@ -8,7 +8,7 @@ Airbo.TileCountsManager = (function() {
     updateCountsInTabs();
 
     Airbo.PubSub.publish("updateShareTabNotification", {
-      number: payload.tilesToBeSentCount
+      number: payload.tileCounts.draft || 0
     });
   }
 

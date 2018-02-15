@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TilesToolsSubnavPresenter
   include AirboLearningHelper
   include Rails.application.routes.url_helpers
@@ -32,7 +34,7 @@ class TilesToolsSubnavPresenter
 
   private
 
-    def correct_params params = {}
+    def correct_params(params = {})
       params[:icon] ||= nil
       params[:image] ||= nil
       params[:blocked] ||= nil
@@ -41,7 +43,7 @@ class TilesToolsSubnavPresenter
     end
 
     def tiles_to_be_sent
-      @_tiles_to_be_sent = demo.digest_tiles(demo.tile_digest_email_sent_at).count
+      demo.digest_tiles.count
     end
 
     def subnav_elements

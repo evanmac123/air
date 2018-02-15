@@ -11,7 +11,6 @@ class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
       tileId: @tile.id,
       tileHTML: tile_html,
       meta: {
-        tilesToBeSentCount: demo.digest_tiles_count,
         tileCounts: demo_tiles.group(:status).count
       }
     }

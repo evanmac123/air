@@ -52,8 +52,6 @@ class Tile < ActiveRecord::Base
   validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
   validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: MAX_SUPPORTING_CONTENT_LEN, message: "supporting content is too long (maximum is #{MAX_SUPPORTING_CONTENT_LEN} characters)"
 
-  scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
-
   scope :explore, -> { explore_non_ordered.order("tiles.created_at DESC") }
   scope :explore_not_in_campaign, -> { explore.joins("LEFT JOIN campaign_tiles ON campaign_tiles.tile_id = tiles.id").where(campaign_tiles: { id: nil }) }
   scope :explore_non_ordered, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
