@@ -4,9 +4,6 @@ Airbo.TileAction = (function() {
   var tileWrapperSelector = ".tile_container";
   var tileModalSelector = "#tile_preview_modal";
 
-  //
-  // => Update Status
-  //
   function movePing(updatedTile, status, action) {
     var mess = {
       active: "Posted",
@@ -42,6 +39,10 @@ Airbo.TileAction = (function() {
 
     function isRepostingArchivedTile() {
       return link.data("action") === "unarchive";
+    }
+
+    function manuallyPostingTile() {
+      return link.data("action") === "active";
     }
 
     function closeAnyToolTips() {
@@ -89,15 +90,16 @@ Airbo.TileAction = (function() {
           submit();
         }
       });
+    } else if (manuallyPostingTile()) {
+      confirmPost(function(isConfirm) {
+        if (isConfirm) {
+          submit();
+        }
+      });
     } else {
       submit();
     }
   }
-
-  //
-  // => Duplication
-  //
-  //
 
   function swapModalButtons() {
     $("button.cancel").before($("button.confirm"));
@@ -129,10 +131,6 @@ Airbo.TileAction = (function() {
       }
     });
   }
-
-  //
-  // => Deletion
-  //
 
   function confirmDeletion(target) {
     function deleteTile(target) {
@@ -180,6 +178,25 @@ Airbo.TileAction = (function() {
     var tileContainerSelect =
       ".tile_container[data-tile-container-id=" + target.data("tile-id") + "]";
     return $(tileContainerSelect);
+  }
+
+  function confirmPost(confirmCallback) {
+    swal(
+      {
+        title: "Are you sure about that?",
+        text:
+          "Tiles are posted automatically when they a delivered. If you manually post a Tile, it will not appear in your next Tile Digest.",
+        customClass: "airbo",
+        showConfirmationButton: true,
+        showCancelButton: true,
+        cancelButtonText: "Cancel",
+        confirmButtonText: "Post",
+        closeOnConfirm: true,
+        closeOnCancel: true,
+        allowEscapeKey: true
+      },
+      confirmCallback
+    );
   }
 
   function confirmUnarchive(confirmCallback) {

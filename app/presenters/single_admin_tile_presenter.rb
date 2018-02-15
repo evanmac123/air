@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SingleAdminTilePresenter < BasePresenter
-  include TileFooterTimestamper
   delegate  :id,
             :status,
             :headline,
@@ -54,7 +53,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def tile_fully_assembled?
-    @fully_assembled ||= tile.is_fully_assembled?
+    tile.is_fully_assembled?
   end
 
   def completion_status
@@ -73,21 +72,8 @@ class SingleAdminTilePresenter < BasePresenter
     true
   end
 
-  def incomplete_label
-    content_tag :div, class: "activation_dates incomplete" do
-      content_tag :span,  class: "tile-created-at" do
-        s = content_tag :i, "",  class: "fa fa-cog"
-        s += "Incomplete"
-      end
-    end
-  end
-
   def activation_dates
-    if tile_fully_assembled? && tile_status_matches?(:active, :archive, :draft, :user_submitted, :ignored)
-      content_tag :div, raw(timestamp), class: "activation_dates"
-    else
-      incomplete_label
-    end
+    TileTimestampFactory.call(tile)
   end
 
   def status_marker
@@ -109,28 +95,35 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def has_archive_button?
-    tile_status_matches? :active
+    tile_status_matches?(:active)
   end
 
   def has_unarchive_button?
     tile_status_matches?(:archive)
   end
 
+  def has_move_to_draft_button?
+    tile_status_matches?(:plan) && tile_fully_assembled?
+  end
+
+  def has_back_to_plan_button?
+    tile_status_matches?(:draft)
+  end
+
   def has_activate_button?
     tile_status_matches?(:draft) && tile_fully_assembled?
   end
 
-
   def has_incomplete_edit_button?
-    tile_status_matches?(:draft) && !tile_fully_assembled?
+    tile_status_matches?(:plan) && !tile_fully_assembled?
   end
 
-  def has_incomplete_destroy_button?
-    tile_status_matches?(:draft) && !tile_fully_assembled? || tile_status_matches?(:ignored)
+  def has_direct_destroy_button?
+    tile_status_matches?(:ignored) || tile_status_matches?(:plan) && !tile_fully_assembled?
   end
 
   def has_edit_button?
-    tile_status_matches?(:draft, :active, :archive) && tile_fully_assembled?
+    tile_status_matches?(:plan, :draft, :active, :archive) && tile_fully_assembled?
   end
 
   def has_destroy_button?
@@ -154,7 +147,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def has_menu?
-    tile_status_matches?(:draft, :active, :archive) && tile_fully_assembled?
+    tile_status_matches?(:plan, :draft, :active, :archive) && tile_fully_assembled?
   end
 
   def shows_creator?
@@ -165,9 +158,8 @@ class SingleAdminTilePresenter < BasePresenter
     "Post" + (tile_status_matches?(:archive) ? " again" : "")
   end
 
-
-  def timestamp
-    @timestamp ||= footer_timestamp
+  def add_to_draft_link_text
+    "Add to Draft"
   end
 
   def completion_percentage
@@ -202,7 +194,6 @@ class SingleAdminTilePresenter < BasePresenter
   def cache_key
     @cache_key ||= [
       self.class,
-      timestamp,
       thumbnail,
       tile_status,
       tile_id,

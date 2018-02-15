@@ -22,7 +22,7 @@ class AirboSearch
 
   def client_admin_tiles(page = 1)
     if admin_search
-      @client_admin_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE], page))
+      @client_admin_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::PLAN, Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE], page))
     end
   end
 

@@ -1,13 +1,22 @@
 <ul class="tile_thumbnail_menu tooltip-content hide">
-  <li class="duplicate_button">
-    <%= link_to duplicate_client_admin_tile_path(presenter, page: 'Edit'), class: "duplicate_tile", data: {"tile-id" => presenter.tile_id} do %>
+  <% if presenter.has_activate_button? %>
+    <li>
+      <%= link_to api_client_admin_tile_sorts_path(presenter), class: "post_tile", data: { action: "active", status: Tile::ACTIVE, tile_id: presenter.tile_id } do %>
+        <%= fa_icon 'thumb-tack' %>
+        <span>Post</span>
+      <% end %>
+    </li>
+  <% end %>
+
+  <li>
+    <%= link_to duplicate_client_admin_tile_path(presenter, page: 'Edit'), class: "duplicate_tile", data: { tile_id: presenter.tile_id } do %>
       <%= fa_icon 'copy' %>
       <span>Copy</span>
     <% end %>
   </li>
 
-  <li class="destroy_button">
-    <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile", data: {"tile-id" => presenter.tile_id}  do %>
+  <li>
+    <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile", data: { tile_id: presenter.tile_id }  do %>
       <%= fa_icon 'trash-o' %>
       <span>Delete</span>
     <% end %>

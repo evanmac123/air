@@ -44,7 +44,7 @@ Airbo.TileAdminActionObserver = (function() {
     var status = updatedTile.data("status");
     var newSection = "#" + sections[status];
 
-    currTile.fadeOut();
+    currTile.remove();
     $(newSection).prepend(updatedTile);
 
     Airbo.TilePlaceHolderManager.perform();

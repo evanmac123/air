@@ -146,9 +146,12 @@
 
   .tile_thumbnail_menu {
     li {
-      &:first-child {
-        padding-bottom: 8px;
+      padding-bottom: 8px;
+
+      &:last-child {
+        padding-bottom: 0;
       }
+
       &:hover {
         i,
         span {

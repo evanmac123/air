@@ -4,7 +4,7 @@ Airbo.TilePlaceHolderManager = (function() {
   var placeholderSel = ".tile_container.placeholder_container";
   var tileSel = ".tile_container:not(.placeholder_container)";
   var tileWithPlaceholderSel = tileSel + ", " + placeholderSel;
-  var sectionNames = ["draft", "active", "archive", "suggested"];
+  var sectionNames = ["plan", "draft", "active", "archive", "suggested"];
   var numInRow = 4;
 
   function updateAllPlaceholders() {

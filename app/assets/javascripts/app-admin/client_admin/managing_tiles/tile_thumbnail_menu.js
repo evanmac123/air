@@ -28,6 +28,12 @@ Airbo.TileThumbnailMenu = (function() {
       closeToolTips();
       Airbo.TileAction.makeDuplication($(this));
     });
+
+    $("body").on("click", ".tile_thumbnail_menu .post_tile", function(event) {
+      event.preventDefault();
+      closeToolTips();
+      Airbo.TileAction.updateStatus($(this));
+    });
   }
 
   function setMenuActiveState(origin, active) {

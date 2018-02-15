@@ -27,6 +27,10 @@ FactoryBot.define do
       status Tile::DRAFT
     end
 
+    trait :plan do
+      status Tile::PLAN
+    end
+
     trait :user_submitted do
       status Tile::USER_SUBMITTED
       association :creator, factory: :user

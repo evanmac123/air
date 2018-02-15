@@ -16,40 +16,42 @@ Airbo.TileThumbnail = (function() {
     $("body").on("click", ".tile_container .tile_buttons a", function(e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var link = $(this);
-      switch (link.data("action")) {
+      var linkSel = $(this);
+      switch (linkSel.data("action")) {
         case "edit":
-          handleEdit(link);
+          handleEdit(linkSel);
           break;
 
-        case "post":
+        case "active":
+        case "draft":
+        case "plan":
         case "archive":
         case "unarchive":
         case "ignore":
         case "unignore":
         case "accept":
-          handleUpdate(link);
+          handleUpdate(linkSel);
           break;
 
         case "delete":
-          handleDelete(link);
+          handleDelete(linkSel);
           break;
       }
     });
   }
 
-  function handleUpdate(link) {
-    Airbo.TileAction.updateStatus(link);
+  function handleUpdate(linkSel) {
+    Airbo.TileAction.updateStatus(linkSel);
   }
 
-  function handleDelete(link) {
-    Airbo.TileAction.confirmDeletion(link);
+  function handleDelete(linkSel) {
+    Airbo.TileAction.confirmDeletion(linkSel);
   }
 
-  function handleEdit(link) {
+  function handleEdit(linkSel) {
     tileForm = Airbo.TileFormModal;
     tileForm.init(Airbo.TileManager);
-    tileForm.open(link.attr("href"));
+    tileForm.open(linkSel.attr("href"));
   }
 
   function nextTile(tile) {

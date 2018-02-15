@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileDragDropSort = (function() {
   function initTileSorting() {
-    var $sortableSections = $("#draft, #active, #archive");
+    var $sortableSections = $("#plan, #draft, #active, #archive");
 
     $sortableSections.sortable({
       items: ".tile_container:not(.placeholder_container)",

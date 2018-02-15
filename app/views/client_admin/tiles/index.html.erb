@@ -9,8 +9,14 @@
           data-show-suggestion-box-controls="<%= true %>">
           <a href="#">Suggested <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["user_submitted"].to_i})" %></span></a>
         </li>
-        <!-- <li class="js-ca-tiles-index-component-tab tab" data-tab-content="js-pinned-tiles-component"><a href="#">Planning</a></li> -->
-        <li class="js-ca-tiles-index-component-tab tab active"
+
+        <li class="js-ca-tiles-index-component-tab tab plan active"
+          data-status="plan"
+          data-tab-content="js-plan-tiles-component">
+          <a href="#">Plan <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["plan"].to_i})" %></span></a>
+        </li>
+
+        <li class="js-ca-tiles-index-component-tab tab"
           data-status="draft"
           data-tab-content="js-draft-tiles-component">
           <a href="#">Draft <span class="js-tile-count x-small"><%= "(#{@tiles_facade.tile_counts["draft"].to_i})" %></span></a>
@@ -58,7 +64,14 @@
   } %>
 
   <%= render partial: 'client_admin/tiles/manage_tiles/tiles_container', locals: {
-    component_classes: "js-draft-tiles-component",
+    component_classes: "js-plan-tiles-component",
+    id: "plan",
+    status: Tile::PLAN,
+    tiles: @tiles_facade.plan_tiles
+  } %>
+
+  <%= render partial: 'client_admin/tiles/manage_tiles/tiles_container', locals: {
+    component_classes: "js-draft-tiles-component hidden",
     id: "draft",
     status: Tile::DRAFT,
     tiles: @tiles_facade.draft_tiles
