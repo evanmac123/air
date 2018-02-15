@@ -34,8 +34,8 @@ feature 'Client admin duplicates tile', js: true do
       end
     end
 
-    it "should add tile to draft section" do
-      draft_tab.click
+    it "should add tile to plan section" do
+      plan_tab.click
       expect(visible_tile_headlines).to eq(["Copy me!"])
     end
   end
@@ -51,8 +51,8 @@ feature 'Client admin duplicates tile', js: true do
       end
     end
 
-    it "should add tile to draft section" do
-      draft_tab.click
+    it "should add tile to plan section" do
+      plan_tab.click
       expect(visible_tile_headlines).to eq(["Copy me!"])
     end
   end

@@ -26,9 +26,8 @@ FactoryBot.define do
 
     # This trait unlocks share pages
     trait :activated do |demo|
-
-      after(:create) do |demo, evaluator|
-        FactoryBot.create(:multiple_choice_tile, status: Tile::ACTIVE, demo: demo,  activated_at: Time.current, headline: "Tile #{SecureRandom.uuid}")
+      after :create do |d, evaluator|
+        FactoryBot.create(:tile, status: Tile::DRAFT, demo: d, headline: "Tile #{SecureRandom.uuid}")
       end
     end
 

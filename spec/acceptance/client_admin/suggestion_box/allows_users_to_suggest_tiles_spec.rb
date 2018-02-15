@@ -14,7 +14,7 @@ feature 'Suggestion Box manage access', js: true do
   before do
     FactoryBot.create :tile, demo: demo
     visit client_admin_tiles_path(as: admin)
-    suggestion_box_title.click
+    suggested_tab.click
   end
 
   it "should show Suggestion Box Modal", js: true do
@@ -76,7 +76,7 @@ feature 'Suggestion Box manage access', js: true do
         bm = users.first.board_memberships.where(demo: demo).first
         bm.update_attribute(:allowed_to_make_tile_suggestions, true)
         visit current_path
-        suggestion_box_title.click
+        suggested_tab.click
         manage_access_link.click
       end
 

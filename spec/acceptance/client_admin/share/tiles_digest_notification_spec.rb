@@ -13,7 +13,7 @@ feature 'Client admin and the digest email for tiles' do
     on_day '7/5/2013' do
       admin.board_memberships.update_all(created_at: Time.current)
       user = FactoryBot.create :user, demo: demo
-      tile = create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, demo: demo, headline: "Tile completed"
+      tile = create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::DRAFT, demo: demo, headline: "Tile completed"
       FactoryBot.create(:tile_completion, tile: tile, user: user)
     end
   end
@@ -133,7 +133,7 @@ feature 'Client admin and the digest email for tiles' do
     context "Clicking the 'Send' button" do
       before(:each) do
         set_last_sent_on '7/4/2013'
-        2.times { |i| create_tile on_day: '7/5/2013', activated_on: '7/5/2013', status: Tile::ACTIVE, headline: "Headline #{i + 1}"}
+        2.times { |i| create_tile on_day: '7/5/2013', status: Tile::DRAFT, headline: "Headline #{i + 1}"}
       end
 
       context "subnav notifications" do

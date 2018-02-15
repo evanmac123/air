@@ -34,7 +34,7 @@
 
     <% if presenter.has_accept_button? %>
       <li class="accept_button">
-        <%= link_to api_client_admin_tile_sorts_path(presenter), class: "accept button ",  data: {action: "accept", status: Tile::PLAN, tile_id: presenter.tile_id } do %>
+        <%= link_to api_client_admin_tile_sorts_path(presenter), class: "accept button ",  data: { action: "accept", status: Tile::PLAN, tile_id: presenter.tile_id } do %>
           Accept
         <% end %>
       </li>

@@ -34,9 +34,10 @@ Airbo.TileAdminActionObserver = (function() {
 
   function moveTile(currTile, updatedTile) {
     var sections = {
+      archive: "archive",
       active: "active",
       draft: "draft",
-      archive: "archive",
+      plan: "plan",
       user_submitted: "suggested",
       ignored: "suggested"
     };

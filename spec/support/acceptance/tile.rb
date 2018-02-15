@@ -34,6 +34,14 @@ module TileHelpers
     page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-draft-tiles-component']")
   end
 
+  def plan_tab
+    page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-plan-tiles-component']")
+  end
+
+  def suggested_tab
+    page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-suggested-tiles-component']")
+  end
+
   # -------------------------------------------------
 
   DATE_REG_EXPR = /(\d{1,2})\/(\d{1,2})\/(\d{4})/  # e.g. 7/4/2013 -or- 07/04/2013

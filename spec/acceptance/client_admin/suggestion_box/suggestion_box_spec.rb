@@ -12,7 +12,7 @@ feature 'Client uses suggestion box' do
 
     before do
       visit client_admin_tiles_path(as: client_admin)
-      suggestion_box_title.click
+      suggested_tab.click
     end
 
     scenario "tile preview works properly" do
@@ -34,9 +34,9 @@ feature 'Client uses suggestion box' do
 
       click_link "Accept"
 
-      page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-draft-tiles-component']").click
+      plan_tab.click
 
-      within ".js-draft-tiles-component" do
+      within ".js-plan-tiles-component" do
         expect(page).to have_css("#single-tile-#{tile.id}")
       end
     end

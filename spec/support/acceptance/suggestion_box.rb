@@ -17,14 +17,6 @@ module SuggestionBox
     page.all(selector, visible: true)
   end
 
-  def suggestion_box_title
-    page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-suggested-tiles-component']")
-  end
-
-  def draft_title
-    page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-draft-tiles-component']")
-  end
-
   def show_thumbnail_buttons
     script = "$('.tile_buttons').css('display', 'block')"
     page.execute_script script

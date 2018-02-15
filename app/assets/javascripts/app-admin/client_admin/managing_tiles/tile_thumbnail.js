@@ -21,21 +21,11 @@ Airbo.TileThumbnail = (function() {
         case "edit":
           handleEdit(linkSel);
           break;
-
-        case "active":
-        case "draft":
-        case "plan":
-        case "archive":
-        case "unarchive":
-        case "ignore":
-        case "unignore":
-        case "accept":
-          handleUpdate(linkSel);
-          break;
-
         case "delete":
           handleDelete(linkSel);
           break;
+        default:
+          handleUpdate(linkSel);
       }
     });
   }
