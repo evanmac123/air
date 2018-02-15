@@ -47,7 +47,7 @@ describe TileCopier do
       it "sets correct new data" do
         copy = tile_copier.copy_tile_from_explore
 
-        expect(copy.status).to eq(Tile::DRAFT)
+        expect(copy.status).to eq(Tile::PLAN)
         expect(copy.original_creator).to eq(original_tile.creator)
         expect(copy.original_created_at).to eq(original_tile.created_at)
         expect(copy.demo).to eq(copying_user.demo)
@@ -77,7 +77,7 @@ describe TileCopier do
       it "sets correct new data" do
         copy = tile_copier.copy_from_own_board
 
-        expect(copy.status).to eq(Tile::DRAFT)
+        expect(copy.status).to eq(Tile::PLAN)
         expect(copy.original_creator).to eq(original_tile.creator)
         expect(copy.original_created_at).to eq(original_tile.created_at)
         expect(copy.demo).to eq(copying_user.demo)
