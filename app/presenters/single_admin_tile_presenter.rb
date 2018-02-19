@@ -78,7 +78,15 @@ class SingleAdminTilePresenter < BasePresenter
 
   def status_marker
     if from_search?
-      content_tag :div, status, class: "status_marker #{status}"
+      content_tag :div, status_marker_text, class: "status_marker #{status}"
+    end
+  end
+
+  def status_marker_text
+    if status == Tile::DRAFT
+      "ready to send"
+    else
+      status
     end
   end
 
@@ -159,7 +167,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def add_to_draft_link_text
-    "Add to Draft"
+    "Ready to Send"
   end
 
   def completion_percentage

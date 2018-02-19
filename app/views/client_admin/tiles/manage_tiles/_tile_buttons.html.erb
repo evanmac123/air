@@ -3,7 +3,7 @@
     <% if presenter.has_move_to_draft_button? %>
       <li>
         <%= link_to api_client_admin_tile_sorts_path(presenter), class: "button  update_status", data: { action: "draft", status: Tile::DRAFT, tile_id: presenter.tile_id } do %>
-          <%= "Add to Draft" %>
+          <%= presenter.add_to_draft_link_text %>
         <% end %>
       </li>
     <% end %>
