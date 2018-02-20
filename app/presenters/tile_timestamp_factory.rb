@@ -14,48 +14,65 @@ class TileTimestampFactory
   end
 
   def perform
-    if tile.is_fully_assembled?
-      timestamp_html
-    else
-      incomplete_timestamp_html
+    return incomplete_timestamp_html unless tile.is_fully_assembled?
+
+    case tile.status.to_sym
+    when :user_submitted
+      suggested_timestamp_html
+    when :plan, :draft
+      plan_timestamp
+    when :active, :archive
+      activated_timestamp_html
     end
   end
 
   private
 
-    def timestamp_html
-      "<div class='activation_dates'><span><i class='fa fa-#{icon}'></i>#{time}</span></div>".html_safe
+    def timestamp_html(icon, text, custom_class = nil)
+      "<div class='activation_dates #{custom_class}'><span><i class='fa fa-#{icon}'></i>#{text}</span></div>".html_safe
+    end
+
+    def plan_timestamp
+      if tile.plan_date
+        plan_timestamp_html
+      else
+        unscheduled_timestamp_html
+      end
+    end
+
+    def plan_timestamp_html
+      icon = "calendar-check-o"
+      text = tile.plan_date.strftime("%-m/%-d/%Y")
+
+      timestamp_html(icon, text)
+    end
+
+    def activated_timestamp_html
+      icon = "calendar"
+      text = tile.activated_at.strftime("%-m/%-d/%Y")
+
+      timestamp_html(icon, text)
+    end
+
+    def suggested_timestamp_html
+      icon = "clock-o"
+      text = "#{distance_of_time_in_words(tile.created_at, Time.current)} ago"
+
+      timestamp_html(icon, text)
     end
 
     def incomplete_timestamp_html
-      "<div class='activation_dates incomplete'><span><i class='fa fa-cog'></i>Incomplete</span></div>".html_safe
+      icon = "cog"
+      text = "Incomplete"
+      custom_class = "incomplete"
+
+      timestamp_html(icon, text, custom_class)
     end
 
-    def time_in_format(time)
-      if time
-        time.strftime("%-m/%-d/%Y")
-      end
-    end
+    def unscheduled_timestamp_html
+      icon = "calendar-times-o"
+      text = "Unplanned"
 
-    def icon
-      case tile.status.to_sym
-      when :user_submitted, :plan, :draft
-        "clock-o"
-      when :active, :archive, :ignored
-        "calendar"
-      end
-    end
-
-    def tile_timestamp
-      tile.activated_at || tile.created_at
-    end
-
-    def time
-      case tile.status.to_sym
-      when :user_submitted, :plan, :draft
-        "#{distance_of_time_in_words(tile_timestamp, Time.current)}"
-      else
-        time_in_format(tile_timestamp)
-      end
+      timestamp_html(icon, text)
     end
 end

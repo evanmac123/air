@@ -15,10 +15,10 @@ ActiveRecord::Schema.define(version: 20180221202938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
-  enable_extension "pg_trgm"
   enable_extension "btree_gin"
   enable_extension "btree_gist"
+  enable_extension "pg_stat_statements"
+  enable_extension "pg_trgm"
 
   create_table "acts", force: :cascade do |t|
     t.integer  "user_id"

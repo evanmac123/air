@@ -25,6 +25,13 @@
       <p class="settings-input"><%= form.check_box :is_public %> Share to Airbo Explore when this Tile is posted?</p>
     </div>
 
+    <div class="tile-builder-settings">
+      <p class="header"> Plan Date</p>
+      <div class="settings-input-group">
+        <%= form.date_field :plan_date, min: Time.zone.today, max: (Time.zone.today + 11.months).end_of_month %>
+      </div>
+    </div>
+
     <% if @tile.demo.campaigns.present? %>
       <div class="tile-builder-settings">
         <p class="header"> Campaigns</p>
