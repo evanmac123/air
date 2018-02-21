@@ -4,6 +4,7 @@ class Explore::CampaignsController < ExploreBaseController
   def show
     @campaign = find_campaign
     @tiles = @campaign.display_tiles.page(params[:page]).per(28)
+
     if request.xhr?
       content = render_to_string(
         partial: "explore/tiles",

@@ -46,11 +46,12 @@ class Campaign < ActiveRecord::Base
   end
 
   def search_data
-    {
-      name: name,
+    extra_data = {
       tile_headlines: tiles.pluck(:headline),
       tile_content: tiles.pluck(:supporting_content)
     }
+
+    serializable_hash.merge(extra_data)
   end
 
   def update_slug
