@@ -51,7 +51,7 @@ class Demo < ActiveRecord::Base
   scope :name_order, -> { order("LOWER(name)") }
   scope :health_score_order, -> { order("current_health_score DESC") }
 
-  scope :airbo, -> { joins(:organization).where(organizations: { name: "Airbo" }) }
+  scope :airbo, -> { joins(:organization).where(organizations: { internal: true }) }
   scope :active, -> { where(marked_for_deletion: false) }
   has_alphabetical_column :name
 

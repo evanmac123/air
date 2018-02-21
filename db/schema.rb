@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205230247) do
+ActiveRecord::Schema.define(version: 20180221202938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,13 +196,15 @@ ActiveRecord::Schema.define(version: 20180205230247) do
   create_table "campaigns", force: :cascade do |t|
     t.integer  "demo_id"
     t.text     "description"
-    t.string   "name",        limit: 255
-    t.boolean  "active",                  default: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.string   "slug",        limit: 255
-    t.boolean  "ongoing",                 default: false
+    t.string   "name",            limit: 255
+    t.boolean  "active",                      default: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "slug",            limit: 255
+    t.boolean  "ongoing",                     default: false
     t.string   "icon_link"
+    t.boolean  "private_explore",             default: false
+    t.boolean  "public_explore",              default: false
   end
 
   add_index "campaigns", ["demo_id"], name: "index_campaigns_on_demo_id", using: :btree
@@ -1295,6 +1297,7 @@ ActiveRecord::Schema.define(version: 20180205230247) do
     t.boolean  "allow_free_response",                 default: false
     t.boolean  "is_anonymous",                        default: false
     t.text     "file_attachments"
+    t.date     "plan_date"
   end
 
   add_index "tiles", ["activated_at"], name: "index_tiles_on_activated_at", using: :btree

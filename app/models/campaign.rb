@@ -11,8 +11,38 @@ class Campaign < ActiveRecord::Base
 
   searchkick default_fields: [:name, :tile_headlines, :tile_content]
 
+  def self.public_explore
+    where(public_explore: true)
+  end
+
+  def self.private_explore(demo:)
+    org = demo.try(:organization)
+
+    if org.present?
+      org.campaigns.where(private_explore: true)
+    else
+      Campaign.none
+    end
+  end
+
+  def self.viewable_by_id(id:, demo:)
+    Campaign.public_explore.find_by(id: id) || Campaign.private_explore(demo: demo).find(id)
+  end
+
+  def display_tiles
+    if public_explore
+      explore_tiles
+    elsif private_explore
+      active_tiles
+    end
+  end
+
+  def active_tiles
+    tiles.active.ordered_by_position
+  end
+
   def explore_tiles
-    tiles.active.ordered_by_position.where(is_public: true)
+    active_tiles.where(is_public: true)
   end
 
   def search_data

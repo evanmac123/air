@@ -1,4 +1,4 @@
-<% if campaign.explore_tiles.present? %>
+<% if campaign.display_tiles.present? %>
   <section class="manage_section explore-small-tiles-container with-divider">
     <div class="row">
       <div class="large-12 columns">
@@ -9,7 +9,7 @@
           <h4 class="explore-headers link"><%= campaign.name %></h4>
         <% end %>
         <div class="tiles-6-row">
-          <%= render partial: 'explore/tiles', locals: { tiles: campaign.explore_tiles.limit(6), section: campaign.name } %>
+          <%= render partial: 'explore/tiles', locals: { tiles: campaign.display_tiles.limit(6), section: campaign.name } %>
         </div>
       </div>
     </div>

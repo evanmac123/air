@@ -3,11 +3,15 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  rescue_from ActionController::RoutingError, with: :not_found
+  rescue_from ActiveRecord::RecordNotFound do
+    not_found
+  end
+
+  rescue_from ActionController::RoutingError do
+    not_found
+  end
 
   before_action :authorize!
-
   before_action :refresh_activity_session
   before_action :set_eager_caches
 
@@ -71,7 +75,6 @@ class ApplicationController < ActionController::Base
   def current_board
     current_user.try(:demo)
   end
-  ######
 
   private
 
