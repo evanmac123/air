@@ -13,18 +13,19 @@
   }
 }
 
+.js-media-loading {
+  display: none;
+
+  .fa-spinner {
+    color: $n-blue;
+  }
+}
+
 .visual-content-container{
   width: 600px;
   margin-top: 10px;
   display:none;
   border-bottom: 2px dashed #f3f3f3;
-
-  .js-endless-scroll-loading{
-    display: none;
-    .fa-spinner{
-      color:#48BFFF;
-    }
-  }
 
   .flickity-prev-next-button{
     border: none;
