@@ -43,11 +43,11 @@ Airbo.TileVisualPreviewMgr = (function() {
   }
 
   function hideLoader() {
-    $(".js-endless-scroll-loading").hide();
+    $(".js-video-loading").hide();
   }
 
   function showLoader() {
-    $(".js-endless-scroll-loading").show();
+    $(".js-video-loading").show();
   }
 
   function hideUnparsableError() {
