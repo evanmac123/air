@@ -6,7 +6,7 @@ Developer Machine Setup
 ------------
 
 ### Mac Only
-Install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, chromedriver, geckodriver, ImageMagick, elasticsearch
+Install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, chromedriver, geckodriver, ImageMagick, elasticsearch, node, yarn
 
 Git should be installed on your Mac if it's not do: brew install git.
 
@@ -25,9 +25,10 @@ Airbo App Setup
 
     `git clone git@github.com:theairbo/hengage.git`
 
-2. Install the dependent Ruby libraries:
+2. Install the dependent Ruby and JS libraries:
 
     `bundle install`
+    `yarn install`
 
 3. Create your development and test databases. (Note: Two distinct steps: 1 for development and 1 for test):
 
@@ -94,6 +95,16 @@ Our CI runs this exact script after every push to github.
   * Deploy to Staging and QA
 6. Merge pull requests from the GitHub GUI and delete your feature banch in the same GUI after merging.
 
+### Pre-Commit Hooks
+There are multiple pre-commit hooks configured in `package.json` that are meant to help enforce code quality and consistency.
+
+1. [Rubocop](https://github.com/bbatsov/rubocop) will run on every `.rb` you attempt to commit and make automatic syntax changes.
+2. [Reek](https://github.com/troessner/reek) will run on every `.rb` you attempt to commit and make provide a list of warnings that prevent you from committing (if they exist).  Ideally, you would fix all warning before committing, but sometimes this is unrealistic (i.e. you are dealing with a legacy file that has many warnings).  If warnings are not related to the code you are committing, you may skip the checks.
+3. [Prettier](https://github.com/prettier/prettier) will run and make automatic syntax changes to all `.js, .css, .scss` files committed.
+4. [StyleLint](https://github.com/stylelint/stylelint) will run and make automatic syntax changes to all `.css, .scss` files committed.
+5. [ESLint](https://eslint.org/) (ES5 configuration) will run on all `.js` files that are managed by the Asset Pipeline (i.e. all `.js` that is in `app/assets/**/*`). The config for this ESLint process is in `app/assets/javascripts/.eslintrc`.
+6. [ESLint](https://eslint.org/) (ESNext configuration) will run on all `.js` files that are managed by the Webpacker (i.e. all `.js` that is in `app/javascript/**/*`). The config for this ESLint process is in `app/javascript/.eslintrc`.
+
 ## Deploying
 
 ### Add Heroku account for Airbo
@@ -121,7 +132,11 @@ To deploy to production:
         1. runs `git push production development:master`
         2. runs `lib/airbrake_deploy_production`
 
-        *A Heroku release task will run migrations and restart the dynos automatically*
+Notes
+
+  * A Heroku release task will run migrations and restart the dynos automatically
+
+  * We use the Node Buildpack as well as the Ruby Buildpack.  Although the Ruby Buildpack runs `yarn install` if the `gem webpacker` is present, it does not run it before normal asset compilation, which we need in order to include yarn dependencies in css and js files managed by the Asset Pipeline. Therefore, we use the Node Buildpack to install yarn dependencies prior to Asset Pipeline's precompile. This is unfortunate because it means we run `yarn install` twice (though it's cached and not a big deal), but this is an ongoing Rails/Heroku issue. We can check back in the future for a better resolution.
 
 ## Active Domains
 | Name | Purpose | Registrar | Primary Contact | Secondary Contact | Auto renew? | Expiration/Auto Renew Month |
