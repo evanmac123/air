@@ -184,7 +184,7 @@ Airbo.TileAction = (function() {
 
   function confirmUnarchive(confirmCallback) {
     var prompt =
-      "Users who completed this Tile before won't see it again. If you want to re-use the content, it may be better to create a copy.";
+      "Users who have completed this Tile already will not see it again. If you want to re-use the content, it may be better to create a copy.";
     var confirmText = "Post Again";
 
     swapTemplate(prompt, confirmText, confirmCallback);
