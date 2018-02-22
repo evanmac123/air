@@ -52,11 +52,9 @@ class TileTimestampFactory
 
     def time
       case tile.status.to_sym
-      when :ignored
-        time_in_format(tile_timestamp)
       when :user_submitted, :plan, :draft
         "#{distance_of_time_in_words(tile_timestamp, Time.current)}"
-      when :active, :archive
+      else
         time_in_format(tile_timestamp)
       end
     end
