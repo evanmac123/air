@@ -32,7 +32,9 @@ class TileTimestampFactory
     end
 
     def time_in_format(time)
-      time.strftime("%-m/%-d/%Y")
+      if time
+        time.strftime("%-m/%-d/%Y")
+      end
     end
 
     def icon
@@ -44,14 +46,18 @@ class TileTimestampFactory
       end
     end
 
+    def tile_timestamp
+      tile.activated_at || tile.created_at
+    end
+
     def time
       case tile.status.to_sym
       when :ignored
-        time_in_format(tile.created_at)
+        time_in_format(tile_timestamp)
       when :user_submitted, :plan, :draft
-        "#{distance_of_time_in_words(tile.created_at, Time.current)}"
+        "#{distance_of_time_in_words(tile_timestamp, Time.current)}"
       when :active, :archive
-        time_in_format(tile.activated_at)
+        time_in_format(tile_timestamp)
       end
     end
 end
