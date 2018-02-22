@@ -1,0 +1,5 @@
+Headline,Status,Total Views,Unique Views,Completions,% of participants
+<% @tiles.each do |tile| %>
+  <% presenter = present(tile, SingleAdminTilePresenter, {is_ie: browser.ie?, format: :plain}) %>
+  <%= raw(CSV.generate_line([tile.headline, tile.status, presenter.total_views, presenter.unique_views, presenter.tile_completions_count, presenter.completion_percentage]).strip) %>
+<% end %>
