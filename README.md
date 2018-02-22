@@ -21,7 +21,7 @@ Check our Gemfile for the current Ruby version.
 
 Airbo App Setup
 ------------
-1. Get the HEngage source code:
+1. Get the Airbo source code:
 
     `git clone git@github.com:theairbo/hengage.git`
 
@@ -63,8 +63,8 @@ We have historically just used a similar bash alias/script as the following to l
 
 To run the app locally:
 
-    1. `lib/airbo_dev_up` will start workers, redis, and elastic search as well as serve as a log.
-    2. `rails s`
+1. `lib/airbo_dev_up` will start workers, redis, and elastic search as well as serve as a log.
+2. `rails s`
 
 ### Running the tests locally
 
@@ -80,7 +80,7 @@ Our CI runs this exact script after every push to github.
 1. Create a feature branch off of `development`.  The branch should be prefixed with an issue number of the first issue you are working on in the branch.  Ex: `git checkout -b 111_example_feature_branch`
 2. Push your feature branch to GitHub and create a pull request.  This will trigger Semaphore and CodeClimate to run checks as you develop and let the team know what you are working on.  Prefix the name of the pull request with 'WIP' while your are still working on the branch (work in progress).
 3. Push to GitHub as you develop in order to continue running checks.  If you are working on a branch for an extended period of time, periodically pull `development` and rebase `developmet` onto your feature branch. Ex: `git rebase development 111_example_feature_branch`
-4. When development is complete, rebase `developmet` onto your feature branch and squash commits to a single commit with a commit message that details the issues that will be closed. Remove 'WIP' from the pull request name. When pushing to GitHub after you squash your commits, you will have to force push.
+4. When development is complete, rebase `development` onto your feature branch and squash commits to a single commit with a commit message that details the issues that will be closed. Remove 'WIP' from the pull request name. When pushing to GitHub after you squash your commits, you will have to force push.
     ```
     git rebase development 111_example_feature_branch
     git rebase -i development 111_example_feature_branch
@@ -104,8 +104,8 @@ Our CI runs this exact script after every push to github.
 
 ### Add Heroku Git Remotes for Staging and production environments
 
-  `git remote add staging git@heroku.com:hengage-staging.git`
-  `git remote add production git@heroku.com:hengage.git`
+    `git remote add staging git@heroku.com:hengage-staging.git`
+    `git remote add production git@heroku.com:hengage.git`
 
 To deploy to staging:
 
