@@ -7,11 +7,6 @@
   @include card-component($dark-blue, transparent);
   @include tabs-component-full-width();
 
-  .tile-stats-download-report {
-    margin-right: 30px;
-    margin-top: 14px;
-  }
-
   .grid_no_record {
     font-size: 16px;
     color: $dark-blue;

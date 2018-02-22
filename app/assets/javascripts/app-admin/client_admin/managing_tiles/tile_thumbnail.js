@@ -16,47 +16,32 @@ Airbo.TileThumbnail = (function() {
     $("body").on("click", ".tile_container .tile_buttons a", function(e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var link = $(this);
-      switch (link.data("action")) {
+      var linkSel = $(this);
+      switch (linkSel.data("action")) {
         case "edit":
-          handleEdit(link);
+          handleEdit(linkSel);
           break;
-
-        case "post":
-        case "archive":
-        case "unarchive":
-        case "ignore":
-        case "unignore":
-          handleUpdate(link);
-          break;
-
         case "delete":
-          handleDelete(link);
+          handleDelete(linkSel);
           break;
-
-        case "accept":
-          handleAccept(link);
-          break;
+        default:
+          handleUpdate(linkSel);
       }
     });
   }
 
-  function handleUpdate(link) {
-    Airbo.TileAction.updateStatus(link);
+  function handleUpdate(linkSel) {
+    Airbo.TileAction.updateStatus(linkSel);
   }
 
-  function handleAccept(link) {
-    Airbo.TileAction.confirmAcceptance(link);
+  function handleDelete(linkSel) {
+    Airbo.TileAction.confirmDeletion(linkSel);
   }
 
-  function handleDelete(link) {
-    Airbo.TileAction.confirmDeletion(link);
-  }
-
-  function handleEdit(link) {
+  function handleEdit(linkSel) {
     tileForm = Airbo.TileFormModal;
     tileForm.init(Airbo.TileManager);
-    tileForm.open(link.attr("href"));
+    tileForm.open(linkSel.attr("href"));
   }
 
   function nextTile(tile) {
@@ -65,10 +50,6 @@ Airbo.TileThumbnail = (function() {
 
   function prevTile(tile) {
     return Airbo.TileThumbnailManagerBase.prevTile(tile);
-  }
-
-  function tileContainerByDataTileId(id) {
-    return $(".tile_container[data-tile-container-id=" + id + "]");
   }
 
   function initTilePreview() {
@@ -97,7 +78,7 @@ Airbo.TileThumbnail = (function() {
   }
 
   function getPreview(path, id) {
-    var tile = tileContainerByDataTileId(id);
+    var tile = Airbo.TileManager.tileContainerByDataTileId(id);
     var next = nextTile(tile).data("tileContainerId");
     var prev = prevTile(tile).data("tileContainerId");
 

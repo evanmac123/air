@@ -5,25 +5,13 @@ describe Tile::Sorter do
   describe ".call" do
     let(:tile) { FactoryBot.create(:tile) }
 
-    it "calls Tile::StatusUpdater if a new status is passed in" do
-      Tile::StatusUpdater.expects(:call).with(tile: tile, new_status: "draft", redigest: false)
-
-      Tile::Sorter.call(tile: tile, params: { new_status: "draft", redigest: false })
-    end
-
-    it "does not call Tile::StatusUpdater if a new status is not passed in" do
-      Tile::StatusUpdater.expects(:call).never
-
-      Tile::Sorter.call(tile: tile, params: { })
-    end
-
     it "initializes a Tile::Sorter and calls perform with left_tile_id" do
       mock_tile_sorter = OpenStruct.new
 
       Tile::Sorter.expects(:new).with(tile, 2).returns(mock_tile_sorter)
       mock_tile_sorter.expects(:perform)
 
-      Tile::Sorter.call(tile: tile, params: { left_tile_id: 2 })
+      Tile::Sorter.call(tile: tile, left_tile_id: 2 )
     end
 
     it "initializes a Tile::Sorter and calls perform with no left_tile_id" do
@@ -32,7 +20,7 @@ describe Tile::Sorter do
       Tile::Sorter.expects(:new).with(tile, nil).returns(mock_tile_sorter)
       mock_tile_sorter.expects(:perform)
 
-      Tile::Sorter.call(tile: tile, params: {})
+      Tile::Sorter.call(tile: tile)
     end
   end
 

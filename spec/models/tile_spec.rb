@@ -103,18 +103,18 @@ describe Tile do
     end
   end
 
-  context "incomplete drafts" do
-    let(:demo){Demo.new}
+  context "incomplete tiles in plan" do
+    let(:demo){ Demo.new }
     LONG_TEXT  =  "*" * (Tile::MAX_SUPPORTING_CONTENT_LEN + 1)
     it "can be created with just  headline" do
       tile = Tile.new
-      tile.status = Tile::DRAFT
+      tile.status = Tile::PLAN
       tile.headline = "headliner"
       expect(tile.valid?).to be true
     end
     it "can be created with just  image" do
       tile = Tile.new
-      tile.status = Tile::DRAFT
+      tile.status = Tile::PLAN
       tile.remote_media_url = "image.png"
       expect(tile.valid?).to be true
     end
@@ -132,7 +132,7 @@ describe Tile do
     end
 
    it "is isn't fully assembeld is quiz with no correct answer " do
-      tile  = FactoryBot.create(:tile, status: Tile::DRAFT, question_type: Tile::QUIZ, question_subtype: Tile::MULTIPLE_CHOICE, correct_answer_index: -1)
+      tile  = FactoryBot.create(:tile, status: Tile::PLAN, question_type: Tile::QUIZ, question_subtype: Tile::MULTIPLE_CHOICE, correct_answer_index: -1)
       expect(tile.is_fully_assembled?).to be false
     end
     it "cannot set to active if incomplete" do
@@ -142,19 +142,19 @@ describe Tile do
     end
 
     it "cannot be posted if missing image" do
-      tile  = FactoryBot.create :tile, status: Tile::DRAFT
+      tile  = FactoryBot.create :tile, status: Tile::PLAN
       tile.remote_media_url = nil
       tile.status = Tile::ACTIVE
       expect(tile.save).to be false
     end
 
     it "can be saved as draft if supporting content len > specfied max" do
-      tile  = FactoryBot.create :tile, status: Tile::DRAFT, supporting_content: LONG_TEXT
+      tile  = FactoryBot.create :tile, status: Tile::PLAN, supporting_content: LONG_TEXT
       expect(tile.save).to be true
     end
 
     it "cannot be posted if supporting content len > specfied max" do
-      tile  = FactoryBot.create :tile, status: Tile::DRAFT
+      tile  = FactoryBot.create :tile, status: Tile::PLAN
       tile.supporting_content = LONG_TEXT
       tile.status = Tile::ACTIVE
       expect(tile.save).to be false
@@ -164,8 +164,6 @@ describe Tile do
 
 
   context "status and activated_at" do
-
-
     it "doesnt change activated_at on un-archival if not explicitly set" do
       tile  = FactoryBot.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
       expect{tile.status=Tile::ACTIVE;tile.save}.to_not change{tile.activated_at}
@@ -177,65 +175,8 @@ describe Tile do
     end
   end
 
-  describe 'finders based on status' do
-    # The test below was written first and exercises all tile-status combinations pretty thoroughly.
-    # We then decided to not initially set a demo's 'tile_digest_email_sent_at' => all 'active' tiles should
-    # go out in the inaugural digest email. And that, my friend, is what this sucker tests.
-    it "#digest should return all active tiles if a digest email has yet to be sent" do
-      demo = FactoryBot.create :demo
-
-      active  = FactoryBot.create_list :tile, 4, demo: demo
-      archive = FactoryBot.create_list :tile, 2, demo: demo, status: Tile::ARCHIVE
-
-      expect(demo.digest_tiles(nil).pluck(:id).sort).to eq(active.collect(&:id).sort)
-    end
-
-    it 'should return the correct tiles for each status type in the specified demo' do
-      last_digest_sent_at = 3.days.ago.at_midnight
-      demo = FactoryBot.create :demo, tile_digest_email_sent_at: last_digest_sent_at
-
-      # These guys hold just the id's, not the entire objects
-      draft   = []
-      archive = []
-      active  = []
-      digest  = []
-
-      (1..3).each do |i|
-        # Note that all of these tiles kinda qualify for "digest" tiles because they are activated after the
-        # last digest email was sent => We can test that only "active" tiles go out in the digest email.
-        # And you could create, activate, and then archive a tile after the last digest email got sent but before the next
-        # digest email goes out => Need to ensure that 'activated_at' alone does not get tile included in the digest email.
-        draft   << FactoryBot.create(:tile, demo: demo, status: Tile::DRAFT,   activated_at: last_digest_sent_at + i.minutes).id
-        archive << FactoryBot.create(:tile, demo: demo, status: Tile::ARCHIVE, activated_at: last_digest_sent_at + i.minutes).id
-
-        # These 'active' tiles were created *before* the last digest email => should not also be considered "digest" tiles
-        active << FactoryBot.create(:tile, demo: demo, status: Tile::ACTIVE, activated_at: last_digest_sent_at - i.minutes).id
-
-        # These 'active' tiles were created *after* the last digest email => should also be considered "digest" tiles
-        tile = FactoryBot.create(:tile, demo: demo, status: Tile::ACTIVE, activated_at: last_digest_sent_at + i.minutes).id
-        active << tile
-        digest << tile
-      end
-
-      # Create some tiles of each type that belong to a different demo
-      bad_demo = FactoryBot.create :demo, tile_digest_email_sent_at: last_digest_sent_at
-      (1..2).each do |i|
-        FactoryBot.create(:tile, demo: bad_demo, status: Tile::DRAFT,   activated_at: last_digest_sent_at + i.minutes).id
-        FactoryBot.create(:tile, demo: bad_demo, status: Tile::ARCHIVE, activated_at: last_digest_sent_at + i.minutes).id
-
-        FactoryBot.create(:tile, demo: bad_demo, status: Tile::ACTIVE, correct_answer_index: 0, activated_at: last_digest_sent_at - i.minutes).id
-        FactoryBot.create(:tile, demo: bad_demo, status: Tile::ACTIVE, correct_answer_index: 0, activated_at: last_digest_sent_at + i.minutes).id
-      end
-
-      expect(demo.draft_tiles.pluck(:id).sort).to   eq(draft.sort)
-      expect(demo.archive_tiles.pluck(:id).sort).to eq(archive.sort)
-      expect(demo.active_tiles.pluck(:id).sort).to  eq(active.sort)
-      expect(demo.digest_tiles(demo.tile_digest_email_sent_at).pluck(:id).sort).to  eq(digest.sort)
-    end
-  end
-
   context "status changes" do
-    let(:user){FactoryBot.create(:user)}
+    let(:user){ FactoryBot.create(:user) }
     let(:demo) { FactoryBot.create :demo }
     let(:tile) { FactoryBot.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, creation_source: Tile.creation_sources[:suggestion_box_created] }
 

@@ -19,7 +19,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   def new
-    @tile = current_board.tiles.build(status: Tile::DRAFT)
+    @tile = current_board.tiles.build(status: Tile::PLAN)
 
     render json: {
       tileForm: render_tile_form_string
@@ -61,7 +61,11 @@ class ClientAdmin::TilesController < ClientAdminBaseController
       @tile.destroy
     end
 
-    head :ok
+    render json: {
+      meta: {
+        tileCounts: current_board.tiles.group(:status).count
+      }
+    }
   end
 
   def duplicate
@@ -77,9 +81,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     end
 
     def tile_error(tile)
-      message = tile.errors.full_messages.to_sentence
-      response.headers["X-Message"] = message
-      head :unprocessable_entity
+      render json: { errors: tile.errors }, status: :unprocessable_entity
     end
 
     def add_prev_next_tiles

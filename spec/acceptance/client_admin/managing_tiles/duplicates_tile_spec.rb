@@ -10,13 +10,20 @@ feature 'Client admin duplicates tile', js: true do
   end
 
   it "should show only one tile in posted section" do
-    expect(section_tile_headlines("#draft")).to eq([])
-    expect(section_tile_headlines("#active")).to eq(["Copy me!"])
-    expect(section_tile_headlines("#archive")).to eq([])
+    draft_tab.click
+    expect(visible_tile_headlines).to eq([])
+
+    active_tab.click
+    expect(visible_tile_headlines).to eq(["Copy me!"])
+
+    archive_tab.click
+    expect(visible_tile_headlines).to eq([])
   end
 
   context "from thumbnail menu" do
     before do
+      active_tab.click
+
       within ".tile_thumbnail[data-tile-id='#{original_tile.id}']" do
         page.find(".tile-wrapper").hover
         page.find(".more").click
@@ -27,22 +34,26 @@ feature 'Client admin duplicates tile', js: true do
       end
     end
 
-    it "should add tile to draft section" do
-      expect(section_tile_headlines("#draft")).to eq(["Copy me!"])
+    it "should add tile to plan section" do
+      plan_tab.click
+      expect(visible_tile_headlines).to eq(["Copy me!"])
     end
   end
 
   context "from preview" do
     before do
+      active_tab.click
       find( ".tile_thumbnail[data-tile-id='#{original_tile.id}']").click
+
       within "#tile_preview_modal" do
         click_link "Copy"
         find(".close-reveal-modal").click
       end
     end
 
-    it "should add tile to draft section" do
-      expect(section_tile_headlines("#draft")).to eq(["Copy me!"])
+    it "should add tile to plan section" do
+      plan_tab.click
+      expect(visible_tile_headlines).to eq(["Copy me!"])
     end
   end
 end

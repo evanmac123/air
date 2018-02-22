@@ -10,7 +10,7 @@ $font-family-primary: 'Avenir Next Airbo', "avenir next", avenir, "Helvetica Neu
 
 /* Font Sizes */
 
-$font-size-0: 10px;
+$font-size-0: 12px;
 $font-size-1: 14px;
 $font-size-2: 16px;
 $font-size-3: 18px;
@@ -55,6 +55,10 @@ h4 {
 
 
 /* Standard Type Elements */
+
+.x-small {
+  font-size: $font-size-0;
+}
 
 .small {
   font-size: $font-size-2;

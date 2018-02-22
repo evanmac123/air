@@ -1,33 +1,29 @@
+# frozen_string_literal: true
+
 class Tile::StatusUpdater
-  def self.call(tile:, new_status: nil, redigest: nil)
-    Tile::StatusUpdater.new(tile, new_status, redigest).perform
+  def self.call(tile:, new_status: nil)
+    Tile::StatusUpdater.new(tile, new_status).perform
   end
 
-  attr_reader :tile, :new_status, :redigest
-
-  def initialize(tile, new_status, redigest)
-    @tile = tile
-    @new_status = new_status
-    @redigest = redigest
+  def initialize(tile, new_status)
+    @_tile = tile
+    @_new_status = new_status
   end
 
   def perform
     return unless Tile::STATUS.include?(new_status)
-    handle_unarchived
     update_status
-    tile.save
+    tile.tap(&:save)
   end
 
   private
 
-    def handle_unarchived
-      if redigesting?
-        tile.activated_at = Time.current
-      end
+    def tile
+      @_tile
     end
 
-    def redigesting?
-      tile.status == Tile::ARCHIVE && new_status == Tile::ACTIVE && redigest == "true"
+    def new_status
+      @_new_status
     end
 
     def update_status

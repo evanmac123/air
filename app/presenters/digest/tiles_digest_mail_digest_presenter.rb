@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
   DIGEST_EMAIL = "tile_digest".freeze
   FOLLOWUP_EMAIL = "follow_up_digest".freeze
@@ -28,7 +30,7 @@ class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
 
   def link_options
     opts = { tiles_digest_id: @digest.id }
-    opts.merge({ subject: @subject }) if @subject
+    opts.merge(subject: @subject) if @subject
     opts
   end
 
@@ -53,6 +55,6 @@ class TilesDigestMailDigestPresenter < TilesDigestMailBasePresenter
   end
 
   def body_for_text_message
-    "#{site_link(tile_id: @digest.tile_ids_for_email.first)}&from_sms=true #{@subject}"
+    "#{site_link(tile_id: @digest.tile_ids.first)}&from_sms=true #{@subject}"
   end
 end

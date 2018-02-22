@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TilesDigest < ActiveRecord::Base
   DEFAULT_DIGEST_SUBJECT = "New Tiles"
 
@@ -35,9 +37,20 @@ class TilesDigest < ActiveRecord::Base
 
   def self.dispatch(digest_params)
     digest = TilesDigest.new(digest_params)
-    digest.set_tiles_and_update_cuttoff_time if digest.valid?
+    if digest.valid?
+      digest.update_cuttoff_time
+      digest.set_tiles
+    end
 
     digest.tap(&:save)
+  end
+
+  def update_cuttoff_time
+    self.cutoff_time = demo.tile_digest_email_sent_at
+  end
+
+  def set_tiles
+    self.tiles << demo.digest_tiles
   end
 
   def deliver(follow_up_days_index)
@@ -53,9 +66,9 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def send_emails_and_sms
-    self.sent_at = Time.current
-    self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true)
+    self.update_attributes(sent_at: Time.current, recipient_count: recipient_count_without_site_admin, delivered: true)
 
+    TilesBulkStatusUpdater.call(demo: demo, tiles: tiles, status: Tile::ACTIVE)
     TilesDigestBulkMailJob.perform_later(self)
   end
 
@@ -107,27 +120,8 @@ class TilesDigest < ActiveRecord::Base
     tiles.pluck(:id)
   end
 
-  def tiles_for_email
-    tiles.active
-  end
-
-  def tile_ids_for_email
-    tiles_for_email.pluck(:id)
-  end
-
   def users
     include_unclaimed_users ? users_for_digest : claimed_users_for_digest
-  end
-
-  def set_tiles_and_update_cuttoff_time
-    self.cutoff_time = demo.tile_digest_email_sent_at
-    set_tiles
-  end
-
-  def set_tiles
-    demo.digest_tiles(cutoff_time).each do |tile|
-      self.tiles << tile
-    end
   end
 
   def user_ids_to_deliver_to

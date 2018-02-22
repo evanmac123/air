@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SuggestedTileStatusChangeManager
   attr_reader :tile
 
@@ -31,7 +33,7 @@ class SuggestedTileStatusChangeManager
     end
 
     def tile_approved?
-      is_eligible_with_state_change?([Tile::USER_SUBMITTED, Tile::DRAFT])
+      is_eligible_with_state_change?([Tile::USER_SUBMITTED, Tile::PLAN])
     end
 
     def tile_posted?

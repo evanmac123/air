@@ -39,13 +39,6 @@ Airbo.TilePreviewModal = (function() {
       Airbo.TileAction.makeDuplication($(this));
     });
 
-    $(".preview_menu_item .accept").click(function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      target = $(this);
-      Airbo.TileAction.confirmAcceptance(target);
-    });
-
     initDisabled();
 
     if ($(".js-suggested-tile-preview").length > 0) {

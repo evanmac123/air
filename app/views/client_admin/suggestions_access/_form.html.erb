@@ -11,9 +11,7 @@
   <%= render partial: 'client_admin/suggestions_access/specific_users', locals: { users: users, display_specific_users: display_specific_users } %>
 
   <div class="control_buttons">
-    <%= form.submit 'Save', id: "save_suggestions_access", class: "button " %>
-    <%= link_to 'Cancel', '', id: "cancel_suggestions_access", class: "button  outlined" %>
-
-    <%= image_tag "spinner_gears.gif", id: "submit_spinner" %>
+    <%= link_to 'Save', "#save", class: "js-save-suggestions-access button" %>
+    <%= link_to 'Cancel', '#cancel', class: "js-cancel-suggestions-access button outlined" %>
   </div>
 <% end %>

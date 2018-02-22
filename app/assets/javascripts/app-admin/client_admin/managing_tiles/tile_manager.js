@@ -1,77 +1,37 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileManager = (function() {
-  var newTileBtnSel = "#add_new_tile";
-  var sectionSelector = ".manage_section";
-  var tileWrapperSelector = ".tile_container";
-  var managerType; // main or archived
-  var newTileBtn;
-  var thumbnailMenu;
-
-  function pageSectionByStatus(status) {
-    return $("#" + status + sectionSelector);
-  }
+  var newTileBtnSel = ".js-new-tile-button";
 
   function tileContainerByDataTileId(id) {
-    return $(tileWrapperSelector + "[data-tile-container-id=" + id + "]");
+    return $(".tile_container[data-tile-container-id=" + id + "]");
   }
 
-  function updateTileSection(data) {
-    var selector,
-      section = pageSectionByStatus(data.tileStatus),
-      tile = $(data.tile),
-      img = tile.find(".tile_thumbnail_image>img")[0];
+  function refreshOrAddTileThumb(data) {
+    var $tile = $(data.tile);
+    var $tilesForRefresh = tileContainerByDataTileId(data.tileId);
 
-    $(img).css({ height: "100%", width: "100%" });
-
-    if (tileContainerByDataTileId(data.tileId).length > 0) {
-      replaceTileContent(tile, data.tileId);
+    if ($tilesForRefresh.length > 0) {
+      replaceTileContent($tile, $tilesForRefresh);
     } else {
-      section.prepend(tile); //Add tile to section
-      Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
+      addNewTile($tile, data.tileStatus);
     }
 
-    Airbo.TileThumbnailMenu.initMoreBtn(tile.find(".pill.more"));
+    Airbo.TileThumbnailMenu.initMoreBtn();
   }
 
-  function replaceTileContent(tile, id) {
-    if ($(".explore-search-results-client_admin").length > 0) {
-      replaceTileContentSearch(tile, id);
-    } else {
-      replaceTileContentNormal(tile, id);
-    }
-  }
-
-  function replaceTileContentNormal(tile, id) {
-    selector = tileContainerByDataTileId(id);
-    $(selector).replaceWith(tile);
-  }
-
-  function replaceTileContentSearch(tile, id) {
-    selector = tileContainerByDataTileId(id);
-    $(selector).each(function(idx, oldTile) {
-      var newTile = $(tile);
-      $(oldTile).replaceWith(newTile);
-      Airbo.TileThumbnailMenu.initMoreBtn(newTile.find(".pill.more"));
+  function replaceTileContent($newTile, $tilesForRefresh) {
+    $tilesForRefresh.each(function(index, oldTile) {
+      $(oldTile).replaceWith($newTile.clone());
     });
   }
 
-  function updateSectionsNormal(data) {
-    updateTileSection(data);
-    updateShowMoreDraftTilesButton();
-  }
+  function addNewTile($tile, status) {
+    var $section = $("#" + status);
+    $section.prepend($tile);
 
-  function updateSectionsSearch(data) {
-    var tile = data.tile;
-    replaceTileContent(tile, data.tileId);
-  }
-
-  function updateSections(data) {
-    if ($(".explore-search-results-client_admin").length > 0) {
-      updateSectionsSearch(data);
-    } else {
-      updateSectionsNormal(data);
-    }
+    Airbo.PubSub.publish("incrementTileCounts", { status: "plan" });
+    Airbo.TilePlaceHolderManager.perform();
   }
 
   function initEvents() {
@@ -118,8 +78,7 @@ Airbo.TileManager = (function() {
   }
   return {
     init: init,
-    updateTileSection: updateTileSection,
-    updateSections: updateSections,
+    refreshOrAddTileThumb: refreshOrAddTileThumb,
     tileContainerByDataTileId: tileContainerByDataTileId,
     forceValidationOnNew: forceValidationOnNew,
     hasAutoSave: hasAutoSave

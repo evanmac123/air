@@ -8,7 +8,7 @@ module ClientAdmin::TilesPingsHelper
   def tile_in_box_updated_ping(tile)
     status = tile.status
 
-    if status == Tile::DRAFT
+    if status == Tile::PLAN
       ping_tile_accepted(tile)
     elsif status == Tile::IGNORED
       ping_tile_ignored(tile)

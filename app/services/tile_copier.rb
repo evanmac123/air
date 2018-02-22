@@ -14,7 +14,7 @@ class TileCopier
   end
 
   def copy_tile_from_explore
-    copy_tile(status: Tile::DRAFT, creation_source: :explore_created, ping_source: EXPLORE_PING)
+    copy_tile(status: Tile::PLAN, creation_source: :explore_created, ping_source: EXPLORE_PING)
 
     deliver_tile_copied_notification
     tile.increment!(:copy_count)
@@ -22,7 +22,7 @@ class TileCopier
   end
 
   def copy_from_own_board
-    copy_tile(status: Tile::DRAFT, creation_source: :client_admin_created, ping_source: OWN_BOARD_PING)
+    copy_tile(status: Tile::PLAN, creation_source: :client_admin_created, ping_source: OWN_BOARD_PING)
   end
 
   def copy_from_template

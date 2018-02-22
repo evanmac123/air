@@ -1,12 +1,9 @@
 var Airbo = window.Airbo || {};
 
 Airbo.TileAction = (function() {
-  var tileWrapperSelector = ".tile_container",
-    tileModalSelector = "#tile_preview_modal";
+  var tileWrapperSelector = ".tile_container";
+  var tileModalSelector = "#tile_preview_modal";
 
-  //
-  // => Update Status
-  //
   function movePing(updatedTile, status, action) {
     var mess = {
       active: "Posted",
@@ -44,6 +41,10 @@ Airbo.TileAction = (function() {
       return link.data("action") === "unarchive";
     }
 
+    function manuallyPostingTile() {
+      return link.data("action") === "active";
+    }
+
     function closeAnyToolTips() {
       if (link.parents(".tooltipster-base").length > 0) {
         $("li#stat_toggle").tooltipster("hide");
@@ -55,22 +56,21 @@ Airbo.TileAction = (function() {
         url: link.data("url") || link.attr("href"),
         type: "POST",
         data: data,
-        success: function(tileData, status, xhr) {
-          updatedTile = $(tileData.tileHTML);
+        success: function(data, status, xhr) {
+          updatedTile = $(data.tileHTML);
           closeAnyToolTips();
           movePing(
             updatedTile,
             updatedTile.data("status"),
             "Clicked button to move"
           );
+
           Airbo.PubSub.publish("/tile-admin/tile-status-updated", {
             currTile: currTile,
             updatedTile: updatedTile
           });
 
-          Airbo.PubSub.publish("updateShareTabNotification", {
-            number: tileData.tilesToBeSentCount
-          });
+          Airbo.PubSub.publish("updateTileCounts", data.meta);
         }
       });
     }
@@ -82,11 +82,12 @@ Airbo.TileAction = (function() {
     if (isRepostingArchivedTile()) {
       confirmUnarchive(function(isConfirm) {
         if (isConfirm) {
-          if (Airbo.Utils.userIsSiteAdmin()) {
-            data.sort.redigest = $(".sweet-alert input#digestable").is(
-              ":checked"
-            );
-          }
+          submit();
+        }
+      });
+    } else if (manuallyPostingTile()) {
+      confirmPost(function(isConfirm) {
+        if (isConfirm) {
           submit();
         }
       });
@@ -94,11 +95,6 @@ Airbo.TileAction = (function() {
       submit();
     }
   }
-
-  //
-  // => Duplication
-  //
-  //
 
   function swapModalButtons() {
     $("button.cancel").before($("button.confirm"));
@@ -129,9 +125,6 @@ Airbo.TileAction = (function() {
       }
     });
   }
-  //
-  // => Deletion
-  //
 
   function confirmDeletion(target) {
     function deleteTile(target) {
@@ -144,9 +137,11 @@ Airbo.TileAction = (function() {
           swal.close();
           closeModal($(tileModalSelector));
           Airbo.PubSub.publish("/tile-admin/tile-deleted", { tile: tile });
+          Airbo.PubSub.publish("updateTileCounts", data.meta);
         }
       });
     }
+
     swal(
       {
         title: "",
@@ -179,68 +174,43 @@ Airbo.TileAction = (function() {
     return $(tileContainerSelect);
   }
 
+  function confirmPost(confirmCallback) {
+    var prompt =
+      "Tiles are posted automatically when they a delivered. If you manually post a Tile, it will not appear in your next Tile Digest.";
+    var confirmText = "Post";
+
+    swapTemplate(prompt, confirmText, confirmCallback);
+  }
+
   function confirmUnarchive(confirmCallback) {
-    var unarchivePrompt =
-      "Users who completed it before won't see it again. If you want to re-use the content, please create a new Tile.";
-    var adminUnarchivePrompt =
-      "<p class='extra-interaction'><label>Click to include in the digest when reposted: <input type='checkbox' value='yes' id='digestable'/> </label></p>";
-    var txt = Airbo.Utils.userIsSiteAdmin()
-      ? adminUnarchivePrompt
-      : unarchivePrompt;
+    var prompt =
+      "Users who completed this Tile before won't see it again. If you want to re-use the content, it may be better to create a copy.";
+    var confirmText = "Post Again";
+
+    swapTemplate(prompt, confirmText, confirmCallback);
+  }
+
+  function swapTemplate(prompt, confirmText, callback) {
     swal(
       {
-        title: "Are you sure you want to repost this Tile?",
-        text: txt,
+        title: "Are you sure about that?",
+        text: prompt,
         customClass: "airbo",
         showConfirmationButton: true,
         showCancelButton: true,
         cancelButtonText: "Cancel",
-        confirmButtonText: "Confirm",
+        confirmButtonText: confirmText,
         closeOnConfirm: true,
         closeOnCancel: true,
-        allowEscapeKey: true,
-        html: true,
-        animation: false
+        allowEscapeKey: true
       },
-      confirmCallback
+      callback
     );
-  }
-
-  //
-  // => Acceptance
-  //
-  function confirmAcceptance(trigger) {
-    var tile = tileByStatusChangeTriggerLocation(trigger);
-
-    function postProcess() {}
-
-    swal(
-      {
-        title: "",
-        text: "Are you sure you want to accept this tile?",
-        customClass: "airbo",
-        animation: false,
-        closeOnConfirm: false,
-        showCancelButton: true,
-        showLoaderOnConfirm: true
-      },
-
-      function(isConfirm) {
-        if (isConfirm) {
-          updateStatus(trigger);
-        }
-      }
-    );
-    swapModalButtons();
   }
 
   return {
-    movePing: movePing,
     updateStatus: updateStatus,
     makeDuplication: makeDuplication,
-    confirmDeletion: confirmDeletion,
-    confirmAcceptance: confirmAcceptance,
-    confirmUnarchive: confirmUnarchive,
-    tileByStatusChangeTriggerLocation: tileByStatusChangeTriggerLocation
+    confirmDeletion: confirmDeletion
   };
 })();

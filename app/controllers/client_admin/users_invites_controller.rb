@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   include ClientAdmin::TilesHelper
 
@@ -11,10 +13,10 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
       users_invite.send_invites(current_user)
       if users_invite.errors.empty?
         current_user.demo.update_attributes tile_digest_email_sent_at: Time.current
-        format.html { redirect_to :back, notice: 'Invitations sent successfully' }
+        format.html { redirect_to :back, notice: "Invitations sent successfully" }
         format.json { render nothing: true, status: :created }
       else
-        format.all { render json: {errors: users_invite.errors}, status: :unprocessible_entity }
+        format.all { render json: { errors: users_invite.errors }, status: :unprocessible_entity }
       end
     end
   end
@@ -23,15 +25,15 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     @demo  = current_user.demo
     @user  = current_user # XTR
 
-    is_invite_user = params[:is_invite_user] == 'true'
+    is_invite_user = params[:is_invite_user] == "true"
     if is_invite_user
-      tiles = @demo.digest_tiles(nil).ordered_by_position
+      tiles = @demo.digest_tiles.ordered_by_position
     else
       tiles = @demo.digest_tiles.ordered_by_position
     end
 
     has_no_tiles = tiles.empty?
-    custom_message = params[:custom_message] || 'Check out my new board!'
+    custom_message = params[:custom_message] || "Check out my new board!"
 
     @follow_up_email = params[:follow_up_email] == "true"
     presenter_class = @follow_up_email ? TilesDigestMailPreviewFollowUpPresenter : TilesDigestMailPreviewDigestPresenter
@@ -49,6 +51,6 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
       [nil, nil] # to show tile placeholders
     end
 
-    render 'tiles_digest_mailer/notify_one', :layout => false
+    render "tiles_digest_mailer/notify_one", layout: false
   end
 end

@@ -1,0 +1,16 @@
+{
+  "extends": ["airbnb-base/legacy", "prettier"],
+
+  "plugins": ["prettier"],
+
+  "env": {
+    "browser": true,
+    "jquery": true,
+  },
+
+  "rules": {
+    "prettier/prettier": "error",
+    "no-use-before-define": ["error", { "functions": false, "classes": true }],
+    "func-names": ["error", "never"]
+  }
+}

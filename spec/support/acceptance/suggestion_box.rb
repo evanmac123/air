@@ -17,14 +17,6 @@ module SuggestionBox
     page.all(selector, visible: true)
   end
 
-  def suggestion_box_title
-    page.find("#suggestion_box_title")
-  end
-
-  def draft_title
-    page.find("#draft_title")
-  end
-
   def show_thumbnail_buttons
     script = "$('.tile_buttons').css('display', 'block')"
     page.execute_script script
@@ -34,19 +26,10 @@ module SuggestionBox
     "a[href *= '#{suggested_tile_path(tile, update_status: Tile::USER_SUBMITTED)}']"
   end
 
-  def unsubmit_tile_selector(tile)
-    "a[href *= '#{suggested_tile_path(tile, update_status: Tile::USER_DRAFT)}']"
-  end
-
   # submit_tile_button because the name submit_button is taken
   def submit_tile_button tile
     show_thumbnail_buttons
     page.find(submit_tile_selector(tile))
-  end
-
-  def unsubmit_button tile
-    show_thumbnail_buttons
-    page.find(unsubmit_tile_selector(tile))
   end
 
   def accept_button tile
@@ -79,7 +62,7 @@ module SuggestionBox
   # => Manage Access Modal
   #
   def manage_access_link
-    page.find("#manage_access")
+    page.find(".js-suggestion-box-manage-access")
   end
 
   def all_users_switcher_on
@@ -95,7 +78,7 @@ module SuggestionBox
   end
 
   def save_button
-    page.find("#save_suggestions_access")
+    page.find(".js-save-suggestions-access")
   end
 
   def autocomplete_input

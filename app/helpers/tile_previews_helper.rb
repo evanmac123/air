@@ -3,7 +3,8 @@
 module TilePreviewsHelper
   def preview_menu_item_config_by_status(status)
     {
-      draft: { txt: "Draft", icon: "fa-edit", status: "draft", action: "Draft" },
+      draft: { txt: "Ready to Send", icon: "fa-calendar-check-o", status: "draft", action: "Draft" },
+      plan: { txt: "Plan", icon: "fa-edit", status: "plan", action: "Plan" },
       active: { txt: "Posted", icon: "fa-check", status: "active", action: "Post" },
       archive: { txt: "Archived", icon: "fa-archive", status: "archive", action: "Archive" },
       user_submitted: { txt: "Submitted", icon: "fa-archive", status: "Accept", action: "Accept" },
@@ -17,7 +18,6 @@ module TilePreviewsHelper
       ignored: { txt: "Ignored", icon: "fa-trash", status:  "ignored", action: "Ignore" }
     }[status.to_sym]
   end
-
 
   def suggested_tile_status_change_tooltip(tile)
     build_status_change_action_menu tile, [Tile::USER_SUBMITTED, Tile::IGNORED]

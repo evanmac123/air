@@ -8,57 +8,38 @@ Airbo.TileAdminActionObserver = (function() {
       event,
       payload
     ) {
-      tileUpdateStatusSucces(payload);
+      tileUpdateStatusSuccess(payload);
     });
 
     Airbo.PubSub.subscribe("/tile-admin/tile-copied", function(event, payload) {
-      Airbo.TileManager.updateTileSection(payload.data);
-      updateShowMoreDraftTilesButton();
+      Airbo.TileManager.refreshOrAddTileThumb(payload.data);
     });
 
     Airbo.PubSub.subscribe("/tile-admin/tile-deleted", function(
       event,
       payload
     ) {
-      var isArchiveSection = payload.tile.data("status") == "archive";
       payload.tile.remove();
-      Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
-      updateShowMoreDraftTilesButton();
+      Airbo.TilePlaceHolderManager.perform();
     });
   }
 
-  function updateUserSubmittedTilesCounter() {
-    submittedTile = $(".tile_thumbnail.user_submitted");
-    $("#suggestion_box_title")
-      .find(".num-items")
-      .html("(" + submittedTile.length + ")");
-  }
-
-  function tileUpdateStatusSucces(payload) {
+  function tileUpdateStatusSuccess(payload) {
     var currTile = payload.currTile;
     var updatedTile = payload.updatedTile;
 
-    Airbo.Utils.TilePlaceHolderManager.updateTilesAndPlaceholdersAppearance();
-    swal.close();
-    if (window.location.pathname.indexOf("inactive_tiles") > 0) {
-      currTile.hide();
-    } else {
-      $(tileModalSelector).foundation("reveal", "close");
-      moveTile(currTile, updatedTile);
-    }
+    moveTile(currTile, updatedTile);
+    $(tileModalSelector).foundation("reveal", "close");
   }
 
   function moveTile(currTile, updatedTile) {
-    function fromSuggestionBox() {
-      return currTile.data("status") == "user_submitted" || status == "ignored";
-    }
-
     var sections = {
+      archive: "archive",
       active: "active",
       draft: "draft",
-      archive: "archive",
-      user_submitted: "suggestion_box",
-      ignored: "suggestion_box"
+      plan: "plan",
+      user_submitted: "suggested",
+      ignored: "suggested"
     };
 
     var status = updatedTile.data("status");
@@ -66,12 +47,8 @@ Airbo.TileAdminActionObserver = (function() {
 
     currTile.remove();
     $(newSection).prepend(updatedTile);
-    Airbo.TileDragDropSort.updateTilesAndPlaceholdersAppearance();
 
-    if (fromSuggestionBox(currTile)) {
-      updateUserSubmittedTilesCounter();
-    }
-
+    Airbo.TilePlaceHolderManager.perform();
     Airbo.TileThumbnailMenu.initMoreBtn(updatedTile.find(".pill.more"));
   }
 

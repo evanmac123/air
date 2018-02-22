@@ -28,6 +28,12 @@ Airbo.TileThumbnailMenu = (function() {
       closeToolTips();
       Airbo.TileAction.makeDuplication($(this));
     });
+
+    $("body").on("click", ".tile_thumbnail_menu .post_tile", function(event) {
+      event.preventDefault();
+      closeToolTips();
+      Airbo.TileAction.updateStatus($(this));
+    });
   }
 
   function setMenuActiveState(origin, active) {
@@ -44,7 +50,7 @@ Airbo.TileThumbnailMenu = (function() {
     initMoreBtn();
   }
 
-  function initMoreBtn(menu_button) {
+  function initMoreBtn() {
     var selector = "body .pill.more:not(.tooltipstered)";
     //TODO remove duplicaiton
     $(selector).tooltipster({
@@ -59,6 +65,8 @@ Airbo.TileThumbnailMenu = (function() {
         var content = $(helper.origin)
           .find(".tooltip-content")
           .detach();
+
+        content.show();
         instance.content(content);
       },
 

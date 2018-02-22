@@ -22,16 +22,6 @@ feature 'In multiple boards appears present in all at once' do
     board.tiles.first.headline
   end
 
-  def expect_all_headlines_in_some_email(user, *boards)
-    emails_to_user = ActionMailer::Base.deliveries.select { |email|
-      email.to.include?(user.email)
-    }
-
-    headlines = boards.map{ |board| first_tile_headline(board) }
-
-    expect(headlines.all? { |headline| emails_to_user.any? { |email_to_user| email_to_user.html_part.body.to_s.include?(headline)} }).to be_truthy
-  end
-
   def submit_button
     page.find("#tiles_digest_form input[type='submit']")
   end

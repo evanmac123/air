@@ -49,8 +49,8 @@ describe SuggestedTileStatusChangeManager do
 
     context "accepted" do
       context "original status USER_SUBMITTED" do
-        it "sends email if status is changed to DRAFT" do
-          tile = mock_tile(suggestion_box_created: true, status_changes: [Tile::USER_SUBMITTED, Tile::DRAFT])
+        it "sends email if status is changed to PLAN" do
+          tile = mock_tile(suggestion_box_created: true, status_changes: [Tile::USER_SUBMITTED, Tile::PLAN])
 
           process_change_expectation(expected_method: :send_acceptance_email, tile: tile)
         end
@@ -60,13 +60,6 @@ describe SuggestedTileStatusChangeManager do
 
           process_change_negation(expected_method: :send_acceptance_email, tile: tile)
         end
-      end
-
-
-      it "doesn't sends emails original status not USER_SUBMITTED" do
-        tile = mock_tile(suggestion_box_created: true, status_changes: [Tile::USER_DRAFT, Tile::DRAFT])
-
-        process_change_negation(expected_method: :send_acceptance_email, tile: tile)
       end
 
       context "is not user created" do

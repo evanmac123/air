@@ -12,7 +12,7 @@ feature 'Client uses suggestion box' do
 
     before do
       visit client_admin_tiles_path(as: client_admin)
-      page.find("#suggestion_box_title").click
+      suggested_tab.click
     end
 
     scenario "tile preview works properly" do
@@ -34,16 +34,9 @@ feature 'Client uses suggestion box' do
 
       click_link "Accept"
 
-      within ".sweet-alert.visible" do
-        click_button "OK"
-      end
+      plan_tab.click
 
-      #this waits for the ajax to finish and the alert window to close
-      expect(page).not_to have_css(".sweet-alert.visible")
-
-      page.find("#draft_title").click
-
-      within "#draft" do
+      within ".js-plan-tiles-component" do
         expect(page).to have_css("#single-tile-#{tile.id}")
       end
     end
@@ -54,40 +47,30 @@ feature 'Client uses suggestion box' do
         within ".tile_container .user_submitted" do
           page.find(".tile-wrapper").hover
         end
-        within "#suggestion_box #single-tile-#{tile.id}" do
+        within "#single-tile-#{tile.id}" do
           click_link "Ignore"
         end
       end
 
       scenario "should ignore tile" do
-        within "#suggestion_box #single-tile-#{tile.id}" do
+        within "#single-tile-#{tile.id}" do
           expect(page).to have_content("Undo Ignore")
         end
       end
 
       scenario "should undo ignore" do
-        within "#suggestion_box #single-tile-#{tile.id}" do
+        within "#single-tile-#{tile.id}" do
           click_link("Undo Ignore")
         end
 
-        within "#suggestion_box #single-tile-#{tile.id}" do
+        within "#single-tile-#{tile.id}" do
           expect(page).not_to have_content("Undo Ignore")
         end
       end
     end
   end
 
-
-  def menu_header
-    page.find(".preview_menu_header")
-  end
-
   def menu_items
     page.all(".preview_menu_item .header_text")
   end
-
-  def intro_tooltip
-    page.find(".tile_preview_intro")
-  end
-
 end

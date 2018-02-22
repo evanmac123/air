@@ -73,7 +73,7 @@ RSpec.describe TilesDigest, :type => :model do
     it "creates a tiles_digest object with correct attrs and tiles" do
       demo.update_attributes(tile_digest_email_sent_at: Time.current)
       params = digest_params(demo, client_admin, true)
-      tiles = FactoryBot.create_list(:tile, 5, demo: demo)
+      tiles = FactoryBot.create_list(:tile, 5, demo: demo, status: Tile::DRAFT)
       digest = TilesDigest.dispatch(params)
 
       expect(digest.persisted?).to be true

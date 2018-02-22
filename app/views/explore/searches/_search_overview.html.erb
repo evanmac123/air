@@ -12,7 +12,7 @@
             <div class="client_admin_tiles tile-grid">
               <%= render "shared/tiles/contextual_tiles", { presenter: SingleAdminTilePresenter, tiles: search_service.client_admin_tiles[0..search_service.overview_limit], opts: {} } %>
             </div>
-            <div class="endless_scroll_loading text-center" style="display:none;">
+            <div class="js-endless-scroll-loading text-center" style="display:none;">
               <i class="fa fa-spinner fa-spin fa-3x text-center" style="color:#48BFFF;margin-top:30px;"></i>
             </div>
           </div>
@@ -40,7 +40,7 @@
             <div class="client_admin_tiles tile-grid">
               <%= render "shared/tiles/contextual_tiles", { presenter: SingleExploreTilePresenter, tiles: search_service.client_admin_org_tiles[0..search_service.overview_limit], opts: {} } %>
             </div>
-            <div class="endless_scroll_loading text-center" style="display:none;">
+            <div class="js-endless-scroll-loading text-center" style="display:none;">
               <i class="fa fa-spinner fa-spin fa-3x text-center" style="color:#48BFFF;margin-top:30px;"></i>
             </div>
           </div>
@@ -68,7 +68,7 @@
             <div class="client_admin_tiles tile-grid">
               <%= render "shared/tiles/contextual_tiles", { presenter: SingleExploreTilePresenter, tiles: search_service.explore_tiles[0..search_service.overview_limit], opts: {} } %>
             </div>
-            <div class="endless_scroll_loading text-center" style="display:none;">
+            <div class="js-endless-scroll-loading text-center" style="display:none;">
               <i class="fa fa-spinner fa-spin fa-3x text-center" style="color:#48BFFF;margin-top:30px;"></i>
             </div>
           </div>

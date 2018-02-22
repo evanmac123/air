@@ -6,16 +6,8 @@ class Tile < ActiveRecord::Base
   include Tile::TileQuestionTypes
   include Tile::TileAnswers
   include Tile::TileLinkTracking
+  include Tile::Status
   include Attachable
-
-  ACTIVE  = "active".freeze
-  ARCHIVE = "archive".freeze
-  DRAFT   = "draft".freeze
-  USER_DRAFT = "user_draft".freeze
-  USER_SUBMITTED = "user_submitted".freeze
-  IGNORED = "ignored".freeze
-
-  STATUS  = [ACTIVE, ARCHIVE, DRAFT, USER_DRAFT, USER_SUBMITTED, IGNORED].freeze
 
   MAX_HEADLINE_LEN = 75
   MAX_SUPPORTING_CONTENT_LEN = 700
@@ -51,20 +43,14 @@ class Tile < ActiveRecord::Base
   before_save :set_image_credit_to_blank_if_default
   after_save :handle_suggested_tile_status_change
 
-  validates_presence_of :headline, allow_blank: false, message: "headline can't be blank",  if: :state_is_anything_but_draft?
-  validates_presence_of :supporting_content, allow_blank: false, message: "supporting content can't be blank", if: :state_is_anything_but_draft?
-  validates_presence_of :question, allow_blank: false, message: "question can't be blank",  if: :state_is_anything_but_draft?
-  validates_presence_of :remote_media_url, message: "image is missing", if: :state_is_anything_but_draft?
-  validate :multiple_choice_question_answer_selected, if: :state_is_anything_but_draft?
+  validates_presence_of :headline, allow_blank: false, message: "headline can't be blank",  if: :state_is_anything_but_plan?
+  validates_presence_of :supporting_content, allow_blank: false, message: "supporting content can't be blank", if: :state_is_anything_but_plan?
+  validates_presence_of :question, allow_blank: false, message: "question can't be blank",  if: :state_is_anything_but_plan?
+  validates_presence_of :remote_media_url, message: "image is missing", if: :state_is_anything_but_plan?
+  validate :multiple_choice_question_answer_selected, if: :state_is_anything_but_plan?
   validates_inclusion_of :status, in: STATUS
   validates_length_of :headline, maximum: MAX_HEADLINE_LEN, message: "headline is too long (maximum is #{MAX_HEADLINE_LEN} characters)"
   validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: MAX_SUPPORTING_CONTENT_LEN, message: "supporting content is too long (maximum is #{MAX_SUPPORTING_CONTENT_LEN} characters)"
-
-  scope :suggested, -> do
-    where(status: [USER_SUBMITTED, IGNORED]).order(status: :desc).ordered_by_position
-  end
-
-  scope :digest, ->(demo, cutoff_time) { cutoff_time.nil? ? active : active.where("activated_at > ?", cutoff_time) }
 
   scope :explore, -> { explore_non_ordered.order("tiles.created_at DESC") }
   scope :explore_not_in_campaign, -> { explore.joins("LEFT JOIN campaign_tiles ON campaign_tiles.tile_id = tiles.id").where(campaign_tiles: { id: nil }) }
@@ -94,8 +80,8 @@ class Tile < ActiveRecord::Base
     ["headline", "supporting_content", "is_public", "status"].any? { |key| self.changes.key?(key) }
   end
 
-  def state_is_anything_but_draft?
-    status != DRAFT
+  def state_is_anything_but_plan?
+    status != PLAN
   end
 
   def remote_media_url
@@ -124,14 +110,6 @@ class Tile < ActiveRecord::Base
 
   def sent_at
     tiles_digest.try(:sent_at)
-  end
-
-  STATUS.each do |status_name|
-    define_method(status_name + "?") do
-      self.status == status_name
-    end
-
-    scope status_name.to_sym, -> { where(status: status_name).ordered_by_position }
   end
 
   def update_timestamps

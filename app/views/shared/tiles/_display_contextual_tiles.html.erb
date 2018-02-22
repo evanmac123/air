@@ -4,7 +4,7 @@
       <div class="<%= container %> <%= opts[:feature] %> tile-grid endless_scroll_content_container" data-page="<%= tiles.current_page %>" data-count="<%= tiles.count %>" data-section="<%= container %>" data-query="<%= params[:query] %>" data-path="<%= opts[:show_more_path] %>">
         <%= render opts[:tiles_partial], { presenter: presenter, tiles: tiles, opts: opts } %>
       </div>
-      <div class="endless_scroll_loading text-center" style="display:none;">
+      <div class="js-endless-scroll-loading text-center" style="display:none;">
         <i class="fa fa-spinner fa-spin fa-3x text-center" style="color:#48BFFF; margin-top:30px;"></i>
       </div>
     </div>

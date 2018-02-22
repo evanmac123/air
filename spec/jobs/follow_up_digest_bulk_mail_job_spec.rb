@@ -23,11 +23,11 @@ RSpec.describe FollowUpDigestBulkMailJob, type: :job do
   end
 
   let(:tiles) do
-    FactoryBot.create(:tile, demo: demo, headline: 'Headline 1', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_1')
+    FactoryBot.create(:tile, demo: demo, headline: 'Headline 1', status: Tile::DRAFT, supporting_content: 'supporting_content_1')
 
-    FactoryBot.create(:tile, demo: demo, headline: 'Headline 2', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_2')
+    FactoryBot.create(:tile, demo: demo, headline: 'Headline 2', status: Tile::DRAFT, supporting_content: 'supporting_content_2')
 
-    FactoryBot.create(:tile, demo: demo, headline: 'Headline 3', status: Tile::ACTIVE, activated_at: Time.current, supporting_content: 'supporting_content_3')
+    FactoryBot.create(:tile, demo: demo, headline: 'Headline 3', status: Tile::DRAFT, supporting_content: 'supporting_content_3')
 
     FactoryBot.create(:tile, demo: demo, headline: "Archive Tile", status: Tile::ARCHIVE)  # This guy shouldn't show up in the email
 

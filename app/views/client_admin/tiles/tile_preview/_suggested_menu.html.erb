@@ -2,13 +2,13 @@
   <li class="preview_menu_item" id="suggested_info">
     <a>
       <span class="header_text">
-        <%="Submitted by: #{tile.creator.name}"%>
+        <%= "Submitted by: #{tile.creator.name}" %>
       </span>
     </a>
   </li>
 
   <li class="preview_menu_item" id="suggested_accept" >
-    <%=link_to  api_client_admin_tile_sorts_path(tile)  , class: 'accept', data:{ "tile-id" =>  tile.id, status: Tile::DRAFT } do %>
+    <%= link_to  api_client_admin_tile_sorts_path(tile), class: 'update_status', data: { "tile-id" => tile.id, status: Tile::PLAN } do %>
       <i class="fa fa-check fa-1x"></i>
       <span class="header_text">
         Accept
@@ -17,10 +17,10 @@
   </li>
 
   <li class="preview_menu_item" id="suggested_ignore" >
-    <%=link_to api_client_admin_tile_sorts_path(tile), class: 'update_status', data:{"tile-id" =>  tile.id, status: (tile.status == Tile::USER_SUBMITTED ? Tile::IGNORED : Tile::USER_SUBMITTED)} do %>
+    <%= link_to api_client_admin_tile_sorts_path(tile), class: 'update_status', data:{ "tile-id" => tile.id, status: (tile.status == Tile::USER_SUBMITTED ? Tile::IGNORED : Tile::USER_SUBMITTED) } do %>
       <i class="fa fa-close fa-1x"></i>
       <span class="header_text">
-        <%=tile.status == Tile::USER_SUBMITTED ? "Ignore" : "Undo Ignore"%>
+        <%= tile.status == Tile::USER_SUBMITTED ? "Ignore" : "Undo Ignore"%>
       </span>
     <%end%>
   </li>

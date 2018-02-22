@@ -103,7 +103,7 @@ Airbo.TileFormModal = (function() {
   }
 
   function submitSuccess(data) {
-    tileManager.updateSections(data);
+    tileManager.refreshOrAddTileThumb(data);
     Airbo.TilePreviewModal.init();
     Airbo.TilePreviewModal.open(data.preview);
   }
@@ -188,15 +188,11 @@ Airbo.TileFormModal = (function() {
     modalObj.open();
   }
 
-  function updateThumbnail(data) {
-    Airbo.TileManager.updateSections(data);
-  }
-
   function autoSaveSuccess(data) {
     clearTimeout(timer);
     currform.attr("action", data.updatePath);
     currform.attr("method", "PATCH");
-    updateThumbnail(data);
+    Airbo.TileManager.refreshOrAddTileThumb(data);
     enablesubmitLink();
     setAutoSavingFalse();
     saveable = true;

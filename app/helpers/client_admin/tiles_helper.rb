@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClientAdmin::TilesHelper
   include EmailHelper
 
@@ -79,5 +81,19 @@ module ClientAdmin::TilesHelper
 
   def tile_thumbnail_menu(presenter)
     render(partial: "client_admin/tiles/manage_tiles/tile_thumbnail_menu", locals: { presenter: presenter })
+  end
+
+  def tile_container_data(presenter)
+    {
+      "tile-container-id" => presenter.tile_id,
+      status: presenter.status,
+      media_source: presenter.media_source,
+      has_completions: presenter.tile_completions_count > 0,
+      assembly_required: presenter.assembly_required?,
+      config: presenter.question_config.to_json,
+      headline: presenter.headline,
+      has_attachments: presenter.has_attachments,
+      attachment_count: presenter.attachment_count
+    }
   end
 end

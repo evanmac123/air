@@ -43,6 +43,11 @@
     cursor: pointer;
     margin-left: 5px;
 
+    &.right {
+      margin-left: 0;
+      margin-right: 5px;
+    }
+
     &:hover {
       i {
         color: #262626;
@@ -112,19 +117,6 @@
   }
 }
 
-.archive,
-.active,
-.explore {
-  .tile_buttons {
-    float: right;
-    margin-right: 11px;
-  }
-}
-
-.incomplete_button {
-  float: left;
-}
-
 .tile_container.explore {
   .tile_buttons {
     opacity: 1;
@@ -154,9 +146,12 @@
 
   .tile_thumbnail_menu {
     li {
-      &:first-child {
-        padding-bottom: 8px;
+      padding-bottom: 8px;
+
+      &:last-child {
+        padding-bottom: 0;
       }
+
       &:hover {
         i,
         span {
@@ -245,6 +240,11 @@
   padding: 4px;
 
   &.draft {
+    border: 1px solid $n-blue;
+    color: $n-blue;
+  }
+
+  &.plan {
     border: 1px solid $n-yellow;
     color: $n-yellow;
   }

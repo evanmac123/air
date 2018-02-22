@@ -44,8 +44,6 @@ namespace :client_admin do
 
   resources :tiles_follow_up_email
 
-  resources :inactive_tiles, only: [:index]
-
   resource :share, only: :show do
     member do
       get 'show_first_active_tile'

@@ -18,8 +18,28 @@ module TileHelpers
     page.find(:tile_image, ti)
   end
 
-  def section_tile_headlines(selector)
-    find(selector).all('.tile_container:not(.placeholder_container)').collect { |tile| tile.find(".headline .text").text }
+  def visible_tile_headlines
+    page.all('.tile_container:not(.placeholder_container)').collect { |tile| tile.find(".headline .text").text }
+  end
+
+  def active_tab
+    page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-active-tiles-component']")
+  end
+
+  def archive_tab
+    page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-archive-tiles-component']")
+  end
+
+  def draft_tab
+    page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-draft-tiles-component']")
+  end
+
+  def plan_tab
+    page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-plan-tiles-component']")
+  end
+
+  def suggested_tab
+    page.find(".js-ca-tiles-index-component-tab[data-tab-content='js-suggested-tiles-component']")
   end
 
   # -------------------------------------------------
@@ -81,32 +101,6 @@ module TileHelpers
 
     FactoryBot.create :tile, options
   end
-
-  # -------------------------------------------------
-
-  def active_tab
-    find("section#active_tiles")
-  end
-
-  def archive_tab
-    find("section#archived_tiles")
-  end
-
-  def draft_tab
-    find("section#draft_tiles")
-  end
-
-  # -------------------------------------------------
-
-  def tile_manager_page
-    client_admin_tiles_path
-  end
-
-  def refresh_tile_manager_page
-    visit tile_manager_page
-  end
-
-  # -------------------------------------------------
 
   def contain(text)
     have_text text
@@ -223,11 +217,11 @@ module TileHelpers
   end
 
   def new_tile_placeholder_text
-    "Add New Tile"
+    "New Tile"
   end
 
   def click_add_new_tile
-    page.find('#add_new_tile').click
+    page.find('.js-new-tile-button').click
   end
 
   def expect_supporting_content(expected_content)

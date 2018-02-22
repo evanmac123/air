@@ -42,11 +42,7 @@ module TileManagerHelpers
       expect(page).to have_css('.fa-lock', visible: true)
     end
   end
-
-  def visit_tile_manager_page
-    visit tile_manager_page
-  end
-
+  
   def create_tiles_for_sections params
     params["archived"] = params.delete("archive") if params["archive"]
 

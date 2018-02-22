@@ -1,52 +1,49 @@
-/*FIXME clean up sweet-alert styling*/
-
 .sweet-alert.airbo {
   font-family: "Avenir Next Airbo";
   font-style: normal;
-  width: 400px;
-  margin-left: -200px;
+
   h2 {
     @include font-light;
+
     font-size: 24px;
-    line-height: 1.35em;
-    margin: 0px;
-    margin-bottom: 15px;
+    margin-top: 0;
   }
 
   .sa-icon.sa-success {
     border-color: $n-blue;
+
     .sa-placeholder {
       border-color: rgba(72, 191, 255, 0.2);
     }
+
     .sa-line {
       background-color: $n-blue;
     }
   }
+
   p {
     @include regular-text;
-    line-height: 1.5em;
+
     .spinner {
       margin: 10px 0 -37px;
     }
 
-    .extra-interaction{
-      margin: 10px 0px 5px;
-      color: #48bfff;
+    .extra-interaction {
+      margin: 10px 0 5px;
+      color: $n-blue;
     }
 
     label {
-     color: inherit;
+      color: inherit;
     }
   }
 
-
-  input[type='checkbox']{
+  input[type='checkbox'] {
     display: inline;
     padding: 0;
-    width: inherit;
     border: 0;
     margin: 0;
-    padding:0;
+    width: inherit;
     height: auto;
   }
 
@@ -54,30 +51,35 @@
     display: block;
   }
 
-  button{
-
+  button {
     &.cancel {
       @include light-button($n-blue);
     }
+
     &.confirm {
       @include app-button($n-blue);
+
       box-shadow: none !important;
       border-color: $n-blue !important;
       background-color: $n-blue !important;
-      &[disabled]{
+
+      &[disabled] {
         @include button-with-spinner;
       }
     }
+
+    &.confirm[disabled] ~ .la-ball-fall {
+      opacity: 0;
+      visibility: hidden;
+    }
   }
+
   fieldset {
     margin: 0;
     padding: 0;
+
     input[type="text"]{
       display: none;
     }
-  }
-  button.confirm[disabled] ~ .la-ball-fall {
-    opacity: 0;
-    visibility: hidden;
   }
 }

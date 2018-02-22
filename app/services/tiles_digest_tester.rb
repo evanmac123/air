@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TilesDigestTester
   include TilesDigestConcern
 
@@ -13,7 +15,7 @@ class TilesDigestTester
     @alt_subject = sanitize_subject_line(digest.alt_subject)
   end
 
-  def deliver_test!
+  def deliver_test
     deliver_test_tile_email
     deliver_test_follow_up_email
   end
@@ -21,18 +23,18 @@ class TilesDigestTester
   private
 
     def deliver_test_tile_email
-      [subject, alt_subject].compact.each do |s|
+      [subject, alt_subject].compact.each do |subject|
         TilesDigestMailer.notify_one(
           digest,
           current_user.id,
-          "[Test] #{s}",
+          "[Test] #{subject}",
           "TilesDigestMailDigestPresenter"
         ).deliver_now
       end
     end
 
     def deliver_test_follow_up_email
-      unless follow_up_day == 'Never'
+      unless follow_up_day == "Never"
         TilesDigestMailer.notify_one(
           digest,
           current_user.id,
@@ -51,14 +53,15 @@ class TilesDigestTester
     end
 
     def test_digest_params(digest_form)
-      cutoff_time = digest_form.demo.tile_digest_email_sent_at
-      tile_ids = digest_form.demo.digest_tiles(cutoff_time).pluck(:id)
+      demo = digest_form.demo
+      cutoff_time = demo.tile_digest_email_sent_at
+      tile_ids = demo.digest_tiles.pluck(:id)
 
       {
         id: "test",
         cutoff_time: cutoff_time,
-        tile_ids_for_email: tile_ids,
-        demo: digest_form.demo,
+        tile_ids: tile_ids,
+        demo: demo,
         subject: digest_form.custom_subject || TilesDigest::DEFAULT_DIGEST_SUBJECT,
         alt_subject: digest_form.alt_custom_subject,
         headline: digest_form.custom_headline,

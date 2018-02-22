@@ -8,12 +8,8 @@ Airbo.ExploreTileManager = (function() {
     });
   }
 
-  function tileContainerByDataTileId(id) {
-    return $(".tile_container[data-tile-container-id=" + id + "]");
-  }
-
   function getExploreTile(link, id, tilePreview) {
-    var tile = tileContainerByDataTileId(id);
+    var tile = Airbo.TileManager.tileContainerByDataTileId(id);
     var next = nextTile(tile).data("tileContainerId");
     var prev = prevTile(tile).data("tileContainerId");
 
