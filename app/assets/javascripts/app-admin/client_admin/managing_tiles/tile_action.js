@@ -176,7 +176,7 @@ Airbo.TileAction = (function() {
 
   function confirmPost(confirmCallback) {
     var prompt =
-      "Tiles are posted automatically when they a delivered. If you manually post a Tile, it will not appear in your next Tile Digest.";
+      "Tiles are posted automatically when they are delivered. If you manually post a Tile, it will not appear in your next Tile Digest.";
     var confirmText = "Post";
 
     swapTemplate(prompt, confirmText, confirmCallback);
