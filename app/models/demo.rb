@@ -172,7 +172,7 @@ class Demo < ActiveRecord::Base
   end
 
   def digest_tiles
-    tiles.draft
+    tiles.draft.ordered_by_position
   end
 
   def claimed_users(excluded_uids: [])
