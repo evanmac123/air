@@ -1,5 +1,8 @@
 <%= render partial: 'explore/campaign_nav_row', locals: { campaigns: @related_campaigns } %>
 
+<% @private_campaigns.each do |campaign| %>
+  <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>
+<% end %>
 <% @related_campaigns.each do |campaign| %>
   <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>
 <% end %>

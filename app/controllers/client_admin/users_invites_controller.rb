@@ -26,11 +26,7 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
     @user  = current_user # XTR
 
     is_invite_user = params[:is_invite_user] == "true"
-    if is_invite_user
-      tiles = @demo.digest_tiles.ordered_by_position
-    else
-      tiles = @demo.digest_tiles.ordered_by_position
-    end
+    tiles = @demo.digest_tiles
 
     has_no_tiles = tiles.empty?
     custom_message = params[:custom_message] || "Check out my new board!"

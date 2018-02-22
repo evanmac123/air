@@ -3,12 +3,12 @@
 class Admin::CampaignsController < AdminBaseController
   def new
     @campaign = Campaign.new
-    @demos = Demo.select([:name, :id]).airbo
+    @demos = Demo.select([:name, :id])
   end
 
   def edit
     @campaign = find_campaign
-    @demos = Demo.select([:name, :id]).airbo
+    @demos = Demo.select([:name, :id])
   end
 
   def index
@@ -39,7 +39,7 @@ class Admin::CampaignsController < AdminBaseController
 
   private
     def campaign_params
-      params.require(:campaign).permit(:name, :description, :demo_id, :active, :icon_link, :ongoing)
+      params.require(:campaign).permit(:name, :description, :demo_id, :active, :icon_link, :ongoing, :private_explore, :public_explore)
     end
 
     def find_campaign

@@ -44,12 +44,8 @@ class Explore::TilePreviewsController < ExploreBaseController
     end
 
     def find_tile
-      begin
-        id = params[:id]
-        @tile = Tile.explore.find(id) || current_org_tiles.find(id)
-      rescue ActiveRecord::RecordNotFound
-        not_found
-      end
+      id = params[:id]
+      @tile = Tile.explore.find_by(id: id) || current_org_tiles.find(id)
     end
 
     def tile_id
@@ -57,6 +53,6 @@ class Explore::TilePreviewsController < ExploreBaseController
     end
 
     def current_org_tiles
-      current_user.organization.tiles
+      current_board.organization.tiles
     end
 end

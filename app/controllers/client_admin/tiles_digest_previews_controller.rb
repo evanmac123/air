@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClientAdmin::TilesDigestPreviewsController < ClientAdminBaseController
   layout false
 
@@ -9,6 +11,6 @@ class ClientAdmin::TilesDigestPreviewsController < ClientAdminBaseController
   private
 
     def first_tile_for_digest
-      current_user.demo.digest_tiles.ordered_by_position.first
+      current_user.demo.digest_tiles.first
     end
 end

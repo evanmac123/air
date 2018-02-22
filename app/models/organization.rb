@@ -12,6 +12,7 @@ class Organization < ActiveRecord::Base
   has_many :invoice_transactions, through: :invoices
 
   has_many :demos, autosave: true, dependent: :destroy
+  has_many :campaigns, through: :demos
   has_many :lead_contacts, dependent: :destroy
   has_many :boards, class_name: :Demo, autosave: true
   has_many :tiles, through: :boards

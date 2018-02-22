@@ -8,7 +8,7 @@
           <h3 class="name">Explore</h3>
         </div>
         <% campaigns.each do |campaign| %>
-          <% if campaign.explore_tiles.present? %>
+          <% if campaign.display_tiles.present? %>
             <div class="carousel-cell campaign-nav-image-container" style="background-image: url('<%= campaign_nav_tile_image(campaign) %>')" data-slug="<%= campaign.slug %>" data-name="<%= campaign.name %>" data-id="<%= campaign.id %>" data-path="<%= explore_campaign_path(campaign) %>">
               <div class="campaign-nav-shadow-overlay"></div>
               <div class="campaign-nav-overlay"></div>

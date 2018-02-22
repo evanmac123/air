@@ -6,19 +6,21 @@
         </div>
         <br>
         <div class="row image-row">
-          <div class="large-6 columns">
+          <div class="large-12 columns">
             <%= f.label :name, "Name" %>
             <%= f.text_field :name, placeholder: "Wellness" %>
           </div>
-          <div class="large-6 columns">
-            <%= f.label :icon_link, "Icon Link"  %>
-            <%= f.text_field :icon_link %>
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <%= f.label :description, "Description"  %>
+            <%= f.text_area :description %>
           </div>
         </div>
         <div class="row">
-          <div class="large-6 columns">
-            <%= f.label :description, "Description"  %>
-            <%= f.text_area :description %>
+          <div class="large-12 columns">
+            <%= f.label :icon_link, "Icon Link"  %>
+            <%= f.text_field :icon_link %>
           </div>
         </div>
         <div class="row">
@@ -35,6 +37,17 @@
           <div class="large-6 columns">
             <%= f.label :active, "Active?" %>
             <%= f.check_box :active %>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="large-6 columns">
+            <%= f.label :public_explore, "Show Campaign in public Explore?" %>
+            <%= f.check_box :public_explore %>
+          </div>
+          <div class="large-6 columns">
+            <%= f.label :private_explore, "Share content across your boards?" %>
+            <%= f.check_box :private_explore %>
           </div>
         </div>
         <br>
