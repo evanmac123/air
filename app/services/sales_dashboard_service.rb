@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SalesDashboardService
   attr_reader :sales_team
 
@@ -34,7 +36,7 @@ class SalesDashboardService
 
   def number_of_visits_from_org(org)
     org.users.non_site_admin.map { |user|
-      user.rdb[:invite_link_click_count].get.to_i
+      user.redis[:invite_link_click_count].call(:get).to_i
     }.compact.inject(:+)
   end
 
@@ -56,7 +58,7 @@ class SalesDashboardService
 
     def activated_sales_orgs(user = nil)
       users = User.arel_table
-      sales_orgs(user).joins(:users).where(users: { is_site_admin: false}).where(users[:accepted_invitation_at].not_eq(nil)).uniq
+      sales_orgs(user).joins(:users).where(users: { is_site_admin: false }).where(users[:accepted_invitation_at].not_eq(nil)).uniq
     end
 
     def unactivated_sales_orgs(user = nil)

@@ -68,6 +68,9 @@ GEM
     airbrake (5.8.1)
       airbrake-ruby (~> 1.8)
     airbrake-ruby (1.8.0)
+    ar_redis (0.1.0)
+      activerecord (>= 3.2)
+      redis (>= 3.0.4)
     arel (6.0.4)
     ast (2.4.0)
     awesome_print (1.7.0)
@@ -716,6 +719,7 @@ DEPENDENCIES
   acts_as_singleton (~> 0.0.8)
   addressable (~> 2.5.2)
   airbrake (~> 5.4)
+  ar_redis
   awesome_print
   aws-sdk (< 3.0)
   aws-sdk-v1 (~> 1.59.0)

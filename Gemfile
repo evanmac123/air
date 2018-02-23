@@ -12,6 +12,7 @@ gem "mongoid", "~> 4.0"
 gem "bson", "~> 2.2"
 gem "redis", "~> 3.3.3"
 gem "redis-rails", "~> 5.0.2"
+gem "ar_redis"
 gem "webpacker", "~> 3.0"
 
 # TODO: update to gem "aws-sdk-s3", "~> 1" when paperclip releases support for aws-sdk 3: https://github.com/thoughtbot/paperclip/pull/2481

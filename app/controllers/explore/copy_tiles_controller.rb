@@ -25,6 +25,6 @@ class Explore::CopyTilesController < ClientAdminBaseController
     end
 
     def store_copy_in_redis(tile_id)
-      current_user.rdb[:copies].sadd(tile_id)
+      current_user.redis[:copies].call(:sadd, tile_id)
     end
 end

@@ -12,6 +12,8 @@ end
 
 $redis.client.logger = Rails.logger
 
+ArRedis.redis = $redis
+
 Nest.class_eval do
   def initialize(key, redis = $redis)
     super(key.to_param)
