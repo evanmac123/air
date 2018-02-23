@@ -528,6 +528,7 @@ class User < ActiveRecord::Base
       user_id: id,
       name: name,
       email: email,
+      client_admin: is_client_admin?,
       demo: demo_id,
       organization: organization_id,
       board_type: demo.try(:customer_status_for_mixpanel),

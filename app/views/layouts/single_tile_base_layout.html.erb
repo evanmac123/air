@@ -9,7 +9,7 @@
 
     <%= javascript_include_tag 'app-admin' %>
     <%= stylesheet_link_tag "app-internal" %>
-    
+
     <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
     <%= render 'shared/integrations/google_analytics/marketing' %>
@@ -19,14 +19,14 @@
   </head>
   <body
     class="js-single-tile-base single-tile-base explore-tile_previews explore-tile_previews-show"
-    style="-webkit-overflow-scrolling: touch; overflow:visible;"
     data-current-user-is-client-admin="<%= current_user.is_client_admin %>"
     data-current-user="<%= current_user.data_for_mixpanel.to_json %>"
     data-current-board="<%= board_data_for_dom %>"
     data-tile-path="<%= path_for_single_tile(tile: @tile, source: @explore_or_public) %>"
     data-more-content-url="<%= single_tile_more_content_url(tile: @tile) %>"
     data-explore-or-public="<%= @explore_or_public %>"
-    data-twitter-hashtags="<%= single_tile_hashtags(tile: @tile) %>">
+    data-twitter-hashtags="<%= single_tile_hashtags(tile: @tile) %>"
+    style="-webkit-overflow-scrolling: touch; overflow:visible;">
 
       <div class="single-tile-base-header">
         <div class="center header">
