@@ -20,7 +20,7 @@ class TilesDigest < ActiveRecord::Base
   after_destroy :destroy_from_redis
 
   def destroy_from_redis
-    rdb.destroy
+    self.redis.delete_all
   end
 
   def self.paid
@@ -85,27 +85,27 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def new_unique_login?(user_id:)
-    rdb[:unique_login_set].sadd(user_id) == 1
+    self.redis[:unique_login_set].call(:sadd, user_id) == 1
   end
 
   def increment_unique_logins_by_subject_line(subject_line)
-    rdb[:unique_logins].zincrby(1, subject_line)
+    self.redis[:unique_logins].call(:zincrby, 1, subject_line)
   end
 
   def unique_logins_by_subject_line
-    rdb[:unique_logins].zrangebyscore("-inf", "inf", "WITHSCORES").reverse
+    self.redis[:unique_logins].call(:zrangebyscore, "-inf", "inf", "WITHSCORES").reverse
   end
 
   def increment_logins_by_subject_line(subject_line)
-    rdb[:logins].zincrby(1, subject_line)
+    self.redis[:logins].call(:zincrby, 1, subject_line)
   end
 
   def increment_sms_logins
-    rdb[:sms_logins].incr
+    self.redis[:sms_logins].call(:incr)
   end
 
   def logins_by_subject_line
-    rdb[:logins].zrangebyscore("-inf", "inf", "WITHSCORES").reverse
+    self.redis[:logins].call(:zrangebyscore, "-inf", "inf", "WITHSCORES").reverse
   end
 
   def schedule_followup(follow_up_days_index)

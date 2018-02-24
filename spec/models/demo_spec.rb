@@ -183,7 +183,7 @@ describe Demo do
       params = { a: 1, b: "A string." }
 
       expect(demo.set_tile_email_draft(params)).to eq("OK")
-      expect(JSON.parse(demo.rdb["tile_email_draft"].get).symbolize_keys).to eq(params)
+      expect(JSON.parse(demo.redis["tile_email_draft"].call(:get)).symbolize_keys).to eq(params)
     end
   end
 
@@ -193,11 +193,11 @@ describe Demo do
       params = { a: 1, b: "A string." }
       demo.set_tile_email_draft(params)
 
-      expect(demo.rdb["tile_email_draft"].get.present?).to eq(true)
+      expect(demo.redis["tile_email_draft"].call(:get).present?).to eq(true)
 
       demo.clear_tile_email_draft
 
-      expect(demo.rdb["tile_email_draft"].get.present?).to eq(false)
+      expect(demo.redis["tile_email_draft"].call(:get).present?).to eq(false)
     end
   end
 

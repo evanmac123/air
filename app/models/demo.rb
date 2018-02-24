@@ -353,15 +353,15 @@ class Demo < ActiveRecord::Base
   end
 
   def set_tile_email_draft(params)
-    rdb["tile_email_draft"].set(params.to_json)
+    self.redis["tile_email_draft"].call(:set, params.to_json)
   end
 
   def clear_tile_email_draft
-    rdb["tile_email_draft"].del
+    self.redis["tile_email_draft"].call(:del)
   end
 
   def get_tile_email_draft
-    draft = rdb["tile_email_draft"].get
+    draft = self.redis["tile_email_draft"].call(:get)
 
     if draft.present?
       JSON.parse(draft).symbolize_keys

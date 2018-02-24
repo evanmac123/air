@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 module User::ClientAdminNotifications
   def set_tile_email_report_notification(board_id:)
-    rdb[:client_admin_notifications][board_id][:tile_email_report].incr
+    self.redis[:client_admin_notifications][board_id][:tile_email_report].call(:incr)
   end
 
   def remove_tile_email_report_notification
-    rdb[:client_admin_notifications][demo_id][:tile_email_report].del
+    self.redis[:client_admin_notifications][demo_id][:tile_email_report].call(:del)
   end
 
   def get_tile_email_report_notification_content
-    rdb[:client_admin_notifications][demo_id][:tile_email_report].get
+    self.redis[:client_admin_notifications][demo_id][:tile_email_report].call(:get)
   end
 
   def has_tile_email_report_notification?
