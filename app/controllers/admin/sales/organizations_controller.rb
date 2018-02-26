@@ -11,7 +11,6 @@ class Admin::Sales::OrganizationsController < AdminBaseController
     @sales_organization_creator = SalesOrganizationCreator.new(current_user, params[:copy_board], organization_params).create!
     if @sales_organization_creator.valid?
       user = @sales_organization_creator.user
-      ping_new_lead_for_sales(user)
       flash[:success] = flash_create_success(user)
       redirect_to explore_path
     else
