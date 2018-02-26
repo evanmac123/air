@@ -3,13 +3,12 @@
 module ClientAdmin::TilesHelper
   include EmailHelper
 
-  def digest_email_site_link(user, demo_id, email_type = "")
+  def digest_email_site_link(user, demo_id, options = {})
     email_link_hash = {
       user_id: user.id,
       demo_id: demo_id,
-      tile_token: EmailLink.generate_token(user),
-      email_type: email_type
-    }
+      tile_token: EmailLink.generate_token(user)
+    }.merge(options)
 
     if user.claimed?
       acts_url(email_link_hash)

@@ -12,7 +12,7 @@ class SuggestedTileStatusMailer < BaseTilesDigestMailer
     @subject = ACCEPTED_SUBJECT
     @subhead_text = "The Tile you suggested has been accepted. We’ll let you know when it’s posted."
     @button_text = "Visit #{@demo.name}"
-    @link = digest_email_site_link(user, @demo.id, EMAIL_TYPE)
+    @link = digest_email_site_link(user, @demo.id, email_type: EMAIL_TYPE)
 
     mail to: user.email_with_name, from: @demo.reply_email_address, subject: @subject
   end
@@ -22,7 +22,7 @@ class SuggestedTileStatusMailer < BaseTilesDigestMailer
     @subject = POSTED_SUBJECT
     @subhead_text = "The administrator has posted your Tile."
     @button_text = "See your Tile"
-    @link = digest_email_site_link(user, @demo.id, EMAIL_TYPE)
+    @link = digest_email_site_link(user, @demo.id, email_type: EMAIL_TYPE)
 
     mail to: user.email_with_name, from: @demo.reply_email_address, subject: @subject
   end

@@ -40,11 +40,15 @@ class TilesDigestPresenter
   end
 
   def email_heading
-    if digest.headline.present?
-      digest.headline
+    if headline.present?
+      headline
     else
       standard_email_heading
     end
+  end
+
+  def headline
+    digest.headline
   end
 
   def standard_email_heading
@@ -55,24 +59,22 @@ class TilesDigestPresenter
     DIGEST_EMAIL
   end
 
-  def general_site_url(tile_id: nil)
-    "#{digest_email_site_link(user, demo.id, email_type)}&tiles_digest_id=#{digest.id}#{subject_line_param.to_s}#{tile_id_param(tile_id)}"
+  def general_site_url(tile_id: nil, options: {})
+    link_options = {
+      email_type: email_type,
+      tiles_digest_id: digest.id,
+      tile_id: tile_id,
+      subject_line: subject_line_param
+    }.merge(options)
+
+    digest_email_site_link(user, demo.id, link_options)
   end
 
   def subject_line_param
-    uri_encoded_subject = URI.encode(subject.to_s, /\W/)
-    if uri_encoded_subject.present?
-      "&subject_line=#{uri_encoded_subject}"
-    end
-  end
-
-  def tile_id_param(tile_id)
-    if tile_id.present?
-      "&tile_id=#{tile_id}"
-    end
+    URI.encode(subject.to_s, /\W/)
   end
 
   def body_for_text_message
-    "#{general_site_url(tile_id: digest.tile_ids.first)}&from_sms=true #{subject}"
+    "#{general_site_url(tile_id: digest.tile_ids.first, options: { from_sms: true })} #{subject}"
   end
 end
