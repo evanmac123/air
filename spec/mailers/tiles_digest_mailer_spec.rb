@@ -128,7 +128,8 @@ describe 'Digest email' do
     # that is used to sign the user in when they click on any of the links in the tile-digest email.
     context 'claimed user' do
       subject { TilesDigestMailer.notify_one(digest, claimed_user.id, 'New Tiles', "TilesDigestPresenter") }
-      it { is_expected.to have_selector     "a[href *= 'acts?demo_id=#{demo.id}&email_type=tile_digest&tile_token=#{EmailLink.generate_token(claimed_user)}&user_id=#{claimed_user.id}&tiles_digest_id=#{digest.id}&subject_line=#{URI.escape("New Tiles")}']", count: 11 }
+      it { is_expected.to have_selector     "a[href *= 'acts?demo_id=#{demo.id}']", count: 11 }
+      it { is_expected.to have_selector     "a[href *= 'tile_token=#{EmailLink.generate_token(claimed_user)}']", count: 11 }
       it { is_expected.not_to have_selector "a[href *= 'invitations']" }
     end
 
@@ -142,13 +143,15 @@ describe 'Digest email' do
     # client-admins should have the same links as users and access is managed in the controller
     context 'client-admins' do
       subject { TilesDigestMailer.notify_one(digest, client_admin.id, 'New Tiles', "TilesDigestPresenter") }
-      it { is_expected.to     have_selector "a[href *= 'acts?demo_id=#{demo.id}&email_type=tile_digest&tile_token=#{EmailLink.generate_token(client_admin)}&user_id=#{client_admin.id}&tiles_digest_id=#{digest.id}&subject_line=#{URI.escape("New Tiles")}']", count: 11 }
+      it { is_expected.to have_selector     "a[href *= 'acts?demo_id=#{demo.id}']", count: 11 }
+      it { is_expected.to have_selector     "a[href *= 'tile_token=#{EmailLink.generate_token(client_admin)}']", count: 11 }
     end
 
     # site-admins should have the same links as users and access is managed in the controller
     context 'site-admins' do
       subject { TilesDigestMailer.notify_one(digest, site_admin.id, 'New Tiles', "TilesDigestPresenter") }
-      it { is_expected.to have_selector "a[href *= 'acts?demo_id=#{demo.id}&email_type=tile_digest&tile_token=#{EmailLink.generate_token(site_admin)}&user_id=#{site_admin.id}&tiles_digest_id=#{digest.id}&subject_line=#{URI.escape("New Tiles")}']", count: 11 }
+      it { is_expected.to have_selector     "a[href *= 'acts?demo_id=#{demo.id}']", count: 11 }
+      it { is_expected.to have_selector     "a[href *= 'tile_token=#{EmailLink.generate_token(site_admin)}']", count: 11 }
     end
   end
 
