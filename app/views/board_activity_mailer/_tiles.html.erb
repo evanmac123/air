@@ -6,7 +6,7 @@
       <tr>
         <td width="260" align="center" style="text-align:center;vertical-align:top;font-size:0;">
           <% if tiles[0] %>
-            <%= render 'tile', tile: tiles[0], site_link: @presenter.site_link %>
+            <%= render 'tile', tile: tiles[0], site_link: @presenter.general_site_url %>
           <% else %>
             <div style="width:260px;display:inline-block;vertical-align:top;" class="wMax"></div>
           <% end %>

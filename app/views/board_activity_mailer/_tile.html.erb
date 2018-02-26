@@ -1,5 +1,5 @@
-<% img_link_args = [@presenter.general_site_url, tile.email_link_options.merge({style: "text-decoration:none;"})] %>
-<% text_link_args = [@presenter.general_site_url, tile.email_link_options.merge({style: "color:#{@presenter.color};text-decoration:none;display:block;vertical-align:middle;mso-line-height-rule:exactly;line-height:40px;border-radius:3px;", target: "_blank"})] %>
+<% img_link_args = [@presenter.general_site_url, {style: "text-decoration:none;"}] %>
+<% text_link_args = [@presenter.general_site_url, {style: "color:#{@presenter.color};text-decoration:none;display:block;vertical-align:middle;mso-line-height-rule:exactly;line-height:40px;border-radius:3px;", target: "_blank"}] %>
 
 <div style="width:260px;display:inline-block;vertical-align:top;" class="wMax">
   <table align="center" cellpadding="0" cellspacing="0">
@@ -12,7 +12,7 @@
           <tr>
             <td align="center">
               <%= link_to *img_link_args do %>
-                <%= image_tag(tile.email_img_url, alt: tile.headline,  width: '240', style: "width:100%!important;height:auto!important;display:block;") %>
+                <%= image_tag(tile.thumbnail(:email_digest), alt: tile.headline,  width: '240', style: "width:100%!important;height:auto!important;display:block;") %>
               <% end %>
             </td>
           </tr>

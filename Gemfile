@@ -87,7 +87,6 @@ gem "chronic", "~> 0.10.2"
 gem "haml-rails", "~> 1.0.0"
 gem "nokogiri", "~> 1.8.1"
 gem "carrierwave_direct", "~> 0.0.15"
-gem "draper", "~> 1.3"
 gem "aws-sdk-v1", "~> 1.59.0" # V1 used for bulk upload and Tile attachments (migrate to v3 in rewrites)
 ###
 

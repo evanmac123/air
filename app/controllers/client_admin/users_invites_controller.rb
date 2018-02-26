@@ -22,30 +22,15 @@ class ClientAdmin::UsersInvitesController < ClientAdminBaseController
   end
 
   def preview_tiles_digest_email
-    @demo  = current_user.demo
-    @user  = current_user # XTR
-
-    is_invite_user = params[:is_invite_user] == "true"
-    tiles = @demo.digest_tiles
-
-    has_no_tiles = tiles.empty?
-    custom_message = params[:custom_message] || "Check out my new board!"
+    # TODO: Move this somewhere that makes sense! (this is the Tile Email preview shown on the share tab).
+    @user  = current_user
+    @demo  = current_board
 
     @follow_up_email = params[:follow_up_email] == "true"
-    presenter_class = @follow_up_email ? TilesDigestMailPreviewFollowUpPresenter : TilesDigestMailPreviewDigestPresenter
-    @presenter = presenter_class.new(@user, @demo, custom_message, is_invite_user, has_no_tiles)
+    presenter_class = @follow_up_email ? FollowUpDigestPreviewPresenter : TilesDigestPreviewPresenter
+    @presenter = presenter_class.new(@user, @demo)
 
-    @tiles = unless @presenter.is_empty_preview?
-      TileBoardDigestDecorator.decorate_collection tiles, \
-                                                          context: {
-                                                            demo: @demo,
-                                                            user: @user,
-                                                            follow_up_email: @follow_up_email,
-                                                            is_preview: @presenter.is_preview
-                                                          }
-    else
-      [nil, nil] # to show tile placeholders
-    end
+    @tiles = @presenter.tiles
 
     render "tiles_digest_mailer/notify_one", layout: false
   end

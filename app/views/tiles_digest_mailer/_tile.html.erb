@@ -1,11 +1,11 @@
-<% tile_link_args = [site_link, tile.email_link_options.merge({style: "width:100% !important;border:0;margin:0;padding:0;display:block;text-decoration:none;color:#2e2e2c;word-break: break-word;overflow-wrap: break-word;-ms-word-wrap:break-word;", class: "tile_link"})] %>
+<% tile_link_args = [site_link, {style: "width:100% !important;border:0;margin:0;padding:0;display:block;text-decoration:none;color:#2e2e2c;word-break: break-word;overflow-wrap: break-word;-ms-word-wrap:break-word;", class: "tile_link"}] %>
 <%= link_to *tile_link_args do %>
   <table width="208" align="center" cellpadding="0" cellspacing="0" border="0" class="columnsNoPadding" style="width: 100% !important;">
     <tbody width="208" style="width: 100% !important;">
       <tr>
         <td width="208" align="center" class="column tile_thumbnail" style="width:100% !important; border:0;margin:0;padding:0;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf;border-top:1px solid #dfdfdf;">
           <%= link_to *tile_link_args do %>
-            <%= image_tag(tile.email_img_url, alt: tile.headline,  width: '208', style: 'display:block; border-style:none;width:100% !important;') %>
+            <%= image_tag(tile.thumbnail(:email_digest), alt: tile.headline,  width: '208', style: 'display:block; border-style:none;width:100% !important;') %>
           <% end %>
         </td>
       </tr>

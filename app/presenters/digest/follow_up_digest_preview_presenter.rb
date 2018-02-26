@@ -1,4 +1,6 @@
-class TilesDigestMailFollowUpPresenter < TilesDigestMailDigestPresenter
+# frozen_string_literal: true
+
+class FollowUpDigestPreviewPresenter < TilesDigestPreviewPresenter
   def slice_size
     1
   end
@@ -7,7 +9,7 @@ class TilesDigestMailFollowUpPresenter < TilesDigestMailDigestPresenter
     true
   end
 
-  def standard_email_heading
+  def email_heading
     STANDARD_FOLLOWUP_HEADING
   end
 

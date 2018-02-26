@@ -1,13 +1,13 @@
-class ExploreDigestPresenter < TilesDigestMailBasePresenter
-  include Rails.application.routes.url_helpers
+# frozen_string_literal: true
+
+class ExploreDigestPresenter
   include EmailHelper
+  include ClientAdmin::TilesHelper
+  include Rails.application.routes.url_helpers
 
-  EXPLORE_TITLE = "Explore digest".freeze
-  EXPLORE_EMAIL = "explore_digest".freeze
-  CURRENT_EMAIL_VERSION = "1/1/17".freeze
-  FROM_EMAIL = "Airbo Explore <airboexplore@ourairbo.com>".freeze
-
-  attr_reader :email_heading
+  EXPLORE_EMAIL = "explore_digest"
+  CURRENT_EMAIL_VERSION = "1/1/17"
+  FROM_EMAIL = "Airbo Explore <airboexplore@ourairbo.com>"
 
   def initialize(explore_token)
     @explore_token = explore_token
@@ -15,10 +15,6 @@ class ExploreDigestPresenter < TilesDigestMailBasePresenter
 
   def from_email
     FROM_EMAIL
-  end
-
-  def title
-    EXPLORE_TITLE
   end
 
   def email_type
@@ -32,9 +28,5 @@ class ExploreDigestPresenter < TilesDigestMailBasePresenter
       email_version: CURRENT_EMAIL_VERSION,
       requested_tile_id: requested_tile_id
     )
-  end
-
-  def works_on_mobile?
-    false
   end
 end
