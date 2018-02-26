@@ -4,10 +4,10 @@ class TilesDigestPresenter
   include ClientAdmin::TilesHelper
   include Rails.application.routes.url_helpers
 
-  DIGEST_EMAIL = "tile_digest".freeze
-  FOLLOWUP_EMAIL = "follow_up_digest".freeze
-  STANDARD_DIGEST_HEADING = "Your New Tiles Are Here!".freeze
-  STANDARD_FOLLOWUP_HEADING = "Don't miss your new tiles".freeze
+  DIGEST_EMAIL = "tile_digest"
+  FOLLOWUP_EMAIL = "follow_up_digest"
+  STANDARD_DIGEST_HEADING = "Your New Tiles Are Here!"
+  STANDARD_FOLLOWUP_HEADING = "Don't miss your new tiles"
 
   attr_reader :demo, :user, :digest, :subject, :custom_message
 
@@ -33,10 +33,6 @@ class TilesDigestPresenter
 
   def works_on_mobile?
     false
-  end
-
-  def custom_message_if_present
-    custom_message.present? ? custom_message : ""
   end
 
   def from_email
