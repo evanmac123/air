@@ -1,6 +1,6 @@
-class Admin::Sales::OrganizationsController < AdminBaseController
-  include SalesAcquisitionConcern
+# frozen_string_literal: true
 
+class Admin::Sales::OrganizationsController < AdminBaseController
   def new
     @sales_organization_creator = SalesOrganizationCreator.new(current_user)
     @default_board_id = default_sales_board
@@ -28,7 +28,7 @@ class Admin::Sales::OrganizationsController < AdminBaseController
     end
 
     def flash_create_success(user)
-      t('controllers.admin.sales.organizations.flash_create', name: user.name, invitation_url: invitation_url(user.invitation_code, { demo_id: current_user.demo_id, new_lead: true }))
+      t("controllers.admin.sales.organizations.flash_create", name: user.name, invitation_url: invitation_url(user.invitation_code, demo_id: current_user.demo_id, new_lead: true))
     end
 
     def default_sales_board

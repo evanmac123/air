@@ -389,7 +389,6 @@ GEM
     hashie (3.5.7)
     high_voltage (3.0.0)
     hike (1.2.3)
-    hiredis (0.6.1)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
@@ -479,8 +478,6 @@ GEM
     msgpack (1.2.2)
     multi_json (1.13.1)
     multipart-post (2.0.0)
-    nest (2.0.0)
-      redic
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     nokogumbo (1.4.13)
@@ -557,8 +554,6 @@ GEM
       json (>= 1.8)
       nokogiri (~> 1.5)
       trollop (~> 2.1)
-    redic (1.5.0)
-      hiredis
     redis (3.3.5)
     redis-actionpack (5.0.2)
       actionpack (>= 4.0, < 6)
@@ -719,7 +714,7 @@ DEPENDENCIES
   acts_as_singleton (~> 0.0.8)
   addressable (~> 2.5.2)
   airbrake (~> 5.4)
-  ar_redis
+  ar_redis (~> 0.1.0)
   awesome_print
   aws-sdk (< 3.0)
   aws-sdk-v1 (~> 1.59.0)
@@ -771,7 +766,6 @@ DEPENDENCIES
   mobvious-rails (~> 0.1.2)
   mocha
   mongoid (~> 4.0)
-  nest (~> 2.0)
   nokogiri (~> 1.8.1)
   paperclip (~> 5.2.0)
   pg (~> 0.18.0)

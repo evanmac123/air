@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Admin::OrganizationsController < AdminBaseController
-  include SalesAcquisitionConcern
-
   before_action :find_organization, only: [:edit, :show, :update, :destroy]
 
   def index
