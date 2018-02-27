@@ -12,7 +12,6 @@ class ActivityDigestPresenter
   def initialize(user, demo, beg_date, end_date)
     @beg_date = beg_date
     @end_date = end_date
-    @custom_message = "Here is your board's activity from #{pretty_date_range}."
     @user = user
     @demo = demo
   end
@@ -50,11 +49,7 @@ class ActivityDigestPresenter
   end
 
   def from_email
-    if @custom_from.present?
-      @custom_from
-    else
-      @demo.reply_email_address
-    end
+    @demo.reply_email_address
   end
 
   def pretty_date_range
