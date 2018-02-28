@@ -17,10 +17,6 @@ namespace :admin do
 
   namespace :sales do
     resources :organizations, only: [:new, :create]
-    resources :lead_contacts, only: [:index, :create, :destroy] do
-      resources :invites, only: [:new]
-      resources :tiles, only: [:index]
-    end
   end
 
   resources :organizations, as: :customers
