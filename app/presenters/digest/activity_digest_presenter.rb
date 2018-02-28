@@ -1,17 +1,17 @@
-class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
+# frozen_string_literal: true
+
+class ActivityDigestPresenter
   include EmailHelper
+  include ClientAdmin::TilesHelper
+  include Rails.application.routes.url_helpers
 
   ACTIVITY_EMAIL = "client_admin_activity_report".freeze
   ACTIVITY_DIGEST_HEADING = "Weekly Activity Report".freeze
   EMAIL_VERSION = "v.2".freeze
 
-  include ClientAdmin::TilesHelper
-  include Rails.application.routes.url_helpers
-
   def initialize(user, demo, beg_date, end_date)
-		@beg_date = beg_date
-		@end_date = end_date
-		@custom_message = "Here is your board's activity from #{pretty_date_range}."
+    @beg_date = beg_date
+    @end_date = end_date
     @user = user
     @demo = demo
   end
@@ -49,16 +49,12 @@ class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
   end
 
   def from_email
-    if @custom_from.present?
-      @custom_from
-    else
-      @demo.reply_email_address
-    end
+    @demo.reply_email_address
   end
 
-	def pretty_date_range
+  def pretty_date_range
     "#{@beg_date.strftime('%A, %B %e, %Y')} to #{@end_date.strftime('%A, %B %e, %Y')}"
-	end
+  end
 
   def email_type
     ACTIVITY_EMAIL
@@ -69,6 +65,6 @@ class TilesDigestMailActivityPresenter < TilesDigestMailBasePresenter
   end
 
   def general_site_url
-    client_admin_reports_url(email_type: email_type, email_version: email_version, host: email_link_host, protocol: email_link_protocol)
+    client_admin_reports_url(email_type: email_type, email_version: email_version)
   end
 end

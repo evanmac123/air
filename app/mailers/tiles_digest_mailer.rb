@@ -8,12 +8,9 @@ class TilesDigestMailer < BaseTilesDigestMailer
     @demo = digest.demo
     @tile_ids = digest.tile_ids
 
-    @presenter = presenter_class.constantize.new(digest, @user, subject, is_invite_user)
+    @presenter = presenter_class.constantize.new(digest, @user, subject)
 
-    @tiles = TileBoardDigestDecorator.decorate_collection(
-      tiles_by_position,
-      context: { demo: digest.demo, user: @user, follow_up_email: @presenter.follow_up_email, email_type: @presenter.email_type }
-    )
+    @tiles = tiles_by_position
 
     if digest.include_sms && should_deliver_text_message?(@user, @demo)
       SmsSenderJob.perform_now(to_number: @user.phone_number, from_number: @demo.twilio_from_number, body: @presenter.body_for_text_message)
@@ -31,11 +28,6 @@ class TilesDigestMailer < BaseTilesDigestMailer
   end
 
   private
-
-    def is_invite_user
-      board_membership = @demo.board_memberships.where(user_id: @user.id).first
-      board_membership && !board_membership.joined_board_at.present?
-    end
 
     def should_deliver_text_message?(user, demo)
       bm = user.board_memberships.where(demo_id: demo.id).first

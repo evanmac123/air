@@ -1,0 +1,4 @@
+Headline,Posted Date,Total Views,Unique Views,Completions,% of participants
+- @tiles.each do |tile|
+  - presenter = present(tile, SingleAdminTilePresenter, {is_ie: browser.ie?, format: :plain})
+  != CSV.generate_line([presenter.headline, tile.activated_at.strftime("%m/%d/%Y"), presenter.total_views, presenter.unique_views, presenter.tile_completions_count, presenter.completion_percentage]).strip

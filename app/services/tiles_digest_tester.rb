@@ -28,7 +28,7 @@ class TilesDigestTester
           digest,
           current_user.id,
           "[Test] #{subject}",
-          "TilesDigestMailDigestPresenter"
+          "TilesDigestPresenter"
         ).deliver_now
       end
     end
@@ -39,7 +39,7 @@ class TilesDigestTester
           digest,
           current_user.id,
           test_follow_up_subject,
-          "TilesDigestMailFollowUpPresenter"
+          "FollowUpDigestPresenter"
         ).deliver_now
       end
     end

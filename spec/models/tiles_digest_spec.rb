@@ -23,16 +23,16 @@ RSpec.describe TilesDigest, :type => :model do
         digest = TilesDigest.create(demo: demo, subject: "Subject A", alt_subject: "Subject B")
         digest_id = digest.id
 
-        digest.rdb[:key].set(1)
-        digest.rdb[:key][:subkey].incr
+        digest.redis[:key].call(:set, 1)
+        digest.redis[:key][:subkey].call(:incr)
 
-        expect(TilesDigest.rdb[digest_id][:key].get).to eq("1")
-        expect(TilesDigest.rdb[digest_id][:key][:subkey].get).to eq("1")
+        expect(TilesDigest.redis[digest_id][:key].call(:get)).to eq("1")
+        expect(TilesDigest.redis[digest_id][:key][:subkey].call(:get)).to eq("1")
 
         digest.destroy
 
-        expect(TilesDigest.rdb[digest_id][:key].get).to eq(nil)
-        expect(TilesDigest.rdb[digest_id][:key][:subkey].get).to eq(nil)
+        expect(TilesDigest.redis[digest_id][:key].call(:get)).to eq(nil)
+        expect(TilesDigest.redis[digest_id][:key][:subkey].call(:get)).to eq(nil)
       end
     end
   end
@@ -215,7 +215,7 @@ RSpec.describe TilesDigest, :type => :model do
   describe "#increment_logins_by_subject_line" do
     it "increments login counts in a redis sorted set" do
       digest = TilesDigest.new
-      expect(digest.rdb[:logins].zrangebyscore("-inf", "inf", "WITHSCORES")).to eq([])
+      expect(digest.redis[:logins].call(:zrangebyscore, "-inf", "inf", "WITHSCORES")).to eq([])
 
       2.times do
         digest.increment_logins_by_subject_line("A")
@@ -225,7 +225,7 @@ RSpec.describe TilesDigest, :type => :model do
         digest.increment_logins_by_subject_line("B")
       end
 
-      expect(digest.rdb[:logins].zrangebyscore("-inf", "inf", "WITHSCORES")).to eq(["A", "2", "B", "3", ])
+      expect(digest.redis[:logins].call(:zrangebyscore, "-inf", "inf", "WITHSCORES")).to eq(["A", "2", "B", "3", ])
     end
   end
 
@@ -235,11 +235,11 @@ RSpec.describe TilesDigest, :type => :model do
       expect(digest.logins_by_subject_line).to eq([])
 
       2.times do
-        digest.rdb[:logins].zincrby(1, "A")
+        digest.redis[:logins].call(:zincrby, 1, "A")
       end
 
       3.times do
-        digest.rdb[:logins].zincrby(1, "B")
+        digest.redis[:logins].call(:zincrby, 1, "B")
       end
 
       expect(digest.logins_by_subject_line).to eq(["3", "B", "2", "A"])
@@ -251,14 +251,14 @@ RSpec.describe TilesDigest, :type => :model do
       digest = TilesDigest.new
 
       expect(digest.new_unique_login?(user_id: 1)).to eq(true)
-      expect(digest.rdb[:unique_login_set].smembers).to eq(["1"])
+      expect(digest.redis[:unique_login_set].call(:smembers)).to eq(["1"])
     end
 
     it "returns false if a user id is already in the unique_login_set" do
       digest = TilesDigest.new
 
       expect(digest.new_unique_login?(user_id: 1)).to eq(true)
-      expect(digest.rdb[:unique_login_set].smembers).to eq(["1"])
+      expect(digest.redis[:unique_login_set].call(:smembers)).to eq(["1"])
 
       expect(digest.new_unique_login?(user_id: 1)).to eq(false)
     end
@@ -267,7 +267,7 @@ RSpec.describe TilesDigest, :type => :model do
   describe "#increment_unique_logins_by_subject_line" do
     it "increments unique login counts in a redis sorted set" do
       digest = TilesDigest.new
-      expect(digest.rdb[:unique_logins].zrangebyscore("-inf", "inf", "WITHSCORES")).to eq([])
+      expect(digest.redis[:unique_logins].call(:zrangebyscore, "-inf", "inf", "WITHSCORES")).to eq([])
 
       2.times do
         digest.increment_unique_logins_by_subject_line("A")
@@ -277,7 +277,7 @@ RSpec.describe TilesDigest, :type => :model do
         digest.increment_unique_logins_by_subject_line("B")
       end
 
-      expect(digest.rdb[:unique_logins].zrangebyscore("-inf", "inf", "WITHSCORES")).to eq(["A", "2", "B", "3", ])
+      expect(digest.redis[:unique_logins].call(:zrangebyscore, "-inf", "inf", "WITHSCORES")).to eq(["A", "2", "B", "3", ])
     end
   end
 
@@ -287,11 +287,11 @@ RSpec.describe TilesDigest, :type => :model do
       expect(digest.unique_logins_by_subject_line).to eq([])
 
       2.times do
-        digest.rdb[:unique_logins].zincrby(1, "A")
+        digest.redis[:unique_logins].call(:zincrby, 1, "A")
       end
 
       3.times do
-        digest.rdb[:unique_logins].zincrby(1, "B")
+        digest.redis[:unique_logins].call(:zincrby, 1, "B")
       end
 
       expect(digest.unique_logins_by_subject_line).to eq(["3", "B", "2", "A"])
@@ -302,11 +302,11 @@ RSpec.describe TilesDigest, :type => :model do
     it "returns the highest performing subject line if present" do
       digest = TilesDigest.new
       2.times do
-        digest.rdb[:unique_logins].zincrby(1, "A")
+        digest.redis[:unique_logins].call(:zincrby, 1, "A")
       end
 
       3.times do
-        digest.rdb[:unique_logins].zincrby(1, "B")
+        digest.redis[:unique_logins].call(:zincrby, 1, "B")
       end
 
       expect(digest.highest_performing_subject_line).to eq("B")

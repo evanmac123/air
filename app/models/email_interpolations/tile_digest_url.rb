@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module EmailInterpolations
   module TileDigestUrl
     include SelfClosingTag
@@ -5,7 +7,7 @@ module EmailInterpolations
     include EmailHelper
 
     def interpolate_tile_digest_url(user, demo_id, text)
-      interpolate_self_closing_tag('tile_digest_url', email_site_link(user, demo_id), text).html_safe
+      interpolate_self_closing_tag("tile_digest_url", digest_email_site_link(user, demo_id), text).html_safe
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserInterpolateService
   include Rails.application.routes.url_helpers
   include ClientAdmin::TilesHelper
@@ -13,7 +15,7 @@ class UserInterpolateService
   def interpolate
     interpolate_name
     interpolate_airbo_access_link
-    return string
+    string
   end
 
   def interpolate_name
@@ -22,7 +24,7 @@ class UserInterpolateService
 
   def interpolate_airbo_access_link
     if user.demo
-      link = "<a href='#{email_site_link(user, user.demo_id)}'>Airbo</a>"
+      link = "<a href='#{digest_email_site_link(user, user.demo_id)}'>Airbo</a>"
       string.gsub!(/{{link_to_airbo}}/, link)
     end
   end

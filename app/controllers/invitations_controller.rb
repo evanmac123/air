@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class InvitationsController < ApplicationController
-  include SalesAcquisitionConcern
   include TileEmailTrackingConcern
 
   layout "external"
@@ -87,7 +86,6 @@ class InvitationsController < ApplicationController
         if user_can_login_to_already_accepted_board? && @demo.present?
           sign_in(@user, :remember_me)
           current_user.move_to_new_demo(@demo)
-          notify_sales(:notify_sales_return, @user) if params[:new_lead]
           redirect_to redirect_path
         else
           require_login
@@ -108,8 +106,6 @@ class InvitationsController < ApplicationController
     def accept_unclaimed_user
       if @user.unclaimed?
         unless require_password_creation
-          notify_sales(:notify_sales_activated, @user) if params[:new_lead]
-
           redirect_to generate_password_invitation_acceptance_path(
             user_id: @user.id,
             demo_id: @demo.try(:id),

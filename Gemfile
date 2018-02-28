@@ -12,6 +12,7 @@ gem "mongoid", "~> 4.0"
 gem "bson", "~> 2.2"
 gem "redis", "~> 3.3.3"
 gem "redis-rails", "~> 5.0.2"
+gem "ar_redis", "~> 0.1.0"
 gem "webpacker", "~> 3.0"
 
 # TODO: update to gem "aws-sdk-s3", "~> 1" when paperclip releases support for aws-sdk 3: https://github.com/thoughtbot/paperclip/pull/2481
@@ -46,10 +47,6 @@ gem "searchjoy", "~> 0.3.1"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.1.0", require: false
-
-
-# Redis
-gem "nest", "~> 2.0"
 
 ### Spreadsheet creation
 # TODO: Update to a more maintained gem.
@@ -87,7 +84,6 @@ gem "chronic", "~> 0.10.2"
 gem "haml-rails", "~> 1.0.0"
 gem "nokogiri", "~> 1.8.1"
 gem "carrierwave_direct", "~> 0.0.15"
-gem "draper", "~> 1.3"
 gem "aws-sdk-v1", "~> 1.59.0" # V1 used for bulk upload and Tile attachments (migrate to v3 in rewrites)
 ###
 

@@ -38,7 +38,7 @@ describe UserInterpolateService do
 
       interpolated_message = user_interpolate_service.interpolate_airbo_access_link
 
-      expected_result = "Visit <a href='http://example.com/invitations/#{user.invitation_code}?demo_id=#{user.demo.id}&email_type='>Airbo</a>"
+      expected_result = "Visit <a href='http://www.example.com/invitations/#{user.invitation_code}?demo_id=#{user.demo_id}&tile_token=#{EmailLink.generate_token(user)}&user_id=#{user.id}'>Airbo</a>"
 
       expect(interpolated_message).to eq(expected_result)
     end

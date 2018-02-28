@@ -40,7 +40,7 @@ describe BoardActivityMailer do
     it "adds custom X-SMTPAPI header" do
       x_smtpapi_header = JSON.parse(mail.header["X-SMTPAPI"].value)
 
-      expect(x_smtpapi_header["category"]).to eq(TilesDigestMailActivityPresenter::ACTIVITY_EMAIL)
+      expect(x_smtpapi_header["category"]).to eq(ActivityDigestPresenter::ACTIVITY_EMAIL)
     end
 	end
 

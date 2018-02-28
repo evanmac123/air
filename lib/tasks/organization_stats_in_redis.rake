@@ -5,7 +5,7 @@ task organization_stats_in_redis: :environment do
     total_tile_viewings = org.boards.joins(:tile_viewings).count
     total_tiles_created = org.boards.joins(:tiles).count
 
-    org.rdb[:total_tile_viewings].set(total_tile_viewings)
-    org.rdb[:total_tiles_created].set(total_tiles_created)
+    org.redis[:total_tile_viewings].call(:set, total_tile_viewings)
+    org.redis[:total_tiles_created].call(:set, total_tiles_created)
   end
 end

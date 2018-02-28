@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tile::TileLinkTracking
   TILE_LINK_TRACKING_RELEASE_DATE = "2017-09-28".to_date
 
@@ -10,27 +12,27 @@ module Tile::TileLinkTracking
   end
 
   def new_unique_link_click?(clicked_link, user_id)
-    rdb[:unique_link_click_users][clicked_link].sadd(user_id) == 1
+    self.redis[:unique_link_click_users][clicked_link].call(:sadd, user_id) == 1
   end
 
   def unique_users_who_clicked(link)
-    rdb[:unique_link_click_users][link].smembers
+    self.redis[:unique_link_click_users][link].call(:smembers)
   end
 
   def increment_unique_link_clicks_by_link(link)
-    rdb[:unique_link_clicks].zincrby(1, link)
+    self.redis[:unique_link_clicks].call(:zincrby, 1, link)
   end
 
   def increment_link_clicks_by_link(link)
-    rdb[:link_clicks].zincrby(1, link)
+    self.redis[:link_clicks].call(:zincrby, 1, link)
   end
 
   def unique_link_clicks_by_link
-    rdb[:unique_link_clicks].zrangebyscore("-inf", "inf", "WITHSCORES").reverse
+    self.redis[:unique_link_clicks].call(:zrangebyscore, "-inf", "inf", "WITHSCORES").reverse
   end
 
   def link_clicks_by_link
-    rdb[:link_clicks].zrangebyscore("-inf", "inf", "WITHSCORES").reverse
+    self.redis[:link_clicks].call(:zrangebyscore, "-inf", "inf", "WITHSCORES").reverse
   end
 
   def raw_link_click_stats
