@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe FollowUpDigestBulkMailJob, type: :job do
-  let(:demo) { FactoryBot.create :demo, tile_digest_email_sent_at: Date.yesterday, allow_unsubscribes: true }
+  let(:demo) { FactoryBot.create :demo, allow_unsubscribes: true }
 
   let!(:claimed_user) do
     user = FactoryBot.create(:claimed_user,

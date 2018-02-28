@@ -71,7 +71,6 @@ RSpec.describe TilesDigest, :type => :model do
 
   describe ".dispatch" do
     it "creates a tiles_digest object with correct attrs and tiles" do
-      demo.update_attributes(tile_digest_email_sent_at: Time.current)
       params = digest_params(demo, client_admin, true)
       tiles = FactoryBot.create_list(:tile, 5, demo: demo, status: Tile::DRAFT)
       digest = TilesDigest.dispatch(params)
@@ -82,7 +81,6 @@ RSpec.describe TilesDigest, :type => :model do
       expect(digest.message).to eq(params[:message])
       expect(digest.subject).to eq(params[:subject])
       expect(digest.alt_subject).to eq(params[:alt_subject])
-      expect(digest.cutoff_time).to eq(demo.tile_digest_email_sent_at)
       expect(digest.tiles.pluck(:id).sort).to eq(tiles.map(&:id).sort)
     end
   end

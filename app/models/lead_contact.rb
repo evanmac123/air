@@ -15,39 +15,15 @@ class LeadContact < ActiveRecord::Base
   before_create :build_lead_contact
   after_create  :notify
 
-  scope :pending, -> { where(status: "pending").order(:updated_at).reverse_order }
-  scope :approved, -> { where(status: "approved").order(:updated_at).reverse_order }
-  scope :processed, -> { joins(:demo).where(status: "processed").where(demos: { tile_digest_email_sent_at: nil }).order(:updated_at).reverse_order }
-
-  after_destroy do
-    add_lead_to_redis
-  end
-
   def notify
     LeadContactNotifier.notify_sales(self).deliver_later
   end
 
   private
 
-    def add_lead_to_redis
-      attrs = {
-        name: name,
-        email: email,
-        phone: phone,
-        org: organization_name
-      }
-
-      $redis.sadd("deleted_lead_contacts", attrs.to_json)
-    end
-
     def build_lead_contact
-      add_initial_status
       parse_phone_number
       parse_organization_name
-    end
-
-    def add_initial_status
-      self.status = "pending"
     end
 
     def parse_phone_number

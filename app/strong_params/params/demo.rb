@@ -36,8 +36,6 @@ module Params
         :custom_reply_email_name,
         :internal_domains,
         :show_invite_modal_when_game_closed,
-        :tile_digest_email_sent_at,
-        :unclaimed_users_also_get_digest,
         :public_slug,
         :is_public,
         :upload_in_progress,

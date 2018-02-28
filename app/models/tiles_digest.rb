@@ -38,15 +38,10 @@ class TilesDigest < ActiveRecord::Base
   def self.dispatch(digest_params)
     digest = TilesDigest.new(digest_params)
     if digest.valid?
-      digest.update_cuttoff_time
       digest.set_tiles
     end
 
     digest.tap(&:save)
-  end
-
-  def update_cuttoff_time
-    self.cutoff_time = demo.tile_digest_email_sent_at
   end
 
   def set_tiles
