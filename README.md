@@ -1,6 +1,6 @@
 Airbo 🎉
 ========
-[![Build Status](https://semaphoreci.com/api/v1/projects/da66a2f8-2a2d-4768-b146-ce4be4f0e216/1770169/badge.svg)](https://semaphoreci.com/airbo/airbo)
+[![Build Status](https://semaphoreci.com/api/v1/projects/da66a2f8-2a2d-4768-b146-ce4be4f0e216/1607616/badge.svg)](https://semaphoreci.com/airbo/airbo)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/6c71ef08e7a18ac5421e/maintainability)](https://codeclimate.com/repos/59fcddd7562e40028b0004ec/maintainability)
 
