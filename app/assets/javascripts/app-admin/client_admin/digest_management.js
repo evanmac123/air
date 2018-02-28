@@ -1,25 +1,10 @@
 var Aiebo = window.Airbo || {};
 
 Airbo.TilesDigestManagement = (function() {
-  function emailPreviewLink(previewType) {
-    var contentPath;
-    if (previewType === "follow_up_email") {
-      contentPath =
-        "/client_admin/preview_tiles_digest_email?follow_up_email=true&&custom_message=%20";
-    } else if (previewType === "sms") {
-      contentPath = "/client_admin/tiles_digest_preview/sms";
-    } else {
-      contentPath =
-        "/client_admin/preview_tiles_digest_email?follow_up_email=false&&custom_message=%20";
-    }
-
-    return contentPath;
-  }
-
-  function loadDigestPreview(previewType) {
+  function loadDigestPreview(previewSrc) {
     $("#digest_management")
       .find("#share_tiles_digest_preview")
-      .attr("src", emailPreviewLink(previewType));
+      .attr("src", previewSrc);
   }
 
   function previewIsFollowUp() {
@@ -127,8 +112,7 @@ Airbo.TilesDigestManagement = (function() {
 
       $(".js-digest-preview-tabs li").removeClass("tabs-component-active");
       $(this).addClass("tabs-component-active");
-
-      loadDigestPreview($(this).data("previewType"));
+      loadDigestPreview($(this).data("previewSrc"));
     });
   }
 
@@ -246,7 +230,7 @@ Airbo.TilesDigestManagement = (function() {
 
   function init() {
     showDigestSentModal();
-    loadDigestPreview();
+    loadDigestPreview($("#show_digest_preview").data("previewSrc"));
     initReceiveSmsChangeEvents();
     initRecipientChangeEvents();
     initDigestPreviewTabs();
