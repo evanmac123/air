@@ -124,15 +124,6 @@ describe SalesOrganizationCreator do
         expect(service.creator.demo).to eq(service.board)
       end
 
-      it "adds a sales role to the organization scoped tot he creator" do
-        service = SalesOrganizationCreator.new(sa, nil, org_params).create!
-
-        sales_role = service.creator.roles.first
-
-        expect(sales_role.name).to eq("sales")
-        expect(sales_role.resource_id).to eq(service.organization.id)
-      end
-
       it "doesn not copy tiles if copy_board is nil" do
         service = SalesOrganizationCreator.new(sa, nil, org_params).create!
 

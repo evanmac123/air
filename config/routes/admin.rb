@@ -12,7 +12,6 @@ namespace :admin do
   end
 
   resources :user_migrators
-  resource  :sales, only: [:show]
   resources :campaigns
   resources :case_studies, except: :show
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SalesOrganizationCreator
   attr_reader :creator, :organization, :user, :board, :copy_board
 
@@ -33,12 +35,7 @@ class SalesOrganizationCreator
 
     def setup_sales_org
       creator.move_to_new_demo(board)
-      add_sales_role_to_org
       copy_tiles_to_board(board)
-    end
-
-    def add_sales_role_to_org
-      creator.add_role(:sales, organization)
     end
 
     def get_board
