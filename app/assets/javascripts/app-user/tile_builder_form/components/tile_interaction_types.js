@@ -84,11 +84,7 @@ Airbo.TileBuilderInteractionConfig = (function() {
         name: "Multiple Choice",
         question: null,
         questionPlaceholder: "Ask a question",
-        answers: [
-          "Add Answer Option",
-          "Add Answer Option",
-          "Add Answer Option"
-        ],
+        answers: ["Add Answer Option", "Add Answer Option"],
         extendable: true,
         wrongable: true,
         maxLength: 50,
