@@ -23,15 +23,15 @@ describe Tile::StatusUpdater do
     it "updates statuses" do
       Tile::StatusUpdater.new(tile, Tile::ACTIVE).perform
       expect(tile.status).to eq(Tile::ACTIVE)
+      expect(tile.activated_at).to_not eq(nil)
 
       Tile::StatusUpdater.new(tile, Tile::ARCHIVE).perform
       expect(tile.status).to eq(Tile::ARCHIVE)
+      expect(tile.archived_at).to_not eq(nil)
 
       Tile::StatusUpdater.new(tile, Tile::ACTIVE).perform
       expect(tile.status).to eq(Tile::ACTIVE)
-
-      Tile::StatusUpdater.new(tile, Tile::DRAFT).perform
-      expect(tile.status).to eq(Tile::DRAFT)
+      expect(tile.archived_at).to eq(nil)
     end
   end
 end

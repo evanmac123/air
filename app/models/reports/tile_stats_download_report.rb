@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Reports::TileStatsDownloadReport
   attr_reader :tile, :report
 
@@ -12,7 +14,7 @@ class Reports::TileStatsDownloadReport
 
   def data
     process_report
-    report.use_shared_strings = true #allows for compatibility with Apple Pages
+    report.use_shared_strings = true # allows for compatibility with Apple Pages
 
     report.to_stream.read
   end
@@ -138,7 +140,7 @@ class Reports::TileStatsDownloadReport
 
   def tile_is_a_survey?
     if tile.question_type
-      tile.question_type.downcase == Tile::SURVEY.downcase
+      tile.question_type.downcase == Tile::SURVEY
     end
   end
 end

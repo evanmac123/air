@@ -345,11 +345,9 @@ module TileHelpers
   end
 
   def fill_in_tile_form_entries(options = {})
-    question_type = options[:question_type] || Tile::QUIZ.downcase
+    question_type = options[:question_type] || Tile::QUIZ
     question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
     edit_text = options[:edit_text] || "foobar"
-    points = options[:points] || "18"
-
 
     choose_question_type_and_subtype question_type, question_subtype
     fake_upload_image img_file1

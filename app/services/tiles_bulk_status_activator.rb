@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-class TilesBulkStatusUpdater
-  def self.call(demo:, tiles:, status:)
+class TilesBulkActivator
+  def self.call(demo:, tiles:)
     max_tile_position = demo.tiles.active.maximum(:position).to_i
 
     tiles.order(position: :asc).each do |tile|
       max_tile_position += 1
-      tile.assign_attributes(status: status, position: max_tile_position)
-      tile.save
+      tile.position = max_tile_position
+      Tile::StatusUpdater.call(tile: tile, new_status: Tile::ACTIVE)
     end
   end
 end

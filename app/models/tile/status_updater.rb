@@ -27,6 +27,32 @@ class Tile::StatusUpdater
     end
 
     def update_status
+      case new_status
+      when Tile::ACTIVE
+        assign_activate
+      when Tile::ARCHIVE
+        assign_archive
+      else
+        assign_default
+      end
+    end
+
+    def assign_activate
+      tile.assign_attributes(
+        status: Tile::ACTIVE,
+        activated_at: Time.current,
+        archived_at: nil
+      )
+    end
+
+    def assign_archive
+      tile.assign_attributes(
+        status: Tile::ARCHIVE,
+        archived_at: Time.current
+      )
+    end
+
+    def assign_default
       tile.status = new_status
     end
 end

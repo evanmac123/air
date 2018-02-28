@@ -39,7 +39,6 @@ class Tile < ActiveRecord::Base
   before_validation :remove_images, if: :image_set_to_blank
 
   before_create :set_on_first_position
-  before_save :update_timestamps, if: :status_changed?
   before_save :set_image_credit_to_blank_if_default
   after_save :handle_suggested_tile_status_change
 
@@ -112,19 +111,6 @@ class Tile < ActiveRecord::Base
     tiles_digest.try(:sent_at)
   end
 
-  def update_timestamps
-    case status
-    when DRAFT
-      self.activated_at = nil
-    when ACTIVE
-      if activated_at.nil?
-        self.activated_at = Time.current
-      end
-    when ARCHIVE
-      self.archived_at = Time.current
-    end
-  end
-
   def organization_name
     organization ? organization.name : "airbo"
   end
@@ -146,9 +132,9 @@ class Tile < ActiveRecord::Base
   end
 
   def question_config
-    if (question_type && question_subtype)
+    if question_type && question_subtype
       {
-        type: normalized_question_type,
+        type: question_type,
         subtype: question_subtype,
         answers: multiple_choice_answers,
         question: question,
@@ -171,15 +157,15 @@ class Tile < ActiveRecord::Base
   end
 
   def is_survey?
-    normalized_question_type == SURVEY.downcase || (question_type.nil? && correct_answer_index == -1)
+    question_type == SURVEY
   end
 
   def is_quiz?
-    normalized_question_type == QUIZ.downcase || (question_type.nil? && correct_answer_index > 0)
+    question_type == QUIZ
   end
 
   def is_action?
-    normalized_question_type == ACTION.downcase
+    question_type == ACTION
   end
 
   def is_invite_spouse?
@@ -188,10 +174,6 @@ class Tile < ActiveRecord::Base
 
   def survey_chart
     SurveyChart.new(self).build
-  end
-
-  def is_placeholder?
-    false
   end
 
   def find_new_first_position
@@ -238,11 +220,6 @@ class Tile < ActiveRecord::Base
       base
     end
 
-    # TODO run migratio to downcase question type in DB remove this method
-    def normalized_question_type
-      question_type.try(:downcase)
-    end
-
     def multiple_choice_question_answer_selected
       unless (has_correct_answer_selected?)
         errors.add(:base, "Please select correct answer")
@@ -272,7 +249,7 @@ class Tile < ActiveRecord::Base
     end
 
     def has_correct_answer_selected?
-      if (normalized_question_type == QUIZ.downcase)
+      if question_type == QUIZ
         correct_answer_index != -1
       else
         true
@@ -325,6 +302,6 @@ class Tile < ActiveRecord::Base
     end
 
     def min_one_answer_required
-      normalized_question_type == ACTION.downcase || ["free_response", "custom_form"].include?(question_subtype)
+      question_type == ACTION || ["free_response", "custom_form"].include?(question_subtype)
     end
 end
