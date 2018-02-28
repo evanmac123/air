@@ -74,9 +74,6 @@ Airbo.EditBoardSettings = (function() {
 $(function() {
   if (Airbo.Utils.nodePresent(".js-board-settings-module")) {
     Airbo.EditBoardSettings.init();
-    Airbo.TabsComponentManager.init(
-      ".js-board-settings-module",
-      "Board Settings Page Action"
-    );
+    Airbo.TabsComponentManager.init(".js-board-settings-module");
   }
 });

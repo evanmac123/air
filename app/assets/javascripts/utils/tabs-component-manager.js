@@ -2,7 +2,6 @@ var Airbo = window.Airbo || {};
 
 Airbo.TabsComponentManager = (function() {
   var moduleName;
-  var pingAction;
   var callback;
 
   function initTabs() {
@@ -13,8 +12,6 @@ Airbo.TabsComponentManager = (function() {
   }
 
   function switchTabs($tab) {
-    ping({ action: "Changed Tab", tab: $tab.text() });
-
     hideCurrentTab();
     showNewTab($tab);
 
@@ -38,14 +35,8 @@ Airbo.TabsComponentManager = (function() {
     return $(moduleName + "-tab-content." + $tab.data("tabContent"));
   }
 
-  function ping(props) {
-    var currentUser = $("body").data("currentUser");
-    Airbo.Utils.ping(pingAction, $.extend(props, currentUser));
-  }
-
-  function init(initModuleName, initPingAction, initCallback) {
+  function init(initModuleName, initCallback) {
     moduleName = initModuleName;
-    pingAction = initPingAction;
     callback = initCallback;
     initTabs();
   }

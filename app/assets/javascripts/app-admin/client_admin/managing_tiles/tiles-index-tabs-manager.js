@@ -4,7 +4,6 @@ Airbo.TilesIndexTabManager = (function() {
   function init() {
     Airbo.TabsComponentManager.init(
       ".js-ca-tiles-index-module",
-      "Edit page action",
       changeTabsCallback
     );
   }
