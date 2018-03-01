@@ -29,11 +29,9 @@ feature 'archive tiles', js: true do
         end
       end
 
-      expect(page).to have_no_content(tiles[2].headline)
-
       archive_tab.click
-
       expect(page).to have_content(tiles[2].headline)
+
     end
   end
 end
