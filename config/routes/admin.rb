@@ -15,9 +15,7 @@ namespace :admin do
   resources :campaigns
   resources :case_studies, except: :show
 
-  namespace :sales do
-    resources :organizations, only: [:new, :create]
-  end
+  resources :organization_registrations, only: [:new, :create]
 
   resources :organizations, as: :customers
   resources :organizations do
