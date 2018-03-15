@@ -10,18 +10,10 @@ Developer Machine Setup
 ------------
 
 ### Mac Only
-Install [homebrew](http://brew.sh) then do brew install postgres, redis, mongodb, chromedriver, geckodriver, ImageMagick, elasticsearch, node, yarn
+Rubn [this](https://github.com/thoughtbot/laptop) laptop setup script. Then, brew install mongodb, chromedriver, geckodriver, and elasticsearch.
 
-Git should be installed on your Mac if it's not do: brew install git.
-
-#### Install Ruby Manager
-Use  [RBENV](https://github.com/rbenv/rbenv) or [CHRUBY](https://medium.com/@heidar/switching-from-rbenv-to-postmodern-s-ruby-install-and-chruby-f0daa24b36e6#.hl85swk6r) if you have need to support multiple ruby versions *
-
-If opting for chruby with ruby-install, you can install ruby 2.0.0 with this command:
-
-    ruby-install -M https://cache.ruby-lang.org/pub/ruby ruby 2.0.0-p645
-
-Check our Gemfile for the current Ruby version.
+#### Ruby Version Manager
+We use [asdf](https://github.com/asdf-vm/asdf) as our version manager for all langs.
 
 Airbo App Setup
 ------------
