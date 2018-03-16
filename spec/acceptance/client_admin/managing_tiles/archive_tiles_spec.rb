@@ -31,13 +31,8 @@ feature 'archive tiles', js: true do
       end
 
       archive_tab.click
-<<<<<<< HEAD
-      expect(page).to have_content(tiles[2].headline)
-
-=======
 
       expect(page).to have_content(tile.headline)
->>>>>>> Resolves specs
     end
   end
 end
