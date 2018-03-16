@@ -36,9 +36,9 @@ then
   then
     if [ -f $DUMP_FILENAME ]
     then
-      pg_restore --verbose --clean --no-acl --no-owner -h localhost -d public $DUMP_FILENAME
-      psql public < ./lib/environment_sync_anonymizer.sql
-      pg_dump public > ./$STAGING_READY_DUMP_FILENAME
+      pg_restore --verbose --clean --no-acl --no-owner -h localhost -d airbo $DUMP_FILENAME
+      psql airbo < ./lib/environment_sync_anonymizer.sql
+      pg_dump airbo > ./$STAGING_READY_DUMP_FILENAME
 
       rm $DUMP_FILENAME
       echo_with_color "Your local db has be restored to the most recent production dump and all sensitive data has been sanitized.

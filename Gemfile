@@ -93,6 +93,7 @@ gem "uglifier", ">= 1.3.0"
 gem "handlebars_assets", "~> 0.22.0"
 
 group :development, :test do
+  gem "dotenv-rails"
   gem "colored"
   gem "rspec-rails", "~> 3.0"
   gem "factory_bot_rails"

@@ -181,6 +181,10 @@ GEM
     descriptive_statistics (2.5.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     elasticsearch (6.0.1)
       elasticsearch-api (= 6.0.1)
       elasticsearch-transport (= 6.0.1)
@@ -736,6 +740,7 @@ DEPENDENCIES
   delayed_paperclip (~> 3.0.0)
   delighted (~> 1.7.0)
   descriptive_statistics (~> 2.5.1)
+  dotenv-rails
   email_spec
   factory_bot_rails
   flutie (~> 2.0)
