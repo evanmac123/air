@@ -61,7 +61,8 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def send_emails_and_sms
-    self.update_attributes(sent_at: Time.current, recipient_count: recipient_count_without_site_admin, delivered: true)
+    self.assign_attributes(sent_at: Time.current, delivered: true)
+    self.update_attributes(recipient_count: recipient_count_without_site_admin)
 
     TilesBulkActivator.call(demo: demo, tiles: tiles)
     TilesDigestBulkMailJob.perform_later(self)
