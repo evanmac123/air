@@ -7,42 +7,6 @@ describe TileEmailTracker do
   let (:email_type) { "tile_email" }
   let (:subject_line) { "Subject Line" }
 
-  describe ".dispatch" do
-    it "builds a new TileEmailTracker" do
-      TileEmailTracker.stubs(:new).returns(stub_everything)
-
-      TileEmailTracker.dispatch(
-        user: user,
-        email_type: email_type,
-        subject_line: subject_line,
-        tile_email_id: tile_email.id,
-        from_sms: false
-      )
-
-      expect(TileEmailTracker).to have_received(:new).with(
-        user: user,
-        email_type: email_type,
-        subject_line: subject_line,
-        tile_email_id: tile_email.id,
-        from_sms: false
-      )
-    end
-
-    it "calls track on a new TileEmailTracker" do
-      TileEmailTracker.any_instance.stubs(:track)
-
-      TileEmailTracker.dispatch(
-        user: user,
-        email_type: email_type,
-        subject_line: subject_line,
-        tile_email_id: tile_email.id,
-        from_sms: false
-      )
-
-      expect(TileEmailTracker.any_instance).to have_received(:track)
-    end
-  end
-
   describe "#track" do
     before do
       tile_email.update_attributes({
