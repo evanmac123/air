@@ -14,10 +14,8 @@ gem "redis", "~> 3.3.3"
 gem "redis-rails", "~> 5.0.2"
 gem "ar_redis", "~> 0.1.0"
 gem "webpacker", "~> 3.0"
-
-# TODO: update to gem "aws-sdk-s3", "~> 1" when paperclip releases support for aws-sdk 3: https://github.com/thoughtbot/paperclip/pull/2481
-gem 'aws-sdk', '< 3.0'
-gem "paperclip", "~> 5.2.0"
+gem "aws-sdk-s3", "~> 1"
+gem "paperclip", "~> 6.0.0"
 gem "delayed_paperclip", "~> 3.0.0"
 
 gem "twilio-ruby", "~> 5.2.3"

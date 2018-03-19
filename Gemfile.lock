@@ -74,13 +74,18 @@ GEM
     arel (6.0.4)
     ast (2.4.0)
     awesome_print (1.7.0)
-    aws-sdk (2.10.126)
-      aws-sdk-resources (= 2.10.126)
-    aws-sdk-core (2.10.126)
+    aws-partitions (1.70.0)
+    aws-sdk-core (3.17.0)
+      aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.10.126)
-      aws-sdk-core (= 2.10.126)
+    aws-sdk-kms (1.5.0)
+      aws-sdk-core (~> 3)
+      aws-sigv4 (~> 1.0)
+    aws-sdk-s3 (1.8.2)
+      aws-sdk-core (~> 3)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.0)
     aws-sdk-v1 (1.59.1)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -138,8 +143,6 @@ GEM
       activesupport
       clearance (>= 1.10)
     climate_control (0.2.0)
-    cocaine (0.5.8)
-      climate_control (>= 0.0.3, < 1.0)
     codeclimate-engine-rb (0.4.1)
       virtus (~> 1.0)
     codeclimate-test-reporter (1.0.3)
@@ -394,7 +397,7 @@ GEM
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
     htmlentities (4.3.4)
-    i18n (0.9.3)
+    i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     inflecto (0.0.2)
@@ -483,12 +486,12 @@ GEM
       nokogiri
     optionable (0.2.0)
     origin (2.3.1)
-    paperclip (5.2.1)
+    paperclip (6.0.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
-      cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+      terrapin (~> 0.6.0)
     parallel (1.12.1)
     parser (2.4.0.2)
       ast (~> 2.3)
@@ -658,6 +661,8 @@ GEM
     stripe (3.9.0)
       faraday (~> 0.10)
     temple (0.8.0)
+    terrapin (0.6.0)
+      climate_control (>= 0.0.3, < 1.0)
     test_after_commit (1.1.0)
       activerecord (>= 3.2)
     thin (1.6.3)
@@ -714,7 +719,7 @@ DEPENDENCIES
   airbrake (~> 5.4)
   ar_redis (~> 0.1.0)
   awesome_print
-  aws-sdk (< 3.0)
+  aws-sdk-s3 (~> 1)
   aws-sdk-v1 (~> 1.59.0)
   axlsx!
   better_errors
@@ -765,7 +770,7 @@ DEPENDENCIES
   mocha
   mongoid (~> 4.0)
   nokogiri (~> 1.8.1)
-  paperclip (~> 5.2.0)
+  paperclip (~> 6.0.0)
   pg (~> 0.18.0)
   pry-byebug
   pry-rails
