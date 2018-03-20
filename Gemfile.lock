@@ -194,10 +194,9 @@ GEM
     elasticsearch-transport (6.0.1)
       faraday
       multi_json
-    email_spec (2.1.1)
-      htmlentities (~> 4.3.3)
+    email_spec (1.6.0)
       launchy (~> 2.1)
-      mail (~> 2.6)
+      mail (~> 2.2)
     email_validator (1.6.0)
       activemodel
     equalizer (0.0.11)
@@ -741,7 +740,7 @@ DEPENDENCIES
   delighted (~> 1.7.0)
   descriptive_statistics (~> 2.5.1)
   dotenv-rails
-  email_spec
+  email_spec (~> 1.6.0)
   factory_bot_rails
   flutie (~> 2.0)
   font-awesome-rails (>= 4.7)

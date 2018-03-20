@@ -110,7 +110,7 @@ group :test do
   gem "sham_rack"
   gem "timecop"
   gem "shoulda-matchers"
-  gem "email_spec"
+  gem "email_spec", "~> 1.6.0"
   gem "sinatra"
   gem "mocha"
   gem "selenium-webdriver"
