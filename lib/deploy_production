@@ -19,8 +19,8 @@ if [[ $REPLY =~ ^(yes|y| ) ]]
 then
   echo_with_color "Deploying $(git rev-parse HEAD)" $GREEN
 
-  echo_with_color "Running: git push production master:master" $GREEN
-  git push production master:master
+  echo_with_color "Running: git push production master" $GREEN
+  git push production master
 
   echo_with_color "$(git rev-parse HEAD) deployed!" $GREEN
 

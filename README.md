@@ -126,7 +126,7 @@ To deploy to production:
 
   * Run `lib/deploy_production`
       * This:
-        1. runs `git push production master:master`
+        1. runs `git push production master`
         2. runs `lib/airbrake_deploy_production`
 
 Notes
