@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Reports::TileStatsDownloadReport
   attr_reader :tile, :report
 
@@ -12,7 +14,7 @@ class Reports::TileStatsDownloadReport
 
   def data
     process_report
-    report.use_shared_strings = true #allows for compatibility with Apple Pages
+    report.use_shared_strings = true # allows for compatibility with Apple Pages
 
     report.to_stream.read
   end
@@ -100,9 +102,19 @@ class Reports::TileStatsDownloadReport
         get_answer(row.send(column))
       elsif column == "viewed_date" || column == "completion_date"
         row.send(column).in_time_zone.strftime("%m/%d/%Y")
+      elsif column == "user_name" || column == "user_email"
+        set_user_info(row.send(column))
       else
         row.send(column)
       end
+    end
+  end
+
+  def set_user_info(data)
+    if tile.is_anonymous?
+      "Anonymous"
+    else
+      data
     end
   end
 
@@ -128,7 +140,7 @@ class Reports::TileStatsDownloadReport
 
   def tile_is_a_survey?
     if tile.question_type
-      tile.question_type.downcase == Tile::SURVEY.downcase
+      tile.question_type.downcase == Tile::SURVEY
     end
   end
 end

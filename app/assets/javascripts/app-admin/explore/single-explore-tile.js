@@ -1,24 +1,27 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ExploreSingleTile = (function(){
+Airbo.ExploreSingleTile = (function() {
   var entryPoint;
   var tileType;
 
   function initAnswerCorrectModal() {
-    $(".js-multiple-choice-answer.correct, .clicked_right_answer").on("click", function(e) {
-      e.preventDefault();
-      if($(this).hasClass("free-text")) {
-        if(!$(".js-free-form-response").val()) {
-          return;
+    $(".js-multiple-choice-answer.correct, .clicked_right_answer").on(
+      "click",
+      function(e) {
+        e.preventDefault();
+        if ($(this).hasClass("free-text")) {
+          if (!$(".js-free-form-response").val()) {
+            return;
+          }
+        }
+
+        if (tileType === "public") {
+          publicTileCompleted();
+        } else {
+          exploreTileCompleted();
         }
       }
-
-      if(tileType === "public") {
-        publicTileCompleted();
-      } else {
-        exploreTileCompleted();
-      }
-    });
+    );
   }
 
   function publicTileCompleted() {
@@ -56,10 +59,9 @@ Airbo.ExploreSingleTile = (function(){
   return {
     init: init
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   if (Airbo.Utils.nodePresent(".single-tile-base")) {
     Airbo.ExploreSingleTile.init();
   }

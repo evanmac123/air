@@ -26,7 +26,7 @@ describe ClientAdmin::TilesController do
      "embed_video"=>"",
      "headline"=>"TEST",
      "supporting_content"=>"<p>TEST</p>",
-     "question_type"=>"Action",
+     "question_type"=>Tile::ACTION,
      "question_subtype"=>"read_tile",
      "question"=>"Points for reading tile",
      "answers"=>["I read it"],

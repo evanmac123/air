@@ -1,19 +1,21 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  rescue_from ActionController::RoutingError, with: :not_found
+  rescue_from ActiveRecord::RecordNotFound do
+    not_found
+  end
+
+  rescue_from ActionController::RoutingError do
+    not_found
+  end
 
   before_action :authorize!
-
-  ##ApplicationPerformanceConcern
-  before_action :set_scout_context
-  ##
-
   before_action :refresh_activity_session
   before_action :set_eager_caches
 
-  ##AirboFlashConcern
+  # #AirboFlashConcern
   before_action :initialize_flashes
   after_action :merge_flashes
   ##
@@ -24,7 +26,6 @@ class ApplicationController < ActionController::Base
   include CachingConcern
   include MixpanelConcern
   include FlashConcern
-  include ApplicationPerformanceConcern
   include Mobvious::Rails::Controller
 
   ###### Airbo authentication/authorization
@@ -39,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorized?
-    return true
+    true
   end
 
   def sign_in(user, remember_me = false)
@@ -74,7 +75,10 @@ class ApplicationController < ActionController::Base
   def current_board
     current_user.try(:demo)
   end
-  ######
+
+  def current_org
+    current_board.try(:organization)
+  end
 
   private
 
@@ -82,7 +86,7 @@ class ApplicationController < ActionController::Base
       Time.use_zone(current_board.timezone, &block)
     end
 
-    def present(object, klass = nil, opts={})
+    def present(object, klass = nil, opts = {})
       klass ||= "#{object.class}Presenter".constantize
       klass.new(object, view_context, opts)
     end
@@ -91,7 +95,7 @@ class ApplicationController < ActionController::Base
       @permitted_params ||= PermittedParams.new(params, current_user)
     end
 
-    def not_found(flash_message = 'flashes.failure_resource_not_found')
+    def not_found(flash_message = "flashes.failure_resource_not_found")
       respond_to do |format|
         format.html {
           flash[:failure] = I18n.t(flash_message)

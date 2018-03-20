@@ -1,12 +1,11 @@
-class Explore::CopyTilesController < ClientAdminBaseController
-  include ClientAdmin::TilesPingsHelper
-  include ExploreConcern
+# frozen_string_literal: true
 
+class Explore::CopyTilesController < ClientAdminBaseController
   def create
     tile = explore_tile || organization_tile
     return render_json_access_denied unless tile
 
-    tile.delay.copy_to_new_demo(current_user.demo, current_user)
+    TileCopyJob.perform_later(tile: tile, demo: current_user.demo, user: current_user)
     store_copy_in_redis(params[:tile_id])
 
     render json: {
@@ -26,6 +25,6 @@ class Explore::CopyTilesController < ClientAdminBaseController
     end
 
     def store_copy_in_redis(tile_id)
-      current_user.rdb[:copies].sadd(tile_id)
+      current_user.redis[:copies].call(:sadd, tile_id)
     end
 end

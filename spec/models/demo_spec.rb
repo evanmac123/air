@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe Demo do
-  it { is_expected.to have_many(:users) }
-  it { is_expected.to have_many(:tiles) }
-  it { is_expected.to have_many(:locations) }
-  it { is_expected.to have_many(:characteristics) }
+  it { should have_many(:users) }
+  it { should have_many(:tiles) }
+  it { should have_many(:locations) }
+  it { should have_many(:characteristics) }
   it { should have_attached_file(:logo) }
   it { should validate_attachment_content_type(:logo).allowing('image/*') }
 
@@ -42,7 +42,7 @@ describe Demo do
       free_demos = FactoryBot.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:free])
       _paid_demos = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
 
-      expect(Demo.free).to eq(free_demos)
+      expect(Demo.free.pluck(:id)).to eq(free_demos.map(&:id))
     end
   end
 
@@ -51,34 +51,7 @@ describe Demo do
       trial_demos = FactoryBot.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:trial])
       _paid_demos = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
 
-      expect(Demo.free_trial).to eq(trial_demos)
-    end
-  end
-end
-
-describe Demo, "#welcome_message" do
-  before(:each) do
-    @demo = FactoryBot.create :demo
-    @user = FactoryBot.create :user, :demo => @demo
-  end
-
-  context "when the demo has no custom welcome message" do
-    before(:each) do
-      expect(@demo.custom_welcome_message).to be_nil
-    end
-
-    it "should return a reasonable default" do
-      expect(@demo.welcome_message(@user)).to eq("You've joined the #{@demo.name} game! @{reply here}")
-    end
-  end
-
-  context "when the demo has a custom welcome message" do
-    before(:each) do
-      @demo.custom_welcome_message = "Derp derp! Let's play! You are %{unique_id}, we are %{name}!"
-    end
-
-    it "should use that" do
-      expect(@demo.welcome_message(@user)).to eq("Derp derp! Let's play! You are #{@user.sms_slug}, we are #{@demo.name}!")
+      expect(Demo.free_trial.pluck(:id)).to eq(trial_demos.map(&:id))
     end
   end
 end
@@ -210,7 +183,7 @@ describe Demo do
       params = { a: 1, b: "A string." }
 
       expect(demo.set_tile_email_draft(params)).to eq("OK")
-      expect(JSON.parse(demo.rdb["tile_email_draft"].get).symbolize_keys).to eq(params)
+      expect(JSON.parse(demo.redis["tile_email_draft"].call(:get)).symbolize_keys).to eq(params)
     end
   end
 
@@ -220,11 +193,11 @@ describe Demo do
       params = { a: 1, b: "A string." }
       demo.set_tile_email_draft(params)
 
-      expect(demo.rdb["tile_email_draft"].get.present?).to eq(true)
+      expect(demo.redis["tile_email_draft"].call(:get).present?).to eq(true)
 
       demo.clear_tile_email_draft
 
-      expect(demo.rdb["tile_email_draft"].get.present?).to eq(false)
+      expect(demo.redis["tile_email_draft"].call(:get).present?).to eq(false)
     end
   end
 

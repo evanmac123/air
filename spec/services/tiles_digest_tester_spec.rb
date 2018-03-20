@@ -17,19 +17,19 @@ describe TilesDigestTester do
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] #{digest_params[:custom_subject]}",
-        "TilesDigestMailDigestPresenter"
+        "TilesDigestPresenter"
       ).once.returns(mock_delivery)
 
       TilesDigestMailer.expects(:notify_one).with(
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] Don't Miss: #{digest_params[:custom_subject]}",
-        "TilesDigestMailFollowUpPresenter"
+        "FollowUpDigestPresenter"
       ).once.returns(mock_delivery)
 
       mock_delivery.expects(:deliver_now).twice
 
-      tiles_digest_tester.deliver_test!
+      tiles_digest_tester.deliver_test
     end
 
     it "only attempts to send a test Tile Email if follow_up_day == Never" do
@@ -45,10 +45,10 @@ describe TilesDigestTester do
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] #{params[:custom_subject]}",
-        "TilesDigestMailDigestPresenter"
+        "TilesDigestPresenter"
       ).once.returns(mock_delivery)
 
-      tiles_digest_tester.deliver_test!
+      tiles_digest_tester.deliver_test
     end
 
     it "defaults to the TilesDigest::DEFAULT_DIGEST_SUBJECT if no subject is given" do
@@ -64,17 +64,17 @@ describe TilesDigestTester do
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] #{TilesDigest::DEFAULT_DIGEST_SUBJECT}",
-        "TilesDigestMailDigestPresenter"
+        "TilesDigestPresenter"
       ).once.returns(mock_delivery)
 
       TilesDigestMailer.expects(:notify_one).with(
         instance_of(OpenStruct),
         tiles_digest_tester.current_user.id,
         "[Test] Don't Miss: #{TilesDigest::DEFAULT_DIGEST_SUBJECT}",
-        "TilesDigestMailFollowUpPresenter"
+        "FollowUpDigestPresenter"
       ).once.returns(mock_delivery)
 
-      tiles_digest_tester.deliver_test!
+      tiles_digest_tester.deliver_test
     end
   end
 

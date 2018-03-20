@@ -9,14 +9,15 @@
     </div>
   </div>
   <div class="card-body">
-    <a href="/client_admin/tiles/{{tileId}}/download_tile_report" class="tile-stats-download-report content-on-right button outlined download float-right" target="_blank">Download Report</a>
-
-    <div class="tabs-component-full-width">
-      <ul class="inline-list">
+    <div class="tabs-component-full-width in-modal">
+      <ul>
         <li class="js-tile-stats-tab tab active" data-tab-content="analytics"><a href="#">Analytics</a></li>
         <li class="js-tile-stats-tab tab" data-tab-content="activity"><a href="#">Activity</a></li>
         <li class="js-tile-stats-tab tab" data-tab-content="message"><a href="#">Message</a></li>
         <li class="js-tile-stats-tab tab" data-tab-content="sent"><a href="#">Sent</a></li>
+        <li class="buttons">
+          <a href="/client_admin/tiles/{{tileId}}/download_tile_report" class="js-tile-stats-download-report button outlined download" target="_blank">Download Report</a>
+        </li>
       </ul>
     </div>
     <div class="card-content tile-stats-card-content">

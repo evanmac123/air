@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GuestUser < ActiveRecord::Base
   # Q: Why is GuestUser not a subclass of User?
   # A: User is an overly fat model, and an old one, and I decided that some
@@ -11,18 +13,16 @@ class GuestUser < ActiveRecord::Base
 
   belongs_to :demo
 
-  has_many :tile_completions, :as => :user, :dependent => :nullify
-  has_many :tile_viewings, as: :user, :dependent => :nullify
-  has_many :acts, :as => :user, :dependent => :destroy
+  has_many :tile_completions, as: :user, dependent: :nullify
+  has_many :tile_viewings, as: :user, dependent: :nullify
+  has_many :acts, as: :user, dependent: :destroy
   has_many :user_in_raffle_infos, as: :user, dependent: :delete_all
 
   has_one :user_intro, as: :userable, dependent: :delete
 
-  has_many :viewed_tiles, through: :tile_viewings
-  has_many :completed_tiles, source: :tile, through: :tile_completions
-
   include CancelAccountToken
   include User::FakeUserBehavior
+  include User::Tiles
 
   def is_guest?
     true
@@ -82,7 +82,7 @@ class GuestUser < ActiveRecord::Base
     {
       user_id: id,
       name: "Guest User",
-      user_hash: OpenSSL::HMAC.hexdigest('sha256', ENV["INTERCOM_API_SECRET"], id.to_s)
+      user_hash: OpenSSL::HMAC.hexdigest("sha256", IntercomRails.config.api_secret.to_s, id.to_s)
     }
   end
 
@@ -102,14 +102,14 @@ class GuestUser < ActiveRecord::Base
   end
 
   def convert_to_full_user!(name, email, password, location_name = nil)
-    ConvertToFullUser.new({
+    ConvertToFullUser.new(
       pre_user: self,
       name: name,
       email: email,
       password: password,
       location_name: location_name,
       converting_from_guest: true
-    }).convert!
+    ).convert!
   end
 
   def slug
@@ -118,10 +118,6 @@ class GuestUser < ActiveRecord::Base
 
   def can_start_over?
     tile_completions.first.present?
-  end
-
-  def not_show_all_completed_tiles_in_progress
-    User::TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
   end
 
   def can_see_raffle_modal?

@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class Organization < ActiveRecord::Base
   resourcify
-  acts_as_taggable_on :channels
   include NormalizeBlankValues
 
   before_save :update_slug
@@ -11,6 +12,7 @@ class Organization < ActiveRecord::Base
   has_many :invoice_transactions, through: :invoices
 
   has_many :demos, autosave: true, dependent: :destroy
+  has_many :campaigns, through: :demos
   has_many :lead_contacts, dependent: :destroy
   has_many :boards, class_name: :Demo, autosave: true
   has_many :tiles, through: :boards
@@ -20,17 +22,11 @@ class Organization < ActiveRecord::Base
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validate  :free_trial_cannot_start_before_created_at_or_in_future
 
-  accepts_nested_attributes_for :boards
-  accepts_nested_attributes_for :users
-
   scope :name_order, -> { order(:name) }
-  scope :featured, -> { where(featured: true) }
 
   has_attached_file :logo,
-    {
-      styles: { small: "x40>", medium: "x120>" },
-      default_style: :small
-    }
+    styles: { small: "x40>", medium: "x120>" },
+    default_style: :small
   validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
 
   as_enum :company_size, smb: 0, enterprise: 1
@@ -81,14 +77,10 @@ class Organization < ActiveRecord::Base
     roles.pluck(:name).include?("sales")
   end
 
-  def track_channels(channels)
-    channel_list.add(channels)
-    self.save
-  end
-
   def user_activation_rate
-    if users.count.nonzero?
-      (activated_users.count.to_f / users.count) * 100
+    user_count = users.count
+    if user_count.nonzero?
+      (activated_users.count.to_f / user_count) * 100
     else
       0
     end

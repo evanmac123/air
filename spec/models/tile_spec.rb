@@ -4,8 +4,6 @@ describe Tile do
   it { is_expected.to belong_to(:demo) }
   it { is_expected.to belong_to(:creator) }
   it { is_expected.to have_many(:tile_viewings) }
-  it { is_expected.to have_many(:user_viewers) }
-  it { is_expected.to have_many(:guest_user_viewers) }
   it { is_expected.to validate_inclusion_of(:status).in_array(Tile::STATUS) }
 
   describe "after_save" do
@@ -105,18 +103,18 @@ describe Tile do
     end
   end
 
-  context "incomplete drafts" do
-    let(:demo){Demo.new}
+  context "incomplete tiles in plan" do
+    let(:demo){ Demo.new }
     LONG_TEXT  =  "*" * (Tile::MAX_SUPPORTING_CONTENT_LEN + 1)
     it "can be created with just  headline" do
       tile = Tile.new
-      tile.status = Tile::DRAFT
+      tile.status = Tile::PLAN
       tile.headline = "headliner"
       expect(tile.valid?).to be true
     end
     it "can be created with just  image" do
       tile = Tile.new
-      tile.status = Tile::DRAFT
+      tile.status = Tile::PLAN
       tile.remote_media_url = "image.png"
       expect(tile.valid?).to be true
     end
@@ -134,7 +132,7 @@ describe Tile do
     end
 
    it "is isn't fully assembeld is quiz with no correct answer " do
-      tile  = FactoryBot.create(:tile, status: Tile::DRAFT, question_type: Tile::QUIZ, question_subtype: Tile::MULTIPLE_CHOICE, correct_answer_index: -1)
+      tile  = FactoryBot.create(:tile, status: Tile::PLAN, question_type: Tile::QUIZ, question_subtype: Tile::MULTIPLE_CHOICE, correct_answer_index: -1)
       expect(tile.is_fully_assembled?).to be false
     end
     it "cannot set to active if incomplete" do
@@ -144,141 +142,27 @@ describe Tile do
     end
 
     it "cannot be posted if missing image" do
-      tile  = FactoryBot.create :tile, status: Tile::DRAFT
+      tile  = FactoryBot.create :tile, status: Tile::PLAN
       tile.remote_media_url = nil
       tile.status = Tile::ACTIVE
       expect(tile.save).to be false
     end
 
     it "can be saved as draft if supporting content len > specfied max" do
-      tile  = FactoryBot.create :tile, status: Tile::DRAFT, supporting_content: LONG_TEXT
+      tile  = FactoryBot.create :tile, status: Tile::PLAN, supporting_content: LONG_TEXT
       expect(tile.save).to be true
     end
 
     it "cannot be posted if supporting content len > specfied max" do
-      tile  = FactoryBot.create :tile, status: Tile::DRAFT
+      tile  = FactoryBot.create :tile, status: Tile::PLAN
       tile.supporting_content = LONG_TEXT
       tile.status = Tile::ACTIVE
       expect(tile.save).to be false
     end
   end
 
-
-
-  context "status and activated_at" do
-
-    it "forbids updating activated_at when unarchiving tiles be default" do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE
-      expect(tile.activated_at_reset_allowed?).to be_falsey
-    end
-
-    it "doesnt change activated_at on un-archival if not explicitly set" do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
-      expect{tile.status=Tile::ACTIVE;tile.save}.to_not change{tile.activated_at}
-    end
-
-    it "allows updating activated_at when unarchiving tiles when explicitly set" do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE
-      tile.allow_activated_at_reset
-      expect(tile.activated_at_reset_allowed?).to be_truthy
-    end
-
-    it "updates activated_at if the status changes from DRAFT to ACTIVE" do
-      tile = FactoryBot.create :tile, status: Tile::DRAFT
-      expect{tile.status=Tile::ACTIVE; tile.save}.to change{tile.activated_at}
-    end
-  end
-
-  describe "handle_unarchive" do
-    it "allows activated_at reset if allow digest flag is true" do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE
-      tile.handle_unarchived(Tile::ACTIVE, "true")
-      expect(tile.activated_at_reset_allowed?).to be_truthy
-    end
-
-
-    it "prevents activated_at reset if allow digest flag is false" do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE
-      tile.handle_unarchived(Tile::ACTIVE, "false")
-      expect(tile.activated_at_reset_allowed?).to be_falsey
-    end
-
-  end
-
-
-
-  describe ".update_status" do
-    it "doesn't change activated_it when status is active but allowdigest is false " do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
-      expect{ tile.update_status({"status" => "active", "redigest" => "false"}) }.to_not change{tile.activated_at}
-    end
-
-    it "doesn't change activated_it when status is active but allowdigest is false " do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
-      expect{ tile.update_status({"status" => "active"}) }.to_not change{tile.activated_at}
-    end
-  end
-
-
-  describe 'finders based on status' do
-    # The test below was written first and exercises all tile-status combinations pretty thoroughly.
-    # We then decided to not initially set a demo's 'tile_digest_email_sent_at' => all 'active' tiles should
-    # go out in the inaugural digest email. And that, my friend, is what this sucker tests.
-    it "#digest should return all active tiles if a digest email has yet to be sent" do
-      demo = FactoryBot.create :demo
-
-      active  = FactoryBot.create_list :tile, 4, demo: demo
-      archive = FactoryBot.create_list :tile, 2, demo: demo, status: Tile::ARCHIVE
-
-      expect(demo.digest_tiles(nil).pluck(:id).sort).to eq(active.collect(&:id).sort)
-    end
-
-    it 'should return the correct tiles for each status type in the specified demo' do
-      last_digest_sent_at = 3.days.ago.at_midnight
-      demo = FactoryBot.create :demo, tile_digest_email_sent_at: last_digest_sent_at
-
-      # These guys hold just the id's, not the entire objects
-      draft   = []
-      archive = []
-      active  = []
-      digest  = []
-
-      (1..3).each do |i|
-        # Note that all of these tiles kinda qualify for "digest" tiles because they are activated after the
-        # last digest email was sent => We can test that only "active" tiles go out in the digest email.
-        # And you could create, activate, and then archive a tile after the last digest email got sent but before the next
-        # digest email goes out => Need to ensure that 'activated_at' alone does not get tile included in the digest email.
-        draft   << FactoryBot.create(:tile, demo: demo, status: Tile::DRAFT,   activated_at: last_digest_sent_at + i.minutes).id
-        archive << FactoryBot.create(:tile, demo: demo, status: Tile::ARCHIVE, activated_at: last_digest_sent_at + i.minutes).id
-
-        # These 'active' tiles were created *before* the last digest email => should not also be considered "digest" tiles
-        active << FactoryBot.create(:tile, demo: demo, status: Tile::ACTIVE, activated_at: last_digest_sent_at - i.minutes).id
-
-        # These 'active' tiles were created *after* the last digest email => should also be considered "digest" tiles
-        tile = FactoryBot.create(:tile, demo: demo, status: Tile::ACTIVE, activated_at: last_digest_sent_at + i.minutes).id
-        active << tile
-        digest << tile
-      end
-
-      # Create some tiles of each type that belong to a different demo
-      bad_demo = FactoryBot.create :demo, tile_digest_email_sent_at: last_digest_sent_at
-      (1..2).each do |i|
-        FactoryBot.create(:tile, demo: bad_demo, status: Tile::DRAFT,   activated_at: last_digest_sent_at + i.minutes).id
-        FactoryBot.create(:tile, demo: bad_demo, status: Tile::ARCHIVE, activated_at: last_digest_sent_at + i.minutes).id
-
-        FactoryBot.create(:tile, demo: bad_demo, status: Tile::ACTIVE, correct_answer_index: 0, activated_at: last_digest_sent_at - i.minutes).id
-        FactoryBot.create(:tile, demo: bad_demo, status: Tile::ACTIVE, correct_answer_index: 0, activated_at: last_digest_sent_at + i.minutes).id
-      end
-
-      expect(demo.draft_tiles.pluck(:id).sort).to   eq(draft.sort)
-      expect(demo.archive_tiles.pluck(:id).sort).to eq(archive.sort)
-      expect(demo.active_tiles.pluck(:id).sort).to  eq(active.sort)
-      expect(demo.digest_tiles(demo.tile_digest_email_sent_at).pluck(:id).sort).to  eq(digest.sort)
-    end
-  end
-
   context "status changes" do
-    let(:user){FactoryBot.create(:user)}
+    let(:user){ FactoryBot.create(:user) }
     let(:demo) { FactoryBot.create :demo }
     let(:tile) { FactoryBot.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, creation_source: Tile.creation_sources[:suggestion_box_created] }
 
@@ -300,82 +184,6 @@ describe Tile do
     end
   end
 
-  it "setting or updating tile status updates the corresponding timestamps", broken: true do
-
-    # Test setting status during tile creation
-
-    time_1 = Time.zone.now
-    Timecop.freeze(time_1)
-    tile_1 = FactoryBot.create :tile, status: Tile::ACTIVE
-    expect(tile_1.activated_at.to_s).to eq(time_1.to_s)
-    expect(tile_1.archived_at).to be_nil
-
-    tile_2 = FactoryBot.create :tile, status: Tile::ARCHIVE
-    expect(tile_2.archived_at.to_s).to eq(time_1.to_s)
-    expect(tile_2.activated_at).to be_nil
-
-    tile_3 = FactoryBot.create :tile, status: Tile::DRAFT
-    expect(tile_3.activated_at).to be_nil
-    expect(tile_3.archived_at).to be_nil
-
-    #Don't forget to verify that we can override the time-stamp assignments with FactoryBot.
-    #Note: As per the sample output below (from a failing test) the time from the dbase contains
-    #too much information for this test => just grab the first part of the date
-    #expected: "2013-08-15" ; got: "2013-08-15 00:00:00 -0400"
-
-    tile_4 = FactoryBot.create :tile, status: Tile::ACTIVE, activated_at: Date.tomorrow
-    expect((tile_4.activated_at.to_s.split)[0]).to eq(Date.tomorrow.to_s)
-
-    tile_5 = FactoryBot.create :tile, status: Tile::ARCHIVE
-    tile_5.update_column(:archived_at,  Date.yesterday) #use set to skip callback that auto sets archived date
-    expect((tile_5.archived_at.to_s.split)[0]).to eq(Date.yesterday.to_s)
-
-    #------------------------------------------------
-
-    # Test setting status via 'update_attributes'
-
-    time_2 = time_1 + 1.minute
-    Timecop.freeze(time_2)
-
-    tile_1.update_attributes status: Tile::ARCHIVE
-    expect(tile_1.activated_at.to_s).to eq(time_1.to_s)
-    expect(tile_1.archived_at.to_s).to eq(time_2.to_s)
-
-    tile_2.update_attributes status: Tile::ACTIVE
-    expect(tile_2.activated_at.to_s).to eq(time_2.to_s)
-    expect(tile_2.archived_at.to_s).to eq(time_1.to_s)
-
-    #------------------------------------------------
-
-    #Test setting status via assignment
-
-    time_3 = time_2 + 1.minute
-    Timecop.freeze(time_3)
-
-    tile_1.status = Tile::ACTIVE
-    expect(tile_1.archived_at.to_s).to eq(time_2.to_s)
-
-    tile_2.status = Tile::ARCHIVE
-    expect(tile_2.activated_at.to_s).to eq(time_2.to_s)
-
-    Timecop.return
-  end
-
-  describe "satisfiable to a particular user" do
-    before(:each) do
-      Demo.find_each {|f| f.destroy}
-      @fun = FactoryBot.create(:demo, name: 'A Good Time')
-      @mud_bath = FactoryBot.create(:tile, headline: 'Mud Bath', demo: @fun)
-      @leah = FactoryBot.create(:user, name: 'Leah Eckles', demo: @fun)
-    end
-
-    it "looks good to the average user" do
-      tiles = Tile.satisfiable_to_user(@leah)
-      expect(tiles.count).to eq(1)
-      expect(tiles.first.id).to eq(@mud_bath.id)
-    end
-  end
-
   describe "#survey_chart" do
     it "should return array with right statistic" do
       tile = FactoryBot.create(:survey_tile,
@@ -394,31 +202,14 @@ describe Tile do
   describe '#search_data for songkick', search: true do
     let(:user) {FactoryBot.create(:user) }
     let(:demo) { FactoryBot.create(:demo) }
-    let(:tile) { FactoryBot.create(:multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, user_created: true) }
+    let(:tile) { FactoryBot.create(:multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user) }
 
     it 'should be indexed' do
       FactoryBot.create(:tile, headline: "Food")
 
       Tile.reindex
 
-      expect(Tile.search("food").records.length).to eq(1)
-    end
-
-    context 'no channels on tile' do
-      it 'should return a serializable hash of a tile object plus an empty string channels key/value' do
-        expect(tile.search_data).to eql(tile.serializable_hash.merge({ channel_list: [], organization_name: tile.organization.try(:name)}))
-      end
-    end
-
-    context 'channels on tile' do
-      let(:tile_with_channels) { FactoryBot.create(:tile, :public) }
-
-      it 'should return a serializable hash of a tile object plus channels containing comma separated channels' do
-        tile_with_channels.channel_list.add("wellness")
-        tile_with_channels.save
-
-        expect(tile_with_channels.search_data).to eql(tile_with_channels.serializable_hash.merge({ channel_list: ["wellness"], organization_name: tile_with_channels.organization.try(:name)}))
-      end
+      expect(Tile.search("food", fields: [:headline]).records.length).to eq(1)
     end
   end
 
@@ -440,7 +231,7 @@ describe Tile do
     end
 
     it "return true if status changed" do
-      tile.status = "archive"
+      tile.status = Tile::ARCHIVE
       expect(tile.should_reindex?).to be true
     end
 

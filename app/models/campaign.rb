@@ -1,27 +1,52 @@
+# frozen_string_literal: true
+
 class Campaign < ActiveRecord::Base
-  before_save :update_slug
-  validates :name, uniqueness: true, presence: true
-
   belongs_to :demo
-  has_many :tiles, through: :demo
-  acts_as_taggable_on :channels
+  has_many :campaign_tiles, dependent: :destroy
+  has_many :tiles, through: :campaign_tiles
 
-  has_attached_file :cover_image,
-    {
-      styles: { explore: "190x90#" },
-      default_style: :explore,
-    }
-  validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\Z/
+  validates :name, presence: true
 
-  searchkick word_start: [:channel_list, :tile_headlines], callbacks: :async
+  before_save :update_slug
 
-  def self.default_scope
-    order(:name)
+  searchkick default_fields: [:name, :tile_headlines, :tile_content]
+
+  def self.public_explore
+    where(public_explore: true)
+  end
+
+  def self.private_explore(demo:)
+    org = demo.try(:organization)
+
+    if org.present?
+      org.campaigns.where(private_explore: true)
+    else
+      Campaign.none
+    end
+  end
+
+  def self.viewable_by_id(id:, demo:)
+    Campaign.public_explore.find_by(id: id) || Campaign.private_explore(demo: demo).find(id)
+  end
+
+  def display_tiles
+    if public_explore
+      explore_tiles
+    elsif private_explore
+      active_tiles
+    end
+  end
+
+  def active_tiles
+    tiles.active.ordered_by_position
+  end
+
+  def explore_tiles
+    active_tiles.where(is_public: true)
   end
 
   def search_data
     extra_data = {
-      channel_list: channel_list,
       tile_headlines: tiles.pluck(:headline),
       tile_content: tiles.pluck(:supporting_content)
     }
@@ -29,36 +54,11 @@ class Campaign < ActiveRecord::Base
     serializable_hash.merge(extra_data)
   end
 
-  def self.exclude(excluded_campaigns)
-    campaigns = Campaign.arel_table
-    Campaign.where(campaigns[:id].not_in(excluded_campaigns))
-  end
-
   def update_slug
     self.slug = name.parameterize
   end
 
-  def tile_count
-    active_tiles.count
-  end
-
   def to_param
     [id, name.parameterize].join("-")
-  end
-
-  def related_channels
-    Channel.where(slug: self.channel_list.map(&:parameterize))
-  end
-
-  def formatted_instructions
-    instructions.split("\n")
-  end
-
-  def formatted_sources
-    sources.split(",").map(&:strip).in_groups_of(2)
-  end
-
-  def active_tiles
-    tiles.explore.active
   end
 end

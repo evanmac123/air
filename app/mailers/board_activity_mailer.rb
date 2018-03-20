@@ -1,26 +1,26 @@
-class BoardActivityMailer < BaseTilesDigestMailer
+# frozen_string_literal: true
 
+class BoardActivityMailer < BaseTilesDigestMailer
   ACTIVITY_DIGEST_HEADING = "Your Weekly Airbo Activity Report".freeze
 
-  default reply_to: 'support@airbo.com'
+  default reply_to: "support@airbo.com"
 
-  def notify(demo_id, user_id, tile_ids, beg_date, end_date)
-    @user  = User.find(user_id)
+  def notify(demo_id, user, tile_ids, beg_date, end_date)
+    @user = user
 
     @beg_date = beg_date
     @end_date = end_date
     @demo = Demo.find(demo_id)
     @tile_ids = tile_ids
 
-    @presenter = TilesDigestMailActivityPresenter.new(@user, @demo, beg_date, end_date)
+    @presenter = ActivityDigestPresenter.new(@user, @demo, beg_date, end_date)
 
-    @tiles = TileWeeklyActivityDecorator.decorate_collection(
-    tiles_by_position, context: { demo: @demo, user: @user, follow_up_email: @follow_up_email, email_type:  @presenter.email_type })
+    @tiles = tiles_by_position
 
-    x_smtpapi_unique_args = @demo.data_for_mixpanel(user: @user).merge({
+    x_smtpapi_unique_args = @demo.data_for_mixpanel(user: @user).merge(
       subject: ACTIVITY_DIGEST_HEADING,
       email_type: @presenter.email_type
-    })
+    )
 
     set_x_smtpapi_headers(category: @presenter.email_type, unique_args: x_smtpapi_unique_args)
 

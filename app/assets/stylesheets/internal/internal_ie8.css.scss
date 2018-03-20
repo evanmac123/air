@@ -107,15 +107,7 @@ header {
   display: inline-block;
   width:14em;
 }
-.all_tile_thumbnails {
-  padding:2em 1em;
-  #justifier {max-width:305px;}
-  #push_left {width:50%}
-}
-.tile_thumbnail {
-  max-width:238px;
-  width:100%;
-}
+
 .tile_thumbnail.placeholder_tile {height:20.75em;}
 .tile_thumbnail.placeholder_tile {border:1px $white dashed;}
 .tile_thumbnail .completed .tile-wrapper * {

@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.BoardMembership = (function(){
+Airbo.BoardMembership = (function() {
   function bindUpdate() {
     $(".js-board-membership-api-update").click(function(e) {
       e.preventDefault();
@@ -29,8 +29,7 @@ Airbo.BoardMembership = (function(){
   return {
     init: init
   };
-
-}());
+})();
 
 $(function() {
   if (Airbo.Utils.nodePresent(".js-board-membership")) {

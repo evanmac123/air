@@ -2,20 +2,25 @@ var Airbo = window.Airbo || {};
 Airbo.Highcharts = Airbo.Highcharts || {};
 Airbo.Highcharts.CustomTooltips = Airbo.Highcharts.CustomTooltips || {};
 
-Airbo.Highcharts.CustomTooltips.SharedTooltipWithPercentOfWhole = (function(){
+Airbo.Highcharts.CustomTooltips.SharedTooltipWithPercentOfWhole = (function() {
   var $chart;
   var data;
 
   function render(chart) {
     $chart = chart;
 
-    return $.extend(true, {}, Airbo.Highcharts.Tooltip.defaultTooltipConfigs($chart), {
-      shared: true,
-      formatter: function() {
-        data = this;
-        return customFormat();
+    return $.extend(
+      true,
+      {},
+      Airbo.Highcharts.Tooltip.defaultTooltipConfigs($chart),
+      {
+        shared: true,
+        formatter: function() {
+          data = this;
+          return customFormat();
+        }
       }
-    });
+    );
   }
 
   function customFormat() {
@@ -23,12 +28,18 @@ Airbo.Highcharts.CustomTooltips.SharedTooltipWithPercentOfWhole = (function(){
   }
 
   function header() {
-    return Airbo.Highcharts.Tooltip.defaultTooltipHeaderComponent(data, $chart.data("intervalType"));
+    return Airbo.Highcharts.Tooltip.defaultTooltipHeaderComponent(
+      data,
+      $chart.data("intervalType")
+    );
   }
 
   function footer() {
     var singleSeriesData = data.points[0];
-    return Airbo.Highcharts.Tooltip.defaultTooltipFooterComponent(singleSeriesData, $chart);
+    return Airbo.Highcharts.Tooltip.defaultTooltipFooterComponent(
+      singleSeriesData,
+      $chart
+    );
   }
 
   function body() {
@@ -45,7 +56,22 @@ Airbo.Highcharts.CustomTooltips.SharedTooltipWithPercentOfWhole = (function(){
   function tooltipTableRowComponent(data, type, percentColumnType) {
     var options = getRowOptions(data, type);
 
-    return "<tr style='min-width:200px'><td style='color:#33445c;font-size:15px;font-weight:bold;" + options.borderBottom + "'>" + options.colorIndicator + options.name + "</td><td style='color:#33445c;font-size:13px;text-align:right;" + options.borderBottom + "'>" + options.data + "</td><td style='color:#33445c;font-size:13px;text-align:right;" + options.borderBottom + "'>" + options.percentage + "%</td></tr>";
+    return (
+      "<tr style='min-width:200px'><td style='color:#33445c;font-size:15px;font-weight:bold;" +
+      options.borderBottom +
+      "'>" +
+      options.colorIndicator +
+      options.name +
+      "</td><td style='color:#33445c;font-size:13px;text-align:right;" +
+      options.borderBottom +
+      "'>" +
+      options.data +
+      "</td><td style='color:#33445c;font-size:13px;text-align:right;" +
+      options.borderBottom +
+      "'>" +
+      options.percentage +
+      "%</td></tr>"
+    );
   }
 
   function getRowOptions(data, type) {
@@ -62,7 +88,7 @@ Airbo.Highcharts.CustomTooltips.SharedTooltipWithPercentOfWhole = (function(){
       return {
         color: data.color,
         name: data.series.name,
-        data: Highcharts.numberFormat(data.y, 0, '', ','),
+        data: Highcharts.numberFormat(data.y, 0, "", ","),
         percentage: percentColumn(data),
         colorIndicator: "<span style='color:" + data.color + "'>\u25CF </span>"
       };
@@ -76,5 +102,4 @@ Airbo.Highcharts.CustomTooltips.SharedTooltipWithPercentOfWhole = (function(){
   return {
     render: render
   };
-
-}());
+})();

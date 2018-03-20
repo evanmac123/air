@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 class FriendshipsController < UserBaseController
   skip_before_action :authenticate, only: :accept
   skip_before_action :authorize!, only: :accept
 
   def create
-    mixpanel_properties = {:channel => :web}
+    mixpanel_properties = { channel: :web }
     if params[:friend_link] == "follow_to_see_activity"
       mixpanel_properties[:friend_link] = :follow_to_see_activity
     end
 
     @user = User.find_by(slug: params[:user_id])
     unless current_user.has_board_in_common_with(@user)
-      not_found('flashes.failure_friendships_need_common_board')
+      not_found("flashes.failure_friendships_need_common_board")
       return false
     end
 
     new_friendship = current_user.befriend(@user, mixpanel_properties)
-    new_friendship.accept if new_friendship && (@user.name == Tutorial.example_search_name)
+
     @user.reload
 
     respond_to do |format|
@@ -32,7 +34,7 @@ class FriendshipsController < UserBaseController
 
   def update
     @user = User.find_by(slug: params[:user_id])
-    friendship = Friendship.where(:user_id => @user.id, :friend_id => current_user.id).first
+    friendship = Friendship.where(user_id: @user.id, friend_id: current_user.id).first
     if friendship && friendship.accept
       add_success "You are now connected to #{@user.name}"
     end
@@ -41,8 +43,8 @@ class FriendshipsController < UserBaseController
 
   def destroy
     @friend = User.find_by(slug: params[:user_id])
-    friendship = current_user.friendships.where(:friend_id => @friend.id).first
-    reciprocal_friendship = @friend.friendships.where(:friend_id => current_user.id).first
+    friendship = current_user.friendships.where(friend_id: @friend.id).first
+    reciprocal_friendship = @friend.friendships.where(friend_id: current_user.id).first
     if friendship || reciprocal_friendship
       Friendship.transaction do
         friendship.destroy if friendship
@@ -74,7 +76,7 @@ class FriendshipsController < UserBaseController
       sign_in(friendship.friend) unless current_user || current_user == friendship.friend
       add_success(friendship.accept)
     else
-      add_failure('Invalid authenticity token. Connection operation cancelled.')
+      add_failure("Invalid authenticity token. Connection operation cancelled.")
     end
     redirect_to activity_url
   end

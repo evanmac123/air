@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class FollowUpDigestEmail < ActiveRecord::Base
   belongs_to :tiles_digest
 
-  DEFAULT_FOLLOW_UP = {'Sunday'    => 'Wednesday',
-                       'Monday'    => 'Thursday',
-                       'Tuesday'   => 'Friday',
-                       'Wednesday' => 'Friday',
-                       'Thursday'  => 'Monday',
-                       'Friday'    => 'Tuesday',
-                       'Saturday'  => 'Wednesday'}
+  DEFAULT_FOLLOW_UP = { "Sunday" => "Wednesday",
+                       "Monday"    => "Thursday",
+                       "Tuesday"   => "Friday",
+                       "Wednesday" => "Friday",
+                       "Thursday"  => "Monday",
+                       "Friday"    => "Tuesday",
+                       "Saturday"  => "Wednesday" }
 
   scope :scheduled, -> { where(sent: false).order("send_on ASC") }
 
@@ -16,7 +18,7 @@ class FollowUpDigestEmail < ActiveRecord::Base
   end
 
   def self.follow_up_days(follow_up_day)
-    return 0 if follow_up_day == 'Never'
+    return 0 if follow_up_day == "Never"
     today = Date.current.wday
     day_to_send = Date::DAYNAMES.index(follow_up_day)
 
@@ -28,13 +30,13 @@ class FollowUpDigestEmail < ActiveRecord::Base
   end
 
   def tile_ids
-    tiles_digest.tile_ids_for_email
+    tiles_digest.tile_ids
   end
 
   def trigger_deliveries
     set_subject
     recipient_ids.each do |recipient_id|
-      TilesDigestMailer.notify_one(tiles_digest, recipient_id, subject, "TilesDigestMailFollowUpPresenter").deliver_later
+      TilesDigestMailer.notify_one(tiles_digest, recipient_id, subject, "FollowUpDigestPresenter").deliver_later
     end
 
     post_process_delivery
@@ -86,7 +88,7 @@ class FollowUpDigestEmail < ActiveRecord::Base
 
   def schedule_digest_sent_ping
     TrackEvent.ping(
-      'FollowUpDigest - Sent',
+      "FollowUpDigest - Sent",
       {
         tiles_digest_id: tiles_digest_id,
         subject: subject

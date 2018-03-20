@@ -1,8 +1,8 @@
 Highcharts.dateFormats = {
-  Q: function (timestamp) {
+  Q: function(timestamp) {
     var s = "",
-    d = new Date(moment(timestamp).add('1', 'day')),
-    q = Math.floor((d.getMonth() + 3) / 3); //get quarter
+      d = new Date(moment(timestamp).add("1", "day")),
+      q = Math.floor((d.getMonth() + 3) / 3); //get quarter
     s = "Q" + q + " " + d.getFullYear();
     return s;
   }

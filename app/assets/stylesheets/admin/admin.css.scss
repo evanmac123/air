@@ -1,4 +1,3 @@
-@import './mixins/channels';
 @import './mixins/organization-card';
 
 .organization-card {
@@ -13,10 +12,6 @@
 
 .admin-sub-header {
   background: #000;
-}
-
-.channels {
-  @include channels;
 }
 
 #admin-layout-wrapper {

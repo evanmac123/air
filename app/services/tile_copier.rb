@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TileCopier
   EXPLORE_PING = "Explore Page"
   OWN_BOARD_PING = "Self Created - Duplicated"
@@ -12,7 +14,7 @@ class TileCopier
   end
 
   def copy_tile_from_explore
-    copy_tile(status: Tile::DRAFT, creation_source: :explore_created, ping_source: EXPLORE_PING)
+    copy_tile(status: Tile::PLAN, creation_source: :explore_created, ping_source: EXPLORE_PING)
 
     deliver_tile_copied_notification
     tile.increment!(:copy_count)
@@ -20,7 +22,7 @@ class TileCopier
   end
 
   def copy_from_own_board
-    copy_tile(status: Tile::DRAFT, creation_source: :client_admin_created, ping_source: OWN_BOARD_PING)
+    copy_tile(status: Tile::PLAN, creation_source: :client_admin_created, ping_source: OWN_BOARD_PING)
   end
 
   def copy_from_template
@@ -77,8 +79,7 @@ class TileCopier
         creator: copying_user,
         remote_media_url: tile.image.url(:original, timestamp: false),
         media_source: "tile-copy",
-        creation_source: creation_source,
-        position: copy.find_new_first_position
+        creation_source: creation_source
       )
     end
 end

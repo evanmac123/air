@@ -1,13 +1,11 @@
-
-Airbo.TileSuportingContentTextManager = (function(){
-
+Airbo.TileSuportingContentTextManager = (function() {
   var contentEditor;
   var contentInput;
-  var contentEditorSelector = '#supporting_content_editor';
-  var contentInputSelector = '#tile_supporting_content';
+  var contentEditorSelector = "#supporting_content_editor";
+  var contentInputSelector = "#tile_supporting_content";
 
   function contentEditorMaxlength() {
-    return contentEditor.next().attr('maxlength');
+    return contentEditor.next().attr("maxlength");
   }
 
   function updateContentInput() {
@@ -16,21 +14,29 @@ Airbo.TileSuportingContentTextManager = (function(){
 
   function initializeEditor() {
     var pasteNoFormattingIE;
-    addCharacterCounterFor('#tile_headline');
+    addCharacterCounterFor("#tile_headline");
     addCharacterCounterFor(contentEditorSelector);
   }
 
-  function initjQueryObjects(){
+  function initjQueryObjects() {
     contentEditor = $(contentEditorSelector);
     contentInput = $(contentInputSelector);
   }
 
-  function initHeadline(){
-    autosize($('#tile_headline'));
+  function initHeadline() {
+    autosize($("#tile_headline"));
+
+    $("#tile_headline").keypress(function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+      }
+    });
   }
 
-  function init(){
-    if (Airbo.Utils.supportsFeatureByPresenceOfSelector(contentEditorSelector) ) {
+  function init() {
+    if (
+      Airbo.Utils.supportsFeatureByPresenceOfSelector(contentEditorSelector)
+    ) {
       initjQueryObjects();
       initializeEditor();
       initHeadline();
@@ -41,5 +47,4 @@ Airbo.TileSuportingContentTextManager = (function(){
   return {
     init: init
   };
-
-}());
+})();

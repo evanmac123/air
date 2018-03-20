@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 class BoardMetricsGenerator
-  class << self
-    def set_cache(board:)
-      BoardMetricsGenerator.new(board: board).update_metrics_caches_for_board
-    end
+  def self.call(board:)
+    BoardMetricsGenerator.new(board: board).update_metrics_caches_for_board
   end
 
   attr_reader :board

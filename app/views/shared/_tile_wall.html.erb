@@ -2,7 +2,7 @@
 <% tiles_length =  not_completed_tiles.try(:length).to_i + completed_tiles.try(:length).to_i %>
 
 <div id="tile_wall" data-display-first-tile-hint="<%= @display_first_tile_hint %>">
-  <div class="all_tile_thumbnails row">
+  <div class="row">
     <% if not_completed_tiles.present? %>
       <% not_completed_tiles.each do |tile| %>
         <% present(tile,SingleTilePresenter, {public_slug: params[:public_slug], type: "user", is_ie: browser.ie?, completed: false}) do |presenter| %>

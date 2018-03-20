@@ -29,7 +29,7 @@ class ActFinder
   end
 
   def display_own_acts
-    user.acts.where(demo_id: board.id).ordered.page(page).per(per_page)
+    user.acts.where(demo: board).ordered.page(page).per(per_page)
   end
 
   def display_all_board_acts

@@ -1,30 +1,43 @@
 require 'spec_helper'
 
 describe User do
-  it { is_expected.to have_one(:demo) }
-  it { is_expected.to have_many (:demos) }
-  it { is_expected.to belong_to(:location) }
-  it { is_expected.to have_many(:acts) }
-  it { is_expected.to have_many(:friendships) }
-  it { is_expected.to have_many(:friends).through(:friendships) }
-  it { is_expected.to have_many(:tile_completions) }
-  it { is_expected.to have_many(:tiles) }
-  it { is_expected.to have_many(:tile_viewings) }
-  it { is_expected.to have_many(:viewed_tiles) }
-  # Note that our validates_uniqueness_of :email is called in the Clearance gem
-  it { is_expected.to validate_uniqueness_of(:email) }
-  it { is_expected.to validate_presence_of(:name).with_message("Please enter a first and last name") }
+  it { should have_one(:demo) }
+  it { should have_many (:demos) }
+  it { should belong_to(:location) }
+  it { should have_many(:acts) }
+  it { should have_many(:friendships) }
+  it { should have_many(:friends).through(:friendships) }
+  it { should have_many(:tile_completions) }
+  it { should have_many(:tiles) }
+  it { should have_many(:tile_viewings) }
+  it { should validate_presence_of(:name).with_message("Please enter a first and last name") }
   it { should have_attached_file(:avatar) }
   it { should validate_attachment_content_type(:avatar).allowing('image/*') }
+  it { should validate_presence_of :privacy_level }
 end
 
 describe User do
-  before do
-    User.delete_all
-    ActionMailer::Base.deliveries.clear
-  end
+  describe "#tiles_to_complete_in_demo" do
+    let(:demo)  { FactoryBot.create(:demo) }
+    let!(:active_tiles) { FactoryBot.create_list(:tile, 5, demo: demo, status: Tile::ACTIVE) }
+    let!(:draft_tiles) { FactoryBot.create(:tile, demo: demo, status: Tile::DRAFT) }
+    let(:user)  { FactoryBot.create(:user, demo: demo) }
 
-  it { is_expected.to validate_presence_of :privacy_level }
+    it "returns all active tiles if not completions exist" do
+      tiles = user.tiles_to_complete_in_demo
+      expect(tiles.count).to eq(5)
+      expect(tiles).to eq(demo.tiles.active.ordered_by_position)
+    end
+
+    it "returns only active tiles that have not been completed" do
+      tile = demo.tiles.active.ordered_by_position[0]
+
+      user.tile_completions.create(tile: tile)
+
+      expect(user.tiles_to_complete_in_demo.count).to eq(4)
+      expect(user.tiles_to_complete_in_demo).to eq(demo.tiles.active.ordered_by_position[1..-1])
+    end
+  end
 
   it "should validate that privacy level is set to a valid value" do
     user = FactoryBot.create :user
@@ -788,13 +801,12 @@ describe User do
   end
 
   describe "#send_new_phone_validation_token" do
-    it "asks SmsSender to send a message in the background" do
+    it "asks SmsSenderJob to send a message in the background" do
       user = FactoryBot.create(:user, :email => "a@a.com")
       token = user.generate_new_phone_validation_token
       user.new_phone_number = "3333333333"
 
-      SmsSender.expects(:delay).returns(SmsSender)
-      SmsSender.expects(:send_message).with(
+      SmsSenderJob.expects(:perform_later).with(
         to_number: user.new_phone_number,
         body: "Your code to verify this phone with Airbo is #{token}.",
         from_number: user.demo.twilio_from_number

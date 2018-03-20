@@ -1,41 +1,43 @@
+# frozen_string_literal: true
+
 class ExploreDigest < ActiveRecord::Base
   scope :delivered, -> { where(delivered: true) }
   scope :approved, -> { where(approved: true).where(delivered_at: nil) }
   scope :pending, -> { where(approved: false) }
 
   def defaults(key)
-    rdb[:defaults][key].get
+    self.redis[:defaults][key].call(:get)
   end
 
   def set_defaults(key, val)
-    rdb[:defaults][key].set(val)
+    self.redis[:defaults][key].call(:set, val)
   end
 
   def features(feature, key)
-    rdb[:features][feature][key].get
+    self.redis[:features][feature][key].call(:get)
   end
 
   def set_tile_ids(feature, tile_ids)
     tile_ids = tile_ids.gsub(/\s+/, "").split(",").select { |id| id.to_i != 0 }
     eligible_tiles = Tile.explore.where(id: tile_ids).pluck(:id)
     tile_ids = tile_ids.select { |id| eligible_tiles.include?(id.to_i) }
-    rdb[:features][feature][:tile_ids].set(tile_ids.join(","))
+    self.redis[:features][feature][:tile_ids].call(:set, tile_ids.join(","))
   end
 
   def set_features(feature, key, val)
     if key.to_sym == :tile_ids
       self.set_tile_ids(feature, val)
     else
-      rdb[:features][feature][key].set(val)
+      self.redis[:features][feature][key].call(:set, val)
     end
   end
 
   def feature_count
-    rdb[:feature_count].get.to_i
+    self.redis[:feature_count].call(:get).to_i
   end
 
   def feature_count=(val)
-    rdb[:feature_count].set(val)
+    self.redis[:feature_count].call(:set, val)
   end
 
   def post_to_redis(defaults_hash, features_hash)

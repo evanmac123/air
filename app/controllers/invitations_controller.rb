@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class InvitationsController < ApplicationController
-  include SalesAcquisitionConcern
   include TileEmailTrackingConcern
 
-  layout 'external'
+  layout "external"
 
   def new
     @invitation_request = InvitationRequest.new
@@ -76,7 +77,7 @@ class InvitationsController < ApplicationController
       if @demo.present? && !@user.in_board?(@demo)
         accept_unclaimed_user
         accept_claimed_user_to_new_board
-        return true
+        true
       end
     end
 
@@ -85,7 +86,6 @@ class InvitationsController < ApplicationController
         if user_can_login_to_already_accepted_board? && @demo.present?
           sign_in(@user, :remember_me)
           current_user.move_to_new_demo(@demo)
-          notify_sales(:notify_sales_return, @user) if params[:new_lead]
           redirect_to redirect_path
         else
           require_login
@@ -95,19 +95,17 @@ class InvitationsController < ApplicationController
 
     def user_can_login_to_already_accepted_board?
       if current_user == @user || !@user.is_client_admin_in_any_board
-        return true
+        true
       elsif params[:new_lead] && @demo.free?
-        return true
+        true
       else
-        return false
+        false
       end
     end
 
     def accept_unclaimed_user
       if @user.unclaimed?
         unless require_password_creation
-          notify_sales(:notify_sales_activated, @user) if params[:new_lead]
-
           redirect_to generate_password_invitation_acceptance_path(
             user_id: @user.id,
             demo_id: @demo.try(:id),
@@ -115,7 +113,7 @@ class InvitationsController < ApplicationController
             referrer_id: @referrer.try(:id)
           )
         else
-          render 'show'
+          render "show"
         end
       end
     end
@@ -151,7 +149,7 @@ class InvitationsController < ApplicationController
 
     def redirect_path
       if current_user.is_client_admin
-        explore_path(show_explore_onboarding: true)
+        explore_path
       else
         activity_path
       end

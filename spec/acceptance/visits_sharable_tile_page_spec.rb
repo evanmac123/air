@@ -1,8 +1,6 @@
 require 'acceptance/acceptance_helper'
 
 feature "visits sharable tile page", js: true do
-  include SignUpModalHelpers
-
   let!(:tile) { FactoryBot.create(:multiple_choice_tile, is_sharable: true) }
 
   shared_examples_for "answers the tile" do

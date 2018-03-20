@@ -1,12 +1,12 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileStatsModal = (function(){
+Airbo.TileStatsModal = (function() {
   var tileStatsLinkSel = ".js-open-tile-stats-modal";
   var modalId = "tile_stats_modal";
   var modalObj = Airbo.Utils.StandardModal();
 
   function renderReport() {
-    return function (data) {
+    return function(data) {
       initModal(data);
       loadChartAndGrid(data);
       Airbo.TileStatsMessageEditor.init();
@@ -58,7 +58,9 @@ Airbo.TileStatsModal = (function(){
   }
 
   function setTemplate(template) {
-    return HandlebarsTemplates["client-admin/tile-stats-modal/" + template](tileStatsData());
+    return HandlebarsTemplates["client-admin/tile-stats-modal/" + template](
+      tileStatsData()
+    );
   }
 
   function tileStatsData() {
@@ -114,8 +116,11 @@ Airbo.TileStatsModal = (function(){
       getTileStatsReport(path);
     });
 
-    $(document).on("click", ".tile-stats-download-report", function(e) {
-      Airbo.TileStatsPings.ping({ action: "Download Stats Report", reportPath: $(this).attr("href") });
+    $(document).on("click", ".js-tile-stats-download-report", function(e) {
+      Airbo.TileStatsPings.ping({
+        action: "Download Stats Report",
+        reportPath: $(this).attr("href")
+      });
     });
   }
 
@@ -128,7 +133,9 @@ Airbo.TileStatsModal = (function(){
   }
 
   function baseTemplate(data) {
-    return HandlebarsTemplates["client-admin/tile-stats-modal/tileStatsBase"](data);
+    return HandlebarsTemplates["client-admin/tile-stats-modal/tileStatsBase"](
+      data
+    );
   }
 
   function getTileStatsReport(path, tile) {
@@ -139,7 +146,7 @@ Airbo.TileStatsModal = (function(){
     });
   }
 
-  function init(){
+  function init() {
     initModalObj();
     initEvents();
   }
@@ -147,10 +154,13 @@ Airbo.TileStatsModal = (function(){
   return {
     init: init
   };
-}());
+})();
 
 $(function() {
-  if (Airbo.Utils.nodePresent(".js-open-tile-stats-modal") || Airbo.Utils.nodePresent(".client_admin-reports")) {
+  if (
+    Airbo.Utils.nodePresent(".js-open-tile-stats-modal") ||
+    Airbo.Utils.nodePresent(".client_admin-reports")
+  ) {
     Airbo.TileStatsModal.init();
   }
 });

@@ -68,7 +68,7 @@ header {
     }
   }
 
-  #user_info #me_toggle, #manage_board, #admin_toggle, .how_it_works, #explore_board, #explore_settings, .board_settings_toggle_wrapper {
+  #user_info #me_toggle, #manage_board, #admin_toggle, .how_it_works, .board_settings_toggle_wrapper {
     border: {
       style:solid;
       color:darken($header-color, 9%);
@@ -246,20 +246,6 @@ header {
     display: none;
   }
 
-  // Admin tools menu
-  .explore_menu {
-    display: inline-block;
-    a {
-      color: $text-color;
-      font-size: 14px;
-      height:100%;
-      max-height:$header-total-height;
-      padding:1.125em 0.3em;
-      &:hover {&:before {
-        background:darken($gray, 5%);
-      }}
-    }
-  }
   .admin_options {
     &:after{@include clear;}
     p.small_cap {display: none;}
@@ -372,16 +358,6 @@ header {
   margin-top: 1em;
   #open-intercom {
     float: right;
-  }
-}
-
-body.explore {
-  background:$tile-wall-bg;
-  .core, .content { background:$tile-wall-bg; }
-  .explore_menu {
-    #explore_board {
-      color: $sky-blue;
-    }
   }
 }
 

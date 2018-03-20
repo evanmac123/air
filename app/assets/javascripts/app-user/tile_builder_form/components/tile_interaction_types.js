@@ -1,8 +1,8 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileBuilderInteractionConfig = (function(){
-  var interactionTypes =  {
-    action:{
+Airbo.TileBuilderInteractionConfig = (function() {
+  var interactionTypes = {
+    action: {
       read_tile: {
         name: "Read Tile",
         question: "Points for reading tile",
@@ -32,7 +32,8 @@ Airbo.TileBuilderInteractionConfig = (function(){
       },
       share_on_social_media: {
         name: "Share On Social Media",
-        question: "Points for sharing on social media (e.g., Facebook, Twitter)",
+        question:
+          "Points for sharing on social media (e.g., Facebook, Twitter)",
         questionPlaceholder: "Add prompt",
         maxLength: 50,
         answers: ["I shared"],
@@ -72,7 +73,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         name: "True / False",
         question: null,
         questionPlaceholder: "Fill in statement",
-        answers: ["True",  "False"],
+        answers: ["True", "False"],
         extendable: false,
         wrongable: true,
         maxLength: 50,
@@ -83,7 +84,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         name: "Multiple Choice",
         question: null,
         questionPlaceholder: "Ask a question",
-        answers: ["Add Answer Option",  "Add Answer Option"],
+        answers: ["Add Answer Option", "Add Answer Option"],
         extendable: true,
         wrongable: true,
         maxLength: 50,
@@ -91,12 +92,16 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 100
       }
     },
-    survey : {
+    survey: {
       multiple_choice: {
         name: "Multiple Choice",
         question: null,
         questionPlaceholder: "Ask a question",
-        answers: ["Strongly agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"],
+        answers: [
+          "Add Answer Option",
+          "Add Answer Option",
+          "Add Answer Option"
+        ],
         extendable: true,
         maxLength: 50,
         minResponses: 2,
@@ -104,7 +109,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
         freeResponse: true,
         allowAnonymous: true
       },
-     free_response: {
+      free_response: {
         name: "Free Response",
         question: null,
         questionPlaceholder: "Ask a question",
@@ -115,8 +120,8 @@ Airbo.TileBuilderInteractionConfig = (function(){
         maxResponses: 0,
         allowAnonymous: true,
         builder: Airbo.FreeResponseAnswer
-     },
-      rsvp_to_event : {
+      },
+      rsvp_to_event: {
         name: "RSVP To Event",
         question: "Will you be attending?",
         questionPlaceholder: "Add prompt",
@@ -128,7 +133,8 @@ Airbo.TileBuilderInteractionConfig = (function(){
       },
       change_email: {
         name: "Change Email",
-        question: "Would you like to change the email that you receive Airbo email notifications?",
+        question:
+          "Would you like to change the email that you receive Airbo email notifications?",
         questionPlaceholder: "Add prompt",
         answers: ["Change my email", "Keep my current email"],
         minResponses: 2,
@@ -141,7 +147,7 @@ Airbo.TileBuilderInteractionConfig = (function(){
   };
 
   function addInviteSpouseConfig() {
-    if(Airbo.currentBoard.dependent_board_enabled) {
+    if (Airbo.currentBoard.dependent_board_enabled) {
       interactionTypes.survey.invite_spouse = {
         name: "Invite Spouse",
         question: "Do you want to invite your spouse?",
@@ -189,5 +195,4 @@ Airbo.TileBuilderInteractionConfig = (function(){
     defaultKeys: defaultKeys,
     get: get
   };
-
-}());
+})();

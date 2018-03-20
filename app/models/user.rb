@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "digest/sha1"
 
 class User < ActiveRecord::Base
@@ -17,11 +19,9 @@ class User < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   include CancelAccountToken
   include User::ClientAdminNotifications
+  include User::Tiles
 
   extend User::Queries
-
-  rolify strict: true
-  acts_as_taggable_on :channels
 
   belongs_to :location
   belongs_to :game_referrer, class_name: "User"
@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
   has_one    :lead_contact, dependent: :delete
   has_one    :billing_information, dependent: :delete
-  has_one    :user_intro, as: :userable, dependent: :delete #FIXME this is confusing since we have an intros method below
+  has_one    :user_intro, as: :userable, dependent: :delete # FIXME this is confusing since we have an intros method below
   has_one    :user_settings_change_log, dependent: :delete
 
   has_many   :peer_invitations_as_inviter, class_name: "PeerInvitation", foreign_key: :inviter_id, dependent: :delete_all
@@ -57,7 +57,6 @@ class User < ActiveRecord::Base
   has_many   :tiles, foreign_key: :creator_id, dependent: :nullify
   has_many   :tile_completions, as: :user, dependent: :nullify
   has_many   :tile_viewings, as: :user, dependent: :nullify
-  has_many   :user_tile_likes, dependent: :nullify
 
 
   # Indirect relationships don't require a deletion strategy
@@ -66,8 +65,6 @@ class User < ActiveRecord::Base
   has_one    :demo, through: :current_board_membership
   has_one    :raffle, through: :demo
 
-  has_many   :completed_tiles, source: :tile, through: :tile_completions
-  has_many   :viewed_tiles, through: :tile_viewings, source: :tile
   has_many   :demos, through: :board_memberships
   has_many   :friends, through: :friendships
 
@@ -186,7 +183,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :password_confirmation, :converting_from_guest, :must_have_location, :creating_board, :role
 
-
   has_alphabetical_column :name
 
   scope :non_site_admin, -> { where(is_site_admin: false) }
@@ -216,20 +212,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def track_channels(channels)
-    channel_list.add(channels)
-    organization.track_channels(channel_list) if organization
-    self.save
-  end
-
-  def displayable_tiles(select_clause = Tile.displayable_tiles_select_clause)
-    tile_arel = Tile.arel_table
-
-    user_tile_completions = demo.tiles.select(:id).joins(:tile_completions).where(tile_completions: { user_id: id })
-
-    demo.tiles.select(select_clause).where(tile_arel[:status].eq([Tile::ACTIVE]).or(tile_arel[:id].in(user_tile_completions.pluck(:id)))).order(:position)
-  end
-
   def end_user_in_all_boards?
     !is_site_admin && !is_client_admin_in_any_board
   end
@@ -239,7 +221,7 @@ class User < ActiveRecord::Base
   end
 
   def demo_id
-    self.demo.try(&:id)
+    self.demo.try(:id)
   end
 
   def organization
@@ -462,7 +444,7 @@ class User < ActiveRecord::Base
   end
 
   def send_new_phone_validation_token
-    SmsSender.delay.send_message(
+    SmsSenderJob.perform_later(
       to_number: new_phone_number,
       body: new_phone_validation_message,
       from_number: demo.twilio_from_number
@@ -491,8 +473,8 @@ class User < ActiveRecord::Base
     self.update_attributes(new_phone_number: "", new_phone_validation: "")
   end
 
-  def reply_email_address(include_name = true)
-    self.demo.reply_email_address(include_name)
+  def reply_email_address
+    demo.reply_email_address
   end
 
   def email_for_vendor
@@ -544,10 +526,11 @@ class User < ActiveRecord::Base
       user_id: id,
       name: name,
       email: email,
+      client_admin: is_client_admin?,
       demo: demo_id,
       organization: organization_id,
       board_type: demo.try(:customer_status_for_mixpanel),
-      user_hash: OpenSSL::HMAC.hexdigest("sha256", ENV["INTERCOM_API_SECRET"], id.to_s)
+      user_hash: OpenSSL::HMAC.hexdigest("sha256", IntercomRails.config.api_secret.to_s, id.to_s)
     }
   end
 
@@ -607,8 +590,6 @@ class User < ActiveRecord::Base
 
   def finish_claim
     add_joining_to_activity_stream
-
-    demo.welcome_message(self)
   end
 
   def join_board
@@ -678,8 +659,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
-
   def generate_simple_claim_code!
     update_attributes(claim_code: claim_code_prefix)
   end
@@ -740,7 +719,7 @@ class User < ActiveRecord::Base
   end
 
   def set_current_board_membership(demo)
-    board_membership = board_memberships.where(demo_id: demo.id).first
+    board_membership = board_memberships.find_by(demo_id: demo.id)
     board_membership.set_as_current
   end
 
@@ -811,11 +790,6 @@ class User < ActiveRecord::Base
 
   def scoreboard_friends_list_by_name
     (self.accepted_friends + [self]).sort_by { |ff| ff.name.downcase }
-  end
-
-  def reset_tiles(demo = nil)
-    demo ||= self.demo
-    demo.tile_completions.select([:id, :tile_id]).where(user_id: self.id).destroy_all
   end
 
   def has_tiles_tools_subnav?
@@ -927,18 +901,6 @@ class User < ActiveRecord::Base
     other_user.board_memberships.where(demo_id: board_ids).first.present?
   end
 
-  def available_tiles_on_current_demo
-    TileProgressCalculator.new(self).available_tiles_on_current_demo
-  end
-
-  def completed_tiles_on_current_demo
-    TileProgressCalculator.new(self).completed_tiles_on_current_demo
-  end
-
-  def not_show_all_completed_tiles_in_progress
-    TileProgressCalculator.new(self).not_show_all_completed_tiles_in_progress
-  end
-
   def is_client_admin_in_any_board
     is_client_admin || is_site_admin || board_memberships.pluck(:is_client_admin).any?
   end
@@ -992,8 +954,8 @@ class User < ActiveRecord::Base
   end
 
   def intros
-    #FIXME should use appropriate AR first_or_create idiom
-    user_intro || self.create_user_intro #UserIntro.create(user: self)
+    # FIXME should use appropriate AR first_or_create idiom
+    user_intro || self.create_user_intro # UserIntro.create(user: self)
   end
 
   private

@@ -56,10 +56,12 @@ delete "sign_out" => "sessions#destroy", as: "sign_out"
 
 get "marketing_site_home" => 'pages#home', as: 'marketing_site_home'
 get "about" => 'pages#about', as: 'about'
+get "pages/gallery" => 'pages#gallery', as: 'gallery'
 get "demo_link" => "pages#demo_link", as: "demo_link"
 get "terms" => "pages#terms", as: "terms"
 get "privacy" => "pages#privacy", as: "privacy"
 get "pages/fujifilm" => "pages#fujifilm"
+get "pages/employee_engagement_content_calendar" => "pages#employee_engagement_content_calendar"
 
 resources :boards, only: [:new, :create, :update]
 resources :copy_boards, only: [:create]

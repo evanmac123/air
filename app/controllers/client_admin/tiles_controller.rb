@@ -1,357 +1,134 @@
-require 'custom_responder'
+# frozen_string_literal: true
+
+# TODO: Move partial templates to front end.
 class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesHelper
   include ClientAdmin::TilesPingsHelper
-  include CustomResponder
-
-  before_action :get_demo
-  before_action :permit_params, only: [:create, :update]
 
   def index
-    @all_tiles = @demo.tiles.group_by { |t| t.status }
-
-    @actives = tiles_by_grp(Tile::ACTIVE)
-    @archives = tiles_by_grp(Tile::ARCHIVE)
-    @drafts =  tiles_by_grp(Tile::DRAFT)
-    @suggesteds = tiles_by_grp(Tile::USER_SUBMITTED)  | tiles_by_grp(Tile::IGNORED)
-
-    @submitteds = tiles_by_grp(Tile::USER_SUBMITTED)
-
-    @active_tiles  = @demo.active_tiles_with_placeholders(@actives)
-
-    @archive_tiles = (@demo.archive_tiles_with_placeholders @archives)[0,4]
-    @draft_tiles = @demo.draft_tiles_with_placeholders @drafts
-    @suggested_tiles = @demo.suggested_tiles_with_placeholders @suggesteds
-    @user_submitted_tiles_counter = @submitteds.count
-
-
-    @allowed_to_suggest_users = @demo.users_that_allowed_to_suggest_tiles
-
-    intro_flags_index
-    @accepted_tile = Tile.find(session.delete(:accepted_tile_id)) if session[:accepted_tile_id]
-    record_index_ping
+    @tiles_facade = ClientAdminTilesFacade.new(demo: current_user.demo)
   end
-
 
   def show
-    @tile = get_tile
-    prepTilePreview
-    if request.xhr?
-      render layout: false
-    end
-  end
+    @tile = find_tile
+    add_prev_next_tiles
 
-  def blank
-    render "blank", layout: "empty_layout"
+    render json: {
+      tilePreview: render_tile_preview_string
+    }
   end
-
 
   def new
-   @tile = @demo.tiles.build(status: Tile::DRAFT)
-    new_or_edit @tile
+    @tile = current_board.tiles.build(status: Tile::PLAN)
+
+    render json: {
+      tileForm: render_tile_form_string
+    }
   end
 
-
   def edit
-    @tile = get_tile
-    new_or_edit @tile
+    @tile = find_tile
+
+    render json: {
+      tileForm: render_tile_form_string
+    }
   end
 
   def update
-    @tile = get_tile
-    if params[:update_status]
-      update_status
+    @tile = find_tile
+
+    if @tile.update_attributes(tile_params)
+      render_preview_and_single
     else
-      @tile.assign_attributes(params[:tile])
-      update_or_create @tile do
-        render_preview_and_single
-      end
+      tile_error(@tile)
     end
   end
 
   def create
-    @tile = @demo.tiles.build(params[:tile].merge(creator_id: current_user.id))
+    @tile = current_board.tiles.build(tile_params.merge(creator_id: current_user.id))
 
-    update_or_create @tile do
+    if @tile.save
       schedule_tile_creation_ping(@tile, "Self Created")
       render_preview_and_single
+    else
+      tile_error(@tile)
     end
   end
 
   def destroy
-    @tile = get_tile
+    @tile = find_tile
     if @tile
       @tile.destroy
-      #FIXME why is the ping destroy tile ping necessary?
-      destroy_tile_ping params[:page]
-    end
-
-    if request.xhr?
-      head :ok
-    else
-      redirect_to client_admin_tiles_path
-    end
-  end
-
-  def sort
-    #FIXME this code sucks!!! simply posting of tile ids and current positions
-    #would simplify this whole process
-    @tile = get_tile
-
-    Tile.insert_tile_between(
-      params[:left_tile_id],
-      @tile.id,
-      params[:right_tile_id],
-      params[:status],
-      params[:redigest]
-    )
-    @tile.reload
-
-    @last_tiles = []
-
-    if params[:source_section].present?
-      @last_tiles = Tile.find_additional_tiles_for_manage_section(
-        params[:source_section][:name],
-        params[:source_section][:presented_ids],
-        get_demo.id
-      )
-
     end
 
     render json: {
-      tileId: @tile.id,
-      tileHTML: render_to_string( partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter:  tile_presenter(@tile)}),
-      tilesToBeSentCount:  @demo.digest_tiles(@demo.tile_digest_email_sent_at).count,
-      lastTiles: @last_tiles.map{|tile|
-        {id: tile.id,
-         status: tile.status,
-         html: render_to_string( partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter:  tile_presenter(tile)})
-        }
+      meta: {
+        tileCounts: current_board.tiles.group(:status).count
       }
     }
-
-  end
-
-  #FIXME should refactor and cosolidate the existing update method but the functionality is too
-  #convoluted to fix now.
-
-  def status_change
-    @tile = get_tile
-    @tile.update_status(params[:update_status])
-    ping("Tile - Status Change", { tile_id: @tile.id, status: @tile.status, "Current URL" => request.referrer }, current_user)
-
-    presenter = present(@tile, SingleAdminTilePresenter, {is_ie: browser.ie?, from_search: params[:from_search]})
-    render partial: partial_to_render, locals: { presenter: presenter}
-  end
-
-  def update_explore_settings
-    tpf = TilePublicForm.new(get_tile, params[:tile_public_form])
-    tpf.save
-    @tile = tpf.tile
-    render_preview_and_single
   end
 
   def duplicate
-    @tile = get_tile.copy_inside_demo(current_user.demo, current_user)
-    render_preview_and_single
-  end
+    @tile = TileDuplicateJob.perform_now(tile: find_tile, demo: current_user.demo, user: current_user)
 
-  def next_tile
-    @tile = Tile.next_manage_tile get_tile, 1, false
-    if @tile
-      render_preview_and_single
-    else
-      render nothing: true
-    end
+    render_preview_and_single
   end
 
   private
 
-  def tiles_by_grp grp
-    tiles = @all_tiles[grp] || []
-    tiles.sort_by{|t| t.position}.reverse
-  end
-
-  def partial_to_render
-    'client_admin/tiles/manage_tiles/single_tile'
-  end
-
-  def permit_params
-    params.require(:tile).permit!
-  end
-
-  def update_status
-    result = @tile.update_status(params[:update_status])
-    respond_to do |format|
-      format.js { update_status_js(result) }
-      format.html { update_status_html(result) }
+    def tile_params
+      params.require(:tile).permit!
     end
-  end
 
-  def update_status_html result
-    success, failure = flash_status_messages
-    #is_new = @tile.activated_at.nil?
-    if result
-      tile_status_updated_ping @tile, "Clicked button to move"
-      if @tile.draft?
-        session[:accepted_tile_id] = @tile.id
-        redirect_to client_admin_tiles_path
-      else
-        flash[:success] = "The #{@tile.headline} tile has been #{success}"
-        redirect_to :back
+    def tile_error(tile)
+      render json: { errors: tile.errors }, status: :unprocessable_entity
+    end
+
+    def add_prev_next_tiles
+      @next_tile = @tile.next_tile_in_board
+      @prev_tile = @tile.prev_tile_in_board
+    end
+
+    def find_tile
+      current_user.demo.tiles.find_by(id: params[:id])
+    end
+
+    def render_tile_string
+      if from_search?
+        tile_presenter.options[:from_search] = true
       end
-    else
-      flash[:failure] = "There was a problem #{failure} this tile. Please try again."
-      redirect_to :back
+
+      render_to_string(
+        partial: "client_admin/tiles/manage_tiles/single_tile",
+        locals: { presenter:  tile_presenter }
+      )
     end
-  end
 
-  def update_status_js result
-    if result
-      tile_in_box_updated_ping @tile
+    def tile_presenter(tile = @tile)
+      @presenter ||= present(tile, SingleAdminTilePresenter, is_ie: browser.ie?)
+    end
 
+    def render_tile_preview_string
+      render_to_string(action: "show", layout: false)
+    end
+
+    def render_tile_form_string
+      render_to_string(partial: "form", layout: false)
+    end
+
+    def render_preview_and_single
+      add_prev_next_tiles
       render json: {
-        success: true,
+        tileStatus: @tile.status,
+        tileId: @tile.id,
         tile: render_tile_string,
-        tile_id: @tile.id
+        preview: render_tile_preview_string,
+        updatePath: client_admin_tile_path(@tile),
+        fromSearch: from_search?
       }
-    else
-      render json: {success: false}
-    end
-  end
-
-
-  def prepTilePreview
-    unless from_search?
-      @prev, @next = @demo.bracket @tile
-    end
-  end
-
-
-  def intro_flags_index
-    @board_is_brand_new = @all_tiles.empty? && params[:show_suggestion_box] != "true"
-    @show_suggestion_box_intro =  should_show_suggestion_box_intro?
-    @user_submitted_tile_intro =   !!should_show_submitted_tile_intro?
-    @manage_access_prompt = should_show_manage_access_prompt?
-  end
-
-  def should_show_submitted_tile_intro?
-     val = !current_user.user_submitted_tile_intro_seen && @submitteds.any?
-     val = val && !@show_suggestion_box_intro && params[:user_submitted_tile_intro]
-
-     if val
-       current_user.user_submitted_tile_intro_seen = true
-       return current_user.save
-     end
-  end
-
-  def should_show_suggestion_box_intro?
-    if !current_user.suggestion_box_intro_seen
-      current_user.suggestion_box_intro_seen = true
-      return current_user.save
-    end
-  end
-
-  def should_show_manage_access_prompt?
-    if !current_user.manage_access_prompt_seen &&  tile_suggestion_enabled?
-      current_user.manage_access_prompt_seen = true
-      return current_user.save
-    end
-  end
-
-  def tile_suggestion_enabled?
-    @user_submitted_tiles_counter > 0 ||
-      @allowed_to_suggest_users.count > 0 ||
-      @demo.everyone_can_make_tile_suggestions
-  end
-
-  def get_demo
-    @demo = current_user.demo
-  end
-
-  def get_tile
-    #FIXME what is this offset
-    tile = current_user.demo.tiles.where(id: params[:id]).first
-    if params[:offset].present?
-      tile = Tile.next_manage_tile(tile, params[:offset].to_i)
     end
 
-    tile
-  end
-
-  def flash_status_messages
-    success, failure = case params[:update_status]
-    when Tile::ARCHIVE
-      ['archived', 'archiving']
-    when Tile::ACTIVE
-      ['published', 'publishing']
-    when Tile::USER_SUBMITTED
-      ['moved to submitted', 'with moving to submitted']
-    when Tile::IGNORED
-      ['ignored', 'ignoring']
-    when Tile::DRAFT
-      ['accepted', 'accepting']
-    else
-      ['', '']
+    def from_search?
+      request.referrer.to_s.include?("explore/search")
     end
-    [success, failure]
-  end
-
-  def render_tile_string
-    if from_search?
-      tile_presenter.options[:from_search] = true
-    end
-
-    render_to_string(
-                     partial: 'client_admin/tiles/manage_tiles/single_tile',
-                     locals: { presenter:  tile_presenter}
-                    )
-  end
-
-  def render_single_tile
-    render partial: 'client_admin/tiles/manage_tiles/single_tile', locals: { presenter: tile_presenter}
-  end
-
-  def tile_presenter tile=@tile
-    @presenter ||= present(tile, SingleAdminTilePresenter, {is_ie: browser.ie?})
-  end
-
-  def render_tile_preview_string
-    render_to_string(action: 'show', layout:false)
-  end
-
-  def set_after_save_flash(new_tile)
-    flash[:success] ="Tile #{params[:action] || 'create' }d! We're resizing the graphics, which usually takes less than a minute."
-  end
-
-  def set_flash_for_no_image
-    if @tile.no_image
-      flash.now[:failure] = render_to_string("client_admin/tiles/form/save_tile_without_an_image", layout: false, locals: { tile: @tile.tile })
-      flash[:failure_allow_raw] = true
-    end
-  end
-
-  def builder_options
-    {
-      form_params: params[:tile],
-      creator: current_user,
-      action: params[:action]
-    }
-  end
-
-  def render_preview_and_single
-    prepTilePreview
-    render json: {
-      tileStatus: @tile.status,
-      tileId: @tile.id,
-      tile: render_tile_string,
-      preview: render_tile_preview_string,
-      updatePath: client_admin_tile_path(@tile),
-      fromSearch: from_search?
-    }
-  end
-
-  def from_search?
-    request.referrer && request.referrer.include?("explore/search")
-  end
 end

@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.BoardWelcomeModal = (function(){
+Airbo.BoardWelcomeModal = (function() {
   var selector = ".js-board-welcome-modal";
 
   function init() {
@@ -14,7 +14,10 @@ Airbo.BoardWelcomeModal = (function(){
     });
 
     $(".js-customize-board-cta").on("click", function(e) {
-      Airbo.Utils.ping("Public Board Action", { action: "CTA Clicked", copy: $(this).text() });
+      Airbo.Utils.ping("Public Board Action", {
+        action: "CTA Clicked",
+        copy: $(this).text()
+      });
     });
   }
 
@@ -35,4 +38,4 @@ Airbo.BoardWelcomeModal = (function(){
     showOnLoad: showOnLoad,
     init: init
   };
-}());
+})();

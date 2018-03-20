@@ -1,8 +1,0 @@
-<div class="related-channel-tags">
-  <% if tile.organization %>
-    <%= link_to tile.organization_name, explore_organization_path(tile.organization), class: "button outlined gray explore-tag" %>
-  <% end %>
-  <% tile.channel_list.each do |channel| %>
-    <%= link_to channel, explore_channel_path(id: channel), class: "button outlined gray explore-tag" %>
-  <% end %>
-</div>

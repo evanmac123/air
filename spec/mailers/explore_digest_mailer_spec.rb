@@ -16,7 +16,7 @@ describe ExploreDigestMailer do
     it "should send a message with correct data" do
       user = FactoryBot.create(:user, is_client_admin: true)
 
-      ExploreDigestMailer.notify_one(@explore_digest, user).deliver
+      ExploreDigestMailer.notify_one(@explore_digest, user).deliver_later
 
       expect(ActionMailer::Base.deliveries.size).to eq(1)
 

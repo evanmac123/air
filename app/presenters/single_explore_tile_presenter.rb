@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SingleExploreTilePresenter < BasePresenter
   delegate  :id,
             :thumbnail,
@@ -11,16 +13,16 @@ class SingleExploreTilePresenter < BasePresenter
 
   def initialize(object, template, options)
     super
-    @format =  options[:format]||:html
+    @format =  options[:format] || :html
     @section = options[:section]
   end
 
   def copied?
-    current_user.rdb[:copies].sismember(id) > 0
+    current_user.redis[:copies].call(:sismember, id) > 0
   end
 
   def partial
-    'explore/single_explore_tile'
+    "explore/single_explore_tile"
   end
 
   def show_tile_path
@@ -29,6 +31,6 @@ class SingleExploreTilePresenter < BasePresenter
 
   def timestamp
     time = tile.activated_at || tile.created_at
-    time.strftime('%-m/%-d/%Y')
+    time.strftime("%-m/%-d/%Y")
   end
 end

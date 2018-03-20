@@ -4,7 +4,7 @@ module TileManagerHelpers
   end
 
   def have_reactivate_link_for(tile)
-    have_selector("a[data-status='active'][href='#{status_change_client_admin_tile_path(tile)}']")
+    have_selector("a[data-status='active'][href='#{api_client_admin_tile_sorts_path(tile)}']")
   end
 
   def edit_link_for(tile)
@@ -42,11 +42,7 @@ module TileManagerHelpers
       expect(page).to have_css('.fa-lock', visible: true)
     end
   end
-
-  def visit_tile_manager_page
-    visit tile_manager_page
-  end
-
+  
   def create_tiles_for_sections params
     params["archived"] = params.delete("archive") if params["archive"]
 

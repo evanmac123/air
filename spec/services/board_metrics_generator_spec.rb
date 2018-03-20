@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe BoardMetricsGenerator do
-  describe ".set_cache" do
+  describe ".call" do
     it "only sets the cache for the current demo" do
       ca = FactoryBot.create(:client_admin)
       generator = BoardMetricsGenerator.new(board: ca.demo)
@@ -9,7 +9,7 @@ describe BoardMetricsGenerator do
       BoardMetricsGenerator.expects(:new).with(board: ca.demo).returns(generator)
       BoardMetricsGenerator.any_instance.expects(:update_metrics_caches_for_board)
 
-      BoardMetricsGenerator.set_cache(board: ca.demo)
+      BoardMetricsGenerator.call(board: ca.demo)
     end
   end
 

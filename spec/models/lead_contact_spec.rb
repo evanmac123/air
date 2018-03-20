@@ -1,24 +1,23 @@
 require 'spec_helper'
 
 describe LeadContact do
-  it { is_expected.to belong_to :user }
-  it { is_expected.to belong_to :organization }
+  it { should belong_to :user }
+  it { should belong_to :organization }
 
-  it { is_expected.to validate_presence_of :name}
-  it { is_expected.to validate_presence_of :email}
-  it { is_expected.to validate_presence_of :phone}
-  it { is_expected.to validate_presence_of :organization_name}
-  it { is_expected.to validate_presence_of :organization_size}
+  it { should validate_presence_of :name}
+  it { should validate_presence_of :email}
+  it { should validate_presence_of :phone}
+  it { should validate_presence_of :organization_name}
+  it { should validate_presence_of :organization_size}
 
   it "parses phone number correctly before create" do
     lead_contact = FactoryBot.create(:lead_contact, phone: "999-394-3940", status: "", organization_name: "MY COMPANY")
 
     expect(lead_contact.phone).to eq("9993943940")
-    expect(lead_contact.status).to eq("pending")
     expect(lead_contact.organization_name).to eq("My Company")
   end
 
-  describe ".notify!" do
+  describe ".notify" do
     describe "when a lead contact is created and the lead contact source is Inbound: Signup Request" do
       it "should create a job that notifies sales" do
         LeadContact.create(
@@ -32,7 +31,7 @@ describe LeadContact do
 
         open_email 'team@airbo.com'
 
-        expect(current_email.subject).to include('New Inbound Lead: Signup Request')
+        expect(current_email.subject).to include('Inbound: Signup Request')
         [
           'Lead Contact',
           'sales@leadco.com',

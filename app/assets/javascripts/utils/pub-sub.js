@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.PubSub = (function(){
+Airbo.PubSub = (function() {
   var topics = $({});
 
   function subscribe(topic, handler) {
@@ -22,9 +22,7 @@ Airbo.PubSub = (function(){
     unsubscribe: unsubscribe,
     publish: publish
   };
-
-}());
-
+})();
 
 // Basic example:
 

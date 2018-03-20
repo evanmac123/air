@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class TilesDigest < ActiveRecord::Base
   DEFAULT_DIGEST_SUBJECT = "New Tiles"
 
   include TilesDigestConcern
 
-  belongs_to :sender, class_name: 'User'
+  belongs_to :sender, class_name: "User"
   belongs_to :demo
 
   validates_presence_of :demo
@@ -18,7 +20,7 @@ class TilesDigest < ActiveRecord::Base
   after_destroy :destroy_from_redis
 
   def destroy_from_redis
-    rdb.destroy
+    self.redis.delete_all
   end
 
   def self.paid
@@ -35,9 +37,15 @@ class TilesDigest < ActiveRecord::Base
 
   def self.dispatch(digest_params)
     digest = TilesDigest.new(digest_params)
-    digest.set_tiles_and_update_cuttoff_time if digest.valid?
+    if digest.valid?
+      digest.set_tiles
+    end
 
     digest.tap(&:save)
+  end
+
+  def set_tiles
+    self.tiles << demo.digest_tiles
   end
 
   def deliver(follow_up_days_index)
@@ -53,9 +61,10 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def send_emails_and_sms
-    self.sent_at = Time.current
-    self.update_attributes(recipient_count: recipient_count_without_site_admin, delivered: true)
+    self.assign_attributes(sent_at: Time.current, delivered: true)
+    self.update_attributes(recipient_count: recipient_count_without_site_admin)
 
+    TilesBulkActivator.call(demo: demo, tiles: tiles)
     TilesDigestBulkMailJob.perform_later(self)
   end
 
@@ -72,27 +81,27 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def new_unique_login?(user_id:)
-    rdb[:unique_login_set].sadd(user_id) == 1
+    self.redis[:unique_login_set].call(:sadd, user_id) == 1
   end
 
   def increment_unique_logins_by_subject_line(subject_line)
-    rdb[:unique_logins].zincrby(1, subject_line)
+    self.redis[:unique_logins].call(:zincrby, 1, subject_line)
   end
 
   def unique_logins_by_subject_line
-    rdb[:unique_logins].zrangebyscore("-inf", "inf", "WITHSCORES").reverse
+    self.redis[:unique_logins].call(:zrangebyscore, "-inf", "inf", "WITHSCORES").reverse
   end
 
   def increment_logins_by_subject_line(subject_line)
-    rdb[:logins].zincrby(1, subject_line)
+    self.redis[:logins].call(:zincrby, 1, subject_line)
   end
 
   def increment_sms_logins
-    rdb[:sms_logins].incr
+    self.redis[:sms_logins].call(:incr)
   end
 
   def logins_by_subject_line
-    rdb[:logins].zrangebyscore("-inf", "inf", "WITHSCORES").reverse
+    self.redis[:logins].call(:zrangebyscore, "-inf", "inf", "WITHSCORES").reverse
   end
 
   def schedule_followup(follow_up_days_index)
@@ -107,27 +116,8 @@ class TilesDigest < ActiveRecord::Base
     tiles.pluck(:id)
   end
 
-  def tiles_for_email
-    tiles.active
-  end
-
-  def tile_ids_for_email
-    tiles_for_email.pluck(:id)
-  end
-
   def users
     include_unclaimed_users ? users_for_digest : claimed_users_for_digest
-  end
-
-  def set_tiles_and_update_cuttoff_time
-    self.cutoff_time = demo.tile_digest_email_sent_at
-    set_tiles
-  end
-
-  def set_tiles
-    demo.digest_tiles(cutoff_time).each do |tile|
-      self.tiles << tile
-    end
   end
 
   def user_ids_to_deliver_to
@@ -167,19 +157,19 @@ class TilesDigest < ActiveRecord::Base
 
   def tile_completion_rate
     if eligible_tile_action_count > 0
-      tile_completions_from_recipients.where(tile_completions: { created_at: sent_at..reporting_cutoff_for_tile_action}).count / eligible_tile_action_count
+      tile_completions_from_recipients.where(tile_completions: { created_at: sent_at..reporting_cutoff_for_tile_action }).count / eligible_tile_action_count
     end
   end
 
   def tile_view_rate
     if eligible_tile_action_count > 0
-      tile_viewings_from_recipients.where(tile_viewings: { created_at: sent_at..reporting_cutoff_for_tile_action}).count / eligible_tile_action_count
+      tile_viewings_from_recipients.where(tile_viewings: { created_at: sent_at..reporting_cutoff_for_tile_action }).count / eligible_tile_action_count
     end
   end
 
   def active_user_rate
     if recipient_count.to_i > 0
-      tile_completions_from_recipients.where(tile_completions: { created_at: sent_at..reporting_cutoff_for_tile_action}).pluck(tile_completions: :user_id).uniq.count / recipient_count.to_f
+      tile_completions_from_recipients.where(tile_completions: { created_at: sent_at..reporting_cutoff_for_tile_action }).pluck(:user_id).uniq.count / recipient_count.to_f
     end
   end
 
@@ -193,10 +183,14 @@ class TilesDigest < ActiveRecord::Base
 
   def reporting_cutoff_for_tile_action
     if follow_up_digest_email.present?
-      (follow_up_digest_email.send_on + 5.days).end_of_day
+      (follow_up_digest_email.send_on + reporting_buffer_period).end_of_day
     else
-      (sent_at + 5.days).end_of_day
+      (sent_at + reporting_buffer_period).end_of_day
     end
+  end
+
+  def reporting_buffer_period
+    5.days
   end
 
   def resolve_subject(idx)
@@ -226,7 +220,7 @@ class TilesDigest < ActiveRecord::Base
     end
 
     def set_default_subject
-      if subject.nil?
+      if subject.blank?
         self.subject = DEFAULT_DIGEST_SUBJECT
       end
     end

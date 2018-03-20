@@ -10,7 +10,7 @@ describe Explore::CopyTilesController do
 
       post :create, tile_id: tile.id
 
-      expect(client_admin.rdb['copies'].sismember(tile.id)).to eq(1)
+      expect(client_admin.redis['copies'].call(:sismember, tile.id)).to eq(1)
     end
   end
 end

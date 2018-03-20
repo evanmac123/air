@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.BoardModalManager = (function(){
+Airbo.BoardModalManager = (function() {
   function init() {
     Airbo.BoardWelcomeModal.init();
     Airbo.BoardPrizeModal.init();
@@ -19,8 +19,7 @@ Airbo.BoardModalManager = (function(){
   return {
     init: init
   };
-
-}());
+})();
 
 $(function() {
   if (Airbo.Utils.nodePresent("#user_progress")) {

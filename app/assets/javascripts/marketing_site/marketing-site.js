@@ -3,12 +3,12 @@
 var Airbo = window.Airbo || {};
 Airbo.MarketingSite = Airbo.MarketingSite || {};
 
-Airbo.MarketingSite.Base = (function(){
+Airbo.MarketingSite.Base = (function() {
   function initMarketingSiteHighlightsCarousels() {
     $(".highlights-carousel").flickity({
       groupCells: true,
       wrapAround: true,
-      cellAlign: 'left',
+      cellAlign: "left",
       resize: true
     });
   }
@@ -21,10 +21,9 @@ Airbo.MarketingSite.Base = (function(){
   return {
     init: init
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   if (Airbo.Utils.nodePresent(".airbo-marketing-site")) {
     Airbo.MarketingSite.Base.init();
   }

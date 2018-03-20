@@ -1,7 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.ClientAdminReportsUtils = (function(){
-
+Airbo.ClientAdminReportsUtils = (function() {
   function reportsBoardId() {
     var reportSel = ".js-reports-container";
     return $(reportSel).data("currentDemoId");
@@ -21,5 +20,4 @@ Airbo.ClientAdminReportsUtils = (function(){
     reportsBoardId: reportsBoardId,
     hideReports: hideReports
   };
-
-}());
+})();

@@ -1,11 +1,10 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
-Airbo.Utils.IntroJs = (function(){
+Airbo.Utils.IntroJs = (function() {
   var intro,
-  tooltipClass = "airbo ",
-    highlightClass = "airbo "
-  ;
+    tooltipClass = "airbo ",
+    highlightClass = "airbo ";
 
   var defaults = {
     showStepNumbers: false,
@@ -15,28 +14,26 @@ Airbo.Utils.IntroJs = (function(){
     scrollToElement: true,
     exitOnEsc: false,
     exitOnOverlayClick: false,
-    hidePrev: true,
+    hidePrev: true
   };
 
-
-  function applyCss(opts){
+  function applyCss(opts) {
     tooltipClass = "airbo " + (opts.tooltipClass || "");
-    highlightClass = "airbo " + (opts.highlightClass ||"");
+    highlightClass = "airbo " + (opts.highlightClass || "");
     return {
       tooltipClass: tooltipClass,
       highlightClass: highlightClass
     };
   }
 
-  function init(opts){
-    var options = $.extend({},defaults, opts, applyCss(opts));
+  function init(opts) {
+    var options = $.extend({}, defaults, opts, applyCss(opts));
     intro = introJs();
     intro.setOptions(options);
     return intro;
   }
 
   return {
-    init: init,
+    init: init
   };
-
-}());
+})();

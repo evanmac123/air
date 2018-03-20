@@ -1,37 +1,42 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
-Airbo.Utils.EndlessScrollUtil = (function(){
-  function init(content_container, loadCallback) {
-    var MIN_TIME_BETWEEN_LOADS = 500;
+Airbo.Utils.EndlessScrollUtil = (function() {
+  function init($contentContainer, loadCallback) {
+    var MIN_TIME_BETWEEN_LOADS = 1000;
     var SPACE_ABOVE_BOTTOM = 200;
-
-    var isLoadingNextPage = false;
     var lastLoadAt = null;
 
     function waitedLongEnoughBetweenPages() {
-      return lastLoadAt === null || new Date() - lastLoadAt > MIN_TIME_BETWEEN_LOADS;
+      return (
+        lastLoadAt === null || new Date() - lastLoadAt > MIN_TIME_BETWEEN_LOADS
+      );
     }
 
     function approachingBottomOfPage() {
-      return $(window).scrollTop() + $(window).height() > $(document).height() - SPACE_ABOVE_BOTTOM;
+      return (
+        $(window).scrollTop() + $(window).height() >
+        $(document).height() - SPACE_ABOVE_BOTTOM
+      );
     }
 
     function loadMore() {
-      if (isLoadingNextPage) {
-        return;
-      }
+      lastLoadAt = new Date();
+      loadCallback($contentContainer);
+    }
 
-      var lastLoadAt = new Date();
-      var isLoadingNextPage = true;
-
-      loadCallback();
+    function shouldLoadMore() {
+      return (
+        $contentContainer.is(":visible") &&
+        $contentContainer.data("lastPage") === false &&
+        $(".js-endless-scroll-loading:visible").length === 0 &&
+        approachingBottomOfPage() &&
+        waitedLongEnoughBetweenPages()
+      );
     }
 
     $(window).scroll(function() {
-      if (content_container.is(':visible') && approachingBottomOfPage() && waitedLongEnoughBetweenPages()) {
-        if (lastBatch === false || lastBatch === undefined) {
-          return loadMore();
-        }
+      if (shouldLoadMore()) {
+        return loadMore();
       }
     });
   }
@@ -39,5 +44,4 @@ Airbo.Utils.EndlessScrollUtil = (function(){
   return {
     init: init
   };
-
-}());
+})();

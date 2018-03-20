@@ -11,33 +11,4 @@ when 'test'
 end
 
 $redis.client.logger = Rails.logger
-
-Nest.class_eval do
-  def initialize(key, redis = $redis)
-    super(key.to_param)
-    @redis = redis
-  end
-
-  def [](key)
-    self.class.new("#{self}:#{key.to_param}", @redis)
-  end
-
-  def destroy
-    namespace_keys = @redis.keys("#{self}:*")
-    if namespace_keys.present?
-      @redis.del(namespace_keys)
-    end
-  end
-end
-
-ActiveRecord::Base.class_eval do
-  def rdb
-    Nest.new(self.class.name)[id]
-  end
-
-  def self.rdb
-    Nest.new(name)
-  end
-end
-
-# Nest is a very simple library, which is why we feel confortable monkeypatching here.  Link to full library: https://github.com/soveran/nest/blob/master/lib/nest.rb
+ArRedis.redis = $redis

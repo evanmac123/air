@@ -8,56 +8,40 @@ Airbo.TileThumbnail = (function() {
   var pills = tileContainer + " .tile_buttons a.pill";
   var thumbLinkSel = " .tile-wrapper a.tile_thumb_link";
 
-  function initTileToolTipTip(){
+  function initTileToolTipTip() {
     Airbo.TileThumbnailMenu.init();
   }
 
-  function initActions(){
-    $("body").on("click", ".tile_container .tile_buttons a", function(e){
+  function initActions() {
+    $("body").on("click", ".tile_container .tile_buttons a", function(e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      var link = $(this);
-      switch(link.data("action")){
+      var linkSel = $(this);
+      switch (linkSel.data("action")) {
         case "edit":
-        handleEdit(link);
-        break;
-
-        case "post":
-        case "archive":
-        case "unarchive":
-        case "ignore":
-        case "unignore":
-        handleUpdate(link);
-        break;
-
+          handleEdit(linkSel);
+          break;
         case "delete":
-          handleDelete(link);
-        break;
-
-
-        case "accept":
-          handleAccept(link);
-        break;
+          handleDelete(linkSel);
+          break;
+        default:
+          handleUpdate(linkSel);
       }
     });
   }
 
-  function handleUpdate(link){
-    Airbo.TileAction.updateStatus(link);
+  function handleUpdate(linkSel) {
+    Airbo.TileAction.updateStatus(linkSel);
   }
 
-  function handleAccept(link){
-    Airbo.TileAction.confirmAcceptance(link);
+  function handleDelete(linkSel) {
+    Airbo.TileAction.confirmDeletion(linkSel);
   }
 
-  function handleDelete(link){
-    Airbo.TileAction.confirmDeletion(link);
-  }
-
-  function handleEdit(link){
+  function handleEdit(linkSel) {
     tileForm = Airbo.TileFormModal;
     tileForm.init(Airbo.TileManager);
-    tileForm.open(link.attr("href"));
+    tileForm.open(linkSel.attr("href"));
   }
 
   function nextTile(tile) {
@@ -68,47 +52,48 @@ Airbo.TileThumbnail = (function() {
     return Airbo.TileThumbnailManagerBase.prevTile(tile);
   }
 
-  function tileContainerByDataTileId(id){
-    return  $(".tile_container[data-tile-container-id=" + id + "]");
+  function initTilePreview() {
+    $("body").on(
+      "click",
+      ".tile_container .tile_thumb_link, .tile_container:not(.explore) .shadow_overlay",
+      function(e) {
+        e.preventDefault();
+
+        var self = $(this);
+        var path;
+
+        if ($(e.target).is(".pill.more") || $(e.target).is("span.dot")) {
+          return;
+        }
+
+        if (self.is(".tile_thumb_link")) {
+          path = self;
+        } else {
+          path = self.siblings(".tile_thumb_link");
+        }
+
+        getPreview(path.attr("href"), path.data("tileId"));
+      }
+    );
   }
 
-  function initTilePreview(){
-    $("body").on("click", ".tile_container .tile_thumb_link, .tile_container:not(.explore) .shadow_overlay", function(e){
-      e.preventDefault();
+  function getPreview(path, id) {
+    var tile = Airbo.TileManager.tileContainerByDataTileId(id);
+    var next = nextTile(tile).data("tileContainerId");
+    var prev = prevTile(tile).data("tileContainerId");
 
-      var self = $(this);
-      var path;
-
-      if($(e.target).is(".pill.more") || $(e.target).is("span.dot")){
-        return;
-      }
-
-      if ((self).is(".tile_thumb_link")) {
-        path = self;
-      } else {
-        path = self.siblings(".tile_thumb_link");
-      }
-
-      getPreview(path.attr('href'), path.data('tileId'));
-    });
-  }
-
-  function getPreview(path, id){
-    var tile = tileContainerByDataTileId(id);
-    var next = nextTile(tile).data('tileContainerId');
-    var prev = prevTile(tile).data('tileContainerId');
     $.ajax({
       type: "GET",
-      dataType: "html",
+      dataType: "JSON",
       data: { partial_only: true, next_tile: next, prev_tile: prev },
       url: path,
-      success: function(data, status,xhr){
+      success: function(data, status, xhr) {
         var tilePreview = Airbo.TilePreviewModal;
         tilePreview.init();
-        tilePreview.open(data);
+        tilePreview.open(data.tilePreview);
       },
 
-      error: function(jqXHR, textStatus, error){
+      error: function(jqXHR, textStatus, error) {
         console.log(error);
       }
     });
@@ -130,4 +115,4 @@ Airbo.TileThumbnail = (function() {
     init: init,
     getPreview: getPreview
   };
-}());
+})();

@@ -1,25 +1,23 @@
-var Airbo = window.Airbo ||{}
+var Airbo = window.Airbo || {};
 
-
-Airbo.ImageCreditIE = (function(){
+Airbo.ImageCreditIE = (function() {
   var imageCreditView,
-  imageCreditInput,
-  maxLength = 50,
-    imageCreditInputSelector = '#tile_image_credit';
+    imageCreditInput,
+    maxLength = 50,
+    imageCreditInputSelector = "#tile_image_credit";
 
   function normalizedImageCreditInput() {
     var inputted_text;
     inputted_text = imageCreditInput.val();
 
-
-    if (inputted_text !== '') {
+    if (inputted_text !== "") {
       if (inputted_text.length > maxLength()) {
-        return inputted_text.substring(0, maxLength()) + '...';
+        return inputted_text.substring(0, maxLength()) + "...";
       } else {
         return inputted_text;
       }
     } else {
-      return 'Add Image Credit';
+      return "Add Image Credit";
     }
   }
 
@@ -29,16 +27,16 @@ Airbo.ImageCreditIE = (function(){
     return imageCreditView.html(text);
   }
 
-  function initSelectors(){
-    imageCreditView = $('.image_credit_view');
-    imageCreditInput=$(imageCreditInputSelector);
+  function initSelectors() {
+    imageCreditView = $(".image_credit_view");
+    imageCreditInput = $(imageCreditInputSelector);
   }
 
-  function init(){
+  function init() {
     initSelectors();
     updateImageCreditView();
     addCharacterCounterFor(imageCreditInputSelector);
-    imageCreditInput.bind('input propertychange', function() {
+    imageCreditInput.bind("input propertychange", function() {
       updateImageCreditView();
     });
   }
@@ -46,6 +44,4 @@ Airbo.ImageCreditIE = (function(){
   return {
     init: init
   };
-
-}());
-
+})();

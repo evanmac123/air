@@ -10,9 +10,9 @@ feature "Client admin creates tiles", js: true do
     end
 
     scenario "Creates new tile" do
-      click_link "Add New Tile"
-      fill_in_tile_form_entries edit_text: "baz", points: "10"
-      click_create_button
+      click_add_new_tile
+      fill_in_tile_form_entries(edit_text: "baz", points: "10")
+      click_tile_create_button
       page.find(".viewer")
 
       within ".viewer" do
@@ -25,17 +25,6 @@ feature "Client admin creates tiles", js: true do
       expect(page).to have_selector("a.multiple-choice-answer.correct ", text: "Youbaz")
       expect(page).to have_selector("#tile_point_value", text: "10")
     end
-
-    context "autosave" do
-      scenario "create with only headline" do
-        click_link "Add New Tile"
-        page.find("#tile_headline").set("Ten pounds of cheese")
-        page.find(".close-reveal-modal").click
-        within ".tile_container.unfinished" do
-          expect(page).to  have_content "Ten pounds of cheese"
-        end
-      end
-    end
   end
 
   context "existing tile" do
@@ -43,10 +32,13 @@ feature "Client admin creates tiles", js: true do
     let(:points){"10"}
 
     before(:each) do
-      @tile = FactoryBot.create :multiple_choice_tile, question_type: "survey", question_subtype: "multiple_choice"
-      @client_admin = FactoryBot.create(:client_admin, demo: @tile.demo)
-      visit client_admin_tiles_path(as: @client_admin)
-      within "#single-tile-#{@tile.id}" do
+      tile = FactoryBot.create :multiple_choice_tile, question_type: "survey", question_subtype: "multiple_choice"
+      client_admin = FactoryBot.create(:client_admin, demo: tile.demo)
+      visit client_admin_tiles_path(as: client_admin)
+
+      active_tab.click
+
+      within "#single-tile-#{tile.id}" do
         page.find(".tile-wrapper").hover
         page.find("li.edit_button a").click
       end
@@ -62,31 +54,4 @@ feature "Client admin creates tiles", js: true do
       end
     end
   end
-
-
-  def click_create_button
-    page.find(".submit_tile_form").click
-  end
-
-  def fill_in_tile_form_entries options = {}
-    question_type = options[:question_type] || Tile::QUIZ.downcase
-    question_subtype = options[:question_subtype] || Tile::MULTIPLE_CHOICE
-    edit_text = options[:edit_text] || "foobar"
-    points = options[:points] || "18"
-
-
-    choose_question_type_and_subtype question_type, question_subtype
-    fake_upload_image img_file1
-
-    fill_in_image_credit "by Society#{edit_text}"
-    page.find("#tile_headline").set("Ten pounds of cheese#{edit_text}")
-    el = page.find(:css, "#supporting_content_editor", visible: false)
-    el.set("Ten pounds of cheese. Yes? Or no?#{edit_text}")
-    fill_in_question "Who rules?#{edit_text}"
-    fill_in_answer_field 0, "Me#{edit_text}"
-    fill_in_answer_field 1, "You#{edit_text}"
-    select_correct_answer 1
-    fill_in_points points
-  end
-
 end

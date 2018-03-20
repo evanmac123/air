@@ -19,6 +19,9 @@
 "app/jobs":
   UtilityFunction:
     enabled: false
+"app/forms":
+  Attribute:
+    enabled: false
 
 Attribute:
   enabled: true
@@ -101,7 +104,7 @@ TooManyInstanceVariables:
 TooManyMethods:
   enabled: true
   exclude: []
-  max_methods: 15
+  max_methods: 20
 TooManyStatements:
   enabled: true
   exclude:

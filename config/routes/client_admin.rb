@@ -7,11 +7,10 @@ namespace :client_admin do
   resources :users, only: [:index, :create, :edit, :update, :destroy] do
     resource :invitation, :only => :create
   end
-  resources :users_invites, only: :create
-  get 'preview_tiles_digest_email', to: 'users_invites#preview_tiles_digest_email'
 
   resource :tiles_digest_preview, only: [] do
     get 'sms', as: 'sms'
+    get 'email', as: 'email'
   end
 
   resources :tile_user_notifications, only: [:create, :new]
@@ -19,10 +18,6 @@ namespace :client_admin do
   resources :locations, :only => :create
 
   resources :tiles do
-    collection do
-      get "blank"
-    end
-
     get 'download_tile_report', to: 'tile_stats#download_report', as: 'download_report'
 
     resource :image, :only => [:update, :show]
@@ -34,15 +29,10 @@ namespace :client_admin do
       end
     end
     member do
-      post 'sort'
-      patch  'status_change' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile status update.
-      patch  'update_explore_settings' #FIXME this is a temporary hack to avoid having to rewrite all of the existing code related to tile explore settings update.
       post 'duplicate'
-      get 'next_tile'
     end
   end
 
-  resources :public_tiles, only: :update
   resources :tile_images, only: :index
 
   resource :tiles_digest_notification, only: :create do
@@ -52,12 +42,6 @@ namespace :client_admin do
   end
 
   resources :tiles_follow_up_email
-
-  resources :inactive_tiles, only: :index do
-    member do
-      post 'sort'
-    end
-  end
 
   resource :share, only: :show do
     member do

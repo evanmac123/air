@@ -1,7 +1,7 @@
 var Airbo = window.Airbo || {};
 Airbo.Highcharts = Airbo.Highcharts || {};
 
-Airbo.Highcharts.tileActivityTemplate = function($chart, data){
+Airbo.Highcharts.tileActivityTemplate = function($chart, data) {
   return {
     chart: {
       marginTop: 5,

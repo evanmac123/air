@@ -11,7 +11,7 @@ describe TileUserTargeter do
   let(:user_6) { FactoryBot.create(:user, email: "user_6@airbo.com", name: "user 6", demo: demo) }
   let(:user_7) { FactoryBot.create(:user, email: "user_7@airbo.com", name: "user 7", demo: demo) }
 
-  let(:tile) { FactoryBot.create(:tile, multiple_choice_answers: ["a", "b", "c"], correct_answer_index: 0, demo: demo) }
+  let(:tile) { FactoryBot.create(:tile, multiple_choice_answers: ["a", "b", "c"], correct_answer_index: 0, demo: demo, activated_at: Time.current ) }
 
   before do
     Timecop.freeze(Time.local(1990))

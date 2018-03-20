@@ -3,8 +3,10 @@
     padding-top: 0;
   }
 
-  // background:$tile-wall-bg;
-  .core, .content{ background:$tile-wall-bg; }
+  .core,
+  .content {
+    background: $tile-wall-bg;
+  }
 
   .tile_holder {
     box-shadow: none;
@@ -27,6 +29,10 @@
   .bars {
     width: 95%;
     margin: auto;
+
+    .bar_for_preview {
+      background: #f3f3f3;
+    }
   }
 
   .offset_top {
@@ -35,104 +41,32 @@
 
   .creator {
     margin-bottom: 12px;
+
     .company_logo {
       height: 30px;
+
       &.default_logo {
         margin-right: -75px;
       }
     }
+
     .creator_name {
       font-size: 14px;
       padding-left: 10px;
     }
   }
-
-  .explore-tag {
-    border-radius: 0;
-    padding: 5px;
-    margin-bottom: 4px;
-    text-transform: lowercase;
-  }
 }
 
-.in-onboarding{
-  .bars{
-    display:none;
-  }
-}
-
-
-.onboarding-tile{
-  background-color:#d9dfe9;
-  padding:10px;
-  margin:1em auto;
-  width:450px;
-}
-
-.responsive-tile-wrapper {
-  .tile_image img{
-    margin: auto;
-    display:block;
-
-  }
-
-  .tile_image {
-    width:100%;
-  }
-
-  .multiple-choice-answer{
-    font-style: normal;
-    font-weight: bold;
-    font-weight: 400;
-    color: white;
-    display: block;
-    font-size: 0.75em !important;
-    line-height: 1em;
-    padding: 10px;
-    white-space: normal;
-    text-transform: none;
-    width: 100%;
-  }
-
-  .tile_holder{
-    margin:inherit;
-  }
-
-  .tile_holder .tile_quiz .tile_points_bar{
-    height: 35px;
-  }
-
-  .tile_holder .tile_quiz .tile_points_bar .earnable_points{
-    padding: 5px 15px;
-    height:35px;
-  }
-
-  .tile_quiz .tile_points_bar .earnable_points{
-    font-size: 0.35em;
-  }
-
-  .tile_holder {
-    font-size: 0.9em;
-  }
-
-
-  .tile_quiz .tile_question.content_sections{
-    font-weight: 500;
-    font-size: 0.75rem;
-    line-height: 1.0em;
-    padding-top: 1.5em;
-    padding-bottom: 1em ;
-  }
-}
-
-.tile_button, .multiple-choice-answer  {
+.tile_button,
+.multiple-choice-answer {
   @include button($blue);
   @include font-weight-bold;
-  color:$n-white;
+
+  color: $n-white;
   display: block;
-  font-size:1.25rem;
-  line-height:1em;
-  padding:.5em 1em;
+  font-size: 1.25rem;
+  line-height: 1em;
+  padding: 0.5em 1em;
   white-space: normal;
   text-transform: none;
   width: 100%;

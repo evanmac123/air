@@ -1,8 +1,0 @@
-<% display = display_no_tiles_section ? "block" : "none" %>
-<% row_size ||= 4 %>
-<div class="no_tiles_section" style="display:<%= display %>;">
-  <% tile = TileOddRowPlaceholder.new %>
-  <% row_size.times do %>
-    <%= render "client_admin/tiles/manage_tiles/single_#{tile.class.to_s.underscore}", tile: tile %>
-  <% end %>
-</div>

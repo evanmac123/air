@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.GridUpdatesChecker = (function(){
+Airbo.GridUpdatesChecker = (function() {
   var timeoutID;
   var checkLink;
   var tileGridSection;
@@ -19,7 +19,7 @@ Airbo.GridUpdatesChecker = (function(){
   function findOrCreateNewRecordsSection() {
     newRecordsSection = findNewRecordsSection();
     if (newRecordsSection.length === 0) {
-      table.find('thead').after("<td class='new_records' colspan='5'></td>");
+      table.find("thead").after("<td class='new_records' colspan='5'></td>");
       newRecordsSection = findNewRecordsSection();
     }
 
@@ -31,9 +31,9 @@ Airbo.GridUpdatesChecker = (function(){
   }
 
   function ajaxResponse() {
-    return function (data){
+    return function(data) {
       console.log(data.text);
-      if(data.text.length > 0) {
+      if (data.text.length > 0) {
         findOrCreateNewRecordsSection().html(data.text);
       } else {
         removeNewRecordsSection();
@@ -67,10 +67,10 @@ Airbo.GridUpdatesChecker = (function(){
 
   function initVars() {
     tileGridSection = $(tileGridSectionSel);
-    checkLink = tileGridSection.data('updates-checker-link');
+    checkLink = tileGridSection.data("updates-checker-link");
     table = $(tableSel);
   }
-  
+
   function updateStartTime() {
     startTimeInMs = Date.now();
   }
@@ -78,7 +78,10 @@ Airbo.GridUpdatesChecker = (function(){
   function initEvents() {
     $(document).on("click", newRecordsSectionSel, function(e) {
       e.preventDefault();
-      $("#grid_type_select").find('option').eq(0).prop('selected', true);
+      $("#grid_type_select")
+        .find("option")
+        .eq(0)
+        .prop("selected", true);
       $("#grid_type_select").trigger("change", true);
       updateStartTime();
     });
@@ -97,4 +100,4 @@ Airbo.GridUpdatesChecker = (function(){
     stopChecker: stopChecker,
     restart: restart
   };
-}());
+})();

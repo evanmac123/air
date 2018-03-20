@@ -24,16 +24,13 @@
           <%= link_to(user.demo.id, current_board_path(board_id: user.demo.id, admin_view_board: true), method: :patch, target: "_blank") %>
         </td>
         <td width="150">
-          <%= user.rdb[:invite_link_click_count].get %>
+          <%= user.redis[:invite_link_click_count].call(:get) %>
         </td>
         <td width="100">
           <%= time_ago_in_words(user.created_at) %>
         </td>
         <td width="100">
           <%= time_ago_in_words(user.accepted_invitation_at) if user.accepted_invitation_at %>
-        </td>
-        <td width="250">
-          <%= user.channel_list.join(", ") %>
         </td>
       </tr>
     <% end %>

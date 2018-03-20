@@ -1,26 +1,27 @@
+# frozen_string_literal: true
+
 class ClientAdmin::SharesController < ClientAdminBaseController
   def show
     @demo = current_user.demo
     @user = current_user
-    tile_digest_email_sent_at = @demo.tile_digest_email_sent_at
     @follow_up_emails = @demo.follow_up_digest_emails.scheduled
     @board_is_public = @demo.is_public
     @recipient_counts = get_recipient_counts
 
-    @digest_tiles = @demo.digest_tiles(tile_digest_email_sent_at)
-    @tiles_to_be_sent = @demo.digest_tiles(tile_digest_email_sent_at).count
+    @digest_tiles = @demo.digest_tiles
+    @tiles_to_be_sent = @digest_tiles.count
     @tiles_digest_form = TilesDigestForm.new(demo: current_user.demo, user: current_user, params: digest_params)
 
     digest_sent_modal
 
-    prepend_view_path 'client_admin/users'
+    prepend_view_path "client_admin/users"
   end
 
   def show_first_active_tile
     @demo = current_user.demo
 
-    @first_active_tile = @demo.tiles.active.order('activated_at asc').limit(1)
-    render :layout => false
+    @first_active_tile = @demo.tiles.draft.ordered_by_position.limit(1)
+    render layout: false
   end
 
   private

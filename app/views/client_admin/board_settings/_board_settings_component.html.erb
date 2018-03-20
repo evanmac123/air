@@ -1,0 +1,13 @@
+<div class="large-5 columns">
+  <%= render partial: "name_form", locals: { board: @board } %>
+  <%= render partial: "logo_form", locals: { board: @board } %>
+  <%= render partial: "email_form", locals: { board: @board } %>
+  <%= render partial: "email_name_form", locals: { board: @board } %>
+  <%= render partial: "timezone_form", locals: { board: @board } %>
+</div>
+<div class="large-5 large-offset-2 columns">
+  <%= render partial: "welcome_message_form", locals: { board: @board } %>
+  <%= render partial: "public_link_form", locals: { board: @board } %>
+  <%= render partial: "allow_unsubscribes", locals: { board: @board } %>
+  <%= render partial: "weekly_activity_report", locals: { board: @board } %>
+</div>

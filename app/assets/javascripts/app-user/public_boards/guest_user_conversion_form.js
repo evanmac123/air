@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.GuestUserConversionForm = (function(){
+Airbo.GuestUserConversionForm = (function() {
   function initForm() {
     form = $("#guest_conversion_form");
     $("#guest_user_conversion_button").on("click", function(e) {
@@ -12,7 +12,7 @@ Airbo.GuestUserConversionForm = (function(){
 
   function submitForm(form, self) {
     Airbo.Utils.ButtonSpinner.trigger(self);
-    $.post( form.attr("action"), form.serialize()).done(function(data) {
+    $.post(form.attr("action"), form.serialize()).done(function(data) {
       if (data.errors) {
         $("#errors").toggle();
         Airbo.Utils.ButtonSpinner.completeError(self);
@@ -24,13 +24,15 @@ Airbo.GuestUserConversionForm = (function(){
     });
   }
 
-  function initFormValidator(form, self){
+  function initFormValidator(form, self) {
     var config = {
-      submitHandler: function() { submitForm(form, self); },
+      submitHandler: function() {
+        submitForm(form, self);
+      },
       onkeyup: false,
       rules: {
         "user[name]": {
-          required: true,
+          required: true
         },
         "user[email]": {
           required: true,
@@ -38,18 +40,19 @@ Airbo.GuestUserConversionForm = (function(){
         },
         "user[password]": {
           required: true,
+          minlength: 6
         }
       },
       messages: {
         "user[name]": {
-          required: "Please enter your first and last name.",
+          required: "Please enter your first and last name."
         },
         "user[email]": {
-          required: "Please enter your email.",
+          required: "Please enter your email."
         },
         "user[password]": {
-          required: "Please enter a password.",
-        },
+          required: "Please enter a password."
+        }
       }
     };
 
@@ -59,7 +62,7 @@ Airbo.GuestUserConversionForm = (function(){
 
   function bindConversionReminder() {
     Airbo.PubSub.subscribe("tileAnswered", function() {
-      if($("#completed_tiles_num").text() % 2 === 0) {
+      if ($("#completed_tiles_num").text() % 2 === 0) {
         $("#guest-conversion-modal").foundation("reveal", "open");
       }
     });
@@ -73,7 +76,7 @@ Airbo.GuestUserConversionForm = (function(){
   return {
     init: init
   };
-}());
+})();
 
 $(function() {
   if ($("#guest_conversion_form").length > 0) {

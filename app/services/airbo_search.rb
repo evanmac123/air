@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class AirboSearch
   ADMIN_PER_PAGE = 28
   USER_PER_PAGE = 32
-  OVERVIEW_LIMIT = 3 #index value
+  OVERVIEW_LIMIT = 3 # index value
 
   attr_accessor :query, :user, :demo, :options
 
@@ -20,7 +22,7 @@ class AirboSearch
 
   def client_admin_tiles(page = 1)
     if admin_search
-      @client_admin_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE], page))
+      @client_admin_tiles ||= Tile.search(formatted_query, user_tiles_options([Tile::PLAN, Tile::DRAFT, Tile::ACTIVE, Tile::ARCHIVE], page))
     end
   end
 
@@ -36,14 +38,8 @@ class AirboSearch
     end
   end
 
-  def campaigns
-    if explore_search
-      @campaigns ||= Campaign.search(query, order: [_score: :desc, created_at: :desc])
-    end
-  end
-
   def total_result_count
-    [user_tiles, client_admin_tiles, explore_tiles, campaigns].map { |results| get_count(results) }.sum
+    [user_tiles, client_admin_tiles, explore_tiles].map { |results| get_count(results) }.sum
   end
 
   def overview_limit
@@ -51,7 +47,7 @@ class AirboSearch
   end
 
   def tiles_present?
-    user_tiles.present? || client_admin_tiles.present? || explore_tiles.present? || campaigns.present?
+    user_tiles.present? || client_admin_tiles.present? || explore_tiles.present?
   end
 
   def track_initial_search
@@ -61,7 +57,7 @@ class AirboSearch
       results_count: total_result_count,
     )
 
-    #Quick fix to SearchJoy incompatibility with Rails 3.2 mass asignment.  Explore alternate options.
+    # Quick fix to SearchJoy incompatibility with Rails 3.2 mass asignment.  Explore alternate options.
     tracking.user_id = user_id_tracking,
     tracking.demo_id = demo_id_tracking,
     tracking.user_email = user_email_tracking
@@ -78,10 +74,6 @@ class AirboSearch
     def formatted_query
       return "*" if query.blank?
       query
-    end
-
-    def default_fields
-      ["headline^10", "supporting_content^8", :channel_list, :organization_name]
     end
 
     def demo_id
@@ -121,7 +113,7 @@ class AirboSearch
 
     def default_tile_options(page)
       {
-        fields: default_fields,
+        fields: Tile.default_search_fields,
         order: [_score: :desc, created_at: :desc],
         page: page,
         per_page: per_page

@@ -1,39 +1,39 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
-Airbo.Utils.PluginExtentions = (function(){
+Airbo.Utils.PluginExtentions = (function() {
+  function forJQueryValidator() {
+    function addMaxTextLength() {
+      $.validator.addMethod(
+        "maxTextLength",
+        function(value, element, param) {
+          function textLength(value) {
+            var length = 0,
+              content = $("<div></div>");
+            content.html(value).each(function(idx, obj) {
+              length += $(obj).text().length;
+            });
 
-  function forJQueryValidator(){
-
-    function addMaxTextLength(){
-      $.validator.addMethod("maxTextLength", function(value, element, param) {
-
-        function textLength(value){
-          var length = 0, content= $("<div></div>");
-          content.html(value).each(function(idx, obj){
-            length += $(obj).text().length;
-          })
-
-          return length;
-        }
-        return this.optional(element) || textLength(value) <= param;
-      }, jQuery.validator.format("Character Limit Reached"));
+            return length;
+          }
+          return this.optional(element) || textLength(value) <= param;
+        },
+        jQuery.validator.format("Character Limit Reached")
+      );
     }
 
     /* --------INVOKE INDIVIDUAL VALIDATOR EXTENSIONS HERE---------------*/
     addMaxTextLength();
-
   }
 
-  function init(){
+  function init() {
     forJQueryValidator();
   }
- return {
-  init: init
- }
+  return {
+    init: init
+  };
+})();
 
-}());
-
-$(function(){
+$(function() {
   Airbo.Utils.PluginExtentions.init();
 });

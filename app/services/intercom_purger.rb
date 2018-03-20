@@ -1,29 +1,26 @@
+# frozen_string_literal: true
+
 class IntercomPurger
-  def initialize(segment_id)
-    @segment_id = segment_id
+  def self.call(segment_id:)
+    IntercomPurger.new(segment_id).perform
   end
 
-  def purge!
-    user_collection.each {|user| schedule_deletion(user)}
+  attr_reader :segment_id, :intercom_client
+
+  def initialize(segment_id)
+    @segment_id = segment_id
+    @intercom_client = Intercom::Client.new(token: ENV["INTERCOM_ACCESS_TOKEN"])
+  end
+
+  def perform
+    user_collection.each do |intercom_user|
+      intercom_client.users.delete(intercom_user)
+    end
   end
 
   private
 
     def user_collection
-      @user_collection ||= Intercom::User.find_all(segment_id: @segment_id)
-    end
-
-    def schedule_deletion(user)
-      Delayed::Job.enqueue PurgeJob.new(user)
-    end
-
-    class PurgeJob
-      def initialize(user)
-        @user_id = user.id
-      end
-
-      def perform
-        Intercom::User.find(id: @user_id).delete
-      end
+      intercom_client.users.find_all(segment_id: @segment_id)
     end
 end

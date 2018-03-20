@@ -1,6 +1,6 @@
-class SingleAdminTilePresenter < BasePresenter
+# frozen_string_literal: true
 
-  include TileFooterTimestamper
+class SingleAdminTilePresenter < BasePresenter
   delegate  :id,
             :status,
             :headline,
@@ -12,7 +12,6 @@ class SingleAdminTilePresenter < BasePresenter
             :original_creator,
             :demo,
             :updated_at,
-            :is_placeholder?,
             :media_source,
             :question_config,
             :has_attachments,
@@ -22,16 +21,16 @@ class SingleAdminTilePresenter < BasePresenter
 
   presents :tile
 
-  def initialize object,template, options
+  def initialize(object, template, options)
     super
     @tile_status = tile.status.to_sym
     @tiles_grouped_ids = options[:tile_ids]
-    @format =  options[:format]||:html
+    @format =  options[:format] || :html
     @options = options
   end
 
   def partial
-    'client_admin/tiles/manage_tiles/single_tile'
+    "client_admin/tiles/manage_tiles/single_tile"
   end
 
   def tile_id
@@ -42,18 +41,18 @@ class SingleAdminTilePresenter < BasePresenter
     !tile_fully_assembled?
   end
 
-  def tile_status_matches? *statuses
+  def tile_status_matches?(*statuses)
     if statuses.size == 0
       false
     elsif statuses.size == 1
       @tile_status == statuses.first
     else
-      statuses.any? {|t| t == @tile_status}
+      statuses.any? { |t| t == @tile_status }
     end
   end
 
   def tile_fully_assembled?
-   @fully_assembled ||= tile.is_fully_assembled?
+    tile.is_fully_assembled?
   end
 
   def completion_status
@@ -72,26 +71,21 @@ class SingleAdminTilePresenter < BasePresenter
     true
   end
 
-  def incomplete_label
-    content_tag :div, class: "activation_dates incomplete" do
-      content_tag :span,  class:'tile-created-at' do
-         s = content_tag :i, "",  class: 'fa fa-cog'
-         s+= "Incomplete"
-      end
-    end
-  end
-
   def activation_dates
-    if tile_fully_assembled? && tile_status_matches?(:active, :archive, :draft, :user_submitted, :ignored)
-      content_tag :div, raw(timestamp), class: "activation_dates"
-    else
-      incomplete_label
-    end
+    TileTimestampFactory.call(tile)
   end
 
   def status_marker
     if from_search?
-      content_tag :div, status, class: "status_marker #{status}"
+      content_tag :div, status_marker_text, class: "status_marker #{status}"
+    end
+  end
+
+  def status_marker_text
+    if status == Tile::DRAFT
+      "ready to send"
+    else
+      status
     end
   end
 
@@ -101,39 +95,46 @@ class SingleAdminTilePresenter < BasePresenter
 
   def show_tile_path
     if options[:from_search] == true
-      client_admin_tile_preview_path(tile, { from_search: true })
+      client_admin_tile_preview_path(tile, from_search: true)
     else
       client_admin_tile_path(tile)
     end
   end
 
   def has_archive_button?
-    tile_status_matches? :active
+    tile_status_matches?(:active)
   end
 
   def has_unarchive_button?
     tile_status_matches?(:archive)
   end
 
+  def has_move_to_draft_button?
+    tile_status_matches?(:plan) && tile_fully_assembled?
+  end
+
+  def has_back_to_plan_button?
+    tile_status_matches?(:draft)
+  end
+
   def has_activate_button?
     tile_status_matches?(:draft) && tile_fully_assembled?
   end
 
-
   def has_incomplete_edit_button?
-    tile_status_matches?(:draft) && !tile_fully_assembled?
+    tile_status_matches?(:plan) && !tile_fully_assembled?
   end
 
-  def has_incomplete_destroy_button?
-    tile_status_matches?(:draft) && !tile_fully_assembled?
+  def has_direct_destroy_button?
+    tile_status_matches?(:ignored) || tile_status_matches?(:plan) && !tile_fully_assembled?
   end
 
   def has_edit_button?
-     tile_status_matches?(:draft, :active, :archive) && tile_fully_assembled?
+    tile_status_matches?(:plan, :draft, :active, :archive) && tile_fully_assembled?
   end
 
   def has_destroy_button?
-   tile_status_matches? :draft, :active, :archive
+    tile_status_matches? :draft, :active, :archive
   end
 
   def has_accept_button?
@@ -153,7 +154,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def has_menu?
-    tile_status_matches?(:draft, :active, :archive) && tile_fully_assembled?
+    tile_status_matches?(:plan, :draft, :active, :archive) && tile_fully_assembled?
   end
 
   def shows_creator?
@@ -161,12 +162,11 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def post_link_text
-    'Post' + (tile_status_matches?(:archive) ? ' again' : '')
+    "Post" + (tile_status_matches?(:archive) ? " again" : "")
   end
 
-
-  def timestamp
-    @timestamp ||= footer_timestamp
+  def add_to_draft_link_text
+    "Ready to Send"
   end
 
   def completion_percentage
@@ -187,7 +187,7 @@ class SingleAdminTilePresenter < BasePresenter
   end
 
   def tile_position
-   @tile.position || 0
+    @tile.position || 0
   end
 
   def to_param
@@ -201,7 +201,6 @@ class SingleAdminTilePresenter < BasePresenter
   def cache_key
     @cache_key ||= [
       self.class,
-      timestamp,
       thumbnail,
       tile_status,
       tile_id,
@@ -211,8 +210,6 @@ class SingleAdminTilePresenter < BasePresenter
       unique_views,
       updated_at,
       @is_ie,
-    ].join('-')
+    ].join("-")
   end
-
-
 end

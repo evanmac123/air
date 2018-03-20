@@ -1,9 +1,9 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TileFormModal = (function(){
+Airbo.TileFormModal = (function() {
   var modalId = "tile_form_modal";
-  var formSel ="#new_tile_builder_form";
-  var pickImageSel =".image_placeholder, .image_preview.show_shadows";
+  var formSel = "#new_tile_builder_form";
+  var pickImageSel = ".image_placeholder, .image_preview.show_shadows";
   var ajaxHandler = Airbo.AjaxResponseHandler;
   var modalObj = Airbo.Utils.StandardModal();
   var self;
@@ -15,55 +15,57 @@ Airbo.TileFormModal = (function(){
   var imageLibrary;
   var submitLink;
 
-  function enablesubmitLink(){
+  function enablesubmitLink() {
     submitLink.removeAttr("disabled");
   }
 
-  function disablesubmitLink(){
+  function disablesubmitLink() {
     submitLink.attr("disabled", "disabled");
   }
 
-  function setTileCreationPingProps(){
-    var props =$.extend({}, Airbo.currentUser, {pseudoTileId: Airbo.currentUser.id + "-" + Date.now() });
+  function setTileCreationPingProps() {
+    var props = $.extend({}, Airbo.currentUser, {
+      pseudoTileId: Airbo.currentUser.id + "-" + Date.now()
+    });
     $("#pseudo_tile_id").data("props", props);
   }
 
-  function getTileCreationPingProps(step){
-    return $.extend({"action": step}, $("#pseudo_tile_id").data("props"));
+  function getTileCreationPingProps(step) {
+    return $.extend({ action: step }, $("#pseudo_tile_id").data("props"));
   }
 
-  function addForceValidation(){
+  function addForceValidation() {
     currform.data("forcevalidation", true);
   }
 
-  function removeForceValidation(){
+  function removeForceValidation() {
     currform.data("forcevalidation", false);
   }
 
-  function setAutoSavingTrue(){
+  function setAutoSavingTrue() {
     addSavingIndicator();
     currform.data("autosave", true);
   }
 
-  function setAutoSavingFalse(){
+  function setAutoSavingFalse() {
     removeSavingIndicator();
     currform.data("autosave", false);
   }
 
-  function resetSubmit(){
+  function resetSubmit() {
     setAutoSavingFalse();
     enablesubmitLink();
   }
 
-  function addSavingIndicator(){
+  function addSavingIndicator() {
     submitLink.addClass("saving");
   }
 
-  function removeSavingIndicator(){
+  function removeSavingIndicator() {
     submitLink.removeClass("saving");
   }
 
-  function isAutoSaving(){
+  function isAutoSaving() {
     return $.active > 0;
   }
 
@@ -92,16 +94,16 @@ Airbo.TileFormModal = (function(){
       modalClass: "bg-user-side",
       closeSticky: true,
       onOpenedEvent: function() {
-        autosize.update( $('textarea') );
-        currform.data('forcevalidation', tileManager.forceValidationOnNew());
+        autosize.update($("textarea"));
+        currform.data("forcevalidation", tileManager.forceValidationOnNew());
         $("#supporting_content_editor").keyup();
       },
-      closeMessage: closeMessage.bind(self) ,
+      closeMessage: closeMessage.bind(self)
     });
   }
 
   function submitSuccess(data) {
-    tileManager.updateSections(data);
+    tileManager.refreshOrAddTileThumb(data);
     Airbo.TilePreviewModal.init();
     Airbo.TilePreviewModal.open(data.preview);
   }
@@ -112,36 +114,32 @@ Airbo.TileFormModal = (function(){
     initFormSubmit();
   }
 
-  function initSubmitButtonClick(){
-    submitLink.click(
-      $.debounce(500, function(e){
-        e.preventDefault();
-        if(timer){
-          clearTimeout(timer);
-        }
-        addSavingIndicator();
-        currform.submit();
-      })
-    );
+  function initSubmitButtonClick() {
+    submitLink.on("click", function(e) {
+      e.preventDefault();
+      if (isAutoSaving()) return;
+
+      addSavingIndicator();
+      currform.submit();
+    });
   }
 
-  function initImageClick(){
-    currform.on("click", pickImageSel, function(e){
+  function initImageClick() {
+    currform.on("click", pickImageSel, function(e) {
       e.preventDefault();
     });
   }
 
-  function initFormSubmit(){
+  function initFormSubmit() {
     currform.submit(function(e) {
       e.preventDefault();
 
       var formObj = $(this);
-      if(formObj.valid()){
+      if (formObj.valid()) {
         disablesubmitLink();
         Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("save"));
-        Airbo.IntercomEventService.trackEvent("Tile Creation", getTileCreationPingProps("save"));
         ajaxHandler.submit(formObj, submitSuccess, resetSubmit);
-      }else{
+      } else {
         saveable = false;
         removeSavingIndicator();
         validator.focusInvalid();
@@ -149,27 +147,26 @@ Airbo.TileFormModal = (function(){
     });
   }
 
-  function initAutoSave(){
+  function initAutoSave() {
     var me = this;
-    if(tileManager.hasAutoSave()){
+    if (tileManager.hasAutoSave()) {
       $(currform).on("change", function(event) {
-
         console.log("change called", event, currform.attr("method"));
 
-        if(isAutoSaving()){
+        if (isAutoSaving()) {
           console.log("already autosaving");
         }
 
         setAutoSavingTrue();
         disablesubmitLink();
 
-        if(currform.valid()){
+        if (currform.valid()) {
           modalObj.setConfirmOnClose(false);
           disablesubmitLink();
-          timer = setTimeout(function(){
+          timer = setTimeout(function() {
             ajaxHandler.submit(currform, autoSaveSuccess.bind(me), resetSubmit);
           }, 500);
-        }else{
+        } else {
           saveable = false;
           modalObj.setConfirmOnClose(true);
           resetSubmit();
@@ -178,7 +175,7 @@ Airbo.TileFormModal = (function(){
     }
   }
 
-  function getTileManager(){
+  function getTileManager() {
     return tileManager;
   }
 
@@ -187,19 +184,15 @@ Airbo.TileFormModal = (function(){
     submitLink = $(".submit_tile_form");
   }
 
-  function openModal(){
+  function openModal() {
     modalObj.open();
   }
 
-  function updateThumbnail(data){
-    Airbo.TileManager.updateSections(data);
-  }
-
-  function autoSaveSuccess(data){
+  function autoSaveSuccess(data) {
     clearTimeout(timer);
     currform.attr("action", data.updatePath);
     currform.attr("method", "PATCH");
-    updateThumbnail(data);
+    Airbo.TileManager.refreshOrAddTileThumb(data);
     enablesubmitLink();
     setAutoSavingFalse();
     saveable = true;
@@ -208,37 +201,36 @@ Airbo.TileFormModal = (function(){
   function open(url) {
     $.ajax({
       type: "GET",
-      dataType: "html",
+      dataType: "JSON",
       url: url,
-      success: function(data, status,xhr){
-        modalObj.setContent(data);
+      success: function(data, status, xhr) {
+        modalObj.setContent(data.tileForm);
         initVars();
         initEvents();
         initFormElements();
 
-        if(currform.data("tileid") !== null) {
+        if (currform.data("tileid") !== null) {
+          initAutoSave();
           saveable = true;
           addForceValidation();
           currform.valid();
-
-        }else{
+        } else {
           modalObj.setConfirmOnClose(true);
         }
         modalObj.open();
         setTileCreationPingProps();
-        initAutoSave();
         removeForceValidation();
       }.bind(self),
 
-      error: function(jqXHR, textStatus, error){
+      error: function(jqXHR, textStatus, error) {
         console.log(error);
       }
     });
   }
 
-  function closeMessage(){
+  function closeMessage() {
     currform.valid();
-    if(saveable === true) {
+    if (saveable === true) {
       return "Your changes have been autosaved. Click 'Cancel' to continuing editing this Tile or Ok to close the Tile Editor.";
     } else {
       return "Are you sure you want to stop editing this Tile? Any changes you've made will be lost.";
@@ -259,4 +251,4 @@ Airbo.TileFormModal = (function(){
     modalId: modalId,
     closeMessage: closeMessage
   };
-}());
+})();

@@ -4,26 +4,34 @@ class OpengraphService
       tile_to_display = board.tiles.active.first
 
       if tile_to_display.present?
-        tile_to_display.image
+        tile_to_display.thumbnail.url
       else
-        OpengraphService.default_image
+        OpengraphService.image
       end
     end
 
-    def default_image
-      ActionController::Base.helpers.asset_path("marketing_site/airbo-marketing-open-graph.png")
+    def image(image_path = nil)
+      if image_path
+        image_path
+      else
+        ActionController::Base.helpers.asset_path("marketing_site/airbo-marketing-open-graph.png")
+      end
     end
 
-    def title(custom_title)
-      if custom_title.present?
+    def title(custom_title = nil)
+      if custom_title
         custom_title
       else
         "Airbo"
       end
     end
 
-    def default_description
-      "Airbo is a simple micro site that's used by HR to drive employee education, appreciation, and participation."
+    def description(description = nil)
+      if description
+        description
+      else
+        "Airbo is a simple micro site that's used by HR to drive employee education, appreciation, and participation."
+      end
     end
   end
 end

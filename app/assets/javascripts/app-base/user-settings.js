@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.UserSettings = (function(){
+Airbo.UserSettings = (function() {
   function init() {
     $(".js-receives-sms-checkbox").show();
   }
@@ -8,8 +8,7 @@ Airbo.UserSettings = (function(){
   return {
     init: init
   };
-
-}());
+})();
 
 $(function() {
   if (Airbo.Utils.nodePresent(".js-user-settings")) {

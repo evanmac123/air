@@ -1,23 +1,22 @@
 var Airbo = window.Airbo || {};
 
-Airbo.OpenIntercom = (function(){
+Airbo.OpenIntercom = (function() {
   function init() {
-
     if (Airbo.Utils.userIsEndUser()) {
       bindEndUserIntercomSettings();
     }
 
-    $('.open_intercom').on('click', function(event) {
+    $(".open_intercom").on("click", function(event) {
       event.preventDefault();
       if (Airbo.Utils.userIsEndUser()) {
-        Intercom('boot', window._intercomSettings);
+        Intercom("boot", window._intercomSettings);
       }
       openIntercom();
     });
   }
 
   function openIntercom() {
-    Intercom('show');
+    Intercom("show");
   }
 
   function bindEndUserIntercomSettings() {
@@ -31,16 +30,19 @@ Airbo.OpenIntercom = (function(){
       hide_default_launcher: true
     });
 
-    window._intercomSettings = $.extend({}, window.intercomSettings, Airbo.Utils.intercomUser());
+    window._intercomSettings = $.extend(
+      {},
+      window.intercomSettings,
+      Airbo.Utils.intercomUser()
+    );
   }
 
   return {
     init: init
   };
+})();
 
-}());
-
-$(function(){
+$(function() {
   if ($(".open_intercom").length > 0) {
     Airbo.OpenIntercom.init();
   }

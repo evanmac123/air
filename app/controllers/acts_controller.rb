@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActsController < ApplicationController
   # This is still such shit awful code. Trying to do so many things at once. Fuck.
   include AllowGuestUsersConcern
@@ -9,7 +11,7 @@ class ActsController < ApplicationController
   prepend_before_action :authenticate
 
   def index
-    @demo ||= current_user.demo
+    @demo = current_user.demo
 
     @palette = @demo.custom_color_palette
 

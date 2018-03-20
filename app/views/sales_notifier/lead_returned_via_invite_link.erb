@@ -8,5 +8,5 @@
   Email: <%= @user.email  %>
 </p>
 <p>
-  Visit Count: <%= @user.rdb[:invite_link_click_count].get %>
+  Visit Count: <%= @user.redis[:invite_link_click_count].call(:get) %>
 </p>

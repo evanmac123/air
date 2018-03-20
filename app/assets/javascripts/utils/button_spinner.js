@@ -1,7 +1,7 @@
 var Airbo = window.Airbo || {};
 Airbo.Utils = Airbo.Utils || {};
 
-Airbo.Utils.ButtonSpinner = (function(){
+Airbo.Utils.ButtonSpinner = (function() {
   function trigger(button) {
     button.addClass("disabled");
     button.children("#button_text").hide();
@@ -40,5 +40,4 @@ Airbo.Utils.ButtonSpinner = (function(){
     completeError: completeError,
     reset: reset
   };
-
-}());
+})();

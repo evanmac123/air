@@ -83,7 +83,7 @@ feature "Client Admin Accepts Invitation" do
     fill_in_required_invitation_fields
     click_button "Log in"
 
-    
+
 
     expect(ActionMailer::Base.deliveries).to be_empty
   end
@@ -120,20 +120,5 @@ feature "Client Admin Accepts Invitation" do
   it "should not require a password if the user is a new lead" do
     visit invitation_url(@user.invitation_code, { new_lead: true })
     should_be_on(explore_path)
-  end
-
-  it "should notify sales if a new lead activates" do
-    visit invitation_url(@user.invitation_code, { new_lead: true })
-
-    expect(ActionMailer::Base.deliveries.count).to eq(1)
-    expect(ActionMailer::Base.deliveries.first.to).to eq(["sales@airbo.com"])
-  end
-
-  it "should notify sales if a new lead revisits the invitation link" do
-    visit invitation_url(@user.invitation_code, { new_lead: true, demo_id: @user.demo.id })
-    visit invitation_url(@user.invitation_code, { new_lead: true, demo_id: @user.demo.id })
-
-    expect(ActionMailer::Base.deliveries.count).to eq(2)
-    expect(ActionMailer::Base.deliveries.last.body.include?("Visit Count: 2")).to eq(true)
   end
 end

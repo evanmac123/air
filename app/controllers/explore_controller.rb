@@ -1,16 +1,24 @@
+# frozen_string_literal: true
+
 class ExploreController < ExploreBaseController
-  include ExploreConcern
-
-  before_action :set_initial_objects
-  before_action :schedule_explore_pings
-
   def show
-    @tiles = Tile.explore_without_featured_tiles.page(params[:page]).per(28)
+    @tiles = Tile.explore_not_in_campaign.page(params[:page]).per(28)
 
     if request.xhr?
+      render_json_tiles
+    else
+      explore_email_clicked_ping if params[:email_type].present?
+      @private_campaigns = Campaign.private_explore(demo: current_board)
+      @related_campaigns = Campaign.public_explore.order(:name)
+    end
+  end
+
+  private
+
+    def render_json_tiles
       content = render_to_string(
-                  partial: "explore/tiles",
-                  locals: { tiles: @tiles, section: "Explore" })
+        partial: "explore/tiles",
+        locals: { tiles: @tiles, section: "Explore" })
 
       render json: {
         success:   true,
@@ -19,42 +27,13 @@ class ExploreController < ExploreBaseController
         lastBatch: params[:count] == @tiles.total_count.to_s
       }
     end
-  end
 
-  private
+    def explore_email_clicked_ping
+      properties = {
+        email_type: params[:email_type],
+        email_version: params[:email_version],
+      }
 
-    def schedule_explore_pings
-      if params[:email_type].present?
-        explore_email_clicked_ping(
-          user: current_user,
-          email_type: params[:email_type],
-          email_version: params[:email_version]
-        )
-      end
-    end
-
-    def set_initial_objects
-      unless request.xhr?
-        set_intro_slides
-        @tile_features = TileFeature.ordered
-        @campaigns = Campaign.all
-        @featured_organizations = Organization.featured
-        @channels = Channel.display_channels('explore')
-      end
-    end
-
-    def set_intro_slides
-      if show_slides? && params[:requested_tile_id].nil?
-        cookies[:airbo_explore] = Time.current
-        @show_explore_onboarding = true
-      end
-    end
-
-    def show_slides?
-      if current_user.is_a?(User)
-        params[:show_explore_onboarding]
-      else
-        !cookies[:airbo_explore]
-      end
+      ping("Email clicked", properties, current_user)
     end
 end

@@ -8,27 +8,27 @@ describe User do
 
   describe "#set_tile_email_report_notification" do
     it "continues to increment the redis key" do
-      expect(user.rdb[:client_admin_notifications][demo_id][:tile_email_report].get).to eq(nil)
+      expect(user.redis[:client_admin_notifications][demo_id][:tile_email_report].call(:get)).to eq(nil)
 
       user.set_tile_email_report_notification(board_id: demo_id)
 
-      expect(user.rdb[:client_admin_notifications][demo_id][:tile_email_report].get).to eq("1")
+      expect(user.redis[:client_admin_notifications][demo_id][:tile_email_report].call(:get)).to eq("1")
 
       user.set_tile_email_report_notification(board_id: demo_id)
 
-      expect(user.rdb[:client_admin_notifications][demo_id][:tile_email_report].get).to eq("2")
+      expect(user.redis[:client_admin_notifications][demo_id][:tile_email_report].call(:get)).to eq("2")
     end
   end
 
   describe "#remove_tile_email_report_notification" do
     it "removes the redis key" do
-      user.rdb[:client_admin_notifications][demo_id][:tile_email_report].set("hello")
+      user.redis[:client_admin_notifications][demo_id][:tile_email_report].call(:set, "hello")
 
-      expect(user.rdb[:client_admin_notifications][demo_id][:tile_email_report].get).to eq("hello")
+      expect(user.redis[:client_admin_notifications][demo_id][:tile_email_report].call(:get)).to eq("hello")
 
       user.remove_tile_email_report_notification
 
-      expect(user.rdb[:client_admin_notifications][demo_id][:tile_email_report].get).to eq(nil)
+      expect(user.redis[:client_admin_notifications][demo_id][:tile_email_report].call(:get)).to eq(nil)
     end
   end
 
@@ -72,7 +72,7 @@ describe User do
       user.remove_tile_email_report_notification
 
       expect(user.get_tile_email_report_notification_content).to eq(nil)
-      expect(user.rdb[:client_admin_notifications][demo_2.id][:tile_email_report].get).to eq("5")
+      expect(user.redis[:client_admin_notifications][demo_2.id][:tile_email_report].call(:get)).to eq("5")
 
       user.move_to_new_demo(demo_2)
       user.reload
