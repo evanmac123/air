@@ -14,10 +14,8 @@ gem "redis", "~> 3.3.3"
 gem "redis-rails", "~> 5.0.2"
 gem "ar_redis", "~> 0.1.0"
 gem "webpacker", "~> 3.0"
-
-# TODO: update to gem "aws-sdk-s3", "~> 1" when paperclip releases support for aws-sdk 3: https://github.com/thoughtbot/paperclip/pull/2481
-gem 'aws-sdk', '< 3.0'
-gem "paperclip", "~> 5.2.0"
+gem "aws-sdk-s3", "~> 1"
+gem "paperclip", "~> 6.0.0"
 gem "delayed_paperclip", "~> 3.0.0"
 
 gem "twilio-ruby", "~> 5.2.3"
@@ -58,7 +56,7 @@ gem "delighted", "~> 1.7.0"
 gem "airbrake", "~> 5.4"
 gem "scout_apm", "~> 2.4"
 gem "chartmogul-ruby", "~> 1.1.4", require: "chartmogul"
-# NOTE: Our hack to prevent too users from making it to Intercom unless they click the messenger gets harder after intercom-rails 0.3.4: https://github.com/intercom/intercom-rails/commit/b1c730bc6dcb3c9b4655c364d168288eed1dbef5
+# NOTE: Our hack to prevent too many users from making it to Intercom unless they click the messenger gets harder after intercom-rails 0.3.4: https://github.com/intercom/intercom-rails/commit/b1c730bc6dcb3c9b4655c364d168288eed1dbef5
 gem "intercom-rails", "0.3.4"
 gem "intercom", "~> 3.5.23"
 gem "mixpanel_client", "~> 4.1.6"

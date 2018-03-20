@@ -16,7 +16,7 @@ class Demo < ActiveRecord::Base
   has_one :custom_color_palette, dependent: :delete
   has_one :tiles_digest_automator, dependent: :delete
 
-  has_many :board_memberships, dependent: :delete_all
+  has_many :board_memberships, dependent: :destroy
   has_many :tiles, dependent: :delete_all
 
   has_many :guest_users, dependent: :delete_all
@@ -46,7 +46,6 @@ class Demo < ActiveRecord::Base
   after_create :create_public_slug!
 
   accepts_nested_attributes_for :custom_color_palette
-  accepts_nested_attributes_for :organization
 
   scope :name_order, -> { order("LOWER(name)") }
   scope :health_score_order, -> { order("current_health_score DESC") }

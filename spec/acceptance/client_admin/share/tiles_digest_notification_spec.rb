@@ -42,10 +42,6 @@ feature 'Client admin and the digest email for tiles' do
     select num_days, from: 'digest[follow_up_day]'
   end
 
-  def set_last_sent_on(day)
-    demo.update_attributes tile_digest_email_sent_at: day_to_time(day)
-  end
-
   def expect_digest_to(recipient)
     digest_email = find_email(recipient)
     expect(digest_email).not_to be_nil
@@ -132,7 +128,6 @@ feature 'Client admin and the digest email for tiles' do
 
     context "Clicking the 'Send' button" do
       before(:each) do
-        set_last_sent_on '7/4/2013'
         2.times { |i| create_tile on_day: '7/5/2013', status: Tile::DRAFT, headline: "Headline #{i + 1}"}
       end
 

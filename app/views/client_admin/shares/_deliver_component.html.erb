@@ -11,9 +11,24 @@
 </div>
 <div class="large-9 digest_preview">
   <ul class="inline-list tabs-component js-digest-preview-tabs digest-preview-tabs">
-    <li class="tabs-component-active" id="show_digest_preview" data-preview-type="email">Tiles Email Preview</li>
-    <li id="show_follow_up_preview" data-preview-type="follow_up_email">Follow-Up Email Preview</li>
-    <li id="show_sms_preview" data-preview-type="sms">Text Message Preview</li>
+    <li id="show_digest_preview"
+      class="tabs-component-active"
+      data-preview-type="email"
+      data-preview-src="<%= email_client_admin_tiles_digest_preview_path(follow_up_email: false) %>">
+      Tiles Email Preview
+    </li>
+
+    <li id="show_follow_up_preview"
+      data-preview-type="follow_up_email"
+      data-preview-src="<%= email_client_admin_tiles_digest_preview_path(follow_up_email: true) %>">
+      Follow-Up Email Preview
+    </li>
+
+    <li id="show_sms_preview"
+      data-preview-type="sms"
+      data-preview-src="<%= sms_client_admin_tiles_digest_preview_path %>">
+      Text Message Preview
+    </li>
   </ul>
   <%= render 'email_client_wrapper' %>
 </div>

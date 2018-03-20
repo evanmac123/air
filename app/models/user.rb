@@ -23,8 +23,6 @@ class User < ActiveRecord::Base
 
   extend User::Queries
 
-  rolify strict: true
-
   belongs_to :location
   belongs_to :game_referrer, class_name: "User"
   belongs_to :spouse, class_name: "User"

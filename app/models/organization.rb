@@ -22,9 +22,6 @@ class Organization < ActiveRecord::Base
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validate  :free_trial_cannot_start_before_created_at_or_in_future
 
-  accepts_nested_attributes_for :boards
-  accepts_nested_attributes_for :users
-
   scope :name_order, -> { order(:name) }
 
   has_attached_file :logo,

@@ -98,11 +98,9 @@ Airbo.TileBuilderInteractionConfig = (function() {
         question: null,
         questionPlaceholder: "Ask a question",
         answers: [
-          "Strongly agree",
-          "Agree",
-          "Neutral",
-          "Disagree",
-          "Strongly Disagree"
+          "Add Answer Option",
+          "Add Answer Option",
+          "Add Answer Option"
         ],
         extendable: true,
         maxLength: 50,

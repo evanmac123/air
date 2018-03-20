@@ -7,11 +7,10 @@ namespace :client_admin do
   resources :users, only: [:index, :create, :edit, :update, :destroy] do
     resource :invitation, :only => :create
   end
-  resources :users_invites, only: :create
-  get 'preview_tiles_digest_email', to: 'users_invites#preview_tiles_digest_email'
 
   resource :tiles_digest_preview, only: [] do
     get 'sms', as: 'sms'
+    get 'email', as: 'email'
   end
 
   resources :tile_user_notifications, only: [:create, :new]

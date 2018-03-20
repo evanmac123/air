@@ -12,7 +12,6 @@ class SingleAdminTilePresenter < BasePresenter
             :original_creator,
             :demo,
             :updated_at,
-            :is_placeholder?,
             :media_source,
             :question_config,
             :has_attachments,

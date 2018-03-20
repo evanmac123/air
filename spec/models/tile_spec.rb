@@ -161,20 +161,6 @@ describe Tile do
     end
   end
 
-
-
-  context "status and activated_at" do
-    it "doesnt change activated_at on un-archival if not explicitly set" do
-      tile  = FactoryBot.create :tile, status: Tile::ARCHIVE, activated_at: 1.month.ago
-      expect{tile.status=Tile::ACTIVE;tile.save}.to_not change{tile.activated_at}
-    end
-
-    it "updates activated_at if the status changes from DRAFT to ACTIVE" do
-      tile = FactoryBot.create :tile, status: Tile::DRAFT
-      expect{tile.status=Tile::ACTIVE; tile.save}.to change{tile.activated_at}
-    end
-  end
-
   context "status changes" do
     let(:user){ FactoryBot.create(:user) }
     let(:demo) { FactoryBot.create :demo }
@@ -196,67 +182,6 @@ describe Tile do
       SuggestedTileStatusChangeManager.any_instance.expects(:process)
       FactoryBot.create :multiple_choice_tile, status: Tile::USER_SUBMITTED, demo: demo, creator: user, creation_source: Tile.creation_sources[:suggestion_box_created]
     end
-  end
-
-  it "setting or updating tile status updates the corresponding timestamps", broken: true do
-
-    # Test setting status during tile creation
-
-    time_1 = Time.zone.now
-    Timecop.freeze(time_1)
-    tile_1 = FactoryBot.create :tile, status: Tile::ACTIVE
-    expect(tile_1.activated_at.to_s).to eq(time_1.to_s)
-    expect(tile_1.archived_at).to be_nil
-
-    tile_2 = FactoryBot.create :tile, status: Tile::ARCHIVE
-    expect(tile_2.archived_at.to_s).to eq(time_1.to_s)
-    expect(tile_2.activated_at).to be_nil
-
-    tile_3 = FactoryBot.create :tile, status: Tile::DRAFT
-    expect(tile_3.activated_at).to be_nil
-    expect(tile_3.archived_at).to be_nil
-
-    #Don't forget to verify that we can override the time-stamp assignments with FactoryBot.
-    #Note: As per the sample output below (from a failing test) the time from the dbase contains
-    #too much information for this test => just grab the first part of the date
-    #expected: "2013-08-15" ; got: "2013-08-15 00:00:00 -0400"
-
-    tile_4 = FactoryBot.create :tile, status: Tile::ACTIVE, activated_at: Date.tomorrow
-    expect((tile_4.activated_at.to_s.split)[0]).to eq(Date.tomorrow.to_s)
-
-    tile_5 = FactoryBot.create :tile, status: Tile::ARCHIVE
-    tile_5.update_column(:archived_at,  Date.yesterday) #use set to skip callback that auto sets archived date
-    expect((tile_5.archived_at.to_s.split)[0]).to eq(Date.yesterday.to_s)
-
-    #------------------------------------------------
-
-    # Test setting status via 'update_attributes'
-
-    time_2 = time_1 + 1.minute
-    Timecop.freeze(time_2)
-
-    tile_1.update_attributes status: Tile::ARCHIVE
-    expect(tile_1.activated_at.to_s).to eq(time_1.to_s)
-    expect(tile_1.archived_at.to_s).to eq(time_2.to_s)
-
-    tile_2.update_attributes status: Tile::ACTIVE
-    expect(tile_2.activated_at.to_s).to eq(time_2.to_s)
-    expect(tile_2.archived_at.to_s).to eq(time_1.to_s)
-
-    #------------------------------------------------
-
-    #Test setting status via assignment
-
-    time_3 = time_2 + 1.minute
-    Timecop.freeze(time_3)
-
-    tile_1.status = Tile::ACTIVE
-    expect(tile_1.archived_at.to_s).to eq(time_2.to_s)
-
-    tile_2.status = Tile::ARCHIVE
-    expect(tile_2.activated_at.to_s).to eq(time_2.to_s)
-
-    Timecop.return
   end
 
   describe "#survey_chart" do
@@ -306,7 +231,7 @@ describe Tile do
     end
 
     it "return true if status changed" do
-      tile.status = "archive"
+      tile.status = Tile::ARCHIVE
       expect(tile.should_reindex?).to be true
     end
 

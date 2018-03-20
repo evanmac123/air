@@ -19,6 +19,9 @@
 "app/jobs":
   UtilityFunction:
     enabled: false
+"app/forms":
+  Attribute:
+    enabled: false
 
 Attribute:
   enabled: true

@@ -38,15 +38,10 @@ class TilesDigest < ActiveRecord::Base
   def self.dispatch(digest_params)
     digest = TilesDigest.new(digest_params)
     if digest.valid?
-      digest.update_cuttoff_time
       digest.set_tiles
     end
 
     digest.tap(&:save)
-  end
-
-  def update_cuttoff_time
-    self.cutoff_time = demo.tile_digest_email_sent_at
   end
 
   def set_tiles
@@ -66,9 +61,10 @@ class TilesDigest < ActiveRecord::Base
   end
 
   def send_emails_and_sms
-    self.update_attributes(sent_at: Time.current, recipient_count: recipient_count_without_site_admin, delivered: true)
+    self.assign_attributes(sent_at: Time.current, delivered: true)
+    self.update_attributes(recipient_count: recipient_count_without_site_admin)
 
-    TilesBulkStatusUpdater.call(demo: demo, tiles: tiles, status: Tile::ACTIVE)
+    TilesBulkActivator.call(demo: demo, tiles: tiles)
     TilesDigestBulkMailJob.perform_later(self)
   end
 

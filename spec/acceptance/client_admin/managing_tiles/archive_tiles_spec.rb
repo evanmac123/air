@@ -17,8 +17,9 @@ feature 'archive tiles', js: true do
   context 'Tile Manager' do
     scenario "Moves archived tile moves from active to archived section" do
       visit client_admin_tiles_path(as: admin)
+      tile = tiles[2]
 
-      selector= "#single-tile-#{tiles[2].id}.tile_thumbnail>.tile-wrapper"
+      selector= "#single-tile-#{tile.id}.tile_thumbnail>.tile-wrapper"
 
       active_tab.click
 
@@ -30,8 +31,8 @@ feature 'archive tiles', js: true do
       end
 
       archive_tab.click
-      expect(page).to have_content(tiles[2].headline)
 
+      expect(page).to have_content(tile.headline)
     end
   end
 end

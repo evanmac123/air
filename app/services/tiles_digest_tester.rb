@@ -54,12 +54,10 @@ class TilesDigestTester
 
     def test_digest_params(digest_form)
       demo = digest_form.demo
-      cutoff_time = demo.tile_digest_email_sent_at
       tile_ids = demo.digest_tiles.pluck(:id)
 
       {
         id: "test",
-        cutoff_time: cutoff_time,
         tile_ids: tile_ids,
         demo: demo,
         subject: digest_form.custom_subject || TilesDigest::DEFAULT_DIGEST_SUBJECT,

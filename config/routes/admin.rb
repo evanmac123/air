@@ -12,17 +12,10 @@ namespace :admin do
   end
 
   resources :user_migrators
-  resource  :sales, only: [:show]
   resources :campaigns
   resources :case_studies, except: :show
 
-  namespace :sales do
-    resources :organizations, only: [:new, :create]
-    resources :lead_contacts, only: [:index, :create, :destroy] do
-      resources :invites, only: [:new]
-      resources :tiles, only: [:index]
-    end
-  end
+  resources :organization_registrations, only: [:new, :create]
 
   resources :organizations, as: :customers
   resources :organizations do
