@@ -76,6 +76,10 @@ class ApplicationController < ActionController::Base
     current_user.try(:demo)
   end
 
+  def current_org
+    current_board.try(:organization)
+  end
+
   private
 
     def set_time_zone(&block)

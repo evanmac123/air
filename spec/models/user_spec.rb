@@ -1,20 +1,19 @@
 require 'spec_helper'
 
 describe User do
-  it { is_expected.to have_one(:demo) }
-  it { is_expected.to have_many (:demos) }
-  it { is_expected.to belong_to(:location) }
-  it { is_expected.to have_many(:acts) }
-  it { is_expected.to have_many(:friendships) }
-  it { is_expected.to have_many(:friends).through(:friendships) }
-  it { is_expected.to have_many(:tile_completions) }
-  it { is_expected.to have_many(:tiles) }
-  it { is_expected.to have_many(:tile_viewings) }
-  it { is_expected.to validate_uniqueness_of(:email) }
-  it { is_expected.to validate_presence_of(:name).with_message("Please enter a first and last name") }
+  it { should have_one(:demo) }
+  it { should have_many (:demos) }
+  it { should belong_to(:location) }
+  it { should have_many(:acts) }
+  it { should have_many(:friendships) }
+  it { should have_many(:friends).through(:friendships) }
+  it { should have_many(:tile_completions) }
+  it { should have_many(:tiles) }
+  it { should have_many(:tile_viewings) }
+  it { should validate_presence_of(:name).with_message("Please enter a first and last name") }
   it { should have_attached_file(:avatar) }
   it { should validate_attachment_content_type(:avatar).allowing('image/*') }
-  it { is_expected.to validate_presence_of :privacy_level }
+  it { should validate_presence_of :privacy_level }
 end
 
 describe User do

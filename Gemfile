@@ -8,7 +8,7 @@ gem "pg", "~> 0.18.0"
 gem "rack-cors", require: "rack/cors"
 gem "rack-timeout", require: false
 gem "jbuilder", "~> 2.7.0"
-gem "mongoid", "~> 5.1.6"
+gem "mongoid", "~> 5.2.1"
 gem "redis", "~> 3.3.3"
 gem "redis-rails", "~> 5.0.2"
 gem "ar_redis", "~> 0.1.0"
@@ -109,7 +109,7 @@ group :test do
   gem "database_cleaner"
   gem "sham_rack"
   gem "timecop"
-  gem "shoulda-matchers", require: false
+  gem "shoulda-matchers"
   gem "email_spec"
   gem "sinatra"
   gem "mocha"
