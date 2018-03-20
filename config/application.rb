@@ -8,7 +8,7 @@ require_relative '../lib/request_timestamp'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Health
+module Airbo
   class Application < Rails::Application
     ################################################################
 

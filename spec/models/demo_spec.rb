@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe Demo do
-  it { is_expected.to have_many(:users) }
-  it { is_expected.to have_many(:tiles) }
-  it { is_expected.to have_many(:locations) }
-  it { is_expected.to have_many(:characteristics) }
+  it { should have_many(:users) }
+  it { should have_many(:tiles) }
+  it { should have_many(:locations) }
+  it { should have_many(:characteristics) }
   it { should have_attached_file(:logo) }
   it { should validate_attachment_content_type(:logo).allowing('image/*') }
 
@@ -42,7 +42,7 @@ describe Demo do
       free_demos = FactoryBot.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:free])
       _paid_demos = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
 
-      expect(Demo.free).to eq(free_demos)
+      expect(Demo.free.pluck(:id)).to eq(free_demos.map(&:id))
     end
   end
 
@@ -51,7 +51,7 @@ describe Demo do
       trial_demos = FactoryBot.create_list(:demo, 3, customer_status_cd: Demo.customer_statuses[:trial])
       _paid_demos = FactoryBot.create(:demo, customer_status_cd: Demo.customer_statuses[:paid])
 
-      expect(Demo.free_trial).to eq(trial_demos)
+      expect(Demo.free_trial.pluck(:id)).to eq(trial_demos.map(&:id))
     end
   end
 end

@@ -3,8 +3,6 @@ require 'spec_helper'
 describe EmailInfoRequest do
   describe "#notify" do
     it "should create a job that notifies sales" do
-      ActionMailer::Base.deliveries.clear
-
       request = EmailInfoRequest.create!(
         name:    'Dude Duderson',
         email:   'dude@bigco.com',
