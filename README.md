@@ -158,7 +158,7 @@ The application uses a couple file storage strategies. All file assets including
 1. Tile Attachments: direct to S3 upload using `jquery-fileupload-rails` gem, but then simply stored as a url ref on the Tile instead of a Paperclip object.
 
 ## Automated Processes
-We use the `cron` Heroku add-on to manage cron jobs. Review daily and weekly automated jobs via Heroku.
+We use the Heroku Scheduler add-on to manage cron jobs. Review daily and weekly automated jobs via Heroku.
 
 ## AWS
 * Login: https://hengage.signin.aws.amazon.com/console
