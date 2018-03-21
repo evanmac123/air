@@ -132,7 +132,7 @@ module TilePreviewsHelper
   end
 
   def display_tile_share_options?(tile)
-    tile.is_sharable || tile.is_public
+    (tile.is_preview && tile.is_public) || tile.is_sharable
   end
 
   def tile_link_source
