@@ -54,6 +54,6 @@ class Explore::TilePreviewsController < ExploreBaseController
     end
 
     def current_org_tiles
-      organization.try(:tiles) || Tile.none
+      current_org.try(:tiles) || Tile.none
     end
 end
