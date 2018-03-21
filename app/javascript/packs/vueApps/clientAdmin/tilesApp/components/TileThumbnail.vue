@@ -1,10 +1,5 @@
 <template>
-  <div class="v-tile-thumbnail">
-    <p>hey</p>
-    <div class="image">
 
-    </div>
-  </div>
 </template>
 
 <script>
@@ -23,9 +18,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
-.v-tile-thumbnail p {
-  color: red;
-}
+<style lang="scss" scoped>
+
 
 </style>

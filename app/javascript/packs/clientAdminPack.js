@@ -1,10 +1,10 @@
 import Vue from "vue";
-import App from "./App.vue";
+import TilesApp from "./vueApps/clientAdmin/tilesApp/App.vue";
 
 document.addEventListener("DOMContentLoaded", () => {
   const clientAdminTilesApp = new Vue({
-    el: "#clientAdminTilesVueApp",
-    render: h => h(App)
+    el: "#vueClientAdminTiles",
+    render: h => h(TilesApp)
   });
 
   console.log(clientAdminTilesApp);

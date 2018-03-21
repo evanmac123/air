@@ -8,6 +8,9 @@
     <%= content_for :meta %>
     <%= csrf_meta_tag %>
 
+    <%= javascript_pack_tag 'clientAdminPack' %>
+    <%= stylesheet_pack_tag 'clientAdminPack' %>
+
     <%= javascript_include_tag 'app-admin' %>
     <%= stylesheet_link_tag "app-client-admin", media: "all" %>
 
