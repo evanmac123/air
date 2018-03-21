@@ -1,12 +1,12 @@
 <template>
-  <TileThumbnail></TileThumbnail>
+  <TilesTable></TilesTable>
 </template>
 <script>
-import TileThumbnail from './components/TileThumbnail'
+import TilesTable from './components/TilesTable'
 export default {
   name: 'clientAdminTilesApp',
   components: {
-    TileThumbnail
+    TilesTable
   }
 }
 </script>

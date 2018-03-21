@@ -1,5 +1,9 @@
 <template>
-
+  <div class="container">
+    <div class="notification">
+      This container is <strong>centered</strong> on desktop.
+    </div>
+  </div>
 </template>
 
 <script>
@@ -18,7 +22,16 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+:root {
+--mainColor: red;
+}
+p {
+  color: var(--mainColor);
+}
 
+div {
+  lost-waffle: 1/3;
+}
 
 </style>
