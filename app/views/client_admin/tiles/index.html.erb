@@ -56,6 +56,10 @@
     </div>
   </div>
 
+  <div id="clientAdminTilesVueApp">
+    <%= javascript_pack_tag 'vueApps/clientAdmin/tilesApp/pack.js' %>
+  </div>
+
   <%= render partial: 'client_admin/tiles/manage_tiles/tiles_container', locals: {
     component_classes: "js-suggested-tiles-component hidden",
     id: "suggested",
