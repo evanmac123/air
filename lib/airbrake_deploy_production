@@ -1,4 +1,5 @@
 #!/bin/sh
+source .env
 
 ENVIRONMENT=production
 AIRBRAKE_PROJECT_ID="$(printenv AIRBRAKE_PRODUCTION_PROJECT_ID)"
