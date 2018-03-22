@@ -5,7 +5,7 @@ class SalesNotifier < ApplicationMailer
     @user = user
 
     mail(from: "Sales Notifier<notify@airbo.com>",
-         to:   "sales@airbo.com",
+         to:   "team@airbo.com",
          subject: "#{user.email} Activated their account")
   end
 
@@ -13,7 +13,7 @@ class SalesNotifier < ApplicationMailer
     @user = user
 
     mail(from: "Sales Notifier<notify@airbo.com>",
-         to:   "sales@airbo.com",
+         to:   "team@airbo.com",
          subject: "#{user.email} Clicked the invite link again")
   end
 end

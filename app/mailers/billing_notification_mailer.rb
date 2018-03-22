@@ -6,7 +6,7 @@ class BillingNotificationMailer < ApplicationMailer
     @board = Demo.find(board_id)
 
     mail(
-      to: ENV['BILLING_INFORMATION_ENTERED_NOTIFICATION_ADDRESS'] || 'kate@airbo.com'
+      to: 'team@airbo.com'
     )
   end
 end

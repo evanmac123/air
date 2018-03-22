@@ -14,13 +14,18 @@
     }
 
     .employees {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
       text-align: center;
       margin-top: 25px;
       margin-bottom: 25px;
     }
-    .employee, .bio-modal {
+    .employee {
       margin: 15px 0;
-
+      width: 300px;
+    }
+    .employee, .bio-modal {
       .thumbnail {
         img {
           border-radius: 50%;
@@ -75,9 +80,5 @@
         }
       }
     }
-  }
-
-  .bio-modal {
-    margin: 15px;
   }
 }
