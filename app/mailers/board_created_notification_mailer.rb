@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BoardCreatedNotificationMailer < ApplicationMailer
   ADDRESS_TO_NOTIFY = "team@airbo.com"
 

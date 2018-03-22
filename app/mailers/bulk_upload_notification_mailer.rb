@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BulkUploadNotificationMailer < ApplicationMailer
   ADDRESS_TO_NOTIFY = "team@airbo.com"
 

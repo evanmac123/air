@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GameCreationRequestMailer < ApplicationMailer
   def notify_ks(game_creation_request)
     @interests = game_creation_request.interests
