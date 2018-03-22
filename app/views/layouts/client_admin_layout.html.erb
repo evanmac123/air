@@ -8,9 +8,6 @@
     <%= content_for :meta %>
     <%= csrf_meta_tag %>
 
-    <%= javascript_pack_tag 'clientAdminPack' %>
-    <%= stylesheet_pack_tag 'clientAdminPack' %>
-
     <%= javascript_include_tag 'app-admin' %>
     <%= stylesheet_link_tag "app-client-admin", media: "all" %>
 
@@ -29,6 +26,9 @@
     <%= render 'shared/flashes' %>
     <%= render 'shared/offcanvas_menu_signedin' %>
     <main class="main">
+      <div id="app">
+
+      </div>
     <%= render partial: 'shared/tiles_tools_subnav/tiles_tools_subnav' %>
       <div class="core pb-5">
         <div class="content">

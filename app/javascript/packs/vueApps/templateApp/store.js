@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const state = { hi: 1 };
+const state = {};
 
 const actions = {};
 
