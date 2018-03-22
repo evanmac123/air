@@ -15,7 +15,12 @@ module Api
 
       remember_points_and_tickets
 
-      create_tile_completion
+      if create_tile_completion.persisted?
+        current_user.update_points(@tile.points)
+        unless @tile.is_anonymous?
+          ActFromTileCreatorJob.perform_later(tile: @tile, user: current_user)
+        end
+      end
 
       add_start_over_if_guest
       decide_if_tiles_can_be_done(current_user.tiles_to_complete_in_demo)
