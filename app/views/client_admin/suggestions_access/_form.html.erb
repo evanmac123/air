@@ -1,6 +1,7 @@
 <%
   display_all_users = demo.everyone_can_make_tile_suggestions
   display_specific_users = !display_all_users
+  users = demo.users_that_allowed_to_suggest_tiles
 %>
 
 <%= form_for demo, url: client_admin_suggestions_access_path, html: {id: "suggestions_access_form"} do |form| %>

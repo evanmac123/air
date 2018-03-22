@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 class ClientAdminTilesFacade
-  attr_reader :tiles, :tile_counts, :allowed_to_suggest_users
+  attr_reader :tiles, :tile_counts
 
   def initialize(demo:)
     @tiles = demo.tiles
-    @tile_counts = demo.tiles.group(:status).count
-    @allowed_to_suggest_users = demo.users_that_allowed_to_suggest_tiles
+    @tile_counts = tiles.group(:status).count
   end
 
   def archive_tiles

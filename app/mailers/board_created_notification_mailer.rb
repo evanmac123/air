@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class BoardCreatedNotificationMailer < ApplicationMailer
-  ADDRESS_TO_NOTIFY = (ENV['BOARD_CREATED_NOTIFICATION_ADDRESS']) || 'kate@airbo.com'
+  ADDRESS_TO_NOTIFY = "team@airbo.com"
 
   default from: "notify@airbo.com"
   default to:   ADDRESS_TO_NOTIFY

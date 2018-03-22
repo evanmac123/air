@@ -1,9 +1,7 @@
 require "spec_helper"
 
-describe TileCompletionsController do
+describe Api::TileCompletionsController do
   it "should not let you complete a tile for a board you're not in" do
-    subject.stubs(:ping)
-
     tile = FactoryBot.create(:tile)
     user = FactoryBot.create(:user)
 
@@ -18,7 +16,6 @@ describe TileCompletionsController do
   end
 
   context "in board" do
-
     let(:demo) {FactoryBot.create :demo}
     let(:tile) {FactoryBot.create(:tile, status: Tile::ACTIVE, demo: demo, points: 10)}
     let(:user) {FactoryBot.create :user, demo: demo}

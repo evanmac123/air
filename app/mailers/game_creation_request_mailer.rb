@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class GameCreationRequestMailer < ApplicationMailer
   def notify_ks(game_creation_request)
     @interests = game_creation_request.interests
     @name = game_creation_request.customer_name
     @email = game_creation_request.customer_email
 
-    to_address = ENV['GAME_CREATION_REQUEST_ADDRESS'] || 'team_k@airbo.com'
+    to_address = "team@airbo.com"
 
     mail from:     "Game Creation Request <gamecreation@airbo.com>",
          to:       to_address,

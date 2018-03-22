@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class BulkUploadNotificationMailer < ApplicationMailer
-  ADDRESS_TO_NOTIFY = (ENV['BULK_UPLOAD_NOTIFICATION_ADDRESS']) || 'kate@airbo.com'
+  ADDRESS_TO_NOTIFY = "team@airbo.com"
 
   default from: "bulkupload@airbo.com"
   default to:   ADDRESS_TO_NOTIFY
