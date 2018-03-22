@@ -1,37 +1,29 @@
 <template>
   <div class="grid">
-    <div class="v-tile-thumbnail">
-      This container is <strong>centered</strong> on desktop.
-    </div>
-    <div class="v-tile-thumbnail">
-      This container is <strong>centered</strong> on desktop.
-    </div>
-    <div class="v-tile-thumbnail">
-      This container is <strong>centered</strong> on desktop.
-    </div>
-    <div class="v-tile-thumbnail">
-      This container is <strong>centered</strong> on desktop.
-    </div>
-    <div class="v-tile-thumbnail">
-      This container is <strong>centered</strong> on desktop.
+    <div v-for="tile in tiles">
+
     </div>
   </div>
 </template>
 
 <script>
+import {Sortable} from '@shopify/draggable';
+
+
 export default {
   data: function () {
     return {
-      id: 1,
-      tile_status: "active",
-      preview_path: "/client_admin/tiles",
-      thumbnail_image: "https://vuejs.org/images/logo.png",
-      activation_dates: "undefined",
-      status_marker: "hey",
-      headline: "hey"
+      tiles: this.$state.tiles
     }
+  },
+  mounted() {
+    new Sortable(document.querySelectorAll('.grid'), {
+      draggable: '.v-tile-thumbnail',
+    });
   }
 }
+
+
 </script>
 
 <style scoped>
