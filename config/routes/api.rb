@@ -1,5 +1,6 @@
 namespace :api, defaults: { format: :json } do
   resources :acts, only: [:index]
+  resources :tile_completions, only: [:create]
   resources :board_memberships, only: [:update]
 
   resources :tiles, only: [] do
