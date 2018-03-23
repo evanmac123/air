@@ -2,7 +2,6 @@
 
 @mixin marketing-site-case-studies-industry-dropdown() {
   .industry-select {
-    @include dropdown-button-component();
     min-height: 31px;
     margin-left: 10px;
     .nice-select {

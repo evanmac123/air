@@ -1,6 +1,6 @@
 var Airbo = window.Airbo || {};
 
-Airbo.TilesIndexEndlessScroll = (function() {
+Airbo.TilesIndexLoader = (function() {
   function loadMore($contentContainer) {
     $contentContainer.siblings($(".js-endless-scroll-loading")).show();
 
@@ -38,7 +38,7 @@ $(function() {
     ) {
       Airbo.Utils.EndlessScrollUtil.init(
         $(container),
-        Airbo.TilesIndexEndlessScroll.loadMore
+        Airbo.TilesIndexLoader.loadMore
       );
     });
   }

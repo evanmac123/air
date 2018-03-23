@@ -1,0 +1,39 @@
+@mixin tabs-component-full-width-sub-nav($color: #fff, $background-color: $secondary-dark-blue) {
+  .tabs-component-full-width-sub-nav {
+    background: $background-color;
+    color: $color;
+
+    .sub-nav-options {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+
+      .sub-nav-option {
+        font-size: 14px;
+        padding: 10px;
+
+        &:first-child {
+          margin-left: 15px;
+        }
+
+        &.end {
+          margin-left: auto;
+
+          &:last-child {
+            margin-right: 15px;
+          }
+        }
+      }
+    }
+
+    &.in-modal {
+      .sub-nav-options .sub-nav-option {
+        margin-left: 30px;
+      }
+    }
+  }
+}
+
+@include tabs-component-full-width-sub-nav();

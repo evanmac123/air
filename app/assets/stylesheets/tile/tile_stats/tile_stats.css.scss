@@ -1,7 +1,6 @@
 @import 'tile_stats_chart';
 @import 'tile_stats_tables';
 @import 'mixins/card-component';
-@import 'mixins/tabs-component-full-width';
 
 .tile-stats-modal {
   @include card-component($dark-blue, transparent);
