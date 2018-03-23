@@ -19,7 +19,7 @@ class TileTimestampFactory
     case tile.status.to_sym
     when :user_submitted
       suggested_timestamp_html
-    when :plan, :draft
+    when :plan
       plan_timestamp
     when :active, :archive
       activated_timestamp_html
@@ -42,7 +42,7 @@ class TileTimestampFactory
 
     def plan_timestamp_html
       icon = "calendar-check-o"
-      text = tile.plan_date.strftime("%-m/%-d/%Y")
+      text = tile.plan_date.strftime("%B %-d")
 
       timestamp_html(icon, text)
     end
