@@ -49,7 +49,8 @@ class TileTimestampFactory
 
     def activated_timestamp_html
       icon = "calendar"
-      text = tile.activated_at.strftime("%-m/%-d/%Y")
+      time_stamp = tile.activated_at || tile.created_at
+      text = time_stamp.strftime("%-m/%-d/%Y")
 
       timestamp_html(icon, text)
     end
