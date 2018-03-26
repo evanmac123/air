@@ -1,11 +1,14 @@
-<div class="tabs-component-full-width-sub-nav js-tiles-index-filter-bar hide" data-tiles-index-container="#plan">
+<div class="tabs-component-full-width-sub-nav js-tiles-index-filter-bar hide" data-tiles-index-container="#<%= container_id %>">
   <div class="row">
     <ul class="sub-nav-options">
       <li class="sub-nav-option">
         <div class="nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
           <select class="js-tile-filter js-tile-filter-month">
             <option data-key="month" class="js-filter-option" value="">All months</option>
-            <option data-key="month" class="js-filter-option" value="unplanned">Unplanned</option>
+            <% if container_id == Tile::PLAN %>
+              <option data-key="month" class="js-filter-option" value="unplanned">Unplanned</option>
+            <% end %>
+
             <% Date::MONTHNAMES.each_with_index do |name, index| %>
               <% if name %>
                 <option data-key="month" class="js-filter-option" value="<%= index %>"><%= name %></option>
@@ -31,7 +34,7 @@
         <div class="js-tile-filter nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
           <select class="js-tile-sort">
             <option data-key="sort" class="js-filter-option" value="position">Sort by drag and drop</option>
-            <option data-key="sort" class="js-filter-option" value="plan_date">Sort by date</option>
+            <option data-key="sort" class="js-filter-option" value="month">Sort by date</option>
           </select>
         </div>
       </li>

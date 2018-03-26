@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+
+class ClientAdmin::PlanTilesFilterer < ClientAdmin::TilesFilterer
+
+  private
+
+    def sort_query
+      if params[:sort] == "plan_date"
+        "plan_date IS NULL, plan_date DESC"
+      else
+        "position DESC"
+      end
+    end
+
+    def filter_date(query)
+      month = params[:month]
+      if month == "unplanned"
+        query.where(plan_date: nil)
+      elsif month.present?
+        query.where("extract(MONTH from plan_date) = ?", month)
+      else
+        query
+      end
+    end
+end

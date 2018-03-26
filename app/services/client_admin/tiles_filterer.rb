@@ -2,7 +2,11 @@
 
 class ClientAdmin::TilesFilterer
   def self.call(demo:, params:)
-    ClientAdmin::TilesFilterer.new(demo, params).call
+    if params[:status] == Tile::PLAN
+      ClientAdmin::PlanTilesFilterer.new(demo, params).call
+    else
+      ClientAdmin::ActiveTilesFilterer.new(demo, params).call
+    end
   end
 
   attr_reader :demo, :params
@@ -23,22 +27,10 @@ class ClientAdmin::TilesFilterer
   private
 
     def sort_query
-      if params[:sort] == "plan_date"
-        "plan_date IS NULL, plan_date DESC"
-      else
-        "position DESC"
-      end
     end
 
     def filter_date(query)
-      month = params[:month]
-      if month == "unplanned"
-        query.where(plan_date: nil)
-      elsif month.present?
-        query.where("extract(MONTH from plan_date) = ?", month)
-      else
-        query
-      end
+      query
     end
 
     def filter_campaign(query)

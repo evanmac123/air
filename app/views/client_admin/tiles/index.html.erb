@@ -15,7 +15,7 @@
     id: "plan",
     status: Tile::PLAN,
     tiles: @tiles_facade.plan_tiles,
-    filter_nav: "plan_tile_filter_nav"
+    filter_nav: "tile_filter_nav"
   } %>
 
   <%= render partial: 'client_admin/tiles/manage_tiles/tiles_container', locals: {
@@ -31,7 +31,7 @@
     id: "active",
     status: Tile::ACTIVE,
     tiles: @tiles_facade.active_tiles,
-    filter_nav: false
+    filter_nav: "tile_filter_nav"
   } %>
 
   <%= render partial: 'client_admin/tiles/manage_tiles/tiles_container', locals: {
@@ -39,7 +39,7 @@
     id: "archive",
     status: Tile::ARCHIVE,
     tiles: @tiles_facade.archive_tiles,
-    filter_nav: false
+    filter_nav: "tile_filter_nav"
   } %>
 </div>
 
