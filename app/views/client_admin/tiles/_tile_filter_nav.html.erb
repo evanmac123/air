@@ -20,13 +20,14 @@
 
       <% if current_board.campaigns.present? %>
         <li class="sub-nav-option">
-          <div class="js-tile-filter nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
-            <select class="js-tile-filter-campaign">
+          <div class="js-tile-filter nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select campaign-filter-options">
+            <select class="js-tile-filter-campaign filter-campaign">
               <option data-key="campaign" class="js-filter-option" value="">All campaigns</option>
               <option data-key="campaign" class="js-filter-option" value="unassigned">Unassigned</option>
               <% current_board.campaigns.each do |campaign| %>
                 <option data-key="campaign" class="js-filter-option" value="<%= campaign.id %>"><%= campaign.name %></option>
               <% end %>
+              <option data-key="campaign" class="js-create-campaign create-campaign" disabled>+ Create Campaign</option>
             </select>
           </div>
         </li>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221202938) do
+ActiveRecord::Schema.define(version: 20180326205409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(version: 20180221202938) do
     t.string   "icon_link"
     t.boolean  "private_explore",             default: false
     t.boolean  "public_explore",              default: false
+    t.string   "color"
   end
 
   add_index "campaigns", ["demo_id"], name: "index_campaigns_on_demo_id", using: :btree

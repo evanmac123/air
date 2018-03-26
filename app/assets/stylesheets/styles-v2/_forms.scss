@@ -48,6 +48,12 @@ label {
   }
 }
 
+input[type=color] {
+  background-color: $n-white;
+  border: 1px solid $gray-7;
+  border-radius: 4px;
+}
+
 input[type=url],
 input[type=text],
 input[type=tel],
