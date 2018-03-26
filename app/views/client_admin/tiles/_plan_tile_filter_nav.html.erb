@@ -1,10 +1,10 @@
-<div class="tabs-component-full-width-sub-nav js-tiles-index-filter-bar hide">
+<div class="tabs-component-full-width-sub-nav js-tiles-index-filter-bar hide" data-tiles-index-container="#plan">
   <div class="row">
     <ul class="sub-nav-options">
       <li class="sub-nav-option">
         <div class="nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
           <select class="js-tile-filter js-tile-filter-month">
-            <option data-key="month" class="js-filter-option" value="all">All months</option>
+            <option data-key="month" class="js-filter-option" value="">All months</option>
             <option data-key="month" class="js-filter-option" value="unplanned">Unplanned</option>
             <% Date::MONTHNAMES.each_with_index do |name, index| %>
               <% if name %>
@@ -18,7 +18,7 @@
       <li class="sub-nav-option">
         <div class="js-tile-filter nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
           <select class="js-tile-filter-campaign">
-            <option data-key="campaign" class="js-filter-option" value="all">All campaigns</option>
+            <option data-key="campaign" class="js-filter-option" value="">All campaigns</option>
             <option data-key="campaign" class="js-filter-option" value="unassigned">Unassigned</option>
             <% current_board.campaigns.each do |campaign| %>
               <option data-key="campaign" class="js-filter-option" value="<%= campaign.id %>"><%= campaign.name %></option>
@@ -28,10 +28,10 @@
       </li>
 
       <li class="sub-nav-option end">
-        <div class="nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
+        <div class="js-tile-filter nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
           <select class="js-tile-sort">
-            <option value="position">Sort by drag and drop</option>
-            <option value="plan_date">Sort by date</option>
+            <option data-key="sort" class="js-filter-option" value="position">Sort by drag and drop</option>
+            <option data-key="sort" class="js-filter-option" value="plan_date">Sort by date</option>
           </select>
         </div>
       </li>

@@ -8,14 +8,33 @@ Airbo.TilesIndexFilterManager = (function() {
 
   function initFilterSelect() {
     $(".js-filter-option").on("click", function() {
-      var key = $(this).data("key");
-      var value = $(this).data("value");
-      var $container = $("#plan");
+      var container = $(this)
+        .closest(".js-tiles-index-filter-bar")
+        .data("tilesIndexContainer");
 
-      $container.data(key, value);
-
-      console.log($container.data());
+      filterData($(this), $(container));
     });
+  }
+
+  function filterData($filter, $container) {
+    var key = $filter.data("key");
+    var filterParam = $filter.data("value");
+
+    if ($container.data(key) !== filterParam) {
+      $container.data(key, filterParam);
+      filterSpecificConfigs(key, filterParam, $container);
+      Airbo.TilesIndexLoader.resetTiles($container);
+    }
+  }
+
+  function filterSpecificConfigs(key, filterParam, $container) {
+    if (key === "sort") {
+      if (filterParam === "position") {
+        $container.sortable("enable");
+      } else {
+        $container.sortable("disable");
+      }
+    }
   }
 
   return {

@@ -2,31 +2,53 @@ var Airbo = window.Airbo || {};
 
 Airbo.TilesIndexLoader = (function() {
   function loadMore($contentContainer) {
-    $contentContainer.siblings($(".js-endless-scroll-loading")).show();
+    if ($contentContainer.data("lastPage") !== true) {
+      $contentContainer.siblings($(".js-endless-scroll-loading")).show();
 
-    $.ajax({
-      url: "/api/client_admin/tile_thumbnails",
-      data: {
-        page: $contentContainer.data("nextPage"),
-        status: $contentContainer.data("status")
-      },
-      method: "GET",
-      dataType: "json",
-      success: function(data) {
-        $contentContainer.siblings($(".js-endless-scroll-loading")).hide();
+      $.ajax({
+        url: "/api/client_admin/tile_thumbnails",
+        data: queryData($contentContainer),
+        method: "GET",
+        dataType: "json",
+        success: function(data) {
+          $contentContainer.siblings($(".js-endless-scroll-loading")).hide();
 
-        $contentContainer.data("page", data.page);
-        $contentContainer.data("nextPage", data.nextPage);
-        $contentContainer.data("lastPage", data.lastPage);
-        $contentContainer.append(data.content);
-        Airbo.TilePlaceHolderManager.perform();
-        Airbo.TileThumbnailMenu.initMoreBtn();
-      }
-    });
+          $contentContainer.data("page", data.page);
+          $contentContainer.data("nextPage", data.nextPage);
+          $contentContainer.data("lastPage", data.lastPage);
+          $contentContainer.append(data.content);
+          Airbo.TilePlaceHolderManager.perform();
+          Airbo.TileThumbnailMenu.initMoreBtn();
+        }
+      });
+    }
+  }
+
+  function queryData($contentContainer) {
+    return {
+      page: $contentContainer.data("nextPage"),
+      status: $contentContainer.data("status"),
+      month: $contentContainer.data("month"),
+      campaign: $contentContainer.data("campaign"),
+      sort: $contentContainer.data("sort")
+    };
+  }
+
+  function clearTiles($contentContainer) {
+    $contentContainer.children().remove();
+    $contentContainer.data("page", "");
+    $contentContainer.data("nextPage", 1);
+    $contentContainer.data("lastPage", false);
+  }
+
+  function resetTiles($contentContainer) {
+    clearTiles($contentContainer);
+    loadMore($contentContainer);
   }
 
   return {
-    loadMore: loadMore
+    loadMore: loadMore,
+    resetTiles: resetTiles
   };
 })();
 
