@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ClientAdmin::PlanTilesFilterer < ClientAdmin::TilesFilterer
-
   private
 
     def sort_query

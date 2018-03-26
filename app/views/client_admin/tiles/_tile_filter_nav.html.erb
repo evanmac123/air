@@ -18,17 +18,19 @@
         </div>
       </li>
 
-      <li class="sub-nav-option">
-        <div class="js-tile-filter nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
-          <select class="js-tile-filter-campaign">
-            <option data-key="campaign" class="js-filter-option" value="">All campaigns</option>
-            <option data-key="campaign" class="js-filter-option" value="unassigned">Unassigned</option>
-            <% current_board.campaigns.each do |campaign| %>
-              <option data-key="campaign" class="js-filter-option" value="<%= campaign.id %>"><%= campaign.name %></option>
-            <% end %>
-          </select>
-        </div>
-      </li>
+      <% if current_board.campaigns.present? %>
+        <li class="sub-nav-option">
+          <div class="js-tile-filter nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
+            <select class="js-tile-filter-campaign">
+              <option data-key="campaign" class="js-filter-option" value="">All campaigns</option>
+              <option data-key="campaign" class="js-filter-option" value="unassigned">Unassigned</option>
+              <% current_board.campaigns.each do |campaign| %>
+                <option data-key="campaign" class="js-filter-option" value="<%= campaign.id %>"><%= campaign.name %></option>
+              <% end %>
+            </select>
+          </div>
+        </li>
+      <% end %>
 
       <li class="sub-nav-option end">
         <div class="js-tile-filter nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
