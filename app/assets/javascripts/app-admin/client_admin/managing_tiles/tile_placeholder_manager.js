@@ -3,7 +3,6 @@ var Airbo = window.Airbo || {};
 Airbo.TilePlaceHolderManager = (function() {
   var placeholderSel = ".tile_container.placeholder_container";
   var tileSel = ".tile_container:not(.placeholder_container)";
-  var tileWithPlaceholderSel = tileSel + ", " + placeholderSel;
   var sectionNames = ["plan", "draft", "active", "archive", "suggested"];
   var numInRow = 4;
 
@@ -14,11 +13,10 @@ Airbo.TilePlaceHolderManager = (function() {
   }
 
   function updatePlaceholders($section) {
-    var allTilesNum = $section.find(tileWithPlaceholderSel).length;
-    if ($section.data("lastPage") === true) {
-      var tilesNum = $section.find(tileSel).length;
-      var expectedPlaceholdersNum = numInRow - tilesNum % numInRow;
+    var tilesNum = $section.find(tileSel).length;
+    var expectedPlaceholdersNum = numInRow - tilesNum % numInRow;
 
+    if ($section.data("lastPage") === true) {
       removePlaceholders($section);
       addPlaceholders($section, expectedPlaceholdersNum);
     }
