@@ -4,7 +4,7 @@ class ClientAdmin::PlanTilesFilterer < ClientAdmin::TilesFilterer
   private
 
     def sort_query
-      if params[:sort].present?
+      if params[:sort] == "month"
         "plan_date IS NULL, plan_date DESC"
       else
         "position DESC"
