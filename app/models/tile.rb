@@ -68,7 +68,7 @@ class Tile < ActiveRecord::Base
 
   def search_data
     extra_data = {
-      campaigns: campaigns.pluck(:name),
+      campaign: campaign.try(:name),
       organization_name: organization.try(:name)
     }
 
