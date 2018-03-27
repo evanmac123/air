@@ -1,13 +1,13 @@
 <div class="reveal-modal tiny js-create-campaign-modal create-campaign-modal" data-reveal aria-labelledby="createCampaign" aria-hidden="true" role="dialog">
-  <p>Create Campaign</p>
+  <p class="text-center">Create Campaign</p>
   <%= form_for [:api, :client_admin, current_board.campaigns.new] do |f| %>
     <%= f.label :name, "Campaign Title" %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, required: true %>
 
     <%= f.label :color, "Campaign Color" %>
     <div class="campaign-colors">
       <% ["#ffb748", "#ff687b", "#b6a9f1", "#4fd4c0", "#42b2ee", "#40beff", "#8da0ab"].each do |color| %>
-        <div class="color-option" style="background:<%= color %>">
+        <div class="js-campaign-color-option color-option" data-hex-color="<%= color %>" style="background:<%= color %>">
         </div>
       <% end %>
     </div>
@@ -15,5 +15,9 @@
     <div class="color-picker">
       <%= f.color_field :color, value: "#ffb748" %>
     </div>
+
+    <%= f.submit "Create Campaign", class: "button mt-1 right" %>
   <% end %>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+
 </div>
