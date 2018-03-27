@@ -48,7 +48,7 @@ $(function() {
   Airbo.init();
   $(document).foundation();
 
-  $("a.close-reveal-modal").on("click", function() {
+  $("body").on("click", "a.close-reveal-modal", function() {
     $(this)
       .closest(".reveal-modal")
       .foundation("reveal", "close");
