@@ -62,3 +62,10 @@ select:-webkit-autofill:focus {
 }
 
 @import "./utilities/utilities";
+
+.ui-datepicker-today {
+  .ui-state-highlight {
+    background: transparent;
+    color: $text-color;
+  }
+}

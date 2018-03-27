@@ -82,6 +82,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
         params[:tile][:campaign_id] = nil
       end
 
+      if params[:tile][:plan_date]
+        params[:tile][:plan_date] = Date.parse(params[:tile][:plan_date])
+      end
+
       params.require(:tile).permit!
     end
 

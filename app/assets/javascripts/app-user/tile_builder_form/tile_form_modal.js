@@ -112,6 +112,14 @@ Airbo.TileFormModal = (function() {
     initImageClick();
     initSubmitButtonClick();
     initFormSubmit();
+    initPlanDate();
+  }
+
+  function initPlanDate() {
+    $("#tile_plan_date").datepicker({
+      dateFormat: "DD, MM dd",
+      minDate: 0
+    });
   }
 
   function initSubmitButtonClick() {

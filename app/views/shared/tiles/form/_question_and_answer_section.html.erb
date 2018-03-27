@@ -28,13 +28,13 @@
     <div class="tile-builder-settings">
       <p class="header"> Plan Date</p>
       <div class="settings-input-group">
-        <%= form.date_field :plan_date, min: Time.zone.today, max: (Time.zone.today + 11.months).end_of_month %>
+        <%= form.text_field :plan_date, value: formatted_tile_plan_date(@tile.plan_date), readonly: true %>
       </div>
     </div>
 
     <% if @tile.demo.campaigns.present? %>
       <div class="tile-builder-settings">
-        <p class="header"> Campaigns</p>
+        <p class="header"> Campaign</p>
         <div class="settings-input-group">
           <%= form.collection_radio_buttons(:campaign_id, @tile.demo.campaigns.order(:name), :id, :name) do |campaign_radio_button| %>
             <p class="settings-input"><%= campaign_radio_button.radio_button %> <%= campaign_radio_button.label(class: "d-inline") %></p>
