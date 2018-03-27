@@ -4,9 +4,6 @@ Airbo.TilesIndexFilterManager = (function() {
   function init() {
     $(".js-tiles-index-filter-bar").fadeIn();
     initFilterSelect();
-    $(".js-create-campaign").on("click", function() {
-      $(".js-create-campaign-modal").foundation("reveal", "open");
-    });
   }
 
   function initFilterSelect() {

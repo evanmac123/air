@@ -29,6 +29,14 @@ Airbo.TileThumbnailMenu = (function() {
       Airbo.TileAction.makeDuplication($(this));
     });
 
+    $("body").on("click", ".tile_thumbnail_menu .js-edit-campaign", function(
+      event
+    ) {
+      event.preventDefault();
+      closeToolTips();
+      Airbo.CampaignManager.loadEditModal($(this).data());
+    });
+
     $("body").on("click", ".tile_thumbnail_menu .post_tile", function(event) {
       event.preventDefault();
       closeToolTips();

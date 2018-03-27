@@ -11,6 +11,16 @@ class Api::ClientAdmin::CampaignsController < Api::ClientAdminBaseController
     end
   end
 
+  def update
+    campaign = current_user.demo.campaigns.find(params[:id])
+
+    if campaign.update_attributes(campaign_params)
+      render json: campaign
+    else
+      render json: campaign.errors
+    end
+  end
+
   private
 
     def campaign_params

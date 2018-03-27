@@ -13,6 +13,8 @@
             <%= presenter.headline %>
           </div>
         </div>
+        <div class="campaign-strip" style="height:3px;background:<%= presenter.tile.campaign.try(:color) %>">
+        </div>
         <%if presenter.class == SingleTilePresenter%>
           <%= render partial: "client_admin/tiles/manage_tiles/thumbnail_overlays",  locals:{presenter: presenter} %>
         <%end%>

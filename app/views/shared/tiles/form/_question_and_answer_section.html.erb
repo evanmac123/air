@@ -36,9 +36,10 @@
       <div class="tile-builder-settings">
         <p class="header"> Campaigns</p>
         <div class="settings-input-group">
-          <%= form.collection_check_boxes(:campaign_ids, @tile.demo.campaigns.order(:name), :id, :name) do |campaign_checkbox| %>
-          <p class="settings-input"><%= campaign_checkbox.check_box %> <%= campaign_checkbox.label(class: "d-inline") %></p>
+          <%= form.collection_radio_buttons(:campaign_id, @tile.demo.campaigns.order(:name), :id, :name) do |campaign_radio_button| %>
+            <p class="settings-input"><%= campaign_radio_button.radio_button %> <%= campaign_radio_button.label(class: "d-inline") %></p>
           <% end %>
+          <p class="settings-input">  <%= form.radio_button(:campaign_id, nil) %> <%= form.label :campaign_id, 'None', class: "d-inline" %></p>
         </div>
       </div>
     <% end %>

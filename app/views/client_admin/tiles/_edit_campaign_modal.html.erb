@@ -1,0 +1,23 @@
+<div class="reveal-modal tiny js-edit-campaign-modal create-campaign-modal" data-reveal aria-labelledby="editCampaign" aria-hidden="true" role="dialog">
+  <p class="text-center">Edit Campaign</p>
+  <%= form_tag [:api, :client_admin, :campaigns], method: :put, class: "js-edit-campaign-form" do |f| %>
+    <%= label_tag "campaign[name]", "Campaign Title" %>
+    <%= text_field_tag "campaign[name]", nil, required: true, class: "js-campaign-name" %>
+
+    <%= label_tag :color, "Campaign Color" %>
+    <div class="campaign-colors">
+      <% ["#ffb748", "#ff687b", "#b6a9f1", "#4fd4c0", "#42b2ee", "#40beff", "#8da0ab"].each do |color| %>
+        <div class="js-campaign-color-option color-option" data-hex-color="<%= color %>" style="background:<%= color %>">
+        </div>
+      <% end %>
+    </div>
+
+    <div class="color-picker">
+      <%= color_field_tag "campaign[color]", "#ffb748", class: "js-campaign-color" %>
+    </div>
+
+    <%= submit_tag "Save", class: "button mt-1 right" %>
+  <% end %>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+
+</div>

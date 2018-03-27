@@ -36,9 +36,9 @@ class ClientAdmin::TilesFilterer
     def filter_campaign(query)
       campaign = params[:campaign]
       if campaign == "unassigned"
-        query.includes(:campaign_tiles).where(campaign_tiles: { tile_id: nil })
+        query.where(campaign_id: nil)
       elsif campaign.present?
-        query.joins(:campaigns).where(campaigns: { id: campaign })
+        query.where(campaign_id: campaign)
       else
         query
       end
