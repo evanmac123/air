@@ -82,7 +82,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
         params[:tile][:campaign_id] = nil
       end
 
-      if params[:tile][:plan_date]
+      if params[:tile][:plan_date].present?
         params[:tile][:plan_date] = Date.parse(params[:tile][:plan_date])
       end
 
