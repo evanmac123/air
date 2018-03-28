@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class MakeSimpleUser
   attr_reader :user_params, :demo, :email, :role, :existing_user, :current_user
 
-  def initialize user_params, demo, current_user, user = nil
+  def initialize(user_params, demo, current_user, user = nil)
     @email = user_params[:email]
     @role = user_params.delete(:role)
     @user_params = user_params
@@ -19,7 +21,6 @@ class MakeSimpleUser
     user_saved = user.save
     if user_saved
       set_role
-      ping_if_made_client_admin(user, role_was_changed)
     end
     user_saved
   end
@@ -31,17 +32,15 @@ class MakeSimpleUser
   def create
     user_saved = user.save
     if user_saved
-      user.add_board(demo.id, { is_current: is_new_user })
+      user.add_board(demo.id, is_current: is_new_user)
       set_role
       user.generate_unique_claim_code! unless user.claim_code.present?
-
-      ping_if_made_client_admin(user, user.is_client_admin)
     end
     user_saved
   end
 
   def user_errors
-    user.errors.smarter_full_messages.join(', ') + '.'
+    user.errors.smarter_full_messages.join(", ") + "."
   end
 
   def user
@@ -50,36 +49,30 @@ class MakeSimpleUser
 
   protected
 
-  def set_phone_number
-    if user.phone_number.present?
-      user.phone_number = PhoneNumber.normalize(user.phone_number)
-    end
-  end
-
-  def set_existing_user
-    if email.present?
-      User.find_by(email: email)
-    end
-  end
-
-  def set_role
-    if user.demo_id == demo.id
-      user.role = role
-      user.save!
+    def set_phone_number
+      if user.phone_number.present?
+        user.phone_number = PhoneNumber.normalize(user.phone_number)
+      end
     end
 
-    new_board_membership = user.board_memberships.where(demo_id: demo.id).first
-    new_board_membership.role = role
-    new_board_membership.save!
-  end
-
-  def is_new_user
-    !existing_user.present?
-  end
-
-  def ping_if_made_client_admin(user, was_changed)
-    if user.is_client_admin && was_changed
-      TrackEvent.ping('claimed account', {source: 'Client Admin'}, current_user)
+    def set_existing_user
+      if email.present?
+        User.find_by(email: email)
+      end
     end
-  end
+
+    def set_role
+      if user.demo_id == demo.id
+        user.role = role
+        user.save!
+      end
+
+      new_board_membership = user.board_memberships.where(demo_id: demo.id).first
+      new_board_membership.role = role
+      new_board_membership.save!
+    end
+
+    def is_new_user
+      !existing_user.present?
+    end
 end
