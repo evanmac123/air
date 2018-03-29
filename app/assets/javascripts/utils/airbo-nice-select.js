@@ -14,7 +14,6 @@
           if ($dropdown.length) {
             $dropdown.remove();
             createNiceSelect($select);
-            $select.trigger("change");
 
             if (open) {
               $select.next().trigger("click");

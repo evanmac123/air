@@ -37,10 +37,16 @@ Airbo.TilesIndexFilterManager = (function() {
   }
 
   function resetFilters() {
-    $("select.js-campaign-filter-options").val("all");
-    $("select.js-month-filter-options").val("all");
+    var $tileModule = $(".js-ca-tiles-index-module-tab-content:visible");
+    var $tileContainer = $tileModule.find(".js-tiles-index-section");
+
+    $tileModule.find("select.js-campaign-filter-options").val("all");
+    $tileModule.find("select.js-month-filter-options").val("all");
     Airbo.Utils.DropdownButtonComponent.update();
-    Airbo.TilesIndexLoader.resetAllTiles();
+
+    $tileContainer.data("month", "");
+    $tileContainer.data("campaign", "");
+    Airbo.TilesIndexLoader.resetTiles($tileContainer);
   }
 
   return {
