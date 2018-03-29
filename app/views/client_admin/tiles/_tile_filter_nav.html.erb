@@ -2,42 +2,36 @@
   <div class="row">
     <ul class="sub-nav-options">
       <li class="sub-nav-option">
-        <div class="nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
-          <select class="js-tile-filter js-tile-filter-month">
-            <option data-key="month" class="js-filter-option" value="">All months</option>
-            <% if container_id == Tile::PLAN %>
-              <option data-key="month" class="js-filter-option" value="unplanned">Unplanned</option>
-            <% end %>
+        <select class="dropdown-button-component transparent js-month-filter-options month-filter-options">
+          <option data-key="month" class="js-filter-option" value="all">All months</option>
+          <% if container_id == Tile::PLAN %>
+            <option data-key="month" class="js-filter-option" value="unplanned">Unplanned</option>
+          <% end %>
 
-            <% Date::MONTHNAMES.each_with_index do |name, index| %>
-              <% if name %>
-                <option data-key="month" class="js-filter-option" value="<%= index %>"><%= name %></option>
-              <% end %>
+          <% Date::MONTHNAMES.each_with_index do |name, index| %>
+            <% if name %>
+              <option data-key="month" class="js-filter-option" value="<%= index %>"><%= name %></option>
             <% end %>
-          </select>
-        </div>
+          <% end %>
+        </select>
       </li>
 
       <li class="sub-nav-option">
-        <div class="js-tile-filter nice-select-init dropdown-button-component transparent outlined-dark-background campaign-filter-options">
-          <select class="js-tile-filter-campaign filter-campaign">
-            <option data-key="campaign" class="js-filter-option" value="">All campaigns</option>
-            <option data-key="campaign" class="js-filter-option" value="unassigned">Unassigned</option>
-            <% current_board.campaigns.each do |campaign| %>
-              <option data-key="campaign" class="js-filter-option" value="<%= campaign.id %>"><%= campaign.name %></option>
-            <% end %>
-            <option data-key="campaign" class="js-create-campaign create-campaign" disabled>+ Create Campaign</option>
-          </select>
-        </div>
+        <select class="js-tile-filter dropdown-button-component transparent campaign-filter-options js-campaign-filter-options">
+          <option data-key="campaign" class="js-filter-option" value="all">All campaigns</option>
+          <option data-key="campaign" class="js-filter-option" value="unassigned">Unassigned</option>
+          <% current_board.campaigns.each do |campaign| %>
+            <option data-key="campaign" class="js-filter-option" value="<%= campaign.id %>"><%= campaign.name %></option>
+          <% end %>
+          <option data-key="campaign" class="js-create-campaign create-campaign" disabled>+ Create Campaign</option>
+        </select>
       </li>
 
       <li class="sub-nav-option end">
-        <div class="js-tile-filter nice-select-init dropdown-button-component transparent outlined-dark-background report-interval-change-select">
-          <select class="js-tile-sort">
-            <option data-key="sort" class="js-filter-option" value="position">Sort by drag and drop</option>
-            <option data-key="sort" class="js-filter-option" value="month">Sort by date</option>
-          </select>
-        </div>
+        <select class="js-tile-filter dropdown-button-component transparent js-tile-sort">
+          <option data-key="sort" class="js-filter-option" value="position">Sort by drag and drop</option>
+          <option data-key="sort" class="js-filter-option" value="month">Sort by date</option>
+        </select>
       </li>
     </ul>
   </div>

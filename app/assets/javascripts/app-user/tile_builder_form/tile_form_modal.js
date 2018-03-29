@@ -140,9 +140,9 @@ Airbo.TileFormModal = (function() {
 
   function initFormSubmit() {
     currform.submit(function(e) {
+      var formObj = $(this);
       e.preventDefault();
 
-      var formObj = $(this);
       if (formObj.valid()) {
         disablesubmitLink();
         Airbo.Utils.ping("Tile Creation", getTileCreationPingProps("save"));

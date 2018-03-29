@@ -15,7 +15,7 @@ class ClientAdmin::ActiveTilesFilterer < ClientAdmin::TilesFilterer
       month = params[:month]
       if month == "unplanned"
         query.where(activated_at: nil)
-      elsif month.present?
+      elsif month.to_i > 0
         query.where("extract(MONTH from activated_at) = ?", month)
       else
         query

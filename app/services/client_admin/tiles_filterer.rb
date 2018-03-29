@@ -37,7 +37,7 @@ class ClientAdmin::TilesFilterer
       campaign = params[:campaign]
       if campaign == "unassigned"
         query.where(campaign_id: nil)
-      elsif campaign.present?
+      elsif campaign.to_i > 0
         query.where(campaign_id: campaign)
       else
         query

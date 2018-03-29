@@ -29,12 +29,12 @@
   position: relative;
   vertical-align: top;
 
-  &.completed {
+  &.completed, &.ignored {
     .tile-wrapper {
       @include ease(.5s);
 
-      filter: alpha(opacity=25);
-      opacity: 0.25;
+      filter: alpha(opacity=45);
+      opacity: 0.45;
 
       &:hover {
         filter: alpha(opacity=75);

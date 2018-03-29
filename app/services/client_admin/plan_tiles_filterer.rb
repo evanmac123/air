@@ -15,7 +15,7 @@ class ClientAdmin::PlanTilesFilterer < ClientAdmin::TilesFilterer
       month = params[:month]
       if month == "unplanned"
         query.where(plan_date: nil)
-      elsif month.present?
+      elsif month.to_i > 0
         query.where("extract(MONTH from plan_date) = ?", month)
       else
         query

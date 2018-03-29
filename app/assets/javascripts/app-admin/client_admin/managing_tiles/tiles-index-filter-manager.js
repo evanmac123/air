@@ -7,19 +7,21 @@ Airbo.TilesIndexFilterManager = (function() {
   }
 
   function initFilterSelect() {
-    $(".js-filter-option").on("click", function() {
-      var container = $(this)
-        .closest(".js-tiles-index-filter-bar")
-        .data("tilesIndexContainer");
+    $("select.js-campaign-filter-options, select.js-month-filter-options").on(
+      "change",
+      function() {
+        var container = $(this)
+          .closest(".js-tiles-index-filter-bar")
+          .data("tilesIndexContainer");
 
-      filterData($(this), $(container));
-    });
+        filterData($("option:selected", this), $(container));
+      }
+    );
   }
 
   function filterData($filter, $container) {
     var key = $filter.data("key");
     var filterParam = $filter.data("value");
-
     if ($container.data(key) !== filterParam) {
       $container.data(key, filterParam);
       filterSpecificConfigs(key, filterParam, $container);
@@ -37,7 +39,15 @@ Airbo.TilesIndexFilterManager = (function() {
     }
   }
 
+  function resetFilters() {
+    $("select.js-campaign-filter-options").val("all");
+    $("select.js-month-filter-options").val("all");
+    Airbo.Utils.DropdownButtonComponent.update();
+    Airbo.TilesIndexLoader.resetAllTiles();
+  }
+
   return {
-    init: init
+    init: init,
+    resetFilters: resetFilters
   };
 })();

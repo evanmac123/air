@@ -46,9 +46,19 @@ Airbo.TilesIndexLoader = (function() {
     loadMore($contentContainer);
   }
 
+  function resetAllTiles() {
+    $(".js-tiles-index-section.js-endless-scroll").each(function(
+      index,
+      container
+    ) {
+      resetTiles($(container));
+    });
+  }
+
   return {
     loadMore: loadMore,
-    resetTiles: resetTiles
+    resetTiles: resetTiles,
+    resetAllTiles: resetAllTiles
   };
 })();
 

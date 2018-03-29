@@ -47,10 +47,9 @@ Airbo.TileStatsModal = (function() {
   }
 
   function showNewTab($tab) {
-    $tab.addClass("active");
     var $tabNode = getTabNode($tab);
+    $tab.addClass("active");
     $tabNode.removeClass("hidden");
-    Airbo.Utils.DropdownButtonComponent.reflow();
   }
 
   function getTabNode($tab) {
