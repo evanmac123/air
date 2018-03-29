@@ -19,7 +19,7 @@
         <% if @search_string %>
           <%= render 'search_results', search_string: @search_string, other_users: @users %>
         <% end %>
-        <% if !@users.last_page? %>
+        <% if @users && !@users.last_page? %>
           <div class="focus_on_search_bar d-inline">
             <%= "First #{@users_cropped} results returned. Didn't find who you're looking for? Try " %><%= link_to "refining your search", '#' %>
           </div>
