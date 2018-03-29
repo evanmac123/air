@@ -1,7 +1,7 @@
 <p class="text-center">{{modalTitle}}</p>
-<form class="js-edit-campaign-form" action={{action}} accept-charset="UTF-8" method={{method}}>
+<form class="js-edit-campaign-form" action="{{action}}" accept-charset="UTF-8" method="{{method}}">
   <label for="campaign_name">Campaign Name</label>
-  <input type="text" name="campaign[name]" id="campaign_name" required class="js-campaign-name" value={{name}}>
+  <input type="text" name="campaign[name]" id="campaign_name" required class="js-campaign-name" value="{{name}}">
 
   <label for="color">Campaign Color</label>
   <div class="campaign-colors">
@@ -22,9 +22,9 @@
   </div>
 
   <div class="color-picker">
-    <input type="color" name="campaign[color]" id="campaign_color" value={{color}} class="js-campaign-color">
+    <input type="color" name="campaign[color]" id="campaign_color" value="{{color}}" class="js-campaign-color">
   </div>
 
-  <input type="submit" name="commit" value={{submitCopy}} class="button mt-1 right">
+  <input type="submit" name="commit" value="{{submitCopy}}" class="button mt-1 right">
 </form>
 <a class="close-reveal-modal" aria-label="Close">&#215;</a>
