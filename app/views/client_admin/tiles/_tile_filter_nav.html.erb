@@ -2,7 +2,7 @@
   <div class="row">
     <ul class="sub-nav-options">
       <li class="sub-nav-option">
-        <select class="dropdown-button-component transparent js-month-filter-options month-filter-options">
+        <select class="dropdown-button-component transparent js-month-filter-options js-tile-filter-select">
           <option data-key="month" class="js-filter-option" value="all">All months</option>
           <% if container_id == Tile::PLAN %>
             <option data-key="month" class="js-filter-option" value="unplanned">Unplanned</option>
@@ -17,7 +17,7 @@
       </li>
 
       <li class="sub-nav-option">
-        <select class="js-tile-filter dropdown-button-component transparent campaign-filter-options js-campaign-filter-options">
+        <select class="js-tile-filter-select dropdown-button-component transparent campaign-filter-options js-campaign-filter-options">
           <option data-key="campaign" class="js-filter-option" value="all">All campaigns</option>
           <option data-key="campaign" class="js-filter-option" value="unassigned">Unassigned</option>
           <% current_board.campaigns.each do |campaign| %>
@@ -28,7 +28,7 @@
       </li>
 
       <li class="sub-nav-option end">
-        <select class="js-tile-filter dropdown-button-component transparent js-tile-sort">
+        <select class="js-tile-filter-select dropdown-button-component transparent js-tile-sort">
           <option data-key="sort" class="js-filter-option" value="position">Sort by drag and drop</option>
           <option data-key="sort" class="js-filter-option" value="month">Sort by date</option>
         </select>

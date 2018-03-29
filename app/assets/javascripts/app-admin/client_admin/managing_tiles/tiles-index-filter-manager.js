@@ -7,16 +7,13 @@ Airbo.TilesIndexFilterManager = (function() {
   }
 
   function initFilterSelect() {
-    $("select.js-campaign-filter-options, select.js-month-filter-options").on(
-      "change",
-      function() {
-        var container = $(this)
-          .closest(".js-tiles-index-filter-bar")
-          .data("tilesIndexContainer");
+    $("select.js-tile-filter-select").on("change", function() {
+      var container = $(this)
+        .closest(".js-tiles-index-filter-bar")
+        .data("tilesIndexContainer");
 
-        filterData($("option:selected", this), $(container));
-      }
-    );
+      filterData($("option:selected", this), $(container));
+    });
   }
 
   function filterData($filter, $container) {

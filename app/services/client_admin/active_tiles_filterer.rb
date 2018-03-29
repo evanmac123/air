@@ -4,7 +4,7 @@ class ClientAdmin::ActiveTilesFilterer < ClientAdmin::TilesFilterer
   private
 
     def sort_query
-      if params[:sort].present?
+      if params[:sort] == "month"
         "activated_at IS NULL, activated_at DESC"
       else
         "position DESC"
