@@ -13,15 +13,9 @@ Airbo.Utils.DropdownButtonComponent = (function() {
     $(".dropdown-button-component").niceSelect("update");
   }
 
-  function reflow() {
-    $(".dropdown-button-component").niceSelect("destroy");
-    init();
-  }
-
   return {
     init: init,
-    update: update,
-    reflow: reflow
+    update: update
   };
 })();
 
