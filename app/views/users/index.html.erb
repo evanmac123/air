@@ -17,13 +17,11 @@
     <div id="directory_wrapper">
       <div class="directory module">
         <% if @search_string %>
-          <%= render 'search_results', search_string: @search_string, other_users: @other_users %>
+          <%= render 'search_results', search_string: @search_string, other_users: @users %>
         <% end %>
-        <% if @users_cropped %>
-          <div class="focus_on_search_bar" style="display: inline;">
-            <%= "(First #{@users_cropped} results returned. Didn't find who you're looking for? Try" %>
-            <%= link_to @search_link_text, '#' %>
-            )
+        <% if !@users.last_page? %>
+          <div class="focus_on_search_bar d-inline">
+            <%= "First #{@users_cropped} results returned. Didn't find who you're looking for? Try " %><%= link_to "refining your search", '#' %>
           </div>
         <% end %>
       </div>

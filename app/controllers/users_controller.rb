@@ -1,25 +1,22 @@
-class UsersController < UserBaseController
-  prepend_before_action :authenticate
+# frozen_string_literal: true
 
+class UsersController < UserBaseController
   include ActsHelper
+  include ThemingConcern
+
+  before_action :set_theme
+  prepend_before_action :authenticate
 
   USER_LIMIT = 50
   MINIMUM_SEARCH_STRING_LENGTH = 3
 
   def index
-    return not_found if current_user.demo.hide_social
-    @palette = current_user.demo.custom_color_palette
-    @friend_ids = current_user.friend_ids
-    @search_link_text = "our search bar"
+    return not_found if current_demo.hide_social
     @search_string = params[:search_string]
 
     if @search_string
-      @search_string = @search_string.downcase.strip.gsub(/\s+/, ' ')
-      @other_users = current_user.demo.claimed_users(excluded_uids: [current_user.id]).alphabetical.name_like(@search_string).uniq
-      @users_cropped = USER_LIMIT if @other_users.length > USER_LIMIT
-      @other_users = @other_users[0, USER_LIMIT]
-
-      @search_link_text = "refining your search"
+      @search_string = @search_string.downcase.strip.gsub(/\s+/, " ")
+      @users = current_demo.claimed_users(excluded_uids: [current_user.id]).alphabetical.name_like(@search_string).non_site_admin.uniq.page(1).per(USER_LIMIT)
     end
   end
 
@@ -28,8 +25,6 @@ class UsersController < UserBaseController
 
     @user = current_board.users.find_by(slug: params[:id])
     return not_found unless @user
-
-    @palette = current_board.custom_color_palette
 
     @viewing_self = signed_in? && current_user == @user
     @viewing_other = signed_in? && current_user != @user

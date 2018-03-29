@@ -1,15 +1,18 @@
+# frozen_string_literal: true
+
 class Explore::SearchesController < UserBaseController
-  layout 'search_layout'
+  include ThemingConcern
+  layout "search_layout"
 
   def show
     @search_service = AirboSearch.new(params[:query], current_user)
 
     if request.xhr? && params[:section]
-      partial = params[:tilesContainer] || 'shared/tiles/contextual_tiles'
+      partial = params[:tilesContainer] || "shared/tiles/contextual_tiles"
 
       content = render_to_string(
-                  partial: partial,
-                  locals: { tiles: tiles_to_render, presenter: presenter_to_render })
+        partial: partial,
+        locals: { tiles: tiles_to_render, presenter: presenter_to_render })
 
       render json: {
         success:   true,
@@ -21,7 +24,7 @@ class Explore::SearchesController < UserBaseController
     else
       @search_service.track_initial_search
       get_theme
-      ping("Search", { query: params[:query]}, current_user)
+      ping("Search", { query: params[:query] }, current_user)
     end
   end
 
@@ -29,7 +32,7 @@ class Explore::SearchesController < UserBaseController
 
     def get_theme
       if current_user.end_user?
-        @palette = current_user.demo.custom_color_palette
+        set_theme
       end
     end
 
