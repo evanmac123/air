@@ -14,7 +14,10 @@
           </div>
         </div>
 
-        <%= render_campaign_strip(presenter: presenter) %>
+        <% if presenter.class == SingleAdminTilePresenter %>
+          <%= render_campaign_strip(tile: presenter.tile) %>
+        <% end %>
+
         <%= render partial: "client_admin/tiles/manage_tiles/thumbnail_overlays",  locals:{ presenter: presenter } %>
       <% end %>
     </div>

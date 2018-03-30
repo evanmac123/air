@@ -66,10 +66,8 @@ module TilesHelper
     current_user.end_user? && tile.archive? && !tile_completed?(tile)
   end
 
-  def render_campaign_strip(presenter:)
-    if presenter.class == SingleAdminTilePresenter
-      color = presenter.tile.campaign.try(:color) || "#ffffff"
-      content_tag(:div, nil, style: "height: 3px; background-color: #{color};")
-    end
+  def render_campaign_strip(tile:)
+    color = tile.campaign.try(:color) || "#ffffff"
+    content_tag(:div, nil, style: "height: 3px; background-color: #{color};")
   end
 end
