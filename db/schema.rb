@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327170051) do
+ActiveRecord::Schema.define(version: 20180402225405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,16 +182,6 @@ ActiveRecord::Schema.define(version: 20180327170051) do
 
   add_index "bonus_thresholds_users", ["bonus_threshold_id"], name: "index_bonus_thresholds_users_on_bonus_threshold_id", using: :btree
   add_index "bonus_thresholds_users", ["user_id"], name: "index_bonus_thresholds_users_on_user_id", using: :btree
-
-  create_table "campaign_tiles", force: :cascade do |t|
-    t.integer  "tile_id"
-    t.integer  "campaign_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "campaign_tiles", ["campaign_id"], name: "index_campaign_tiles_on_campaign_id", using: :btree
-  add_index "campaign_tiles", ["tile_id"], name: "index_campaign_tiles_on_tile_id", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
     t.integer  "demo_id"
@@ -1617,7 +1607,5 @@ ActiveRecord::Schema.define(version: 20180327170051) do
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
-  add_foreign_key "campaign_tiles", "campaigns"
-  add_foreign_key "campaign_tiles", "tiles"
   add_foreign_key "tiles", "campaigns"
 end
