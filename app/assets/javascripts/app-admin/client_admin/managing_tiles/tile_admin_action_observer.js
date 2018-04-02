@@ -25,36 +25,11 @@ Airbo.TileAdminActionObserver = (function() {
   }
 
   function tileUpdateStatusSuccess(payload) {
-    var currTile = payload.currTile;
-    var updatedTile = payload.updatedTile;
+    var $tilesContainer = $("#" + payload.updatedTile.data("status"));
+    Airbo.TilesIndexLoader.resetTiles($tilesContainer);
+    payload.currTile.remove();
 
-    moveTile(currTile, updatedTile);
     $(tileModalSelector).foundation("reveal", "close");
-  }
-
-  function moveTile(currTile, updatedTile) {
-    var sections = {
-      archive: "archive",
-      active: "active",
-      draft: "draft",
-      plan: "plan",
-      user_submitted: "suggested",
-      ignored: "suggested"
-    };
-
-    var status = updatedTile.data("status");
-    var newSection = "#" + sections[status];
-
-    currTile.remove();
-    $(newSection).prepend(updatedTile);
-
-    Airbo.TilePlaceHolderManager.perform();
-    Airbo.TileThumbnailMenu.initMoreBtn(updatedTile.find(".pill.more"));
-  }
-
-  function replaceTileContent(tile, id) {
-    selector = ".tile_container[data-tile-container-id=" + id + "]";
-    $(selector).replaceWith(tile);
   }
 
   return {
