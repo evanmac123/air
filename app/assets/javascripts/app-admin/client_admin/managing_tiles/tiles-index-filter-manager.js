@@ -42,9 +42,11 @@ Airbo.TilesIndexFilterManager = (function() {
 
     $tileModule.find("select.js-campaign-filter-options").val("all");
     $tileModule.find("select.js-month-filter-options").val("all");
+    $tileModule.find("select.js-year-filter-options").val("all");
     Airbo.Utils.DropdownButtonComponent.update();
 
     $tileContainer.data("month", "");
+    $tileContainer.data("year", "");
     $tileContainer.data("campaign", "");
     Airbo.TilesIndexLoader.resetTiles($tileContainer);
   }

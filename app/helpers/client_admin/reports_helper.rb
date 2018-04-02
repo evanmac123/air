@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClientAdmin::ReportsHelper
   def report_default_start_date
     if demo_launch > 3.months.ago
@@ -14,6 +16,10 @@ module ClientAdmin::ReportsHelper
       all_time_or_last_five_years,
       last_four_years
     ].flatten.compact
+  end
+
+  def active_board_years
+    [*demo_launch.year..Time.current.year].reverse
   end
 
   private
