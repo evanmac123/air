@@ -201,7 +201,10 @@ module TileHelpers
 
   def choose_question_type_and_subtype question_type, question_subtype
     page.find("##{question_type.downcase}.type").click
-    page.find(".subtype.#{question_type.downcase}.#{question_subtype}").click
+
+    within ".f-dropdown.open" do
+      page.find(".subtype.#{question_type.downcase}.#{question_subtype}").click
+    end
   end
 
   def create_existing_tiles(demo, status, num)
