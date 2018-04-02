@@ -1,0 +1,33 @@
+.campaign-filter-options {
+  .list {
+    .create-campaign {
+      color: $n-green;
+      cursor: pointer;
+
+      &:hover {
+        color: $white;
+        background: $n-green;
+      }
+    }
+  }
+}
+
+.edit-campaign-modal {
+  color: $dark-blue;
+  .campaign-colors {
+    display: flex;
+    flex-wrap: wrap;
+    .color-option {
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+      border-radius: 4px;
+      margin-right: 10px;
+      margin-bottom: 5px;
+    }
+  }
+
+  .color-picker {
+    margin-top: 5px;
+  }
+}

@@ -14,13 +14,17 @@ class Api::ClientAdmin::TileThumbnailsController < Api::ClientAdminBaseControlle
       content: content,
       page: @tiles.current_page,
       nextPage: @tiles.next_page,
-      lastPage: @tiles.last_page?
+      lastPage: @tiles.last_page? || @tiles.empty?
     }
   end
 
   private
 
     def get_tiles
-      current_user.demo.tiles.where(status: params[:status]).order(status: :desc).ordered_by_position.page(params[:page]).per(16)
+      ClientAdmin::TilesFilterer.call(demo: current_user.demo, params: filter_params)
+    end
+
+    def filter_params
+      params.permit(:status, :month, :campaign, :sort, :page)
     end
 end

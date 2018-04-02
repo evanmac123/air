@@ -1,12 +1,11 @@
 /*  jQuery Airbo Nice Select
-    https://github.com/weilandia/jquery-nice-select
     Made by Hernán Sartorio, updated by Nick Weiland */
 
 (function($) {
   $.fn.niceSelect = function(method) {
     // Methods
-    if (typeof method == "string") {
-      if (method == "update") {
+    if (typeof method === "string") {
+      if (method === "update") {
         this.each(function() {
           var $select = $(this);
           var $dropdown = $(this).next(".nice-select");
@@ -14,14 +13,14 @@
 
           if ($dropdown.length) {
             $dropdown.remove();
-            create_nice_select($select);
+            createNiceSelect($select);
 
             if (open) {
               $select.next().trigger("click");
             }
           }
         });
-      } else if (method == "destroy") {
+      } else if (method === "destroy") {
         this.each(function() {
           var $select = $(this);
           var $dropdown = $(this).next(".nice-select");
@@ -31,7 +30,7 @@
             $select.css("display", "");
           }
         });
-        if ($(".nice-select").length == 0) {
+        if ($(".nice-select").length === 0) {
           $(document).off(".nice_select");
         }
       } else {
@@ -48,29 +47,27 @@
       var $select = $(this);
 
       if (!$select.next().hasClass("nice-select")) {
-        create_nice_select($select);
+        createNiceSelect($select);
       }
     });
 
-    function create_nice_select($select) {
-      $select.after(
-        $("<div></div>")
-          .addClass("nice-select")
-          .addClass($select.attr("class") || "")
-          .addClass($select.attr("disabled") ? "disabled" : "")
-          .attr("tabindex", $select.attr("disabled") ? null : "0")
-          .html('<span class="current"></span><ul class="list"></ul>')
-      );
-
-      var $dropdown = $select.next();
+    function createNiceSelect($select) {
       var $options = $select.find("option");
       var $selected = $select.find("option:selected");
+      var $dropdown = $("<div></div>")
+        .addClass("nice-select")
+        .addClass($select.attr("class") || "")
+        .addClass($select.attr("disabled") ? "disabled" : "")
+        .attr("tabindex", $select.attr("disabled") ? null : "0")
+        .html('<span class="current"></span><ul class="list"></ul>');
+
+      $select.after($dropdown);
 
       $dropdown
         .find(".current")
         .html($selected.data("display") || $selected.text());
 
-      $options.each(function(i) {
+      $options.each(function() {
         var $option = $(this);
         var display = $option.data("display") || null;
         var $optionListItem = $("<li/>")
@@ -95,7 +92,7 @@
     $(document).off(".nice_select");
 
     // Open/close
-    $(document).on("click.nice_select", ".nice-select", function(event) {
+    $(document).on("click.nice_select", ".nice-select", function() {
       var $dropdown = $(this);
 
       $(".nice-select")
@@ -125,14 +122,13 @@
     $(document).on(
       "click.nice_select",
       ".nice-select .option:not(.disabled)",
-      function(event) {
+      function() {
         var $option = $(this);
         var $dropdown = $option.closest(".nice-select");
+        var text = $option.data("display") || $option.text();
 
         $dropdown.find(".selected").removeClass("selected");
         $option.addClass("selected");
-
-        var text = $option.data("display") || $option.text();
         $dropdown.find(".current").text(text);
 
         $dropdown
@@ -141,65 +137,6 @@
           .trigger("change");
       }
     );
-
-    // Keyboard events
-    $(document).on("keydown.nice_select", ".nice-select", function(event) {
-      var $dropdown = $(this);
-      var $focused_option = $(
-        $dropdown.find(".focus") || $dropdown.find(".list .option.selected")
-      );
-
-      // Space or Enter
-      if (event.keyCode == 32 || event.keyCode == 13) {
-        if ($dropdown.hasClass("open")) {
-          $focused_option.trigger("click");
-        } else {
-          $dropdown.trigger("click");
-        }
-        return false;
-        // Down
-      } else if (event.keyCode == 40) {
-        if (!$dropdown.hasClass("open")) {
-          $dropdown.trigger("click");
-        } else {
-          var $next = $focused_option.nextAll(".option:not(.disabled)").first();
-          if ($next.length > 0) {
-            $dropdown.find(".focus").removeClass("focus");
-            $next.addClass("focus");
-          }
-        }
-        return false;
-        // Up
-      } else if (event.keyCode == 38) {
-        if (!$dropdown.hasClass("open")) {
-          $dropdown.trigger("click");
-        } else {
-          var $prev = $focused_option.prevAll(".option:not(.disabled)").first();
-          if ($prev.length > 0) {
-            $dropdown.find(".focus").removeClass("focus");
-            $prev.addClass("focus");
-          }
-        }
-        return false;
-        // Esc
-      } else if (event.keyCode == 27) {
-        if ($dropdown.hasClass("open")) {
-          $dropdown.trigger("click");
-        }
-        // Tab
-      } else if (event.keyCode == 9) {
-        if ($dropdown.hasClass("open")) {
-          return false;
-        }
-      }
-    });
-
-    // Detect CSS pointer-events support, for IE <= 10. From Modernizr.
-    var style = document.createElement("a").style;
-    style.cssText = "pointer-events:auto";
-    if (style.pointerEvents !== "auto") {
-      $("html").addClass("no-csspointerevents");
-    }
 
     return this;
   };

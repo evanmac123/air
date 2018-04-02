@@ -47,4 +47,10 @@
 $(function() {
   Airbo.init();
   $(document).foundation();
+
+  $("body").on("click", "a.close-reveal-modal", function() {
+    $(this)
+      .closest(".reveal-modal")
+      .foundation("reveal", "close");
+  });
 });

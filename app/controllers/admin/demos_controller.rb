@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Admin::DemosController < AdminBaseController
-  before_action :find_demo_by_id, :only => [:show, :edit, :update]
+  before_action :find_demo_by_id, only: [:show, :edit, :update]
 
   def index
     @demos = Demo.active.list_with_org_name_and_user_count
@@ -7,7 +9,6 @@ class Admin::DemosController < AdminBaseController
 
   def new
     @demo = Demo.new
-    @palette = @demo.build_custom_color_palette
   end
 
   def create
@@ -29,7 +30,6 @@ class Admin::DemosController < AdminBaseController
   end
 
   def edit
-    @palette = @demo.custom_color_palette || @demo.build_custom_color_palette
   end
 
   def update

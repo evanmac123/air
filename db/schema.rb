@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221202938) do
+ActiveRecord::Schema.define(version: 20180327170051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
-  enable_extension "pg_trgm"
   enable_extension "btree_gin"
   enable_extension "btree_gist"
+  enable_extension "pg_stat_statements"
+  enable_extension "pg_trgm"
 
   create_table "acts", force: :cascade do |t|
     t.integer  "user_id"
@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(version: 20180221202938) do
     t.string   "icon_link"
     t.boolean  "private_explore",             default: false
     t.boolean  "public_explore",              default: false
+    t.string   "color"
   end
 
   add_index "campaigns", ["demo_id"], name: "index_campaigns_on_demo_id", using: :btree
@@ -1298,10 +1299,12 @@ ActiveRecord::Schema.define(version: 20180221202938) do
     t.boolean  "is_anonymous",                        default: false
     t.text     "file_attachments"
     t.date     "plan_date"
+    t.integer  "campaign_id"
   end
 
   add_index "tiles", ["activated_at"], name: "index_tiles_on_activated_at", using: :btree
   add_index "tiles", ["archived_at"], name: "index_tiles_on_archived_at", using: :btree
+  add_index "tiles", ["campaign_id"], name: "index_tiles_on_campaign_id", using: :btree
   add_index "tiles", ["created_at"], name: "index_tiles_on_created_at", using: :btree
   add_index "tiles", ["demo_id"], name: "index_tiles_on_demo_id", using: :btree
   add_index "tiles", ["is_copyable"], name: "index_tiles_on_is_copyable", using: :btree
@@ -1616,4 +1619,5 @@ ActiveRecord::Schema.define(version: 20180221202938) do
 
   add_foreign_key "campaign_tiles", "campaigns"
   add_foreign_key "campaign_tiles", "tiles"
+  add_foreign_key "tiles", "campaigns"
 end

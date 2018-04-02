@@ -65,4 +65,9 @@ module TilesHelper
   def do_not_display_unanswered_archived_tiles(tile)
     current_user.end_user? && tile.archive? && !tile_completed?(tile)
   end
+
+  def render_campaign_strip(tile:)
+    color = tile.campaign.try(:color) || "#ffffff"
+    content_tag(:div, nil, style: "height: 3px; background-color: #{color};")
+  end
 end

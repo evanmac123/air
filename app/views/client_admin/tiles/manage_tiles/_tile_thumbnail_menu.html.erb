@@ -15,6 +15,15 @@
     <% end %>
   </li>
 
+  <% if presenter.tile.campaign.present? %>
+    <li>
+      <%= link_to "#editCampaign", class: "js-edit-campaign", data: presenter.tile.campaign.attributes do %>
+        <%= fa_icon 'edit' %>
+        <span>Edit Campaign</span>
+      <% end %>
+    </li>
+  <% end %>
+
   <li>
     <%= link_to client_admin_tile_path(presenter, page: 'Edit'), class: "delete_tile", data: { tile_id: presenter.tile_id }  do %>
       <%= fa_icon 'trash-o' %>

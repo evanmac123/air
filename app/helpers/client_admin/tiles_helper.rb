@@ -49,4 +49,10 @@ module ClientAdmin::TilesHelper
       attachment_count: presenter.attachment_count
     }
   end
+
+  def formatted_tile_plan_date(plan_date)
+    if plan_date
+      plan_date.strftime("%A, %B %-d")
+    end
+  end
 end

@@ -77,6 +77,15 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   private
 
     def tile_params
+      # TODO: Find better way to manage nil options in radio button for Tile.campaign_id
+      if params[:tile][:campaign_id].to_i == 0
+        params[:tile][:campaign_id] = nil
+      end
+
+      if params[:tile][:plan_date].present?
+        params[:tile][:plan_date] = Date.parse(params[:tile][:plan_date])
+      end
+
       params.require(:tile).permit!
     end
 

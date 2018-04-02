@@ -26,12 +26,9 @@ Airbo.TileManager = (function() {
     });
   }
 
-  function addNewTile($tile, status) {
-    var $section = $("#" + status);
-    $section.prepend($tile);
-
+  function addNewTile() {
     Airbo.PubSub.publish("incrementTileCounts", { status: "plan" });
-    Airbo.TilePlaceHolderManager.perform();
+    Airbo.TilesIndexLoader.resetTiles($("#plan"));
   }
 
   function initEvents() {

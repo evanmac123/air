@@ -4,7 +4,6 @@
 @import 'mixins/circle-progress-chart-component';
 @import 'mixins/toolbar-inline-list-component';
 @import 'mixins/highcharts-header-component';
-@import 'mixins/dropdown-button-component';
 @import 'mixins/tile-email-report-component';
 
 .reporting-module {
@@ -20,7 +19,6 @@
 
   .summary-report-module {
     @include tabs-component($dark-blue, $white, $primary-gray);
-    @include dropdown-button-component();
 
     .card-header-content {
       #participation-submodule {

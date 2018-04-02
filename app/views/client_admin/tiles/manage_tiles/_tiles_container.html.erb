@@ -1,5 +1,8 @@
-<section class="manage_tiles js-ca-tiles-index-module-tab-content pt-2 <%= component_classes %>">
-  <div class="row">
+<section class="manage_tiles js-ca-tiles-index-module-tab-content <%= component_classes %>">
+  <% if filter_nav %>
+    <%= render filter_nav, container_id: id %>
+  <% end %>
+  <div class="row pt-2">
     <div class="large-12 columns">
       <div id="<%= id %>"
         class="js-tiles-index-section js-endless-scroll"

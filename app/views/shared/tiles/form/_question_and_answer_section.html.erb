@@ -25,13 +25,21 @@
       <p class="settings-input"><%= form.check_box :is_public %> Share to Airbo Explore when this Tile is posted?</p>
     </div>
 
+    <div class="tile-builder-settings">
+      <p class="header"> Plan Date</p>
+      <div class="settings-input-group">
+        <%= form.text_field :plan_date, value: formatted_tile_plan_date(@tile.plan_date), readonly: true %>
+      </div>
+    </div>
+
     <% if @tile.demo.campaigns.present? %>
       <div class="tile-builder-settings">
-        <p class="header"> Campaigns</p>
+        <p class="header"> Campaign</p>
         <div class="settings-input-group">
-          <%= form.collection_check_boxes(:campaign_ids, @tile.demo.campaigns.order(:name), :id, :name) do |campaign_checkbox| %>
-          <p class="settings-input"><%= campaign_checkbox.check_box %> <%= campaign_checkbox.label(class: "d-inline") %></p>
+          <%= form.collection_radio_buttons(:campaign_id, @tile.demo.campaigns.order(:name), :id, :name) do |campaign_radio_button| %>
+            <p class="settings-input"><%= campaign_radio_button.radio_button %> <%= campaign_radio_button.label(class: "d-inline") %></p>
           <% end %>
+          <p class="settings-input">  <%= form.radio_button(:campaign_id, nil) %> <%= form.label :campaign_id, 'None', class: "d-inline" %></p>
         </div>
       </div>
     <% end %>

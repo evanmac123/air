@@ -7,13 +7,13 @@ class ActsController < ApplicationController
   include TileBatchHelper
   include ActsHelper
   include TileEmailTrackingConcern
+  include ThemingConcern
 
   prepend_before_action :authenticate
+  before_action :set_theme
 
   def index
     @demo = current_user.demo
-
-    @palette = @demo.custom_color_palette
 
     set_modals_and_intros
 

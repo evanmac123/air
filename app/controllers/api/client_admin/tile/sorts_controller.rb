@@ -2,7 +2,7 @@
 
 class Api::ClientAdmin::Tile::SortsController < Api::ClientAdminBaseController
   def create
-    @tile = demo_tiles.find_by(id: params[:tile_id])
+    @tile = demo_tiles.find(params[:tile_id])
 
     update_tile_status
     sort_tile

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClientAdmin::UsersController < ClientAdminBaseController
   include ClientAdmin::UsersHelper
 
@@ -184,11 +186,5 @@ class ClientAdmin::UsersController < ClientAdminBaseController
 
     def count_total_users
       @total_user_count = current_board.board_memberships.non_site_admin.claimed.count
-    end
-
-    def ping_if_made_client_admin(user, was_changed)
-      if user.is_client_admin && was_changed
-        ping("claimed account", { source: "Client Admin" }, current_user)
-      end
     end
 end

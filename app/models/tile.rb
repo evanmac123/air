@@ -18,6 +18,7 @@ class Tile < ActiveRecord::Base
   as_enum :creation_source, client_admin_created: 0, explore_created: 1, suggestion_box_created: 2
 
   belongs_to :demo
+  belongs_to :campaign
   belongs_to :creator, class_name: "User"
   belongs_to :original_creator, class_name: "User"
 
@@ -28,7 +29,6 @@ class Tile < ActiveRecord::Base
   has_many :tiles_digests, through: :tiles_digest_tiles
   has_many :tile_user_notifications, dependent: :destroy
   has_many :campaign_tiles, dependent: :destroy
-  has_many :campaigns, through: :campaign_tiles
 
   alias_attribute :total_views, :total_viewings_count
   alias_attribute :unique_views, :unique_viewings_count
@@ -68,7 +68,7 @@ class Tile < ActiveRecord::Base
 
   def search_data
     extra_data = {
-      campaigns: campaigns.pluck(:name),
+      campaign: campaign.try(:name),
       organization_name: organization.try(:name)
     }
 

@@ -7,6 +7,9 @@ class TilesController < ApplicationController
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
   include ActsHelper
+  include ThemingConcern
+
+  before_action :set_theme, only: [:index]
 
   # FIXME FIXME this logic is sooooooo convoluted!!!!!
   # so I don't forget the next time i look at this crazy code
@@ -18,7 +21,6 @@ class TilesController < ApplicationController
 
   def index
     @demo = current_user.demo
-    @palette = @demo.custom_color_palette
 
     if params[:partial_only]
       render_tile_wall_as_partial

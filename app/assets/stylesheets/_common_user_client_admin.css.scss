@@ -19,6 +19,10 @@
 @import "./external/search_bar.scss";
 @import "./utils/animated_checkbox.css.scss";
 @import "./internal/screen.css.scss";
+@import 'mixins/tabs-component';
+@import 'mixins/tabs-component-full-width';
+@import 'mixins/tabs-component-full-width-sub-nav';
+@import 'mixins/dropdown-button-component';
 
 @media only screen and (min-width: 319px) {
   @import "./internal/screen_iphone.css.scss";

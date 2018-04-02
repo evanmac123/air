@@ -58,7 +58,7 @@ class Admin::UsersController < AdminBaseController
         @user.add_board(new_demo_id)
         @user.move_to_new_demo(new_demo_id) if new_demo_id
       end
-      ping_if_made_client_admin(@user, client_admin_changed)
+
       flash[:success] = "User updated."
       redirect_to :back
     else
@@ -81,12 +81,6 @@ class Admin::UsersController < AdminBaseController
 
     def find_user
       @user = @demo.users.find_by(slug: params[:id])
-    end
-
-    def ping_if_made_client_admin(user, was_changed)
-      if user.is_client_admin && was_changed
-        ping("claimed account", { source: "Site Admin" }, current_user)
-      end
     end
 
   private
