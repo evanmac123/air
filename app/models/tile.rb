@@ -28,7 +28,6 @@ class Tile < ActiveRecord::Base
   has_many :tiles_digest_tiles, dependent: :destroy
   has_many :tiles_digests, through: :tiles_digest_tiles
   has_many :tile_user_notifications, dependent: :destroy
-  has_many :campaign_tiles, dependent: :destroy
 
   alias_attribute :total_views, :total_viewings_count
   alias_attribute :unique_views, :unique_viewings_count
@@ -52,7 +51,7 @@ class Tile < ActiveRecord::Base
   validates_with RawTextLengthInHTMLFieldValidator, field: :supporting_content, maximum: MAX_SUPPORTING_CONTENT_LEN, message: "supporting content is too long (maximum is #{MAX_SUPPORTING_CONTENT_LEN} characters)"
 
   scope :explore, -> { explore_non_ordered.order("tiles.created_at DESC") }
-  scope :explore_not_in_campaign, -> { explore.joins("LEFT JOIN campaign_tiles ON campaign_tiles.tile_id = tiles.id").where(campaign_tiles: { id: nil }) }
+  scope :explore_not_in_campaign, -> { explore.where(campaign_id: nil) }
   scope :explore_non_ordered, -> { where(is_public: true, status: [Tile::ACTIVE, Tile::ARCHIVE]) }
 
   scope :ordered_by_position, -> { order "position DESC" }

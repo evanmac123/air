@@ -14,9 +14,11 @@
 
 .edit-campaign-modal {
   color: $dark-blue;
+
   .campaign-colors {
     display: flex;
     flex-wrap: wrap;
+
     .color-option {
       cursor: pointer;
       height: 30px;
