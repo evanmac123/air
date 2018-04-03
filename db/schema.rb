@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402225405) do
+ActiveRecord::Schema.define(version: 20180403190042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1575,6 +1575,7 @@ ActiveRecord::Schema.define(version: 20180402225405) do
     t.integer  "organization_id"
     t.boolean  "receives_sms",                                 default: true
     t.boolean  "receives_explore_email",                       default: true
+    t.jsonb    "segments",                                     default: {}
   end
 
   add_index "users", ["cancel_account_token"], name: "index_users_on_cancel_account_token", using: :btree
@@ -1594,6 +1595,7 @@ ActiveRecord::Schema.define(version: 20180402225405) do
   add_index "users", ["phone_number"], name: "index_users_on_phone_number", using: :btree
   add_index "users", ["privacy_level"], name: "index_users_on_privacy_level", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
+  add_index "users", ["segments"], name: "index_users_on_segments", using: :gin
   add_index "users", ["slug"], name: "index_users_on_slug", using: :btree
   add_index "users", ["slug"], name: "user_slug_trigram", using: :gin
   add_index "users", ["sms_slug"], name: "index_users_on_sms_slug", using: :btree
