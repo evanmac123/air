@@ -16,11 +16,23 @@
         </select>
       </li>
 
+      <% if container_id != Tile::PLAN %>
+        <li class="sub-nav-option">
+          <select class="dropdown-button-component transparent js-year-filter-options js-tile-filter-select">
+            <option data-key="year" class="js-filter-option" value="all">All years</option>
+
+            <% active_board_years.each do |year| %>
+              <option data-key="year" class="js-filter-option" value="<%= year %>"><%= year %></option>
+            <% end %>
+          </select>
+        </li>
+      <% end %>
+
       <li class="sub-nav-option">
         <select class="js-tile-filter-select dropdown-button-component transparent campaign-filter-options js-campaign-filter-options">
           <option data-key="campaign" class="js-filter-option" value="all">All campaigns</option>
           <option data-key="campaign" class="js-filter-option" value="unassigned">Unassigned</option>
-          <% current_board.campaigns.each do |campaign| %>
+          <% current_board.campaigns.order(:name).each do |campaign| %>
             <option data-key="campaign" class="js-filter-option" value="<%= campaign.id %>"><%= campaign.name %></option>
           <% end %>
           <option data-key="campaign" class="js-create-campaign create-campaign" disabled>+ Create Campaign</option>

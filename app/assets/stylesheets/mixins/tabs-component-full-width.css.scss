@@ -30,7 +30,7 @@
         &.active {
           a {
             color: $active-color;
-            // border-bottom: solid 2px $active-color;
+            border-bottom: solid 2px $active-color;
             padding-bottom: 17px;
           }
         }
@@ -57,6 +57,18 @@
 
         li.buttons {
           display: none;
+        }
+      }
+    }
+
+    &.no-bottom-border {
+      ul {
+        li.tab {
+          &.active {
+            a {
+              border-bottom: none;
+            }
+          }
         }
       }
     }

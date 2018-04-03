@@ -13,12 +13,16 @@ class ClientAdmin::ActiveTilesFilterer < ClientAdmin::TilesFilterer
 
     def filter_date(query)
       month = params[:month]
-      if month == "unplanned"
-        query.where(activated_at: nil)
-      elsif month.to_i > 0
-        query.where("extract(MONTH from activated_at) = ?", month)
-      else
-        query
+      year = params[:year]
+
+      if month.to_i > 0
+        query = query.where("extract(MONTH from activated_at) = ?", month)
       end
+
+      if year.to_i > 0
+        query = query.where("extract(YEAR from activated_at) = ?", year)
+      end
+
+      query
     end
 end

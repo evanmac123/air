@@ -2,6 +2,14 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileAdminActionObserver = (function() {
   var tileModalSelector = "#tile_preview_modal";
+  var sections = {
+    archive: "archive",
+    active: "active",
+    draft: "draft",
+    plan: "plan",
+    user_submitted: "suggested",
+    ignored: "suggested"
+  };
 
   function init() {
     Airbo.PubSub.subscribe("/tile-admin/tile-status-updated", function(
@@ -25,36 +33,24 @@ Airbo.TileAdminActionObserver = (function() {
   }
 
   function tileUpdateStatusSuccess(payload) {
-    var currTile = payload.currTile;
-    var updatedTile = payload.updatedTile;
+    var status = payload.updatedTile.data("status");
+    var $tilesContainer = $("#" + sections[status]);
 
-    moveTile(currTile, updatedTile);
+    if (status === "ignored" || status === "user_submitted") {
+      moveSameSectionTile(payload.updatedTile, $tilesContainer);
+    } else {
+      Airbo.TilesIndexLoader.resetTiles($tilesContainer);
+    }
+
+    payload.currTile.remove();
     $(tileModalSelector).foundation("reveal", "close");
   }
 
-  function moveTile(currTile, updatedTile) {
-    var sections = {
-      archive: "archive",
-      active: "active",
-      draft: "draft",
-      plan: "plan",
-      user_submitted: "suggested",
-      ignored: "suggested"
-    };
-
-    var status = updatedTile.data("status");
-    var newSection = "#" + sections[status];
-
-    currTile.remove();
-    $(newSection).prepend(updatedTile);
+  function moveSameSectionTile(updatedTile, $tilesContainer) {
+    $tilesContainer.prepend(updatedTile);
 
     Airbo.TilePlaceHolderManager.perform();
     Airbo.TileThumbnailMenu.initMoreBtn(updatedTile.find(".pill.more"));
-  }
-
-  function replaceTileContent(tile, id) {
-    selector = ".tile_container[data-tile-container-id=" + id + "]";
-    $(selector).replaceWith(tile);
   }
 
   return {

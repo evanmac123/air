@@ -29,6 +29,7 @@ Airbo.TilesIndexLoader = (function() {
       page: $contentContainer.data("nextPage"),
       status: $contentContainer.data("status"),
       month: $contentContainer.data("month"),
+      year: $contentContainer.data("year"),
       campaign: $contentContainer.data("campaign"),
       sort: $contentContainer.data("sort")
     };

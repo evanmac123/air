@@ -25,6 +25,6 @@ class Api::ClientAdmin::TileThumbnailsController < Api::ClientAdminBaseControlle
     end
 
     def filter_params
-      params.permit(:status, :month, :campaign, :sort, :page)
+      params.permit(:status, :month, :year, :campaign, :sort, :page)
     end
 end
