@@ -25,12 +25,14 @@
       <p class="settings-input"><%= form.check_box :is_public %> Share to Airbo Explore when this Tile is posted?</p>
     </div>
 
-    <div class="tile-builder-settings">
-      <p class="header"> Plan Date <small>(Tiles are not automatically posted)</small></p>
-      <div class="settings-input-group">
-        <%= form.text_field :plan_date, value: formatted_tile_plan_date(@tile.plan_date), readonly: true %>
+    <% if @tile.status == Tile::PLAN %>
+      <div class="tile-builder-settings">
+        <p class="header"> Plan Date <small>(Tiles are not automatically posted)</small></p>
+        <div class="settings-input-group">
+          <%= form.text_field :plan_date, value: formatted_tile_plan_date(@tile.plan_date), readonly: true %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <% if @tile.demo.campaigns.present? %>
       <div class="tile-builder-settings">
