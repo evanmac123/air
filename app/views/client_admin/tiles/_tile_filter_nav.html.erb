@@ -32,7 +32,7 @@
         <select class="js-tile-filter-select dropdown-button-component transparent campaign-filter-options js-campaign-filter-options">
           <option data-key="campaign" class="js-filter-option" value="all">All campaigns</option>
           <option data-key="campaign" class="js-filter-option" value="unassigned">Unassigned</option>
-          <% current_board.campaigns.each do |campaign| %>
+          <% current_board.campaigns.order(:name).each do |campaign| %>
             <option data-key="campaign" class="js-filter-option" value="<%= campaign.id %>"><%= campaign.name %></option>
           <% end %>
           <option data-key="campaign" class="js-create-campaign create-campaign" disabled>+ Create Campaign</option>
