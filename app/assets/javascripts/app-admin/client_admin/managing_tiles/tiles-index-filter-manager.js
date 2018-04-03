@@ -22,6 +22,13 @@ Airbo.TilesIndexFilterManager = (function() {
     if ($container.data(key) !== filterParam) {
       $container.data(key, filterParam);
       filterSpecificConfigs(key, filterParam, $container);
+
+      Airbo.Utils.ping("Filter Tiles", {
+        filters: key,
+        value: filterParam,
+        status: $container.data("status")
+      });
+
       Airbo.TilesIndexLoader.resetTiles($container);
     }
   }

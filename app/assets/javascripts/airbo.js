@@ -113,7 +113,8 @@ var Airbo = {
     },
 
     ping: function(event, properties) {
-      mixpanel.track(event, properties);
+      var props = $.extend(properties, Airbo.Utils.currentUser());
+      mixpanel.track(event, props);
     },
 
     flash: function(type, msg, config) {

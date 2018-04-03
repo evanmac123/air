@@ -17,24 +17,16 @@ Airbo.CampaignsCarousel = (function() {
     $carousel.fadeIn();
     $carousel.flickity(flickityParams);
 
-    $carousel.on("staticClick.flickity", function(
-      event,
-      pointer,
-      cellElement,
-      cellIndex
-    ) {
+    $carousel.on("staticClick.flickity", function(event, pointer, cellElement) {
       var path = $(cellElement).data("path");
       var slug = $(cellElement).data("slug");
+      var name = $(cellElement).data("name");
+
       if (slug) {
-        var name = $(cellElement).data("name");
-        var currentUserData = $("body").data("currentUser");
-
-        var properties = $.extend(
-          { action: "Clicked Campaign", campaign: name },
-          currentUserData
-        );
-
-        Airbo.Utils.ping("Explore page - Interaction", properties);
+        Airbo.Utils.ping("Explore page - Interaction", {
+          action: "Clicked Campaign",
+          campaign: name
+        });
 
         window.location = path;
       }

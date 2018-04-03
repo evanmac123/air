@@ -1,10 +1,7 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreOnboarding = (function() {
-  var currentUserData;
-
   function init() {
-    currentUserData = $("body").data("currentUser");
     var $carousel = $(".flickity-explore-oboarding-carousel");
 
     $carousel.flickity({
@@ -42,11 +39,7 @@ Airbo.ExploreOnboarding = (function() {
   }
 
   function pingSlideComplete(action, button) {
-    var properties = $.extend(
-      { action: action, slide: button.data("slide") },
-      currentUserData
-    );
-
+    var properties = { action: action, slide: button.data("slide") };
     Airbo.Utils.ping("Explore page - Onboarding", properties);
   }
 

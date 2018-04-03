@@ -1,46 +1,32 @@
 var Airbo = window.Airbo || {};
 
 Airbo.ExploreKpis = (function() {
-  var currentUserData;
-
-  function copyAllTilesPing(button) {
-    var properties = $.extend(
-      { action: "Clicked Copy All Tiles" },
-      currentUserData
-    );
+  function copyAllTilesPing() {
+    var properties = { action: "Clicked Copy All Tiles" };
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
   function copyTilePing(button, source) {
-    var properties = $.extend(
-      {
-        action: "Clicked Copy",
-        tile_id: button.data("tileId"),
-        section: button.data("section"),
-        source: source
-      },
-      currentUserData
-    );
+    var properties = {
+      action: "Clicked Copy",
+      tile_id: button.data("tileId"),
+      section: button.data("section"),
+      source: source
+    };
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
   function campaignClickedPing(topic) {
-    var properties = $.extend(
-      {
-        action: "Clicked Campaign",
-        campaign: topic.data("name"),
-        board: topic.data("id")
-      },
-      currentUserData
-    );
+    var properties = {
+      action: "Clicked Campaign",
+      campaign: topic.data("name"),
+      board: topic.data("id")
+    };
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
-  function backToExplorePing(link) {
-    var properties = $.extend(
-      { action: "Clicked Back To Explore" },
-      currentUserData
-    );
+  function backToExplorePing() {
+    var properties = { action: "Clicked Back To Explore" };
     Airbo.Utils.ping("Explore page - Interaction", properties);
   }
 
@@ -55,7 +41,6 @@ Airbo.ExploreKpis = (function() {
   }
 
   function init() {
-    currentUserData = $("body").data("currentUser");
     bindKPIs();
   }
 
