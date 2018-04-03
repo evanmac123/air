@@ -1575,7 +1575,7 @@ ActiveRecord::Schema.define(version: 20180403190042) do
     t.integer  "organization_id"
     t.boolean  "receives_sms",                                 default: true
     t.boolean  "receives_explore_email",                       default: true
-    t.jsonb    "segments",                                     default: {},          null: false
+    t.jsonb    "segments",                                     default: {}
   end
 
   add_index "users", ["cancel_account_token"], name: "index_users_on_cancel_account_token", using: :btree
