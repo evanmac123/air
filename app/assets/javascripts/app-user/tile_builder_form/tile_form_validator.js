@@ -2,12 +2,10 @@ var Airbo = window.Airbo || {};
 
 Airbo.TileFormValidator = (function() {
   var tileModalSelector = "#tile_form_modal";
-  var conditionFunction;
-  var context = this;
 
   var config = {
     debug: false,
-    onfocusout: function(el, e) {
+    onfocusout: function(el) {
       if ($(el).is("tile[image_credit]")) {
         return false;
       }
@@ -70,13 +68,13 @@ Airbo.TileFormValidator = (function() {
     },
 
     errorPlacement: function(error, element) {
-      if (element.attr("name") == "tile[question_subtype]") {
+      if (element.attr("name") === "tile[question_subtype]") {
         error.insertAfter(".quiz_content>.placeholder");
-      } else if (element.attr("name") == "tile[remote_media_url]") {
+      } else if (element.attr("name") === "tile[remote_media_url]") {
         $(".image-menu").prepend(error);
-      } else if (element.attr("name") == "tile[correct_answer_index]") {
+      } else if (element.attr("name") === "tile[correct_answer_index]") {
         $(".js-answer-controls").prepend(error);
-      } else if (element.attr("name") == "tile[answers][]") {
+      } else if (element.attr("name") === "tile[answers][]") {
         $(".js-answer-controls").prepend(error);
       } else {
         element.parent().append(error);
@@ -96,24 +94,17 @@ Airbo.TileFormValidator = (function() {
   };
 
   function errorClassName(element, errorClass) {
-    name = $(element).attr("name");
+    var name = $(element).attr("name");
     switch (name) {
       case "tile[question_subtype]":
-        errorClass = "question_" + errorClass;
-        break;
+        return "question_" + errorClass;
       case "tile[correct_answer_index]":
-        errorClass = "index_" + errorClass;
-        break;
+        return "index_" + errorClass;
       case "tile[answers][]":
-        errorClass = "answer_" + errorClass;
-        break;
+        return "answer_" + errorClass;
+      default:
+        return "";
     }
-
-    return errorClass;
-  }
-
-  function headlineError(f, s) {
-    return "Headline is required";
   }
 
   function forceValidation(form) {
@@ -124,33 +115,22 @@ Airbo.TileFormValidator = (function() {
     return form.data("autosave") === true;
   }
 
-  function formIsNotDraft() {
-    return $("#tile_status").val() !== "draft";
-  }
-
-  function isRequired(el) {
-    var form = $("#new_tile");
-
-    return forceValidation(form) || formIsNotDraft();
+  function formIsNotPlan() {
+    return $("#tile_status").val() !== "plan";
   }
 
   function hasLimit() {
     var form = $("#new_tile_builder_form");
 
-    if (forceValidation(form) || $("#tile_status").val() !== "draft") {
+    if (forceValidation(form) || formIsNotPlan()) {
       return 700;
-    } else {
-      return 9999999;
     }
+    return 9999999;
   }
 
   function initHeadlineValidator() {
     var form = $("#new_tile_builder_form");
-    $.validator.addMethod("headLineValidator", function(
-      value,
-      element,
-      params
-    ) {
+    $.validator.addMethod("headLineValidator", function(value, element) {
       var imageUrl = $("#remote_media_url").val();
       var imageNotPresent = imageUrl === undefined || imageUrl === "";
 
@@ -162,36 +142,28 @@ Airbo.TileFormValidator = (function() {
     });
   }
 
-  function imageUrlNotSet() {}
-
   function initDuplicateAnswerValidator() {
     var form = $("#new_tile_builder_form");
 
-    $.validator.addMethod("duplicateAnswerValidator", function(
-      value,
-      element,
-      params
-    ) {
-      var answers = $(".answer-editable");
-      var values;
+    $.validator.addMethod("duplicateAnswerValidator", function() {
+      var $answers = $(".answer-editable");
       var notUnique;
       var unique;
       var hash = {};
 
-      for (var i = 0; i < answers.length; i++) {
-        var answer = $(answers[i]).val();
-        hash[answer] = 1;
-      }
+      $answers.each(function() {
+        hash[$(this).val()] = 1;
+      });
 
-      unique = !(notUnique = answers.length > Object.keys(hash).length);
+      unique = !(notUnique = $answers.length > Object.keys(hash).length);
 
       if (unique) {
         return true;
       } else if (forceValidation(form) && notUnique) {
         return false;
-      } else {
-        return true;
       }
+
+      return true;
     });
   }
 
@@ -200,43 +172,32 @@ Airbo.TileFormValidator = (function() {
 
     $.validator.addMethod("minAnswersOptionsValidator", function(
       value,
-      element,
-      params
+      element
     ) {
       var answers = $(".answer-editable");
-      var config = $(element)
+      var conf = $(element)
         .parents(".tile_quiz")
         .data("config");
-      var hasMin;
+      var minResponses = conf.minResponses || 0;
+      var hasMin = answers.length >= minResponses;
 
-      if (Object.keys(config).length === 0) {
-        return true;
-      } else {
-        hasMin = answers.length >= config.minResponses;
-        if (hasMin) {
-          return true;
-        } else if (forceValidation(form) && !hasMin) {
-          return false;
-        } else {
-          return true;
-        }
+      if (forceValidation(form) && !hasMin) {
+        return false;
       }
+
+      return true;
     });
   }
 
   function initRequiredValidator() {
     var form = $("#new_tile_builder_form");
 
-    $.validator.addMethod("requiredValidator", function(
-      value,
-      element,
-      params
-    ) {
+    $.validator.addMethod("requiredValidator", function(value, element) {
       if (forceValidation(form)) {
         return $.validator.methods.required.call(this, value, element);
-      } else {
-        return true;
       }
+
+      return true;
     });
   }
 
