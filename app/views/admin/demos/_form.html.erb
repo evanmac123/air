@@ -54,7 +54,7 @@
       <fieldset>
         <legend>Custom Colors</legend>
 
-        <%= f.fields_for :custom_color_palette do |palette| %>
+        <%= f.fields_for :custom_color_palette, demo.custom_color_palette || CustomColorPalette.new do |palette| %>
           <div class="mb-1">
             <%= palette.check_box :enabled %>
             <%= palette.label :enabled,  " Enabled?", class: "d-inline" %>
