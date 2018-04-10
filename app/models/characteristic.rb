@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 class Characteristic < ActiveRecord::Base
   include CharacteristicBehavior
 
   DATATYPE_NAMES_TO_CLASSES = ActiveSupport::OrderedHash.new
   # You're supposed to be able to do the following in one invocation of
   # OrderedHash#[] but I couldn't get it to work.
-  [['Discrete', Characteristic::DiscreteType],
-   ['Number', Characteristic::NumberType],
-   ['Date', Characteristic::DateType],
-   ['Time', Characteristic::TimeType],
-   ['Boolean', Characteristic::BooleanType]
+  [["Discrete", Characteristic::DiscreteType],
+   ["Number", Characteristic::NumberType],
+   ["Date", Characteristic::DateType],
+   ["Time", Characteristic::TimeType],
+   ["Boolean", Characteristic::BooleanType]
   ].each do |name, klass|
     DATATYPE_NAMES_TO_CLASSES[name] = klass
   end
@@ -17,6 +19,7 @@ class Characteristic < ActiveRecord::Base
   DATATYPE_CLASSES_TO_NAMES = DATATYPE_NAMES_TO_CLASSES.invert.freeze
 
   belongs_to :demo
+  belongs_to :campaign
 
   validates_uniqueness_of :name
 
@@ -25,10 +28,10 @@ class Characteristic < ActiveRecord::Base
 
   def datatype=(value)
     datatype_class = if value.kind_of?(Class)
-                       value
-                     else
-                       DATATYPE_NAMES_TO_CLASSES[value]
-                     end
+      value
+    else
+      DATATYPE_NAMES_TO_CLASSES[value]
+    end
 
     write_attribute(:datatype, datatype_class)
   end

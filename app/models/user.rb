@@ -213,6 +213,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def segmentable_characteristic_ids
+    characteristics.select { |k, v|
+      v == true
+    }.keys
+  end
+
   def end_user_in_all_boards?
     !is_site_admin && !is_client_admin_in_any_board
   end

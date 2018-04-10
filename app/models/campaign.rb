@@ -3,12 +3,17 @@
 class Campaign < ActiveRecord::Base
   belongs_to :demo
   has_many :tiles
+  has_many :characteristics
 
   validates :name, presence: true
 
   before_save :update_slug
 
   searchkick default_fields: [:name, :tile_headlines, :tile_content]
+
+  def self.segmented
+    where(segmented: true)
+  end
 
   def self.public_explore
     where(public_explore: true)

@@ -116,6 +116,10 @@ class TilesDigest < ActiveRecord::Base
     tiles.pluck(:id)
   end
 
+  def tile_ids_for_user(user)
+    tiles.segmented_for_user(user).pluck(:id)
+  end
+
   def users
     include_unclaimed_users ? users_for_digest : claimed_users_for_digest
   end

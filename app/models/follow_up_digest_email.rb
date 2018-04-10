@@ -33,6 +33,10 @@ class FollowUpDigestEmail < ActiveRecord::Base
     tiles_digest.tile_ids
   end
 
+  def tile_ids_for_user(user)
+    tiles_digest.tile_ids_for_user(user)
+  end
+
   def trigger_deliveries
     set_subject
     recipient_ids.each do |recipient_id|

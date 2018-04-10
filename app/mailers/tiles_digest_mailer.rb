@@ -6,14 +6,15 @@ class TilesDigestMailer < BaseTilesDigestMailer
     return nil unless @user && @user.email.present?
 
     @demo = digest.demo
-    @tile_ids = digest.tile_ids
+    @tile_ids = digest.tile_ids_for_user(@user)
+    return nil unless @tile_ids.present?
 
     @presenter = presenter_class.constantize.new(digest, @user, subject)
 
     @tiles = tiles_by_position
 
     if digest.include_sms && should_deliver_text_message?(@user, @demo)
-      SmsSenderJob.perform_now(to_number: @user.phone_number, from_number: @demo.twilio_from_number, body: @presenter.body_for_text_message)
+      SmsSenderJob.perform_now(to_number: @user.phone_number, from_number: @demo.twilio_from_number, body: @presenter.body_for_text_message(@tile_ids[0]))
     end
 
     x_smtpapi_unique_args = @demo.data_for_mixpanel(user: @user).merge(
