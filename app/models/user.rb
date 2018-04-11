@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
   extend User::Queries
 
-  serialize :segments, HashSerializer
+  serialize  :population_segments
   belongs_to :location
   belongs_to :game_referrer, class_name: "User"
   belongs_to :spouse, class_name: "User"
@@ -213,8 +213,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def segmentable_characteristic_ids
-    characteristics.select { |k, v|
+  def active_population_segments
+    population_segments.select { |k, v|
       v == true
     }.keys
   end

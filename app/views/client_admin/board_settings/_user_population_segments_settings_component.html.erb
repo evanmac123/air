@@ -1,0 +1,11 @@
+<%= form_for [:api, :client_admin, current_board.population_segments.new] do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit %>
+<% end %>
+
+<% current_board.population_segments.each do |segment| %>
+  <p><%= segment.id %></p>
+  <p><%= segment.name %></p>
+  <p><%= segment.user_count %></p>
+<% end %>

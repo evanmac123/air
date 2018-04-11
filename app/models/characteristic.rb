@@ -19,7 +19,6 @@ class Characteristic < ActiveRecord::Base
   DATATYPE_CLASSES_TO_NAMES = DATATYPE_NAMES_TO_CLASSES.invert.freeze
 
   belongs_to :demo
-  has_many :campaigns
 
   validates_uniqueness_of :name
 

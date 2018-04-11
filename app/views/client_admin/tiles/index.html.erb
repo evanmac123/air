@@ -1,6 +1,6 @@
 <div class="js-ca-tiles-index-module ca-tiles-index-module"
   data-tile-counts="<%= @tiles_facade.tile_counts.to_json %>"
-  data-board-characteristics="<%= board_characteristics_for_dom %>">
+  data-board-population-segments="<%= current_board.population_segments.to_json %>">
   <%= render partial: 'client_admin/tiles/tile_status_nav' %>
 
   <%= render partial: 'client_admin/tiles/manage_tiles/tiles_container', locals: {

@@ -3,15 +3,15 @@
   <label for="campaign_name">Campaign Name</label>
   <input type="text" name="campaign[name]" id="campaign_name" required class="js-campaign-name" value="{{name}}">
 
-  {{#if characteristics}}
-    <label for="campaign_name">Audience</label>
-    <select name="campaign[characteristic_id]">
-      {{#select characteristicId}}
+  {{#if segments}}
+    <label for="campaign_population_segment_id">Audience</label>
+    <select name="campaign[population_segment_id]">
+      {{#select segmentId}}
         <option value="">All Users</option>
 
-        {{#characteristics}}
-          <option value="{{id}}">{{name}}</option>
-        {{/characteristics}}
+        {{#segments}}
+          <option value="{{population_segment.id}}">{{population_segment.name}}</option>
+        {{/segments}}
       {{/select}}
     </select>
   {{/if}}
