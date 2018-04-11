@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module BoardsHelper
   include ActionView::Helpers::TextHelper
 
-  def creation_source params
+  def creation_source(params)
     if params[:controller] == "explore/tile_previews"
       "Explore"
     elsif params[:controller] == "pages"
@@ -15,7 +17,7 @@ module BoardsHelper
     end
   end
 
-  def sign_up_form_page_name params
+  def sign_up_form_page_name(params)
     if params[:controller] == "explore/tile_previews"
       "explore"
     elsif params[:controller] == "pages"
@@ -33,8 +35,8 @@ module BoardsHelper
     "Type Name" + (current_user.demo.is_public? ? " or Email" : "")
   end
 
-  def brake_to_paragraphs str
-    str.split(/\n/).map{|line| "<p>" + line + "</p>"}.join
+  def brake_to_paragraphs(str)
+    str.split(/\n/).map { |line| "<p>" + line + "</p>" }.join
   end
 
   def board_characteristics_for_dom
