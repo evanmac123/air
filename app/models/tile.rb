@@ -66,7 +66,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.segmented_for_user(user)
-    joins("LEFT OUTER JOIN campaigns ON campaign_id = campaigns.id LEFT OUTER JOIN characteristics ON characteristics.campaign_id = campaigns.id").where("campaigns.segmented IS NULL OR campaigns.segmented = ? OR characteristics.id IN (?)", false, user.segmentable_characteristic_ids)
+    joins("LEFT OUTER JOIN campaigns ON campaign_id = campaigns.id").where("campaigns.characteristic_id IS NULL OR campaigns.characteristic_id IN (?)", user.segmentable_characteristic_ids)
   end
 
   def search_data

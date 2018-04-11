@@ -2,8 +2,8 @@
 
 class Campaign < ActiveRecord::Base
   belongs_to :demo
+  belongs_to :characteristic
   has_many :tiles
-  has_many :characteristics
 
   validates :name, presence: true
 

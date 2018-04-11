@@ -24,6 +24,6 @@ class Api::ClientAdmin::CampaignsController < Api::ClientAdminBaseController
   private
 
     def campaign_params
-      params.require(:campaign).permit(:name, :color)
+      params.require(:campaign).permit(:name, :color, :characteristic_id)
     end
 end

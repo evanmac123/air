@@ -6,13 +6,16 @@ Airbo.CampaignManager = (function() {
   }
 
   function loadEditModal(data) {
+    var characteristics = boardCharacteristics();
     var templateData = {
       action: "/api/client_admin/campaigns/" + data.id,
       method: "PUT",
       modalTitle: "Edit Campaign",
       submitCopy: "Save",
       color: data.color,
-      name: data.name
+      name: data.name,
+      characteristicId: data.characteristicId,
+      characteristics: characteristics
     };
 
     initModal(templateData);
@@ -20,13 +23,15 @@ Airbo.CampaignManager = (function() {
 
   function loadCreateModal() {
     $(".js-create-campaign").on("click", function() {
+      var characteristics = boardCharacteristics();
       var templateData = {
         action: "/api/client_admin/campaigns",
         method: "POST",
         modalTitle: "Create Campaign",
         submitCopy: "Create Campaign",
         color: "#ffb748",
-        name: ""
+        name: "",
+        characteristics: characteristics
       };
 
       initModal(templateData);
@@ -63,6 +68,10 @@ Airbo.CampaignManager = (function() {
         }
       });
     });
+  }
+
+  function boardCharacteristics() {
+    return $(".js-ca-tiles-index-module").data("board-characteristics");
   }
 
   return {

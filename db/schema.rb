@@ -186,19 +186,20 @@ ActiveRecord::Schema.define(version: 20180410214859) do
   create_table "campaigns", force: :cascade do |t|
     t.integer  "demo_id"
     t.text     "description"
-    t.string   "name",            limit: 255
-    t.boolean  "active",                      default: false
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
-    t.string   "slug",            limit: 255
-    t.boolean  "ongoing",                     default: false
+    t.string   "name",              limit: 255
+    t.boolean  "active",                        default: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "slug",              limit: 255
+    t.boolean  "ongoing",                       default: false
     t.string   "icon_link"
-    t.boolean  "private_explore",             default: false
-    t.boolean  "public_explore",              default: false
+    t.boolean  "private_explore",               default: false
+    t.boolean  "public_explore",                default: false
     t.string   "color"
-    t.boolean  "segmented",                   default: false
+    t.integer  "characteristic_id"
   end
 
+  add_index "campaigns", ["characteristic_id"], name: "index_campaigns_on_characteristic_id", using: :btree
   add_index "campaigns", ["demo_id"], name: "index_campaigns_on_demo_id", using: :btree
   add_index "campaigns", ["slug"], name: "index_campaigns_on_slug", using: :btree
 
@@ -252,10 +253,8 @@ ActiveRecord::Schema.define(version: 20180410214859) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "datatype",       limit: 255
-    t.integer  "campaign_id"
   end
 
-  add_index "characteristics", ["campaign_id"], name: "index_characteristics_on_campaign_id", using: :btree
   add_index "characteristics", ["demo_id"], name: "index_characteristics_on_demo_id", using: :btree
 
   create_table "cheers", force: :cascade do |t|
@@ -1612,6 +1611,6 @@ ActiveRecord::Schema.define(version: 20180410214859) do
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
-  add_foreign_key "characteristics", "campaigns"
+  add_foreign_key "campaigns", "characteristics"
   add_foreign_key "tiles", "campaigns"
 end

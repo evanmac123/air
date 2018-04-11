@@ -36,4 +36,15 @@ module BoardsHelper
   def brake_to_paragraphs str
     str.split(/\n/).map{|line| "<p>" + line + "</p>"}.join
   end
+
+  def board_characteristics_for_dom
+    current_board.characteristics.map do |characteristic|
+      if characteristic.datatype == Characteristic::BooleanType
+        {
+          id: characteristic.id,
+          name: characteristic.name
+        }
+      end
+    end.compact.to_json
+  end
 end

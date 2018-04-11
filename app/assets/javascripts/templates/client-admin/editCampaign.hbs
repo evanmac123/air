@@ -3,6 +3,19 @@
   <label for="campaign_name">Campaign Name</label>
   <input type="text" name="campaign[name]" id="campaign_name" required class="js-campaign-name" value="{{name}}">
 
+  {{#if characteristics}}
+    <label for="campaign_name">Audience</label>
+    <select name="campaign[characteristic_id]">
+      {{#select characteristicId}}
+        <option value="">All Users</option>
+
+        {{#characteristics}}
+          <option value="{{id}}">{{name}}</option>
+        {{/characteristics}}
+      {{/select}}
+    </select>
+  {{/if}}
+
   <label for="color">Campaign Color</label>
   <div class="campaign-colors">
     <div class="js-campaign-color-option color-option" data-hex-color="#ffb748" style="background:#ffb748">
