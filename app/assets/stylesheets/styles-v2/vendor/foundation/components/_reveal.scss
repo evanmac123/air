@@ -55,6 +55,10 @@ $close-reveal-modal-class: "close-reveal-modal" !default;
     z-index: 99;
     height: auto;
 
+    &.top-150 {
+      top: 150px !important;
+    }
+
     // Make sure rows don't have a min-width on them
     .column,
     .columns { min-width: 0; }
