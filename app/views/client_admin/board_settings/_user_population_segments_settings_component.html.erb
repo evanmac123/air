@@ -1,11 +1,23 @@
-<%= form_for [:api, :client_admin, current_board.population_segments.new] do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.submit %>
-<% end %>
+<div class="js-population-segments-component population-segments-component">
+  <div class="columns small-12 large-5">
+    <%= form_for [:api, :client_admin, PopulationSegment.new] do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.submit class: "button" %>
+    <% end %>
+  </div>
+  <br>
+  <br>
 
-<% current_board.population_segments.each do |segment| %>
-  <p><%= segment.id %></p>
-  <p><%= segment.name %></p>
-  <p><%= segment.user_count %></p>
-<% end %>
+  <div class="columns small-12 large-5 large-offset-2 js-population-segments population-segments">
+    <table>
+      <% current_board.population_segments.each do |segment| %>
+        <tr>
+          <td><%= segment.id %></td>
+          <td><%= segment.name %></td>
+          <td><%= segment.user_count %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

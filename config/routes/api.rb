@@ -14,7 +14,7 @@ namespace :api, defaults: { format: :json } do
     resources :tile_email_reports, only: [:index]
     resources :tile_thumbnails, only: [:index]
     resources :campaigns, only: [:create, :update]
-    resources :population_segments, only: [:create, :update, :delete]
+    resources :population_segments, only: [:create, :update, :destroy, :index]
 
     resources :demos, only: [] do
       resource :tiles_digest_automator, only: [:update, :destroy]

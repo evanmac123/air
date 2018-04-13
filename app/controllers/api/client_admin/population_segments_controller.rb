@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Api::ClientAdmin::PopulationSegmentsController < Api::ClientAdminBaseController
+  def index
+    @population_segments = current_board.population_segments
+  end
+
   def create
     @population_segment = current_board.population_segments.new(population_segment_params)
 

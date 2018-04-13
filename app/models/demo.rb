@@ -79,6 +79,10 @@ class Demo < ActiveRecord::Base
 
   attr_accessor :unlink
 
+  def users_in_segment(segment_id)
+    users.non_site_admin.where('population_segments ->> ? = ?', segment_id.to_s, "true")
+  end
+
   def tiles_digest_automator
     super || build_tiles_digest_automator
   end

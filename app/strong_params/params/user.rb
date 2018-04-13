@@ -13,7 +13,7 @@ module Params
      :date_of_birth, :gender, :privacy_level, :last_muted_at, :characteristics,
      :overflow_email, :tickets, :zip_code, :employee_id,
      :spouse_id, :last_acted_at, :ticket_threshold_base, :terms_and_conditions,
-     :get_started_lightbox_displayed, :send_weekly_activity_report
+     :get_started_lightbox_displayed, :send_weekly_activity_report, :population_segments
     ]
 
      attrs.concat [:is_site_admin, :is_client_admin, :demo_id, :role] if current_user.is_site_admin?

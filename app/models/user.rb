@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
   extend User::Queries
 
-  serialize  :population_segments
+  serialize  :population_segments, HashSerializer
   belongs_to :location
   belongs_to :game_referrer, class_name: "User"
   belongs_to :spouse, class_name: "User"
