@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411202822) do
+ActiveRecord::Schema.define(version: 20180413205807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1493,6 +1493,17 @@ ActiveRecord::Schema.define(version: 20180411202822) do
   add_index "user_onboardings", ["onboarding_id"], name: "index_user_onboardings_on_onboarding_id", using: :btree
   add_index "user_onboardings", ["user_id"], name: "index_user_onboardings_on_user_id", using: :btree
 
+  create_table "user_population_segments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "population_segment_id"
+    t.boolean  "active",                default: true
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "user_population_segments", ["population_segment_id"], name: "index_user_population_segments_on_population_segment_id", using: :btree
+  add_index "user_population_segments", ["user_id"], name: "index_user_population_segments_on_user_id", using: :btree
+
   create_table "user_settings_change_logs", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "email",       limit: 255, default: "", null: false
@@ -1625,4 +1636,6 @@ ActiveRecord::Schema.define(version: 20180411202822) do
   add_foreign_key "campaigns", "population_segments"
   add_foreign_key "population_segments", "demos"
   add_foreign_key "tiles", "campaigns"
+  add_foreign_key "user_population_segments", "population_segments"
+  add_foreign_key "user_population_segments", "users"
 end

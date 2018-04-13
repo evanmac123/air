@@ -3,12 +3,6 @@
 class PopulationSegment < ActiveRecord::Base
   belongs_to :demo
   has_many :campaigns
-
-  def users
-    demo.users_in_segment(id)
-  end
-
-  def user_count
-    users.count
-  end
+  has_many :user_population_segments, dependent: :destroy
+  has_many :users, through: :user_population_segments
 end

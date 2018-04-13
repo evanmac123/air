@@ -14,7 +14,7 @@ class BulkLoad::UserCreatorFromCsv
 
   def create_user(csv_line)
     user_data = CSV.parse_line(csv_line)
-    new_user_attributes = { characteristics: {}, population_segments: {} }
+    new_user_attributes = { characteristics: {}, user_population_segments_attributes: [] }
 
     @schema.zip(user_data) do |column_name, value|
       add_column! column_name, value, new_user_attributes
@@ -23,8 +23,7 @@ class BulkLoad::UserCreatorFromCsv
     user = find_existing_user(user_data[@unique_id_index])
 
     if user
-      # Have to ditch the board_memberships join to make this record writeable
-      user = User.find(user.id)
+      user.user_population_segments.delete_all
       user.attributes = clean_attributes_for_existing_user(user, new_user_attributes)
       user.save
       user.add_board(@demo_id)
@@ -64,9 +63,13 @@ class BulkLoad::UserCreatorFromCsv
     end
 
     def add_population_segment!(column_name, value, new_user_attributes)
-      population_segment_id = column_name.gsub(/^segment_/, "").to_i
+      unless value =~ /(false)/i || value.strip.empty?
+        population_segment_id = column_name.gsub(/^segment_/, "").to_i
 
-      new_user_attributes[:population_segments][population_segment_id] = value.present?
+        new_user_attributes[:user_population_segments_attributes] << {
+          population_segment_id: population_segment_id
+        }
+      end
     end
 
     def add_regular_field!(column_name, value, new_user_attributes)

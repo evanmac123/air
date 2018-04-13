@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :user_population_segment do
+    user nil
+    population_segments nil
+  end
   #DEMO
   factory :demo do
     association :organization

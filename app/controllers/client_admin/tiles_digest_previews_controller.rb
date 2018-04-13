@@ -5,7 +5,7 @@ class ClientAdmin::TilesDigestPreviewsController < ClientAdminBaseController
 
   def email
     @demo  = current_board
-    @user  = @demo.users.new(name: "Test User", population_segments: {})
+    @user  = @demo.users.new(name: "Test User")
 
     @follow_up_email = params[:follow_up_email] == "true"
     presenter_class = @follow_up_email ? FollowUpDigestPreviewPresenter : TilesDigestPreviewPresenter
@@ -17,7 +17,7 @@ class ClientAdmin::TilesDigestPreviewsController < ClientAdminBaseController
   end
 
   def sms
-    @user = current_board.users.new(name: "Test User", population_segments: {})
+    @user = current_board.users.new(name: "Test User")
     @tile = first_tile_for_digest
     @digest = { tile: @tile }
   end
