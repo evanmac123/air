@@ -9,7 +9,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   before_action :count_total_users, only: :index
 
   # Attributes that admins are allowed to set
-  SETTABLE_USER_ATTRIBUTES = [:name, :email, :role, :phone_number]
+  SETTABLE_USER_ATTRIBUTES = [:name, :email, :role, :phone_number, :population_segments_ids]
   # number of users displayable on one page when browsing
   PAGE_SIZE = 50
 
@@ -81,7 +81,7 @@ class ClientAdmin::UsersController < ClientAdminBaseController
   private
 
     def user_params
-      @user_params ||= permitted_params.user.slice(*SETTABLE_USER_ATTRIBUTES)
+      @user_params ||= permitted_params.user
     end
 
     def browse_request?

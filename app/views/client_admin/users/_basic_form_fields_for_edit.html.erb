@@ -23,6 +23,12 @@
   </ul>
 
   <% if current_user.is_site_admin %>
-      <%= form.collection_check_boxes :population_segments, current_board.population_segments, :id, :name %>
+    <label>Population Segments</label>
+    <% current_board.population_segments.each do |segment| %>
+      <div class="d-block mb-1">
+        <%= check_box_tag "user[population_segment_ids][]", segment.id, form.object.population_segments.include?(segment) %>
+        <%= segment.name %>
+      </div>
+    <% end %>
   <% end %>
 </div>

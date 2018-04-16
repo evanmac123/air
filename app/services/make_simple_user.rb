@@ -6,7 +6,7 @@ class MakeSimpleUser
   def initialize(user_params, demo, current_user, user = nil)
     @email = user_params[:email]
     @role = user_params.delete(:role)
-    @user_params = user_params
+    @user_params = prep_user_params(user_params)
     @demo = demo
     @current_user = current_user
     @existing_user = set_existing_user
@@ -47,7 +47,15 @@ class MakeSimpleUser
     @user ||= existing_user || demo.users.new(user_params)
   end
 
-  protected
+  private
+
+    def prep_user_params(user_params)
+      if user_params[:population_segment_ids].nil?
+        user_params[:population_segment_ids] = []
+      end
+
+      user_params
+    end
 
     def set_phone_number
       if user.phone_number.present?

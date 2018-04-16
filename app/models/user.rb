@@ -126,7 +126,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   serialize :characteristics
-  accepts_nested_attributes_for :user_population_segments
+  accepts_nested_attributes_for :population_segments, reject_if: :all_blank, allow_destroy: true
 
   before_validation do
     # NOTE: This method is only called when you actually CALL the create method

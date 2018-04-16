@@ -14,7 +14,7 @@ class BulkLoad::UserCreatorFromCsv
 
   def create_user(csv_line)
     user_data = CSV.parse_line(csv_line)
-    new_user_attributes = { characteristics: {}, user_population_segments_attributes: [] }
+    new_user_attributes = { characteristics: {}, population_segment_ids: [] }
 
     @schema.zip(user_data) do |column_name, value|
       add_column! column_name, value, new_user_attributes
@@ -66,9 +66,7 @@ class BulkLoad::UserCreatorFromCsv
       unless value =~ /(false)/i || value.strip.empty?
         population_segment_id = column_name.gsub(/^segment_/, "").to_i
 
-        new_user_attributes[:user_population_segments_attributes] << {
-          population_segment_id: population_segment_id
-        }
+        new_user_attributes[:population_segment_ids] << population_segment_id
       end
     end
 
@@ -103,7 +101,7 @@ class BulkLoad::UserCreatorFromCsv
       when :email
         value.downcase.strip
       else
-        value
+        value.strip
       end
     end
 
