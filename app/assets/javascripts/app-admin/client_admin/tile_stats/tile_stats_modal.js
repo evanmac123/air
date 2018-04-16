@@ -50,7 +50,7 @@ Airbo.TileStatsModal = (function() {
     var $tabNode = getTabNode($tab);
     $tab.addClass("active");
     $tabNode.removeClass("hidden");
-    $("#grid_type_select").niceSelect();
+    $(".grid_types select").niceSelect();
   }
 
   function getTabNode($tab) {
@@ -108,15 +108,15 @@ Airbo.TileStatsModal = (function() {
 
   function initEvents() {
     $(document).on("click", tileStatsLinkSel, function(e) {
-      e.preventDefault();
       var path = $(this).data("href");
       var tileId = $(this).data("tileId");
+      e.preventDefault();
 
       openModal(tileId);
       getTileStatsReport(path);
     });
 
-    $(document).on("click", ".js-tile-stats-download-report", function(e) {
+    $(document).on("click", ".js-tile-stats-download-report", function() {
       Airbo.TileStatsPings.ping({
         action: "Download Stats Report",
         reportPath: $(this).attr("href")
@@ -125,9 +125,9 @@ Airbo.TileStatsModal = (function() {
   }
 
   function openModal(tileId) {
+    var template = baseTemplate({ tileId: tileId });
     Airbo.TileStatsPings.ping({ action: "Opened Stats Modal", tileId: tileId });
 
-    var template = baseTemplate({ tileId: tileId });
     modalObj.setContent(template);
     modalObj.open();
   }
