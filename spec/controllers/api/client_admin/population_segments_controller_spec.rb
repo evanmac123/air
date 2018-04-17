@@ -10,14 +10,13 @@ RSpec.describe Api::ClientAdmin::PopulationSegmentsController, type: :controller
     it "returns index of population_segments with user_count" do
       3.times { |i| demo.population_segments.create(name: "Segment #{i}") }
 
-      segment_key = demo.population_segments.first.id.to_s
-      user.population_segments[segment_key] = "true"
+      population_segment = demo.population_segments.first
+      user.population_segments << population_segment
       user.save
 
       sign_in_as user
 
       get :index, { format: :json }
-
       json = JSON.parse(response.body)
       user_counts = json.map { |segment| segment["user_count"] }
 

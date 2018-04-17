@@ -62,7 +62,7 @@ describe TilesDigestForm do
   describe "#submit_send_test_digest" do
     it "asks TileDigestTester to deliver a test" do
       mock_tiles_digest_tester = OpenStruct.new(deliver_test: true)
-      TilesDigestTester.expects(:new).with(digest_form: @tiles_digest_form).returns(mock_tiles_digest_tester)
+      TilesDigestTester.expects(:new).with(digest_form: @tiles_digest_form, population_segment_id: nil).returns(mock_tiles_digest_tester)
 
       mock_tiles_digest_tester.expects(:deliver_test)
 

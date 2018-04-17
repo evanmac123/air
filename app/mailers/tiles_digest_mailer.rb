@@ -6,6 +6,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
     return nil unless @user && @user.email.present?
 
     @demo = digest.demo
+
     @tile_ids = tile_ids_for_digest(digest)
     return nil unless @tile_ids.present?
 

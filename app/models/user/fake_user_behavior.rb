@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module User::FakeUserBehavior
+  def active_population_segments
+    []
+  end
+
   def unclaimed?
     true
   end
