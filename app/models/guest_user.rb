@@ -24,6 +24,10 @@ class GuestUser < ActiveRecord::Base
   include User::FakeUserBehavior
   include User::Tiles
 
+  def active_population_segments
+    []
+  end
+
   def is_guest?
     true
   end
