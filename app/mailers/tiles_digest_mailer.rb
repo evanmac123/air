@@ -6,7 +6,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
     return nil unless @user && @user.email.present?
 
     @demo = digest.demo
-    @tile_ids = digest.tile_ids_for_user(@user)
+    @tile_ids = tile_ids_for_digest(digest)
     return nil unless @tile_ids.present?
 
     @presenter = presenter_class.constantize.new(digest, @user, subject)
@@ -33,5 +33,13 @@ class TilesDigestMailer < BaseTilesDigestMailer
     def should_deliver_text_message?(user, demo)
       bm = user.board_memberships.where(demo_id: demo.id).first
       bm.receives_text_messages
+    end
+
+    def tile_ids_for_digest(digest)
+      if digest.id == "test"
+        digest.tile_ids
+      else
+        digest.tile_ids_for_user(@user)
+      end
     end
 end
