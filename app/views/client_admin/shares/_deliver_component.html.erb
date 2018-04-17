@@ -10,9 +10,9 @@
 <% if current_board.population_segments.present? %>
   <div class="small-12 columns mb-1">
     <div>
-      <label for="campaign_population_segment_id">Preview Audience: </label>
+      <label for="campaign_population_segment_id">Audience Preview </label>
       <select name="campaign[population_segment_id]" class="js-population-segment dropdown-button-component dropdown-button-component-init">
-        <option value="">Default Audience</option>
+        <option value="">All Users</option>
 
         <% current_board.population_segments.each do |segment| %>
           <option value="<%= segment.id %>"><%= segment.name %></option>

@@ -1,6 +1,6 @@
 // Foundation Variable Overrides
 $table-border-size: 0;
-$table-head-bg: #EEE;
+$table-head-bg: #fff;
 $table-even-row-bg: $n-white;
 $table-head-padding: 10px;
 $table-row-padding: 10px;
@@ -77,38 +77,9 @@ table.border-less{
   }
 }
 
-
-table.kpi-layout{
-  min-width: 50%;
-  thead {
-  }
-  tbody{
-    &.group{
-      margin-bottom:25px;
-
-      th {
-        padding-right: 30px;
-        &.group-hdr{
-          padding-bottom: 20px;
-          padding-top: 20px;
-          padding-right: 10px;
-          font-size:1.05em;
-          font-weight: bold;
-          &::first-of-type{
-            padding-top: 10px;
-          }
-        }
-      }
-    }
-
-  }
-}
-
-
-
 tbody {
   th{
-    text-align:left;
+    text-align:center;
   }
 }
 
@@ -123,7 +94,9 @@ caption{
   padding:10px 20px
 }
 th {
-  @include font-weight-bold;
+  font-weight: bold;
+  color: rgba(0,0,0,0.6);
+  border-bottom: 1px solid #e8e8e8;
 }
 
 table.scrollable {

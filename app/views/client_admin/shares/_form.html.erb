@@ -1,19 +1,15 @@
-<%= form_tag client_admin_tiles_digest_notification_path, class: :custom, id: "tiles_digest_form" do %>
+<%= form_tag client_admin_tiles_digest_notification_path, id: "tiles_digest_form" do %>
   <%= hidden_field_tag "digest[demo_id]", @tiles_digest_form.demo_id %>
   <div class="notification_controls">
     <div class="send_to">
       <label for="digest_send_to">Recipients</label>
-      <div class="drop_down">
-        <%= select_tag "digest[digest_send_to]", options_for_select(@tiles_digest_form.digest_send_to_options, @tiles_digest_form.digest_send_to_selected) %>
-      </div>
+      <%= select_tag "digest[digest_send_to]", options_for_select(@tiles_digest_form.digest_send_to_options, @tiles_digest_form.digest_send_to_selected), class: "dropdown-button-component wide" %>
     </div>
     <div class="follow_up">
-      <label for="follow_up_day">Follow-up email</label>
-      <div class="drop_down">
-        <%= select_tag "digest[follow_up_day]", options_for_select(@tiles_digest_form.follow_up_day_options, selected: @tiles_digest_form.default_follow_up_day) %>
-      </div>
+      <label for="follow_up_day" class="mt-1">Follow-up email</label>
+      <%= select_tag "digest[follow_up_day]", options_for_select(@tiles_digest_form.follow_up_day_options, selected: @tiles_digest_form.default_follow_up_day), class: "dropdown-button-component wide" %>
     </div>
-    <div class="custom_subject share-form-component">
+    <div class="custom_subject share-form-component mt-1">
       <label for="digest_custom_subject">Email subject</label>
       <%= text_area_tag "digest[custom_subject]", @tiles_digest_form.custom_subject, size: "50x3", maxlength: 80, placeholder: 'New Tiles', class: "share-form-text" %>
       <script>
