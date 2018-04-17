@@ -201,6 +201,7 @@ Airbo.TilesDigestManagement = (function() {
     $("#send_test_digest").click(function(e) {
       e.preventDefault();
       $("#digest_type").val("test_digest");
+      $("#population_segment_id").val($(".js-population-segment").val());
       return $("#tiles_digest_form").submit();
     });
   }

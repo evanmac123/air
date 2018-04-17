@@ -48,6 +48,7 @@
       <label for="digest_include_sms" class="d-inline">Include Text Messages <i class="fa fa-question-circle has-tip" data-tooltip="<%= true %>" title="By checking this box, we will also notify users who have entered their phone numbers via text message."></i></label>
     </div>
     <%= hidden_field_tag "digest_type", "digest_and_follow_up" %>
+    <%= hidden_field_tag "population_segment_id", nil %>
     <div class="mb-1">
       <%= button_tag id: "save_draft_digest", disabled: @digest_tiles.empty?, class: "button outlined full_width icon green", data: { saved: true } do %>
         <%= fa_icon "pencil-square-o" %>

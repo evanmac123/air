@@ -6,7 +6,7 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
     @tiles_digest_form = TilesDigestForm.new(demo: current_user.demo, user: current_user, params: params[:digest])
     if params[:digest_type] == "test_digest"
       current_board.set_tile_email_draft(params[:digest])
-      @tiles_digest_form.submit_send_test_digest
+      @tiles_digest_form.submit_send_test_digest(population_segment_id: params[:population_segment_id])
     else
       @tiles_digest_form.submit_schedule_digest_and_followup
     end

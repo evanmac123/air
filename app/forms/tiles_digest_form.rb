@@ -70,7 +70,7 @@ class TilesDigestForm
     TilesDigestScheduler.new(digest_form: self).schedule!
   end
 
-  def submit_send_test_digest
-    TilesDigestTester.new(digest_form: self).deliver_test
+  def submit_send_test_digest(population_segment_id: nil)
+    TilesDigestTester.new(digest_form: self, population_segment_id: population_segment_id).deliver_test
   end
 end
