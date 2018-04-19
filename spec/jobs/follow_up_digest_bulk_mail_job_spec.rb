@@ -174,8 +174,8 @@ RSpec.describe FollowUpDigestBulkMailJob, type: :job do
         digest.create_follow_up_digest_email(
           send_on: Date.current
         )
-
         FollowUpDigestBulkMailJob.perform_now
+        
 
         open_email(user.email)
         expect(current_email.body.include?("Don&#39;t miss your new tiles")).to eq(true)
