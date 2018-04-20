@@ -18,7 +18,7 @@ Airbo.ClientAdmin.PopulationSegmentsComponent = (function() {
   }
 
   function init() {
-    initForm();
+    // initForm();
   }
 
   return {
@@ -28,6 +28,6 @@ Airbo.ClientAdmin.PopulationSegmentsComponent = (function() {
 
 $(function() {
   if (Airbo.Utils.nodePresent(".js-population-segments-component")) {
-    Airbo.PopulationSegmentsComponent.init();
+    Airbo.ClientAdmin.PopulationSegmentsComponent.init();
   }
 });
