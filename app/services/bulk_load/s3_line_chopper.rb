@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BulkLoad::S3LineChopper
   include BulkLoad::BulkLoadRedisKeys
 
@@ -27,11 +29,11 @@ class BulkLoad::S3LineChopper
 
   private
 
-  def s3
-    unless @_s3
-      @_s3 = AWS::S3.new(access_key_id: ENV['AWS_ACCESS_KEY_ID'], secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'])
-    end
+    def s3
+      unless @_s3
+        @_s3 = AWS::S3.new(access_key_id: ENV["AWS_ACCESS_KEY_ID"], secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"], region: ENV["AWS_REGION"])
+      end
 
-    @_s3
-  end
+      @_s3
+    end
 end

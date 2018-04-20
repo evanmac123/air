@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
 
   extend User::Queries
 
-  serialize :segments, HashSerializer
   belongs_to :location
   belongs_to :game_referrer, class_name: "User"
   belongs_to :spouse, class_name: "User"
@@ -50,6 +49,8 @@ class User < ActiveRecord::Base
   has_many   :friendships, dependent: :delete_all
   has_many   :unsubscribes, dependent: :delete_all
   has_many   :board_memberships, dependent: :delete_all
+  has_many   :user_population_segments, dependent: :destroy
+  has_many   :population_segments, through: :user_population_segments
 
   # Use nullify (default) strategy because these relations are shared by other objects
   # --------------------------------------------------------------------------------------
@@ -125,6 +126,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   serialize :characteristics
+  accepts_nested_attributes_for :population_segments, reject_if: :all_blank, allow_destroy: true
 
   before_validation do
     # NOTE: This method is only called when you actually CALL the create method
@@ -211,6 +213,10 @@ class User < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def active_population_segments
+    user_population_segments.active.pluck(:population_segment_id)
   end
 
   def end_user_in_all_boards?

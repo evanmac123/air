@@ -74,7 +74,7 @@ class TilesDigestPresenter
     URI.encode(subject.to_s, /\W/)
   end
 
-  def body_for_text_message
-    "#{general_site_url(tile_id: digest.tile_ids.first, options: { from_sms: true })} #{subject}"
+  def body_for_text_message(tile_id)
+    "#{general_site_url(tile_id: tile_id, options: { from_sms: true })} #{subject}"
   end
 end

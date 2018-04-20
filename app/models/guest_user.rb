@@ -9,8 +9,6 @@ class GuestUser < ActiveRecord::Base
   # Plus, common behavior between this and User is good leverage to refactor
   # stuff out of User, which User could use.
 
-  # Dear Phil, really dumb decision.
-
   belongs_to :demo
 
   has_many :tile_completions, as: :user, dependent: :nullify

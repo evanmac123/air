@@ -109,7 +109,7 @@ select {
   -moz-appearance: none;
   -o-appearance: none;
   appearance: none;
-  background: image-path("angle-down.svg") no-repeat right center $n-white;
+  background: url(image-path("angle-down.svg")) no-repeat right center;
   background-size: 40px 15px;
   padding-right: 0;
 }

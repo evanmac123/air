@@ -1,7 +1,15 @@
 var Aiebo = window.Airbo || {};
 
 Airbo.TilesDigestManagement = (function() {
-  function loadDigestPreview(previewSrc) {
+  function loadDigestPreview(srcData) {
+    var path = srcData.path;
+    var populationSegmentParams = {
+      population_segment_id: $(".js-population-segment").val()
+    };
+
+    var params = $.param($.extend(srcData.params, populationSegmentParams));
+    var previewSrc = path + "?" + params;
+
     $("#digest_management")
       .find("#share_tiles_digest_preview")
       .attr("src", previewSrc);
@@ -108,12 +116,16 @@ Airbo.TilesDigestManagement = (function() {
   function initDigestPreviewTabs() {
     $(".js-digest-preview-tabs li").click(function(e) {
       e.preventDefault();
-      $(".digest_preview_overlay").fadeIn();
-
-      $(".js-digest-preview-tabs li").removeClass("tabs-component-active");
-      $(this).addClass("tabs-component-active");
-      loadDigestPreview($(this).data("previewSrc"));
+      loadPreviewTab($(this));
     });
+  }
+
+  function loadPreviewTab($tab) {
+    $(".digest_preview_overlay").fadeIn();
+
+    $(".js-digest-preview-tabs li").removeClass("tabs-component-active");
+    $tab.addClass("tabs-component-active");
+    loadDigestPreview($tab.data());
   }
 
   function initDigestPreviewLoadEvents() {
@@ -189,6 +201,7 @@ Airbo.TilesDigestManagement = (function() {
     $("#send_test_digest").click(function(e) {
       e.preventDefault();
       $("#digest_type").val("test_digest");
+      $("#population_segment_id").val($(".js-population-segment").val());
       return $("#tiles_digest_form").submit();
     });
   }
@@ -228,9 +241,15 @@ Airbo.TilesDigestManagement = (function() {
     $(".js-digest-sent-modal").foundation("reveal", "open");
   }
 
+  function initPopulationSegmentChange() {
+    $("select.js-population-segment").on("change", function() {
+      loadPreviewTab($(".js-digest-preview-tabs .tabs-component-active"));
+    });
+  }
+
   function init() {
     showDigestSentModal();
-    loadDigestPreview($("#show_digest_preview").data("previewSrc"));
+    loadDigestPreview($("#show_digest_preview").data());
     initReceiveSmsChangeEvents();
     initRecipientChangeEvents();
     initDigestPreviewTabs();
@@ -240,6 +259,7 @@ Airbo.TilesDigestManagement = (function() {
     initCustomeSubjectChangeEvents();
     initSendTestDigestEvents();
     initSaveDraftDigestEvents();
+    initPopulationSegmentChange();
   }
 
   return {

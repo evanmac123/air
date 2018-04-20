@@ -88,10 +88,11 @@ RSpec.describe FollowUpDigestBulkMailJob, type: :job do
 
     it "should not deliver to users who did not get the original digest" do
       demo = FactoryBot.create(:demo)
+      FactoryBot.create(:tile, demo: demo, status: Tile::DRAFT)
 
       users_to_deliver_to = FactoryBot.create_list(:user, 2, demo: demo)
 
-      digest = TilesDigest.create(demo: demo, sender: users_to_deliver_to.first, sent_at: Time.current, tile_ids: [], include_unclaimed_users: true)
+      digest = TilesDigest.create(demo: demo, sender: users_to_deliver_to.first, sent_at: Time.current, include_unclaimed_users: true, tiles: Tile.all)
 
       digest.create_follow_up_digest_email(send_on: Date.current)
 
@@ -173,8 +174,8 @@ RSpec.describe FollowUpDigestBulkMailJob, type: :job do
         digest.create_follow_up_digest_email(
           send_on: Date.current
         )
-
         FollowUpDigestBulkMailJob.perform_now
+        
 
         open_email(user.email)
         expect(current_email.body.include?("Don&#39;t miss your new tiles")).to eq(true)
@@ -183,12 +184,13 @@ RSpec.describe FollowUpDigestBulkMailJob, type: :job do
 
     it 'should not send to a user who is unsubscribed' do
       followup_board = FactoryBot.create(:demo)
+      tile = FactoryBot.create(:tile, demo: followup_board)
       unmuted_user = FactoryBot.create(:user, demo: followup_board)
       muted_user   = FactoryBot.create(:user, demo: followup_board)
 
       muted_user.board_memberships.update_all(notification_pref_cd: BoardMembership.notification_prefs[:unsubscribe])
 
-      digest = TilesDigest.create(demo: followup_board, sender: unmuted_user, tile_ids: [], sent_at: Time.current, include_unclaimed_users: true)
+      digest = TilesDigest.create(demo: followup_board, sender: unmuted_user, tile_ids: [tile.id], sent_at: Time.current, include_unclaimed_users: true)
 
       digest.create_follow_up_digest_email(
         send_on: Date.current,

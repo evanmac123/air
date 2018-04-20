@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180403190042) do
+ActiveRecord::Schema.define(version: 20180413205807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -186,19 +186,21 @@ ActiveRecord::Schema.define(version: 20180403190042) do
   create_table "campaigns", force: :cascade do |t|
     t.integer  "demo_id"
     t.text     "description"
-    t.string   "name",            limit: 255
-    t.boolean  "active",                      default: false
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
-    t.string   "slug",            limit: 255
-    t.boolean  "ongoing",                     default: false
+    t.string   "name",                  limit: 255
+    t.boolean  "active",                            default: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "slug",                  limit: 255
+    t.boolean  "ongoing",                           default: false
     t.string   "icon_link"
-    t.boolean  "private_explore",             default: false
-    t.boolean  "public_explore",              default: false
+    t.boolean  "private_explore",                   default: false
+    t.boolean  "public_explore",                    default: false
     t.string   "color"
+    t.integer  "population_segment_id"
   end
 
   add_index "campaigns", ["demo_id"], name: "index_campaigns_on_demo_id", using: :btree
+  add_index "campaigns", ["population_segment_id"], name: "index_campaigns_on_population_segment_id", using: :btree
   add_index "campaigns", ["slug"], name: "index_campaigns_on_slug", using: :btree
 
   create_table "case_studies", force: :cascade do |t|
@@ -865,6 +867,15 @@ ActiveRecord::Schema.define(version: 20180403190042) do
   add_index "peer_invitations", ["invitee_id"], name: "index_peer_invitations_on_invitee_id", using: :btree
   add_index "peer_invitations", ["inviter_id"], name: "index_peer_invitations_on_inviter_id", using: :btree
 
+  create_table "population_segments", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "demo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "population_segments", ["demo_id"], name: "index_population_segments_on_demo_id", using: :btree
+
   create_table "potential_users", force: :cascade do |t|
     t.string   "email",            limit: 255
     t.string   "invitation_code",  limit: 255
@@ -1482,6 +1493,17 @@ ActiveRecord::Schema.define(version: 20180403190042) do
   add_index "user_onboardings", ["onboarding_id"], name: "index_user_onboardings_on_onboarding_id", using: :btree
   add_index "user_onboardings", ["user_id"], name: "index_user_onboardings_on_user_id", using: :btree
 
+  create_table "user_population_segments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "population_segment_id"
+    t.boolean  "active",                default: true
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "user_population_segments", ["population_segment_id"], name: "index_user_population_segments_on_population_segment_id", using: :btree
+  add_index "user_population_segments", ["user_id"], name: "index_user_population_segments_on_user_id", using: :btree
+
   create_table "user_settings_change_logs", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "email",       limit: 255, default: "", null: false
@@ -1576,6 +1598,7 @@ ActiveRecord::Schema.define(version: 20180403190042) do
     t.boolean  "receives_sms",                                 default: true
     t.boolean  "receives_explore_email",                       default: true
     t.jsonb    "segments",                                     default: {}
+    t.jsonb    "population_segments",                          default: {}
   end
 
   add_index "users", ["cancel_account_token"], name: "index_users_on_cancel_account_token", using: :btree
@@ -1593,6 +1616,7 @@ ActiveRecord::Schema.define(version: 20180403190042) do
   add_index "users", ["organization_id"], name: "index_users_on_organization_id", using: :btree
   add_index "users", ["overflow_email"], name: "index_users_on_overflow_email", using: :btree
   add_index "users", ["phone_number"], name: "index_users_on_phone_number", using: :btree
+  add_index "users", ["population_segments"], name: "index_users_on_population_segments", using: :gin
   add_index "users", ["privacy_level"], name: "index_users_on_privacy_level", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
   add_index "users", ["segments"], name: "index_users_on_segments", using: :gin
@@ -1609,5 +1633,9 @@ ActiveRecord::Schema.define(version: 20180403190042) do
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
+  add_foreign_key "campaigns", "population_segments"
+  add_foreign_key "population_segments", "demos"
   add_foreign_key "tiles", "campaigns"
+  add_foreign_key "user_population_segments", "population_segments"
+  add_foreign_key "user_population_segments", "users"
 end

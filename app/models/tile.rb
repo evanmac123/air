@@ -65,6 +65,15 @@ class Tile < ActiveRecord::Base
     ["headline^10", "supporting_content^8", :campaigns, :organization_name]
   end
 
+  def self.segmented_for_user(user)
+    segment_ids = user.active_population_segments
+    segmented_on_population_segments(segment_ids)
+  end
+
+  def self.segmented_on_population_segments(segment_ids)
+    joins("LEFT OUTER JOIN campaigns ON campaign_id = campaigns.id").where("campaigns.population_segment_id IS NULL OR campaigns.population_segment_id IN (?)", segment_ids)
+  end
+
   def search_data
     extra_data = {
       campaign: campaign.try(:name),

@@ -1,0 +1,13 @@
+<div class="js-population-segments-component population-segments-component">
+  <div class="columns small-12 large-5">
+    <%= form_for [:api, :client_admin, PopulationSegment.new] do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.submit class: "button" %>
+    <% end %>
+  </div>
+
+  <div class="columns small-12 large-6 large-offset-1 js-population-segments population-segments"
+    data-population-segments="<%= population_segments_json %>">
+  </div>
+</div>

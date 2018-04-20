@@ -1,0 +1,13 @@
+<table>
+  <thead>
+    <th>Id</th>
+    <th>Name</th>
+    <th>User Count</th>
+    <th></th>
+  </thead>
+  <tbody class="js-population-segments-table-body">
+    {{#each populationSegments }}
+      {{renderPartial "client-admin/populationSegmentRow" segment=this }}
+    {{/each}}
+  </tbody>
+</table>

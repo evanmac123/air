@@ -5,10 +5,10 @@
     $min-width: 50px,
 
     $input_border_radius: 4px,
-    $input_height: 33px,
+    $input_height: 38px,
     $input_height_small: 36px,
-    $left_padding: 15px,
-    $right_padding: 15px,
+    $left_padding: 10px,
+    $right_padding: 10px,
 
     $gray_dark: #444,
     $gray: #999,
@@ -61,13 +61,11 @@
       margin-left: 15px;
       pointer-events: none;
       top: 50%;
+      float: right
     }
 
     &.open {
       @extend :active;
-      &:after {
-        transform: rotate(-135deg);
-      }
       .list {
         opacity: 1;
         pointer-events: auto;
@@ -87,6 +85,7 @@
     // Modifiers
     &.wide {
       width: 100%;
+      float: none;
       .list {
         left: 0 !important;
         right: 0 !important;

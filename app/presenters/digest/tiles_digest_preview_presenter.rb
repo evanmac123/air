@@ -11,7 +11,7 @@ class TilesDigestPreviewPresenter < TilesDigestPresenter
   end
 
   def tiles
-    demo.digest_tiles
+    demo.digest_tiles.segmented_for_user(@user)
   end
 
   def email_heading

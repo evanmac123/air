@@ -1,4 +1,4 @@
-<%= form_for [:client_admin, user], html: {class: "user-profile custom", id: "single-form"} do |f| %>
+<%= form_for [:client_admin, user], html: {class: "user-profile", id: "single-form"} do |f| %>
   <div class="large-9 columns">
     <div id="user_details">
       <%= render 'basic_form_fields_for_edit', form: f, demo: demo, user: user, show_role: false %>

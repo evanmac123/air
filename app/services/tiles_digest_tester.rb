@@ -5,8 +5,8 @@ class TilesDigestTester
 
   attr_reader :digest, :current_user, :follow_up_day, :subject, :alt_subject
 
-  def initialize(digest_form:)
-    digest_params = test_digest_params(digest_form)
+  def initialize(digest_form:, population_segment_id: nil)
+    digest_params = test_digest_params(digest_form, population_segment_id)
 
     @digest = OpenStruct.new(digest_params)
     @current_user = digest_form.current_user
@@ -52,9 +52,9 @@ class TilesDigestTester
       end
     end
 
-    def test_digest_params(digest_form)
+    def test_digest_params(digest_form, segment_id)
       demo = digest_form.demo
-      tile_ids = demo.digest_tiles.pluck(:id)
+      tile_ids = demo.digest_tiles.segmented_on_population_segments([segment_id.to_i])
 
       {
         id: "test",

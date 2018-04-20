@@ -9,6 +9,7 @@ class Demo < ActiveRecord::Base
   belongs_to :dependent_board, class_name: "Demo", foreign_key: :dependent_board_id
 
   has_many :campaigns, dependent: :destroy
+  has_many :population_segments, dependent: :destroy
   has_one :claim_state_machine, dependent: :delete
   has_one :custom_invitation_email, dependent: :delete
   has_one :raffle, dependent: :delete

@@ -2,11 +2,12 @@
 
 class Campaign < ActiveRecord::Base
   belongs_to :demo
+  belongs_to :population_segment
   has_many :tiles
 
   validates :name, presence: true
-
-  before_save :update_slug
+  validates_uniqueness_of :name, case_sensitive: false, scope: :demo_id
+  before_validation :strip_whitespace
 
   searchkick default_fields: [:name, :tile_headlines, :tile_content]
 
@@ -53,11 +54,13 @@ class Campaign < ActiveRecord::Base
     serializable_hash.merge(extra_data)
   end
 
-  def update_slug
-    self.slug = name.parameterize
-  end
-
   def to_param
     [id, name.parameterize].join("-")
   end
+
+  private
+
+    def strip_whitespace
+      self.name = self.name.try(:strip)
+    end
 end

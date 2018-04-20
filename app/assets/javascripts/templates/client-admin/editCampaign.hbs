@@ -3,6 +3,19 @@
   <label for="campaign_name">Campaign Name</label>
   <input type="text" name="campaign[name]" id="campaign_name" required class="js-campaign-name" value="{{name}}">
 
+  {{#if segments}}
+    <label for="campaign_population_segment_id">Audience</label>
+    <select name="campaign[population_segment_id]">
+      {{#select segmentId}}
+        <option value="">All Users</option>
+
+        {{#segments}}
+          <option value="{{population_segment.id}}">{{population_segment.name}}</option>
+        {{/segments}}
+      {{/select}}
+    </select>
+  {{/if}}
+
   <label for="color">Campaign Color</label>
   <div class="campaign-colors">
     <div class="js-campaign-color-option color-option" data-hex-color="#ffb748" style="background:#ffb748">

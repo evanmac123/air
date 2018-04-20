@@ -6,6 +6,9 @@
         <% if false # rollout campaign creation UI here %>
           <li class="js-campaigns-component-tab tab" data-tab-content="js-campaigns-component"><a href="#">Campaign Settings</a></li>
         <% end %>
+        <% if current_user.is_site_admin %>
+          <li class="js-population-segments-component-tab tab" data-tab-content="js-user-population-segments-component"><a href="#">Population Segments</a></li>
+        <% end %>
       </ul>
     </div>
   </div>
@@ -19,6 +22,12 @@
   <div class="js-campaigns-component campaigns-component js-board-settings-module-tab-content hidden" >
     <div class="row">
       <%= render 'campaign_settings_component' %>
+    </div>
+  </div>
+
+  <div class="js-user-population-segments-component user-population-segments-component js-board-settings-module-tab-content hidden" >
+    <div class="row">
+      <%= render 'user_population_segments_settings_component' %>
     </div>
   </div>
 </div>

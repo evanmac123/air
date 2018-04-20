@@ -407,7 +407,7 @@ feature 'Client admin and the digest email for tiles' do
       expect_tiles_to_send_header
 
       within ".follow_up" do
-        find(".drop_down").click
+        find(".dropdown-button-component").click
         find("li", text: "Sunday").click
       end
 
@@ -453,7 +453,7 @@ feature 'Client admin and the digest email for tiles' do
       fill_in "digest[alt_custom_subject]", with: 'Alt Subject'
 
       within ".follow_up" do
-        find(".drop_down").click
+        find(".dropdown-button-component").click
         find("li", text: "Sunday").click
       end
     end
@@ -500,7 +500,7 @@ feature 'Client admin and the digest email for tiles' do
       check "digest[include_sms]"
 
       within ".follow_up" do
-        find(".drop_down").click
+        find(".dropdown-button-component").click
         find("li", text: "Sunday").click
       end
 
