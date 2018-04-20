@@ -7,24 +7,7 @@
     <% end %>
   </div>
 
-  <div class="columns small-12 large-6 large-offset-1 js-population-segments population-segments">
-    <table>
-      <thead>
-        <th>Id</th>
-        <th>Name</th>
-        <th>User Count</th>
-        <th></th>
-      </thead>
-      <tbody class="js-population-segments-table-body">
-        <% current_board.population_segments.each do |segment| %>
-          <tr>
-            <td><%= segment.id %></td>
-            <td><%= segment.name %></td>
-            <td><%= segment.user_count %></td>
-            <td><%= link_to "Edit", "#" %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div class="columns small-12 large-6 large-offset-1 js-population-segments population-segments"
+    data-population-segments="<%= population_segments_json %>">
   </div>
 </div>

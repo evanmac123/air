@@ -1,0 +1,18 @@
+  <tr>
+    <td>
+      {{ segment.id }}
+    </td>
+    <td>
+      {{ segment.name }}
+    </td>
+    <td>
+      {{#if segment.user_count}}
+        {{ segment.user_count }}
+      {{else}}
+        0
+      {{/if}}
+    </td>
+    <td>
+      <a class="js-delete-segment" href="#segment-{{segment.id}}" data-segment-id={{segment.id}}>x</a>
+    </td>
+  </tr>

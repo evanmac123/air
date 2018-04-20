@@ -22,7 +22,7 @@
     </li>
   </ul>
 
-  <% if current_user.is_site_admin %>
+  <% if current_board.population_segments.present? %>
     <label>Population Segments</label>
     <% current_board.population_segments.each do |segment| %>
       <div class="d-block mb-1">
