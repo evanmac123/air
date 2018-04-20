@@ -23,7 +23,7 @@ class BulkLoad::UserCreatorFromCsv
     user = find_existing_user(user_data[@unique_id_index])
 
     if user
-      user.user_population_segments.delete_all
+      user.user_population_segments.where(demo_id: @demo_id).delete_all
       user.attributes = clean_attributes_for_existing_user(user, new_user_attributes)
       user.save
       user.add_board(@demo_id)
