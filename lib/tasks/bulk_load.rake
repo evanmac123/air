@@ -28,8 +28,8 @@ task :bulk_load, [:bucket, :object_key, :demo_id, :unique_id, :schema, :related_
   puts "Chopping finished! #{chopper.count} lines loaded into Redis."
   puts "Scheduling load into demo #{demo_id}. This may take some time."
   feeder = BulkLoad::UserCreatorFeeder.new(object_key, demo_id, schema, unique_id, unique_id_index, related_board_ids)
-  job = feeder.feed
-  # puts "Job ID for feeder is #{job.id}"
+  job = feeder.delay.feed
+  puts "Job ID for feeder is #{job.id}"
 end
 
 namespace :bulk_load do

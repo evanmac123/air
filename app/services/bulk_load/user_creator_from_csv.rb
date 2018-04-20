@@ -63,7 +63,7 @@ class BulkLoad::UserCreatorFromCsv
     end
 
     def add_population_segment!(column_name, value, new_user_attributes)
-      unless value =~ /(false)/i || value.strip.empty?
+      unless value =~ /(false)/i || value.to_s.strip.empty?
         population_segment_id = column_name.gsub(/^segment_/, "").to_i
 
         new_user_attributes[:population_segment_ids] << population_segment_id
