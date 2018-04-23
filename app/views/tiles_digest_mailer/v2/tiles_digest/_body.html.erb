@@ -1,0 +1,110 @@
+<body
+  leftmargin="0"
+  marginwidth="0"
+  topmargin="0"
+  marginheight="0"
+  offset="0"
+  style="height:100%;Margin:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;width:100% !important;background-color:#FFFFFF;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;">
+  <!--[if mso]><style>.top{line-height:76px!important;}.innerp{padding:0 20px!important;}.headline-bbg{padding:0 40px 18px!important;}.headline-gbg{padding:0 40px
+  20px!important;}.col-2e{display:table-cell!important;width:20px!important;}.col-2{border:0!important;display:initial!important;vertical-align:top!important;}</style><![endif]-->
+  <table class="bgcolor" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#42B1ED">
+    <tr>
+      <td style="padding:0 16px;">
+        <div style="Margin:0 auto; max-width:603px; min-width:180px;">
+          <!--[if mso]><table width="603" align="center" cellspacing="0" cellpadding="0" border="0"><tr><td><![endif]-->
+          <div style="text-align:center; font-size:0;">
+            <div style="display:block;vertical-align:top; width:100%; min-width:120px; max-width:100%; width:-webkit-calc(230400px - 48000%); min-width:-webkit-calc(100%); width:calc(230400px - 48000%); min-width:calc(100%);">
+              <table class="bgcolor" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#42B1ED">
+                <tr>
+                  <td class="top" style="line-height:12px;">&nbsp;</td>
+                </tr>
+              </table>
+              <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#FFFFFF">
+                <tr>
+                  <td class="innerp" style="padding:0 10px;">
+                    <!--[if mso]><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td style="padding:0 50px;"><![endif]-->
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td align="center" style="padding:25px 0 20px 0;">
+                          <img
+                            src="<%= email_logo_path(@demo) %>"
+                            width="240"
+                            style="display:block;max-width:200px;">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" style="padding:13px 0 20px 0;font-size:18px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:bold;color:#33445C;">
+                          <%= @demo.name %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td id="custom_headline" class="headline-bbg" align="center" style="padding:0 0 18px 0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:22px;color:#33445C;font-weight:500;">
+                          <%= @presenter.email_heading %>
+                        </td>
+                      </tr>
+                    </table>
+                    <!--[if mso]></td></tr></table><![endif]-->
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <!--[if mso]></td></tr></table><![endif]-->
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#F9F9F9">
+    <tr>
+      <td style="padding:0 16px;">
+        <div style="Margin:0 auto; max-width:603px; min-width:180px;">
+          <!--[if mso]><table width="603" align="center" cellspacing="0" cellpadding="0" border="0"><tr><td><![endif]-->
+          <div style="text-align:center; font-size:0;">
+            <div style="display:block;vertical-align:top; width:100%;min-width:120px;max-width:100%;width:-webkit-calc(230400px - 48000%);min-width:-webkit-calc(100%);width:calc(230400px - 48000%);min-width:calc(100%);">
+              <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#FFFFFF">
+                <tr>
+                  <td class="innerp" style="padding:0 10px;">
+                    <!--[if mso]><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td style="padding:0 10px;"><![endif]-->
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <!--[if mso]><td style="padding:0 50px;"><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><![endif]-->
+                        <td id="custom_message" class="headline-gbg" align="center" style="padding:0 0 20px 0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#8DA0AB;font-size:15px;">
+                          <%= @presenter.custom_message %>
+                        </td>
+                        <!--[if mso]></tr></table></td><![endif]-->
+                      </tr>
+
+                      <%= render partial: "tiles_digest_mailer/v2/tiles_digest/tiles_table" %>
+                      <!--[if mso]></td></tr></table><![endif]-->
+                    </td>
+                  </tr>
+                </table>
+
+                <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#F9F9F9">
+                  <tr>
+                    <td align="center" style="padding:30px 0 0 0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;">
+                      <a class="txtcolor" href="#" target="_blank" style="color:#42B1ED">Unsubscribe</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="txtcolor" href="#" target="_blank" style="color:#42B1ED">Update Preferences</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding:10px 0 20px 0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:10px;color:#8DA0AB;">
+                      This email is unique for you. Please do not forward it.<br>
+                      For assistance contact
+                      <a class="txtcolor" href="#" target="_blank" style="color:#42B1ED">Support@airbo.com.</a><br>
+                      Our Mailing Address is 1702 Abbot Kinney Blvd, Venice CA 90291.<br>
+                      By using our site, you agree to our
+                      <a class="txtcolor" href="#" target="_blank" style="color:#42B1ED">Terms &amp; Conditions</a>
+                      and
+                      <a class="txtcolor" href="#" target="_blank" style="color:#42B1ED">Privacy Policy</a><br>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <!--[if mso]></td></tr></table><![endif]-->
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>

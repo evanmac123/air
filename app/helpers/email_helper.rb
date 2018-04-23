@@ -33,6 +33,14 @@ module EmailHelper
     image_tag(logo_url, image_options)
   end
 
+  def email_logo_path(demo = nil)
+    if demo.nil? || demo.logo_file_name.blank?
+      ActionController::Base.helpers.asset_path('logo.png')
+    else
+      demo.logo.url
+    end
+  end
+
   def default_logo
     image_options = { border: "0", style: "display:block;", width: "72", height: "42"}
     logo_url = ActionController::Base.helpers.asset_path('logo-white.png')

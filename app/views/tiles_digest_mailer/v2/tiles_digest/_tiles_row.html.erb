@@ -1,0 +1,25 @@
+<tr>
+  <td style="padding:0 0 20px 0;">
+    <div style="display:table;vertical-align:top;width:100%; min-width:120px;max-width:100%;width:-webkit-calc(230400px - 48000%);min-width:-webkit-calc(100%);width:calc(230400px - 48000%);min-width:calc(100%);">
+      <!--[if mso]><table width="100%" cellspacing="0" cellpadding="0" border="0"> <tr> <td width="270" valign="top" style="border:1px solid #EAECED;"><![endif]-->
+      <%= render partial: "tiles_digest_mailer/v2/tiles_digest/tile", locals: { tile: tiles[0] } %>
+      <!--[if mso]></td> <td width="20"><![endif]-->
+      <div class="col-2e" style="line-height:20px;">&nbsp;</div>
+      <!--[if mso]></td> <td width="270" valign="top"><![endif]-->
+      <% if tiles[1].present? %>
+        <%= render partial: "tiles_digest_mailer/v2/tiles_digest/tile", locals: { tile: tiles[1] } %>
+      <% else %>
+        <div class="col-2">
+          <table width="100%" cellspacing="0" cellpadding="0" border="0">
+            <tr>
+              <td align="center" style="font-size:12px;">
+                &nbsp;
+              </td>
+            </tr>
+          </table>
+        </div>
+      <% end %>
+      <!--[if mso]></td> </tr> </table><![endif]-->
+    </div>
+  </td>
+</tr>
