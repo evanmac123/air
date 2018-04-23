@@ -83,6 +83,10 @@ class Demo < ActiveRecord::Base
     super || build_tiles_digest_automator
   end
 
+  def primary_color
+    custom_color_palette.try(:primary_color) || "#48BFFF"
+  end
+
   def customer_status_for_mixpanel
     customer_status.to_s.capitalize
   end

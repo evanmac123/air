@@ -1,0 +1,26 @@
+<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#F9F9F9">
+  <tr>
+    <td align="center" style="padding:30px 0 0 0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:12px;">
+      <a class="txtcolor" href="#" target="_blank" style="color:<%= @demo.primary_color %>">Unsubscribe</a>
+      <% if @user.present? && @demo.present? && @demo.allow_unsubscribes %>
+        <a class="txtcolor" href="<%= email_unsubscribe_link(user: @user, email_type: :default, demo: @demo) %>" target="_blank" style="color:<%= @demo.primary_color %>">Unsubscribe</a>
+      <% end %>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <% unless @user.nil? || @user.unclaimed? %>
+        <a class="txtcolor" href="<%= email_account_settings_link %>" target="_blank" style="color:<%= @demo.primary_color %>">Update Preferences</a>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="padding:10px 0 20px 0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:10px;color:#8DA0AB;">
+      This email is unique for you. Please do not forward it.<br>
+      For assistance contact
+      <a class="txtcolor" href="mailto:support@airbo.com" target="_blank" style="color:<%= @demo.primary_color %>">Support@airbo.com.</a><br>
+      Our Mailing Address is 1702 Abbot Kinney Blvd, Venice CA 90291.<br>
+      By using our site, you agree to our
+      <a class="txtcolor" href="<%= terms_url %>" target="_blank" style="color:<%= @demo.primary_color %>">Terms &amp; Conditions</a>
+      and
+      <a class="txtcolor" href="<%= privacy_url %>" target="_blank" style="color:<%= @demo.primary_color %>">Privacy Policy</a><br>
+    </td>
+  </tr>
+</table>
