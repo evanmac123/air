@@ -1,0 +1,5 @@
+<% unless @demo.redis[:mailer_v2].call(:get) %>
+  <%= render partial: "mailer/v1/system_email" %>
+<% else %>
+  <%= render partial: "mailer/v2/system_email" %>
+<% end %>

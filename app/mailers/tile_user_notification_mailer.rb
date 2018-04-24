@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class TileUserNotificationMailer < ApplicationMailer
   helper :email
-  layout nil
+  layout false
 
   def notify_one(user:, tile_user_notification:)
     @user = user
@@ -13,14 +15,14 @@ class TileUserNotificationMailer < ApplicationMailer
       general_site_url: digest_email_site_link(@user, @demo.id)
     )
 
-    x_smtpapi_unique_args = @demo.data_for_mixpanel(user: @user).merge({
+    x_smtpapi_unique_args = @demo.data_for_mixpanel(user: @user).merge(
       subject: tile_user_notification.subject,
       notification_id: tile_user_notification.id,
       email_type: "Tile Push Message"
-    })
+    )
 
     set_x_smtpapi_headers(category: "Tile Push Message", unique_args: x_smtpapi_unique_args)
 
-    mail(to: @user.email_with_name, from: tile_user_notification.from_email, subject: tile_user_notification.subject, reply_to: 'support@airbo.com')
+    mail(to: @user.email_with_name, from: tile_user_notification.from_email, subject: tile_user_notification.subject, reply_to: "support@airbo.com")
   end
 end

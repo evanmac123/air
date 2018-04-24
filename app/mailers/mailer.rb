@@ -1,5 +1,6 @@
 class Mailer < ApplicationMailer
   include EmailPreviewsHelper # TODO: DEPRECATE This module is useless
+  layout false
   helper :email  # loads app/helpers/email_helper.rb & includes EmailHelper into the VIEW
 
   default from: "Airbo <play@ourairbo.com>",
@@ -53,42 +54,70 @@ class Mailer < ApplicationMailer
     @friend_name = friend_name
     @friend = User.find(friend_id)
 
-    mail to: user_address,
-         from: reply_address,
-         subject: "Message from Airbo"
+    mail(
+      to: user_address,
+      from: reply_address,
+      subject: "Message from Airbo",
+    )
   end
 
   def guest_user_converted_to_real_user(user)
     @user = user
     @demo = @user.demo
+    @presenter = OpenStruct.new(
+      general_site_url: cancel_account_url(id: user.cancel_account_token),
+      cta_message: "Cancel",
+      email_heading: "Welcome to Airbo!",
+      custom_message: "Welcome to the  #{@demo.name} on Airbo\nIf you didn't create this account, just click here to cancel"
+    )
 
-    @cancel_account_url = cancel_account_url(id: user.cancel_account_token)
-    @board_name = user.demo.name
-
-    mail to: user.email_with_name,
-         from: user.reply_email_address,
-         subject: "Welcome to Airbo!"
+    mail(
+      to: user.email_with_name,
+      from: user.reply_email_address,
+      subject: "Welcome to Airbo!",
+      template_path: "mailer",
+      template_name: "system_email"
+    )
   end
 
   def notify_creator_for_social_interaction(tile, user, action)
     @creator = tile.creator || tile.original_creator
     return unless @creator.present?
 
-    @demo = Demo.new
-    @action = action
+    @demo = @creator.demo
     @user = user
-    @tile = tile
+    @presenter = OpenStruct.new(
+      general_site_url: explore_tile_preview_url(tile),
+      cta_message: "See Tile",
+      email_heading: "Congratulations!",
+      custom_message: "#{@user.name} #{action} your tile \"#{tile.headline},\" that you shared on the Explore page."
+    )
 
-    mail to: @creator.email_with_name,
-         from: @creator.reply_email_address,
-         subject: "Someone #{@action} your tile on Airbo"
+    mail(
+      to: @creator.email_with_name,
+      from: @creator.reply_email_address,
+      subject: "Someone #{action} your tile on Airbo",
+      template_path: "mailer",
+      template_name: "system_email"
+    )
   end
 
   def change_password(user)
     @user = user
+    @demo = user.demo
+    @presenter = OpenStruct.new(
+      general_site_url: edit_user_password_url(@user, token: @user.confirmation_token.html_safe),
+      cta_message: "Change password",
+      email_heading: "Change your password",
+      custom_message: "Someone, hopefully you, has requested that we send you a email to change your password. Click button if you want to do this. If you didn't request this, ignore this email, your password hasn't been changed."
+    )
 
-    mail to: @user.email,
-         from: @user.reply_email_address,
-         subject: "Change your password"
+    mail(
+      to: @user.email,
+      from: @user.reply_email_address,
+      subject: "Change your password",
+      template_path: "mailer",
+      template_name: "system_email"
+    )
   end
 end
