@@ -9,48 +9,38 @@ describe GenericMailer do
   describe "#send_message" do
     it "should send a message" do
       @user = FactoryBot.create :user
-      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>").deliver_now
+      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "<p>This is some HTML</p>").deliver_now
 
       expect(ActionMailer::Base.deliveries.count).to eq(1)
       expect(mail.subject).to eq("Here is the subject")
       expect(mail.to).to eq([@user.email])
       expect(mail.from).to eq(["play@ourairbo.com"])
 
-      plain_body = mail.body.parts[0]
-      html_body = mail.body.parts[1]
-
-      expect(plain_body.to_s).to include("This is some text")
-      expect(html_body.to_s).to include("<p>This is some HTML</p>")
+      expect(mail.body).to include("<p>This is some HTML</p>")
     end
 
     it "should have an unsubscribe footer" do
       @user = FactoryBot.create :user
-      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>")
+      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "<p>This is some HTML</p>")
 
       expect(mail.to).to eq([@user.email])
-      expect(mail.body.to_s).to_not include("Please do not forward it to others")
+      expect(mail.body).to_not include("Please do not forward it to others")
     end
 
     it "should be able to interpolate invitation URLs" do
       @user = FactoryBot.create :user
-      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "This is some text, and you should go to [invitation_url]", "<p>This is some HTML. Go to [invitation_url]</p>")
+      mail = GenericMailer.send_message(demo.id, @user.id, "Here is the subject", "<p>This is some HTML. Go to [invitation_url]</p>")
 
-      plain_body = mail.body.parts[0]
-      html_body = mail.body.parts[1]
-
-      expect(plain_body.to_s).to include("#{@user.invitation_code}")
-      expect(html_body.to_s).to include("#{@user.invitation_code}")
+      expect(mail.body).to include("#{@user.invitation_code}")
     end
 
     context "when user is claimed" do
       it "should be able to interpolate tile-digest style URLs" do
         claimed_user = FactoryBot.create :user, :claimed
 
-        mail = GenericMailer.send_message(demo.id, claimed_user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]")
+        mail = GenericMailer.send_message(demo.id, claimed_user.id, "Das Subjekt", "<p>This is some HTML, go to [tile_digest_url]")
 
-        html_body = mail.body.parts[1]
-
-        expect(html_body.to_s).to include("tile_token=#{EmailLink.generate_token(claimed_user)}")
+        expect(mail.body).to include("tile_token=#{EmailLink.generate_token(claimed_user)}")
       end
     end
 
@@ -58,11 +48,9 @@ describe GenericMailer do
       it "should be able to interpolate tile-digest style URLs" do
         unclaimed_user = FactoryBot.create :user
 
-        mail = GenericMailer.send_message(demo.id, unclaimed_user.id, "Das Subjekt", "This is some text, go to [tile_digest_url]", "<p>This is some HTML, go to [tile_digest_url]")
+        mail = GenericMailer.send_message(demo.id, unclaimed_user.id, "Das Subjekt", "<p>This is some HTML, go to [tile_digest_url]")
 
-        html_body = mail.body.parts[1]
-
-        expect(html_body.to_s).to include("invitations/#{unclaimed_user.invitation_code}")
+        expect(mail.body).to include("invitations/#{unclaimed_user.invitation_code}")
       end
     end
 
@@ -71,7 +59,7 @@ describe GenericMailer do
         @demo = FactoryBot.create :demo, :email => "someco@playhengage.com"
         @user = FactoryBot.create :user, :demo => @demo
 
-        mail = GenericMailer.send_message(@demo.id, @user.id, "Here is the subject", "This is some text", "<p>This is some HTML</p>")
+        mail = GenericMailer.send_message(@demo.id, @user.id, "Here is the subject", "<p>This is some HTML</p>")
 
         expect(mail.from).to eq(["someco@playhengage.com"])
       end

@@ -28,9 +28,5 @@ describe SuggestedTileReviewMailer do
     it 'has correct link' do
       expect(mail.body.encoded).to match(submitted_tile_notifications_url)
     end
-
-    it 'does not mention not having to log in ' do
-      expect(mail.body.encoded).not_to match("You won't have to log in.")
-    end
   end
 end
