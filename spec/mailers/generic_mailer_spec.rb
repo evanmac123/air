@@ -83,7 +83,7 @@ describe GenericMailer do
 
       user_ids = []
       5.times {user_ids << (FactoryBot.create :user).id}
-      GenericMailer::BulkSender.new(demo.id, user_ids, "This is a subject", "This is plain text", "<p>This is HTML</p>").send_bulk_mails
+      GenericMailer::BulkSender.new(demo.id, user_ids, "This is a subject", "<p>This is HTML</p>").send_bulk_mails
 
       expect(ActionMailer::Base.deliveries.count).to eq(5)
     end

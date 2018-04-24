@@ -23,7 +23,7 @@ class Mailer < ApplicationMailer
     @user = user
     @presenter = OpenStruct.new(
       general_site_url: invitation_url,
-      cta_message: "Start",
+      cta_message: "Get Started",
       email_heading: "You are invited to join #{@demo.name}",
       custom_message: @demo.intro_message
     )

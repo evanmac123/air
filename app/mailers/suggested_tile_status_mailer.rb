@@ -5,25 +5,45 @@ class SuggestedTileStatusMailer < BaseTilesDigestMailer
   ACCEPTED_SUBJECT = "Your Tile Has Been Accepted!"
   POSTED_SUBJECT = "Your Tile Has Been Posted!"
 
-  layout "mailer"
+  layout false
 
   def notify_accepted(user:, tile:)
+    @user = user
     @demo = tile.demo
-    @subject = ACCEPTED_SUBJECT
-    @subhead_text = "The Tile you suggested has been accepted. We’ll let you know when it’s posted."
-    @button_text = "Visit #{@demo.name}"
-    @link = digest_email_site_link(user, @demo.id, email_type: EMAIL_TYPE)
 
-    mail to: user.email_with_name, from: @demo.reply_email_address, subject: @subject
+    @presenter = OpenStruct.new(
+      general_site_url: digest_email_site_link(user, @demo.id, email_type: EMAIL_TYPE),
+      cta_message: "Visit #{@demo.name}",
+      email_heading: ACCEPTED_SUBJECT,
+      custom_message:  "The Tile you suggested has been accepted. We’ll let you know when it’s posted."
+    )
+
+    mail(
+      to: user.email_with_name,
+      from: @demo.reply_email_address,
+      subject: ACCEPTED_SUBJECT,
+      template_path: "mailer",
+      template_name: "system_email"
+    )
   end
 
   def notify_posted(user:, tile:)
+    @user = user
     @demo = tile.demo
-    @subject = POSTED_SUBJECT
-    @subhead_text = "The administrator has posted your Tile."
-    @button_text = "See your Tile"
-    @link = digest_email_site_link(user, @demo.id, email_type: EMAIL_TYPE)
 
-    mail to: user.email_with_name, from: @demo.reply_email_address, subject: @subject
+    @presenter = OpenStruct.new(
+      general_site_url: digest_email_site_link(user, @demo.id, email_type: EMAIL_TYPE),
+      cta_message: "See your Tile",
+      email_heading: POSTED_SUBJECT,
+      custom_message:  "The administrator has posted your Tile."
+    )
+
+    mail(
+      to: user.email_with_name,
+      from: @demo.reply_email_address,
+      subject: POSTED_SUBJECT,
+      template_path: "mailer",
+      template_name: "system_email"
+    )
   end
 end

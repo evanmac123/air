@@ -27,8 +27,8 @@ class PushMessage < ActiveRecord::Base
     # Mailing list may have changed since job was created => Update list of recipients
     update_attributes email_recipient_ids: email_recipient_ids, sms_recipient_ids: sms_recipient_ids
 
-    if plain_text.present? || html_text.present?
-      GenericMailer::BulkSender.new(demo_id, email_recipient_ids, subject, plain_text, html_text).delay.send_bulk_mails
+    if html_text.present?
+      GenericMailer::BulkSender.new(demo_id, email_recipient_ids, subject, html_text).delay.send_bulk_mails
     end
 
     if sms_text.present?

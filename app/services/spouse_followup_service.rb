@@ -23,7 +23,6 @@ class SpouseFollowupService
       dependent_board.id,
       user_ids,
       subject,
-      plain_text,
       html_text,
       select_recipients
     ).send_bulk_mails
