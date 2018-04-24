@@ -19,18 +19,24 @@ class Mailer < ApplicationMailer
       invitation_url = invitation_url(user.invitation_code, referrer_hash.merge(demo_id: @demo.id))
     end
 
+    if referrer.present?
+      email_heading = "#{referrer.name} invited you to join #{@demo.name}"
+    else
+      email_heading = "You are invited to join #{@demo.name}"
+    end
+
     @not_show_settings_link = true
     @user = user
     @presenter = OpenStruct.new(
       general_site_url: invitation_url,
       cta_message: "Get Started",
-      email_heading: "You are invited to join #{@demo.name}",
+      email_heading: email_heading,
       custom_message: @demo.intro_message
     )
 
     mail(
       to: user.email_with_name,
-      subject: "You are invited to join #{@demo.name}",
+      subject: email_heading,
       from: @demo.reply_email_address,
       template_path: "mailer",
       template_name: "system_email"
