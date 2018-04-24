@@ -1,8 +1,8 @@
 <%= render layout: "mailer/v1/layout" do %>
   <% content_for(:ie_link){ @presenter.general_site_url } %>
-  <%= render partial: 'mailer/main_text', locals: {head_text: @presenter.email_heading, subhead_text: @presenter.custom_message} %>
+  <%= render partial: 'mailer/v1/main_text', locals: {head_text: @presenter.email_heading, subhead_text: @presenter.custom_message} %>
 
   <% if @presenter.cta_message.present? %>
-    <%= render partial: 'mailer/main_button', locals: { button_text: @presenter.cta_message, button_url: @presenter.general_site_url } %>
+    <%= render partial: 'mailer/v1/main_button', locals: { button_text: @presenter.cta_message, button_url: @presenter.general_site_url } %>
   <% end %>
 <% end %>

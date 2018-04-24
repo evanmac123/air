@@ -1,0 +1,7 @@
+<% if @tiles.present? %>
+  <% @tiles.each do |tile| %>
+    <%= render partial: "tiles_digest_mailer/v1/full_tile", locals: { tile: tile, site_link: @presenter.general_site_url(tile_id: tile.id) } %>
+  <% end %>
+<% else %>
+  <%= render partial: "tiles_digest_mailer/v1/full_tile_placeholder" %>
+<% end %>

@@ -14,8 +14,8 @@
   </tr>
 </table>
 <% unless @presenter.follow_up_email %>
-  <%= render partial: "tiles_digest_mailer/tiles_row" %>
+  <%= render partial: "tiles_digest_mailer/v1/tiles_row" %>
 <% else %>
-  <%= render partial: "tiles_digest_mailer/follow_up_tiles_row" %>
+  <%= render partial: "tiles_digest_mailer/v1/follow_up_tiles_row" %>
 <% end %>
-<%= render partial: 'mailer/main_button', locals: {button_text: 'See Tiles', button_url: @presenter.general_site_url, button_font_size: '24px', button_url_options: @presenter.link_options, works_on_mobile: @presenter.works_on_mobile? } %>
+<%= render partial: 'mailer/v1/main_button', locals: {button_text: 'See Tiles', button_url: @presenter.general_site_url, button_font_size: '24px', button_url_options: @presenter.link_options, works_on_mobile: @presenter.works_on_mobile? } %>

@@ -5,7 +5,7 @@
       <tr>
         <td width="208" valign="top" class="column">
           <% if tiles[0].present? %>
-            <%= render partial: "tiles_digest_mailer/tile", locals: { tile: tiles[0], site_link: @presenter.general_site_url(tile_id: tiles[0].id) } %>
+            <%= render partial: "tiles_digest_mailer/v1/tile", locals: { tile: tiles[0], site_link: @presenter.general_site_url(tile_id: tiles[0].id) } %>
           <% end %>
         </td>
         <td width="20" class="verticalGap">
@@ -13,7 +13,7 @@
         </td>
         <td width="208" valign="top" class="column">
           <% if tiles[1].present? %>
-            <%= render partial: "tiles_digest_mailer/tile", locals: {tile: tiles[1], site_link: @presenter.general_site_url(tile_id: tiles[1].id) } %>
+            <%= render partial: "tiles_digest_mailer/v1/tile", locals: {tile: tiles[1], site_link: @presenter.general_site_url(tile_id: tiles[1].id) } %>
           <% end %>
         </td>
       </tr>
@@ -21,13 +21,13 @@
   <% else %>
     <tr>
       <td width="208" valign="top" class="column">
-        <%= render partial: "tiles_digest_mailer/tile_placeholder" %>
+        <%= render partial: "tiles_digest_mailer/v1/tile_placeholder" %>
       </td>
       <td width="20" class="verticalGap">
         &nbsp;
       </td>
       <td width="208" valign="top" class="column">
-        <%= render partial: "tiles_digest_mailer/tile_placeholder" %>
+        <%= render partial: "tiles_digest_mailer/v1/tile_placeholder" %>
       </td>
     </tr>
   <% end %>
