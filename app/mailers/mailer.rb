@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Mailer < ApplicationMailer
   include EmailPreviewsHelper # TODO: DEPRECATE This module is useless
   layout false
@@ -8,56 +10,69 @@ class Mailer < ApplicationMailer
 
   def invitation(user, referrer = nil, options = {})
     @demo = options[:demo_id].present? ? Demo.find(options[:demo_id]) : user.demo
-    email_template = @demo.invitation_email
     referrer_hash = User.referrer_hash(referrer)
 
     if options[:password_only]
       user.manually_set_confirmation_token
-      @invitation_url = edit_user_password_url(user, token: user.confirmation_token)
+      invitation_url = edit_user_password_url(user, token: user.confirmation_token)
     else
-      @invitation_url = invitation_url(user.invitation_code, referrer_hash.merge(demo_id: @demo.id))
+      invitation_url = invitation_url(user.invitation_code, referrer_hash.merge(demo_id: @demo.id))
     end
 
-    @plain_text = email_template.plain_text(user, referrer, @invitation_url)
-    @html_text = email_template.html_text(user, referrer, @invitation_url).html_safe
-
-    @forward_email_warning = "This invitation was created specifically for you. Please do not forward it to others."
-
-    @user = user
-
     @not_show_settings_link = true
+    @user = user
+    @presenter = OpenStruct.new(
+      general_site_url: invitation_url,
+      cta_message: "Start",
+      email_heading: "You are invited to join #{@demo.name}",
+      custom_message: @demo.intro_message
+    )
 
-    mail(to: user.email_with_name,
-         subject: email_template.subject(user, referrer, @invitation_url),
-         from: @demo.reply_email_address)
+    mail(
+      to: user.email_with_name,
+      subject: "You are invited to join #{@demo.name}",
+      from: @demo.reply_email_address,
+      template_path: "mailer",
+      template_name: "system_email"
+    )
   end
 
   def follow_notification(friend_name, friend_address, reply_address, user_name, user_id, friendship_id)
     @user = User.find(user_id)
     @demo = @user.demo
+    @presenter = OpenStruct.new(
+      general_site_url: accept_friendship_url(user_id, friendship_id),
+      cta_message: "Accept",
+      email_heading: "Connection request",
+      custom_message: "Hi #{friend_name.split[0]}, #{user_name} has asked to be your connection on Airbo."
+    )
 
-    @friend_name   = friend_name.split[0]
-    @user_name     = user_name
-    @user_id       = user_id
-    @friendship_id = friendship_id
-
-    mail to: friend_address,
-         from: reply_address,
-         subject: "#{user_name} wants to be your friend on Airbo"
+    mail(
+      to: friend_address,
+      from: reply_address,
+      subject: "#{user_name} wants to be your friend on Airbo",
+      template_path: "mailer",
+      template_name: "system_email"
+    )
   end
 
   def follow_notification_acceptance(user_name, user_address, reply_address, friend_name, friend_id)
+    friend = User.find(friend_id)
     @user = User.find_by(email: user_address)
     @demo = @user.demo
-
-    @user_name   = user_name.split[0]
-    @friend_name = friend_name
-    @friend = User.find(friend_id)
+    @presenter = OpenStruct.new(
+      general_site_url: email_friend_url(friend, @user),
+      cta_message: "See your new connection",
+      email_heading: "Connection accepted",
+      custom_message: "Hi #{user_name.split[0]}, #{friend_name} has approved your connection request."
+    )
 
     mail(
       to: user_address,
       from: reply_address,
       subject: "Message from Airbo",
+      template_path: "mailer",
+      template_name: "system_email"
     )
   end
 

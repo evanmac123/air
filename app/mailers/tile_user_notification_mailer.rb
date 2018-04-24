@@ -23,6 +23,13 @@ class TileUserNotificationMailer < ApplicationMailer
 
     set_x_smtpapi_headers(category: "Tile Push Message", unique_args: x_smtpapi_unique_args)
 
-    mail(to: @user.email_with_name, from: tile_user_notification.from_email, subject: tile_user_notification.subject, reply_to: "support@airbo.com")
+    mail(
+      to: @user.email_with_name,
+      from: tile_user_notification.from_email,
+      subject: tile_user_notification.subject,
+      reply_to: "support@airbo.com",
+      template_path: "mailer",
+      template_name: "system_email"
+    )
   end
 end
