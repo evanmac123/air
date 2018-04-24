@@ -14,8 +14,7 @@ feature "Potential User Accepts Invitation" do
 
     it "should get email with invitation" do
       open_email @potential_user.email
-      expect(current_email.to_s).to have_content "#{@user.name} invited you to"
-      expect(current_email.to_s).to have_content " join the #{@demo.name}"
+      expect(current_email.to_s).to have_content "#{@user.name} invited you to join #{@demo.name}"
     end
 
     it "should direct to activity page" do

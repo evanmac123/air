@@ -39,23 +39,19 @@ feature 'Admin sends targeted messages using segmentation' do
     @expected_users = [11, 13, 14, 16, 17, 19].map{|i| @users[i]}
   end
 
-  def ensure_expected_mails_sent(expected_subject, expected_html_text, expected_plain_text, options={})
+  def ensure_expected_mails_sent(expected_subject, expected_html_text, options={})
     expected_mail_count = options[:mail_count] || 6
 
     click_button "It's going to be OK"
     expect_content "Scheduled email to #{expected_mail_count} users"
 
-
-
     expect(ActionMailer::Base.deliveries.length).to eq(expected_mail_count)
 
     ActionMailer::Base.deliveries.each do |mail|
       html_part = mail.parts.select{|part| part.content_type =~ /html/}.first
-      plain_part = mail.parts.select{|part| part.content_type =~ /text/}.first
 
       expect(mail.subject).to eq(expected_subject)
       expect(html_part.body.to_s).to include(expected_html_text)
-      expect(plain_part.body.to_s).to include(expected_plain_text)
     end
   end
 
@@ -71,29 +67,11 @@ feature 'Admin sends targeted messages using segmentation' do
       click_button "Find segment"
       fill_in "subject",    :with => "some bullshit"
       fill_in "html_text",  :with => "some bullshit"
-      fill_in "plain_text", :with => "some bullshit"
       click_button "It's going to be OK"
 
 
       open_email 'joe@example.com'
       expect(current_email.to_s).to include("From: Big Fun <bigfun@ourairbo.com>")
-    end
-  end
-
-  context "when an explicit plain text is given" do
-    it "should use that", :js => true do
-      set_up_models
-      select_common_form_entries
-
-      expected_subject = "Hello friends!"
-      expected_html_text = "<p>Did you know?</p><p>H Engage is AWESOME.</p>"
-      expected_plain_text = "Seriously, it is the cat's pajamas.\n\nPajamas!\n\n"
-
-      fill_in "subject",    :with => expected_subject
-      fill_in "html_text",  :with => expected_html_text
-      fill_in "plain_text", :with => expected_plain_text
-
-      ensure_expected_mails_sent(expected_subject, expected_html_text, expected_plain_text)
     end
   end
 
@@ -110,13 +88,12 @@ feature 'Admin sends targeted messages using segmentation' do
     expect(ActionMailer::Base.deliveries).to be_empty
   end
 
-  context "when plain text field is all whitespace and HTML text field has no non-whitespace text" do
+  context "when HTML text field has no non-whitespace text" do
     it "should not send an email", :js => true do
       set_up_models
       select_common_form_entries
       fill_in "subject", :with => "blankitude"
       fill_in "html_text", :with => "<p>&nbsp;</p><p>&nbsp;</p><p>     </p><p>&nbsp;</p><p>&nbsp;</p><br/><br/><p></p>"
-      fill_in "plain_text", :with => "\n\n\n        \n\n"
 
       click_button "It's going to be OK"
       expect_content "Email text blank, no emails sent"
@@ -131,7 +108,6 @@ feature 'Admin sends targeted messages using segmentation' do
         select_common_form_entries
         fill_in "subject", :with => "blankitude"
         fill_in "html_text", :with => "<p>&nbsp;</p><p>&nbsp;</p><p>     </p><img src=\"foobar\"><br/><br/><p></p>"
-        fill_in "plain_text", :with => "\n\n\n        \n\n"
 
         click_button "It's going to be OK"
         expect_no_content "Email text blank, no emails sent"
@@ -261,11 +237,9 @@ feature 'Admin sends targeted messages using segmentation' do
     select_common_form_entries
 
     expected_html_text = "<p>Be advised!</p>"
-    expected_plain_text = "Plainly take advice"
     expected_sms_text = "be u advised"
 
     fill_in "html_text", :with => expected_html_text
-    fill_in "plain_text", :with => expected_plain_text
     fill_in "sms_text", :with => expected_sms_text
 
     select "Metasyntactic variable", :from => "segment_column[0]"
@@ -276,7 +250,6 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Users in this segment: 3"
 
     expect_value "html_text", expected_html_text
-    expect_value "plain_text", expected_plain_text
     expect_value "sms_text", expected_sms_text
   end
 
@@ -286,12 +259,10 @@ feature 'Admin sends targeted messages using segmentation' do
 
     expected_subject = "Some advice from your friends at The H Engages"
     expected_html_text = "<p>Be advised!</p>"
-    expected_plain_text = "Plainly take advice"
     expected_sms_text = "be u advised"
 
     fill_in "subject", :with => expected_subject
     fill_in "html_text", :with => expected_html_text
-    fill_in "plain_text", :with => expected_plain_text
     fill_in "sms_text", :with => expected_sms_text
 
     click_button "It's going to be OK"
@@ -301,7 +272,6 @@ feature 'Admin sends targeted messages using segmentation' do
 
     expect_value "subject", expected_subject
     expect_value "html_text", expected_html_text
-    expect_value "plain_text", expected_plain_text
     expect_value "sms_text", expected_sms_text
   end
 
@@ -336,13 +306,11 @@ feature 'Admin sends targeted messages using segmentation' do
     sms_text = "Go read \"Three Men In A Boat\""
 
     fill_in "html_text", :with => long_text
-    fill_in "plain_text", :with => long_text
     fill_in "subject", :with => mail_subject
     fill_in "sms_text", :with => sms_text
 
     click_button "It's going to be OK"
     expect(page.find('#html_text').value).to eq(long_text)
-    expect(page.find('#plain_text').value).to eq(long_text)
     expect(page.find('#subject').value).to eq(mail_subject)
     expect(page.find('#sms_text').value).to eq(sms_text)
   end
