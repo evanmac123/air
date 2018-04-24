@@ -1,1 +1,8 @@
-<%= @message.html_safe %>
+<% unless @demo.redis[:mailer_v2].call(:get) %>
+  <%= render layout:  "mailer/v1/layout" do %>
+    <%= @presenter.custom_message.html_safe %>
+  <% end %>
+<% else %>
+  <%= render layout:  "mailer/v2/layout" do %>
+  <% end %>
+<% end %>

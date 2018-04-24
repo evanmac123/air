@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <%= render partial: "mailer/v2/head" %>
 <body
   leftmargin="0"
@@ -39,7 +41,7 @@
                       </tr>
                       <tr>
                         <td id="custom_headline" class="headline-bbg" align="center" style="padding:0 0 18px 0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:22px;color:#4c4c4c;font-weight:500;">
-                          <%= @presenter.email_heading %>
+                          <%= @presenter.email_heading.try(:html_safe) %>
                         </td>
                       </tr>
                     </table>
@@ -69,7 +71,7 @@
                       <tr>
                         <!--[if mso]><td style="padding:0 50px;"><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><![endif]-->
                         <td id="custom_message" class="headline-gbg" align="center" style="padding:0 0 20px 0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#8DA0AB;font-size:15px;">
-                          <%= @presenter.custom_message %>
+                          <%= @presenter.custom_message.try(:html_safe) %>
                         </td>
                         <!--[if mso]></tr></table></td><![endif]-->
                       </tr>
@@ -90,3 +92,4 @@
     </tr>
   </table>
 </body>
+</html>

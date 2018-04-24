@@ -23,7 +23,7 @@ class PotentialUser < ActiveRecord::Base
   end
 
   def invite_as_dependent(subject, body)
-    DependentUserMailer.delay.notify(self, subject, body)
+    DependentUserMailer.notify(self, subject, body).deliver_later
   end
 
   def email_with_name

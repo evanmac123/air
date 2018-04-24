@@ -1,14 +1,17 @@
 class TileUserNotificationMailer < ApplicationMailer
   helper :email
-  layout 'mailer'
+  layout nil
 
   def notify_one(user:, tile_user_notification:)
     @user = user
     return nil unless @user && @user.email.present?
 
     @demo = tile_user_notification.demo
-    @creator = tile_user_notification.creator
-    @message = tile_user_notification.interpolated_message(user: @user)
+    @presenter = OpenStruct.new(
+      creator: tile_user_notification.creator,
+      custom_message: tile_user_notification.interpolated_message(user: @user),
+      general_site_url: digest_email_site_link(@user, @demo.id)
+    )
 
     x_smtpapi_unique_args = @demo.data_for_mixpanel(user: @user).merge({
       subject: tile_user_notification.subject,

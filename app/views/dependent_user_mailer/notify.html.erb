@@ -1,3 +1,11 @@
-<% content_for(:ie_link){ @accept_url } %>
-<%= render partial: 'mailer/main_text', locals: {head_text: "You are invited to #{@demo.name}", subhead_text: @subhead_text} %>
-<%= render partial: 'mailer/main_button', locals: {button_text: "Accept", button_url: @accept_url } %>
+<% unless @demo.redis[:mailer_v2].call(:get) %>
+  <%= render layout: "mailer/v1/layout" do %>
+    <% content_for(:ie_link){ @presenter.general_site_url } %>
+    <%= render partial: 'mailer/main_text', locals: {head_text: @presenter.email_heading, subhead_text: @presenter.custom_message} %>
+    <%= render partial: 'mailer/main_button', locals: {button_text: "Accept", button_url: @presenter.general_site_url } %>
+  <% end %>
+<% else %>
+  <%= render layout: "mailer/v2/layout" do %>
+    <%= render partial: "mailer/v2/main_cta" %>
+  <% end %>
+<% end %>

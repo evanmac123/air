@@ -1,4 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
+  include ClientAdmin::TilesHelper
+
   def initialize(method_name = nil, *args)
     super.tap do
       unless headers["X-SMTPAPI"].present?

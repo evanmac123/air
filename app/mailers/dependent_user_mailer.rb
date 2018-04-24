@@ -1,18 +1,22 @@
 class DependentUserMailer < ApplicationMailer
   helper :email
-  layout "mailer"
+  layout nil
   default :reply_to => 'support@airbo.com'
 
   def notify(dependent_user, subject, body)
     @dependent_user = dependent_user
     return unless @dependent_user
 
-    @dependent_email = @dependent_user.email
     @demo = @dependent_user.demo
     @user  = @dependent_user.primary_user
-    @accept_url = invitation_url(@dependent_user.invitation_code)
-    @subhead_text = body
+    @presenter = OpenStruct.new(
+      dependent_email: @dependent_user.email,
+      general_site_url: invitation_url(@dependent_user.invitation_code),
+      email_heading: "You are invited to #{@demo.name}",
+      custom_message: body,
+      cta_message: "Accept"
+    )
 
-		mail to: @dependent_email, subject: subject, from: "#{@user.name} via Airbo<#{@user.email}>"
+		mail to: @presenter.dependent_email, subject: subject, from: "#{@user.name} via Airbo<#{@user.email}>"
   end
 end

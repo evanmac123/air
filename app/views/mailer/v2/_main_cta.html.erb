@@ -1,0 +1,15 @@
+<tr>
+  <td class="btn-p" style="padding: 0 10px 30px 10px;">
+    <!--[if mso]><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td style="padding:0 150px 87px;"><![endif]-->
+    <%= link_to @presenter.general_site_url, target: "_blank" do %>
+      <table class="bgcolor" width="70%" align="center" cellspacing="0" cellpadding="0" border="0" bgcolor="<%= @demo.primary_color %>">
+        <tr>
+          <td align="center" style="padding:14px 10px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:500;font-size:16px;color:#FFFFFF;">
+            <a href="<%= @presenter.general_site_url %>" target="_blank" style="color:#FFFFFF"><%= @presenter.cta_message %></a>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+    <!--[if mso]></td></tr></table><![endif]-->
+  </td>
+</tr>
