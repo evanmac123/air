@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserSettingsChangeLogMailer < ApplicationMailer
   helper :email
   layout false

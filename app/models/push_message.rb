@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PushMessage < ActiveRecord::Base
   STATES = [
     (SCHEDULED = "scheduled".freeze),

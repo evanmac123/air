@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SuggestedTileReviewMailer < ApplicationMailer
-  layout "mailer"
+  layout false
   helper :email
 
   def notify_one(client_admin_id, demo_id, tile_sender_name, tile_sender_email)
@@ -12,7 +14,7 @@ class SuggestedTileReviewMailer < ApplicationMailer
       general_site_url: submitted_tile_notifications_url(demo_id: demo_id),
       cta_message: "Review Tile",
       email_heading: "You have a new Tile in the <br>Suggestion Box!".html_safe,
-      custom_message: "#{tile_sender_name} (tile_sender_email) has submitted a Tile for your review."
+      custom_message: "#{tile_sender_name} (#{tile_sender_email}) has submitted a Tile for your review."
     )
 
     mail(

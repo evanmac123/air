@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GenericMailer < ApplicationMailer
   include EmailInterpolations::InvitationUrl
   include EmailInterpolations::TileDigestUrl
@@ -6,7 +8,7 @@ class GenericMailer < ApplicationMailer
 
   layout false
 
-  default reply_to: 'support@airbo.com'
+  default reply_to: "support@airbo.com"
 
   def send_message(demo_id, user_id, subject, html_text, potential_users = nil)
     unless potential_users
