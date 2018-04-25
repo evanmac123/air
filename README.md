@@ -30,7 +30,7 @@ Airbo App Setup
     
     `yarn install`
     
-3. Ensure you can boot up the background script `lib/airbo_dev_up`.  Common issues here include already having Redis or ElasticSearch running.
+3. Ensure you can boot up the background script `lib/airbo_dev_up`.  Common issues here include already having Redis or ElasticSearch running already.
 
 4. Create your development and test databases. (Note: Two distinct steps: 1 for development and 1 for test):
 
