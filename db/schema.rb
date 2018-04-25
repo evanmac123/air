@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180413205807) do
+ActiveRecord::Schema.define(version: 20180425182418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -499,6 +499,7 @@ ActiveRecord::Schema.define(version: 20180413205807) do
     t.boolean  "hide_social",                                       default: false
     t.string   "timezone",                              limit: 255, default: "Eastern Time (US & Canada)"
     t.boolean  "allow_unsubscribes",                                default: false
+    t.integer  "email_version",                                     default: 1
   end
 
   add_index "demos", ["dependent_board_id"], name: "index_demos_on_dependent_board_id", using: :btree
