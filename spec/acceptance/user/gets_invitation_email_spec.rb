@@ -56,7 +56,7 @@ feature 'User gets invitation email' do
     context "and there's a custom subject-with-referrer" do
       it "should use that" do
         @user.invite(@referrer)
-        expect_subject "You are invited to join #{@demo.name}"
+        expect_subject "#{@referrer.name} invited you to join #{@demo.name}"
       end
     end
   end
