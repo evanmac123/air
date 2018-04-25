@@ -11,7 +11,9 @@ Developer Machine Setup
 ------------
 
 ### Mac Only
-Rubn [this](https://github.com/thoughtbot/laptop) laptop setup script. Then, brew install mongodb, chromedriver, geckodriver, and elasticsearch.
+Run [this](https://github.com/thoughtbot/laptop) laptop setup script. Then, brew install mongodb, chromedriver, geckodriver, and elasticsearch.
+
+Add provided environment variables (see Environment Variables section).
 
 #### Ruby Version Manager
 We use [asdf](https://github.com/asdf-vm/asdf) as our version manager for all langs.
@@ -25,32 +27,34 @@ Airbo App Setup
 2. Install the dependent Ruby and JS libraries:
 
     `bundle install`
+    
     `yarn install`
+    
+3. Ensure you can boot up the background script `lib/airbo_dev_up`.  Common issues here include already having Redis or ElasticSearch running.
 
-3. Create your development and test databases. (Note: Two distinct steps: 1 for development and 1 for test):
+4. Create your development and test databases. (Note: Two distinct steps: 1 for development and 1 for test):
 
     `rake db:create`
 
-4. Load the development schema:
+5. Load the development schema:
 
     `rake db:schema:load`
 
-5. Prepare the test database:
+6. Prepare the test database:
 
     `rake db:test:prepare`
 
-6. Download the most recent db backup from Heroku:
+7. Download the most recent db backup from Heroku:
 
     `lib/environment_sync prep`
+    
+8. Run `lib/airbo_dev_up`
 
-7. Populate your development database with a sanitized cut of production:
+9. Populate your development database with a sanitized cut of production:
 
     `lib/environment_sync development`
 
-
 Airbo employee users (site_admin) are not sanitized in the previous command, so you will be able to login to your dev environement with your production credentials.
-
-8. Follow instructions to populate images.
 
 ### Environment Variables
 Add necessary environment variables in a `.env` file using the `.dev_template.env` as reference.
@@ -69,7 +73,7 @@ To run the app locally:
 `bundle exec rspec -fd; bundle exec rspec --only-failures`
 
 This will run all tests and then rerun failures one time.
-Our CI runs this exact script after every push to github.
+Our CI runs this exact script after every push to githuh and we rarely run it on our local machines.
 
 ## Committing Code
 
