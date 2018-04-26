@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TileController < ApplicationController
   include AllowGuestUsersConcern
 
@@ -22,12 +24,12 @@ class TileController < ApplicationController
       unless @tile.is_sharable
         cookies[:og_image] = { value: @tile.image.url, expires: 1.hour.from_now }
         cookies[:og_title] = { value: @tile.headline, expires: 1.hour.from_now }
-        not_found('flashes.failure_tile_not_public')
+        not_found("flashes.failure_tile_not_public")
         return
       end
     end
 
     def tile_viewed_ping
-      ping('Tile - Viewed', {tile_type: "Public Tile", tile_id: @tile.id}, current_user)
+      ping("Tile - Viewed", { tile_type: "Public Tile", tile_id: @tile.id }, current_user)
     end
 end
