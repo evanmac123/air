@@ -1,5 +1,5 @@
-<meta property="og:title" content="<%= OpengraphService.title(yield(:page_title)) %>" />
-<meta property="og:image" content="<%= OpengraphService.image(yield(:og_image)) %>" />
+<meta property="og:title" content="<%= cookies[:og_title] || OpengraphService.title(yield(:page_title)) %>" />
+<meta property="og:image" content="<%= cookies[:og_image] || OpengraphService.image(yield(:og_image)) %>" />
 <title><%= OpengraphService.title(yield(:page_title)) %></title>
 <meta property="og:description" content="<%= OpengraphService.description(yield(:og_description)) %>" />
 <meta property="og:type" content="article" />

@@ -18,8 +18,10 @@ class TileController < ApplicationController
     end
 
     def find_tile
-      @tile = Tile.where(id: params[:id], is_sharable: true).first
-      unless @tile
+      @tile = Tile.find(params[:id])
+      unless @tile.is_sharable
+        cookies[:og_image] = { value: @tile.image.url, expires: 1.hour.from_now }
+        cookies[:og_title] = { value: @tile.headline, expires: 1.hour.from_now }
         not_found('flashes.failure_tile_not_public')
         return
       end
