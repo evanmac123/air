@@ -33,6 +33,7 @@ class InvitationsController < ApplicationController
   def show
     @user = find_user
     set_tile_id_for_open_graph
+    set_open_graph_tile_for_admin
     if @user
       @referrer = get_referrer
       @demo = Demo.find_by(id: params[:demo_id])

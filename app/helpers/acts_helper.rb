@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActsHelper
   def set_modals_and_intros
     if current_user.display_get_started_lightbox || params[:welcome_modal].present?
@@ -8,7 +10,7 @@ module ActsHelper
 
   def welcome_message_flash
     keys_for_real_flashes = %w(success failure notice).map(&:to_sym)
-    return if keys_for_real_flashes.any?{|key| flash[key].present?}
+    return if keys_for_real_flashes.any? { |key| flash[key].present? }
 
     flash.now[:success] = [welcome_message]
   end
@@ -23,7 +25,7 @@ module ActsHelper
 
     tile = get_tile_from_params
     if tile.present?
-      tiles_path({ tile_id: params[:tile_id] })
+      tiles_path(tile_id: params[:tile_id])
     else
       activity_path
     end
