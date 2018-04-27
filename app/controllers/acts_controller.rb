@@ -46,7 +46,7 @@ class ActsController < ApplicationController
           flash[:success] = "Welcome back, #{current_user.first_name}!"
           redirect_to redirect_path_for_tile_token_auth
         else
-          set_open_graph_tile_for_admin
+          set_open_graph_tile
           return false
         end
       else

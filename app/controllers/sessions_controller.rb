@@ -4,7 +4,6 @@ class SessionsController < Clearance::SessionsController
   layout "external"
 
   def new
-    set_open_graph_meta_data
     render template: "sessions/new"
   end
 
@@ -51,12 +50,5 @@ class SessionsController < Clearance::SessionsController
 
   def flash_failure_after_create
     flash[:failure] = "Sorry, that's an invalid username or password."
-  end
-
-  def set_open_graph_meta_data
-    if session[:open_graph_tile_id].present?
-      tile_id = session[:open_graph_tile_id]
-      @tile = Tile.where(id: tile_id).first
-    end
   end
 end

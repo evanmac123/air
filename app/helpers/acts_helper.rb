@@ -21,8 +21,6 @@ module ActsHelper
   end
 
   def redirect_path_for_tile_token_auth
-    set_tile_id_for_open_graph
-
     tile = get_tile_from_params
     if tile.present?
       tiles_path(tile_id: params[:tile_id])
@@ -31,11 +29,7 @@ module ActsHelper
     end
   end
 
-  def set_tile_id_for_open_graph
-    session[:open_graph_tile_id] = params[:tile_id]
-  end
-
-  def set_open_graph_tile_for_admin
+  def set_open_graph_tile
     tile = Tile.find_by(id: params[:tile_id])
     if tile.present?
       cookies[:og_image] = { value: tile.image.url, expires: 1.hour.from_now }
