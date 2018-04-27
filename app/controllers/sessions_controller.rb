@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < Clearance::SessionsController
   before_action :downcase_email
 
@@ -12,7 +14,7 @@ class SessionsController < Clearance::SessionsController
 
     if @user.nil?
       flash_failure_after_create
-      render :template => 'sessions/new'
+      render template: "sessions/new"
     else
       sign_in(@user, params[:session][:remember_me])
       if params[:demo_id]
@@ -42,13 +44,13 @@ class SessionsController < Clearance::SessionsController
 
   protected
 
-  def downcase_email
-    if params[:session] && params[:session][:email].present?
-      params[:session][:email].downcase!
+    def downcase_email
+      if params[:session] && params[:session][:email].present?
+        params[:session][:email].downcase!
+      end
     end
-  end
 
-  def flash_failure_after_create
-    flash[:failure] = "Sorry, that's an invalid username or password."
-  end
+    def flash_failure_after_create
+      flash[:failure] = "Sorry, that's an invalid username or password."
+    end
 end
