@@ -7,6 +7,7 @@
     "clipboard": "^2.0.0",
     "flickity": "^2.0.10",
     "medium-editor": "github:weilandia/medium-editor#1402_resolves_anchor_toolbar_for_ie",
+    "progressbar.js": "^1.0.1",
     "vue": "^2.5.16",
     "vue-loader": "^14.2.1",
     "vue-template-compiler": "^2.5.16",
