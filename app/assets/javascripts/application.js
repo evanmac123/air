@@ -22,7 +22,7 @@
 //= require intro.min
 //= require autosize/dist/autosize.min.js
 //= require imagesloaded.pkgd.min.js
-//= require clipboard.js
+//= require clipboard/dist/clipboard.min.js
 //= require jssocials.min.js
 
 // File Uploader
