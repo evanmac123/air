@@ -3,7 +3,7 @@
 class OpengraphService
   class << self
     def image_for_board(board:)
-      tile_to_display = board.tiles.active.first
+      tile_to_display = board.tiles.active.ordered_by_position.first
 
       if tile_to_display.present?
         tile_to_display.thumbnail.url
