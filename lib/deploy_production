@@ -23,11 +23,6 @@ then
   git push production master
 
   echo_with_color "$(git rev-parse HEAD) deployed!" $GREEN
-
-  echo_with_color "Setting Airbrake deploy" $GREEN
-  ./lib/airbrake_deploy_production
-  echo
-  echo_with_color "Deploy complete." $GREEN
 else
   echo_with_color "Not deploying." $RED
 fi

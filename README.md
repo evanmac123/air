@@ -31,9 +31,9 @@ Airbo App Setup
 2. Install the dependent Ruby and JS libraries:
 
     `bundle install`
-    
+
     `yarn install`
-    
+
 3. Ensure you can boot up the background script `lib/airbo_dev_up`.  Common issues here include already having Redis or ElasticSearch running already.
 
 4. Create your development and test databases. (Note: Two distinct steps: 1 for development and 1 for test):
@@ -51,7 +51,7 @@ Airbo App Setup
 7. Download the most recent db backup from Heroku:
 
     `lib/environment_sync prep`
-    
+
 8. Run `lib/airbo_dev_up`
 
 9. Populate your development database with a sanitized cut of production:
@@ -130,16 +130,14 @@ To deploy to staging:
 
 To deploy to production:
 
-  * Make sure `AIRBRAKE_PRODUCTION_PROJECT_ID` and `AIRBRAKE_PRODUCTION_API_KEY` ENV vars are set.
-
-  * Run `lib/deploy_production`
-      * This:
-        1. runs `git push production master`
-        2. runs `lib/airbrake_deploy_production`
+  * Option 1: Deploy from Semaphore (preferred)
+  * Option 2: `lib/deploy_production`
 
 Notes
 
   * A Heroku release task will run migrations and restart the dynos automatically
+
+  * A Heroku release task will aslo run any configured deploy hooks. Currently, there is a deploy hook to notify Airbrake of the deploy.
 
   * We use the Node Buildpack as well as the Ruby Buildpack.  Although the Ruby Buildpack runs `yarn install` if the `gem webpacker` is present, it does not run it before normal asset compilation, which we need in order to include yarn dependencies in css and js files managed by the Asset Pipeline. Therefore, we use the Node Buildpack to install yarn dependencies prior to Asset Pipeline's precompile. This is unfortunate because it means we run `yarn install` twice (though it's cached and not a big deal), but this is an ongoing Rails/Heroku issue. We can check back in the future for a better resolution.
 
