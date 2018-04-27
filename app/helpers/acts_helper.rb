@@ -33,9 +33,17 @@ module ActsHelper
     session[:open_graph_tile_id] = params[:tile_id]
   end
 
+  def set_open_graph_tile_for_admin
+    tile = Tile.find_by(id: params[:tile_id])
+    if tile.present?
+      cookies[:og_image] = { value: tile.image.url, expires: 1.hour.from_now }
+      cookies[:og_title] = { value: tile.headline, expires: 1.hour.from_now }
+    end
+  end
+
   def get_tile_from_params
     if current_user && params[:tile_id].present?
-      current_board.tiles.where(id: params[:tile_id]).first
+      current_board.tiles.find_by(id: params[:tile_id])
     end
   end
 end

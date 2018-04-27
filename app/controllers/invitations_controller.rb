@@ -2,6 +2,7 @@
 
 class InvitationsController < ApplicationController
   include TileEmailTrackingConcern
+  include ActsHelper
 
   layout "external"
 
@@ -31,6 +32,7 @@ class InvitationsController < ApplicationController
 
   def show
     @user = find_user
+    set_tile_id_for_open_graph
     if @user
       @referrer = get_referrer
       @demo = Demo.find_by(id: params[:demo_id])
