@@ -56,10 +56,6 @@ namespace :admin do
 
     resource :bulk_load, :only => [:new, :create]
 
-    namespace :reports do
-      resource :activities, :only => [:create]
-    end
-
     resources :locations
 
     resources :characteristics

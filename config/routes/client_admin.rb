@@ -1,5 +1,4 @@
 namespace :client_admin do
-  resource :segmentation
   resources :tile_previews, only: [:show]
 
   resource :reports, only: [:show]

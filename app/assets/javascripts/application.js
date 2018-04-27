@@ -20,7 +20,7 @@
 //= require medium-editor/dist/js/medium-editor
 //= require chosen.jquery.min
 //= require intro.min
-//= require autosize
+//= require autosize/dist/autosize.min.js
 //= require imagesloaded.pkgd.min.js
 //= require clipboard.js
 //= require jssocials.min.js

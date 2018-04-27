@@ -2,6 +2,7 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.3.1",
+    "autosize": "^4.0.1",
     "axios": "^0.17.1",
     "flickity": "^2.0.10",
     "medium-editor": "github:weilandia/medium-editor#1402_resolves_anchor_toolbar_for_ie",
