@@ -11,7 +11,7 @@ Developer Machine Setup
 ------------
 
 ### Mac Only
-Run [this](https://github.com/thoughtbot/laptop) laptop setup script. Then, brew install mongodb, chromedriver, geckodriver, and elasticsearch.
+Add [this](https://github.com/theairbo/hengage/wiki/.laptop.local) file to `~/.laptop.local` and then run [this](https://github.com/thoughtbot/laptop) laptop setup script.
 
 Add provided environment variables (see Environment Variables section).
 
