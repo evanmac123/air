@@ -20,7 +20,7 @@ We use [asdf](https://github.com/asdf-vm/asdf) as our version manager for all la
 
 #### Setting Up MongoDB
 * After downloading Mongo, create the “db” directory. This is where the Mongo data files will live. You can create the directory in the default location by running `mkdir -p /data/db`
-* Make sure that the /data/db directory has the right permissions by running "sudo chown -R `id -un` /data/db"
+* Make sure that the /data/db directory has the right permissions by running ``sudo chown -R `id -un` /data/db``
 
 Airbo App Setup
 ------------
