@@ -12,7 +12,7 @@
   } %>
 
   <%= render partial: 'client_admin/tiles/manage_tiles/tiles_container', locals: {
-    component_classes: "js-plan-tiles-component",
+    component_classes: "js-plan-tiles-component hidden",
     id: "plan",
     status: Tile::PLAN,
     tiles: @tiles_facade.plan_tiles,

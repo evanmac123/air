@@ -2,12 +2,24 @@
   <div class="tabs-component-full-width">
     <div class="row">
       <ul class="js-board-settings-module-tabs">
-        <li class="js-board-settings-component-tab tab active" data-tab-content="js-board-settings-component"><a href="#">Board Settings</a></li>
+        <li class="js-board-settings-component-tab tab"
+          data-status="board-settings"
+          data-tab-content="js-board-settings-component">
+          <a href="#">Board Settings</a>
+        </li>
         <% if false # rollout campaign creation UI here %>
-          <li class="js-campaigns-component-tab tab" data-tab-content="js-campaigns-component"><a href="#">Campaign Settings</a></li>
+          <li class="js-campaigns-component-tab tab"
+            data-status="campaign-settings"
+            data-tab-content="js-campaigns-component">
+            <a href="#">Campaign Settings</a>
+          </li>
         <% end %>
         <% if current_user.is_site_admin %>
-          <li class="js-population-segments-component-tab tab" data-tab-content="js-user-population-segments-component"><a href="#">Population Segments</a></li>
+          <li class="js-population-segments-component-tab tab"
+            data-status="population-segments"
+            data-tab-content="js-user-population-segments-component">
+            <a href="#">Population Segments</a>
+          </li>
         <% end %>
       </ul>
     </div>
