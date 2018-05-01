@@ -83,7 +83,11 @@ class Demo < ActiveRecord::Base
   end
 
   def primary_color
-    custom_color_palette.try(:primary_color) || "#48BFFF"
+    if custom_color_palette.try(:primary_color).present?
+      custom_color_palette.try(:primary_color)
+    else
+      "#48BFFF"
+    end
   end
 
   def customer_status_for_mixpanel
