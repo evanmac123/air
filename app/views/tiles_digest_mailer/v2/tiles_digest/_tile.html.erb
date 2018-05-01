@@ -1,9 +1,8 @@
-<%= link_to @presenter.general_site_url(tile_id: tile.id), class: "tile_link", target: "blank" do %>
-  <div class="col-2" style="border:1px solid #EAECED;">
+<%= link_to @presenter.general_site_url(tile_id: tile.id), class: "tile_link col-2", target: "_blank", style: "border:1px solid #EAECED;" do %>
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
         <td align="center">
-          <%= image_tag(tile.thumbnail(:email_digest), alt: tile.headline, width: "270", style: "display:block;width:100%;") %>
+          <%= image_tag(tile.thumbnail(:email_digest), alt: tile.headline, width: "249", style: "display:block;width:100%;") %>
         </td>
       </tr>
       <tr>
@@ -34,5 +33,4 @@
         </td>
       </tr>
     </table>
-  </div>
 <% end %>
