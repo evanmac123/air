@@ -5,7 +5,7 @@
       <%= render partial: "tiles_digest_mailer/v2/tiles_digest/tile", locals: { tile: tiles[0] } %>
       <!--[if mso]></td> <td width="20"><![endif]-->
       <div class="col-2e" style="line-height:20px;">&nbsp;</div>
-      <!--[if mso]></td> <td width="249" valign="top"><![endif]-->
+      <!--[if mso]></td> <td width="249" valign="top" style="border:1px solid #EAECED;"><![endif]-->
       <% if tiles[1].present? %>
         <%= render partial: "tiles_digest_mailer/v2/tiles_digest/tile", locals: { tile: tiles[1] } %>
       <% else %>
