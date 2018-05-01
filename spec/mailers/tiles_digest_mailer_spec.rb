@@ -202,7 +202,6 @@ describe 'Digest email' do
 
       it { is_expected.to have_link      'Unsubscribe' }
       it { is_expected.to have_link 'Update Preferences' }
-      it { is_expected.to have_body_text "If using a web browser that's IE8 or below, copy and paste this link into IE8 and above, Firefox or Chrome:" }
     end
 
     context 'claimed user' do

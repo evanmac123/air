@@ -137,11 +137,6 @@ feature 'User invites user to board', broken: true do
           @potential_user = PotentialUser.last
         end
 
-        it "should create potential user with entered email", js: true, convert_to_unit: true do
-          skip "this should be a unit test fuck!!@@!!!! this test hangs the entire suite!!!"
-          expect(@potential_user.email).to eq(@user8.email)
-        end
-
         it "should send invitation", js: true do
           should_send_email @user8, @user, @demo1
         end
@@ -197,10 +192,8 @@ feature 'User invites user to board', broken: true do
 
   def should_send_email invitee, referrer, demo
     autocomplete_status AUTOCOMPLETE_STATUS[:sent]
-    
 
     open_email invitee.email
-    expect(current_email.to_s).to have_content "#{referrer.name} invited you to"
-    expect(current_email.to_s).to have_content " join the #{demo.name}"
+    expect(current_email.to_s).to have_content "#{referrer.name} invited you to join #{demo.name}"
   end
 end

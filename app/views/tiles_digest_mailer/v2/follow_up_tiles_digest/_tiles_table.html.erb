@@ -1,0 +1,23 @@
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td style="padding:0 16px;">
+      <div class="embody" style="Margin:0 auto; max-width:602px; min-width:180px;">
+        <!--[if mso]><table width="602" align="center" cellspacing="0" cellpadding="0" border="0"><tr><td><![endif]-->
+        <div style="text-align:center; font-size:0;">
+          <div style="display:block; vertical-align:top; width:100%; min-width:120px; max-width:100%; width:-webkit-calc(230400px - 48000%); min-width:-webkit-calc(100%); width:calc(230400px - 48000%); min-width:calc(100%);">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#FFFFFF">
+              <% if @tiles.present? %>
+                <% @tiles.each do |tile| %>
+                  <%= render partial: "tiles_digest_mailer/v2/follow_up_tiles_digest/tile", locals: { tile: tile } %>
+                <% end %>
+              <% else %>
+                <%= render partial: "tiles_digest_mailer/v2/follow_up_tiles_digest/placeholder" %>
+              <% end %>
+            </table>
+          </div>
+        </div>
+        <!--[if mso]></td></tr></table><![endif]-->
+      </div>
+    </td>
+  </tr>
+</table>

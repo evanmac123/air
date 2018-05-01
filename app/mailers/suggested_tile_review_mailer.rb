@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SuggestedTileReviewMailer < ApplicationMailer
-  layout "mailer"
+  layout false
   helper :email
 
   def notify_one(client_admin_id, demo_id, tile_sender_name, tile_sender_email)
@@ -7,12 +9,20 @@ class SuggestedTileReviewMailer < ApplicationMailer
     return nil unless @user.email.present?
 
     @demo = Demo.find(demo_id)
-    @name = tile_sender_name
-    @email = tile_sender_email
-    @link = submitted_tile_notifications_url(demo_id: demo_id)
 
-    mail  from:     @demo.reply_email_address,
-          to:       @user.email,
-          subject:  "New Tile Submitted Needs Review"
+    @presenter = OpenStruct.new(
+      general_site_url: submitted_tile_notifications_url(demo_id: demo_id),
+      cta_message: "Review Tile",
+      email_heading: "You have a new Tile in the <br>Suggestion Box!".html_safe,
+      custom_message: "#{tile_sender_name} (#{tile_sender_email}) has submitted a Tile for your review."
+    )
+
+    mail(
+      from: @demo.reply_email_address,
+      to: @user.email,
+      subject: "New Tile Submitted Needs Review",
+      template_path: "mailer",
+      template_name: "system_email"
+    )
   end
 end

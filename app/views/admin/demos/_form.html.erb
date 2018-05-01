@@ -19,6 +19,9 @@
         <%= f.label :persistent_message %>
         <%= f.text_area :persistent_message, { maxlength: 160 } %>
 
+        <%= f.label :email_version %>
+        <%= f.number_field :email_version %>
+
         <div class="mb-1">
           <%= f.check_box :guest_user_conversion_modal %>
           <%= f.label :guest_user_conversion_modal,  " Show guest user conversion modal?", class: "d-inline" %>

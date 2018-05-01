@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SpouseFollowupService
   attr_reader :dependent_board, :recipients, :user_ids, :subject, :plain_text, :html_text
 
@@ -9,7 +11,7 @@ class SpouseFollowupService
     @subject = params[:subject]
     @plain_text = params[:plain_text]
     @html_text = params[:html_text]
-    @html_text = '' unless sendable_html?(params[:html_text])
+    @html_text = "" unless sendable_html?(params[:html_text])
   end
 
   def send_message
@@ -23,7 +25,6 @@ class SpouseFollowupService
       dependent_board.id,
       user_ids,
       subject,
-      plain_text,
       html_text,
       select_recipients
     ).send_bulk_mails
@@ -53,6 +54,6 @@ class SpouseFollowupService
       return false unless html.present?
 
       parsed_html = Nokogiri::HTML(html)
-      parsed_html.css('img').present? || parsed_html.text.gsub(/[[:space:]]/, '').present?
+      parsed_html.css("img").present? || parsed_html.text.gsub(/[[:space:]]/, "").present?
     end
 end

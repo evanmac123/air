@@ -1,0 +1,5 @@
+<% if @demo.email_version == 1 %>
+  <%= render partial: "mailer/v1/system_email" %>
+<% else %>
+  <%= render partial: "mailer/v2/system_email" %>
+<% end %>

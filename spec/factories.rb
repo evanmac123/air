@@ -113,10 +113,6 @@ FactoryBot.define do
     claim_state_machine.association :demo
   end
 
-  factory :custom_invitation_email do |custom_invitation_email|
-    association :demo
-  end
-
   factory :peer_invitation do |peer_invitation|
     association :inviter, :factory => :user
     association :invitee, :factory => :user

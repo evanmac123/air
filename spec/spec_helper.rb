@@ -32,8 +32,8 @@ Capybara.register_driver :firefox do |app|
 end
 
 # Capybara.javascript_driver = :firefox
-Capybara.javascript_driver = :chrome
-# Capybara.javascript_driver = :headless_chrome
+# Capybara.javascript_driver = :chrome
+Capybara.javascript_driver = :headless_chrome
 
 ##
 

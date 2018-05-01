@@ -11,7 +11,6 @@ class Demo < ActiveRecord::Base
   has_many :campaigns, dependent: :destroy
   has_many :population_segments, dependent: :destroy
   has_one :claim_state_machine, dependent: :delete
-  has_one :custom_invitation_email, dependent: :delete
   has_one :raffle, dependent: :delete
   has_one :live_raffle, -> { where "status = '#{Raffle::LIVE}' and starts_at <= '#{Time.zone.now.to_time}'" }, class_name: "Raffle"
   has_one :custom_color_palette, dependent: :delete
@@ -81,6 +80,14 @@ class Demo < ActiveRecord::Base
 
   def tiles_digest_automator
     super || build_tiles_digest_automator
+  end
+
+  def primary_color
+    if custom_color_palette.try(:primary_color).present?
+      custom_color_palette.try(:primary_color)
+    else
+      "#48BFFF"
+    end
   end
 
   def customer_status_for_mixpanel
@@ -239,11 +246,6 @@ class Demo < ActiveRecord::Base
 
     index = rand(chances.length)
     chances[index]
-  end
-  #
-
-  def invitation_email
-    self.custom_invitation_email || CustomInvitationEmail.new(demo: self)
   end
 
   def uses_tickets

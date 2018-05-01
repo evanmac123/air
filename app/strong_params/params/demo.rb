@@ -67,6 +67,7 @@ module Params
           :guest_user_conversion_modal,
           :launch_date,
           :hide_social,
+          :email_version,
           custom_color_palette_attributes: [
             :enabled, :enable_reset, :content_background_reset, :tile_progress_background_reset, :tile_progress_all_tiles_text_reset, :tile_progress_completed_tiles_text_reset, :primary_color, :static_text_color
           ]

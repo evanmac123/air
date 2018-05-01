@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 class ApplicationMailer < ActionMailer::Base
+  include ClientAdmin::TilesHelper
+
   def initialize(method_name = nil, *args)
     super.tap do
       unless headers["X-SMTPAPI"].present?
@@ -8,7 +12,7 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   def set_x_smtpapi_headers(category:, unique_args:)
-    headers['X-SMTPAPI'] = {
+    headers["X-SMTPAPI"] = {
       category: category,
       unique_args: unique_args
     }.to_json
@@ -17,7 +21,7 @@ class ApplicationMailer < ActionMailer::Base
   private
 
     def set_default_x_smtpapi_headers(mailer_method)
-      headers['X-SMTPAPI'] = {
+      headers["X-SMTPAPI"] = {
         category: "#{self.class.name}##{mailer_method}"
       }.to_json
     end
