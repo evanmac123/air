@@ -2,7 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.CopyToClipboard = (function() {
   function init() {
-    clipboard = new Clipboard(".js-copy-to-clipboard-btn");
+    var clipboard = new ClipboardJS(".js-copy-to-clipboard-btn");
     clipboard.on("success", function(e) {
       e.clearSelection();
       Airbo.Utils.ping("Copied to clipboard", { data: e.text });

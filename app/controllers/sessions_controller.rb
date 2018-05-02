@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 class SessionsController < Clearance::SessionsController
   before_action :downcase_email
 
   layout "external"
 
   def new
-    set_open_graph_meta_data
     render template: "sessions/new"
   end
 
@@ -13,7 +14,7 @@ class SessionsController < Clearance::SessionsController
 
     if @user.nil?
       flash_failure_after_create
-      render :template => 'sessions/new'
+      render template: "sessions/new"
     else
       sign_in(@user, params[:session][:remember_me])
       if params[:demo_id]
@@ -43,20 +44,13 @@ class SessionsController < Clearance::SessionsController
 
   protected
 
-  def downcase_email
-    if params[:session] && params[:session][:email].present?
-      params[:session][:email].downcase!
+    def downcase_email
+      if params[:session] && params[:session][:email].present?
+        params[:session][:email].downcase!
+      end
     end
-  end
 
-  def flash_failure_after_create
-    flash[:failure] = "Sorry, that's an invalid username or password."
-  end
-
-  def set_open_graph_meta_data
-    if session[:open_graph_tile_id].present?
-      tile_id = session[:open_graph_tile_id]
-      @tile = Tile.where(id: tile_id).first
+    def flash_failure_after_create
+      flash[:failure] = "Sorry, that's an invalid username or password."
     end
-  end
 end

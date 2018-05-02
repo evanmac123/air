@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActsHelper
   def set_modals_and_intros
     if current_user.display_get_started_lightbox || params[:welcome_modal].present?
@@ -8,7 +10,7 @@ module ActsHelper
 
   def welcome_message_flash
     keys_for_real_flashes = %w(success failure notice).map(&:to_sym)
-    return if keys_for_real_flashes.any?{|key| flash[key].present?}
+    return if keys_for_real_flashes.any? { |key| flash[key].present? }
 
     flash.now[:success] = [welcome_message]
   end
@@ -19,23 +21,25 @@ module ActsHelper
   end
 
   def redirect_path_for_tile_token_auth
-    set_tile_id_for_open_graph
-
     tile = get_tile_from_params
     if tile.present?
-      tiles_path({ tile_id: params[:tile_id] })
+      tiles_path(tile_id: params[:tile_id])
     else
       activity_path
     end
   end
 
-  def set_tile_id_for_open_graph
-    session[:open_graph_tile_id] = params[:tile_id]
+  def set_open_graph_tile
+    tile = Tile.find_by(id: params[:tile_id])
+    if tile.present?
+      cookies[:og_image] = { value: tile.image.url, expires: 1.hour.from_now }
+      cookies[:og_title] = { value: tile.headline, expires: 1.hour.from_now }
+    end
   end
 
   def get_tile_from_params
     if current_user && params[:tile_id].present?
-      current_board.tiles.where(id: params[:tile_id]).first
+      current_board.tiles.find_by(id: params[:tile_id])
     end
   end
 end

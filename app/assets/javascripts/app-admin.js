@@ -1,6 +1,6 @@
 //= require application
 
-//= require progressbar
+//= require progressbar.js/dist/progressbar.min.js
 //= require jquery.payment
 //= require jquery.scrollTo.min
 //= require wice_grid
