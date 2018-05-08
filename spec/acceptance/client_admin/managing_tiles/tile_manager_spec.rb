@@ -89,6 +89,24 @@ feature 'Client admin and tile manager page', js: true do
         expect(page).to  have_num_tiles(1)
       end
     end
+
+    context 'Tab preservation on tiles index page' do
+      scenario "User should stay on current tab after page is reloaded" do
+        tiles.each { |tile| tile.update_attributes status: Tile::ACTIVE }
+
+        visit(client_admin_tiles_path)
+
+        # user is on live tab and should stay on live tab after creating campaign
+        active_tab.click
+
+        expect(page).to have_num_tiles(3)
+        visit(current_url)
+
+        within "li.js-ca-tiles-index-component-tab.tab.active" do
+          expect_content("Live")
+        end
+      end
+    end
   end
 
   it "has a button that you can click on to create a new tile" do

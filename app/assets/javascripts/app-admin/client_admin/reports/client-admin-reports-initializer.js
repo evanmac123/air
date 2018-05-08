@@ -6,17 +6,32 @@ Airbo.ClientAdminReportsInitializer = (function() {
       e.preventDefault();
 
       var $reportTab = $(this);
-
-      $reportTab.siblings().removeClass("active");
-      $reportTab.addClass("active");
-
-      Airbo.ClientAdminReportsUtils.hideReports();
-
-      $reportTabTarget = $($reportTab.data("target"));
-
-      $reportTabTarget.fadeIn();
-      reflowHighcharts();
+      loadReport($reportTab);
+      storeCurrentHash($reportTab);
     });
+
+    if (this.location.hash === "") {
+      this.location.hash = "#tab-tile-emails";
+    }
+  }
+
+  function loadReport($reportTab) {
+    $reportTab.siblings().removeClass("active");
+    $reportTab.addClass("active");
+
+    Airbo.ClientAdminReportsUtils.hideReports();
+
+    $reportTabTarget = $($reportTab.data("target"));
+
+    $reportTabTarget.fadeIn();
+    reflowHighcharts();
+  }
+
+  function storeCurrentHash($tab) {
+    if ($tab[0].attributes["data-status"] !== undefined) {
+      var hash = "#tab-" + $tab[0].attributes["data-status"].nodeValue;
+      this.location.hash = hash;
+    }
   }
 
   function reflowHighcharts() {
@@ -27,7 +42,26 @@ Airbo.ClientAdminReportsInitializer = (function() {
     });
   }
 
+  function identifyAndSwitchTab() {
+    var tabIdentifier = this.location.hash.split("#tab-");
+
+    if (tabIdentifier.length > 1) {
+      loadIdentifiedReportTab($("li[data-status='" + tabIdentifier[1] + "']"));
+    } else {
+      loadIdentifiedReportTab($("li[data-status='tile-emails']"));
+    }
+  }
+
+  function loadIdentifiedReportTab($reportTab) {
+    $reportTab.addClass("active");
+    $reportTab.trigger("click");
+    $(window).load(function() {
+      loadReport($reportTab);
+    });
+  }
+
   function init() {
+    identifyAndSwitchTab();
     initReportSwitcher();
   }
 

@@ -201,10 +201,7 @@ module TileHelpers
 
   def choose_question_type_and_subtype question_type, question_subtype
     page.find("##{question_type.downcase}.type").click
-
-    within ".f-dropdown.open" do
-      page.find(".subtype.#{question_type.downcase}.#{question_subtype}").click
-    end
+    page.find("ul .f-dropdown.open li.subtype.#{question_type.downcase}.#{question_subtype}").click
   end
 
   def create_existing_tiles(demo, status, num)
@@ -216,7 +213,7 @@ module TileHelpers
   end
 
   def expect_current_tile_id(tile)
-     expect(page.find('.tile_holder')["data-current-tile-id"]).to eq(tile.id.to_s)
+    expect(page.find('.tile_holder')["data-current-tile-id"]).to eq(tile.id.to_s)
   end
 
   def new_tile_placeholder_text

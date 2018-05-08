@@ -2,17 +2,33 @@
   <div class="tabs-component-full-width">
     <div class="row">
       <ul class="js-share-module-tabs">
-        <li class="js-share-deliver-component-tab tab active" data-tab-content="js-share-deliver-component"><a href="#">Deliver</a></li>
-        <li class="js-share-automate-component-tab tab" data-tab-content="js-share-automate-component"><a href="#">Automate</a></li>
-        <li class="js-share-follow-ups-component-tab tab" data-tab-content="js-share-follow-ups-component"><a href="#">Follow-Ups</a></li>
-        <li class="js-share-board-link-component-tab tab" data-tab-content="js-share-board-link-component"><a href="#">Board Share Link</a></li>
+        <li class="js-share-deliver-component-tab tab active"
+          data-status="deliver"
+          data-tab-content="js-share-deliver-component">
+          <a href="#">Deliver</a>
+        </li>
+        <li class="js-share-automate-component-tab tab"
+          data-status="automate"
+          data-tab-content="js-share-automate-component">
+          <a href="#">Automate</a>
+        </li>
+        <li class="js-share-follow-ups-component-tab tab"
+          data-status="follow-ups"
+          data-tab-content="js-share-follow-ups-component">
+          <a href="#">Follow-Ups</a>
+        </li>
+        <li class="js-share-board-link-component-tab tab"
+          data-status="board-share-link"
+          data-tab-content="js-share-board-link-component">
+          <a href="#">Board Share Link</a>
+        </li>
       </ul>
     </div>
   </div>
 
   <section class="share_tools js-client-admin-tiles-digest-management">
 
-    <div class="js-share-deliver-component js-share-module-tab-content">
+    <div class="js-share-deliver-component js-share-module-tab-content hidden">
       <div class="row">
         <div id="digest_management">
           <%= render partial: 'deliver_component' %>
