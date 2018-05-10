@@ -42,7 +42,7 @@ feature 'Admin sends targeted messages using segmentation' do
   def ensure_expected_mails_sent(expected_subject, expected_html_text, options={})
     expected_mail_count = options[:mail_count] || 6
 
-    click_button "It's going to be OK"
+    click_button "Send"
     expect_content "Scheduled email to #{expected_mail_count} users"
 
     expect(ActionMailer::Base.deliveries.length).to eq(expected_mail_count)
@@ -67,7 +67,7 @@ feature 'Admin sends targeted messages using segmentation' do
       click_button "Find segment"
       fill_in "subject",    :with => "some bullshit"
       fill_in "html_text",  :with => "some bullshit"
-      click_button "It's going to be OK"
+      click_button "Send"
 
 
       open_email 'joe@example.com'
@@ -81,7 +81,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
     fill_in "subject", :with => "blankness"
 
-    click_button "It's going to be OK"
+    click_button "Send"
     expect_content "Email text blank, no emails sent"
 
 
@@ -95,7 +95,7 @@ feature 'Admin sends targeted messages using segmentation' do
       fill_in "subject", :with => "blankitude"
       fill_in "html_text", :with => "<p>&nbsp;</p><p>&nbsp;</p><p>     </p><p>&nbsp;</p><p>&nbsp;</p><br/><br/><p></p>"
 
-      click_button "It's going to be OK"
+      click_button "Send"
       expect_content "Email text blank, no emails sent"
 
 
@@ -109,7 +109,7 @@ feature 'Admin sends targeted messages using segmentation' do
         fill_in "subject", :with => "blankitude"
         fill_in "html_text", :with => "<p>&nbsp;</p><p>&nbsp;</p><p>     </p><img src=\"foobar\"><br/><br/><p></p>"
 
-        click_button "It's going to be OK"
+        click_button "Send"
         expect_no_content "Email text blank, no emails sent"
 
 
@@ -122,7 +122,7 @@ feature 'Admin sends targeted messages using segmentation' do
     set_up_models(use_phone: true)
     select_common_form_entries
 
-    click_button "It's going to be OK"
+    click_button "Send"
     expect_content "SMS text blank, no SMSes sent"
 
 
@@ -134,7 +134,7 @@ feature 'Admin sends targeted messages using segmentation' do
     set_up_models(use_phone: true)
     select_common_form_entries
 
-    click_button "It's going to be OK"
+    click_button "Send"
 
     expect_content "Email text blank, no emails sent"
     expect_content "SMS text blank, no SMSes sent"
@@ -153,7 +153,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
     fill_in "html_text", :with => expected_html_text
     fill_in "sms_text", :with => expected_sms_text
-    click_button "It's going to be OK"
+    click_button "Send"
 
     expect_content "Scheduled email to 6 users"
     expect_content "Scheduled SMS to 6 users"
@@ -179,7 +179,7 @@ feature 'Admin sends targeted messages using segmentation' do
 
     fill_in "html_text", :with => expected_html_text
     fill_in "sms_text", :with => expected_sms_text
-    click_button "It's going to be OK"
+    click_button "Send"
 
     expect_content "Scheduled email to 4 users"
     expect_content "Scheduled SMS to 4 users"
@@ -213,7 +213,7 @@ feature 'Admin sends targeted messages using segmentation' do
     fill_in "html_text", :with => expected_html_text
     fill_in "sms_text", :with => expected_sms_text
     uncheck "Respect notification method"
-    click_button "It's going to be OK"
+    click_button "Send"
 
     expect_content "Scheduled email to 6 users"
     expect_content "Scheduled SMS to 6 users"
@@ -265,7 +265,7 @@ feature 'Admin sends targeted messages using segmentation' do
     fill_in "html_text", :with => expected_html_text
     fill_in "sms_text", :with => expected_sms_text
 
-    click_button "It's going to be OK"
+    click_button "Send"
 
     expect_content "Scheduled email to 6 users"
     expect_content "Scheduled SMS to 6 users"
@@ -287,7 +287,7 @@ feature 'Admin sends targeted messages using segmentation' do
     expect_content "Users in this segment: 23"
 
     fill_in "sms_text", :with => 'some nonsense'
-    click_button "It's going to be OK"
+    click_button "Send"
 
     expect_content "Scheduled SMS to 20 users"
 
@@ -309,7 +309,7 @@ feature 'Admin sends targeted messages using segmentation' do
     fill_in "subject", :with => mail_subject
     fill_in "sms_text", :with => sms_text
 
-    click_button "It's going to be OK"
+    click_button "Send"
     expect(page.find('#html_text').value).to eq(long_text)
     expect(page.find('#subject').value).to eq(mail_subject)
     expect(page.find('#sms_text').value).to eq(sms_text)

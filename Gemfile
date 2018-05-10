@@ -88,6 +88,7 @@ gem "sass-rails", "~> 4.0.0"
 gem "coffee-rails", "~> 4.0.0"
 gem "uglifier", ">= 1.3.0"
 gem "handlebars_assets", "~> 0.22.0"
+gem 'jquery-datetimepicker-rails'
 
 group :development, :test do
   gem "dotenv-rails"
@@ -121,7 +122,7 @@ group :development do
   gem "thin"
   gem "foreman"
   gem "quiet_assets"
-  gem "letter_opener"
+  gem "letter_opener_web"
   gem "better_errors"
   gem "binding_of_caller"
   gem "web-console", "~> 2.0"
