@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   draw :admin
   draw :api
 
+  # mount letter opener web for development env
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+
   constraints Clearance::Constraints::SignedOut.new do
     root to: 'pages#show', id: 'home'
   end

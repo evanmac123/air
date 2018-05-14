@@ -49,7 +49,7 @@
     <%= label_tag "respect_notification_method" %>
     <%= check_box_tag "respect_notification_method", "1", true %>
     <br>
-    <%= submit_tag "It's going to be OK", class: "button primary" %>
+    <%= submit_tag "Send", class: "button primary" %>
   <% end %>
   <hr>
     <h2>Scheduled pushes</h2>
@@ -66,7 +66,7 @@
         <% @scheduled_pushes.each do |scheduled_push| %>
           <tr>
             <td>
-              <%= scheduled_push.scheduled_for.try(:pretty_succinct) || "ASAP" %>
+              <%= scheduled_push.scheduled_for&.pretty || "ASAP" %>
             </td>
             <td>
               <%= scheduled_push.segment_description %>

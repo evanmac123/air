@@ -24,6 +24,7 @@
 //= require imagesloaded.pkgd.min.js
 //= require clipboard/dist/clipboard.min.js
 //= require jssocials.min.js
+//= require jquery.datetimepicker
 
 // File Uploader
 //= require jquery-fileupload/vendor/jquery.ui.widget
