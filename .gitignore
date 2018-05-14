@@ -72,3 +72,4 @@ spec/specs_with_statuses.txt
 /node_modules
 yarn-debug.log*
 .yarn-integrity
+.byebug_history
