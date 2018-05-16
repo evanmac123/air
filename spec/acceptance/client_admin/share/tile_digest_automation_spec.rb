@@ -31,7 +31,7 @@ feature 'Client admin automates tile email', js: true do
     end
 
     it 'creates digest by clicking CTA' do
-      expect(admin.demo.tiles_digest_automator).to exist
+      expect(admin.demo.tiles_digest_automator).to be
     end
   end
 end
