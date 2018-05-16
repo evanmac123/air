@@ -1,18 +1,17 @@
+# frozen_string_literal: true
+
 class BulkUserDeletionJob
-
-  def initialize params
-
+  def initialize(params)
     @demo_id = params[:demo_id]
-    @demo = Demo.find(params[:demo_id])
+    @demo = Demo.find(@demo_id)
     @ordinary_users = params[:ordinary_users].present?
     @include_client_admins = params[:client_admins].present?
   end
 
   def perform
-    Rails.logger.info("!!!! Batch Deleting users from: #{@demo.name} - include client admins: #{@include_client_admins}")
-    Rails.logger.info("!!!! ----------------------------------------")
-    users_to_delete.find_each(batch_size: 100) do|user|
-      Rails.logger.info("!!!! Deleting Users: #{user.name} with id #{user.id}")
+    log_message(:init_job)
+    users_to_delete.find_each(batch_size: 100) do |user|
+      log_message(:removing, user)
       user.destroy unless user.is_site_admin?
     end
   end
@@ -22,14 +21,23 @@ class BulkUserDeletionJob
   end
 
   def users_to_delete_condition
-     case
-     when @ordinary_users && @include_client_admins
-       ""
-     when @ordinary_users && @include_client_admins == false
-       "board_memberships.is_client_admin is false"
-     when @include_client_admins && @ordinary_users == false
-       "board_memberships.is_client_admin is true"
-     end
+    case
+    when @ordinary_users && @include_client_admins
+      ""
+    when @ordinary_users && @include_client_admins == false
+      "board_memberships.is_client_admin is false"
+    when @include_client_admins && @ordinary_users == false
+      "board_memberships.is_client_admin is true"
+    end
+  end
+
+  def log_message(type, user = nil)
+    message = {
+      init_job: "!!!! Batch Deleting users from: #{@demo.name} - include client admins: #{@include_client_admins}\n" +
+                "!!!! ----------------------------------------",
+      removing: "!!!! Deleting Users: #{user.name} with id #{user.id}"
+    }
+    Rails.logger.info(message[type])
   end
 
   handle_asynchronously :perform

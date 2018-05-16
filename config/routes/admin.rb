@@ -47,7 +47,10 @@ namespace :admin do
       resource :test_status, :only => :update
     end
 
-    resource :bulk_user_deletions
+    resource :bulk_user_deletions, only: [:show, :create]
+
+    resources :user_removal, only: [:index]
+
     resource :dependent_board, only: [:show] do
       get "users", to: "dependent_boards/users#index"
     end
