@@ -7,7 +7,7 @@ feature 'Site admin sets new version of email template' do
     visit edit_admin_demo_path(board, as: an_admin)
 
     fill_in 'demo[email_version]', with: email_version
-    click_button "Save"
+    click_button 'Save'
 
     expect(board.reload.email_version).to eq(email_version)
   end
