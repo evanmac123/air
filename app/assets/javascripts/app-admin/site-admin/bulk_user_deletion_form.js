@@ -7,7 +7,7 @@ Airbo.BulkUserDeleter = (function() {
     form.submit(function(event) {
       var confirmation;
       if (form.find("input[type=checkbox]:checked").length === 0) {
-        alert("You must select at least one group of users to to delete");
+        alert("You must select at least one group of users to delete");
         return false;
       } else {
         if (confirm("Are you sure? This action cannot be undone")) {
