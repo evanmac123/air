@@ -46,7 +46,7 @@ DuplicateMethodCall:
   max_calls: 1
   allow_calls: []
 FeatureEnvy:
-  enabled: true
+  enabled: false
   exclude: []
 InstanceVariableAssumption:
   enabled: true
