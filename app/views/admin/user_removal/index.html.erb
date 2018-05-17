@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="columns large-12">
+    <h2 class="first">
+      <%= link_to "Admin", admin_path %> »
+      <%= link_to @demo.name, admin_demo_path(@demo) %> » Remove Users from Board
+    </h2>
+    <%=form_tag admin_demo_user_removal_path(@demo), method: :post, id: "board_user_removal_form" do%>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>User Type</th>
+            <th>Remove?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @demo.users.each do |user| %>
+            <tr>
+              <td><%= user.first_name %> <%= user.last_name %></td>
+              <td><%= user.role %></td>
+              <td><%=check_box_tag "remove_user_#{user.id}" %>
+            </tr>
+          <% end %>
+        </tbody>
+        <table>
+          <%=submit_tag "Remove Users from Board", class:"button outline red danger"%>
+        <%end%>
+  </div>
+</div>
