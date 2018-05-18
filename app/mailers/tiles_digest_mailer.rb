@@ -15,12 +15,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
     @tiles = tiles_by_position
 
     if digest.include_sms && should_deliver_text_message?(@user, @demo)
-      SmsSenderJob.perform_now(
-        type: 'tile_digest',
-        to_number: @user.phone_number,
-        from_number: @demo.twilio_from_number,
-        body: @presenter.body_for_text_message(@tile_ids[-1])
-      )
+      SmsSenderJob.perform_now(to_number: @user.phone_number, from_number: @demo.twilio_from_number, body: @presenter.body_for_text_message(@tile_ids[-1]))
     end
 
     x_smtpapi_unique_args = @demo.data_for_mixpanel(user: @user).merge(
