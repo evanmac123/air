@@ -451,7 +451,7 @@ class User < ActiveRecord::Base
   end
 
   def send_new_phone_validation_token
-    SmsSenderJob.perform_later(
+    SmsSenderJob.perform_now(
       to_number: new_phone_number,
       body: new_phone_validation_message,
       from_number: demo.twilio_from_number
