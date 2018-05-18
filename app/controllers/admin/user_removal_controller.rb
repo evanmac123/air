@@ -6,10 +6,9 @@ class Admin::UserRemovalController < AdminBaseController
   end
 
   def update
-    # BulkUserDeletionJob.new(user_removal_ids).perform
-    puts user_removal_ids
+    # UserRemovalJob.new(demo_id: params[:demo_id], user_ids: user_removal_ids).perform
     @demo = Demo.find(params[:demo_id])
-    flash[:success] = "You bulk Deletion job for users in #{@demo.name} has been triggered"
+    flash[:success] = "You removal job for users in #{@demo.name} has been triggered"
     redirect_to admin_demo_user_removal_index_path(@demo)
   end
 
