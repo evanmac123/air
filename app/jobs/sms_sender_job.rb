@@ -5,7 +5,15 @@ class SmsSenderJob < ActiveJob::Base
     return unless to_number.present?
 
     begin
-      $twilio_client.messages.create(from: from_number, to: to_number, body: body)
+      params = { to: to_number, body: body }
+
+      if Rails.env.production?
+        params.merge!(messaging_service_sid: TWILIO_MESSAGE_SERVICE_ID)
+      else
+        params.merge!(from: from_number)
+      end
+
+      $twilio_client.messages.create(params)
     rescue Twilio::REST::RestError
       RemoveInvalidUserPhoneNumberJob.perform_later(phone_number: to_number)
     end

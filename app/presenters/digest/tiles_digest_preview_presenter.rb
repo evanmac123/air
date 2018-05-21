@@ -19,6 +19,6 @@ class TilesDigestPreviewPresenter < TilesDigestPresenter
   end
 
   def general_site_url(tile_id: nil)
-    client_admin_tiles_path(tile_id: tile_id, section: Tile::DRAFT)
+    client_admin_tiles_path(params: { tile_id: tile_id, section: Tile::DRAFT }, anchor: "tab-active")
   end
 end
