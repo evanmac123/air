@@ -5,7 +5,12 @@ module User::Tiles
     return [] unless demo
 
     ids_completed = tile_completions.pluck(:tile_id)
-    active_tiles_in_demo.where.not(id: ids_completed).ordered_by_position
+    segmented_tiles_for_user.where.not(id: ids_completed).ordered_by_position
+  end
+
+  def segmented_tiles_for_user
+    # TODO: Decouple tiles.active from ordered_by_position
+    demo.tiles.segmented_for_user(self).where(status: Tile::ACTIVE)
   end
 
   def completed_tiles_in_demo
