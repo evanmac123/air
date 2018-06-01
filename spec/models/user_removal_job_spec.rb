@@ -89,4 +89,37 @@ describe UserRemovalJob do
       expect(User.find_by(id: @user.id)).to eq(nil)
     end
   end
+
+  context "user not found in board" do
+    before do
+      new_board_membership = FactoryBot.create(:board_membership)
+      @new_demo = new_board_membership.demo
+    end
+
+    it "logs user not found in board" do
+      Rails.logger.expects(:info).with("!!!! Removing users from: #{@new_demo.id}\n!!!! ----------------------------------------")
+      Rails.logger.expects(:info).with("!!!! Error: user #{@user.id} not found in demo #{@new_demo.id}")
+      UserRemovalJob.new(demo_id: @new_demo.id, user_ids: [@user.id]).perform
+    end
+
+    it "does not affect any users" do
+      UserRemovalJob.new(demo_id: @new_demo.id, user_ids: [@user.id]).perform
+
+      expect(@user.demos.count).to eq(2)
+      expect(@new_demo.users.count).to eq(1)
+    end
+  end
+
+  context "last user removed from board" do
+    before do
+      new_board_membership = FactoryBot.create(:board_membership)
+      @new_demo = new_board_membership.demo
+      UserRemovalJob.new(demo_id: @new_demo.id, user_ids: @new_demo.users.pluck(:id)).perform
+    end
+
+    it "has no users but still exists" do
+      expect(@new_demo).to eq(Demo.find(@new_demo.id))
+      expect(@new_demo.users.count).to eq(0)
+    end
+  end
 end

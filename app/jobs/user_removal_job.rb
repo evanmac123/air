@@ -9,11 +9,11 @@ class UserRemovalJob
   def perform
     log_message(:init_job)
     user_ids.each do |id|
-      begin
-        BoardMembership.find_by(user_id: id, demo_id: demo_id).destroy
+      if board_membership = BoardMembership.find_by(user_id: id, demo_id: demo_id)
+        board_membership.destroy
         log_message(:removing, id)
-      rescue NoMethodError
-        log_message(:err, user)
+      else
+        log_message(:err, id)
       end
     end
   end
