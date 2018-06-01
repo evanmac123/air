@@ -6,8 +6,8 @@ class Admin::UserRemovalController < AdminBaseController
   end
 
   def update
-    # UserRemovalJob.new(demo_id: params[:demo_id], user_ids: user_removal_ids).perform
     @demo = Demo.find(params[:demo_id])
+    UserRemovalJob.new(demo_id: @demo.id, user_ids: user_removal_ids).perform
     flash[:success] = "You removal job for users in #{@demo.name} has been triggered"
     redirect_to admin_demo_user_removal_index_path(@demo)
   end

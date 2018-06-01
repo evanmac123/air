@@ -10,7 +10,11 @@ Airbo.UserRemover = (function() {
         alert("You must select at least one user to remove from this board");
         return false;
       } else {
-        if (confirm("Are you sure?")) {
+        if (
+          confirm(
+            "Selected users will no longer have access to this board. Continue?"
+          )
+        ) {
           return true;
         } else {
           return false;
