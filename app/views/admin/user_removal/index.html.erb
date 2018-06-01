@@ -15,10 +15,10 @@
         </thead>
         <tbody>
           <% @demo.users.each do |user| %>
-            <tr>
+            <tr class="<%= @removing_ids.include?(user.id.to_s) ? 'removing' : 'standard' %>">
               <td><%= user.first_name %> <%= user.last_name %></td>
               <td><%= user.role %></td>
-              <td><%=check_box_tag "remove_user_#{user.id}" %>
+              <td><%= check_box_tag "remove_user_#{user.id}" unless @removing_ids.include?(user.id.to_s) %></td>
             </tr>
           <% end %>
         </tbody>
