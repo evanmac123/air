@@ -9,9 +9,9 @@ class BulkUserDeletionJob
   end
 
   def perform
-    log_message(:init_job)
+    log_message type: :init_job
     users_to_delete.find_each(batch_size: 100) do |user|
-      log_message(:removing, user)
+      log_message type: :removing, user_name: user.name, user_id: user.id
       user.destroy unless user.is_site_admin?
     end
   end
@@ -31,11 +31,11 @@ class BulkUserDeletionJob
     end
   end
 
-  def log_message(type, user = nil)
+  def log_message(type:, user_name: nil, user_id: nil)
     message = {
       init_job: "!!!! Batch Deleting users from: #{@demo.name} - include client admins: #{@include_client_admins}\n" +
                 "!!!! ----------------------------------------",
-      removing: "!!!! Deleting Users: #{user.name} with id #{user.id}"
+      removing: "!!!! Deleting Users: #{user_name} with id #{user_id}"
     }
     Rails.logger.info(message[type])
   end
