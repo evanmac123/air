@@ -129,6 +129,7 @@ group :development do
   gem "spring"
   gem "rubocop", require: false
   gem "reek", "~> 4.7.3", require: false
+  gem "pry"
 end
 
 group :production do

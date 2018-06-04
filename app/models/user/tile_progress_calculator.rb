@@ -33,7 +33,7 @@ class User
     private
 
       def active_tiles
-        user.active_tiles_in_demo
+        user.segmented_tiles_for_user
       end
 
       def completed_tiles

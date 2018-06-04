@@ -39,6 +39,36 @@ describe User do
     end
   end
 
+  describe "#segmented_tiles_for_user" do
+    let(:demo)  { FactoryBot.create(:demo) }
+    let(:user)  { FactoryBot.create(:user, demo: demo) }
+    let!(:population_segment) { FactoryBot.create(:population_segment, demo: demo) }
+    let!(:diff_population_segment) { FactoryBot.create(:population_segment, demo: demo) }
+    let!(:user_population_segment) { FactoryBot.create(:user_population_segment, user: user, population_segment: population_segment)}
+    let!(:campaign) { FactoryBot.create(:campaign, population_segment: population_segment) }
+    let!(:diff_campaign) { FactoryBot.create(:campaign, population_segment: diff_population_segment) }
+    let!(:unassigned_tiles) { FactoryBot.create_list(:tile, 2, demo: demo, status: Tile::ACTIVE) }
+    let!(:campaign_tiles) { FactoryBot.create_list(:tile, 2, demo: demo, status: Tile::ACTIVE, campaign: campaign) }
+    let!(:diff_campaign_tiles) { FactoryBot.create_list(:tile, 2, demo: demo, status: Tile::ACTIVE, campaign: diff_campaign) }
+    let!(:draft_tiles) { FactoryBot.create(:tile, demo: demo, status: Tile::DRAFT) }
+
+    it "returns all active tiles if not completions exist" do
+      tiles = user.segmented_tiles_for_user
+
+      expect(tiles.count).to eq(4)
+      expect(tiles).to eq(demo.tiles.segmented_for_user(user).where(status: Tile::ACTIVE))
+    end
+
+    it "returns only active tiles that have not been completed" do
+      tile = user.segmented_tiles_for_user[0]
+
+      user.tile_completions.create(tile: tile)
+
+      expect(user.tiles_to_complete_in_demo.count).to eq(3)
+      expect(user.tiles_to_complete_in_demo).to eq(demo.tiles.segmented_for_user(user).where(status: Tile::ACTIVE)[1..-1])
+    end
+  end
+
   it "should validate that privacy level is set to a valid value" do
     user = FactoryBot.create :user
     expect(user).to be_valid
@@ -806,7 +836,7 @@ describe User do
       token = user.generate_new_phone_validation_token
       user.new_phone_number = "3333333333"
 
-      SmsSenderJob.expects(:perform_later).with(
+      SmsSenderJob.expects(:perform_now).with(
         to_number: user.new_phone_number,
         body: "Your code to verify this phone with Airbo is #{token}.",
         from_number: user.demo.twilio_from_number
