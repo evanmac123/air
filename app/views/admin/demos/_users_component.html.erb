@@ -13,7 +13,14 @@
       <div class="row">
         <div class="columns large-12">
           <%= render 'user_paginator', :demo => @demo  %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="columns large-6">
           <p><%=link_to "Bulk User Deletion", admin_demo_bulk_user_deletions_path(@demo)%></p>
+        </div>
+        <div class="columns large-6">
+          <p><%=link_to "Remove Users from Board", admin_demo_user_removal_index_path(@demo)%></p>
         </div>
       </div>
     </div>
