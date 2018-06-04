@@ -18,6 +18,10 @@ class UserRemovalJob
     end
   end
 
+  def self.sanitize(removing_ids)
+    removing_ids.reduce("") { |result, id| result += "#{id}&" }
+  end
+
   handle_asynchronously :perform
 
   private

@@ -18,7 +18,7 @@
             <tr class="<%= @removing_ids.include?(user.id.to_s) ? 'removing' : 'standard' %>">
               <td><%= user.first_name %> <%= user.last_name %></td>
               <td><%= user.role %></td>
-              <td><%= check_box_tag "remove_user_#{user.id}" unless @removing_ids.include?(user.id.to_s) %></td>
+              <td><%= @removing_ids.include?(user.id.to_s) ? "Removing from Board" : check_box_tag("remove_user_#{user.id}") %></td>
             </tr>
           <% end %>
         </tbody>
