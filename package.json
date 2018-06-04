@@ -4,14 +4,18 @@
     "@rails/webpacker": "^3.3.1",
     "autosize": "^4.0.1",
     "axios": "^0.17.1",
+    "babel-core": "6",
+    "babel-loader": "^7.1.4",
+    "babel-preset-react": "^6.24.1",
+    "caniuse-lite": "^1.0.30000697",
     "clipboard": "^2.0.0",
     "flickity": "^2.0.10",
     "medium-editor": "github:weilandia/medium-editor#1402_resolves_anchor_toolbar_for_ie",
     "progressbar.js": "^1.0.1",
-    "vue": "^2.5.16",
-    "vue-loader": "^14.2.1",
-    "vue-template-compiler": "^2.5.16",
-    "vuex": "^3.0.1"
+    "prop-types": "^15.6.1",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "webpack": "^3.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
@@ -30,7 +34,11 @@
     "webpack-dev-server": "2.11.2"
   },
   "scripts": {
-    "lint-staged": "$(yarn bin)/lint-staged"
+    "lint-staged": "$(yarn bin)/lint-staged",
+    "build": "./bin/webpack",
+    "start": "./bin/bundle exec foreman start -f Procfile.dev",
+    "rails": "./bin/rails server -p 3000",
+    "webpack-server": "./bin/webpack-dev-server"
   },
   "lint-staged": {
     "config/webpack/**/*.js": [

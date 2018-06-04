@@ -1,5 +1,5 @@
-const { environment } = require('@rails/webpacker')
-const vue =  require('./loaders/vue')
+const { environment } = require("@rails/webpacker");
+const react = require("./loaders/react");
 
-environment.loaders.append('vue', vue)
-module.exports = environment
+environment.loaders.append("react", react);
+module.exports = environment;
