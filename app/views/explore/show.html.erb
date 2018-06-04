@@ -1,4 +1,5 @@
-<%= render partial: 'explore/campaign_nav_row', locals: { campaigns: @related_campaigns } %>
+<div id="explore-root"></div>
+<%= javascript_pack_tag 'explore' %>
 
 <% @private_campaigns.each do |campaign| %>
   <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>

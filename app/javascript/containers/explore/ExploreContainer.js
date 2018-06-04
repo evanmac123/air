@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class App extends Component {
+class Explore extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,11 +15,11 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Airbo on React</h1>
+          <h1 className="App-title">Explore on React</h1>
         </header>
       </div>
     );
   }
 }
 
-export default App;
+export default Explore;
