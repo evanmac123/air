@@ -1,10 +1,14 @@
 <div id="explore-root"></div>
+<%= content_tag :div,
+  id: "explore-data",
+  data: @campaigns.to_json do %>
+<% end %>
 <%= javascript_pack_tag 'explore' %>
 
-<% @private_campaigns.each do |campaign| %>
+<!-- <% @campaigns[:private_campaigns].each do |campaign| %>
   <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>
 <% end %>
-<% @related_campaigns.each do |campaign| %>
+<% @campaigns[:related_campaigns].each do |campaign| %>
   <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>
 <% end %>
-<%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "All Explore Tiles", more_tiles_path: explore_path } %>
+<%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "All Explore Tiles", more_tiles_path: explore_path } %> -->

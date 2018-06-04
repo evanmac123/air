@@ -8,8 +8,10 @@ class ExploreController < ExploreBaseController
       render_json_tiles
     else
       explore_email_clicked_ping if params[:email_type].present?
-      @private_campaigns = Campaign.private_explore(demo: current_board)
-      @related_campaigns = Campaign.public_explore.order(:name)
+      @campaigns = {
+        private_campaigns: Campaign.private_explore(demo: current_board),
+        related_campaigns: Campaign.public_explore.order(:name)
+      }
     end
   end
 
