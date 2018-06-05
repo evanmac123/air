@@ -1,16 +1,28 @@
-import React from 'react';
+import React from "react";
 
-import CampaignComponent from './CampaignComponent'
+import CampaignComponent from "./CampaignComponent";
 
-const renderCampaigns = campaigns => (
-  campaigns.map(elem => React.createElement(CampaignComponent, {...elem.campaign, key: elem.campaign.id}))
-)
+const renderCampaigns = campaigns =>
+  campaigns.map(elem =>
+    React.createElement(CampaignComponent, {
+      ...elem.campaign,
+      key: elem.campaign.id
+    })
+  );
 
-const CampaignsComponent = props => React.createElement(
-  'div',
-  { className: 'campaign-container' },
-  renderCampaigns(props.campaigns.private_campaigns),
-  renderCampaigns(props.campaigns.related_campaigns),
-);
+const campaignContainerStyle = {
+  display: "flex",
+  alignItems: "center",
+  flexWrap: "wrap",
+  justifyContent: "center"
+};
+
+const CampaignsComponent = props =>
+  React.createElement(
+    "div",
+    { className: "campaign-container", style: campaignContainerStyle },
+    renderCampaigns(props.campaigns.private_campaigns),
+    renderCampaigns(props.campaigns.related_campaigns)
+  );
 
 export default CampaignsComponent;
