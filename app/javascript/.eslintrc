@@ -8,8 +8,8 @@
   },
 
   "rules": {
-    "prettier/prettier": "error",
-    "class-methods-use-this": "warn"
+    "class-methods-use-this": "warn",
+    "comma-dangle": ["error", "always-multiline"]
   },
 
   "parser": "babel-eslint",

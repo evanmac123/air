@@ -6,7 +6,7 @@ class Explore extends Component {
     super(props);
     this.state = {
       campaignFeature: "",
-      loading: false
+      loading: false,
     };
   }
 

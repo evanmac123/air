@@ -47,7 +47,6 @@
       "git add"
     ],
     "app/javascript/**/*.js": [
-      "prettier --write",
       "eslint",
       "git add"
     ],
