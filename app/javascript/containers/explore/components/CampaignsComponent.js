@@ -22,8 +22,7 @@ const CampaignsComponent = props =>
   React.createElement(
     "div",
     { className: "campaign-container", style: campaignContainerStyle },
-    renderCampaigns(props.campaigns.private_campaigns),
-    renderCampaigns(props.campaigns.related_campaigns),
+    renderCampaigns(props.campaigns),
   );
 
 CampaignsComponent.propTypes = {

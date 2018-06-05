@@ -4,6 +4,8 @@ class Campaign < ActiveRecord::Base
   belongs_to :demo
   belongs_to :population_segment
   has_many :tiles
+  has_one :recent_tile, -> { order("created_at DESC") },
+                       class_name: "Tile"
 
   validates :name, presence: true
   validates_uniqueness_of :name, case_sensitive: false, scope: :demo_id
@@ -11,15 +13,20 @@ class Campaign < ActiveRecord::Base
 
   searchkick default_fields: [:name, :tile_headlines, :tile_content]
 
+  def self.public_private_explore(current_board)
+    private_explore(demo: current_board).concat public_explore.order(:name)
+  end
+
   def self.public_explore
     where(public_explore: true)
+    .includes(:tiles)
   end
 
   def self.private_explore(demo:)
     org = demo.try(:organization)
 
     if org.present?
-      org.campaigns.where(private_explore: true)
+      org.campaigns.where(private_explore: true).includes(:tiles)
     else
       Campaign.none
     end

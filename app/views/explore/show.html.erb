@@ -4,11 +4,3 @@
   data: @campaigns.to_json do %>
 <% end %>
 <%= javascript_pack_tag 'explore' %>
-
-<!-- <% @campaigns[:private_campaigns].each do |campaign| %>
-  <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>
-<% end %>
-<% @campaigns[:related_campaigns].each do |campaign| %>
-  <%= render partial: 'explore/campaigns', locals: { campaign: campaign } %>
-<% end %>
-<%= render partial: 'explore/explore_tiles', locals: { tiles: @tiles, header: "All Explore Tiles", more_tiles_path: explore_path } %> -->
