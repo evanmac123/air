@@ -13,6 +13,7 @@
     "medium-editor": "github:weilandia/medium-editor#1402_resolves_anchor_toolbar_for_ie",
     "progressbar.js": "^1.0.1",
     "prop-types": "^15.6.1",
+    "rails-erb-loader": "^5.4.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "webpack": "^3.0.0"

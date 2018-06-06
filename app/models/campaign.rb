@@ -4,8 +4,6 @@ class Campaign < ActiveRecord::Base
   belongs_to :demo
   belongs_to :population_segment
   has_many :tiles
-  has_one :recent_tile, -> { order("created_at DESC") },
-                       class_name: "Tile"
 
   validates :name, presence: true
   validates_uniqueness_of :name, case_sensitive: false, scope: :demo_id
@@ -14,7 +12,10 @@ class Campaign < ActiveRecord::Base
   searchkick default_fields: [:name, :tile_headlines, :tile_content]
 
   def self.public_private_explore(current_board)
-    private_explore(demo: current_board).concat public_explore.order(:name)
+    private_explore(demo: current_board).concat(public_explore.order(:name)).map do |camp|
+      thumb = { "thumbnails" => camp.sanitize_thumbnails }
+      camp.as_json["campaign"].merge(thumb)
+    end
   end
 
   def self.public_explore
@@ -34,6 +35,10 @@ class Campaign < ActiveRecord::Base
 
   def self.viewable_by_id(id:, demo:)
     Campaign.public_explore.find_by(id: id) || Campaign.private_explore(demo: demo).find(id)
+  end
+
+  def sanitize_thumbnails
+    display_tiles.limit(3).map { |tile| ActionController::Base.helpers.image_path(tile.thumbnail) }
   end
 
   def display_tiles

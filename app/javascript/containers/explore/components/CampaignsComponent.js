@@ -3,13 +3,8 @@ import PropTypes from "prop-types";
 
 import CampaignComponent from "./CampaignComponent";
 
-const renderCampaigns = campaigns =>
-  campaigns.map(elem =>
-    React.createElement(CampaignComponent, {
-      ...elem.campaign,
-      key: elem.campaign.id,
-    })
-  );
+const renderCampaigns = (campaigns) =>
+  campaigns.map(campaign => React.createElement(CampaignComponent, {...campaign, key: campaign.id}));
 
 const campaignContainerStyle = {
   display: "flex",
@@ -26,10 +21,7 @@ const CampaignsComponent = props =>
   );
 
 CampaignsComponent.propTypes = {
-  campaigns: PropTypes.shape({
-    private_campaigns: PropTypes.string,
-    related_campaigns: PropTypes.string,
-  }),
+  campaigns: PropTypes.array,
 };
 
 export default CampaignsComponent;

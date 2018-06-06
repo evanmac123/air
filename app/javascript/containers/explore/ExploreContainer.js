@@ -13,7 +13,9 @@ class Explore extends Component {
   render() {
     return (
       <div className="explore-container">
-        <CampaignsComponent {...this.props} />
+        <CampaignsComponent
+          {...this.props}
+        />
       </div>
     );
   }
