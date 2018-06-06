@@ -3,9 +3,6 @@ import PropTypes from "prop-types";
 
 import CampaignComponent from "./CampaignComponent";
 
-const renderCampaigns = (campaigns) =>
-  campaigns.map(campaign => React.createElement(CampaignComponent, {...campaign, key: campaign.id}));
-
 const campaignContainerStyle = {
   display: "flex",
   alignItems: "center",
@@ -13,12 +10,17 @@ const campaignContainerStyle = {
   justifyContent: "center",
 };
 
-const CampaignsComponent = props =>
+const renderCampaigns = campaigns => (
+  campaigns.map(camp => React.createElement(CampaignComponent, {...camp, key: camp.id}))
+);
+
+const CampaignsComponent = props => (
   React.createElement(
     "div",
     { className: "campaign-container", style: campaignContainerStyle },
     renderCampaigns(props.campaigns),
-  );
+  )
+);
 
 CampaignsComponent.propTypes = {
   campaigns: PropTypes.array,

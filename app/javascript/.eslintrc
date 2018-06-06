@@ -9,7 +9,9 @@
 
   "rules": {
     "class-methods-use-this": "warn",
-    "comma-dangle": ["error", "always-multiline"]
+    "comma-dangle": ["error", "always-multiline"],
+    "semi": ["error", "always"],
+    "no-plusplus": "off"
   },
 
   "parser": "babel-eslint",
