@@ -32,7 +32,7 @@ const cardTitleStyle = {
 
 const renderThumbnails = thumbnails => (
   MapWithIndex(thumbnails, (thumbnail, i) => (
-    React.createElement("img", { src: thumbnail, style: thumbnailCascadeStyle(i) })
+    React.createElement("img", { src: thumbnail, style: thumbnailCascadeStyle(i), key: i })
   ))
 );
 
