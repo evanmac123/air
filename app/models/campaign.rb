@@ -13,8 +13,11 @@ class Campaign < ActiveRecord::Base
 
   def self.public_private_explore(current_board)
     private_explore(demo: current_board).concat(public_explore.order(:name)).map do |camp|
-      thumb = { "thumbnails" => camp.sanitize_thumbnails }
-      camp.as_json["campaign"].merge(thumb)
+      add_props = {
+        "thumbnails" => camp.sanitize_thumbnails,
+        "path" => Rails.application.routes.url_helpers.explore_campaign_path(camp)
+      }
+      camp.as_json["campaign"].merge(add_props)
     end
   end
 

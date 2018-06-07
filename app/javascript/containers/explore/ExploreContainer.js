@@ -10,11 +10,21 @@ class Explore extends Component {
     };
   }
 
+  campaignRedirect(campaign) {
+    window.Airbo.Utils.ping("Explore page - Interaction", {
+      action: "Clicked Campaign",
+      campaign: campaign.name,
+      campaignId: campaign.id,
+    });
+    window.location = campaign.path;
+  };
+
   render() {
     return (
       <div className="explore-container">
         <CampaignsComponent
           {...this.props}
+          campaignRedirect={this.campaignRedirect}
         />
       </div>
     );

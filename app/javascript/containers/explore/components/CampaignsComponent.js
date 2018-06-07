@@ -10,20 +10,30 @@ const campaignContainerStyle = {
   justifyContent: "center",
 };
 
-const renderCampaigns = campaigns => (
-  campaigns.map(camp => React.createElement(CampaignComponent, {...camp, key: camp.id}))
+const renderCampaigns = props => (
+  props.campaigns.map(campaign => (
+    React.createElement(CampaignComponent, {
+      id: campaign.id,
+      key: campaign.id,
+      name: campaign.name,
+      path: campaign.path,
+      thumbnails: campaign.thumbnails,
+      campaignRedirect: props.campaignRedirect,
+    }))
+  )
 );
 
 const CampaignsComponent = props => (
   React.createElement(
     "div",
     { className: "campaign-container", style: campaignContainerStyle },
-    renderCampaigns(props.campaigns),
+    renderCampaigns(props),
   )
 );
 
 CampaignsComponent.propTypes = {
   campaigns: PropTypes.array,
+  campaignRedirect: PropTypes.func,
 };
 
 export default CampaignsComponent;

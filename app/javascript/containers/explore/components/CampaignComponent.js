@@ -39,7 +39,17 @@ const renderThumbnails = thumbnails => (
 const CampaignComponent = props => (
   React.createElement(
     "div",
-    { className: "campaign-card", style: campaignCardStyle },
+    {
+      className: "campaign-card",
+      style: campaignCardStyle,
+      onClick: () => {
+        props.campaignRedirect({
+          path: props.path,
+          name: props.name,
+          id: props.id,
+        });
+      },
+    },
       React.createElement(
         "h3",
         { className: "card-title", style: cardTitleStyle },
@@ -50,8 +60,11 @@ const CampaignComponent = props => (
 );
 
 CampaignComponent.propTypes = {
+  id: PropTypes.number,
+  path: PropTypes.string,
   name: PropTypes.string,
   thumbnails: PropTypes.array,
+  campaignRedirect: PropTypes.func,
 };
 
 export default CampaignComponent;
