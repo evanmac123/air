@@ -5,8 +5,9 @@ import { MapWithIndex } from "../../../lib/helpers";
 
 const campaignCardStyle = {
   position: "relative",
-  width: "18rem",
-  height: "250px",
+  width: "12.6rem",
+  height: "105px",
+  margin: "20px",
 };
 
 const thumbnailCascadeStyle = counter => ({
@@ -14,11 +15,19 @@ const thumbnailCascadeStyle = counter => ({
   position: "absolute",
   top: "0px",
   width: "50%",
+  boxShadow: "-5px 0px 5px rgba(68, 68, 68, 0.6)",
 });
 
 const cardTitleStyle = {
+  width: "100%",
+  textAlign: "center",
   position: "absolute",
   zIndex: "1000",
+  backgroundColor: "rgba(68, 68, 68, 0.6)",
+  height: "97%",
+  margin: "0",
+  paddingTop: "40px",
+  color: "white",
 };
 
 const renderThumbnails = thumbnails => (
@@ -32,7 +41,7 @@ const CampaignComponent = props => (
     "div",
     { className: "campaign-card", style: campaignCardStyle },
       React.createElement(
-        "h5",
+        "h3",
         { className: "card-title", style: cardTitleStyle },
         props.name,
       ),
