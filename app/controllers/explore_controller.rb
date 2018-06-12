@@ -2,8 +2,6 @@
 
 class ExploreController < ExploreBaseController
   def show
-    @tiles = Tile.explore_not_in_campaign.page(params[:page]).per(28)
-
     if request.xhr?
       render_json_tiles
     else

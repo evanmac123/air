@@ -28,12 +28,13 @@ const cardTitleStyle = {
   textAlign: "center",
   position: "absolute",
   zIndex: "1",
-  backgroundColor: "rgba(51, 68, 92, 0.5)",
+  backgroundImage: "linear-gradient(325deg, rgba(64, 190, 255, 0.6), rgba(255, 102, 121, 0.4))",
   height: "128%",
   margin: "0 0 0 -2px",
   padding: "53px 10px 10px 10px",
   color: "white",
   borderRadius: "4px",
+  textShadow: "rgb(0, 0, 0) 0px 0px 5px",
 };
 
 const renderThumbnails = thumbnails => (
