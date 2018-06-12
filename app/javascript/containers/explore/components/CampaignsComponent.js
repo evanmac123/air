@@ -5,9 +5,9 @@ import CampaignComponent from "./CampaignComponent";
 
 const campaignContainerStyle = {
   display: "flex",
-  alignItems: "center",
+  alignItems: "left",
   flexWrap: "wrap",
-  justifyContent: "center",
+  justifyContent: "left",
 };
 
 const renderCampaigns = props => (

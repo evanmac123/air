@@ -41,7 +41,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def sanitize_thumbnails
-    display_tiles.limit(3).map { |tile| ActionController::Base.helpers.image_path(tile.thumbnail) }
+    tile_thumbnails.map { |tile| ActionController::Base.helpers.image_path(tile.thumbnail) }
   end
 
   def display_tiles
@@ -58,6 +58,14 @@ class Campaign < ActiveRecord::Base
 
   def explore_tiles
     active_tiles.where(is_public: true)
+  end
+
+  def tile_thumbnails
+    query = {
+      thumbnail_content_type: "image/jpeg"
+    }
+    query.merge(is_public: true) if public_explore
+    tiles.active.ordered_by_position.where(query).limit(3)
   end
 
   def search_data
