@@ -30,5 +30,6 @@ namespace :api, defaults: { format: :json } do
   namespace :v1 do
     resources :email_info_requests, only: [:create]
     resources :cheers, only: [:create]
+    resources :campaigns, only: [:index]
   end
 end

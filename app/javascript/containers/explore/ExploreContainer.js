@@ -1,13 +1,26 @@
 import React, { Component } from "react";
 import CampaignsComponent from "./components/CampaignsComponent";
+import LoadingComponent from "../../shared/LoadingComponent";
 
 class Explore extends Component {
   constructor(props) {
     super(props);
     this.state = {
       campaignFeature: "",
-      loading: false,
+      loading: true,
+      campaigns: {},
     };
+  }
+
+  componentDidMount() {
+    fetch('/api/v1/campaigns')
+      .then((responseText) => responseText.json())
+      .then((response) => {
+        this.setState({
+          campaigns: response,
+          loading: false,
+        });
+      });
   }
 
   campaignRedirect(campaign) {
@@ -22,10 +35,14 @@ class Explore extends Component {
   render() {
     return (
       <div className="explore-container">
-        <CampaignsComponent
-          {...this.props}
-          campaignRedirect={this.campaignRedirect}
-        />
+        {
+          this.state.loading ?
+          <LoadingComponent /> :
+          <CampaignsComponent
+            {...this.state}
+            campaignRedirect={this.campaignRedirect}
+          />
+        }
       </div>
     );
   }

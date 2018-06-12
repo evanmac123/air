@@ -6,7 +6,6 @@ class ExploreController < ExploreBaseController
       render_json_tiles
     else
       explore_email_clicked_ping if params[:email_type].present?
-      @campaigns = Campaign.public_private_explore(current_board)
     end
   end
 
