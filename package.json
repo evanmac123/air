@@ -13,6 +13,7 @@
     "medium-editor": "github:weilandia/medium-editor#1402_resolves_anchor_toolbar_for_ie",
     "progressbar.js": "^1.0.1",
     "prop-types": "^15.6.1",
+    "rails-erb-loader": "^5.4.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "webpack": "^3.0.0"
@@ -25,6 +26,7 @@
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.9.1",
     "lint-staged": "^4.2.3",
     "pre-commit": "^1.2.2",
     "prettier": "^1.7.3",
@@ -46,7 +48,6 @@
       "git add"
     ],
     "app/javascript/**/*.js": [
-      "prettier --write",
       "eslint",
       "git add"
     ],
