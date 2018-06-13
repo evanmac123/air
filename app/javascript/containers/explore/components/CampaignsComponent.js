@@ -24,6 +24,9 @@ const renderCampaigns = props => (
 );
 
 const CampaignsComponent = props => (
+  (Object.keys(props.selectedCampaign).length) ?
+  null
+  :
   React.createElement(
     "div",
     { className: "campaign-container", style: campaignContainerStyle },

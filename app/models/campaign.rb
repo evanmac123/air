@@ -13,8 +13,10 @@ class Campaign < ActiveRecord::Base
 
   def self.public_private_explore(current_board)
     private_explore(demo: current_board).concat(public_explore.order(:name)).map do |camp|
+      tiles = camp.display_tiles.limit(28)
       add_props = {
-        "thumbnails" => camp.sanitize_thumbnails,
+        "tiles" => tiles,
+        "thumbnails" => camp.sanitize_thumbnails(tiles),
         "path" => Rails.application.routes.url_helpers.explore_campaign_path(camp)
       }
       camp.as_json["campaign"].merge(add_props)
@@ -40,8 +42,14 @@ class Campaign < ActiveRecord::Base
     Campaign.public_explore.find_by(id: id) || Campaign.private_explore(demo: demo).find(id)
   end
 
-  def sanitize_thumbnails
-    tile_thumbnails.map { |tile| ActionController::Base.helpers.image_path(tile.thumbnail) }
+  def sanitize_thumbnails(raw_tiles)
+    result = []
+    raw_tiles.each do |tile|
+      if tile.thumbnail_content_type == "image/jpeg"
+        result << ActionController::Base.helpers.image_path(tile.thumbnail)
+      end
+      return result if result.length == 3
+    end
   end
 
   def display_tiles
@@ -58,14 +66,6 @@ class Campaign < ActiveRecord::Base
 
   def explore_tiles
     active_tiles.where(is_public: true)
-  end
-
-  def tile_thumbnails
-    query = {
-      thumbnail_content_type: "image/jpeg"
-    }
-    query.merge(is_public: true) if public_explore
-    tiles.active.ordered_by_position.where(query).limit(3)
   end
 
   def search_data
