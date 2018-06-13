@@ -32,6 +32,7 @@ const CampaignsComponent = props => (
         selectedCampaign: props.selectedCampaign,
         className: "campaign-container",
         tiles: props[`campaignTiles${props.selectedCampaign.id}`],
+        navbarRedirect: props.navbarRedirect,
       },
     )
   :

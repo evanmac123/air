@@ -12,6 +12,7 @@ class Explore extends Component {
     };
     this.campaignRedirect = this.campaignRedirect.bind(this);
     this.getCampaignTiles = this.getCampaignTiles.bind(this);
+    this.navbarRedirect = this.navbarRedirect.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +34,13 @@ class Explore extends Component {
         });
         this.setState(initCampaignState);
       });
+  }
+
+  navbarRedirect(e) {
+    e.preventDefault();
+    this.setState({
+      selectedCampaign: {},
+    });
   }
 
   campaignRedirect(campaign) {
@@ -71,6 +79,7 @@ class Explore extends Component {
           <CampaignsComponent
             {...this.state}
             campaignRedirect={this.campaignRedirect}
+            navbarRedirect={this.navbarRedirect}
           />
         }
       </div>
