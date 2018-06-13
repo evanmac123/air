@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import CampaignComponent from "./CampaignComponent";
+import SelectedCampaignComponent from "./SelectedCampaignComponent";
 
 const campaignContainerStyle = {
   display: "flex",
@@ -25,13 +26,20 @@ const renderCampaigns = props => (
 
 const CampaignsComponent = props => (
   (Object.keys(props.selectedCampaign).length) ?
-  null
+    React.createElement(
+      SelectedCampaignComponent,
+      {
+        selectedCampaign: props.selectedCampaign,
+        className: "campaign-container",
+        tiles: props[`campaignTiles${props.selectedCampaign.id}`],
+      },
+    )
   :
-  React.createElement(
-    "div",
-    { className: "campaign-container", style: campaignContainerStyle },
-    renderCampaigns(props),
-  )
+    React.createElement(
+      "div",
+      { className: "campaign-container", style: campaignContainerStyle },
+      renderCampaigns(props),
+    )
 );
 
 CampaignsComponent.propTypes = {
