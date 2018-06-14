@@ -2,6 +2,10 @@
 
 class ExploreController < ExploreBaseController
   def show
+    @user_data = {
+      "isGuestUser" => current_user.is_a?(GuestUser),
+      "isEndUser" => current_user.end_user?
+    }.to_json
     if request.xhr?
       render_json_tiles
     else

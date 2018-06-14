@@ -54,6 +54,8 @@ const CampaignComponent = props => (
           path: props.path,
           name: props.name,
           id: props.id,
+          description: props.description,
+          ongoing: props.ongoing,
         });
       },
     },
@@ -72,6 +74,8 @@ CampaignComponent.propTypes = {
   name: PropTypes.string,
   thumbnails: PropTypes.array,
   campaignRedirect: PropTypes.func,
+  description: PropTypes.string,
+  ongoing: PropTypes.bool,
 };
 
 export default CampaignComponent;

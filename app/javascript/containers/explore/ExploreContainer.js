@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 import CampaignsComponent from "./components/CampaignsComponent";
 import LoadingComponent from "../../shared/LoadingComponent";
 
@@ -29,6 +31,8 @@ class Explore extends Component {
             name: resp.name,
             thumbnails: resp.thumbnails,
             path: resp.path,
+            description: resp.description,
+            ongoing: resp.ongoing,
           });
           initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
         });
@@ -80,11 +84,17 @@ class Explore extends Component {
             {...this.state}
             campaignRedirect={this.campaignRedirect}
             navbarRedirect={this.navbarRedirect}
+            user={this.props.user}
           />
         }
       </div>
     );
   }
 }
+
+Explore.propTypes = {
+  user: PropTypes.object,
+};
+
 
 export default Explore;

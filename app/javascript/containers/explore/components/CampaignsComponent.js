@@ -20,6 +20,8 @@ const renderCampaigns = props => (
       path: campaign.path,
       thumbnails: campaign.thumbnails,
       campaignRedirect: props.campaignRedirect,
+      description: campaign.description,
+      ongoing: campaign.ongoing,
     }))
   )
 );
@@ -33,6 +35,7 @@ const CampaignsComponent = props => (
         className: "campaign-container",
         tiles: props[`campaignTiles${props.selectedCampaign.id}`],
         navbarRedirect: props.navbarRedirect,
+        user: props.user,
       },
     )
   :
