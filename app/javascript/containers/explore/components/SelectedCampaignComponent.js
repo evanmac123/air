@@ -1,11 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
+import sanitizeHtml from 'sanitize-html';
 
 import TileComponent from "./TileComponent";
 
 const renderTiles = tiles => tiles.map(tile => React.createElement(TileComponent, {...tile, key: tile.id}));
 
-const renderHTML = html => html;
+// NOTE: Add import sanitizeHtml from 'sanitize-html'; in order to safely sanitize
+const renderHTML = html => (
+  {
+    __html: sanitizeHtml(html, {
+      allowedTags: [ "h3", "h4", "h5", "h6", "blockquote", "p", "a", "ul", "ol",
+        "nl", "li", "b", "i", "strong", "em", "strike", "hr", "br", "div",
+        "table", "thead", "caption", "tbody", "tr", "th", "td" ],
+      allowedAttributes: {
+        a: [ "href", "name", "target" ],
+        img: [ "src" ],
+      },
+      selfClosing: [ "img", "br", "hr", "area", "base", "basefont", "input", "link", "meta" ],
+      allowedSchemes: [ "http", "https", "ftp", "mailto" ],
+      allowedSchemesByTag: {},
+      allowedSchemesAppliedToAttributes: [ "href", "src", "cite" ],
+      allowProtocolRelative: true,
+      allowedIframeHostnames: ["www.youtube.com", "player.vimeo.com"],
+    }),
+  }
+);
 
 const SelectedCampaignComponent = props => (
   <div>
@@ -20,9 +40,7 @@ const SelectedCampaignComponent = props => (
     <div className="row">
       <div className="large-12 columns">
         <div className="campaign-description">
-          <p
-            dangerouslySetInnerHTML={{__html: renderHTML(props.selectedCampaign.description)}}
-          />
+          <p dangerouslySetInnerHTML={renderHTML(props.selectedCampaign.description)} />
         </div>
       </div>
     </div>
