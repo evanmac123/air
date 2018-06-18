@@ -17,6 +17,7 @@ class Explore extends Component {
     this.campaignRedirect = this.campaignRedirect.bind(this);
     this.getCampaignTiles = this.getCampaignTiles.bind(this);
     this.navbarRedirect = this.navbarRedirect.bind(this);
+    this.copyTile = this.copyTile.bind(this);
     this.copyAllTiles = this.copyAllTiles.bind(this);
   }
 
@@ -74,10 +75,19 @@ class Explore extends Component {
     });
   }
 
-  copyToBoard(tile, $tile, successCb) {
-    Fetcher.xmlHttpRequest(tile.copyPath, {
+  copyToBoard(copyPath, $tile, successCb) {
+    Fetcher.xmlHttpRequest(copyPath, {
       success: () => { successCb($tile); },
       err: err => { console.error(err, "Something went wrong"); },
+    });
+  }
+
+  copyTile(data) {
+    const $tile = $(`#${data.id}`);
+    $tile.text("Copying...");
+    this.copyToBoard(data.copyPath, $tile, self => {
+      self.text("Copied");
+      window.Airbo.ExploreKpis.copyTilePing(self, "thumbnail");
     });
   }
 
@@ -86,14 +96,7 @@ class Explore extends Component {
     const $target = $(e.target);
     window.Airbo.ExploreKpis.copyAllTilesPing($target);
     this.setState({ selectedCampaign: {...this.state.selectedCampaign, copyText: "Copying..."} });
-    this.state[`campaignTiles${this.state.selectedCampaign.id}`].forEach(tile => {
-      const $tile = $(`#${tile.id}`);
-      $tile.text("Copying...");
-      this.copyToBoard(tile, $tile, self => {
-        self.text("Copied");
-        window.Airbo.ExploreKpis.copyTilePing(self, "thumbnail");
-      });
-    });
+    this.state[`campaignTiles${this.state.selectedCampaign.id}`].forEach(this.copyTile);
     this.setState({ selectedCampaign: {...this.state.selectedCampaign, copyText: "Campaign Copied"} });
     $target.addClass("disabled green");
   }
@@ -108,6 +111,7 @@ class Explore extends Component {
             {...this.state}
             campaignRedirect={this.campaignRedirect}
             navbarRedirect={this.navbarRedirect}
+            copyTile={this.copyTile}
             copyAllTiles={this.copyAllTiles}
             user={this.props.user}
           />

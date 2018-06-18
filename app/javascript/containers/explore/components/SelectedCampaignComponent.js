@@ -4,7 +4,13 @@ import sanitizeHtml from 'sanitize-html';
 
 import TileComponent from "./TileComponent";
 
-const renderTiles = tiles => tiles.map(tile => React.createElement(TileComponent, {...tile, key: tile.id}));
+const renderTiles = (tiles, copyTile) => (
+  tiles.map(tile => React.createElement(TileComponent, {
+    ...tile,
+    copyTile,
+    key: tile.id,
+  }))
+);
 
 // NOTE: Add import sanitizeHtml from 'sanitize-html'; in order to safely sanitize
 const renderHTML = html => (
@@ -61,7 +67,7 @@ const SelectedCampaignComponent = props => (
     <div className="explore-tiles-container with-divider">
       <div className="row">
         <div className="large-12 columns">
-          {renderTiles(props.tiles)}
+          {renderTiles(props.tiles, props.copyTile)}
         </div>
       </div>
     </div>
@@ -87,6 +93,7 @@ SelectedCampaignComponent.propTypes = {
   }),
   navbarRedirect: PropTypes.func,
   copyAllTiles: PropTypes.func,
+  copyTile: PropTypes.func,
 };
 
 export default SelectedCampaignComponent;

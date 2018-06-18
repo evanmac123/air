@@ -31,6 +31,7 @@ const CampaignsComponent = props => (
         tiles: props[`campaignTiles${props.selectedCampaign.id}`],
         navbarRedirect: props.navbarRedirect,
         copyAllTiles: props.copyAllTiles,
+        copyTile: props.copyTile,
         user: props.user,
       },
     )

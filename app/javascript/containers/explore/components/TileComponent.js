@@ -31,7 +31,13 @@ const TileComponent = props => (
 
         <ul className="tile_buttons">
           <li className="explore_copy_button">
-            <a href={props.copyPath} className="button outlined explore_copy_link" id={props.id}>
+            <a
+              onClick={() => props.copyTile({id: props.id, copyPath: props.copyPath})}
+              className="button outlined explore_copy_link"
+              id={props.id}
+              data-tile-id={props.id}
+              data-section="Explore"
+            >
               <span className="explore_thumbnail_copy_text">
                 Copy
               </span>
@@ -50,6 +56,7 @@ TileComponent.propTypes = {
   headline: PropTypes.string,
   tileShowPath: PropTypes.string,
   copyPath: PropTypes.string,
+  copyTile: PropTypes.func,
 };
 
 export default TileComponent;
