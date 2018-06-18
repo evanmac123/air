@@ -4,6 +4,7 @@ import * as $ from "jquery";
 
 import CampaignsComponent from "./components/CampaignsComponent";
 import LoadingComponent from "../../shared/LoadingComponent";
+import { Fetcher } from "../../lib/helpers";
 
 class Explore extends Component {
   constructor(props) {
@@ -20,27 +21,25 @@ class Explore extends Component {
   }
 
   componentDidMount() {
-    fetch("/api/v1/campaigns")
-      .then((responseText) => responseText.json())
-      .then((response) => {
-        const initCampaignState = {
-          campaigns: [],
-          loading: false,
-        };
-        response.forEach(resp => {
-          initCampaignState.campaigns.push({
-            id: resp.id,
-            name: resp.name,
-            thumbnails: resp.thumbnails,
-            path: resp.path,
-            description: resp.description,
-            ongoing: resp.ongoing,
-            copyText: "Copy Campaign",
-          });
-          initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
+    Fetcher.get("/api/v1/campaigns", response => {
+      const initCampaignState = {
+        campaigns: [],
+        loading: false,
+      };
+      response.forEach(resp => {
+        initCampaignState.campaigns.push({
+          id: resp.id,
+          name: resp.name,
+          thumbnails: resp.thumbnails,
+          path: resp.path,
+          description: resp.description,
+          ongoing: resp.ongoing,
+          copyText: "Copy Campaign",
         });
-        this.setState(initCampaignState);
+        initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
       });
+      this.setState(initCampaignState);
+    });
   }
 
   navbarRedirect(e) {
@@ -65,30 +64,21 @@ class Explore extends Component {
 
   getCampaignTiles(campaign) {
     this.setState({ loading: true });
-    fetch(`/api/v1/campaigns/${campaign.id}`)
-      .then((responseText) => responseText.json())
-      .then((response) => {
-        const newState = {
-          selectedCampaign: campaign,
-          loading: false,
-        };
-        newState[`campaignTiles${campaign.id}`] = response;
-        this.setState(newState);
-      });
+    Fetcher.get(`/api/v1/campaigns/${campaign.id}`, response => {
+      const newState = {
+        selectedCampaign: campaign,
+        loading: false,
+      };
+      newState[`campaignTiles${campaign.id}`] = response;
+      this.setState(newState);
+    });
   }
 
   copyToBoard(tile, $tile, successCb) {
-    const token = $('meta[name="csrf-token"]').attr('content');
-    fetch(tile.copyPath, {
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': token,
-      },
-      method: "POST",
-      credentials: 'same-origin',
-    }).then(response => response.json())
-      .catch(err => { console.error(err, "something went wrong"); })
-      .then(() => { successCb($tile); });
+    Fetcher.xmlHttpRequest(tile.copyPath, {
+      success: () => { successCb($tile); },
+      err: err => { console.error(err, "Something went wrong"); },
+    });
   }
 
   copyAllTiles(e) {
