@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import sanitizeHtml from 'sanitize-html';
 
 import TileComponent from "./TileComponent";
+import NavbarComponent from "./NavbarComponent";
 
 const renderTiles = (tiles, copyTile) => (
   tiles.map(tile => React.createElement(TileComponent, {
@@ -35,9 +36,9 @@ const renderHTML = html => (
 
 const SelectedCampaignComponent = props => (
   <div>
+    <NavbarComponent navbarRedirect={props.navbarRedirect} />
     <section className="campaign-header">
       <div className="row">
-      <a onClick={props.navbarRedirect}>{"< Back to Explore"}</a>
         <div className="large-12 columns">
           <span className="explore-sub-page-header">{props.selectedCampaign.name}</span>
         </div>
