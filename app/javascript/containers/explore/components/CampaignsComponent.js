@@ -14,14 +14,9 @@ const campaignContainerStyle = {
 const renderCampaigns = props => (
   props.campaigns.map(campaign => (
     React.createElement(CampaignComponent, {
-      id: campaign.id,
-      key: campaign.id,
-      name: campaign.name,
-      path: campaign.path,
-      thumbnails: campaign.thumbnails,
+      ...campaign,
       campaignRedirect: props.campaignRedirect,
-      description: campaign.description,
-      ongoing: campaign.ongoing,
+      key: campaign.id,
     }))
   )
 );
@@ -35,6 +30,7 @@ const CampaignsComponent = props => (
         className: "campaign-container",
         tiles: props[`campaignTiles${props.selectedCampaign.id}`],
         navbarRedirect: props.navbarRedirect,
+        copyAllTiles: props.copyAllTiles,
         user: props.user,
       },
     )

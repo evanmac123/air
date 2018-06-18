@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import * as $ from "jquery";
 
 import CampaignsComponent from "./components/CampaignsComponent";
 import LoadingComponent from "../../shared/LoadingComponent";
@@ -15,10 +16,11 @@ class Explore extends Component {
     this.campaignRedirect = this.campaignRedirect.bind(this);
     this.getCampaignTiles = this.getCampaignTiles.bind(this);
     this.navbarRedirect = this.navbarRedirect.bind(this);
+    this.copyAllTiles = this.copyAllTiles.bind(this);
   }
 
   componentDidMount() {
-    fetch('/api/v1/campaigns')
+    fetch("/api/v1/campaigns")
       .then((responseText) => responseText.json())
       .then((response) => {
         const initCampaignState = {
@@ -33,6 +35,7 @@ class Explore extends Component {
             path: resp.path,
             description: resp.description,
             ongoing: resp.ongoing,
+            copyText: "Copy Campaign",
           });
           initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
         });
@@ -74,6 +77,37 @@ class Explore extends Component {
       });
   }
 
+  copyToBoard(tile, $tile, successCb) {
+    const token = $('meta[name="csrf-token"]').attr('content');
+    fetch(tile.copyPath, {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': token,
+      },
+      method: "POST",
+      credentials: 'same-origin',
+    }).then(response => response.json())
+      .catch(err => { console.error(err, "something went wrong"); })
+      .then(() => { successCb($tile); });
+  }
+
+  copyAllTiles(e) {
+    e.preventDefault();
+    const $target = $(e.target);
+    window.Airbo.ExploreKpis.copyAllTilesPing($target);
+    this.setState({ selectedCampaign: {...this.state.selectedCampaign, copyText: "Copying..."} });
+    this.state[`campaignTiles${this.state.selectedCampaign.id}`].forEach(tile => {
+      const $tile = $(`#${tile.id}`);
+      $tile.text("Copying...");
+      this.copyToBoard(tile, $tile, self => {
+        self.text("Copied");
+        window.Airbo.ExploreKpis.copyTilePing(self, "thumbnail");
+      });
+    });
+    this.setState({ selectedCampaign: {...this.state.selectedCampaign, copyText: "Campaign Copied"} });
+    $target.addClass("disabled green");
+  }
+
   render() {
     return (
       <div className="explore-container">
@@ -84,6 +118,7 @@ class Explore extends Component {
             {...this.state}
             campaignRedirect={this.campaignRedirect}
             navbarRedirect={this.navbarRedirect}
+            copyAllTiles={this.copyAllTiles}
             user={this.props.user}
           />
         }

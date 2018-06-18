@@ -16,8 +16,7 @@ class Campaign < ActiveRecord::Base
       tiles = camp.react_sanitize_tiles
       add_props = {
         "tiles" => tiles,
-        "thumbnails" => camp.sanitize_thumbnails(tiles),
-        "path" => Rails.application.routes.url_helpers.explore_campaign_path(camp)
+        "thumbnails" => sanitize_thumbnails(tiles)
       }
       camp.as_json["campaign"].merge(add_props)
     end
@@ -42,7 +41,7 @@ class Campaign < ActiveRecord::Base
     Campaign.public_explore.find_by(id: id) || Campaign.private_explore(demo: demo).find(id)
   end
 
-  def sanitize_thumbnails(raw_tiles)
+  def self.sanitize_thumbnails(raw_tiles)
     result = []
     raw_tiles.each do |tile|
       result << tile["thumbnail"] if tile["thumbnail_content_type"] == "image/jpeg"
@@ -69,7 +68,9 @@ class Campaign < ActiveRecord::Base
   def react_sanitize_tiles
     display_tiles.limit(28).to_a.map do |tile|
       add_props = {
-        "thumbnail" => ActionController::Base.helpers.image_path(tile.thumbnail)
+        "thumbnail" => ActionController::Base.helpers.image_path(tile.thumbnail),
+        "copyPath" => Rails.application.routes.url_helpers.explore_copy_tile_path(tile_id: tile.id, path: :via_explore_page_tile_view),
+        "tileShowPath" => Rails.application.routes.url_helpers.explore_tile_preview_path(tile)
       }
       tile.as_json["tile"].merge(add_props)
     end

@@ -50,13 +50,7 @@ const CampaignComponent = props => (
       className: "campaign-card",
       style: campaignCardStyle,
       onClick: () => {
-        props.campaignRedirect({
-          path: props.path,
-          name: props.name,
-          id: props.id,
-          description: props.description,
-          ongoing: props.ongoing,
-        });
+        props.campaignRedirect(props);
       },
     },
       React.createElement(

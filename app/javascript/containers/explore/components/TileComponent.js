@@ -10,7 +10,7 @@ const TileComponent = props => (
   <div className="tile_container explore">
     <div className="tile_thumbnail" id={`single-tile-${props.id}`}>
       <div className="tile-wrapper">
-        <a href="link_to presenter.show_tile_path" className='tile_thumb_link_explore'>
+        <a href={props.tileShowPath} className='tile_thumb_link_explore'>
           <div className="tile_thumbnail_image">
             <img src={props.thumbnail} />
           </div>
@@ -31,7 +31,7 @@ const TileComponent = props => (
 
         <ul className="tile_buttons">
           <li className="explore_copy_button">
-            <a href="explore_copy_tile_path(tile_id: presenter.id, path: :via_explore_page_tile_view)" className="button outlined explore_copy_link">
+            <a href={props.copyPath} className="button outlined explore_copy_link" id={props.id}>
               <span className="explore_thumbnail_copy_text">
                 Copy
               </span>
@@ -48,6 +48,8 @@ TileComponent.propTypes = {
   thumbnail: PropTypes.string,
   created_at: PropTypes.string,
   headline: PropTypes.string,
+  tileShowPath: PropTypes.string,
+  copyPath: PropTypes.string,
 };
 
 export default TileComponent;

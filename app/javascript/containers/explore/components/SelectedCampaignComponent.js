@@ -48,8 +48,12 @@ const SelectedCampaignComponent = props => (
       !(props.selectedCampaign.ongoing || props.user.isGuestUser || props.user.isEndUser) &&
       <div className="row">
         <div className="columns large-12">
-          <div className="button js-copy-all-tiles-button" style={{margin: "10px"}}>
-            Copy Campaign
+          <div
+            className="button"
+            style={{margin: "10px"}}
+            onClick={props.copyAllTiles}
+          >
+            {props.selectedCampaign.copyText}
           </div>
         </div>
       </div>
@@ -69,6 +73,7 @@ SelectedCampaignComponent.propTypes = {
     name: PropTypes.string,
     description: PropTypes.string,
     ongoing: PropTypes.bool,
+    copyText: PropTypes.string,
   }),
   tiles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
@@ -80,7 +85,8 @@ SelectedCampaignComponent.propTypes = {
     isGuestUser: PropTypes.bool,
     isEndUser: PropTypes.bool,
   }),
-  navbarRedirect: PropTypes.fn,
+  navbarRedirect: PropTypes.func,
+  copyAllTiles: PropTypes.func,
 };
 
 export default SelectedCampaignComponent;
