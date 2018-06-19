@@ -28,16 +28,17 @@ const cardTitleStyle = {
   textAlign: "center",
   position: "absolute",
   zIndex: "1",
-  backgroundColor: "rgba(51, 68, 92, 0.5)",
+  backgroundImage: "linear-gradient(to bottom, rgba(64, 190, 255, 0.4), rgba(51, 68, 92, 0.3))",
   height: "128%",
   margin: "0 0 0 -2px",
   padding: "53px 10px 10px 10px",
   color: "white",
   borderRadius: "4px",
+  textShadow: "rgb(0, 0, 0) 0px 0px 5px",
 };
 
 const renderThumbnails = thumbnails => (
-  MapWithIndex(thumbnails.reverse(), (thumbnail, i) => (
+  MapWithIndex([...thumbnails].reverse(), (thumbnail, i) => (
     React.createElement("img", { src: thumbnail, style: thumbnailCascadeStyle(i), key: i })
   ))
 );
@@ -49,11 +50,7 @@ const CampaignComponent = props => (
       className: "campaign-card",
       style: campaignCardStyle,
       onClick: () => {
-        props.campaignRedirect({
-          path: props.path,
-          name: props.name,
-          id: props.id,
-        });
+        props.campaignRedirect(props);
       },
     },
       React.createElement(
@@ -71,6 +68,8 @@ CampaignComponent.propTypes = {
   name: PropTypes.string,
   thumbnails: PropTypes.array,
   campaignRedirect: PropTypes.func,
+  description: PropTypes.string,
+  ongoing: PropTypes.bool,
 };
 
 export default CampaignComponent;

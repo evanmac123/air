@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const node = document.getElementById("explore-data");
   const data = JSON.parse(node.getAttribute("data"));
   ReactDOM.render(
-    <Explore campaigns={data} />,
+    <Explore user={data} />,
     document.getElementById("explore-root")
   );
 });

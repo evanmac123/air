@@ -13,9 +13,10 @@ class Campaign < ActiveRecord::Base
 
   def self.public_private_explore(current_board)
     private_explore(demo: current_board).concat(public_explore.order(:name)).map do |camp|
+      tiles = camp.react_sanitize_tiles
       add_props = {
-        "thumbnails" => camp.sanitize_thumbnails,
-        "path" => Rails.application.routes.url_helpers.explore_campaign_path(camp)
+        "tiles" => tiles,
+        "thumbnails" => sanitize_thumbnails(tiles)
       }
       camp.as_json["campaign"].merge(add_props)
     end
@@ -40,8 +41,12 @@ class Campaign < ActiveRecord::Base
     Campaign.public_explore.find_by(id: id) || Campaign.private_explore(demo: demo).find(id)
   end
 
-  def sanitize_thumbnails
-    tile_thumbnails.map { |tile| ActionController::Base.helpers.image_path(tile.thumbnail) }
+  def self.sanitize_thumbnails(raw_tiles)
+    result = []
+    raw_tiles.each do |tile|
+      result << tile["thumbnail"] if tile["thumbnail_content_type"] == "image/jpeg"
+      return result if result.length == 3
+    end
   end
 
   def display_tiles
@@ -60,12 +65,15 @@ class Campaign < ActiveRecord::Base
     active_tiles.where(is_public: true)
   end
 
-  def tile_thumbnails
-    query = {
-      thumbnail_content_type: "image/jpeg"
-    }
-    query.merge(is_public: true) if public_explore
-    tiles.active.ordered_by_position.where(query).limit(3)
+  def react_sanitize_tiles
+    display_tiles.limit(28).to_a.map do |tile|
+      add_props = {
+        "thumbnail" => ActionController::Base.helpers.image_path(tile.thumbnail),
+        "copyPath" => Rails.application.routes.url_helpers.explore_copy_tile_path(tile_id: tile.id, path: :via_explore_page_tile_view),
+        "tileShowPath" => Rails.application.routes.url_helpers.explore_tile_preview_path(tile)
+      }
+      tile.as_json["tile"].merge(add_props)
+    end
   end
 
   def search_data
