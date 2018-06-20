@@ -199,10 +199,10 @@ module TileHelpers
     click_button "Save tile"
   end
 
-  def choose_question_type_and_subtype question_type, question_subtype
-    page.find("##{question_type.downcase}.type").click
-    page.find("ul .f-dropdown.open li.subtype.#{question_type.downcase}.#{question_subtype}").click
-  end
+  # def choose_question_type_and_subtype question_type, question_subtype
+  #   page.find("##{question_type.downcase}.type").click
+  #   page.find("ul .f-dropdown.open li.subtype.#{question_type.downcase}.#{question_subtype}").click
+  # end
 
   def create_existing_tiles(demo, status, num)
     FactoryBot.create_list :tile, num, demo: demo, status: status
