@@ -1,7 +1,7 @@
 
 <div class="row">
   <div class="columns large-12 large-centered">
-    <h2>Users Board Points Migration Manager </h2> 
+    <h2>Users Board <%= org_points_wording.capitalize %> Migration Manager </h2>
     <h4>From: <strong><%="#{@summary.from} (#{@summary.from_id})"%></strong> To:  <strong><%="#{@summary.to} (#{@summary.to_id})"%></strong></h4>
   </div>
 </div>
@@ -12,11 +12,11 @@
         <tr>
           <th>User Id</th>
           <th>Name</th>
-          <th>User Current Points</th>
-          <th>Points on Board <%=@summary.from_id%></th>
-          <th>Points on Board <%=@summary.to_id%></th>
+          <th>User Current <%= org_points_wording.capitalize %></th>
+          <th><%= org_points_wording.capitalize %> on Board <%=@summary.from_id%></th>
+          <th><%= org_points_wording.capitalize %> on Board <%=@summary.to_id%></th>
           <th>New Board <%=@summary.to_id%> Total</th>
-          <th>New User Points</th>
+          <th>New User <%= org_points_wording.capitalize %></th>
         </tr>
       </thead>
       <tbody>

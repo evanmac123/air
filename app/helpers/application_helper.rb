@@ -6,6 +6,10 @@ module ApplicationHelper
     current_board.data_for_dom
   end
 
+  def org_points_wording
+    session[:points] || "points"
+  end
+
   def current_demo_id
     current_user.demo_id
   end
