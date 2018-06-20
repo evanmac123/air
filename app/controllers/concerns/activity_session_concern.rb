@@ -28,7 +28,7 @@ module ActivitySessionConcern
   end
 
   def  update_session_with_user_id(user)
-    session[:points] = current_board.organization.id == 1072 ? "complete" : "points"
+    session[:points] = current_board && current_board.organization.try(:id) == 1072 ? "complete" : "points"
     if user.is_a?(User)
       session[:user_id] = user.id
     elsif user.is_a?(GuestUser)
