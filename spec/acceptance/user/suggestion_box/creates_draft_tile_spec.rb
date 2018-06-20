@@ -16,19 +16,19 @@ feature 'Creates draft tile' do
     expect_content "Save Tile"
   end
 
-  it "should let them submit tile", js: true do
-    submit_tile_btn.click
-    fill_in_tile_form_entries(edit_text: "baz", points: "10")
-    page.find(".submit_tile_form").click
-    page.find(".viewer")
-
-    within ".viewer" do
-      expect(page).to  have_content "by Society"
-      expect(page).to  have_content "Ten pounds of cheese"
-      expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?"
-      expect(page).to  have_content "Who rules?"
-    end
-  end
+  # it "should let them submit tile", js: true do
+  #   submit_tile_btn.click
+  #   fill_in_tile_form_entries(edit_text: "baz", points: "10")
+  #   page.find(".submit_tile_form").click
+  #   page.find(".viewer")
+  #
+  #   within ".viewer" do
+  #     expect(page).to  have_content "by Society"
+  #     expect(page).to  have_content "Ten pounds of cheese"
+  #     expect(page).to  have_content "Ten pounds of cheese. Yes? Or no?"
+  #     expect(page).to  have_content "Who rules?"
+  #   end
+  # end
 
   def submit_tile_btn
     page.find("#submit_tile")
