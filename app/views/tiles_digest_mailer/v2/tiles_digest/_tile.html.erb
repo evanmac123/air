@@ -10,7 +10,7 @@
           <table width="100%" cellspacing="0" cellpadding="0" border="0">
             <tr>
               <td class="txtcolor" style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:500;text-align:left;color:<%= @demo.primary_color %>;">
-                +<%= tile.points %> Points
+                <%= @demo.organization.id == 1072 ? "" : "+#{tile.points} Points" %>
               </td>
             </tr>
             <tr>
