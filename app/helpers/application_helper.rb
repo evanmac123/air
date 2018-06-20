@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   include Mobvious::Rails::Helper
 
@@ -30,8 +32,8 @@ module ApplicationHelper
     return "active" if request.path == path
   end
 
-  def default_avatar_tag(user, options={})
-    image_tag user.avatar.url, :alt => user.name, :class => "user_avatar #{options[:class]}"
+  def default_avatar_tag(user, options = {})
+    image_tag user.avatar.url, alt: user.name, class: "user_avatar #{options[:class]}"
   end
 
   def get_user_type(user)
@@ -51,17 +53,17 @@ module ApplicationHelper
   end
 
   def avatar_96(user)
-    content_tag("div", :class => 'avatar_image') do
-      default_avatar_tag(user, :class => "size-96")
+    content_tag("div", class: "avatar_image") do
+      default_avatar_tag(user, class: "size-96")
     end
   end
 
   def following_count_phrase(user)
-    pluralize(user.accepted_friends.count, 'person')
+    pluralize(user.accepted_friends.count, "person")
   end
 
   def followers_count_phrase(user)
-    pluralize(user.accepted_followers.count, 'friend')
+    pluralize(user.accepted_followers.count, "friend")
   end
 
   def add_byte_counter_for(field_label)
@@ -109,7 +111,7 @@ module ApplicationHelper
   end
 
   def characteristic_information_as_json(characteristics, method_name)
-    Hash[characteristics.map {|characteristic| [characteristic.id.to_s, characteristic.send(method_name)]}].to_json.html_safe
+    Hash[characteristics.map { |characteristic| [characteristic.id.to_s, characteristic.send(method_name)] }].to_json.html_safe
   end
 
   def raw_allowed_in_flash?(flash_key)
@@ -117,15 +119,15 @@ module ApplicationHelper
   end
 
   def is_mobile?
-    request.env['mobvious.device_type'] == :mobile
+    request.env["mobvious.device_type"] == :mobile
   end
 
   def is_tablet?
-    request.env['mobvious.device_type'] == :tablet
+    request.env["mobvious.device_type"] == :tablet
   end
 
   def is_desktop?
-    request.env['mobvious.device_type'] == :desktop
+    request.env["mobvious.device_type"] == :desktop
   end
 
   def guest_for_tile_preview?
@@ -135,7 +137,7 @@ module ApplicationHelper
 
   def set_new_board_url
     if Rails.env.production?
-      boards_url(protocol: 'https', host: hostname_with_subdomain)
+      boards_url(protocol: "https", host: hostname_with_subdomain)
     else
       boards_url
     end
@@ -174,7 +176,7 @@ module ApplicationHelper
     presenter
   end
 
-  def simple_format_by_type type, val
+  def simple_format_by_type(type, val)
     case type
     when "date"
       simple_date_format val
@@ -183,40 +185,40 @@ module ApplicationHelper
     when "money"
       simple_money_format val
     when "pct"
-      "#{simple_percentage_format(val, {precision: 2} )}"
+      "#{simple_percentage_format(val, precision: 2)}"
     when "pct 0"
-      "#{simple_percentage_format(val, { precision: 0}) }"
+      "#{simple_percentage_format(val, precision: 0) }"
     else
       val
     end
   end
 
-  def simple_date_format date
+  def simple_date_format(date)
     date.try(:strftime, "%m/%d/%Y")
   end
 
-  def simple_date_format_Y_d_m date, sep="-"
+  def simple_date_format_Y_d_m(date, sep = "-")
     date.try(:strftime, "%Y#{sep}%m#{sep}%d")
   end
 
-  def simple_date_mon_d_yyyy date
+  def simple_date_mon_d_yyyy(date)
     date.try(:strftime, "%b %d, %Y")
   end
 
-  def simple_money_format amt
-   number_to_currency amt, precision:0
+  def simple_money_format(amt)
+    number_to_currency amt, precision: 0
   end
 
-  def simple_number_format num
+  def simple_number_format(num)
     number_with_delimiter num.to_i
   end
 
-  def simple_percentage_format num, opts={}
-    opts.merge!({strip_insignificant_zeros:true})
+  def simple_percentage_format(num, opts = {})
+    opts.merge!(strip_insignificant_zeros: true)
     number_to_percentage(num, opts)
   end
 
-  def unescape_html html
+  def unescape_html(html)
     coder = HTMLEntities.new
     raw coder.decode("" + html + "")
   end
