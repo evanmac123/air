@@ -44,9 +44,10 @@ class Campaign < ActiveRecord::Base
   def self.sanitize_thumbnails(raw_tiles)
     result = []
     raw_tiles.each do |tile|
-      result << tile["thumbnail"] if tile["thumbnail_content_type"] == "image/jpeg"
+      result << tile["thumbnail"] if tile["thumbnail_content_type"] != "image/gif"
       return result if result.length == 3
     end
+    result
   end
 
   def display_tiles
