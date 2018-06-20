@@ -4,17 +4,22 @@ import PropTypes from "prop-types";
 import CampaignComponent from "./CampaignComponent";
 import SelectedCampaignComponent from "./SelectedCampaignComponent";
 
-const campaignContainerStyle = {
+const campaignContainerStyleDesktop = {
   display: "flex",
   alignItems: "left",
   flexWrap: "wrap",
   justifyContent: "left",
 };
 
+const campaignContainerStyleMobile = {
+  display: "inherit",
+};
+
 const renderCampaigns = props => (
   props.campaigns.map(campaign => (
     React.createElement(CampaignComponent, {
       ...campaign,
+      winWidth: props.winWidth,
       campaignRedirect: props.campaignRedirect,
       key: campaign.id,
     }))
@@ -38,7 +43,10 @@ const CampaignsComponent = props => (
   :
     React.createElement(
       "div",
-      { className: "campaign-container", style: campaignContainerStyle },
+      {
+        className: "campaign-container",
+        style: (props.winWidth > 767 ? campaignContainerStyleDesktop : campaignContainerStyleMobile),
+      },
       renderCampaigns(props),
     )
 );

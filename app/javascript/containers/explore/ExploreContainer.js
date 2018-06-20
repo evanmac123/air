@@ -4,7 +4,7 @@ import * as $ from "jquery";
 
 import CampaignsComponent from "./components/CampaignsComponent";
 import LoadingComponent from "../../shared/LoadingComponent";
-import { Fetcher } from "../../lib/helpers";
+import { Fetcher, WindowHelper } from "../../lib/helpers";
 
 class Explore extends Component {
   constructor(props) {
@@ -13,12 +13,15 @@ class Explore extends Component {
       selectedCampaign: {},
       loading: true,
       campaigns: [],
+      winWidth: 0,
+      winHeight: 0,
     };
     this.campaignRedirect = this.campaignRedirect.bind(this);
     this.getCampaignTiles = this.getCampaignTiles.bind(this);
     this.navbarRedirect = this.navbarRedirect.bind(this);
     this.copyTile = this.copyTile.bind(this);
     this.copyAllTiles = this.copyAllTiles.bind(this);
+    this.updateDimensions = this.updateDimensions.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +44,17 @@ class Explore extends Component {
       });
       this.setState(initCampaignState);
     });
+    this.updateDimensions();
+    window.addEventListener("resize", this.updateDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions);
+  }
+
+  updateDimensions() {
+    const newDimensions = WindowHelper.getDimensions();
+    this.setState(newDimensions);
   }
 
   navbarRedirect(e) {

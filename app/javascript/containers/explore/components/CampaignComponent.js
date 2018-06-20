@@ -3,11 +3,18 @@ import PropTypes from "prop-types";
 
 import { MapWithIndex } from "../../../lib/helpers";
 
-const campaignCardStyle = {
+const campaignCardStyleDesktop = {
   position: "relative",
   width: "16.6rem",
   height: "105px",
   margin: "20px",
+};
+
+const campaignCardStyleMobile =   {
+  position: "relative",
+  width: "16.6rem",
+  height: "105px",
+  margin: "45px auto",
 };
 
 const thumbnailCascadeStyle = counter => {
@@ -48,7 +55,7 @@ const CampaignComponent = props => (
     "div",
     {
       className: "campaign-card",
-      style: campaignCardStyle,
+      style: (props.winWidth > 767 ? campaignCardStyleDesktop : campaignCardStyleMobile),
       onClick: () => {
         props.campaignRedirect(props);
       },
@@ -70,6 +77,7 @@ CampaignComponent.propTypes = {
   campaignRedirect: PropTypes.func,
   description: PropTypes.string,
   ongoing: PropTypes.bool,
+  winWidth: PropTypes.number,
 };
 
 export default CampaignComponent;
