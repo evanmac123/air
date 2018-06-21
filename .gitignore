@@ -71,5 +71,6 @@ spec/specs_with_statuses.txt
 /public/packs-test
 /node_modules
 yarn-debug.log*
+yarn-error.log*
 .yarn-integrity
 .byebug_history
