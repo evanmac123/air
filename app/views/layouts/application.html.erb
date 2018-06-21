@@ -32,6 +32,10 @@
 
 
     <main class="main">
+      <%= content_tag :div,
+        id: "point-wording",
+        data: org_points_wording do %>
+      <% end %>
       <%= render partial: 'shared/tiles_tools_subnav/tiles_tools_subnav' %>
       <div class="core pb-5">
         <div class="content">
