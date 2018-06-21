@@ -3,7 +3,7 @@ source "https://www.rubygems.org"
 ruby "2.3.5"
 
 gem "rails", "=4.2.10"
-gem "unicorn", "~> 5.3.1"
+gem "puma"
 gem "pg", "~> 0.18.0"
 gem "rack-cors", require: "rack/cors"
 gem "rack-timeout", require: false
