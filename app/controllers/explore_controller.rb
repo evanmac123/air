@@ -2,14 +2,14 @@
 
 class ExploreController < ExploreBaseController
   def show
-    @tiles = Tile.explore_not_in_campaign.page(params[:page]).per(28)
-
+    @user_data = {
+      "isGuestUser" => current_user.is_a?(GuestUser),
+      "isEndUser" => current_user.end_user?
+    }.to_json
     if request.xhr?
       render_json_tiles
     else
       explore_email_clicked_ping if params[:email_type].present?
-      @private_campaigns = Campaign.private_explore(demo: current_board)
-      @related_campaigns = Campaign.public_explore.order(:name)
     end
   end
 

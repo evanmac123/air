@@ -14,7 +14,8 @@ default: &default
   cache_manifest: false
 
   extensions:
-    - .vue
+    - .erb
+    - .jsx
     - .js
     - .sass
     - .scss

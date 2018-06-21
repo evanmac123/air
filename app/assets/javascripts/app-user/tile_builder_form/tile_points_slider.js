@@ -3,6 +3,7 @@ var Airbo = window.Airbo || {};
 Airbo.TilePointsSlider = (function() {
   var pointsSlider,
     formPoints,
+    pointsWording,
     pointSliderSelector = "#points_slider",
     formPointsSelector = "#tile_points";
 
@@ -19,7 +20,7 @@ Airbo.TilePointsSlider = (function() {
         '<div class="points_pop_up">',
         '<span class="tooltip tip-top">',
         '<div class="points_num"></div>',
-        '<div class="points_text">POINTS</div>',
+        '<div class="points_text">' + pointsWording + "</div>",
         '<span class="points_nub"></span>',
         "</span>",
         "</div>"
@@ -30,6 +31,7 @@ Airbo.TilePointsSlider = (function() {
   function initjQueryObjects() {
     formPoints = $(formPointsSelector);
     pointsSlider = $("#points_slider");
+    pointsWording = pointsSlider.data("pointsWording");
   }
 
   function init() {

@@ -22,7 +22,7 @@
                       </tr>
                       <tr>
                         <td class="color" style="padding:20px 0 0 0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:16px;font-weight:500;text-align:left;color:<%= @demo.primary_color %>">
-                          +<%= tile.points %> Points
+                          <%= @demo.organization.try(:id) == 1072 ? "" : "+#{tile.points} Points" %>
                         </td>
                       </tr>
                     </table>

@@ -6,15 +6,13 @@ const extractCSS =
   !(inDevServer && (devServer && devServer.hmr)) || isProduction;
 
 module.exports = {
-  test: /\.vue(\.erb)?$/,
+  test: /\.jsx?$/,
+  exclude: /node_modules/,
   use: [
     {
-      loader: "vue-loader",
+      loader: "babel-loader",
       options: {
-        extractCSS: extractCSS,
-        loaders: {
-          scss: "vue-style-loader!css-loader!sass-loader"
-        }
+        presets: ["react"]
       }
     }
   ]
