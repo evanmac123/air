@@ -2,9 +2,13 @@ var Airbo = window.Airbo || {};
 
 Airbo.ActsFeedManager = (function() {
   function renderActs(acts) {
-    var orgId = document.getElementById("current-org-id").getAttribute("data");
+    var node = document.getElementById("point-wording"),
+      orgId;
+    if (node) {
+      var orgId = node.getAttribute("data");
+    }
     acts.forEach(function(act) {
-      act.validOrg = act.points && orgId !== "1072";
+      act.validOrg = act.points && orgId !== "complete";
       var actTemplate = HandlebarsTemplates["acts/act"](act);
       $(".js-user-acts").append(actTemplate);
     });
