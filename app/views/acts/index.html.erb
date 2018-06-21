@@ -14,3 +14,8 @@
 <% end %>
 
 <%= render "acts/board_welcome_message", board: current_board, show_on_load: @display_board_welcome_message %>
+
+<%= content_tag :div,
+  id: "current-org-id",
+  data: @demo.organization.try(:id) do %>
+<% end %>

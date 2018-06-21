@@ -2,7 +2,9 @@
   <div id="search_for_friends_to_invite">
     <div id="invite_friends_top">
       <h3 id="invite_your_friends_title">Invite</h3>
-      <p id="why_invite">Earn 5 <%= org_points_wording %> for each one that joins and gives you credit for recruiting them.</p>
+      <% unless org_points_wording == "complete"  %>
+        <p id="why_invite">Earn 5 <%= org_points_wording %> for each one that joins and gives you credit for recruiting them.</p>
+      <% end %>
       <div id="points_per_referral">
         <%= current_user.demo.game_referrer_bonus %>
       </div>

@@ -2,7 +2,9 @@ var Airbo = window.Airbo || {};
 
 Airbo.ActsFeedManager = (function() {
   function renderActs(acts) {
+    var orgId = document.getElementById("current-org-id").getAttribute("data");
     acts.forEach(function(act) {
+      act.validOrg = act.points && orgId !== "1072";
       var actTemplate = HandlebarsTemplates["acts/act"](act);
       $(".js-user-acts").append(actTemplate);
     });
