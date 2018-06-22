@@ -58,9 +58,13 @@ class Explore extends Component {
   }
 
   onScroll() {
-    if ((this.state.selectedCampaign && !!this.state.selectedCampaign.tilePageLoaded) &&
-        (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500)) {
-      this.getCampaignTiles(this.state.selectedCampaign, { scrollLoading: true });
+    const camp = this.state.selectedCampaign;
+    if (!this.state.scrollLoading && (camp && !!this.state[`tilePageLoaded${camp.id}`]) &&
+        ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500))) {
+          console.log((window.innerHeight + window.scrollY))
+          console.log((document.body.offsetHeight - 500))
+      // debugger
+      // this.getCampaignTiles(this.state.selectedCampaign, { scrollLoading: true });
     }
   }
 
@@ -98,7 +102,7 @@ class Explore extends Component {
         loading: false,
         scrollLoading: false,
       };
-      newState[`tilePageLoaded${campaign.id}`] = page + 1;
+      newState[`tilePageLoaded${campaign.id}`] = ( response.length < 28 ? 0 : page + 1 );
       newState[`campaignTiles${campaign.id}`] = this.state[`campaignTiles${campaign.id}`] || [];
       newState[`campaignTiles${campaign.id}`].concat(response);
       this.setState(newState);
