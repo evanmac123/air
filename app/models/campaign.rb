@@ -66,8 +66,8 @@ class Campaign < ActiveRecord::Base
     active_tiles.where(is_public: true)
   end
 
-  def react_sanitize_tiles
-    display_tiles.limit(28).to_a.map do |tile|
+  def react_sanitize_tiles(page = 1)
+    display_tiles.page(page).per(28).to_a.map do |tile|
       add_props = {
         "thumbnail" => ActionController::Base.helpers.image_path(tile.thumbnail),
         "copyPath" => Rails.application.routes.url_helpers.explore_copy_tile_path(tile_id: tile.id, path: :via_explore_page_tile_view),

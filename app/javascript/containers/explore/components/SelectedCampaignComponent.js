@@ -4,6 +4,7 @@ import sanitizeHtml from 'sanitize-html';
 
 import TileComponent from "./TileComponent";
 import NavbarComponent from "./NavbarComponent";
+import LoadingComponent from "../../../shared/LoadingComponent";
 
 const renderTiles = (tiles, copyTile) => (
   tiles.map(tile => React.createElement(TileComponent, {
@@ -65,12 +66,13 @@ const SelectedCampaignComponent = props => (
         </div>
       </div>
     }
-    <div className="explore-tiles-container with-divider">
+    <div className="explore-tiles-container">
       <div className="row">
         <div className="large-12 columns">
           {renderTiles(props.tiles, props.copyTile)}
         </div>
       </div>
+      { props.scrollLoading && <LoadingComponent /> }
     </div>
   </div>
 );
@@ -95,6 +97,7 @@ SelectedCampaignComponent.propTypes = {
   navbarRedirect: PropTypes.func,
   copyAllTiles: PropTypes.func,
   copyTile: PropTypes.func,
+  scrollLoading: PropTypes.bool,
 };
 
 export default SelectedCampaignComponent;
