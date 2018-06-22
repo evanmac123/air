@@ -12,6 +12,7 @@ class Explore extends Component {
     this.state = {
       selectedCampaign: {},
       loading: true,
+      scrollLoading: false,
       campaigns: [],
       winWidth: 0,
       winHeight: 0,
@@ -22,6 +23,7 @@ class Explore extends Component {
     this.copyTile = this.copyTile.bind(this);
     this.copyAllTiles = this.copyAllTiles.bind(this);
     this.updateDimensions = this.updateDimensions.bind(this);
+    this.onScroll = this.onScroll.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +33,7 @@ class Explore extends Component {
         loading: false,
       };
       response.forEach(resp => {
+        initCampaignState[`tilePageLoaded${resp.id}`] = 1;
         initCampaignState.campaigns.push({
           id: resp.id,
           name: resp.name,
@@ -46,10 +49,19 @@ class Explore extends Component {
     });
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions);
+    window.addEventListener("scroll", this.onScroll, false);
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
+    window.removeEventListener("scroll", this.onScroll, false);
+  }
+
+  onScroll() {
+    if ((this.state.selectedCampaign && !!this.state.selectedCampaign.tilePageLoaded) &&
+        (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500)) {
+      this.getCampaignTiles(this.state.selectedCampaign, { scrollLoading: true });
+    }
   }
 
   updateDimensions() {
@@ -71,20 +83,24 @@ class Explore extends Component {
       campaignId: campaign.id,
     });
     if (!this.state[`campaignTiles${campaign.id}`]) {
-      this.getCampaignTiles(campaign);
+      this.getCampaignTiles(campaign, { loading: true });
     } else {
       this.setState({ selectedCampaign: campaign });
     }
   };
 
-  getCampaignTiles(campaign) {
-    this.setState({ loading: true });
-    Fetcher.get(`/api/v1/campaigns/${campaign.id}`, response => {
+  getCampaignTiles(campaign, opts) {
+    const page = this.state[`tilePageLoaded${campaign.id}`];
+    this.setState(opts);
+    Fetcher.get(`/api/v1/campaigns/${campaign.id}?page=${page}`, response => {
       const newState = {
         selectedCampaign: campaign,
         loading: false,
+        scrollLoading: false,
       };
-      newState[`campaignTiles${campaign.id}`] = response;
+      newState[`tilePageLoaded${campaign.id}`] = page + 1;
+      newState[`campaignTiles${campaign.id}`] = this.state[`campaignTiles${campaign.id}`] || [];
+      newState[`campaignTiles${campaign.id}`].concat(response);
       this.setState(newState);
     });
   }
