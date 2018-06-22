@@ -33,7 +33,7 @@ class Explore extends Component {
         loading: false,
       };
       response.forEach(resp => {
-        initCampaignState[`tilePageLoaded${resp.id}`] = 1;
+        initCampaignState[`tilePageLoaded${resp.id}`] = ( resp.tiles.length < 28 ? 0 : 1 );
         initCampaignState.campaigns.push({
           id: resp.id,
           name: resp.name,
@@ -59,12 +59,14 @@ class Explore extends Component {
 
   onScroll() {
     const camp = this.state.selectedCampaign;
+    const scrollTop = $(document).scrollTop();
+    const windowHeight = $(window).height();
+    const bodyHeight = $(document).height() - windowHeight;
+    const scrollPercentage = (scrollTop / bodyHeight);
     if (!this.state.scrollLoading && (camp && !!this.state[`tilePageLoaded${camp.id}`]) &&
-        ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500))) {
-          console.log((window.innerHeight + window.scrollY))
-          console.log((document.body.offsetHeight - 500))
-      // debugger
-      // this.getCampaignTiles(this.state.selectedCampaign, { scrollLoading: true });
+        (scrollPercentage > 0.95)) {
+      this.setState({ scrollLoading: true });
+      this.getCampaignTiles(this.state.selectedCampaign);
     }
   }
 
@@ -94,7 +96,7 @@ class Explore extends Component {
   };
 
   getCampaignTiles(campaign, opts) {
-    const page = this.state[`tilePageLoaded${campaign.id}`];
+    const page = this.state[`tilePageLoaded${campaign.id}`] + 1;
     this.setState(opts);
     Fetcher.get(`/api/v1/campaigns/${campaign.id}?page=${page}`, response => {
       const newState = {
@@ -102,9 +104,8 @@ class Explore extends Component {
         loading: false,
         scrollLoading: false,
       };
-      newState[`tilePageLoaded${campaign.id}`] = ( response.length < 28 ? 0 : page + 1 );
-      newState[`campaignTiles${campaign.id}`] = this.state[`campaignTiles${campaign.id}`] || [];
-      newState[`campaignTiles${campaign.id}`].concat(response);
+      newState[`tilePageLoaded${campaign.id}`] = ( response.length < 28 ? 0 : page );
+      newState[`campaignTiles${campaign.id}`] = (this.state[`campaignTiles${campaign.id}`] || []).concat(response);
       this.setState(newState);
     });
   }
