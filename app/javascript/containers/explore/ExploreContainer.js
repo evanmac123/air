@@ -29,7 +29,7 @@ class Explore extends Component {
 
   componentDidMount() {
     const latestTile = localStorage.getItem('latestTile');
-    if (latestTile && latestTile === this.props.user.latestTile) {
+    if (latestTile && latestTile === this.props.ctrl.latestTile) {
       this.setState(JSON.parse(localStorage.getItem('campaign-data')));
     } else {
       this.getAllCampaigns();
@@ -103,7 +103,7 @@ class Explore extends Component {
       });
       this.setState(initCampaignState);
       localStorage.setItem('campaign-data', JSON.stringify(initCampaignState));
-      localStorage.setItem('latestTile', this.props.user.latestTile);
+      localStorage.setItem('latestTile', this.props.ctrl.latestTile);
     });
   };
 
@@ -160,7 +160,7 @@ class Explore extends Component {
             navbarRedirect={this.navbarRedirect}
             copyTile={this.copyTile}
             copyAllTiles={this.copyAllTiles}
-            user={this.props.user}
+            user={this.props.ctrl}
           />
         }
       </div>
@@ -169,7 +169,7 @@ class Explore extends Component {
 }
 
 Explore.propTypes = {
-  user: PropTypes.object,
+  ctrl: PropTypes.object,
 };
 
 

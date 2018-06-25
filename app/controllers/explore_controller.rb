@@ -2,7 +2,7 @@
 
 class ExploreController < ExploreBaseController
   def show
-    @user_data = {
+    @ctrl_data = {
       "isGuestUser" => current_user.is_a?(GuestUser),
       "isEndUser" => current_user.end_user?,
       "latestTile" => Tile.includes(:campaign)
