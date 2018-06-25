@@ -43,7 +43,7 @@
     "lint-staged": "$(yarn bin)/lint-staged",
     "build": "./bin/webpack",
     "start": "./bin/bundle exec foreman start -f Procfile.dev",
-    "rails": "bundle exec puma -p 3000 -C ./config/puma.rb",
+    "rails": "bundle exec unicorn -p 3000 -c ./config/unicorn.rb",
     "webpack-server": "./bin/webpack-dev-server"
   },
   "lint-staged": {
