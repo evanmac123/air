@@ -4,7 +4,12 @@ class ExploreController < ExploreBaseController
   def show
     @user_data = {
       "isGuestUser" => current_user.is_a?(GuestUser),
-      "isEndUser" => current_user.end_user?
+      "isEndUser" => current_user.end_user?,
+      "latestTile" => Tile.includes(:campaign)
+                          .where("status" => "active")
+                          .where.not("campaigns.id" => nil)
+                          .order(created_at: :desc).first
+                          .created_at
     }.to_json
     if request.xhr?
       render_json_tiles

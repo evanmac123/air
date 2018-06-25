@@ -23,30 +23,17 @@ class Explore extends Component {
     this.copyTile = this.copyTile.bind(this);
     this.copyAllTiles = this.copyAllTiles.bind(this);
     this.updateDimensions = this.updateDimensions.bind(this);
+    this.getAllCampaigns = this.getAllCampaigns.bind(this);
     this.onScroll = this.onScroll.bind(this);
   }
 
   componentDidMount() {
-    Fetcher.get("/api/v1/campaigns", response => {
-      const initCampaignState = {
-        campaigns: [],
-        loading: false,
-      };
-      response.forEach(resp => {
-        initCampaignState[`tilePageLoaded${resp.id}`] = ( resp.tiles.length < 28 ? 0 : 1 );
-        initCampaignState.campaigns.push({
-          id: resp.id,
-          name: resp.name,
-          thumbnails: resp.thumbnails,
-          path: resp.path,
-          description: resp.description,
-          ongoing: resp.ongoing,
-          copyText: "Copy Campaign",
-        });
-        initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
-      });
-      this.setState(initCampaignState);
-    });
+    const latestTile = localStorage.getItem('latestTile');
+    if (latestTile && latestTile === this.props.user.latestTile) {
+      this.setState(JSON.parse(localStorage.getItem('campaign-data')));
+    } else {
+      this.getAllCampaigns();
+    }
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions);
     window.addEventListener("scroll", this.onScroll, false);
@@ -93,6 +80,31 @@ class Explore extends Component {
     } else {
       this.setState({ selectedCampaign: campaign });
     }
+  };
+
+  getAllCampaigns() {
+    Fetcher.get("/api/v1/campaigns", response => {
+      const initCampaignState = {
+        campaigns: [],
+        loading: false,
+      };
+      response.forEach(resp => {
+        initCampaignState[`tilePageLoaded${resp.id}`] = ( resp.tiles.length < 28 ? 0 : 1 );
+        initCampaignState.campaigns.push({
+          id: resp.id,
+          name: resp.name,
+          thumbnails: resp.thumbnails,
+          path: resp.path,
+          description: resp.description,
+          ongoing: resp.ongoing,
+          copyText: "Copy Campaign",
+        });
+        initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
+      });
+      this.setState(initCampaignState);
+      localStorage.setItem('campaign-data', JSON.stringify(initCampaignState));
+      localStorage.setItem('latestTile', this.props.user.latestTile);
+    });
   };
 
   getCampaignTiles(campaign, opts) {
