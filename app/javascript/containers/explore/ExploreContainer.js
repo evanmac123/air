@@ -5,6 +5,7 @@ import * as $ from "jquery";
 import CampaignsComponent from "./components/CampaignsComponent";
 import LoadingComponent from "../../shared/LoadingComponent";
 import { Fetcher, WindowHelper } from "../../lib/helpers";
+import { AiRouter } from "../../lib/utils";
 
 class Explore extends Component {
   constructor(props) {
@@ -64,17 +65,20 @@ class Explore extends Component {
 
   navbarRedirect(e) {
     e.preventDefault();
+    AiRouter.navigation("explore");
     this.setState({
       selectedCampaign: {},
     });
   }
 
   campaignRedirect(campaign) {
+    const redirectUrl = `campaigns/${campaign.id}-${campaign.name.toLowerCase().replace(/\s+/g,"-")}`;
     window.Airbo.Utils.ping("Explore page - Interaction", {
       action: "Clicked Campaign",
       campaign: campaign.name,
       campaignId: campaign.id,
     });
+    AiRouter.navigation(redirectUrl, {appendToCurrentUrl: true});
     if (!this.state[`campaignTiles${campaign.id}`]) {
       this.getCampaignTiles(campaign, { loading: true });
     } else {
