@@ -9,7 +9,7 @@ class ExploreController < ExploreBaseController
                           .where("status" => "active")
                           .where.not("campaigns.id" => nil)
                           .order(created_at: :desc).first
-                          .created_at
+                          .try(:created_at)
     }.to_json
     if request.xhr?
       render_json_tiles
