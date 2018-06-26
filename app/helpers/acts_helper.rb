@@ -2,10 +2,10 @@
 
 module ActsHelper
   def set_modals_and_intros
-    # if current_user.display_get_started_lightbox || params[:welcome_modal].present?
+    if current_user.display_get_started_lightbox || params[:welcome_modal].present?
       @display_board_welcome_message = true
-      # current_user.update_attributes(get_started_lightbox_displayed: true)
-    # end
+      current_user.update_attributes(get_started_lightbox_displayed: true)
+    end
   end
 
   def welcome_message_flash
