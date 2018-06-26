@@ -38,6 +38,8 @@ const CampaignsComponent = props => (
         copyAllTiles: props.copyAllTiles,
         copyTile: props.copyTile,
         user: props.user,
+        tilePageLoaded: props.tilePageLoaded,
+        scrollLoading: props.scrollLoading,
       },
     )
   :
