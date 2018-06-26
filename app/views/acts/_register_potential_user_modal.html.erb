@@ -1,5 +1,5 @@
 <div class="js-register-potential-user-modal reveal-modal small" data-reveal aria-labelledby="potentialUserConversionModal" aria-hidden="true" role="dialog">
-  <h3>Welcome to the <%= current_user.demo.name%>!</h3>
+  <h3>Welcome to <%= current_user.demo.name_as_noun%>!</h3>
   <%= form_tag potential_user_conversions_path do %>
     <%= label_tag "potential_user_name", "Enter your first and last name to continue:" %>
     <%= text_field_tag "potential_user_name" %>
