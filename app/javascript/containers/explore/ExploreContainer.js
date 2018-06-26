@@ -5,6 +5,7 @@ import * as $ from "jquery";
 import CampaignsComponent from "./components/CampaignsComponent";
 import LoadingComponent from "../../shared/LoadingComponent";
 import { Fetcher, WindowHelper } from "../../lib/helpers";
+import { AiRouter } from "../../lib/utils";
 
 class Explore extends Component {
   constructor(props) {
@@ -24,24 +25,41 @@ class Explore extends Component {
     this.copyAllTiles = this.copyAllTiles.bind(this);
     this.updateDimensions = this.updateDimensions.bind(this);
     this.getAllCampaigns = this.getAllCampaigns.bind(this);
+    this.updateActiveDisplay = this.updateActiveDisplay.bind(this);
+    this.getCampaignById = this.getCampaignById.bind(this);
+    this.populateCampaigns = this.populateCampaigns.bind(this);
     this.onScroll = this.onScroll.bind(this);
   }
 
   componentDidMount() {
-    const latestTile = localStorage.getItem('latestTile');
-    if (latestTile && latestTile === this.props.ctrl.latestTile) {
-      this.setState(JSON.parse(localStorage.getItem('campaign-data')));
-    } else {
-      this.getAllCampaigns();
-    }
+    this.populateCampaigns().then(() => this.updateActiveDisplay());
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions);
     window.addEventListener("scroll", this.onScroll, false);
+    window.addEventListener("popstate", this.updateActiveDisplay);
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
     window.removeEventListener("scroll", this.onScroll, false);
+    window.removeEventListener("popstate", this.updateActiveDisplay);
+  }
+
+  updateActiveDisplay() {
+    const splitRoute = AiRouter.currentUrl().split("/");
+    const campaignId = [...splitRoute].pop();
+    if (campaignId === "explore" && splitRoute.length < 3) {
+      this.setState({
+        selectedCampaign: {},
+      });
+    } else {
+      const camp = this.getCampaignById(campaignId.split("-")[0]);
+      if (camp) {
+        this.campaignRedirect(camp, "popstate");
+      } else {
+        AiRouter.navigation("explore");
+      }
+    }
   }
 
   onScroll() {
@@ -64,23 +82,41 @@ class Explore extends Component {
 
   navbarRedirect(e) {
     e.preventDefault();
+    AiRouter.navigation("explore");
     this.setState({
       selectedCampaign: {},
     });
   }
 
-  campaignRedirect(campaign) {
-    window.Airbo.Utils.ping("Explore page - Interaction", {
-      action: "Clicked Campaign",
-      campaign: campaign.name,
-      campaignId: campaign.id,
-    });
+  campaignRedirect(campaign, popstate) {
+    const redirectUrl = `campaigns/${campaign.id}-${campaign.name.toLowerCase().replace(/\s+/g,"-")}`;
+    if (!popstate) {
+      window.Airbo.Utils.ping("Explore page - Interaction", {
+        action: "Clicked Campaign",
+        campaign: campaign.name,
+        campaignId: campaign.id,
+      });
+      AiRouter.navigation(redirectUrl, {appendToCurrentUrl: true});
+    }
     if (!this.state[`campaignTiles${campaign.id}`]) {
       this.getCampaignTiles(campaign, { loading: true });
     } else {
       this.setState({ selectedCampaign: campaign });
     }
-  };
+  }
+
+  populateCampaigns() {
+    const latestTile = localStorage.getItem('latestTile');
+    return new Promise(resolve => {
+      if (latestTile && latestTile === this.props.ctrl.latestTile) {
+        this.setState(JSON.parse(localStorage.getItem('campaign-data')));
+        resolve();
+      } else {
+        this.getAllCampaigns();
+        resolve();
+      }
+    });
+  }
 
   getAllCampaigns() {
     Fetcher.get("/api/v1/campaigns", response => {
@@ -105,7 +141,7 @@ class Explore extends Component {
       localStorage.setItem('campaign-data', JSON.stringify(initCampaignState));
       localStorage.setItem('latestTile', this.props.ctrl.latestTile);
     });
-  };
+  }
 
   getCampaignTiles(campaign, opts) {
     const page = this.state[`tilePageLoaded${campaign.id}`] + 1;
@@ -120,6 +156,13 @@ class Explore extends Component {
       newState[`campaignTiles${campaign.id}`] = (this.state[`campaignTiles${campaign.id}`] || []).concat(response);
       this.setState(newState);
     });
+  }
+
+  getCampaignById(id) {
+    for (let i = 0; i < this.state.campaigns.length; i++) {
+      if (`${this.state.campaigns[i].id}` === id) { return this.state.campaigns[i]; }
+    }
+    return false;
   }
 
   copyToBoard(copyPath, $tile, successCb) {

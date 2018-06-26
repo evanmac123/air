@@ -35,7 +35,7 @@ const cardTitleStyle = {
   textAlign: "center",
   position: "absolute",
   zIndex: "1",
-  backgroundImage: "linear-gradient(to bottom, rgba(64, 190, 255, 0.4), rgba(51, 68, 92, 0.3))",
+  backgroundColor: "rgba(68, 68, 68, 0.6)",
   height: "128%",
   margin: "0 0 0 -2px",
   padding: "53px 10px 10px 10px",
