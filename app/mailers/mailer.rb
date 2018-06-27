@@ -89,7 +89,7 @@ class Mailer < ApplicationMailer
       general_site_url: cancel_account_url(id: user.cancel_account_token),
       cta_message: "Cancel",
       email_heading: "Welcome to Airbo!",
-      custom_message: "Welcome to the  #{@demo.name} on Airbo\nIf you didn't create this account, just click here to cancel"
+      custom_message: "Welcome to #{@demo.name_as_noun} on Airbo\nIf you didn't create this account, just click here to cancel"
     )
 
     mail(
