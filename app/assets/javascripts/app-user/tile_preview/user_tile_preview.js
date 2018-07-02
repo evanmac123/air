@@ -189,11 +189,6 @@ Airbo.UserTilePreview = (function() {
   }
 
   function initTile() {
-    var $tileImgPreview = $(document.getElementById("tile_img_preview"));
-
-    $tileImgPreview.attr("crossOrigin", "");
-    $tileImgPreview.attr("src", $("#source-url").text());
-
     initNextTileParams();
     setUpAnswers();
     initAnonymousTooltip();
@@ -215,6 +210,11 @@ Airbo.UserTilePreview = (function() {
   }
 
   function init(fromSearch) {
+    var $tileImgPreview = $(document.getElementById("tile_img_preview"));
+
+    $tileImgPreview.attr("crossOrigin", "");
+    $tileImgPreview.attr("src", $("#source-url").text());
+
     this.fromSearch = fromSearch;
     bindTileCarouselNavigationButtons();
     initTile();
