@@ -7,10 +7,10 @@ const displayCreationDate = date => {
 };
 
 const TileComponent = props => (
-  <div className="tile_container explore">
+  <div className="tile_container explore" data-tile-container-id={props.id}>
     <div className="tile_thumbnail" id={`single-tile-${props.id}`}>
       <div className="tile-wrapper">
-        <a href={props.tileShowPath} className='tile_thumb_link_explore'>
+        <a href={props.tileShowPath} className='tile_thumb_link_explore' data-tile-id={props.id}>
           <div className="tile_thumbnail_image">
             <img src={props.thumbnail} />
           </div>
