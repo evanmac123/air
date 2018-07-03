@@ -9,7 +9,10 @@ $reveal-box-shadow: 0;
 
 .reveal-modal {
   @include radius(3px);
-  top: 5vh !important;
+
+  &.guest-conversion {
+    top: 5vh !important;
+  }
 }
 
 .close-reveal-modal {
