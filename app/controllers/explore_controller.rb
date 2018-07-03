@@ -8,8 +8,8 @@ class ExploreController < ExploreBaseController
       "latestTile" => Tile.includes(:campaign)
                           .where("status" => "active")
                           .where.not("campaigns.id" => nil)
-                          .order(created_at: :desc).first
-                          .try(:created_at)
+                          .order(updated_at: :desc).first
+                          .try(:updated_at)
     }.to_json
     if request.xhr?
       render_json_tiles

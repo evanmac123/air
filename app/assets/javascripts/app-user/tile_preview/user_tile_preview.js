@@ -16,6 +16,11 @@ Airbo.UserTilePreview = (function() {
 
     $viewer.fadeOut("fast", function() {
       $viewer.html(data.tile_content);
+      var $tileImgPreview = $(document.getElementById("tile_img_preview"));
+
+      $tileImgPreview.attr("crossOrigin", "");
+      $tileImgPreview.attr("src", $("#source-url").text());
+
       $("#tile_img_preview")
         .load(function() {
           $viewer.fadeIn("fast");
@@ -205,6 +210,11 @@ Airbo.UserTilePreview = (function() {
   }
 
   function init(fromSearch) {
+    var $tileImgPreview = $(document.getElementById("tile_img_preview"));
+
+    $tileImgPreview.attr("crossOrigin", "");
+    $tileImgPreview.attr("src", $("#source-url").text());
+
     this.fromSearch = fromSearch;
     bindTileCarouselNavigationButtons();
     initTile();
