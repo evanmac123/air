@@ -63,6 +63,10 @@ Airbo.GuestUserConversionForm = (function() {
   function bindConversionReminder() {
     Airbo.PubSub.subscribe("tileAnswered", function() {
       if ($("#completed_tiles_num").text() % 2 === 0) {
+        $("#guest-conversion-modal").bind("opened", function() {
+          $("#guest-conversion-modal").css("top", "5vh");
+        });
+
         $("#guest-conversion-modal").foundation("reveal", "open");
       }
     });
