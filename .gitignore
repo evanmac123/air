@@ -74,3 +74,6 @@ yarn-debug.log*
 yarn-error.log*
 .yarn-integrity
 .byebug_history
+
+cypress/screenshots/
+cypress/integration/examples/

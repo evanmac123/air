@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
+    "cypress": "^3.0.2",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.1",
     "eslint-config-prettier": "^2.6.0",
@@ -44,7 +45,9 @@
     "build": "./bin/webpack",
     "start": "./bin/bundle exec foreman start -f Procfile.dev",
     "rails": "bundle exec unicorn -p 3000 -c ./config/unicorn.rb",
-    "webpack-server": "./bin/webpack-dev-server"
+    "webpack-server": "./bin/webpack-dev-server",
+    "cypress:serve": "./bin/webpack; ./bin/bundle exec foreman start -f Procfile.test",
+    "cypress:open": "./node_modules/.bin/cypress open"
   },
   "lint-staged": {
     "config/webpack/**/*.js": [

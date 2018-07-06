@@ -1,0 +1,4 @@
+airbo_worker: bundle exec rake jobs:work
+airbo_elastic_search: elasticsearch
+airbo_redis: redis-server
+rails: ./bin/rails server -p 5555
