@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   draw :admin
   draw :api
 
+  delete '/cypress_cleanup', to: 'cleanup#destroy' if Rails.env.test?
+
   # mount letter opener web for development env
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
@@ -25,4 +27,5 @@ Rails.application.routes.draw do
   constraints Clearance::Constraints::SignedIn.new do
     get '/', to: redirect('/activity'), as: 'user_root'
   end
+
 end
