@@ -10,6 +10,10 @@ class String
     gsub(/[\W]/, '')
   end
 
+  def format_board_title
+    (self =~ /(board)\z/i ? "the " : "") + gsub(/\b('?[a-z])/) { $1.capitalize }
+  end
+
   # Escape characters with special meanings in Postgres' LIKE and ILIKE
   # operators.
   def like_escape
@@ -52,7 +56,7 @@ class String
     return nil if self.include? ".."
     self.strip =~ /^[A-Z0-9_.\-+%]+@([A-Z0-9.\-]+\.[A-Z]{2,4})$/i
   end
-  
+
   def is_not_email_address?
     is_email_address? ? false : true
   end

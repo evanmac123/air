@@ -143,7 +143,7 @@ class Demo < ActiveRecord::Base
   end
 
   def name_as_noun
-    (name =~ /(board)\z/i ? "the " : "") + name.titleize
+    name.format_board_title
   end
 
   def activate_tiles_if_showtime
