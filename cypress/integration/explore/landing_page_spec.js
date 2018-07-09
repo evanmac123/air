@@ -1,21 +1,14 @@
 context('Landing page', () => {
-  beforeEach(() => {
+  beforeEach(function() {
     cy.factoryCreate('campaign', {
-      name: 'Test Campaign',
-      description: 'Campaign generated for E2E testing',
       active: true,
-      slug: 'test-campaign',
-      ongoing: false,
-      icon_link: '',
-      private_explore: false,
       public_explore: true,
-      color: null,
-    });
-    // cy.factoryCreateMany('tile', 3, {
+    }).as('campaign');
+    // cy.factoryCreate('tile', 3, {
     //   associations: {
-    //     campaign: {slug: 'test-campaign'},
+    //     campaign: this.campaign.id,
     //   },
-    // });
+    // }).as('tiles');
     cy.visit('/explore');
   });
 
@@ -28,8 +21,8 @@ context('Landing page', () => {
       cy.contains('Sign In');
     });
 
-    it('loads campaigns tiles', () => {
-      cy.contains('Test Campaign').click();
+    it('loads campaigns tiles', function() {
+      cy.contains(this.campaign.name).click();
     });
   });
 });

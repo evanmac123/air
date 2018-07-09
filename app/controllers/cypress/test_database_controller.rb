@@ -9,7 +9,7 @@ class Cypress::TestDatabaseController < ApplicationController
     factory_attrs.each_with_index do |attrs, i|
       model = attrs.delete("model")
       factory_created = eval(model.capitalize).create!(attrs)
-      response["#{model}-#{i}"] = factory_created
+      response["#{model}-#{i}"] = factory_created.as_json(root: false)
     end
     render json: response
   end

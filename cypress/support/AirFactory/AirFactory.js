@@ -1,16 +1,21 @@
 import factories from './factories'
 
 const sanitizeAttrs = args => {
-  let data = args.data || null;
-  if (!args.model) { return data }
-  if (args.model.validations.indexOf('req') > -1 && !!data) {
-    data = args.model.defaultVal
-  }
+  if (!args.model) { return args.data }
   if (args.model.validations.indexOf('uniq') > -1) {
-    data += ` ${Math.floor(Math.random() * Math.floor(9999))}`;
+    args.data += ` ${Math.floor(Math.random() * Math.floor(9999))}`;
   }
-  return data;
+  return args.data;
 };
+
+const mergeReqAttrs = (rawData, attrs) => (
+  Object.keys(attrs).reduce((result, attr) => {
+    if (attrs[attr].validations.indexOf('req') > -1 && !rawData[attr]) {
+      result[attr] = attrs[attr].defaultVal();
+    }
+    return result
+  }, rawData)
+)
 
 const AirFactory = {};
 
@@ -36,14 +41,22 @@ AirFactory.createParams = (model, rawData, amount) => {
   const attrs = factories[model].attrs;
   amount = amount || 1;
   for (let i = 0; i < amount; i++) {
+    rawData = mergeReqAttrs(rawData, attrs);
     collection.push(Object.keys(rawData).reduce((result, attr) => {
       let modelAttrs = attrs[attr];
       let data = rawData[attr];
-      result[attr] = sanitizeAttrs({ attr, model: attrs[attr], data: rawData[attr] });
+      result[attr] = sanitizeAttrs({ model: attrs[attr], data: rawData[attr] });
       return result;
     }, { model }));
   }
+  debugger
   return collection;
 };
+
+AirFactory.createModels = (model, resp, amount) => {
+  const collection = [];
+  for (let i = 0; i < amount; i++) { collection.push(resp[`${model}-${i}`]) }
+  return amount === 1 ? collection[0] : collection;
+}
 
 export default AirFactory;

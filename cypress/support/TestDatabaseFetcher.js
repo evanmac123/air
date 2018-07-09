@@ -1,3 +1,5 @@
+import AirFactory from './AirFactory';
+
 const standardResponseHandling = resp => {
   if (resp.body.status === 'error') { throw `Error: ${resp.body.message}` }
   return resp.body;
@@ -11,14 +13,17 @@ TestDatabaseFetcher.destroyAll = () => {
     .then(standardResponseHandling);
 };
 
-TestDatabaseFetcher.post = params => {
+TestDatabaseFetcher.createFromFactory = params => {
   const key = Cypress.env('CLEANUP');
   cy.request({
     method: 'POST',
     url: `/cypress/test_database?key=${key}`,
     body: params
   })
-    .then(standardResponseHandling);
+    .then(resp => {
+      if (resp.body.status === 'error') { throw `Error: ${resp.body.message}` }
+      return AirFactory.createModels(params[0].model, resp.body, params.length);
+    });
 };
 
 export default TestDatabaseFetcher;

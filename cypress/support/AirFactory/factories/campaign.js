@@ -1,18 +1,22 @@
+const Faker = require('faker');
+
 const campaign = {};
 
 campaign.attrs = {
-  associations: {
-    demo: [],
-    population_segment: [],
-  },
   name: {
     validations: ['req','uniq'],
-    defaultVal: 'Test Campaign',
+    defaultVal: Faker.random.words,
   },
   description: {
     validations: ['req'],
-    defaultVal: 'Campaign generated for E2E testing',
-  }
+    defaultVal: Faker.lorem.sentence,
+  },
 };
+
+campaign.associations = {
+    demo: [],
+    population_segment: [],
+  };
+
 
 export default campaign;
