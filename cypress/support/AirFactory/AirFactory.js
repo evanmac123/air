@@ -31,4 +31,19 @@ AirFactory.createRakeDigest = (model, rawData, amount) => {
   return amount === 1 ? collection[0] : collection;
 };
 
+AirFactory.createParams = (model, rawData, amount) => {
+  const collection = [];
+  const attrs = factories[model].attrs;
+  amount = amount || 1;
+  for (let i = 0; i < amount; i++) {
+    collection.push(Object.keys(rawData).reduce((result, attr) => {
+      let modelAttrs = attrs[attr];
+      let data = rawData[attr];
+      result[attr] = sanitizeAttrs({ attr, model: attrs[attr], data: rawData[attr] });
+      return result;
+    }, { model }));
+  }
+  return collection;
+};
+
 export default AirFactory;

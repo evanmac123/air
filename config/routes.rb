@@ -10,8 +10,7 @@ Rails.application.routes.draw do
   draw :explore
   draw :admin
   draw :api
-
-  delete '/cypress_cleanup', to: 'cleanup#destroy' if Rails.env.test?
+  draw :cypress if Rails.env.test?
 
   # mount letter opener web for development env
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
