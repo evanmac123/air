@@ -8,7 +8,7 @@ class Cypress::TestDatabaseController < ApplicationController
     response = { status: "success", code: 200 }
     factory_attrs.each_with_index do |attrs, i|
       model = attrs.delete("model")
-      factory_created = eval(model.capitalize).create!(attrs)
+      factory_created = eval(model.capitalize).create!(sanitize_attrs(attrs))
       response["#{model}-#{i}"] = factory_created.as_json(root: false)
     end
     render json: response
@@ -31,5 +31,13 @@ class Cypress::TestDatabaseController < ApplicationController
 
     def factory_attrs
       params.require(:test_database).permit!["_json"]
+    end
+
+    def sanitize_attrs(attrs)
+      if associations = attrs.delete("associations")
+        associations.keys.reduce(attrs) { |result, assoc_name| result.merge({"#{assoc_name}_id" => associations[assoc_name]}) }
+      else
+        attrs
+      end
     end
 end

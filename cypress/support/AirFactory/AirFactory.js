@@ -8,13 +8,20 @@ const sanitizeAttrs = args => {
   return args.data;
 };
 
+const sanitizeAssociations = rawData => (
+  Object.keys(rawData).reduce((result, modelName) => {
+    result[modelName] = rawData[modelName].id;
+    return result;
+  }, {})
+)
+
 const mergeReqAttrs = (rawData, attrs) => (
   Object.keys(attrs).reduce((result, attr) => {
     if (attrs[attr].validations.indexOf('req') > -1 && !rawData[attr]) {
       result[attr] = attrs[attr].defaultVal();
     }
     return result
-  }, rawData)
+  }, Object.assign({}, rawData))
 )
 
 const AirFactory = {};
@@ -36,20 +43,23 @@ AirFactory.createRakeDigest = (model, rawData, amount) => {
   return amount === 1 ? collection[0] : collection;
 };
 
-AirFactory.createParams = (model, rawData, amount) => {
+AirFactory.createParams = (model, rawData = {}, amount) => {
+  let mergeData;
   const collection = [];
   const attrs = factories[model].attrs;
   amount = amount || 1;
   for (let i = 0; i < amount; i++) {
-    rawData = mergeReqAttrs(rawData, attrs);
-    collection.push(Object.keys(rawData).reduce((result, attr) => {
+    mergeData = mergeReqAttrs(rawData, attrs);
+    collection.push(Object.keys(mergeData).reduce((result, attr) => {
       let modelAttrs = attrs[attr];
-      let data = rawData[attr];
-      result[attr] = sanitizeAttrs({ model: attrs[attr], data: rawData[attr] });
+      let data = mergeData[attr];
+      result[attr] = (attr === 'associations') ?
+        result.associations = sanitizeAssociations(mergeData[attr])
+      :
+        sanitizeAttrs({ model: attrs[attr], data: mergeData[attr] });
       return result;
     }, { model }));
   }
-  debugger
   return collection;
 };
 
