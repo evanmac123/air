@@ -40,6 +40,8 @@ context('Landing page', () => {
       cy.get('.campaign-description').children('p').first()
         .should('have.text', this.campaign.description);
 
+      cy.get('.tile_buttons').should('not.exist');
+
       this.tiles.forEach(tile => {
         const created_split = tile.created_at.split('-')
         const created_at = `${created_split[1]}/${created_split[2].split('T')[0]}/${created_split[0]}`

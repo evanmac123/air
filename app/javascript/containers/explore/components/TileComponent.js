@@ -29,21 +29,23 @@ const TileComponent = props => (
           <div className="tile_overlay"></div>
         </a>
 
-        <ul className="tile_buttons">
-          <li className="explore_copy_button">
-            <a
-              onClick={() => props.copyTile({id: props.id, copyPath: props.copyPath})}
-              className="button outlined explore_copy_link"
-              id={props.id}
-              data-tile-id={props.id}
-              data-section="Explore"
-            >
-              <span className="explore_thumbnail_copy_text">
-                Copy
-              </span>
-            </a>
-          </li>
-        </ul>
+        {!(props.user.isGuestUser || props.user.isEndUser) &&
+          <ul className="tile_buttons">
+            <li className="explore_copy_button">
+              <a
+                onClick={() => props.copyTile({id: props.id, copyPath: props.copyPath})}
+                className="button outlined explore_copy_link"
+                id={props.id}
+                data-tile-id={props.id}
+                data-section="Explore"
+              >
+                <span className="explore_thumbnail_copy_text">
+                  Copy
+                </span>
+              </a>
+            </li>
+          </ul>
+        }
       </div>
     </div>
   </div>
@@ -57,6 +59,10 @@ TileComponent.propTypes = {
   tileShowPath: PropTypes.string,
   copyPath: PropTypes.string,
   copyTile: PropTypes.func,
+  user: PropTypes.shape({
+    isGuestUser: PropTypes.bool,
+    isEndUser: PropTypes.bool,
+  }),
 };
 
 export default TileComponent;
