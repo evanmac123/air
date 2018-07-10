@@ -1,13 +1,15 @@
 <div class="creator">
-  <% is_default_logo = !tile.demo.logo.present? %>
-  <%= image_tag tile.demo.logo(:thumb), class: "company_logo #{is_default_logo ? 'default_logo' : ''}" %>
-  <span class="creator_name">
-    <% if tile.creator && tile.organization %>
-      Tile by <%= tile.creator.try(:name) %> at <%= tile.organization.name.titleize %>
-    <% elsif tile.creator %>
-      Tile by <%= tile.creator.try(:name) %>
-    <% elsif tile.organization %>
-      Tile by <%= tile.organization.name.titleize %>
-    <% end %>
-  </span>
+  <% if tile.demo %>
+    <% is_default_logo = !tile.demo.logo.present? %>
+    <%= image_tag tile.demo.logo(:thumb), class: "company_logo #{is_default_logo ? 'default_logo' : ''}" %>
+    <span class="creator_name">
+      <% if tile.creator && tile.organization %>
+        Tile by <%= tile.creator.try(:name) %> at <%= tile.organization.name.titleize %>
+      <% elsif tile.creator %>
+        Tile by <%= tile.creator.try(:name) %>
+      <% elsif tile.organization %>
+        Tile by <%= tile.organization.name.titleize %>
+      <% end %>
+    </span>
+  <% end %>
 </div>
