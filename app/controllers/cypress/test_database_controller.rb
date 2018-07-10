@@ -35,7 +35,7 @@ class Cypress::TestDatabaseController < ApplicationController
 
     def sanitize_attrs(attrs)
       if associations = attrs.delete("associations")
-        associations.keys.reduce(attrs) { |result, assoc_name| result.merge({"#{assoc_name}_id" => associations[assoc_name]}) }
+        associations.keys.reduce(attrs) { |result, assoc_name| result.merge("#{assoc_name}_id" => associations[assoc_name]) }
       else
         attrs
       end
