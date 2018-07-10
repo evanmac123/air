@@ -23,6 +23,8 @@ context('Landing page', () => {
     });
 
     it('loads campaigns tiles', function() {
+      let nextTile;
+
       cy.get('.campaign-card').children('img')
         .should('length', 3)
         .first()
@@ -48,6 +50,37 @@ context('Landing page', () => {
         cy.get(`#single-tile-${tile.id} .headline`).children('div').first()
           .should('have.text', tile.headline);
       });
+
+      cy.get(`#single-tile-${this.tiles[0].id} .tile_thumb_link_explore`).click();
+      cy.get('.tile_full_image.loading').should('have.class', 'loading');
+      cy.get('.tile_headline.content_sections').should('have.text', this.tiles[0].headline);
+      cy.get('.tile_supporting_content.content_sections').children('p').first()
+        .should('have.text', this.tiles[0].supporting_content);
+      cy.get('.tile_question.content_sections').should('have.text', this.tiles[0].question);
+
+      cy.get('#next_tile').should($next_tile => {
+        for (var i = 0; i < this.tiles.length; i++) {
+          if (this.tiles[i].id === $next_tile.data('tile-id')) {
+            nextTile = this.tiles[i];
+            break;
+          }
+        }
+        expect($next_tile.attr('href')).to.equal(`/explore/tile/${nextTile.id}`);
+        expect($next_tile.attr('href')).to.not.equal(`/explore/tile/${this.tiles[0].id}`);
+      }).click()
+        .get('.tile_holder').should($tile_holder => {
+          for (var i = 0; i < this.tiles.length; i++) {
+            if (this.tiles[i].id === $tile_holder.data('current-tile-id')) {
+              nextTile = this.tiles[i];
+              break;
+            }
+          }
+          const $text_container = $tile_holder.children('div').first().children('div.tile_main').children('div.tile_texts_container');
+          expect($text_container.children('.tile_headline.content_sections').text())
+            .to.equal(nextTile.headline);
+          expect($text_container.children('.tile_supporting_content.content_sections').children('p').first().text())
+            .to.equal(nextTile.supporting_content);
+        });
     });
   });
 });
