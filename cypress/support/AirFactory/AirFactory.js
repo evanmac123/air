@@ -1,5 +1,11 @@
 import factories from './factories'
 
+const getModelAttrsFromFactory = model => {
+  const name = model.split(':')[0];
+  const preset = model.split(':')[1];
+  return !preset ? factories[name].attrs : Object.assign(factories[name].presets[preset].attrs, factories[name].attrs);
+};
+
 const sanitizeAttrs = args => {
   if (!args.model) { return args.data }
   if (args.model.validations.indexOf('uniq') > -1) {
@@ -44,9 +50,10 @@ AirFactory.createRakeDigest = (model, rawData, amount) => {
 };
 
 AirFactory.createParams = (model, rawData = {}, amount) => {
+  if (!factories[model.split(':')[0]]) { throw `ERROR: Factory for model '${model}' cannot be found in ./factories` }
   let mergeData;
   const collection = [];
-  const attrs = factories[model].attrs;
+  const attrs = getModelAttrsFromFactory(model);
   amount = amount || 1;
   for (let i = 0; i < amount; i++) {
     mergeData = mergeReqAttrs(rawData, attrs);
@@ -58,7 +65,7 @@ AirFactory.createParams = (model, rawData = {}, amount) => {
       :
         sanitizeAttrs({ model: attrs[attr], data: mergeData[attr] });
       return result;
-    }, { model }));
+    }, { model: model.split(':')[0] }));
   }
   return collection;
 };
