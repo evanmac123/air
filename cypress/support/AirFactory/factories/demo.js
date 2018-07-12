@@ -17,7 +17,7 @@ demo.attrs = {
   },
   public_slug: {
     validations: ['req'],
-    defaultVal: () => `public_${Faker.random.number}`,
+    defaultVal: () => `public_${Faker.random.number()}`,
   },
 };
 

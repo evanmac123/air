@@ -46,6 +46,7 @@
     "build": "./bin/webpack",
     "start": "./bin/bundle exec foreman start -f Procfile.dev",
     "rails": "bundle exec unicorn -p 3000 -c ./config/unicorn.rb",
+    "rails:test": "./bin/rails server -e test -p 5555",
     "webpack-server": "./bin/webpack-dev-server",
     "cypress:serve": "./bin/webpack; ./bin/bundle exec foreman start -f Procfile.test",
     "cypress:open": "./node_modules/.bin/cypress open"

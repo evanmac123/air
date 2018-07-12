@@ -10,11 +10,14 @@ context('Landing page', () => {
           is_public: true,
           associations: { campaign }
         }).as('tiles');
-      })
-    cy.visit('/explore');
+      });
   });
 
   describe('Visits the explore page as guest user', () => {
+    beforeEach(function() {
+      cy.visit('/explore');
+    });
+
     it('contains guest user base navigation', function() {
       cy.contains('Home').should('have.attr', 'href', '/');
       cy.contains('About').should('have.attr', 'href', '/about');
@@ -33,6 +36,8 @@ context('Landing page', () => {
       cy.get('.card-title')
         .should('have.text', this.campaign.name)
         .click();
+
+      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
 
       cy.get('.explore-sub-page-header')
         .should('have.text', this.campaign.name);
@@ -83,6 +88,44 @@ context('Landing page', () => {
           expect($text_container.children('.tile_supporting_content.content_sections').children('p').first().text())
             .to.equal(nextTile.supporting_content);
         });
+    });
+
+    it('navigates with correct urls and state', function() {
+      cy.location('pathname').should('eq', '/explore');
+
+      cy.get('.card-title').click();
+
+      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+
+      // clicking back
+      cy.go(-1);
+
+      cy.location('pathname').should('eq', '/explore');
+
+      // clicking forward
+      cy.go(1);
+
+      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+
+      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+
+      cy.get('.explore-sub-page-header')
+      .should('have.text', this.campaign.name);
+
+      cy.get('.campaign-description').children('p').first()
+      .should('have.text', this.campaign.description);
+    });
+  });
+
+
+  describe('Visits the explore page as client admin', () => {
+    beforeEach(function() {
+      cy.factoryCreate('user:clientAdmin', { addActions: ['login'] });
+      cy.visit('/explore');
+    });
+
+    it('loads campaigns with copy functionality', function() {
+
     });
   });
 });
