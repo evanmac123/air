@@ -1,6 +1,5 @@
 context('Landing page', () => {
   beforeEach(function() {
-    let campaign;
     cy.factoryCreate('campaign', {
       active: true,
       public_explore: true,
@@ -125,6 +124,14 @@ context('Landing page', () => {
     });
 
     it('loads campaigns with copy functionality', function() {
+      cy.get('.campaign-card').children('img')
+        .should('length', 3)
+        .first()
+        .should('have.attr', 'src', this.tiles[0].remote_media_url);
+
+      cy.get('.card-title')
+        .should('have.text', this.campaign.name)
+        .click();
 
     });
   });

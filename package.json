@@ -49,7 +49,8 @@
     "rails:test": "./bin/rails server -e test -p 5555",
     "webpack-server": "./bin/webpack-dev-server",
     "cypress:serve": "./bin/webpack; ./bin/bundle exec foreman start -f Procfile.test",
-    "cypress:open": "./node_modules/.bin/cypress open"
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "cypress:run": "./node_modules/.bin/cypress run"
   },
   "lint-staged": {
     "config/webpack/**/*.js": [
