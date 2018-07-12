@@ -13,3 +13,9 @@ Cypress.Commands.add("factoryCreate", (model, amount, data) => {
   const factoryParams = AirFactory.createParams(model, data, amount);
   return TestDatabaseFetcher.createFromFactory(factoryParams);
 });
+
+Cypress.Commands.add("insertCsrf", () => {
+  TestDatabaseFetcher.getCsrfToken().then(resp => {
+    Cypress.$("head").append(`<meta name="csrf-token" content="${resp.token}">`);
+  });
+});

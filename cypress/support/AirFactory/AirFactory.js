@@ -24,7 +24,6 @@ const getModelAssociationsFromFactory = (model, rawData) => {
   return [];
 }
 
-
 const sanitizeAttrs = args => {
   if (!args.model) { return args.data }
   if (args.model.validations.indexOf('uniq') > -1) {

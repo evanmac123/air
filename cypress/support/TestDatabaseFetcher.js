@@ -26,4 +26,10 @@ TestDatabaseFetcher.createFromFactory = params => {
     });
 };
 
+TestDatabaseFetcher.getCsrfToken = () => {
+  const key = Cypress.env('CLEANUP');
+  return cy.request('GET', `/cypress/test_database/csrf_token?key=${key}`)
+    .then(standardResponseHandling);
+}
+
 export default TestDatabaseFetcher;

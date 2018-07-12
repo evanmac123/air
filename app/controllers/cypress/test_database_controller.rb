@@ -4,6 +4,10 @@ class Cypress::TestDatabaseController < ApplicationController
   before_action :verify_cypress_key
   skip_before_action :verify_authenticity_token
 
+  def csrf_token
+    render json: { token: form_authenticity_token }
+  end
+
   def create
     @built_associations = {}
     response = { status: "success", code: 200 }
