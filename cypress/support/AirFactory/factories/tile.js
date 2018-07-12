@@ -38,7 +38,7 @@ tile.attrs = {
 };
 
 tile.associations = {
-    demo: ['req'],
+    demo: [],
     campaign: [],
   };
 
