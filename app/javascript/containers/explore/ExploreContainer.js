@@ -119,6 +119,17 @@ class Explore extends Component {
   }
 
   getAllCampaigns() {
+    const parseLandingExploreThumbnails = tiles => {
+      const exploreThumbnails = [];
+      for (var i = 0; i < tiles.length; i++) {
+        if (exploreThumbnails.length === 3) { return exploreThumbnails }
+        if (tiles[i].thumbnailContentType !== "image/gif") {
+          exploreThumbnails.push(tiles[i].thumbnail);
+        }
+      }
+      return exploreThumbnails;
+    };
+
     Fetcher.get("/api/v1/campaigns", response => {
       const initCampaignState = {
         campaigns: [],
@@ -129,7 +140,7 @@ class Explore extends Component {
         initCampaignState.campaigns.push({
           id: resp.id,
           name: resp.name,
-          thumbnails: resp.thumbnails,
+          thumbnails: parseLandingExploreThumbnails(resp.tiles),
           path: resp.path,
           description: resp.description,
           ongoing: resp.ongoing,

@@ -61,6 +61,52 @@ class Tile < ActiveRecord::Base
 
   searchkick word_start: [:headline], callbacks: false
 
+  def self.display_explore_campaigns
+    joins(:campaign).select(
+      "campaigns.id AS campaign_id",
+      "campaigns.name",
+      "campaigns.description",
+      "campaigns.ongoing",
+      "tiles.headline",
+      "tiles.created_at",
+      "tiles.id",
+      "tiles.thumbnail_file_name",
+      "tiles.thumbnail_content_type",
+      "tiles.thumbnail_file_size",
+      "tiles.thumbnail_updated_at",
+      "tiles.thumbnail_processing",
+      "tiles.embed_video",
+      "tiles.remote_media_url",
+      "tiles.is_public"
+    )
+    .active
+    .where("campaigns.public_explore = ? AND tiles.is_public = ?", true, true)
+    .order("campaigns.name ASC")
+    .group_by(&:campaign_id).map do |id, tiles|
+      {
+        id: id,
+        name: tiles.first.name,
+        description: tiles.first.description,
+        ongoing: tiles.first.ongoing,
+        tiles: react_sanitize(tiles)
+      }
+    end.to_json
+  end
+
+  def self.react_sanitize(payload)
+    payload.map do |item|
+      {
+        "copyPath" => "/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{item.id}",
+        "tileShowPath" => "/explore/tile/#{item.id}",
+        "headline" => item.headline,
+        "id" => item.id,
+        "created_at" => item.created_at,
+        "thumbnail" => item.thumbnail_url,
+        "thumbnailContentType" => item.thumbnail_content_type
+      }
+    end.sort_by { |item| item["created_at"] }.reverse[0..27]
+  end
+
   def self.default_search_fields
     ["headline^10", "supporting_content^8", :campaigns, :organization_name]
   end
@@ -72,6 +118,10 @@ class Tile < ActiveRecord::Base
 
   def self.segmented_on_population_segments(segment_ids)
     joins("LEFT OUTER JOIN campaigns ON campaign_id = campaigns.id").where("campaigns.population_segment_id IS NULL OR campaigns.population_segment_id IN (?)", segment_ids)
+  end
+
+  def thumbnail_url
+    thumbnail.url
   end
 
   def search_data

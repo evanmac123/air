@@ -69,13 +69,14 @@ class Campaign < ActiveRecord::Base
   def react_sanitize_tiles(page = 1)
     display_tiles.page(page).per(28).to_a.map do |tile|
       {
-        "thumbnail" => ActionController::Base.helpers.image_path(tile.thumbnail),
-        "copyPath" => Rails.application.routes.url_helpers.explore_copy_tile_path(tile_id: tile.id, path: :via_explore_page_tile_view),
-        "tileShowPath" => Rails.application.routes.url_helpers.explore_tile_preview_path(tile),
+        "copyPath" => "/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{tile.id}",
+        "tileShowPath" => "/explore/tile/#{tile.id}",
         "headline" => tile.headline,
         "id" => tile.id,
-        "created_at" => tile.created_at
-      }
+        "created_at" => tile.created_at,
+        "thumbnail" => tile.thumbnail_url,
+        "thumbnailContentType" => tile.thumbnail_content_type
+      }.as_json
     end
   end
 

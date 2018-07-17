@@ -2,7 +2,7 @@
 
 class Api::V1::CampaignsController < Api::ApiController
   def index
-    render json: Campaign.public_private_explore(current_board)
+    render json: Tile.display_explore_campaigns
   end
 
   def show
