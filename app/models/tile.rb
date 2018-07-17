@@ -82,6 +82,7 @@ class Tile < ActiveRecord::Base
     .active
     .where("campaigns.public_explore = ? AND tiles.is_public = ?", true, true)
     .order("campaigns.name ASC")
+    .ordered_by_position
     .group_by(&:campaign_id).map do |id, tiles|
       {
         id: id,
@@ -104,7 +105,7 @@ class Tile < ActiveRecord::Base
         "thumbnail" => item.thumbnail_url,
         "thumbnailContentType" => item.thumbnail_content_type
       }
-    end.sort_by { |item| item["created_at"] }.reverse[0..27]
+    end[0..27]
   end
 
   def self.default_search_fields
