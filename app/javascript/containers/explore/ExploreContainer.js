@@ -110,7 +110,7 @@ class Explore extends Component {
     const currentBoard = localStorage.getItem('currentBoard');
     return new Promise(resolve => {
       if ((latestTile && latestTile === this.props.ctrl.latestTile) &&
-          (currentBoard && currentBoard == this.props.ctrl.currentBoard)) {
+          (!!currentBoard && currentBoard === `${this.props.ctrl.currentBoard}`)) {
         this.setState(JSON.parse(localStorage.getItem('campaign-data')));
         resolve();
       } else {
@@ -123,8 +123,8 @@ class Explore extends Component {
   getAllCampaigns() {
     const parseLandingExploreThumbnails = tiles => {
       const exploreThumbnails = [];
-      for (var i = 0; i < tiles.length; i++) {
-        if (exploreThumbnails.length === 3) { return exploreThumbnails }
+      for (let i = 0; i < tiles.length; i++) {
+        if (exploreThumbnails.length === 3) { return exploreThumbnails; }
         if (tiles[i].thumbnailContentType !== "image/gif") {
           exploreThumbnails.push(tiles[i].thumbnail);
         }

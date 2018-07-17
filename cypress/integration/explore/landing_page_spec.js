@@ -152,7 +152,7 @@ context('Landing page', () => {
       cy.contains('Edit').click();
 
       cy.location('pathname').should('eq', '/client_admin/tiles');
-      cy.wait(500);
+      cy.wait(2000);
       cy.reload();
 
       this.tiles.forEach(tile => { cy.contains(tile.headline).should('exist') });
@@ -192,9 +192,10 @@ context('Landing page', () => {
         cy.get('#next_tile').click();
       }
 
+      cy.wait(2000);
       cy.visit('/client_admin/tiles#tab-plan');
 
-      cy.wait(500);
+      cy.wait(2000);
       cy.reload();
 
       this.tiles.forEach(tile => { cy.contains(tile.headline).should('exist') });
@@ -209,10 +210,10 @@ context('Landing page', () => {
           .should('have.text', 'Copied');
       });
 
-      cy.wait(2000);      
+      cy.wait(2000);
       cy.visit('/client_admin/tiles#tab-plan');
 
-      cy.wait(500);
+      cy.wait(2000);
       cy.reload();
 
       this.tiles.forEach(tile => { cy.contains(tile.headline).should('exist') });
