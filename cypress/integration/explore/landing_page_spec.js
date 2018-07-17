@@ -229,4 +229,45 @@ context('Landing page', () => {
       this.tiles.forEach(tile => { cy.contains(tile.headline).should('exist') });
     });
   });
+
+  describe('Visits the explore page as client admin with private campaigns', () => {
+    beforeEach(function() {
+      cy.factoryCreate('demo').as('demo')
+        .then(demo => {
+          cy.factoryCreate('campaign', {
+            active: true,
+            private_explore: true,
+            associations: { demo: demo },
+          }).as('privateCampaign')
+          .then(campaign => {
+            cy.factoryCreate('tile', 3, {
+              associations: { campaign },
+            }).as('privateTiles');
+          });
+        })
+    });
+
+    it('displays private campaigns for client admin', function() {
+      cy.visit('/explore');
+
+      cy.contains(this.campaign.name).should('exist');
+      cy.contains(this.privateCampaign.name).should('not.exist');
+
+      cy.factoryCreate('user:clientAdmin', {
+        addActions: ['login'],
+        associations: { demo: this.demo }
+      });
+      cy.visit('/explore');
+
+      cy.contains(this.campaign.name).should('exist');
+      cy.contains(this.privateCampaign.name).should('exist');
+    });
+
+    it('does not display private campaigns for guests', function() {
+      cy.visit('/explore');
+
+      cy.contains(this.campaign.name).should('exist');
+      cy.contains(this.privateCampaign.name).should('not.exist');
+    });
+  });
 });

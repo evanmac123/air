@@ -94,8 +94,10 @@ AirFactory.createParams = (model, rawData = {}, amount = 1, collection = []) => 
 AirFactory.createModels = (model, resp, amount) => {
   model = model.split(':')[0];
   const collection = [];
-  for (let i = 0; i < amount; i++) { collection.push(resp[`${model}-${i}`]) }
-  return amount === 1 ? collection[0] : collection;
+  for (let i = 0; i < amount; i++) {
+    if (resp[`${model}-${i}`]) { collection.push(resp[`${model}-${i}`]); }
+  }
+  return collection.length === 1 ? collection[0] : collection;
 }
 
 export default AirFactory;
