@@ -26,7 +26,7 @@ class Explore extends Component {
     this.updateDimensions = this.updateDimensions.bind(this);
     this.getAllCampaigns = this.getAllCampaigns.bind(this);
     this.updateActiveDisplay = this.updateActiveDisplay.bind(this);
-    this.getCampaignById = this.getCampaignById.bind(this);
+    this.getCampaignBy = this.getCampaignBy.bind(this);
     this.populateCampaigns = this.populateCampaigns.bind(this);
     this.onScroll = this.onScroll.bind(this);
   }
@@ -53,7 +53,7 @@ class Explore extends Component {
         selectedCampaign: {},
       });
     } else {
-      const camp = this.getCampaignById(campaignId.split("-")[0]);
+      const camp = this.getCampaignBy('path', campaignId);
       if (camp) {
         this.campaignRedirect(camp, "popstate");
       } else {
@@ -89,14 +89,13 @@ class Explore extends Component {
   }
 
   campaignRedirect(campaign, popstate) {
-    const redirectUrl = `campaigns/${campaign.id}-${campaign.name.toLowerCase().replace(/\s+/g,"-")}`;
     if (!popstate) {
       window.Airbo.Utils.ping("Explore page - Interaction", {
         action: "Clicked Campaign",
         campaign: campaign.name,
         campaignId: campaign.id,
       });
-      AiRouter.navigation(redirectUrl, {appendToCurrentUrl: true});
+      AiRouter.navigation(campaign.path, {appendToCurrentUrl: true});
     }
     if (!this.state[`campaignTiles${campaign.id}`]) {
       this.getCampaignTiles(campaign, { loading: true });
@@ -143,10 +142,10 @@ class Explore extends Component {
           id: resp.id,
           name: resp.name,
           thumbnails: parseLandingExploreThumbnails(resp.tiles),
-          path: resp.path,
           description: resp.description,
           ongoing: resp.ongoing,
           copyText: "Copy Campaign",
+          path: `campaigns/${resp.id}-${resp.name.toLowerCase().replace(/\s+/g,"-")}`,
         });
         initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
       });
@@ -173,9 +172,9 @@ class Explore extends Component {
     });
   }
 
-  getCampaignById(id) {
+  getCampaignBy(key, value) {
     for (let i = 0; i < this.state.campaigns.length; i++) {
-      if (`${this.state.campaigns[i].id}` === id) { return this.state.campaigns[i]; }
+      if (`${this.state.campaigns[i][key]}` === value) { return this.state.campaigns[i]; }
     }
     return false;
   }
