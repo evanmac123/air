@@ -117,6 +117,16 @@ context('Landing page', () => {
       cy.get('.campaign-description').children('p').first()
       .should('have.text', this.campaign.description);
     });
+
+    it('navigates to campaign board from url without cache', function() {
+      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+
+      cy.get('.explore-sub-page-header')
+      .should('have.text', this.campaign.name);
+
+      cy.get('.campaign-description').children('p').first()
+      .should('have.text', this.campaign.description);
+    });
   });
 
 

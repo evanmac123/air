@@ -114,13 +114,13 @@ class Explore extends Component {
         this.setState(JSON.parse(localStorage.getItem('campaign-data')));
         resolve();
       } else {
-        this.getAllCampaigns();
-        resolve();
+        this.getAllCampaigns(resolve);
+        // resolve();
       }
     });
   }
 
-  getAllCampaigns() {
+  getAllCampaigns(cb) {
     const parseLandingExploreThumbnails = tiles => {
       const exploreThumbnails = [];
       for (let i = 0; i < tiles.length; i++) {
@@ -154,6 +154,7 @@ class Explore extends Component {
       localStorage.setItem('campaign-data', JSON.stringify(initCampaignState));
       localStorage.setItem('latestTile', this.props.ctrl.latestTile);
       localStorage.setItem('currentBoard', this.props.ctrl.currentBoard);
+      if (cb) { cb(); }
     });
   }
 
