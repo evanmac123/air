@@ -107,8 +107,10 @@ class Explore extends Component {
 
   populateCampaigns() {
     const latestTile = localStorage.getItem('latestTile');
+    const currentBoard = localStorage.getItem('currentBoard');
     return new Promise(resolve => {
-      if (latestTile && latestTile === this.props.ctrl.latestTile) {
+      if ((latestTile && latestTile === this.props.ctrl.latestTile) &&
+          (currentBoard && currentBoard == this.props.ctrl.currentBoard)) {
         this.setState(JSON.parse(localStorage.getItem('campaign-data')));
         resolve();
       } else {
@@ -130,7 +132,7 @@ class Explore extends Component {
       return exploreThumbnails;
     };
 
-    Fetcher.get("/api/v1/campaigns", response => {
+    Fetcher.get(`/api/v1/campaigns?demo=${this.props.ctrl.currentBoard}`, response => {
       const initCampaignState = {
         campaigns: [],
         loading: false,
@@ -151,6 +153,7 @@ class Explore extends Component {
       this.setState(initCampaignState);
       localStorage.setItem('campaign-data', JSON.stringify(initCampaignState));
       localStorage.setItem('latestTile', this.props.ctrl.latestTile);
+      localStorage.setItem('currentBoard', this.props.ctrl.currentBoard);
     });
   }
 

@@ -61,7 +61,7 @@ class Tile < ActiveRecord::Base
 
   searchkick word_start: [:headline], callbacks: false
 
-  def self.display_explore_campaigns
+  def self.display_explore_campaigns(current_board = nil)
     joins(:campaign).select(
       "campaigns.id AS campaign_id",
       "campaigns.name",
@@ -80,7 +80,7 @@ class Tile < ActiveRecord::Base
       "tiles.is_public"
     )
     .active
-    .where("campaigns.public_explore = ? AND tiles.is_public = ?", true, true)
+    .where(get_tile_campaign_filters(current_board))
     .order("campaigns.name ASC")
     .ordered_by_position
     .group_by(&:campaign_id).map do |id, tiles|
@@ -106,6 +106,17 @@ class Tile < ActiveRecord::Base
         "thumbnailContentType" => item.thumbnail_content_type
       }
     end[0..27]
+  end
+
+  def self.get_tile_campaign_filters(demo)
+    base_validation = "campaigns.public_explore = true AND tiles.is_public = true"
+    if (org = demo.try(:organization)) &&
+      (campaigns = org.campaigns.where(private_explore: true).pluck(:id)).length > 0
+      sql_statements = "(#{base_validation}) OR ("
+      campaigns.each {|camp_id| sql_statements += "campaigns.id = #{camp_id} OR "}
+      return sql_statements[0..-5] += ")"
+    end
+    base_validation
   end
 
   def self.default_search_fields

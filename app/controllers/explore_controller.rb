@@ -3,6 +3,7 @@
 class ExploreController < ExploreBaseController
   def show
     @ctrl_data = {
+      "currentBoard" => current_board.try(:id),
       "isGuestUser" => current_user.is_a?(GuestUser),
       "isEndUser" => current_user.end_user?,
       "latestTile" => Tile.includes(:campaign)
