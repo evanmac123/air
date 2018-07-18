@@ -1,4 +1,5 @@
 get 'explore/campaigns/*campaign', to: 'explore#show'
+get 'explore/not_found', to: 'explore#path_not_found'
 resource :explore, only: [:show], controller: :explore
 
 namespace :explore do

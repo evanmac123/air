@@ -9,6 +9,9 @@ const AiRouter = {
     const newUrl = (opts.appendToCurrentUrl ? (window.location + sanitizedUrl) : `${sanitizedUrl}`);
     window.history.pushState(stateObj, title, newUrl);
   },
+  pathNotFound: () => {
+    window.location = '/explore/not_found';
+  },
 };
 
 export default AiRouter;

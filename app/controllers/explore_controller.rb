@@ -19,6 +19,10 @@ class ExploreController < ExploreBaseController
     end
   end
 
+  def path_not_found
+    raise ActionController::RoutingError.new("Not Found")
+  end
+
   private
 
     def render_json_tiles

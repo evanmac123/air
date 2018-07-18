@@ -53,11 +53,11 @@ class Explore extends Component {
         selectedCampaign: {},
       });
     } else {
-      const camp = this.getCampaignBy('path', campaignId);
+      const camp = this.getCampaignBy('path', `campaigns/${campaignId}`);
       if (camp) {
         this.campaignRedirect(camp, "popstate");
       } else {
-        AiRouter.navigation("explore");
+        AiRouter.pathNotFound();
       }
     }
   }
@@ -114,7 +114,6 @@ class Explore extends Component {
         resolve();
       } else {
         this.getAllCampaigns(resolve);
-        // resolve();
       }
     });
   }
@@ -145,7 +144,7 @@ class Explore extends Component {
           description: resp.description,
           ongoing: resp.ongoing,
           copyText: "Copy Campaign",
-          path: `campaigns/${resp.id}-${resp.name.toLowerCase().replace(/\s+/g,"-")}`,
+          path: `campaigns/${resp.id}-${resp.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`,
         });
         initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
       });
