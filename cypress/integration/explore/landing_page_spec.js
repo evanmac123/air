@@ -39,7 +39,7 @@ context('Landing page', () => {
 
       cy.contains('Copy Campaign').should('not.exist');
 
-      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
 
       cy.get('.explore-sub-page-header')
         .should('have.text', this.campaign.name);
@@ -97,7 +97,7 @@ context('Landing page', () => {
 
       cy.get('.card-title').click();
 
-      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
 
       // clicking back
       cy.go(-1);
@@ -107,9 +107,9 @@ context('Landing page', () => {
       // clicking forward
       cy.go(1);
 
-      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
 
-      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
 
       cy.get('.explore-sub-page-header')
       .should('have.text', this.campaign.name);
@@ -119,7 +119,7 @@ context('Landing page', () => {
     });
 
     it('navigates to campaign board from url without cache', function() {
-      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
 
       cy.get('.explore-sub-page-header')
       .should('have.text', this.campaign.name);
@@ -147,7 +147,7 @@ context('Landing page', () => {
         .should('have.text', this.campaign.name)
         .click();
 
-      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
 
       this.tiles.forEach(tile => { cy.get(`#${tile.id}`).should('have.text', 'Copy') });
 
@@ -190,7 +190,7 @@ context('Landing page', () => {
     });
 
     it('copies tiles individually from show', function() {
-      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
 
       cy.get(`#single-tile-${this.tiles[0].id} .tile_thumb_link_explore`).click();
 
@@ -212,7 +212,7 @@ context('Landing page', () => {
     });
 
     it('copies tiles individually from campaign', function() {
-      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/\s+/g,"-")}`);
+      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
       cy.insertCsrf();
 
       this.tiles.forEach(tile => {
