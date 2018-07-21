@@ -11,7 +11,7 @@ feature "Client admin previews invite email", js: true do
 
       it "should show empty digest email" do
         expect_content "Your New Tiles Are Here!"
-        expect_content "No tiles posted"
+        expect_content "No new Tiles to send"
       end
     end
 
@@ -22,7 +22,7 @@ feature "Client admin previews invite email", js: true do
 
       it "should show empty follow up email" do
         expect_content "Don't miss your new tiles"
-        expect_content "No tiles posted"
+        expect_content "No new Tiles to send"
       end
     end
   end
