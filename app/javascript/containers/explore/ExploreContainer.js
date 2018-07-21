@@ -26,7 +26,7 @@ class Explore extends Component {
     this.updateDimensions = this.updateDimensions.bind(this);
     this.getAllCampaigns = this.getAllCampaigns.bind(this);
     this.updateActiveDisplay = this.updateActiveDisplay.bind(this);
-    this.getCampaignById = this.getCampaignById.bind(this);
+    this.getCampaignBy = this.getCampaignBy.bind(this);
     this.populateCampaigns = this.populateCampaigns.bind(this);
     this.onScroll = this.onScroll.bind(this);
   }
@@ -53,11 +53,11 @@ class Explore extends Component {
         selectedCampaign: {},
       });
     } else {
-      const camp = this.getCampaignById(campaignId.split("-")[0]);
+      const camp = this.getCampaignBy('path', `campaigns/${campaignId}`);
       if (camp) {
         this.campaignRedirect(camp, "popstate");
       } else {
-        AiRouter.navigation("explore");
+        AiRouter.pathNotFound();
       }
     }
   }
@@ -89,14 +89,13 @@ class Explore extends Component {
   }
 
   campaignRedirect(campaign, popstate) {
-    const redirectUrl = `campaigns/${campaign.id}-${campaign.name.toLowerCase().replace(/\s+/g,"-")}`;
     if (!popstate) {
       window.Airbo.Utils.ping("Explore page - Interaction", {
         action: "Clicked Campaign",
         campaign: campaign.name,
         campaignId: campaign.id,
       });
-      AiRouter.navigation(redirectUrl, {appendToCurrentUrl: true});
+      AiRouter.navigation(campaign.path, {appendToCurrentUrl: true});
     }
     if (!this.state[`campaignTiles${campaign.id}`]) {
       this.getCampaignTiles(campaign, { loading: true });
@@ -107,19 +106,31 @@ class Explore extends Component {
 
   populateCampaigns() {
     const latestTile = localStorage.getItem('latestTile');
+    const currentBoard = localStorage.getItem('currentBoard');
     return new Promise(resolve => {
-      if (latestTile && latestTile === this.props.ctrl.latestTile) {
+      if ((latestTile && latestTile === this.props.ctrl.latestTile) &&
+          (!!currentBoard && currentBoard === `${this.props.ctrl.currentBoard}`)) {
         this.setState(JSON.parse(localStorage.getItem('campaign-data')));
         resolve();
       } else {
-        this.getAllCampaigns();
-        resolve();
+        this.getAllCampaigns(resolve);
       }
     });
   }
 
-  getAllCampaigns() {
-    Fetcher.get("/api/v1/campaigns", response => {
+  getAllCampaigns(cb) {
+    const parseLandingExploreThumbnails = tiles => {
+      const exploreThumbnails = [];
+      for (let i = 0; i < tiles.length; i++) {
+        if (exploreThumbnails.length === 3) { return exploreThumbnails; }
+        if (tiles[i].thumbnailContentType !== "image/gif") {
+          exploreThumbnails.push(tiles[i].thumbnail);
+        }
+      }
+      return exploreThumbnails;
+    };
+
+    Fetcher.get(`/api/v1/campaigns?demo=${this.props.ctrl.currentBoard}`, response => {
       const initCampaignState = {
         campaigns: [],
         loading: false,
@@ -129,17 +140,19 @@ class Explore extends Component {
         initCampaignState.campaigns.push({
           id: resp.id,
           name: resp.name,
-          thumbnails: resp.thumbnails,
-          path: resp.path,
+          thumbnails: parseLandingExploreThumbnails(resp.tiles),
           description: resp.description,
           ongoing: resp.ongoing,
           copyText: "Copy Campaign",
+          path: `campaigns/${resp.id}-${resp.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`,
         });
         initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
       });
       this.setState(initCampaignState);
       localStorage.setItem('campaign-data', JSON.stringify(initCampaignState));
       localStorage.setItem('latestTile', this.props.ctrl.latestTile);
+      localStorage.setItem('currentBoard', this.props.ctrl.currentBoard);
+      if (cb) { cb(); }
     });
   }
 
@@ -158,9 +171,9 @@ class Explore extends Component {
     });
   }
 
-  getCampaignById(id) {
+  getCampaignBy(key, value) {
     for (let i = 0; i < this.state.campaigns.length; i++) {
-      if (`${this.state.campaigns[i].id}` === id) { return this.state.campaigns[i]; }
+      if (`${this.state.campaigns[i][key]}` === value) { return this.state.campaigns[i]; }
     }
     return false;
   }

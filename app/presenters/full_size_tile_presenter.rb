@@ -37,7 +37,7 @@ class FullSizeTilePresenter
   end
 
   def storage_key
-    "progress.#{demo.id}.#{id}"
+    "progress.#{demo ? demo.id : 1099}.#{id}"
   end
 
   def supporting_content

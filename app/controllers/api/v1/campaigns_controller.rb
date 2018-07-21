@@ -2,7 +2,8 @@
 
 class Api::V1::CampaignsController < Api::ApiController
   def index
-    render json: Campaign.public_private_explore(current_board)
+    board = params[:demo].to_i > 0 ? Demo.find(params[:demo].to_i) : nil
+    render json: Tile.display_explore_campaigns(board)
   end
 
   def show
