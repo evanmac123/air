@@ -178,7 +178,7 @@ RSpec.describe FollowUpDigestBulkMailJob, type: :job do
 
 
         open_email(user.email)
-        expect(current_email.body.include?("Your New Tiles Are Here!")).to eq(true)
+        expect(current_email.body.include?("Don&#39;t miss your new tiles")).to eq(true)
       end
     end
 

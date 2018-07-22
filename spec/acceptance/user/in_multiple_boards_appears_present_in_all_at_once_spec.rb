@@ -100,7 +100,7 @@ feature 'In multiple boards appears present in all at once' do
 
       open_email(@user.email)
       expect(current_email.body).to include(first_tile_headline(@first_board))
-      visit_in_email "Your New Tiles Are Here!"
+      visit(parse_email_for_link(current_email, "logo"))
       should_be_on activity_path
       expect_current_board_header @first_boardz
 
@@ -111,7 +111,7 @@ feature 'In multiple boards appears present in all at once' do
 
       open_email(@user.email)
       expect(current_email.body).to include(first_tile_headline(@second_board))
-      visit_in_email "Your New Tiles Are Here!"
+      visit(parse_email_for_link(current_email, "logo"))
       should_be_on activity_path
       expect_current_board_header @second_board
     end
