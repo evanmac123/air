@@ -9,7 +9,7 @@ describe UserSettingsChangeLogMailer do
     expect(mail.subject).to eql("Email Change Confirmation")
     expect(mail.from).to eql(["support@ourairbo.com"])
     expect(mail.to).to eql([u.email])
-    expect(mail.body).to include("It looks like you&#39;ve changed your email address in #{u.demo.name}")
+    expect(mail.body).to include("Please click below to confirm the change.")
 
     expect(mail.body).to have_selector("a[href *= 'change_email?token=#{uscl.email_token}']")
   end

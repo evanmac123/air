@@ -8,7 +8,7 @@ include EmailHelper
 # That method returns a 'mail' object, whose content is then tested.
 
 describe 'Digest email' do
-  let(:demo) { FactoryBot.create :demo, allow_unsubscribes: true }
+  let(:demo) { FactoryBot.create :demo, allow_unsubscribes: true, email_version: 1 }
 
 # TODO: Using the board_membership factory here is a side effect of how convoluted our factories have become as we've move to using BoardMemberships.  Although there are multiple issues, the particluar issue that necessitated using the board_membership factory is that FactoryBot.create(:claimed_user) creates a user that is 'claimed' in the old sense of the term (i.e. User.activated_at != nil), whereas we now need 'claimed' to mean User.board_membership.joined_board_at != nil. Refactor factories when there is time.
 

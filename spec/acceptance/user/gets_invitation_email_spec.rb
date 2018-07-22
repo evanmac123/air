@@ -65,7 +65,7 @@ feature 'User gets invitation email' do
     @user.invite
 
     open_email(@user.email)
-    expect(current_email.body).to include("Our mailing address is")
+    expect(current_email.body).to include("Our Mailing Address is")
 
     visit_in_email "unsubscribe"
     should_be_on new_unsubscribe_path

@@ -175,10 +175,10 @@ RSpec.describe FollowUpDigestBulkMailJob, type: :job do
           send_on: Date.current
         )
         FollowUpDigestBulkMailJob.perform_now
-        
+
 
         open_email(user.email)
-        expect(current_email.body.include?("Don&#39;t miss your new tiles")).to eq(true)
+        expect(current_email.subject).to eq("Don't Miss: New Tiles")
       end
     end
 
