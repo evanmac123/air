@@ -1,3 +1,17 @@
+const campaignPath = campaign => (
+  `/explore/campaigns/${campaign.id}-${campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`
+);
+
+const getNextTile = (tiles, data) => {
+  for (var i = 0; i < tiles.length; i++) {
+    if (tiles[i].id === data) { return tiles[i]; }
+  }
+};
+
+const testAllById = (items, declaration, expected) => {
+  items.forEach(item => { cy.get(`#${item.id}`).should(declaration, expected) });
+};
+
 context('Landing page', () => {
   beforeEach(function() {
     cy.factoryCreate('campaign', {
@@ -39,7 +53,7 @@ context('Landing page', () => {
 
       cy.contains('Copy Campaign').should('not.exist');
 
-      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
+      cy.location('pathname').should('eq', campaignPath(this.campaign));
 
       cy.get('.explore-sub-page-header')
         .should('have.text', this.campaign.name);
@@ -68,22 +82,12 @@ context('Landing page', () => {
       cy.get('.tile_question.content_sections').should('have.text', this.tiles[0].question);
 
       cy.get('#next_tile').should($next_tile => {
-        for (var i = 0; i < this.tiles.length; i++) {
-          if (this.tiles[i].id === $next_tile.data('tile-id')) {
-            nextTile = this.tiles[i];
-            break;
-          }
-        }
+        nextTile = getNextTile(this.tiles, $next_tile.data('tile-id'));
         expect($next_tile.attr('href')).to.equal(`/explore/tile/${nextTile.id}`);
         expect($next_tile.attr('href')).to.not.equal(`/explore/tile/${this.tiles[0].id}`);
       }).click()
         .get('.tile_holder').should($tile_holder => {
-          for (var i = 0; i < this.tiles.length; i++) {
-            if (this.tiles[i].id === $tile_holder.data('current-tile-id')) {
-              nextTile = this.tiles[i];
-              break;
-            }
-          }
+          nextTile = getNextTile(this.tiles, $tile_holder.data('current-tile-id'));
           const $text_container = $tile_holder.children('div').first().children('div.tile_main').children('div.tile_texts_container');
           expect($text_container.children('.tile_headline.content_sections').text())
             .to.equal(nextTile.headline);
@@ -97,7 +101,7 @@ context('Landing page', () => {
 
       cy.get('.card-title').click();
 
-      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
+      cy.location('pathname').should('eq', campaignPath(this.campaign));
 
       // clicking back
       cy.go(-1);
@@ -107,9 +111,9 @@ context('Landing page', () => {
       // clicking forward
       cy.go(1);
 
-      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
+      cy.location('pathname').should('eq', campaignPath(this.campaign));
 
-      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
+      cy.visit(campaignPath(this.campaign));
 
       cy.get('.explore-sub-page-header')
       .should('have.text', this.campaign.name);
@@ -119,7 +123,7 @@ context('Landing page', () => {
     });
 
     it('navigates to campaign board from url without cache', function() {
-      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
+      cy.visit(campaignPath(this.campaign));
 
       cy.get('.explore-sub-page-header')
       .should('have.text', this.campaign.name);
@@ -147,15 +151,15 @@ context('Landing page', () => {
         .should('have.text', this.campaign.name)
         .click();
 
-      cy.location('pathname').should('eq', `/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
+      cy.location('pathname').should('eq', campaignPath(this.campaign));
 
-      this.tiles.forEach(tile => { cy.get(`#${tile.id}`).should('have.text', 'Copy') });
+      testAllById(this.tiles, 'have.text', 'Copy');
 
       cy.contains('Copy Campaign').should('exist').and('have.class', 'button')
         .click()
         .then($copyButton => { expect($copyButton.text()).to.eq('Campaign Copied') });
 
-      this.tiles.forEach(tile => { cy.get(`#${tile.id}`).should('have.text', 'Copied') });
+      testAllById(this.tiles, 'have.text', 'Copied');
 
       cy.wait(2000);
 
@@ -190,7 +194,7 @@ context('Landing page', () => {
     });
 
     it('copies tiles individually from show', function() {
-      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
+      cy.visit(campaignPath(this.campaign));
 
       cy.get(`#single-tile-${this.tiles[0].id} .tile_thumb_link_explore`).click();
 
@@ -212,7 +216,7 @@ context('Landing page', () => {
     });
 
     it('copies tiles individually from campaign', function() {
-      cy.visit(`/explore/campaigns/${this.campaign.id}-${this.campaign.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`);
+      cy.visit(campaignPath(this.campaign));
       cy.insertCsrf();
 
       this.tiles.forEach(tile => {

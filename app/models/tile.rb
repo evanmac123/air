@@ -84,11 +84,12 @@ class Tile < ActiveRecord::Base
     .order("campaigns.name ASC")
     .ordered_by_position
     .group_by(&:campaign_id).map do |id, tiles|
+      camp_info = tiles.first
       {
         id: id,
-        name: tiles.first.name,
-        description: tiles.first.description,
-        ongoing: tiles.first.ongoing,
+        name: camp_info.name,
+        description: camp_info.description,
+        ongoing: camp_info.ongoing,
         tiles: react_sanitize(tiles)
       }
     end.to_json
@@ -96,11 +97,12 @@ class Tile < ActiveRecord::Base
 
   def self.react_sanitize(payload)
     payload.map do |item|
+      id = item.id
       {
-        "copyPath" => "/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{item.id}",
-        "tileShowPath" => "/explore/tile/#{item.id}",
+        "copyPath" => "/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{id}",
+        "tileShowPath" => "/explore/tile/#{id}",
         "headline" => item.headline,
-        "id" => item.id,
+        "id" => id,
         "created_at" => item.created_at,
         "thumbnail" => item.thumbnail_url,
         "thumbnailContentType" => item.thumbnail_content_type
@@ -113,7 +115,7 @@ class Tile < ActiveRecord::Base
     if (org = demo.try(:organization)) &&
       (campaigns = org.campaigns.where(private_explore: true).pluck(:id)).length > 0
       sql_statements = "(#{base_validation}) OR ("
-      campaigns.each {|camp_id| sql_statements += "campaigns.id = #{camp_id} OR "}
+      campaigns.each { |camp_id| sql_statements += "campaigns.id = #{camp_id} OR " }
       return sql_statements[0..-5] += ")"
     end
     base_validation

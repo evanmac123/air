@@ -4,7 +4,8 @@ import * as $ from "jquery";
 
 import CampaignsComponent from "./components/CampaignsComponent";
 import LoadingComponent from "../../shared/LoadingComponent";
-import { Fetcher, WindowHelper } from "../../lib/helpers";
+import CampaignApi from "./CampaignApi";
+import { Fetcher, WindowHelper, LocalStorer } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
 
 class Explore extends Component {
@@ -26,7 +27,6 @@ class Explore extends Component {
     this.updateDimensions = this.updateDimensions.bind(this);
     this.getAllCampaigns = this.getAllCampaigns.bind(this);
     this.updateActiveDisplay = this.updateActiveDisplay.bind(this);
-    this.getCampaignBy = this.getCampaignBy.bind(this);
     this.populateCampaigns = this.populateCampaigns.bind(this);
     this.onScroll = this.onScroll.bind(this);
   }
@@ -53,7 +53,7 @@ class Explore extends Component {
         selectedCampaign: {},
       });
     } else {
-      const camp = this.getCampaignBy('path', `campaigns/${campaignId}`);
+      const camp = CampaignApi.findBy(this.state.campaigns, 'path', `campaigns/${campaignId}`);
       if (camp) {
         this.campaignRedirect(camp, "popstate");
       } else {
@@ -105,12 +105,11 @@ class Explore extends Component {
   }
 
   populateCampaigns() {
-    const latestTile = localStorage.getItem('latestTile');
-    const currentBoard = localStorage.getItem('currentBoard');
+    const storage = LocalStorer.getAll(['latestTile', 'currentBoard']);
     return new Promise(resolve => {
-      if ((latestTile && latestTile === this.props.ctrl.latestTile) &&
-          (!!currentBoard && currentBoard === `${this.props.ctrl.currentBoard}`)) {
-        this.setState(JSON.parse(localStorage.getItem('campaign-data')));
+      if ((storage.latestTile && storage.latestTile === this.props.ctrl.latestTile) &&
+          (!!storage.currentBoard && storage.currentBoard === this.props.ctrl.currentBoard)) {
+        this.setState(LocalStorer.get('campaign-data'));
         resolve();
       } else {
         this.getAllCampaigns(resolve);
@@ -118,41 +117,24 @@ class Explore extends Component {
     });
   }
 
-  getAllCampaigns(cb) {
-    const parseLandingExploreThumbnails = tiles => {
-      const exploreThumbnails = [];
-      for (let i = 0; i < tiles.length; i++) {
-        if (exploreThumbnails.length === 3) { return exploreThumbnails; }
-        if (tiles[i].thumbnailContentType !== "image/gif") {
-          exploreThumbnails.push(tiles[i].thumbnail);
-        }
-      }
-      return exploreThumbnails;
-    };
-
-    Fetcher.get(`/api/v1/campaigns?demo=${this.props.ctrl.currentBoard}`, response => {
+  getAllCampaigns(callback) {
+    CampaignApi.getAll(this.props.ctrl.currentBoard, response => {
       const initCampaignState = {
         campaigns: [],
         loading: false,
       };
       response.forEach(resp => {
         initCampaignState[`tilePageLoaded${resp.id}`] = ( resp.tiles.length < 28 ? 0 : 1 );
-        initCampaignState.campaigns.push({
-          id: resp.id,
-          name: resp.name,
-          thumbnails: parseLandingExploreThumbnails(resp.tiles),
-          description: resp.description,
-          ongoing: resp.ongoing,
-          copyText: "Copy Campaign",
-          path: `campaigns/${resp.id}-${resp.name.toLowerCase().replace(/[^A-Za-z0-9 ]/g, '').replace(/\s+/g,"-")}`,
-        });
+        initCampaignState.campaigns.push(CampaignApi.sanitizeCampaignResponse(resp));
         initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
       });
       this.setState(initCampaignState);
-      localStorage.setItem('campaign-data', JSON.stringify(initCampaignState));
-      localStorage.setItem('latestTile', this.props.ctrl.latestTile);
-      localStorage.setItem('currentBoard', this.props.ctrl.currentBoard);
-      if (cb) { cb(); }
+      LocalStorer.setAll({
+        'campaign-data': JSON.stringify(initCampaignState),
+        'latestTile': this.props.ctrl.latestTile,
+        'currentBoard': this.props.ctrl.currentBoard,
+      });
+      if (callback) { callback(); }
     });
   }
 
@@ -169,13 +151,6 @@ class Explore extends Component {
       newState[`campaignTiles${campaign.id}`] = (this.state[`campaignTiles${campaign.id}`] || []).concat(response);
       this.setState(newState);
     });
-  }
-
-  getCampaignBy(key, value) {
-    for (let i = 0; i < this.state.campaigns.length; i++) {
-      if (`${this.state.campaigns[i][key]}` === value) { return this.state.campaigns[i]; }
-    }
-    return false;
   }
 
   copyToBoard(copyPath, $tile, successCb) {
