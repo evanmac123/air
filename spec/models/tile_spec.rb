@@ -335,4 +335,167 @@ describe Tile do
       expect(tile.airbo_community_created?).to be_falsey
     end
   end
+
+  describe '#display_explore_campaigns' do
+    before do
+      demo = FactoryBot.build(:demo)
+      @campaign = FactoryBot.build(:campaign, active: true, public_explore: true)
+      FactoryBot.create_list(
+        :tile,
+        3,
+        headline: 'Testing tile',
+        campaign: @campaign,
+        demo: demo,
+        status: Tile::ACTIVE,
+        is_public: true
+      )
+    end
+
+    context 'no current_board' do
+      before do
+        @explore_tiles = JSON.parse(Tile.display_explore_campaigns)
+        @result_campaign = @explore_tiles.first
+        @camp_tiles = @result_campaign['tiles']
+      end
+
+      it 'returns single campaign active, public campaign when no current_board' do
+        expect(@explore_tiles.count).to eq(1)
+        expect(@result_campaign['name']).to eq(@campaign[:name])
+        expect(@result_campaign['description']).to eq(@campaign[:description])
+        expect(@result_campaign['ongoing']).to eq(@campaign[:ongoing])
+      end
+
+      it 'contains correct amount of tiles belonging to given campaign' do
+        expect(@camp_tiles.count).to eq(3)
+      end
+
+      it 'contains correct information for each tile' do
+        @camp_tiles.each do |result_tile|
+          expected_tile = Tile.find(result_tile['id'])
+          expect(expected_tile.headline).to eq(result_tile['headline'])
+          expect(expected_tile.created_at.as_json).to eq(result_tile['created_at'])
+          expect(expected_tile.remote_media_url).to eq(result_tile['thumbnail'])
+          expect(expected_tile.thumbnail_content_type).to eq(result_tile['thumbnailContentType'])
+          expect("/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{expected_tile.id}").to eq(result_tile['copyPath'])
+          expect("/explore/tile/#{expected_tile.id}").to eq(result_tile['tileShowPath'])
+        end
+      end
+    end
+
+    context 'returning private campaigns' do
+      before do
+        organization = FactoryBot.create(:organization)
+        @current_board = FactoryBot.create(:demo, organization: organization)
+        @private_campaign = FactoryBot.create(
+          :campaign,
+          demo: @current_board,
+          active: true,
+          private_explore: true
+        )
+        FactoryBot.create(
+          :tile,
+          headline: 'Testing tile',
+          campaign: @private_campaign,
+          demo: @current_board,
+          status: Tile::ACTIVE
+        )
+      end
+
+      it 'returns both public and private campaigns with current_board' do
+        explore_tiles = JSON.parse(Tile.display_explore_campaigns(@current_board))
+
+        expect(explore_tiles.count).to eq(2)
+        expect(explore_tiles.first['id']).to eq(@campaign.id)
+        expect(explore_tiles.last['id']).to eq(@private_campaign.id)
+      end
+
+      it 'only returns public campaigns if no current_board is given' do
+        explore_tiles = JSON.parse(Tile.display_explore_campaigns)
+
+        expect(explore_tiles.count).to eq(1)
+        expect(explore_tiles.first['id']).to eq(@campaign.id)
+      end
+
+      it 'contains correct tile information' do
+        explore_tiles = JSON.parse(Tile.display_explore_campaigns(@current_board))
+
+        expect(explore_tiles.last['tiles'].count).to eq(1)
+        explore_tiles.last['tiles'].each do |result_tile|
+          expected_tile = Tile.find(result_tile['id'])
+          expect(expected_tile.headline).to eq(result_tile['headline'])
+          expect(expected_tile.created_at.as_json).to eq(result_tile['created_at'])
+          expect(expected_tile.remote_media_url).to eq(result_tile['thumbnail'])
+          expect(expected_tile.thumbnail_content_type).to eq(result_tile['thumbnailContentType'])
+          expect("/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{expected_tile.id}").to eq(result_tile['copyPath'])
+          expect("/explore/tile/#{expected_tile.id}").to eq(result_tile['tileShowPath'])
+        end
+      end
+    end
+  end
+
+  describe '#react_sanitize' do
+    it 'sanitizes Tile query result to contain exactly what react expects' do
+      tiles = FactoryBot.create_list(:tile, 1)
+      result_tile = Tile.react_sanitize(tiles).first
+      expected_tile = Tile.find(result_tile['id'])
+
+      expect(expected_tile.headline).to eq(result_tile['headline'])
+      expect(expected_tile.remote_media_url).to eq(result_tile['thumbnail'])
+      expect(expected_tile.thumbnail_content_type).to eq(result_tile['thumbnailContentType'])
+      expect("/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{expected_tile.id}").to eq(result_tile['copyPath'])
+      expect("/explore/tile/#{expected_tile.id}").to eq(result_tile['tileShowPath'])
+    end
+
+    it 'returns only 28 first results' do
+      tiles = FactoryBot.create_list(:tile, 30)
+      result = Tile.react_sanitize(tiles)
+
+      expect(result.count).to eq(28)
+    end
+  end
+
+  describe '#get_tile_campaign_filters' do
+    it 'returns base sql validation if no board is given' do
+      result = Tile.get_tile_campaign_filters(nil)
+
+      expect(result).to eq("campaigns.public_explore = true AND tiles.is_public = true")
+    end
+
+    it 'returns base sql validation if given board does not have an organization' do
+      basic_demo = FactoryBot.create(:demo)
+      result = Tile.get_tile_campaign_filters(basic_demo)
+
+      expect(result).to eq("campaigns.public_explore = true AND tiles.is_public = true")
+    end
+
+    it 'returns base sql validation if given board\'s organization does not have campaigns' do
+      organization = FactoryBot.create(:organization)
+      current_board = FactoryBot.create(:demo, organization: organization)
+      private_campaign = FactoryBot.create(
+        :campaign,
+        demo: current_board,
+        active: false,
+        private_explore: false
+      )
+      result = Tile.get_tile_campaign_filters(current_board)
+
+      expect(result).to eq("campaigns.public_explore = true AND tiles.is_public = true")
+    end
+
+    it 'returns proper sql validation if given board\'s organization has private campaigns' do
+      organization = FactoryBot.create(:organization)
+      current_board = FactoryBot.create(:demo, organization: organization)
+      private_campaign = FactoryBot.create(
+        :campaign,
+        demo: current_board,
+        active: true,
+        private_explore: true
+      )
+      result = Tile.get_tile_campaign_filters(current_board)
+
+      expect(result).to eq(
+        "(campaigns.public_explore = true AND tiles.is_public = true) OR (campaigns.id = #{private_campaign.id})"
+      )
+    end
+  end
 end
