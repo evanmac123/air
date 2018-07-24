@@ -453,4 +453,49 @@ describe Tile do
       expect(result.count).to eq(28)
     end
   end
+
+  describe '#get_tile_campaign_filters' do
+    it 'returns base sql validation if no board is given' do
+      result = Tile.get_tile_campaign_filters(nil)
+
+      expect(result).to eq("campaigns.public_explore = true AND tiles.is_public = true")
+    end
+
+    it 'returns base sql validation if given board does not have an organization' do
+      basic_demo = FactoryBot.create(:demo)
+      result = Tile.get_tile_campaign_filters(basic_demo)
+
+      expect(result).to eq("campaigns.public_explore = true AND tiles.is_public = true")
+    end
+
+    it 'returns base sql validation if given board\'s organization does not have campaigns' do
+      organization = FactoryBot.create(:organization)
+      current_board = FactoryBot.create(:demo, organization: organization)
+      private_campaign = FactoryBot.create(
+        :campaign,
+        demo: current_board,
+        active: false,
+        private_explore: false
+      )
+      result = Tile.get_tile_campaign_filters(current_board)
+
+      expect(result).to eq("campaigns.public_explore = true AND tiles.is_public = true")
+    end
+
+    it 'returns proper sql validation if given board\'s organization has private campaigns' do
+      organization = FactoryBot.create(:organization)
+      current_board = FactoryBot.create(:demo, organization: organization)
+      private_campaign = FactoryBot.create(
+        :campaign,
+        demo: current_board,
+        active: true,
+        private_explore: true
+      )
+      result = Tile.get_tile_campaign_filters(current_board)
+
+      expect(result).to eq(
+        "(campaigns.public_explore = true AND tiles.is_public = true) OR (campaigns.id = #{private_campaign.id})"
+      )
+    end
+  end
 end
