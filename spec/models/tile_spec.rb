@@ -432,4 +432,25 @@ describe Tile do
       end
     end
   end
+
+  describe '#react_sanitize' do
+    it 'sanitizes Tile query result to contain exactly what react expects' do
+      tiles = FactoryBot.create_list(:tile, 1)
+      result_tile = Tile.react_sanitize(tiles).first
+      expected_tile = Tile.find(result_tile['id'])
+
+      expect(expected_tile.headline).to eq(result_tile['headline'])
+      expect(expected_tile.remote_media_url).to eq(result_tile['thumbnail'])
+      expect(expected_tile.thumbnail_content_type).to eq(result_tile['thumbnailContentType'])
+      expect("/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{expected_tile.id}").to eq(result_tile['copyPath'])
+      expect("/explore/tile/#{expected_tile.id}").to eq(result_tile['tileShowPath'])
+    end
+
+    it 'returns only 28 first results' do
+      tiles = FactoryBot.create_list(:tile, 30)
+      result = Tile.react_sanitize(tiles)
+
+      expect(result.count).to eq(28)
+    end
+  end
 end
