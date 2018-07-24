@@ -11,11 +11,11 @@ class Cypress::TestDatabaseController < ApplicationController
   def create
     @built_associations = {}
     response = { status: "success", code: 200 }
-    factory_attrs.each_with_index do |attrs, i|
+    factory_attrs.each_with_index do |attrs, index|
       if attrs[:model]
         model = attrs[:model]
         factory_created = build_factory(attrs)
-        response["#{model}-#{i}"] = factory_created.as_json(root: false)
+        response["#{model}-#{index}"] = factory_created.as_json(root: false)
       end
     end
     render json: response
@@ -24,7 +24,9 @@ class Cypress::TestDatabaseController < ApplicationController
   def destroy
     tables = ActiveRecord::Base.connection.tables
     tables.delete "schema_migrations"
-    tables.each { |t| ActiveRecord::Base.connection.execute("TRUNCATE #{t} CASCADE") }
+    tables.each do |table|
+      ActiveRecord::Base.connection.execute("TRUNCATE #{table} CASCADE")
+    end
     Rails.application.load_seed if params[:seed]
     render json: { status: "success", code: 200, message: "Tables successfully truncated" }
   end
@@ -50,9 +52,10 @@ class Cypress::TestDatabaseController < ApplicationController
     def sanitize_attrs(attrs)
       if associations = attrs.delete("associations")
         associations.keys.reduce(attrs) do |result, assoc_name|
-          association = eval("#{assoc_name.capitalize}.find_by(id: #{associations[assoc_name].to_i})") ||
-                       @built_associations[associations[assoc_name]] ||
-                       build_factory(find_attrs_for(associations[assoc_name]))
+          id = associations[assoc_name]
+          association = eval("#{assoc_name.capitalize}.find_by(id: #{id.to_i})") ||
+                       @built_associations[id] ||
+                       build_factory(find_attrs_for(id))
           result.merge("#{assoc_name}" => association)
         end
       else
