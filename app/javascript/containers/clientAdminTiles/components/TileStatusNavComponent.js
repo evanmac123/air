@@ -25,10 +25,27 @@ const TileStatusNavComponent = props => (
       {className: "row"},
       React.createElement("ul",
         {className: "with-tiles"},
-        renderTabs(props)
+        renderTabs(props),
       )
     )
   )
 );
+// <li class="buttons">
+//   <%= link_to "#download_stats", class: "hidden download-stats-button js-download-stats-button button outlined icon", title: "Download Excel file with statistics for all of the Tiles in this section.", data: { tooltip: true } do %>
+//   <%= fa_icon "download" %>
+//   <span>Download Stats</span>
+//   <% end %>
+//
+//   <%= link_to "#suggestion_box_manage_access", class: "js-suggestion-box-manage-access button outlined icon hidden" do %>
+//   <%= fa_icon "users" %>
+//   <span>Manage Access</span>
+//   <% end %>
+//
+//   <%= link_to new_client_admin_tile_path, class: "new-tile-button js-new-tile-button button icon" do %>
+//     <%= fa_icon "plus" %>
+//     <span>New Tile</span>
+//   <% end %>
+// </li>
+
 
 export default TileStatusNavComponent;
