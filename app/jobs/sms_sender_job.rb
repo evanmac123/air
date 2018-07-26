@@ -8,9 +8,9 @@ class SmsSenderJob < ActiveJob::Base
       params = { to: to_number, body: body }
 
       if Rails.env.production?
-        params.merge!(messaging_service_sid: TWILIO_MESSAGE_SERVICE_ID)
+        params.merge!(messaging_service_sid: TWILIO_MESSAGE_SERVICE_ID, from_number: TWILIO_SHORT_CODE)
       else
-        params.merge!(from: from_number)
+        params.merge!(from_number: from_number)
       end
 
       $twilio_client.messages.create(params)

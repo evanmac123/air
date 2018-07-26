@@ -102,7 +102,7 @@ class Demo < ActiveRecord::Base
     if phone_number.present?
       phone_number
     else
-      TWILIO_PHONE_NUMBER
+      TWILIO_SHORT_CODE
     end
   end
 
