@@ -10,7 +10,7 @@ class SmsSenderJob < ActiveJob::Base
       params = { to: to_number, body: body }
 
       if Rails.env.production?
-        params.merge!(from_number: TWILIO_SHORT_CODE)
+        params.merge!(from: TWILIO_SHORT_CODE)
       else
         params.merge!(from_number: from_number)
       end
