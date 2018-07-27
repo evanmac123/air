@@ -99,11 +99,7 @@ class Demo < ActiveRecord::Base
   end
 
   def twilio_from_number
-    if phone_number.present?
-      phone_number
-    else
-      TWILIO_SHORT_CODE
-    end
+    TWILIO_SHORT_CODE
   end
 
   def self.paid

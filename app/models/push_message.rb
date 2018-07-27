@@ -34,7 +34,7 @@ class PushMessage < ActiveRecord::Base
     end
 
     if sms_text.present?
-      SmsBulkSenderJob.perform_later(user_ids: sms_recipient_ids, body: sms_text, from_number: demo.twilio_from_number)
+      SmsBulkSenderJob.perform_later(user_ids: sms_recipient_ids, body: sms_text)
     end
 
     update_attributes(state: COMPLETED)
