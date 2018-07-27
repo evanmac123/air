@@ -6,10 +6,11 @@ import TileComponent from "./TileComponent";
 import NavbarComponent from "./NavbarComponent";
 import LoadingComponent from "../../../shared/LoadingComponent";
 
-const renderTiles = (tiles, copyTile) => (
+const renderTiles = (tiles, copyTile, user) => (
   tiles.map(tile => React.createElement(TileComponent, {
     ...tile,
     copyTile,
+    user,
     key: tile.id,
   }))
 );
@@ -69,7 +70,7 @@ const SelectedCampaignComponent = props => (
     <div className="explore-tiles-container">
       <div className="row">
         <div className="large-12 columns">
-          {renderTiles(props.tiles, props.copyTile)}
+          {renderTiles(props.tiles, props.copyTile, props.user)}
         </div>
       </div>
       { props.scrollLoading && <LoadingComponent /> }

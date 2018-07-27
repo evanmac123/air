@@ -1,0 +1,4 @@
+airbo_worker: RAILS_ENV=test bundle exec rake jobs:work
+airbo_elastic_search: RAILS_ENV=test elasticsearch
+airbo_redis: RAILS_ENV=test redis-server
+airbo_log: tail -f log/test.log

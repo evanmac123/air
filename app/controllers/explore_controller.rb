@@ -3,6 +3,7 @@
 class ExploreController < ExploreBaseController
   def show
     @ctrl_data = {
+      "currentBoard" => current_board.try(:id),
       "isGuestUser" => current_user.is_a?(GuestUser),
       "isEndUser" => current_user.end_user?,
       "latestTile" => Tile.includes(:campaign)
@@ -16,6 +17,10 @@ class ExploreController < ExploreBaseController
     else
       explore_email_clicked_ping if params[:email_type].present?
     end
+  end
+
+  def path_not_found
+    raise ActionController::RoutingError.new("Not Found")
   end
 
   private

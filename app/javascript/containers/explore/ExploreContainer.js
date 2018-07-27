@@ -4,7 +4,8 @@ import * as $ from "jquery";
 
 import CampaignsComponent from "./components/CampaignsComponent";
 import LoadingComponent from "../../shared/LoadingComponent";
-import { Fetcher, WindowHelper } from "../../lib/helpers";
+import CampaignApi from "./CampaignApi";
+import { Fetcher, WindowHelper, LocalStorer } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
 
 class Explore extends Component {
@@ -26,7 +27,6 @@ class Explore extends Component {
     this.updateDimensions = this.updateDimensions.bind(this);
     this.getAllCampaigns = this.getAllCampaigns.bind(this);
     this.updateActiveDisplay = this.updateActiveDisplay.bind(this);
-    this.getCampaignById = this.getCampaignById.bind(this);
     this.populateCampaigns = this.populateCampaigns.bind(this);
     this.onScroll = this.onScroll.bind(this);
   }
@@ -53,11 +53,11 @@ class Explore extends Component {
         selectedCampaign: {},
       });
     } else {
-      const camp = this.getCampaignById(campaignId.split("-")[0]);
+      const camp = CampaignApi.findBy(this.state.campaigns, 'path', `campaigns/${campaignId}`);
       if (camp) {
         this.campaignRedirect(camp, "popstate");
       } else {
-        AiRouter.navigation("explore");
+        AiRouter.pathNotFound();
       }
     }
   }
@@ -89,14 +89,13 @@ class Explore extends Component {
   }
 
   campaignRedirect(campaign, popstate) {
-    const redirectUrl = `campaigns/${campaign.id}-${campaign.name.toLowerCase().replace(/\s+/g,"-")}`;
     if (!popstate) {
       window.Airbo.Utils.ping("Explore page - Interaction", {
         action: "Clicked Campaign",
         campaign: campaign.name,
         campaignId: campaign.id,
       });
-      AiRouter.navigation(redirectUrl, {appendToCurrentUrl: true});
+      AiRouter.navigation(campaign.path, {appendToCurrentUrl: true});
     }
     if (!this.state[`campaignTiles${campaign.id}`]) {
       this.getCampaignTiles(campaign, { loading: true });
@@ -106,40 +105,36 @@ class Explore extends Component {
   }
 
   populateCampaigns() {
-    const latestTile = localStorage.getItem('latestTile');
+    const storage = LocalStorer.getAll(['latestTile', 'currentBoard']);
     return new Promise(resolve => {
-      if (latestTile && latestTile === this.props.ctrl.latestTile) {
-        this.setState(JSON.parse(localStorage.getItem('campaign-data')));
+      if ((storage.latestTile && storage.latestTile === this.props.ctrl.latestTile) &&
+          (!!storage.currentBoard && storage.currentBoard === this.props.ctrl.currentBoard)) {
+        this.setState(LocalStorer.get('campaign-data'));
         resolve();
       } else {
-        this.getAllCampaigns();
-        resolve();
+        this.getAllCampaigns(resolve);
       }
     });
   }
 
-  getAllCampaigns() {
-    Fetcher.get("/api/v1/campaigns", response => {
+  getAllCampaigns(callback) {
+    CampaignApi.getAll(this.props.ctrl.currentBoard, response => {
       const initCampaignState = {
         campaigns: [],
         loading: false,
       };
       response.forEach(resp => {
         initCampaignState[`tilePageLoaded${resp.id}`] = ( resp.tiles.length < 28 ? 0 : 1 );
-        initCampaignState.campaigns.push({
-          id: resp.id,
-          name: resp.name,
-          thumbnails: resp.thumbnails,
-          path: resp.path,
-          description: resp.description,
-          ongoing: resp.ongoing,
-          copyText: "Copy Campaign",
-        });
+        initCampaignState.campaigns.push(CampaignApi.sanitizeCampaignResponse(resp));
         initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
       });
       this.setState(initCampaignState);
-      localStorage.setItem('campaign-data', JSON.stringify(initCampaignState));
-      localStorage.setItem('latestTile', this.props.ctrl.latestTile);
+      LocalStorer.setAll({
+        'campaign-data': JSON.stringify(initCampaignState),
+        'latestTile': this.props.ctrl.latestTile,
+        'currentBoard': this.props.ctrl.currentBoard,
+      });
+      if (callback) { callback(); }
     });
   }
 
@@ -156,13 +151,6 @@ class Explore extends Component {
       newState[`campaignTiles${campaign.id}`] = (this.state[`campaignTiles${campaign.id}`] || []).concat(response);
       this.setState(newState);
     });
-  }
-
-  getCampaignById(id) {
-    for (let i = 0; i < this.state.campaigns.length; i++) {
-      if (`${this.state.campaigns[i].id}` === id) { return this.state.campaigns[i]; }
-    }
-    return false;
   }
 
   copyToBoard(copyPath, $tile, successCb) {

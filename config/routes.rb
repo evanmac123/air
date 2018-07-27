@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   draw :explore
   draw :admin
   draw :api
+  draw :cypress if Rails.env.test?
 
   # mount letter opener web for development env
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
@@ -25,4 +26,5 @@ Rails.application.routes.draw do
   constraints Clearance::Constraints::SignedIn.new do
     get '/', to: redirect('/activity'), as: 'user_root'
   end
+
 end

@@ -2,16 +2,16 @@ require 'rails_helper'
 
 RSpec.describe SmsSenderJob, type: :job do
   it "returns nil if to_number is blank" do
-    result = SmsSenderJob.perform_now(to_number: "", body: "body", from_number: "+12223334444")
+    result = SmsSenderJob.perform_now(to_number: "", body: "body")
 
     expect(result).to eq(nil)
   end
 
-  it "asks twilio to create a text message" do
+  it "asks twilio to create a text message from short code" do
     $twilio_client.expects(:messages).returns($twilio_client)
-    $twilio_client.expects(:create).with(from: "+12223334444", to: "+14443332222", body: "body")
+    $twilio_client.expects(:create).with(from: TWILIO_SHORT_CODE, to: "+14443332222", body: "body")
 
-    SmsSenderJob.perform_now(to_number: "+14443332222", from_number: "+12223334444", body: "body")
+    SmsSenderJob.perform_now(to_number: "+14443332222", body: "body")
   end
 
   it "calls RemoveInvalidUserPhoneNumberJob if $twilio_client.create raises Twilio::REST::RestError" do
@@ -20,6 +20,6 @@ RSpec.describe SmsSenderJob, type: :job do
 
     RemoveInvalidUserPhoneNumberJob.expects(:perform_later).with(phone_number: "+14443332222")
 
-    SmsSenderJob.perform_now(to_number: "+14443332222", from_number: "+12223334444", body: "body")
+    SmsSenderJob.perform_now(to_number: "+14443332222", body: "body")
   end
 end

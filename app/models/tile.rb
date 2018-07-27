@@ -61,6 +61,66 @@ class Tile < ActiveRecord::Base
 
   searchkick word_start: [:headline], callbacks: false
 
+  def self.display_explore_campaigns(current_board = nil)
+    joins(:campaign).select(
+      "campaigns.id AS campaign_id",
+      "campaigns.name",
+      "campaigns.description",
+      "campaigns.ongoing",
+      "tiles.headline",
+      "tiles.created_at",
+      "tiles.id",
+      "tiles.thumbnail_file_name",
+      "tiles.thumbnail_content_type",
+      "tiles.thumbnail_file_size",
+      "tiles.thumbnail_updated_at",
+      "tiles.thumbnail_processing",
+      "tiles.embed_video",
+      "tiles.remote_media_url",
+      "tiles.is_public"
+    )
+    .active
+    .where(get_tile_campaign_filters(current_board))
+    .order("campaigns.name ASC")
+    .ordered_by_position
+    .group_by(&:campaign_id).map do |id, tiles|
+      camp_info = tiles.first
+      {
+        id: id,
+        name: camp_info.name,
+        description: camp_info.description,
+        ongoing: camp_info.ongoing,
+        tiles: react_sanitize(tiles)
+      }
+    end.to_json
+  end
+
+  def self.react_sanitize(payload)
+    payload.map do |item|
+      id = item.id
+      {
+        "copyPath" => "/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{id}",
+        "tileShowPath" => "/explore/tile/#{id}",
+        "headline" => item.headline,
+        "id" => id,
+        "created_at" => item.created_at,
+        "thumbnail" => item.thumbnail_url,
+        "thumbnailContentType" => item.thumbnail_content_type
+      }
+    end[0..27]
+  end
+
+  def self.get_tile_campaign_filters(demo)
+    base_validation = "campaigns.public_explore = true AND tiles.is_public = true"
+    if (org = demo.try(:organization)) &&
+      (campaigns = org.campaigns.where(private_explore: true).pluck(:id)).length > 0
+      sql_statements = "(#{base_validation}) OR ("
+      campaigns.each { |camp_id| sql_statements += "campaigns.id = #{camp_id} OR " }
+      return sql_statements[0..-5] += ")"
+    end
+    base_validation
+  end
+
   def self.default_search_fields
     ["headline^10", "supporting_content^8", :campaigns, :organization_name]
   end
@@ -72,6 +132,10 @@ class Tile < ActiveRecord::Base
 
   def self.segmented_on_population_segments(segment_ids)
     joins("LEFT OUTER JOIN campaigns ON campaign_id = campaigns.id").where("campaigns.population_segment_id IS NULL OR campaigns.population_segment_id IN (?)", segment_ids)
+  end
+
+  def thumbnail_url
+    thumbnail.url
   end
 
   def search_data
