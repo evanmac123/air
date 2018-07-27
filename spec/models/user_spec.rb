@@ -838,8 +838,7 @@ describe User do
 
       SmsSenderJob.expects(:perform_now).with(
         to_number: user.new_phone_number,
-        body: "Your code to verify this phone with Airbo is #{token}.",
-        from_number: user.demo.twilio_from_number
+        body: "Your code to verify this phone with Airbo is #{token}."
       )
 
       user.send_new_phone_validation_token

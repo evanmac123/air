@@ -1,19 +1,13 @@
+# frozen_string_literal: true
+
 class SmsSenderJob < ActiveJob::Base
   queue_as :default
 
-  def perform(to_number:, body:, from_number:)
+  def perform(to_number:, body:)
     return unless to_number.present?
 
     begin
-      params = { to: to_number, body: body }
-
-      if Rails.env.production?
-        params.merge!(messaging_service_sid: TWILIO_MESSAGE_SERVICE_ID)
-      else
-        params.merge!(from: from_number)
-      end
-
-      $twilio_client.messages.create(params)
+      $twilio_client.messages.create(to: to_number, body: body, from: TWILIO_SHORT_CODE)
     rescue Twilio::REST::RestError
       RemoveInvalidUserPhoneNumberJob.perform_later(phone_number: to_number)
     end

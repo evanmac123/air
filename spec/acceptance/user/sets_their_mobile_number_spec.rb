@@ -91,11 +91,11 @@ feature "User sets their mobile number on settings page" do
       expect(page).to have_content("Sorry, but that phone number has already been taken. Need help? Contact support@airbo.com")
     end
 
-    it "should send the validation SMS from that number" do
+    it "should send the validation SMS from short code number" do
       set_new_number
 
       message = FakeTwilio::Client.messages.first
-      expect(message.from).to eq(user.demo.phone_number)
+      expect(message.from).to eq(TWILIO_SHORT_CODE)
       expect(message.to).to eq(new_number)
       expect(message.body).to eq("Your code to verify this phone with Airbo is #{user.reload.new_phone_validation}.")
     end
