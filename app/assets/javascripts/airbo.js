@@ -46,9 +46,9 @@ var Airbo = {
       return $("body").data("current-board");
     },
 
-    intercomUser: function() {
-      return $("body").data("intercom-user");
-    },
+    // intercomUser: function() {
+    //   return $("body").data("intercom-user");
+    // },
 
     supportsFeatureByPresenceOfSelector: function(identifier) {
       return $(identifier).length > 0;
