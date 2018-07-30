@@ -19,7 +19,6 @@
   <body class="<%= body_class %> client_admin_main"
     data-current-user="<%= current_user.data_for_mixpanel.to_json %>"
     data-current-board="<%= board_data_for_dom %>"
-    data-intercom-user="<%= current_user.intercom_data.to_json %>"
     style="-webkit-overflow-scrolling: touch; overflow:visible;">
 
     <%= render 'shared/header' %>
