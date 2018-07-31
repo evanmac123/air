@@ -72,9 +72,11 @@ class Cypress::TestDatabaseController < ApplicationController
 
     def perform_addtional(actions, factory_created)
       actions.each do |action|
-        case action
+        case action.split(":").first
         when "login"
           sign_in(factory_created)
+        when "run"
+          eval(action.sub("run: ", ""))
         end
       end
     end
@@ -83,7 +85,6 @@ class Cypress::TestDatabaseController < ApplicationController
       model = attrs.delete(:model)
       actions = attrs.delete(:addActions)
       association_id = attrs.delete(:builtAssoc)
-      # binding.pry if model == "tile"
       factory_created = @built_associations[association_id] || eval(model.capitalize).create!(sanitize_attrs(attrs))
       @built_associations[association_id] = factory_created if association_id
       perform_addtional(actions, factory_created) if actions
