@@ -38,7 +38,9 @@ context('Plan Tile status nav functionality', () => {
       cy.get(`#single-tile-${this.plannedTile.id}`).should('be.hidden');
 
       cy.contains('Plan').children('span').should('have.text', '(0)');
-      cy.contains('Ready to Send').children('span').should('have.text', '(2)');
+      cy.contains('Ready to Send').children('span').should('have.text', '(2)').click();
+      cy.get(`#single-tile-${this.unplannedTile.id}`).should('be.visible');
+      cy.get(`#single-tile-${this.plannedTile.id}`).should('be.visible');
     });
   });
 });
