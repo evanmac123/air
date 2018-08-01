@@ -1,4 +1,4 @@
-context('Plan Tile status nav functionality', () => {
+context('Draft Tile status nav functionality', () => {
   beforeEach(function() {
     cy.factoryCreate('demo').as('demo')
     .then(demo => {
