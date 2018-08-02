@@ -19,6 +19,7 @@ const renderCampaigns = props => (
   props.campaigns.map(campaign => (
     React.createElement(CampaignComponent, {
       ...campaign,
+      missingThumbPath: props.user.missingThumbPath,
       winWidth: props.winWidth,
       campaignRedirect: props.campaignRedirect,
       key: campaign.id,
