@@ -18,12 +18,12 @@ const campaignCardStyleMobile =   {
   margin: "45px auto",
 };
 
-const thumbnailCascadeStyle = counter => {
+const thumbnailCascadeStyle = (counter, loading) => {
   const baseCss = {
     right: `${counter * 75}px`,
     position: "absolute",
     top: "0px",
-    width: "50%",
+    width: loading ? "48%" : "50%",
     borderRadius: "4px",
     marginRight: "-16px",
   };
@@ -50,6 +50,7 @@ const renderThumbnails = (thumbnails, missingThumbPath) => (
     React.createElement(ImgPreload, {
       src: thumbnail,
       loadingSrc: missingThumbPath,
+      loadingStyle: thumbnailCascadeStyle(i, "loading"),
       style: thumbnailCascadeStyle(i),
       key: i,
     })

@@ -10,17 +10,26 @@ class ImgPreload extends Component {
   }
 
   componentDidMount() {
-    this.setState({ imageSrc: this.props.loadingSrc || this.props.src });
+    this.setState({
+      imageSrc: this.props.loadingSrc || this.props.src,
+      imageStyle: this.props.loadingStyle || this.props.style,
+    });
   }
 
   handleImageLoaded() {
     this.setState({ imageLoading: false });
-    this.setState({ imageSrc: this.props.src || this.props.loadingSrc || this.props.errorSrc });
+    this.setState({
+      imageSrc: this.props.src || this.props.loadingSrc || this.props.errorSrc,
+      imageStyle: this.props.style || this.props.loadingStyle || this.props.errorStyle,
+    });
   }
 
   handleImageError() {
     this.setState({ imageLoading: false });
-    this.setState({ imageSrc: this.props.errorSrc || this.props.loadingSrc || this.props.src });
+    this.setState({
+      imageSrc: this.props.errorSrc || this.props.loadingSrc || this.props.src,
+      imageStyle: this.props.errorStyle || this.props.loadingStyle || this.props.style,
+    });
   }
 
   render() {
@@ -28,15 +37,17 @@ class ImgPreload extends Component {
       src: this.state.imageSrc,
       onLoad: this.handleImageLoaded,
       onError: this.handleImageError,
-      style: this.props.style,
+      style: this.state.imageStyle,
     });
   }
 }
 
 ImgPreload.propTypes = {
   loadingSrc: PropTypes.string,
-  src: PropTypes.string,
   errorSrc: PropTypes.string,
+  src: PropTypes.string,
+  loadingStyle: PropTypes.string,
+  errorStyle: PropTypes.string,
   style: PropTypes.object,
 };
 
