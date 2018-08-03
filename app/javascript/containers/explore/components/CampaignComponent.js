@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { MapWithIndex } from "../../../lib/helpers";
+import { ImgPreload } from "../../../lib/AirUI";
 
 const campaignCardStyleDesktop = {
   position: "relative",
@@ -17,12 +18,12 @@ const campaignCardStyleMobile =   {
   margin: "45px auto",
 };
 
-const thumbnailCascadeStyle = counter => {
+const thumbnailCascadeStyle = (counter, loading) => {
   const baseCss = {
     right: `${counter * 75}px`,
     position: "absolute",
     top: "0px",
-    width: "50%",
+    width: loading ? "48%" : "50%",
     borderRadius: "4px",
     marginRight: "-16px",
   };
@@ -44,9 +45,15 @@ const cardTitleStyle = {
   textShadow: "rgb(0, 0, 0) 0px 0px 5px",
 };
 
-const renderThumbnails = thumbnails => (
+const renderThumbnails = (thumbnails, missingThumbPath) => (
   MapWithIndex([...thumbnails].reverse(), (thumbnail, i) => (
-    React.createElement("img", { src: thumbnail, style: thumbnailCascadeStyle(i), key: i })
+    React.createElement(ImgPreload, {
+      src: thumbnail,
+      loadingSrc: missingThumbPath,
+      loadingStyle: thumbnailCascadeStyle(i, "loading"),
+      style: thumbnailCascadeStyle(i),
+      key: i,
+    })
   ))
 );
 
@@ -65,7 +72,7 @@ const CampaignComponent = props => (
         { className: "card-title", style: cardTitleStyle },
         props.name,
       ),
-    renderThumbnails(props.thumbnails),
+    renderThumbnails(props.thumbnails, props.missingThumbPath),
   )
 );
 
@@ -78,6 +85,7 @@ CampaignComponent.propTypes = {
   description: PropTypes.string,
   ongoing: PropTypes.bool,
   winWidth: PropTypes.number,
+  missingThumbPath: PropTypes.string,
 };
 
 export default CampaignComponent;
