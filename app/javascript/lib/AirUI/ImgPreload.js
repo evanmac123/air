@@ -5,8 +5,9 @@ class ImgPreload extends Component {
   constructor(props) {
     super(props);
     this.state = { imageLoading: true };
-    this.handleImageLoaded = this.handleImageLoaded.bind(this);
-    this.handleImageError = this.handleImageError.bind(this);
+    this.handleImageState = this.handleImageState.bind(this);
+    this.getSource = this.getSource.bind(this);
+    this.getStyle = this.getStyle.bind(this);
   }
 
   componentDidMount() {
@@ -16,27 +17,27 @@ class ImgPreload extends Component {
     });
   }
 
-  handleImageLoaded() {
-    this.setState({ imageLoading: false });
-    this.setState({
-      imageSrc: this.props.src || this.props.loadingSrc || this.props.errorSrc,
-      imageStyle: this.props.style || this.props.loadingStyle || this.props.errorStyle,
-    });
+  getSource(state) {
+    return state === 'load' ? this.props.src || this.props.loadingSrc || this.props.errorSrc : this.props.errorSrc || this.props.loadingSrc || this.props.src;
   }
 
-  handleImageError() {
-    this.setState({ imageLoading: false });
+  getStyle(state) {
+    return state === 'load' ? this.props.style || this.props.loadingStyle || this.props.errorStyle : this.props.errorStyle || this.props.loadingStyle || this.props.style;
+  }
+
+  handleImageState(state) {
     this.setState({
-      imageSrc: this.props.errorSrc || this.props.loadingSrc || this.props.src,
-      imageStyle: this.props.errorStyle || this.props.loadingStyle || this.props.style,
+      imageLoading: false,
+      imageSrc: this.getSource(state),
+      imageStyle: this.getStyle(state),
     });
   }
 
   render() {
     return React.createElement("img", {
       src: this.state.imageSrc,
-      onLoad: this.handleImageLoaded,
-      onError: this.handleImageError,
+      onLoad: () => this.handleImageState('load'),
+      onError: () => this.handleImageState('error'),
       style: this.state.imageStyle,
     });
   }
@@ -46,8 +47,8 @@ ImgPreload.propTypes = {
   loadingSrc: PropTypes.string,
   errorSrc: PropTypes.string,
   src: PropTypes.string,
-  loadingStyle: PropTypes.string,
-  errorStyle: PropTypes.string,
+  loadingStyle: PropTypes.object,
+  errorStyle: PropTypes.object,
   style: PropTypes.object,
 };
 
