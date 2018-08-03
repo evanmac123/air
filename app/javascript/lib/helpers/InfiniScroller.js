@@ -3,6 +3,7 @@ import * as throttle from "lodash.throttle";
 class InfiniScroller {
   constructor(opts) {
     this.scrollPercentageMet = this.scrollPercentageMet.bind(this);
+    this.performOnScroll = this.performOnScroll.bind(this);
     this.scrollPercentage = opts.scrollPercentage || 0.90;
     this.throttleAmount = opts.throttle || 95;
     this.onScrollCb = opts.onScroll;
@@ -19,17 +20,17 @@ class InfiniScroller {
     return ((scrollTop / bodyHeight) > this.scrollPercentage);
   }
 
+  performOnScroll() {
+    if (this.scrollPercentageMet()) { this.onScrollCb(); }
+  }
+
   setOnScroll() {
     if (!this.onScrollCb) { throw new Error('`onScroll` parameter not established in constructor. `onScroll` is required.'); }
-    window.addEventListener("scroll", throttle(() => {
-      if (this.scrollPercentageMet()) { this.onScrollCb(); }
-    }, this.throttleAmount), false);
+    window.addEventListener("scroll", throttle(this.performOnScroll, this.throttleAmount), false);
   }
 
   removeOnScroll() {
-    window.addEventListener("scroll", throttle(() => {
-      if (this.scrollPercentageMet()) { this.onScrollCb(); }
-    }, this.throttleAmount), false);
+    window.removeEventListener("scroll", throttle(this.performOnScroll, this.throttleAmount), false);
   }
 }
 
