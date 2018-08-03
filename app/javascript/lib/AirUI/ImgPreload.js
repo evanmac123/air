@@ -5,8 +5,8 @@ class ImgPreload extends Component {
   constructor(props) {
     super(props);
     this.state = { imageLoading: true };
-    this.handleImageLoaded = this.handleImageLoaded.bind(this);
-    this.handleImageError = this.handleImageError.bind(this);
+    this.handleImageState = this.handleImageState.bind(this);
+    this.get = this.get.bind(this);
   }
 
   componentDidMount() {
@@ -16,27 +16,27 @@ class ImgPreload extends Component {
     });
   }
 
-  handleImageLoaded() {
-    this.setState({ imageLoading: false });
-    this.setState({
-      imageSrc: this.props.src || this.props.loadingSrc || this.props.errorSrc,
-      imageStyle: this.props.style || this.props.loadingStyle || this.props.errorStyle,
-    });
+  get(prop, state) {
+    const propUp = prop.replace(/^\w/, c => c.toUpperCase());
+    if (state === 'load') {
+      return this.props[prop] || this.props[`loading${propUp}`] || this.props[`error${propUp}`];
+    }
+    return this.props[`error${propUp}`] || this.props[`loading${propUp}`] || this.props[prop];
   }
 
-  handleImageError() {
-    this.setState({ imageLoading: false });
+  handleImageState(state) {
     this.setState({
-      imageSrc: this.props.errorSrc || this.props.loadingSrc || this.props.src,
-      imageStyle: this.props.errorStyle || this.props.loadingStyle || this.props.style,
+      imageLoading: false,
+      imageSrc: this.get('src', state),
+      imageStyle: this.get('style', state),
     });
   }
 
   render() {
     return React.createElement("img", {
       src: this.state.imageSrc,
-      onLoad: this.handleImageLoaded,
-      onError: this.handleImageError,
+      onLoad: () => this.handleImageState('load'),
+      onError: () => this.handleImageState('error'),
       style: this.state.imageStyle,
     });
   }
@@ -46,8 +46,8 @@ ImgPreload.propTypes = {
   loadingSrc: PropTypes.string,
   errorSrc: PropTypes.string,
   src: PropTypes.string,
-  loadingStyle: PropTypes.string,
-  errorStyle: PropTypes.string,
+  loadingStyle: PropTypes.object,
+  errorStyle: PropTypes.object,
   style: PropTypes.object,
 };
 
