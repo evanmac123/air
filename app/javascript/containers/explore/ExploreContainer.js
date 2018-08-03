@@ -5,7 +5,7 @@ import * as $ from "jquery";
 import CampaignsComponent from "./components/CampaignsComponent";
 import LoadingComponent from "../../shared/LoadingComponent";
 import CampaignApi from "./CampaignApi";
-import { Fetcher, WindowHelper, LocalStorer } from "../../lib/helpers";
+import { Fetcher, WindowHelper, LocalStorer, InfiniScroller } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
 
 class Explore extends Component {
@@ -28,20 +28,26 @@ class Explore extends Component {
     this.getAllCampaigns = this.getAllCampaigns.bind(this);
     this.updateActiveDisplay = this.updateActiveDisplay.bind(this);
     this.populateCampaigns = this.populateCampaigns.bind(this);
-    this.onScroll = this.onScroll.bind(this);
+    this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
+    this.scrollState = new InfiniScroller({
+      scrollPercentage: 0.95,
+      throttle: 100,
+      onScroll: this.getAdditionalTiles,
+    });
   }
 
   componentDidMount() {
     this.populateCampaigns().then(() => this.updateActiveDisplay());
     this.updateDimensions();
+    this.scrollState.setOnScroll();
     window.addEventListener("resize", this.updateDimensions);
-    window.addEventListener("scroll", this.onScroll, false);
     window.addEventListener("popstate", this.updateActiveDisplay);
+
   }
 
   componentWillUnmount() {
+    this.scrollState.removeOnScroll();
     window.removeEventListener("resize", this.updateDimensions);
-    window.removeEventListener("scroll", this.onScroll, false);
     window.removeEventListener("popstate", this.updateActiveDisplay);
   }
 
@@ -62,14 +68,9 @@ class Explore extends Component {
     }
   }
 
-  onScroll() {
+  getAdditionalTiles() {
     const camp = this.state.selectedCampaign;
-    const scrollTop = $(document).scrollTop();
-    const windowHeight = $(window).height();
-    const bodyHeight = $(document).height() - windowHeight;
-    const scrollPercentage = (scrollTop / bodyHeight);
-    if (!this.state.scrollLoading && (camp && !!this.state[`tilePageLoaded${camp.id}`]) &&
-        (scrollPercentage > 0.95)) {
+    if (!this.state.scrollLoading && (camp && !!this.state[`tilePageLoaded${camp.id}`])) {
       this.setState({ scrollLoading: true });
       this.getCampaignTiles(this.state.selectedCampaign);
     }
@@ -89,6 +90,7 @@ class Explore extends Component {
   }
 
   campaignRedirect(campaign, popstate) {
+    window.scrollTo(0,0);
     if (!popstate) {
       window.Airbo.Utils.ping("Explore page - Interaction", {
         action: "Clicked Campaign",

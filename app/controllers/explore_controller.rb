@@ -10,7 +10,8 @@ class ExploreController < ExploreBaseController
                           .where("status" => "active")
                           .where.not("campaigns.id" => nil)
                           .order(updated_at: :desc).first
-                          .try(:updated_at)
+                          .try(:updated_at),
+     "missingThumbPath" => ActionController::Base.helpers.asset_path("missing-tile-img-thumb.png")
     }.to_json
     if request.xhr?
       render_json_tiles
