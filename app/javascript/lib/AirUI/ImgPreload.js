@@ -6,8 +6,7 @@ class ImgPreload extends Component {
     super(props);
     this.state = { imageLoading: true };
     this.handleImageState = this.handleImageState.bind(this);
-    this.getSource = this.getSource.bind(this);
-    this.getStyle = this.getStyle.bind(this);
+    this.get = this.get.bind(this);
   }
 
   componentDidMount() {
@@ -17,19 +16,19 @@ class ImgPreload extends Component {
     });
   }
 
-  getSource(state) {
-    return state === 'load' ? this.props.src || this.props.loadingSrc || this.props.errorSrc : this.props.errorSrc || this.props.loadingSrc || this.props.src;
-  }
-
-  getStyle(state) {
-    return state === 'load' ? this.props.style || this.props.loadingStyle || this.props.errorStyle : this.props.errorStyle || this.props.loadingStyle || this.props.style;
+  get(prop, state) {
+    const propUp = prop.replace(/^\w/, c => c.toUpperCase());
+    if (state === 'load') {
+      return this.props[prop] || this.props[`loading${propUp}`] || this.props[`error${propUp}`];
+    }
+    return this.props[`error${propUp}`] || this.props[`loading${propUp}`] || this.props[prop];
   }
 
   handleImageState(state) {
     this.setState({
       imageLoading: false,
-      imageSrc: this.getSource(state),
-      imageStyle: this.getStyle(state),
+      imageSrc: this.get('src', state),
+      imageStyle: this.get('style', state),
     });
   }
 
