@@ -2,9 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import sanitizeHtml from 'sanitize-html';
 
-import TileComponent from "./TileComponent";
+import TileComponent from "../../../shared/TileComponent";
 import NavbarComponent from "./NavbarComponent";
 import LoadingComponent from "../../../shared/LoadingComponent";
+
+const displayCreationDate = date => {
+  const splitDate = date.split("T")[0].split("-");
+  return `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
+};
 
 const renderTiles = (tiles, copyTile, user) => (
   tiles.map(tile => React.createElement(TileComponent, {
@@ -12,6 +17,9 @@ const renderTiles = (tiles, copyTile, user) => (
     copyTile,
     user,
     key: tile.id,
+    date: displayCreationDate(tile.created_at),
+    copyButtonDisplay: true,
+    caledarIcon: 'fa-calendar',
   }))
 );
 

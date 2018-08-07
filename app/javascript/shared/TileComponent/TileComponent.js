@@ -1,11 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const displayCreationDate = date => {
-  const splitDate = date.split("T")[0].split("-");
-  return `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
-};
-
 const TileComponent = props => (
   <div className="tile_container explore" data-tile-container-id={props.id}>
     <div className="tile_thumbnail" id={`single-tile-${props.id}`}>
@@ -16,8 +11,8 @@ const TileComponent = props => (
           </div>
           <div className="activation_dates">
             <span className='tile-active-time'>
-              <i className='fa fa-calendar'></i>
-              {displayCreationDate(props.created_at)}
+              <i className={`fa ${props.caledarIcon}`}></i>
+              {props.date}
             </span>
           </div>
           <div className="headline">
@@ -29,7 +24,7 @@ const TileComponent = props => (
           <div className="tile_overlay"></div>
         </a>
 
-        {!(props.user.isGuestUser || props.user.isEndUser) &&
+        {(props.copyButtonDisplay && !(props.user.isGuestUser || props.user.isEndUser)) &&
           <ul className="tile_buttons">
             <li className="explore_copy_button">
               <a
@@ -52,17 +47,19 @@ const TileComponent = props => (
 );
 
 TileComponent.propTypes = {
-  id: PropTypes.number,
-  thumbnail: PropTypes.string,
-  created_at: PropTypes.string,
-  headline: PropTypes.string,
-  tileShowPath: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  headline: PropTypes.string.isRequired,
+  tileShowPath: PropTypes.string.isRequired,
   copyPath: PropTypes.string,
   copyTile: PropTypes.func,
   user: PropTypes.shape({
     isGuestUser: PropTypes.bool,
     isEndUser: PropTypes.bool,
   }),
+  caledarIcon: PropTypes.string,
+  date: PropTypes.string,
+  copyButtonDisplay: PropTypes.bool,
 };
 
 export default TileComponent;
