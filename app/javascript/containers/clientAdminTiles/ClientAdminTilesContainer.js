@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import LoadingComponent from "../../shared/LoadingComponent";
 // import TileComponent from "../../shared/TileComponent";
 import TileStatusNavComponent from "./components/TileStatusNavComponent";
-// import { Fetcher, WindowHelper } from "../../lib/helpers";
+import { Fetcher } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
 
 class ClientAdminTiles extends Component {
@@ -25,7 +25,9 @@ class ClientAdminTiles extends Component {
 
   initializeState() {
     this.setTileStatuses(['Suggested', 'Plan', 'Ready to Send', 'Share', 'Live', 'Archive']);
-    this.setState({ loading: false });
+    Fetcher.xmlHttpRequest('/api/client_admin/tiles', 'GET', {
+      success: resp => { this.setState({ loading: false }); },
+    });
   }
 
   setTileStatuses(statuses) {
