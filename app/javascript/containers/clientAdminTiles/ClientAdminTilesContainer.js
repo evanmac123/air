@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 
 import LoadingComponent from "../../shared/LoadingComponent";
+// import TileComponent from "../../shared/TileComponent";
 import TileStatusNavComponent from "./components/TileStatusNavComponent";
 // import { Fetcher, WindowHelper } from "../../lib/helpers";
-// import { AiRouter } from "../../lib/utils";
+import { AiRouter } from "../../lib/utils";
 
 class ClientAdminTiles extends Component {
   constructor(props) {
@@ -36,7 +37,12 @@ class ClientAdminTiles extends Component {
   }
 
   selectStatus(e) {
-    this.setState({activeStatus: e.target.innerText.split(" (")[0]});
+    const status = e.target.innerText.split(" (")[0];
+    this.setState({activeStatus: status});
+    AiRouter.navigation(status.toLowerCase(), {
+      hashRoute: true,
+      appendTo: '/client_admin/tiles',
+    });
   }
 
   render() {
