@@ -5,7 +5,7 @@ const renderTabs = props => (
     React.createElement("li",
       {
         className: `tab `,
-        onClick: props.selectStatus,
+        onClick: () => { props.selectStatus(statusNav); },
         key: statusNav,
         style: {color: `${statusNav === props.activeStatus ? "#48bfff" : "#8da0ab"}`},
       },

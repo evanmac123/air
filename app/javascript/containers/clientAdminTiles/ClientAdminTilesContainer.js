@@ -52,10 +52,9 @@ class ClientAdminTiles extends Component {
     });
   }
 
-  selectStatus(e) {
-    const status = e.target.innerText.split(" (")[0];
-    this.setState({activeStatus: status});
-    AiRouter.navigation(status.toLowerCase(), {
+  selectStatus(statusNav) {
+    this.setState({activeStatus: statusNav});
+    AiRouter.navigation(`tab-${statusNav}`, {
       hashRoute: true,
       appendTo: '/client_admin/tiles',
     });
