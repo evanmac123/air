@@ -29,7 +29,14 @@ const EditTilesComponent = props => (
 
 EditTilesComponent.propTypes = {
   activeStatus: PropTypes.string.isRequired,
-  tiles: PropTypes.array,
+  tiles: PropTypes.shape({
+    user_submitted:PropTypes.array,
+    plan:PropTypes.array,
+    draft:PropTypes.array,
+    share:PropTypes.array,
+    active:PropTypes.array,
+    archive:PropTypes.array,
+  }),
 };
 
 export default EditTilesComponent;
