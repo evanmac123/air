@@ -24,18 +24,32 @@ class ClientAdminTiles extends Component {
   }
 
   initializeState() {
-    this.setTileStatuses(['Suggested', 'Plan', 'Ready to Send', 'Share', 'Live', 'Archive']);
     Fetcher.xmlHttpRequest({ path: '/api/client_admin/tiles', method: 'GET' }, {
-      success: resp => { this.setState({ loading: false, tiles: resp }); },
+      success: resp => {
+        this.setTileStatuses(resp, {
+            user_submitted: 'Suggested',
+            plan: 'Plan',
+            draft: 'Ready to Send',
+            share: 'Share',
+            active: 'Live',
+            archive: 'Archive',
+          });
+        },
     });
   }
 
-  setTileStatuses(statuses) {
-    this.setState({tileStatusNav: statuses.reduce((result, status) => {
-      result.push({ status, tileCount: 0 });
-      return result;
-    }, [])});
-    this.setState({activeStatus: 'Plan'});
+  setTileStatuses(tiles, statuses) {
+    this.setState({
+      tileStatusNav: [...Object.keys(statuses)].reverse().reduce((result, status) => {
+        const tileCount = tiles[status] ? tiles[status].length : 0;
+        const insertStatus = {};
+        insertStatus[status] = { tileCount, uiDisplay: statuses[status] };
+        return Object.assign(insertStatus , result);
+      }, {}),
+      activeStatus: 'plan',
+      loading: false,
+      ...tiles,
+    });
   }
 
   selectStatus(e) {

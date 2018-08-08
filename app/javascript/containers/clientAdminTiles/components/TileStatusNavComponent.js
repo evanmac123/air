@@ -1,18 +1,18 @@
 import React from "react";
 
 const renderTabs = props => (
-  props.statuses.map(statusNav => (
+  Object.keys(props.statuses).map(statusNav => (
     React.createElement("li",
       {
         className: `tab `,
         onClick: props.selectStatus,
-        key: statusNav.status,
-        style: {color: `${statusNav.status === props.activeStatus ? "#48bfff" : "#8da0ab"}`},
+        key: statusNav,
+        style: {color: `${statusNav === props.activeStatus ? "#48bfff" : "#8da0ab"}`},
       },
-      `${statusNav.status} `,
+      `${props.statuses[statusNav].uiDisplay} `,
       React.createElement("span",
         {className: "x-small"},
-        `(${statusNav.tileCount})`
+        `(${props.statuses[statusNav].tileCount})`
       )
     )
   ))

@@ -95,7 +95,16 @@ class Tile < ActiveRecord::Base
     end.to_json
   end
 
-  def self.react_sanitize(payload)
+  def self.fetch_edit_flow(board = nil, page = 1)
+    return nil unless board
+    tiles = board.tiles.page(page).per(16).group_by(&:status)
+    STATUS.reduce(tiles) do |result, status|
+      result[status] = tiles[status] ? react_sanitize(tiles[status]) : []
+      result
+    end.to_json
+  end
+
+  def self.react_sanitize(payload, range = 27)
     payload.map do |item|
       id = item.id
       {
@@ -107,7 +116,7 @@ class Tile < ActiveRecord::Base
         "thumbnail" => item.thumbnail_url,
         "thumbnailContentType" => item.thumbnail_content_type
       }
-    end[0..27]
+    end[0..range]
   end
 
   def self.get_tile_campaign_filters(demo)
@@ -133,6 +142,7 @@ class Tile < ActiveRecord::Base
   def self.segmented_on_population_segments(segment_ids)
     joins("LEFT OUTER JOIN campaigns ON campaign_id = campaigns.id").where("campaigns.population_segment_id IS NULL OR campaigns.population_segment_id IN (?)", segment_ids)
   end
+
 
   def thumbnail_url
     thumbnail.url
