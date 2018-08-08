@@ -90,7 +90,18 @@ class Tile < ActiveRecord::Base
         name: camp_info.name,
         description: camp_info.description,
         ongoing: camp_info.ongoing,
-        tiles: react_sanitize(tiles)
+        tiles: react_sanitize(tiles, 27) do |tile|
+          id = tile.id
+          {
+            "copyPath" => "/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{id}",
+            "tileShowPath" => "/explore/tile/#{id}",
+            "headline" => tile.headline,
+            "id" => id,
+            "created_at" => tile.created_at,
+            "thumbnail" => tile.thumbnail_url,
+            "thumbnailContentType" => tile.thumbnail_content_type
+          }
+        end
       }
     end.to_json
   end
@@ -99,24 +110,28 @@ class Tile < ActiveRecord::Base
     return nil unless board
     tiles = board.tiles.page(page).per(16).group_by(&:status)
     STATUS.reduce(tiles) do |result, status|
-      result[status] = tiles[status] ? react_sanitize(tiles[status]) : []
+      result[status] = if tiles[status]
+        react_sanitize(tiles[status], 16) do |tile|
+          {
+            "tileShowPath" => "/explore/tile/#{tile.id}",
+            "headline" => tile.headline,
+            "id" => tile.id,
+            "thumbnail" => tile.thumbnail_url,
+            "planDate" => tile.plan_date,
+            "activeDate" => tile.activated_at,
+            "archiveDate" => tile.archived_at
+          }
+        end
+      else
+        []
+      end
       result
     end.to_json
   end
 
-  def self.react_sanitize(payload, range = 27)
+  def self.react_sanitize(payload, range = 27, &sanitize)
     payload.map do |item|
-      id = item.id
-      {
-        "copyPath" => "/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{id}",
-        "tileShowPath" => "/explore/tile/#{id}",
-        "headline" => item.headline,
-        "id" => id,
-        "created_at" => item.created_at,
-        "thumbnail" => item.thumbnail_url,
-        "thumbnailContentType" => item.thumbnail_content_type,
-        "planDate" => item.plan_date
-      }
+      sanitize.yield(item)
     end[0..range]
   end
 

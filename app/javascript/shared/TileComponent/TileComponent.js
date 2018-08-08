@@ -9,12 +9,15 @@ const TileComponent = props => (
           <div className="tile_thumbnail_image">
             <img src={props.thumbnail} />
           </div>
-          <div className="activation_dates">
-            <span className='tile-active-time'>
-              <i className={`fa ${props.caledarIcon}`}></i>
-              {props.date}
-            </span>
-          </div>
+          {
+            props.date &&
+            <div className="activation_dates">
+              <span className='tile-active-time'>
+                <i className={`fa ${props.caledarIcon}`}></i>
+                {props.date}
+              </span>
+            </div>
+          }
           <div className="headline">
             <div className="text">
               {props.headline}

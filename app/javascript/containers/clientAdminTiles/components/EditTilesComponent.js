@@ -3,12 +3,30 @@ import PropTypes from "prop-types";
 
 import TileComponent from "../../../shared/TileComponent";
 
-const renderTiles = tiles => (
+const sanitizeDate = (status, date) => {
+  if (!date) { return status === 'plan' ? 'Unplanned' : null; }
+  const splitDate = date.split("T")[0].split("-");
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  if (status === 'plan' || status === 'user_submitted') {
+    return `${months[splitDate[1] - 1]} ${splitDate[2]}`;
+  }
+  return `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
+};
+
+const getTileCalInfo = (type, activeStatus, tile) => {
+  if (type === 'icon') {
+    if (activeStatus === 'active' || activeStatus === 'archive') { return 'fa-calendar'; }
+    return tile[`${activeStatus}Date`] ? 'fa-calendar-check-o' : 'fa-calendar-times-o';
+  }
+  return sanitizeDate(activeStatus, tile[`${activeStatus}Date`]);
+};
+
+const renderTiles = (tiles, activeStatus) => (
   tiles.map(tile => (
     React.createElement(TileComponent, {
       key: tile.id,
-      date: tile.planDate ? tile.planDate : 'Unplanned',
-      caledarIcon: tile.planDate ? 'fa-calendar-check-o' : 'fa-calendar-times-o',
+      date: getTileCalInfo('date', activeStatus, tile),
+      caledarIcon: getTileCalInfo('icon', activeStatus, tile),
       ...tile,
     })
   ))
@@ -20,7 +38,7 @@ const EditTilesComponent = props => (
       <div className="large-12 columns">
         <div id={props.activeStatus}
           className="js-tiles-index-section">
-          {renderTiles(props.tiles[props.activeStatus])}
+          {renderTiles(props.tiles[props.activeStatus], props.activeStatus)}
         </div>
       </div>
     </div>
