@@ -21,15 +21,25 @@ const getTileCalInfo = (type, activeStatus, tile) => {
   return sanitizeDate(activeStatus, tile[`${activeStatus}Date`]);
 };
 
+const fillInTileContainers = tileComponents => {
+  const amount = tileComponents.length ? (4 - (tileComponents.length % 4)) : 4;
+  for (let i = 0; i < amount; i++) {
+    tileComponents.push(React.createElement('div', {className: 'tile_container placeholder_container', key: i},
+      React.createElement('div', {className: 'tile_thumbnail placeholder_tile'})
+    ));
+  }
+  return tileComponents;
+};
+
 const renderTiles = (tiles, activeStatus) => (
-  tiles.map(tile => (
+  fillInTileContainers(tiles.map(tile => (
     React.createElement(TileComponent, {
       key: tile.id,
       date: getTileCalInfo('date', activeStatus, tile),
       caledarIcon: getTileCalInfo('icon', activeStatus, tile),
       ...tile,
     })
-  ))
+  )))
 );
 
 const EditTilesComponent = props => (
