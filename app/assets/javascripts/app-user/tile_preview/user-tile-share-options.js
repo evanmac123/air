@@ -21,7 +21,7 @@ Airbo.UserTileShareOptions = (function() {
       shareIn: "blank",
       showLabel: false,
       showCount: false,
-      shares: ["email", "linkedin", "twitter", "facebook", "pinterest"]
+      shares: []
     });
   }
 
