@@ -9,13 +9,10 @@ Fetcher.get = (path, cb) => (
   .then(response => cb(response))
 );
 
-Fetcher.xmlHttpRequest = (path, method, action) => {
-  if (typeof method !== 'string') {
-    action = method;
-    method = "POST";
-  }
+Fetcher.xmlHttpRequest = (opts, action) => {
+  const method = opts.method || "POST";
   const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-  return fetch(path, {
+  return fetch(opts.path, {
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       'X-CSRF-Token': token,

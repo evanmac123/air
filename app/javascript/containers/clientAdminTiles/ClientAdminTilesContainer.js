@@ -25,8 +25,8 @@ class ClientAdminTiles extends Component {
 
   initializeState() {
     this.setTileStatuses(['Suggested', 'Plan', 'Ready to Send', 'Share', 'Live', 'Archive']);
-    Fetcher.xmlHttpRequest('/api/client_admin/tiles', 'GET', {
-      success: resp => { this.setState({ loading: false }); },
+    Fetcher.xmlHttpRequest({ path: '/api/client_admin/tiles', method: 'GET' }, {
+      success: resp => { this.setState({ loading: false, tiles: resp }); },
     });
   }
 
