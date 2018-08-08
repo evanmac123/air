@@ -114,7 +114,8 @@ class Tile < ActiveRecord::Base
         "id" => id,
         "created_at" => item.created_at,
         "thumbnail" => item.thumbnail_url,
-        "thumbnailContentType" => item.thumbnail_content_type
+        "thumbnailContentType" => item.thumbnail_content_type,
+        "planDate" => item.plan_date
       }
     end[0..range]
   end

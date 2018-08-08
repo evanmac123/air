@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 import LoadingComponent from "../../shared/LoadingComponent";
-// import TileComponent from "../../shared/TileComponent";
 import TileStatusNavComponent from "./components/TileStatusNavComponent";
+import EditTilesComponent from "./components/EditTilesComponent";
 import { Fetcher } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
 
@@ -20,6 +20,7 @@ class ClientAdminTiles extends Component {
   }
 
   componentDidMount() {
+    this.selectStatus('plan');
     this.initializeState();
   }
 
@@ -46,9 +47,8 @@ class ClientAdminTiles extends Component {
         insertStatus[status] = { tileCount, uiDisplay: statuses[status] };
         return Object.assign(insertStatus , result);
       }, {}),
-      activeStatus: 'plan',
       loading: false,
-      ...tiles,
+      tiles,
     });
   }
 
@@ -71,7 +71,7 @@ class ClientAdminTiles extends Component {
         {
           this.state.loading ?
           <LoadingComponent /> :
-          <h1>Display Goes Here!</h1>
+          <EditTilesComponent {...this.state}/>
         }
       </div>
     );
