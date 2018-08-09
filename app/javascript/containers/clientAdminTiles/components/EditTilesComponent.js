@@ -37,6 +37,8 @@ const renderTiles = (tiles, activeStatus) => (
       key: tile.id,
       date: getTileCalInfo('date', activeStatus, tile),
       caledarIcon: getTileCalInfo('icon', activeStatus, tile),
+      clientAdminButtons: true,
+      changeStatusButton: 'Ready to Send',
       ...tile,
     })
   )))

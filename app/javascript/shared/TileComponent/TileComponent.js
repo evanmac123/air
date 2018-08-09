@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const TileComponent = props => (
-  <div className="tile_container explore" data-tile-container-id={props.id}>
+  <div className="tile_container plan" data-tile-container-id={props.id}>
     <div className="tile_thumbnail" id={`single-tile-${props.id}`}>
       <div className="tile-wrapper">
-        <a href={props.tileShowPath} className='tile_thumb_link_explore' data-tile-id={props.id}>
+        <a href={props.tileShowPath} className='tile_thumb_link tile_thumb_link_client_admin' data-tile-id={props.id}>
           <div className="tile_thumbnail_image">
             <img src={props.thumbnail} />
           </div>
@@ -23,7 +23,36 @@ const TileComponent = props => (
               {props.headline}
             </div>
           </div>
-          <div className="shadow_overlay"></div>
+          <div className="shadow_overlay">
+          {props.clientAdminButtons &&
+            <ul className="tile_buttons">
+            {props.changeStatusButton &&
+              <li className={props.changeStatusClass}>
+                <a className="button update_status" data-action="draft" data-status="draft" data-tile-id={props.id} href={props.changeStatusPath}>
+                  {props.changeStatusButton}
+                </a>
+              </li>
+            }
+            {props.destroyTileButton &&
+              <li className="destroy pill right">
+                <a className="delete_tile" data-action="delete" data-tile-id={props.id}>
+                  <i className="fa fa-trash"></i>
+                </a>
+              </li>
+            }
+              <li className="pill more right">
+                <span className="dot"></span>
+                <span className="dot"></span>
+                <span className="dot"></span>
+              </li>
+              <li className="edit_button pill right">
+                <a className="edit" data-action="edit" data-tile-id={props.id} data-status="plan" href="">
+                  <i className="fa fa-pencil"></i>
+                </a>
+              </li>
+            </ul>
+          }
+          </div>
           <div className="tile_overlay"></div>
         </a>
 
