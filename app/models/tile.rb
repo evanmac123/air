@@ -119,7 +119,8 @@ class Tile < ActiveRecord::Base
             "thumbnail" => tile.thumbnail_url,
             "planDate" => tile.plan_date,
             "activeDate" => tile.activated_at,
-            "archiveDate" => tile.archived_at
+            "archiveDate" => tile.archived_at,
+            "fullyAssembled" => tile.is_fully_assembled?
           }
         end
       else

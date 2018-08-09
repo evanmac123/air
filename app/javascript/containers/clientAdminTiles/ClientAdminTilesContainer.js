@@ -6,6 +6,15 @@ import EditTilesComponent from "./components/EditTilesComponent";
 import { Fetcher } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
 
+const sanitizeTileData = rawTiles => {
+  const result = {...rawTiles};
+  result.user_submitted = result.user_submitted || [];
+  rawTiles.ignored.forEach(tile => {
+    result.user_submitted.push({...tile, ignored: true});
+  });
+  return result;
+};
+
 class ClientAdminTiles extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +49,8 @@ class ClientAdminTiles extends Component {
     });
   }
 
-  setTileStatuses(tiles, statuses) {
+  setTileStatuses(rawTiles, statuses) {
+    const tiles = rawTiles.ignored ? sanitizeTileData(rawTiles) : rawTiles;
     this.setState({
       tileStatusNav: [...Object.keys(statuses)].reverse().reduce((result, status) => {
         const tileCount = tiles[status] ? tiles[status].length : 0;

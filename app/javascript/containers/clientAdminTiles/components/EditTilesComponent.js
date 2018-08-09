@@ -2,7 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import TileComponent from "../../../shared/TileComponent";
-import ClientAdminButtonComponent from "./ClientAdminButtonComponent";
+import {
+  ReadyToSendBtn,
+  IncompleteEditBtn,
+  DirectDestroyBtn,
+  ArchiveBtn,
+  UnarchiveBtn,
+  BackToPlanBtn,
+  AcceptBtn,
+  IgnoreBtn,
+} from "./buttonPresets";
 
 const sanitizeDate = (status, date) => {
   if (!date) { return status === 'plan' ? 'Unplanned' : null; }
@@ -32,6 +41,36 @@ const fillInTileContainers = tileComponents => {
   return tileComponents;
 };
 
+const renderTileButtons = args => {
+  const result = [];
+  let key = 1;
+  if (args.activeStatus === 'plan') {
+    if (args.tile.fullyAssembled) {
+      result.push(ReadyToSendBtn(args, key += 1));
+    } else {
+      result.push(IncompleteEditBtn(args, key += 1));
+      result.push(DirectDestroyBtn(args, key += 1));
+    }
+  }
+  if (args.activeStatus === 'active') {
+    result.push(ArchiveBtn(args, key += 1));
+  }
+  if (args.activeStatus === 'archive') {
+    result.push(UnarchiveBtn(args, key += 1));
+  }
+  if (args.activeStatus === 'draft') {
+    result.push(BackToPlanBtn(args, key += 1));
+    // if (args.tile.fullyAssembled) {
+    //   result.push(ActivateBtn(args, key += 1));
+    // }
+  }
+  if (args.activeStatus === 'user_submitted') {
+    result.push(AcceptBtn(args, key += 1));
+    result.push(IgnoreBtn(args, key += 1));
+  }
+  return result;
+};
+
 const renderTiles = (tiles, activeStatus, changeTileStatus) => (
   fillInTileContainers(tiles.map(tile => (
     React.createElement(TileComponent, {
@@ -42,15 +81,9 @@ const renderTiles = (tiles, activeStatus, changeTileStatus) => (
       changeStatusButton: 'Ready to Send',
       tileContainerClass: activeStatus,
       tileThumblinkClass: 'tile_thumb_link tile_thumb_link_client_admin',
-      shadowOverlayButtons: [React.createElement(ClientAdminButtonComponent, {
-        key: 1099,
-        liClass: activeStatus,
-        aClass: 'button update_status',
-        aData: {action: 'draft', status: 'draft', tileId: tile.id},
-        onClickAction: changeTileStatus,
-        buttonText: 'Ready to Send',
-      })],
+      shadowOverlayButtons: renderTileButtons({activeStatus, changeTileStatus, tile}),
       ...tile,
+      tileShowPath: '#',
     })
   )))
 );
