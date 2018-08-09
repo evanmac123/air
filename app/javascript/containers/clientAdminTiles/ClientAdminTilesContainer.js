@@ -17,6 +17,7 @@ class ClientAdminTiles extends Component {
     this.initializeState = this.initializeState.bind(this);
     this.setTileStatuses = this.setTileStatuses.bind(this);
     this.selectStatus = this.selectStatus.bind(this);
+    this.changeTileStatus = this.changeTileStatus.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +61,10 @@ class ClientAdminTiles extends Component {
     });
   }
 
+  changeTileStatus(currentStatus) {
+    currentStatus;
+  }
+
   render() {
     return (
       <div className="client-admin-tiles-container">
@@ -71,7 +76,10 @@ class ClientAdminTiles extends Component {
         {
           this.state.loading ?
           <LoadingComponent /> :
-          <EditTilesComponent {...this.state}/>
+          <EditTilesComponent
+            changeTileStatus={this.changeTileStatus}
+            {...this.state}
+          />
         }
       </div>
     );

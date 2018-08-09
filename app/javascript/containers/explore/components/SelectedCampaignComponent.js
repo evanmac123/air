@@ -20,6 +20,8 @@ const renderTiles = (tiles, copyTile, user) => (
     date: displayCreationDate(tile.created_at),
     copyButtonDisplay: true,
     caledarIcon: 'fa-calendar',
+    tileContainerClass: 'explore',
+    tileThumblinkClass: 'tile_thumb_link_explore',
   }))
 );
 

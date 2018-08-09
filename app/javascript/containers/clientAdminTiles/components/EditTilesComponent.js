@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import TileComponent from "../../../shared/TileComponent";
+import ClientAdminButtonComponent from "./ClientAdminButtonComponent";
 
 const sanitizeDate = (status, date) => {
   if (!date) { return status === 'plan' ? 'Unplanned' : null; }
@@ -31,7 +32,7 @@ const fillInTileContainers = tileComponents => {
   return tileComponents;
 };
 
-const renderTiles = (tiles, activeStatus) => (
+const renderTiles = (tiles, activeStatus, changeTileStatus) => (
   fillInTileContainers(tiles.map(tile => (
     React.createElement(TileComponent, {
       key: tile.id,
@@ -39,6 +40,16 @@ const renderTiles = (tiles, activeStatus) => (
       caledarIcon: getTileCalInfo('icon', activeStatus, tile),
       clientAdminButtons: true,
       changeStatusButton: 'Ready to Send',
+      tileContainerClass: activeStatus,
+      tileThumblinkClass: 'tile_thumb_link tile_thumb_link_client_admin',
+      shadowOverlayButtons: [React.createElement(ClientAdminButtonComponent, {
+        key: 1099,
+        liClass: activeStatus,
+        aClass: 'button update_status',
+        aData: {action: 'draft', status: 'draft', tileId: tile.id},
+        onClickAction: changeTileStatus,
+        buttonText: 'Ready to Send',
+      })],
       ...tile,
     })
   )))
@@ -50,7 +61,7 @@ const EditTilesComponent = props => (
       <div className="large-12 columns">
         <div id={props.activeStatus}
           className="js-tiles-index-section">
-          {renderTiles(props.tiles[props.activeStatus], props.activeStatus)}
+          {renderTiles(props.tiles[props.activeStatus], props.activeStatus, props.changeTileStatus)}
         </div>
       </div>
     </div>
@@ -59,6 +70,7 @@ const EditTilesComponent = props => (
 
 EditTilesComponent.propTypes = {
   activeStatus: PropTypes.string.isRequired,
+  changeTileStatus: PropTypes.func.isRequired,
   tiles: PropTypes.shape({
     user_submitted:PropTypes.array,
     plan:PropTypes.array,
