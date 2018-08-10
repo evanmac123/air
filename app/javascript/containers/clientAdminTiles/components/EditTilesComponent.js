@@ -111,6 +111,7 @@ const renderTiles = (tiles, activeStatus, changeTileStatus) => (
       tileContainerClass: activeStatus,
       tileThumblinkClass: 'tile_thumb_link tile_thumb_link_client_admin',
       shadowOverlayButtons: renderTileButtons({activeStatus, changeTileStatus, tile}),
+      loading: tile.loading,
       ...tile,
       tileShowPath: '#',
     })

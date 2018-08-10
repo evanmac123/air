@@ -35,7 +35,9 @@ class ClientAdminTiles extends Component {
   }
 
   initializeState() {
-    Fetcher.xmlHttpRequest({ path: '/api/client_admin/tiles', method: 'GET' }, {
+    Fetcher.xmlHttpRequest({
+      path: '/api/client_admin/tiles',
+      method: 'GET',
       success: resp => {
         this.setTileStatuses(resp, {
             user_submitted: 'Suggested',
@@ -50,7 +52,7 @@ class ClientAdminTiles extends Component {
   }
 
   setTileStatuses(rawTiles, statuses) {
-    const tiles = rawTiles.ignored ? sanitizeTileData(rawTiles) : rawTiles;
+    const tiles = rawTiles.ignored.length ? sanitizeTileData(rawTiles) : rawTiles;
     this.setState({
       tileStatusNav: [...Object.keys(statuses)].reverse().reduce((result, status) => {
         const tileCount = tiles[status] ? tiles[status].length : 0;
@@ -71,8 +73,32 @@ class ClientAdminTiles extends Component {
     });
   }
 
-  changeTileStatus(currentStatus) {
-    currentStatus;
+  changeTileStatus(tile, e) {
+    e.preventDefault();
+    const statusCycle = {
+      user_submitted: 'plan',
+      plan: 'draft',
+      draft: 'plan',
+      active: 'archive',
+      archive: 'active',
+    }
+    const stateTiles = this.state.tiles;
+    let selectTile;
+    stateTiles[this.state.activeStatus].forEach(stateTile => {
+      if(stateTile.id === tile.id) { selectTile = stateTile; }
+    });
+    selectTile.loading = true;
+    this.setState({ tiles: stateTiles });
+    Fetcher.xmlHttpRequest({
+      method: 'PUT',
+      path: `/api/client_admin/tiles/${tile.id}`,
+      params: { new_status: statusCycle[this.state.activeStatus] },
+      success: resp => {
+        // debugger
+        selectTile.loading = false;
+        this.setState({ tiles: stateTiles });
+      },
+    });
   }
 
   render() {

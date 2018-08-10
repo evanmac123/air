@@ -6,7 +6,7 @@ const BaseButton = (args, key, action, status, buttonText) => (
     key,
     aClass: 'button update_status',
     aData: {action, status, tileId: args.tile.id},
-    onClickAction: args.changeTileStatus,
+    onClickAction: (e) => { args.changeTileStatus(args.tile, e) },
     buttonText,
   })
 );
@@ -25,7 +25,7 @@ const IncompleteEditBtn = (args, key) => (
     liClass: 'incomplete_button',
     aClass: 'button edit red',
     aData: {action: 'edit', status: args.activeStatus, tileId: args.tile.id},
-    onClickAction: args.changeTileStatus,
+    onClickAction: (e) => { args.changeTileStatus(args.tile, e) },
     buttonText: 'Edit',
   })
 );
@@ -36,7 +36,7 @@ const DirectDestroyBtn = (args, key) => (
     liClass: 'destroy pill right',
     aClass: 'delete_tile',
     aData: {action: 'delete', tileId: args.tile.id},
-    onClickAction: args.changeTileStatus,
+    onClickAction: (e) => { args.changeTileStatus(args.tile, e) },
     faIcon: 'trash',
   })
 );
@@ -47,7 +47,7 @@ const AcceptBtn = (args, key) => (
     liClass: 'accept_button',
     aClass: 'accept button',
     aData: {action: 'accept', status: 'plan', tileId: args.tile.id},
-    onClickAction: args.changeTileStatus,
+    onClickAction: (e) => { args.changeTileStatus(args.tile, e) },
     buttonText: 'Accept',
   })
 );
@@ -58,7 +58,7 @@ const IgnoreBtn = (args, key) => (
     liClass: 'ignore_button',
     aClass: 'update_status button outlined',
     aData: {action: 'ignore', status: 'ignored', tileId: args.tile.id},
-    onClickAction: args.changeTileStatus,
+    onClickAction: (e) => { args.changeTileStatus(args.tile, e) },
     buttonText: 'Ignore',
   })
 );
@@ -69,7 +69,7 @@ const UndoIgnoreBtn = (args, key) => (
     liClass: 'undo_ignore_button',
     aClass: 'update_status button outlined',
     aData: {action: 'unignore', status: 'user_submitted', tileId: args.tile.id},
-    onClickAction: args.changeTileStatus,
+    onClickAction: (e) => { args.changeTileStatus(args.tile, e) },
     buttonText: 'Undo Ignore',
   })
 );
@@ -80,7 +80,7 @@ const EditBtn = (args, key) => (
     liClass: 'edit_button pill right',
     aClass: 'edit',
     aData: {action: 'edit', status: args.activeStatus, tileId: args.tile.id},
-    onClickAction: args.changeTileStatus,
+    onClickAction: (e) => { args.changeTileStatus(args.tile, e) },
     faIcon: 'pencil',
   })
 );
@@ -90,7 +90,7 @@ const ActivateBtn = (args, key) => (
     key,
     aClass: 'post_title',
     aData: {action: 'active', status: 'active', tileId: args.tile.id},
-    onClickAction: args.changeTileStatus,
+    onClickAction: (e) => { args.changeTileStatus(args.tile, e) },
     faIcon: 'thumb-tack',
     spanText: 'Post',
   })
@@ -101,7 +101,7 @@ const CopyBtn = (args, key) => (
     key,
     aClass: 'duplicate_tile',
     aData: {tileId: args.tile.id},
-    onClickAction: args.changeTileStatus,
+    onClickAction: (e) => { args.changeTileStatus(args.tile, e) },
     faIcon: 'copy',
     spanText: 'Copy',
   })
@@ -112,7 +112,7 @@ const DeleteBtn = (args, key) => (
     key,
     aClass: 'delete_tile',
     aData: {tileId: args.tile.id},
-    onClickAction: args.changeTileStatus,
+    onClickAction: (e) => { args.changeTileStatus(args.tile, e) },
     faIcon: 'trash-o',
     spanText: 'Delete',
   })

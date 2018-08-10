@@ -1,8 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import LoadingComponent from "../LoadingComponent";
 
 const TileComponent = props => (
-  <div className={`tile_container ${props.tileContainerClass}`} data-tile-container-id={props.id}>
+  <div className={`tile_container ${props.tileContainerClass}`}
+       data-tile-container-id={props.id}
+       disabled={props.loading}
+       style={props.loading ? {pointerEvents: 'none'} : {}}
+  >
     <div className="tile_thumbnail" id={`single-tile-${props.id}`}>
       <div className="tile-wrapper">
         <a href={props.tileShowPath} className={props.tileThumblinkClass} data-tile-id={props.id}>
@@ -23,6 +28,21 @@ const TileComponent = props => (
               {props.headline}
             </div>
           </div>
+          {
+            props.loading &&
+            <div className="loading_overlay" style={{
+              display: 'block',
+              width: '100%',
+              height: '100%',
+              position: 'absolute',
+              bottom: '0',
+              left: '0',
+              background: 'rgba(255, 255, 255, 0.92)',
+              zIndex: '1',
+            }}>
+              <LoadingComponent />
+            </div>
+          }
           <div className="shadow_overlay">
           {props.shadowOverlayButtons &&
             <ul className="tile_buttons">
