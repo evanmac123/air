@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import LoadingComponent from "../../shared/LoadingComponent";
 import TileStatusNavComponent from "./components/TileStatusNavComponent";
 import EditTilesComponent from "./components/EditTilesComponent";
+import TileManager from "./utils/TileManager";
 import { Fetcher } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
 
@@ -81,22 +82,16 @@ class ClientAdminTiles extends Component {
       draft: 'plan',
       active: 'archive',
       archive: 'active',
-    }
-    const stateTiles = this.state.tiles;
-    let selectTile;
-    stateTiles[this.state.activeStatus].forEach(stateTile => {
-      if(stateTile.id === tile.id) { selectTile = stateTile; }
-    });
-    selectTile.loading = true;
-    this.setState({ tiles: stateTiles });
+    };
+    const tileManager = new TileManager(tile.id, this);
+    tileManager.loading();
     Fetcher.xmlHttpRequest({
       method: 'PUT',
       path: `/api/client_admin/tiles/${tile.id}`,
       params: { new_status: statusCycle[this.state.activeStatus] },
-      success: resp => {
-        // debugger
-        selectTile.loading = false;
-        this.setState({ tiles: stateTiles });
+      success: () => {
+        tileManager.tileData.selectTile.loading = false;
+        tileManager.changeTileStatus(statusCycle[this.state.activeStatus]);
       },
     });
   }
@@ -105,6 +100,7 @@ class ClientAdminTiles extends Component {
     return (
       <div className="client-admin-tiles-container">
         <TileStatusNavComponent
+          tiles={this.state.tiles}
           statuses={this.state.tileStatusNav}
           activeStatus={this.state.activeStatus}
           selectStatus={this.selectStatus}
