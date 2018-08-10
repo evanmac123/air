@@ -20,6 +20,7 @@ const ClientAdminButtonComponent = props => (
       ...renderData(props.aData || {}),
     },
       (props.faIcon ? React.createElement('i', {className: `fa fa-${props.faIcon}`}) : props.buttonText),
+      (props.spanText ? React.createElement('span', {}, props.spanText) : null),
     )
   )
 );
@@ -32,6 +33,7 @@ ClientAdminButtonComponent.propTypes = {
   aData: PropTypes.object,
   faIcon: PropTypes.string,
   buttonText: PropTypes.string,
+  spanText: PropTypes.string,
 };
 
 export default ClientAdminButtonComponent;

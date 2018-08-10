@@ -11,6 +11,11 @@ import {
   BackToPlanBtn,
   AcceptBtn,
   IgnoreBtn,
+  UndoIgnoreBtn,
+  EditBtn,
+  ActivateBtn,
+  CopyBtn,
+  DeleteBtn,
 } from "./buttonPresets";
 
 const sanitizeDate = (status, date) => {
@@ -41,6 +46,17 @@ const fillInTileContainers = tileComponents => {
   return tileComponents;
 };
 
+const renderMenuButtons = (args, contKey) => {
+  const result = [];
+  let key = contKey;
+  if (args.activeStatus === 'draft') {
+    result.push(ActivateBtn(args, key += 1));
+  }
+  result.push(CopyBtn(args, key += 1));
+  result.push(DeleteBtn(args, key += 1));
+  return result;
+};
+
 const renderTileButtons = args => {
   const result = [];
   let key = 1;
@@ -60,13 +76,26 @@ const renderTileButtons = args => {
   }
   if (args.activeStatus === 'draft') {
     result.push(BackToPlanBtn(args, key += 1));
-    // if (args.tile.fullyAssembled) {
-    //   result.push(ActivateBtn(args, key += 1));
-    // }
   }
   if (args.activeStatus === 'user_submitted') {
-    result.push(AcceptBtn(args, key += 1));
-    result.push(IgnoreBtn(args, key += 1));
+    if (args.tile.ignored) {
+      result.push(UndoIgnoreBtn(args, key += 1));
+      result.push(DirectDestroyBtn(args, key += 1));
+    } else {
+      result.push(AcceptBtn(args, key += 1));
+      result.push(IgnoreBtn(args, key += 1));
+    }
+  }
+  if (['plan', 'draft', 'active', 'archive'].indexOf(args.activeStatus) >= 0 && args.tile.fullyAssembled) {
+    result.push(React.createElement('li', {className: 'pill more right', key: key += 1},
+      React.createElement('ul', {className: 'tile_thumbnail_menu tooltip-content hide', key: key += 1},
+        renderMenuButtons(args, key),
+      ),
+      React.createElement('span', {className: 'dot', key: key += 4}),
+      React.createElement('span', {className: 'dot', key: key += 4}),
+      React.createElement('span', {className: 'dot', key: key += 4}),
+    ));
+    result.push(EditBtn(args, key += 4));
   }
   return result;
 };

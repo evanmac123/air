@@ -63,6 +63,61 @@ const IgnoreBtn = (args, key) => (
   })
 );
 
+const UndoIgnoreBtn = (args, key) => (
+  React.createElement(ClientAdminButtonComponent, {
+    key,
+    liClass: 'undo_ignore_button',
+    aClass: 'update_status button outlined',
+    aData: {action: 'unignore', status: 'user_submitted', tileId: args.tile.id},
+    onClickAction: args.changeTileStatus,
+    buttonText: 'Undo Ignore',
+  })
+);
+
+const EditBtn = (args, key) => (
+  React.createElement(ClientAdminButtonComponent, {
+    key,
+    liClass: 'edit_button pill right',
+    aClass: 'edit',
+    aData: {action: 'edit', status: args.activeStatus, tileId: args.tile.id},
+    onClickAction: args.changeTileStatus,
+    faIcon: 'pencil',
+  })
+);
+
+const ActivateBtn = (args, key) => (
+  React.createElement(ClientAdminButtonComponent, {
+    key,
+    aClass: 'post_title',
+    aData: {action: 'active', status: 'active', tileId: args.tile.id},
+    onClickAction: args.changeTileStatus,
+    faIcon: 'thumb-tack',
+    spanText: 'Post',
+  })
+);
+
+const CopyBtn = (args, key) => (
+  React.createElement(ClientAdminButtonComponent, {
+    key,
+    aClass: 'duplicate_tile',
+    aData: {tileId: args.tile.id},
+    onClickAction: args.changeTileStatus,
+    faIcon: 'copy',
+    spanText: 'Copy',
+  })
+);
+
+const DeleteBtn = (args, key) => (
+  React.createElement(ClientAdminButtonComponent, {
+    key,
+    aClass: 'delete_tile',
+    aData: {tileId: args.tile.id},
+    onClickAction: args.changeTileStatus,
+    faIcon: 'trash-o',
+    spanText: 'Delete',
+  })
+);
+
 const buttonPresets = {
   ReadyToSendBtn,
   IncompleteEditBtn,
@@ -72,6 +127,11 @@ const buttonPresets = {
   BackToPlanBtn,
   AcceptBtn,
   IgnoreBtn,
+  UndoIgnoreBtn,
+  EditBtn,
+  ActivateBtn,
+  CopyBtn,
+  DeleteBtn,
 };
 
 export default buttonPresets;
@@ -85,4 +145,9 @@ export {
   BackToPlanBtn,
   AcceptBtn,
   IgnoreBtn,
+  UndoIgnoreBtn,
+  EditBtn,
+  ActivateBtn,
+  CopyBtn,
+  DeleteBtn,
 };
