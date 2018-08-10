@@ -12,7 +12,7 @@ const renderTabs = props => (
       `${props.statuses[statusNav].uiDisplay} `,
       React.createElement("span",
         {className: "x-small"},
-        `(${props.tiles[statusNav] ? props.tiles[statusNav].length : 0})`
+        `(${statusNav === 'share' ? props.tiles.draft.length : props.tiles[statusNav].length})`
       )
     )
   ))

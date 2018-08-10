@@ -67,6 +67,7 @@ class ClientAdminTiles extends Component {
   }
 
   selectStatus(statusNav) {
+    if (statusNav === 'share') { window.location = '/client_admin/share'; }
     this.setState({activeStatus: statusNav});
     AiRouter.navigation(`tab-${statusNav}`, {
       hashRoute: true,

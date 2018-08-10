@@ -75,14 +75,6 @@ class TilesToolsSubnavPresenter
               has_notification: false
             },
             {
-              item_id: "share_tiles",
-              link: client_admin_share_path,
-              icon: "share-alt",
-              text: "Share",
-              has_notification: true,
-              notification_content: tiles_to_be_sent
-            },
-            {
               item_id: "board_activity",
               link: client_admin_reports_path,
               icon: "line-chart",
