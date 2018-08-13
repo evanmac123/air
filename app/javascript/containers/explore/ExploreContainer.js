@@ -156,7 +156,8 @@ class Explore extends Component {
   }
 
   copyToBoard(copyPath, $tile, successCb) {
-    Fetcher.xmlHttpRequest({path: copyPath}, {
+    Fetcher.xmlHttpRequest({
+      path: copyPath,
       success: () => { successCb($tile); },
       err: err => { console.error(err, "Something went wrong"); },
     });
