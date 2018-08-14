@@ -10,13 +10,13 @@ const TileComponent = props => (
   >
     <div className="tile_thumbnail" id={`single-tile-${props.id}`}>
       <div className="tile-wrapper">
-        <a href={props.tileShowPath} className={props.tileThumblinkClass} data-tile-id={props.id}>
+        <a href={props.tileShowPath} className={props.tileThumblinkClass} data-tile-id={props.id} onClick={props.tileThumblinkOnClick}>
           <div className="tile_thumbnail_image">
             <img src={props.thumbnail} />
           </div>
           {
             props.date &&
-            <div className="activation_dates">
+            <div className={`activation_dates ${props.calendarClass}`}>
               <span className='tile-active-time'>
                 <i className={`fa ${props.caledarIcon}`}></i>
                 {props.date}
@@ -92,6 +92,9 @@ TileComponent.propTypes = {
   tileContainerClass: PropTypes.string,
   tileThumblinkClass: PropTypes.string,
   shadowOverlayButtons: PropTypes.array,
+  tileThumblinkOnClick: PropTypes.func,
+  loading: PropTypes.bool,
+  calendarClass: PropTypes.string,
 };
 
 export default TileComponent;

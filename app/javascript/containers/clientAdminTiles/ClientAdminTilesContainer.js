@@ -28,6 +28,7 @@ class ClientAdminTiles extends Component {
     this.setTileStatuses = this.setTileStatuses.bind(this);
     this.selectStatus = this.selectStatus.bind(this);
     this.changeTileStatus = this.changeTileStatus.bind(this);
+    this.tileContainerClick = this.tileContainerClick.bind(this);
   }
 
   componentDidMount() {
@@ -75,8 +76,7 @@ class ClientAdminTiles extends Component {
     });
   }
 
-  changeTileStatus(tile, e) {
-    e.preventDefault();
+  changeTileStatus(tile) {
     const statusCycle = {
       user_submitted: 'plan',
       plan: 'draft',
@@ -97,6 +97,18 @@ class ClientAdminTiles extends Component {
     });
   }
 
+  tileContainerClick(tile, e) {
+    e.preventDefault();
+    const targetClass = e.target.classList;
+    if (targetClass.contains('update_status')) {
+      this.changeTileStatus(tile);
+    } else if (targetClass.contains('pill') && targetClass.contains('more')) {
+      // debugger
+    } else {
+      window.Airbo.TileThumbnail.getPreview(tile.tileShowPath, tile.id);
+    }
+  }
+
   render() {
     return (
       <div className="client-admin-tiles-container">
@@ -111,6 +123,7 @@ class ClientAdminTiles extends Component {
           <LoadingComponent /> :
           <EditTilesComponent
             changeTileStatus={this.changeTileStatus}
+            tileContainerClick={this.tileContainerClick}
             {...this.state}
           />
         }

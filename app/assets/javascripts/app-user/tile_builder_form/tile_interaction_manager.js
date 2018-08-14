@@ -53,8 +53,7 @@ Airbo.TileInteractionManager = (function() {
   function getSavedOrDefaultInteractionConfig() {
     var defaults;
     var config = {};
-    var savedConfig = getSavedConfig();
-
+    var savedConfig = getSavedConfig() || {};
     if (Object.keys(savedConfig).length === 0) {
       savedQuestion = undefined;
       defaults = Airbo.TileBuilderInteractionConfig.defaultKeys();

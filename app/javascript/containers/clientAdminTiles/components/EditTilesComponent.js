@@ -30,9 +30,11 @@ const sanitizeDate = (status, date) => {
 
 const getTileCalInfo = (type, activeStatus, tile) => {
   if (type === 'icon') {
+    if (!tile.fullyAssembled) { return 'fa-cog'; }
     if (activeStatus === 'active' || activeStatus === 'archive') { return 'fa-calendar'; }
     return tile[`${activeStatus}Date`] ? 'fa-calendar-check-o' : 'fa-calendar-times-o';
   }
+  if (!tile.fullyAssembled) { return 'Incomplete'; }
   return sanitizeDate(activeStatus, tile[`${activeStatus}Date`]);
 };
 
@@ -100,20 +102,19 @@ const renderTileButtons = args => {
   return result;
 };
 
-const renderTiles = (tiles, activeStatus, changeTileStatus) => (
+const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick) => (
   fillInTileContainers(tiles.map(tile => (
     React.createElement(TileComponent, {
       key: tile.id,
       date: getTileCalInfo('date', activeStatus, tile),
       caledarIcon: getTileCalInfo('icon', activeStatus, tile),
-      clientAdminButtons: true,
-      changeStatusButton: 'Ready to Send',
+      calendarClass: (!tile.fullyAssembled ? 'incomplete' : ''),
       tileContainerClass: activeStatus,
       tileThumblinkClass: 'tile_thumb_link tile_thumb_link_client_admin',
       shadowOverlayButtons: renderTileButtons({activeStatus, changeTileStatus, tile}),
       loading: tile.loading,
+      tileThumblinkOnClick: (e) => { tileContainerClick(tile, e); },
       ...tile,
-      tileShowPath: '#',
     })
   )))
 );
@@ -124,7 +125,7 @@ const EditTilesComponent = props => (
       <div className="large-12 columns">
         <div id={props.activeStatus}
           className="js-tiles-index-section">
-          {renderTiles(props.tiles[props.activeStatus], props.activeStatus, props.changeTileStatus)}
+          {renderTiles(props.tiles[props.activeStatus], props.activeStatus, props.changeTileStatus, props.tileContainerClick)}
         </div>
       </div>
     </div>
@@ -142,6 +143,7 @@ EditTilesComponent.propTypes = {
     active:PropTypes.array,
     archive:PropTypes.array,
   }),
+  tileContainerClick: PropTypes.func,
 };
 
 export default EditTilesComponent;
