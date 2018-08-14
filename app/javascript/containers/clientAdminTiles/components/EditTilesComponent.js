@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import TileComponent from "../../../shared/TileComponent";
+import DropdownComponent from "../../../shared/DropdownComponent";
 import {
   ReadyToSendBtn,
   IncompleteEditBtn,
@@ -13,9 +14,6 @@ import {
   IgnoreBtn,
   UndoIgnoreBtn,
   EditBtn,
-  ActivateBtn,
-  CopyBtn,
-  DeleteBtn,
 } from "./buttonPresets";
 
 const sanitizeDate = (status, date) => {
@@ -52,10 +50,22 @@ const renderMenuButtons = (args, contKey) => {
   const result = [];
   let key = contKey;
   if (args.activeStatus === 'draft') {
-    result.push(ActivateBtn(args, key += 1));
+    result.push({
+      key: key += 1,
+      className: 'post_title',
+      text: 'Post',
+    });
   }
-  result.push(CopyBtn(args, key += 1));
-  result.push(DeleteBtn(args, key += 1));
+  result.push({
+    key: key += 1,
+    className: 'duplicate_tile',
+    text: 'Copy',
+  });
+  result.push({
+    key: key += 1,
+    className: 'delete_tile',
+    text: 'Delete',
+  });
   return result;
 };
 
@@ -89,14 +99,13 @@ const renderTileButtons = args => {
     }
   }
   if (['plan', 'draft', 'active', 'archive'].indexOf(args.activeStatus) >= 0 && args.tile.fullyAssembled) {
-    result.push(React.createElement('li', {className: 'pill more right', key: key += 1},
-      React.createElement('ul', {className: 'tile_thumbnail_menu tooltip-content hide', key: key += 1},
-        renderMenuButtons(args, key),
-      ),
-      React.createElement('span', {className: 'dot', key: key += 4}),
-      React.createElement('span', {className: 'dot', key: key += 4}),
-      React.createElement('span', {className: 'dot', key: key += 4}),
-    ));
+    result.push(React.createElement(DropdownComponent, {
+      containerElement: 'li',
+      containerProps: {className: 'pill more right', key: key += 1},
+      dropdownId: args.tile.id,
+      menuProps: {className: 'tile_thumbnail_menu', key: key += 1},
+      menuElements: renderMenuButtons(args, key),
+    }));
     result.push(EditBtn(args, key += 4));
   }
   return result;

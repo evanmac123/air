@@ -19,6 +19,7 @@
     "rails-erb-loader": "^5.4.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-tooltip": "^3.6.1",
     "sanitize-html": "^1.18.2",
     "webpack": "^3.0.0",
     "whatwg-fetch": "^2.0.4"

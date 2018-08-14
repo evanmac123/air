@@ -78,36 +78,6 @@ const EditBtn = (args, key) => (
   })
 );
 
-const ActivateBtn = (args, key) => (
-  React.createElement(ClientAdminButtonComponent, {
-    key,
-    aClass: 'post_title',
-    aData: {action: 'active', status: 'active', tileId: args.tile.id},
-    faIcon: 'thumb-tack',
-    spanText: 'Post',
-  })
-);
-
-const CopyBtn = (args, key) => (
-  React.createElement(ClientAdminButtonComponent, {
-    key,
-    aClass: 'duplicate_tile',
-    aData: {tileId: args.tile.id},
-    faIcon: 'copy',
-    spanText: 'Copy',
-  })
-);
-
-const DeleteBtn = (args, key) => (
-  React.createElement(ClientAdminButtonComponent, {
-    key,
-    aClass: 'delete_tile',
-    aData: {tileId: args.tile.id},
-    faIcon: 'trash-o',
-    spanText: 'Delete',
-  })
-);
-
 const buttonPresets = {
   ReadyToSendBtn,
   IncompleteEditBtn,
@@ -119,9 +89,6 @@ const buttonPresets = {
   IgnoreBtn,
   UndoIgnoreBtn,
   EditBtn,
-  ActivateBtn,
-  CopyBtn,
-  DeleteBtn,
 };
 
 export default buttonPresets;
@@ -137,7 +104,4 @@ export {
   IgnoreBtn,
   UndoIgnoreBtn,
   EditBtn,
-  ActivateBtn,
-  CopyBtn,
-  DeleteBtn,
 };

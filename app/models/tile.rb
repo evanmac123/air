@@ -114,6 +114,7 @@ class Tile < ActiveRecord::Base
         react_sanitize(tiles[status], 16) do |tile|
           {
             "tileShowPath" => "/client_admin/tiles/#{tile.id}",
+            "editPath" => "/client_admin/tiles/#{tile.id}/edit",
             "headline" => tile.headline,
             "id" => tile.id,
             "thumbnail" => tile.thumbnail_url,

@@ -102,6 +102,10 @@ class ClientAdminTiles extends Component {
     const targetClass = e.target.classList;
     if (targetClass.contains('update_status')) {
       this.changeTileStatus(tile);
+    } else if (e.target.parentElement.classList.contains('edit')) {
+      const tileForm = window.Airbo.TileFormModal;
+      tileForm.init(window.Airbo.TileManager);
+      tileForm.open(tile.editPath);
     } else if (targetClass.contains('pill') && targetClass.contains('more')) {
       // debugger
     } else {
