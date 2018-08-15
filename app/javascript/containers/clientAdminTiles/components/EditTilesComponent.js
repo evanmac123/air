@@ -46,24 +46,23 @@ const fillInTileContainers = tileComponents => {
   return tileComponents;
 };
 
-const renderMenuButtons = (args, contKey) => {
+const renderMenuButtons = (args) => {
   const result = [];
-  let key = contKey;
   if (args.activeStatus === 'draft') {
     result.push({
-      key: key += 1,
-      className: 'post_title',
+      attrs: {className: 'post_title', style: {width: '100%'}},
+      faIcon: 'thumb-tack',
       text: 'Post',
     });
   }
   result.push({
-    key: key += 1,
-    className: 'duplicate_tile',
+    attrs: {className: 'duplicate_tile', style: {width: '100%'}},
+    faIcon: 'copy',
     text: 'Copy',
   });
   result.push({
-    key: key += 1,
-    className: 'delete_tile',
+    attrs: {className: 'delete_tile', style: {width: '100%'}},
+    faIcon: 'trash-o',
     text: 'Delete',
   });
   return result;
@@ -100,18 +99,21 @@ const renderTileButtons = args => {
   }
   if (['plan', 'draft', 'active', 'archive'].indexOf(args.activeStatus) >= 0 && args.tile.fullyAssembled) {
     result.push(React.createElement(DropdownComponent, {
+      key: key += 1,
       containerElement: 'li',
       containerProps: {className: 'pill more right', key: key += 1},
       dropdownId: args.tile.id,
+      afterShow: () => { args.tileDropdownToggle(args.tile.id, 'show'); },
+      afterHide: () => { args.tileDropdownToggle(args.tile.id, 'hide'); },
       menuProps: {className: 'tile_thumbnail_menu', key: key += 1},
-      menuElements: renderMenuButtons(args, key),
+      menuElements: renderMenuButtons(args),
     }));
     result.push(EditBtn(args, key += 4));
   }
   return result;
 };
 
-const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick) => (
+const renderTiles = (tiles, activeStatus, changeTileStatus, tileDropdownToggle, tileContainerClick) => (
   fillInTileContainers(tiles.map(tile => (
     React.createElement(TileComponent, {
       key: tile.id,
@@ -120,10 +122,11 @@ const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick) 
       calendarClass: (!tile.fullyAssembled ? 'incomplete' : ''),
       tileContainerClass: activeStatus,
       tileThumblinkClass: 'tile_thumb_link tile_thumb_link_client_admin',
-      shadowOverlayButtons: renderTileButtons({activeStatus, changeTileStatus, tile}),
+      shadowOverlayButtons: renderTileButtons({activeStatus, changeTileStatus, tile, tileDropdownToggle}),
       loading: tile.loading,
       tileThumblinkOnClick: (e) => { tileContainerClick(tile, e); },
       ...tile,
+      tileShowPath: null,
     })
   )))
 );
@@ -134,7 +137,13 @@ const EditTilesComponent = props => (
       <div className="large-12 columns">
         <div id={props.activeStatus}
           className="js-tiles-index-section">
-          {renderTiles(props.tiles[props.activeStatus], props.activeStatus, props.changeTileStatus, props.tileContainerClick)}
+          {renderTiles(
+            props.tiles[props.activeStatus],
+            props.activeStatus,
+            props.changeTileStatus,
+            props.tileDropdownToggle,
+            props.tileContainerClick,
+          )}
         </div>
       </div>
     </div>
@@ -153,6 +162,7 @@ EditTilesComponent.propTypes = {
     archive:PropTypes.array,
   }),
   tileContainerClick: PropTypes.func,
+  tileDropdownToggle: PropTypes.func,
 };
 
 export default EditTilesComponent;
