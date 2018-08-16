@@ -19,6 +19,10 @@ const sanitizeTileData = rawTiles => {
 const unhandledClick = e => (e.target.innerText === 'Copy' || e.target.innerText === 'Delete' || e.target.innerText === 'Post' ||
                             (e.target.classList.contains('pill') && e.target.classList.contains('more')));
 
+const menuUrls = {
+  copy: 'copy_tile',
+};
+
 class ClientAdminTiles extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +36,7 @@ class ClientAdminTiles extends Component {
     this.selectStatus = this.selectStatus.bind(this);
     this.changeTileStatus = this.changeTileStatus.bind(this);
     this.tileContainerClick = this.tileContainerClick.bind(this);
+    this.handleMenuAction = this.handleMenuAction.bind(this);
   }
 
   componentDidMount() {
@@ -94,8 +99,7 @@ class ClientAdminTiles extends Component {
       path: `/api/client_admin/tiles/${tile.id}`,
       params: { new_status: statusCycle[this.state.activeStatus] },
       success: () => {
-        tileManager.tileData.selectTile.loading = false;
-        tileManager.changeTileStatus(statusCycle[this.state.activeStatus]);
+        tileManager.changeTileStatus(statusCycle[this.state.activeStatus], {setLoadingTo: false});
       },
     });
   }
@@ -116,6 +120,16 @@ class ClientAdminTiles extends Component {
     }
   }
 
+  handleMenuAction(tile, action, e) {
+    const tileManager = new TileManager(tile.id, this);
+    tileManager.loading();
+    Fetcher.xmlHttpRequest({
+      method: 'POST',
+      path: `/api/client_admin/tiles/${tile.id}/${menuUrls[action]}`,
+      success: resp => { tileManager.addTileToCollection(resp[0], {setLoadingTo: false}); },
+    });
+  }
+
   render() {
     return (
       <div className="client-admin-tiles-container">
@@ -131,6 +145,7 @@ class ClientAdminTiles extends Component {
           <EditTilesComponent
             changeTileStatus={this.changeTileStatus}
             tileContainerClick={this.tileContainerClick}
+            handleMenuAction={this.handleMenuAction}
             {...this.state}
           />
         }

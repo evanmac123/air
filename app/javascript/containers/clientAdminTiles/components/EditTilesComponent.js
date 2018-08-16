@@ -61,20 +61,20 @@ const renderMenuButtons = args => {
       attrs: {className: 'post_title', style: {width: '100%'}},
       faIcon: 'thumb-tack',
       text: 'Post',
-      clickEvent: () => console.log('POST CLICKED'),
+      clickEvent: (e) => { args.handleMenuAction(args.tile, 'post', e); },
     });
   }
   result.push({
     attrs: {className: 'duplicate_tile', style: {width: '100%'}},
     faIcon: 'copy',
     text: 'Copy',
-    clickEvent: () => console.log('COPY CLICKED'),
+    clickEvent: (e) => { args.handleMenuAction(args.tile, 'copy', e); },
   });
   result.push({
     attrs: {className: 'delete_tile', style: {width: '100%'}},
     faIcon: 'trash-o',
     text: 'Delete',
-    clickEvent: () => console.log('DELETE CLICKED'),
+    clickEvent: (e) => { args.handleMenuAction(args.tile, 'delete', e); },
   });
   return result;
 };
@@ -131,7 +131,7 @@ const renderTileButtons = args => {
   return result;
 };
 
-const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick) => (
+const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick, handleMenuAction) => (
   fillInTileContainers(tiles.map(tile => (
     React.createElement(TileComponent, {
       key: tile.id,
@@ -141,7 +141,7 @@ const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick) 
       tileContainerClass: activeStatus,
       tileThumblinkClass: 'tile_thumb_link tile_thumb_link_client_admin',
       shadowOverlayButtons: renderTileButtons({activeStatus, changeTileStatus, tile}),
-      popdownMenu: renderPopdownMenu({activeStatus, tile}),
+      popdownMenu: renderPopdownMenu({activeStatus, tile, handleMenuAction}),
       loading: tile.loading,
       tileThumblinkOnClick: (e) => { tileContainerClick(tile, e); },
       ...tile,
@@ -161,6 +161,7 @@ const EditTilesComponent = props => (
             props.activeStatus,
             props.changeTileStatus,
             props.tileContainerClick,
+            props.handleMenuAction,
           )}
         </div>
       </div>
@@ -180,6 +181,7 @@ EditTilesComponent.propTypes = {
     archive:PropTypes.array,
   }),
   tileContainerClick: PropTypes.func,
+  handleMenuAction: PropTypes.func,
 };
 
 export default EditTilesComponent;

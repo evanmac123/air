@@ -19,6 +19,13 @@ class TileManager {
     this.tileData = getTileData(tileId, reactComp);
     this.loading = this.loading.bind(this);
     this.changeTileStatus = this.changeTileStatus.bind(this);
+    this.handleOpts = this.handleOpts.bind(this);
+  }
+
+  handleOpts(opts) {
+    Object.keys(opts).forEach(key => {
+      if (key === 'setLoadingTo') { this.tileData.selectTile.loading = opts[key]; }
+    });
   }
 
   loading() {
@@ -26,9 +33,16 @@ class TileManager {
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 
-  changeTileStatus(newState) {
+  changeTileStatus(newState, opts) {
+    this.handleOpts(opts);
     this.tileData.stateTiles[this.reactComp.state.activeStatus].splice(this.tileData.selectTileIndex, 1);
     this.tileData.stateTiles[newState].push(this.tileData.selectTile);
+    this.reactComp.setState({ tiles: this.tileData.stateTiles });
+  }
+
+  addTileToCollection(newTile, opts) {
+    this.handleOpts(opts);
+    this.tileData.stateTiles[this.reactComp.state.activeStatus].push(newTile);
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 }
