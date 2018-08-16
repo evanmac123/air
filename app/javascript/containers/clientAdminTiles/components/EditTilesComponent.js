@@ -16,6 +16,14 @@ import {
   EditBtn,
 } from "./buttonPresets";
 
+const tileDropdownToggle = (tileId, toggle) => {
+  if (toggle === 'show') {
+    document.getElementById(`single-tile-${tileId}`).children[0].classList.add('active_menu');
+  } else {
+    document.getElementById(`single-tile-${tileId}`).children[0].classList.remove('active_menu');
+  }
+};
+
 const sanitizeDate = (status, date) => {
   if (!date) { return status === 'plan' ? 'Unplanned' : null; }
   const splitDate = date.split("T")[0].split("-");
@@ -37,7 +45,7 @@ const getTileCalInfo = (type, activeStatus, tile) => {
 };
 
 const fillInTileContainers = tileComponents => {
-  const amount = tileComponents.length ? (4 - (tileComponents.length % 4)) : 4;
+  const amount = tileComponents.length ? (tileComponents.length % 4 ? (4 - (tileComponents.length % 4)) : 0) : 4; // eslint-disable-line
   for (let i = 0; i < amount; i++) {
     tileComponents.push(React.createElement('div', {className: 'tile_container placeholder_container', key: i},
       React.createElement('div', {className: 'tile_thumbnail placeholder_tile'})
@@ -74,8 +82,8 @@ const renderMenuButtons = args => {
 const renderPopdownMenu = args => (
   React.createElement(PopdownMenuComponent, {
     dropdownId: args.tile.id,
-    afterShow: () => { args.tileDropdownToggle(args.tile.id, 'show'); },
-    afterHide: () => { args.tileDropdownToggle(args.tile.id, 'hide'); },
+    afterShow: () => { tileDropdownToggle(args.tile.id, 'show'); },
+    afterHide: () => { tileDropdownToggle(args.tile.id, 'hide'); },
     menuProps: {className: 'tile_thumbnail_menu'},
     menuElements: renderMenuButtons(args),
   })
@@ -123,7 +131,7 @@ const renderTileButtons = args => {
   return result;
 };
 
-const renderTiles = (tiles, activeStatus, changeTileStatus, tileDropdownToggle, tileContainerClick) => (
+const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick) => (
   fillInTileContainers(tiles.map(tile => (
     React.createElement(TileComponent, {
       key: tile.id,
@@ -133,7 +141,7 @@ const renderTiles = (tiles, activeStatus, changeTileStatus, tileDropdownToggle, 
       tileContainerClass: activeStatus,
       tileThumblinkClass: 'tile_thumb_link tile_thumb_link_client_admin',
       shadowOverlayButtons: renderTileButtons({activeStatus, changeTileStatus, tile}),
-      popdownMenu: renderPopdownMenu({activeStatus, tile, tileDropdownToggle}),
+      popdownMenu: renderPopdownMenu({activeStatus, tile}),
       loading: tile.loading,
       tileThumblinkOnClick: (e) => { tileContainerClick(tile, e); },
       ...tile,
@@ -152,7 +160,6 @@ const EditTilesComponent = props => (
             props.tiles[props.activeStatus],
             props.activeStatus,
             props.changeTileStatus,
-            props.tileDropdownToggle,
             props.tileContainerClick,
           )}
         </div>
@@ -173,7 +180,6 @@ EditTilesComponent.propTypes = {
     archive:PropTypes.array,
   }),
   tileContainerClick: PropTypes.func,
-  tileDropdownToggle: PropTypes.func,
 };
 
 export default EditTilesComponent;

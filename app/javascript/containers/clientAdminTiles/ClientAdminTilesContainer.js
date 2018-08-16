@@ -32,7 +32,6 @@ class ClientAdminTiles extends Component {
     this.selectStatus = this.selectStatus.bind(this);
     this.changeTileStatus = this.changeTileStatus.bind(this);
     this.tileContainerClick = this.tileContainerClick.bind(this);
-    this.tileDropdownToggle = this.tileDropdownToggle.bind(this);
   }
 
   componentDidMount() {
@@ -101,14 +100,6 @@ class ClientAdminTiles extends Component {
     });
   }
 
-  tileDropdownToggle(tileId, toggle) {
-    if (toggle === 'show') {
-      document.getElementById(`single-tile-${tileId}`).children[0].classList.add('active_menu');
-    } else {
-      document.getElementById(`single-tile-${tileId}`).children[0].classList.remove('active_menu');
-    }
-  }
-
   tileContainerClick(tile, e) {
     e.preventDefault();
     const targetClass = e.target.classList;
@@ -140,7 +131,6 @@ class ClientAdminTiles extends Component {
           <EditTilesComponent
             changeTileStatus={this.changeTileStatus}
             tileContainerClick={this.tileContainerClick}
-            tileDropdownToggle={this.tileDropdownToggle}
             {...this.state}
           />
         }
