@@ -18,8 +18,10 @@ class TileManager {
     this.reactComp = reactComp;
     this.tileData = getTileData(tileId, reactComp);
     this.loading = this.loading.bind(this);
-    this.changeTileStatus = this.changeTileStatus.bind(this);
     this.handleOpts = this.handleOpts.bind(this);
+    this.changeTileStatus = this.changeTileStatus.bind(this);
+    this.addTileToCollection = this.addTileToCollection.bind(this);
+    this.removeTileFromCollection = this.removeTileFromCollection.bind(this);
   }
 
   handleOpts(opts) {
@@ -43,6 +45,11 @@ class TileManager {
   addTileToCollection(newTile, opts) {
     this.handleOpts(opts);
     this.tileData.stateTiles[this.reactComp.state.activeStatus].push(newTile);
+    this.reactComp.setState({ tiles: this.tileData.stateTiles });
+  }
+
+  removeTileFromCollection() {
+    this.tileData.stateTiles[this.reactComp.state.activeStatus].splice(this.tileData.selectTileIndex, 1);
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 }

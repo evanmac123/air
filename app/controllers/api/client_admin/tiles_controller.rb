@@ -30,6 +30,12 @@ class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
     render json: result
   end
 
+  def destroy_tile
+    tile = Tile.find(params[:id])
+    tile.destroy
+    render json: { tile_removed: params[:id] }
+  end
+
   private
     def tile_params
       params.require(:tile).permit(:new_status)

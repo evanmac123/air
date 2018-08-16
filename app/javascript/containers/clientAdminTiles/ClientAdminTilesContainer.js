@@ -19,8 +19,17 @@ const sanitizeTileData = rawTiles => {
 const unhandledClick = e => (e.target.innerText === 'Copy' || e.target.innerText === 'Delete' || e.target.innerText === 'Post' ||
                             (e.target.classList.contains('pill') && e.target.classList.contains('more')));
 
-const menuUrls = {
-  copy: 'copy_tile',
+const menuOpts = {
+  copy: {
+    method: 'POST',
+    url: 'copy_tile',
+    onSuccess: (tileManager, resp) => { tileManager.addTileToCollection(resp[0], {setLoadingTo: false}); },
+  },
+  delete: {
+    method: 'DELETE',
+    url: 'destroy_tile',
+    onSuccess: tileManager => { tileManager.removeTileFromCollection(); },
+  },
 };
 
 class ClientAdminTiles extends Component {
@@ -124,9 +133,9 @@ class ClientAdminTiles extends Component {
     const tileManager = new TileManager(tile.id, this);
     tileManager.loading();
     Fetcher.xmlHttpRequest({
-      method: 'POST',
-      path: `/api/client_admin/tiles/${tile.id}/${menuUrls[action]}`,
-      success: resp => { tileManager.addTileToCollection(resp[0], {setLoadingTo: false}); },
+      method: menuOpts[action].method,
+      path: `/api/client_admin/tiles/${tile.id}/${menuOpts[action].url}`,
+      success: resp => { menuOpts[action].onSuccess(tileManager, resp); },
     });
   }
 

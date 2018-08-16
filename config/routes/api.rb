@@ -18,6 +18,7 @@ namespace :api, defaults: { format: :json } do
     resources :tiles, only: [:index, :update] do
       member do
         post 'copy_tile'
+        delete 'destroy_tile'
       end
     end
 
