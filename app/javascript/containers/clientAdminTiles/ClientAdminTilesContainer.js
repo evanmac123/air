@@ -16,6 +16,9 @@ const sanitizeTileData = rawTiles => {
   return result;
 };
 
+const unhandledClick = e => (e.target.innerText === 'Copy' || e.target.innerText === 'Delete' || e.target.innerText === 'Post' ||
+                            (e.target.classList.contains('pill') && e.target.classList.contains('more')));
+
 class ClientAdminTiles extends Component {
   constructor(props) {
     super(props);
@@ -109,14 +112,14 @@ class ClientAdminTiles extends Component {
   tileContainerClick(tile, e) {
     e.preventDefault();
     const targetClass = e.target.classList;
-    if (targetClass.contains('update_status')) {
+    if (unhandledClick(e)) {
+      return; // eslint-disable-line
+    } else if (targetClass.contains('update_status')) {
       this.changeTileStatus(tile);
     } else if (e.target.parentElement.classList.contains('edit')) {
       const tileForm = window.Airbo.TileFormModal;
       tileForm.init(window.Airbo.TileManager);
       tileForm.open(tile.editPath);
-    } else if (targetClass.contains('pill') && targetClass.contains('more')) {
-      // debugger
     } else {
       window.Airbo.TileThumbnail.getPreview(tile.tileShowPath, tile.id);
     }

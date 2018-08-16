@@ -50,6 +50,11 @@ const TileComponent = props => (
             </ul>
           }
           </div>
+          {props.popdownMenu &&
+            <div className="popdown-menu">
+              {props.popdownMenu}
+            </div>
+          }
           <div className="tile_overlay"></div>
         </a>
 
@@ -79,7 +84,7 @@ TileComponent.propTypes = {
   id: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
   headline: PropTypes.string.isRequired,
-  tileShowPath: PropTypes.string.isRequired,
+  tileShowPath: PropTypes.string,
   copyPath: PropTypes.string,
   copyTile: PropTypes.func,
   user: PropTypes.shape({
@@ -92,6 +97,7 @@ TileComponent.propTypes = {
   tileContainerClass: PropTypes.string,
   tileThumblinkClass: PropTypes.string,
   shadowOverlayButtons: PropTypes.array,
+  popdownMenu: PropTypes.element,
   tileThumblinkOnClick: PropTypes.func,
   loading: PropTypes.bool,
   calendarClass: PropTypes.string,

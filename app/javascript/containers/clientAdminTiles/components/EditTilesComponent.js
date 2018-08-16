@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import TileComponent from "../../../shared/TileComponent";
-import DropdownComponent from "../../../shared/DropdownComponent";
+import {PopdownMenuComponent, PopdownButtonComponent} from "../../../shared/PopdownMenu";
 import {
   ReadyToSendBtn,
   IncompleteEditBtn,
@@ -46,27 +46,41 @@ const fillInTileContainers = tileComponents => {
   return tileComponents;
 };
 
-const renderMenuButtons = (args) => {
+const renderMenuButtons = args => {
   const result = [];
   if (args.activeStatus === 'draft') {
     result.push({
       attrs: {className: 'post_title', style: {width: '100%'}},
       faIcon: 'thumb-tack',
       text: 'Post',
+      clickEvent: () => console.log('POST CLICKED'),
     });
   }
   result.push({
     attrs: {className: 'duplicate_tile', style: {width: '100%'}},
     faIcon: 'copy',
     text: 'Copy',
+    clickEvent: () => console.log('COPY CLICKED'),
   });
   result.push({
     attrs: {className: 'delete_tile', style: {width: '100%'}},
     faIcon: 'trash-o',
     text: 'Delete',
+    clickEvent: () => console.log('DELETE CLICKED'),
   });
   return result;
 };
+
+const renderPopdownMenu = args => (
+  React.createElement(PopdownMenuComponent, {
+    dropdownId: args.tile.id,
+    afterShow: () => { args.tileDropdownToggle(args.tile.id, 'show'); },
+    afterHide: () => { args.tileDropdownToggle(args.tile.id, 'hide'); },
+    menuProps: {className: 'tile_thumbnail_menu'},
+    menuElements: renderMenuButtons(args),
+  })
+);
+
 
 const renderTileButtons = args => {
   const result = [];
@@ -98,15 +112,11 @@ const renderTileButtons = args => {
     }
   }
   if (['plan', 'draft', 'active', 'archive'].indexOf(args.activeStatus) >= 0 && args.tile.fullyAssembled) {
-    result.push(React.createElement(DropdownComponent, {
+    result.push(React.createElement(PopdownButtonComponent, {
       key: key += 1,
       containerElement: 'li',
       containerProps: {className: 'pill more right', key: key += 1},
       dropdownId: args.tile.id,
-      afterShow: () => { args.tileDropdownToggle(args.tile.id, 'show'); },
-      afterHide: () => { args.tileDropdownToggle(args.tile.id, 'hide'); },
-      menuProps: {className: 'tile_thumbnail_menu', key: key += 1},
-      menuElements: renderMenuButtons(args),
     }));
     result.push(EditBtn(args, key += 4));
   }
@@ -122,7 +132,8 @@ const renderTiles = (tiles, activeStatus, changeTileStatus, tileDropdownToggle, 
       calendarClass: (!tile.fullyAssembled ? 'incomplete' : ''),
       tileContainerClass: activeStatus,
       tileThumblinkClass: 'tile_thumb_link tile_thumb_link_client_admin',
-      shadowOverlayButtons: renderTileButtons({activeStatus, changeTileStatus, tile, tileDropdownToggle}),
+      shadowOverlayButtons: renderTileButtons({activeStatus, changeTileStatus, tile}),
+      popdownMenu: renderPopdownMenu({activeStatus, tile, tileDropdownToggle}),
       loading: tile.loading,
       tileThumblinkOnClick: (e) => { tileContainerClick(tile, e); },
       ...tile,
