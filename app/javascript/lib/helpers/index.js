@@ -4,7 +4,10 @@ import WindowHelper from "./WindowHelper";
 import LocalStorer from "./LocalStorer";
 import InfiniScroller from "./InfiniScroller";
 
+const Pluck = (array, key) => array.map(result => result[key]);
+
 const Helper = {
+  Pluck,
   MapWithIndex,
   Fetcher,
   WindowHelper,
@@ -15,6 +18,7 @@ const Helper = {
 export default Helper;
 
 export {
+  Pluck,
   MapWithIndex,
   Fetcher,
   WindowHelper,

@@ -30,7 +30,7 @@ class Explore extends Component {
     this.populateCampaigns = this.populateCampaigns.bind(this);
     this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
     this.scrollState = new InfiniScroller({
-      scrollPercentage: 0.95,
+      scrollPercentage: 0.90,
       throttle: 100,
       onScroll: this.getAdditionalTiles,
     });

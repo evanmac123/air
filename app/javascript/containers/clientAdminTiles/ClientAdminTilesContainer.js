@@ -5,7 +5,7 @@ import LoadingComponent from "../../shared/LoadingComponent";
 import TileStatusNavComponent from "./components/TileStatusNavComponent";
 import EditTilesComponent from "./components/EditTilesComponent";
 import TileManager from "./utils/TileManager";
-import { Fetcher, InfiniScroller } from "../../lib/helpers";
+import { Fetcher, InfiniScroller, Pluck } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
 
 const sanitizeTileData = rawTiles => {
@@ -45,6 +45,13 @@ const menuAlertOpts = {
     onConfirmAction: (tile, component) => { component.handleMenuAction(tile, 'deleteConfirm'); },
   },
 };
+
+const addNewTiles = (tileIDs, existingTiles, newTiles) => (
+  newTiles.reduce((result, newTile) => {
+    if (tileIDs.indexOf(newTile.id) < 0) { result.push(newTile); }
+    return result;
+  }, existingTiles)
+);
 
 class ClientAdminTiles extends Component {
   constructor(props) {
@@ -108,7 +115,7 @@ class ClientAdminTiles extends Component {
         success: resp => {
           const tileStatusNav = {...this.state.tileStatusNav};
           const tiles = {...this.state.tiles};
-          tiles[this.state.activeStatus].tiles = tiles[this.state.activeStatus].tiles.concat(resp);
+          tiles[this.state.activeStatus].tiles = addNewTiles(Pluck(tiles[this.state.activeStatus].tiles, 'id'), tiles[this.state.activeStatus].tiles, resp);
           tileStatusNav[this.state.activeStatus].page = resp.length < 16 ? 0 : tileStatusNav[this.state.activeStatus].page + 1;
           this.setState({
             tileStatusNav,
