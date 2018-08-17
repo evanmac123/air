@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 import LoadingComponent from "../../shared/LoadingComponent";
 import TileStatusNavComponent from "./components/TileStatusNavComponent";
@@ -25,10 +26,23 @@ const menuOpts = {
     url: 'copy_tile',
     onSuccess: (tileManager, resp) => { tileManager.addTileToCollection(resp[0], {setLoadingTo: false}); },
   },
-  delete: {
+  deleteConfirm: {
     method: 'DELETE',
     url: 'destroy_tile',
     onSuccess: tileManager => { tileManager.removeTileFromCollection(); },
+  },
+};
+
+const menuAlertOpts = {
+  post: {
+    title: 'Are you sure about that?',
+    body: 'Tiles are posted automatically when they are delivered. If you manually post a Tile, it will not appear in your next Tile Digest.',
+    onConfirmAction: (tile, component) => { component.changeTileStatus(tile, 'active'); },
+  },
+  delete: {
+    title: 'Deleting a tile cannot be undone',
+    body: 'Are you sure you want to delete this tile?',
+    onConfirmAction: (tile, component) => { component.handleMenuAction(tile, 'deleteConfirm'); },
   },
 };
 
@@ -39,6 +53,7 @@ class ClientAdminTiles extends Component {
       activeStatus: '',
       tileStatusNav: [],
       loading: true,
+      alert: null,
     };
     this.initializeState = this.initializeState.bind(this);
     this.setTileStatuses = this.setTileStatuses.bind(this);
@@ -46,6 +61,7 @@ class ClientAdminTiles extends Component {
     this.changeTileStatus = this.changeTileStatus.bind(this);
     this.tileContainerClick = this.tileContainerClick.bind(this);
     this.handleMenuAction = this.handleMenuAction.bind(this);
+    this.baseAlertOptions = this.baseAlertOptions.bind(this);
   }
 
   componentDidMount() {
@@ -61,13 +77,27 @@ class ClientAdminTiles extends Component {
         this.setTileStatuses(resp, {
             user_submitted: 'Suggested',
             plan: 'Plan',
-            draft: 'Ready to Send',
-            share: 'Share',
+            draft: 'Proof',
+            share: 'Send',
             active: 'Live',
             archive: 'Archive',
           });
         },
     });
+  }
+
+  baseAlertOptions() {
+    return {
+      customClass: 'airbo',
+      cancelBtnCssClass: 'cancel',
+      confirmBtnCssClass: 'confirm',
+      showCancel: true,
+      onCancel: () => { this.setState({alert: null }); },
+      style: {
+        display: 'inherit',
+        width: '520px',
+      },
+    };
   }
 
   setTileStatuses(rawTiles, statuses) {
@@ -93,24 +123,36 @@ class ClientAdminTiles extends Component {
     });
   }
 
-  changeTileStatus(tile) {
-    const statusCycle = {
-      user_submitted: 'plan',
-      plan: 'draft',
-      draft: 'plan',
-      active: 'archive',
-      archive: 'active',
-    };
-    const tileManager = new TileManager(tile.id, this);
-    tileManager.loading();
-    Fetcher.xmlHttpRequest({
-      method: 'PUT',
-      path: `/api/client_admin/tiles/${tile.id}`,
-      params: { new_status: statusCycle[this.state.activeStatus] },
-      success: () => {
-        tileManager.changeTileStatus(statusCycle[this.state.activeStatus], {setLoadingTo: false});
-      },
-    });
+  changeTileStatus(tile, forceStatus) {
+    if (this.state.activeStatus === 'archive' && !forceStatus) {
+      this.setState({
+        alert: React.createElement(SweetAlert, {
+          ...this.baseAlertOptions(),
+          title: 'Are you sure about that?',
+          confirmBtnText: 'Post Again',
+          onConfirm: () => { this.changeTileStatus(tile, 'active'); this.setState({alert: null }); },
+        }, 'Users who have completed this Tile already will not see it again. If you want to re-use the content, it may be better to create a copy.'),
+      });
+    } else {
+      const statusCycle = {
+        user_submitted: 'plan',
+        plan: 'draft',
+        draft: 'plan',
+        active: 'archive',
+        archive: 'active',
+      };
+      const tileManager = new TileManager(tile.id, this);
+      const newStatus = forceStatus || statusCycle[this.state.activeStatus];
+      tileManager.loading();
+      Fetcher.xmlHttpRequest({
+        method: 'PUT',
+        path: `/api/client_admin/tiles/${tile.id}`,
+        params: { new_status: newStatus },
+        success: () => {
+          tileManager.changeTileStatus(newStatus, {setLoadingTo: false});
+        },
+      });
+    }
   }
 
   tileContainerClick(tile, e) {
@@ -129,14 +171,24 @@ class ClientAdminTiles extends Component {
     }
   }
 
-  handleMenuAction(tile, action, e) {
-    const tileManager = new TileManager(tile.id, this);
-    tileManager.loading();
-    Fetcher.xmlHttpRequest({
-      method: menuOpts[action].method,
-      path: `/api/client_admin/tiles/${tile.id}/${menuOpts[action].url}`,
-      success: resp => { menuOpts[action].onSuccess(tileManager, resp); },
-    });
+  handleMenuAction(tile, action) {
+    if (action === 'post' || action === 'delete') {
+      this.setState({
+        alert: React.createElement(SweetAlert, {
+          ...this.baseAlertOptions(),
+          title: menuAlertOpts[action].title,
+          onConfirm: () => { menuAlertOpts[action].onConfirmAction(tile, this); this.setState({alert: null }); },
+        }, menuAlertOpts[action].body),
+      });
+    } else {
+      const tileManager = new TileManager(tile.id, this);
+      tileManager.loading();
+      Fetcher.xmlHttpRequest({
+        method: menuOpts[action].method,
+        path: `/api/client_admin/tiles/${tile.id}/${menuOpts[action].url}`,
+        success: resp => { menuOpts[action].onSuccess(tileManager, resp); },
+      });
+    }
   }
 
   render() {
@@ -158,6 +210,7 @@ class ClientAdminTiles extends Component {
             {...this.state}
           />
         }
+        {this.state.alert}
       </div>
     );
   }

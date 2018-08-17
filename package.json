@@ -18,6 +18,7 @@
     "prop-types": "^15.6.1",
     "rails-erb-loader": "^5.4.2",
     "react": "^16.4.0",
+    "react-bootstrap-sweetalert": "^4.4.1",
     "react-dom": "^16.4.0",
     "react-select": "^2.0.0",
     "react-tooltip": "^3.6.1",
