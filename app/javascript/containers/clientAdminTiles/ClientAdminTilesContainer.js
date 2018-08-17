@@ -5,7 +5,7 @@ import LoadingComponent from "../../shared/LoadingComponent";
 import TileStatusNavComponent from "./components/TileStatusNavComponent";
 import EditTilesComponent from "./components/EditTilesComponent";
 import TileManager from "./utils/TileManager";
-import { Fetcher } from "../../lib/helpers";
+import { Fetcher, InfiniScroller } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
 
 const sanitizeTileData = rawTiles => {
@@ -53,6 +53,7 @@ class ClientAdminTiles extends Component {
       activeStatus: '',
       tileStatusNav: [],
       loading: true,
+      scrollLoading: false,
       alert: null,
     };
     this.initializeState = this.initializeState.bind(this);
@@ -62,11 +63,22 @@ class ClientAdminTiles extends Component {
     this.tileContainerClick = this.tileContainerClick.bind(this);
     this.handleMenuAction = this.handleMenuAction.bind(this);
     this.baseAlertOptions = this.baseAlertOptions.bind(this);
+    this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
+    this.scrollState = new InfiniScroller({
+      scrollPercentage: 0.95,
+      throttle: 100,
+      onScroll: this.getAdditionalTiles,
+    });
   }
 
   componentDidMount() {
     this.selectStatus('plan');
     this.initializeState();
+    this.scrollState.setOnScroll();
+  }
+
+  componentWillUnmount() {
+    this.scrollState.removeOnScroll();
   }
 
   initializeState() {
@@ -75,15 +87,36 @@ class ClientAdminTiles extends Component {
       method: 'GET',
       success: resp => {
         this.setTileStatuses(resp, {
-            user_submitted: 'Suggested',
-            plan: 'Plan',
-            draft: 'Proof',
-            share: 'Send',
-            active: 'Live',
-            archive: 'Archive',
+          user_submitted: 'Suggested',
+          plan: 'Plan',
+          draft: 'Proof',
+          share: 'Send',
+          active: 'Live',
+          archive: 'Archive',
+        });
+      },
+    });
+  }
+
+  getAdditionalTiles() {
+    if ((!this.state.scrollLoading && !this.state.loading) && this.state.tileStatusNav[this.state.activeStatus].page) {
+      this.setState({scrollLoading: true});
+      Fetcher.xmlHttpRequest({
+        path: `/api/client_admin/tiles?page=${this.state.tileStatusNav[this.state.activeStatus].page}&status=${this.state.activeStatus}`,
+        method: 'GET',
+        success: resp => {
+          const tileStatusNav = {...this.state.tileStatusNav};
+          const tiles = [...this.state.tiles];
+          tiles[this.state.activeStatus] = tiles[this.state.activeStatus].concat(resp);
+          tileStatusNav[this.state.activeStatus].page += 1;
+          this.setState({
+            tileStatusNav,
+            tiles,
+            scrollLoading: false,
           });
         },
-    });
+      });
+    }
   }
 
   baseAlertOptions() {
@@ -105,8 +138,9 @@ class ClientAdminTiles extends Component {
     this.setState({
       tileStatusNav: [...Object.keys(statuses)].reverse().reduce((result, status) => {
         const tileCount = tiles[status] ? tiles[status].length : 0;
+        const page = tileCount < 16 ? 0 : 1;
         const insertStatus = {};
-        insertStatus[status] = { tileCount, uiDisplay: statuses[status] };
+        insertStatus[status] = { tileCount, uiDisplay: statuses[status], page };
         return Object.assign(insertStatus , result);
       }, {}),
       loading: false,
@@ -211,6 +245,7 @@ class ClientAdminTiles extends Component {
           />
         }
         {this.state.alert}
+        { this.state.scrollLoading && <LoadingComponent /> }
       </div>
     );
   }

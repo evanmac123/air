@@ -2,7 +2,11 @@
 
 class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
   def index
-    render json: Tile.fetch_edit_flow(current_board)
+    if (params[:page])
+      binding.pry
+    else
+      render json: Tile.fetch_edit_flow(current_board)
+    end
   end
 
   def update
