@@ -10,9 +10,9 @@ import { AiRouter } from "../../lib/utils";
 
 const sanitizeTileData = rawTiles => {
   const result = {...rawTiles};
-  result.user_submitted = result.user_submitted || [];
-  rawTiles.ignored.forEach(tile => {
-    result.user_submitted.push({...tile, ignored: true});
+  result.user_submitted.tiles = result.user_submitted.tiles || [];
+  rawTiles.ignored.tiles.forEach(tile => {
+    result.user_submitted.tiles.push({...tile, ignored: true});
   });
   return result;
 };
@@ -53,7 +53,7 @@ class ClientAdminTiles extends Component {
       activeStatus: '',
       tileStatusNav: [],
       loading: true,
-      scrollLoading: false,
+      scrollLoading: true,
       alert: null,
     };
     this.initializeState = this.initializeState.bind(this);
@@ -99,16 +99,17 @@ class ClientAdminTiles extends Component {
   }
 
   getAdditionalTiles() {
-    if ((!this.state.scrollLoading && !this.state.loading) && this.state.tileStatusNav[this.state.activeStatus].page) {
+    if (!this.state.scrollLoading && this.state.tileStatusNav[this.state.activeStatus].page) {
       this.setState({scrollLoading: true});
+      const page = this.state.tileStatusNav[this.state.activeStatus].page + 1;
       Fetcher.xmlHttpRequest({
-        path: `/api/client_admin/tiles?page=${this.state.tileStatusNav[this.state.activeStatus].page}&status=${this.state.activeStatus}`,
+        path: `/api/client_admin/tiles?page=${page}&status=${this.state.activeStatus}`,
         method: 'GET',
         success: resp => {
           const tileStatusNav = {...this.state.tileStatusNav};
-          const tiles = [...this.state.tiles];
-          tiles[this.state.activeStatus] = tiles[this.state.activeStatus].concat(resp);
-          tileStatusNav[this.state.activeStatus].page += 1;
+          const tiles = {...this.state.tiles};
+          tiles[this.state.activeStatus].tiles = tiles[this.state.activeStatus].tiles.concat(resp);
+          tileStatusNav[this.state.activeStatus].page = resp.length < 16 ? 0 : tileStatusNav[this.state.activeStatus].page + 1;
           this.setState({
             tileStatusNav,
             tiles,
@@ -134,16 +135,17 @@ class ClientAdminTiles extends Component {
   }
 
   setTileStatuses(rawTiles, statuses) {
-    const tiles = rawTiles.ignored.length ? sanitizeTileData(rawTiles) : rawTiles;
+    const tiles = rawTiles.ignored.count ? sanitizeTileData(rawTiles) : rawTiles;
     this.setState({
       tileStatusNav: [...Object.keys(statuses)].reverse().reduce((result, status) => {
-        const tileCount = tiles[status] ? tiles[status].length : 0;
-        const page = tileCount < 16 ? 0 : 1;
+        const tileCount = tiles[status] ? tiles[status].count : 0;
+        const page = tileCount <= 16 ? 0 : 1;
         const insertStatus = {};
         insertStatus[status] = { tileCount, uiDisplay: statuses[status], page };
         return Object.assign(insertStatus , result);
       }, {}),
       loading: false,
+      scrollLoading: false,
       tiles,
     });
   }
@@ -245,7 +247,7 @@ class ClientAdminTiles extends Component {
           />
         }
         {this.state.alert}
-        { this.state.scrollLoading && <LoadingComponent /> }
+        { (this.state.scrollLoading && !this.state.loading) && <LoadingComponent /> }
       </div>
     );
   }

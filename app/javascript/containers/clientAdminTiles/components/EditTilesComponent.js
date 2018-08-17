@@ -157,7 +157,7 @@ const EditTilesComponent = props => (
         <div id={props.activeStatus}
           className="js-tiles-index-section">
           {renderTiles(
-            props.tiles[props.activeStatus],
+            props.tiles[props.activeStatus].tiles,
             props.activeStatus,
             props.changeTileStatus,
             props.tileContainerClick,
@@ -173,12 +173,30 @@ EditTilesComponent.propTypes = {
   activeStatus: PropTypes.string.isRequired,
   changeTileStatus: PropTypes.func.isRequired,
   tiles: PropTypes.shape({
-    user_submitted:PropTypes.array,
-    plan:PropTypes.array,
-    draft:PropTypes.array,
-    share:PropTypes.array,
-    active:PropTypes.array,
-    archive:PropTypes.array,
+    user_submitted: PropTypes.shape({
+      tiles: PropTypes.array,
+      count: PropTypes.number,
+    }),
+    plan: PropTypes.shape({
+      tiles: PropTypes.array,
+      count: PropTypes.number,
+    }),
+    draft: PropTypes.shape({
+      tiles: PropTypes.array,
+      count: PropTypes.number,
+    }),
+    share: PropTypes.shape({
+      tiles: PropTypes.array,
+      count: PropTypes.number,
+    }),
+    active: PropTypes.shape({
+      tiles: PropTypes.array,
+      count: PropTypes.number,
+    }),
+    archive: PropTypes.shape({
+      tiles: PropTypes.array,
+      count: PropTypes.number,
+    }),
   }),
   tileContainerClick: PropTypes.func,
   handleMenuAction: PropTypes.func,

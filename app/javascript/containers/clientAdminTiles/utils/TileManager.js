@@ -1,10 +1,10 @@
 const getTileData = (tileId, reactComp) => {
   const stateTiles = reactComp.state.tiles;
-  for (let index = 0; index < stateTiles[reactComp.state.activeStatus].length; index++) {
-    if (stateTiles[reactComp.state.activeStatus][index].id === tileId) {
+  for (let index = 0; index < stateTiles[reactComp.state.activeStatus].tiles.length; index++) {
+    if (stateTiles[reactComp.state.activeStatus].tiles[index].id === tileId) {
       return {
         stateTiles,
-        selectTile: stateTiles[reactComp.state.activeStatus][index],
+        selectTile: stateTiles[reactComp.state.activeStatus].tiles[index],
         selectTileIndex: index,
       };
     }
@@ -37,19 +37,23 @@ class TileManager {
 
   changeTileStatus(newState, opts) {
     this.handleOpts(opts);
-    this.tileData.stateTiles[this.reactComp.state.activeStatus].splice(this.tileData.selectTileIndex, 1);
-    this.tileData.stateTiles[newState].push(this.tileData.selectTile);
+    this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.splice(this.tileData.selectTileIndex, 1);
+    this.tileData.stateTiles[this.reactComp.state.activeStatus].count -= 1;
+    this.tileData.stateTiles[newState].tiles.push(this.tileData.selectTile);
+    this.tileData.stateTiles[newState].count += 1;
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 
   addTileToCollection(newTile, opts) {
     this.handleOpts(opts);
-    this.tileData.stateTiles[this.reactComp.state.activeStatus].push(newTile);
+    this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.push(newTile);
+    this.tileData.stateTiles[this.reactComp.state.activeStatus].count += 1;
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 
   removeTileFromCollection() {
-    this.tileData.stateTiles[this.reactComp.state.activeStatus].splice(this.tileData.selectTileIndex, 1);
+    this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.splice(this.tileData.selectTileIndex, 1);
+    this.tileData.stateTiles[this.reactComp.state.activeStatus].count -= 1;
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 }

@@ -3,7 +3,9 @@
 class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
   def index
     if (params[:page])
-      binding.pry
+      tiles = current_board.tiles.where(status: params[:status]).order(updated_at: :desc).page(params[:page]).per(16)
+      result = sanitized(tiles, 16)
+      render json: result
     else
       render json: Tile.fetch_edit_flow(current_board)
     end
@@ -18,19 +20,7 @@ class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
   def copy_tile
     tile = Tile.find(params[:id])
     copied_tile = TileDuplicateJob.perform_now(tile: tile, demo: current_user.demo, user: current_user)
-    result = Tile.react_sanitize([copied_tile], 1) do |tile|
-      {
-        "tileShowPath" => "/client_admin/tiles/#{tile.id}",
-        "editPath" => "/client_admin/tiles/#{tile.id}/edit",
-        "headline" => tile.headline,
-        "id" => tile.id,
-        "thumbnail" => tile.thumbnail_url,
-        "planDate" => tile.plan_date,
-        "activeDate" => tile.activated_at,
-        "archiveDate" => tile.archived_at,
-        "fullyAssembled" => tile.is_fully_assembled?
-      }
-    end
+    result = sanitized([copied_tile], 1)
     render json: result
   end
 
@@ -43,5 +33,21 @@ class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
   private
     def tile_params
       params.require(:tile).permit(:new_status)
+    end
+
+    def sanitized(tiles, amount)
+      Tile.react_sanitize(tiles, amount) do |tile|
+        {
+          "tileShowPath" => "/client_admin/tiles/#{tile.id}",
+          "editPath" => "/client_admin/tiles/#{tile.id}/edit",
+          "headline" => tile.headline,
+          "id" => tile.id,
+          "thumbnail" => tile.thumbnail_url,
+          "planDate" => tile.plan_date,
+          "activeDate" => tile.activated_at,
+          "archiveDate" => tile.archived_at,
+          "fullyAssembled" => tile.is_fully_assembled?
+        }
+      end
     end
 end

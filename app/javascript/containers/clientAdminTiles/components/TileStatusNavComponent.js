@@ -1,5 +1,7 @@
 import React from "react";
 
+const maxCount = count => count > 500 ? '500+' : count;
+
 const renderTabs = props => (
   Object.keys(props.statuses).map(statusNav => (
     React.createElement("li",
@@ -12,7 +14,7 @@ const renderTabs = props => (
       `${props.statuses[statusNav].uiDisplay} `,
       React.createElement("span",
         {className: "x-small"},
-        `(${statusNav === 'share' ? props.tiles.draft.length : props.tiles[statusNav].length})`
+        `(${statusNav === 'share' ? maxCount(props.tiles.draft.count) : maxCount(props.tiles[statusNav].count)})`
       )
     )
   ))
