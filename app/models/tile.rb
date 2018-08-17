@@ -108,19 +108,29 @@ class Tile < ActiveRecord::Base
 
   def self.fetch_edit_flow(board = nil, page = 1)
     return nil unless board
-    STATUS.reduce({}) do |result, status|
-      tiles = board.tiles.page(page).per(16).where(status: status).order(created_at: :desc)
-      result[status] = react_sanitize(tiles, 16) do |tile|
+    tiles = board.tiles.order(updated_at: :desc).group_by(&:status)
+    STATUS.reduce(tiles) do |result, status|
+      result[status] = if tiles[status]
         {
-          "tileShowPath" => "/client_admin/tiles/#{tile.id}",
-          "editPath" => "/client_admin/tiles/#{tile.id}/edit",
-          "headline" => tile.headline,
-          "id" => tile.id,
-          "thumbnail" => tile.thumbnail_url,
-          "planDate" => tile.plan_date,
-          "activeDate" => tile.activated_at,
-          "archiveDate" => tile.archived_at,
-          "fullyAssembled" => tile.is_fully_assembled?
+          tiles: react_sanitize(tiles[status], 16) do |tile|
+            {
+              "tileShowPath" => "/client_admin/tiles/#{tile.id}",
+              "editPath" => "/client_admin/tiles/#{tile.id}/edit",
+              "headline" => tile.headline,
+              "id" => tile.id,
+              "thumbnail" => tile.thumbnail_url,
+              "planDate" => tile.plan_date,
+              "activeDate" => tile.activated_at,
+              "archiveDate" => tile.archived_at,
+              "fullyAssembled" => tile.is_fully_assembled?
+            }
+          end,
+          count: tiles[status].length
+        }
+      else
+        {
+          tiles: [],
+          count: 0
         }
       end
       result
@@ -128,6 +138,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.react_sanitize(payload, range = 27, &sanitize)
+    range -= 1
     payload.map do |item|
       sanitize.yield(item)
     end[0..range]
