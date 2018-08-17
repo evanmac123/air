@@ -3,6 +3,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 
 import LoadingComponent from "../../shared/LoadingComponent";
 import TileStatusNavComponent from "./components/TileStatusNavComponent";
+import TileFilterSubNavComponent from "./components/TileFilterSubNavComponent";
 import EditTilesComponent from "./components/EditTilesComponent";
 import TileManager from "./utils/TileManager";
 import { Fetcher, InfiniScroller, Pluck } from "../../lib/helpers";
@@ -243,6 +244,12 @@ class ClientAdminTiles extends Component {
           activeStatus={this.state.activeStatus}
           selectStatus={this.selectStatus}
         />
+        {
+          (this.state.activeStatus !== 'user_submitted' && this.state.activeStatus !== 'draft') &&
+          <TileFilterSubNavComponent
+          activeStatus={this.state.activeStatus}
+          />
+        }
         {
           this.state.loading ?
           <LoadingComponent /> :

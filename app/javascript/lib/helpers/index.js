@@ -3,6 +3,7 @@ import Fetcher from "./Fetcher";
 import WindowHelper from "./WindowHelper";
 import LocalStorer from "./LocalStorer";
 import InfiniScroller from "./InfiniScroller";
+import DateMaker from "./DateMaker";
 
 const Pluck = (array, key) => array.map(result => result[key]);
 
@@ -13,6 +14,7 @@ const Helper = {
   WindowHelper,
   LocalStorer,
   InfiniScroller,
+  DateMaker,
 };
 
 export default Helper;
@@ -24,4 +26,5 @@ export {
   WindowHelper,
   LocalStorer,
   InfiniScroller,
+  DateMaker,
 };

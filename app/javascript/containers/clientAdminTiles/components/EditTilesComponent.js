@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import TileComponent from "../../../shared/TileComponent";
-import {PopdownMenuComponent, PopdownButtonComponent} from "../../../shared/PopdownMenu";
+import { PopdownMenuComponent, PopdownButtonComponent } from "../../../shared/PopdownMenu";
+import { DateMaker } from "../../../lib/helpers";
 import {
   ReadyToSendBtn,
   IncompleteEditBtn,
@@ -26,12 +27,11 @@ const tileDropdownToggle = (tileId, toggle) => {
 
 const sanitizeDate = (status, date) => {
   if (!date) { return status === 'plan' ? 'Unplanned' : null; }
-  const splitDate = date.split("T")[0].split("-");
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const splitDate = DateMaker.splitDate(date);
   if (status === 'plan' || status === 'user_submitted') {
-    return `${months[splitDate[1] - 1]} ${splitDate[2]}`;
+    return `${splitDate.spelledOutMonth} ${splitDate.day}`;
   }
-  return `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
+  return `${splitDate.monthNumber}/${splitDate.day}/${splitDate.fullYear}`;
 };
 
 const getTileCalInfo = (type, activeStatus, tile) => {
