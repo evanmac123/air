@@ -137,6 +137,17 @@ class Tile < ActiveRecord::Base
     end.to_json
   end
 
+  def self.fetch_edit_scoped(args)
+    scope = args[:filter].split("&").reduce(query: "", value: []) do |result, rawFilter|
+      result[:query] += "extract(#{rawFilter.split('=')[0]} from plan_date) = ? AND "
+      result[:value].push(rawFilter.split("=")[1])
+      result
+    end
+    args[:board].tiles.where(status: args[:status])
+                      .where(scope[:query][0..-6], scope[:value])
+                      .order(updated_at: :desc).page(args[:page] || 1).per(16)
+  end
+
   def self.react_sanitize(payload, range = 27, &sanitize)
     range -= 1
     payload.map do |item|

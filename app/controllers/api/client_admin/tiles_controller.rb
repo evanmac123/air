@@ -2,8 +2,13 @@
 
 class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
   def index
-    if (params[:page])
-      tiles = current_board.tiles.where(status: params[:status]).order(updated_at: :desc).page(params[:page]).per(16)
+    if (params[:status])
+      tiles = Tile.fetch_edit_scoped(
+        status: params[:status],
+        page: params[:page],
+        filter: params[:filter],
+        board: current_board
+      )
       result = sanitized(tiles, 16)
       render json: result
     else

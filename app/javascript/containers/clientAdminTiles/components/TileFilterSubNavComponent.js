@@ -34,7 +34,7 @@ const renderSortOptions = () => ([
 ]);
 
 const TileFilterSubNavComponent = props => (
-  !props.loading &&
+  props.appLoaded &&
   <div className="tabs-component-full-width-sub-nav js-tiles-index-filter-bar">
     <div className="row">
       <ul className="sub-nav-options">
@@ -46,7 +46,7 @@ const TileFilterSubNavComponent = props => (
             value={props.tileStatusNav[props.activeStatus].filter.month}
             isClearable={true}
             options={renderMonthOptions(props.activeStatus)}
-            isSearchable={false}
+            isSearchable={true}
           />
         </li>
 

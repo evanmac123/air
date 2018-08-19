@@ -63,6 +63,7 @@ class ClientAdminTiles extends Component {
       loading: true,
       scrollLoading: true,
       alert: null,
+      appLoaded: false,
     };
     this.initializeState = this.initializeState.bind(this);
     this.setTileStatuses = this.setTileStatuses.bind(this);
@@ -73,6 +74,7 @@ class ClientAdminTiles extends Component {
     this.baseAlertOptions = this.baseAlertOptions.bind(this);
     this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.loadFilteredTiles = this.loadFilteredTiles.bind(this);
     this.scrollState = new InfiniScroller({
       scrollPercentage: 0.95,
       throttle: 100,
@@ -129,6 +131,28 @@ class ClientAdminTiles extends Component {
     }
   }
 
+  loadFilteredTiles() {
+    const statusFilter = this.state.tileStatusNav[this.state.activeStatus].filter;
+    const filter = Object.keys(statusFilter).reduce((result, status) => (
+      statusFilter[status] ? result + `${status}%3D${statusFilter[status].value}%26` : result
+    ), '').slice(0, -3);
+    Fetcher.xmlHttpRequest({
+      path: `/api/client_admin/tiles?filter=${filter}&status=${this.state.activeStatus}`,
+      method: 'GET',
+      success: resp => {
+        const tileStatusNav = {...this.state.tileStatusNav};
+        const tiles = {...this.state.tiles};
+        tiles[this.state.activeStatus].tiles = resp;
+        tileStatusNav[this.state.activeStatus].page = resp.length < 16 ? 0 : 1;
+        this.setState({
+          tileStatusNav,
+          tiles,
+          loading: false,
+        });
+      },
+    });
+  }
+
   baseAlertOptions() {
     return {
       customClass: 'airbo',
@@ -156,6 +180,7 @@ class ClientAdminTiles extends Component {
       }, {}),
       loading: false,
       scrollLoading: false,
+      appLoaded: true,
       tiles,
     });
   }
@@ -238,9 +263,16 @@ class ClientAdminTiles extends Component {
   }
 
   handleFilterChange(value, action, target) {
-    const newTileStatusNav = {...this.state.tileStatusNav};
-    newTileStatusNav[this.state.activeStatus].filter[target] = value;
-    this.setState({tileStatusNav: newTileStatusNav});
+    const changeFilter = (
+      !this.state.tileStatusNav[this.state.activeStatus].filter[target] ||
+      this.state.tileStatusNav[this.state.activeStatus].filter[target].label !== value.label
+    )
+    if (changeFilter) {
+      const newTileStatusNav = {...this.state.tileStatusNav};
+      newTileStatusNav[this.state.activeStatus].filter[target] = value;
+      this.setState({tileStatusNav: newTileStatusNav, loading: true});
+      this.loadFilteredTiles();
+    }
   }
 
   render() {
@@ -255,7 +287,7 @@ class ClientAdminTiles extends Component {
         {
           (this.state.activeStatus !== 'user_submitted' && this.state.activeStatus !== 'draft') &&
           <TileFilterSubNavComponent
-            loading={this.state.loading}
+            appLoaded={this.state.appLoaded}
             activeStatus={this.state.activeStatus}
             tileStatusNav={this.state.tileStatusNav}
             handleFilterChange={this.handleFilterChange}
