@@ -1,0 +1,14 @@
+.react-select {
+  color: black;
+  input[type=text] {
+    margin: 0;
+  }
+}
+
+.react-select.date-filter > div:first-child {
+  background-color: transparent;
+}
+
+.react-select.date-filter > div:first-child div div {
+  color: white;
+}
