@@ -72,6 +72,7 @@ class ClientAdminTiles extends Component {
     this.handleMenuAction = this.handleMenuAction.bind(this);
     this.baseAlertOptions = this.baseAlertOptions.bind(this);
     this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
     this.scrollState = new InfiniScroller({
       scrollPercentage: 0.95,
       throttle: 100,
@@ -148,8 +149,9 @@ class ClientAdminTiles extends Component {
       tileStatusNav: [...Object.keys(statuses)].reverse().reduce((result, status) => {
         const tileCount = tiles[status] ? tiles[status].count : 0;
         const page = tileCount <= 16 ? 0 : 1;
+        const filter = {month: null, year: null, campaign: null, sortType: null};
         const insertStatus = {};
-        insertStatus[status] = { tileCount, uiDisplay: statuses[status], page };
+        insertStatus[status] = { tileCount, page, filter, uiDisplay: statuses[status] };
         return Object.assign(insertStatus , result);
       }, {}),
       loading: false,
@@ -235,6 +237,12 @@ class ClientAdminTiles extends Component {
     }
   }
 
+  handleFilterChange(value, action, target) {
+    const newTileStatusNav = {...this.state.tileStatusNav};
+    newTileStatusNav[this.state.activeStatus].filter[target] = value;
+    this.setState({tileStatusNav: newTileStatusNav});
+  }
+
   render() {
     return (
       <div className="client-admin-tiles-container">
@@ -247,7 +255,10 @@ class ClientAdminTiles extends Component {
         {
           (this.state.activeStatus !== 'user_submitted' && this.state.activeStatus !== 'draft') &&
           <TileFilterSubNavComponent
-          activeStatus={this.state.activeStatus}
+            loading={this.state.loading}
+            activeStatus={this.state.activeStatus}
+            tileStatusNav={this.state.tileStatusNav}
+            handleFilterChange={this.handleFilterChange}
           />
         }
         {

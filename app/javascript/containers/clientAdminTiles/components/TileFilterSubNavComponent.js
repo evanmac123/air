@@ -8,7 +8,7 @@ const renderMonthOptions = activeStatus => {
   const result = [];
   if (activeStatus === 'plan') { result.push({value: 0, label: 'Unplanned'}); }
   return result.concat(MapWithIndex(DateMaker.spelledOutMonths, (label, index) => (
-    {label, className: 'date-option', value: (index + 1)}
+    {label, className: 'month-option', value: (index + 1)}
   )));
 };
 
@@ -29,18 +29,21 @@ const renderCampaignOptions = () => {
 };
 
 const renderSortOptions = () => ([
-  {label: 'Sort by Drag & Drop', className: 'sort-option', value: 'dnd'},
-  {label: 'Sort by Date', className: 'sort-option', value: 'date-sort'},
+  {label: 'Sort by Drag & Drop', className: 'sortType-option', value: 'dnd'},
+  {label: 'Sort by Date', className: 'sortType-option', value: 'date-sort'},
 ]);
 
 const TileFilterSubNavComponent = props => (
+  !props.loading &&
   <div className="tabs-component-full-width-sub-nav js-tiles-index-filter-bar">
     <div className="row">
       <ul className="sub-nav-options">
-        <li className="sub-nav-option" style={{width: '15%'}}>
+        <li className="sub-nav-option" style={{width: '16%'}}>
           <Select
+            onChange={(val, act) => { props.handleFilterChange(val, act, 'month'); }}
             className="react-select date-filter"
             placeholder="All Months"
+            value={props.tileStatusNav[props.activeStatus].filter.month}
             isClearable={true}
             options={renderMonthOptions(props.activeStatus)}
             isSearchable={false}
@@ -49,10 +52,12 @@ const TileFilterSubNavComponent = props => (
 
         {
           props.activeStatus !== 'plan' &&
-          <li className="sub-nav-option" style={{width: '12%'}}>
+          <li className="sub-nav-option" style={{width: '13%'}}>
             <Select
-              className="react-select date-filter"
+              onChange={(val, act) => { props.handleFilterChange(val, act, 'year'); }}
+              className="react-select year-filter"
               placeholder="All Years"
+              value={props.tileStatusNav[props.activeStatus].filter.year}
               isClearable={true}
               options={renderYearOptions()}
               isSearchable={false}
@@ -60,10 +65,12 @@ const TileFilterSubNavComponent = props => (
           </li>
         }
 
-        <li className="sub-nav-option" style={{width: '15%'}}>
+        <li className="sub-nav-option" style={{width: '16%'}}>
           <Select
-            className="react-select date-filter"
+            onChange={(val, act) => { props.handleFilterChange(val, act, 'campaign'); }}
+            className="react-select campaign-filter"
             placeholder="All Campaigns"
+            value={props.tileStatusNav[props.activeStatus].filter.campaign}
             isClearable={true}
             options={renderCampaignOptions()}
             isSearchable={true}
@@ -72,9 +79,10 @@ const TileFilterSubNavComponent = props => (
 
         <li className="sub-nav-option end" style={{width: '20%'}}>
           <Select
-            className="react-select date-filter"
-            placeholder="Sort..."
-            isClearable={true}
+            onChange={(val, act) => { props.handleFilterChange(val, act, 'sortType'); }}
+            className="react-select sort-filter"
+            value={props.tileStatusNav[props.activeStatus].filter.sortType || renderSortOptions()[0]}
+            isClearable={false}
             options={renderSortOptions()}
             isSearchable={false}
           />
