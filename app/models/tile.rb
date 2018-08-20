@@ -7,6 +7,7 @@ class Tile < ActiveRecord::Base
   include Tile::TileAnswers
   include Tile::TileLinkTracking
   include Tile::Status
+  include Tile::ReactProcessing
   include Attachable
 
   MAX_HEADLINE_LEN = 75
@@ -106,7 +107,7 @@ class Tile < ActiveRecord::Base
     end.to_json
   end
 
-  def self.fetch_edit_flow(board = nil, page = 1)
+  def self.fetch_edit_flow(board = nil)
     return nil unless board
     tiles = board.tiles.order(updated_at: :desc).group_by(&:status)
     STATUS.reduce(tiles) do |result, status|
@@ -138,13 +139,8 @@ class Tile < ActiveRecord::Base
   end
 
   def self.fetch_edit_scoped(args)
-    scope = args[:filter].split("&").reduce(query: "", value: []) do |result, rawFilter|
-      result[:query] += "extract(#{rawFilter.split('=')[0]} from plan_date) = ? AND "
-      result[:value].push(rawFilter.split("=")[1])
-      result
-    end
     args[:board].tiles.where(status: args[:status])
-                      .where(scope[:query][0..-6], scope[:value])
+                      .where(Tile::ReactProcessing.get_edit_tile_filters(args))
                       .order(updated_at: :desc).page(args[:page] || 1).per(16)
   end
 

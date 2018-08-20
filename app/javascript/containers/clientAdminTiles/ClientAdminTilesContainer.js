@@ -54,6 +54,12 @@ const addNewTiles = (tileIDs, existingTiles, newTiles) => (
   }, existingTiles)
 );
 
+const getFilterParams = statusFilter => (
+  Object.keys(statusFilter).reduce((result, status) => (
+    statusFilter[status] ? `${result}${status}%3D${statusFilter[status].value}%26` : result
+  ), '').slice(0, -3)
+);
+
 class ClientAdminTiles extends Component {
   constructor(props) {
     super(props);
@@ -112,9 +118,10 @@ class ClientAdminTiles extends Component {
   getAdditionalTiles() {
     if (!this.state.scrollLoading && this.state.tileStatusNav[this.state.activeStatus].page) {
       this.setState({scrollLoading: true});
+      const filter = getFilterParams(this.state.tileStatusNav[this.state.activeStatus].filter);
       const page = this.state.tileStatusNav[this.state.activeStatus].page + 1;
       Fetcher.xmlHttpRequest({
-        path: `/api/client_admin/tiles?page=${page}&status=${this.state.activeStatus}`,
+        path: `/api/client_admin/tiles?page=${page}&status=${this.state.activeStatus}&filter=${filter}`,
         method: 'GET',
         success: resp => {
           const tileStatusNav = {...this.state.tileStatusNav};
@@ -132,10 +139,7 @@ class ClientAdminTiles extends Component {
   }
 
   loadFilteredTiles() {
-    const statusFilter = this.state.tileStatusNav[this.state.activeStatus].filter;
-    const filter = Object.keys(statusFilter).reduce((result, status) => (
-      statusFilter[status] ? result + `${status}%3D${statusFilter[status].value}%26` : result
-    ), '').slice(0, -3);
+    const filter = getFilterParams(this.state.tileStatusNav[this.state.activeStatus].filter);
     Fetcher.xmlHttpRequest({
       path: `/api/client_admin/tiles?filter=${filter}&status=${this.state.activeStatus}`,
       method: 'GET',
@@ -264,9 +268,9 @@ class ClientAdminTiles extends Component {
 
   handleFilterChange(value, action, target) {
     const changeFilter = (
-      !this.state.tileStatusNav[this.state.activeStatus].filter[target] ||
+      (!value || !this.state.tileStatusNav[this.state.activeStatus].filter[target]) ||
       this.state.tileStatusNav[this.state.activeStatus].filter[target].label !== value.label
-    )
+    );
     if (changeFilter) {
       const newTileStatusNav = {...this.state.tileStatusNav};
       newTileStatusNav[this.state.activeStatus].filter[target] = value;
