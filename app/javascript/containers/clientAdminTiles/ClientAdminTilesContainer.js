@@ -5,6 +5,7 @@ import LoadingComponent from "../../shared/LoadingComponent";
 import TileStatusNavComponent from "./components/TileStatusNavComponent";
 import TileFilterSubNavComponent from "./components/TileFilterSubNavComponent";
 import EditTilesComponent from "./components/EditTilesComponent";
+import CampaignCreatorComponent from "./components/CampaignCreatorComponent";
 import TileManager from "./utils/TileManager";
 import { Fetcher, InfiniScroller, Pluck } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
@@ -271,11 +272,19 @@ class ClientAdminTiles extends Component {
       (!value || !this.state.tileStatusNav[this.state.activeStatus].filter[target]) ||
       this.state.tileStatusNav[this.state.activeStatus].filter[target].label !== value.label
     );
-    if (changeFilter) {
+    if (changeFilter && value.value !== 'create_campaign') {
       const newTileStatusNav = {...this.state.tileStatusNav};
       newTileStatusNav[this.state.activeStatus].filter[target] = value;
       this.setState({tileStatusNav: newTileStatusNav, loading: true});
       this.loadFilteredTiles();
+    } else {
+      this.setState({
+        alert: React.createElement(SweetAlert, {
+          ...this.baseAlertOptions(),
+          title: "Create Campaign",
+          onConfirm: () => { this.setState({alert: null }); },
+        }, React.createElement(CampaignCreatorComponent, {})),
+      });
     }
   }
 
