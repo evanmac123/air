@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Select from 'react-select';
 
 import { Fetcher } from "../../../lib/helpers";
 
@@ -12,32 +13,39 @@ const colorOptionStyle = {
   marginBottom: '5px',
   display: 'inline-block',
   float: 'left',
-}
+};
 
 class CampaignCreatorComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      name: '',
+      audience: '',
+      color: '',
+    };
   }
 
   render() {
     return (
       <form className="js-edit-campaign-form">
-        <label>Campaign Name</label>
         <input
+          placeholder="Campaign Name"
           type="text"
           name="campaign-name"
-          onKeyUp={() => {debugger}}
+          onKeyUp={() => { debugger }}
           id="campaign-name"
-          value=""
         />
 
-        <label>Audience</label>
-        <select name="population_segment_id">
-          <option>All Users</option>
-          <option>health</option>
-        </select>
+        <Select
+          onChange={(val, act) => { debugger }}
+          className="camp-audience-select"
+          placeholder="Audience"
+          isClearable={true}
+          options={[{label: 'All Users', value: 'all'}, {label: 'Health', value: '4'}]}
+          isSearchable={true}
+        />
 
-        <label>Campaign Color</label>
+        <label style={{marginTop: '25px'}}>Campaign Color</label>
         <div
           className="campaign-colors"
           style={{
@@ -77,7 +85,7 @@ class CampaignCreatorComponent extends Component {
           />
         </div>
       </form>
-    )
+    );
   }
 }
 

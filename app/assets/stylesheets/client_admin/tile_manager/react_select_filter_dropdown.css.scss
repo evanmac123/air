@@ -12,3 +12,15 @@
 .react-select > div:first-child div div {
   color: white;
 }
+
+.camp-audience-select {
+  height: 35px;
+  input[type=text] {
+    margin: 0;
+    height: 28px;
+  }
+}
+
+.react-select > div:first-child {
+  height: 10px;
+}
