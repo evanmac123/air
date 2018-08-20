@@ -1,5 +1,7 @@
 .react-select {
   color: black;
+  height: 29px;
+  margin-bottom: 10px;
   input[type=text] {
     margin: 0;
   }
@@ -19,6 +21,10 @@
     margin: 0;
     height: 28px;
   }
+}
+
+.camp-audience-select.error > div:first-child {
+  border-color: red;
 }
 
 .react-select > div:first-child {

@@ -13,7 +13,7 @@ namespace :api, defaults: { format: :json } do
     resource :reports, only: [:show]
     resources :tile_email_reports, only: [:index]
     resources :tile_thumbnails, only: [:index]
-    resources :campaigns, only: [:create, :update]
+    resources :campaigns, only: [:create, :update, :index]
     resources :population_segments, only: [:create, :update, :destroy, :index]
     resources :tiles, only: [:index, :update] do
       member do

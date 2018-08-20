@@ -21,13 +21,6 @@ const renderYearOptions = () => {
   ));
 };
 
-const renderCampaignOptions = () => {
-  const result = [{label: 'Unassigned', className: 'campaign-option', value: 'unassigned'}];
-  // logic for rendering campaigns
-  result.push({label: '+ Create Campaign', className: 'campaign-option', value: 'create_campaign'});
-  return result;
-};
-
 const renderSortOptions = () => ([
   {label: 'Sort by Drag & Drop', className: 'sortType-option', value: 'dnd'},
   {label: 'Sort by Date', className: 'sortType-option', value: 'date-sort'},
@@ -65,14 +58,16 @@ const TileFilterSubNavComponent = props => (
           </li>
         }
 
-        <li className="sub-nav-option" style={{width: '16%'}}>
+        <li className="sub-nav-option" style={{width: '18%'}}>
           <Select
+            onMenuOpen={props.populateCampaigns}
+            isLoading={props.campaignLoading}
             onChange={(val, act) => { props.handleFilterChange(val, act, 'campaign'); }}
             className="react-select campaign-filter"
             placeholder="All Campaigns"
             value={props.tileStatusNav[props.activeStatus].filter.campaign}
             isClearable={true}
-            options={renderCampaignOptions()}
+            options={props.campaigns}
             isSearchable={true}
           />
         </li>
