@@ -18,11 +18,11 @@ const renderColorOptions = setColorSelection => ["#ffb748", "#ff687b", "#b6a9f1"
     className: "color-option",
     style: {...colorOptionStyle, background},
     key: background,
-    onClick: () => { setColorSelection(background); },
+    onClick: () => { setColorSelection({color: background}); },
   })
 ));
 
-const NewCampaignComponent = props => (
+const CampaignFormComponent = props => (
     <form className="js-edit-campaign-form">
       {props.errorStyling.name &&
         <p style={{float: 'left', color: 'red'}}>Required</p>
@@ -31,7 +31,8 @@ const NewCampaignComponent = props => (
         placeholder="Campaign Name"
         type="text"
         name="campaign-name"
-        onKeyUp={(e) => { props.handleFormState('name', e.target.value); }}
+        value={props.name}
+        onChange={(e) => { props.handleFormState('name', e.target.value); }}
         id="campaign-name"
         style={props.errorStyling.name || {}}
       />
@@ -40,8 +41,9 @@ const NewCampaignComponent = props => (
         <p style={{marginRight: '100%', color: 'red'}}>Required</p>
       }
       <Select
-        onChange={(val) => { props.handleFormState('audience', val === null ? '' : val.value); }}
+        onChange={(val) => { props.handleFormState('audience', val); }}
         className={`camp-audience-select ${props.errorStyling.audience}`}
+        value={props.audience}
         placeholder="Select Audience"
         isClearable={true}
         options={props.populationSegments}
@@ -77,7 +79,7 @@ const NewCampaignComponent = props => (
     </form>
 );
 
-NewCampaignComponent.propTypes = {
+CampaignFormComponent.propTypes = {
   errorStyling: PropTypes.shape({
     name: PropTypes.object,
     audience: PropTypes.string,
@@ -92,6 +94,14 @@ NewCampaignComponent.propTypes = {
   })),
   setColorSelection: PropTypes.func.isRequired,
   color: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  audience: PropTypes.shape({
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
+    label: PropTypes.string.isRequired,
+  }),
 };
 
-export default NewCampaignComponent;
+export default CampaignFormComponent;

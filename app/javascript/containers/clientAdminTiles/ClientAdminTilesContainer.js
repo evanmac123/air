@@ -62,7 +62,7 @@ const getFilterParams = statusFilter => (
 );
 
 const sanitizeCampaignResponse = camp => (
-  {label: camp.name, className: 'campaign-option', value: camp.id, color: camp.color}
+  {label: camp.name, className: 'campaign-option', value: camp.id, color: camp.color, population: camp.population_segment_id}
 );
 
 const unassignedCampaign = {label: 'Unassigned', className: 'campaign-option', value: '0', color: '#fff'};
@@ -172,6 +172,9 @@ class ClientAdminTiles extends Component {
     switch(action) {
     case 'create':
       this.addCampaign(resp);
+      break;
+    case 'update':
+      // this.updateCampaign(resp);
       break;
     default:
       this.syncCampaignState(resp);
