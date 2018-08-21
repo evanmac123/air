@@ -59,7 +59,7 @@ class CampaignManagerComponent extends Component {
         confirmBtnText: "+ Create Campaign",
         cancelBtnText: "Close",
         confirmAction: this.newCampaign,
-        onCancel: () => { this.props.onClose('close', this.state.campaigns); },
+        onCancel: () => { this.props.onClose(this.state.campaigns); },
       },
     };
   }
@@ -214,7 +214,7 @@ class CampaignManagerComponent extends Component {
     if (cb) {
       cb();
     } else {
-      this.props.onClose('close', this.state.campaigns);
+      this.props.onClose(this.state.campaigns);
     }
   }
 

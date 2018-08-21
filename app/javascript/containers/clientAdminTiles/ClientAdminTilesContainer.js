@@ -90,10 +90,8 @@ class ClientAdminTiles extends Component {
     this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.loadFilteredTiles = this.loadFilteredTiles.bind(this);
-    this.addCampaign = this.addCampaign.bind(this);
     this.populateCampaigns = this.populateCampaigns.bind(this);
     this.openCampaignManager = this.openCampaignManager.bind(this);
-    this.handleCampaignChanges = this.handleCampaignChanges.bind(this);
     this.syncCampaignState = this.syncCampaignState.bind(this);
     this.scrollState = new InfiniScroller({
       scrollPercentage: 0.95,
@@ -144,7 +142,7 @@ class ClientAdminTiles extends Component {
             campaigns,
             alert: React.createElement(CampaignManagerComponent, {
               campaigns,
-              onClose: this.handleCampaignChanges,
+              onClose: this.syncCampaignState,
             }),
           });
         } else {
@@ -159,34 +157,12 @@ class ClientAdminTiles extends Component {
     this.setState({alert: null, campaigns});
   }
 
-  addCampaign(camp) {
-    if (camp && camp.campaign) {
-      const newCampaign = [sanitizeCampaignResponse(camp.campaign)];
-      const campaigns = [...this.state.campaigns];
-      this.setState({campaigns: campaigns.concat(newCampaign)});
-    }
-    this.setState({alert: null});
-  }
-
-  handleCampaignChanges(action, resp) {
-    switch(action) {
-    case 'create':
-      this.addCampaign(resp);
-      break;
-    case 'update':
-      // this.updateCampaign(resp);
-      break;
-    default:
-      this.syncCampaignState(resp);
-    }
-  }
-
   openCampaignManager() {
     if (this.state.campaigns.length) {
       this.setState({
         alert: React.createElement(CampaignManagerComponent, {
           campaigns: this.state.campaigns,
-          onClose: this.handleCampaignChanges,
+          onClose: this.syncCampaignState,
         }),
       });
     } else {
