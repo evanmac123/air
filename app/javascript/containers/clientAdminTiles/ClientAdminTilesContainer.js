@@ -128,7 +128,7 @@ class ClientAdminTiles extends Component {
       method: 'GET',
       success: resp => {
         const campaigns = resp.reduce((result, camp) => result.concat([{label: camp.campaign.name, className: 'campaign-option', value: camp.campaign.id}]),
-          [{label: 'Unassigned', className: 'campaign-option', value: 'unassigned'}]).concat([
+          [{label: 'Unassigned', className: 'campaign-option', value: '0'}]).concat([
           {label: '+ Create Campaign', className: 'campaign-option', value: 'create_campaign'},
         ]);
         this.setState({ campaignLoading: false, campaigns });

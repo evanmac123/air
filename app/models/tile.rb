@@ -109,30 +109,7 @@ class Tile < ActiveRecord::Base
 
   def self.fetch_edit_flow(board = nil)
     return nil unless board
-    tiles = board.tiles.joins("LEFT JOIN campaigns ON campaigns.id = tiles.campaign_id")
-            .select(
-              "campaigns.id AS campaign_id",
-              "campaigns.color AS campaign_color",
-              "tiles.headline",
-              "tiles.id",
-              "tiles.thumbnail_file_name",
-              "tiles.thumbnail_content_type",
-              "tiles.thumbnail_file_size",
-              "tiles.thumbnail_updated_at",
-              "tiles.thumbnail_processing",
-              "tiles.embed_video",
-              "tiles.remote_media_url",
-              "tiles.plan_date",
-              "tiles.activated_at",
-              "tiles.archived_at",
-              "tiles.status",
-              "tiles.supporting_content",
-              "tiles.question",
-              "tiles.question_type",
-              "tiles.multiple_choice_answers",
-              "tiles.question_subtype",
-              "tiles.correct_answer_index",
-            )
+    tiles = from_board_with_campaigns(board)
             .order(updated_at: :desc).group_by(&:status)
     STATUS.reduce(tiles) do |result, status|
       result[status] = if tiles[status]
@@ -164,9 +141,10 @@ class Tile < ActiveRecord::Base
   end
 
   def self.fetch_edit_scoped(args)
-    args[:board].tiles.where(status: args[:status])
-                      .where(Tile::ReactProcessing.get_edit_tile_filters(args))
-                      .order(updated_at: :desc).page(args[:page] || 1).per(16)
+    from_board_with_campaigns(args[:board])
+      .where(status: args[:status])
+      .where(Tile::ReactProcessing.get_edit_tile_filters(args))
+      .order(updated_at: :desc).page(args[:page] || 1).per(16)
   end
 
   def self.react_sanitize(payload, range = 27, &sanitize)
@@ -185,6 +163,33 @@ class Tile < ActiveRecord::Base
       return sql_statements[0..-5] += ")"
     end
     base_validation
+  end
+
+  def self.from_board_with_campaigns(board)
+    board.tiles.joins("LEFT JOIN campaigns ON campaigns.id = tiles.campaign_id")
+            .select(
+              "campaigns.id AS campaign_id",
+              "campaigns.color AS campaign_color",
+              "tiles.headline",
+              "tiles.id",
+              "tiles.thumbnail_file_name",
+              "tiles.thumbnail_content_type",
+              "tiles.thumbnail_file_size",
+              "tiles.thumbnail_updated_at",
+              "tiles.thumbnail_processing",
+              "tiles.embed_video",
+              "tiles.remote_media_url",
+              "tiles.plan_date",
+              "tiles.activated_at",
+              "tiles.archived_at",
+              "tiles.status",
+              "tiles.supporting_content",
+              "tiles.question",
+              "tiles.question_type",
+              "tiles.multiple_choice_answers",
+              "tiles.question_subtype",
+              "tiles.correct_answer_index",
+            )
   end
 
   def self.default_search_fields

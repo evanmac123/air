@@ -51,7 +51,8 @@ class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
           "planDate" => tile.plan_date,
           "activeDate" => tile.activated_at,
           "archiveDate" => tile.archived_at,
-          "fullyAssembled" => tile.is_fully_assembled?
+          "fullyAssembled" => tile.is_fully_assembled?,
+          "campaignColor" => tile.campaign_color
         }
       end
     end
