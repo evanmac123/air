@@ -43,6 +43,8 @@ const TileComponent = props => (
               <LoadingComponent />
             </div>
           }
+          <div style={{height: '3px', backgroundColor: (props.campaignColor || '#fff')}}>
+          </div>
           <div className="shadow_overlay">
           {props.shadowOverlayButtons &&
             <ul className="tile_buttons">
@@ -101,6 +103,7 @@ TileComponent.propTypes = {
   tileThumblinkOnClick: PropTypes.func,
   loading: PropTypes.bool,
   calendarClass: PropTypes.string,
+  campaignColor: PropTypes.string,
 };
 
 export default TileComponent;

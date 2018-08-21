@@ -120,7 +120,6 @@ class ClientAdminTiles extends Component {
     });
   }
 
-
   populateCampaigns() {
     if (this.state.campaigns.length) { return; } // eslint-disable-line
     this.setState({ campaignLoading: true });

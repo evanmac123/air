@@ -109,7 +109,31 @@ class Tile < ActiveRecord::Base
 
   def self.fetch_edit_flow(board = nil)
     return nil unless board
-    tiles = board.tiles.order(updated_at: :desc).group_by(&:status)
+    tiles = board.tiles.joins("LEFT JOIN campaigns ON campaigns.id = tiles.campaign_id")
+            .select(
+              "campaigns.id AS campaign_id",
+              "campaigns.color AS campaign_color",
+              "tiles.headline",
+              "tiles.id",
+              "tiles.thumbnail_file_name",
+              "tiles.thumbnail_content_type",
+              "tiles.thumbnail_file_size",
+              "tiles.thumbnail_updated_at",
+              "tiles.thumbnail_processing",
+              "tiles.embed_video",
+              "tiles.remote_media_url",
+              "tiles.plan_date",
+              "tiles.activated_at",
+              "tiles.archived_at",
+              "tiles.status",
+              "tiles.supporting_content",
+              "tiles.question",
+              "tiles.question_type",
+              "tiles.multiple_choice_answers",
+              "tiles.question_subtype",
+              "tiles.correct_answer_index",
+            )
+            .order(updated_at: :desc).group_by(&:status)
     STATUS.reduce(tiles) do |result, status|
       result[status] = if tiles[status]
         {
@@ -123,7 +147,8 @@ class Tile < ActiveRecord::Base
               "planDate" => tile.plan_date,
               "activeDate" => tile.activated_at,
               "archiveDate" => tile.archived_at,
-              "fullyAssembled" => tile.is_fully_assembled?
+              "fullyAssembled" => tile.is_fully_assembled?,
+              "campaignColor" => tile.campaign_color
             }
           end,
           count: tiles[status].length
