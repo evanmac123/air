@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import SweetAlert from 'react-bootstrap-sweetalert';
 
 import LoadingComponent from "../../shared/LoadingComponent";
+import CampaignManagerComponent from "../../shared/CampaignManagerComponent";
 import TileStatusNavComponent from "./components/TileStatusNavComponent";
 import TileFilterSubNavComponent from "./components/TileFilterSubNavComponent";
 import EditTilesComponent from "./components/EditTilesComponent";
-import CampaignCreatorComponent from "./components/CampaignCreatorComponent";
 import TileManager from "./utils/TileManager";
 import { Fetcher, InfiniScroller, Pluck } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
@@ -86,6 +86,8 @@ class ClientAdminTiles extends Component {
     this.loadFilteredTiles = this.loadFilteredTiles.bind(this);
     this.addCampaign = this.addCampaign.bind(this);
     this.populateCampaigns = this.populateCampaigns.bind(this);
+    this.openCampaignManager = this.openCampaignManager.bind(this);
+    this.handleCampaignChanges = this.handleCampaignChanges.bind(this);
     this.scrollState = new InfiniScroller({
       scrollPercentage: 0.95,
       throttle: 100,
@@ -128,9 +130,7 @@ class ClientAdminTiles extends Component {
       method: 'GET',
       success: resp => {
         const campaigns = resp.reduce((result, camp) => result.concat([{label: camp.campaign.name, className: 'campaign-option', value: camp.campaign.id}]),
-          [{label: 'Unassigned', className: 'campaign-option', value: '0'}]).concat([
-          {label: '+ Create Campaign', className: 'campaign-option', value: 'create_campaign'},
-        ]);
+          [{label: 'Unassigned', className: 'campaign-option', value: '0'}]);
         this.setState({ campaignLoading: false, campaigns });
       },
     });
@@ -138,12 +138,24 @@ class ClientAdminTiles extends Component {
 
   addCampaign(camp) {
     if (camp && camp.campaign) {
-      const newCampaign = {label: camp.campaign.name, className: 'campaign-option', value: camp.campaign.id};
+      const newCampaign = [{label: camp.campaign.name, className: 'campaign-option', value: camp.campaign.id}];
       const campaigns = [...this.state.campaigns];
-      const createCampaign = campaigns.pop();
-      this.setState({campaigns: campaigns.concat([newCampaign, createCampaign])});
+      this.setState({campaigns: campaigns.concat(newCampaign)});
     }
     this.setState({alert: null});
+  }
+
+  handleCampaignChanges(action, resp) {
+    this.setState({alert: null});
+  }
+
+  openCampaignManager() {
+    this.setState({
+      alert: React.createElement(CampaignManagerComponent, {
+        campaigns: this.state.campaigns,
+        onClose: this.handleCampaignChanges,
+      }),
+    });
   }
 
   getAdditionalTiles() {
@@ -302,13 +314,7 @@ class ClientAdminTiles extends Component {
       (!value || !this.state.tileStatusNav[this.state.activeStatus].filter[target]) ||
       this.state.tileStatusNav[this.state.activeStatus].filter[target].label !== value.label
     );
-    if (value && value.value === 'create_campaign') {
-      this.setState({
-        alert: React.createElement(CampaignCreatorComponent, {
-          onClose: this.addCampaign,
-        }),
-      });
-    } else if (changeFilter) {
+    if (changeFilter) {
       const newTileStatusNav = {...this.state.tileStatusNav};
       newTileStatusNav[this.state.activeStatus].filter[target] = value;
       this.setState({tileStatusNav: newTileStatusNav, loading: true});
@@ -335,6 +341,7 @@ class ClientAdminTiles extends Component {
             campaigns={this.state.campaigns}
             populateCampaigns={this.populateCampaigns}
             campaignLoading={this.state.campaignLoading}
+            openCampaignManager={this.openCampaignManager}
           />
         }
         {
