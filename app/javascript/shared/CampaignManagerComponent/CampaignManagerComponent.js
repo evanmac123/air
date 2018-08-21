@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import SweetAlert from 'react-bootstrap-sweetalert';
 
+import LoadingComponent from "../LoadingComponent";
 import NewCampaignComponent from "./components/NewCampaignComponent";
 import { Fetcher } from "../../lib/helpers";
 
@@ -25,7 +27,16 @@ class CampaignManagerComponent extends Component {
     this.applyErrors = this.applyErrors.bind(this);
     this.populateCampaigns = this.populateCampaigns.bind(this);
     this.setColorSelection = this.setColorSelection.bind(this);
+    this.handleConfirm = this.handleConfirm.bind(this);
     this.populationSegments = [{label: 'All Users', value: 'all'}];
+    this.alertProps = {
+      NewCampaignComponent: {
+        title: "Create Campaign",
+        confirmBtnText: "Create Campaign",
+        showCancel: true,
+        confirmAction: this.submitCampaign,
+      },
+    };
   }
 
   componentDidMount() {
@@ -106,15 +117,37 @@ class CampaignManagerComponent extends Component {
     this.setState({ color });
   }
 
+  handleConfirm(cb) {
+    if (cb) {
+      cb();
+    } else {
+      this.props.onClose();
+    }
+  }
+
   render() {
     return (
-      React.createElement(managerComponents[this.state.activeComponent], {
-        ...this.state,
-        setColorSelection: this.setColorSelection,
-        submitCampaign: this.submitCampaign,
-        handleFormState: this.handleFormState,
-        onClose: this.props.onClose,
-      })
+      React.createElement(SweetAlert, {
+        ...this.alertProps[this.state.activeComponent],
+        customClass: "airbo",
+        cancelBtnCssClass: `cancel ${this.state.loading ? 'disabled' : ''}`,
+        confirmBtnCssClass: `confirm ${this.state.loading ? 'disabled' : ''}`,
+        cancelBtnText: "Back to Manage",
+        onCancel: () => { this.setState({activeComponent: 'ManagerMainComponent'}); },
+        onConfirm: () => { this.handleConfirm(this.alertProps[this.state.activeComponent].confirmAction); },
+        style: {
+          display: 'inherit',
+          width: '520px',
+        },
+      }, this.state.loading ?
+        React.createElement(LoadingComponent) :
+        React.createElement(managerComponents[this.state.activeComponent], {
+          ...this.state,
+          sweetAlert: SweetAlert,
+          setColorSelection: this.setColorSelection,
+          handleFormState: this.handleFormState,
+        }),
+      )
     );
   }
 }

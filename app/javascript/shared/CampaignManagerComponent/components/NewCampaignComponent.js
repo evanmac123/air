@@ -1,9 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Select from 'react-select';
-import SweetAlert from 'react-bootstrap-sweetalert';
-
-import LoadingComponent from "../../LoadingComponent";
 
 const colorOptionStyle = {
   cursor: 'pointer',
@@ -26,23 +23,6 @@ const renderColorOptions = setColorSelection => ["#ffb748", "#ff687b", "#b6a9f1"
 ));
 
 const NewCampaignComponent = props => (
-  <SweetAlert
-    title="Create Campaign"
-    customClass="airbo"
-    cancelBtnCssClass={`cancel ${props.loading ? 'disabled' : ''}`}
-    confirmBtnCssClass={`confirm ${props.loading ? 'disabled' : ''}`}
-    confirmBtnText="Create Campaign"
-    showCancel={true}
-    onCancel={props.onClose}
-    onConfirm={props.submitCampaign}
-    style={{
-      display: 'inherit',
-      width: '520px',
-    }}
-  >
-  {
-    props.loading ?
-    <LoadingComponent /> :
     <form className="js-edit-campaign-form">
       {props.errorStyling.name &&
         <p style={{float: 'left', color: 'red'}}>Required</p>
@@ -95,14 +75,9 @@ const NewCampaignComponent = props => (
         />
       </div>
     </form>
-  }
-  </SweetAlert>
 );
 
 NewCampaignComponent.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  submitCampaign: PropTypes.func.isRequired,
   errorStyling: PropTypes.shape({
     name: PropTypes.object,
     audience: PropTypes.string,
