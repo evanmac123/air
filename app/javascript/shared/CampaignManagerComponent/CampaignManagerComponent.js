@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import SweetAlert from 'react-bootstrap-sweetalert';
 
 import LoadingComponent from "../LoadingComponent";
+import ManagerMainComponent from "./components/ManagerMainComponent";
 import NewCampaignComponent from "./components/NewCampaignComponent";
 import { Fetcher } from "../../lib/helpers";
 
 const managerComponents = {
+  ManagerMainComponent,
   NewCampaignComponent,
 };
 
@@ -20,7 +22,7 @@ class CampaignManagerComponent extends Component {
       loading: true,
       errorStyling: {},
       campaigns: [],
-      activeComponent: 'NewCampaignComponent',
+      activeComponent: 'ManagerMainComponent',
     };
     this.handleFormState = this.handleFormState.bind(this);
     this.submitCampaign = this.submitCampaign.bind(this);
@@ -35,6 +37,14 @@ class CampaignManagerComponent extends Component {
         confirmBtnText: "Create Campaign",
         showCancel: true,
         confirmAction: this.submitCampaign,
+      },
+      ManagerMainComponent: {
+        title: "Manage Campaigns",
+        showCancel: true,
+        confirmBtnText: "+ Create Campaign",
+        cancelBtnText: "Close",
+        confirmAction: () => { this.setState({activeComponent: 'NewCampaignComponent'}); },
+        onCancel: this.props.onClose,
       },
     };
   }
@@ -60,7 +70,7 @@ class CampaignManagerComponent extends Component {
         path: '/api/client_admin/campaigns',
         method: 'GET',
         success: resp => {
-          const campaigns = resp.reduce((result, camp) => result.concat([{label: camp.campaign.name, className: 'campaign-option', value: camp.campaign.id}]), []);
+          const campaigns = resp.reduce((result, camp) => result.concat([{label: camp.campaign.name, className: 'campaign-option', value: camp.campaign.id, color: camp.campaign.color}]), []);
           this.setState({ loading: false, campaigns, populationSegments: this.populationSegments });
         },
       });
@@ -128,12 +138,12 @@ class CampaignManagerComponent extends Component {
   render() {
     return (
       React.createElement(SweetAlert, {
+        cancelBtnText: "Back to Manage",
+        onCancel: () => { this.setState({activeComponent: 'ManagerMainComponent'}); },
         ...this.alertProps[this.state.activeComponent],
         customClass: "airbo",
         cancelBtnCssClass: `cancel ${this.state.loading ? 'disabled' : ''}`,
         confirmBtnCssClass: `confirm ${this.state.loading ? 'disabled' : ''}`,
-        cancelBtnText: "Back to Manage",
-        onCancel: () => { this.setState({activeComponent: 'ManagerMainComponent'}); },
         onConfirm: () => { this.handleConfirm(this.alertProps[this.state.activeComponent].confirmAction); },
         style: {
           display: 'inherit',

@@ -129,7 +129,7 @@ class ClientAdminTiles extends Component {
       path: '/api/client_admin/campaigns',
       method: 'GET',
       success: resp => {
-        const campaigns = resp.reduce((result, camp) => result.concat([{label: camp.campaign.name, className: 'campaign-option', value: camp.campaign.id}]),
+        const campaigns = resp.reduce((result, camp) => result.concat([{label: camp.campaign.name, className: 'campaign-option', value: camp.campaign.id, color: camp.campaign.color}]),
           [{label: 'Unassigned', className: 'campaign-option', value: '0'}]);
         this.setState({ campaignLoading: false, campaigns });
       },
