@@ -12,6 +12,11 @@ const managerComponents = {
   NewCampaignComponent,
 };
 
+const getIndexOfCampaign = (id, campaigns) => {
+  for (let index = 0; index < campaigns.length; index++) { if (campaigns[index].value === id) { return index; } }
+  return false;
+};
+
 class CampaignManagerComponent extends Component {
   constructor(props) {
     super(props);
@@ -27,10 +32,10 @@ class CampaignManagerComponent extends Component {
     this.handleFormState = this.handleFormState.bind(this);
     this.submitCampaign = this.submitCampaign.bind(this);
     this.applyErrors = this.applyErrors.bind(this);
-    this.populateCampaigns = this.populateCampaigns.bind(this);
     this.setColorSelection = this.setColorSelection.bind(this);
     this.handleConfirm = this.handleConfirm.bind(this);
-    this.populationSegments = [{label: 'All Users', value: 'all'}];
+    this.deleteCampaign = this.deleteCampaign.bind(this);
+    this.removeCampaignFromState = this.removeCampaignFromState.bind(this);
     this.alertProps = {
       NewCampaignComponent: {
         title: "Create Campaign",
@@ -44,7 +49,7 @@ class CampaignManagerComponent extends Component {
         confirmBtnText: "+ Create Campaign",
         cancelBtnText: "Close",
         confirmAction: () => { this.setState({activeComponent: 'NewCampaignComponent'}); },
-        onCancel: this.props.onClose,
+        onCancel: () => { this.props.onClose('close', this.state.campaigns); },
       },
     };
   }
@@ -54,27 +59,12 @@ class CampaignManagerComponent extends Component {
       path: '/api/client_admin/population_segments',
       method: 'GET',
       success: resp => {
-        resp.forEach(popSeg => { this.populationSegments.push({label: popSeg.name, value: popSeg.id}); });
-        this.populateCampaigns();
+        const populationSegments = resp.map(popSeg => ({label: popSeg.name, value: popSeg.id})).concat([{label: 'All Users', value: 'all'}]);
+        const campaigns = [...this.props.campaigns];
+        campaigns.shift();
+        this.setState({ loading: false, campaigns, populationSegments });
       },
     });
-  }
-
-  populateCampaigns() {
-    if (this.props.campaigns.length) {
-      this.props.campaigns.shift();
-      const {campaigns} = this.props;
-      this.setState({ loading: false, campaigns, populationSegments: this.populationSegments });
-    } else {
-      Fetcher.xmlHttpRequest({
-        path: '/api/client_admin/campaigns',
-        method: 'GET',
-        success: resp => {
-          const campaigns = resp.reduce((result, camp) => result.concat([{label: camp.campaign.name, className: 'campaign-option', value: camp.campaign.id, color: camp.campaign.color}]), []);
-          this.setState({ loading: false, campaigns, populationSegments: this.populationSegments });
-        },
-      });
-    }
   }
 
   applyErrors() {
@@ -92,6 +82,12 @@ class CampaignManagerComponent extends Component {
       newState.errorStyling[field] = null;
     }
     this.setState(newState);
+  }
+
+  removeCampaignFromState(campResp) {
+    const campaigns = [...this.state.campaigns];
+    campaigns.splice(getIndexOfCampaign(campResp.campaign.id, campaigns), 1);
+    this.setState({ campaigns });
   }
 
   submitCampaign() {
@@ -114,13 +110,21 @@ class CampaignManagerComponent extends Component {
             loading: false,
             errorStyling: {},
           });
-          this.props.onClose(resp);
+          this.props.onClose('create', resp);
         },
-        err: () => { this.props.onClose(); },
+        err: () => { this.props.onClose('close', this.state.campaigns); },
       });
     } else {
       this.applyErrors();
     }
+  }
+
+  deleteCampaign(campId) {
+    Fetcher.xmlHttpRequest({
+      method: 'DELETE',
+      path: `/api/client_admin/campaigns/${campId}`,
+      success: this.removeCampaignFromState,
+    });
   }
 
   setColorSelection(color) {
@@ -131,7 +135,7 @@ class CampaignManagerComponent extends Component {
     if (cb) {
       cb();
     } else {
-      this.props.onClose();
+      this.props.onClose('close', this.state.campaigns);
     }
   }
 
@@ -153,9 +157,9 @@ class CampaignManagerComponent extends Component {
         React.createElement(LoadingComponent) :
         React.createElement(managerComponents[this.state.activeComponent], {
           ...this.state,
-          sweetAlert: SweetAlert,
           setColorSelection: this.setColorSelection,
           handleFormState: this.handleFormState,
+          deleteCampaign: this.deleteCampaign,
         }),
       )
     );

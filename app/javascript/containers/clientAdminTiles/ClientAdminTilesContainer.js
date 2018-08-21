@@ -61,6 +61,12 @@ const getFilterParams = statusFilter => (
   ), '').slice(0, -3)
 );
 
+const sanitizeCampaignResponse = camp => (
+  {label: camp.name, className: 'campaign-option', value: camp.id, color: camp.color}
+);
+
+const unassignedCampaign = {label: 'Unassigned', className: 'campaign-option', value: '0', color: '#fff'};
+
 class ClientAdminTiles extends Component {
   constructor(props) {
     super(props);
@@ -88,6 +94,7 @@ class ClientAdminTiles extends Component {
     this.populateCampaigns = this.populateCampaigns.bind(this);
     this.openCampaignManager = this.openCampaignManager.bind(this);
     this.handleCampaignChanges = this.handleCampaignChanges.bind(this);
+    this.syncCampaignState = this.syncCampaignState.bind(this);
     this.scrollState = new InfiniScroller({
       scrollPercentage: 0.95,
       throttle: 100,
@@ -122,23 +129,39 @@ class ClientAdminTiles extends Component {
     });
   }
 
-  populateCampaigns() {
+  populateCampaigns(openAlert) {
     if (this.state.campaigns.length) { return; } // eslint-disable-line
     this.setState({ campaignLoading: true });
     Fetcher.xmlHttpRequest({
       path: '/api/client_admin/campaigns',
       method: 'GET',
       success: resp => {
-        const campaigns = resp.reduce((result, camp) => result.concat([{label: camp.campaign.name, className: 'campaign-option', value: camp.campaign.id, color: camp.campaign.color}]),
-          [{label: 'Unassigned', className: 'campaign-option', value: '0'}]);
-        this.setState({ campaignLoading: false, campaigns });
+        const campaigns = resp.reduce((result, camp) => result.concat([sanitizeCampaignResponse(camp.campaign)]),
+          [unassignedCampaign]);
+        if (openAlert) {
+          this.setState({
+            campaignLoading: false,
+            campaigns,
+            alert: React.createElement(CampaignManagerComponent, {
+              campaigns,
+              onClose: this.handleCampaignChanges,
+            }),
+          });
+        } else {
+          this.setState({ campaignLoading: false, campaigns });
+        }
       },
     });
   }
 
+  syncCampaignState(newCampaignState) {
+    const campaigns = [unassignedCampaign].concat(newCampaignState);
+    this.setState({alert: null, campaigns});
+  }
+
   addCampaign(camp) {
     if (camp && camp.campaign) {
-      const newCampaign = [{label: camp.campaign.name, className: 'campaign-option', value: camp.campaign.id}];
+      const newCampaign = [sanitizeCampaignResponse(camp.campaign)];
       const campaigns = [...this.state.campaigns];
       this.setState({campaigns: campaigns.concat(newCampaign)});
     }
@@ -146,16 +169,26 @@ class ClientAdminTiles extends Component {
   }
 
   handleCampaignChanges(action, resp) {
-    this.setState({alert: null});
+    switch(action) {
+    case 'create':
+      this.addCampaign(resp);
+      break;
+    default:
+      this.syncCampaignState(resp);
+    }
   }
 
   openCampaignManager() {
-    this.setState({
-      alert: React.createElement(CampaignManagerComponent, {
-        campaigns: this.state.campaigns,
-        onClose: this.handleCampaignChanges,
-      }),
-    });
+    if (this.state.campaigns.length) {
+      this.setState({
+        alert: React.createElement(CampaignManagerComponent, {
+          campaigns: this.state.campaigns,
+          onClose: this.handleCampaignChanges,
+        }),
+      });
+    } else {
+      this.populateCampaigns(true);
+    }
   }
 
   getAdditionalTiles() {

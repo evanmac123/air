@@ -25,6 +25,11 @@ class Api::ClientAdmin::CampaignsController < Api::ClientAdminBaseController
     end
   end
 
+  def destroy
+    campaign = Campaign.find(params[:id])
+    render json: campaign.destroy
+  end
+
   private
 
     def campaign_params

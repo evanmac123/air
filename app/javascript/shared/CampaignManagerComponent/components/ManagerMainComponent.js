@@ -35,12 +35,12 @@ const colorStyle = {
   float: 'left',
 };
 
-const renderCampaignCards = campaigns => (
+const renderCampaignCards = (campaigns, deleteCampaign) => (
   campaigns.map(campaign => (
     React.createElement('div', {className: 'campaign-card', style: cardStyle, key: campaign.label},
       React.createElement('span', {style: {...colorStyle, backgroundColor: campaign.color}}),
       React.createElement('span', {style: textStyle}, campaign.label),
-      React.createElement('span', {className: 'circle-button', style: circleButtonStyle},
+      React.createElement('span', {className: 'circle-button', style: circleButtonStyle, onClick: () => { deleteCampaign(campaign.value); }},
         React.createElement('i', {className: `fa fa-trash-o`, style: iconStyle})
       ),
       React.createElement('span', {className: 'circle-button', style: circleButtonStyle},
@@ -53,17 +53,21 @@ const renderCampaignCards = campaigns => (
 const ManagerMainComponent = props => (
   <div>
     <div className="manage-campaign-card-container">
-      {renderCampaignCards(props.campaigns)}
+      {renderCampaignCards(props.campaigns, props.deleteCampaign)}
     </div>
   </div>
 );
 
 ManagerMainComponent.propTypes = {
   campaigns: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
     label: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
   })).isRequired,
+  deleteCampaign: PropTypes.func.isRequired,
 };
 
 export default ManagerMainComponent;
