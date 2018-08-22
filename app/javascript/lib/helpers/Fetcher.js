@@ -22,8 +22,8 @@ Fetcher.xmlHttpRequest = (opts) => {
     method,
     credentials: 'same-origin',
   }).then(resp => resp.json())
-    .catch(err => opts.err(err))
-    .then(response => opts.success(response));
+    .then(response => opts.success(response))
+    .catch(err => opts.err(err));
 };
 
 export default Fetcher;
