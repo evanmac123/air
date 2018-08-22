@@ -6,6 +6,7 @@
     "axios": "^0.17.1",
     "babel-core": "6",
     "babel-loader": "^7.1.4",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-react": "^6.24.1",
     "caniuse-lite": "^1.0.30000697",
     "clipboard": "^2.0.0",
