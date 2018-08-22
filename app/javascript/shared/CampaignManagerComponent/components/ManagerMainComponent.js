@@ -52,7 +52,7 @@ const renderCampaignCards = props => (
 
 const ManagerMainComponent = props => (
   <div>
-    <div className="manage-campaign-card-container">
+    <div className="manage-campaign-card-container" style={{maxHeight: '340px', overflow: 'scroll'}}>
       {renderCampaignCards(props)}
     </div>
     {props.errorMsg &&
