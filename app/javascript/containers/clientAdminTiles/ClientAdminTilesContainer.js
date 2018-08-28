@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import SweetAlert from 'react-bootstrap-sweetalert';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import LoadingComponent from "../../shared/LoadingComponent";
 import CampaignManagerComponent from "../../shared/CampaignManagerComponent";
@@ -373,4 +375,4 @@ class ClientAdminTiles extends Component {
   }
 }
 
-export default ClientAdminTiles;
+export default DragDropContext(HTML5Backend)(ClientAdminTiles);

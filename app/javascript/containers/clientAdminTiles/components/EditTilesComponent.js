@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import TileComponent from "../../../shared/TileComponent";
+import { DraggableTile, CustomDragLayer } from "../../../shared/DraggableTile";
 import { PopdownMenuComponent, PopdownButtonComponent } from "../../../shared/PopdownMenu";
 import { DateMaker } from "../../../lib/helpers";
 import {
@@ -133,7 +133,7 @@ const renderTileButtons = args => {
 
 const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick, handleMenuAction) => (
   fillInTileContainers(tiles.map(tile => (
-    React.createElement(TileComponent, {
+    React.createElement(DraggableTile, {
       key: tile.id,
       date: getTileCalInfo('date', activeStatus, tile),
       caledarIcon: getTileCalInfo('icon', activeStatus, tile),
@@ -166,6 +166,7 @@ const EditTilesComponent = props => (
         </div>
       </div>
     </div>
+    <CustomDragLayer />
   </section>
 );
 
