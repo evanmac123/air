@@ -131,10 +131,11 @@ const renderTileButtons = args => {
   return result;
 };
 
-const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick, handleMenuAction) => (
-  fillInTileContainers(tiles.map(tile => (
+const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick, handleMenuAction, moveTile) => (
+  fillInTileContainers(tiles.map((tile, index) => (
     React.createElement(DraggableTile, {
       key: tile.id,
+      index,
       date: getTileCalInfo('date', activeStatus, tile),
       caledarIcon: getTileCalInfo('icon', activeStatus, tile),
       calendarClass: (!tile.fullyAssembled ? 'incomplete' : ''),
@@ -144,6 +145,7 @@ const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick, 
       popdownMenu: renderPopdownMenu({activeStatus, tile, handleMenuAction}),
       loading: tile.loading,
       tileThumblinkOnClick: (e) => { tileContainerClick(tile, e); },
+      moveTile,
       ...tile,
       tileShowPath: null,
     })
@@ -162,6 +164,7 @@ const EditTilesComponent = props => (
             props.changeTileStatus,
             props.tileContainerClick,
             props.handleMenuAction,
+            props.moveTile
           )}
         </div>
       </div>

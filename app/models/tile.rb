@@ -110,7 +110,7 @@ class Tile < ActiveRecord::Base
   def self.fetch_edit_flow(board = nil)
     return nil unless board
     tiles = from_board_with_campaigns(board)
-            .order(updated_at: :desc).group_by(&:status)
+            .ordered_by_position.group_by(&:status)
     STATUS.reduce(tiles) do |result, status|
       result[status] = if tiles[status]
         {

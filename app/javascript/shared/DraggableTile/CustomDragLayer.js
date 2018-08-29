@@ -45,6 +45,7 @@ class CustomDragLayer extends Component {
           copyButtonDisplay={tile.copyButtonDisplay}
           calendarClass={tile.calendarClass}
           campaignColor={tile.campaignColor}
+          index={tile.index}
         />
       );
     }

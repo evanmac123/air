@@ -95,6 +95,7 @@ class ClientAdminTiles extends Component {
     this.populateCampaigns = this.populateCampaigns.bind(this);
     this.openCampaignManager = this.openCampaignManager.bind(this);
     this.syncCampaignState = this.syncCampaignState.bind(this);
+    this.moveTile = this.moveTile.bind(this);
     this.scrollState = new InfiniScroller({
       scrollPercentage: 0.95,
       throttle: 100,
@@ -336,6 +337,13 @@ class ClientAdminTiles extends Component {
     }
   }
 
+  moveTile(dragIndex, hoverIndex) {
+    const newTiles = {...this.state.tiles};
+    const shiftingTile = newTiles[this.state.activeStatus].tiles.splice(dragIndex, 1)[0];
+    newTiles[this.state.activeStatus].tiles.splice(hoverIndex, 0, shiftingTile);
+    this.setState({tiles: newTiles});
+  }
+
   render() {
     return (
       <div className="client-admin-tiles-container">
@@ -365,6 +373,7 @@ class ClientAdminTiles extends Component {
             changeTileStatus={this.changeTileStatus}
             tileContainerClick={this.tileContainerClick}
             handleMenuAction={this.handleMenuAction}
+            moveTile={this.moveTile}
             {...this.state}
           />
         }

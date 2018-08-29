@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import LoadingComponent from "../LoadingComponent";
 
 const TileComponent = props => (
-  <div className={`tile_container ${props.tileContainerClass}`}
+  <div className={props.draggable ? '' : `tile_container ${props.tileContainerClass}`}
        data-tile-container-id={props.id}
        disabled={props.loading}
        style={props.loading ? {pointerEvents: 'none'} : {}}
