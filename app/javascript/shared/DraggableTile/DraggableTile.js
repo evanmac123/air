@@ -51,14 +51,12 @@ const tileTarget = {
 
 		props.moveTile(dragIndex, hoverIndex);
 		monitor.getItem().index = hoverIndex;
-console.log(dragIndex, hoverIndex);
 	},
 };
 
 function getStyles(isDragging) {
 	return {
 		opacity: isDragging ? 0 : 1,
-		// height: isDragging ? 0 : '',
 	}
 }
 
