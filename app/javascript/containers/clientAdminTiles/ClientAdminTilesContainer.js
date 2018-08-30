@@ -96,6 +96,7 @@ class ClientAdminTiles extends Component {
     this.openCampaignManager = this.openCampaignManager.bind(this);
     this.syncCampaignState = this.syncCampaignState.bind(this);
     this.moveTile = this.moveTile.bind(this);
+    this.sortTile = this.sortTile.bind(this);
     this.scrollState = new InfiniScroller({
       scrollPercentage: 0.95,
       throttle: 100,
@@ -344,6 +345,22 @@ class ClientAdminTiles extends Component {
     this.setState({tiles: newTiles});
   }
 
+  sortTile(landingIndex) {
+    const [ tiles ] = this.state.tiles[this.state.activeStatus];
+    const { id } = tiles[landingIndex];
+    const leftId = landingIndex - 1 >= 0 ? tiles[landingIndex - 1].id : null;
+    Fetcher.xmlHttpRequest({
+      method: 'POST',
+      path: `/api/client_admin/tiles/${id}/sorts`,
+      params: {
+        sort: {
+          left_tile_id: leftId,
+        },
+      },
+      success: () => null,
+    });
+  }
+
   render() {
     return (
       <div className="client-admin-tiles-container">
@@ -374,6 +391,7 @@ class ClientAdminTiles extends Component {
             tileContainerClick={this.tileContainerClick}
             handleMenuAction={this.handleMenuAction}
             moveTile={this.moveTile}
+            sortTile={this.sortTile}
             {...this.state}
           />
         }

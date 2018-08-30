@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
+import PropTypes from "prop-types";
 import {
   DragSource,
-  ConnectDragSource,
-  ConnectDragPreview,
 	DropTarget,
-	ConnectDropTarget,
-	DropTargetMonitor,
-	DropTargetConnector,
-	DragSourceConnector,
-	DragSourceMonitor,
 } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { XYCoord } from 'dnd-core';
-import flow from 'lodash/flow';
+import flow from 'lodash.flow';
 
 import ItemTypes from './ItemTypes';
 import TileComponent from '../TileComponent';
@@ -30,34 +22,28 @@ const tileSource = {
       calendarClass: props.calendarClass,
       campaignColor: props.campaignColor,
       index: props.index,
-    }
+    };
 	},
 };
 
 const tileTarget = {
 	hover(props, monitor, component) {
-		if (!component) {
-			return null
-		}
-		const dragIndex = monitor.getItem().index
-		const hoverIndex = props.index
-		if (dragIndex === hoverIndex) {
-			return
-		}
-		const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
-		const hoverMiddleY = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
-		const clientOffset = monitor.getClientOffset();
-		const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
+		if (!component) { return; }
+		const dragIndex = monitor.getItem().index;
+		const hoverIndex = props.index;
+		if (dragIndex === hoverIndex) { return; }
 		props.moveTile(dragIndex, hoverIndex);
-		monitor.getItem().index = hoverIndex;
+		monitor.getItem().index = hoverIndex; // eslint-disable-line
 	},
+  drop(props) {
+    props.sortTile(props.index);
+  },
 };
 
 function getStyles(isDragging) {
 	return {
 		opacity: isDragging ? 0 : 1,
-	}
+	};
 }
 
 function dropCollect(connect) {
@@ -69,12 +55,12 @@ function dragCollect(connect, monitor) {
     connectDragSource: connect.dragSource(),
   	connectDragPreview: connect.dragPreview(),
   	isDragging: monitor.isDragging(),
-  }
+  };
 }
 
 class DraggableTile extends Component {
 	componentDidMount() {
-		const { connectDragPreview } = this.props
+		const { connectDragPreview } = this.props;
 		if (connectDragPreview) {
 			// Use empty image as a drag preview so browsers don't draw it
 			// and we can draw whatever we want on the custom drag layer instead.
@@ -82,7 +68,7 @@ class DraggableTile extends Component {
 				// IE fallback: specify that we'd rather screenshot the node
 				// when it already knows it's being dragged so we can hide it with CSS.
 				captureDraggingState: true,
-			})
+			});
 		}
 	}
 
@@ -105,7 +91,7 @@ class DraggableTile extends Component {
       popdownMenu,
       loading,
       tileThumblinkOnClick,
-    } = this.props
+    } = this.props;
 
 		return (
       connectDropTarget &&
@@ -133,11 +119,32 @@ class DraggableTile extends Component {
           </div>
         )
 			)
-		)
+		);
 	}
 }
+
+DraggableTile.propTypes = {
+  connectDragPreview: PropTypes.func.isRequired,
+  isDragging: PropTypes.bool.isRequired,
+  connectDropTarget: PropTypes.func.isRequired,
+  connectDragSource: PropTypes.func.isRequired,
+  id: PropTypes.number,
+  thumbnail: PropTypes.string,
+  headline: PropTypes.string,
+  caledarIcon: PropTypes.string,
+  date: PropTypes.string,
+  copyButtonDisplay: PropTypes.bool,
+  calendarClass: PropTypes.string,
+  campaignColor: PropTypes.string,
+  tileContainerClass: PropTypes.string,
+  tileThumblinkClass: PropTypes.string,
+  shadowOverlayButtons: PropTypes.array,
+  popdownMenu: PropTypes.element,
+  loading: PropTypes.bool,
+  tileThumblinkOnClick: PropTypes.func,
+};
 
 export default flow(
   DragSource(ItemTypes.TILE, tileSource, dragCollect),
   DropTarget(ItemTypes.TILE, tileTarget, dropCollect),
-)(DraggableTile)
+)(DraggableTile);

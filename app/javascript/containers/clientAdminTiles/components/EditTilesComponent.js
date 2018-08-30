@@ -131,7 +131,15 @@ const renderTileButtons = args => {
   return result;
 };
 
-const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick, handleMenuAction, moveTile) => (
+const renderTiles = (
+  tiles,
+  activeStatus,
+  changeTileStatus,
+  tileContainerClick,
+  handleMenuAction,
+  moveTile,
+  sortTile,
+) => (
   fillInTileContainers(tiles.map((tile, index) => (
     React.createElement(DraggableTile, {
       key: tile.id,
@@ -146,6 +154,7 @@ const renderTiles = (tiles, activeStatus, changeTileStatus, tileContainerClick, 
       loading: tile.loading,
       tileThumblinkOnClick: (e) => { tileContainerClick(tile, e); },
       moveTile,
+      sortTile,
       ...tile,
       tileShowPath: null,
     })
@@ -164,7 +173,8 @@ const EditTilesComponent = props => (
             props.changeTileStatus,
             props.tileContainerClick,
             props.handleMenuAction,
-            props.moveTile
+            props.moveTile,
+            props.sortTile,
           )}
         </div>
       </div>
@@ -204,6 +214,8 @@ EditTilesComponent.propTypes = {
   }),
   tileContainerClick: PropTypes.func,
   handleMenuAction: PropTypes.func,
+  moveTile: PropTypes.func,
+  sortTile: PropTypes.func,
 };
 
 export default EditTilesComponent;
