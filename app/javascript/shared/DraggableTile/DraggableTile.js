@@ -12,6 +12,10 @@ import TileComponent from '../TileComponent';
 
 const tileSource = {
 	beginDrag(props) {
+    const tiles = document.getElementsByClassName('tile-wrapper');
+    for (let i = 0; i < tiles.length; i++) {
+      tiles[i].setAttribute('style', 'pointer-events:none;');
+    }
 		return {
       id: props.id,
       thumbnail: props.thumbnail,
@@ -36,6 +40,10 @@ const tileTarget = {
 		monitor.getItem().index = hoverIndex; // eslint-disable-line
 	},
   drop(props) {
+    const tiles = document.getElementsByClassName('tile-wrapper');
+    for (let i = 0; i < tiles.length; i++) {
+      tiles[i].removeAttribute('style');
+    }
     props.sortTile(props.index);
   },
 };
