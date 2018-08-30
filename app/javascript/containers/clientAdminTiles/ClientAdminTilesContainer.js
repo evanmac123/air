@@ -346,7 +346,7 @@ class ClientAdminTiles extends Component {
   }
 
   sortTile(landingIndex) {
-    const [ tiles ] = this.state.tiles[this.state.activeStatus];
+    const { tiles } = this.state.tiles[this.state.activeStatus];
     const { id } = tiles[landingIndex];
     const leftId = landingIndex - 1 >= 0 ? tiles[landingIndex - 1].id : null;
     Fetcher.xmlHttpRequest({
