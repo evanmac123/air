@@ -144,7 +144,8 @@ class Tile < ActiveRecord::Base
     from_board_with_campaigns(args[:board])
       .where(status: args[:status])
       .where(Tile::ReactProcessing.get_edit_tile_filters(args))
-      .order(updated_at: :desc).page(args[:page] || 1).per(16)
+      .order(Tile::ReactProcessing.get_edit_tile_sort(args))
+      .page(args[:page] || 1).per(16)
   end
 
   def self.react_sanitize(payload, range = 27, &sanitize)
