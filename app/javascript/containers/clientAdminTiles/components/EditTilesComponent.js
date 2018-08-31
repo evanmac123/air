@@ -139,6 +139,7 @@ const renderTiles = (
   handleMenuAction,
   moveTile,
   sortTile,
+  activeFilters,
 ) => (
   fillInTileContainers(tiles.map((tile, index) => (
     React.createElement(DraggableTile, {
@@ -153,6 +154,7 @@ const renderTiles = (
       popdownMenu: renderPopdownMenu({activeStatus, tile, handleMenuAction}),
       loading: tile.loading,
       tileThumblinkOnClick: (e) => { tileContainerClick(tile, e); },
+      activeFilters,
       moveTile,
       sortTile,
       ...tile,
@@ -175,6 +177,7 @@ const EditTilesComponent = props => (
             props.handleMenuAction,
             props.moveTile,
             props.sortTile,
+            props.tileStatusNav[props.activeStatus].filter,
           )}
         </div>
       </div>
@@ -210,6 +213,74 @@ EditTilesComponent.propTypes = {
     archive: PropTypes.shape({
       tiles: PropTypes.array,
       count: PropTypes.number,
+    }),
+  }),
+  tileStatusNav: PropTypes.shape({
+    user_submitted: PropTypes.shape({
+      tileCount: PropTypes.number,
+      page: PropTypes.number,
+      filter: PropTypes.shape({
+        month: PropTypes.object,
+        year: PropTypes.object,
+        campaign: PropTypes.object,
+        sortType: PropTypes.object,
+      }),
+      uiDisplay: PropTypes.string,
+    }),
+    plan: PropTypes.shape({
+      tileCount: PropTypes.number,
+      page: PropTypes.number,
+      filter: PropTypes.shape({
+        month: PropTypes.object,
+        year: PropTypes.object,
+        campaign: PropTypes.object,
+        sortType: PropTypes.object,
+      }),
+      uiDisplay: PropTypes.string,
+    }),
+    draft: PropTypes.shape({
+      tileCount: PropTypes.number,
+      page: PropTypes.number,
+      filter: PropTypes.shape({
+        month: PropTypes.object,
+        year: PropTypes.object,
+        campaign: PropTypes.object,
+        sortType: PropTypes.object,
+      }),
+      uiDisplay: PropTypes.string,
+    }),
+    share: PropTypes.shape({
+      tileCount: PropTypes.number,
+      page: PropTypes.number,
+      filter: PropTypes.shape({
+        month: PropTypes.object,
+        year: PropTypes.object,
+        campaign: PropTypes.object,
+        sortType: PropTypes.object,
+      }),
+      uiDisplay: PropTypes.string,
+    }),
+    active: PropTypes.shape({
+      tileCount: PropTypes.number,
+      page: PropTypes.number,
+      filter: PropTypes.shape({
+        month: PropTypes.object,
+        year: PropTypes.object,
+        campaign: PropTypes.object,
+        sortType: PropTypes.object,
+      }),
+      uiDisplay: PropTypes.string,
+    }),
+    archive: PropTypes.shape({
+      tileCount: PropTypes.number,
+      page: PropTypes.number,
+      filter: PropTypes.shape({
+        month: PropTypes.object,
+        year: PropTypes.object,
+        campaign: PropTypes.object,
+        sortType: PropTypes.object,
+      }),
+      uiDisplay: PropTypes.string,
     }),
   }),
   tileContainerClick: PropTypes.func,

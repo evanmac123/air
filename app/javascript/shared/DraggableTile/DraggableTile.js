@@ -28,6 +28,10 @@ const tileSource = {
       index: props.index,
     };
 	},
+
+  canDrag(props) {
+    return props.activeFilters.sortType === null || props.activeFilters.sortType.value !== 'date-sort';
+  },
 };
 
 const tileTarget = {
