@@ -277,7 +277,8 @@ class ClientAdminTiles extends Component {
     });
     // The following should be removed as React overhaul replaces old jQuery code
       setTimeout(() => {
-        window.Airbo.SuggestionBox.init();
+        if (statusNav === 'user_submitted') { window.Airbo.SuggestionBox.init(); }
+        if (statusNav === 'active' || statusNav === 'archive') { window.Airbo.TileStatsModal.init(); }
         window.Airbo.TileManager.init();
       }, 100);
     // End block that needs to be removed
