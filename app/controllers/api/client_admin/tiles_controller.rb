@@ -55,7 +55,7 @@ class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
           "campaignColor" => tile.campaign_color,
           "unique_views" => tile.unique_viewings_count,
           "views" => tile.total_viewings_count,
-          "completions" => tile.user_tile_likes_count,
+          "completions" => tile.tile_completions_count,
         }
       end
     end
