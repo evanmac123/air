@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const maxCount = count => count > 500 ? '500+' : count;
 
@@ -6,7 +7,7 @@ const renderTabs = props => (
   Object.keys(props.statuses).map(statusNav => (
     React.createElement("li",
       {
-        className: `tab `,
+        className: 'tab',
         onClick: () => { props.selectStatus(statusNav); },
         key: statusNav,
         style: {color: `${statusNav === props.activeStatus ? "#48bfff" : "#8da0ab"}`},
@@ -20,6 +21,18 @@ const renderTabs = props => (
   ))
 );
 
+const renderButtons = (activeStatus, navButtons) => (
+  navButtons.map((btn, key) => (
+    btn.statusDisplay.indexOf(activeStatus) > -1 ?
+      React.createElement('a',
+        {className: btn.classList, key},
+        React.createElement('span', {className: `fa fa-${btn.faIcon}`}),
+        btn.text,
+      ) :
+      null
+  ))
+);
+
 const TileStatusNavComponent = props => (
   React.createElement("div",
     {className: "tabs-component-full-width no-bottom-border"},
@@ -28,26 +41,24 @@ const TileStatusNavComponent = props => (
       React.createElement("ul",
         {className: "with-tiles"},
         renderTabs(props),
+        React.createElement("li",
+          {className: 'buttons'},
+          renderButtons(props.activeStatus, props.navButtons),
+        )
       )
     )
   )
 );
-// <li class="buttons">
-//   <%= link_to "#download_stats", class: "hidden download-stats-button js-download-stats-button button outlined icon", title: "Download Excel file with statistics for all of the Tiles in this section.", data: { tooltip: true } do %>
-//   <%= fa_icon "download" %>
-//   <span>Download Stats</span>
-//   <% end %>
-//
-//   <%= link_to "#suggestion_box_manage_access", class: "js-suggestion-box-manage-access button outlined icon hidden" do %>
-//   <%= fa_icon "users" %>
-//   <span>Manage Access</span>
-//   <% end %>
-//
-//   <%= link_to new_client_admin_tile_path, class: "new-tile-button js-new-tile-button button icon" do %>
-//     <%= fa_icon "plus" %>
-//     <span>New Tile</span>
-//   <% end %>
-// </li>
 
+TileStatusNavComponent.propTypes = {
+  activeStatus: PropTypes.string.isRequired,
+  navButtons: PropTypes.arrayOf(PropTypes.shape({
+    faIcon: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    classList: PropTypes.string.isRequired,
+    tooltip: PropTypes.string,
+    statusDisplay: PropTypes.arrayOf(PropTypes.string).isRequired,
+  })).isRequired,
+};
 
 export default TileStatusNavComponent;
