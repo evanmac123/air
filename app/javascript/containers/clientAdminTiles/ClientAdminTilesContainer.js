@@ -275,6 +275,12 @@ class ClientAdminTiles extends Component {
       hashRoute: true,
       appendTo: '/client_admin/tiles',
     });
+    // The following should be removed as React overhaul replaces old jQuery code
+      setTimeout(() => {
+        window.Airbo.SuggestionBox.init();
+        window.Airbo.TileManager.init();
+      }, 100);
+    // End block that needs to be removed
   }
 
   changeTileStatus(tile, forceStatus) {

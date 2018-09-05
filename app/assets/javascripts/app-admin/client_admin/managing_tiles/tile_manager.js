@@ -34,7 +34,7 @@ Airbo.TileManager = (function() {
   function initEvents() {
     $(newTileBtnSel).click(function(e) {
       e.preventDefault();
-      url = $(this).attr("href");
+      var url = $(this).attr("href") || "/client_admin/tiles/new";
 
       tileForm = Airbo.TileFormModal;
       tileForm.init(Airbo.TileManager);

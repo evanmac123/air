@@ -21,17 +21,15 @@ const renderTabs = props => (
   ))
 );
 
-const renderButtons = (activeStatus, navButtons) => (
-  navButtons.map((btn, key) => (
-    btn.statusDisplay.indexOf(activeStatus) > -1 ?
-      React.createElement('a',
-        {className: btn.classList, key},
-        React.createElement('span', {className: `fa fa-${btn.faIcon}`}),
-        btn.text,
-      ) :
-      null
-  ))
-);
+const renderButtons = (activeStatus, navButtons) => navButtons.map((btn, key) => (
+  btn.statusDisplay.indexOf(activeStatus) > -1 ?
+    React.createElement('a',
+      {className: btn.classList, key, href: btn.faIcon === 'download' ? `/client_admin/tiles_report.csv?report=${activeStatus}` : ''},
+      React.createElement('span', {className: `fa fa-${btn.faIcon}`}),
+      btn.text,
+    ) :
+    null
+));
 
 const TileStatusNavComponent = props => (
   React.createElement("div",
