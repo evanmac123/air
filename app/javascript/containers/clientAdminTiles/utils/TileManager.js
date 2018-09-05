@@ -39,14 +39,14 @@ class TileManager {
     this.handleOpts(opts);
     this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.splice(this.tileData.selectTileIndex, 1);
     this.tileData.stateTiles[this.reactComp.state.activeStatus].count -= 1;
-    this.tileData.stateTiles[newState].tiles.push(this.tileData.selectTile);
+    this.tileData.stateTiles[newState].tiles.unshift(this.tileData.selectTile);
     this.tileData.stateTiles[newState].count += 1;
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 
   addTileToCollection(newTile, opts) {
     this.handleOpts(opts);
-    this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.push(newTile);
+    this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.unshift(newTile);
     this.tileData.stateTiles[this.reactComp.state.activeStatus].count += 1;
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }

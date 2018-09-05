@@ -19,6 +19,7 @@ class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
   def update
     tile = current_board.tiles.find(params[:id])
     Tile::StatusUpdater.call(tile: tile, new_status: tile_params[:new_status])
+    Tile::Sorter.call(tile: tile, left_tile_id: nil)
     render json: tile
   end
 
