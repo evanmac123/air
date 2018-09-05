@@ -10,9 +10,10 @@ module Tile::ReactProcessing
   def self.get_edit_tile_filters(args)
     filter = args[:filter] || ""
     filter.split("&").reduce("") do |result, raw_filter|
-      unless raw_filter.split("=")[0] == 'sortType'
-        query_request = raw_filter.split("=")[1] == "0" ? "IS NULL" : "= #{raw_filter.split("=")[1]}"
-        query_statement = get_query_statement(raw_filter.split("=")[0], args[:status])
+      split_raw_filter = raw_filter.split("=")
+      unless split_raw_filter[0] == "sortType"
+        query_request = split_raw_filter[1] == "0" ? "IS NULL" : "= #{split_raw_filter[1]}"
+        query_statement = get_query_statement(split_raw_filter[0], args[:status])
         result += "#{query_statement} #{query_request} AND "
       else
         result
@@ -29,13 +30,13 @@ module Tile::ReactProcessing
   end
 
   def self.get_edit_tile_sort(args)
-    filter = args[:filter] || ""
-    filter.split("&").reduce("") do |result, raw_filter|
-      if raw_filter.split("=")[0] == 'sortType'
-        raw_filter.split("=")[1] == 'date-sort' ? "#{STATUS_DATE[args[:status]]} ASC" : 'position DESC'
+    sanitied_filter = args[:filter].split("&").reduce("") do |result, raw_filter|
+      if raw_filter.split("=")[0] == "sortType"
+        raw_filter.split("=")[1] == "date-sort" ? "#{STATUS_DATE[args[:status]]} ASC" : "position DESC"
       else
         result
       end
-    end || 'position DESC'
+    end
+    sanitied_filter.empty? ? "position DESC" : sanitied_filter
   end
 end
