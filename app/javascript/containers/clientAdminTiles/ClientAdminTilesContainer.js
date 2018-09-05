@@ -319,11 +319,14 @@ class ClientAdminTiles extends Component {
   tileContainerClick(tile, e) {
     e.preventDefault();
     const targetClass = e.target.classList;
+    // debugger
     if (unhandledClick(e)) {
       return; // eslint-disable-line
+    } else if (e.target.parentElement.classList.contains('delete_tile') || targetClass.contains('delete_tile') || e.target.parentElement.classList.contains('destroy')) {
+      this.handleMenuAction(tile, 'delete');
     } else if (targetClass.contains('update_status')) {
       this.changeTileStatus(tile);
-    } else if (e.target.parentElement.classList.contains('edit')) {
+    } else if (e.target.parentElement.classList.contains('edit') || targetClass.contains('edit')) {
       const tileForm = window.Airbo.TileFormModal;
       tileForm.init(window.Airbo.TileManager);
       tileForm.open(tile.editPath);
