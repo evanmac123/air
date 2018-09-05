@@ -33,7 +33,7 @@ module Tile::ReactProcessing
     status = args[:status]
     sanitied_filter = args[:filter].split("&").reduce("") do |result, raw_filter|
       if raw_filter.split("=")[0] == "sortType"
-        direction = status == 'active' || status == 'archive' ? 'DESC' : 'ASC'
+        direction = status == "active" || status == "archive" ? "DESC" : "ASC"
         raw_filter.split("=")[1] == "date-sort" ? "#{STATUS_DATE[status]} #{direction}" : "position DESC"
       else
         result

@@ -68,7 +68,9 @@ Airbo.TileManager = (function() {
     if ($(".explore-search").length > 0) {
       initSearch();
     } else {
-      Airbo.TileThumbnail.init();
+      if (!$("#client-admin-tiles-root").length > 0) {
+        Airbo.TileThumbnail.init();
+      }
     }
 
     initEvents();
