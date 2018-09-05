@@ -10,7 +10,7 @@ const BaseButton = (args, key, action, status, buttonText) => (
   })
 );
 
-const ReadyToSendBtn = (args, key) => BaseButton(args, key, 'draft', 'draft', 'Ready for Proof');
+const ReadyToSendBtn = (args, key) => BaseButton(args, key, 'draft', 'draft', 'Move to Proof');
 
 const ArchiveBtn = (args, key) => BaseButton(args, key, 'archive', 'archive', 'Archive');
 
