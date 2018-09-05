@@ -131,6 +131,21 @@ const renderTileButtons = args => {
   return result;
 };
 
+const renderStatButtons = tile => {
+  const faIcon = {unique_views: 'users', views: 'eye', completions: 'check'};
+  return ["unique_views", "views", "completions"].map((statType, key) => (
+    React.createElement('div', {
+      className: `${statType} stat_action js-open-tile-stats-modal`,
+      'data-tile-id': tile.id,
+      'data-href': `/client_admin/tiles/${tile.id}/tile_stats`,
+      key,
+    },
+      React.createElement("i", {className: `fa fa-${faIcon[statType]}`}),
+      tile[statType],
+    )
+  ));
+};
+
 const renderTiles = (
   tiles,
   activeStatus,
@@ -154,6 +169,7 @@ const renderTiles = (
       popdownMenu: renderPopdownMenu({activeStatus, tile, handleMenuAction}),
       loading: tile.loading,
       tileThumblinkOnClick: (e) => { tileContainerClick(tile, e); },
+      tileStats: ["active", "archive"].indexOf(activeStatus) > -1 ? renderStatButtons(tile) : null,
       activeFilters,
       moveTile,
       sortTile,

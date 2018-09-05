@@ -125,7 +125,10 @@ class Tile < ActiveRecord::Base
               "activeDate" => tile.activated_at,
               "archiveDate" => tile.archived_at,
               "fullyAssembled" => tile.is_fully_assembled?,
-              "campaignColor" => tile.campaign_color
+              "campaignColor" => tile.campaign_color,
+              "unique_views" => tile.unique_viewings_count,
+              "views" => tile.total_viewings_count,
+              "completions" => tile.user_tile_likes_count,
             }
           end,
           count: tiles[status].length
@@ -190,6 +193,9 @@ class Tile < ActiveRecord::Base
               "tiles.multiple_choice_answers",
               "tiles.question_subtype",
               "tiles.correct_answer_index",
+              "tiles.unique_viewings_count",
+              "tiles.total_viewings_count",
+              "tiles.user_tile_likes_count",
             )
   end
 

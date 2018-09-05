@@ -79,6 +79,11 @@ const TileComponent = props => (
         }
       </div>
     </div>
+    {props.tileStats &&
+      <div className="tile_stats">
+        { props.tileStats }
+      </div>
+    }
   </div>
 );
 
@@ -104,6 +109,8 @@ TileComponent.propTypes = {
   loading: PropTypes.bool,
   calendarClass: PropTypes.string,
   campaignColor: PropTypes.string,
+  draggable: PropTypes.bool,
+  tileStats: PropTypes.arrayOf(PropTypes.element),
 };
 
 export default TileComponent;

@@ -103,6 +103,7 @@ class DraggableTile extends Component {
       popdownMenu,
       loading,
       tileThumblinkOnClick,
+      tileStats,
     } = this.props;
 
 		return (
@@ -127,6 +128,7 @@ class DraggableTile extends Component {
               loading={loading}
               tileThumblinkOnClick={tileThumblinkOnClick}
               draggable={true}
+              tileStats={tileStats}
             />
           </div>
         )
@@ -154,6 +156,7 @@ DraggableTile.propTypes = {
   popdownMenu: PropTypes.element,
   loading: PropTypes.bool,
   tileThumblinkOnClick: PropTypes.func,
+  tileStats: PropTypes.arrayOf(PropTypes.element),
 };
 
 export default flow(
