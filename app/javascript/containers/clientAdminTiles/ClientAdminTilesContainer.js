@@ -144,7 +144,7 @@ class ClientAdminTiles extends Component {
           user_submitted: 'Suggested',
           plan: 'Plan',
           draft: 'Proof',
-          share: 'Send',
+          // share: 'Send',  // Commented out until it is ready to be overhauled into Edit
           active: 'Live',
           archive: 'Archive',
         });
@@ -270,7 +270,6 @@ class ClientAdminTiles extends Component {
   }
 
   selectStatus(statusNav) {
-    if (statusNav === 'share') { window.location = '/client_admin/share'; }
     this.setState({activeStatus: statusNav});
     AiRouter.navigation(`tab-${statusNav}`, {
       hashRoute: true,
@@ -311,6 +310,12 @@ class ClientAdminTiles extends Component {
         path: `/api/client_admin/tiles/${tile.id}`,
         params: { new_status: newStatus },
         success: () => {
+          // Extraneous code used to patch connection between jQuery and React -- Delete when Share is moved to Edit
+          if (this.state.activeStatus === 'plan' || this.state.activeStatus === 'draft') {
+            const { count } = this.state.tiles.draft;
+            const number = newStatus === 'draft' ? count + 1 : count - 1;
+            window.Airbo.PubSub.publish("updateShareTabNotification", { number });
+          }
           tileManager.changeTileStatus(newStatus, {setLoadingTo: false});
         },
       });
