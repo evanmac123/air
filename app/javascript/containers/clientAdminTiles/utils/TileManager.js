@@ -14,6 +14,14 @@ const getTileData = (tileId, reactComp) => {
   throw new Error('Tile not found');
 };
 
+const fetchTileJson = (tileId, cb) => {
+  Fetcher.xmlHttpRequest({
+    path: `/api/client_admin/tiles/${tileId}`,
+    method: 'GET',
+    success: cb,
+  });
+};
+
 class TileManager {
   constructor(tileId, reactComp) {
     this.tileId = tileId;
@@ -24,6 +32,15 @@ class TileManager {
     this.changeTileStatus = this.changeTileStatus.bind(this);
     this.addTileToCollection = this.addTileToCollection.bind(this);
     this.removeTileFromCollection = this.removeTileFromCollection.bind(this);
+  }
+
+  static fetchNewTile(tileId, reactComp) {
+    reactComp.setState({ loading: true });
+    fetchTileJson(tileId, resp => {
+      const tiles = {...reactComp.state.tiles};
+      tiles.plan.tiles.unshift({...resp});
+      reactComp.setState({ tiles, loading: false });
+    });
   }
 
   handleOpts(opts) {
@@ -66,14 +83,10 @@ class TileManager {
   refresh() {
     this.tileData.selectTile.loading = true;
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
-    Fetcher.xmlHttpRequest({
-      path: `/api/client_admin/tiles/${this.tileId}`,
-      method: 'GET',
-      success: resp => {
-        const tiles = {...this.tileData.stateTiles};
-        tiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex] = {...resp, loading: false};
-        this.reactComp.setState({ tiles });
-      },
+    fetchTileJson(this.tileId, resp => {
+      const tiles = {...this.tileData.stateTiles};
+      tiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex] = {...resp, loading: false};
+      this.reactComp.setState({ tiles });
     });
   }
 }

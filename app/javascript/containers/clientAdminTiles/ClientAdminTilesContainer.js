@@ -69,6 +69,7 @@ class ClientAdminTiles extends Component {
     this.syncCampaignState = this.syncCampaignState.bind(this);
     this.moveTile = this.moveTile.bind(this);
     this.sortTile = this.sortTile.bind(this);
+    this.tileBuilderPatch = this.tileBuilderPatch.bind(this);
     this.navButtons = [{
       faIcon: 'download',
       text: 'Download Stats',
@@ -101,19 +102,12 @@ class ClientAdminTiles extends Component {
     this.initializeState();
     this.scrollState.setOnScroll();
     window.addEventListener("popstate", this.selectStatus);
-    window.Airbo.PubSub.subscribe("tileChangesYO", (event, payload) => {
-      try {
-        const tile = new TileManager(payload.tileId, this);
-        tile.refresh();
-      } catch (e) {
-        console.log(event)
-        // fetch new tile for board
-      }
-    });
+    window.Airbo.PubSub.subscribe("reactTileChangeHandler", this.tileBuilderPatch);
   }
 
   componentWillUnmount() {
     this.scrollState.removeOnScroll();
+    window.Airbo.PubSub.unsubscribe("reactTileChangeHandler");
     window.addEventListener("popstate", this.selectStatus);
   }
 
@@ -363,6 +357,16 @@ class ClientAdminTiles extends Component {
       },
       success: () => null,
     });
+  }
+
+  // Hacky patch to hold jQuery and React together until builder is overhauled
+  tileBuilderPatch(event, payload) {
+    try {
+      const tile = new TileManager(payload.tileId, this);
+      tile.refresh();
+    } catch (e) {
+      TileManager.fetchNewTile(payload.tileId, this);
+    }
   }
 
   render() {
