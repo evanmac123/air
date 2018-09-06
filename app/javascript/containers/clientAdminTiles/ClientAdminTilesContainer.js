@@ -70,25 +70,6 @@ class ClientAdminTiles extends Component {
     this.moveTile = this.moveTile.bind(this);
     this.sortTile = this.sortTile.bind(this);
     this.tileBuilderPatch = this.tileBuilderPatch.bind(this);
-    this.navButtons = [{
-      faIcon: 'download',
-      text: 'Download Stats',
-      classList: 'download-stats-button js-download-stats-button button outlined icon',
-      tooltip: 'Download Excel file with statistics for all of the Tiles in this section.',
-      statusDisplay: ['active', 'archive'],
-    },
-    {
-      faIcon: 'users',
-      text: 'Manage Access',
-      classList: 'js-suggestion-box-manage-access button outlined icon',
-      statusDisplay: ['user_submitted'],
-    },
-    {
-      faIcon: 'plus',
-      text: 'New Tile',
-      classList: 'new-tile-button js-new-tile-button button icon',
-      statusDisplay: ['user_submitted', 'plan', 'draft', 'active', 'archive'],
-    }];
 
     this.scrollState = new InfiniScroller({
       scrollPercentage: 0.95,
@@ -385,7 +366,6 @@ class ClientAdminTiles extends Component {
           statuses={this.state.tileStatusNav}
           activeStatus={this.state.activeStatus}
           selectStatus={this.selectStatus}
-          navButtons={this.navButtons}
         />
         {
           (this.state.activeStatus !== 'user_submitted' && this.state.activeStatus !== 'draft') &&

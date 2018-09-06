@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { constants } from "../utils";
+
 const maxCount = count => count > 500 ? '500+' : count;
 
 const renderTabs = props => (
@@ -21,7 +23,7 @@ const renderTabs = props => (
   ))
 );
 
-const renderButtons = (activeStatus, navButtons) => navButtons.map((btn, key) => (
+const renderButtons = activeStatus => constants.NAV_BUTTONS.map((btn, key) => (
   btn.statusDisplay.indexOf(activeStatus) > -1 ?
     React.createElement('a',
       {className: btn.classList, key, href: btn.faIcon === 'download' ? `/client_admin/tiles_report.csv?report=${activeStatus}` : ''},
@@ -41,7 +43,7 @@ const TileStatusNavComponent = props => (
         renderTabs(props),
         React.createElement("li",
           {className: 'buttons'},
-          renderButtons(props.activeStatus, props.navButtons),
+          renderButtons(props.activeStatus),
         )
       )
     )
@@ -50,13 +52,6 @@ const TileStatusNavComponent = props => (
 
 TileStatusNavComponent.propTypes = {
   activeStatus: PropTypes.string.isRequired,
-  navButtons: PropTypes.arrayOf(PropTypes.shape({
-    faIcon: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    classList: PropTypes.string.isRequired,
-    tooltip: PropTypes.string,
-    statusDisplay: PropTypes.arrayOf(PropTypes.string).isRequired,
-  })).isRequired,
 };
 
 export default TileStatusNavComponent;

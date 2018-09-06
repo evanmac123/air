@@ -34,14 +34,9 @@ const sanitizeDate = (status, date) => {
   return `${splitDate.monthNumber}/${splitDate.day}/${splitDate.fullYear}`;
 };
 
-const getTileCalInfo = (type, activeStatus, tile) => {
-  if (type === 'icon') {
-    if (!tile.fullyAssembled) { return 'fa-cog'; }
-    if (activeStatus === 'active' || activeStatus === 'archive') { return 'fa-calendar'; }
-    return tile[`${activeStatus}Date`] ? 'fa-calendar-check-o' : 'fa-calendar-times-o';
-  }
-  if (!tile.fullyAssembled) { return 'Incomplete'; }
-  return sanitizeDate(activeStatus, tile[`${activeStatus}Date`]);
+const getTileCalIcon = (activeStatus, tile) => {
+  if (activeStatus === 'active' || activeStatus === 'archive') { return 'fa-calendar'; }
+  return tile[`${activeStatus}Date`] ? 'fa-calendar-check-o' : 'fa-calendar-times-o';
 };
 
 const fillInTileContainers = tileComponents => {
@@ -89,44 +84,24 @@ const renderPopdownMenu = args => (
   })
 );
 
+const buttonsPerStatus = {
+  plan: args => args.tile.fullyAssembled ? [ReadyToSendBtn(args, 1)] : [IncompleteEditBtn(args, 1), DirectDestroyBtn(args, 2)],
+  active: args => [ArchiveBtn(args, 3)],
+  archive: args => [UnarchiveBtn(args, 5)],
+  draft: args => [BackToPlanBtn(args, 8)],
+  user_submitted: args => args.tile.ignored ? [UndoIgnoreBtn(args, 13), DirectDestroyBtn(args, 21)] : [AcceptBtn(args, 34), IgnoreBtn(args, 55)],
+};
 
 const renderTileButtons = args => {
-  const result = [];
-  let key = 1;
-  if (args.activeStatus === 'plan') {
-    if (args.tile.fullyAssembled) {
-      result.push(ReadyToSendBtn(args, key += 1));
-    } else {
-      result.push(IncompleteEditBtn(args, key += 1));
-      result.push(DirectDestroyBtn(args, key += 1));
-    }
-  }
-  if (args.activeStatus === 'active') {
-    result.push(ArchiveBtn(args, key += 1));
-  }
-  if (args.activeStatus === 'archive') {
-    result.push(UnarchiveBtn(args, key += 1));
-  }
-  if (args.activeStatus === 'draft') {
-    result.push(BackToPlanBtn(args, key += 1));
-  }
-  if (args.activeStatus === 'user_submitted') {
-    if (args.tile.ignored) {
-      result.push(UndoIgnoreBtn(args, key += 1));
-      result.push(DirectDestroyBtn(args, key += 1));
-    } else {
-      result.push(AcceptBtn(args, key += 1));
-      result.push(IgnoreBtn(args, key += 1));
-    }
-  }
-  if (['plan', 'draft', 'active', 'archive'].indexOf(args.activeStatus) >= 0 && args.tile.fullyAssembled) {
+  const result = buttonsPerStatus[args.activeStatus](args);
+  if (['plan', 'draft', 'active', 'archive'].indexOf(args.activeStatus) > -1 && args.tile.fullyAssembled) {
     result.push(React.createElement(PopdownButtonComponent, {
-      key: key += 1,
+      key: 89,
       containerElement: 'li',
-      containerProps: {className: 'pill more right', key: key += 1},
+      containerProps: {className: 'pill more right', key: 144},
       dropdownId: args.tile.id,
     }));
-    result.push(EditBtn(args, key += 4));
+    result.push(EditBtn(args, 233));
   }
   return result;
 };
@@ -160,8 +135,8 @@ const renderTiles = (
     React.createElement(DraggableTile, {
       key: tile.id,
       index,
-      date: getTileCalInfo('date', activeStatus, tile),
-      caledarIcon: getTileCalInfo('icon', activeStatus, tile),
+      date: !tile.fullyAssembled ? 'Incomplete' : sanitizeDate(activeStatus, tile[`${activeStatus}Date`]),
+      caledarIcon: !tile.fullyAssembled ? 'fa-cog' : getTileCalIcon(activeStatus, tile),
       calendarClass: (!tile.fullyAssembled ? 'incomplete' : ''),
       tileContainerClass: activeStatus,
       tileThumblinkClass: 'tile_thumb_link tile_thumb_link_client_admin',
@@ -202,102 +177,43 @@ const EditTilesComponent = props => (
   </section>
 );
 
+const tileShape = {
+  tiles: PropTypes.array,
+  count: PropTypes.number,
+};
+
+const filterShape = {
+  month: PropTypes.object,
+  year: PropTypes.object,
+  campaign: PropTypes.object,
+  sortType: PropTypes.object,
+};
+
+const tileStatusNavShape = {
+  tileCount: PropTypes.number,
+  page: PropTypes.number,
+  filter: PropTypes.shape(filterShape),
+  uiDisplay: PropTypes.string,
+};
+
 EditTilesComponent.propTypes = {
   activeStatus: PropTypes.string.isRequired,
   changeTileStatus: PropTypes.func.isRequired,
   tiles: PropTypes.shape({
-    user_submitted: PropTypes.shape({
-      tiles: PropTypes.array,
-      count: PropTypes.number,
-    }),
-    plan: PropTypes.shape({
-      tiles: PropTypes.array,
-      count: PropTypes.number,
-    }),
-    draft: PropTypes.shape({
-      tiles: PropTypes.array,
-      count: PropTypes.number,
-    }),
-    share: PropTypes.shape({
-      tiles: PropTypes.array,
-      count: PropTypes.number,
-    }),
-    active: PropTypes.shape({
-      tiles: PropTypes.array,
-      count: PropTypes.number,
-    }),
-    archive: PropTypes.shape({
-      tiles: PropTypes.array,
-      count: PropTypes.number,
-    }),
+    user_submitted: PropTypes.shape(tileShape),
+    plan: PropTypes.shape(tileShape),
+    draft: PropTypes.shape(tileShape),
+    share: PropTypes.shape(tileShape),
+    active: PropTypes.shape(tileShape),
+    archive: PropTypes.shape(tileShape),
   }),
   tileStatusNav: PropTypes.shape({
-    user_submitted: PropTypes.shape({
-      tileCount: PropTypes.number,
-      page: PropTypes.number,
-      filter: PropTypes.shape({
-        month: PropTypes.object,
-        year: PropTypes.object,
-        campaign: PropTypes.object,
-        sortType: PropTypes.object,
-      }),
-      uiDisplay: PropTypes.string,
-    }),
-    plan: PropTypes.shape({
-      tileCount: PropTypes.number,
-      page: PropTypes.number,
-      filter: PropTypes.shape({
-        month: PropTypes.object,
-        year: PropTypes.object,
-        campaign: PropTypes.object,
-        sortType: PropTypes.object,
-      }),
-      uiDisplay: PropTypes.string,
-    }),
-    draft: PropTypes.shape({
-      tileCount: PropTypes.number,
-      page: PropTypes.number,
-      filter: PropTypes.shape({
-        month: PropTypes.object,
-        year: PropTypes.object,
-        campaign: PropTypes.object,
-        sortType: PropTypes.object,
-      }),
-      uiDisplay: PropTypes.string,
-    }),
-    share: PropTypes.shape({
-      tileCount: PropTypes.number,
-      page: PropTypes.number,
-      filter: PropTypes.shape({
-        month: PropTypes.object,
-        year: PropTypes.object,
-        campaign: PropTypes.object,
-        sortType: PropTypes.object,
-      }),
-      uiDisplay: PropTypes.string,
-    }),
-    active: PropTypes.shape({
-      tileCount: PropTypes.number,
-      page: PropTypes.number,
-      filter: PropTypes.shape({
-        month: PropTypes.object,
-        year: PropTypes.object,
-        campaign: PropTypes.object,
-        sortType: PropTypes.object,
-      }),
-      uiDisplay: PropTypes.string,
-    }),
-    archive: PropTypes.shape({
-      tileCount: PropTypes.number,
-      page: PropTypes.number,
-      filter: PropTypes.shape({
-        month: PropTypes.object,
-        year: PropTypes.object,
-        campaign: PropTypes.object,
-        sortType: PropTypes.object,
-      }),
-      uiDisplay: PropTypes.string,
-    }),
+    user_submitted: PropTypes.shape(tileStatusNavShape),
+    plan: PropTypes.shape(tileStatusNavShape),
+    draft: PropTypes.shape(tileStatusNavShape),
+    share: PropTypes.shape(tileStatusNavShape),
+    active: PropTypes.shape(tileStatusNavShape),
+    archive: PropTypes.shape(tileStatusNavShape),
   }),
   tileContainerClick: PropTypes.func,
   handleMenuAction: PropTypes.func,

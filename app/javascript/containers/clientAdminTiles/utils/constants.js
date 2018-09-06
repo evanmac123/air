@@ -39,4 +39,23 @@ export default {
       onConfirmAction: (tile, component) => { component.handleMenuAction(tile, 'deleteConfirm'); },
     },
   },
+  NAV_BUTTONS: [{
+      faIcon: 'download',
+      text: 'Download Stats',
+      classList: 'download-stats-button js-download-stats-button button outlined icon',
+      tooltip: 'Download Excel file with statistics for all of the Tiles in this section.',
+      statusDisplay: ['active', 'archive'],
+    },
+    {
+      faIcon: 'users',
+      text: 'Manage Access',
+      classList: 'js-suggestion-box-manage-access button outlined icon',
+      statusDisplay: ['user_submitted'],
+    },
+    {
+      faIcon: 'plus',
+      text: 'New Tile',
+      classList: 'new-tile-button js-new-tile-button button icon',
+      statusDisplay: ['user_submitted', 'plan', 'draft', 'active', 'archive'],
+  }],
 };
