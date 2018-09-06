@@ -11,7 +11,7 @@ const TileComponent = props => (
     <div className="tile_thumbnail" id={`single-tile-${props.id}`}>
       <div className="tile-wrapper">
         <a href={props.tileShowPath} className={props.tileThumblinkClass} data-tile-id={props.id} onClick={props.tileThumblinkOnClick}>
-          <div className="tile_thumbnail_image">
+          <div className="tile_thumbnail_image" style={props.ignored ? {opacity: '0.5'} : {}}>
             <img src={props.thumbnail} />
           </div>
           {
@@ -107,6 +107,7 @@ TileComponent.propTypes = {
   popdownMenu: PropTypes.element,
   tileThumblinkOnClick: PropTypes.func,
   loading: PropTypes.bool,
+  ignored: PropTypes.bool,
   calendarClass: PropTypes.string,
   campaignColor: PropTypes.string,
   draggable: PropTypes.bool,

@@ -104,6 +104,7 @@ class DraggableTile extends Component {
       loading,
       tileThumblinkOnClick,
       tileStats,
+      ignored,
     } = this.props;
 
 		return (
@@ -129,6 +130,7 @@ class DraggableTile extends Component {
               tileThumblinkOnClick={tileThumblinkOnClick}
               draggable={true}
               tileStats={tileStats}
+              ignored={ignored}
             />
           </div>
         )
@@ -155,6 +157,7 @@ DraggableTile.propTypes = {
   shadowOverlayButtons: PropTypes.array,
   popdownMenu: PropTypes.element,
   loading: PropTypes.bool,
+  ignored: PropTypes.bool,
   tileThumblinkOnClick: PropTypes.func,
   tileStats: PropTypes.arrayOf(PropTypes.element),
 };
