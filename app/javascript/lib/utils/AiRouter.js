@@ -10,6 +10,8 @@ const getNewUrl = (sanitizedUrl, opts) => {
 
 const AiRouter = {
   currentUrl: () => window.location.pathname,
+  href: () => window.location.href,
+  splitHref: splitBy => window.location.href.split(splitBy),
   navigation: (url, opts = {}) => {
     const sanitizedUrl = sanitizeUrl(url);
     const stateObj = opts.stateObj || {};
