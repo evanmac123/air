@@ -103,11 +103,15 @@ class ClientAdminTiles extends Component {
     this.scrollState.setOnScroll();
     window.addEventListener("popstate", this.selectStatus);
     window.Airbo.PubSub.subscribe("reactTileChangeHandler", this.tileBuilderPatch);
+    window.Airbo.PubSub.subscribe("/tile-admin/tile-deleted", (e, payload) => {
+      this.tileBuilderPatch(e, {tileId: payload.tile.selector.split('=')[1].slice(0, -1)});
+    });
   }
 
   componentWillUnmount() {
     this.scrollState.removeOnScroll();
     window.Airbo.PubSub.unsubscribe("reactTileChangeHandler");
+    window.Airbo.PubSub.unsubscribe("/tile-admin/tile-deleted");
     window.addEventListener("popstate", this.selectStatus);
   }
 
@@ -362,8 +366,12 @@ class ClientAdminTiles extends Component {
   // Hacky patch to hold jQuery and React together until builder is overhauled
   tileBuilderPatch(event, payload) {
     try {
-      const tile = new TileManager(payload.tileId, this);
-      tile.refresh();
+      const tile = new TileManager(parseInt(payload.tileId, 10), this);
+      if (event.type === "/tile-admin/tile-deleted") {
+        tile.removeTileFromCollection();
+      } else {
+        tile.refresh();
+      }
     } catch (e) {
       TileManager.fetchNewTile(payload.tileId, this);
     }

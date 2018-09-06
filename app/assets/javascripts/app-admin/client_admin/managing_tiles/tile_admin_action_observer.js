@@ -27,8 +27,10 @@ Airbo.TileAdminActionObserver = (function() {
       event,
       payload
     ) {
-      payload.tile.remove();
-      Airbo.TilePlaceHolderManager.perform();
+      if (!$("#client-admin-tiles-root").length) {
+        payload.tile.remove();
+        Airbo.TilePlaceHolderManager.perform();
+      }
     });
   }
 

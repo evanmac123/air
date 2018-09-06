@@ -39,6 +39,7 @@ class TileManager {
     fetchTileJson(tileId, resp => {
       const tiles = {...reactComp.state.tiles};
       tiles.plan.tiles.unshift({...resp});
+      tiles.plan.count += 1;
       reactComp.setState({ tiles, loading: false });
     });
   }
