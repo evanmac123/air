@@ -16,6 +16,12 @@ class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
     end
   end
 
+  def show
+    tile = Tile.from_board_with_campaigns(current_board).find(params[:id])
+    result = sanitized([tile], 1)
+    render json: result.first
+  end
+
   def update
     tile = current_board.tiles.find(params[:id])
     Tile::StatusUpdater.call(tile: tile, new_status: tile_params[:new_status])

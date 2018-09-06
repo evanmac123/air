@@ -1,3 +1,5 @@
+import { Fetcher } from "../../../lib/helpers";
+
 const getTileData = (tileId, reactComp) => {
   const stateTiles = reactComp.state.tiles;
   for (let index = 0; index < stateTiles[reactComp.state.activeStatus].tiles.length; index++) {
@@ -59,6 +61,20 @@ class TileManager {
     this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.splice(this.tileData.selectTileIndex, 1);
     this.tileData.stateTiles[this.reactComp.state.activeStatus].count -= 1;
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
+  }
+
+  refresh() {
+    this.tileData.selectTile.loading = true;
+    this.reactComp.setState({ tiles: this.tileData.stateTiles });
+    Fetcher.xmlHttpRequest({
+      path: `/api/client_admin/tiles/${this.tileId}`,
+      method: 'GET',
+      success: resp => {
+        const tiles = {...this.tileData.stateTiles};
+        tiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex] = {...resp, loading: false};
+        this.reactComp.setState({ tiles });
+      },
+    });
   }
 }
 

@@ -101,6 +101,15 @@ class ClientAdminTiles extends Component {
     this.initializeState();
     this.scrollState.setOnScroll();
     window.addEventListener("popstate", this.selectStatus);
+    window.Airbo.PubSub.subscribe("tileChangesYO", (event, payload) => {
+      try {
+        const tile = new TileManager(payload.tileId, this);
+        tile.refresh();
+      } catch (e) {
+        console.log(event)
+        // fetch new tile for board
+      }
+    });
   }
 
   componentWillUnmount() {
