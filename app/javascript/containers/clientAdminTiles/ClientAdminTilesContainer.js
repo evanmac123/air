@@ -18,6 +18,7 @@ const sanitizeTileData = rawTiles => {
   rawTiles.ignored.tiles.forEach(tile => {
     result.user_submitted.tiles.push({...tile, ignored: true});
   });
+  result.user_submitted.count += rawTiles.ignored.count;
   return result;
 };
 
@@ -319,11 +320,12 @@ class ClientAdminTiles extends Component {
   tileContainerClick(tile, e) {
     e.preventDefault();
     const targetClass = e.target.classList;
-    // debugger
     if (unhandledClick(e)) {
       return; // eslint-disable-line
     } else if (e.target.parentElement.classList.contains('delete_tile') || targetClass.contains('delete_tile') || e.target.parentElement.classList.contains('destroy')) {
       this.handleMenuAction(tile, 'delete');
+    } else if (targetClass.contains('ignore') || targetClass.contains('undo_ignore')) {
+      this.changeTileStatus(tile, (targetClass.contains('ignore') ? 'ignored' : 'user_submitted'));
     } else if (targetClass.contains('update_status')) {
       this.changeTileStatus(tile);
     } else if (e.target.parentElement.classList.contains('edit') || targetClass.contains('edit')) {

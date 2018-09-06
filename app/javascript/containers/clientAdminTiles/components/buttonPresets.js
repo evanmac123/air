@@ -42,7 +42,7 @@ const AcceptBtn = (args, key) => (
   React.createElement(ClientAdminButtonComponent, {
     key,
     liClass: 'accept_button',
-    aClass: 'accept button',
+    aClass: 'update_status accept button',
     aData: {action: 'accept', status: 'plan', tileId: args.tile.id},
     buttonText: 'Accept',
   })
@@ -52,7 +52,7 @@ const IgnoreBtn = (args, key) => (
   React.createElement(ClientAdminButtonComponent, {
     key,
     liClass: 'ignore_button',
-    aClass: 'update_status button outlined',
+    aClass: 'update_status ignore button outlined',
     aData: {action: 'ignore', status: 'ignored', tileId: args.tile.id},
     buttonText: 'Ignore',
   })
@@ -62,7 +62,7 @@ const UndoIgnoreBtn = (args, key) => (
   React.createElement(ClientAdminButtonComponent, {
     key,
     liClass: 'undo_ignore_button',
-    aClass: 'update_status button outlined',
+    aClass: 'update_status undo_ignore button outlined',
     aData: {action: 'unignore', status: 'user_submitted', tileId: args.tile.id},
     buttonText: 'Undo Ignore',
   })
