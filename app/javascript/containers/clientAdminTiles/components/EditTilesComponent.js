@@ -49,28 +49,20 @@ const fillInTileContainers = tileComponents => {
   return tileComponents;
 };
 
+const menuButtonBase = (type, faIcon, handleMenuAction, tile) => ({
+  attrs: {className: `${type === 'copy' ? 'duplicate' : type}_title`, style: {width: '100%'}},
+  faIcon,
+  text: type.replace(/^\w/, character => character.toUpperCase()),
+  clickEvent: e => { handleMenuAction(tile, type, e); },
+});
+
 const renderMenuButtons = args => {
-  const result = [];
+  const { handleMenuAction } = args;
+  const result = [menuButtonBase('copy', 'copy', handleMenuAction, args.tile),
+                  menuButtonBase('delete', 'trash-o', handleMenuAction, args.tile)];
   if (args.activeStatus === 'draft') {
-    result.push({
-      attrs: {className: 'post_title', style: {width: '100%'}},
-      faIcon: 'thumb-tack',
-      text: 'Post',
-      clickEvent: (e) => { args.handleMenuAction(args.tile, 'post', e); },
-    });
+    result.unshift(menuButtonBase('post', 'thumb-tack', handleMenuAction, args.tile));
   }
-  result.push({
-    attrs: {className: 'duplicate_tile', style: {width: '100%'}},
-    faIcon: 'copy',
-    text: 'Copy',
-    clickEvent: (e) => { args.handleMenuAction(args.tile, 'copy', e); },
-  });
-  result.push({
-    attrs: {className: 'delete_tile', style: {width: '100%'}},
-    faIcon: 'trash-o',
-    text: 'Delete',
-    clickEvent: (e) => { args.handleMenuAction(args.tile, 'delete', e); },
-  });
   return result;
 };
 
