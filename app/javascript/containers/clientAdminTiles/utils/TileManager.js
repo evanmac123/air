@@ -69,16 +69,24 @@ class TileManager {
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 
+  removeSelectTileUsingIndex() {
+    this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.splice(this.tileData.selectTileIndex, 1);
+    this.tileData.stateTiles[this.reactComp.state.activeStatus].count -= 1;
+  }
+
+  addTileTo(status, tile) {
+    this.tileData.stateTiles[status].tiles.unshift(tile);
+    this.tileData.stateTiles[status].count += 1;
+  }
+
   changeTileStatus(newStatus, activeStatus, count) {
     updateTileStatus(this.tileId, newStatus, () => {
       if (activeStatus === 'plan' || activeStatus === 'draft') { updateJquerySend(count, newStatus === 'draft'); }
       if (newStatus === 'ignored' || newStatus === 'user_submitted') {
         this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex].ignored = newStatus === 'ignored';
       } else {
-        this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.splice(this.tileData.selectTileIndex, 1);
-        this.tileData.stateTiles[this.reactComp.state.activeStatus].count -= 1;
-        this.tileData.stateTiles[newStatus].tiles.unshift(this.tileData.selectTile);
-        this.tileData.stateTiles[newStatus].count += 1;
+        this.removeSelectTileUsingIndex();
+        this.addTileTo(newStatus, this.tileData.selectTile);
       }
       this.reactComp.setState({ tiles: this.tileData.stateTiles });
     });
@@ -86,14 +94,12 @@ class TileManager {
 
   addTileToCollection(newTile, opts) {
     this.handleOpts(opts);
-    this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.unshift(newTile);
-    this.tileData.stateTiles[this.reactComp.state.activeStatus].count += 1;
+    this.addTileTo(this.reactComp.state.activeStatus, newTile);
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 
   removeTileFromCollection() {
-    this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.splice(this.tileData.selectTileIndex, 1);
-    this.tileData.stateTiles[this.reactComp.state.activeStatus].count -= 1;
+    this.removeSelectTileUsingIndex();
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 
