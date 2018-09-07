@@ -82,6 +82,15 @@ class TileManager {
     });
   }
 
+  static sortTiles(tileId, leftTileId) {
+    Fetcher.xmlHttpRequest({
+      method: 'POST',
+      path: `/api/client_admin/tiles/${tileId}/sorts`,
+      params: { sort: { left_tile_id: leftTileId } },
+      success: () => null,
+    });
+  }
+
   handleOpts(opts) {
     Object.keys(opts).forEach(key => {
       if (key === 'setLoadingTo') { this.tileData.selectTile.loading = opts[key]; }

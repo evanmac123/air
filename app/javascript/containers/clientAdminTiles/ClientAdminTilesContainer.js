@@ -231,16 +231,7 @@ class ClientAdminTiles extends Component {
     const { tiles } = this.state.tiles[this.state.activeStatus];
     const { id } = tiles[landingIndex];
     const leftId = landingIndex - 1 >= 0 ? tiles[landingIndex - 1].id : null;
-    Fetcher.xmlHttpRequest({
-      method: 'POST',
-      path: `/api/client_admin/tiles/${id}/sorts`,
-      params: {
-        sort: {
-          left_tile_id: leftId,
-        },
-      },
-      success: () => null,
-    });
+    TileManager.sortTiles(id, leftId);
   }
 
   // Hacky patch to hold jQuery and React together until builder is overhauled
