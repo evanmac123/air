@@ -1,45 +1,13 @@
 import React, { Component } from "react";
-import SweetAlert from 'react-bootstrap-sweetalert';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import LoadingComponent from "../../shared/LoadingComponent";
-import CampaignManagerComponent from "../../shared/CampaignManagerComponent";
 import TileStatusNavComponent from "./components/TileStatusNavComponent";
 import TileFilterSubNavComponent from "./components/TileFilterSubNavComponent";
 import EditTilesComponent from "./components/EditTilesComponent";
-import { ClientAdminTilesRouter, TileManager, constants } from "./utils";
+import { ClientAdminTilesRouter, TileManager, constants, helpers } from "./utils";
 import { Fetcher, InfiniScroller, Pluck } from "../../lib/helpers";
-
-const sanitizeTileData = rawTiles => {
-  const result = {...rawTiles};
-  result.user_submitted.tiles = result.user_submitted.tiles || [];
-  rawTiles.ignored.tiles.forEach(tile => {
-    result.user_submitted.tiles.push({...tile, ignored: true});
-  });
-  result.user_submitted.count += rawTiles.ignored.count;
-  return result;
-};
-
-const unhandledClick = e => (e.target.innerText === 'Copy' || e.target.innerText === 'Delete' || e.target.innerText === 'Post' ||
-                            (e.target.classList.contains('pill') && e.target.classList.contains('more')));
-
-const addNewTiles = (tileIDs, existingTiles, newTiles) => (
-  newTiles.reduce((result, newTile) => {
-    if (tileIDs.indexOf(newTile.id) < 0) { result.push(newTile); }
-    return result;
-  }, existingTiles)
-);
-
-const getFilterParams = statusFilter => (
-  Object.keys(statusFilter).reduce((result, status) => (
-    statusFilter[status] ? `${result}${status}%3D${statusFilter[status].value}%26` : result
-  ), '').slice(0, -3)
-);
-
-const sanitizeCampaignResponse = camp => (
-  {label: camp.name, className: 'campaign-option', value: camp.id, color: camp.color, population: camp.population_segment_id}
-);
 
 class ClientAdminTiles extends Component {
   constructor(props) {
@@ -60,7 +28,7 @@ class ClientAdminTiles extends Component {
     this.changeTileStatus = this.changeTileStatus.bind(this);
     this.tileContainerClick = this.tileContainerClick.bind(this);
     this.handleMenuAction = this.handleMenuAction.bind(this);
-    this.baseAlertOptions = this.baseAlertOptions.bind(this);
+    this.triggerModal = this.triggerModal.bind(this);
     this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.loadFilteredTiles = this.loadFilteredTiles.bind(this);
@@ -113,16 +81,13 @@ class ClientAdminTiles extends Component {
       path: '/api/client_admin/campaigns',
       method: 'GET',
       success: resp => {
-        const campaigns = resp.reduce((result, camp) => result.concat([sanitizeCampaignResponse(camp.campaign)]),
+        const campaigns = resp.reduce((result, camp) => result.concat([helpers.sanitizeCampaignResponse(camp.campaign)]),
           [constants.UNASSIGNED_CAMPAIGN]);
         if (openAlert) {
           this.setState({
             campaignLoading: false,
             campaigns,
-            alert: React.createElement(CampaignManagerComponent, {
-              campaigns,
-              onClose: this.syncCampaignState,
-            }),
+            alert: helpers.campaignManager(campaigns, this.syncCampaignState),
           });
         } else {
           this.setState({ campaignLoading: false, campaigns });
@@ -138,12 +103,7 @@ class ClientAdminTiles extends Component {
 
   openCampaignManager() {
     if (this.state.campaigns.length) {
-      this.setState({
-        alert: React.createElement(CampaignManagerComponent, {
-          campaigns: this.state.campaigns,
-          onClose: this.syncCampaignState,
-        }),
-      });
+      this.setState({ alert: helpers.campaignManager(this.state.campaigns, this.syncCampaignState) });
     } else {
       this.populateCampaigns(true);
     }
@@ -152,7 +112,7 @@ class ClientAdminTiles extends Component {
   getAdditionalTiles() {
     if (!this.state.scrollLoading && this.state.tileStatusNav[this.state.activeStatus].page) {
       this.setState({scrollLoading: true});
-      const filter = getFilterParams(this.state.tileStatusNav[this.state.activeStatus].filter);
+      const filter = helpers.getFilterParams(this.state.tileStatusNav[this.state.activeStatus].filter);
       const page = this.state.tileStatusNav[this.state.activeStatus].page + 1;
       Fetcher.xmlHttpRequest({
         path: `/api/client_admin/tiles?page=${page}&status=${this.state.activeStatus}&filter=${filter}`,
@@ -160,7 +120,7 @@ class ClientAdminTiles extends Component {
         success: resp => {
           const tileStatusNav = {...this.state.tileStatusNav};
           const tiles = {...this.state.tiles};
-          tiles[this.state.activeStatus].tiles = addNewTiles(Pluck(tiles[this.state.activeStatus].tiles, 'id'), tiles[this.state.activeStatus].tiles, resp);
+          tiles[this.state.activeStatus].tiles = helpers.purgeRepeatedTiles(Pluck(tiles[this.state.activeStatus].tiles, 'id'), tiles[this.state.activeStatus].tiles, resp);
           tileStatusNav[this.state.activeStatus].page = resp.length < 16 ? 0 : tileStatusNav[this.state.activeStatus].page + 1;
           this.setState({
             tileStatusNav,
@@ -173,7 +133,7 @@ class ClientAdminTiles extends Component {
   }
 
   loadFilteredTiles() {
-    const filter = getFilterParams(this.state.tileStatusNav[this.state.activeStatus].filter);
+    const filter = helpers.getFilterParams(this.state.tileStatusNav[this.state.activeStatus].filter);
     Fetcher.xmlHttpRequest({
       path: `/api/client_admin/tiles?filter=${filter}&status=${this.state.activeStatus}`,
       method: 'GET',
@@ -191,22 +151,8 @@ class ClientAdminTiles extends Component {
     });
   }
 
-  baseAlertOptions() {
-    return {
-      customClass: 'airbo',
-      cancelBtnCssClass: 'cancel',
-      confirmBtnCssClass: 'confirm',
-      showCancel: true,
-      onCancel: () => { this.setState({alert: null }); },
-      style: {
-        display: 'inherit',
-        width: '520px',
-      },
-    };
-  }
-
   setTileStatuses(rawTiles, statuses) {
-    const tiles = rawTiles.ignored.count ? sanitizeTileData(rawTiles) : rawTiles;
+    const tiles = rawTiles.ignored.count ? helpers.sanitizeTileData(rawTiles) : rawTiles;
     this.setState({
       tileStatusNav: [...Object.keys(statuses)].reverse().reduce((result, status) => {
         const tileCount = tiles[status] ? tiles[status].count : 0;
@@ -237,49 +183,38 @@ class ClientAdminTiles extends Component {
     // End block that needs to be removed
   }
 
+  triggerModal(args) {
+    const alert = helpers.swalModal({...args, onCancel: () => { this.setState({alert: null }); }});
+    this.setState({ alert });
+  }
+
   changeTileStatus(tile, forceStatus) {
     if (this.state.activeStatus === 'archive' && !forceStatus) {
-      this.setState({
-        alert: React.createElement(SweetAlert, {
-          ...this.baseAlertOptions(),
-          title: 'Are you sure about that?',
-          confirmBtnText: 'Post Again',
-          onConfirm: () => { this.changeTileStatus(tile, 'active'); this.setState({alert: null }); },
-        }, 'Users who have completed this Tile already will not see it again. If you want to re-use the content, it may be better to create a copy.'),
+      this.triggerModal({
+        ...constants.POST_AGAIN_MODAL_TEXT,
+        onConfirm: () => { this.changeTileStatus(tile, 'active'); this.setState({alert: null }); },
       });
     } else {
       const tileManager = new TileManager(tile.id, this);
       const newStatus = forceStatus || constants.STATUS_CYCLE[this.state.activeStatus];
-      tileManager.loading();
-      Fetcher.xmlHttpRequest({
-        method: 'PUT',
-        path: `/api/client_admin/tiles/${tile.id}`,
-        params: { new_status: newStatus },
-        success: () => {
-          // Extraneous code used to patch connection between jQuery and React -- Delete when Share is moved to Edit
-          if (this.state.activeStatus === 'plan' || this.state.activeStatus === 'draft') {
-            const { count } = this.state.tiles.draft;
-            const number = newStatus === 'draft' ? count + 1 : count - 1;
-            window.Airbo.PubSub.publish("updateShareTabNotification", { number });
-          }
-          tileManager.changeTileStatus(newStatus, {setLoadingTo: false});
-        },
-      });
+      const { count } = this.state.tiles.draft; // Extraneous code used to patch connection between jQuery and React -- Delete when Share is moved to Edit
+      tileManager.changeTileStatus(newStatus, this.state.activeStatus, count);
     }
   }
 
   tileContainerClick(tile, e) {
     e.preventDefault();
     const targetClass = e.target.classList;
-    if (unhandledClick(e)) {
+    const parentElem = e.target.parentElement;
+    if (helpers.unhandledClick(e)) {
       return; // eslint-disable-line
-    } else if (e.target.parentElement.classList.contains('delete_tile') || targetClass.contains('delete_tile') || e.target.parentElement.classList.contains('destroy')) {
+    } else if (parentElem.classList.contains('delete_tile') || targetClass.contains('delete_tile') || parentElem.classList.contains('destroy')) {
       this.handleMenuAction(tile, 'delete');
     } else if (targetClass.contains('ignore') || targetClass.contains('undo_ignore')) {
       this.changeTileStatus(tile, (targetClass.contains('ignore') ? 'ignored' : 'user_submitted'));
     } else if (targetClass.contains('update_status')) {
       this.changeTileStatus(tile);
-    } else if (e.target.parentElement.classList.contains('edit') || targetClass.contains('edit')) {
+    } else if (parentElem.classList.contains('edit') || targetClass.contains('edit')) {
       const tileForm = window.Airbo.TileFormModal;
       tileForm.init(window.Airbo.TileManager);
       tileForm.open(tile.editPath);
@@ -290,12 +225,13 @@ class ClientAdminTiles extends Component {
 
   handleMenuAction(tile, action) {
     if (action === 'post' || action === 'delete') {
-      this.setState({
-        alert: React.createElement(SweetAlert, {
-          ...this.baseAlertOptions(),
-          title: constants.MENU_ALERT_OPTS[action].title,
-          onConfirm: () => { constants.MENU_ALERT_OPTS[action].onConfirmAction(tile, this); this.setState({alert: null }); },
-        }, constants.MENU_ALERT_OPTS[action].body),
+      const actionConfirm = {
+        post: (actTile, component) => { component.changeTileStatus(actTile, 'active'); },
+        delete: (actTile, component) => { component.handleMenuAction(actTile, 'deleteConfirm'); },
+      };
+      this.triggerModal({
+        ...constants[`${action}_MENU_ALERT_TEXT`],
+        onConfirm: () => { actionConfirm[action](tile, this); this.setState({alert: null }); },
       });
     } else {
       const tileManager = new TileManager(tile.id, this);

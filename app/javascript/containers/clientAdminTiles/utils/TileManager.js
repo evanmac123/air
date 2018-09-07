@@ -22,6 +22,20 @@ const fetchTileJson = (tileId, cb) => {
   });
 };
 
+const updateTileStatus = (tileId, newStatus, cb) => {
+  Fetcher.xmlHttpRequest({
+    method: 'PUT',
+    path: `/api/client_admin/tiles/${tileId}`,
+    params: { newStatus },
+    success: cb,
+  });
+};
+
+const updateJquerySend = (count, draft) => { // Extraneous code used to patch connection between jQuery and React -- Delete when Share is moved to Edit
+  const number = draft ? count + 1 : count - 1;
+  window.Airbo.PubSub.publish("updateShareTabNotification", { number });
+};
+
 class TileManager {
   constructor(tileId, reactComp) {
     this.tileId = tileId;
@@ -55,17 +69,19 @@ class TileManager {
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 
-  changeTileStatus(newState, opts) {
-    this.handleOpts(opts);
-    if (newState === 'ignored' || newState === 'user_submitted') {
-      this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex].ignored = newState === 'ignored';
-    } else {
-      this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.splice(this.tileData.selectTileIndex, 1);
-      this.tileData.stateTiles[this.reactComp.state.activeStatus].count -= 1;
-      this.tileData.stateTiles[newState].tiles.unshift(this.tileData.selectTile);
-      this.tileData.stateTiles[newState].count += 1;
-    }
-    this.reactComp.setState({ tiles: this.tileData.stateTiles });
+  changeTileStatus(newStatus, activeStatus, count) {
+    updateTileStatus(this.tileId, newStatus, () => {
+      if (activeStatus === 'plan' || activeStatus === 'draft') { updateJquerySend(count, newStatus === 'draft'); }
+      if (newStatus === 'ignored' || newStatus === 'user_submitted') {
+        this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex].ignored = newStatus === 'ignored';
+      } else {
+        this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles.splice(this.tileData.selectTileIndex, 1);
+        this.tileData.stateTiles[this.reactComp.state.activeStatus].count -= 1;
+        this.tileData.stateTiles[newStatus].tiles.unshift(this.tileData.selectTile);
+        this.tileData.stateTiles[newStatus].count += 1;
+      }
+      this.reactComp.setState({ tiles: this.tileData.stateTiles });
+    });
   }
 
   addTileToCollection(newTile, opts) {
