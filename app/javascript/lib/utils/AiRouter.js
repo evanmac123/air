@@ -17,6 +17,7 @@ const AiRouter = {
     const stateObj = opts.stateObj || {};
     const title = opts.title || "Airbo";
     const newUrl = getNewUrl(sanitizedUrl, opts);
+    window.scrollTo(0,0);
     window.history.pushState(stateObj, title, newUrl);
   },
   pathNotFound: () => {

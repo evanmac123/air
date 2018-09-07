@@ -22,7 +22,6 @@ class ClientAdminTiles extends Component {
       campaigns: [],
       campaignLoading: false,
     };
-    this.initializeState = this.initializeState.bind(this);
     this.setTileStatuses = this.setTileStatuses.bind(this);
     this.selectStatus = this.selectStatus.bind(this);
     this.changeTileStatus = this.changeTileStatus.bind(this);
@@ -31,7 +30,6 @@ class ClientAdminTiles extends Component {
     this.triggerModal = this.triggerModal.bind(this);
     this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
-    this.loadFilteredTiles = this.loadFilteredTiles.bind(this);
     this.populateCampaigns = this.populateCampaigns.bind(this);
     this.openCampaignManager = this.openCampaignManager.bind(this);
     this.syncCampaignState = this.syncCampaignState.bind(this);
@@ -42,13 +40,13 @@ class ClientAdminTiles extends Component {
     this.scrollState = new InfiniScroller({
       scrollPercentage: 0.95,
       throttle: 100,
-      onScroll: this.getAdditionalTiles,
+      onScroll: () => { this.getAdditionalTiles({scrollLoading: true}); },
     });
   }
 
   componentDidMount() {
     this.selectStatus();
-    this.initializeState();
+    TileManager.fetchAllTiles(this.setTileStatuses);
     this.scrollState.setOnScroll();
     window.addEventListener("popstate", this.selectStatus);
     window.Airbo.PubSub.subscribe("reactTileChangeHandler", this.tileBuilderPatch);
@@ -62,16 +60,6 @@ class ClientAdminTiles extends Component {
     window.Airbo.PubSub.unsubscribe("reactTileChangeHandler");
     window.Airbo.PubSub.unsubscribe("/tile-admin/tile-deleted");
     window.addEventListener("popstate", this.selectStatus);
-  }
-
-  initializeState() {
-    Fetcher.xmlHttpRequest({
-      path: '/api/client_admin/tiles',
-      method: 'GET',
-      success: resp => {
-        this.setTileStatuses(resp, constants.TILE_STATUS);
-      },
-    });
   }
 
   populateCampaigns(openAlert) {
@@ -109,46 +97,22 @@ class ClientAdminTiles extends Component {
     }
   }
 
-  getAdditionalTiles() {
-    if (!this.state.scrollLoading && this.state.tileStatusNav[this.state.activeStatus].page) {
-      this.setState({scrollLoading: true});
-      const filter = helpers.getFilterParams(this.state.tileStatusNav[this.state.activeStatus].filter);
-      const page = this.state.tileStatusNav[this.state.activeStatus].page + 1;
-      Fetcher.xmlHttpRequest({
-        path: `/api/client_admin/tiles?page=${page}&status=${this.state.activeStatus}&filter=${filter}`,
-        method: 'GET',
-        success: resp => {
-          const tileStatusNav = {...this.state.tileStatusNav};
-          const tiles = {...this.state.tiles};
-          tiles[this.state.activeStatus].tiles = helpers.purgeRepeatedTiles(Pluck(tiles[this.state.activeStatus].tiles, 'id'), tiles[this.state.activeStatus].tiles, resp);
-          tileStatusNav[this.state.activeStatus].page = resp.length < 16 ? 0 : tileStatusNav[this.state.activeStatus].page + 1;
-          this.setState({
-            tileStatusNav,
-            tiles,
-            scrollLoading: false,
-          });
-        },
-      });
-    }
-  }
-
-  loadFilteredTiles() {
+  getAdditionalTiles(loadingState, statusFilter) {
     const filter = helpers.getFilterParams(this.state.tileStatusNav[this.state.activeStatus].filter);
-    Fetcher.xmlHttpRequest({
-      path: `/api/client_admin/tiles?filter=${filter}&status=${this.state.activeStatus}`,
-      method: 'GET',
-      success: resp => {
+    const page = statusFilter ? 1 : this.state.tileStatusNav[this.state.activeStatus].page + 1;
+    const status = this.state.activeStatus;
+    if (statusFilter || (!this.state.scrollLoading && page - 1)) {
+      this.setState(loadingState);
+      TileManager.fetchTilesWithParams({filter, page, status}, resp => {
         const tileStatusNav = {...this.state.tileStatusNav};
         const tiles = {...this.state.tiles};
-        tiles[this.state.activeStatus].tiles = resp;
-        tileStatusNav[this.state.activeStatus].page = resp.length < 16 ? 0 : 1;
-        this.setState({
-          tileStatusNav,
-          tiles,
-          loading: false,
-        });
-      },
-    });
+        const nextPage = statusFilter ? 1 : page;
+        const purgedTiles = helpers.purgeRepeatedTiles(Pluck(tiles[status].tiles, 'id'), tiles[status].tiles, resp);
+        tiles[status].tiles = statusFilter ? resp : purgedTiles;
+        tileStatusNav[status].page = resp.length < 16 ? 0 : nextPage;
+        this.setState({tileStatusNav, tiles, loading: false, scrollLoading: false});
+      });
+    }
   }
 
   setTileStatuses(rawTiles, statuses) {
@@ -252,8 +216,7 @@ class ClientAdminTiles extends Component {
     if (changeFilter) {
       const newTileStatusNav = {...this.state.tileStatusNav};
       newTileStatusNav[this.state.activeStatus].filter[target] = value;
-      this.setState({tileStatusNav: newTileStatusNav, loading: true});
-      this.loadFilteredTiles();
+      this.getAdditionalTiles({tileStatusNav: newTileStatusNav, loading: true}, 'filter');
     }
   }
 

@@ -90,7 +90,6 @@ class Explore extends Component {
   }
 
   campaignRedirect(campaign, popstate) {
-    window.scrollTo(0,0);
     if (!popstate) {
       window.Airbo.Utils.ping("Explore page - Interaction", {
         action: "Clicked Campaign",

@@ -5,8 +5,8 @@ class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
     if (params[:status])
       tiles = Tile.fetch_edit_scoped(
         status: params[:status],
-        page: params[:page],
-        filter: params[:filter],
+        page: params[:page] || 1,
+        filter: params[:filter] || "",
         board: current_board
       )
       result = sanitized(tiles, 16)

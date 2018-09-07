@@ -1,3 +1,4 @@
+import constants from "./constants";
 import { Fetcher } from "../../../lib/helpers";
 
 const getTileData = (tileId, reactComp) => {
@@ -31,6 +32,12 @@ const updateTileStatus = (tileId, newStatus, cb) => {
   });
 };
 
+const paramsToString = params => (
+  Object.keys(params).reduce((result, param) => (
+    params[param] ? `${result}${param}=${params[param]}&` : result
+  ), '').slice(0, -1)
+);
+
 const updateJquerySend = (count, draft) => { // Extraneous code used to patch connection between jQuery and React -- Delete when Share is moved to Edit
   const number = draft ? count + 1 : count - 1;
   window.Airbo.PubSub.publish("updateShareTabNotification", { number });
@@ -46,6 +53,23 @@ class TileManager {
     this.changeTileStatus = this.changeTileStatus.bind(this);
     this.addTileToCollection = this.addTileToCollection.bind(this);
     this.removeTileFromCollection = this.removeTileFromCollection.bind(this);
+  }
+
+  static fetchAllTiles(cb) {
+    Fetcher.xmlHttpRequest({
+      path: '/api/client_admin/tiles',
+      method: 'GET',
+      success: resp => { cb(resp, constants.TILE_STATUS); },
+    });
+  }
+
+  static fetchTilesWithParams(params, cb) {
+    const path = `/api/client_admin/tiles?${paramsToString(params)}`;
+    Fetcher.xmlHttpRequest({
+      path,
+      method: 'GET',
+      success: cb,
+    });
   }
 
   static fetchNewTile(tileId, reactComp) {
