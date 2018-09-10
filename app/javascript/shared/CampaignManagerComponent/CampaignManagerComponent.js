@@ -5,6 +5,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import LoadingComponent from "../LoadingComponent";
 import ManagerMainComponent from "./components/ManagerMainComponent";
 import CampaignFormComponent from "./components/CampaignFormComponent";
+import constants from "./utils/constants";
 import { Fetcher } from "../../lib/helpers";
 
 const managerComponents = {
@@ -47,6 +48,8 @@ class CampaignManagerComponent extends Component {
     this.newCampaign = this.newCampaign.bind(this);
     this.removeCampaignFromState = this.removeCampaignFromState.bind(this);
     this.compareChanges = this.compareChanges.bind(this);
+    this.campaignAbleToSave = this.campaignAbleToSave.bind(this);
+    this.getFetcherOpts = this.getFetcherOpts.bind(this);
     this.alertProps = {
       CampaignFormComponent: {
         showCancel: true,
@@ -75,6 +78,22 @@ class CampaignManagerComponent extends Component {
         this.setState({ loading: false, campaigns, populationSegments });
       },
     });
+  }
+
+  campaignAbleToSave() {
+    return (this.state.name && this.state.audience && this.state.color && !this.state.loading && this.compareChanges());
+  }
+
+  getFetcherOpts() {
+    return {
+      params: {
+        name: this.state.name,
+        color: this.state.color,
+        population_segment_id: this.state.audience.value === 'all' ? null : this.state.audience.value,
+      },
+      path: `${constants.BASE_URL}${this.state.editCampaignId ? this.state.editCampaignId : ''}`,
+      method: this.state.editCampaignId ? 'PUT' : 'POST',
+    };
   }
 
   applyErrors() {
@@ -110,27 +129,12 @@ class CampaignManagerComponent extends Component {
     } else {
       campaigns.push(newCampaign);
     }
-    this.setState({
-      campaigns,
-      name: '',
-      audience: null,
-      color: '',
-      loading: false,
-      errorStyling: {},
-      editCampaignId: '',
-      activeComponent: 'ManagerMainComponent',
-    });
+    this.setState({...constants.DEFAULT_STATE, campaigns});
   }
 
   submitCampaign() {
-    if (this.state.name && this.state.audience && this.state.color && !this.state.loading && this.compareChanges()) {
-      const params = {
-        name: this.state.name,
-        color: this.state.color,
-        population_segment_id: this.state.audience.value === 'all' ? null : this.state.audience.value,
-      };
-      const path = this.state.editCampaignId ? `/api/client_admin/campaigns/${this.state.editCampaignId}` : '/api/client_admin/campaigns';
-      const method = this.state.editCampaignId ? 'PUT' : 'POST';
+    if (this.campaignAbleToSave()) {
+      const {params, path, method} = this.getFetcherOpts();
       this.setState({loading: true});
       Fetcher.xmlHttpRequest({
         method,
@@ -138,29 +142,11 @@ class CampaignManagerComponent extends Component {
         params,
         success: this.updateCampaignState,
         err: () => {
-          this.setState({
-            name: '',
-            audience: null,
-            color: '',
-            loading: false,
-            errorStyling: {},
-            editCampaignId: '',
-            activeComponent: 'ManagerMainComponent',
-            errorMsg: 'Campaign could not be created',
-          });
+          this.setState({...constants.DEFAULT_STATE, errorMsg: 'Campaign could not be created'});
         },
       });
     } else if (!this.compareChanges()) {
-      this.setState({
-        name: '',
-        audience: null,
-        color: '',
-        loading: false,
-        errorStyling: {},
-        editCampaignId: '',
-        activeComponent: 'ManagerMainComponent',
-        errorMsg: 'No changes made to campaign',
-      });
+      this.setState({...constants.DEFAULT_STATE, errorMsg: 'No changes made to campaign'});
     } else {
       this.applyErrors();
     }
@@ -170,7 +156,7 @@ class CampaignManagerComponent extends Component {
     this.setState({errorMsg: ''});
     Fetcher.xmlHttpRequest({
       method: 'DELETE',
-      path: `/api/client_admin/campaigns/${campId}`,
+      path: `${constants.BASE_URL}${campId}`,
       success: this.removeCampaignFromState,
       err: () => { this.setState({errorMsg: "Cannot delete campaign while it's active"}); },
     });
@@ -178,11 +164,9 @@ class CampaignManagerComponent extends Component {
 
   newCampaign() {
     this.setState({
+      ...constants.DEFAULT_STATE,
       activeComponent: 'CampaignFormComponent',
-      name: '',
-      audience: null,
       color: '#ffb748',
-      errorStyling: {},
       errorMsg: '',
     });
   }
