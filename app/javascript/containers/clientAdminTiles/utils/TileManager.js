@@ -64,7 +64,7 @@ class TileManager {
   }
 
   static fetchTilesWithParams(params, cb) {
-    const path = `/api/client_admin/tiles?${paramsToString(params)}`;
+    const path = `/api/client_admin/tiles/filter?${paramsToString(params)}`;
     Fetcher.xmlHttpRequest({
       path,
       method: 'GET',

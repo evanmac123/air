@@ -3,18 +3,17 @@
 class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
   include Tile::ReactProcessing
   def index
-    tiles = if (params[:status])
-      scoped_tiles = Tile.fetch_edit_scoped(
-        status: params[:status],
-        page: params[:page] || 1,
-        filter: params[:filter] || "",
-        board: current_board
-      )
-      Tile::ReactProcessing.sanitize_for_edit_flow(scoped_tiles, 16)
-    else
-      Tile.fetch_edit_flow(current_board)
-    end
-    render json: tiles
+    render json: Tile.fetch_edit_flow(current_board)
+  end
+
+  def filter
+    tiles = Tile.fetch_edit_scoped(
+      status: params[:status],
+      page: params[:page] || 1,
+      filter: params[:filter] || "",
+      board: current_board
+    )
+    render json: Tile::ReactProcessing.sanitize_for_edit_flow(tiles, 16)
   end
 
   def show
@@ -38,9 +37,10 @@ class Api::ClientAdmin::TilesController < Api::ClientAdminBaseController
   end
 
   def destroy_tile
-    tile = Tile.find(params[:id])
+    id = params[:id]
+    tile = Tile.find(id)
     tile.destroy
-    render json: { tile_removed: params[:id] }
+    render json: { tile_removed: id }
   end
 
   private

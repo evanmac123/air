@@ -15,6 +15,7 @@ namespace :api, defaults: { format: :json } do
     resources :tile_thumbnails, only: [:index]
     resources :campaigns, only: [:create, :update, :index, :destroy]
     resources :population_segments, only: [:create, :update, :destroy, :index]
+    get 'tiles/filter', to: 'tiles#filter'
     resources :tiles, only: [:index, :update, :show] do
       member do
         post 'copy_tile'
