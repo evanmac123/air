@@ -91,18 +91,7 @@ class Tile < ActiveRecord::Base
         name: camp_info.name,
         description: camp_info.description,
         ongoing: camp_info.ongoing,
-        tiles: react_sanitize(tiles, 27) do |tile|
-          id = tile.id
-          {
-            "copyPath" => "/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{id}",
-            "tileShowPath" => "/explore/tile/#{id}",
-            "headline" => tile.headline,
-            "id" => id,
-            "created_at" => tile.created_at,
-            "thumbnail" => tile.thumbnail_url,
-            "thumbnailContentType" => tile.thumbnail_content_type
-          }
-        end
+        tiles: Tile::ReactProcessing.sanitize_for_explore(tiles, 27)
       }
     end.to_json
   end
@@ -112,26 +101,10 @@ class Tile < ActiveRecord::Base
     tiles = from_board_with_campaigns(board)
             .ordered_by_position.group_by(&:status)
     STATUS.reduce(tiles) do |result, status|
-      result[status] = if tiles[status]
+      result[status] = if status_tiles = tiles[status]
         {
-          tiles: react_sanitize(tiles[status], 16) do |tile|
-            {
-              "tileShowPath" => "/client_admin/tiles/#{tile.id}",
-              "editPath" => "/client_admin/tiles/#{tile.id}/edit",
-              "headline" => tile.headline,
-              "id" => tile.id,
-              "thumbnail" => tile.thumbnail_url,
-              "planDate" => tile.plan_date,
-              "activeDate" => tile.activated_at,
-              "archiveDate" => tile.archived_at,
-              "fullyAssembled" => tile.is_fully_assembled?,
-              "campaignColor" => tile.campaign_color,
-              "unique_views" => tile.unique_viewings_count,
-              "views" => tile.total_viewings_count,
-              "completions" => tile.tile_completions_count,
-            }
-          end,
-          count: tiles[status].length
+          tiles: Tile::ReactProcessing.sanitize_for_edit_flow(status_tiles, 16),
+          count: status_tiles.length
         }
       else
         {
