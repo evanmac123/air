@@ -9,18 +9,21 @@ Fetcher.get = (path, cb) => (
   .then(response => cb(response))
 );
 
-Fetcher.xmlHttpRequest = (path, action) => {
+Fetcher.xmlHttpRequest = (opts) => {
+  const method = opts.method || "POST";
   const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-  return fetch(path, {
+  return fetch(opts.path, {
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       'X-CSRF-Token': token,
+      'Content-Type': 'application/json',
     },
-    method: "POST",
+    body: JSON.stringify(opts.params),
+    method,
     credentials: 'same-origin',
   }).then(resp => resp.json())
-    .catch(err => action.err(err))
-    .then(response => action.success(response));
+    .then(response => opts.success(response))
+    .catch(err => opts.err ? opts.err(err) : console.error(err));
 };
 
 export default Fetcher;

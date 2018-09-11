@@ -7,6 +7,7 @@ class Tile < ActiveRecord::Base
   include Tile::TileAnswers
   include Tile::TileLinkTracking
   include Tile::Status
+  include Tile::ReactProcessing
   include Attachable
 
   MAX_HEADLINE_LEN = 75
@@ -90,24 +91,44 @@ class Tile < ActiveRecord::Base
         name: camp_info.name,
         description: camp_info.description,
         ongoing: camp_info.ongoing,
-        tiles: react_sanitize(tiles)
+        tiles: Tile::ReactProcessing.sanitize_for_explore(tiles, 27)
       }
     end.to_json
   end
 
-  def self.react_sanitize(payload)
+  def self.fetch_edit_flow(board = nil)
+    return nil unless board
+    tiles = from_board_with_campaigns(board)
+            .ordered_by_position.group_by(&:status)
+    STATUS.reduce(tiles) do |result, status|
+      result[status] = if status_tiles = tiles[status]
+        {
+          tiles: Tile::ReactProcessing.sanitize_for_edit_flow(status_tiles, 16),
+          count: status_tiles.length
+        }
+      else
+        {
+          tiles: [],
+          count: 0
+        }
+      end
+      result
+    end.to_json
+  end
+
+  def self.fetch_edit_scoped(args)
+    from_board_with_campaigns(args[:board])
+      .where(status: args[:status])
+      .where(Tile::ReactProcessing.get_edit_tile_filters(args))
+      .order(Tile::ReactProcessing.get_edit_tile_sort(args))
+      .page(args[:page] || 1).per(16)
+  end
+
+  def self.react_sanitize(payload, range = 27, &sanitize)
+    range -= 1
     payload.map do |item|
-      id = item.id
-      {
-        "copyPath" => "/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{id}",
-        "tileShowPath" => "/explore/tile/#{id}",
-        "headline" => item.headline,
-        "id" => id,
-        "created_at" => item.created_at,
-        "thumbnail" => item.thumbnail_url,
-        "thumbnailContentType" => item.thumbnail_content_type
-      }
-    end[0..27]
+      sanitize.yield(item)
+    end[0..range]
   end
 
   def self.get_tile_campaign_filters(demo)
@@ -119,6 +140,36 @@ class Tile < ActiveRecord::Base
       return sql_statements[0..-5] += ")"
     end
     base_validation
+  end
+
+  def self.from_board_with_campaigns(board)
+    board.tiles.joins("LEFT JOIN campaigns ON campaigns.id = tiles.campaign_id")
+            .select(
+              "campaigns.id AS campaign_id",
+              "campaigns.color AS campaign_color",
+              "tiles.headline",
+              "tiles.id",
+              "tiles.thumbnail_file_name",
+              "tiles.thumbnail_content_type",
+              "tiles.thumbnail_file_size",
+              "tiles.thumbnail_updated_at",
+              "tiles.thumbnail_processing",
+              "tiles.embed_video",
+              "tiles.remote_media_url",
+              "tiles.plan_date",
+              "tiles.activated_at",
+              "tiles.archived_at",
+              "tiles.status",
+              "tiles.supporting_content",
+              "tiles.question",
+              "tiles.question_type",
+              "tiles.multiple_choice_answers",
+              "tiles.question_subtype",
+              "tiles.correct_answer_index",
+              "tiles.unique_viewings_count",
+              "tiles.total_viewings_count",
+              "tiles.tile_completions_count",
+            )
   end
 
   def self.default_search_fields
@@ -133,6 +184,7 @@ class Tile < ActiveRecord::Base
   def self.segmented_on_population_segments(segment_ids)
     joins("LEFT OUTER JOIN campaigns ON campaign_id = campaigns.id").where("campaigns.population_segment_id IS NULL OR campaigns.population_segment_id IN (?)", segment_ids)
   end
+
 
   def thumbnail_url
     thumbnail.url

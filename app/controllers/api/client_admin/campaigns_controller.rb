@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Api::ClientAdmin::CampaignsController < Api::ClientAdminBaseController
+  def index
+    render json: current_user.demo.campaigns
+  end
+
   def create
     campaign = current_user.demo.campaigns.new(campaign_params)
 
@@ -19,6 +23,11 @@ class Api::ClientAdmin::CampaignsController < Api::ClientAdminBaseController
     else
       render json: campaign.errors
     end
+  end
+
+  def destroy
+    campaign = Campaign.find(params[:id])
+    render json: campaign.destroy
   end
 
   private
