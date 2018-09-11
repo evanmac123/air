@@ -43,12 +43,20 @@ const updateJquerySend = (count, draft) => { // Extraneous code used to patch co
   window.Airbo.PubSub.publish("updateShareTabNotification", { number });
 };
 
+const performDbAction = (tileId, action, cb) => {
+  Fetcher.xmlHttpRequest({
+    method: constants.MENU_OPTS[action].method,
+    path: `/api/client_admin/tiles/${tileId}/${constants.MENU_OPTS[action].url}`,
+    success: cb,
+  });
+};
+
 class TileManager {
   constructor(tileId, reactComp) {
     this.tileId = tileId;
     this.reactComp = reactComp;
     this.tileData = getTileData(tileId, reactComp);
-    this.loading = this.loading.bind(this);
+    this.toggleLoading = this.toggleLoading.bind(this);
     this.handleOpts = this.handleOpts.bind(this);
     this.changeTileStatus = this.changeTileStatus.bind(this);
     this.addTileToCollection = this.addTileToCollection.bind(this);
@@ -97,8 +105,8 @@ class TileManager {
     });
   }
 
-  loading() {
-    this.tileData.selectTile.loading = true;
+  toggleLoading() {
+    this.tileData.selectTile.loading = !this.tileData.selectTile.loading;
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 
@@ -107,9 +115,10 @@ class TileManager {
     this.tileData.stateTiles[this.reactComp.state.activeStatus].count -= 1;
   }
 
-  addTileTo(status, tile) {
+  addTileTo(status, tile, save) {
     this.tileData.stateTiles[status].tiles.unshift(tile);
     this.tileData.stateTiles[status].count += 1;
+    if (save) { this.toggleLoading(); }
   }
 
   changeTileStatus(newStatus, activeStatus, count) {
@@ -137,13 +146,21 @@ class TileManager {
   }
 
   refresh() {
-    this.tileData.selectTile.loading = true;
-    this.reactComp.setState({ tiles: this.tileData.stateTiles });
+    this.toggleLoading();
     fetchTileJson(this.tileId, resp => {
       const tiles = {...this.tileData.stateTiles};
-      tiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex] = {...resp, loading: false};
-      this.reactComp.setState({ tiles });
+      tiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex] = {...resp};
+      this.toggleLoading();
     });
+  }
+
+  performMenuAction(action) {
+    const actions = {
+      copy: resp => { this.addTileTo('plan', resp[0], 'save'); },
+      deleteConfirm: () => { this.removeTileFromCollection(); },
+    };
+    this.toggleLoading();
+    performDbAction(this.tileId, action, resp => { actions[action](resp); });
   }
 }
 
