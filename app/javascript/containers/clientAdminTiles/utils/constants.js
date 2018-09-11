@@ -29,12 +29,10 @@ export default {
     copy: {
       method: 'POST',
       url: 'copy_tile',
-      onSuccess: (tileManager, resp) => { tileManager.addTileToCollection(resp[0], {setLoadingTo: false}); },
     },
     deleteConfirm: {
       method: 'DELETE',
       url: 'destroy_tile',
-      onSuccess: tileManager => { tileManager.removeTileFromCollection(); },
     },
   },
   UNASSIGNED_CAMPAIGN: {label: 'Unassigned', className: 'campaign-option', value: '0', color: '#fff'},
