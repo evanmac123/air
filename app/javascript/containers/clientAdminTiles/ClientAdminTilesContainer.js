@@ -199,12 +199,7 @@ class ClientAdminTiles extends Component {
       });
     } else {
       const tileManager = new TileManager(tile.id, this);
-      tileManager.loading();
-      Fetcher.xmlHttpRequest({
-        method: constants.MENU_OPTS[action].method,
-        path: `/api/client_admin/tiles/${tile.id}/${constants.MENU_OPTS[action].url}`,
-        success: resp => { constants.MENU_OPTS[action].onSuccess(tileManager, resp); },
-      });
+      tileManager.performMenuAction(action);
     }
   }
 

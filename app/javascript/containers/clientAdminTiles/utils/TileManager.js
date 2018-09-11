@@ -43,6 +43,14 @@ const updateJquerySend = (count, draft) => { // Extraneous code used to patch co
   window.Airbo.PubSub.publish("updateShareTabNotification", { number });
 };
 
+const performDbAction = (tileId, action, cb) => {
+  Fetcher.xmlHttpRequest({
+    method: constants.MENU_OPTS[action].method,
+    path: `/api/client_admin/tiles/${tileId}/${constants.MENU_OPTS[action].url}`,
+    success: cb,
+  });
+};
+
 class TileManager {
   constructor(tileId, reactComp) {
     this.tileId = tileId;
@@ -107,9 +115,13 @@ class TileManager {
     this.tileData.stateTiles[this.reactComp.state.activeStatus].count -= 1;
   }
 
-  addTileTo(status, tile) {
+  addTileTo(status, tile, save) {
     this.tileData.stateTiles[status].tiles.unshift(tile);
     this.tileData.stateTiles[status].count += 1;
+    if (save) {
+      this.tileData.selectTile.loading = false;
+      this.reactComp.setState({ tiles: this.tileData.stateTiles });
+    }
   }
 
   changeTileStatus(newStatus, activeStatus, count) {
@@ -144,6 +156,15 @@ class TileManager {
       tiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex] = {...resp, loading: false};
       this.reactComp.setState({ tiles });
     });
+  }
+
+  performMenuAction(action) {
+    const actions = {
+      copy: resp => { this.addTileTo('plan', resp[0], 'save'); },
+      deleteConfirm: () => { this.removeTileFromCollection(); },
+    };
+    this.loading();
+    performDbAction(this.tileId, action, resp => { actions[action](resp); });
   }
 }
 
