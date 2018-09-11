@@ -8,6 +8,6 @@ class Api::V1::CampaignsController < Api::ApiController
 
   def show
     campaign_tiles = Campaign.find(params[:id]).tiles_for_page(params[:page])
-    render json: Tile.react_sanitize(campaign_tiles)
+    render json: Tile::ReactProcessing.sanitize_for_explore(campaign_tiles, 27)
   end
 end

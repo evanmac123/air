@@ -436,7 +436,17 @@ describe Tile do
   describe '#react_sanitize' do
     it 'sanitizes Tile query result to contain exactly what react expects' do
       tiles = FactoryBot.create_list(:tile, 1)
-      result_tile = Tile.react_sanitize(tiles).first
+      result_tile = Tile.react_sanitize(tiles, 1) do |tile|
+        id = tile.id
+        {
+          "copyPath" => "/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{id}",
+          "tileShowPath" => "/explore/tile/#{id}",
+          "headline" => tile.headline,
+          "id" => id,
+          "thumbnail" => tile.thumbnail_url,
+          "thumbnailContentType" => tile.thumbnail_content_type
+        }
+      end.first
       expected_tile = Tile.find(result_tile['id'])
 
       expect(expected_tile.headline).to eq(result_tile['headline'])
@@ -448,7 +458,9 @@ describe Tile do
 
     it 'returns only 28 first results' do
       tiles = FactoryBot.create_list(:tile, 30)
-      result = Tile.react_sanitize(tiles)
+      result = Tile.react_sanitize(tiles, 28) do |tile|
+        {"id" => tile.id}
+      end
 
       expect(result.count).to eq(28)
     end

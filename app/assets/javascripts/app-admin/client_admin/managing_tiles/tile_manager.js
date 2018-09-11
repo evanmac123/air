@@ -10,8 +10,9 @@ Airbo.TileManager = (function() {
   function refreshOrAddTileThumb(data) {
     var $tile = $(data.tile);
     var $tilesForRefresh = tileContainerByDataTileId(data.tileId);
-
-    if ($tilesForRefresh.length > 0) {
+    if ($("#client-admin-tiles-root").length) {
+      Airbo.PubSub.publish("reactTileChangeHandler", data);
+    } else if ($tilesForRefresh.length > 0) {
       replaceTileContent($tile, $tilesForRefresh);
     } else {
       addNewTile($tile, data.tileStatus);
@@ -34,7 +35,7 @@ Airbo.TileManager = (function() {
   function initEvents() {
     $(newTileBtnSel).click(function(e) {
       e.preventDefault();
-      url = $(this).attr("href");
+      var url = $(this).attr("href") || "/client_admin/tiles/new";
 
       tileForm = Airbo.TileFormModal;
       tileForm.init(Airbo.TileManager);
@@ -68,7 +69,9 @@ Airbo.TileManager = (function() {
     if ($(".explore-search").length > 0) {
       initSearch();
     } else {
-      Airbo.TileThumbnail.init();
+      if (!$("#client-admin-tiles-root").length > 0) {
+        Airbo.TileThumbnail.init();
+      }
     }
 
     initEvents();

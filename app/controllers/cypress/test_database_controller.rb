@@ -49,25 +49,34 @@ class Cypress::TestDatabaseController < ApplicationController
       assoc_name
     end
 
+    def convert_keys_to_symbols(data)
+      data.keys.reduce({}) do |result, key|
+        result.merge(key.to_sym => data[key])
+      end
+    end
+
     def sanitize_attrs(attrs)
-      if associations = attrs.delete("associations")
-        associations.keys.reduce(attrs) do |result, assoc_name|
-          id = associations[assoc_name]
-          association = eval("#{assoc_name.capitalize}.find_by(id: #{id.to_i})") ||
-                       @built_associations[id] ||
-                       build_factory(find_attrs_for(id))
-          result.merge("#{assoc_name}" => association)
+      associations = attrs.delete("associations")
+      attrs_sym = convert_keys_to_symbols(attrs)
+      if associations
+        associations.keys.reduce(attrs_sym) do |result, assoc_name|
+          association = eval("#{assoc_name.capitalize}.find_by(id: #{associations[assoc_name].to_i})") ||
+                       @built_associations[associations[assoc_name]] ||
+                       build_factory(find_attrs_for(associations[assoc_name]))
+          result.merge(assoc_name.to_sym => association)
         end
       else
-        attrs
+        attrs_sym
       end
     end
 
     def perform_addtional(actions, factory_created)
       actions.each do |action|
-        case action
+        case action.split(":").first
         when "login"
           sign_in(factory_created)
+        when "run"
+          eval(action.sub("run: ", ""))
         end
       end
     end
