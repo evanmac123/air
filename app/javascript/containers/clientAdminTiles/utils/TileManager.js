@@ -56,7 +56,7 @@ class TileManager {
     this.tileId = tileId;
     this.reactComp = reactComp;
     this.tileData = getTileData(tileId, reactComp);
-    this.loading = this.loading.bind(this);
+    this.toggleLoading = this.toggleLoading.bind(this);
     this.handleOpts = this.handleOpts.bind(this);
     this.changeTileStatus = this.changeTileStatus.bind(this);
     this.addTileToCollection = this.addTileToCollection.bind(this);
@@ -105,8 +105,8 @@ class TileManager {
     });
   }
 
-  loading() {
-    this.tileData.selectTile.loading = true;
+  toggleLoading() {
+    this.tileData.selectTile.loading = !this.tileData.selectTile.loading;
     this.reactComp.setState({ tiles: this.tileData.stateTiles });
   }
 
@@ -118,10 +118,7 @@ class TileManager {
   addTileTo(status, tile, save) {
     this.tileData.stateTiles[status].tiles.unshift(tile);
     this.tileData.stateTiles[status].count += 1;
-    if (save) {
-      this.tileData.selectTile.loading = false;
-      this.reactComp.setState({ tiles: this.tileData.stateTiles });
-    }
+    if (save) { this.toggleLoading(); }
   }
 
   changeTileStatus(newStatus, activeStatus, count) {
@@ -149,12 +146,11 @@ class TileManager {
   }
 
   refresh() {
-    this.tileData.selectTile.loading = true;
-    this.reactComp.setState({ tiles: this.tileData.stateTiles });
+    this.toggleLoading();
     fetchTileJson(this.tileId, resp => {
       const tiles = {...this.tileData.stateTiles};
-      tiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex] = {...resp, loading: false};
-      this.reactComp.setState({ tiles });
+      tiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex] = {...resp};
+      this.toggleLoading();
     });
   }
 
@@ -163,7 +159,7 @@ class TileManager {
       copy: resp => { this.addTileTo('plan', resp[0], 'save'); },
       deleteConfirm: () => { this.removeTileFromCollection(); },
     };
-    this.loading();
+    this.toggleLoading();
     performDbAction(this.tileId, action, resp => { actions[action](resp); });
   }
 }
