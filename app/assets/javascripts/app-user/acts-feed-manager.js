@@ -36,10 +36,9 @@ Airbo.ActsFeedManager = (function() {
 
   function getActs(cb) {
     var params = $(".js-activity-feed-component").data();
-    // COMMENTING OUT CODE UNTIL QUERY IS MORE PERFORMANT!!!!!
-    // $.get(params.path, params, function(data) {
-    //   cb(data);
-    // });
+    $.get(params.path, params, function(data) {
+      cb(data);
+    });
   }
 
   function setInitialActs(data) {
