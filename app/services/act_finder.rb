@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActFinder
   def self.call(viewing_user:, page:, per_page:)
     act_displayer = ActFinder.new(user: viewing_user, page: page, per_page: per_page)
@@ -33,6 +35,7 @@ class ActFinder
   end
 
   def display_all_board_acts
+    # NEED TO FIX THIS!! -- CAUSING 80% SLOWDOWN!!
     board.acts.ordered.page(page).per(per_page)
   end
 
