@@ -15,7 +15,7 @@ json.acts @acts do |act|
 end
 
 json.meta do
-  json.currentPage @acts.current_page
-  json.nextPage @acts.next_page
-  json.lastPage @acts.last_page?
+  json.currentPage @current_page
+  json.nextPage @next_page
+  json.lastPage @last_page
 end

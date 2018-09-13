@@ -50,7 +50,7 @@ class DisplayCategorizedTiles
     end
 
     def active_completed_tiles
-      all_completed_tiles.where(status: Tile::ACTIVE)
+      completed_tiles.where(status: Tile::ACTIVE)
     end
 
     def not_completed_tiles
