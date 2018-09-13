@@ -36,7 +36,17 @@ class ActFinder
 
   def display_all_board_acts
     # NEED TO FIX THIS!! -- CAUSING 80% SLOWDOWN!!
-    board.acts.ordered.page(page).per(per_page)
+    # SELECT  "acts".* FROM "acts" WHERE "acts"."demo_id" = $1  ORDER BY created_at DESC LIMIT 1
+    Act.find_by_sql("SELECT  \"acts\".* FROM \"acts\" WHERE \"acts\".id = (SELECT MAX(\"acts\".id) FROM \"acts\" WHERE \"acts\".\"demo_id\" = 32) LIMIT 5 OFFSET 0")
+
+    # SELECT "orders".*
+    # FROM "orders"
+    # WHERE "orders".id = (
+    #   SELECT MIN("orders".id)
+    #   FROM "orders"
+    #   WHERE "orders"."restaurant_id" = $1
+    # );
+    # board.acts.ordered.page(page).per(per_page)
   end
 
   def display_friends_acts

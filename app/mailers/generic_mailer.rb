@@ -24,8 +24,8 @@ class GenericMailer < ApplicationMailer
     custom_message = interpolate_tile_digest_url(@user, demo_id, custom_message)
 
     @demo = demo = Demo.find(demo_id)
-    from_string = demo.email.present? ? demo.reply_email_address : "Airbo <play@ourairbo.com>"
-
+    # from_string = demo.email.present? ? demo.reply_email_address : "Airbo <play@ourairbo.com>"
+    from_string = "Airbo <play@hartfordhealth.com>"
     @presenter = OpenStruct.new(
       general_site_url: invitation_url,
       custom_message: custom_message
