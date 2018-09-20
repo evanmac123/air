@@ -34,12 +34,41 @@
       text-align: center;
 
       h1 {
-        font-size: 55px;
+        font-size: 47px;
       }
 
       p {
         color: #ffffff;
         text-align: center;
+        margin-bottom: 4em;
+        line-height: 0.6em;
+      }
+    }
+
+    .hero-bottom {
+      pointer-events: none;
+
+      img {
+        position: relative;
+        float: right;
+      }
+
+      .balloon {
+        top: 100px;
+        width: 3em;
+        right: 9em;
+      }
+
+      .cloud-right {
+        top: 85px;
+        left: 7em;
+        width: 4em;
+      }
+
+      .cloud-left {
+        width: 5em;
+        top: 25px;
+        right: 2em;
       }
     }
   }
