@@ -1,7 +1,4 @@
-@import './mixins/marketing-site-reset';
-@import './mixins/marketing-site-footer';
-
-//homepage
+//homepage -- CSS held over for pages#gallery
 @import './mixins/marketing-site-main-hero';
 @import './mixins/marketing-site-secondary-hero';
 @import './mixins/marketing-site-clients-list';
@@ -10,16 +7,8 @@
 @import './mixins/marketing-site-final-cta';
 //
 
-//about
-@import './mixins/marketing-site-about-timeline';
-@import './mixins/marketing-site-highlights';
-@import './mixins/marketing-site-about-leadership';
-//
-
-//case_sstudies
-@import './mixins/marketing-site-case-studies-index-header';
-@import './mixins/marketing-site-case-study-cards';
-@import './mixins/marketing-site-case-studies-industry-dropdown';
+//Front theme mixins
+@import './front-custom/front-theme';
 //
 
 .airbo-marketing-site {
@@ -27,9 +16,6 @@
   .main {
     min-height: 100%;
   }
-  @include marketing-site-reset();
-  @include marketing-site-footer();
-  @include marketing-site-highlights();
 
   .marketing-site-home {
     @include marketing-site-main-hero($bg-image: 'marketing_site/main-hero.png');
@@ -41,9 +27,6 @@
   }
 
   .marketing-site-about {
-    @include marketing-site-main-hero($bg-image: 'marketing_site/about-hero.png', $height: 575px);
-    @include marketing-site-about-timeline();
-    @include marketing-site-about-leadership();
     .final-cta {
       .wrap {
         text-align: center;
@@ -69,11 +52,6 @@
   }
 
   .marketing-site-case-studies {
-    @include marketing-site-main-hero($bg-image: 'marketing_site/case-studies-hero.png', $height: 575px);
-    @include marketing-site-case-studies-index-header();
-    @include marketing-site-case-studies-industry-dropdown();
-    @include marketing-site-case-study-cards();
-
     .case-study-cta {
       .wrap {
         text-align: center;
