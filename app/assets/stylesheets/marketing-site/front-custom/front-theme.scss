@@ -1,4 +1,9 @@
 .bootstrap-iso {
+  p {
+    &.disclaimer {
+      font-size: 12px;
+    }
+  }
   #header {
     background-color: #ffffff;
   }
@@ -123,6 +128,62 @@
         color: white;
         background-color: #61c8ff;
         border-color: #61c8ff;
+      }
+    }
+  }
+
+  .case-study {
+    text-align: center;
+
+    .pill {
+      width: 7em;
+      margin: 30px auto;
+      background-color: #e9f7f0;
+      padding: 7px;
+      border-radius: 14px;
+      font-size: 12px;
+    }
+
+    .thumbnail {
+      width: 7em;
+    }
+
+    .right-balloon {
+      position: absolute;
+      right: 16vw;
+      top: 0;
+    }
+
+    .left-balloon {
+      position: absolute;
+      bottom: -36px;
+      left: 11vw;
+      width: 3em;
+    }
+
+    .testimonial {
+      margin: 30px auto;
+      font-size: 17px;
+
+      .quote {
+        font-size: 33px;
+        margin-bottom: 30px;
+      }
+
+      .attribute {
+        .profile-pic {
+          width: 5em;
+          border-radius: 100%;
+          display: inline-block;
+          margin-top: -20px;
+        }
+
+        .profile-title {
+          display: inline-block;
+          padding: 3px 0px 0px 10px;
+          font-size: 18px;
+          text-align: left;
+        }
       }
     }
   }
