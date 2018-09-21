@@ -261,7 +261,48 @@
     right: 15vw;
 
     p {
-      margin: 1.5em 26%;
+      margin: 1.5em 20%;
+    }
+  }
+
+  .footer {
+    background-color: #33445C;
+    margin-bottom: 15px;
+
+    h3, li, a {
+      color: #ffffff;
+    }
+
+    a:hover {
+      color: #48BFFF;
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -ms-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .container {
+      padding-bottom: 1%;
+    }
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .copyright {
+    display: inline !important;
+    margin: 0px 46%;
+    text-align: center;
+
+    img {
+      width: 6%
+    }
+
+    p {
+      text-align: center;
+      margin: 5px;
     }
   }
 }
@@ -291,5 +332,9 @@
       font-size: 1.5rem !important;
       text-align: center !important;
     }
+  }
+
+  .request-demo p {
+    font-size: 11px !important;
   }
 }
