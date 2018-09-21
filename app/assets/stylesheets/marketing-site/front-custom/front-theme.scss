@@ -227,6 +227,43 @@
       color: black;
     }
   }
+
+  .quote-block {
+    color: #ffffff;
+    background-image: image-url("marketing_site/quote_bg.png");
+    min-height: 689px;
+
+    .text-center {
+      padding-top: 1%;
+
+      .mb-4 {
+        margin: -10px 10%;
+
+        h1 {
+          font-size: 184%;
+        }
+      }
+
+      .mb-7 {
+        blockquote {
+          margin: 1em 0;
+        }
+      }
+    }
+  }
+
+  .request-demo {
+    position: absolute;
+    top: 80%;
+    left: 15vw;
+    text-align: center;
+    margin: 0 auto;
+    right: 15vw;
+
+    p {
+      margin: 1.5em 26%;
+    }
+  }
 }
 
 @media only screen and (max-width: 600px) {
