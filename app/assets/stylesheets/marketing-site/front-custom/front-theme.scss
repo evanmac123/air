@@ -1,16 +1,16 @@
 .bootstrap-iso {
   p {
     font-size: 20px;
+
+    &.disclaimer {
+      font-size: 12px;
+    }
   }
 
   .text-airbo-blue {
     color: #48BFFF;
   }
-  p {
-    &.disclaimer {
-      font-size: 12px;
-    }
-  }
+
   #header {
     background-color: #ffffff;
   }
@@ -25,6 +25,14 @@
   .navbar-brand {
     img {
       width: 5rem;
+    }
+  }
+
+  .navbar-toggler.btn {
+    display: none;
+    
+    .u-hamburger__inner, .u-hamburger__inner::after, .u-hamburger__inner::before {
+      background-color: #48BFFF;
     }
   }
 
@@ -321,6 +329,13 @@
     font-size: 15px !important;
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .navbar-toggler.btn {
+    display: inherit !important;
+  }
+}
+
 
 @media only screen and (max-width: 600px) {
   .blue-teal-gradient {
