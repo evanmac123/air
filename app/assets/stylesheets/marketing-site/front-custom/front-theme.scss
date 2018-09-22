@@ -39,9 +39,11 @@
   #navBar {
     position: absolute;
     right: 0;
+    top: 9px;
+    padding: 0;
 
     .btn {
-      margin: 5px;
+      margin: 0 5px;
     }
   }
 
