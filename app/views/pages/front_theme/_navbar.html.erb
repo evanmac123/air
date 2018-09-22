@@ -10,17 +10,23 @@
           <%= image_tag 'logo_standard.png' %>
         </a>
 
-        <!-- Responsive Toggle Button Goes Here When Ready -->
-        <!-- End Responsive Toggle Button -->
+        <button type="button" class="navbar-toggler btn u-hamburger" aria-label="Toggle navigation"
+                aria-expanded="false"
+                aria-controls="navBar">
+          <span id="hamburgerTrigger" class="u-hamburger__box">
+            <span class="u-hamburger__inner"></span>
+          </span>
+        </button>
+
         <div id="navBar" class="collapse navbar-collapse py-0">
           <ul class="navbar-nav u-header__navbar-nav ml-lg-auto">
             <li class="nav-item u-header__nav-item">
-                <a id="request-demo" class="btn btn-sm btn-invert" href="#">
+                <a id="request-demo" class="btn btn-sm btn-invert js-request-demo" href="#">
                   Request Demo
                 </a>
             </li>
             <li class="nav-item u-header__nav-item">
-                <a id="login" class="btn btn-sm btn-primary" href="#">
+                <a id="login" class="btn btn-sm btn-primary js-login" href="#">
                   Sign In
                 </a>
             </li>

@@ -24,11 +24,14 @@
 
   .navbar-brand {
     img {
-      width: 75%;
+      width: 5rem;
     }
   }
 
   #navBar {
+    position: absolute;
+    right: 0;
+
     .btn {
       margin: 5px;
     }
@@ -298,14 +301,15 @@
 
   .copyright {
     display: inline !important;
-    margin: 0px 46%;
+    margin: 0px 48%;
     text-align: center;
 
     img {
-      width: 6%
+      width: 4rem;
     }
 
     p {
+      font-size: 1rem;
       text-align: center;
       margin: 5px;
     }
@@ -346,6 +350,10 @@
   }
 
   .request-demo p {
-    font-size: 11px !important;
+    margin: 0.5em 0% !important;
+  }
+
+  .copyright {
+    margin: 0px 40% !important;
   }
 }
