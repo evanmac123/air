@@ -48,9 +48,10 @@ Airbo.MarketingSite.Base = (function() {
     return formEl;
   }
 
-  function generateLoginForm() {
+  function generateLoginForm(errors) {
     var formEl = document.createElement("div");
     formEl.innerHTML =
+      (errors ? '<p style="color: red;">Email or Password incorrect</p>' : "") +
       '<input type="text" placeholder="Email Address" name="session[email]" id="session_email">' +
       '<input type="password" placeholder="Password" name="session[password]" id="session_password">' +
       '<div class="wrap" style="float: left;">' +
@@ -119,14 +120,46 @@ Airbo.MarketingSite.Base = (function() {
       });
   }
 
-  function triggerLoginModal(e) {
+  function triggerLoginModal(e, errors) {
     e.preventDefault();
-    var loginForm = generateLoginForm();
+    var loginForm = generateLoginForm(errors);
     swal({
       title: "Sign In",
       content: loginForm,
-      buttons: ["Cancel", "Sign In"]
-    });
+      buttons: {
+        cancel: "Cancel",
+        submit: {
+          text: "Sign In",
+          value: "submit",
+          closeModal: false
+        }
+      }
+    })
+      .then(function(submit) {
+        if (submit) {
+          var vals = getValues("session", ["email", "password", "remember_me"]);
+          if (allFieldsValid(vals["session"])) {
+            $.ajax({
+              headers: {
+                "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+              },
+              type: "POST",
+              url: "/session",
+              data: vals,
+              success: function(resp) {
+                if (resp.not_found) {
+                  triggerLoginModal(e, "errors");
+                } else {
+                  window.location = resp.path;
+                }
+              }
+            });
+          }
+        }
+      })
+      .catch(function() {
+        triggerLoginModal(e, "errors");
+      });
   }
 
   function init() {

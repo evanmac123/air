@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= content_for :meta %>
+    <%= csrf_meta_tag %>
   	<link rel="apple-touch-icon" href="apple-touch-icon.png">
     <%= render "shared/opengraph_meta_tags_marketing" %>
 
