@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PasswordsController < Clearance::PasswordsController
   before_action :force_html_format
   before_action :downcase_email
@@ -7,16 +9,17 @@ class PasswordsController < Clearance::PasswordsController
   def create
     user = find_user_for_create
 
-    if user.nil?
-      flash.now[:failure] = "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance."
-      render template: "passwords/new"
-    elsif user.unclaimed?
-      flash.now[:failure] = "We're sorry, you need to join Airbo before you can reset your password. Please contact support@airbo.com for assistance."
-      render template: "passwords/new"
-    else
+    unless user.nil? || user.unclaimed?
+      #   flash.now[:failure] = "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance."
+      #   render template: "passwords/new"
+      # elsif user.unclaimed?
+      #   flash.now[:failure] = "We're sorry, you need to join Airbo before you can reset your password. Please contact support@airbo.com for assistance."
+      #   render template: "passwords/new"
+      # else
       user.forgot_password!
       Mailer.change_password(user).deliver_later
-      render template: "passwords/create"
+      # render template: "passwords/create"
+      render json: { success: !(user.nil? || user.unclaimed?) }
     end
   end
 

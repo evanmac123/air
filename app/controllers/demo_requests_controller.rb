@@ -10,7 +10,7 @@ class DemoRequestsController < ApplicationController
     if user_valid(lead_contact) && lead_contact.save
       flash[:info] = "Thanks for requesting a demo! Someone from our team will reach out to you in the next 24 hours to schedule a time to chat."
 
-      redirect_to about_path
+      redirect_to root_path
     else
       LeadContactNotifier.duplicate_signup_request(lead_contact).deliver
 

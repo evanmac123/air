@@ -21,6 +21,13 @@ Airbo.MarketingSite.Base = (function() {
     return result;
   }
 
+  function generateEmailForm() {
+    var formEl = document.createElement("div");
+    formEl.innerHTML =
+      '<input type="text" name="password[email]" id="password_email" value="" placeholder="Email address">';
+    return formEl;
+  }
+
   function generateDemoRequestForm(errors) {
     var formEl = document.createElement("div");
     formEl.style.textAlign = "left";
@@ -58,7 +65,7 @@ Airbo.MarketingSite.Base = (function() {
       '<input style="margin: 0 5px;" type="checkbox" name="session[remember_me]" id="session_remember_me" value="1" checked="checked" class="hidden-field"><span class="custom checkbox checked"></span>' +
       '<label class="inline" for="session_remember_me">Remember me</label>' +
       "</div>" +
-      '<a id="set_or_reset_password" href="/passwords/new" style="float: right;">Set or Reset Your Password</a>';
+      '<a id="set_or_reset_password" style="float: right;">Set or Reset Your Password</a>';
     return formEl;
   }
 
@@ -154,6 +161,8 @@ Airbo.MarketingSite.Base = (function() {
                 }
               }
             });
+          } else {
+            triggerLoginModal(e, "errors");
           }
         }
       })
@@ -162,9 +171,50 @@ Airbo.MarketingSite.Base = (function() {
       });
   }
 
+  function resetPassword(e) {
+    e.preventDefault();
+    var emailForm = generateEmailForm();
+    swal({
+      title: "Reset Password",
+      text: "We will email you a link to reset your password",
+      content: emailForm,
+      buttons: {
+        submit: {
+          text: "Reset Password",
+          value: "submit",
+          closeModal: false
+        }
+      }
+    }).then(function(submit) {
+      if (submit) {
+        var vals = getValues("password", ["email"]);
+        if (allFieldsValid(vals["password"])) {
+          $.ajax({
+            headers: {
+              "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+            },
+            type: "POST",
+            url: "/passwords",
+            data: vals,
+            success: function(resp) {
+              swal(
+                "Processing your reset password request",
+                "Please check your email shortly for more information.",
+                "success"
+              );
+            }
+          });
+        } else {
+          triggerDemoRequestModal(e, "errors");
+        }
+      }
+    });
+  }
+
   function init() {
     $(".js-request-demo").click(triggerDemoRequestModal);
     $(".js-login").click(triggerLoginModal);
+    $(document).on("click", "#set_or_reset_password", resetPassword);
   }
 
   return {

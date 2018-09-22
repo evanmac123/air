@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SignupRequestsController < ApplicationController
-  layout 'standalone'
+  layout "standalone"
 
   def create
     lead_contact = LeadContact.new(lead_contact_params)
@@ -7,7 +9,7 @@ class SignupRequestsController < ApplicationController
     if user_valid(lead_contact) && lead_contact.save
       flash[:info] = "Thanks for signing up! Someone from our team will reach out to you in the next 24 hours to get you set up."
 
-      redirect_to about_path
+      redirect_to root_path
     else
       LeadContactNotifier.duplicate_signup_request(lead_contact).deliver
 
