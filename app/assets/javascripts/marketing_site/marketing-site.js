@@ -2,10 +2,32 @@ var Airbo = window.Airbo || {};
 Airbo.MarketingSite = Airbo.MarketingSite || {};
 
 Airbo.MarketingSite.Base = (function() {
-  function generateDemoRequestForm() {
+  function allFieldsValid(vals) {
+    for (var i = 0; i < Object.keys(vals).length; i++) {
+      if (!vals[Object.keys(vals)[i]]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function getValues(param, docIds) {
+    var result = {};
+    result[param] = {};
+    result[param].marketing = true;
+    docIds.forEach(function(id) {
+      result[param][id] = document.getElementById(param + "_" + id).value;
+    });
+    return result;
+  }
+
+  function generateDemoRequestForm(errors) {
     var formEl = document.createElement("div");
     formEl.style.textAlign = "left";
     formEl.innerHTML =
+      (errors
+        ? '<p style="color: red;">Please fill in all fields to submit a demo</p>'
+        : "") +
       '<label class="input_label">Full name</label>' +
       '<input type="text" name="lead_contact[name]" id="lead_contact_name" autofocus>' +
       '<label class="input_label">Email address</label>' +
@@ -21,9 +43,9 @@ Airbo.MarketingSite.Base = (function() {
       '<option value="1000-5000 employees">1000-5000 employees</option>' +
       '<option value="more than 5000 employees">more than 5000 employees</option>' +
       "</select>" +
+      '<input type="hidden" name="lead_contact[source]" id="lead_contact_source" value="Inbound: Demo Request">' +
       '<p class="terms" id="t-and-c-notice" style="font-size: 10px;">By submitting this form or using this site, you are agreeing to the <a href="/pages/terms" target="_blank">terms and conditions</a></p>';
     return formEl;
-    // <%= hidden_field_tag "lead_contact[source]", "Inbound: Demo Request" %>
   }
 
   function generateLoginForm() {
@@ -39,16 +61,62 @@ Airbo.MarketingSite.Base = (function() {
     return formEl;
   }
 
-  function triggerDemoRequestModal(e) {
+  function triggerDemoRequestModal(e, errors) {
     e.preventDefault();
-    var demoRequestForm = generateDemoRequestForm();
+    var demoRequestForm = generateDemoRequestForm(errors);
     swal({
       title: "Schedule a Demo",
       text:
         "We’ll email you within the next few hours to schedule a 30 minute overview.",
       content: demoRequestForm,
-      buttons: ["Cancel", "Submit"]
-    });
+      buttons: {
+        cancel: "Cancel",
+        submit: {
+          text: "Submit",
+          value: "submit",
+          closeModal: false
+        }
+      }
+    })
+      .then(function(submit) {
+        if (submit) {
+          var vals = getValues("lead_contact", [
+            "name",
+            "email",
+            "phone",
+            "organization_name",
+            "organization_size",
+            "source"
+          ]);
+          if (allFieldsValid(vals["lead_contact"])) {
+            $.ajax({
+              type: "POST",
+              url: "/demo_requests/marketing",
+              data: vals,
+              success: function(resp) {
+                if (resp.duplicate) {
+                  swal(
+                    "An Airbo account has already been requested",
+                    "Someone from our team will reach out to you shortly.",
+                    "success"
+                  );
+                } else {
+                  swal(
+                    "Demo Request Sent",
+                    "Someone from our team will reach out to you in the next 24 hours to schedule a time to chat.",
+                    "success"
+                  );
+                }
+              }
+            });
+          } else {
+            triggerDemoRequestModal(e, "errors");
+          }
+        }
+      })
+      .catch(function() {
+        triggerDemoRequestModal(e, "errors");
+      });
   }
 
   function triggerLoginModal(e) {

@@ -66,6 +66,7 @@ resource  :user_intros, only: [:update]
 resource :current_board, only: [:update]
 
 resources :demo_requests, only: [:create, :new]
+post 'demo_requests/marketing' => 'demo_requests#marketing'
 resources :signup_requests, only: [:create, :new]
 resources :board_name_validations, only: :show
 
