@@ -40,10 +40,8 @@ Airbo.ExploreSingleTile = (function() {
     swal({
       title: "Tile Completed!",
       type: "success",
-      showConfirmButton: false,
-      showCancelButton: true,
-      cancelButtonText: "Close",
-      customClass: "airbo",
+      buttons: ["Close"],
+      className: "airbo",
       allowOutsideClick: true
     });
   }
