@@ -71,6 +71,7 @@ Airbo.MarketingSite.Base = (function() {
 
   function triggerDemoRequestModal(e, errors) {
     e.preventDefault();
+    closeMenu(e);
     var demoRequestForm = generateDemoRequestForm(errors);
     swal({
       title: "Schedule a Demo",
@@ -129,6 +130,7 @@ Airbo.MarketingSite.Base = (function() {
 
   function triggerLoginModal(e, errors) {
     e.preventDefault();
+    closeMenu(e);
     var loginForm = generateLoginForm(errors);
     swal({
       title: "Sign In",
@@ -205,16 +207,33 @@ Airbo.MarketingSite.Base = (function() {
             }
           });
         } else {
-          triggerDemoRequestModal(e, "errors");
+          resetPassword(e, "errors");
         }
       }
     });
+  }
+
+  function toggleHamburgerMenu(e, close) {
+    var $drawer = $(".drawer");
+    var display = close ? "" : "none !important";
+    $(".u-hamburger").attr("style", "display: " + display);
+    $(".drawer").toggleClass("open-drawer");
+    $(".main").toggleClass("open-wrapper");
+    $(document).on("click", ".main.open-wrapper", closeMenu);
+  }
+
+  function closeMenu(e) {
+    var $drawer = $(".drawer");
+    if ($drawer.attr("class").split(" ")[1] === "open-drawer") {
+      toggleHamburgerMenu(e, "close");
+    }
   }
 
   function init() {
     $(".js-request-demo").click(triggerDemoRequestModal);
     $(".js-login").click(triggerLoginModal);
     $(document).on("click", "#set_or_reset_password", resetPassword);
+    $(document).on("click", ".u-hamburger", toggleHamburgerMenu);
   }
 
   return {

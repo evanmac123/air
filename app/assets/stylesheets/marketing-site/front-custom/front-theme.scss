@@ -377,4 +377,55 @@
   .copyright {
     margin: 0px 40% !important;
   }
+
+  .swal-content {
+    font-size: x-small !important;
+  }
+}
+
+/* THE HIDDEN LEFT DRAWER */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+.drawer {
+  position: fixed;
+  right: -200px; // Pushes things off screen
+  width: 200px; // Same value
+  top: 0px;
+  height: 100%;
+  background-color: #33445C;
+  overflow-y: scroll; // adds vertical scrollbar
+  overflow-x: hidden; // prevents horizontal scrollbar
+  color: white;
+  a {
+    color: #ffffff;
+    display: block; // anchor tags need to have a display value
+    padding: 10px;
+    &:hover {
+      background-color: #48bfff;
+    }
+  }
+}
+/* THE HIDDEN LEFT DRAWERS ANIMATIONS & ITS EFFECTS */
+.drawer,
+.wrapper{
+  transition: all 0.3s ease-out; // Affects returning animations
+}
+.open-drawer,
+.open-wrapper {
+  transition: all 0.3s ease-out; // Affects first animations
+}
+.open-drawer {
+  display: initial;
+  right: 0px;
+}
+.open-wrapper{
+  width: calc(100% - 200px);
+  margin-right: 200px;
+  position: fixed;
+  opacity: 0.3;
+  .hamburger {
+    background-color: black;
+  }
 }
