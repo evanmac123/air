@@ -160,6 +160,7 @@ class ClientAdminTiles extends Component {
       });
     } else {
       const tileManager = new TileManager(tile.id, this);
+      tileManager.toggleLoading();
       const newStatus = forceStatus || constants.STATUS_CYCLE[this.state.activeStatus];
       const { count } = this.state.tiles.draft; // Extraneous code used to patch connection between jQuery and React -- Delete when Share is moved to Edit
       tileManager.changeTileStatus(newStatus, this.state.activeStatus, count);
