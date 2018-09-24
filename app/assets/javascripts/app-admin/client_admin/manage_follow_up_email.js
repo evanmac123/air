@@ -95,12 +95,9 @@ Airbo.DigestEmailFollowUpManager = (function() {
       {
         title: "",
         text: text,
-        cancelButtonText: "Cancel",
+        buttons: ["Cancel", true],
         animation: false,
-        customClass: "airbo",
-        closeOnConfirm: true,
-        showCancelButton: true,
-        closeOnCancel: true
+        className: "airbo"
       },
 
       function(isConfirm) {

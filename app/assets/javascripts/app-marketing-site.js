@@ -10,8 +10,8 @@
 
 //= require jquery.validate
 //= require jquery.validate.additional-methods
-//= require flickity/dist/flickity.pkgd.min.js
 //= require clipboard/dist/clipboard.min.js
+//= require sweetalert/sweetalert.min
 
 //= require airbo
 //= require_tree ./utils

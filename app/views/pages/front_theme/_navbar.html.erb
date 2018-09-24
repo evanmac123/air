@@ -1,0 +1,38 @@
+<header id="header" class="u-header u-header--abs-top-md u-header--bg-transparent u-header--show-hide-md"
+        data-header-fix-moment="500"
+        data-header-fix-effect="slide">
+
+  <div class="u-header__section">
+
+    <div id="logoAndNav" class="container">
+      <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar">
+        <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-top-space" href="<%= root_path %>" aria-label="Airbo" style="margin-top:7px;margin-bottom:7px">
+          <%= image_tag 'logo_standard.png' %>
+        </a>
+
+        <button type="button" class="navbar-toggler btn btn-invert u-hamburger" aria-label="Toggle navigation"
+                aria-expanded="false"
+                aria-controls="navBar">
+          <span id="hamburgerTrigger" class="u-hamburger__box">
+            <span class="u-hamburger__inner"></span>
+          </span>
+        </button>
+
+        <div id="navBar" class="collapse navbar-collapse py-0">
+          <ul class="navbar-nav u-header__navbar-nav ml-lg-auto">
+            <li class="nav-item u-header__nav-item">
+                <a id="request-demo" class="btn btn-sm btn-invert js-request-demo">
+                  Request Demo
+                </a>
+            </li>
+            <li class="nav-item u-header__nav-item">
+                <a id="login" class="btn btn-sm btn-primary js-login">
+                  Sign In
+                </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>

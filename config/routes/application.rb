@@ -54,13 +54,9 @@ get "sign_in"  => "sessions#new", as: "sign_in"
 delete "sign_out" => "sessions#destroy", as: "sign_out"
 
 get "marketing_site_home" => 'pages#home', as: 'marketing_site_home'
-get "about" => 'pages#about', as: 'about'
 get "pages/gallery" => 'pages#gallery', as: 'gallery'
-get "demo_link" => "pages#demo_link", as: "demo_link"
-get "terms" => "pages#terms", as: "terms"
-get "privacy" => "pages#privacy", as: "privacy"
-get "pages/fujifilm" => "pages#fujifilm"
-get "pages/employee_engagement_content_calendar" => "pages#employee_engagement_content_calendar"
+get "pages/privacy" => 'pages#privacy', as: 'privacy'
+get "pages/terms" => 'pages#terms', as: 'terms'
 
 resources :boards, only: [:new, :create, :update]
 resources :copy_boards, only: [:create]
@@ -70,6 +66,7 @@ resource  :user_intros, only: [:update]
 resource :current_board, only: [:update]
 
 resources :demo_requests, only: [:create, :new]
+post 'demo_requests/marketing' => 'demo_requests#marketing'
 resources :signup_requests, only: [:create, :new]
 resources :board_name_validations, only: :show
 

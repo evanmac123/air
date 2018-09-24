@@ -101,14 +101,15 @@ Airbo.TileAction = (function() {
   }
 
   function makeDuplication(trigger) {
+    var loadingSpinner = document.createElement("div");
+    loadingSpinner.className = "spinner";
+    loadingSpinner.innerHTML =
+      "<i class='blue fa fa-spinner fa-spin fa-3x'></i>";
     swal({
       title: "Tile Copying to Drafts",
-      text:
-        "<div class='spinner'><i class='blue fa fa-spinner fa-spin fa-3x'></i></div>",
-      customClass: "airbo",
-      animation: false,
-      showConfirmButton: false,
-      html: true
+      content: loadingSpinner,
+      className: "airbo",
+      buttons: []
     });
 
     $.ajax({
@@ -147,7 +148,7 @@ Airbo.TileAction = (function() {
         title: "",
         text:
           "Deleting a tile cannot be undone.\n\nAre you sure you want to delete this tile?",
-        customClass: "airbo",
+        className: "airbo",
         animation: false,
         closeOnConfirm: false,
         showCancelButton: true,
@@ -195,14 +196,9 @@ Airbo.TileAction = (function() {
       {
         title: "Are you sure about that?",
         text: prompt,
-        customClass: "airbo",
-        showConfirmationButton: true,
-        showCancelButton: true,
-        cancelButtonText: "Cancel",
-        confirmButtonText: confirmText,
-        closeOnConfirm: true,
-        closeOnCancel: true,
-        allowEscapeKey: true
+        className: "airbo",
+        buttons: ["Cancel", confirmText],
+        closeOnEsc: true
       },
       callback
     );

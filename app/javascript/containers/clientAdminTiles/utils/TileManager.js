@@ -128,7 +128,7 @@ class TileManager {
         this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex].ignored = newStatus === 'ignored';
       } else {
         this.removeSelectTileUsingIndex();
-        this.addTileTo(newStatus, this.tileData.selectTile);
+        this.addTileTo(newStatus, this.tileData.selectTile, 'save');
       }
       this.reactComp.setState({ tiles: this.tileData.stateTiles });
     });

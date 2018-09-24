@@ -1,0 +1,431 @@
+.swal-title {
+  font-weight: 200 !important;
+}
+
+.bootstrap-iso {
+  p {
+    font-size: 20px;
+
+    &.disclaimer {
+      font-size: 12px;
+    }
+  }
+
+  .text-airbo-blue {
+    color: #48BFFF;
+  }
+
+  #header {
+    background-color: #ffffff;
+  }
+
+  #homeMegaMenu {
+    color: #5A5F69;
+    &:hover {
+      color: black;
+    }
+  }
+
+  .navbar-brand {
+    img {
+      width: 5rem;
+    }
+  }
+
+  .navbar-toggler.btn {
+    display: none;
+
+    .u-hamburger__inner, .u-hamburger__inner::after, .u-hamburger__inner::before {
+      background-color: #48BFFF;
+    }
+  }
+
+  #navBar {
+    position: absolute;
+    right: 0;
+    top: 9px;
+    padding: 0;
+
+    .btn {
+      margin: 0 5px;
+    }
+  }
+
+  #content {
+    .blue-teal-gradient {
+      background-image: linear-gradient(135deg, #48BFFF, #4FD4C0);
+      color: #ffffff;
+    }
+
+    .purple-teal-gradient {
+      background-image: linear-gradient(135deg, #B6A9F1, #4FD4C0);
+      color: #ffffff;
+    }
+
+    .hero-image {
+      position: absolute;
+      top: 0;
+      width: 80%;
+      right: -27vw;
+    }
+
+    .hero-banner {
+      height: 650px;
+    }
+
+    .hero-text {
+      visibility: visible;
+      margin: 0 auto;
+      text-align: center;
+
+      &.benefits {
+        text-align: left;
+        width: 50%;
+        float: left;
+        padding-top: 15%;
+      }
+
+      h1 {
+        font-size: 47px;
+      }
+
+      p {
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 4em;
+        line-height: 1em;
+      }
+    }
+
+    .hero-bottom {
+      pointer-events: none;
+
+      img {
+        position: relative;
+        float: right;
+      }
+
+      .balloon {
+        top: 100px;
+        width: 3em;
+        right: 9em;
+      }
+
+      .cloud-right {
+        top: 85px;
+        left: 7em;
+        width: 4em;
+      }
+
+      .cloud-left {
+        width: 5em;
+        top: 25px;
+        right: 2em;
+      }
+    }
+  }
+
+  .btn {
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 14px;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: capitalize;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 10px 15px;
+    cursor: pointer;
+    box-shadow: none;
+    margin-bottom: 0;
+    background-image: none;
+    outline: none !important;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid #48bfff;
+    margin: 5px;
+
+    &.btn-invert {
+      background-color: #ffffff;
+      &.square {
+        border-radius: 0;
+      }
+
+      &:hover {
+        background-color: #48bfff;
+        border-color: #48bfff;
+        color: white;
+      }
+    }
+
+    &.btn-primary {
+      color: white;
+      background-color: #48bfff;
+
+      &:hover {
+        color: white;
+        background-color: #61c8ff;
+        border-color: #61c8ff;
+      }
+    }
+  }
+
+  .case-study {
+    text-align: center;
+
+    .pill {
+      width: 7em;
+      margin: 30px auto;
+      background-color: #e9f7f0;
+      padding: 7px;
+      border-radius: 14px;
+      font-size: 12px;
+    }
+
+    .thumbnail {
+      width: 7em;
+    }
+
+    .right-balloon {
+      position: absolute;
+      right: 16vw;
+      top: 0;
+    }
+
+    .left-balloon {
+      position: absolute;
+      bottom: -36px;
+      left: 11vw;
+      width: 3em;
+    }
+
+    .testimonial {
+      margin: 50px auto;
+      font-size: 17px;
+
+      .quote {
+        font-size: 33px;
+        margin-bottom: 30px;
+        line-height: 1.4em;
+      }
+
+      .attribute {
+        .profile-pic {
+          width: 5em;
+          border-radius: 100%;
+          display: inline-block;
+          margin-top: -20px;
+        }
+
+        .profile-title {
+          display: inline-block;
+          padding: 3px 0px 0px 10px;
+          font-size: 18px;
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  .roi {
+    h3 {
+      margin: 0;
+    }
+
+    .stats {
+      padding-top: 60px;
+
+    }
+    .company-name {
+      color: black;
+    }
+  }
+
+  .quote-block {
+    color: #ffffff;
+    background-image: image-url("marketing_site/quote_bg.png");
+    min-height: 689px;
+
+    .text-center {
+      padding-top: 1%;
+
+      .mb-4 {
+        margin: -10px 10%;
+
+        h1 {
+          font-size: 184%;
+        }
+      }
+
+      .mb-7 {
+        blockquote {
+          margin: 1em 0;
+        }
+      }
+    }
+  }
+
+  .request-demo {
+    position: absolute;
+    top: 80%;
+    left: 15vw;
+    text-align: center;
+    margin: 0 auto;
+    right: 15vw;
+
+    p {
+      margin: 1.5em 20%;
+    }
+  }
+
+  .footer {
+    background-color: #33445C;
+    margin-bottom: 15px;
+
+    h3, li, a {
+      color: #ffffff;
+    }
+
+    a:hover {
+      color: #48BFFF;
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -ms-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .container {
+      padding-bottom: 1%;
+    }
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .copyright {
+    display: inline !important;
+    margin: 0px 48%;
+    text-align: center;
+
+    img {
+      width: 4rem;
+    }
+
+    p {
+      font-size: 1rem;
+      text-align: center;
+      margin: 5px;
+    }
+  }
+}
+
+@media only screen and (max-width: 880px) {
+  .request-demo p {
+    font-size: 15px !important;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .navbar-toggler.btn {
+    display: inherit !important;
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  .blue-teal-gradient {
+    height: 690px !important;
+
+    h1 {
+      font-size: 37px !important;
+    }
+  }
+  .hero-image {
+    top: 15px !important;
+    width: 100vw !important;
+    right: -6vw !important;
+  }
+
+  .hero-banner {
+    padding-top: 48.5vw !important;
+  }
+
+  .hero-text.benefits {
+    width: 100% !important;
+
+    h1 {
+      font-size: 1.5rem !important;
+      text-align: center !important;
+    }
+  }
+
+  .request-demo p {
+    margin: 0.5em 0% !important;
+  }
+
+  .copyright {
+    margin: 0px 40% !important;
+  }
+
+  .swal-content {
+    font-size: x-small !important;
+  }
+}
+
+/* THE HIDDEN LEFT DRAWER */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+.drawer {
+  position: fixed;
+  right: -200px; // Pushes things off screen
+  width: 200px; // Same value
+  top: 0px;
+  height: 100%;
+  background-color: #33445C;
+  overflow-y: scroll; // adds vertical scrollbar
+  overflow-x: hidden; // prevents horizontal scrollbar
+  color: white;
+  a {
+    color: #ffffff;
+    display: block; // anchor tags need to have a display value
+    padding: 10px;
+    &:hover {
+      background-color: #48bfff;
+    }
+  }
+}
+/* THE HIDDEN LEFT DRAWERS ANIMATIONS & ITS EFFECTS */
+.drawer,
+.wrapper{
+  transition: all 0.3s ease-out; // Affects returning animations
+}
+.open-drawer,
+.open-wrapper {
+  transition: all 0.3s ease-out; // Affects first animations
+}
+.open-drawer {
+  display: initial;
+  right: 0px;
+}
+.open-wrapper{
+  width: calc(100% - 200px);
+  margin-right: 200px;
+  position: fixed;
+  opacity: 0.3;
+  .hamburger {
+    background-color: black;
+  }
+}
