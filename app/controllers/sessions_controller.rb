@@ -22,11 +22,7 @@ class SessionsController < Clearance::SessionsController
       end
 
       flash[:success] = "Welcome back, #{current_user.first_name}!"
-      if request.xhr?
-        render json: { path: url_after_create }
-      else
-        redirect_to url_after_create
-      end
+      render json: { path: url_after_create }
     end
   end
 
