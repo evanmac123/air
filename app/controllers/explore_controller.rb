@@ -27,6 +27,8 @@ class ExploreController < ExploreBaseController
   private
 
     def render_json_tiles
+      @tiles ||= []
+      total_count = @tiles.empty? ? 0 : @tiles.total_count.to_s
       content = render_to_string(
         partial: "explore/tiles",
         locals: { tiles: @tiles, section: "Explore" })
@@ -35,7 +37,7 @@ class ExploreController < ExploreBaseController
         success:   true,
         content:   content,
         added:     @tiles.count,
-        lastBatch: params[:count] == @tiles.total_count.to_s
+        lastBatch: params[:count] == total_count
       }
     end
 

@@ -79,3 +79,5 @@ cypress/screenshots/
 cypress/integration/examples/
 cypress/examples/
 cypress/videos/
+
+marketing_theme/

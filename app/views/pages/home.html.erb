@@ -1,11 +1,9 @@
 <% content_for :page_title, 'Airbo' %>
 
-<div class="marketing-site-home">
-  <%= render partial: "pages/partials/home/main_hero" %>
-  <%= render partial: "pages/partials/home/gallery" %>
-  <%= render partial: "pages/partials/home/secondary_hero" %>
-  <%= render partial: "pages/partials/home/clients_list" %>
-  <%= render partial: "pages/partials/home/value_props" %>
-  <%= render partial: "pages/partials/home/analytics" %>
-  <%= render partial: "pages/partials/home/final_cta" %>
-</div>
+<main id="content" role="main">
+  <%= render partial: "pages/front_theme/main_hero" %>
+  <%= render partial: "pages/front_theme/fuji_case_study" %>
+  <%= render partial: "pages/front_theme/benefits_hero" %>
+  <%= render partial: "pages/front_theme/roi" %>
+  <%= render partial: "pages/front_theme/employee_quote" %>
+</main>

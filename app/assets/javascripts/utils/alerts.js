@@ -8,7 +8,7 @@ Airbo.Utils.alert = function(text) {
   swal({
     title: "",
     text: text,
-    customClass: "airbo"
+    className: "airbo"
   });
 };
 
@@ -16,9 +16,9 @@ Airbo.Utils.alertSuccess = function(title, text, buttonText) {
   swal({
     title: title,
     text: text,
-    customClass: "airbo",
+    className: "airbo",
     type: "success",
-    confirmButtonText: buttonText || "Continue"
+    buttons: [buttonText || "Continue"]
   });
 };
 
@@ -27,12 +27,8 @@ Airbo.Utils.approve = function(text, cb) {
     {
       title: "",
       text: text,
-      cancelButtonText: "Cancel",
-      animation: false,
-      customClass: "airbo",
-      closeOnConfirm: true,
-      showCancelButton: true,
-      closeOnCancel: true
+      buttons: ["Cancel", "OK"],
+      className: "airbo"
     },
 
     function(isConfirm) {

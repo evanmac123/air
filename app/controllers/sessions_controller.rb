@@ -13,8 +13,8 @@ class SessionsController < Clearance::SessionsController
     @user = clearance_authenticate(params)
 
     if @user.nil?
-      flash_failure_after_create
-      render template: "sessions/new"
+      # flash_failure_after_create
+      render json: { not_found: true }
     else
       sign_in(@user, params[:session][:remember_me])
       if params[:demo_id]
@@ -22,14 +22,14 @@ class SessionsController < Clearance::SessionsController
       end
 
       flash[:success] = "Welcome back, #{current_user.first_name}!"
-      redirect_back_or(url_after_create)
+      render json: { path: url_after_create }
     end
   end
 
   def destroy
     IntercomRails::ShutdownHelper::intercom_shutdown_helper(cookies)
     sign_out
-    redirect_to(url_after_destroy)
+    redirect_to(root_path)
   end
 
   def url_after_create
