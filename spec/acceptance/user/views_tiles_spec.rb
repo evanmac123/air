@@ -27,7 +27,7 @@ feature 'User views tile' do
     before(:each) do
       setup_data
       bypass_modal_overlays(@kendra)
-      signin_as(@kendra, 'milking')
+      visit root_path(as: @kendra)
     end
 
     scenario 'views tile image', js: true do

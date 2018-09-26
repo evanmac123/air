@@ -1,11 +1,9 @@
 require 'acceptance/acceptance_helper'
 
-feature 'User changes their own password' do
+feature 'User changes their own password', js: true do
   before(:each) do
     @user = FactoryBot.create(:user, :claimed)
-    has_password(@user, 'foobar')
-    signin_as(@user, 'foobar')
-    visit edit_account_settings_path
+    visit edit_account_settings_path(as: @user)
   end
 
 
@@ -66,15 +64,17 @@ feature 'User changes their own password' do
   end
 
   def expect_new_password_works(new_password)
+    find('#me_toggle').click
     click_link "Sign Out"
     signin_as @user, new_password
     should_be_on "/activity"
   end
 
   def expect_new_password_doesnt_work(new_password)
+    find('#me_toggle').click
     click_link "Sign Out"
     signin_as @user, new_password
-    should_be_on session_path
+    should_be_on root_path
   end
 
   def click_save_password_button

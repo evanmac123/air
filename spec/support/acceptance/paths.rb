@@ -6,11 +6,11 @@ module NavigationHelpers
   end
 
   def new_session_page
-    "/session/new"  
+    '/?sign_in=true'
   end
 
   def signin_page
-    '/sign_in'
+    '/?sign_in=true'
   end
 
   def marketing_page

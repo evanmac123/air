@@ -5,8 +5,7 @@ feature 'Client Admin navigates site with tile manager navbar' do
     before(:each) do
       demo = FactoryBot.create :demo
       @joe = FactoryBot.create(:client_admin, demo: demo, name: 'Joe')
-      has_password(@joe, 'foobar')
-      signin_as(@joe, 'foobar')
+      visit activity_path(as: @joe)
     end
 
     {

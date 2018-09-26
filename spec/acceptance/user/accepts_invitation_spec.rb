@@ -62,7 +62,7 @@ feature "User Accepts Invitation" do
         expect(@original_board).not_to eq(@other_board)
       end
 
-      scenario "and user is signed in then it goes well" do
+      xscenario "and user is signed in then it goes well", js: true do
         signin_as @user, 'foobar'
         visit invitation_url(@user.invitation_code, demo_id: @other_board.id)
         should_be_on activity_path

@@ -7,8 +7,7 @@ feature "User Sees Only Profile In Current Demo" do
 
     expect(@user1.demo).to_not eq(@user2.demo)
 
-    has_password @user1, "foobar"
-    signin_as @user1, "foobar"
+    visit root_path(as: @user1)
     should_be_on activity_path
 
     visit user_path(@user2)

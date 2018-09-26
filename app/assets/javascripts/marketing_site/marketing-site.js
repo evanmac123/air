@@ -16,7 +16,9 @@ Airbo.MarketingSite.Base = (function() {
     result[param] = {};
     result[param].marketing = true;
     docIds.forEach(function(id) {
-      result[param][id] = document.getElementById(param + "_" + id).value;
+      var elem = document.getElementById(param + "_" + id);
+      result[param][id] =
+        id === "remember_me" ? "" + elem.checked + "" : elem.value;
     });
     return result;
   }
@@ -58,7 +60,9 @@ Airbo.MarketingSite.Base = (function() {
   function generateLoginForm(errors) {
     var formEl = document.createElement("div");
     formEl.innerHTML =
-      (errors ? '<p style="color: red;">Email or Password incorrect</p>' : "") +
+      (errors
+        ? '<p style="color: red;">Sorry, that\'s an invalid username or password.</p>'
+        : "") +
       '<input type="text" placeholder="Email Address" name="session[email]" id="session_email">' +
       '<input type="password" placeholder="Password" name="session[password]" id="session_password">' +
       '<div class="wrap" style="float: left;">' +
@@ -201,11 +205,15 @@ Airbo.MarketingSite.Base = (function() {
             url: "/passwords",
             data: vals,
             success: function(resp) {
-              swal(
-                "Processing your reset password request",
-                "Please check your email shortly for more information.",
-                "success"
-              );
+              if (resp.success) {
+                swal(
+                  "Processing your reset password request",
+                  "Please check your email shortly for more information.",
+                  "success"
+                );
+              } else {
+                swal("Something went wrong", resp.fail, "warning");
+              }
             }
           });
         } else {
@@ -232,11 +240,13 @@ Airbo.MarketingSite.Base = (function() {
   }
 
   function locationParamsInclude(key, value) {
-    var splitParams = window.location.href.split("?")[1].split("&");
-    for (var i = 0; i < splitParams.length; i++) {
-      var splitParam = splitParams[i].split("=");
-      if (splitParam[0] === key && splitParam[1]) {
-        return true;
+    if (window.location.href.split("?")[1]) {
+      var splitParams = window.location.href.split("?")[1].split("&");
+      for (var i = 0; i < splitParams.length; i++) {
+        var splitParam = splitParams[i].split("=");
+        if (splitParam[0] === key && splitParam[1]) {
+          return true;
+        }
       }
     }
   }

@@ -6,7 +6,7 @@ module SteakHelperMethods
   end
 
   def should_be_signed_in
-    expect_content "Sign Out"
+    expect(page).to have_css('.nav-signout', :visible => false)
   end
 
   def sign_out_via_link
