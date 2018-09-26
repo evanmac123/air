@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CancelAccountController < ApplicationController
   before_action :find_user
 
@@ -9,12 +11,12 @@ class CancelAccountController < ApplicationController
   def destroy
     @user.destroy
     flash[:success] = "OK, you've cancelled that account."
-    redirect_to sign_in_path
+    redirect_to root_path
   end
 
   protected
 
-  def find_user
-    @user = User.find_by(cancel_account_token: params[:id])
-  end
+    def find_user
+      @user = User.find_by(cancel_account_token: params[:id])
+    end
 end

@@ -129,7 +129,9 @@ Airbo.MarketingSite.Base = (function() {
   }
 
   function triggerLoginModal(e, errors) {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     closeMenu(e);
     var loginForm = generateLoginForm(errors);
     swal({
@@ -229,11 +231,24 @@ Airbo.MarketingSite.Base = (function() {
     }
   }
 
+  function locationParamsInclude(key, value) {
+    var splitParams = window.location.href.split("?")[1].split("&");
+    for (var i = 0; i < splitParams.length; i++) {
+      var splitParam = splitParams[i].split("=");
+      if (splitParam[0] === key && splitParam[1]) {
+        return true;
+      }
+    }
+  }
+
   function init() {
     $(".js-request-demo").click(triggerDemoRequestModal);
     $(".js-login").click(triggerLoginModal);
     $(document).on("click", "#set_or_reset_password", resetPassword);
     $(document).on("click", ".u-hamburger", toggleHamburgerMenu);
+    if (locationParamsInclude("sign_in", "true")) {
+      triggerLoginModal();
+    }
   }
 
   return {

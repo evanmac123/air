@@ -16,7 +16,7 @@
   <% end %>
 <% else %>
   <div class="bg-gray-quiz dependent_email content_sections dependent_email_form">
-    <p> You need to <%= link_to "sign in", sign_in_path %> to invite your spouse. Or, <%= link_to "continue without inviting", "", class: "no_invitation"  %>.
+    <p> You need to <%= link_to "sign in", root_path(sign_in: true) %> to invite your spouse. Or, <%= link_to "continue without inviting", "", class: "no_invitation"  %>.
     </p>
   </div>
 <% end %>

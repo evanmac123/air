@@ -65,7 +65,7 @@ describe CurrentBoardsController do
 
         put :update, board_id: board_2.id
 
-        expect(response).to redirect_to sign_in_path
+        expect(response).to redirect_to root_path
       end
     end
   end

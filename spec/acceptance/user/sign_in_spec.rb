@@ -50,7 +50,7 @@ feature 'Sign in' do
   end
 
   def try_login_with(email_or_username, password)
-    visit sign_in_path
+    visit root_path(sign_in: true)
     fill_in_password_fields(email_or_username, password)
     click_button "Log In"
   end

@@ -39,7 +39,7 @@ feature "User Accepts Invitation" do
       click_link "Sign Out"
       visit invitation_url(@unclaimed_user.invitation_code)
 
-      should_be_on sign_in_path
+      should_be_on root_path
       expect_content logged_out_message
     end
   end

@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature "User interacts with the 'Forgot password?' functionality" do
 
   before(:each) do
-    visit sign_in_path
+    visit root_path(sign_in: true)
     click_link 'Set or Reset Your Password'
   end
 

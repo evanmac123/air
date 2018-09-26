@@ -5,10 +5,6 @@ class SessionsController < Clearance::SessionsController
 
   layout "external"
 
-  def new
-    render template: "sessions/new"
-  end
-
   def create
     @user = clearance_authenticate(params)
 
