@@ -226,8 +226,7 @@ feature 'Client admin and the digest email for tiles' do
                 end
 
                 email_link = /acts/
-                page_text_1 = "Log In"
-                page_text_2 = "Remember me"
+                page_text_1 = "Sign In"
               else
                 email_link = /invitations/
                 page_text_1 = demo.name_as_noun
@@ -237,7 +236,6 @@ feature 'Client admin and the digest email for tiles' do
               click_email_link_matching email_link
 
               expect(page).to have_content page_text_1
-              expect(page).to have_content page_text_2
             end
           end
         end
