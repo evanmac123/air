@@ -16,7 +16,7 @@
 
   <% if current_user.is_a?(GuestUser) %>
     <div class="already-a-user-text text-center">
-      <p class="mb-0" style="font-size:12px;">Already a user? <%= link_to "Sign in.", sign_in_path %></p>
+      <p class="mb-0" style="font-size:12px;">Already a user? <%= link_to "Sign in.", root_path(sign_in: true) %></p>
     </div>
   <% end %>
 </div>

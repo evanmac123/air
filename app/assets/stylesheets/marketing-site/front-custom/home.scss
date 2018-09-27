@@ -12,11 +12,11 @@
   }
 
   .text-airbo-blue {
-    color: #48BFFF;
+    color: $n-blue;
   }
 
   #header {
-    background-color: #ffffff;
+    background-color: $white;
   }
 
   #homeMegaMenu {
@@ -36,7 +36,7 @@
     display: none;
 
     .u-hamburger__inner, .u-hamburger__inner::after, .u-hamburger__inner::before {
-      background-color: #48BFFF;
+      background-color: $n-blue;
     }
   }
 
@@ -53,13 +53,13 @@
 
   #content {
     .blue-teal-gradient {
-      background-image: linear-gradient(135deg, #48BFFF, #4FD4C0);
-      color: #ffffff;
+      background-image: linear-gradient(135deg, $n-blue, $n-green);
+      color: $white;
     }
 
     .purple-teal-gradient {
-      background-image: linear-gradient(135deg, #B6A9F1, #4FD4C0);
-      color: #ffffff;
+      background-image: linear-gradient(135deg, $n-purple, $n-green);
+      color: $white;
     }
 
     .hero-image {
@@ -90,7 +90,7 @@
       }
 
       p {
-        color: #ffffff;
+        color: $white;
         text-align: center;
         margin-bottom: 4em;
         line-height: 1em;
@@ -151,30 +151,30 @@
     -ms-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
-    border: 1px solid #48bfff;
+    border: 1px solid $n-blue;
     margin: 5px;
 
     &.btn-invert {
-      background-color: #ffffff;
+      background-color: $white;
       &.square {
         border-radius: 0;
       }
 
       &:hover {
-        background-color: #48bfff;
-        border-color: #48bfff;
+        background-color: $n-blue;
+        border-color: $n-blue;
         color: white;
       }
     }
 
     &.btn-primary {
       color: white;
-      background-color: #48bfff;
+      background-color: $n-blue;
 
       &:hover {
-        color: white;
-        background-color: #61c8ff;
-        border-color: #61c8ff;
+        color: $white;
+        background-color: $off-blue;
+        border-color: $off-blue;
       }
     }
   }
@@ -185,7 +185,7 @@
     .pill {
       width: 7em;
       margin: 30px auto;
-      background-color: #e9f7f0;
+      background-color: $off-green;
       padding: 7px;
       border-radius: 14px;
       font-size: 12px;
@@ -251,7 +251,7 @@
   }
 
   .quote-block {
-    color: #ffffff;
+    color: $white;
     background-image: image-url("marketing_site/quote_bg.png");
     min-height: 689px;
 
@@ -288,15 +288,15 @@
   }
 
   .footer {
-    background-color: #33445C;
+    background-color: $dark-blue;
     margin-bottom: 15px;
 
     h3, li, a {
-      color: #ffffff;
+      color: $white;
     }
 
     a:hover {
-      color: #48BFFF;
+      color: $n-blue;
       -webkit-transition: all 0.2s ease-in-out;
       -moz-transition: all 0.2s ease-in-out;
       -ms-transition: all 0.2s ease-in-out;
@@ -383,7 +383,6 @@
   }
 }
 
-/* THE HIDDEN LEFT DRAWER */
 ul {
   list-style-type: none;
   padding: 0;
@@ -394,20 +393,20 @@ ul {
   width: 200px; // Same value
   top: 0px;
   height: 100%;
-  background-color: #33445C;
+  background-color: $dark-blue;
   overflow-y: scroll; // adds vertical scrollbar
   overflow-x: hidden; // prevents horizontal scrollbar
-  color: white;
+  color: $white;
   a {
-    color: #ffffff;
+    color: $white;
     display: block; // anchor tags need to have a display value
     padding: 10px;
     &:hover {
-      background-color: #48bfff;
+      background-color: $n-blue;
     }
   }
 }
-/* THE HIDDEN LEFT DRAWERS ANIMATIONS & ITS EFFECTS */
+
 .drawer,
 .wrapper{
   transition: all 0.3s ease-out; // Affects returning animations

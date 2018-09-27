@@ -36,9 +36,7 @@ feature "User tries to friend someone" do
   end
 
   background do
-    signin_as(user, user.password)
-
-    visit users_path
+    visit users_path(as: user)
     fill_in 'search_string', with: 'Sue'
     click_button 'Search'
 

@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 
-feature "Client admin modifies the follow digest email", js: true do
+xfeature "Client admin modifies the follow digest email", js: true do
 
   before do
     @demo = FactoryBot.create(:demo)

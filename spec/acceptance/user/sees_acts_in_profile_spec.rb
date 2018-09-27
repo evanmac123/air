@@ -8,8 +8,6 @@ feature 'User sees acts in profile' do
   before do
     @user = FactoryBot.create(:user)
     @other_user_in_same_demo = FactoryBot.create(:user, demo: @user.demo)
-    has_password @other_user_in_same_demo, 'foobar'
-    signin_as @other_user_in_same_demo, 'foobar'
   end
 
   context 'when the acting user has their privacy level set to everybody' do
@@ -19,7 +17,7 @@ feature 'User sees acts in profile' do
     end
 
     scenario 'anyone in that demo should be able to see their acts', js: true do
-      visit user_path(@user)
+      visit user_path(@user, as: @user)
       expect_content "did k"
       expect_no_content "did a"
 
@@ -37,8 +35,8 @@ feature 'User sees acts in profile' do
     end
 
     context 'and the viewing user is not a friend of the acting user' do
-      scenario "should result in them seeing no acts", js: true do
-        visit user_path(@user)
+      scenario "should result in them seeing no acts" do
+        visit user_path(@user, as: @user)
         expect_no_content "did k"
         expect_no_content "did a"
       end
@@ -50,7 +48,7 @@ feature 'User sees acts in profile' do
         end
 
         scenario "should be able to see the acts", js: true do
-          visit user_path(@user)
+          visit user_path(@user, as: @user)
           expect_content "did k"
           expect_no_content "did a"
 
@@ -67,7 +65,7 @@ feature 'User sees acts in profile' do
       end
 
       scenario "should be able to see that user's acts", js: true do
-        visit user_path(@user)
+        visit user_path(@user, as: @user)
         expect_content "did k"
         expect_no_content "did a"
 

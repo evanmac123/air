@@ -13,7 +13,7 @@ get "ard/:public_slug/tile/:id" => "tiles#show", :as => "public_tile"
 resources :tiles, :only => [:index, :show]
 resources :tile, :only => [:show], as: "sharable_tile"
 
-resource :session, :controller => 'sessions'
+resource :session, :only => [:create, :destroy], :controller => 'sessions'
 
 get "invitation" => "email_previews#invitation", :as => "invitation_preview"
 
@@ -50,7 +50,7 @@ resources :passwords,
   :controller => 'passwords',
   :only       => [:new, :create]
 
-get "sign_in"  => "sessions#new", as: "sign_in"
+get "sign_in", to: redirect('/'), as: "sign_in"
 delete "sign_out" => "sessions#destroy", as: "sign_out"
 
 get "marketing_site_home" => 'pages#home', as: 'marketing_site_home'

@@ -13,7 +13,7 @@ feature 'Board Welcome Modal for guest users' do
       visit public_board_path(board.public_slug)
     end
 
-    it 'should show the welcome modal to a guest user', js: true do
+    it 'should show the welcome modal to a guest user' do
       within ".js-board-welcome-modal" do
         expect(page).to have_content(board.intro_message)
       end
@@ -25,7 +25,7 @@ feature 'Board Welcome Modal for guest users' do
       end
     end
 
-    it "should not show the welcome message on subsequent page views", js: true do
+    it "should not show the welcome message on subsequent page views" do
       visit public_board_path(board.public_slug)
       expect(page).to_not have_content(board.welcome_message)
     end
