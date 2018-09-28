@@ -107,6 +107,7 @@ Airbo.TileInteractionManager = (function() {
       event.stopPropagation();
       event.stopImmediatePropagation();
       Airbo.TileInteractionBuilder.addAnswer();
+      resetQuizCorrectAnswerIndex();
     });
   }
 
