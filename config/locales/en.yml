@@ -25,7 +25,7 @@ en:
       truncate: "..."
   flashes:
       failure_resource_not_found: Sorry, what you were looking for could not be found.
-      failure_when_not_signed_in_html: "Please sign in or create an account to access this part of the site. If needed, <a href='/?sign_in=true'>create or reset your password</a>."
+      failure_when_not_signed_in_html: "Please sign in or create an account to access this part of the site. If needed, create or reset your password."
       failure_when_not_permitted: "Sorry, you don't have permission to access that part of the site."
       failure_tile_not_public: "Sorry, the Tile you're looking for is not public."
       failure_friendships_need_common_board: "Sorry, you can only connect with people who are in the same Board."

@@ -109,7 +109,7 @@ Airbo.TileAction = (function() {
       title: "Tile Copying to Drafts",
       content: loadingSpinner,
       className: "airbo",
-      buttons: []
+      buttons: false
     });
 
     $.ajax({
@@ -143,24 +143,17 @@ Airbo.TileAction = (function() {
       });
     }
 
-    swal(
-      {
-        title: "",
-        text:
-          "Deleting a tile cannot be undone.\n\nAre you sure you want to delete this tile?",
-        className: "airbo",
-        animation: false,
-        closeOnConfirm: false,
-        showCancelButton: true,
-        showLoaderOnConfirm: true
-      },
-
-      function(isConfirm) {
-        if (isConfirm) {
-          deleteTile(target);
-        }
+    swal({
+      title: "",
+      text:
+        "Deleting a tile cannot be undone.\n\nAre you sure you want to delete this tile?",
+      className: "airbo",
+      buttons: true
+    }).then(function(isConfirm) {
+      if (isConfirm) {
+        deleteTile(target);
       }
-    );
+    });
 
     swapModalButtons();
   }
@@ -192,16 +185,13 @@ Airbo.TileAction = (function() {
   }
 
   function swapTemplate(prompt, confirmText, callback) {
-    swal(
-      {
-        title: "Are you sure about that?",
-        text: prompt,
-        className: "airbo",
-        buttons: ["Cancel", confirmText],
-        closeOnEsc: true
-      },
-      callback
-    );
+    swal({
+      title: "Are you sure about that?",
+      text: prompt,
+      className: "airbo",
+      buttons: ["Cancel", confirmText],
+      closeOnEsc: true
+    }).then(callback);
   }
 
   return {

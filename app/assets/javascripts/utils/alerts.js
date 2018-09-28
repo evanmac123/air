@@ -23,18 +23,14 @@ Airbo.Utils.alertSuccess = function(title, text, buttonText) {
 };
 
 Airbo.Utils.approve = function(text, cb) {
-  swal(
-    {
-      title: "",
-      text: text,
-      buttons: ["Cancel", "OK"],
-      className: "airbo"
-    },
-
-    function(isConfirm) {
-      if (isConfirm) {
-        cb && cb();
-      }
+  swal({
+    title: "",
+    text: text,
+    buttons: ["Cancel", "OK"],
+    className: "airbo"
+  }).then(function(isConfirm) {
+    if (isConfirm) {
+      cb && cb();
     }
-  );
+  });
 };
