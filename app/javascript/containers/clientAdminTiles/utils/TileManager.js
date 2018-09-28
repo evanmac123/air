@@ -125,6 +125,7 @@ class TileManager {
     updateTileStatus(this.tileId, newStatus, () => {
       if (activeStatus === 'plan' || activeStatus === 'draft') { updateJquerySend(count, newStatus === 'draft'); }
       if (newStatus === 'ignored' || newStatus === 'user_submitted') {
+        this.toggleLoading();
         this.tileData.stateTiles[this.reactComp.state.activeStatus].tiles[this.tileData.selectTileIndex].ignored = newStatus === 'ignored';
       } else {
         this.removeSelectTileUsingIndex();
