@@ -25,12 +25,9 @@ feature "User sees correct values in rafle bar" do
       user = FactoryBot.create :user, user_attributes
       user.demo = @demo
       user.save
-      
+      visit root_path(as: user)
+
       expect(user.demo.uses_tickets).to be_truthy
-
-      has_password(user, "foobar")
-      signin_as(user, "foobar")
-
       expect_raffle_progress expected_values[:percent]
       expect_raffle_entries expected_values[:tickets]
     end

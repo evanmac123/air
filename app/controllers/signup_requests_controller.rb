@@ -14,7 +14,7 @@ class SignupRequestsController < ApplicationController
       LeadContactNotifier.duplicate_signup_request(lead_contact).deliver
 
       flash[:info] = "An Airbo account has already been requested with your email or phone number. Someone from our team will reach out to you shortly."
-      redirect_to sign_in_path
+      redirect_to root_path
     end
   end
 

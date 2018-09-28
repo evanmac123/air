@@ -14,7 +14,6 @@ feature 'User invites user to board', broken: true do
     @demo2 = FactoryBot.create(:demo, :name => "Gleason")
 
     @user = FactoryBot.create(:user, :claimed, demo: @demo1, name: "Cool guy", slug: "cool_guy", password: "foobar")
-    signin_as @user, 'foobar'
 
     @user0 = FactoryBot.create(:user, :unclaimed, :name => "Joining Now 1", :demo => @demo1, :email => "angel@hopper.com", :slug => "angelfire", :sms_slug => "angelfire")
     @user1 = FactoryBot.create(:claimed_user, :name => "mad house",      :demo => @demo1, :email => "manly@hopper.com", :slug => "beau", :sms_slug => "beau")
@@ -27,7 +26,7 @@ feature 'User invites user to board', broken: true do
     @user8 = FactoryBot.create(:user, :unclaimed, :name => "Va Va Va Voom",  :demo => @demo2, :email => "seven@biker.com", :slug => "sixpack", :sms_slug => "sixpack")
     @user9 = FactoryBot.create(:claimed_user, :name => "Joining Now 2",  :demo => @demo2, :email => "angel@biker.com", :slug => "damnation", :sms_slug => "damnation")
 
-    visit activity_path
+    visit activity_path(as: @user)
   end
 
   describe "search by name" do

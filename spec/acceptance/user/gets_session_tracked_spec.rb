@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 # FIXME: NICK to HERBY Revisit after Mixpanel audit.  Moving to controller specs was too involved. Instead, turned off delayed jobs and removed
-feature "activity session tracking" do
+feature "activity session tracking", js: true do
   before do
     user = FactoryBot.create(:user, email: 'fred@foobar.com')
     user.password = user.password_confirmation = "foobar"
@@ -15,13 +15,13 @@ feature "activity session tracking" do
   let (:threshold) {ApplicationController::ACTIVITY_SESSION_THRESHOLD}
 
   def do_real_login
-    visit new_session_path
+    visit root_path(sign_in: true)
     fill_in "session[email]", with: "fred@foobar.com"
     fill_in "session[password]", with: "foobar"
 
     FakeMixpanelTracker.clear_tracked_events
 
-    click_button "Log In"
+    click_button "Sign In"
   end
 
   context "when a user signs in" do

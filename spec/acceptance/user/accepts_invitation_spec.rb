@@ -39,7 +39,7 @@ feature "User Accepts Invitation" do
       click_link "Sign Out"
       visit invitation_url(@unclaimed_user.invitation_code)
 
-      should_be_on sign_in_path
+      should_be_on root_path
       expect_content logged_out_message
     end
   end
@@ -62,7 +62,7 @@ feature "User Accepts Invitation" do
         expect(@original_board).not_to eq(@other_board)
       end
 
-      scenario "and user is signed in then it goes well" do
+      xscenario "and user is signed in then it goes well", js: true do
         signin_as @user, 'foobar'
         visit invitation_url(@user.invitation_code, demo_id: @other_board.id)
         should_be_on activity_path

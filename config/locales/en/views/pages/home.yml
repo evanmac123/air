@@ -1,40 +1,39 @@
 en:
   pages:
-    partials:
-      home:
-        main_hero:
-          header: "Engaging Employee Communication"
-          subheader: "Airbo is an easy, flexible and fun microsite."
-          try_airbo_button: "Request a Demo"
-          mobile_header: "Mobile Title Goes Here"
-          mobile_subheader: "Mobile Subtitle goes here."
-          mobile_try_airbo_button: "Mobile Try Airbo"
-        gallery:
-          header: "Pick a topic to see how it works."
-          pre_header: "Capture attention, educate employees, drive participation"
-        secondary_hero:
-          quote: '“It’s a great way to get people interactive, and it helps when we need a response or action from people. There is a much quicker turnaround."'
-          cite: "Annie Winslow, Employee Relations Manager"
-          company: "e+CancerCare"
-        value_props:
-          pre_header: "Don't take our word for it"
-          header: "Airbo Employee Communication Platform"
-          value_prop_1_text: "Engaging Communications"
-          value_prop_1_quote: '"I used to send out email and hope for the best. Now, I have tangible evidence of success."'
-          value_prop_1_person: "Ali Aguilar, HR Specialist"
-          value_prop_1_company: "Envisionit"
-          value_prop_2_text: "Faster Content Creation"
-          value_prop_2_quote: '"I can do an announcement in half the time it used to take."'
-          value_prop_2_person: "Amy Anderson, Director of HR"
-          value_prop_2_company: "Constangy"
-          value_prop_3_text: "Exceptional Support"
-          value_prop_3_quote: '"The support Airbo provides is excellent."'
-          value_prop_3_person: "Miriam Johnson, Director of HR"
-          value_prop_3_company: "Town of Dedham"
-        analytics:
-          header: "Measurable Progress"
-          subheader: "As employees interact with Airbo, you receive feedback on who read content, answered questions and completed actions."
-        final_cta:
-          pre_header: We're dedicated to your success
-          header: We've implemented our software at companies from 20 to 90,000 employees across every major industry.
-          final_cta_button: "Try 1 Month Free"
+    gallery_partials:
+      main_hero:
+        header: "Engaging Employee Communication"
+        subheader: "Airbo is an easy, flexible and fun microsite."
+        try_airbo_button: "Request a Demo"
+        mobile_header: "Mobile Title Goes Here"
+        mobile_subheader: "Mobile Subtitle goes here."
+        mobile_try_airbo_button: "Mobile Try Airbo"
+      gallery:
+        header: "Pick a topic to see how it works."
+        pre_header: "Capture attention, educate employees, drive participation"
+      secondary_hero:
+        quote: '“It’s a great way to get people interactive, and it helps when we need a response or action from people. There is a much quicker turnaround."'
+        cite: "Annie Winslow, Employee Relations Manager"
+        company: "e+CancerCare"
+      value_props:
+        pre_header: "Don't take our word for it"
+        header: "Airbo Employee Communication Platform"
+        value_prop_1_text: "Engaging Communications"
+        value_prop_1_quote: '"I used to send out email and hope for the best. Now, I have tangible evidence of success."'
+        value_prop_1_person: "Ali Aguilar, HR Specialist"
+        value_prop_1_company: "Envisionit"
+        value_prop_2_text: "Faster Content Creation"
+        value_prop_2_quote: '"I can do an announcement in half the time it used to take."'
+        value_prop_2_person: "Amy Anderson, Director of HR"
+        value_prop_2_company: "Constangy"
+        value_prop_3_text: "Exceptional Support"
+        value_prop_3_quote: '"The support Airbo provides is excellent."'
+        value_prop_3_person: "Miriam Johnson, Director of HR"
+        value_prop_3_company: "Town of Dedham"
+      analytics:
+        header: "Measurable Progress"
+        subheader: "As employees interact with Airbo, you receive feedback on who read content, answered questions and completed actions."
+      final_cta:
+        pre_header: We're dedicated to your success
+        header: We've implemented our software at companies from 20 to 90,000 employees across every major industry.
+        final_cta_button: "Try 1 Month Free"

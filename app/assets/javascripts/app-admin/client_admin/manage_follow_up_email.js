@@ -91,21 +91,17 @@ Airbo.DigestEmailFollowUpManager = (function() {
   })();
 
   function approve(text, cb) {
-    swal(
-      {
-        title: "",
-        text: text,
-        buttons: ["Cancel", true],
-        animation: false,
-        className: "airbo"
-      },
-
-      function(isConfirm) {
-        if (isConfirm) {
-          cb && cb();
-        }
+    swal({
+      title: "",
+      text: text,
+      buttons: ["Cancel", true],
+      animation: false,
+      className: "airbo"
+    }).then(function(isConfirm) {
+      if (isConfirm) {
+        cb && cb();
       }
-    );
+    });
   }
 
   function edit(cmd) {

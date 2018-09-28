@@ -5,10 +5,6 @@ class SessionsController < Clearance::SessionsController
 
   layout "external"
 
-  def new
-    render template: "sessions/new"
-  end
-
   def create
     @user = clearance_authenticate(params)
 
@@ -16,7 +12,7 @@ class SessionsController < Clearance::SessionsController
       # flash_failure_after_create
       render json: { not_found: true }
     else
-      sign_in(@user, params[:session][:remember_me])
+      sign_in(@user, params[:session][:remember_me].to_s == "true")
       if params[:demo_id]
         @user.move_to_new_demo(params[:demo_id])
       end

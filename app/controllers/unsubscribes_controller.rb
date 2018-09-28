@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class UnsubscribesController < ApplicationController
   def new
     @unsubscribe_service = UnsubscribeService.new(unsubscribe_params)
-    render layout: 'external'
+    render layout: "external"
   end
 
   def create
@@ -12,7 +14,7 @@ class UnsubscribesController < ApplicationController
         sign_in_and_move_into_board
       end
 
-      ping('Unsubscribed', { email_type: @service.email_type }, @service.user)
+      ping("Unsubscribed", { email_type: @service.email_type }, @service.user)
       @service.unsubscribe
 
       flash[:success] = "You have been unsubscribed."
@@ -33,7 +35,7 @@ class UnsubscribesController < ApplicationController
       if current_user.present?
         activity_path
       else
-        sign_in_path
+        root_path
       end
     end
 

@@ -10,16 +10,13 @@ class PasswordsController < Clearance::PasswordsController
     user = find_user_for_create
 
     unless user.nil? || user.unclaimed?
-      #   flash.now[:failure] = "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance."
-      #   render template: "passwords/new"
-      # elsif user.unclaimed?
-      #   flash.now[:failure] = "We're sorry, you need to join Airbo before you can reset your password. Please contact support@airbo.com for assistance."
-      #   render template: "passwords/new"
-      # else
       user.forgot_password!
       Mailer.change_password(user).deliver_later
-      # render template: "passwords/create"
       render json: { success: !(user.nil? || user.unclaimed?) }
+    else
+      no_user = "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance."
+      unclaimed = "We're sorry, you need to join Airbo before you can reset your password. Please contact support@airbo.com for assistance."
+      render json: { fail: user.nil? ? no_user : unclaimed  }
     end
   end
 

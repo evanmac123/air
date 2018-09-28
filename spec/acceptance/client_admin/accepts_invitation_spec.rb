@@ -57,12 +57,6 @@ feature "Client Admin Accepts Invitation" do
     fill_in_required_invitation_fields
     click_button "Log in"
 
-    click_link "Sign Out"
-
-    fill_in "session[email]", with: @user.email
-    fill_in "session[password]", with: 'whatwhat'
-    click_button "Log In"
-
     should_be_on explore_path
   end
 
@@ -74,7 +68,7 @@ feature "Client Admin Accepts Invitation" do
     click_link "Sign Out"
     visit invitation_url(@user.invitation_code)
 
-    should_be_on sign_in_path
+    should_be_on root_path
     expect_content logged_out_message
   end
 
@@ -91,7 +85,7 @@ feature "Client Admin Accepts Invitation" do
   scenario "User gets logged in only when accepting invitation, not when at acceptance form" do
     visit invitation_page(@user)
     visit activity_page
-    should_be_on(signin_page)
+    should_be_on(root_path)
     visit invitation_page(@user)
 
     fill_in_required_invitation_fields

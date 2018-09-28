@@ -27,7 +27,7 @@ feature "Potential User Accepts Invitation" do
 
     it "should redirect from any other path to activity path" do
       visit users_path
-      should_be_on sign_in_path
+      should_be_on root_path
     end
 
     context "gives a name" do
