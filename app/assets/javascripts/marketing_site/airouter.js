@@ -17,9 +17,22 @@ Airbo.AiRouter = (function() {
     clearPageContent();
     window.scrollTo(0, 0);
     $body = document.getElementById(routeKey);
-    $body.innerHTML = definedRoutes[routeKey].htmlContent;
-    if (cb) {
-      cb();
+    try {
+      $body.innerHTML = definedRoutes[routeKey].htmlContent || "";
+    } catch (e) {
+      if (!$body) {
+        console.warn(
+          "AiRouter could not find HTML source for routeKey `" +
+            routeKey +
+            "`. Ensure HTML is wrapped with an HTML element containing the class `airoute-" +
+            routeKey +
+            "`"
+        );
+      }
+    } finally {
+      if (cb) {
+        cb();
+      }
     }
   }
 
@@ -50,6 +63,19 @@ Airbo.AiRouter = (function() {
     }
   }
 
+  function getRouteKeyFromPath() {
+    var routeKeys = Object.keys(definedRoutes);
+    var pathname = window.location.pathname;
+    for (var i = 0; i <= routeKeys.length; i++) {
+      if (i === routeKeys.length) {
+        window.location = "/404.html";
+      }
+      if (definedRoutes[routeKeys[i]].path === pathname) {
+        return routeKeys[i];
+      }
+    }
+  }
+
   function direct_to(e) {
     e.preventDefault();
     var $a = getAElement(e.target);
@@ -64,9 +90,21 @@ Airbo.AiRouter = (function() {
     });
   }
 
+  function handleDirectionalState() {
+    var currentKey = getRouteKeyFromPath();
+    var properKey = currentKey.charAt(0).toUpperCase() + currentKey.substr(1);
+    renderPage(currentKey, function() {
+      if (Airbo[properKey]) {
+        Airbo[properKey].init();
+      }
+    });
+  }
+
   function defineRoutes(routes) {
     definedRoutes = routes;
     var routesKeys = Object.keys(routes);
+    var currentKey = getRouteKeyFromPath();
+    var properKey = currentKey.charAt(0).toUpperCase() + currentKey.substr(1);
     for (var i = 0; i < routesKeys.length; i++) {
       $routeContent = document.getElementById(routesKeys[i]);
       if ($routeContent) {
@@ -77,9 +115,13 @@ Airbo.AiRouter = (function() {
       }
       $(document).on("click", "a.airoute-" + routesKeys[i], direct_to);
     }
-    var curr;
-    renderPage();
-    document.getElementById("airoute-yield").style.display = "initial";
+    renderPage(currentKey, function() {
+      if (Airbo[properKey]) {
+        Airbo[properKey].init();
+      }
+      document.getElementById("airoute-yield").style.display = "initial";
+    });
+    window.addEventListener("popstate", handleDirectionalState);
   }
 
   return {
