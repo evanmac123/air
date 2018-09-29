@@ -252,6 +252,22 @@ Airbo.MarketingSite.Base = (function() {
   }
 
   function init() {
+    Airbo.AiRouter.defineRoutes({
+      root: { path: "/" },
+      hello: {
+        path: "/hello",
+        title: "Airbo says HELLO"
+      },
+      privacy: {
+        path: "/privacy_policy",
+        title: "Airbo - Privacy Policy"
+      },
+      terms: {
+        path: "/terms",
+        title: "Airbo - Terms"
+      }
+    });
+
     $(".js-request-demo").click(triggerDemoRequestModal);
     $(".js-login").click(triggerLoginModal);
     $(document).on("click", "#set_or_reset_password", resetPassword);
