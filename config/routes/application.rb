@@ -57,7 +57,6 @@ get "marketing_site_home" => 'pages#home', as: 'marketing_site_home'
 get "pages/gallery" => 'pages#gallery', as: 'gallery'
 get "/privacy_policy" => 'pages#home', as: 'privacy'
 get "/terms" => 'pages#home', as: 'terms'
-get "/hello" => 'pages#home', as: 'hello'
 
 resources :boards, only: [:new, :create, :update]
 resources :copy_boards, only: [:create]

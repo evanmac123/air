@@ -254,10 +254,6 @@ Airbo.MarketingSite.Base = (function() {
   function init() {
     Airbo.AiRouter.defineRoutes({
       root: { path: "/" },
-      hello: {
-        path: "/hello",
-        title: "Airbo says HELLO"
-      },
       privacy: {
         path: "/privacy_policy",
         title: "Airbo - Privacy Policy"
