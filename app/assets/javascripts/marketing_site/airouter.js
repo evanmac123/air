@@ -119,7 +119,7 @@ Airbo.AiRouter = (function() {
       if (Airbo[properKey]) {
         Airbo[properKey].init();
       }
-      document.getElementById("airoute-yield").style.display = "initial";
+      document.getElementById("airoute-yield").style.display = "inherit";
     });
     window.addEventListener("popstate", handleDirectionalState);
   }
