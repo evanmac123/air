@@ -40,7 +40,7 @@ feature "User Accepts Invitation" do
       visit invitation_url(@unclaimed_user.invitation_code)
 
       should_be_on root_path
-      expect_content logged_out_message
+      expect(page).to have_selector('#flash', visible: false, text: logged_out_message)
     end
   end
 

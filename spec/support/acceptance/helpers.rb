@@ -13,6 +13,10 @@ module SteakHelperMethods
     user.update_attribute :session_count, 10              # Uses 'facebox'  css selectors
   end
 
+  def wait_for_page_load
+    page.has_css?('session[email]')
+  end
+
   def fill_in_signin_fields(user, password)
     visit signin_page
     fill_in "session[email]", :with => user.email
@@ -22,6 +26,7 @@ module SteakHelperMethods
   def signin_as(user, password)
     #Note: In controller specs you can just use Clearance's sign_in_as(user) method instead
     # Or even try Clearance's sign_in() -- it creates a user for you
+    wait_for_page_load
     fill_in_signin_fields(user, password)
     click_button "Sign In"
   end
