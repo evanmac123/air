@@ -23,6 +23,6 @@ feature 'Clicking through digest from another board when claimed and logged out'
   scenario 'does not get logged in as client admin' do
     @user.update_attributes(is_client_admin:true)
     visit_in_email "Start"
-    expect_content logged_out_message
+    expect(page).to have_selector('#flash', visible: false, text: logged_out_message)
   end
 end

@@ -4,6 +4,7 @@ feature "User interacts with the 'Forgot password?' functionality", js: true do
 
   before(:each) do
     visit root_path(sign_in: true)
+    wait_for_page_load
     find('#set_or_reset_password').click
   end
 

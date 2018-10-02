@@ -59,7 +59,7 @@ class ClientAdminTiles extends Component {
     this.scrollState.removeOnScroll();
     window.Airbo.PubSub.unsubscribe("reactTileChangeHandler");
     window.Airbo.PubSub.unsubscribe("/tile-admin/tile-deleted");
-    window.addEventListener("popstate", this.selectStatus);
+    window.removeEventListener("popstate", this.selectStatus);
   }
 
   populateCampaigns(openAlert) {
