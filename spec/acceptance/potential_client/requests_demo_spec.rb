@@ -5,6 +5,7 @@ feature "Potential user requests demo", js: true do
     context "when I visit the marketing page and request a demo" do
       it "should send an email to sales notifying a demo request" do
         visit new_demo_request_path
+        page.has_css?('lead_contact[name]')
 
         fill_in('lead_contact[name]', with: "Test")
         fill_in('lead_contact[email]', with: "test@example.com")

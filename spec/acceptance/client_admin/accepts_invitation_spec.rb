@@ -69,7 +69,7 @@ feature "Client Admin Accepts Invitation" do
     visit invitation_url(@user.invitation_code)
 
     should_be_on root_path
-    expect_content logged_out_message
+    expect(page).to have_selector('#flash', visible: false, text: logged_out_message)
   end
 
   scenario "and gets no email after accepting invitation" do

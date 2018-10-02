@@ -234,8 +234,11 @@ feature 'Client admin and the digest email for tiles' do
               end
 
               click_email_link_matching email_link
-
-              expect(page).to have_content page_text_1
+              if page_text_1 == "Sign In"
+                expect(page).to have_selector('#logoAndNav', visible: false, text: page_text_1)
+              else
+                expect(page).to have_content page_text_1
+              end
             end
           end
         end
