@@ -125,7 +125,7 @@ class Explore extends Component {
         loading: false,
       };
       response.forEach(resp => {
-        initCampaignState[`tilePageLoaded${resp.id}`] = ( resp.tiles.length < 28 ? 0 : 1 );
+        initCampaignState[`tilePageLoaded${resp.id}`] = ( resp.tiles.length < 26 ? 0 : 1 );
         initCampaignState.campaigns.push(CampaignApi.sanitizeCampaignResponse(resp));
         initCampaignState[`campaignTiles${resp.id}`] = resp.tiles;
       });
@@ -148,7 +148,7 @@ class Explore extends Component {
         loading: false,
         scrollLoading: false,
       };
-      newState[`tilePageLoaded${campaign.id}`] = ( response.length < 28 ? 0 : page );
+      newState[`tilePageLoaded${campaign.id}`] = ( response.length < 26 ? 0 : page );
       newState[`campaignTiles${campaign.id}`] = (this.state[`campaignTiles${campaign.id}`] || []).concat(response);
       this.setState(newState);
     });
