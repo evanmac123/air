@@ -2,24 +2,16 @@
 
 class UserProgressPresenter
   include ActionView::Helpers::NumberHelper
+  attr_reader :available_tile_count, :completed_tile_count, :some_tiles_undone
 
   def initialize(user, raffle, browser)
     @user = user
     @raffle = raffle
     @browser = browser
     @demo = user.demo
-  end
-
-  def available_tile_count
-    @user.available_tiles_for_points_progress.count
-  end
-
-  def completed_tile_count
-    @user.completed_tiles_for_points_progress.count
-  end
-
-  def some_tiles_undone?
-    available_tile_count != completed_tile_count
+    @available_tile_count = @user.available_tiles_for_points_progress.count
+    @completed_tile_count = @user.completed_tiles_for_points_progress.count
+    @some_tiles_undone = @available_tile_count != @completed_tile_count
   end
 
   def points
