@@ -214,6 +214,13 @@ Airbo.MarketingSite.Base = (function() {
               } else {
                 swal("Something went wrong", resp.fail, "warning");
               }
+            },
+            error: function() {
+              swal(
+                "Something went wrong",
+                "We're unable to process your request at this time.",
+                "warning"
+              );
             }
           });
         } else {
