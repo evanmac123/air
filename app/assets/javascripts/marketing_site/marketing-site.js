@@ -193,41 +193,47 @@ Airbo.MarketingSite.Base = (function() {
           closeModal: false
         }
       }
-    }).then(function(submit) {
-      if (submit) {
-        var vals = getValues("password", ["email"]);
-        if (allFieldsValid(vals["password"])) {
-          $.ajax({
-            headers: {
-              "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
-            },
-            type: "POST",
-            url: "/passwords",
-            data: vals,
-            success: function(resp) {
-              if (resp.success) {
+    })
+      .then(function(submit) {
+        if (submit) {
+          var vals = getValues("password", ["email"]);
+          if (allFieldsValid(vals["password"])) {
+            $.ajax({
+              headers: {
+                "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+              },
+              type: "POST",
+              url: "/passwords",
+              data: vals,
+              success: function(resp) {
+                if (resp.success) {
+                  swal(
+                    "Processing your reset password request",
+                    "Please check your email shortly for more information.",
+                    "success"
+                  );
+                } else {
+                  swal("Something went wrong", resp.fail, "warning");
+                }
+              },
+              error: function() {
                 swal(
-                  "Processing your reset password request",
-                  "Please check your email shortly for more information.",
-                  "success"
+                  "Something went wrong",
+                  "We're unable to process your request at this time.",
+                  "warning"
                 );
-              } else {
-                swal("Something went wrong", resp.fail, "warning");
               }
-            },
-            error: function() {
-              swal(
-                "Something went wrong",
-                "We're unable to process your request at this time.",
-                "warning"
-              );
-            }
-          });
+            });
+          } else {
+            resetPassword(e, "errors");
+          }
         } else {
           resetPassword(e, "errors");
         }
-      }
-    });
+      })
+      .catch(function() {
+        resetPassword(e, "errors");
+      });
   }
 
   function toggleHamburgerMenu(e, close) {
