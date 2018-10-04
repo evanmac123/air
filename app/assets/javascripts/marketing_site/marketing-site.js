@@ -216,7 +216,7 @@ Airbo.MarketingSite.Base = (function() {
                   swal("Something went wrong", resp.fail, "warning");
                 }
               },
-              error: function() {
+              error: function(resp) {
                 swal(
                   "Something went wrong",
                   "We're unable to process your request at this time.",
@@ -225,14 +225,26 @@ Airbo.MarketingSite.Base = (function() {
               }
             });
           } else {
-            resetPassword(e, "errors");
+            swal(
+              "Something went wrong",
+              "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance.",
+              "warning"
+            );
           }
         } else {
-          resetPassword(e, "errors");
+          swal(
+            "Something went wrong",
+            "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance.",
+            "warning"
+          );
         }
       })
       .catch(function() {
-        resetPassword(e, "errors");
+        swal(
+          "Something went wrong",
+          "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance.",
+          "warning"
+        );
       });
   }
 
