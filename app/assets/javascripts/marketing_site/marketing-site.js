@@ -193,34 +193,59 @@ Airbo.MarketingSite.Base = (function() {
           closeModal: false
         }
       }
-    }).then(function(submit) {
-      if (submit) {
-        var vals = getValues("password", ["email"]);
-        if (allFieldsValid(vals["password"])) {
-          $.ajax({
-            headers: {
-              "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
-            },
-            type: "POST",
-            url: "/passwords",
-            data: vals,
-            success: function(resp) {
-              if (resp.success) {
+    })
+      .then(function(submit) {
+        if (submit) {
+          var vals = getValues("password", ["email"]);
+          if (allFieldsValid(vals["password"])) {
+            $.ajax({
+              headers: {
+                "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+              },
+              type: "POST",
+              url: "/passwords",
+              data: vals,
+              success: function(resp) {
+                if (resp.success) {
+                  swal(
+                    "Processing your reset password request",
+                    "Please check your email shortly for more information.",
+                    "success"
+                  );
+                } else {
+                  swal("Something went wrong", resp.fail, "warning");
+                }
+              },
+              error: function(resp) {
                 swal(
-                  "Processing your reset password request",
-                  "Please check your email shortly for more information.",
-                  "success"
+                  "Something went wrong",
+                  "We're unable to process your request at this time.",
+                  "warning"
                 );
-              } else {
-                swal("Something went wrong", resp.fail, "warning");
               }
-            }
-          });
+            });
+          } else {
+            swal(
+              "Something went wrong",
+              "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance.",
+              "warning"
+            );
+          }
         } else {
-          resetPassword(e, "errors");
+          swal(
+            "Something went wrong",
+            "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance.",
+            "warning"
+          );
         }
-      }
-    });
+      })
+      .catch(function() {
+        swal(
+          "Something went wrong",
+          "We're sorry, we can't find your email address in our records. Please contact support@airbo.com for assistance.",
+          "warning"
+        );
+      });
   }
 
   function toggleHamburgerMenu(e, close) {
