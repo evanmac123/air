@@ -68,7 +68,7 @@ Airbo.AiRouter = (function() {
     var pathname = window.location.pathname;
     for (var i = 0; i <= routeKeys.length; i++) {
       if (i === routeKeys.length) {
-        window.location = "/404.html";
+        return false;
       }
       if (definedRoutes[routeKeys[i]].path === pathname) {
         return routeKeys[i];
@@ -104,24 +104,28 @@ Airbo.AiRouter = (function() {
     definedRoutes = routes;
     var routesKeys = Object.keys(routes);
     var currentKey = getRouteKeyFromPath();
-    var properKey = currentKey.charAt(0).toUpperCase() + currentKey.substr(1);
-    for (var i = 0; i < routesKeys.length; i++) {
-      $routeContent = document.getElementById(routesKeys[i]);
-      if ($routeContent) {
-        definedRoutes[routesKeys[i]].htmlContent = $routeContent.innerHTML;
-        $routeContent.innerHTML = "";
-      } else {
-        definedRoutes[routesKeys[i]].htmlContent = "";
+    if (currentKey) {
+      var properKey = currentKey.charAt(0).toUpperCase() + currentKey.substr(1);
+      for (var i = 0; i < routesKeys.length; i++) {
+        $routeContent = document.getElementById(routesKeys[i]);
+        if ($routeContent) {
+          definedRoutes[routesKeys[i]].htmlContent = $routeContent.innerHTML;
+          $routeContent.innerHTML = "";
+        } else {
+          definedRoutes[routesKeys[i]].htmlContent = "";
+        }
+        $(document).on("click", "a.airoute-" + routesKeys[i], direct_to);
       }
-      $(document).on("click", "a.airoute-" + routesKeys[i], direct_to);
-    }
-    renderPage(currentKey, function() {
-      if (Airbo[properKey]) {
-        Airbo[properKey].init();
-      }
+      renderPage(currentKey, function() {
+        if (Airbo[properKey]) {
+          Airbo[properKey].init();
+        }
+        document.getElementById("airoute-yield").style.display = "inherit";
+      });
+      window.addEventListener("popstate", handleDirectionalState);
+    } else {
       document.getElementById("airoute-yield").style.display = "inherit";
-    });
-    window.addEventListener("popstate", handleDirectionalState);
+    }
   }
 
   return {
