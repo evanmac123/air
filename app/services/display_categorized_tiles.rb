@@ -1,61 +1,45 @@
 # frozen_string_literal: true
 
 class DisplayCategorizedTiles
-  def initialize(user, maximum_tiles)
-    @user = user
-    @demo = @user.demo
-    @maximum_tiles = maximum_tiles
-  end
+  def self.displayable_categorized_tiles(user, maximum_tiles, current_board = nil)
+    demo = current_board || user.demo
+    result = satisfiable_tiles_categorized_to_user(user, demo, maximum_tiles)
 
-  def displayable_categorized_tiles
-    result = satisfiable_tiles_categorized_to_user
+    return result unless maximum_tiles
 
-    return result unless @maximum_tiles
+    length_not_completed = result[:not_completed_tiles].length
+    length_completed = result[:completed_tiles].length
 
-    result[:all_tiles_displayed] = false  # default variant. it will be changed later if wrong
-
-    length_not_completed = result[:not_completed_tiles].count
-    length_completed = result[:completed_tiles].count
-
-    if length_not_completed > @maximum_tiles
-      result[:not_completed_tiles] = result[:not_completed_tiles].first(@maximum_tiles)
+    if length_not_completed > maximum_tiles
+      result[:not_completed_tiles] = result[:not_completed_tiles].first(maximum_tiles)
       result[:completed_tiles] = nil
-    elsif (length_not_completed + length_completed) > @maximum_tiles
-      result[:completed_tiles] = result[:completed_tiles].first(@maximum_tiles - length_not_completed)
+    elsif (length_not_completed + length_completed) > maximum_tiles
+      result[:completed_tiles] = result[:completed_tiles].first(maximum_tiles - length_not_completed)
     else
       result[:all_tiles_displayed] = true
     end
     result
   end
 
-  protected
+  private
 
-    def satisfiable_tiles_categorized_to_user
+    def self.satisfiable_tiles_categorized_to_user(user, demo, maximum_tiles)
       {
-        completed_tiles:      completed_tiles,
-        not_completed_tiles:  not_completed_tiles
+        completed_tiles:      all_completed_tiles(user, demo).order("tile_completions.id DESC").limit(maximum_tiles + 1).to_a,
+        not_completed_tiles:  not_completed_tiles(user, demo).limit(maximum_tiles + 1).to_a,
+        all_tiles_displayed:  false
       }
     end
 
-    def tiles_due_in_demo
-      @demo.tiles.active.segmented_for_user(@user)
+    def self.tiles_due_in_demo(user, demo)
+      demo.tiles.active.segmented_for_user(user)
     end
 
-    def completed_tiles
-      @completed_tiles ||= all_completed_tiles
+    def self.all_completed_tiles(user, demo)
+      demo.tiles.joins(:tile_completions).where(tile_completions: { user_id: user.id, user_type: user.class.to_s })
     end
 
-    def all_completed_tiles
-      @demo.tiles.joins(:tile_completions).where(tile_completions: { user_id: @user.id, user_type: @user.class.to_s }).order("tile_completions.id DESC")
-    end
-
-    def active_completed_tiles
-      completed_tiles.where(status: Tile::ACTIVE)
-    end
-
-    def not_completed_tiles
-      completed_ids = completed_tiles.pluck(:id)
-
-      tiles_due_in_demo.where.not(id: completed_ids).order(position: :desc)
+    def self.not_completed_tiles(user, demo)
+      tiles_due_in_demo(user, demo).where.not(id: all_completed_tiles(user, demo).select(:id)).order(position: :desc)
     end
 end
