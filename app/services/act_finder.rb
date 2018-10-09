@@ -35,15 +35,14 @@ class ActFinder
   end
 
   def display_all_board_acts
-    # NEED TO FIX THIS!! -- CAUSING 80% SLOWDOWN!!
-    # Act.find_by_sql("SELECT  \"acts\".* FROM \"acts\" WHERE \"acts\".id = (SELECT MAX(\"acts\".id) FROM \"acts\" WHERE \"acts\".\"demo_id\" = 32) LIMIT 5 OFFSET 0")
     board.acts.order(id: :desc).page(page).per(per_page)
   end
 
   def display_friends_acts
-    friends = user.displayable_accepted_friends
-    viewable_user_ids = friends.pluck(:id) + [user.id]
-
-    board.acts.user_acts.unhidden.where("(user_id in (?) or privacy_level='everybody')", viewable_user_ids).order(id: :desc).page(page).per(per_page)
+    board.acts.user_acts.unhidden
+      .where("(user_id=? OR user_id in (?) OR privacy_level='everybody')", user.id, user.displayable_accepted_friends.select(:id))
+      .order(id: :desc)
+      .page(page)
+      .per(per_page)
   end
 end
