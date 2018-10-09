@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TileBatchHelper
   def tile_batch_size
     case device_type
@@ -18,8 +20,6 @@ module TileBatchHelper
     case device_type
     when :mobile
       2
-    when :tablet
-      4
     else
       4
     end
