@@ -17,7 +17,7 @@ class ActsController < ApplicationController
 
     set_modals_and_intros
 
-    @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size)
+    @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size, @demo)
 
     decide_if_tiles_can_be_done(@displayable_categorized_tiles[:not_completed_tiles])
   end
