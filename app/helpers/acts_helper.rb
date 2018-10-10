@@ -15,8 +15,9 @@ module ActsHelper
     flash.now[:success] = [welcome_message]
   end
 
-  def decide_if_tiles_can_be_done(satisfiable_tiles)
-    @all_tiles_done = satisfiable_tiles.empty?
+# TODO: Fix wording and make single responsibility
+  def decide_if_tiles_can_be_done(tile_ids)
+    @all_tiles_done = tile_ids.empty?
     @no_tiles_to_do = current_user.demo.tiles.active.empty?
   end
 

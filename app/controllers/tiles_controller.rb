@@ -32,17 +32,15 @@ class TilesController < ApplicationController
 
       @start_tile = find_start_tile
 
-      if params[:tile_id] && @start_tile.nil?
-        redirect_to activity_path
-      end
+      verify_tile_exists
 
-      @current_tile_ids = satisfiable_tiles.pluck(:id)
-      decide_if_tiles_can_be_done(satisfiable_tiles)
+      @current_tile_ids = tiles_to_be_loaded.pluck(:id)
+      # TODO: Fix decide_if_tiles_can_be_done wording and make single responsibility
+      decide_if_tiles_can_be_done(@current_tile_ids)
 
       schedule_viewed_tile_ping(@start_tile)
       increment_tile_views_counter @start_tile, current_user
       session.delete(:start_tile)
-      @hide_cover = true
     end
   end
 
@@ -50,12 +48,24 @@ class TilesController < ApplicationController
     if params[:from_search]
       render_search_tile_viewer
     elsif params[:partial_only]
-      new_tile_was_rendered = render_new_tile
-      if new_tile_was_rendered
-        schedule_viewed_tile_ping(current_tile)
-        increment_tile_views_counter current_tile, current_user
-      end
-      mark_all_completed_tiles
+      # new_tile_was_rendered = render_new_tile
+      # if new_tile_was_rendered
+      #   schedule_viewed_tile_ping(current_tile)
+      #   increment_tile_views_counter current_tile, current_user
+      # end
+      # mark_all_completed_tiles
+      render json: {
+        ending_points: 10,
+        ending_tickets: 1,
+        # flash_content: render_to_string("shared/_flashes", layout: false),
+        tile_content: tile_content(true, false),
+        all_tiles_done: false,
+        show_start_over_button: false,
+        raffle_progress_bar: 1 * 10,
+        all_tiles: 1,
+        completed_tiles: 2
+      }
+
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
@@ -67,6 +77,10 @@ class TilesController < ApplicationController
   end
 
   private
+
+    def verify_tile_exists
+      redirect_to activity_path if params[:tile_id] && @start_tile.nil?
+    end
 
     def find_start_tile
       start_tile = Tile.where(id: start_tile_id).first
@@ -84,7 +98,7 @@ class TilesController < ApplicationController
     end
 
     def first_id
-      satisfiable_tiles.first.try(:id)
+      tiles_to_be_loaded.first.try(:id)
     end
 
     def render_search_tile_viewer
@@ -98,6 +112,7 @@ class TilesController < ApplicationController
 
     def render_new_tile
       after_posting = params[:afterPosting] == "true"
+      # TODO: No need to make this query
       all_tiles_done = user_tiles_to_complete.empty?
       all_tiles = current_user.available_tiles_for_points_progress.count
       completed_tiles = current_user.completed_tiles_for_points_progress.count
@@ -112,7 +127,7 @@ class TilesController < ApplicationController
         all_tiles: all_tiles,
         completed_tiles: completed_tiles
       }
-      !(all_tiles_done && after_posting)
+      return !(all_tiles_done && after_posting)
     end
 
     def tile_content(all_tiles_done, after_posting)
@@ -125,7 +140,7 @@ class TilesController < ApplicationController
     end
 
     def current_tile_index
-      @idx ||= if satisfiable_tiles.empty?
+      @idx ||= if tiles_to_be_loaded.empty?
         0
       elsif not previous_tile_ids.empty?
         (previous_tile_index + params[:offset].to_i) % (current_tile_ids.length > 0 ? current_tile_ids.length : 1)
@@ -158,7 +173,7 @@ class TilesController < ApplicationController
 
     def current_tile_ids
       @current_tile_ids ||= begin
-        not_completed_tile_ids = satisfiable_tiles.map(&:id)
+        not_completed_tile_ids = tiles_to_be_loaded.map(&:id)
         new_tile_ids = not_completed_tile_ids - previous_tile_ids
         current_tile_ids = previous_tile_ids + new_tile_ids
         current_tile_ids
@@ -183,17 +198,19 @@ class TilesController < ApplicationController
       render json: { htmlContent: html_content }
     end
 
+    def user_started_on_completed_tile?
+      session[:start_tile] && current_user.tile_completions.where(tile_id: session[:start_tile]).exists?
+    end
+
     def show_completed_tiles
-      @show_completed_tiles ||= (params[:completed_only] == "true") ||
-        (session[:start_tile] &&
-          current_user.tile_completions.where(tile_id: session[:start_tile]).exists?) || false
+      @show_completed_tiles ||= (params[:completed_only] == "true") || user_started_on_completed_tile?
     end
 
     def user_tiles_to_complete
       current_user.tiles_to_complete_in_demo
     end
 
-    def satisfiable_tiles
+    def tiles_to_be_loaded
       if show_completed_tiles
         current_user.completed_tiles_in_demo
       else
