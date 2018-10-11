@@ -32,6 +32,8 @@ class TilesController < ApplicationController
 
       @start_tile = find_start_tile
 
+      @raffle = @demo.live_raffle.id
+
       verify_tile_exists
 
       @current_tile_ids = tiles_to_be_loaded.pluck(:id)
@@ -56,7 +58,7 @@ class TilesController < ApplicationController
         schedule_viewed_tile_ping(current_tile)
         increment_tile_views_counter current_tile, current_user
       end
-      # mark_all_completed_tiles
+      mark_all_completed_tiles if all_tiles_done
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
@@ -92,6 +94,10 @@ class TilesController < ApplicationController
       tiles_to_be_loaded.first.try(:id)
     end
 
+    def live_raffle?
+      params[:raffle] && !params[:raffle].empty?
+    end
+
     def render_search_tile_viewer
       ping("Tile - Viewed in Search", { tile_id: params[:id], tile_type: "User" }, current_user)
 
@@ -102,29 +108,15 @@ class TilesController < ApplicationController
     end
 
     def render_new_tile(after_posting, all_tiles_done)
-      # all_tiles = current_user.available_tiles_for_points_progress.count
-      # completed_tiles = current_user.completed_tiles_for_points_progress.count
-      # render json: {
-      #   ending_points: current_user.points,
-      #   ending_tickets: current_user.tickets,
-      #   flash_content: render_to_string("shared/_flashes", layout: false),
-      #   tile_content: tile_content(all_tiles_done, after_posting),
-      #   all_tiles_done: all_tiles_done,
-      #   show_start_over_button: current_user.can_start_over?,
-      #   raffle_progress_bar: raffle_progress_bar * 10,
-      #   all_tiles: all_tiles,
-      #   completed_tiles: completed_tiles
-      # }
-      # binding.pry
       completed_tiles = params[:answered].try(:length) || 0
       render json: {
-        ending_points: 10,
-        ending_tickets: 1,
+        ending_points: params[:totalPoints] || current_user.points,
+        ending_tickets: live_raffle? ? 0 : current_user.tickets,
         flash_content: render_to_string("shared/_flashes", layout: false),
         tile_content: tile_content(all_tiles_done, after_posting),
         all_tiles_done: all_tiles_done,
-        show_start_over_button: false,
-        raffle_progress_bar: 1 * 10,
+        show_start_over_button: current_user.can_start_over?,
+        raffle_progress_bar: live_raffle? ? 0 : raffle_progress_bar * 10,
         all_tiles: params[:previous_tile_ids].split(",").length,
         completed_tiles: completed_tiles
       }
@@ -230,9 +222,7 @@ class TilesController < ApplicationController
     end
 
     def mark_all_completed_tiles
-      if user_tiles_to_complete.empty?
-        current_user.not_show_all_completed_tiles_in_progress
-      end
+      current_user.not_show_all_completed_tiles_in_progress
     end
 
     def increment_tile_views_counter(tile, user)

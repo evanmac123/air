@@ -3,6 +3,7 @@ var Airbo = window.Airbo || {};
 Airbo.UserTilePreview = (function() {
   var nextTileParams = {};
   var answered = [];
+  var totalPoints;
 
   function showOrHideStartOverButton(showFlag) {
     if (showFlag) {
@@ -55,13 +56,23 @@ Airbo.UserTilePreview = (function() {
   }
 
   function getTileAfterAnswer(responseText) {
+    totalPoints =
+      (totalPoints ||
+        parseInt(
+          $(".user_container")
+            .data("config")
+            .points.replace(/,/g, ""),
+          10
+        )) + $(".tile_holder").data("point-value");
     if (answered.indexOf($(".tile_holder").data("current-tile-id")) === -1) {
       answered.push($(".tile_holder").data("current-tile-id"));
     }
     var params = $.extend(nextTileParams, {
       offset: 1,
       afterPosting: true,
-      answered: answered
+      answered: answered,
+      raffle: $(".viewer").data("live-raffle"),
+      totalPoints: totalPoints
     });
     var cb = function(data, status, xhr) {
       var handler = function() {
