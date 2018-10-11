@@ -2,6 +2,7 @@ var Airbo = window.Airbo || {};
 
 Airbo.UserTilePreview = (function() {
   var nextTileParams = {};
+  var answered = [];
 
   function showOrHideStartOverButton(showFlag) {
     if (showFlag) {
@@ -54,8 +55,14 @@ Airbo.UserTilePreview = (function() {
   }
 
   function getTileAfterAnswer(responseText) {
-    var params = $.extend(nextTileParams, { offset: 1, afterPosting: true });
-
+    if (answered.indexOf($(".tile_holder").data("current-tile-id")) === -1) {
+      answered.push($(".tile_holder").data("current-tile-id"));
+    }
+    var params = $.extend(nextTileParams, {
+      offset: 1,
+      afterPosting: true,
+      answered: answered
+    });
     var cb = function(data, status, xhr) {
       var handler = function() {
         if (Airbo.UserTilePreview.fromSearch !== true) {

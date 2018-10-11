@@ -48,24 +48,15 @@ class TilesController < ApplicationController
     if params[:from_search]
       render_search_tile_viewer
     elsif params[:partial_only]
-      # new_tile_was_rendered = render_new_tile
-      # if new_tile_was_rendered
-      #   schedule_viewed_tile_ping(current_tile)
-      #   increment_tile_views_counter current_tile, current_user
-      # end
+      answered = params[:answered] || []
+      after_posting = params[:afterPosting] == "true"
+      all_tiles_done = params[:previous_tile_ids].split(",").length == answered.length
+      render_new_tile(after_posting, all_tiles_done)
+      unless all_tiles_done && after_posting
+        schedule_viewed_tile_ping(current_tile)
+        increment_tile_views_counter current_tile, current_user
+      end
       # mark_all_completed_tiles
-      render json: {
-        ending_points: 10,
-        ending_tickets: 1,
-        # flash_content: render_to_string("shared/_flashes", layout: false),
-        tile_content: tile_content(true, false),
-        all_tiles_done: false,
-        show_start_over_button: false,
-        raffle_progress_bar: 1 * 10,
-        all_tiles: 1,
-        completed_tiles: 2
-      }
-
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
@@ -110,24 +101,33 @@ class TilesController < ApplicationController
       }
     end
 
-    def render_new_tile
-      after_posting = params[:afterPosting] == "true"
-      # TODO: No need to make this query
-      all_tiles_done = user_tiles_to_complete.empty?
-      all_tiles = current_user.available_tiles_for_points_progress.count
-      completed_tiles = current_user.completed_tiles_for_points_progress.count
+    def render_new_tile(after_posting, all_tiles_done)
+      # all_tiles = current_user.available_tiles_for_points_progress.count
+      # completed_tiles = current_user.completed_tiles_for_points_progress.count
+      # render json: {
+      #   ending_points: current_user.points,
+      #   ending_tickets: current_user.tickets,
+      #   flash_content: render_to_string("shared/_flashes", layout: false),
+      #   tile_content: tile_content(all_tiles_done, after_posting),
+      #   all_tiles_done: all_tiles_done,
+      #   show_start_over_button: current_user.can_start_over?,
+      #   raffle_progress_bar: raffle_progress_bar * 10,
+      #   all_tiles: all_tiles,
+      #   completed_tiles: completed_tiles
+      # }
+      # binding.pry
+      completed_tiles = params[:answered].try(:length) || 0
       render json: {
-        ending_points: current_user.points,
-        ending_tickets: current_user.tickets,
+        ending_points: 10,
+        ending_tickets: 1,
         flash_content: render_to_string("shared/_flashes", layout: false),
         tile_content: tile_content(all_tiles_done, after_posting),
         all_tiles_done: all_tiles_done,
-        show_start_over_button: current_user.can_start_over?,
-        raffle_progress_bar: raffle_progress_bar * 10,
-        all_tiles: all_tiles,
+        show_start_over_button: false,
+        raffle_progress_bar: 1 * 10,
+        all_tiles: params[:previous_tile_ids].split(",").length,
         completed_tiles: completed_tiles
       }
-      return !(all_tiles_done && after_posting)
     end
 
     def tile_content(all_tiles_done, after_posting)
