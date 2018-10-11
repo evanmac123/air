@@ -4,7 +4,7 @@ module User::Tiles
   def tiles_to_complete_in_demo
     return [] unless demo
 
-    segmented_tiles_for_user.where.not(id: tile_completions.select(:tile_id)).ordered_by_position
+    segmented_tiles_for_user.where.not(id: tile_completions.pluck(:tile_id)).ordered_by_position
   end
 
   def segmented_tiles_for_user
