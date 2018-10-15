@@ -53,12 +53,7 @@ class TilesController < ApplicationController
       answered = params[:answered] || []
       after_posting = params[:afterPosting] == "true"
       all_tiles_done = params[:previous_tile_ids].split(",").length == answered.length
-      render_new_tile(after_posting, all_tiles_done)
-      unless all_tiles_done && after_posting
-        schedule_viewed_tile_ping(current_tile)
-        increment_tile_views_counter current_tile, current_user
-      end
-      mark_all_completed_tiles if all_tiles_done
+      render_single_tile_for_viewer(answered, after_posting, all_tiles_done)
     else
       session[:start_tile] = params[:id]
       if params[:public_slug]
@@ -98,6 +93,11 @@ class TilesController < ApplicationController
       params[:raffle] && !params[:raffle].empty?
     end
 
+    def mark_as_viewed
+      schedule_viewed_tile_ping(current_tile)
+      increment_tile_views_counter current_tile, current_user
+    end
+
     def render_search_tile_viewer
       ping("Tile - Viewed in Search", { tile_id: params[:id], tile_type: "User" }, current_user)
 
@@ -120,6 +120,12 @@ class TilesController < ApplicationController
         all_tiles: params[:previous_tile_ids].split(",").length,
         completed_tiles: completed_tiles
       }
+    end
+
+    def render_single_tile_for_viewer(answered, after_posting, all_tiles_done)
+      render_new_tile(after_posting, all_tiles_done)
+      mark_as_viewed unless all_tiles_done && after_posting
+      mark_all_completed_tiles if all_tiles_done
     end
 
     def tile_content(all_tiles_done, after_posting)
