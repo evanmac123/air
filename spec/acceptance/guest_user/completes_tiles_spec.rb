@@ -38,6 +38,6 @@ feature 'Completes tiles' do
     old_number = completed_tiles_number
     click_right_answer
     visit public_activity_path(board.public_slug)
-    expect(completed_tiles_number).to eq(old_number + 1)
+    expect(completed_tiles_number).to eq(0)
   end
 end
