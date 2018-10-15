@@ -9,8 +9,8 @@ class UserProgressPresenter
     @raffle = raffle
     @browser = browser
     @demo = user.demo
-    @available_tile_count = @user.available_tiles_for_points_progress.count
-    @completed_tile_count = @user.completed_tiles_for_points_progress.count
+    @available_tile_count = @user.tiles_to_complete_in_demo.count
+    @completed_tile_count = 0
     @some_tiles_undone = @available_tile_count != @completed_tile_count
   end
 
