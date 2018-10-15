@@ -141,7 +141,7 @@ Airbo.ProgressAndPrizeBar = (function() {
     }
     newWidth = parseInt(fullWidth * completedTiles / allTiles);
 
-    if (completedTiles === 0) {
+    if (completedTiles === 0 && allTiles !== 0) {
       newWidth = 0;
     } else if (minWidth > newWidth) {
       newWidth = minWidth;
@@ -182,13 +182,12 @@ Airbo.ProgressAndPrizeBar = (function() {
   function showTileNumbers(allTiles, completedTiles) {
     tileCompleteData.css("display", "block"); //show earned points
     tileAll.css("display", "block").css("visibility", "visible"); //show all points
-
-    if (allTiles == 0 || completedTiles == 0) {
-      tileCompletedBar.css("display", "none");
-    } else if (allTiles == completedTiles) {
+    if (allTiles == completedTiles) {
       tileCompleteData.css("display", "none");
       tileCongrat.css("display", "block");
       tileAll.css("display", "none");
+    } else if (allTiles == 0 || completedTiles == 0) {
+      tileCompletedBar.css("display", "none");
     }
   }
 
