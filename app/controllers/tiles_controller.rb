@@ -111,12 +111,12 @@ class TilesController < ApplicationController
       completed_tiles = params[:answered].try(:length) || 0
       render json: {
         ending_points: params[:totalPoints] || current_user.points,
-        ending_tickets: live_raffle? ? 0 : current_user.tickets,
+        ending_tickets: live_raffle? ? current_user.tickets : 0,
         flash_content: render_to_string("shared/_flashes", layout: false),
         tile_content: tile_content(all_tiles_done, after_posting),
         all_tiles_done: all_tiles_done,
         show_start_over_button: current_user.can_start_over?,
-        raffle_progress_bar: live_raffle? ? 0 : raffle_progress_bar * 10,
+        raffle_progress_bar: live_raffle? ? raffle_progress_bar * 10 : 0,
         all_tiles: params[:previous_tile_ids].split(",").length,
         completed_tiles: completed_tiles
       }
