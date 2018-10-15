@@ -32,7 +32,7 @@ class TilesController < ApplicationController
 
       @start_tile = find_start_tile
 
-      @raffle = @demo.live_raffle.id
+      @raffle = @demo.live_raffle.try(:id)
 
       verify_tile_exists
 
