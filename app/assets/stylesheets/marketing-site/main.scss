@@ -1,14 +1,12 @@
 //homepage -- CSS held over for pages#gallery
-@import './mixins/marketing-site-value-props';
-//
-
+@import './mixins/marketing-site-value-props'; //
 //Front theme styling
 @import './front-custom/root';
-@import './front-custom/privacy';
-//
+@import './front-custom/privacy'; //
 
 .airbo-marketing-site {
   color: #33445c;
+
   .main {
     min-height: 100%;
   }
@@ -22,18 +20,20 @@
       .wrap {
         text-align: center;
         margin-bottom: 60px;
+
         .final-image {
           width: 50%;
         }
+
         .header {
           margin-top: 0;
           width: 50%;
         }
-
         @media only screen and (max-width: 768px) {
           .final-image {
             width: 100%;
           }
+
           .header {
             width: 100%;
           }
