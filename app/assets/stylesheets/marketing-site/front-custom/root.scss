@@ -1,8 +1,8 @@
 .swal-title {
   font-weight: 200 !important;
 }
-//popup-footer
 
+//popup-footer
 .swal-footer {
   text-align: center;
 }
@@ -360,6 +360,7 @@
     }
   }
 }
+
 @media only screen and (max-width: 990px) {
   .request-demo p {
     font-size: 15px !important;
@@ -373,11 +374,13 @@
     padding-top: 40px;
   }
 }
+
 @media only screen and (max-width: 767px) {
   .navbar-toggler.btn {
     display: inherit !important;
   }
 }
+
 @media only screen and (max-width: 600px) {
   .blue-teal-gradient {
     height: 690px !important;
