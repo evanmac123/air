@@ -1,10 +1,5 @@
 //homepage -- CSS held over for pages#gallery
-@import './mixins/marketing-site-main-hero';
-@import './mixins/marketing-site-secondary-hero';
-@import './mixins/marketing-site-clients-list';
 @import './mixins/marketing-site-value-props';
-@import './mixins/marketing-site-analytics';
-@import './mixins/marketing-site-final-cta';
 //
 
 //Front theme styling
@@ -19,12 +14,7 @@
   }
 
   .marketing-site-home {
-    @include marketing-site-main-hero($bg-image: 'marketing_site/main-hero.png');
-    @include marketing-site-secondary-hero();
-    @include marketing-site-clients-list();
     @include marketing-site-value-props();
-    @include marketing-site-analytics();
-    @include marketing-site-final-cta();
   }
 
   .marketing-site-about {
