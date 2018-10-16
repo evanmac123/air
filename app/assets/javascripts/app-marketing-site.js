@@ -12,7 +12,6 @@
 //= require jquery.validate.additional-methods
 //= require clipboard/dist/clipboard.min.js
 //= require sweetalert/sweetalert.min
-//= require promise-polyfill/src/polyfill.js
 
 //= require airbo
 //= require_tree ./utils
