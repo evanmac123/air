@@ -169,8 +169,6 @@ Airbo.MarketingSite.Base = (function() {
                 }
               }
             });
-          } else {
-            triggerLoginModal(e, "errors");
           }
         }
       })
