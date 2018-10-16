@@ -169,12 +169,11 @@ Airbo.MarketingSite.Base = (function() {
                 }
               }
             });
-          } else {
-            triggerLoginModal(e, "errors");
           }
         }
       })
-      .catch(function() {
+      .catch(function(err) {
+        console.log(err);
         triggerLoginModal(e, "errors");
       });
   }
