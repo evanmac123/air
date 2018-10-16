@@ -172,7 +172,8 @@ Airbo.MarketingSite.Base = (function() {
           }
         }
       })
-      .catch(function() {
+      .catch(function(err) {
+        console.log(err);
         triggerLoginModal(e, "errors");
       });
   }
