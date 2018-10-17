@@ -2,6 +2,17 @@
   font-weight: 200 !important;
 }
 
+//popup-footer
+.swal-footer {
+  text-align: center;
+}
+
+.u-hamburger__inner::before {
+  top: 6.5px;
+  height: 2px;
+  display: block;
+}
+
 .bootstrap-iso {
   p {
     font-size: 20px;
@@ -21,6 +32,7 @@
 
   #homeMegaMenu {
     color: #5A5F69;
+
     &:hover {
       color: black;
     }
@@ -35,7 +47,9 @@
   .navbar-toggler.btn {
     display: none;
 
-    .u-hamburger__inner, .u-hamburger__inner::after, .u-hamburger__inner::before {
+    .u-hamburger__inner,
+    .u-hamburger__inner::after,
+    .u-hamburger__inner::before {
       background-color: $n-blue;
     }
   }
@@ -73,6 +87,10 @@
       height: 650px;
     }
 
+    .blue-teal-gradient .hero-banner p {
+      text-align: center;
+    }
+
     .hero-text {
       visibility: visible;
       margin: 0 auto;
@@ -82,17 +100,16 @@
         text-align: left;
         width: 50%;
         float: left;
-        padding-top: 15%;
+        padding-top: 11%;
       }
 
       h1 {
-        font-size: 47px;
+        font-size: 55px;
       }
 
       p {
         color: $white;
-        text-align: center;
-        margin-bottom: 4em;
+        text-align: left;
         line-height: 1em;
       }
     }
@@ -129,8 +146,8 @@
     -webkit-border-radius: 4px;
     border-radius: 4px;
     display: inline-block;
-    font-size: 14px;
-    font-weight: normal;
+    font-size: 16px;
+    font-weight: bold;
     line-height: 14px;
     text-align: center;
     vertical-align: middle;
@@ -156,6 +173,7 @@
 
     &.btn-invert {
       background-color: $white;
+
       &.square {
         border-radius: 0;
       }
@@ -218,6 +236,11 @@
         line-height: 1.4em;
       }
 
+      .statement {
+        width: 80%;
+        margin-left: 10%;
+      }
+
       .attribute {
         .profile-pic {
           width: 5em;
@@ -228,7 +251,7 @@
 
         .profile-title {
           display: inline-block;
-          padding: 3px 0px 0px 10px;
+          padding: 3px 0 0 10px;
           font-size: 18px;
           text-align: left;
         }
@@ -243,10 +266,14 @@
 
     .stats {
       padding-top: 60px;
-
     }
+
     .company-name {
       color: black;
+    }
+
+    p {
+      margin: 0.5em 0 1em;
     }
   }
 
@@ -267,6 +294,8 @@
       }
 
       .mb-7 {
+        margin-bottom: 40px;
+
         blockquote {
           margin: 1em 0;
         }
@@ -291,7 +320,9 @@
     background-color: $dark-blue;
     margin-bottom: 15px;
 
-    h3, li, a {
+    a,
+    h3,
+    li {
       color: $white;
     }
 
@@ -315,7 +346,7 @@
 
   .copyright {
     display: inline !important;
-    margin: 0px 48%;
+    margin: 0 48%;
     text-align: center;
 
     img {
@@ -330,9 +361,17 @@
   }
 }
 
-@media only screen and (max-width: 880px) {
+@media only screen and (max-width: 990px) {
   .request-demo p {
     font-size: 15px !important;
+  }
+
+  .bootstrap-iso #root .hero-image {
+    top: 100px;
+  }
+
+  .bootstrap-iso #root .hero-text.benefits {
+    padding-top: 40px;
   }
 }
 
@@ -342,7 +381,6 @@
   }
 }
 
-
 @media only screen and (max-width: 600px) {
   .blue-teal-gradient {
     height: 690px !important;
@@ -351,35 +389,58 @@
       font-size: 37px !important;
     }
   }
+
   .hero-image {
-    top: 15px !important;
+    top: 50px !important;
     width: 100vw !important;
     right: -6vw !important;
   }
 
   .hero-banner {
-    padding-top: 48.5vw !important;
+    padding-top: 60.5vw !important;
+    text-align: center;
   }
 
   .hero-text.benefits {
     width: 100% !important;
+    text-align: center !important;
 
     h1 {
       font-size: 1.5rem !important;
+    }
+  }
+
+  .hero-text {
+    p {
       text-align: center !important;
     }
   }
 
   .request-demo p {
-    margin: 0.5em 0% !important;
+    margin: 0.5em 0 !important;
   }
 
   .copyright {
-    margin: 0px 40% !important;
+    margin: 0 40% !important;
   }
 
   .swal-content {
     font-size: x-small !important;
+  }
+
+  .testimonial {
+    .statement {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
+  .u-space-2-top {
+    padding-top: 40px;
+  }
+
+  .bootstrap-iso .quote-block .text-center .mb-4 h1 {
+    font-size: 150%;
   }
 }
 
@@ -387,20 +448,25 @@ ul {
   list-style-type: none;
   padding: 0;
 }
+
 .drawer {
   position: fixed;
-  right: -200px; // Pushes things off screen
-  width: 200px; // Same value
-  top: 0px;
+  right: -300px; // Pushes things off screen
+  width: 300px; // Same value
+  padding: 20px;
+  top: 0;
   height: 100%;
   background-color: $dark-blue;
   overflow-y: scroll; // adds vertical scrollbar
   overflow-x: hidden; // prevents horizontal scrollbar
   color: $white;
+
   a {
     color: $white;
+    font-weight: bold;
     display: block; // anchor tags need to have a display value
-    padding: 10px;
+    padding: 15px;
+
     &:hover {
       background-color: $n-blue;
     }
@@ -408,22 +474,26 @@ ul {
 }
 
 .drawer,
-.wrapper{
+.wrapper {
   transition: all 0.3s ease-out; // Affects returning animations
 }
+
 .open-drawer,
 .open-wrapper {
   transition: all 0.3s ease-out; // Affects first animations
 }
+
 .open-drawer {
   display: initial;
-  right: 0px;
+  right: 0;
 }
-.open-wrapper{
+
+.open-wrapper {
   width: calc(100% - 200px);
   margin-right: 200px;
   position: fixed;
   opacity: 0.3;
+
   .hamburger {
     background-color: black;
   }
