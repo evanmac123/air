@@ -13,52 +13,40 @@ const getRouteVariables = route => (
     if (sect.charAt(0) === ':') { result.push(sect.split(':')[1]); }
     return result;
   }, [])
-)
+);
 
 const generateRouteMatch = re => {
-  const reEscape = /[\-\[\]{}()+?.,\\\^$|#\s]/g;
+  const reEscape = /[\-\[\]{}()+?.,\\\^$|#\s]/g; // eslint-disable-line
   const reParam = /([:*])(\w+)/g;
   const names = [];
-  return re.replace(reEscape, "\\$&").replace(reParam, function(_, mode, name) {
+  return re.replace(reEscape, "\\$&").replace(reParam, (_, mode, name) => {
     names.push(name);
     // :param should capture until the next / or EOL, while *splat should
     // capture until the next :param, *splat, or EOL.
     return mode === ":" ? "([^/]*)" : "(.*)";
   });
-}
+};
 
 const parseRoutes = routes => (
   routes.reduce((result, route) => {
+    /* eslint-disable no-param-reassign */
     result[route] = {
       wildcardEnd: route.split('/')[route.split('/').length - 1] === '*',
       variables: getRouteVariables(route.split('/')),
-    }
+    };
+    /* eslint-enable */
     return result;
-    const splitRoute = route.split('/');
-
   }, {})
 );
-
-const stripWildcard = (givenRoute, currentRoute) => {
-  debugger
-};
-
-const assignCurrentRoute = (routesList) => {
-  const routeNames = Object.keys(routesList);
-  for (var i = 0; i < routeNames.length; i++) {
-    const route = routeNames[i];
-    const url = AiRouter.currentUrl();
-    const routeMatcher = new RegExp("^" + generateRouteMatch(route) + "$");
-    if (url.match(routeMatcher)) { return route; }
-  }
-}
-
 
 class AiRouter {
   constructor(routes, reactComponent) {
     this.routesList = parseRoutes(Object.keys(routes));
+    this.currentRoute = '';
+    this.routeData = {};
     this.reactComponent = reactComponent;
     this.connect = this.connect.bind(this);
+    this.assignCurrentRoute = this.assignCurrentRoute.bind(this);
     this.updateCurrentRoute = this.updateCurrentRoute.bind(this);
   }
 
@@ -96,10 +84,42 @@ class AiRouter {
     window.removeEventListener("popstate", this.updateCurrentRoute);
   }
 
+  assignRouteData(route, re, cb) {
+    if (this.routesList[route].variables.length) {
+      let counter = 1;
+      this.routeData = this.routesList[route].variables.reduce((result, variable) => {
+        result[variable] = re[counter]; // eslint-disable-line
+        counter++;
+        return result;
+      }, {});
+      if (cb) { cb(); }
+    } else if (cb) {
+      cb();
+    }
+  }
+
+  assignCurrentRoute(cb) {
+    const routeNames = Object.keys(this.routesList);
+    for (let i = 0; i < routeNames.length; i++) {
+      const route = routeNames[i];
+      const url = AiRouter.currentUrl();
+      const routeMatcher = new RegExp(`^${generateRouteMatch(route)}$`);
+      if (url.match(routeMatcher)) {
+        this.currentRoute = route;
+        this.assignRouteData(route, url.match(routeMatcher), cb);
+        break;
+      }
+    }
+  };
+
   updateCurrentRoute() {
-    const currentRoute = assignCurrentRoute(this.routesList);
-    this.reactComponent.setState({ currentRoute });
-    window.scrollTo(0,0);
+    this.assignCurrentRoute(() => {
+      this.reactComponent.setState({
+        currentRoute: this.currentRoute,
+        routeData: this.routeData,
+      });
+      window.scrollTo(0,0);
+    });
   }
 }
 

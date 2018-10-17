@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 
 import { AiRouter } from "../../lib/utils";
 import Explore from "../explore/ExploreContainer";
+import ClientAdminTiles from "../clientAdminTiles/ClientAdminTilesContainer";
 
 const routes = {
   '/explore': Explore,
   '/explore/campaigns/:campaign': Explore,
-}
+  '/client_admin/tiles': ClientAdminTiles,
+};
 
 class App extends Component {
   constructor(props) {
@@ -15,7 +17,7 @@ class App extends Component {
     this.state = {
       currentRoute: '',
       routeData: {},
-    }
+    };
     this.airouter = new AiRouter(routes, this);
   }
 
@@ -32,12 +34,12 @@ class App extends Component {
     this.state.currentRoute ?
       React.createElement(routes[this.state.currentRoute], {ctrl: this.props.initData, routeData: this.state.routeData}) :
       ''
-    )
+    );
   }
 }
 
 App.propTypes = {
-  ctrl: PropTypes.object,
+  initData: PropTypes.object,
 };
 
 export default App;

@@ -41,12 +41,14 @@ class Explore extends Component {
     this.updateDimensions();
     this.scrollState.setOnScroll();
     window.addEventListener("resize", this.updateDimensions);
+    window.addEventListener("popstate", this.updateActiveDisplay);
 
   }
 
   componentWillUnmount() {
     this.scrollState.removeOnScroll();
     window.removeEventListener("resize", this.updateDimensions);
+    window.removeEventListener("popstate", this.updateActiveDisplay);
   }
 
   updateActiveDisplay() {
