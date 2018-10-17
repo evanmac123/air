@@ -7,6 +7,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def index
     @tiles_facade = ClientAdminTilesFacade.new(demo: current_user.demo)
+    render template: "react_spa/show"
   end
 
   def show

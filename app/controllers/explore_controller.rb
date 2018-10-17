@@ -17,6 +17,7 @@ class ExploreController < ExploreBaseController
       render_json_tiles
     else
       explore_email_clicked_ping if params[:email_type].present?
+      render template: "react_spa/show"
     end
   end
 

@@ -24,8 +24,10 @@
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^5.0.1",
     "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
     "react-select": "^2.0.0",
     "react-tooltip": "^3.6.1",
+    "redux": "^4.0.1",
     "sanitize-html": "^1.18.2",
     "webpack": "^3.0.0",
     "whatwg-fetch": "^2.0.4"
