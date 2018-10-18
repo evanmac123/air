@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-class ImgPreload extends Component {
+class ImgPreload extends React.Component {
   constructor(props) {
     super(props);
     this.state = { imageLoading: true };

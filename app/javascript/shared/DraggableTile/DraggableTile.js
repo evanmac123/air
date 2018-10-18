@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import {
   DragSource,
@@ -70,7 +70,7 @@ function dragCollect(connect, monitor) {
   };
 }
 
-class DraggableTile extends Component {
+class DraggableTile extends React.Component {
 	componentDidMount() {
 		const { connectDragPreview } = this.props;
 		if (connectDragPreview) {

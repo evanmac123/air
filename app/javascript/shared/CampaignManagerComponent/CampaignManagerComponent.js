@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import SweetAlert from 'react-bootstrap-sweetalert';
 
@@ -22,7 +22,7 @@ const sanitizeCampaignResponse = camp => (
   {label: camp.name, className: 'campaign-option', value: camp.id, color: camp.color, population: camp.population_segment_id}
 );
 
-class CampaignManagerComponent extends Component {
+class CampaignManagerComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

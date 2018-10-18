@@ -11,7 +11,7 @@ const displayCreationDate = date => {
   return `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
 };
 
-const renderTiles = (tiles, copyTile, user) => (
+const renderTiles = (tiles, copyTile, user, openTileModal) => (
   tiles.map(tile => React.createElement(TileComponent, {
     ...tile,
     copyTile,
@@ -21,7 +21,9 @@ const renderTiles = (tiles, copyTile, user) => (
     copyButtonDisplay: true,
     caledarIcon: 'fa-calendar',
     tileContainerClass: 'explore',
-    tileThumblinkClass: 'tile_thumb_link_explore',
+    tileThumblinkClass: 'tile_thumb_link',
+    tileThumblinkOnClick: () => { openTileModal(tile.id); },
+    tileShowPath: null,
   }))
 );
 
@@ -80,7 +82,7 @@ const SelectedCampaignComponent = props => (
     <div className="explore-tiles-container">
       <div className="row">
         <div className="large-12 columns">
-          {renderTiles(props.tiles, props.copyTile, props.user)}
+          {renderTiles(props.tiles, props.copyTile, props.user, props.openTileModal)}
         </div>
       </div>
       { props.scrollLoading && <LoadingComponent /> }

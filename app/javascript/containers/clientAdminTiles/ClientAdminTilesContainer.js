@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
@@ -9,7 +9,7 @@ import EditTilesComponent from "./components/EditTilesComponent";
 import { ClientAdminTilesRouter, TileManager, constants, helpers } from "./utils";
 import { Fetcher, InfiniScroller, Pluck } from "../../lib/helpers";
 
-class ClientAdminTiles extends Component {
+class ClientAdminTiles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

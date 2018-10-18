@@ -41,6 +41,7 @@ const CampaignsComponent = props => (
         user: props.user,
         tilePageLoaded: props.tilePageLoaded,
         scrollLoading: props.scrollLoading,
+        openTileModal: props.openTileModal,
       },
     )
   :
