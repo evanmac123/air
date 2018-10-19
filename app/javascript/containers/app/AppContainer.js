@@ -48,7 +48,6 @@ class App extends React.Component {
 
   openFullSizeTile(opts) {
     const fullSizeTile = this.props.tiles[opts.from][opts.id];
-    console.log(fullSizeTile);
     this.setState({ fullSizeTile, tileOrigin: opts.from });
   }
 
