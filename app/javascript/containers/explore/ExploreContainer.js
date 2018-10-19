@@ -189,7 +189,13 @@ class Explore extends React.Component {
   }
 
   openTileModal(tileId) {
-    this.props.openFullSizeTile({id: tileId, from: 'explore'});
+    this.props.openFullSizeTile({
+      id: tileId,
+      from: 'explore',
+      tileActions: {
+        copyTile: this.copyTile,
+      },
+    });
   }
 
   render() {

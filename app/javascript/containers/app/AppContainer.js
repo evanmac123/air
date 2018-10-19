@@ -22,6 +22,7 @@ class App extends React.Component {
       routeData: {},
       originId: null,
       tileOrigin: null,
+      tileActions: null,
     };
     this.setUser = this.setUser.bind(this);
     this.setTiles = this.setTiles.bind(this);
@@ -47,11 +48,15 @@ class App extends React.Component {
   }
 
   openFullSizeTile(opts) {
-    this.setState({ originId: opts.id, tileOrigin: opts.from });
+    this.setState({
+      originId: opts.id,
+      tileOrigin: opts.from,
+      tileActions: opts.tileActions,
+    });
   }
 
   closeTile() {
-    this.setState({ originId: null, tileOrigin: null });
+    this.setState({ originId: null, tileOrigin: null, tileActions: null });
   }
 
   render() {
@@ -59,7 +64,9 @@ class App extends React.Component {
     this.state.originId ? React.createElement(TileStateManager, {
       originId: this.state.originId,
       tileOrigin: this.state.tileOrigin,
+      tileActions: this.state.tileActions,
       closeTile: this.closeTile,
+      userData: this.props.userData,
     }) :
     null,
     this.state.currentRoute && !this.state.originId ?

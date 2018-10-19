@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { updateTileData } from "../redux/actions";
 import { getSanitizedState } from "../redux/selectors";
 import { Fetcher } from "../helpers";
+import FullSizeTileComponent from "../../shared/FullSizeTileComponent";
 
 class TileStateManager extends React.Component {
   constructor(props) {
@@ -72,22 +73,16 @@ class TileStateManager extends React.Component {
     const tile = tiles[tileOrigin][currentTileId];
     return (
       <div>
-        {
-          this.state.loading ?
-            <h1> LOADING!!! </h1> :
-            <div>
-              {this.props.tileOrigin === 'explore' &&
-                <h1 onClick={this.props.closeTile}>X</h1>
-              }
-              <h2>{tile.headline}</h2>
-              <ul>
-                <li>supportingContent: {tile.supportingContent}</li>
-                <li>Points: {tile.points}</li>
-              </ul>
-              <h3 onClick={() => this.populateNewTileContentByIndex(1)}>Next</h3>
-              <h3 onClick={() => this.populateNewTileContentByIndex(-1)}>Prev</h3>
-            </div>
-        }
+        <FullSizeTileComponent
+          tile={tile}
+          loading={this.state.loading}
+          nextTile={() => this.populateNewTileContentByIndex(1)}
+          prevTile={() => this.populateNewTileContentByIndex(-1)}
+          closeTile={this.props.closeTile}
+          tileOrigin={this.props.tileOrigin}
+          userData={this.props.userData}
+          tileActions={this.props.tileActions}
+        />
       </div>
     );
   }
@@ -95,7 +90,7 @@ class TileStateManager extends React.Component {
 
 TileStateManager.propTypes = {
   tileOrigin: PropTypes.string,
-  originId: PropTypes.string,
+  originId: PropTypes.number,
   updateTileData: PropTypes.func,
   tiles: PropTypes.shape({
     explore: PropTypes.object,
@@ -104,6 +99,8 @@ TileStateManager.propTypes = {
     incomplete: PropTypes.object,
   }),
   closeTile: PropTypes.func,
+  userData: PropTypes.object,
+  tileActions: PropTypes.object,
 };
 
 export default connect(
