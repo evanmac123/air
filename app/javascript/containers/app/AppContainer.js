@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import { AiRouter, TileStateManager } from "../../lib/utils";
 import { setUserData, setTilesData } from "../../lib/redux/actions";
+import { getSanitizedState } from "../../lib/redux/selectors";
 import Explore from "../explore/ExploreContainer";
 import ClientAdminTiles from "../clientAdminTiles/ClientAdminTilesContainer";
 
@@ -20,10 +21,12 @@ class App extends React.Component {
       currentRoute: '',
       routeData: {},
       fullSizeTile: null,
+      tileOrigin: null,
     };
     this.setUser = this.setUser.bind(this);
     this.setTiles = this.setTiles.bind(this);
     this.openFullSizeTile = this.openFullSizeTile.bind(this);
+    this.closeTile = this.closeTile.bind(this);
     this.airouter = new AiRouter(routes, this);
   }
 
@@ -45,12 +48,22 @@ class App extends React.Component {
 
   openFullSizeTile(opts) {
     const fullSizeTile = this.props.tiles[opts.from][opts.id];
-    // console.log(fullSizeTile);
+    console.log(fullSizeTile);
+    this.setState({ fullSizeTile, tileOrigin: opts.from });
+  }
+
+  closeTile() {
+    this.setState({ fullSizeTile: null, tileOrigin: null });
   }
 
   render() {
     return React.createElement('div', {className: 'react-root'},
-    React.createElement(TileStateManager, {fullSizeTile: this.state.fullSizeTile}),
+    this.state.fullSizeTile ? React.createElement(TileStateManager, {
+      fullSizeTile: this.state.fullSizeTile,
+      tileOrigin: this.state.tileOrigin,
+      closeTile: this.closeTile,
+    }) :
+    null,
     this.state.currentRoute && !this.state.fullSizeTile ?
       React.createElement(routes[this.state.currentRoute], {
         ctrl: this.props.initData,
@@ -68,11 +81,7 @@ App.propTypes = {
   initData: PropTypes.object,
 };
 
-const mapStateToProps = state => {
-  return { userData: state.userData, tiles: state.tilesData };
-};
-
 export default connect(
-  mapStateToProps,
+  getSanitizedState,
   { setUserData, setTilesData }
 )(App);

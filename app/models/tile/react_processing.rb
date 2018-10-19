@@ -86,4 +86,20 @@ module Tile::ReactProcessing
       }
     end
   end
+
+  def sanitize_for_tile_show
+    {
+      headline: headline,
+      supportingContent: supporting_content,
+      imagePath: image.url,
+      embedVideo: embed_video,
+      question: question,
+      multipleChoiceAnswers: multiple_choice_answers,
+      correctAnswerIndex: correct_answer_index,
+      points: points,
+      exploreSharePath: "/explore/tile/#{id}",
+      sharablePath: "/tile/#{id}",
+      attachments: file_attachments
+    }
+  end
 end
