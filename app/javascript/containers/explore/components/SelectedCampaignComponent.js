@@ -111,6 +111,7 @@ SelectedCampaignComponent.propTypes = {
   copyAllTiles: PropTypes.func,
   copyTile: PropTypes.func,
   scrollLoading: PropTypes.bool,
+  openTileModal: PropTypes.func,
 };
 
 export default SelectedCampaignComponent;

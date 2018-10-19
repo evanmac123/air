@@ -20,7 +20,7 @@ class App extends React.Component {
     this.state = {
       currentRoute: '',
       routeData: {},
-      fullSizeTile: null,
+      originId: null,
       tileOrigin: null,
     };
     this.setUser = this.setUser.bind(this);
@@ -47,23 +47,22 @@ class App extends React.Component {
   }
 
   openFullSizeTile(opts) {
-    const fullSizeTile = this.props.tiles[opts.from][opts.id];
-    this.setState({ fullSizeTile, tileOrigin: opts.from });
+    this.setState({ originId: opts.id, tileOrigin: opts.from });
   }
 
   closeTile() {
-    this.setState({ fullSizeTile: null, tileOrigin: null });
+    this.setState({ originId: null, tileOrigin: null });
   }
 
   render() {
     return React.createElement('div', {className: 'react-root'},
-    this.state.fullSizeTile ? React.createElement(TileStateManager, {
-      fullSizeTile: this.state.fullSizeTile,
+    this.state.originId ? React.createElement(TileStateManager, {
+      originId: this.state.originId,
       tileOrigin: this.state.tileOrigin,
       closeTile: this.closeTile,
     }) :
     null,
-    this.state.currentRoute && !this.state.fullSizeTile ?
+    this.state.currentRoute && !this.state.originId ?
       React.createElement(routes[this.state.currentRoute], {
         ctrl: this.props.initData,
         routeData: this.state.routeData,
@@ -78,6 +77,8 @@ class App extends React.Component {
 
 App.propTypes = {
   initData: PropTypes.object,
+  setUserData: PropTypes.func,
+  setTilesData: PropTypes.func,
 };
 
 export default connect(

@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
+
 import { updateTileData } from "../redux/actions";
 import { getSanitizedState } from "../redux/selectors";
 import { Fetcher } from "../helpers";
@@ -11,21 +13,14 @@ class TileStateManager extends React.Component {
       tile: {},
       currentTileIndex: null,
       loading: true,
-    }
-    this.setCurrentTileIndex = this.setCurrentTileIndex.bind(this);
+    };
+    this.populateNewTileContentByIndex = this.populateNewTileContentByIndex.bind(this);
   }
 
   componentDidMount() {
-    const { tileOrigin } = this.props;
-    const { id } = this.props.fullSizeTile;
-    this.setCurrentTileIndex(id, tileOrigin);
-    if (!this.props.tiles[tileOrigin][id].fullyLoaded) {
-      console.log("Get tile!")
-      this.fetchFullSizeTileData(id, tileOrigin);
-    } else {
-      console.log("Load from cache")
-      this.setState({ loading: false });
-    }
+    const { tileOrigin, originId } = this.props;
+    this.setCurrentTileIndex(originId, tileOrigin);
+    this.renderTileFullTileData(originId);
   }
 
   fetchFullSizeTileData(id, origin) {
@@ -39,17 +34,42 @@ class TileStateManager extends React.Component {
     });
   }
 
-  populateNewTileContent(indexDifference) {
+  renderTileFullTileData(id) {
+    const { tiles, tileOrigin } = this.props;
+    if (tiles[tileOrigin][id].fullyLoaded) {
+      this.setState({ loading: false });
+    } else {
+      this.setState({ loading: true });
+      this.fetchFullSizeTileData(id, tileOrigin);
+    }
+  }
 
+  calculateRolloverIndex(differenceIndex) {
+    const {tiles, tileOrigin} = this.props;
+    if (differenceIndex >= tiles[tileOrigin].count) {
+      return 0;
+    } else if (differenceIndex < 0) {
+      return tiles[tileOrigin].count - 1;
+    }
+    return differenceIndex;
+  }
+
+  populateNewTileContentByIndex(indexDifference) {
+    const {tiles, tileOrigin} = this.props;
+    const newIndex = this.calculateRolloverIndex(this.state.currentTileIndex + indexDifference);
+    this.renderTileFullTileData(tiles[tileOrigin].order[newIndex]);
+    this.setState({ currentTileIndex: newIndex });
   }
 
   setCurrentTileIndex(id, tileOrigin) {
     const currentTileIndex = this.props.tiles[tileOrigin].order.indexOf(id);
-    this.setState({ currentTileIndex })
+    this.setState({ currentTileIndex });
   }
 
   render() {
-    const tile = this.props.tiles[this.props.tileOrigin][this.props.fullSizeTile.id];
+    const {tiles, tileOrigin} = this.props;
+    const currentTileId = tiles[tileOrigin].order[this.state.currentTileIndex];
+    const tile = tiles[tileOrigin][currentTileId];
     return (
       <div>
         {
@@ -64,14 +84,27 @@ class TileStateManager extends React.Component {
                 <li>supportingContent: {tile.supportingContent}</li>
                 <li>Points: {tile.points}</li>
               </ul>
-              <h3 onClick={this.populateNewTileContent(1)}>Next</h3>
-              <h3 onClick={this.populateNewTileContent(-1)}>Prev</h3>
+              <h3 onClick={() => this.populateNewTileContentByIndex(1)}>Next</h3>
+              <h3 onClick={() => this.populateNewTileContentByIndex(-1)}>Prev</h3>
             </div>
         }
       </div>
     );
   }
 }
+
+TileStateManager.propTypes = {
+  tileOrigin: PropTypes.string,
+  originId: PropTypes.string,
+  updateTileData: PropTypes.func,
+  tiles: PropTypes.shape({
+    explore: PropTypes.object,
+    edit: PropTypes.object,
+    complete: PropTypes.object,
+    incomplete: PropTypes.object,
+  }),
+  closeTile: PropTypes.func,
+};
 
 export default connect(
   getSanitizedState,

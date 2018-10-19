@@ -1,20 +1,24 @@
 import { SET_TILES_DATA, UPDATE_TILE_DATA } from "../actionTypes";
 
 const initialState = {
-  incomplete: { order: [] },
-  complete: { order: [] },
-  explore: { order: [] },
-  edit: { order: [] },
+  incomplete: { order: [], count: 0 },
+  complete: { order: [], count: 0 },
+  explore: { order: [], count: 0 },
+  edit: { order: [], count: 0 },
 };
 
+
 const sanitizeTiles = (tiles, state) => (
+  /* eslint-disable no-param-reassign */
   tiles.reduce((result, tile) => {
     const exisitingData = state[tile.id] ? {...state[tile.id]} : {};
     result.order.push(tile.id);
+    result.count++;
     result[tile.id] = Object.assign(tile, exisitingData);
     return result;
-  }, { order: [] })
-)
+  }, { order: [], count: 0 })
+  /* eslint-enable */
+);
 
 const parseTilePayload = (payload, state) => (
   Object.keys(payload).reduce((result, tileType) => {
@@ -33,7 +37,7 @@ const updateSingleTileDate = (state, payload) => {
     fullyLoaded: true,
   };
   return newTileData;
-}
+};
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -49,7 +53,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         ...newTileData,
-      }
+      };
     }
     default:
       return state;

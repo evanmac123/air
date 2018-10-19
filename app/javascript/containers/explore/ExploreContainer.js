@@ -215,6 +215,9 @@ class Explore extends React.Component {
 
 Explore.propTypes = {
   ctrl: PropTypes.object,
+  setUser: PropTypes.func,
+  setTiles: PropTypes.func,
+  openFullSizeTile: PropTypes.func,
 };
 
 
