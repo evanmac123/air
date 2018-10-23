@@ -1,29 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import sanitizeHtml from 'sanitize-html';
 
 import TileImageComponent from './components/TileImageComponent';
-
-// NOTE: Add import sanitizeHtml from 'sanitize-html'; in order to safely sanitize
-const renderHTML = html => (
-  {
-    __html: sanitizeHtml(html, {
-      allowedTags: [ "h3", "h4", "h5", "h6", "blockquote", "p", "a", "ul", "ol",
-        "nl", "li", "b", "i", "strong", "em", "strike", "hr", "br", "div",
-        "table", "thead", "caption", "tbody", "tr", "th", "td" ],
-      allowedAttributes: {
-        a: [ "href", "name", "target" ],
-        img: [ "src" ],
-      },
-      selfClosing: [ "img", "br", "hr", "area", "base", "basefont", "input", "link", "meta" ],
-      allowedSchemes: [ "http", "https", "mailto" ],
-      allowedSchemesByTag: {},
-      allowedSchemesAppliedToAttributes: [ "href", "src" ],
-      allowProtocolRelative: true,
-      allowedIframeHostnames: ["www.youtube.com", "player.vimeo.com"],
-    }),
-  }
-);
+import TileQuizComponent from './components/TileQuizComponent';
+import { htmlSanitizer } from '../../lib/helpers';
 
 const directionalButtons = (nextTile, prevTile) => (
   <div>
@@ -44,6 +24,15 @@ const tileOptsBar = props => (
         </li>
       </ul>
     }
+  </div>
+);
+
+const tileMain = (headline, supportingContent) => (
+  <div className="tile_texts_container">
+    <div className="tile_headline content_sections">{headline}</div>
+    <div className="tile_supporting_content content_sections">
+      <p dangerouslySetInnerHTML={htmlSanitizer(supportingContent)} />
+    </div>
   </div>
 );
 
@@ -76,19 +65,12 @@ const FullSizeTileComponent = props => (
                 <TileImageComponent {...props} />
 
                 <div className="tile_main">
-                  <div className="tile_texts_container">
-                    <div className="tile_headline content_sections">{props.tile.headline}</div>
-                    <div className="tile_supporting_content content_sections">
-                      <p dangerouslySetInnerHTML={renderHTML(props.tile.supportingContent)} />
-                    </div>
-                  </div>
+                  {tileMain(props.tile.headline, props.tile.supportingContent)}
                 </div>
 
-                <div className="tile_quiz">
-
-                </div>
-
+                <TileQuizComponent {...props} />
               </div>
+
             </div>
           </div>
         </div>
@@ -101,30 +83,6 @@ const FullSizeTileComponent = props => (
 export default FullSizeTileComponent;
 
 
-// <div className="tile_holder" data-current-tile-id="42099" data-completed-only="null" data-show-start-over="null" data-current-tile-ids="null" data-point-value="10" data-key="progress.2278.42099" data-config="{&quot;type&quot;:&quot;action&quot;,&quot;subtype&quot;:&quot;read_tile&quot;,&quot;answers&quot;:[&quot;Click here!&quot;],&quot;question&quot;:&quot;Ready to learn more about annual physicals?&quot;,&quot;index&quot;:-1,&quot;allowFreeResponse&quot;:false,&quot;signature&quot;:&quot;action_read_tile&quot;,&quot;isAnonymous&quot;:false,&quot;points&quot;:10,&quot;tileId&quot;:42099,&quot;isPublic&quot;:true,&quot;isSharable&quot;:false}">
-//
-//
-//
-//   <div className="tile_quiz">
-//       <div className="tile_points_bar">
-//         <div className="earnable_points">
-//           <span className="num_of_points" id="tile_point_value">10</span>
-//           <span className="points_label">points</span>
-//         </div>
-//       </div>
-//
-//
-//     <div className="tile_question content_sections">Ready to learn more about annual physicals?</div>
-//
-//
-//   <div className="multiple_choice_group content_sections">
-//     <form id="tile_completion" action="/api/tile_completions?tile_id=42099" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="2betZTgNNeKzeh1h10dviOvcOO9uTksXYNKviwsHyvnJ/qBDQf6oomgziOkbfMG0/3Csou7mNWmv1BF7f4PAUw==">
-//       <input type="hidden" name="answer_index" id="answer_index">
-//       <div className="js-tile-answer-container"><a className="js-multiple-choice-answer multiple-choice-answer correct  " data-tile-id="42099" data-answer-index="0" href="#">Click here!</a><div className="answer_target" style="display: none"></div></div>
-// </form>  </div>
-//
-//   </div>
-// </div>
 //   <div className="tile-social-share-component">
 //   <div className="share_bar center text-center">
 //     <div className="social-share jssocials" data-twitter-hashtags="[&quot;airbo&quot;]" data-tile-path="https://airbo.com/explore/tile/42099" data-share-text="Why are annual physicals important?"><div className="jssocials-shares"></div></div>

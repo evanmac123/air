@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import sanitizeHtml from 'sanitize-html';
 
 import TileComponent from "../../../shared/TileComponent";
 import NavbarComponent from "./NavbarComponent";
 import LoadingComponent from "../../../shared/LoadingComponent";
+import { htmlSanitizer } from '../../../lib/helpers';
 
 const displayCreationDate = date => {
   const splitDate = date.split("T")[0].split("-");
@@ -27,27 +27,6 @@ const renderTiles = (tiles, copyTile, user, openTileModal) => (
   }))
 );
 
-// NOTE: Add import sanitizeHtml from 'sanitize-html'; in order to safely sanitize
-const renderHTML = html => (
-  {
-    __html: sanitizeHtml(html, {
-      allowedTags: [ "h3", "h4", "h5", "h6", "blockquote", "p", "a", "ul", "ol",
-        "nl", "li", "b", "i", "strong", "em", "strike", "hr", "br", "div",
-        "table", "thead", "caption", "tbody", "tr", "th", "td" ],
-      allowedAttributes: {
-        a: [ "href", "name", "target" ],
-        img: [ "src" ],
-      },
-      selfClosing: [ "img", "br", "hr", "area", "base", "basefont", "input", "link", "meta" ],
-      allowedSchemes: [ "http", "https", "mailto" ],
-      allowedSchemesByTag: {},
-      allowedSchemesAppliedToAttributes: [ "href", "src" ],
-      allowProtocolRelative: true,
-      allowedIframeHostnames: ["www.youtube.com", "player.vimeo.com"],
-    }),
-  }
-);
-
 const SelectedCampaignComponent = props => (
   <div>
     <NavbarComponent navbarRedirect={props.navbarRedirect} />
@@ -61,7 +40,7 @@ const SelectedCampaignComponent = props => (
     <div className="row">
       <div className="large-12 columns">
         <div className="campaign-description">
-          <p dangerouslySetInnerHTML={renderHTML(props.selectedCampaign.description)} />
+          <p dangerouslySetInnerHTML={htmlSanitizer(props.selectedCampaign.description)} />
         </div>
       </div>
     </div>

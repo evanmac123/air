@@ -94,12 +94,15 @@ module Tile::ReactProcessing
       imagePath: image.url,
       embedVideo: embed_video,
       question: question,
-      multipleChoiceAnswers: multiple_choice_answers,
+      questionType: question_type,
+      questionSubtype: question_subtype,
+      answers: multiple_choice_answers,
       correctAnswerIndex: correct_answer_index,
       points: points,
       exploreSharePath: "/explore/tile/#{id}",
       sharablePath: "/tile/#{id}",
-      attachments: file_attachments
+      attachments: file_attachments,
+      imageCredit: image_credit
     }
   end
 end

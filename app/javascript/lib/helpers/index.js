@@ -4,6 +4,7 @@ import WindowHelper from "./WindowHelper";
 import LocalStorer from "./LocalStorer";
 import InfiniScroller from "./InfiniScroller";
 import DateMaker from "./DateMaker";
+import htmlSanitizer from "./htmlSanitizer";
 
 const Pluck = (array, key) => array.map(result => result[key]);
 
@@ -15,6 +16,7 @@ const Helper = {
   LocalStorer,
   InfiniScroller,
   DateMaker,
+  htmlSanitizer,
 };
 
 export default Helper;
@@ -27,4 +29,5 @@ export {
   LocalStorer,
   InfiniScroller,
   DateMaker,
+  htmlSanitizer,
 };

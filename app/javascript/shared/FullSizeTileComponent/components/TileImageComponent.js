@@ -16,9 +16,11 @@ const TileImageComponent = props => (
           <img src={props.tile.imagePath} id="tile_img_preview" className="tile_image" alt={props.tile.headline} />
           <div className="shadow_overlay non-landing"></div>
           <div className="image_credit">
-            <div className="image_credit_view">
-              {'<%= link_to_if is_url?(tile.image_credit), truncate(tile.image_credit, length: 50), make_full_url(tile.image_credit), target: "_blank" %>'}
-            </div>
+            {props.tile.imageCredit &&
+              <div className="image_credit_view">
+                <a href={props.tile.imageCredit} target="_blank">{props.tile.imageCredit}</a>
+              </div>
+            }
           </div>
         </div>
       </div>
