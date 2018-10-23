@@ -1,7 +1,6 @@
 .swal-title {
   font-weight: 200 !important;
 }
-
 //popup-footer
 .swal-footer {
   text-align: center;
@@ -69,6 +68,10 @@
     .blue-teal-gradient {
       background-image: linear-gradient(135deg, $n-blue, $n-green);
       color: $white;
+
+      .row {
+        position: relative;
+      }
     }
 
     .purple-teal-gradient {
@@ -78,23 +81,27 @@
 
     .hero-image {
       position: absolute;
-      top: 0;
+      top: 10px;
       width: 80%;
-      right: -27vw;
+      right: -400px;
+
+      img {
+        width: 600px;
+      }
     }
 
     .hero-banner {
       height: 650px;
+      max-width: 700px;
+      padding-top: 27vh;
     }
 
-    .blue-teal-gradient .hero-banner p {
-      text-align: center;
-    }
+    .blue-teal-gradient .hero-banner p {}
 
     .hero-text {
       visibility: visible;
       margin: 0 auto;
-      text-align: center;
+      text-align: left;
 
       &.benefits {
         text-align: left;
@@ -104,7 +111,7 @@
       }
 
       h1 {
-        font-size: 55px;
+        font-size: 50px;
       }
 
       p {
@@ -169,7 +176,7 @@
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
     border: 1px solid $n-blue;
-    margin: 5px;
+    margin: 5px 0;
 
     &.btn-invert {
       background-color: $white;
@@ -197,16 +204,51 @@
     }
   }
 
+  .features {
+    margin: 0 0 100px;
+
+    .content-block {
+      margin-bottom: 3em;
+    }
+
+    .title {
+      text-align: center;
+      width: 100%;
+      margin: 2em;
+    }
+
+    img {}
+
+    h5 {
+      font-size: 20px;
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 0;
+    }
+  }
+
   .case-study {
-    text-align: center;
+    position: relative;
+
+    .u-bg-img-hero {
+      padding: 125px 0 150px;
+    }
+
+    .row {
+      max-width: 900px;
+      margin: auto;
+    }
 
     .pill {
       width: 7em;
-      margin: 30px auto;
       background-color: $off-green;
       padding: 7px;
       border-radius: 14px;
       font-size: 12px;
+      color: $dark;
     }
 
     .thumbnail {
@@ -216,7 +258,6 @@
     .right-balloon {
       position: absolute;
       right: 16vw;
-      top: 0;
     }
 
     .left-balloon {
@@ -227,34 +268,40 @@
     }
 
     .testimonial {
-      margin: 50px auto;
+      margin: 0 auto;
       font-size: 17px;
 
+      img {
+        margin: 15px 0 20px;
+      }
+
       .quote {
-        font-size: 33px;
-        margin-bottom: 30px;
+        font-size: 36px;
         line-height: 1.4em;
       }
 
       .statement {
+        color: white;
+        font-size: 18px;
+        margin-top: 1em;
+      }
+    }
+
+    .attribute {
+      .profile-pic {
         width: 80%;
         margin-left: 10%;
+        border-radius: 100%;
+        display: inline-block;
       }
 
-      .attribute {
-        .profile-pic {
-          width: 5em;
-          border-radius: 100%;
-          display: inline-block;
-          margin-top: -20px;
-        }
-
-        .profile-title {
-          display: inline-block;
-          padding: 3px 0 0 10px;
-          font-size: 18px;
-          text-align: left;
-        }
+      .profile-title {
+        display: inline-block;
+        padding: 3px 0 0 10px;
+        font-size: 22px;
+        text-align: center;
+        width: 100%;
+        color: white;
       }
     }
   }
@@ -360,7 +407,6 @@
     }
   }
 }
-
 @media only screen and (max-width: 990px) {
   .request-demo p {
     font-size: 15px !important;
@@ -373,17 +419,55 @@
   .bootstrap-iso #root .hero-text.benefits {
     padding-top: 40px;
   }
-}
 
+  .hero-banner {
+    padding-top: 100px !important;
+  }
+
+  .hero-image {
+    right: -270px !important;
+    top: 50px !important;
+  }
+}
 @media only screen and (max-width: 767px) {
   .navbar-toggler.btn {
     display: inherit !important;
   }
-}
 
+  .hero-banner {
+    padding: 0;
+    max-width: 400px !important;
+  }
+
+  .u-bg-img-hero {
+    text-align: center;
+  }
+
+  .pill {
+    margin: auto;
+  }
+
+  .profile-pic {
+    width: 50% !important;
+    margin: 0 !important;
+  }
+
+  .features {
+    margin: 0 !important;
+
+    .col-md-6 {
+      text-align: center;
+      margin-bottom: 3em;
+    }
+
+    img {
+      margin-bottom: 1em;
+    }
+  }
+}
 @media only screen and (max-width: 600px) {
   .blue-teal-gradient {
-    height: 690px !important;
+    height: 800px !important;
 
     h1 {
       font-size: 37px !important;
@@ -391,14 +475,21 @@
   }
 
   .hero-image {
-    top: 50px !important;
+    position: relative !important;
+    top: -30px !important;
     width: 100vw !important;
-    right: -6vw !important;
+    right: 0 !important;
   }
 
   .hero-banner {
-    padding-top: 60.5vw !important;
+    padding-top: 10vw !important;
     text-align: center;
+    height: auto !important;
+    max-width: none !important;
+  }
+
+  .hero-text {
+    text-align: center !important;
   }
 
   .hero-text.benefits {
