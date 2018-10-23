@@ -217,8 +217,6 @@
       margin: 2em;
     }
 
-    img {}
-
     h5 {
       font-size: 20px;
       margin-bottom: 0.5em;
@@ -407,6 +405,7 @@
     }
   }
 }
+
 @media only screen and (max-width: 990px) {
   .request-demo p {
     font-size: 15px !important;
@@ -429,6 +428,7 @@
     top: 50px !important;
   }
 }
+
 @media only screen and (max-width: 767px) {
   .navbar-toggler.btn {
     display: inherit !important;
@@ -465,6 +465,7 @@
     }
   }
 }
+
 @media only screen and (max-width: 600px) {
   .blue-teal-gradient {
     height: 800px !important;
