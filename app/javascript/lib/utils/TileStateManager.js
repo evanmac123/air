@@ -37,10 +37,10 @@ class TileStateManager extends React.Component {
 
   renderTileFullTileData(id) {
     const { tiles, tileOrigin } = this.props;
+    this.setState({ loading: true });
     if (tiles[tileOrigin][id].fullyLoaded) {
       this.setState({ loading: false });
     } else {
-      this.setState({ loading: true });
       this.fetchFullSizeTileData(id, tileOrigin);
     }
   }

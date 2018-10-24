@@ -80,6 +80,25 @@ const FullSizeTileComponent = props => (
   </div>
 );
 
+FullSizeTileComponent.propTypes = {
+  tileOrigin: PropTypes.string,
+  userData: PropTypes.shape({
+    isGuestUser: PropTypes.bool,
+    isEndUser: PropTypes.bool,
+  }),
+  tileActions: PropTypes.shape({
+    copyTile: PropTypes.func,
+  }),
+  tile: PropTypes.shape({
+    headline: PropTypes.string,
+    supportingContent: PropTypes.string,
+  }),
+  loading: PropTypes.bool,
+  closeTile: PropTypes.func,
+  nextTile: PropTypes.func,
+  prevTile: PropTypes.func,
+};
+
 export default FullSizeTileComponent;
 
 
@@ -122,16 +141,3 @@ export default FullSizeTileComponent;
 // </div>
 // </div>
 //   </div>
-
-// <div>
-// {props.tileOrigin === 'explore' &&
-// <h1 onClick={props.closeTile}>X</h1>
-// }
-// <h2>{props.tile.headline}</h2>
-// <ul>
-// <li>supportingContent: {props.tile.supportingContent}</li>
-// <li>Points: {props.tile.points}</li>
-// </ul>
-// <h3 onClick={props.nextTile}>Next</h3>
-// <h3 onClick={props.prevTile}>Prev</h3>
-// </div>

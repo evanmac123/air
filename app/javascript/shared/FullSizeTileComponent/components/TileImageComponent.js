@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 const TileImageComponent = props => (
   <div className={props.tileOrigin === 'complete' ? 'complete' : 'not_completed'}>
@@ -12,7 +13,7 @@ const TileImageComponent = props => (
     {
       !props.tile.embedVideo &&
       <div className="image_section">
-        <div className="tile_full_image {props.loading ? 'loading' : ''}">
+        <div className={`tile_full_image ${props.loading ? 'loading' : ''}`}>
           <img src={props.tile.imagePath} id="tile_img_preview" className="tile_image" alt={props.tile.headline} />
           <div className="shadow_overlay non-landing"></div>
           <div className="image_credit">
@@ -28,5 +29,16 @@ const TileImageComponent = props => (
     <div id="tileGrayOverlay" style={{display: 'none'}}></div>
   </div>
 );
+
+TileImageComponent.propTypes = {
+  tileOrigin: PropTypes.string,
+  tile: PropTypes.shape({
+    embedVideo: PropTypes.string,
+    imagePath: PropTypes.string,
+    headline: PropTypes.string,
+    imageCredit: PropTypes.string,
+  }),
+  loading: PropTypes.bool,
+};
 
 export default TileImageComponent;
