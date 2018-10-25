@@ -72,7 +72,7 @@ class TileStateManager extends React.Component {
     const currentTileId = tiles[tileOrigin].order[this.state.currentTileIndex];
     const tile = tiles[tileOrigin][currentTileId];
     return (
-      <div>
+      <div style={{pointerEvents: `${this.state.loading ? 'none' : ''}`}}>
         <FullSizeTileComponent
           tile={tile}
           loading={this.state.loading}

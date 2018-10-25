@@ -34,6 +34,8 @@ class ImgPreload extends React.Component {
 
   render() {
     return React.createElement("img", {
+      className: this.props.className,
+      id: this.props.id,
       src: this.state.imageSrc,
       onLoad: () => this.handleImageState('load'),
       onError: () => this.handleImageState('error'),

@@ -3,7 +3,30 @@ import PropTypes from "prop-types";
 
 import TileImageComponent from './components/TileImageComponent';
 import TileQuizComponent from './components/TileQuizComponent';
+import LoadingComponent from '../../shared/LoadingComponent';
 import { htmlSanitizer } from '../../lib/helpers';
+
+const fullSizeTileLoadingContainer = (closeTile) => (
+  <div className="modal_container">
+    <div className="modal_header">
+      <a onClick={closeTile} className="close-reveal-modal stickable"><i className="fa fa-times fa-2x"></i></a>
+    </div>
+    <div className="modal_content">
+      <div className="viewer">
+        <div id="tile_preview_section">
+          <div className="large-centered columns clearfix tile_preview_block">
+            <div className="tile_holder">
+            <div className="tile_full_image loading"></div>
+              <div className="tile_main" style={{marginTop: '20%', marginBottom: '25%'}}>
+                <LoadingComponent />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+)
 
 const directionalButtons = (nextTile, prevTile) => (
   <div>
@@ -47,7 +70,7 @@ const FullSizeTileComponent = props => (
   >
   {
     props.loading ?
-      <h1> LOADING!!! </h1> :
+      fullSizeTileLoadingContainer(props.closeTile) :
       <div className="modal_container">
         <div className="modal_header">
           <a onClick={props.closeTile} className="close-reveal-modal stickable"><i className="fa fa-times fa-2x"></i></a>
