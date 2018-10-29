@@ -28,21 +28,26 @@ class TilesController < ApplicationController
       @start_tile = current_board.tiles.find_by(id: params[:tile_id])
       @current_tile_ids = params[:tile_ids].split(", ")
     else
-      @in_public_board = params[:public_slug].present?
+      # TODO: CLEAN THIS UP... Temporary code to deal with scaling issue
+      # Fuji and other bigger, older clients are killing our PG memory
+      # patching new React rendering to old code base for time being
+      organization = @demo.try(:organization)
+      start_tile = find_start_tile
+      @ctrl_data = {
+        inPublicBoard: params[:public_slug].present?,
+        startTile: start_tile.sanitize_for_tile_show,
+        raffle: @demo.live_raffle.try(:id),
+        tileType: show_completed_tiles ? 'complete' : 'incomplete',
+        tileIds: tiles_to_be_loaded.pluck(:id)
+      }.to_json
 
-      @start_tile = find_start_tile
+      verify_tile_exists(start_tile)
 
-      @raffle = @demo.live_raffle.try(:id)
-
-      verify_tile_exists
-
-      @current_tile_ids = tiles_to_be_loaded.pluck(:id)
-      # TODO: Fix decide_if_tiles_can_be_done wording and make single responsibility
-      decide_if_tiles_can_be_done(@current_tile_ids)
-
-      schedule_viewed_tile_ping(@start_tile)
-      increment_tile_views_counter @start_tile, current_user
+      schedule_viewed_tile_ping(start_tile)
+      increment_tile_views_counter start_tile, current_user
       session.delete(:start_tile)
+
+      render template: "react_spa/show"
     end
   end
 
@@ -66,8 +71,8 @@ class TilesController < ApplicationController
 
   private
 
-    def verify_tile_exists
-      redirect_to activity_path if params[:tile_id] && @start_tile.nil?
+    def verify_tile_exists(start_tile = @start_tile)
+      redirect_to activity_path if params[:tile_id] && start_tile.nil?
     end
 
     def find_start_tile

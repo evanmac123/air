@@ -89,6 +89,7 @@ module Tile::ReactProcessing
 
   def sanitize_for_tile_show
     {
+      id: id,
       headline: headline,
       supportingContent: supporting_content,
       imagePath: image.url,

@@ -7,11 +7,13 @@ import { setUserData, setTilesData } from "../../lib/redux/actions";
 import { getSanitizedState } from "../../lib/redux/selectors";
 import Explore from "../explore/ExploreContainer";
 import ClientAdminTiles from "../clientAdminTiles/ClientAdminTilesContainer";
+import TileCarousel from "../tileCarousel/TileCarouselContainer";
 
 const routes = {
   '/explore': Explore,
   '/explore/campaigns/:campaign': Explore,
   '/client_admin/tiles': ClientAdminTiles,
+  '/tiles': TileCarousel,
 };
 
 class App extends React.Component {

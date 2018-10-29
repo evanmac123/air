@@ -86,26 +86,40 @@ const tileAttachments = attachments => (
   </div>
 );
 
-const FullSizeTileComponent = props => (
-  <div className="reveal-modal standard_modal small tile_previews explore-tile_previews tile_previews-show explore-tile_previews-show bg-user-side"
-    style={{
+const wrapper = {
+  className: {
+    complete: "",
+    incomplete: "",
+    explore: "reveal-modal standard_modal small tile_previews explore-tile_previews tile_previews-show explore-tile_previews-show bg-user-side",
+  },
+  style: {
+    complete: {},
+    incomplete: {},
+    explore: {
       display: 'block',
       opacity: '1',
       visibility: 'visible',
       top: '0px',
-    }}
-  >
+    },
+  },
+};
+
+const FullSizeTileComponent = props => (
+  <div className={wrapper.className[props.tileOrigin]} style={wrapper.style[props.tileOrigin]}>
   {
     props.loading ?
       fullSizeTileLoadingContainer(props.closeTile) :
-      <div className="modal_container">
-        <div className="modal_header">
-          <a onClick={props.closeTile} className="close-reveal-modal stickable"><i className="fa fa-times fa-2x"></i></a>
-        </div>
-        <div className="modal_content">
+      <div className={props.tileOrigin === 'explore' ? "modal_container" : ""}>
+        {props.tileOrigin === 'explore' &&
+          <div className="modal_header">
+            <a onClick={props.closeTile} className="close-reveal-modal stickable"><i className="fa fa-times fa-2x"></i></a>
+          </div>
+        }
+        {props.tileOrigin !== 'explore' && <div className="acts-index"><h1>PROGRESS BAR!</h1></div>}
+        <div className={props.tileOrigin === 'explore' ? "modal_content" : "container row"}>
           <div className="viewer">
-            {directionalButtons(props.nextTile, props.prevTile)}
-
+            {props.tileOrigin === 'explore' && directionalButtons(props.nextTile, props.prevTile)}
+            <a id="prev" onClick={props.prevTile} className="react-dir"></a>
             <div id="tile_preview_section">
               {tileOptsBar(props)}
 
@@ -124,6 +138,7 @@ const FullSizeTileComponent = props => (
 
             </div>
           </div>
+          <a id="next" onClick={props.nextTile} className="react-dir"></a>
         </div>
       </div>
     </div>
