@@ -31,23 +31,25 @@ class TilesController < ApplicationController
       # TODO: CLEAN THIS UP... Temporary code to deal with scaling issue
       # Fuji and other bigger, older clients are killing our PG memory
       # patching new React rendering to old code base for time being
-      organization = @demo.try(:organization)
       start_tile = find_start_tile
-      @ctrl_data = {
-        inPublicBoard: params[:public_slug].present?,
-        startTile: start_tile.sanitize_for_tile_show,
-        raffle: @demo.live_raffle.try(:id),
-        tileType: show_completed_tiles ? 'complete' : 'incomplete',
-        tileIds: tiles_to_be_loaded.pluck(:id)
-      }.to_json
 
-      verify_tile_exists(start_tile)
+      if params[:tile_id] && start_tile.nil?
+        redirect_to activity_path
+      else
+        @ctrl_data = {
+          inPublicBoard: params[:public_slug].present?,
+          startTile: start_tile ? start_tile.sanitize_for_tile_show : {},
+          raffle: @demo.live_raffle.try(:id),
+          tileType: show_completed_tiles ? "complete" : "incomplete",
+          tileIds: tiles_to_be_loaded.pluck(:id)
+        }.to_json
 
-      schedule_viewed_tile_ping(start_tile)
-      increment_tile_views_counter start_tile, current_user
-      session.delete(:start_tile)
+        schedule_viewed_tile_ping(start_tile)
+        increment_tile_views_counter start_tile, current_user
+        session.delete(:start_tile)
 
-      render template: "react_spa/show"
+        render template: "react_spa/show"
+      end
     end
   end
 

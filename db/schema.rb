@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180703225530) do
+ActiveRecord::Schema.define(version: 20181029230950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1146,6 +1146,7 @@ ActiveRecord::Schema.define(version: 20180703225530) do
   add_index "tile_completions", ["created_at"], name: "index_tile_completions_on_created_at", using: :btree
   add_index "tile_completions", ["tile_id", "user_id", "user_type"], name: "index_tile_completions_on_tile_id_and_user_id_and_user_type", using: :btree
   add_index "tile_completions", ["tile_id", "user_type"], name: "index_tile_completions_on_tile_id_and_user_type", using: :btree
+  add_index "tile_completions", ["user_id", "user_type"], name: "index_tile_completions_on_user_id_and_user_type", using: :btree
   add_index "tile_completions", ["user_id"], name: "index_task_suggestions_on_user_id", using: :btree
   add_index "tile_completions", ["user_type"], name: "index_tile_completions_on_user_type", using: :btree
 
