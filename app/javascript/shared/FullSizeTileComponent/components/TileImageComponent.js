@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
+import { htmlSanitizer } from '../../../lib/helpers';
+
 const TileImageComponent = props => (
   <div className={props.tileOrigin === 'complete' ? 'complete' : 'not_completed'}>
     {
       props.tile.embedVideo &&
       <div className="video_section" style={{display: 'block'}}>
-        {props.tile.embedVideo}
+        <span dangerouslySetInnerHTML={htmlSanitizer(props.tile.embedVideo)} />
       </div>
     }
 
@@ -19,7 +21,7 @@ const TileImageComponent = props => (
           <div className="image_credit">
             {props.tile.imageCredit &&
               <div className="image_credit_view">
-                <a href={props.tile.imageCredit} target="_blank">{props.tile.imageCredit}</a>
+                <a href={props.tile.imageCredit} target="_blank" rel="noopener noreferrer">{props.tile.imageCredit}</a>
               </div>
             }
           </div>

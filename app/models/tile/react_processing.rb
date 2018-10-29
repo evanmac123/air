@@ -101,7 +101,7 @@ module Tile::ReactProcessing
       points: points,
       exploreSharePath: "/explore/tile/#{id}",
       sharablePath: "/tile/#{id}",
-      attachments: file_attachments,
+      attachments: documents,
       imageCredit: image_credit
     }
   end

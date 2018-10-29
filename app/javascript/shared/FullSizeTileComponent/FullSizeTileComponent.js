@@ -3,8 +3,14 @@ import PropTypes from "prop-types";
 
 import TileImageComponent from './components/TileImageComponent';
 import TileQuizComponent from './components/TileQuizComponent';
+import attachmentFileExtensions from './constants/attachmentFileExtensions';
 import LoadingComponent from '../../shared/LoadingComponent';
 import { htmlSanitizer } from '../../lib/helpers';
+
+const copyTile = (copyTileAction, tile, e) => {
+  e.target.innerText = "Copied";
+  copyTileAction(tile);
+};
 
 const fullSizeTileLoadingContainer = (closeTile) => (
   <div className="modal_container">
@@ -15,7 +21,7 @@ const fullSizeTileLoadingContainer = (closeTile) => (
       <div className="viewer">
         <div id="tile_preview_section">
           <div className="large-centered columns clearfix tile_preview_block">
-            <div className="tile_holder">
+            <div className="tile_holder" style={{width: '100%'}}>
             <div className="tile_full_image loading"></div>
               <div className="tile_main" style={{marginTop: '20%', marginBottom: '25%'}}>
                 <LoadingComponent />
@@ -26,7 +32,7 @@ const fullSizeTileLoadingContainer = (closeTile) => (
       </div>
     </div>
   </div>
-)
+);
 
 const directionalButtons = (nextTile, prevTile) => (
   <div>
@@ -35,12 +41,12 @@ const directionalButtons = (nextTile, prevTile) => (
   </div>
 );
 
-const tileOptsBar = props => (
+const tileOptsBar = opts => (
   <div>
-    {(props.tileOrigin === 'explore' && !(props.userData.isGuestUser || props.userData.isEndUser)) &&
+    {(opts.tileOrigin === 'explore' && !(opts.userData.isGuestUser || opts.userData.isEndUser)) &&
       <ul className="tile_preview_menu explore_menu">
         <li className="preview_menu_item">
-          <a className="copy_to_board" onClick={() => props.tileActions.copyTile(props.tile)}>
+          <a className="copy_to_board" onClick={(e) => copyTile(opts.tileActions.copyTile, opts.tile, e)}>
             <i className="fa fa-copy fa-1x"></i>
             <span className="header_text">Copy to Board</span>
           </a>
@@ -50,11 +56,32 @@ const tileOptsBar = props => (
   </div>
 );
 
-const tileMain = (headline, supportingContent) => (
+const tileTextsContainer = (headline, supportingContent) => (
   <div className="tile_texts_container">
     <div className="tile_headline content_sections">{headline}</div>
     <div className="tile_supporting_content content_sections">
       <p dangerouslySetInnerHTML={htmlSanitizer(supportingContent)} />
+    </div>
+  </div>
+);
+
+const tileAttachments = attachments => (
+  <div className="attachments">
+    <div className="attachment-list">
+      {Object.keys(attachments).map(attachment => (
+        <div className="tile-attachment" key={attachment.replace(/ /g,"_")}>
+          <input type="hidden" name="tile[attachments][]" id={attachment.replace(/ /g,"_")} value={attachments[attachment]} />
+          <i className="fa fa-times-circle attachment-delete" style={{display: 'none'}} />
+          <a className="attachment-link" href={attachments[attachment]} target="_blank" rel="noopener noreferrer">
+            <div className="tile-attachment-inner">
+              <i className={`fa ${attachmentFileExtensions(attachment)} icon-tile-attachment`}></i>
+              <div className="attachment-filename">
+                {attachment}
+              </div>
+            </div>
+          </a>
+        </div>
+      ))}
     </div>
   </div>
 );
@@ -84,11 +111,12 @@ const FullSizeTileComponent = props => (
 
             <div className="large-centered columns clearfix tile_preview_block">
 
-              <div className="tile_holder">
+              <div className="tile_holder" style={{width: '100%'}}>
                 <TileImageComponent {...props} />
 
                 <div className="tile_main">
-                  {tileMain(props.tile.headline, props.tile.supportingContent)}
+                  {tileTextsContainer(props.tile.headline, props.tile.supportingContent)}
+                  {props.tile.attachments && tileAttachments(props.tile.attachments)}
                 </div>
 
                 <TileQuizComponent {...props} />
@@ -115,6 +143,7 @@ FullSizeTileComponent.propTypes = {
   tile: PropTypes.shape({
     headline: PropTypes.string,
     supportingContent: PropTypes.string,
+    attachments: PropTypes.object,
   }),
   loading: PropTypes.bool,
   closeTile: PropTypes.func,
@@ -123,44 +152,3 @@ FullSizeTileComponent.propTypes = {
 };
 
 export default FullSizeTileComponent;
-
-
-//   <div className="tile-social-share-component">
-//   <div className="share_bar center text-center">
-//     <div className="social-share jssocials" data-twitter-hashtags="[&quot;airbo&quot;]" data-tile-path="https://airbo.com/explore/tile/42099" data-share-text="Why are annual physicals important?"><div className="jssocials-shares"></div></div>
-//     <br>
-//     <div className="share_title">Share Link</div>
-//     <div className="share_link_block copy-to-clipboard-input-group">
-//       <input type="text" name="share_tile_link" id="share_link" value="https://airbo.com/explore/tile/42099" className="share-link">
-//       <div className="copy-to-clipboard-button js-copy-to-clipboard-btn" data-tooltip="publicBoard" title="Click to Copy" data-clipboard-target="#share_link"></div>
-//     </div>
-//   </div>
-// </div>
-//
-//
-//
-//    <div id="tileGrayOverlay" style=""> </div>
-//
-//  </div>
-//
-// </div>
-//
-//
-//     </div>
-//   </div>
-//
-// </div>
-//
-// <div className="bars">
-//     <div className="center bar_for_preview align_left offset_top">
-//       <div className="creator">
-//     <img className="company_logo default_logo" src="https://d21lri3dx8dmnu.cloudfront.net/assets/logo-38918da1c171d7b0fb7106d5967552b0.png" alt="Logo">
-//     <span className="creator_name">
-//         Tile by Diana at Airbo Boards
-//     </span>
-// </div>
-//
-//     </div>
-// </div>
-// </div>
-//   </div>
