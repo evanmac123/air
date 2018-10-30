@@ -7,6 +7,14 @@ import { getSanitizedState } from "../redux/selectors";
 import { Fetcher } from "../helpers";
 import FullSizeTileComponent from "../../shared/FullSizeTileComponent";
 
+const pingView = id => {
+  Fetcher.xmlHttpRequest({
+    method: 'POST',
+    path: `/api/v1/tiles/${id}/mark_as_viewed`,
+    success: () => null,
+  });
+};
+
 class TileStateManager extends React.Component {
   constructor(props) {
     super(props);
@@ -24,10 +32,10 @@ class TileStateManager extends React.Component {
     this.renderTileFullTileData(originId);
   }
 
-  fetchFullSizeTileData(id, origin) {
+  fetchFullSizeTileData(id, origin, pingTileView) {
     Fetcher.xmlHttpRequest({
       method: 'GET',
-      path: `/api/v1/tiles/${id}`,
+      path: `/api/v1/tiles/${id}?ping_tile_view=${pingTileView}`,
       success: resp => {
         this.props.updateTileData({id, origin, resp});
         this.setState({ loading: false });
@@ -37,11 +45,13 @@ class TileStateManager extends React.Component {
 
   renderTileFullTileData(id) {
     const { tiles, tileOrigin } = this.props;
+    const pingTileView = tileOrigin === 'complete' || tileOrigin === 'incomplete' ? 'true' : 'false'
     this.setState({ loading: true });
     if (tiles[tileOrigin][id].fullyLoaded) {
       this.setState({ loading: false });
+      if (pingTileView === 'true') { pingView(id); }
     } else {
-      this.fetchFullSizeTileData(id, tileOrigin);
+      this.fetchFullSizeTileData(id, tileOrigin, pingTileView);
     }
   }
 

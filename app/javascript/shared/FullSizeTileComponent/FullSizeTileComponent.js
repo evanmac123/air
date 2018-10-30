@@ -12,21 +12,14 @@ const copyTile = (copyTileAction, tile, e) => {
   copyTileAction(tile);
 };
 
-const fullSizeTileLoadingContainer = (closeTile) => (
-  <div className="modal_container">
-    <div className="modal_header">
-      <a onClick={closeTile} className="close-reveal-modal stickable"><i className="fa fa-times fa-2x"></i></a>
-    </div>
-    <div className="modal_content">
-      <div className="viewer">
-        <div id="tile_preview_section">
-          <div className="large-centered columns clearfix tile_preview_block">
-            <div className="tile_holder" style={{width: '100%'}}>
-            <div className="tile_full_image loading"></div>
-              <div className="tile_main" style={{marginTop: '20%', marginBottom: '25%'}}>
-                <LoadingComponent />
-              </div>
-            </div>
+const fullSizeTileLoadingContainer = (closeTile, isExplore) => (
+  <div className="viewer">
+    <div id="tile_preview_section">
+      <div className="large-centered columns clearfix tile_preview_block">
+        <div className="tile_holder" style={{width: '100%'}}>
+        <div className="tile_full_image loading"></div>
+          <div className="tile_main" style={{marginTop: '20%', marginBottom: '25%'}}>
+            <LoadingComponent />
           </div>
         </div>
       </div>
@@ -106,43 +99,41 @@ const wrapper = {
 
 const FullSizeTileComponent = props => (
   <div className={wrapper.className[props.tileOrigin]} style={wrapper.style[props.tileOrigin]}>
-  {
-    props.loading ?
-      fullSizeTileLoadingContainer(props.closeTile) :
-      <div className={props.tileOrigin === 'explore' ? "modal_container" : ""}>
-        {props.tileOrigin === 'explore' &&
-          <div className="modal_header">
-            <a onClick={props.closeTile} className="close-reveal-modal stickable"><i className="fa fa-times fa-2x"></i></a>
-          </div>
-        }
-        {props.tileOrigin !== 'explore' && <div className="acts-index"><h1>PROGRESS BAR!</h1></div>}
-        <div className={props.tileOrigin === 'explore' ? "modal_content" : "container row"}>
-          <div className="viewer">
-            {props.tileOrigin === 'explore' && directionalButtons(props.nextTile, props.prevTile)}
-            <a id="prev" onClick={props.prevTile} className="react-dir"></a>
-            <div id="tile_preview_section">
-              {tileOptsBar(props)}
-
-            <div className="large-centered columns clearfix tile_preview_block">
-
-              <div className="tile_holder" style={{width: '100%'}}>
-                <TileImageComponent {...props} />
-
-                <div className="tile_main">
-                  {tileTextsContainer(props.tile.headline, props.tile.supportingContent)}
-                  {props.tile.attachments && tileAttachments(props.tile.attachments)}
-                </div>
-
-                <TileQuizComponent {...props} />
-              </div>
-
-            </div>
-          </div>
-          <a id="next" onClick={props.nextTile} className="react-dir"></a>
+    <div className={props.tileOrigin === 'explore' ? "modal_container" : ""}>
+      {props.tileOrigin === 'explore' &&
+        <div className="modal_header">
+          <a onClick={props.closeTile} className="close-reveal-modal stickable"><i className="fa fa-times fa-2x"></i></a>
         </div>
+      }
+      {props.tileOrigin !== 'explore' && <div className="acts-index"><h1>PROGRESS BAR!</h1></div>}
+      <div className={props.tileOrigin === 'explore' ? "modal_content" : "container row"}>
+        {
+          props.loading ?
+            fullSizeTileLoadingContainer(props.closeTile, props.tileOrigin === 'explore') :
+            <div className="viewer">
+              {props.tileOrigin === 'explore' && directionalButtons(props.nextTile, props.prevTile)}
+              {props.tileOrigin !== 'explore' && <a id="prev" onClick={props.prevTile} className="react-dir"></a>}
+              <div id="tile_preview_section">
+                {tileOptsBar(props)}
+
+                <div className="large-centered columns clearfix tile_preview_block">
+                  <div className="tile_holder" style={{width: '100%'}}>
+                    <TileImageComponent {...props} />
+
+                    <div className="tile_main">
+                      {tileTextsContainer(props.tile.headline, props.tile.supportingContent)}
+                      {props.tile.attachments && tileAttachments(props.tile.attachments)}
+                    </div>
+
+                    <TileQuizComponent {...props} />
+                  </div>
+                </div>
+              </div>
+              {props.tileOrigin !== 'explore' && <a id="next" onClick={props.nextTile} className="react-dir"></a>}
+            </div>
+          }
       </div>
     </div>
-  }
   </div>
 );
 

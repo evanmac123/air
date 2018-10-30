@@ -44,8 +44,6 @@ class TilesController < ApplicationController
           tileIds: tiles_to_be_loaded.pluck(:id)
         }.to_json
 
-        schedule_viewed_tile_ping(start_tile)
-        increment_tile_views_counter start_tile, current_user
         session.delete(:start_tile)
 
         render template: "react_spa/show"

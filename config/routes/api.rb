@@ -39,5 +39,6 @@ namespace :api, defaults: { format: :json } do
     resources :cheers, only: [:create]
     resources :campaigns, only: [:index, :show]
     resources :tiles, only: [:show]
+    post 'tiles/:id/mark_as_viewed', to: 'tiles#ping_tile_view'
   end
 end
