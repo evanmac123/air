@@ -24,14 +24,15 @@ const updateCharCount = e => {
   e.target.nextElementSibling.innerText = `${charsLeft} CHARACTERS`;
 };
 
-const submitAnswer = (e, correctIndex, index, nextTile) => {
+const checkAnswerForSubmission = (e, correctIndex, index, tile) => {
+  const { nextTile, submitAnswer } = tile;
   const { target } = e;
   const freeForm = document.getElementById('free_form_response');
   const correctAnswer = decideIfAnswerIsCorrect(correctIndex, index, freeForm);
   target.style.pointerEvents = 'none';
   if (correctAnswer === true) {
     target.classList.add('clicked_right_answer');
-    window.setTimeout(nextTile, 250);
+    submitAnswer(tile.id, freeForm ? null : index, freeForm ? freeForm : null);
   } else {
     if (correctAnswer === 'freeForm') {
       target.style.pointerEvents = '';
@@ -46,7 +47,7 @@ const freeResponse = tile => (
   <div className="free-text-panel content_sections">
     <textarea name="free_form_response" id="free_form_response" maxLength="400" placeholder="Enter your response here" className="free-form-response edit with_counter" onKeyUp={updateCharCount}></textarea>
     <div className="character-counter">400 characters</div>
-    <a className="multiple-choice-answer" onClick={(e) => { submitAnswer(e, tile.correctAnswerIndex, 0, tile.getNextTile); } }>{tile.answers[0]}</a>
+    <a className="multiple-choice-answer" onClick={(e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, 0, tile); } }>{tile.answers[0]}</a>
     <div className="answer_target">Response cannot be empty</div>
   </div>
 );
@@ -56,7 +57,7 @@ const multipleChoice = (tile, subtype) => (
     {tile.answers.map((answer, key) => React.createElement('div', {key},
       React.createElement(
         'a',
-        { className: "multiple-choice-answer", onClick: (e) => { submitAnswer(e, tile.correctAnswerIndex, key, tile.getNextTile); }, style: {margin: '0.5em auto'} },
+        { className: "multiple-choice-answer", onClick: (e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, key, tile); }, style: {margin: '0.5em auto'} },
         answer,
       ),
       React.createElement('div', {className: 'answer_target'}, tile.incorrectText || "Sorry, that's not it. Try again!"),
@@ -78,7 +79,7 @@ const tileQuiz = tile => {
       return (
         <div className="multiple_choice_group content_sections">
           <div>
-            <a className="multiple-choice-answer correct" onClick={(e) => { submitAnswer(e, 0, 0, tile.getNextTile); }}>{tile.answers[0]}</a>
+            <a className="multiple-choice-answer correct" onClick={(e) => { checkAnswerForSubmission(e, 0, 0, tile); }}>{tile.answers[0]}</a>
           </div>
         </div>
       );
@@ -89,7 +90,7 @@ const TileQuizComponent = props => (
   <div className="tile_quiz">
     {tilePointsBar(props.tile.points, props.tile.pointLabel)}
     <div className="tile_question content_sections">{props.tile.question}</div>
-    {tileQuiz({...props.tile, getNextTile: props.nextTile})}
+    {tileQuiz({...props.tile, getNextTile: props.nextTile, submitAnswer: props.submitAnswer})}
   </div>
 );
 

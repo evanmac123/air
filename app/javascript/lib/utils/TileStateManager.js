@@ -24,6 +24,7 @@ class TileStateManager extends React.Component {
       loading: true,
     };
     this.populateNewTileContentByIndex = this.populateNewTileContentByIndex.bind(this);
+    this.submitAnswer = this.submitAnswer.bind(this);
   }
 
   componentDidMount() {
@@ -77,6 +78,18 @@ class TileStateManager extends React.Component {
     this.setState({ currentTileIndex });
   }
 
+  submitAnswer(id, answerIndex, freeFormResponse) {
+    if (this.props.tileOrigin === 'explore') {
+      this.populateNewTileContentByIndex(1);
+    } else {
+      Fetcher.xmlHttpRequest({
+        method: 'POST',
+        path: `/api/tile_completions?tile_id=${id}&answer_index=${answerIndex}&free_form_response=${freeFormResponse}`,
+        success: resp => { this.populateNewTileContentByIndex(1); },
+      });
+    }
+  }
+
   render() {
     const {tiles, tileOrigin} = this.props;
     const currentTileId = tiles[tileOrigin].order[this.state.currentTileIndex];
@@ -92,6 +105,7 @@ class TileStateManager extends React.Component {
           tileOrigin={this.props.tileOrigin}
           userData={this.props.userData}
           tileActions={this.props.tileActions}
+          submitAnswer={this.submitAnswer}
         />
       </div>
     );

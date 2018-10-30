@@ -38,11 +38,12 @@ module Api
       end
 
       def create_tile_completion
+        free_form_response = params[:free_form_response] == "null" ? nil : params[:free_form_response]
         TileCompletion.create(
           tile_id: @tile.id,
           user: current_user,
           answer_index: params[:answer_index],
-          free_form_response: params[:free_form_response],
+          free_form_response: free_form_response,
           custom_form: params[:custom_form]
         )
       end
