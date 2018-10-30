@@ -10,6 +10,11 @@ const decideIfAnswerIsCorrect = (correctIndex, index, freeForm) => {
   return false;
 };
 
+const determineIfMarkedCorrect = (tile, key) => (
+  (tile.answerIndex === key && tile.complete) ||
+  (tile.origin === 'complete' && tile.correctAnswerIndex === key) ? 'clicked_right_answer' : ''
+);
+
 const tilePointsBar = (points, pointLabel) => (
   <div className="tile_points_bar">
     <div className="earnable_points">
@@ -25,14 +30,15 @@ const updateCharCount = e => {
 };
 
 const checkAnswerForSubmission = (e, correctIndex, index, tile) => {
-  const { nextTile, submitAnswer } = tile;
+  const { submitAnswer, complete } = tile;
   const { target } = e;
   const freeForm = document.getElementById('free_form_response');
   const correctAnswer = decideIfAnswerIsCorrect(correctIndex, index, freeForm);
+  if (complete) { return; }
   target.style.pointerEvents = 'none';
   if (correctAnswer === true) {
     target.classList.add('clicked_right_answer');
-    submitAnswer(tile.id, freeForm ? null : index, freeForm ? freeForm : null);
+    submitAnswer(tile.id, freeForm ? null : index, freeForm ? freeForm : null); // eslint-disable-line
   } else {
     if (correctAnswer === 'freeForm') {
       target.style.pointerEvents = '';
@@ -45,7 +51,15 @@ const checkAnswerForSubmission = (e, correctIndex, index, tile) => {
 
 const freeResponse = tile => (
   <div className="free-text-panel content_sections">
-    <textarea name="free_form_response" id="free_form_response" maxLength="400" placeholder="Enter your response here" className="free-form-response edit with_counter" onKeyUp={updateCharCount}></textarea>
+    <textarea
+      name="free_form_response"
+      id="free_form_response"
+      maxLength="400"
+      placeholder="Enter your response here"
+      className="free-form-response edit with_counter"
+      onKeyUp={updateCharCount}
+      value={tile.origin === 'complete' || tile.freeFormResponse ? tile.freeFormResponse : null}
+    />
     <div className="character-counter">400 characters</div>
     <a className="multiple-choice-answer" onClick={(e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, 0, tile); } }>{tile.answers[0]}</a>
     <div className="answer_target">Response cannot be empty</div>
@@ -57,7 +71,11 @@ const multipleChoice = (tile, subtype) => (
     {tile.answers.map((answer, key) => React.createElement('div', {key},
       React.createElement(
         'a',
-        { className: "multiple-choice-answer", onClick: (e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, key, tile); }, style: {margin: '0.5em auto'} },
+        {
+          className: `multiple-choice-answer ${determineIfMarkedCorrect(tile, key)}`,
+          onClick: (e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, key, tile); },
+          style: {margin: '0.5em auto'},
+        },
         answer,
       ),
       React.createElement('div', {className: 'answer_target'}, tile.incorrectText || "Sorry, that's not it. Try again!"),
@@ -87,10 +105,10 @@ const tileQuiz = tile => {
 };
 
 const TileQuizComponent = props => (
-  <div className="tile_quiz">
+  <div className="tile_quiz" style={{pointerEvents: props.tile.complete || props.tileOrigin === 'complete' ? 'none' : ''}}>
     {tilePointsBar(props.tile.points, props.tile.pointLabel)}
     <div className="tile_question content_sections">{props.tile.question}</div>
-    {tileQuiz({...props.tile, getNextTile: props.nextTile, submitAnswer: props.submitAnswer})}
+    {tileQuiz({...props.tile, submitAnswer: props.submitAnswer, origin: props.tileOrigin})}
   </div>
 );
 
@@ -99,8 +117,10 @@ TileQuizComponent.propTypes = {
     points: PropTypes.number,
     pointLabel: PropTypes.string,
     question: PropTypes.string,
+    complete: PropTypes.bool,
   }),
-  nextTile: PropTypes.func,
+  tileOrigin: PropTypes.string,
+  submitAnswer: PropTypes.func,
 };
 
 export default TileQuizComponent;

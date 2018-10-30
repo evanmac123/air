@@ -30,6 +30,7 @@ class App extends React.Component {
     this.setTiles = this.setTiles.bind(this);
     this.openFullSizeTile = this.openFullSizeTile.bind(this);
     this.closeTile = this.closeTile.bind(this);
+    this.redirectTo = this.redirectTo.bind(this);
     this.airouter = new AiRouter(routes, this);
   }
 
@@ -47,6 +48,10 @@ class App extends React.Component {
 
   setTiles(data) {
     this.props.setTilesData(data);
+  }
+
+  redirectTo(path) {
+    window.location = path;
   }
 
   openFullSizeTile(opts) {
@@ -78,6 +83,8 @@ class App extends React.Component {
         setUser: this.setUser,
         setTiles: this.setTiles,
         openFullSizeTile: this.openFullSizeTile,
+        tiles: this.props.tiles,
+        redirectTo: this.redirectTo,
       }) :
       ''
     );
@@ -88,6 +95,13 @@ App.propTypes = {
   initData: PropTypes.object,
   setUserData: PropTypes.func,
   setTilesData: PropTypes.func,
+  userData: PropTypes.object,
+  tiles: PropTypes.shape({
+    explore: PropTypes.object,
+    edit: PropTypes.object,
+    complete: PropTypes.object,
+    incomplete: PropTypes.object,
+  }),
 };
 
 export default connect(

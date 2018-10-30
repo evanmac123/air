@@ -46,8 +46,8 @@ class TileStateManager extends React.Component {
 
   renderTileFullTileData(id) {
     const { tiles, tileOrigin } = this.props;
-    const pingTileView = tileOrigin === 'complete' || tileOrigin === 'incomplete' ? 'true' : 'false'
-    this.setState({ loading: true });
+    const pingTileView = tileOrigin === 'complete' || tileOrigin === 'incomplete' ? 'true' : 'false';
+    if (!this.state.loading) { this.setState({ loading: true }); }
     if (tiles[tileOrigin][id].fullyLoaded) {
       this.setState({ loading: false });
       if (pingTileView === 'true') { pingView(id); }
@@ -79,13 +79,20 @@ class TileStateManager extends React.Component {
   }
 
   submitAnswer(id, answerIndex, freeFormResponse) {
-    if (this.props.tileOrigin === 'explore') {
+    const origin = this.props.tileOrigin;
+    this.setState({ loading: true });
+    if (origin === 'explore') {
       this.populateNewTileContentByIndex(1);
     } else {
       Fetcher.xmlHttpRequest({
         method: 'POST',
         path: `/api/tile_completions?tile_id=${id}&answer_index=${answerIndex}&free_form_response=${freeFormResponse}`,
-        success: resp => { this.populateNewTileContentByIndex(1); },
+        success: () => {
+          this.props.updateTileData({origin, id, resp: {answerIndex, freeFormResponse, complete: true}});
+          // this.props.addPointsToProgressBar(id);
+          this.populateNewTileContentByIndex(1);
+        },
+        // err: () => { this.populateNewTileContentByIndex(1); },
       });
     }
   }

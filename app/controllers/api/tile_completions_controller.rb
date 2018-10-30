@@ -23,7 +23,6 @@ module Api
       end
 
       add_start_over_if_guest
-      decide_if_tiles_can_be_done(current_user.tiles_to_complete_in_demo)
 
       render json: {
         starting_points: @starting_points,

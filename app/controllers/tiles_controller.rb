@@ -40,7 +40,7 @@ class TilesController < ApplicationController
           inPublicBoard: params[:public_slug].present?,
           startTile: start_tile ? start_tile.sanitize_for_tile_show : {},
           raffle: @demo.live_raffle.try(:id),
-          tileType: show_completed_tiles ? "complete" : "incomplete",
+          tileType: show_completed_tiles(start_tile) ? "complete" : "incomplete",
           tileIds: tiles_to_be_loaded.pluck(:id)
         }.to_json
 
@@ -201,12 +201,13 @@ class TilesController < ApplicationController
       render json: { htmlContent: html_content }
     end
 
-    def user_started_on_completed_tile?
-      session[:start_tile] && current_user.tile_completions.where(tile_id: session[:start_tile]).exists?
+    def user_started_on_completed_tile?(start_tile)
+      tile = start_tile || session[:start_tile]
+      tile && current_user.tile_completions.where(tile_id: tile).exists?
     end
 
-    def show_completed_tiles
-      @show_completed_tiles ||= (params[:completed_only] == "true") || user_started_on_completed_tile?
+    def show_completed_tiles(start_tile = nil)
+      @show_completed_tiles ||= (params[:completed_only] == "true") || user_started_on_completed_tile?(start_tile)
     end
 
     def user_tiles_to_complete

@@ -3,8 +3,12 @@ import PropTypes from "prop-types";
 
 import { htmlSanitizer } from '../../../lib/helpers';
 
+const determineIfMarkedComplete = (tileOrigin, tileComplete) => (
+  tileOrigin === 'complete' || tileComplete ? 'completed' : 'not_completed'
+);
+
 const TileImageComponent = props => (
-  <div className={props.tileOrigin === 'complete' ? 'complete' : 'not_completed'}>
+  <div className={determineIfMarkedComplete(props.tileOrigin, props.tile.complete)}>
     {
       props.tile.embedVideo &&
       <div className="video_section" style={{display: 'block'}}>
@@ -39,6 +43,7 @@ TileImageComponent.propTypes = {
     imagePath: PropTypes.string,
     headline: PropTypes.string,
     imageCredit: PropTypes.string,
+    complete: PropTypes.bool,
   }),
   loading: PropTypes.bool,
 };
