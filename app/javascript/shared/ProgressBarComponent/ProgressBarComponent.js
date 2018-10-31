@@ -2,17 +2,80 @@ import React from 'react';
 import { connect } from "react-redux";
 
 import { getSanitizedState } from "../../lib/redux/selectors";
+import { setProgressBarData } from "../../lib/redux/actions";
+
+function calculateTileProgressWidth(allTiles, completedTiles, fullProgressBar, tileAll, completedTilesBar) {
+  let fullWidth = fullProgressBar.outerWidth;
+  let tileAllWidth = tileAll.outerWidth;
+  let minWidth = completedTilesBar.style.width;
+  if (allTiles != completedTiles) {
+    fullWidth -= tileAllWidth;
+  }
+  let newWidth = parseInt(fullWidth * completedTiles / allTiles);
+
+  if (completedTiles === 0 && allTiles !== 0) {
+    newWidth = 0;
+  } else if (minWidth > newWidth) {
+    newWidth = minWidth;
+  } else if (allTiles == completedTiles) {
+    newWidth = "100%";
+  }
+  return newWidth;
+}
 
 class ProgressBarComponent extends React.Component {
   constructor(props) {
     super(props);
+    this.syncProgressBarData = this.syncProgressBarData.bind(this);
+    this.renderCompletedTilesBar = this.renderCompletedTilesBar.bind(this);
+  }
+
+  componentDidMount() {
+    this.syncProgressBarData();
+  }
+
+  componentDidUpdate() {
+    this.syncProgressBarData();
+    this.renderCompletedTilesBar();
+  }
+
+  syncProgressBarData() {
+    if (this.props.userData.name && !this.props.progressBarData.loaded) {
+      const updateData = {
+        points: this.props.userData.points || 0,
+        raffleTickets: this.props.userData.tickets || 0,
+        incompletedTiles: this.props.userData.numOfIncompleteTiles,
+        loaded: true,
+      }
+      this.props.setProgressBarData(updateData);
+    }
+  }
+
+  renderCompletedTilesBar() {
+    const fullProgressBar = document.getElementById("tile_progress_bar");
+    const completedTilesBar = document.getElementById("completed_tiles");
+    const tileAll = document.getElementById("all_tiles");
+    if (!fullProgressBar || !completedTilesBar || !tileAll) { return; } // eslint-disable-line
+    const { completedTiles, incompletedTiles } = this.props.progressBarData;
+    const end = calculateTileProgressWidth(completedTiles, incompletedTiles, fullProgressBar, tileAll, completedTilesBar);
+    const fillBar = () => {
+      const cur = parseInt(completedTilesBar.offsetWidth);
+      window.setTimeout(() => {
+        if (cur < end) {
+          completedTilesBar.setAttribute("style", `width: ${cur + 2}px;`);
+          fillBar();
+        }
+      }, 1);
+    }
+    fillBar();
   }
 
   render() {
     return (
       <div className="user_container">
       {
-        !this.props.organization.name ? <h1>Loading</h1> :
+        !this.props.organization.name || !this.props.progressBarData.loaded ?
+          <h1>Loading</h1> :
           <div id="user_progress">
 
             <span className="WHERE_RAFFLE_GOES!!!" style={{display: 'none'}} />
@@ -32,23 +95,26 @@ class ProgressBarComponent extends React.Component {
               <div id="tile_progress_bar">
 
                   <div id="all_tiles">
-                    ??
+                    {this.props.progressBarData.incompletedTiles}
                   </div>
 
-                <div id="completed_tiles">
-                  <div id="complete_info">
-                    <span className="fa fa-check"></span>
-                    <span id="completed_tiles_num">
-                      0
-                    </span>
-                  </div>
-                  <div id="congrat_header">
-                    <i className="fa fa-flag-checkered"></i>
-                    <div id="congrat_text">
-                      Finished!
+                  {!!this.props.progressBarData.completedTiles &&
+                    <div id="completed_tiles">
+                      <div id="complete_info">
+                        <span className="fa fa-check"></span>
+                        <span id="completed_tiles_num">
+                          {this.props.progressBarData.completedTiles}
+                        </span>
+                      </div>
+                      <div id="congrat_header">
+                        <i className="fa fa-flag-checkered"></i>
+                        <div id="congrat_text">
+                          Finished!
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  }
+
               </div>
             </div>
           </div>
@@ -60,7 +126,7 @@ class ProgressBarComponent extends React.Component {
 
 export default connect(
   getSanitizedState,
-  {}
+  { setProgressBarData }
 )(ProgressBarComponent);
 
 // <%=content_tag :div,  class: "user_container", data:{config:presenter.config} do%>

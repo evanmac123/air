@@ -7,8 +7,8 @@ class Api::V1::InitializeController < Api::ApiController
     user = current_user
     demo = user.try(:demo)
     render json: {
-      user: render_user_data(user) || {},
-      organization: render_organization_data(demo) || { name: "public_slug" }
+      user: render_user_data(user) || {name: 'guest'},
+      organization: render_organization_data(demo) || { name: "no_org" }
     }
   end
 
@@ -20,14 +20,15 @@ class Api::V1::InitializeController < Api::ApiController
     def render_user_data(user)
       if user
         {
-          isGuestUser: current_user.is_guest?,
-          isEndUser: current_user.end_user?,
-          isClientAdmin: current_user.is_client_admin?,
-          name: current_user.try(:name),
-          id: current_user.try(:id),
-          points: current_user.try(:points) || 0,
-          tickets: current_user.try(:tickets) || 0,
-          email: current_user.try(:email)
+          isGuestUser: user.is_guest?,
+          isEndUser: user.end_user?,
+          isClientAdmin: user.is_client_admin?,
+          name: user.try(:name),
+          id: user.try(:id),
+          points: user.try(:points) || 0,
+          tickets: user.try(:tickets) || 0,
+          email: user.try(:email),
+          numOfIncompleteTiles: user.tiles_to_complete_in_demo.count
         }
       end
     end

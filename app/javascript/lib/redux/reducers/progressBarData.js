@@ -1,13 +1,16 @@
-import { SET_USER_DATA } from "../actionTypes";
+import { SET_PROGRESS_BAR_DATA } from "../actionTypes";
 
 const initialState = {
-  id: '',
+  completedTiles: 0,
+  incompletedTiles: 0,
   points: 0,
+  raffleTickets: 0,
+  loaded: false,
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case SET_USER_DATA: {
+    case SET_PROGRESS_BAR_DATA: {
       return {
         ...state,
         ...action.payload,

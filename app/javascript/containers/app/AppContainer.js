@@ -51,7 +51,6 @@ class App extends React.Component {
       method: 'GET',
       path: `/api/v1/initialize`,
       success: resp => {
-        console.log(resp)
         this.setUser(resp.user);
         this.setOrganization(resp.organization);
         this.setState({appLoading: false});
