@@ -17,7 +17,6 @@ class TileCarouselContainer extends React.Component {
   componentDidUpdate() {
     const { startTile, tileType } = this.props.ctrl;
     const statefulTile = this.props.tiles[tileType][startTile.id];
-    // debugger
     if (statefulTile && statefulTile.fullyLoaded && this.state.loading) {
       this.initiateTileModal();
     } else {

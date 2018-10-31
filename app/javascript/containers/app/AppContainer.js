@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { AiRouter, TileStateManager } from "../../lib/utils";
-import { setUserData, setTilesData } from "../../lib/redux/actions";
+import { Fetcher } from "../../lib/helpers";
+import { setUserData, setTilesData, setOrganizationData } from "../../lib/redux/actions";
 import { getSanitizedState } from "../../lib/redux/selectors";
 import Explore from "../explore/ExploreContainer";
 import ClientAdminTiles from "../clientAdminTiles/ClientAdminTilesContainer";
@@ -14,6 +15,7 @@ const routes = {
   '/explore/campaigns/:campaign': Explore,
   '/client_admin/tiles': ClientAdminTiles,
   '/tiles': TileCarousel,
+  '/ard/:public_slug/tiles': TileCarousel,
 };
 
 class App extends React.Component {
@@ -25,6 +27,7 @@ class App extends React.Component {
       originId: null,
       tileOrigin: null,
       tileActions: null,
+      appLoading: true,
     };
     this.setUser = this.setUser.bind(this);
     this.setTiles = this.setTiles.bind(this);
@@ -36,10 +39,25 @@ class App extends React.Component {
 
   componentDidMount() {
     this.airouter.connect();
+    this.setInitialState();
   }
 
   componentWillUnmount() {
     this.airouter.disconnect();
+  }
+
+  setInitialState() {
+    Fetcher.xmlHttpRequest({
+      method: 'GET',
+      path: `/api/v1/initialize`,
+      success: resp => {
+        console.log(resp)
+        this.setUser(resp.user);
+        this.setOrganization(resp.organization);
+        this.setState({appLoading: false});
+      },
+      err: () => this.setState({appLoading: false}),
+    })
   }
 
   setUser(data) {
@@ -48,6 +66,10 @@ class App extends React.Component {
 
   setTiles(data) {
     this.props.setTilesData(data);
+  }
+
+  setOrganization(data) {
+    this.props.setOrganizationData(data);
   }
 
   redirectTo(path) {
@@ -85,6 +107,7 @@ class App extends React.Component {
         openFullSizeTile: this.openFullSizeTile,
         tiles: this.props.tiles,
         redirectTo: this.redirectTo,
+        appLoading: this.state.appLoading,
       }) :
       ''
     );
@@ -106,5 +129,5 @@ App.propTypes = {
 
 export default connect(
   getSanitizedState,
-  { setUserData, setTilesData }
+  { setUserData, setTilesData, setOrganizationData }
 )(App);

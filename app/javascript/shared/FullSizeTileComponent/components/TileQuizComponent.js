@@ -38,7 +38,7 @@ const checkAnswerForSubmission = (e, correctIndex, index, tile) => {
   target.style.pointerEvents = 'none';
   if (correctAnswer === true) {
     target.classList.add('clicked_right_answer');
-    submitAnswer(tile.id, freeForm ? null : index, freeForm ? freeForm : null); // eslint-disable-line
+    submitAnswer(tile.id, freeForm ? null : index, freeForm ? freeForm.value : null); // eslint-disable-line
   } else {
     if (correctAnswer === 'freeForm') {
       target.style.pointerEvents = '';
@@ -58,7 +58,7 @@ const freeResponse = tile => (
       placeholder="Enter your response here"
       className="free-form-response edit with_counter"
       onKeyUp={updateCharCount}
-      value={tile.origin === 'complete' || tile.freeFormResponse ? tile.freeFormResponse : null}
+      value={tile.origin === 'complete' || tile.freeFormResponse ? tile.freeFormResponse : undefined}
     />
     <div className="character-counter">400 characters</div>
     <a className="multiple-choice-answer" onClick={(e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, 0, tile); } }>{tile.answers[0]}</a>
@@ -106,7 +106,7 @@ const tileQuiz = tile => {
 
 const TileQuizComponent = props => (
   <div className="tile_quiz" style={{pointerEvents: props.tile.complete || props.tileOrigin === 'complete' ? 'none' : ''}}>
-    {tilePointsBar(props.tile.points, props.tile.pointLabel)}
+    {tilePointsBar(props.tile.points, props.organization.pointsWording)}
     <div className="tile_question content_sections">{props.tile.question}</div>
     {tileQuiz({...props.tile, submitAnswer: props.submitAnswer, origin: props.tileOrigin})}
   </div>

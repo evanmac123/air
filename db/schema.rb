@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181029230950) do
+ActiveRecord::Schema.define(version: 20181030232757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -816,6 +816,8 @@ ActiveRecord::Schema.define(version: 20181029230950) do
     t.string   "zip_code",              limit: 255
     t.date     "free_trial_started_at"
     t.integer  "company_size_cd",                   default: 0
+    t.string   "tiles_wording"
+    t.string   "points_wording"
   end
 
   add_index "organizations", ["name"], name: "index_organizations_on_name", using: :btree

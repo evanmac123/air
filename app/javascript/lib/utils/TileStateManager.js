@@ -105,6 +105,7 @@ class TileStateManager extends React.Component {
       <div style={{pointerEvents: `${this.state.loading ? 'none' : ''}`}}>
         <FullSizeTileComponent
           tile={tile}
+          organization={this.props.organization}
           loading={this.state.loading}
           nextTile={() => this.populateNewTileContentByIndex(1)}
           prevTile={() => this.populateNewTileContentByIndex(-1)}

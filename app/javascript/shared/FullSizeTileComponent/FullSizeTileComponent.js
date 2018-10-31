@@ -5,6 +5,7 @@ import TileImageComponent from './components/TileImageComponent';
 import TileQuizComponent from './components/TileQuizComponent';
 import attachmentFileExtensions from './constants/attachmentFileExtensions';
 import LoadingComponent from '../../shared/LoadingComponent';
+import ProgressBarComponent from '../../shared/ProgressBarComponent';
 import { htmlSanitizer } from '../../lib/helpers';
 
 const copyTile = (copyTileAction, tile, e) => {
@@ -105,10 +106,10 @@ const FullSizeTileComponent = props => (
           <a onClick={props.closeTile} className="close-reveal-modal stickable"><i className="fa fa-times fa-2x"></i></a>
         </div>
       }
-      {props.tileOrigin !== 'explore' && <div className="acts-index"><h1>PROGRESS BAR!</h1></div>}
+      {props.tileOrigin !== 'explore' && <div className="acts-index"><ProgressBarComponent /></div>}
       <div className={props.tileOrigin === 'explore' ? "modal_content" : "container row"}>
         {
-          props.loading ?
+          props.loading || !props.organization.name ?
             fullSizeTileLoadingContainer(props.closeTile, props.tileOrigin === 'explore') :
             <div className="viewer">
               {props.tileOrigin === 'explore' && directionalButtons(props.nextTile, props.prevTile)}
