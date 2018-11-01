@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { updateTileData } from "../redux/actions";
+import { updateTileData, addCompletionAndPointsToProgressBar } from "../redux/actions";
 import { getSanitizedState } from "../redux/selectors";
 import { Fetcher } from "../helpers";
 import FullSizeTileComponent from "../../shared/FullSizeTileComponent";
@@ -80,6 +80,7 @@ class TileStateManager extends React.Component {
 
   submitAnswer(id, answerIndex, freeFormResponse) {
     const origin = this.props.tileOrigin;
+    const { points } = this.props.tiles[origin][id];
     this.setState({ loading: true });
     if (origin === 'explore') {
       this.populateNewTileContentByIndex(1);
@@ -89,7 +90,7 @@ class TileStateManager extends React.Component {
         path: `/api/tile_completions?tile_id=${id}&answer_index=${answerIndex}&free_form_response=${freeFormResponse}`,
         success: () => {
           this.props.updateTileData({origin, id, resp: {answerIndex, freeFormResponse, complete: true}});
-          // this.props.addPointsToProgressBar(id);
+          this.props.addCompletionAndPointsToProgressBar({ points, completion: 1 });
           this.populateNewTileContentByIndex(1);
         },
         // err: () => { this.populateNewTileContentByIndex(1); },
@@ -137,5 +138,5 @@ TileStateManager.propTypes = {
 
 export default connect(
   getSanitizedState,
-  { updateTileData }
+  { updateTileData, addCompletionAndPointsToProgressBar }
 )(TileStateManager);

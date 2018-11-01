@@ -1,4 +1,4 @@
-import { SET_PROGRESS_BAR_DATA } from "../actionTypes";
+import { SET_PROGRESS_BAR_DATA, ADD_COMPLETION_AND_POINTS_TO_PROGRESS_BAR } from "../actionTypes";
 
 const initialState = {
   completedTiles: 0,
@@ -15,6 +15,15 @@ export default function(state = initialState, action) {
         ...state,
         ...action.payload,
       };
+    }
+    case ADD_COMPLETION_AND_POINTS_TO_PROGRESS_BAR: {
+      const points = state.points + action.payload.points;
+      const completedTiles = state.completedTiles + action.payload.completion;
+      return {
+        ...state,
+        points,
+        completedTiles,
+      }
     }
     default:
       return state;

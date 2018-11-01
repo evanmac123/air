@@ -24,3 +24,8 @@ export const setProgressBarData = data => ({
   type: actionTypes.SET_PROGRESS_BAR_DATA,
   payload: { ...data },
 });
+
+export const addCompletionAndPointsToProgressBar = data => ({
+  type: actionTypes.ADD_COMPLETION_AND_POINTS_TO_PROGRESS_BAR,
+  payload: { ...data },
+});
