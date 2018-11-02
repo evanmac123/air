@@ -7,16 +7,30 @@ import { setProgressBarData } from "../../lib/redux/actions";
 function calculateTileProgressWidth(completedTiles, allTiles, fullProgressBar, tileAll, completedTilesBar, fullWidth) {
   const tileAllWidth = tileAll.offsetWidth;
   const minWidth = completedTilesBar.style.width;
-  const newWidth = parseInt(fullWidth * completedTiles / allTiles);
+  const newWidth = parseInt(fullWidth * completedTiles / allTiles, 10);
   if (completedTiles === 0 && allTiles !== 0) {
     return 0;
   } else if (minWidth > newWidth) {
     return minWidth;
-  } else if (allTiles == completedTiles) {
+  } else if (allTiles === completedTiles) {
     return fullWidth;
   }
   return newWidth;
 }
+
+const loadingProgressBar = () => (
+  <div id="user_progress">
+    <span className="WHERE_RAFFLE_GOES!!!" style={{display: 'none'}} />
+    <div id="total_section">
+      <div className="progress_header" id="total_header" />
+      <div id="total_points" />
+    </div>
+    <div id="tile_section">
+      <div className="progress_header" id="tile_header" />
+      <div id="tile_progress_bar" />
+    </div>
+  </div>
+);
 
 class ProgressBarComponent extends React.Component {
   constructor(props) {
@@ -41,7 +55,7 @@ class ProgressBarComponent extends React.Component {
         raffleTickets: this.props.userData.tickets || 0,
         incompletedTiles: this.props.userData.numOfIncompleteTiles,
         loaded: true,
-      }
+      };
       this.props.setProgressBarData(updateData);
     }
   }
@@ -52,10 +66,10 @@ class ProgressBarComponent extends React.Component {
     const tileAll = document.getElementById("all_tiles");
     if (!fullProgressBar || !completedTilesBar || !tileAll) { return; } // eslint-disable-line
     const { completedTiles, incompletedTiles } = this.props.progressBarData;
-    const fullWidth = incompletedTiles != completedTiles ? fullProgressBar.offsetWidth - tileAll.offsetWidth : fullProgressBar.offsetWidth;
+    const fullWidth = incompletedTiles !== completedTiles ? fullProgressBar.offsetWidth - tileAll.offsetWidth : fullProgressBar.offsetWidth;
     const end = calculateTileProgressWidth(completedTiles, incompletedTiles, fullProgressBar, tileAll, completedTilesBar, fullWidth);
     const fillBar = () => {
-      const cur = parseInt(completedTilesBar.offsetWidth);
+      const cur = parseInt(completedTilesBar.offsetWidth, 10);
       window.setTimeout(() => {
         if (cur < end) {
           if (end === fullWidth && document.getElementById("all_tiles").style.display !== 'none') {
@@ -68,7 +82,7 @@ class ProgressBarComponent extends React.Component {
           document.getElementById('congrat_header').setAttribute("style", "display: block;");
         }
       }, 10);
-    }
+    };
     fillBar();
   }
 
@@ -77,7 +91,7 @@ class ProgressBarComponent extends React.Component {
       <div className="user_container">
       {
         !this.props.organization.name || !this.props.progressBarData.loaded ?
-          <h1>Loading</h1> :
+          loadingProgressBar() :
           <div id="user_progress">
 
             <span className="WHERE_RAFFLE_GOES!!!" style={{display: 'none'}} />
@@ -112,7 +126,7 @@ class ProgressBarComponent extends React.Component {
                     <div id="congrat_header">
                       <i className="fa fa-flag-checkered" style={{paddingRight: '10px'}}></i>
                       <div id="congrat_text">
-                        You've finished all new {this.props.organization.tilesWording}!
+                        {`You've finished all new ${this.props.organization.tilesWording}!`}
                       </div>
                     </div>
                   </div>
@@ -131,49 +145,3 @@ export default connect(
   getSanitizedState,
   { setProgressBarData }
 )(ProgressBarComponent);
-
-// <%=content_tag :div,  class: "user_container", data:{config:presenter.config} do%>
-//   <div id="user_progress">
-//     <% if raffle %>
-//       <%= render partial: "shared/tiles/raffle_progress", locals: {raffle: raffle}  %>
-//     <% end %>
-//     <div id="total_section">
-//       <div className="progress_header" id="total_header">
-//         <%= org_points_wording.capitalize %>
-//       </div>
-//       <div id="total_points">
-//         <%= presenter.points %>
-//       </div>
-//     </div>
-//     <div id="tile_section">
-//       <div className="progress_header" id="tile_header">
-//         Tiles
-//       </div>
-//       <div id="tile_progress_bar">
-//         <% if presenter.some_tiles_undone %>
-//           <div id="all_tiles">
-//             <%= presenter.available_tile_count %>
-//           </div>
-//         <% end %>
-//         <div id="completed_tiles">
-//           <div id="complete_info">
-//             <span className="fa fa-check"></span>
-//             <span id="completed_tiles_num">
-//               <%= presenter.completed_tile_count %>
-//             </span>
-//           </div>
-//           <div id="congrat_header">
-//             <icon className="fa fa-flag-checkered"></icon>
-//             <div id="congrat_text">
-//               Finished!
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// <%end%>
-//
-// <% if raffle && current_user.can_see_raffle_modal? %>
-//   <%= render partial: "client_admin/prizes/prize_modal", locals: { raffle: raffle } %>
-// <% end %>

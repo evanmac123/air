@@ -13,8 +13,10 @@ const copyTile = (copyTileAction, tile, e) => {
   copyTileAction(tile);
 };
 
-const fullSizeTileLoadingContainer = (closeTile, isExplore) => (
+const fullSizeTileLoadingContainer = tileOrigin => (
   <div className="viewer">
+  {tileOrigin === 'explore' && directionalButtons(() => {}, () => {})}
+  {tileOrigin !== 'explore' && <a id="prev" className="react-dir"></a>}
     <div id="tile_preview_section">
       <div className="large-centered columns clearfix tile_preview_block">
         <div className="tile_holder" style={{width: '100%'}}>
@@ -25,6 +27,7 @@ const fullSizeTileLoadingContainer = (closeTile, isExplore) => (
         </div>
       </div>
     </div>
+    {tileOrigin !== 'explore' && <a id="next" className="react-dir"></a>}
   </div>
 );
 
@@ -110,7 +113,7 @@ const FullSizeTileComponent = props => (
       <div className={props.tileOrigin === 'explore' ? "modal_content" : "container row"}>
         {
           props.loading || !props.organization.name ?
-            fullSizeTileLoadingContainer(props.closeTile, props.tileOrigin === 'explore') :
+            fullSizeTileLoadingContainer(props.tileOrigin) :
             <div className="viewer">
               {props.tileOrigin === 'explore' && directionalButtons(props.nextTile, props.prevTile)}
               {props.tileOrigin !== 'explore' && <a id="prev" onClick={props.prevTile} className="react-dir"></a>}
