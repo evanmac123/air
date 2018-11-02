@@ -66,8 +66,8 @@ class TileStateManager extends React.Component {
     return differenceIndex;
   }
 
-  populateNewTileContentByIndex(indexDifference) {
-    if (!this.state.loading) {
+  populateNewTileContentByIndex(indexDifference, nextAfterCompletion) {
+    if (!this.state.loading || nextAfterCompletion) {
       const {tiles, tileOrigin} = this.props;
       const newIndex = this.calculateRolloverIndex(this.state.currentTileIndex + indexDifference);
       this.setState({ loading: true });
@@ -94,7 +94,7 @@ class TileStateManager extends React.Component {
         success: () => {
           this.props.updateTileData({origin, id, resp: {answerIndex, freeFormResponse, complete: true}});
           this.props.addCompletionAndPointsToProgressBar({ points, completion: 1 });
-          this.populateNewTileContentByIndex(1);
+          this.populateNewTileContentByIndex(1, true);
         },
         // err: () => { this.populateNewTileContentByIndex(1); },
       });
@@ -128,15 +128,18 @@ TileStateManager.propTypes = {
   tileOrigin: PropTypes.string,
   originId: PropTypes.number,
   updateTileData: PropTypes.func,
+  addCompletionAndPointsToProgressBar: PropTypes.func,
   tiles: PropTypes.shape({
     explore: PropTypes.object,
     edit: PropTypes.object,
     complete: PropTypes.object,
     incomplete: PropTypes.object,
+    origin: PropTypes.object,
   }),
   closeTile: PropTypes.func,
   userData: PropTypes.object,
   tileActions: PropTypes.object,
+  organization: PropTypes.object,
 };
 
 export default connect(
