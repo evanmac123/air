@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { DragLayer } from 'react-dnd';
 
@@ -31,7 +31,7 @@ function getItemStyles(props) {
   };
 }
 
-class CustomDragLayer extends Component {
+class CustomDragLayer extends React.Component {
   renderItem(type, tile) {
     switch (type) {
     case ItemTypes.TILE:

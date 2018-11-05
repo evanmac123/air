@@ -1,13 +1,14 @@
-import { SET_USER_DATA } from "../actionTypes";
+import { SET_ORGANIZATION_DATA } from "../actionTypes";
 
 const initialState = {
-  id: '',
-  points: 0,
+  name: '',
+  tilesWording: 'Tiles',
+  pointsWording: 'Points',
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case SET_USER_DATA: {
+    case SET_ORGANIZATION_DATA: {
       return {
         ...state,
         ...action.payload,

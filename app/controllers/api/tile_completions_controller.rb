@@ -23,7 +23,6 @@ module Api
       end
 
       add_start_over_if_guest
-      decide_if_tiles_can_be_done(current_user.tiles_to_complete_in_demo)
 
       render json: {
         starting_points: @starting_points,
@@ -38,11 +37,12 @@ module Api
       end
 
       def create_tile_completion
+        free_form_response = params[:free_form_response] == "null" ? nil : params[:free_form_response]
         TileCompletion.create(
           tile_id: @tile.id,
           user: current_user,
           answer_index: params[:answer_index],
-          free_form_response: params[:free_form_response],
+          free_form_response: free_form_response,
           custom_form: params[:custom_form]
         )
       end

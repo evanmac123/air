@@ -223,7 +223,7 @@ Airbo.UserTilePreview = (function() {
   function bindTileCarouselNavigationButtons() {
     $("body").on("click", "#next, #prev", function(event) {
       event.preventDefault();
-      getTileByNavigation($(event.target));
+      if (!event.target.classList.length) { getTileByNavigation($(event.target)); }
     });
   }
 
