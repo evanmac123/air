@@ -28,21 +28,26 @@ class TilesController < ApplicationController
       @start_tile = current_board.tiles.find_by(id: params[:tile_id])
       @current_tile_ids = params[:tile_ids].split(", ")
     else
-      @in_public_board = params[:public_slug].present?
+      # TODO: CLEAN THIS UP... Temporary code to deal with scaling issue
+      # Fuji and other bigger, older clients are killing our PG memory
+      # patching new React rendering to old code base for time being
+      start_tile = find_start_tile
 
-      @start_tile = find_start_tile
+      if params[:tile_id] && start_tile.nil?
+        redirect_to activity_path
+      else
+        @ctrl_data = {
+          inPublicBoard: params[:public_slug].present?,
+          startTile: start_tile ? start_tile.sanitize_for_tile_show : {},
+          raffle: @demo.live_raffle.try(:id),
+          tileType: show_completed_tiles(start_tile) ? "complete" : "incomplete",
+          tileIds: tiles_to_be_loaded.pluck(:id)
+        }.to_json
 
-      @raffle = @demo.live_raffle.try(:id)
+        session.delete(:start_tile)
 
-      verify_tile_exists
-
-      @current_tile_ids = tiles_to_be_loaded.pluck(:id)
-      # TODO: Fix decide_if_tiles_can_be_done wording and make single responsibility
-      decide_if_tiles_can_be_done(@current_tile_ids)
-
-      schedule_viewed_tile_ping(@start_tile)
-      increment_tile_views_counter @start_tile, current_user
-      session.delete(:start_tile)
+        render template: "react_spa/show"
+      end
     end
   end
 
@@ -66,8 +71,8 @@ class TilesController < ApplicationController
 
   private
 
-    def verify_tile_exists
-      redirect_to activity_path if params[:tile_id] && @start_tile.nil?
+    def verify_tile_exists(start_tile = @start_tile)
+      redirect_to activity_path if params[:tile_id] && start_tile.nil?
     end
 
     def find_start_tile
@@ -196,12 +201,13 @@ class TilesController < ApplicationController
       render json: { htmlContent: html_content }
     end
 
-    def user_started_on_completed_tile?
-      session[:start_tile] && current_user.tile_completions.where(tile_id: session[:start_tile]).exists?
+    def user_started_on_completed_tile?(start_tile)
+      tile = start_tile || session[:start_tile]
+      tile && current_user.tile_completions.where(tile_id: tile).exists?
     end
 
-    def show_completed_tiles
-      @show_completed_tiles ||= (params[:completed_only] == "true") || user_started_on_completed_tile?
+    def show_completed_tiles(start_tile = nil)
+      @show_completed_tiles ||= (params[:completed_only] == "true") || user_started_on_completed_tile?(start_tile)
     end
 
     def user_tiles_to_complete

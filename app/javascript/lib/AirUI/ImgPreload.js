@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-class ImgPreload extends Component {
+class ImgPreload extends React.Component {
   constructor(props) {
     super(props);
     this.state = { imageLoading: true };
@@ -34,6 +34,8 @@ class ImgPreload extends Component {
 
   render() {
     return React.createElement("img", {
+      className: this.props.className,
+      id: this.props.id,
       src: this.state.imageSrc,
       onLoad: () => this.handleImageState('load'),
       onError: () => this.handleImageState('error'),

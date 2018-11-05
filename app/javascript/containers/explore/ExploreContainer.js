@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import * as $ from "jquery";
 
@@ -8,7 +8,7 @@ import CampaignApi from "./CampaignApi";
 import { Fetcher, WindowHelper, LocalStorer, InfiniScroller } from "../../lib/helpers";
 import { AiRouter } from "../../lib/utils";
 
-class Explore extends Component {
+class Explore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,6 +29,7 @@ class Explore extends Component {
     this.updateActiveDisplay = this.updateActiveDisplay.bind(this);
     this.populateCampaigns = this.populateCampaigns.bind(this);
     this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
+    this.openTileModal = this.openTileModal.bind(this);
     this.scrollState = new InfiniScroller({
       scrollPercentage: 0.90,
       throttle: 100,
@@ -40,6 +41,10 @@ class Explore extends Component {
     this.populateCampaigns().then(() => this.updateActiveDisplay());
     this.updateDimensions();
     this.scrollState.setOnScroll();
+    this.props.setUser({
+      isGuestUser: this.props.ctrl.isGuestUser,
+      isEndUser: this.props.ctrl.isEndUser,
+    });
     window.addEventListener("resize", this.updateDimensions);
     window.addEventListener("popstate", this.updateActiveDisplay);
 
@@ -90,6 +95,8 @@ class Explore extends Component {
   }
 
   campaignRedirect(campaign, popstate) {
+    const explore = this.state[`campaignTiles${campaign.id}`];
+    this.props.setTiles({ explore });
     if (!popstate) {
       window.Airbo.Utils.ping("Explore page - Interaction", {
         action: "Clicked Campaign",
@@ -181,6 +188,16 @@ class Explore extends Component {
     $target.addClass("disabled green");
   }
 
+  openTileModal(tileId) {
+    this.props.openFullSizeTile({
+      id: tileId,
+      from: 'explore',
+      tileActions: {
+        copyTile: this.copyTile,
+      },
+    });
+  }
+
   render() {
     return (
       <div className="explore-container">
@@ -194,6 +211,7 @@ class Explore extends Component {
             copyTile={this.copyTile}
             copyAllTiles={this.copyAllTiles}
             user={this.props.ctrl}
+            openTileModal={this.openTileModal}
           />
         }
       </div>
@@ -203,6 +221,9 @@ class Explore extends Component {
 
 Explore.propTypes = {
   ctrl: PropTypes.object,
+  setUser: PropTypes.func,
+  setTiles: PropTypes.func,
+  openFullSizeTile: PropTypes.func,
 };
 
 

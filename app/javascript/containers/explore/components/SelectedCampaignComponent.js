@@ -1,17 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import sanitizeHtml from 'sanitize-html';
 
 import TileComponent from "../../../shared/TileComponent";
 import NavbarComponent from "./NavbarComponent";
 import LoadingComponent from "../../../shared/LoadingComponent";
+import { htmlSanitizer } from '../../../lib/helpers';
 
 const displayCreationDate = date => {
   const splitDate = date.split("T")[0].split("-");
   return `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
 };
 
-const renderTiles = (tiles, copyTile, user) => (
+const renderTiles = (tiles, copyTile, user, openTileModal) => (
   tiles.map(tile => React.createElement(TileComponent, {
     ...tile,
     copyTile,
@@ -21,29 +21,10 @@ const renderTiles = (tiles, copyTile, user) => (
     copyButtonDisplay: true,
     caledarIcon: 'fa-calendar',
     tileContainerClass: 'explore',
-    tileThumblinkClass: 'tile_thumb_link_explore',
+    tileThumblinkClass: 'tile_thumb_link',
+    tileThumblinkOnClick: () => { openTileModal(tile.id); },
+    tileShowPath: null,
   }))
-);
-
-// NOTE: Add import sanitizeHtml from 'sanitize-html'; in order to safely sanitize
-const renderHTML = html => (
-  {
-    __html: sanitizeHtml(html, {
-      allowedTags: [ "h3", "h4", "h5", "h6", "blockquote", "p", "a", "ul", "ol",
-        "nl", "li", "b", "i", "strong", "em", "strike", "hr", "br", "div",
-        "table", "thead", "caption", "tbody", "tr", "th", "td" ],
-      allowedAttributes: {
-        a: [ "href", "name", "target" ],
-        img: [ "src" ],
-      },
-      selfClosing: [ "img", "br", "hr", "area", "base", "basefont", "input", "link", "meta" ],
-      allowedSchemes: [ "http", "https", "mailto" ],
-      allowedSchemesByTag: {},
-      allowedSchemesAppliedToAttributes: [ "href", "src" ],
-      allowProtocolRelative: true,
-      allowedIframeHostnames: ["www.youtube.com", "player.vimeo.com"],
-    }),
-  }
 );
 
 const SelectedCampaignComponent = props => (
@@ -59,7 +40,7 @@ const SelectedCampaignComponent = props => (
     <div className="row">
       <div className="large-12 columns">
         <div className="campaign-description">
-          <p dangerouslySetInnerHTML={renderHTML(props.selectedCampaign.description)} />
+          <p dangerouslySetInnerHTML={htmlSanitizer(props.selectedCampaign.description)} />
         </div>
       </div>
     </div>
@@ -80,7 +61,7 @@ const SelectedCampaignComponent = props => (
     <div className="explore-tiles-container">
       <div className="row">
         <div className="large-12 columns">
-          {renderTiles(props.tiles, props.copyTile, props.user)}
+          {renderTiles(props.tiles, props.copyTile, props.user, props.openTileModal)}
         </div>
       </div>
       { props.scrollLoading && <LoadingComponent /> }
@@ -109,6 +90,7 @@ SelectedCampaignComponent.propTypes = {
   copyAllTiles: PropTypes.func,
   copyTile: PropTypes.func,
   scrollLoading: PropTypes.bool,
+  openTileModal: PropTypes.func,
 };
 
 export default SelectedCampaignComponent;

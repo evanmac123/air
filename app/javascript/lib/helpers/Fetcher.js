@@ -23,7 +23,14 @@ Fetcher.xmlHttpRequest = (opts) => {
     credentials: 'same-origin',
   }).then(resp => resp.json())
     .then(response => opts.success(response))
-    .catch(err => opts.err ? opts.err(err) : console.error(err));
+    .catch(err => {
+      if (opts.err) {
+        opts.err(err);
+      } else {
+        console.error(err);
+      }
+      throw err;
+    });
 };
 
 export default Fetcher;

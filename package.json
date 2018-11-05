@@ -10,6 +10,7 @@
     "babel-preset-react": "^6.24.1",
     "caniuse-lite": "^1.0.30000697",
     "clipboard": "^2.0.0",
+    "es6-promise": "^4.2.5",
     "flickity": "^2.0.10",
     "jquery": "^3.3.1",
     "lodash.flow": "^3.5.0",
@@ -24,8 +25,10 @@
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^5.0.1",
     "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
     "react-select": "^2.0.0",
     "react-tooltip": "^3.6.1",
+    "redux": "^4.0.1",
     "sanitize-html": "^1.18.2",
     "webpack": "^3.0.0",
     "whatwg-fetch": "^2.0.4"
