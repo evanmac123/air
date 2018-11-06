@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 
 import { Fetcher } from "../../../lib/helpers";
 
+const validateEmail = value => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
+  return re.test(String(value).toLowerCase());
+};
+
 const decideIfAnswerIsCorrect = (correctIndex, index, freeForm) => {
   if (freeForm) {
     return (freeForm.value.length > 0) ? true : 'freeForm';
@@ -68,59 +73,7 @@ const freeResponse = tile => (
   </div>
 );
 
-const multipleChoice = (tile, subtype) => (
-  <div className="multiple_choice_group content_sections">
-    {tile.answers.map((answer, key) => React.createElement('div', {key},
-      React.createElement(
-        'a',
-        {
-          className: `multiple-choice-answer ${determineIfMarkedCorrect(tile, key)}`,
-          onClick: (e) => {
-            if (tile.complete || tile.origin === 'complete') { return; } // eslint-disable-line
-            if (subtype === 'change_email' || subtype === 'invite_spouse') {
-              key > 0 ? checkAnswerForSubmission(e, key, key, tile) : formActions(e, subtype, key, tile);
-            } else {
-              checkAnswerForSubmission(e, tile.correctAnswerIndex, key, tile);
-            }
-          },
-          style: {margin: '0.5em auto'},
-        },
-        answer,
-      ),
-      React.createElement('div', {className: 'answer_target'}, tile.incorrectText || "Sorry, that's not it. Try again!"),
-    ))}
-    {(subtype === 'change_email') &&
-      <div id="change_email_form_hidden" style={{display: 'none'}}>
-        <label>New Email Address</label>
-        <input type="text" name="change_email[email]" id="change_email_email" placeholder="example@email.com" />
-        <label className="change_email_error err" id="email_error"></label>
-        <a className="tile_button" onClick={e => { submitEmailChange(e, tile) }}>Change email</a>
-        <p>
-          <a className="no_email_change righty" onClick={revertSelection}>Nevermind, I don’t want to change my email.</a>
-        </p>
-      </div>
-    }
-    {(subtype === 'invite_spouse') &&
-      <div id="invite_spouse_form_hidden" style={{display: 'none'}}>
-          <label>To</label>
-          <input type="text" name="dependent_user_invitation[email]" id="dependent_user_invitation_email" placeholder="example@email.com" />
-
-          <label>Subject</label>
-          <input type="text" name="dependent_user_invitation[subject]" id="dependent_user_invitation_subject" defaultValue={tile.dependentBoardSubject} />
-
-          <label>Body</label>
-          <textarea name="dependent_user_invitation[body]" id="dependent_user_invitation_body" rows="4" defaultValue={tile.dependentBoardBody}></textarea>
-
-          <a className="tile_button" onClick={submitSpouseInvitation}>Send</a>
-          <p>
-            <a className="no_invitation righty" onClick={revertSelection}>Nevermind, I don’t want to send an invitation.</a>
-          </p>
-      </div>
-    }
-  </div>
-);
-
-const formActions = (e, subtype, key, tile) => {
+const formActions = (e, subtype) => {
   const options = e.target.parentElement.parentElement.children;
   for (let i = 0; i < options.length; i++) { options[i].style.display = "none"; }
   document.getElementById(`${subtype}_form_hidden`).style.display = "";
@@ -130,12 +83,11 @@ const revertSelection = e => {
   const options = e.target.parentElement.parentElement.parentElement.children;
   for (let i = 0; i < options.length; i++) { options[i].style.display = ""; }
   e.target.parentElement.parentElement.style.display = "none";
-}
+};
 
 const submitEmailChange = (e, tile) => {
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const email = document.getElementById('change_email_email').value;
-  const valid = re.test(String(email).toLowerCase());
+  const valid = validateEmail(email);
   const { target } = e;
   target.style.pointerEvents = 'none';
   if (email && valid) {
@@ -154,14 +106,98 @@ const submitEmailChange = (e, tile) => {
           target.style.pointerEvents = '';
         }
       },
-    })
+    });
   } else {
     document.getElementById('change_email_email').classList.add('error');
     document.getElementById('email_error').innerText = "A valid email address is required";
   }
 };
 
-const submitSpouseInvitation = e => {};
+const submitSpouseInvitation = (e, tile) => {
+  const email = document.getElementById('dependent_user_invitation_email').value;
+  const subject = document.getElementById('dependent_user_invitation_subject').value;
+  const body = document.getElementById('dependent_user_invitation_body').value;
+  const valid = validateEmail(email);
+  if (email && subject && body && valid) {
+    const { target } = e;
+    target.style.pointerEvents = 'none';
+    Fetcher.xmlHttpRequest({
+      method: 'POST',
+      path: '/invitation/dependent_user_invitation',
+      params: { dependent_user_invitation: {email, subject, body, json: true} },
+      success: resp => {
+        if (resp.status === 'success') {
+          target.innerText = 'Sending invitation';
+          target.classList.add('clicked_right_answer');
+          setTimeout(() => { tile.submitAnswer(tile.id, 0, null); }, 3000);
+        } else {
+          document.getElementById('spouse_form_error').innerText = "Something went wrong. Please try again later.";
+          target.style.pointerEvents = '';
+        }
+      },
+    });
+  } else {
+    const error = valid ? "All fields must be filled" : "A valid email address is required";
+    document.getElementById('spouse_form_error').innerText = error;
+  }
+};
+
+const multipleChoice = (tile, subtype) => (
+  <div className="multiple_choice_group content_sections">
+    {tile.answers.map((answer, key) => React.createElement('div', {key},
+      React.createElement(
+        'a',
+        {
+          className: `multiple-choice-answer ${determineIfMarkedCorrect(tile, key)}`,
+          onClick: (e) => {
+            if (tile.complete || tile.origin === 'complete') { return; } // eslint-disable-line
+            if (subtype === 'change_email' || subtype === 'invite_spouse') {
+              if (key > 0) {
+                checkAnswerForSubmission(e, key, key, tile);
+              } else {
+                formActions(e, subtype);
+              }
+            } else {
+              checkAnswerForSubmission(e, tile.correctAnswerIndex, key, tile);
+            }
+          },
+          style: {margin: '0.5em auto'},
+        },
+        answer,
+      ),
+      React.createElement('div', {className: 'answer_target'}, tile.incorrectText || "Sorry, that's not it. Try again!"),
+    ))}
+    {(subtype === 'change_email') &&
+      <div id="change_email_form_hidden" style={{display: 'none'}}>
+        <label>New Email Address</label>
+        <input type="text" name="change_email[email]" id="change_email_email" placeholder="example@email.com" />
+        <label className="change_email_error err" id="email_error"></label>
+        <a className="tile_button multiple-choice-answer" onClick={e => { submitEmailChange(e, tile); }}>Change email</a>
+        <p>
+          <a className="no_email_change righty" onClick={revertSelection}>Nevermind, I don’t want to change my email.</a>
+        </p>
+      </div>
+    }
+    {(subtype === 'invite_spouse') &&
+      <div id="invite_spouse_form_hidden" style={{display: 'none'}}>
+          <label>To</label>
+          <input type="text" name="dependent_user_invitation[email]" id="dependent_user_invitation_email" placeholder="example@email.com" />
+
+          <label>Subject</label>
+          <input type="text" name="dependent_user_invitation[subject]" id="dependent_user_invitation_subject" defaultValue={tile.dependentBoardSubject} />
+
+          <label>Body</label>
+          <textarea name="dependent_user_invitation[body]" id="dependent_user_invitation_body" rows="4" defaultValue={tile.dependentBoardBody}></textarea>
+
+          <label className="change_email_error err" id="spouse_form_error"></label>
+          <a className="tile_button multiple-choice-answer" onClick={e => { submitSpouseInvitation(e, tile); }}>Send</a>
+          <p>
+            <a className="no_invitation righty" onClick={revertSelection}>Nevermind, I don’t want to send an invitation.</a>
+          </p>
+      </div>
+    }
+  </div>
+);
 
 const tileQuiz = tile => {
   switch (tile.questionSubtype) {
@@ -200,6 +236,7 @@ TileQuizComponent.propTypes = {
     question: PropTypes.string,
     complete: PropTypes.bool,
   }),
+  organization: PropTypes.object,
   tileOrigin: PropTypes.string,
   submitAnswer: PropTypes.func,
 };
