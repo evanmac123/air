@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
+import { Fetcher } from "../../../lib/helpers";
+
 const decideIfAnswerIsCorrect = (correctIndex, index, freeForm) => {
   if (freeForm) {
     return (freeForm.value.length > 0) ? true : 'freeForm';
@@ -76,7 +78,7 @@ const multipleChoice = (tile, subtype) => (
           onClick: (e) => {
             if (tile.complete || tile.origin === 'complete') { return; } // eslint-disable-line
             if (subtype === 'change_email' || subtype === 'invite_spouse') {
-              formActions(e, subtype, key, tile)
+              key > 0 ? checkAnswerForSubmission(e, key, key, tile) : formActions(e, subtype, key, tile);
             } else {
               checkAnswerForSubmission(e, tile.correctAnswerIndex, key, tile);
             }
@@ -90,9 +92,9 @@ const multipleChoice = (tile, subtype) => (
     {(subtype === 'change_email') &&
       <div id="change_email_form_hidden" style={{display: 'none'}}>
         <label>New Email Address</label>
-        <input type="text" name="change_email[email]" id="change_email_email" value="" placeholder="example@email.com" />
-        <label className="change_email_error err"></label>
-        <a className="tile_button" onClick={submitEmailChange}>Change email</a>
+        <input type="text" name="change_email[email]" id="change_email_email" placeholder="example@email.com" />
+        <label className="change_email_error err" id="email_error"></label>
+        <a className="tile_button" onClick={e => { submitEmailChange(e, tile) }}>Change email</a>
         <p>
           <a className="no_email_change righty" onClick={revertSelection}>Nevermind, I don’t want to change my email.</a>
         </p>
@@ -101,13 +103,13 @@ const multipleChoice = (tile, subtype) => (
     {(subtype === 'invite_spouse') &&
       <div id="invite_spouse_form_hidden" style={{display: 'none'}}>
           <label>To</label>
-          <input type="text" name="dependent_user_invitation[email]" id="dependent_user_invitation_email" value="" placeholder="example@email.com" />
+          <input type="text" name="dependent_user_invitation[email]" id="dependent_user_invitation_email" placeholder="example@email.com" />
 
           <label>Subject</label>
-          <input type="text" name="dependent_user_invitation[subject]" id="dependent_user_invitation_subject" value="" />
+          <input type="text" name="dependent_user_invitation[subject]" id="dependent_user_invitation_subject" defaultValue={tile.dependentBoardSubject} />
 
           <label>Body</label>
-          <textarea name="dependent_user_invitation[body]" id="dependent_user_invitation_body" rows="4"></textarea>
+          <textarea name="dependent_user_invitation[body]" id="dependent_user_invitation_body" rows="4" defaultValue={tile.dependentBoardBody}></textarea>
 
           <a className="tile_button" onClick={submitSpouseInvitation}>Send</a>
           <p>
@@ -130,7 +132,34 @@ const revertSelection = e => {
   e.target.parentElement.parentElement.style.display = "none";
 }
 
-const submitEmailChange = e => {};
+const submitEmailChange = (e, tile) => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const email = document.getElementById('change_email_email').value;
+  const valid = re.test(String(email).toLowerCase());
+  const { target } = e;
+  target.style.pointerEvents = 'none';
+  if (email && valid) {
+    Fetcher.xmlHttpRequest({
+      method: 'PUT',
+      path: '/change_email',
+      params: { change_email: { email } },
+      success: resp => {
+        if (resp.status === 'success') {
+          target.innerText = 'Sending validation to new email address';
+          target.classList.add('clicked_right_answer');
+          setTimeout(() => { tile.submitAnswer(tile.id, 0, null); }, 3000);
+        } else {
+          document.getElementById('change_email_email').classList.add('error');
+          document.getElementById('email_error').innerText = resp.message;
+          target.style.pointerEvents = '';
+        }
+      },
+    })
+  } else {
+    document.getElementById('change_email_email').classList.add('error');
+    document.getElementById('email_error').innerText = "A valid email address is required";
+  }
+};
 
 const submitSpouseInvitation = e => {};
 

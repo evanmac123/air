@@ -71,7 +71,7 @@ resources :signup_requests, only: [:create, :new]
 resources :board_name_validations, only: :show
 
 resources :suggested_tiles, only: [:new, :create]
-resource :change_email, only: [:new, :create, :show]
+resource :change_email, only: [:new, :create, :show, :update]
 
 # See CancelAccountController for why this isn't rolled into AccountController
 resources :cancel_account, :only => [:show, :destroy]
