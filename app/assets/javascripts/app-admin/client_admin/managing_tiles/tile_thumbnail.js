@@ -62,7 +62,11 @@ Airbo.TileThumbnail = (function() {
         var self = $(this);
         var path;
 
-        if ($(e.target).is(".pill.more") || $(e.target).is("span.dot")) {
+        if (
+          $(e.target).is(".pill.more") ||
+          $(e.target).is("span.dot") ||
+          $("#root").length
+        ) {
           return;
         }
 

@@ -61,34 +61,36 @@ Airbo.TileThumbnailMenu = (function() {
   function initMoreBtn() {
     var selector = "body .pill.more:not(.tooltipstered)";
     //TODO remove duplicaiton
-    $(selector).tooltipster({
-      theme: "tooltipster-shadow tooltipster-thumbnail-menu",
-      interactive: true,
-      position: "bottom",
-      side: "top",
-      trigger: "click",
-      autoClose: true,
+    if (!$("#root").length) {
+      $(selector).tooltipster({
+        theme: "tooltipster-shadow tooltipster-thumbnail-menu",
+        interactive: true,
+        position: "bottom",
+        side: "top",
+        trigger: "click",
+        autoClose: true,
 
-      functionInit: function(instance, helper) {
-        var content = $(helper.origin)
-          .find(".tooltip-content")
-          .detach();
+        functionInit: function(instance, helper) {
+          var content = $(helper.origin)
+            .find(".tooltip-content")
+            .detach();
 
-        content.show();
-        instance.content(content);
-      },
+          content.show();
+          instance.content(content);
+        },
 
-      functionBefore: function(instance, helper) {
-        instance.content().css({ visibility: "visible" });
-        setMenuActiveState($(helper.origin), true);
-      },
+        functionBefore: function(instance, helper) {
+          instance.content().css({ visibility: "visible" });
+          setMenuActiveState($(helper.origin), true);
+        },
 
-      functionAfter: function(instance, helper) {
-        setMenuActiveState($(helper.origin), false);
-      },
+        functionAfter: function(instance, helper) {
+          setMenuActiveState($(helper.origin), false);
+        },
 
-      functionReady: function(instance, helper) {}
-    });
+        functionReady: function(instance, helper) {}
+      });
+    }
   }
 
   function init() {
