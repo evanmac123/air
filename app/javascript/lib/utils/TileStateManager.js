@@ -69,6 +69,7 @@ class TileStateManager extends React.Component {
 
   populateNewTileContentByIndex(indexDifference, nextAfterCompletion) {
     if (!this.state.loading || nextAfterCompletion) {
+      window.scrollTo(0,0);
       const {tiles, tileOrigin} = this.props;
       const newIndex = this.calculateRolloverIndex(this.state.currentTileIndex + indexDifference);
       this.setState({ loading: true });
