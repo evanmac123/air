@@ -103,7 +103,9 @@ module Tile::ReactProcessing
       exploreSharePath: "/explore/tile/#{id}",
       sharablePath: "/tile/#{id}",
       attachments: documents,
-      imageCredit: image_credit
+      imageCredit: image_credit,
+      dependentBoardSubject: demo.dependent_board_email_subject,
+      dependentBoardBody: demo.dependent_board_email_body
     }
   end
 end

@@ -22,6 +22,7 @@ class TileStateManager extends React.Component {
       tile: {},
       currentTileIndex: null,
       loading: true,
+      disable: false,
     };
     this.populateNewTileContentByIndex = this.populateNewTileContentByIndex.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
@@ -68,6 +69,7 @@ class TileStateManager extends React.Component {
 
   populateNewTileContentByIndex(indexDifference, nextAfterCompletion) {
     if (!this.state.loading || nextAfterCompletion) {
+      window.scrollTo(0,0);
       const {tiles, tileOrigin} = this.props;
       const newIndex = this.calculateRolloverIndex(this.state.currentTileIndex + indexDifference);
       this.setState({ loading: true });
@@ -84,21 +86,24 @@ class TileStateManager extends React.Component {
   submitAnswer(id, answerIndex, freeFormResponse) {
     const origin = this.props.tileOrigin;
     const { points } = this.props.tiles[origin][id];
-    this.setState({ loading: true });
-    if (origin === 'explore') {
-      this.populateNewTileContentByIndex(1);
-    } else {
-      Fetcher.xmlHttpRequest({
-        method: 'POST',
-        path: `/api/tile_completions?tile_id=${id}&answer_index=${answerIndex}&free_form_response=${freeFormResponse}`,
-        success: () => {
-          this.props.updateTileData({origin, id, resp: {answerIndex, freeFormResponse, complete: true}});
-          this.props.addCompletionAndPointsToProgressBar({ points, completion: 1 });
-          this.populateNewTileContentByIndex(1, true);
-        },
-        // err: () => { this.populateNewTileContentByIndex(1); },
-      });
-    }
+    this.setState({ disable: true });
+    setTimeout(() => {
+      this.setState({ loading: true, disable: false });
+      if (origin === 'explore') {
+        this.populateNewTileContentByIndex(1);
+      } else {
+        Fetcher.xmlHttpRequest({
+          method: 'POST',
+          path: `/api/tile_completions?tile_id=${id}&answer_index=${answerIndex}&free_form_response=${freeFormResponse}`,
+          success: () => {
+            this.props.updateTileData({origin, id, resp: {answerIndex, freeFormResponse, complete: true}});
+            this.props.addCompletionAndPointsToProgressBar({ points, completion: 1 });
+            this.populateNewTileContentByIndex(1, true);
+          },
+          // err: () => { this.populateNewTileContentByIndex(1); },
+        });
+      }
+    }, 500);
   }
 
   render() {
@@ -106,7 +111,7 @@ class TileStateManager extends React.Component {
     const currentTileId = tiles[tileOrigin].order[this.state.currentTileIndex];
     const tile = tiles[tileOrigin][currentTileId];
     return (
-      <div style={{pointerEvents: `${this.state.loading ? 'none' : ''}`}}>
+      <div style={{pointerEvents: `${this.state.loading || this.state.disable ? 'none' : ''}`}}>
         <FullSizeTileComponent
           tile={tile}
           organization={this.props.organization}
