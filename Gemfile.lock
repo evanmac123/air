@@ -443,7 +443,7 @@ GEM
       letter_opener (~> 1.0)
       railties (>= 3.2)
     libxml-ruby (3.0.0)
-    loofah (2.2.2)
+    loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.0)
@@ -482,7 +482,7 @@ GEM
     msgpack (1.2.2)
     multi_json (1.13.1)
     multipart-post (2.0.0)
-    nokogiri (1.8.2)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     nokogumbo (1.5.0)
       nokogiri
