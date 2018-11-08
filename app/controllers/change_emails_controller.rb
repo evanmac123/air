@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ChangeEmailsController < UserBaseController
   def new
-    render partial: 'form'
+    render partial: "form"
   end
 
   def create
@@ -9,7 +11,7 @@ class ChangeEmailsController < UserBaseController
     if change_log.save_email(new_email)
       change_log.send_confirmation_for_email
       if request.xhr?
-        render partial: 'success'
+        render partial: "success"
       else
         flash[:success] = "A confirmation email was sent to your current email address. Please click the button in the email to confirm your email change."
         redirect_to :back
@@ -30,13 +32,32 @@ class ChangeEmailsController < UserBaseController
     if change_log && change_log.update_user_email
       user = change_log.reload.user
       sign_in(user, :remember_user)
-      ping('Changed Email', {}, user)
+      ping("Changed Email", {}, user)
       flash[:success] = "Your email was successfully changed to #{current_user.email}"
       redirect_to activity_path
     else
       flash[:failure] = "Error. Email was not changed. Plese, go to settings and try to change it again."
-      redirect_to '/'
+      redirect_to "/"
     end
+  end
+
+  def update
+    change_log = UserSettingsChangeLog.where(user: current_user).first_or_create
+    new_email = permit_params[:email]
+    result = if change_log.save_email(new_email)
+      change_log.send_confirmation_for_email
+      {
+        status: "success",
+        message: "A confirmation email was sent to your current email address. Please click the button in the email to confirm your email change."
+      }
+    else
+      failure_mess = "Email #{change_log.errors.messages[:email].join(', ')}"
+      {
+        status: "error",
+        message: failure_mess
+      }
+    end
+    render json: result
   end
 
   protected

@@ -1,24 +1,29 @@
+# frozen_string_literal: true
+
 class Invitation::DependentUserInvitationsController < UserBaseController
   def new
-    render partial: 'dependent_email_form'
+    render partial: "dependent_email_form"
   end
 
   def create
     dependent_user = get_dependent_user
-
-    if dependent_user && dependent_user.valid?
+    result = if dependent_user && dependent_user.valid?
       dependent_user.invite_as_dependent(permit_params[:subject], permit_params[:body])
-
-      render partial: 'success'
+      "success"
     else
-      render partial: 'failure'
+      "failure"
+    end
+    if permit_params[:json]
+      render json: { status: result }
+    else
+      render partial: result
     end
   end
 
   private
 
     def permit_params
-      params.require(:dependent_user_invitation).permit(:email, :subject, :body)
+      params.require(:dependent_user_invitation).permit(:email, :subject, :body, :json)
     end
 
     def get_dependent_user
