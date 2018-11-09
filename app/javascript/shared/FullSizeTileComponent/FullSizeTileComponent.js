@@ -13,6 +13,13 @@ const copyTile = (copyTileAction, tile, e) => {
   copyTileAction(tile);
 };
 
+const directionalButtons = (nextTile, prevTile) => (
+  <div>
+    <a onClick={prevTile} id="prev_tile" className="button_arrow prev_tile explore_next_prev" style={{display: 'block', left: '360px'}}></a>
+    <a onClick={nextTile} id="next_tile" className="button_arrow next_tile explore_next_prev" style={{display: 'block', left: '1040px'}}></a>
+  </div>
+);
+
 const fullSizeTileLoadingContainer = tileOrigin => (
   <div className="viewer">
   {tileOrigin === 'explore' && directionalButtons(() => {}, () => {})}
@@ -28,13 +35,6 @@ const fullSizeTileLoadingContainer = tileOrigin => (
       </div>
     </div>
     {tileOrigin !== 'explore' && <a id="next" className="react-dir"></a>}
-  </div>
-);
-
-const directionalButtons = (nextTile, prevTile) => (
-  <div>
-    <a onClick={prevTile} id="prev_tile" className="button_arrow prev_tile explore_next_prev" style={{display: 'block', left: '360px'}}></a>
-    <a onClick={nextTile} id="next_tile" className="button_arrow next_tile explore_next_prev" style={{display: 'block', left: '1040px'}}></a>
   </div>
 );
 
@@ -65,11 +65,11 @@ const tileTextsContainer = (headline, supportingContent) => (
 const tileAttachments = attachments => (
   <div className="attachments">
     <div className="attachment-list">
-      {Object.keys(attachments).map(attachment => (
-        <div className="tile-attachment" key={attachment.replace(/ /g,"_")}>
+      {Object.keys(attachments).map((attachment, key) => (
+        <div className="tile-attachment" key={`${attachment.replace(/ /g,"_")}${key}`}>
           <input type="hidden" name="tile[attachments][]" id={attachment.replace(/ /g,"_")} value={attachments[attachment]} />
           <i className="fa fa-times-circle attachment-delete" style={{display: 'none'}} />
-          <a className="attachment-link" href={attachments[attachment]} target="_blank" rel="noopener noreferrer">
+          <a className={`attachment-link ${key}`} href={attachments[attachment]} target="_blank" rel="noopener noreferrer">
             <div className="tile-attachment-inner">
               <i className={`fa ${attachmentFileExtensions(attachment)} icon-tile-attachment`}></i>
               <div className="attachment-filename">
@@ -82,6 +82,37 @@ const tileAttachments = attachments => (
     </div>
   </div>
 );
+
+const sanitizeClassList = classList => {
+  const result = [];
+  for (let i = 0; i < classList.length; i++) { result.push(classList[i]); }
+  return result;
+};
+
+const parseClickTarget = target => {
+  const sanitizedClassList = sanitizeClassList(target.classList);
+  const attachmentClicked = (
+    sanitizedClassList.indexOf('attachment-filename') > -1 ||
+    sanitizedClassList.indexOf('icon-tile-attachment') > -1 ||
+    sanitizedClassList.indexOf('tile-attachment-inner') > -1 ||
+    sanitizedClassList.indexOf('attachment-link') > -1
+  );
+  if (attachmentClicked) {
+    if (sanitizedClassList.indexOf('attachment-link') > -1) { return target; }
+    if (sanitizedClassList.indexOf('tile-attachment-inner') > -1) { return target.parentElement; }
+    if (sanitizedClassList.indexOf('attachment-filename') > -1 || sanitizedClassList.indexOf('icon-tile-attachment') > -1) {
+      return target.parentElement.parentElement;
+    }
+  }
+  return target;
+};
+
+const checkIfLinkClick = (e, tileId, trackLinkClick) => {
+  const target = parseClickTarget(e.target);
+  if (target.tagName === "A" && target.getAttribute("href")) {
+    trackLinkClick(target, tileId);
+  }
+};
 
 const wrapper = {
   className: {
@@ -124,7 +155,7 @@ const FullSizeTileComponent = props => (
                   <div className="tile_holder" style={{width: '100%'}}>
                     <TileImageComponent {...props} />
 
-                    <div className="tile_main">
+                    <div className="tile_main" onClick={(e) => { checkIfLinkClick(e, props.tile.id, props.trackLinkClick); }}>
                       {tileTextsContainer(props.tile.headline, props.tile.supportingContent)}
                       {props.tile.attachments && tileAttachments(props.tile.attachments)}
                     </div>
@@ -151,6 +182,7 @@ FullSizeTileComponent.propTypes = {
     copyTile: PropTypes.func,
   }),
   tile: PropTypes.shape({
+    id: PropTypes.number,
     headline: PropTypes.string,
     supportingContent: PropTypes.string,
     attachments: PropTypes.object,
@@ -159,6 +191,8 @@ FullSizeTileComponent.propTypes = {
   closeTile: PropTypes.func,
   nextTile: PropTypes.func,
   prevTile: PropTypes.func,
+  trackLinkClick: PropTypes.func,
+  organization: PropTypes.object,
 };
 
 export default FullSizeTileComponent;

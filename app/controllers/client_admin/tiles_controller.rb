@@ -7,7 +7,12 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def index
     @tiles_facade = ClientAdminTilesFacade.new(demo: current_user.demo)
-    render template: "react_spa/show"
+
+    if !params[:partial_only]
+      render template: "react_spa/show"
+    else
+      render json: {}
+    end
   end
 
   def show
