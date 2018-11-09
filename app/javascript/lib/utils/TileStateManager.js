@@ -109,14 +109,12 @@ class TileStateManager extends React.Component {
 
   trackLinkClick(target, tileId) {
     const clickedLink = target.getAttribute('href');
-    const openWindow = () => { window.open(clickedLink, '_blank'); };
-    if (!this.props.tileOrigin === 'explore') {
+    if (this.props.tileOrigin !== 'explore') {
       Fetcher.xmlHttpRequest({
         method: 'POST',
         path: `/api/tiles/${tileId}/tile_link_trackings`,
         params: { clicked_link: clickedLink },
-        success: openWindow,
-        err: openWindow,
+        success: () => {},
       });
     }
   }

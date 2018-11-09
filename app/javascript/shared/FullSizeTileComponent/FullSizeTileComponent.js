@@ -108,7 +108,6 @@ const parseClickTarget = target => {
 };
 
 const checkIfLinkClick = (e, tileId, trackLinkClick) => {
-  e.preventDefault();
   const target = parseClickTarget(e.target);
   if (target.tagName === "A" && target.getAttribute("href")) {
     trackLinkClick(target, tileId);
