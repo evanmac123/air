@@ -26,6 +26,7 @@ class TileStateManager extends React.Component {
     };
     this.populateNewTileContentByIndex = this.populateNewTileContentByIndex.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
+    this.trackLinkClick = this.trackLinkClick.bind(this);
   }
 
   componentDidMount() {
@@ -106,6 +107,18 @@ class TileStateManager extends React.Component {
     }, 500);
   }
 
+  trackLinkClick(target, tileId) {
+    const clickedLink = target.getAttribute('href');
+    if (this.props.tileOrigin !== 'explore') {
+      Fetcher.xmlHttpRequest({
+        method: 'POST',
+        path: `/api/tiles/${tileId}/tile_link_trackings`,
+        params: { clicked_link: clickedLink },
+        success: () => {},
+      });
+    }
+  }
+
   render() {
     const {tiles, tileOrigin} = this.props;
     const currentTileId = tiles[tileOrigin].order[this.state.currentTileIndex];
@@ -123,6 +136,7 @@ class TileStateManager extends React.Component {
           userData={this.props.userData}
           tileActions={this.props.tileActions}
           submitAnswer={this.submitAnswer}
+          trackLinkClick={this.trackLinkClick}
         />
       </div>
     );
