@@ -10,7 +10,7 @@ Airbo.TileManager = (function() {
   function refreshOrAddTileThumb(data) {
     var $tile = $(data.tile);
     var $tilesForRefresh = tileContainerByDataTileId(data.tileId);
-    if ($("#client-admin-tiles-root").length) {
+    if ($("#root").length) {
       Airbo.PubSub.publish("reactTileChangeHandler", data);
     } else if ($tilesForRefresh.length > 0) {
       replaceTileContent($tile, $tilesForRefresh);
