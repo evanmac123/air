@@ -75,6 +75,6 @@ class TilesDigestPresenter
   end
 
   def body_for_text_message(tile_id)
-    "#{general_site_url(tile_id: tile_id, options: { from_sms: true })} #{subject}"
+    "#{demo.name}: #{subject} #{general_site_url(tile_id: tile_id, options: { from_sms: true })}"
   end
 end
