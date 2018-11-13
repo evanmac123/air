@@ -19,7 +19,7 @@ const decideIfAnswerIsCorrect = (correctIndex, index, freeForm) => {
 
 const determineIfMarkedCorrect = (tile, key) => (
   (tile.answerIndex === key && tile.complete) ||
-  (tile.origin === 'complete' && tile.correctAnswerIndex === key) ? 'clicked_right_answer' : ''
+  (tile.origin === 'complete' && tile.correctAnswerIndex === key && !tile.complete) ? 'clicked_right_answer' : ''
 );
 
 const tilePointsBar = (points, pointLabel) => (
@@ -68,7 +68,10 @@ const freeResponse = tile => (
       value={tile.origin === 'complete' || tile.freeFormResponse ? tile.freeFormResponse : undefined}
     />
     <div className="character-counter">400 characters</div>
-    <a className="multiple-choice-answer" onClick={(e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, 0, tile); } }>{tile.answers[0]}</a>
+    <a
+      className={`multiple-choice-answer ${tile.origin === 'complete' ? 'clicked_right_answer' : ''}`}
+      onClick={(e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, 0, tile); } }
+    >{tile.answers[0]}</a>
     <div className="answer_target">Response cannot be empty</div>
   </div>
 );
@@ -214,7 +217,7 @@ const tileQuiz = tile => {
       return (
         <div className="multiple_choice_group content_sections">
           <div>
-            <a className="multiple-choice-answer correct" onClick={(e) => { checkAnswerForSubmission(e, 0, 0, tile); }}>{tile.answers[0]}</a>
+            <a className={`multiple-choice-answer ${determineIfMarkedCorrect(tile, 0)}`} onClick={(e) => { checkAnswerForSubmission(e, 0, 0, tile); }}>{tile.answers[0]}</a>
           </div>
         </div>
       );

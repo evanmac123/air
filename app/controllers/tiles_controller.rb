@@ -36,16 +36,18 @@ class TilesController < ApplicationController
       if params[:tile_id] && start_tile.nil?
         redirect_to activity_path
       else
-        @ctrl_data = {
+        ctrl_data = {
           inPublicBoard: params[:public_slug].present?,
           startTile: start_tile ? start_tile.sanitize_for_tile_show : {},
           raffle: @demo.live_raffle.try(:id),
           tileType: show_completed_tiles(start_tile) ? "complete" : "incomplete",
           tileIds: tiles_to_be_loaded.pluck(:id)
-        }.to_json
+        }
 
+        update_tile_data_with_completion(start_tile, ctrl_data) if ctrl_data[:tileType] == "complete"
         session.delete(:start_tile)
 
+        @ctrl_data = ctrl_data.to_json
         render template: "react_spa/show"
       end
     end
@@ -70,6 +72,19 @@ class TilesController < ApplicationController
   end
 
   private
+    def update_tile_data_with_completion(tile, ctrl_data)
+      sanitized_tile_completion = JSON.parse(tile.tile_completions.where(user: current_user).first.to_json)["tile_completion"]
+      parsed_tile_completion = sanitized_tile_completion.keys.reduce({}) do |result, key|
+        case key
+        when "answer_index"
+          result[:answerIndex] = sanitized_tile_completion[key]
+        when "free_form_response"
+          result[:freeFormResponse] = sanitized_tile_completion[key]
+        end
+        result
+      end.merge(complete: true)
+      ctrl_data[:startTile].merge!(parsed_tile_completion)
+    end
 
     def verify_tile_exists(start_tile = @start_tile)
       redirect_to activity_path if params[:tile_id] && start_tile.nil?

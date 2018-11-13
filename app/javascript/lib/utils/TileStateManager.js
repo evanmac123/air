@@ -38,7 +38,7 @@ class TileStateManager extends React.Component {
   fetchFullSizeTileData(id, origin, pingTileView) {
     Fetcher.xmlHttpRequest({
       method: 'GET',
-      path: `/api/v1/tiles/${id}?ping_tile_view=${pingTileView}`,
+      path: `/api/v1/tiles/${id}?ping_tile_view=${pingTileView}&include_completion=${origin === 'complete'}`,
       success: resp => {
         this.props.updateTileData({id, origin, resp});
         this.setState({ loading: false });
@@ -101,7 +101,7 @@ class TileStateManager extends React.Component {
             this.props.addCompletionAndPointsToProgressBar({ points, completion: 1 });
             this.populateNewTileContentByIndex(1, true);
           },
-          // err: () => { this.populateNewTileContentByIndex(1); },
+          err: () => { this.populateNewTileContentByIndex(1); },
         });
       }
     }, 500);
