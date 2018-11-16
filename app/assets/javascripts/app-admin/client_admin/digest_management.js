@@ -176,15 +176,15 @@ Airbo.TilesDigestManagement = (function() {
 
   function initCustomeSubjectChangeEvents() {
     $("#digest_custom_subject").keyup(function(event) {
-      var text;
-      text = $(event.target).val();
+      var text = $(event.target).val(),
+        subjectField = $("#digest_management")
+          .find("#share_tiles_digest_preview")
+          .contents()
+          .find(".subject-field"),
+        boardName = subjectField.data("board");
       $(".subject-field").text(textForSubject(text));
 
-      $("#digest_management")
-        .find("#share_tiles_digest_preview")
-        .contents()
-        .find(".subject-field")
-        .html(textForSubject(text));
+      subjectField.html(boardName + ": " + textForSubject(text));
     });
 
     $("#digest_custom_subject, #digest_alt_custom_subject").on(
