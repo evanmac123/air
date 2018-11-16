@@ -16,7 +16,7 @@ feature 'User sees acts in profile' do
       make_acts
     end
 
-    scenario 'anyone in that demo should be able to see their acts', js: true do
+    xscenario 'anyone in that demo should be able to see their acts', js: true do
       visit user_path(@user, as: @user)
       expect_content "did k"
       expect_no_content "did a"
@@ -47,7 +47,7 @@ feature 'User sees acts in profile' do
           @other_user_in_same_demo.save!
         end
 
-        scenario "should be able to see the acts", js: true do
+        xscenario "should be able to see the acts", js: true do
           visit user_path(@user, as: @user)
           expect_content "did k"
           expect_no_content "did a"
@@ -64,7 +64,7 @@ feature 'User sees acts in profile' do
         FactoryBot.create(:friendship, user: @other_user_in_same_demo, friend: @user, state: Friendship::State::ACCEPTED)
       end
 
-      scenario "should be able to see that user's acts", js: true do
+      xscenario "should be able to see that user's acts", js: true do
         visit user_path(@user, as: @user)
         expect_content "did k"
         expect_no_content "did a"

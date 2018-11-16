@@ -18,7 +18,7 @@ feature 'User navigates to different tiles' do
     signin_as(user, user.password)
   end
 
-  scenario "clicking tiles in the carousel and next- and previous-tile arrows display the correct tiles", js: true do
+  xscenario "clicking tiles in the carousel and next- and previous-tile arrows display the correct tiles", js: true do
     visit activity_path
     click_carousel_tile(tile_2)
     expect_current_tile_id(tile_2)

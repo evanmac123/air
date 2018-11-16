@@ -23,7 +23,7 @@ feature 'Sets their privacy level', js: true do
     FactoryBot.create(:act, user: @user, text: 'ate puppy')
   end
 
-  scenario 'Privacy level of "everybody" shows act to everybody in board' do
+  xscenario 'Privacy level of "everybody" shows act to everybody in board' do
     @user.update_attributes(privacy_level: 'everybody')
     create_act
 
@@ -31,7 +31,7 @@ feature 'Sets their privacy level', js: true do
     expect_act_copy
   end
 
-  scenario 'Privacy level of "connected" shows act to friends in board only' do
+  xscenario 'Privacy level of "connected" shows act to friends in board only' do
     @user.update_attributes(privacy_level: 'connected')
     create_act
 
@@ -54,7 +54,7 @@ feature 'Sets their privacy level', js: true do
   end
 
   %w(everybody connected nobody).each do |privacy_level|
-    scenario "A user with a privacy level of \"#{privacy_level}\" can see their own acts, regardless of what anyone else can" do
+    xscenario "A user with a privacy level of \"#{privacy_level}\" can see their own acts, regardless of what anyone else can" do
       @user.update_attributes(privacy_level: privacy_level)
       create_act
       visit acts_path(as: @user)
@@ -73,7 +73,7 @@ feature 'Sets their privacy level', js: true do
     expect(page.find('#user_privacy_level', visible: false).value).to eq('everybody')
   end
 
-  scenario "privacy level change affects existing acts" do
+  xscenario "privacy level change affects existing acts" do
     @user.update_attributes(privacy_level: 'everybody')
     create_act
 
