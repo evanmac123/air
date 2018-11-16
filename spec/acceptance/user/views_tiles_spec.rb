@@ -30,7 +30,7 @@ feature 'User views tile' do
       visit root_path(as: @kendra)
     end
 
-    scenario 'views tile image', js: true do
+    xscenario 'views tile image', js: true do
       within ".js-board-welcome-modal" do
         page.find(".close-airbo-modal").click
       end

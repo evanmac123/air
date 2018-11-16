@@ -16,7 +16,7 @@ feature "Changes email via tile", js: true do
   end
   let(:user) {FactoryBot.create :user, demo: demo, email: "old@email.com"}
 
-  scenario "user should complete form for changing email" do
+  xscenario "user should complete form for changing email" do
     visit tiles_path(as: user)
     # right tile
     expect( page.find(".tile_headline").text ).to eql(tile.headline)
