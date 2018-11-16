@@ -43,7 +43,7 @@ describe TilesController do
       end
     end
 
-    it "should send appropriate ping" do
+    xit "should send appropriate ping" do
       # FIXME: MIXPANEL additional test cases related to this ping should be tested client side after mixpanel audit.  i.e. clicking to next tile.
       subject.stubs(:ping)
 
