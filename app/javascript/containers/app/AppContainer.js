@@ -6,9 +6,10 @@ import { AiRouter, TileStateManager } from "../../lib/utils";
 import { Fetcher } from "../../lib/helpers";
 import { setUserData, setTilesData, setOrganizationData } from "../../lib/redux/actions";
 import { getSanitizedState } from "../../lib/redux/selectors";
-import Explore from "../explore/ExploreContainer";
-import ClientAdminTiles from "../clientAdminTiles/ClientAdminTilesContainer";
-import TileCarousel from "../tileCarousel/TileCarouselContainer";
+import Explore from "../explore";
+import ClientAdminTiles from "../clientAdminTiles";
+import TileCarousel from "../tileCarousel";
+import ActivityBoard from "../activityBoard";
 
 const routes = {
   '/explore': Explore,
@@ -16,6 +17,7 @@ const routes = {
   '/client_admin/tiles': ClientAdminTiles,
   '/tiles': TileCarousel,
   '/ard/:public_slug/tiles': TileCarousel,
+  '/activity': ActivityBoard,
 };
 
 class App extends React.Component {
