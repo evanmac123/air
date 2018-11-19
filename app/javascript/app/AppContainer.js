@@ -2,23 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { AiRouter, TileStateManager } from "../../lib/utils";
-import { Fetcher } from "../../lib/helpers";
-import { setUserData, setTilesData, setOrganizationData } from "../../lib/redux/actions";
-import { getSanitizedState } from "../../lib/redux/selectors";
-import Explore from "../explore";
-import ClientAdminTiles from "../clientAdminTiles";
-import TileCarousel from "../tileCarousel";
-import ActivityBoard from "../activityBoard";
-
-const routes = {
-  '/explore': Explore,
-  '/explore/campaigns/:campaign': Explore,
-  '/client_admin/tiles': ClientAdminTiles,
-  '/tiles': TileCarousel,
-  '/ard/:public_slug/tiles': TileCarousel,
-  '/activity': ActivityBoard,
-};
+import { AiRouter, TileStateManager } from "../lib/utils";
+import { Fetcher } from "../lib/helpers";
+import { setUserData, setTilesData, setOrganizationData } from "../lib/redux/actions";
+import { getSanitizedState } from "../lib/redux/selectors";
+import routes from '../config/routes';
 
 class App extends React.Component {
   constructor(props) {
@@ -58,7 +46,7 @@ class App extends React.Component {
         this.setState({appLoading: false});
       },
       err: () => this.setState({appLoading: false}),
-    })
+    });
   }
 
   setUser(data) {
@@ -119,6 +107,7 @@ App.propTypes = {
   initData: PropTypes.object,
   setUserData: PropTypes.func,
   setTilesData: PropTypes.func,
+  setOrganizationData: PropTypes.func,
   userData: PropTypes.object,
   tiles: PropTypes.shape({
     explore: PropTypes.object,
