@@ -66,8 +66,8 @@
 
   #root {
     .blue-teal-gradient {
-      background-image: linear-gradient(135deg, $n-blue, $n-green);
-      color: $white;
+      background-image: linear-gradient(50deg, $n-blue, $n-green);
+      color: $blue;
 
       .row {
         position: relative;
@@ -90,13 +90,25 @@
       }
     }
 
+    .blue-balloon-1{
+      position: absolute;
+      top:20%;
+      left:0;
+      width: 40px;
+    }
+
+    .blue-balloon-2{
+      position: absolute;
+      top:60%;
+      left:40%;
+      width: 40px;
+    }
+
     .hero-banner {
       height: 650px;
       max-width: 700px;
-      padding-top: 18vh;
+      padding-top: 160px;
     }
-
-    .blue-teal-gradient .hero-banner p {}
 
     .hero-text {
       visibility: visible;
@@ -112,10 +124,11 @@
 
       h1 {
         font-size: 50px;
+        font-weight: bold;
       }
 
       p {
-        color: $white;
+        color: $dark-blue;
         text-align: left;
         line-height: 1em;
       }
@@ -206,6 +219,7 @@
 
   .features {
     margin: 0 0 100px;
+    color: white;
 
     .content-block {
       margin-bottom: 3em;
@@ -215,6 +229,10 @@
       text-align: center;
       width: 100%;
       margin: 2em;
+      color: $n-blue;
+    }
+    p{
+      color: $dark-blue;
     }
 
     h5 {
@@ -232,7 +250,7 @@
     position: relative;
 
     .u-bg-img-hero {
-      padding: 125px 0 150px;
+      padding: 50px 0 150px;
     }
 
     .row {
@@ -276,6 +294,7 @@
       .quote {
         font-size: 36px;
         line-height: 1.4em;
+        color: white;
       }
 
       .statement {
