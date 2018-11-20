@@ -2,7 +2,8 @@
 @import './mixins/marketing-site-value-props'; //
 //Front theme styling
 @import './front-custom/root';
-@import './front-custom/privacy'; //
+ // You can also use <link> for styles
+// ..
 
 .airbo-marketing-site {
   color: #33445c;
