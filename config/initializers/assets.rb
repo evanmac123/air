@@ -1,4 +1,4 @@
-# Version of your assets, change this if you want to expire all your assets.
+                                   # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '0.0.3'
 
 # Add additional assets to the asset load path

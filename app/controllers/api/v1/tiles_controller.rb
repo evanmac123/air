@@ -3,6 +3,13 @@
 class Api::V1::TilesController < Api::ApiController
   before_action :verify_origin
 
+  def index
+    demo = current_user.demo
+    max_tiles = params[:maximum_tiles].to_i || 16
+    tiles = Tile.displayable_categorized_to_user(current_user, max_tiles, demo)
+    render json: sanitize_group(tiles)
+  end
+
   def show
     tile = Tile.find(params[:id])
     if params[:ping_tile_view] == "true"
@@ -53,5 +60,14 @@ class Api::V1::TilesController < Api::ApiController
       return unless tile.present?
       tile_type = tile.is_invite_spouse? ? "Spouse Invite" : "User"
       ping("Tile - Viewed", { tile_type: tile_type, tile_id: tile.id, board_type: tile.demo.customer_status_for_mixpanel }, current_user)
+    end
+
+    def sanitize_group(tiles)
+      complete = tiles[:completed_tiles] || []
+      incomplete = tiles[:not_completed_tiles] || []
+      {
+        complete: complete.map { |tile| tile.sanitize_for_tile_show.merge(fullyLoaded: true) },
+        incomplete: incomplete.map { |tile| tile.sanitize_for_tile_show.merge(fullyLoaded: true) }
+      }
     end
 end

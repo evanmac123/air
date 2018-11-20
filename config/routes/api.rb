@@ -40,7 +40,7 @@ namespace :api, defaults: { format: :json } do
     resources :email_info_requests, only: [:create]
     resources :cheers, only: [:create]
     resources :campaigns, only: [:index, :show]
-    resources :tiles, only: [:show]
+    resources :tiles, only: [:show, :index]
     post 'tiles/:id/mark_as_viewed', to: 'tiles#ping_tile_view'
     resources :ribbon_tags, only: [:index, :create, :update, :destroy]
     resources :board_settings, only: [:index]

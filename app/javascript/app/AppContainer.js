@@ -78,6 +78,7 @@ class App extends React.Component {
   }
 
   render() {
+    const  { userData, tiles, organization, progressBarData, initData } = this.props;
     return React.createElement('div', {className: 'react-root'},
     this.state.originId ? React.createElement(TileStateManager, {
       originId: this.state.originId,
@@ -89,14 +90,17 @@ class App extends React.Component {
     null,
     this.state.currentRoute && !this.state.originId ?
       React.createElement(routes[this.state.currentRoute], {
-        ctrl: this.props.initData,
         routeData: this.state.routeData,
         setUser: this.setUser,
         setTiles: this.setTiles,
         openFullSizeTile: this.openFullSizeTile,
-        tiles: this.props.tiles,
         redirectTo: this.redirectTo,
         appLoading: this.state.appLoading,
+        ctrl: initData,
+        user: userData,
+        tiles,
+        organization,
+        progressBarData,
       }) :
       ''
     );

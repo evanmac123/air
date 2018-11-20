@@ -110,8 +110,8 @@ module Tile::ReactProcessing
       sharablePath: "/tile/#{id}",
       attachments: documents,
       imageCredit: image_credit,
-      dependentBoardSubject: demo.dependent_board_email_subject,
-      dependentBoardBody: demo.dependent_board_email_body
+      dependentBoardSubject: question_subtype == "invite_spouse" ? demo.dependent_board_email_subject : "",
+      dependentBoardBody: question_subtype == "invite_spouse" ? demo.dependent_board_email_body : ""
     }
     ribbon_tag ? result.merge(ribbonTagColor: ribbon_tag.color, ribbonTagName: ribbon_tag.name) : result
   end

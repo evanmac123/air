@@ -24,15 +24,25 @@ class DisplayCategorizedTiles
   private
 
     def self.satisfiable_tiles_categorized_to_user(user, demo, maximum_tiles)
+      not_completed = not_completed_tiles(user, demo).limit(maximum_tiles + 1).to_a
+      completed = if not_completed.length > maximum_tiles
+        []
+      else
+        all_completed_tiles(user, demo).order("tile_completions.id DESC").limit(maximum_tiles - not_completed_tiles.length + 1).to_a
+      end
       {
-        completed_tiles:      all_completed_tiles(user, demo).order("tile_completions.id DESC").limit(maximum_tiles + 1).to_a,
-        not_completed_tiles:  not_completed_tiles(user, demo).limit(maximum_tiles + 1).to_a,
+        completed_tiles:      completed,
+        not_completed_tiles:  not_completed,
         all_tiles_displayed:  false
       }
     end
 
     def self.tiles_due_in_demo(user, demo)
-      demo.tiles.active.segmented_for_user(user)
+      if demo.population_segments.length > 0
+        demo.tiles.active.segmented_for_user(user)
+      else
+        demo.tiles.active
+      end
     end
 
     def self.all_completed_tiles(user, demo)
