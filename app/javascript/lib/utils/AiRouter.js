@@ -1,3 +1,5 @@
+import { bodyClassByRoute } from '../../shared/constants';
+
 const sanitizeUrl = url => (url[0] !== "/" ? `/${url}` : url);
 
 const getNewUrl = (sanitizedUrl, opts) => {
@@ -48,6 +50,7 @@ class AiRouter {
     this.connect = this.connect.bind(this);
     this.assignCurrentRoute = this.assignCurrentRoute.bind(this);
     this.updateCurrentRoute = this.updateCurrentRoute.bind(this);
+    this.navigation = this.navigation.bind(this);
   }
 
   static currentUrl() {
@@ -84,6 +87,14 @@ class AiRouter {
     window.removeEventListener("popstate", this.updateCurrentRoute);
   }
 
+  setBodyClass() {
+    const body = document.getElementsByTagName("BODY")[0];
+    const classByRoute = bodyClassByRoute[this.currentRoute];
+    classByRoute.split(' ').forEach(klass => {
+      body.classList.add(klass);
+    });
+  };
+
   assignRouteData(route, re, cb) {
     if (this.routesList[route].variables.length) {
       let counter = 1;
@@ -118,8 +129,19 @@ class AiRouter {
         currentRoute: this.currentRoute,
         routeData: this.routeData,
       });
+      this.setBodyClass();
       window.scrollTo(0,0);
     });
+  }
+
+  navigation(url, opts = {}) {
+    const sanitizedUrl = sanitizeUrl(url);
+    const stateObj = opts.stateObj || {};
+    const title = opts.title || "Airbo";
+    const newUrl = getNewUrl(sanitizedUrl, opts);
+    window.scrollTo(0,0);
+    window.history.pushState(stateObj, title, newUrl);
+    this.updateCurrentRoute();
   }
 }
 

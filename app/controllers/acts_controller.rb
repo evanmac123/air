@@ -21,6 +21,7 @@ class ActsController < ApplicationController
     #
     # decide_if_tiles_can_be_done(@displayable_categorized_tiles[:not_completed_tiles])
     #
+    @react_spa = true
     render template: "react_spa/show"
   end
 

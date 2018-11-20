@@ -35,7 +35,8 @@ class ActivityBoard extends React.Component {
   }
 
   openTileModal(id) {
-    this.props.openFullSizeTile({id, from: 'incomplete'});
+    // this.props.openFullSizeTile({id, from: 'incomplete'});
+    this.props.navigateTo(`/tiles?tile_id=${id}`);
   }
 
   render() {

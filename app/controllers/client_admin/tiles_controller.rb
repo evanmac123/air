@@ -12,6 +12,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     }.to_json
 
     if !params[:partial_only]
+      @react_spa = true
       render template: "react_spa/show"
     else
       render json: {}

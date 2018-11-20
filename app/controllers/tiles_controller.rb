@@ -48,6 +48,7 @@ class TilesController < ApplicationController
         session.delete(:start_tile)
 
         @ctrl_data = ctrl_data.to_json
+        @react_spa = true
         render template: "react_spa/show"
       end
     end

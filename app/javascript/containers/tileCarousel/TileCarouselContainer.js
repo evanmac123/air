@@ -11,6 +11,7 @@ class TileCarouselContainer extends React.Component {
   }
 
   componentDidMount() {
+    debugger
     this.setTileData();
   }
 

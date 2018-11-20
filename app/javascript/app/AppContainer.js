@@ -24,6 +24,7 @@ class App extends React.Component {
     this.openFullSizeTile = this.openFullSizeTile.bind(this);
     this.closeTile = this.closeTile.bind(this);
     this.redirectTo = this.redirectTo.bind(this);
+    this.navigateTo = this.navigateTo.bind(this);
     this.airouter = new AiRouter(routes, this);
   }
 
@@ -65,6 +66,10 @@ class App extends React.Component {
     window.location = path;
   }
 
+  navigateTo(path) {
+    this.airouter.navigation(path);
+  }
+
   openFullSizeTile(opts) {
     this.setState({
       originId: opts.id,
@@ -79,7 +84,7 @@ class App extends React.Component {
 
   render() {
     const  { userData, tiles, organization, progressBarData, initData } = this.props;
-    return React.createElement('div', {className: 'react-root'},
+    return React.createElement('div', {className: 'react-root', style: {background: '#d9dfe9'}},
     this.state.originId ? React.createElement(TileStateManager, {
       originId: this.state.originId,
       tileOrigin: this.state.tileOrigin,
@@ -95,6 +100,7 @@ class App extends React.Component {
         setTiles: this.setTiles,
         openFullSizeTile: this.openFullSizeTile,
         redirectTo: this.redirectTo,
+        navigateTo: this.navigateTo,
         appLoading: this.state.appLoading,
         ctrl: initData,
         user: userData,
