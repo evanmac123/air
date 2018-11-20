@@ -3,7 +3,10 @@ Rails.application.config.assets.version = '0.0.3'
 
 # Add additional assets to the asset load path
 Rails.application.config.assets.paths += Dir["#{Rails.root}/vendor/assets/stylesheets"].sort_by { |dir| -dir.size }
-Rails.application.config.assets.paths << Rails.root.join("vendor", "assets", "images")
+Rails.application.config.assets.paths << Rails.root.join("vendor", "assets", "images", "videos")
+
+
+Rails.application.config.assets.paths << "#{Rails.root}/app/assets/videos"
 
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
