@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440px" height="85px" viewBox="0 0 1440 85" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>wave2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="1.72254642e-14%" x2="100%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#48BFFF" offset="0%"></stop>
+            <stop stop-color="#4ED2C6" offset="90.4251305%"></stop>
+            <stop stop-color="#4FD4C0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.646484375">
+        <g id="Marketing-Page-Home-V2-1-Copy" transform="translate(0.000000, -669.000000)" fill="url(#linearGradient-1)">
+            <g id="Group-11" transform="translate(-10.000000, 662.000000)">
+                <path d="M1472,48.0205932 L1472,92.0627954 L2.61999932,87.3133034 C-0.873333105,105.372198 -0.873333105,80.419696 2.61999932,12.455796 C169.752256,-0.120162358 236.334906,8.52379227 691.62019,43.8278433 C995.143714,67.3638774 1255.27032,68.7614607 1472,48.0205932 Z" id="wave2"></path>
+            </g>
+        </g>
+    </g>
+</svg>
