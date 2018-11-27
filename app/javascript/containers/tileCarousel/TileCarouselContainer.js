@@ -12,6 +12,10 @@ class TileCarouselContainer extends React.Component {
 
   componentDidMount() {
     this.setTileData();
+    // Patch sign up modal to communicate with React for every 2nd tile answered
+    if (document.getElementById('guest-conversion-modal') && window.Airbo && window.Airbo.GuestUserConversionForm && window.Airbo.GuestUserConversionForm.init) {
+      window.Airbo.GuestUserConversionForm.init();
+    }
   }
 
   componentDidUpdate() {

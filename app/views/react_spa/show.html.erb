@@ -6,3 +6,4 @@
 <%= javascript_pack_tag 'ReactSPA' %>
 
 <%= render partial: 'client_admin/suggestions_access/modal' if @tiles_facade %>
+<%= render "shared/guest_conversion_lightbox", user: current_user, demo: current_board if should_convert_guest_as_user?(current_user) %>
