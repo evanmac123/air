@@ -95,7 +95,7 @@ class AiRouter {
     });
   };
 
-  assignRouteData(route, re, cb) {
+  assignRouteData(route, re) {
     if (this.routesList[route].variables.length) {
       let counter = 1;
       this.routeData = this.routesList[route].variables.reduce((result, variable) => {
@@ -103,9 +103,11 @@ class AiRouter {
         counter++;
         return result;
       }, {});
-      if (cb) { cb(); }
-    } else if (cb) {
-      cb();
+    }
+    if (window.location.search) {
+      window.location.search.split('?')[1].split('&').forEach(rawParam => {
+        this.routeData[rawParam.split('=')[0]] = rawParam.split('=')[1]; // eslint-disable-line
+      });
     }
   }
 
@@ -118,6 +120,7 @@ class AiRouter {
       if (url.match(routeMatcher)) {
         this.currentRoute = route;
         this.assignRouteData(route, url.match(routeMatcher), cb);
+        if (cb) { cb(); }
         break;
       }
     }
