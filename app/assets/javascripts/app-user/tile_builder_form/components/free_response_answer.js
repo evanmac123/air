@@ -19,7 +19,7 @@ Airbo.FreeResponseAnswer.asDomNode = function() {
   );
   answers.setAttribute("type", "hidden");
   answers.setAttribute("name", "tile[answers][]");
-  answers.setAttribute("value", "Submity My Response");
+  answers.setAttribute("value", "Submit My Response");
 
   btn.setAttribute("class", "answer-btn btn-free-response js-answer-btn");
   btn.appendChild(document.createTextNode("Submit"));
