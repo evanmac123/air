@@ -76,8 +76,9 @@ const freeResponse = opts => (
       maxLength="400"
       placeholder="Enter your response here"
       className="free-form-response edit with_counter"
+      readOnly={(opts.tile.origin === 'complete' || opts.tile.freeFormResponse)}
       onKeyUp={updateCharCount}
-      value={opts.tile.origin === 'complete' || opts.tile.freeFormResponse ? opts.tile.freeFormResponse : undefined}
+      value={opts.tile.origin === 'complete' || opts.tile.freeFormResponse ? (opts.tile.freeFormResponse || '') : undefined}
     />
     <div className="character-counter">400 characters</div>
     <a
@@ -100,9 +101,9 @@ const revertSelection = e => {
   e.target.parentElement.parentElement.style.display = "none";
 };
 
-const freeResponseOption = key => React.createElement('div', {key, style: {display: 'block'}, id: 'free-response-button'},
+const freeResponseOption = (key, markCorrect) => React.createElement('div', {key, style: {display: 'block'}, id: 'free-response-button'},
   React.createElement('a', {
-    className: `multiple-choice-answer`,
+    className: `multiple-choice-answer ${markCorrect}`,
     onClick: e => {
       const freeResponseTextarea = document.getElementById('free-response-textarea');
       e.target.parentElement.style.display = "none";
@@ -138,7 +139,8 @@ const renderMultipleChoiceAnswers = (tile, subtype) => {
     React.createElement('div', {className: 'answer_target'}, tile.incorrectText || "Sorry, that's not it. Try again!"),
   ));
   if (tile.allowFreeResponse) {
-    answerCollection.push(freeResponseOption(tile.id));
+    const freeResponseMarkedCorrect = determineIfMarkedCorrect(tile, tile.answers.length);
+    answerCollection.push(freeResponseOption(tile.id, freeResponseMarkedCorrect));
   }
   return answerCollection;
 };
@@ -235,8 +237,8 @@ const multipleChoice = (tile, subtype) => (
     {tile.allowFreeResponse ? freeResponse({
         tile,
         submitAction: e => { checkAnswerForSubmission(e, tile.correctAnswerIndex, -1, tile); },
-        showXBtn: true,
-        style: {display: 'none'},
+        showXBtn: !tile.freeFormResponse,
+        style: {display: tile.freeFormResponse ? 'block' : 'none'},
       }) : ''
     }
   </div>
