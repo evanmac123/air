@@ -37,15 +37,17 @@ const updateCharCount = e => {
 };
 
 const checkAnswerForSubmission = (e, correctIndex, index, tile) => {
-  const { submitAnswer, complete } = tile;
+  const { id, submitAnswer, complete, questionSubtype, allowFreeResponse, answers } = tile;
   const { target } = e;
-  const freeForm = document.getElementById('free_form_response');
+  const freeForm = (questionSubtype === 'free_response' || (allowFreeResponse && index === -1)) ? document.getElementById('free_form_response') : undefined;
   const correctAnswer = decideIfAnswerIsCorrect(correctIndex, index, freeForm);
   if (complete) { return; }
   target.style.pointerEvents = 'none';
   if (correctAnswer === true) {
+    const freeFormAnswer = freeForm ? freeForm.value : null;
+    const indexAnswer = freeForm ? (allowFreeResponse ? answers.length : null) : index; // eslint-disable-line
     target.classList.add('clicked_right_answer');
-    submitAnswer(tile.id, freeForm ? null : index, freeForm ? freeForm.value : null); // eslint-disable-line
+    submitAnswer(id, indexAnswer, freeFormAnswer);
   } else {
     if (correctAnswer === 'freeForm') {
       target.style.pointerEvents = '';
@@ -56,8 +58,18 @@ const checkAnswerForSubmission = (e, correctIndex, index, tile) => {
   }
 };
 
-const freeResponse = tile => (
-  <div className="free-text-panel content_sections">
+const freeResponse = opts => (
+  <div className="free-text-panel content_sections" id='free-response-textarea' style={opts.style || {}}>
+    {opts.showXBtn &&
+      <i className="free-text-hide fa fa-remove fa-1x"
+      onClick={e => {
+        e.target.parentElement.style.display = "none";
+        if (document.getElementById('free-response-button')) {
+          document.getElementById('free-response-button').style.display = "block";
+        }
+      }}
+      />
+    }
     <textarea
       name="free_form_response"
       id="free_form_response"
@@ -65,13 +77,13 @@ const freeResponse = tile => (
       placeholder="Enter your response here"
       className="free-form-response edit with_counter"
       onKeyUp={updateCharCount}
-      value={tile.origin === 'complete' || tile.freeFormResponse ? tile.freeFormResponse : undefined}
+      value={opts.tile.origin === 'complete' || opts.tile.freeFormResponse ? opts.tile.freeFormResponse : undefined}
     />
     <div className="character-counter">400 characters</div>
     <a
-      className={`multiple-choice-answer ${tile.origin === 'complete' ? 'clicked_right_answer' : ''}`}
-      onClick={(e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, 0, tile); } }
-    >{tile.answers[0]}</a>
+      className={`multiple-choice-answer ${opts.tile.origin === 'complete' ? 'clicked_right_answer' : ''}`}
+      onClick={opts.submitAction}
+    >{opts.submitBtnText || 'Submit'}</a>
     <div className="answer_target">Response cannot be empty</div>
   </div>
 );
@@ -220,19 +232,12 @@ const multipleChoice = (tile, subtype) => (
           </p>
       </div>
     }
-    {(tile.allowFreeResponse) &&
-      <div id="free-response-textarea" className="free-text-panel optional" style={{display: 'none'}}>
-        <i className="free-text-hide fa fa-remove fa-1x"
-          onClick={e => {
-            e.target.parentElement.style.display = "none";
-            document.getElementById('free-response-button').style.display = "block";
-          }}
-        />
-        <textarea id="free_form_response" maxLength="400" placeholder="Enter your response here" className="free-form-response edit with_counter" />
-        <div className="character-counter" id="char-counter">400 characters</div>
-        <a className="multiple-choice-answer correct">Submit</a>
-        <div className="answer_target" style={{display: "none"}}>Response cannot be empty</div>
-      </div>
+    {tile.allowFreeResponse ? freeResponse({
+        tile,
+        submitAction: e => { checkAnswerForSubmission(e, tile.correctAnswerIndex, -1, tile); },
+        showXBtn: true,
+        style: {display: 'none'},
+      }) : ''
     }
   </div>
 );
@@ -240,7 +245,11 @@ const multipleChoice = (tile, subtype) => (
 const tileQuiz = tile => {
   switch (tile.questionSubtype) {
     case 'free_response':
-      return freeResponse(tile);
+      return freeResponse({
+        tile,
+        submitBtnText: tile.answers[0],
+        submitAction: (e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, 0, tile); },
+      });
     case 'true_false':
     case 'multiple_choice':
     case 'rsvp_to_event':
