@@ -88,6 +88,49 @@ const revertSelection = e => {
   e.target.parentElement.parentElement.style.display = "none";
 };
 
+const freeResponseOption = key => React.createElement('div', {key, style: {display: 'block'}, id: 'free-response-button'},
+  React.createElement('a', {
+    className: `multiple-choice-answer`,
+    onClick: e => {
+      const freeResponseTextarea = document.getElementById('free-response-textarea');
+      e.target.parentElement.style.display = "none";
+      freeResponseTextarea.style.display = "block";
+    },
+    style: {margin: '0.5em auto'},
+  },
+  'Other',
+));
+
+const renderMultipleChoiceAnswers = (tile, subtype) => {
+  const answerCollection = tile.answers.map((answer, key) => React.createElement('div', {key},
+    React.createElement(
+      'a',
+      {
+        className: `multiple-choice-answer ${determineIfMarkedCorrect(tile, key)}`,
+        onClick: (e) => {
+          if (tile.complete || tile.origin === 'complete') { return; } // eslint-disable-line
+          if (subtype === 'change_email' || subtype === 'invite_spouse') {
+            if (key > 0) {
+              checkAnswerForSubmission(e, key, key, tile);
+            } else {
+              formActions(e, subtype);
+            }
+          } else {
+            checkAnswerForSubmission(e, tile.correctAnswerIndex, key, tile);
+          }
+        },
+        style: {margin: '0.5em auto'},
+      },
+      answer,
+    ),
+    React.createElement('div', {className: 'answer_target'}, tile.incorrectText || "Sorry, that's not it. Try again!"),
+  ));
+  if (tile.allowFreeResponse) {
+    answerCollection.push(freeResponseOption(tile.id));
+  }
+  return answerCollection;
+};
+
 const submitEmailChange = (e, tile) => {
   const email = document.getElementById('change_email_email').value;
   const valid = validateEmail(email);
@@ -147,29 +190,7 @@ const submitSpouseInvitation = (e, tile) => {
 
 const multipleChoice = (tile, subtype) => (
   <div className="multiple_choice_group content_sections">
-    {tile.answers.map((answer, key) => React.createElement('div', {key},
-      React.createElement(
-        'a',
-        {
-          className: `multiple-choice-answer ${determineIfMarkedCorrect(tile, key)}`,
-          onClick: (e) => {
-            if (tile.complete || tile.origin === 'complete') { return; } // eslint-disable-line
-            if (subtype === 'change_email' || subtype === 'invite_spouse') {
-              if (key > 0) {
-                checkAnswerForSubmission(e, key, key, tile);
-              } else {
-                formActions(e, subtype);
-              }
-            } else {
-              checkAnswerForSubmission(e, tile.correctAnswerIndex, key, tile);
-            }
-          },
-          style: {margin: '0.5em auto'},
-        },
-        answer,
-      ),
-      React.createElement('div', {className: 'answer_target'}, tile.incorrectText || "Sorry, that's not it. Try again!"),
-    ))}
+    {renderMultipleChoiceAnswers(tile, subtype)}
     {(subtype === 'change_email') &&
       <div id="change_email_form_hidden" style={{display: 'none'}}>
         <label>New Email Address</label>
@@ -197,6 +218,20 @@ const multipleChoice = (tile, subtype) => (
           <p>
             <a className="no_invitation righty" onClick={revertSelection}>Nevermind, I don’t want to send an invitation.</a>
           </p>
+      </div>
+    }
+    {(tile.allowFreeResponse) &&
+      <div id="free-response-textarea" className="free-text-panel optional" style={{display: 'none'}}>
+        <i className="free-text-hide fa fa-remove fa-1x"
+          onClick={e => {
+            e.target.parentElement.style.display = "none";
+            document.getElementById('free-response-button').style.display = "block";
+          }}
+        />
+        <textarea id="free_form_response" maxLength="400" placeholder="Enter your response here" className="free-form-response edit with_counter" />
+        <div className="character-counter" id="char-counter">400 characters</div>
+        <a className="multiple-choice-answer correct">Submit</a>
+        <div className="answer_target" style={{display: "none"}}>Response cannot be empty</div>
       </div>
     }
   </div>
