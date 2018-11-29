@@ -37,15 +37,17 @@ const updateCharCount = e => {
 };
 
 const checkAnswerForSubmission = (e, correctIndex, index, tile) => {
-  const { submitAnswer, complete } = tile;
+  const { id, submitAnswer, complete, questionSubtype, allowFreeResponse, answers } = tile;
   const { target } = e;
-  const freeForm = document.getElementById('free_form_response');
+  const freeForm = (questionSubtype === 'free_response' || (allowFreeResponse && index === -1)) ? document.getElementById('free_form_response') : undefined;
   const correctAnswer = decideIfAnswerIsCorrect(correctIndex, index, freeForm);
   if (complete) { return; }
   target.style.pointerEvents = 'none';
   if (correctAnswer === true) {
+    const freeFormAnswer = freeForm ? freeForm.value : null;
+    const indexAnswer = freeForm ? (allowFreeResponse ? answers.length : null) : index; // eslint-disable-line
     target.classList.add('clicked_right_answer');
-    submitAnswer(tile.id, freeForm ? null : index, freeForm ? freeForm.value : null); // eslint-disable-line
+    submitAnswer(id, indexAnswer, freeFormAnswer);
   } else {
     if (correctAnswer === 'freeForm') {
       target.style.pointerEvents = '';
@@ -56,22 +58,33 @@ const checkAnswerForSubmission = (e, correctIndex, index, tile) => {
   }
 };
 
-const freeResponse = tile => (
-  <div className="free-text-panel content_sections">
+const freeResponse = opts => (
+  <div className="free-text-panel content_sections" id='free-response-textarea' style={opts.style || {}}>
+    {opts.showXBtn &&
+      <i className="free-text-hide fa fa-remove fa-1x"
+      onClick={e => {
+        e.target.parentElement.style.display = "none";
+        if (document.getElementById('free-response-button')) {
+          document.getElementById('free-response-button').style.display = "block";
+        }
+      }}
+      />
+    }
     <textarea
       name="free_form_response"
       id="free_form_response"
       maxLength="400"
       placeholder="Enter your response here"
       className="free-form-response edit with_counter"
+      readOnly={(opts.tile.origin === 'complete' || opts.tile.freeFormResponse)}
       onKeyUp={updateCharCount}
-      value={tile.origin === 'complete' || tile.freeFormResponse ? tile.freeFormResponse : undefined}
+      value={opts.tile.origin === 'complete' || opts.tile.freeFormResponse ? (opts.tile.freeFormResponse || '') : undefined}
     />
     <div className="character-counter">400 characters</div>
     <a
-      className={`multiple-choice-answer ${tile.origin === 'complete' ? 'clicked_right_answer' : ''}`}
-      onClick={(e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, 0, tile); } }
-    >{tile.answers[0]}</a>
+      className={`multiple-choice-answer ${opts.tile.origin === 'complete' ? 'clicked_right_answer' : ''}`}
+      onClick={opts.submitAction}
+    >{opts.submitBtnText || 'Submit'}</a>
     <div className="answer_target">Response cannot be empty</div>
   </div>
 );
@@ -86,6 +99,50 @@ const revertSelection = e => {
   const options = e.target.parentElement.parentElement.parentElement.children;
   for (let i = 0; i < options.length; i++) { options[i].style.display = ""; }
   e.target.parentElement.parentElement.style.display = "none";
+};
+
+const freeResponseOption = (key, markCorrect) => React.createElement('div', {key, style: {display: 'block'}, id: 'free-response-button'},
+  React.createElement('a', {
+    className: `multiple-choice-answer ${markCorrect}`,
+    onClick: e => {
+      const freeResponseTextarea = document.getElementById('free-response-textarea');
+      e.target.parentElement.style.display = "none";
+      freeResponseTextarea.style.display = "block";
+    },
+    style: {margin: '0.5em auto'},
+  },
+  'Other',
+));
+
+const renderMultipleChoiceAnswers = (tile, subtype) => {
+  const answerCollection = tile.answers.map((answer, key) => React.createElement('div', {key},
+    React.createElement(
+      'a',
+      {
+        className: `multiple-choice-answer ${determineIfMarkedCorrect(tile, key)}`,
+        onClick: (e) => {
+          if (tile.complete || tile.origin === 'complete') { return; } // eslint-disable-line
+          if (subtype === 'change_email' || subtype === 'invite_spouse') {
+            if (key > 0) {
+              checkAnswerForSubmission(e, key, key, tile);
+            } else {
+              formActions(e, subtype);
+            }
+          } else {
+            checkAnswerForSubmission(e, tile.correctAnswerIndex, key, tile);
+          }
+        },
+        style: {margin: '0.5em auto'},
+      },
+      answer,
+    ),
+    React.createElement('div', {className: 'answer_target'}, tile.incorrectText || "Sorry, that's not it. Try again!"),
+  ));
+  if (tile.allowFreeResponse) {
+    const freeResponseMarkedCorrect = determineIfMarkedCorrect(tile, tile.answers.length);
+    answerCollection.push(freeResponseOption(tile.id, freeResponseMarkedCorrect));
+  }
+  return answerCollection;
 };
 
 const submitEmailChange = (e, tile) => {
@@ -147,29 +204,7 @@ const submitSpouseInvitation = (e, tile) => {
 
 const multipleChoice = (tile, subtype) => (
   <div className="multiple_choice_group content_sections">
-    {tile.answers.map((answer, key) => React.createElement('div', {key},
-      React.createElement(
-        'a',
-        {
-          className: `multiple-choice-answer ${determineIfMarkedCorrect(tile, key)}`,
-          onClick: (e) => {
-            if (tile.complete || tile.origin === 'complete') { return; } // eslint-disable-line
-            if (subtype === 'change_email' || subtype === 'invite_spouse') {
-              if (key > 0) {
-                checkAnswerForSubmission(e, key, key, tile);
-              } else {
-                formActions(e, subtype);
-              }
-            } else {
-              checkAnswerForSubmission(e, tile.correctAnswerIndex, key, tile);
-            }
-          },
-          style: {margin: '0.5em auto'},
-        },
-        answer,
-      ),
-      React.createElement('div', {className: 'answer_target'}, tile.incorrectText || "Sorry, that's not it. Try again!"),
-    ))}
+    {renderMultipleChoiceAnswers(tile, subtype)}
     {(subtype === 'change_email') &&
       <div id="change_email_form_hidden" style={{display: 'none'}}>
         <label>New Email Address</label>
@@ -199,13 +234,24 @@ const multipleChoice = (tile, subtype) => (
           </p>
       </div>
     }
+    {tile.allowFreeResponse ? freeResponse({
+        tile,
+        submitAction: e => { checkAnswerForSubmission(e, tile.correctAnswerIndex, -1, tile); },
+        showXBtn: !tile.freeFormResponse,
+        style: {display: tile.freeFormResponse ? 'block' : 'none'},
+      }) : ''
+    }
   </div>
 );
 
 const tileQuiz = tile => {
   switch (tile.questionSubtype) {
     case 'free_response':
-      return freeResponse(tile);
+      return freeResponse({
+        tile,
+        submitBtnText: tile.answers[0],
+        submitAction: (e) => { checkAnswerForSubmission(e, tile.correctAnswerIndex, 0, tile); },
+      });
     case 'true_false':
     case 'multiple_choice':
     case 'rsvp_to_event':

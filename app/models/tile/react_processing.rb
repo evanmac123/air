@@ -99,6 +99,8 @@ module Tile::ReactProcessing
       questionSubtype: question_subtype,
       answers: multiple_choice_answers,
       correctAnswerIndex: correct_answer_index,
+      isAnonymous: is_anonymous,
+      allowFreeResponse: allow_free_response,
       points: points,
       exploreSharePath: "/explore/tile/#{id}",
       sharablePath: "/tile/#{id}",
