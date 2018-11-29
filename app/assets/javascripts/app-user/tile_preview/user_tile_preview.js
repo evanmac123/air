@@ -223,7 +223,9 @@ Airbo.UserTilePreview = (function() {
   function bindTileCarouselNavigationButtons() {
     $("body").on("click", "#next, #prev", function(event) {
       event.preventDefault();
-      if (!event.target.classList.length) { getTileByNavigation($(event.target)); }
+      if (!event.target.classList.length) {
+        getTileByNavigation($(event.target));
+      }
     });
   }
 
@@ -244,11 +246,11 @@ Airbo.UserTilePreview = (function() {
 })();
 
 $(function() {
-  if ($(".tiles-index").length > 0) {
+  if ($(".tiles-index").length > 0 && !$("#root").length) {
     Airbo.UserTilePreview.init();
   }
   // external tile preview
-  if ($(".tile.tile-show").length > 0) {
+  if ($(".tile.tile-show").length > 0 && !$("#root").length) {
     Airbo.TileAnswers.init();
   }
 });
