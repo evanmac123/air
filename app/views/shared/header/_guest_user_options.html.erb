@@ -1,6 +1,6 @@
 <% if should_convert_guest_as_user?(current_user) %>
   <div id="save_progress" class="large-4 large-offset-6 columns text-right" style="<%= user.guest_user_header_button_style %>">
-    <%= link_to "Save Progress", "#", id: "save_progress_button", class: "open_save_progress_form", data: { "reveal-id" => "guest-conversion-modal" } %>
+    <%= link_to "Create an Account", "#", id: "save_progress_button", class: "open_save_progress_form", data: { "reveal-id" => "guest-conversion-modal" } %>
     <%= link_to "Sign In", root_path(sign_in: true), id: 'sign_in_button' %>
 
     <% if session[:display_start_over_button] %>

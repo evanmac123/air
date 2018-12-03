@@ -100,6 +100,8 @@ class TileStateManager extends React.Component {
             this.props.updateTileData({origin, id, resp: {answerIndex, freeFormResponse, complete: true}});
             this.props.addCompletionAndPointsToProgressBar({ points, completion: 1 });
             this.populateNewTileContentByIndex(1, true);
+            // Patch sign up modal to communicate with React for every 2nd tile answered
+            if (document.getElementById('guest-conversion-modal')) { window.Airbo.PubSub.publish("tileAnswered"); }
           },
           err: () => { this.populateNewTileContentByIndex(1); },
         });
