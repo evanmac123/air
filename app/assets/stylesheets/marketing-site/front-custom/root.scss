@@ -617,8 +617,8 @@
     display: inherit !important;
   }
 
-  .bootstrap-iso .features .title{
-    margin-top:1.1em;
+  .bootstrap-iso .features .title {
+    margin-top: 1.1em;
   }
 
   .u-bg-img-hero {
@@ -650,152 +650,166 @@
     img {
       margin-bottom: 1em;
     }
-  }
 
-  .hero-image {
-    position: relative !important;
-    top: 30px !important;
-    right: 0 !important;
-  }
-
-  .hero-banner {
-    padding: 12vw 0 !important;
-    text-align: center;
-    height: auto !important;
-    max-width: none !important;
-    display: block !important;
-    width: 100%;
-  }
-
-  .hero-image {
-    video {
-      width: 100%!important;
+    .blue-teal-gradient {
+      padding: 80px 0 130px;
     }
   }
-
-  .hero-text {
-    text-align: center !important;
-  }
-
-  .hero-text.benefits {
-    width: 100% !important;
-    text-align: center !important;
-
+  //small
+  @media only screen and (max-width: 600px) {
     h1 {
-      font-size: 1.5rem !important;
+      font-size: 37px !important;
     }
-  }
 
-  .hero-text {
-    p {
+    .tile {
+      width: 23%!important;
+    }
+
+    .hero-image {
+      position: relative !important;
+      top: 30px !important;
+      right: 0 !important;
+    }
+
+    .hero-banner {
+      padding: 12vw 0 !important;
+      text-align: center;
+      height: auto !important;
+      max-width: none !important;
+      display: block !important;
+      width: 100%;
+    }
+
+    .hero-image {
+      video {
+        width: 100%!important;
+      }
+    }
+
+    .hero-text {
       text-align: center !important;
     }
-  }
 
-  .blue-teal-gradient {
-    padding: 80px 0 130px;
-  }
-}
-//small
-@media only screen and (max-width: 600px) {
-  h1 {
-    font-size: 37px !important;
-  }
+    .hero-text.benefits {
+      width: 100% !important;
+      text-align: center !important;
 
-  .tile {
-    width: 23%!important;
-  }
+      h1 {
+        font-size: 1.5rem !important;
+      }
+    }
 
-  #privacy,
-  #terms {
+    .hero-text {
+      p {
+        text-align: center !important;
+      }
+    }
+
+    .blue-teal-gradient {
+      padding: 80px 0 130px;
+    }
+  }
+  //small
+  @media only screen and (max-width: 600px) {
     h1 {
-      margin-top: 50px !important;
+      font-size: 37px !important;
     }
 
-    h2 {
-      margin-top: 1.4em !important;
+    .tile {
+      width: 23%!important;
+    }
+
+    #privacy,
+    #terms {
+      h1 {
+        margin-top: 50px !important;
+      }
+
+      h2 {
+        margin-top: 1.4em !important;
+      }
+    }
+
+    .request-demo p {
+      margin: 0.5em 0 !important;
+    }
+
+    .copyright {
+      margin: 0 40% !important;
+    }
+
+    .swal-content {
+      font-size: x-small !important;
+    }
+
+    .testimonial {
+      .statement {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+
+    .u-space-2-top {
+      padding-top: 40px;
+    }
+
+    .bootstrap-iso .quote-block .text-center .mb-4 h1 {
+      font-size: 150%;
     }
   }
 
-  .request-demo p {
-    margin: 0.5em 0 !important;
+  ul {
+    list-style-type: none;
+    padding: 0;
   }
 
-  .copyright {
-    margin: 0 40% !important;
-  }
-
-  .swal-content {
-    font-size: x-small !important;
-  }
-
-  .testimonial {
-    .statement {
-      width: 100%;
-      margin-left: 0;
-    }
-  }
-
-  .u-space-2-top {
-    padding-top: 40px;
-  }
-
-  .bootstrap-iso .quote-block .text-center .mb-4 h1 {
-    font-size: 150%;
-  }
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.drawer {
-  position: fixed;
-  right: -280px; // Pushes things off screen
-  width: 280px; // Same value
-  padding: 20px;
-  top: 0;
-  height: 100%;
-  background-color: $dark-blue;
-  overflow-y: scroll; // adds vertical scrollbar
-  overflow-x: hidden; // prevents horizontal scrollbar
-  color: $white;
-
-  a {
+  .drawer {
+    position: fixed;
+    right: -280px; // Pushes things off screen
+    width: 280px; // Same value
+    padding: 20px;
+    top: 0;
+    height: 100%;
+    background-color: $dark-blue;
+    overflow-y: scroll; // adds vertical scrollbar
+    overflow-x: hidden; // prevents horizontal scrollbar
     color: $white;
-    font-weight: bold;
-    display: block; // anchor tags need to have a display value
-    padding: 15px;
 
-    &:hover {
-      background-color: $n-blue;
+    a {
+      color: $white;
+      font-weight: bold;
+      display: block; // anchor tags need to have a display value
+      padding: 15px;
+
+      &:hover {
+        background-color: $n-blue;
+      }
     }
   }
-}
 
-.drawer,
-.wrapper {
-  transition: all 0.3s ease-out; // Affects returning animations
-}
+  .drawer,
+  .wrapper {
+    transition: all 0.3s ease-out; // Affects returning animations
+  }
 
-.open-drawer,
-.open-wrapper {
-  transition: all 0.3s ease-out; // Affects first animations
-}
+  .open-drawer,
+  .open-wrapper {
+    transition: all 0.3s ease-out; // Affects first animations
+  }
 
-.open-drawer {
-  display: initial;
-  right: 0;
-}
+  .open-drawer {
+    display: initial;
+    right: 0;
+  }
 
-.open-wrapper {
-  width: calc(100% - 200px);
-  margin-right: 200px;
-  position: fixed;
-  opacity: 0.3;
+  .open-wrapper {
+    width: calc(100% - 200px);
+    margin-right: 200px;
+    position: fixed;
+    opacity: 0.3;
 
-  .hamburger {
-    background-color: black;
+    .hamburger {
+      background-color: black;
+    }
   }
 }
