@@ -8,10 +8,10 @@ const validateEmail = value => {
   return re.test(String(value).toLowerCase());
 };
 
-const decideIfAnswerIsCorrect = (correctIndex, index, freeForm) => {
+const decideIfAnswerIsCorrect = (questionType, correctIndex, index, freeForm) => {
   if (freeForm) {
     return (freeForm.value.length > 0) ? true : 'freeForm';
-  } else if (!freeForm && (correctIndex === -1 || correctIndex === index)) {
+  } else if (!freeForm && (questionType === 'survey' || correctIndex === -1 || correctIndex === index)) {
     return true;
   }
   return false;
@@ -37,10 +37,10 @@ const updateCharCount = e => {
 };
 
 const checkAnswerForSubmission = (e, correctIndex, index, tile) => {
-  const { id, submitAnswer, complete, questionSubtype, allowFreeResponse, answers } = tile;
+  const { id, submitAnswer, complete, questionType, questionSubtype, allowFreeResponse, answers } = tile;
   const { target } = e;
   const freeForm = (questionSubtype === 'free_response' || (allowFreeResponse && index === -1)) ? document.getElementById('free_form_response') : undefined;
-  const correctAnswer = decideIfAnswerIsCorrect(correctIndex, index, freeForm);
+  const correctAnswer = decideIfAnswerIsCorrect(questionType, correctIndex, index, freeForm);
   if (complete) { return; }
   target.style.pointerEvents = 'none';
   if (correctAnswer === true) {
