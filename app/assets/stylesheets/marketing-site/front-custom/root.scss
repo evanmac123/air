@@ -12,6 +12,10 @@
   height: 2px;
   display: block;
 }
+
+.drawer{
+  visibility: hidden;
+}
 //animations
 @keyframes float {
   from {
@@ -189,6 +193,7 @@
         display: -webkit-flex;
         display: flex;
         align-items: center;
+        position: relative;
 
         .hero-text {
           visibility: visible;
@@ -198,7 +203,7 @@
         .hero-image {
           position: absolute;
           top: 100px;
-          right: -6px;
+          right: 0px;
           z-index: -4;
 
           video {
@@ -611,7 +616,6 @@
   }
 
   .hero-image {
-    right: -25px !important;
     top: 130px !important;
 
     video {
@@ -780,6 +784,7 @@
     overflow-y: scroll; // adds vertical scrollbar
     overflow-x: hidden; // prevents horizontal scrollbar
     color: $white;
+    visibility: visible;
 
     a {
       color: $white;
