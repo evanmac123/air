@@ -184,6 +184,9 @@
 
       .hero-banner {
         height: 620px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
         display: flex;
         align-items: center;
 
@@ -594,6 +597,11 @@
     font-size: 15px !important;
   }
 
+  .u-bg-img-hero {
+    text-align: center;
+    padding: 0 0 30px !important;
+  }
+
   .bootstrap-iso #root .hero-image {
     top: 100px;
   }
@@ -610,6 +618,12 @@
       width: 320px!important;
     }
   }
+  .blue-teal-gradient {
+    padding: 80px 0 130px;
+  }
+  .testimonial{
+    text-align: left;
+  }
 }
 //tablet
 @media only screen and (max-width: 767px) {
@@ -621,9 +635,45 @@
     margin-top: 1.1em;
   }
 
-  .u-bg-img-hero {
+  .testimonial{
     text-align: center;
-    padding: 0 0 30px !important;
+  }
+
+  .hero-banner {
+    padding: 12vw 0 !important;
+    text-align: center;
+    height: auto !important;
+    max-width: none !important;
+    display: block !important;
+    width: 100%;
+  }
+
+  .hero-image {
+    position: relative !important;
+    top: 30px !important;
+    right: 0 !important;
+    video {
+      width: 100%!important;
+    }
+  }
+
+  .hero-text {
+    text-align: center !important;
+  }
+
+  .hero-text.benefits {
+    width: 100% !important;
+    text-align: center !important;
+
+    h1 {
+      font-size: 1.5rem !important;
+    }
+  }
+
+  .hero-text {
+    p {
+      text-align: center !important;
+    }
   }
 
   .attribute {
@@ -650,10 +700,6 @@
     img {
       margin-bottom: 1em;
     }
-
-    .blue-teal-gradient {
-      padding: 80px 0 130px;
-    }
   }
   //small
   @media only screen and (max-width: 600px) {
@@ -663,46 +709,6 @@
 
     .tile {
       width: 23%!important;
-    }
-
-    .hero-image {
-      position: relative !important;
-      top: 30px !important;
-      right: 0 !important;
-    }
-
-    .hero-banner {
-      padding: 12vw 0 !important;
-      text-align: center;
-      height: auto !important;
-      max-width: none !important;
-      display: block !important;
-      width: 100%;
-    }
-
-    .hero-image {
-      video {
-        width: 100%!important;
-      }
-    }
-
-    .hero-text {
-      text-align: center !important;
-    }
-
-    .hero-text.benefits {
-      width: 100% !important;
-      text-align: center !important;
-
-      h1 {
-        font-size: 1.5rem !important;
-      }
-    }
-
-    .hero-text {
-      p {
-        text-align: center !important;
-      }
     }
 
     .blue-teal-gradient {
