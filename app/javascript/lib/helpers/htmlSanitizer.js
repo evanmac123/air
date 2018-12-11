@@ -16,7 +16,7 @@ const renderHTML = html => (
       allowedSchemesByTag: {},
       allowedSchemesAppliedToAttributes: [ "href", "src" ],
       allowProtocolRelative: true,
-      allowedIframeHostnames: ["www.youtube.com", "player.vimeo.com"],
+      allowedIframeHostnames: ["www.youtube.com", "player.vimeo.com", "embed.ted.com"],
     }),
   }
 );
