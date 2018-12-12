@@ -13,8 +13,8 @@
             <th>Remove?</th>
           </tr>
         </thead>
-        <tbody>
-          <% @demo.users.each do |user| %>
+        <tbody class="js-user-removal-table">
+          <% @demo.users.limit(50).each do |user| %>
             <tr class="<%= @removing_ids.include?(user.id.to_s) ? 'removing' : 'standard' %>">
               <td><%= user.first_name %> <%= user.last_name %></td>
               <td><%= user.role %></td>
