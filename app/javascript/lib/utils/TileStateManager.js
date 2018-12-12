@@ -91,7 +91,7 @@ class TileStateManager extends React.Component {
     setTimeout(() => {
       this.setState({ loading: true, disable: false });
       if (origin === 'explore') {
-        this.populateNewTileContentByIndex(1);
+        this.populateNewTileContentByIndex(1, true);
       } else {
         Fetcher.xmlHttpRequest({
           method: 'POST',
