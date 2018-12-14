@@ -22,16 +22,17 @@ class Api::V1::TilesController < Api::ApiController
   private
     def render_full_display(tile)
       tile_show = tile.sanitize_for_tile_show
-      result = if params[:include_completion] == "true"
-        get_tile_completion_data(tile, tile_show)
+      tile_completion = params[:include_completion] == "true" ? tile.tile_completions.where(user: current_user).first : nil
+      result = if tile_completion
+        get_tile_completion_data(tile_completion, tile_show)
       else
         tile_show
       end
       render json: result
     end
 
-    def get_tile_completion_data(tile, tile_show)
-      sanitized_tile_completion = JSON.parse(tile.tile_completions.where(user: current_user).first.to_json)["tile_completion"]
+    def get_tile_completion_data(tile_completion, tile_show)
+      sanitized_tile_completion = JSON.parse(tile_completion.to_json)["tile_completion"]
       parsed_tile_completion = sanitized_tile_completion.keys.reduce({}) do |result, key|
         case key
         when "answer_index"

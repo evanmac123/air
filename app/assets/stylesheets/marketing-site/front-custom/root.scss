@@ -1,11 +1,136 @@
-.swal-title {
-  font-weight: 200 !important;
+//Type
+
+.text-airbo-blue {
+  color: $n-blue;
 }
 
-//popup-footer
-.swal-footer {
-  text-align: center;
+h1 {
+  font-size: 46px;
+  font-weight: 500;
+  margin-bottom: 0;
 }
+
+h2 {
+  font-size: 42px;
+  font-weight: 500;
+}
+
+p {
+  font-size: 20px;
+  margin: 1.2rem 0;
+
+  &.disclaimer {
+    font-size: 12px;
+  }
+}
+//button
+
+.btn {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 14px;
+  text-align: center;
+  vertical-align: middle;
+  text-transform: capitalize;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 10px 15px;
+  cursor: pointer;
+  box-shadow: none;
+  margin-bottom: 0;
+  background-image: none;
+  outline: none;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid $n-blue;
+  margin: 5px 0;
+
+  &.btn-invert {
+    background-color: $white;
+
+    &.square {
+      border-radius: 0;
+    }
+
+    &:hover {
+      background-color: $n-blue;
+      border-color: $n-blue;
+      color: white;
+    }
+  }
+
+  &.btn-primary {
+    color: white;
+    background-color: $n-blue;
+
+    &:hover {
+      color: $white;
+      background-color: $off-blue;
+      border-color: $off-blue;
+    }
+  }
+}
+//gradients
+
+.purple-teal-gradient {
+  background-image: linear-gradient(75deg, $n-purple, $n-green);
+  color: $white;
+}
+
+.blue-teal-gradient {
+  background-image: linear-gradient(60deg, $n-blue, $n-green);
+  color: $blue;
+}
+//Navigation
+
+#header {
+  background-color: $white;
+}
+
+#homeMegaMenu {
+  color: #5A5F69;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.navbar-brand {
+  img {
+    width: 5rem;
+  }
+}
+
+.navbar-toggler.btn {
+  display: none;
+
+  .u-hamburger__inner,
+  .u-hamburger__inner::after,
+  .u-hamburger__inner::before {
+    background-color: $n-blue;
+  }
+}
+
+#navBar {
+  position: absolute;
+  right: 0;
+  top: 9px;
+  padding: 0;
+
+  .btn {
+    margin: 0 5px;
+  }
+}
+//mobile menu
 
 .u-hamburger__inner::before {
   top: 6.5px;
@@ -13,488 +138,688 @@
   display: block;
 }
 
-.bootstrap-iso {
-  p {
-    font-size: 20px;
+.drawer {
+  visibility: hidden;
+}
+//popup-model
 
-    &.disclaimer {
-      font-size: 12px;
-    }
-  }
+.swal-title {
+  font-weight: 200;
+}
 
-  .text-airbo-blue {
-    color: $n-blue;
-  }
+.swal-footer {
+  text-align: center;
+}
+// 1.Hero
 
-  #header {
-    background-color: $white;
-  }
+.main-hero {
+  padding-bottom: 60px;
 
-  #homeMegaMenu {
-    color: #5A5F69;
-
-    &:hover {
-      color: black;
-    }
-  }
-
-  .navbar-brand {
-    img {
-      width: 5rem;
-    }
-  }
-
-  .navbar-toggler.btn {
-    display: none;
-
-    .u-hamburger__inner,
-    .u-hamburger__inner::after,
-    .u-hamburger__inner::before {
-      background-color: $n-blue;
-    }
-  }
-
-  #navBar {
+  .blue-balloon-1 {
     position: absolute;
-    right: 0;
-    top: 9px;
-    padding: 0;
-
-    .btn {
-      margin: 0 5px;
-    }
+    top: 20%;
+    left: 50%;
+    width: 40px;
+    opacity: 0.6;
+    animation: float 30s ease-in 0s infinite alternate;
   }
 
-  #root {
-    .blue-teal-gradient {
-      background-image: linear-gradient(135deg, $n-blue, $n-green);
-      color: $white;
-    }
+  .blue-balloon-2 {
+    position: absolute;
+    top: 60%;
+    left: 30px;
+    width: 40px;
+    opacity: 0.4;
+    animation: float2 30s ease-in 0s infinite alternate;
+  }
 
-    .purple-teal-gradient {
-      background-image: linear-gradient(135deg, $n-purple, $n-green);
-      color: $white;
+  .cloud-1 {
+    position: absolute;
+    bottom: 100px;
+    right: 0;
+    animation: cloud-right 160s 0s infinite;
+  }
+
+  .cloud-2 {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    animation: cloud-left 160s 0s infinite;
+  }
+
+  .hero-banner {
+    height: 620px;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .hero-text {
+      visibility: visible;
+      text-align: left;
     }
 
     .hero-image {
       position: absolute;
-      top: 0;
-      width: 80%;
-      right: -27vw;
-    }
+      top: 100px;
+      right: 0;
+      z-index: 5;
 
-    .hero-banner {
-      height: 650px;
-    }
-
-    .blue-teal-gradient .hero-banner p {
-      text-align: center;
-    }
-
-    .hero-text {
-      visibility: visible;
-      margin: 0 auto;
-      text-align: center;
-
-      &.benefits {
-        text-align: left;
-        width: 50%;
-        float: left;
-        padding-top: 11%;
+      video {
+        width: 430px;
       }
-
-      h1 {
-        font-size: 55px;
-      }
-
-      p {
-        color: $white;
-        text-align: left;
-        line-height: 1em;
-      }
-    }
-
-    .hero-bottom {
-      pointer-events: none;
 
       img {
-        position: relative;
-        float: right;
-      }
-
-      .balloon {
-        top: 100px;
-        width: 3em;
-        right: 9em;
-      }
-
-      .cloud-right {
-        top: 85px;
-        left: 7em;
-        width: 4em;
-      }
-
-      .cloud-left {
-        width: 5em;
-        top: 25px;
-        right: 2em;
+        width: 500px;
       }
     }
   }
 
-  .btn {
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    display: inline-block;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 14px;
+  &.benefits {
+    text-align: left;
+    width: 50%;
+    float: left;
+    padding-top: 11%;
+  }
+
+  p {
+    color: $dark-blue;
+    text-align: left;
+    line-height: 1em;
+  }
+
+  .hero-bottom {
+    pointer-events: none;
+
+    img {
+      position: relative;
+      float: right;
+    }
+
+    .balloon {
+      top: 100px;
+      width: 3em;
+      right: 9em;
+    }
+
+    .cloud-right {
+      top: 85px;
+      left: 7em;
+      width: 4em;
+    }
+
+    .cloud-left {
+      width: 5em;
+      top: 25px;
+      right: 2em;
+    }
+  }
+}
+
+
+//2. Case-Study
+
+.case-study {
+  position: relative;
+
+  .u-bg-img-hero {
+    padding: 80px 0 175px;
+  }
+
+  .row {
+    max-width: 900px;
+    margin: auto;
+    position: relative;
+  }
+
+  .pill {
+    width: 7em;
+    background-color: $off-green;
+    padding: 7px;
+    border-radius: 14px;
+    font-size: 12px;
+    color: $dark;
+  }
+
+  .thumbnail {
+    width: 7em;
+  }
+
+  .right-balloon {
+    position: absolute;
+    right: 16vw;
+  }
+
+  .left-balloon {
+    position: absolute;
+    bottom: -36px;
+    left: 11vw;
+    width: 3em;
+  }
+
+  .testimonial {
+    margin: 0 auto;
+    font-size: 17px;
+
+    img {
+      margin: 15px 0 20px;
+    }
+
+    .quote {
+      font-size: 36px;
+      line-height: 1.4em;
+      color: white;
+    }
+
+    .statement {
+      color: white;
+      font-size: 18px;
+      margin-top: 1em;
+    }
+  }
+
+  .attribute {
+    .profile-pic {
+      width: 80%;
+      margin-left: 10%;
+      border-radius: 100%;
+      display: inline-block;
+    }
+
+    .profile-title {
+      display: inline-block;
+      padding: 3px 0 0 10px;
+      font-size: 22px;
+      text-align: center;
+      width: 100%;
+      color: white;
+    }
+  }
+}
+
+
+//3. Features
+
+.features {
+  margin: 0 0 -100px;
+  color: white;
+
+  .tile {
+    object-fit: contain;
+    width: 24%;
+  }
+
+  .content-block {
+    margin-bottom: 3em;
+  }
+
+  .title {
     text-align: center;
-    vertical-align: middle;
-    text-transform: capitalize;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 10px 15px;
-    cursor: pointer;
-    box-shadow: none;
-    margin-bottom: 0;
-    background-image: none;
-    outline: none !important;
+    width: 100%;
+    margin-top: 2.2em;
+    color: $n-blue;
+  }
+
+  .tile-block {
+    margin-top: 40px;
+    margin-left: 2%;
+  }
+
+  p {
+    color: $dark-blue;
+    text-align: center;
+    width: 100%;
+    font-size: 18px;
+    margin: 0;
+  }
+
+  h5 {
+    font-size: 20px;
+    margin-bottom: 0.5em;
+  }
+}
+
+
+//4. ROI
+
+.roi {
+  z-index: 6;
+  position: relative;
+  color: white;
+
+  .svg-wave-purple {
+    position: absolute;
+    top: -139px;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  .stats {
+    padding-top: 60px;
+  }
+
+  .company-name {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0.5em 0 1em;
+    color: white;
+  }
+}
+
+
+//5. CTA
+
+.cta {
+  width: 100%;
+  text-align: center;
+  position: relative;
+
+  h2 {
+    color: $dark-blue;
+  }
+
+  p {
+    color: $dark-blue;
+    font-size: 18px;
+  }
+
+  .cloud-1 {
+    position: absolute;
+    right: -10px;
+    top: 30%;
+    animation: cloud-right 35s ease-in 0s infinite;
+  }
+
+  .cloud-2 {
+    position: absolute;
+    left: -10px;
+    top: 67%;
+    width: 20px;
+    animation: cloud-left 32s ease-in 0s infinite;
+  }
+
+  .cloud-3 {
+    position: absolute;
+    top: 30%;
+    width: 50px;
+    animation: cloud-right 37s ease-in 0s infinite;
+  }
+
+  .cloud-4 {
+    position: absolute;
+    left: -10px;
+    top: 80%;
+    animation: cloud-left 34s ease-in 0s infinite;
+  }
+
+  .blue-balloon-1 {
+    position: absolute;
+    left: 40%;
+    top: 17%;
+    width: 30px;
+    animation: float 30s ease-in 0s infinite alternate;
+  }
+
+  .blue-balloon-2 {
+    position: absolute;
+    left: 20%;
+    top: 80%;
+    width: 50px;
+    animation: float2 30s ease-in 0s infinite alternate;
+  }
+
+  .blue-balloon-3 {
+    position: absolute;
+    left: 65%;
+    top: 70%;
+    width: 50px;
+    animation: float 25s ease-in 0s infinite alternate;
+  }
+}
+//Footer
+
+.footer {
+  background-color: $dark-blue;
+  margin-bottom: 15px;
+
+  a,
+  h3,
+  li {
+    color: $white;
+  }
+
+  a:hover {
+    color: $n-blue;
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
-    border: 1px solid $n-blue;
-    margin: 5px;
-
-    &.btn-invert {
-      background-color: $white;
-
-      &.square {
-        border-radius: 0;
-      }
-
-      &:hover {
-        background-color: $n-blue;
-        border-color: $n-blue;
-        color: white;
-      }
-    }
-
-    &.btn-primary {
-      color: white;
-      background-color: $n-blue;
-
-      &:hover {
-        color: $white;
-        background-color: $off-blue;
-        border-color: $off-blue;
-      }
-    }
   }
 
-  .case-study {
+  .container {
+    padding-bottom: 1%;
+  }
+
+  h3 {
+    margin: 0;
+  }
+}
+
+.copyright {
+  display: inline;
+  margin: 0 48%;
+  text-align: center;
+
+  img {
+    width: 4rem;
+  }
+
+  p {
+    font-size: 1rem;
     text-align: center;
+    margin: 5px;
+  }
+}
+//background moving elements
 
-    .pill {
-      width: 7em;
-      margin: 30px auto;
-      background-color: $off-green;
-      padding: 7px;
-      border-radius: 14px;
-      font-size: 12px;
+.balloon {
+  opacity: 0.8;
+}
+
+.cloud {
+  opacity: 0.4;
+  width: 60px;
+}
+//animations
+@keyframes float {
+  from {
+    transform: translateY(-50px);
+  }
+
+  to {
+    transform: translateY(200px);
+  }
+}
+@keyframes float2 {
+  from {
+    transform: translateY(200px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes cloud-right {
+  from {
+    transform: translateX(100);
+  }
+
+  to {
+    transform: translateX(-1400px);
+  }
+}
+@keyframes cloud-left {
+  from {
+    transform: translateX(-100);
+  }
+
+  to {
+    transform: translateX(1400px);
+    //top:100px;
+  }
+}
+//Privacy and Terms
+
+#privacy,
+#terms {
+  h1 {
+    margin-top: 50px;
+  }
+
+  h2 {
+    margin-top: 1.4em;
+  }
+}
+///////////MEDIA QUERIES/////////////////
+//small laptop
+@media only screen and (max-width: 990px) {
+  body {
+    h1 {
+      font-size: 40px;
     }
 
-    .thumbnail {
-      width: 7em;
+    .case-study .u-bg-img-hero {
+      text-align: center;
+      padding: 0 0 30px;
     }
 
-    .right-balloon {
-      position: absolute;
-      right: 16vw;
-      top: 0;
+    .main-hero {
+      .hero-banner{
+      .hero-image {
+        top: 130px;
+
+        video {
+          width: 320px;
+        }
+
+        .hero-text.benefits {
+          padding-top: 40px;
+        }
+      }
+      }
     }
 
-    .left-balloon {
-      position: absolute;
-      bottom: -36px;
-      left: 11vw;
-      width: 3em;
+    .request-demo p {
+      font-size: 15px;
+    }
+
+    .blue-teal-gradient {
+      padding: 80px 0 130px;
     }
 
     .testimonial {
-      margin: 50px auto;
-      font-size: 17px;
-
-      .quote {
-        font-size: 33px;
-        margin-bottom: 30px;
-        line-height: 1.4em;
-      }
-
-      .statement {
-        width: 80%;
-        margin-left: 10%;
-      }
-
-      .attribute {
-        .profile-pic {
-          width: 5em;
-          border-radius: 100%;
-          display: inline-block;
-          margin-top: -20px;
-        }
-
-        .profile-title {
-          display: inline-block;
-          padding: 3px 0 0 10px;
-          font-size: 18px;
-          text-align: left;
-        }
-      }
-    }
-  }
-
-  .roi {
-    h3 {
-      margin: 0;
-    }
-
-    .stats {
-      padding-top: 60px;
-    }
-
-    .company-name {
-      color: black;
-    }
-
-    p {
-      margin: 0.5em 0 1em;
-    }
-  }
-
-  .quote-block {
-    color: $white;
-    background-image: image-url("marketing_site/quote_bg.png");
-    min-height: 689px;
-
-    .text-center {
-      padding-top: 1%;
-
-      .mb-4 {
-        margin: -10px 10%;
-
-        h1 {
-          font-size: 184%;
-        }
-      }
-
-      .mb-7 {
-        margin-bottom: 40px;
-
-        blockquote {
-          margin: 1em 0;
-        }
-      }
-    }
-  }
-
-  .request-demo {
-    position: absolute;
-    top: 80%;
-    left: 15vw;
-    text-align: center;
-    margin: 0 auto;
-    right: 15vw;
-
-    p {
-      margin: 1.5em 20%;
-    }
-  }
-
-  .footer {
-    background-color: $dark-blue;
-    margin-bottom: 15px;
-
-    a,
-    h3,
-    li {
-      color: $white;
-    }
-
-    a:hover {
-      color: $n-blue;
-      -webkit-transition: all 0.2s ease-in-out;
-      -moz-transition: all 0.2s ease-in-out;
-      -ms-transition: all 0.2s ease-in-out;
-      -o-transition: all 0.2s ease-in-out;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .container {
-      padding-bottom: 1%;
-    }
-
-    h3 {
-      margin: 0;
-    }
-  }
-
-  .copyright {
-    display: inline !important;
-    margin: 0 48%;
-    text-align: center;
-
-    img {
-      width: 4rem;
-    }
-
-    p {
-      font-size: 1rem;
-      text-align: center;
-      margin: 5px;
+      text-align: left;
     }
   }
 }
-
-@media only screen and (max-width: 990px) {
-  .request-demo p {
-    font-size: 15px !important;
-  }
-
-  .bootstrap-iso #root .hero-image {
-    top: 100px;
-  }
-
-  .bootstrap-iso #root .hero-text.benefits {
-    padding-top: 40px;
-  }
-}
-
+//tablet
 @media only screen and (max-width: 767px) {
-  .navbar-toggler.btn {
-    display: inherit !important;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .blue-teal-gradient {
-    height: 690px !important;
-
-    h1 {
-      font-size: 37px !important;
+  body {
+    .navbar-toggler.btn {
+      display: inherit;
     }
-  }
 
-  .hero-image {
-    top: 50px !important;
-    width: 100vw !important;
-    right: -6vw !important;
-  }
-
-  .hero-banner {
-    padding-top: 60.5vw !important;
-    text-align: center;
-  }
-
-  .hero-text.benefits {
-    width: 100% !important;
-    text-align: center !important;
-
-    h1 {
-      font-size: 1.5rem !important;
+    .bootstrap-iso .features .title {
+      margin-top: 1.1em;
     }
-  }
 
-  .hero-text {
-    p {
-      text-align: center !important;
+    .testimonial {
+      text-align: center;
     }
-  }
 
-  .request-demo p {
-    margin: 0.5em 0 !important;
-  }
+    .main-hero {
+      .hero-banner {
+        padding: 12vw 0;
+        text-align: center;
+        height: auto;
+        max-width: none;
+        display: block;
+        width: 100%;
 
-  .copyright {
-    margin: 0 40% !important;
-  }
+        .hero-image {
+          position: relative;
+          top: 30px;
+          right: 0;
 
-  .swal-content {
-    font-size: x-small !important;
-  }
+          video {
+            width: 100%;
+          }
+        }
 
-  .testimonial {
-    .statement {
+        .hero-text {
+          text-align: center;
+        }
+      }
+    }
+
+    .hero-text {
+      p {
+        text-align: center;
+      }
+    }
+
+    .hero-text.benefits {
       width: 100%;
-      margin-left: 0;
+      text-align: center;
+
+      h1 {
+        font-size: 1.5rem;
+      }
     }
-  }
 
-  .u-space-2-top {
-    padding-top: 40px;
-  }
+    .attribute {
+      display: none;
+    }
 
-  .bootstrap-iso .quote-block .text-center .mb-4 h1 {
-    font-size: 150%;
-  }
-}
+    .pill {
+      margin: auto;
+    }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+    .profile-pic {
+      width: 50%;
+      margin: 0;
+    }
 
-.drawer {
-  position: fixed;
-  right: -300px; // Pushes things off screen
-  width: 300px; // Same value
-  padding: 20px;
-  top: 0;
-  height: 100%;
-  background-color: $dark-blue;
-  overflow-y: scroll; // adds vertical scrollbar
-  overflow-x: hidden; // prevents horizontal scrollbar
-  color: $white;
+    .features {
+      margin: 0;
 
-  a {
-    color: $white;
-    font-weight: bold;
-    display: block; // anchor tags need to have a display value
-    padding: 15px;
+      .col-md-6 {
+        text-align: center;
+        margin-bottom: 3em;
+      }
 
-    &:hover {
-      background-color: $n-blue;
+      img {
+        margin-bottom: 1em;
+      }
     }
   }
 }
+  //small
+  @media only screen and (max-width: 600px) {
+    body {
 
-.drawer,
-.wrapper {
-  transition: all 0.3s ease-out; // Affects returning animations
-}
+      h2 {
+        font-size: 32px;
+        font-weight: 500;
+      }
 
-.open-drawer,
-.open-wrapper {
-  transition: all 0.3s ease-out; // Affects first animations
-}
+      .features .tile {
+        width: 23%;
+      }
 
-.open-drawer {
-  display: initial;
-  right: 0;
-}
-
-.open-wrapper {
-  width: calc(100% - 200px);
-  margin-right: 200px;
-  position: fixed;
-  opacity: 0.3;
-
-  .hamburger {
-    background-color: black;
+      .blue-teal-gradient {
+        padding: 80px 0 130px;
+      }
+    }
   }
-}
+  //small
+  @media only screen and (max-width: 600px) {
+    body {
+
+      .tile {
+        width: 23%;
+      }
+
+      .request-demo p {
+        margin: 0.5em 0;
+      }
+
+      .copyright {
+        margin: 0 40%;
+      }
+
+      .swal-content {
+        font-size: x-small;
+      }
+
+      .testimonial {
+        .statement {
+          width: 100%;
+          margin-left: 0;
+        }
+      }
+
+      .u-space-2-top {
+        padding-top: 40px;
+      }
+
+      .bootstrap-iso .quote-block .text-center .mb-4 h1 {
+        font-size: 150%;
+      }
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .drawer {
+      position: fixed;
+      right: -280px; // Pushes things off screen
+      width: 280px; // Same value
+      padding: 20px;
+      top: 0;
+      height: 100%;
+      background-color: $dark-blue;
+      overflow-y: scroll; // adds vertical scrollbar
+      overflow-x: hidden; // prevents horizontal scrollbar
+      color: $white;
+      visibility: visible;
+
+      a {
+        color: $white;
+        font-weight: bold;
+        display: block; // anchor tags need to have a display value
+        padding: 15px;
+
+        &:hover {
+          background-color: $n-blue;
+        }
+      }
+    }
+
+    .drawer,
+    .wrapper {
+      transition: all 0.3s ease-out; // Affects returning animations
+    }
+
+    .open-drawer,
+    .open-wrapper {
+      transition: all 0.3s ease-out; // Affects first animations
+    }
+
+    .open-drawer {
+      display: initial;
+      right: 0;
+    }
+
+    .open-wrapper {
+      width: calc(100% - 200px);
+      margin-right: 200px;
+      position: fixed;
+      opacity: 0.3;
+
+      .hamburger {
+        background-color: black;
+      }
+    }
+  }

@@ -1,5 +1,12 @@
 var Airbo = window.Airbo || {};
 Airbo.EmbedVideo = (function() {
+  var whitelistedURIs = [
+    "www.youtube.com",
+    "player.vimeo.com",
+    "fast.wistia.net",
+    "embed.ted.com",
+    "www.kalutra.com"
+  ];
   var timer;
 
   function addVideo(embedCode) {
@@ -18,6 +25,7 @@ Airbo.EmbedVideo = (function() {
 
   function raiseUnloadableError() {
     Airbo.PubSub.publish("video-load-error");
+    removeVideo();
   }
 
   function raiseUnparsableError() {
@@ -35,6 +43,12 @@ Airbo.EmbedVideo = (function() {
     Airbo.PubSub.publish("video-removed");
   }
 
+  function parseURI(uri) {
+    var el = document.createElement("a");
+    el.href = uri;
+    return el;
+  }
+
   function getValidCode(text) {
     try {
       text =
@@ -44,7 +58,12 @@ Airbo.EmbedVideo = (function() {
         $(text)
           .find("iframe")
           .prop("outerHTML");
-      return text;
+      var parsedURI = parseURI("" + $(text)[0].attributes["src"].value + "");
+      if (whitelistedURIs.indexOf(parsedURI.hostname) > -1) {
+        return text;
+      } else {
+        return "err";
+      }
     } catch (e) {
       return undefined;
     }
@@ -60,7 +79,11 @@ Airbo.EmbedVideo = (function() {
         if (code == undefined) {
           raiseUnparsableError();
         } else {
-          addVideo(code);
+          if (code === "err") {
+            raiseUnloadableError();
+          } else {
+            addVideo(code);
+          }
         }
       }
     });

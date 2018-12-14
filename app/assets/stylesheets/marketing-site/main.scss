@@ -1,8 +1,8 @@
 //homepage -- CSS held over for pages#gallery
 @import './mixins/marketing-site-value-props'; //
 //Front theme styling
-@import './front-custom/root';
-@import './front-custom/privacy'; //
+@import './front-custom/root'; // You can also use <link> for styles
+// ..
 
 .airbo-marketing-site {
   color: #33445c;
@@ -49,5 +49,16 @@
         margin-bottom: 60px;
       }
     }
+  }
+}
+
+#privacy,
+#terms {
+  h1 {
+    margin-top: 100px;
+  }
+
+  h2 {
+    margin-top: 2em;
   }
 }

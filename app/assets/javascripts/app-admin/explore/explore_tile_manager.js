@@ -61,7 +61,7 @@ Airbo.ExploreTileManager = (function() {
 })();
 
 $(function() {
-  if ($(".explore").length > 0) {
+  if ($(".explore").length && !$("#root").length) {
     Airbo.ExploreTileManager.init();
   }
 });
