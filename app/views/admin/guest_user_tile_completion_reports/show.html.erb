@@ -5,26 +5,8 @@
       <%= link_to @demo.name, admin_demo_path(@demo) %> » Generate GuestUser TileCompletion Report
     </h2>
 
-    <%=form_tag admin_demo_user_removal_path(@demo), method: :post, id: "board_user_removal_form" do%>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>User Type</th>
-            <th>Remove?</th>
-          </tr>
-        </thead>
-        <tbody class="js-user-removal-table">
-          <% @demo.users.limit(50).each do |user| %>
-            <tr class="<%= @removing_ids.include?(user.id.to_s) ? 'removing' : 'standard' %>">
-              <td><%= user.first_name %> <%= user.last_name %></td>
-              <td><%= user.role %></td>
-              <td><%= @removing_ids.include?(user.id.to_s) ? "Removing from Board" : check_box_tag("remove_user_#{user.id}") %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      <table>
-      <%=submit_tag "Remove Users from Board", class:"button outline red danger"%>
+    <%=form_tag admin_demo_guest_user_tile_completion_report_path(@demo), method: :post, id: "guest_user_tile_completion_form" do%>
+      <%=submit_tag "Generate TileCompletion Report", class:"button outline"%>
     <%end%>
 
   </div>
