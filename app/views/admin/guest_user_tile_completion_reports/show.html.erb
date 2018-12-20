@@ -5,8 +5,34 @@
       <%= link_to @demo.name, admin_demo_path(@demo) %> » Generate GuestUser TileCompletion Report
     </h2>
 
-    <%=form_tag admin_demo_guest_user_tile_completion_report_path(@demo), method: :post, id: "guest_user_tile_completion_form" do%>
-      <%=submit_tag "Generate TileCompletion Report", class:"button outline"%>
+    <input type="text" placeholder="Filter Tiles" class="js_filter_guest_tile_completions" style="width: 35%;float: left;" />
+    <%= form_tag "/admin/demos/#{@demo.id}/guest_user_tile_completion_report.csv", method: :get, id: "guest_user_tile_completion_form" do%>
+      <%= submit_tag "Generate TileCompletion Report", class:"button outline", style: "float: right;" %>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Headline</th>
+            <th>Status</th>
+            <th>Generate Report</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @demo.tiles.each do |tile| %>
+            <tr
+              class="tile_data_completion_list"
+              data-headline="<%= tile.headline %>"
+              data-id="<%= tile.id %>"
+              data-status="<%= tile.status %>"
+            >
+              <td><%= tile.id %></td>
+              <td><%= tile.headline %></td>
+              <td><%= tile.status.capitalize %></td>
+              <td><%= check_box_tag("generate_tile_#{tile.id}") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      <table>
     <%end%>
 
   </div>
