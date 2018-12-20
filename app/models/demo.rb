@@ -57,8 +57,9 @@ class Demo < ActiveRecord::Base
   has_attached_file :logo,
     {
       styles: {
-        thumb: "x46>"
+        thumb: "x240>"
       },
+      convert_options: { all: "-unsharp 0.3x0.3+5+0" },
       default_style: :thumb,
       default_url: ->(attachment) { ActionController::Base.helpers.asset_path("logo.png") },
       keep_old_files: true
