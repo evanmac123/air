@@ -21,8 +21,8 @@
 <div class="row ">
   <div class="columns large-12">
     <%= form_for :user, :url => admin_lost_user_path do |f| %>
-      <label>Search for a user by email</label>
-      <%= f.text_field :email, :placeholder => 'email', style: "display:inline" %>
+      <label>Search for a user by email or phone number</label>
+      <%= f.text_field :email, :placeholder => 'email or phone number', style: "display:inline" %>
       <%= f.submit "Find", class: "button primary" %>
     <% end %>
   </div>
