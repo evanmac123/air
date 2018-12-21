@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 class Api::SmsService::HandlingController < Api::ApiController
+  skip_before_action :verify_authenticity_token
+
   def create
-    head :ok, content_type: "text/html"
     body = params["Body"].downcase
     from = params["From"]
     sid = params["MessagingServiceSid"]
 
-    SmsResponseHandler.dispatch(incoming_msg: body, from: from) if sid == ENV["TWILIO_ACCOUNT_SID"]
+    response = SmsResponseHandler.dispatch(incoming_msg: body, from: from, sid: sid)
+
+    render xml: response
   end
 end
