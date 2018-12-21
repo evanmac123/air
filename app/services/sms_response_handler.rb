@@ -32,6 +32,6 @@ class SmsResponseHandler
     twiml = Twilio::TwiML::MessagingResponse.new do |resp|
       resp.message body: response_body
     end
-    twiml.to_xml
+    twiml.to_s
   end
 end
