@@ -6,7 +6,7 @@ class Api::SmsService::HandlingController < Api::ApiController
   def create
     body = params["Body"].downcase
     from = params["From"]
-    sid = params["MessagingServiceSid"]
+    sid = params["AccountSid"]
 
     response = SmsResponseHandler.dispatch(incoming_msg: body, from: from, sid: sid)
 

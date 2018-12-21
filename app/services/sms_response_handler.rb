@@ -8,7 +8,7 @@ class SmsResponseHandler
 
   def self.dispatch(incoming_msg:, from:, sid:)
     generator = SmsResponseHandler.new(incoming_msg: incoming_msg, from: from)
-    generator.database_action if sid == ENV["TWILIO_ACCOUNT_SID"] || true
+    generator.database_action if sid == ENV["TWILIO_ACCOUNT_SID"]
     generator.dispatch_twilio_response
   end
 
@@ -29,9 +29,10 @@ class SmsResponseHandler
   end
 
   def dispatch_twilio_response
-    twiml = Twilio::TwiML::MessagingResponse.new do |resp|
-      resp.message body: response_body
+    twiml = Twilio::TwiML::MessagingResponse.new
+    twiml.message do |msg|
+      msg.body response_body
     end
-    twiml.to_s
+    twiml
   end
 end
