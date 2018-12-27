@@ -18,6 +18,9 @@
           <h4>
             <%= link_to "Segment users", admin_demo_segmentation_path(@demo) %>
           </h4>
+          <h4>
+            <%= link_to "Generate GuestUser TileCompletion Report", admin_demo_guest_user_tile_completion_report_path(@demo) %>
+          </h4>
           <% if @demo.dependent_board_enabled %>
             <h4>
               <%= link_to "Dependent board data", admin_demo_dependent_board_path(@demo) %>

@@ -47,6 +47,8 @@ namespace :admin do
       resource :test_status, :only => :update
     end
 
+    resource :guest_user_tile_completion_report, only: [:show]
+
     resource :bulk_user_deletions, only: [:show, :create]
 
     resources :user_removal, only: [:index]

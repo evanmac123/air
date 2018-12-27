@@ -4,6 +4,11 @@
       <%= link_to "Admin", admin_path %> »
       <%= link_to @demo.name, admin_demo_path(@demo) %> » Remove Users from Board
     </h2>
+    <p>
+      NOTE: the list below shows a maximum of 100 users. We have not yet built the functionality to display more.<br>
+      If there are users you would like to remove from this board that are not on the list, please speak with engineering.<br>
+      Thank you for your understanding.<br><br>
+    </p>
     <%=form_tag admin_demo_user_removal_path(@demo), method: :post, id: "board_user_removal_form" do%>
       <table>
         <thead>
@@ -13,8 +18,8 @@
             <th>Remove?</th>
           </tr>
         </thead>
-        <tbody>
-          <% @demo.users.each do |user| %>
+        <tbody class="js-user-removal-table">
+          <% @demo.users.limit(100).each do |user| %>
             <tr class="<%= @removing_ids.include?(user.id.to_s) ? 'removing' : 'standard' %>">
               <td><%= user.first_name %> <%= user.last_name %></td>
               <td><%= user.role %></td>
