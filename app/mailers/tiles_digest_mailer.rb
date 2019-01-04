@@ -33,7 +33,7 @@ class TilesDigestMailer < BaseTilesDigestMailer
 
     def should_deliver_text_message?(user, demo)
       bm = user.board_memberships.where(demo_id: demo.id).first
-      bm.receives_text_messages
+      bm.receives_text_messages && user.receives_sms
     end
 
     def tile_ids_for_digest(digest)
