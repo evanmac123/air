@@ -84,7 +84,7 @@ class App extends React.Component {
 
   render() {
     const  { userData, tiles, organization, progressBarData, initData } = this.props;
-    return React.createElement('div', {className: 'react-root', style: {background: '#d9dfe9'}},
+    return React.createElement('div', {className: 'react-root'},
     this.state.originId ? React.createElement(TileStateManager, {
       originId: this.state.originId,
       tileOrigin: this.state.tileOrigin,
@@ -119,6 +119,8 @@ App.propTypes = {
   setTilesData: PropTypes.func,
   setOrganizationData: PropTypes.func,
   userData: PropTypes.object,
+  organization: PropTypes.object,
+  progressBarData: PropTypes.object,
   tiles: PropTypes.shape({
     explore: PropTypes.object,
     edit: PropTypes.object,
