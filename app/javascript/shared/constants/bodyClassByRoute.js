@@ -3,4 +3,5 @@ export default {
   '/tiles': 'tiles tiles-index',
   '/tiles/:id': 'tiles tiles-show',
   '/explore': 'explore explore-index',
-}
+  '/explore/campaigns/:campaign': 'explore explore-index',
+};
