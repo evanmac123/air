@@ -79,9 +79,7 @@ p {
     }
   }
 }
-
 //Navigation
-
 #header {
   background-color: $white;
 }
@@ -248,10 +246,7 @@ p {
     }
   }
 }
-
-
 //2. Case-Study
-
 .case-study {
   position: relative;
 
@@ -329,10 +324,7 @@ p {
     }
   }
 }
-
-
 //3. Features
-
 .features {
   margin: 0 0 -100px;
   color: white;
@@ -371,10 +363,7 @@ p {
     margin-bottom: 0.5em;
   }
 }
-
-
 //4. ROI
-
 .roi {
   z-index: 6;
   position: relative;
@@ -403,10 +392,7 @@ p {
     color: white;
   }
 }
-
-
 //5. CTA
-
 .cta {
   width: 100%;
   text-align: center;
@@ -593,18 +579,18 @@ p {
     }
 
     .main-hero {
-      .hero-banner{
-      .hero-image {
-        top: 130px;
+      .hero-banner {
+        .hero-image {
+          top: 130px;
 
-        video {
-          width: 320px;
-        }
+          video {
+            width: 320px;
+          }
 
-        .hero-text.benefits {
-          padding-top: 40px;
+          .hero-text.benefits {
+            padding-top: 40px;
+          }
         }
-      }
       }
     }
 
@@ -703,113 +689,107 @@ p {
     }
   }
 }
-  //small
-  @media only screen and (max-width: 600px) {
-    body {
+//small
+@media only screen and (max-width: 600px) {
+  body {
+    h2 {
+      font-size: 32px;
+      font-weight: 500;
+    }
 
-      h2 {
-        font-size: 32px;
-        font-weight: 500;
-      }
+    .features .tile {
+      width: 23%;
+    }
 
-      .features .tile {
-        width: 23%;
-      }
-
-      .blue-teal-gradient {
-        padding: 80px 0 130px;
-      }
+    .blue-teal-gradient {
+      padding: 80px 0 130px;
     }
   }
-  //small
-  @media only screen and (max-width: 600px) {
-    body {
 
-      .tile {
-        width: 23%;
-      }
+  .tile {
+    width: 23%;
+  }
 
-      .request-demo p {
-        margin: 0.5em 0;
-      }
+  .request-demo p {
+    margin: 0.5em 0;
+  }
 
-      .copyright {
-        margin: 0 40%;
-      }
+  .copyright {
+    margin: 0 40%;
+  }
 
-      .swal-content {
-        font-size: x-small;
-      }
+  .swal-content {
+    font-size: x-small;
+  }
 
-      .testimonial {
-        .statement {
-          width: 100%;
-          margin-left: 0;
-        }
-      }
-
-      .u-space-2-top {
-        padding-top: 40px;
-      }
-
-      .bootstrap-iso .quote-block .text-center .mb-4 h1 {
-        font-size: 150%;
-      }
+  .testimonial {
+    .statement {
+      width: 100%;
+      margin-left: 0;
     }
+  }
 
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
+  .u-space-2-top {
+    padding-top: 40px;
+  }
 
-    .drawer {
-      position: fixed;
-      right: -280px; // Pushes things off screen
-      width: 280px; // Same value
-      padding: 20px;
-      top: 0;
-      height: 100%;
-      background-color: $dark-blue;
-      overflow-y: scroll; // adds vertical scrollbar
-      overflow-x: hidden; // prevents horizontal scrollbar
+  .bootstrap-iso .quote-block .text-center .mb-4 h1 {
+    font-size: 150%;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .drawer {
+    position: fixed;
+    right: -280px; // Pushes things off screen
+    width: 280px; // Same value
+    padding: 20px;
+    top: 0;
+    height: 100%;
+    background-color: $dark-blue;
+    overflow-y: scroll; // adds vertical scrollbar
+    overflow-x: hidden; // prevents horizontal scrollbar
+    color: $white;
+    visibility: visible;
+
+    a {
       color: $white;
-      visibility: visible;
+      font-weight: bold;
+      display: block; // anchor tags need to have a display value
+      padding: 15px;
 
-      a {
-        color: $white;
-        font-weight: bold;
-        display: block; // anchor tags need to have a display value
-        padding: 15px;
-
-        &:hover {
-          background-color: $n-blue;
-        }
-      }
-    }
-
-    .drawer,
-    .wrapper {
-      transition: all 0.3s ease-out; // Affects returning animations
-    }
-
-    .open-drawer,
-    .open-wrapper {
-      transition: all 0.3s ease-out; // Affects first animations
-    }
-
-    .open-drawer {
-      display: initial;
-      right: 0;
-    }
-
-    .open-wrapper {
-      width: calc(100% - 200px);
-      margin-right: 200px;
-      position: fixed;
-      opacity: 0.3;
-
-      .hamburger {
-        background-color: black;
+      &:hover {
+        background-color: $n-blue;
       }
     }
   }
+
+  .drawer,
+  .wrapper {
+    transition: all 0.3s ease-out; // Affects returning animations
+  }
+
+  .open-drawer,
+  .open-wrapper {
+    transition: all 0.3s ease-out; // Affects first animations
+  }
+
+  .open-drawer {
+    display: initial;
+    right: 0;
+  }
+
+  .open-wrapper {
+    width: calc(100% - 200px);
+    margin-right: 200px;
+    position: fixed;
+    opacity: 0.3;
+
+    .hamburger {
+      background-color: black;
+    }
+  }
+}
