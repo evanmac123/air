@@ -1,22 +1,10 @@
-//FIXME this looks like multiple imports happening
-@import "styles-v2/app.scss";
 // ------------------------ * Misc dependents * ------------------------
 @mixin clear {
   clear:both;
   content:"";
   display:block;
 }
-// @mixin ease($time) {
-//   -webkit-transition: all #{$time} ease-in-out;
-//   -moz-transition: all #{$time} ease-in-out;
-//   -ms-transition: all #{$time} ease-in-out;
-//   -o-transition: all #{$time} ease-in-out;
-//   transition: all #{$time} ease-in-out;
-// }
 
-// ------------------------ * Typography * ------------------------
-// $default:   'Helvetica Neue', Helvetica, Arial, sans-serif;
-// $default: $font-family-primary;
 $small_cap_size: .625rem; // 10px
 
 @mixin font-thin {
@@ -87,34 +75,6 @@ body {
     padding:2em 0 0 0;
   }
 }
-// h1 {
-//   @include font-light;
-//   font-size: 32px;
-// }
-// h2 {
-//   @include font-light;
-//   font-size: 18px;
-//   line-height: 1.35em;
-//   color: $sky-blue;
-// }
-// h3 {
-//   margin-bottom: 15px;
-//   font-size: 12px;
-//   font-weight: 700;
-//   letter-spacing: 0.1em;
-//   text-transform: uppercase;
-//   color: $sky-blue;
-// }
-// h4 {
-//   @extend h3;
-//   color: $text-color;
-// }
-// h5 {
-//   @extend h4;
-//   font-weight: 400;
-//   margin-bottom: 0.75em;
-// }
-// p {line-height:1.25em; margin:0; padding:0;}
 
 // ------------------------ * Breakpoints & measurements * ------------------------
 $foundation: 768px;
@@ -202,32 +162,6 @@ $border-light:      1px #fff solid;
 @mixin light-button($outlineColor) {
   @include button;
   @include button-outlined-color;
-  // background:transparent;
-  // border:1px $outlineColor solid;
-  // border-radius:$border-radius;
-  // color:$outlineColor;//!important;
-  // display: inline-block;
-  // @include font-semibold;
-  // font-size: 16px;
-  // font-weight: 400;
-  // line-height: 1em;
-  // padding:.35em .75em;
-  // text-align: center;
-  // text-transform: capitalize;
-  // &:hover {
-  //   border-color:darken($outlineColor, 11%);
-  //   color:darken($outlineColor, 11%);//!important;
-  // }
-  // &:active {
-  //   //@include ease(0);
-  //   background:$outlineColor;
-  //   color:$white;
-  // }
-  // @if $outlineColor == $white {
-  //   &:active {
-  //     color:$light-gray;
-  //   }
-  // }
 }
 // ------------------------ * Arrows * ------------------------
 @mixin arrow-up($color, $size) {
@@ -318,38 +252,6 @@ body {
   }
 
 }
-// img {border:0; margin:0; padding:0;}
-
-// ol, ul {list-style-position:outside; list-style-type:none; margin:0; padding:0;}
-
-// input[type="text"], input[type="password"],textarea,
-// input[type="file"], input[type="checkbox"], input[type="radio"],
-// input[type="number"], select, .text-input {
-//   @include regular-text;
-//   border:$border-dark;
-//   box-shadow:none;
-//   color:$text-color;
-//   margin:0;
-//   padding:.5em;
-//   transition:none;
-//   width:auto;
-//   &:hover{border-color:$blue;}
-//   &:focus {
-//     background:$white;
-//     border:1px $blue solid;
-//     box-shadow:none;
-//     color:$text-color;
-//     transition:none;
-//   }
-// }
-// input[type="text"], input[type="password"],
-// input[type="file"], textarea, .text-input {
-//   color: $text-color;
-//   border-radius: $border-radius;
-//   font-size: 14px;
-//   margin-bottom: 0.5em;
-// }
-// input:focus, select, textarea {outline: 0;}
 
 @mixin input-with-fix($type: post, $width: 30%) { // you can use px as well
   $side: left;
@@ -382,36 +284,6 @@ body {
   }
 }
 
-// label { @extend h5; }
-
-// form.custom .custom.dropdown {
-//   ul li {
-//     color: $med-gray;
-//     &.selected, &:hover{
-//       color: $med-gray;
-//     }
-//   }
-//   .current{
-//     color: $med-gray;
-//     font-size: 14px;
-//     font-weight: 400;
-//   }
-// }
-
-// input::-moz-focus-inner { // fix for Firefox thickening buttons
-//   border: 0;
-//   padding: 0;
-//   margin-top:-2px;
-//   margin-bottom: -2px;
-// }
-
-// button {
-//   &:focus, &:active {
-//     outline:0 !important;
-//   }
-// }
-
-// Breadcrumbs
 .breadcrumbs {
   $breadcrumb-bg: lighten($light-gray, 7%);
   border:1px darken($breadcrumb-bg, 7%) solid;

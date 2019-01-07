@@ -54,9 +54,13 @@ get "sign_in", to: redirect('/'), as: "sign_in"
 delete "sign_out" => "sessions#destroy", as: "sign_out"
 
 get "marketing_site_home" => 'pages#home', as: 'marketing_site_home'
-get "pages/gallery" => 'pages#gallery', as: 'gallery'
+get "/pages/gallery" => 'pages#gallery', as: 'gallery'
+get "/login" => 'pages#form', as: 'login'
+get "/request_account" => 'pages#form', as: 'request_account'
+get "/request_demo" => 'pages#form', as: 'demo'
 get "/privacy_policy" => 'pages#home', as: 'privacy'
 get "/terms" => 'pages#home', as: 'terms'
+
 
 resources :boards, only: [:new, :create, :update]
 resources :copy_boards, only: [:create]

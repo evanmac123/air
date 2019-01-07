@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PagesController < HighVoltage::PagesController
   layout :layout_for_page
 
@@ -5,10 +7,10 @@ class PagesController < HighVoltage::PagesController
 
     def layout_for_page
       case page_name
-      when 'demo_link'
-        'standalone'
+      when "form"
+        "form"
       else
-        'marketing_site'
+        "marketing_site"
       end
     end
 
