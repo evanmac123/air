@@ -9,7 +9,7 @@ const TileComponent = props => (
        disabled={props.loading}
        style={props.loading ? {pointerEvents: 'none'} : {}}
   >
-    <div className="tile_thumbnail" id={`single-tile-${props.id}`}>
+    <div className={`tile_thumbnail ${props.tileThumbnailClass}`} id={`single-tile-${props.id}`}>
       <div className="tile-wrapper">
         <a href={props.tileShowPath} className={props.tileThumblinkClass} data-tile-id={props.id} onClick={props.tileThumblinkOnClick}>
           <div className="tile_thumbnail_image" style={props.ignored ? {opacity: '0.5'} : {}}>
@@ -110,6 +110,7 @@ TileComponent.propTypes = {
   date: PropTypes.string,
   copyButtonDisplay: PropTypes.bool,
   tileContainerClass: PropTypes.string,
+  tileThumbnailClass: PropTypes.string,
   tileThumblinkClass: PropTypes.string,
   shadowOverlayButtons: PropTypes.array,
   popdownMenu: PropTypes.element,

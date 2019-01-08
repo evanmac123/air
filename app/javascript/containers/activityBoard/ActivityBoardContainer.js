@@ -35,7 +35,6 @@ class ActivityBoard extends React.Component {
   }
 
   openTileModal(id) {
-    // this.props.openFullSizeTile({id, from: 'incomplete'});
     this.props.navigateTo(`/tiles?tile_id=${id}`);
   }
 
@@ -48,8 +47,7 @@ class ActivityBoard extends React.Component {
           {this.state.loading ?
             <LoadingComponent /> :
             <TileWallComponent
-              tiles={this.props.tiles.incomplete}
-              tileOrder={this.props.tiles.incomplete.order}
+              tiles={this.props.tiles}
               openTileModal={this.openTileModal}
             />
           }
@@ -72,5 +70,14 @@ class ActivityBoard extends React.Component {
     );
   }
 }
+
+ActivityBoard.propTypes = {
+  setTiles: PropTypes.func,
+  navigateTo: PropTypes.func,
+  tiles: PropTypes.shape({
+    complete: PropTypes.object,
+    incomplete: PropTypes.object,
+  }),
+};
 
 export default ActivityBoard;
