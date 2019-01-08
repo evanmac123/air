@@ -15,6 +15,11 @@ export const updateTileData = tile => ({
   payload: { ...tile },
 });
 
+export const addTilesToStore = tiles => ({
+  type: actionTypes.ADD_TILES_TO_STORE,
+  payload: { ...tiles },
+});
+
 export const setOrganizationData = organization => ({
   type: actionTypes.SET_ORGANIZATION_DATA,
   payload: { ...organization },

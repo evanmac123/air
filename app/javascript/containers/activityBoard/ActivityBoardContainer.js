@@ -9,10 +9,13 @@ import ActsFeedComponent from './components/ActsFeedComponent';
 import ConnectionsComponent from './components/ConnectionsComponent';
 import InviteUsersComponent from './components/InviteUsersComponent';
 
-const toggleButtonLoadingSpinner = children => {
-  for (let i = 0; i < children.length; i++) {
-    children[i].style.display = children[i].style.display === 'none' ? '' : 'none';
+const toggleButtonLoadingSpinner = el => {
+  /* eslint-disable no-param-reassign */
+  el.style.pointerEvents = el.style.pointerEvents === 'none' ? '' : 'none';
+  for (let i = 0; i < el.children.length; i++) {
+    el.children[i].style.display = el.children[i].style.display === 'none' ? '' : 'none';
   }
+  /* eslint-enable */
 };
 
 class ActivityBoard extends React.Component {
@@ -21,31 +24,51 @@ class ActivityBoard extends React.Component {
     this.state = {
       loading: true,
     };
-    this.loadTileWall = this.loadTileWall.bind(this);
+    this.loadTiles = this.loadTiles.bind(this);
     this.openTileModal = this.openTileModal.bind(this);
     this.loadMoreTiles = this.loadMoreTiles.bind(this);
   }
 
   componentDidMount() {
-    this.loadTileWall();
-  }
-
-  loadTileWall() {
-    Fetcher.xmlHttpRequest({
-      method: 'GET',
-      path: '/api/v1/tiles?maximum_tiles=16',
-      success: resp => {
-        this.props.setTiles(resp);
+    this.loadTiles({
+      perPage: 16,
+      success: tiles => {
+        this.props.setTiles(tiles);
         this.setState({loading: false});
       },
+      error: resp => {
+        console.error("Something went wrong fetching tiles from DB", resp);
+        this.setState({loading: false});
+      },
+    });
+
+  }
+
+  loadTiles(opts) {
+    const completeCount = this.props.tiles.complete.count;
+    const incompleteCount = this.props.tiles.incomplete.count;
+    const params = `maximum_tiles=${opts.perPage || '16'}&complete_count=${completeCount}&incomplete_count=${incompleteCount}`;
+    Fetcher.xmlHttpRequest({
+      method: 'GET',
+      path: `/api/v1/tiles?${params}`,
+      success: resp => opts.success(resp),
+      err: resp => opts.error(resp),
     });
   }
 
   loadMoreTiles() {
-    const { children } = document.getElementsByClassName("show_more_tiles")[0]
-    toggleButtonLoadingSpinner(children);
-    // debugger
-    toggleButtonLoadingSpinner(children);
+    toggleButtonLoadingSpinner(document.getElementsByClassName("show_more_tiles")[0]);
+    this.loadTiles({
+      perPage: 16,
+      success: tiles => {
+        this.props.addTiles(tiles);
+        toggleButtonLoadingSpinner(document.getElementsByClassName("show_more_tiles")[0]);
+      },
+      error: resp => {
+        console.error("Something went wrong fetching additional tiles from the DB", resp);
+        toggleButtonLoadingSpinner(document.getElementsByClassName("show_more_tiles")[0]);
+      },
+    });
   }
 
   openTileModal(id) {
@@ -88,6 +111,7 @@ class ActivityBoard extends React.Component {
 
 ActivityBoard.propTypes = {
   setTiles: PropTypes.func,
+  addTiles: PropTypes.func,
   navigateTo: PropTypes.func,
   tiles: PropTypes.shape({
     complete: PropTypes.object,

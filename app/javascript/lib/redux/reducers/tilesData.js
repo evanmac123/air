@@ -1,4 +1,4 @@
-import { SET_TILES_DATA, UPDATE_TILE_DATA } from "../actionTypes";
+import { SET_TILES_DATA, UPDATE_TILE_DATA, ADD_TILES_TO_STORE } from "../actionTypes";
 
 const initialState = {
   incomplete: { order: [], count: 0 },
@@ -50,6 +50,14 @@ export default function(state = initialState, action) {
     }
     case UPDATE_TILE_DATA: {
       const newTileData = updateSingleTileDate(state, action.payload);
+      return {
+        ...state,
+        ...newTileData,
+      };
+    }
+    case ADD_TILES_TO_STORE: {
+      // Will write out this logic after making backend work
+      const newTileData = {};
       return {
         ...state,
         ...newTileData,

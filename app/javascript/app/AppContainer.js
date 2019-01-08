@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { AiRouter, TileStateManager } from "../lib/utils";
 import { Fetcher } from "../lib/helpers";
-import { setUserData, setTilesData, setOrganizationData } from "../lib/redux/actions";
+import { setUserData, setTilesData, setOrganizationData, addTilesToStore } from "../lib/redux/actions";
 import { getSanitizedState } from "../lib/redux/selectors";
 import routes from '../config/routes';
 
@@ -21,6 +21,7 @@ class App extends React.Component {
     };
     this.setUser = this.setUser.bind(this);
     this.setTiles = this.setTiles.bind(this);
+    this.addTiles = this.addTiles.bind(this);
     this.openFullSizeTile = this.openFullSizeTile.bind(this);
     this.closeTile = this.closeTile.bind(this);
     this.redirectTo = this.redirectTo.bind(this);
@@ -62,6 +63,10 @@ class App extends React.Component {
     this.props.setOrganizationData(data);
   }
 
+  addTiles(data) {
+    this.props.addTilesToStore(data);
+  }
+
   redirectTo(path) {
     window.location = path;
   }
@@ -98,6 +103,7 @@ class App extends React.Component {
         routeData: this.state.routeData,
         setUser: this.setUser,
         setTiles: this.setTiles,
+        addTiles: this.addTiles,
         openFullSizeTile: this.openFullSizeTile,
         redirectTo: this.redirectTo,
         navigateTo: this.navigateTo,
@@ -117,6 +123,7 @@ App.propTypes = {
   initData: PropTypes.object,
   setUserData: PropTypes.func,
   setTilesData: PropTypes.func,
+  addTilesToStore: PropTypes.func,
   setOrganizationData: PropTypes.func,
   userData: PropTypes.object,
   organization: PropTypes.object,
@@ -131,5 +138,5 @@ App.propTypes = {
 
 export default connect(
   getSanitizedState,
-  { setUserData, setTilesData, setOrganizationData }
+  { setUserData, setTilesData, setOrganizationData, addTilesToStore }
 )(App);
