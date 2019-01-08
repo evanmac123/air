@@ -9,6 +9,12 @@ import ActsFeedComponent from './components/ActsFeedComponent';
 import ConnectionsComponent from './components/ConnectionsComponent';
 import InviteUsersComponent from './components/InviteUsersComponent';
 
+const toggleButtonLoadingSpinner = children => {
+  for (let i = 0; i < children.length; i++) {
+    children[i].style.display = children[i].style.display === 'none' ? '' : 'none';
+  }
+};
+
 class ActivityBoard extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +23,7 @@ class ActivityBoard extends React.Component {
     };
     this.loadTileWall = this.loadTileWall.bind(this);
     this.openTileModal = this.openTileModal.bind(this);
+    this.loadMoreTiles = this.loadMoreTiles.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +41,13 @@ class ActivityBoard extends React.Component {
     });
   }
 
+  loadMoreTiles() {
+    const { children } = document.getElementsByClassName("show_more_tiles")[0]
+    toggleButtonLoadingSpinner(children);
+    // debugger
+    toggleButtonLoadingSpinner(children);
+  }
+
   openTileModal(id) {
     this.props.navigateTo(`/tiles?tile_id=${id}`);
   }
@@ -49,6 +63,7 @@ class ActivityBoard extends React.Component {
             <TileWallComponent
               tiles={this.props.tiles}
               openTileModal={this.openTileModal}
+              loadMoreTiles={this.loadMoreTiles}
             />
           }
         </div>

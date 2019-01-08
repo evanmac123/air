@@ -19,13 +19,29 @@ const renderTilesInOrder = (tiles, order, openTileModal, type) => order.map(
 );
 
 const TileWallComponent = props => (
-  <div className="row">
-    {tileTypeDisplay.map(type => renderTilesInOrder(
-      props.tiles[type],
-      props.tiles[type].order,
-      props.openTileModal,
-      type,
-    ))}
+  <div>
+    <div className="row">
+      {tileTypeDisplay.map(type => renderTilesInOrder(
+        props.tiles[type],
+        props.tiles[type].order,
+        props.openTileModal,
+        type,
+      ))}
+    </div>
+
+    {
+      ((props.tiles.complete.order.length + props.tiles.incomplete.order.length) % 16 === 0) &&
+      <div id="tile_links">
+        <div className="more_tiles_button">
+          <a className="show_more_tiles button" onClick={props.loadMoreTiles}>
+            <span className="show_more_tiles_copy">
+              More <i className="fa fa-angle-down" aria-hidden="true" id="show_more_tiles_down_arrow"></i>
+            </span>
+            <i className="fa fa-spinner fa-spin fa-fw" id="show_more_tiles_spinner" style={{display: "none"}}></i>
+          </a>
+        </div>
+      </div>
+    }
   </div>
 );
 
