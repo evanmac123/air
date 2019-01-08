@@ -28,7 +28,7 @@ class DisplayCategorizedTiles
       completed = if not_completed.length > maximum_tiles
         []
       else
-        all_completed_tiles(user, demo).order("tile_completions.id DESC").limit(maximum_tiles - not_completed_tiles.length + 1).to_a
+        all_completed_tiles(user, demo).order("tile_completions.id DESC").limit((maximum_tiles - not_completed.length) + 1).to_a
       end
       {
         completed_tiles:      completed,
