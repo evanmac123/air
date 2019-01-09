@@ -281,7 +281,17 @@ Airbo.MarketingSite.Base = (function() {
     }
   }
 
+  function requestAccount(e) {
+    e.preventDefault();
+    $("#login").toggle();
+    $("#request_account").toggle();
+  }
+
   function init() {
+    $(document).on("click", "#set_or_reset_password", resetPassword);
+    $(document).on("click", ".u-hamburger", toggleHamburgerMenu);
+    $(document).on("click", ".request_account", requestAccount);
+
     Airbo.AiRouter.defineRoutes({
       root: { path: "/" },
       privacy: {
@@ -296,8 +306,6 @@ Airbo.MarketingSite.Base = (function() {
 
     $(".js-request-demo").click(triggerDemoRequestModal);
     $(".js-login").click(triggerLoginModal);
-    $(document).on("click", "#set_or_reset_password", resetPassword);
-    $(document).on("click", ".u-hamburger", toggleHamburgerMenu);
     if (locationParamsInclude("sign_in", "true")) {
       triggerLoginModal();
     }
@@ -309,8 +317,6 @@ Airbo.MarketingSite.Base = (function() {
 })();
 
 $(function() {
-  if (Airbo.Utils.nodePresent(".airbo-marketing-site")) {
     Airbo.MarketingSite.Base.init();
     window.Intercom('boot', { app_id: appId });
-  }
 });

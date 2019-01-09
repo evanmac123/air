@@ -26,17 +26,15 @@
   </head>
   <body>
     <div class="main bootstrap-iso">
-      <div id="account" class="blue-teal-gradient">
+      <div id="demo">
+        <div class="demo-back blue-teal-gradient"> </div>
         <div class="logo-header">
           <a href="/">
             <%= image_tag 'logo-white.png', class: 'form-logo' %>
           </a>
         </div>
       <%= yield %>
-      <div class="position-absolute-bottom-0 hero-bottom align-items-center copyright">
-        <p class="small text-muted mb-0">&copy; Airbo. 2018. All rights reserved.</p>
-      </div>
-      <figure class="position-absolute-bottom-0 hero-bottom">
+      <figure class="demo-wave">
         <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="140px" viewBox="20 -20 300 100">
           <path class="u-fill-white" opacity="0.4" d="M30.913,43.944c0,0,42.911-34.464,87.51-14.191c77.31,35.14,113.304-1.952,146.638-4.729
       c48.654-4.056,69.94,16.218,69.94,16.218v54.396H30.913V43.944z" />
@@ -48,7 +46,11 @@
       c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" />
         </svg>
       </figure>
+      <div class="position-absolute-bottom-0 hero-bottom align-items-center copyright">
+        <p class="small text-muted mb-0">&copy; Airbo. 2018. All rights reserved.</p>
+      </div>
     </div>
+      <%= render partial: "pages/front_theme/footer" %>
     </div>
   </body>
 </html>

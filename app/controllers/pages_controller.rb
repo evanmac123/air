@@ -9,6 +9,8 @@ class PagesController < HighVoltage::PagesController
       case page_name
       when "form"
         "form"
+      when "demo1"
+        "demo"
       else
         "marketing_site"
       end

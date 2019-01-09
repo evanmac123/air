@@ -63,7 +63,7 @@ get "/terms" => 'pages#home', as: 'terms'
 #Form Pages
 get "/login" => 'pages#form', as: 'login'
 get "/request_account" => 'pages#form', as: 'request_account'
-get "/request_demo" => 'pages#form', as: 'demo'
+get "/request_demo" => 'pages#demo1', as: 'demo'
 
 #Example Pages
 get "/pages/gallery" => 'pages#gallery', as: 'gallery'

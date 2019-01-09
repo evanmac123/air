@@ -234,14 +234,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', e
 
 * {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
 body {
-  // background:$body-bg;
   border-top:none;
   color:$text-color-1;
-  // @include font-regular;
   font-size:100%;
-  // line-height: 1em;
   margin:0;
-  position: static;
+  z-index: -100;
   height:100%;
   width:100%;
   .row {
