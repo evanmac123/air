@@ -4,9 +4,13 @@ class Api::V1::TilesController < Api::ApiController
   before_action :verify_origin
 
   def index
-    demo = current_user.demo
-    max_tiles = params[:maximum_tiles].to_i || 16
-    tiles = Tile.displayable_categorized_to_user(current_user, max_tiles, demo)
+    tiles = Tile.displayable_categorized_to_user(
+      current_user,
+      params[:maximum_tiles].to_i,
+      current_user.demo,
+        complete_count: params[:complete_count].to_i || 0,
+        incomplete_count: params[:incomplete_count].to_i || 0
+    )
     render json: sanitize_group(tiles)
   end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DisplayCategorizedTiles
-  def self.displayable_categorized_tiles(user, maximum_tiles, current_board = nil)
+  def self.displayable_categorized_tiles(user, maximum_tiles, current_board = nil, opts = {})
     demo = current_board || user.demo
     result = satisfiable_tiles_categorized_to_user(user, demo, maximum_tiles)
 
