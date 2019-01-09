@@ -1,17 +1,19 @@
 <div id="login" class="form-container">
     <div class="swal-title" style="">Log In</div>
     <div class="swal-content">
-      <div class="swal-description">
+    <div class="swal-description">
        Need an Airbo Account?
         <a class="request_account">Request New Account
         </a>
       </div>
+      <p class="error" style="color: red;">Sorry, that's an invalid username or password.</p>
+    
       <div class="swal-inputs">
         <label> Email </label>
-        <input type="text" ></input>
+       <input type="text" name="session[email]" id="session_email"></input>
         <label class="password"> Password </label>
         <a id="set_or_reset_password">Set or Reset Your Password</a>
-        <input type="password"> </input>
+        <input type="password" name="session[password]" id="session_password"> </input>
         <div class="wrap"><input type="checkbox" name="session[remember_me]" id="session_remember_me" value="1" checked="checked" class="hidden-field">
           <span class="custom checkbox checked"></span>
           <label class="inline" for="session_remember_me">Remember me</label>
@@ -20,7 +22,7 @@
     </div>
     <div class="swal-footer">
       <div class="swal-button-container">
-        <button class="swal-button swal-button--submit">Sign In</button>
+        <button class="swal-button login-submit swal-button--submit">Sign In</button>
         <div class="swal-button__loader">
         </div>
       </div>

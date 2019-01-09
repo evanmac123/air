@@ -281,6 +281,83 @@ Airbo.MarketingSite.Base = (function() {
     }
   }
 
+  function submitLogin(e, errors) {
+    var vals = getValues("session", ["email", "password", "remember_me"]);
+    if (e) {
+      e.preventDefault();
+    }
+      $.ajax({
+        headers: {
+          "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+        },
+        type: "POST",
+        url: "/session",
+        data: vals,
+        success: function(resp) {
+          if (resp.not_found) {
+           $(".error").show();
+          } else {
+            window.location = resp.path;
+          }
+        }
+      });
+  }
+
+  function submitAccountRequest(e, errors) {
+    var vals = getValues("session", ["name", "email", "phone", "organization", "password"]);
+    if (e) {
+      e.preventDefault();
+    }
+      $.ajax({
+        type: "POST",
+        url: "/demo_requests/marketing",
+        data: vals,
+        success: function(resp) {
+          if (resp.not_found) {
+           $(".error").show();
+          } else {
+            window.location = resp.path;
+          }
+        }
+      });
+  }
+
+  function submitDemoRequest(e, errors) {
+    var vals = getValues("lead_contact", [
+      "name",
+      "email",
+      "phone",
+      "organization_name",
+      "organization_size",
+      "source"
+    ]);
+    if (allFieldsValid(vals["lead_contact"])) {
+      $.ajax({
+        type: "POST",
+        url: "/demo_requests/marketing",
+        data: vals,
+        success: function(resp) {
+          if (resp.duplicate) {
+            swal(
+              "An Airbo account has already been requested",
+              "Someone from our team will reach out to you shortly.",
+              "success"
+            );
+          } else {
+            swal(
+              "Demo Request Sent",
+              "Someone from our team will reach out to you in the next 24 hours to schedule a time to chat.",
+              "success"
+            );
+          }
+        }
+      });
+    } else {
+      $(".error").show();;
+    }
+  }
+
+
   function requestAccount(e) {
     e.preventDefault();
     $("#login").toggle();
@@ -304,13 +381,16 @@ Airbo.MarketingSite.Base = (function() {
       }
     });
 
+    $(".login-submit").click(submitLogin);
+    $(".account-submit").click(submitAccountRequest);
+    $(".demo-submit").click(submitDemoRequest);
+
     $(".js-request-demo").click(triggerDemoRequestModal);
     $(".js-login").click(triggerLoginModal);
     if (locationParamsInclude("sign_in", "true")) {
       triggerLoginModal();
     }
   }
-
   return {
     init: init
   };

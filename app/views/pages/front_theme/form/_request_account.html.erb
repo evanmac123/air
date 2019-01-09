@@ -6,23 +6,25 @@
       <a class="request_account">Sign In
           </a>
     </div>
+    <p class="error" style="color: red;">Sorry, that's an invalid username or password.</p>
+
     <div class="swal-inputs">
       <label> Full name </label>
-      <input type="text" ></input>
+      <input type="text" name="session[name]"></input>
       <label> Email </label>
-      <input type="text" ></input>
+      <input type="text" name="session[email]" ></input>
       <label> Phone Number </label>
-      <input type="text" ></input>
+      <input type="text" name="session[phone]" ></input>
       <label> Company Name </label>
-      <input type="text" ></input>
+      <input type="text" name="session[organization]"></input>
       <label class="password"> Password </label>
       <a id="set_or_reset_password">Set or Reset Your Password</a>
-      <input type="password"> </input>
+      <input type="password" name="session[password]"> </input>
     </div>
   </div>
   <div class="swal-footer">
     <div class="swal-button-container">
-      <button class="swal-button swal-button--submit">Create Account</button>
+      <button class="swal-button swal-button--submit account-submit">Create Account</button>
       <div class="swal-button__loader">
       </div>
     </div>

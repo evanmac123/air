@@ -13,6 +13,9 @@
   width: 100%;
   height: 100%;
   z-index: -1;
+  #request_account{
+    display:none;
+  }
 }
 
 #demo {
@@ -163,7 +166,7 @@
     .swal-description {
       width: 100%;
       text-align: center;
-      margin-bottom: 2em;
+      margin-bottom: 1em;
       line-height: 1.4em;
       color: $blue;
     }
@@ -206,6 +209,12 @@
   -webkit-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.15);
   -moz-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.15);
   box-shadow: 0 2px 4px 1px rgba(0,0,0,0.15);
+  .error{
+    display:none;
+    font-size: 16px;
+    text-align: center;
+    margin: .5em;
+  }
 }
 
 figure svg {
@@ -238,6 +247,7 @@ figure svg {
     display: none;
   }
 }
+
 @media only screen and (max-width: 990px) {
   body .blue-teal-gradient {
     padding: 0;
