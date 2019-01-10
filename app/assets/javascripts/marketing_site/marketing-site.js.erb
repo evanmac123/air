@@ -304,19 +304,31 @@ Airbo.MarketingSite.Base = (function() {
   }
 
   function submitAccountRequest(e, errors) {
-    var vals = getValues("session", ["name", "email", "phone", "organization", "password"]);
+    var vals = getValues("user", ["name", "password"]);
     if (e) {
       e.preventDefault();
     }
       $.ajax({
         type: "POST",
-        url: "/demo_requests/marketing",
+        url: "/guest_user_conversions",
         data: vals,
         success: function(resp) {
           if (resp.not_found) {
            $(".error").show();
           } else {
-            window.location = resp.path;
+            if (resp.duplicate) {
+              swal(
+                "An Airbo account has already been requested",
+                "Someone from our team will reach out to you shortly.",
+                "success"
+              );
+            } else {
+              swal(
+                "Account Request Sent",
+                "Someone from our team will reach out to you in the next 24 hours help you with your account.",
+                "success"
+              );
+            }
           }
         }
       });
@@ -339,7 +351,7 @@ Airbo.MarketingSite.Base = (function() {
         success: function(resp) {
           if (resp.duplicate) {
             swal(
-              "An Airbo account has already been requested",
+              "An Airbo demo has already been requested",
               "Someone from our team will reach out to you shortly.",
               "success"
             );
