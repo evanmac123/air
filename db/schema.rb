@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181030232757) do
+ActiveRecord::Schema.define(version: 20190114183634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -960,6 +960,16 @@ ActiveRecord::Schema.define(version: 20181030232757) do
 
   add_index "raffles", ["demo_id"], name: "index_raffles_on_demo_id", using: :btree
 
+  create_table "ribbon_tags", force: :cascade do |t|
+    t.integer  "demo_id"
+    t.string   "color"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "ribbon_tags", ["demo_id"], name: "index_ribbon_tags_on_demo_id", using: :btree
+
   create_table "roles", force: :cascade do |t|
     t.string   "name",          limit: 255
     t.integer  "resource_id"
@@ -1305,6 +1315,7 @@ ActiveRecord::Schema.define(version: 20181030232757) do
     t.text     "file_attachments"
     t.date     "plan_date"
     t.integer  "campaign_id"
+    t.integer  "ribbon_tag_id"
   end
 
   add_index "tiles", ["activated_at"], name: "index_tiles_on_activated_at", using: :btree
@@ -1314,6 +1325,7 @@ ActiveRecord::Schema.define(version: 20181030232757) do
   add_index "tiles", ["demo_id"], name: "index_tiles_on_demo_id", using: :btree
   add_index "tiles", ["is_copyable"], name: "index_tiles_on_is_copyable", using: :btree
   add_index "tiles", ["is_public"], name: "index_tiles_on_is_public", using: :btree
+  add_index "tiles", ["ribbon_tag_id"], name: "index_tiles_on_ribbon_tag_id", using: :btree
   add_index "tiles", ["status"], name: "index_tiles_on_status", using: :btree
 
   create_table "tiles_digest_automators", force: :cascade do |t|
@@ -1635,7 +1647,9 @@ ActiveRecord::Schema.define(version: 20181030232757) do
 
   add_foreign_key "campaigns", "population_segments"
   add_foreign_key "population_segments", "demos"
+  add_foreign_key "ribbon_tags", "demos"
   add_foreign_key "tiles", "campaigns"
+  add_foreign_key "tiles", "ribbon_tags"
   add_foreign_key "user_population_segments", "population_segments"
   add_foreign_key "user_population_segments", "users"
 end
