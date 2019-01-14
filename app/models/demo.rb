@@ -10,6 +10,7 @@ class Demo < ActiveRecord::Base
 
   has_many :campaigns, dependent: :destroy
   has_many :population_segments, dependent: :destroy
+  has_many :ribbon_tags, dependent: :destroy
   has_one :claim_state_machine, dependent: :delete
   has_one :raffle, dependent: :delete
   has_one :live_raffle, -> { where "status = '#{Raffle::LIVE}' and starts_at <= '#{Time.zone.now.to_time}'" }, class_name: "Raffle"
