@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :ribbon_tag do
+    demo ""
+    color "MyString"
+    name "MyString"
+  end
   factory :user_population_segment do
     user nil
     population_segment nil
