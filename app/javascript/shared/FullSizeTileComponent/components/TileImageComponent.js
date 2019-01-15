@@ -38,20 +38,18 @@ const ribbonTagArrowBase = {
   height: '0',
   borderLeft: '22px solid transparent',
   borderRight: '22px solid transparent',
+  position: 'absolute',
+  right: '-22px',
 };
 
 const ribbonTagArrowTop = ribbonColor => Object.assign({
   borderBottom: `22px solid ${ribbonColor}`,
-  position: 'absolute',
   bottom: '0',
-  right: '-22px',
 }, ribbonTagArrowBase);
 
 const ribbonTagArrowBottom = ribbonColor => Object.assign({
   borderTop: `22px solid ${ribbonColor}`,
-  position: 'absolute',
   top: '0',
-  right: '-22px',
 }, ribbonTagArrowBase);
 
 const TileImageComponent = props => (
