@@ -7,22 +7,54 @@ const determineIfMarkedComplete = (tileOrigin, tileComplete) => (
   tileOrigin === 'complete' || tileComplete ? 'completed' : 'not_completed'
 );
 
+const fontColorBasedOnBackground = ribbonColor => {
+  let hex = ribbonColor.slice(1);
+  if (hex.length === 3) {
+    hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+  }
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+  return (r * 0.299 + g * 0.587 + b * 0.114) > 186 ? '#000000' : '#FFFFFF';
+};
+
 const ribbonTagStyle = ribbonColor => ({
   backgroundColor: ribbonColor,
   height: '45px',
   position: 'absolute',
   bottom: '0%',
-  padding: '13px 3vw 0px 1vw',
+  padding: '13px 1vw 0px 1vw',
 });
 
-const ribbonTagTextStyle = ribbonColor => {
-  return {
-    color: 'white',
-    fontSize: '1.1rem',
-    fontWeight: '100',
-    letterSpacing: '0.3px',
-  };
-};
+const ribbonTagTextStyle = ribbonColor => ({
+  color: fontColorBasedOnBackground(ribbonColor),
+  fontSize: '1.1rem',
+  fontWeight: '100',
+  letterSpacing: '0.3px',
+});
+
+
+const ribbonTagArrowTop = ribbonColor => ({
+  width: '0',
+  height: '0',
+  borderLeft: '22px solid transparent',
+  borderRight: '22px solid transparent',
+  borderBottom: `22px solid ${ribbonColor}`,
+  position: 'absolute',
+  bottom: '0',
+  right: '-22px',
+});
+
+const ribbonTagArrowBottom = ribbonColor => ({
+  width: '0',
+  height: '0',
+  borderLeft: '22px solid transparent',
+  borderRight: '22px solid transparent',
+  borderTop: `22px solid ${ribbonColor}`,
+  position: 'absolute',
+  top: '0',
+  right: '-22px',
+});
 
 const TileImageComponent = props => (
   <div className={determineIfMarkedComplete(props.tileOrigin, props.tile.complete)}>
@@ -48,9 +80,13 @@ const TileImageComponent = props => (
           </div>
           {props.tile.ribbonTagName &&
             <div className="ribbon-tag" style={ribbonTagStyle(props.tile.ribbonTagColor)}>
+
               <span className="ribbon-text" style={ribbonTagTextStyle(props.tile.ribbonTagColor)}>
                 {props.tile.ribbonTagName}
               </span>
+
+              <div style={ribbonTagArrowTop(props.tile.ribbonTagColor)}></div>
+              <div style={ribbonTagArrowBottom(props.tile.ribbonTagColor)}></div>
             </div>
           }
         </div>
