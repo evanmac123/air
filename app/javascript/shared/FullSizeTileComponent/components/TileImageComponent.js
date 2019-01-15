@@ -7,6 +7,23 @@ const determineIfMarkedComplete = (tileOrigin, tileComplete) => (
   tileOrigin === 'complete' || tileComplete ? 'completed' : 'not_completed'
 );
 
+const ribbonTagStyle = ribbonColor => ({
+  backgroundColor: ribbonColor,
+  height: '45px',
+  position: 'absolute',
+  bottom: '0%',
+  padding: '13px 3vw 0px 1vw',
+});
+
+const ribbonTagTextStyle = ribbonColor => {
+  return {
+    color: 'white',
+    fontSize: '1.1rem',
+    fontWeight: '100',
+    letterSpacing: '0.3px',
+  };
+};
+
 const TileImageComponent = props => (
   <div className={determineIfMarkedComplete(props.tileOrigin, props.tile.complete)}>
     {
@@ -29,6 +46,13 @@ const TileImageComponent = props => (
               </div>
             }
           </div>
+          {props.tile.ribbonTagName &&
+            <div className="ribbon-tag" style={ribbonTagStyle(props.tile.ribbonTagColor)}>
+              <span className="ribbon-text" style={ribbonTagTextStyle(props.tile.ribbonTagColor)}>
+                {props.tile.ribbonTagName}
+              </span>
+            </div>
+          }
         </div>
       </div>
     }
@@ -43,6 +67,8 @@ TileImageComponent.propTypes = {
     imagePath: PropTypes.string,
     headline: PropTypes.string,
     imageCredit: PropTypes.string,
+    ribbonTagName: PropTypes.string,
+    ribbonTagColor: PropTypes.string,
     complete: PropTypes.bool,
   }),
   loading: PropTypes.bool,
