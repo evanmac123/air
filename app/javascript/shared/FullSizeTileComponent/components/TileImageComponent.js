@@ -33,28 +33,26 @@ const ribbonTagTextStyle = ribbonColor => ({
   letterSpacing: '0.3px',
 });
 
-
-const ribbonTagArrowTop = ribbonColor => ({
+const ribbonTagArrowBase = {
   width: '0',
   height: '0',
   borderLeft: '22px solid transparent',
   borderRight: '22px solid transparent',
+};
+
+const ribbonTagArrowTop = ribbonColor => Object.assign({
   borderBottom: `22px solid ${ribbonColor}`,
   position: 'absolute',
   bottom: '0',
   right: '-22px',
-});
+}, ribbonTagArrowBase);
 
-const ribbonTagArrowBottom = ribbonColor => ({
-  width: '0',
-  height: '0',
-  borderLeft: '22px solid transparent',
-  borderRight: '22px solid transparent',
+const ribbonTagArrowBottom = ribbonColor => Object.assign({
   borderTop: `22px solid ${ribbonColor}`,
   position: 'absolute',
   top: '0',
   right: '-22px',
-});
+}, ribbonTagArrowBase);
 
 const TileImageComponent = props => (
   <div className={determineIfMarkedComplete(props.tileOrigin, props.tile.complete)}>
