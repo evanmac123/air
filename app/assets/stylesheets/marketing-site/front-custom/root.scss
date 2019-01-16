@@ -15,8 +15,13 @@ h2 {
   font-weight: 500;
 }
 
+h3 {
+  font-size: 24px;
+  font-weight: 500;
+}
+
 p {
-  font-size: 20px;
+  font-size: 18px;
   margin: 1.2rem 0;
 
   &.disclaimer {
@@ -113,6 +118,14 @@ p {
   right: 0;
   top: 9px;
   padding: 0;
+
+  .navbar-item{
+    font-weight: 600;
+    padding: 0 10px;
+    &:hover{
+      color: $blue;
+    }
+  }
 
   .btn {
     margin: 0 5px;
@@ -397,6 +410,7 @@ p {
   width: 100%;
   text-align: center;
   position: relative;
+      float: left;
 
   h2 {
     color: $dark-blue;
@@ -406,65 +420,70 @@ p {
     color: $dark-blue;
     font-size: 18px;
   }
-
-  .cloud-1 {
-    position: absolute;
-    right: -10px;
-    top: 30%;
-    animation: cloud-right 35s ease-in 0s infinite;
-  }
-
-  .cloud-2 {
-    position: absolute;
-    left: -10px;
-    top: 67%;
-    width: 20px;
-    animation: cloud-left 32s ease-in 0s infinite;
-  }
-
-  .cloud-3 {
-    position: absolute;
-    top: 30%;
-    width: 50px;
-    animation: cloud-right 37s ease-in 0s infinite;
-  }
-
-  .cloud-4 {
-    position: absolute;
-    left: -10px;
-    top: 80%;
-    animation: cloud-left 34s ease-in 0s infinite;
-  }
-
-  .blue-balloon-1 {
-    position: absolute;
-    left: 40%;
-    top: 17%;
-    width: 30px;
-    animation: float 30s ease-in 0s infinite alternate;
-  }
-
-  .blue-balloon-2 {
-    position: absolute;
-    left: 20%;
-    top: 80%;
-    width: 50px;
-    animation: float2 30s ease-in 0s infinite alternate;
-  }
-
-  .blue-balloon-3 {
-    position: absolute;
-    left: 65%;
-    top: 70%;
-    width: 50px;
-    animation: float 25s ease-in 0s infinite alternate;
-  }
 }
+
+.cloud-1 {
+  position: absolute;
+  right: -10px;
+  top: 30%;
+  animation: cloud-right 35s ease-in 0s infinite;
+}
+
+.cloud-2 {
+  position: absolute;
+  left: -10px;
+  top: 67%;
+  width: 20px;
+  animation: cloud-left 32s ease-in 0s infinite;
+}
+
+.cloud-3 {
+  position: absolute;
+  top: 30%;
+  width: 50px;
+  animation: cloud-right 37s ease-in 0s infinite;
+}
+
+.cloud-4 {
+  position: absolute;
+  left: -10px;
+  top: 80%;
+  animation: cloud-left 34s ease-in 0s infinite;
+}
+
+.blue-balloon-1 {
+  position: absolute;
+  left: 40%;
+  top: 17%;
+  width: 30px;
+  animation: float 30s ease-in 0s infinite alternate;
+}
+
+.blue-balloon-2 {
+  position: absolute;
+  left: 20%;
+  top: 80%;
+  width: 50px;
+  animation: float2 30s ease-in 0s infinite alternate;
+}
+
+.blue-balloon-3 {
+  position: absolute;
+  left: 65%;
+  top: 70%;
+  width: 50px;
+  animation: float 25s ease-in 0s infinite alternate;
+}
+
+
 //Footer
 
 .footer {
   background-color: $dark-blue;
   margin-bottom: 15px;
+  float: left;
+  width: 100%;
+  padding: 2em 0;
 
   a,
   h3,
@@ -688,6 +707,57 @@ p {
       }
     }
   }
+
+  .drawer {
+    position: fixed;
+    right: -280px; // Pushes things off screen
+    width: 280px; // Same value
+    padding: 20px;
+    top: 0;
+    height: 100%;
+    background-color: $dark-blue;
+    overflow-y: scroll; // adds vertical scrollbar
+    overflow-x: hidden; // prevents horizontal scrollbar
+    color: $white;
+    visibility: visible;
+
+    a {
+      color: $white;
+      font-weight: bold;
+      display: block; // anchor tags need to have a display value
+      padding: 15px;
+
+      &:hover {
+        background-color: $n-blue;
+      }
+    }
+  }
+  
+  .drawer,
+  .wrapper {
+    transition: all 0.3s ease-out; // Affects returning animations
+  }
+
+  .open-drawer,
+  .open-wrapper {
+    transition: all 0.3s ease-out; // Affects first animations
+  }
+
+  .open-drawer {
+    display: initial;
+    right: 0;
+  }
+
+  .open-wrapper {
+    width: calc(100% - 200px);
+    margin-right: 200px;
+    position: fixed;
+    opacity: 0.3;
+
+    .hamburger {
+      background-color: black;
+    }
+  }
 }
 //small
 @media only screen and (max-width: 600px) {
@@ -742,54 +812,4 @@ p {
     padding: 0;
   }
 
-  .drawer {
-    position: fixed;
-    right: -280px; // Pushes things off screen
-    width: 280px; // Same value
-    padding: 20px;
-    top: 0;
-    height: 100%;
-    background-color: $dark-blue;
-    overflow-y: scroll; // adds vertical scrollbar
-    overflow-x: hidden; // prevents horizontal scrollbar
-    color: $white;
-    visibility: visible;
-
-    a {
-      color: $white;
-      font-weight: bold;
-      display: block; // anchor tags need to have a display value
-      padding: 15px;
-
-      &:hover {
-        background-color: $n-blue;
-      }
-    }
-  }
-
-  .drawer,
-  .wrapper {
-    transition: all 0.3s ease-out; // Affects returning animations
-  }
-
-  .open-drawer,
-  .open-wrapper {
-    transition: all 0.3s ease-out; // Affects first animations
-  }
-
-  .open-drawer {
-    display: initial;
-    right: 0;
-  }
-
-  .open-wrapper {
-    width: calc(100% - 200px);
-    margin-right: 200px;
-    position: fixed;
-    opacity: 0.3;
-
-    .hamburger {
-      background-color: black;
-    }
-  }
 }

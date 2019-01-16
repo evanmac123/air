@@ -53,10 +53,11 @@ resources :passwords,
 get "sign_in", to: redirect('/'), as: "sign_in"
 delete "sign_out" => "sessions#destroy", as: "sign_out"
 
+get "/about" => 'pages#about', as: 'about'
+get "/careers" => 'pages#careers', as: 'careers'
+
 #Marketing Pages
 get "marketing_site_home" => 'pages#home', as: 'marketing_site_home'
-get "/team" => 'pages#home', as: 'team'
-get "/careers" => 'pages#home', as: 'careers'
 get "/privacy_policy" => 'pages#home', as: 'privacy'
 get "/terms" => 'pages#home', as: 'terms'
 
