@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import LoadingComponent from "../LoadingComponent";
+import RibbonTagComponent from "../RibbonTagComponent";
 
 const TileComponent = props => (
   <div className={props.draggable ? '' : `tile_container ${props.tileContainerClass}`}
@@ -13,6 +14,13 @@ const TileComponent = props => (
         <a href={props.tileShowPath} className={props.tileThumblinkClass} data-tile-id={props.id} onClick={props.tileThumblinkOnClick}>
           <div className="tile_thumbnail_image" style={props.ignored ? {opacity: '0.5'} : {}}>
             <img src={props.thumbnail} />
+            {props.ribbonTagName &&
+              <RibbonTagComponent
+                ribbonTagName={props.ribbonTagName}
+                ribbonTagColor={props.ribbonTagColor}
+                height="28"
+              />
+            }
           </div>
           {
             props.date &&
@@ -112,6 +120,8 @@ TileComponent.propTypes = {
   campaignColor: PropTypes.string,
   draggable: PropTypes.bool,
   tileStats: PropTypes.arrayOf(PropTypes.element),
+  ribbonTagName: PropTypes.string,
+  ribbonTagColor: PropTypes.string,
 };
 
 export default TileComponent;

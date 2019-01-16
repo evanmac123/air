@@ -31,18 +31,24 @@ const hideRibbonTag = hideIsActive => {
   }
 };
 
-const ribbonTagStyle = props => ({
-  backgroundColor: props.ribbonTagColor,
-  height: `${props.height}px`,
+const baseTagStyle = (color, height) => ({
+  backgroundColor: color,
+  height: `${height}px`,
   position: 'absolute',
-  bottom: '0%',
-  padding: '13px 1vw 0px 1vw',
   opacity: '1',
 });
 
+const ribbonTagStyle = props => {
+  const base = baseTagStyle(props.ribbonTagColor, props.height);
+  if (props.fullSizeTile) {
+    return Object.assign({bottom: '0%', padding: '13px 1vw 0px 1vw'}, base);
+  }
+  return Object.assign({bottom: '123px', padding: '5px 1vw 0px 1vw', left: '0'}, base);
+};
+
 const ribbonTagTextStyle = props => ({
   color: fontColorBasedOnBackground(props.ribbonTagColor),
-  fontSize: '1.1rem',
+  fontSize: props.fullSizeTile ? '1.1rem' : '0.9rem',
   fontWeight: '100',
   letterSpacing: '0.3px',
 });
