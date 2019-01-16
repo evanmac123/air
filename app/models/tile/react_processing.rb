@@ -54,7 +54,7 @@ module Tile::ReactProcessing
   def self.sanitize_for_edit_flow(tiles, amount)
     Tile.react_sanitize(tiles, amount) do |tile|
       tile_id = tile.id
-      {
+      result = {
         "tileShowPath" => "/client_admin/tiles/#{tile_id}",
         "editPath" => "/client_admin/tiles/#{tile_id}/edit",
         "headline" => tile.headline,
@@ -68,6 +68,8 @@ module Tile::ReactProcessing
         "unique_views" => tile.unique_viewings_count,
         "views" => tile.total_viewings_count,
         "completions" => tile.tile_completions_count,
+        "ribbonTagColor" => tile.try(:ribbon_tag_color),
+        "ribbonTagName" => tile.try(:ribbon_tag_name)
       }
     end
   end
@@ -75,14 +77,16 @@ module Tile::ReactProcessing
   def self.sanitize_for_explore(tiles, amount)
     Tile.react_sanitize(tiles, amount) do |tile|
       id = tile.id
-      {
+      result = {
         "copyPath" => "/explore/copy_tile?path=via_explore_page_tile_view&tile_id=#{id}",
         "tileShowPath" => "/explore/tile/#{id}",
         "headline" => tile.headline,
         "id" => id,
         "created_at" => tile.created_at,
         "thumbnail" => tile.thumbnail_url,
-        "thumbnailContentType" => tile.thumbnail_content_type
+        "thumbnailContentType" => tile.thumbnail_content_type,
+        "ribbonTagColor" => tile.try(:ribbon_tag_color),
+        "ribbonTagName" => tile.try(:ribbon_tag_name)
       }
     end
   end
