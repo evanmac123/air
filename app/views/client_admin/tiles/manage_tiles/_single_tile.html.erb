@@ -5,6 +5,9 @@
       <%= link_to presenter.show_tile_path, class:'tile_thumb_link tile_thumb_link_client_admin' , data:{action: "show", tile_id: presenter.tile_id} do %>
         <div class="tile_thumbnail_image">
           <%= image_tag presenter.thumbnail %>
+          <% if presenter.has_ribbon_tag? %>
+            <%= render partial: "client_admin/tiles/manage_tiles/ribbon_tag",  locals:{ presenter: presenter } %>
+          <% end %>
         </div>
         <%= presenter.activation_dates %>
         <%= presenter.status_marker %>
