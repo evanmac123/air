@@ -18,12 +18,30 @@ const fontColorBasedOnBackground = ribbonColor => {
   return (r * 0.299 + g * 0.587 + b * 0.114) > 186 ? '#000000' : '#FFFFFF';
 };
 
+const hideRibbonTag = () => {
+  const ribbonTagElem = document.getElementById("ribbon-tag");
+  if (!ribbonTagElem) { return; } // eslint-disable-line
+  const fillBar = () => {
+    const cur = parseFloat(ribbonTagElem.style.opacity);
+    window.setTimeout(() => {
+      if (cur > 0) {
+        ribbonTagElem.style.opacity = `${cur - .10}`;
+        fillBar();
+      } else if (cur <= 0) {
+        ribbonTagElem.setAttribute("style", "display: none;");
+      }
+    }, 10);
+  };
+  fillBar();
+};
+
 const ribbonTagStyle = ribbonColor => ({
   backgroundColor: ribbonColor,
   height: '45px',
   position: 'absolute',
   bottom: '0%',
   padding: '13px 1vw 0px 1vw',
+  opacity: '1',
 });
 
 const ribbonTagTextStyle = ribbonColor => ({
@@ -52,12 +70,25 @@ const ribbonTagArrowBottom = ribbonColor => Object.assign({
   top: '0',
 }, ribbonTagArrowBase);
 
+const renderRibbonTag = (ribbonTagName, ribbonTagColor, cb) => (
+  <div id="ribbon-tag" style={ribbonTagStyle(ribbonTagColor)} onClick={cb}>
+    <span className="ribbon-text" style={ribbonTagTextStyle(ribbonTagColor)}>
+      {ribbonTagName}
+    </span>
+    <div style={ribbonTagArrowTop(ribbonTagColor)}></div>
+    <div style={ribbonTagArrowBottom(ribbonTagColor)}></div>
+  </div>
+);
+
 const TileImageComponent = props => (
   <div className={determineIfMarkedComplete(props.tileOrigin, props.tile.complete)}>
     {
       props.tile.embedVideo &&
       <div className="video_section" style={{display: 'block'}}>
         <span dangerouslySetInnerHTML={htmlSanitizer(props.tile.embedVideo)} />
+        {props.tile.ribbonTagName &&
+          renderRibbonTag(props.tile.ribbonTagName, props.tile.ribbonTagColor, hideRibbonTag)
+        }
       </div>
     }
 
@@ -75,15 +106,7 @@ const TileImageComponent = props => (
             }
           </div>
           {props.tile.ribbonTagName &&
-            <div className="ribbon-tag" style={ribbonTagStyle(props.tile.ribbonTagColor)}>
-
-              <span className="ribbon-text" style={ribbonTagTextStyle(props.tile.ribbonTagColor)}>
-                {props.tile.ribbonTagName}
-              </span>
-
-              <div style={ribbonTagArrowTop(props.tile.ribbonTagColor)}></div>
-              <div style={ribbonTagArrowBottom(props.tile.ribbonTagColor)}></div>
-            </div>
+            renderRibbonTag(props.tile.ribbonTagName, props.tile.ribbonTagColor)
           }
         </div>
       </div>
