@@ -68,8 +68,8 @@ module Tile::ReactProcessing
         "unique_views" => tile.unique_viewings_count,
         "views" => tile.total_viewings_count,
         "completions" => tile.tile_completions_count,
-        "ribbonTagColor": tile.ribbon_tag_color,
-        "ribbonTagName": tile.ribbon_tag_name
+        "ribbonTagColor" => tile.try(:ribbon_tag_color),
+        "ribbonTagName" => tile.try(:ribbon_tag_name)
       }
     end
   end
@@ -85,8 +85,8 @@ module Tile::ReactProcessing
         "created_at" => tile.created_at,
         "thumbnail" => tile.thumbnail_url,
         "thumbnailContentType" => tile.thumbnail_content_type,
-        "ribbonTagColor": tile.ribbon_tag_color,
-        "ribbonTagName": tile.ribbon_tag_name
+        "ribbonTagColor" => tile.try(:ribbon_tag_color),
+        "ribbonTagName" => tile.try(:ribbon_tag_name)
       }
     end
   end
