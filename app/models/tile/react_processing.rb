@@ -88,7 +88,7 @@ module Tile::ReactProcessing
   end
 
   def sanitize_for_tile_show
-    {
+    result = {
       id: id,
       headline: headline,
       supportingContent: supporting_content,
@@ -109,5 +109,6 @@ module Tile::ReactProcessing
       dependentBoardSubject: demo.dependent_board_email_subject,
       dependentBoardBody: demo.dependent_board_email_body
     }
+    ribbon_tag ? result.merge(ribbonTagColor: ribbon_tag.color, ribbonTagName: ribbon_tag.name) : result
   end
 end
