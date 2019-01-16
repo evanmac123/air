@@ -304,33 +304,31 @@ Airbo.MarketingSite.Base = (function() {
   }
 
   function submitAccountRequest(e, errors) {
-    var vals = getValues("user", ["name", "password"]);
+    var vals = getValues("account", ["name", "email", "phone_number", "company_name"]);
+    console.log(vals);
     if (e) {
       e.preventDefault();
     }
       $.ajax({
         type: "POST",
-        url: "/guest_user_conversions",
+        url: "/api/v1/request_account",
         data: vals,
         success: function(resp) {
-          if (resp.not_found) {
-           $(".error").show();
+          console.log(resp);
+          if (resp.status == "success") {
+            swal(
+              "Success",
+              resp.message,
+              "success"
+            );
           } else {
-            if (resp.duplicate) {
-              swal(
-                "An Airbo account has already been requested",
-                "Someone from our team will reach out to you shortly.",
-                "success"
-              );
-            } else {
-              swal(
-                "Account Request Sent",
-                "Someone from our team will reach out to you in the next 24 hours help you with your account.",
-                "success"
-              );
-            }
+             swal(
+               "Uh-Oh...",
+               resp.message,
+               "warning"
+             );
           }
-        }
+        },
       });
   }
 
