@@ -6,7 +6,7 @@
         <div class="tile_thumbnail_image">
           <%= image_tag presenter.thumbnail %>
           <% if presenter.has_ribbon_tag? %>
-            <%= render partial: "client_admin/tiles/manage_tiles/ribbon_tag",  locals:{ presenter: presenter } %>
+            <%= render partial: "client_admin/tiles/manage_tiles/ribbon_tag",  locals:{ presenter: presenter, height: 28, full_size: false } %>
           <% end %>
         </div>
         <%= presenter.activation_dates %>
