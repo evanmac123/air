@@ -14,22 +14,29 @@
    } do %>
 
   <div class="<%=tile_class(tile)%>">
-    <div class="video_section" style="display:<%= tile.show_video? ? 'block' : 'none' %>">
-      <%= unescape_html(tile.embed_video) %>
-    </div>
-
-    <div class="image_section" style="<%= 'height: 0px' if tile.show_video? %>">
-      <div class="tile_full_image <%= image_is_loading ? 'loading' : '' %>">
-        <span id="source-url" class="hidden"><%= tile.image.url %></span>
-        <img id="tile_img_preview" class="tile_image" alt="<%= tile.headline %>">
-        <div class="shadow_overlay non-landing"></div>
-        <div class="image_credit">
-          <div class="image_credit_view">
-            <%= link_to_if is_url?(tile.image_credit), truncate(tile.image_credit, length: 50), make_full_url(tile.image_credit), target: "_blank" %>
+    <% if tile.show_video? %>
+      <div class="video_section" style="display:block;">
+        <%= unescape_html(tile.embed_video) %>
+        <% if tile.has_ribbon_tag? %>
+          <%= render partial: 'client_admin/tiles/manage_tiles/ribbon_tag', locals: {presenter: tile, height: 44, full_size: true} %>
+        <% end %>
+      </div>
+    <% end %>
+      <div class="image_section" style="<%= 'height: 0px' if tile.show_video? %>">
+        <div class="tile_full_image <%= image_is_loading ? 'loading' : '' %>">
+          <span id="source-url" class="hidden"><%= tile.image.url %></span>
+          <img id="tile_img_preview" class="tile_image" alt="<%= tile.headline %>">
+          <div class="shadow_overlay non-landing"></div>
+          <div class="image_credit">
+            <div class="image_credit_view">
+              <%= link_to_if is_url?(tile.image_credit), truncate(tile.image_credit, length: 50), make_full_url(tile.image_credit), target: "_blank" %>
+            </div>
           </div>
+          <% if tile.has_ribbon_tag? %>
+            <%= render partial: 'client_admin/tiles/manage_tiles/ribbon_tag', locals: {presenter: tile, height: 44, full_size: true} %>
+          <% end %>
         </div>
       </div>
-    </div>
 
     <%= render partial: 'tiles/tile_main', locals: {tile: tile, is_preview: is_preview} %>
     <% render partial: 'invitation/dependent_user_invitations/success' %>

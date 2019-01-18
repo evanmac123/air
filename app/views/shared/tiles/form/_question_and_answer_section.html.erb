@@ -45,5 +45,17 @@
         </div>
       </div>
     <% end %>
+
+    <% if @tile.demo.ribbon_tags.present? %>
+      <div class="tile-builder-settings">
+        <p class="header">Tag</p>
+        <div class="settings-input-group">
+          <%= form.collection_radio_buttons(:ribbon_tag_id, @tile.demo.ribbon_tags.order(:name), :id, :name) do |ribbon_tag_radio_button| %>
+            <p class="settings-input"><%= ribbon_tag_radio_button.radio_button %> <%= ribbon_tag_radio_button.label(class: "d-inline") %></p>
+          <% end %>
+          <p class="settings-input">  <%= form.radio_button(:ribbon_tag_id, nil) %> <%= form.label :ribbon_tag_id, 'None', class: "d-inline" %></p>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>
