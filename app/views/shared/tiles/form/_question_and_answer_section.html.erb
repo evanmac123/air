@@ -36,7 +36,7 @@
 
     <% if @tile.demo.campaigns.present? %>
       <div class="tile-builder-settings">
-        <p class="header"> Campaign</p>
+        <p class="header">Audience</p>
         <div class="settings-input-group">
           <%= form.collection_radio_buttons(:campaign_id, @tile.demo.campaigns.order(:name), :id, :name) do |campaign_radio_button| %>
             <p class="settings-input"><%= campaign_radio_button.radio_button %> <%= campaign_radio_button.label(class: "d-inline") %></p>

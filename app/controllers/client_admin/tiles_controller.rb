@@ -6,7 +6,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesPingsHelper
 
   def index
-    @tiles_facade = ClientAdminTilesFacade.new(demo: current_user.demo)
+    @tiles_facade = true
+    @ctrl_data = {
+      "audiencesEnabled" => current_user.demo.population_segments.first.present?
+    }.to_json
 
     if !params[:partial_only]
       render template: "react_spa/show"

@@ -28,7 +28,7 @@ const CampaignFormComponent = props => (
         <p style={{float: 'left', color: 'red'}}>Required</p>
       }
       <input
-        placeholder="Campaign Name"
+        placeholder="Audience Name"
         type="text"
         name="campaign-name"
         value={props.name}
@@ -44,13 +44,13 @@ const CampaignFormComponent = props => (
         onChange={(val) => { props.handleFormState('audience', val); }}
         className={`camp-audience-select ${props.errorStyling.audience}`}
         value={props.audience}
-        placeholder="Select Audience"
+        placeholder="Select Group"
         isClearable={true}
         options={props.populationSegments}
         isSearchable={true}
       />
 
-      <label style={{marginTop: '25px'}}>Campaign Color</label>
+      <label style={{marginTop: '25px'}}>Audience Color</label>
       <div
         className="campaign-colors"
         style={{

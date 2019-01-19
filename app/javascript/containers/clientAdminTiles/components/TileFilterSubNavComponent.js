@@ -69,26 +69,29 @@ const TileFilterSubNavComponent = props => (
           </li>
         }
 
-        <li className="sub-nav-option" style={{width: '18%'}}>
-          <Select
-            onMenuOpen={props.populateCampaigns}
-            isLoading={props.campaignLoading}
-            onChange={(val, act) => { props.handleFilterChange(val, act, 'campaign'); }}
-            className="react-select campaign-filter"
-            placeholder="All Campaigns"
-            value={props.tileStatusNav[props.activeStatus].filter.campaign}
-            isClearable={true}
-            options={props.campaigns}
-            isSearchable={true}
-          />
-        </li>
+        {
+          props.audiencesEnabled &&
+          <li className="sub-nav-option" style={{width: '18%'}}>
+            <Select
+              onMenuOpen={props.populateCampaigns}
+              isLoading={props.campaignLoading}
+              onChange={(val, act) => { props.handleFilterChange(val, act, 'campaign'); }}
+              className="react-select campaign-filter"
+              placeholder="All Audiences"
+              value={props.tileStatusNav[props.activeStatus].filter.campaign}
+              isClearable={true}
+              options={props.campaigns}
+              isSearchable={true}
+            />
+          </li>
+        }
 
         <li className="sub-nav-option" style={{width: '18%'}}>
           <span
             className="button edit-campaigns"
             style={editCampaignsStyle}
             onClick={props.openCampaignManager}
-          >Manage Campaigns</span>
+          >Manage Audiences</span>
         </li>
 
         <li className="sub-nav-option end" style={{width: '20%'}}>
@@ -108,6 +111,7 @@ const TileFilterSubNavComponent = props => (
 
 TileFilterSubNavComponent.propTypes = {
   activeStatus: PropTypes.string.isRequired,
+  audiencesEnabled: PropTypes.bool,
 };
 
 export default TileFilterSubNavComponent;
