@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
@@ -264,6 +265,7 @@ class ClientAdminTiles extends React.Component {
             populateCampaigns={this.populateCampaigns}
             campaignLoading={this.state.campaignLoading}
             openCampaignManager={this.openCampaignManager}
+            audiencesEnabled={this.props.ctrl.audiencesEnabled}
           />
         }
         {
@@ -284,5 +286,11 @@ class ClientAdminTiles extends React.Component {
     );
   }
 }
+
+ClientAdminTiles.propTypes = {
+  ctrl: PropTypes.shape({
+    audiencesEnabled: PropTypes.bool,
+  }),
+};
 
 export default DragDropContext(HTML5Backend)(ClientAdminTiles);

@@ -57,9 +57,9 @@ class CampaignManagerComponent extends React.Component {
       },
       ManagerMainComponent: {
         validationMsg: "You must enter your password!",
-        title: "Manage Campaigns",
+        title: "Manage Audiences",
         showCancel: true,
-        confirmBtnText: "+ Create Campaign",
+        confirmBtnText: "+ Create Audience",
         cancelBtnText: "Close",
         confirmAction: this.newCampaign,
         onCancel: () => { this.props.onClose(this.state.campaigns); },
@@ -142,11 +142,11 @@ class CampaignManagerComponent extends React.Component {
         params,
         success: this.updateCampaignState,
         err: () => {
-          this.setState({...constants.DEFAULT_STATE, errorMsg: 'Campaign could not be created'});
+          this.setState({...constants.DEFAULT_STATE, errorMsg: 'Audience could not be created'});
         },
       });
     } else if (!this.compareChanges()) {
-      this.setState({...constants.DEFAULT_STATE, errorMsg: 'No changes made to campaign'});
+      this.setState({...constants.DEFAULT_STATE, errorMsg: 'No changes made to audience'});
     } else {
       this.applyErrors();
     }
@@ -158,7 +158,7 @@ class CampaignManagerComponent extends React.Component {
       method: 'DELETE',
       path: `${constants.BASE_URL}${campId}`,
       success: this.removeCampaignFromState,
-      err: () => { this.setState({errorMsg: "Cannot delete campaign while it's active"}); },
+      err: () => { this.setState({errorMsg: "Cannot delete audience while it's active"}); },
     });
   }
 
@@ -216,8 +216,8 @@ class CampaignManagerComponent extends React.Component {
   render() {
     return (
       React.createElement(SweetAlert, {
-        title: this.state.editCampaignId ? "Edit Campaign" : "Create Campaign",
-        confirmBtnText:  this.state.editCampaignId ? "Save Changes" : "Create Campaign",
+        title: this.state.editCampaignId ? "Edit Audience" : "Create Audience",
+        confirmBtnText:  this.state.editCampaignId ? "Save Changes" : "Create Audience",
         cancelBtnText: "Back to Manage",
         onCancel: () => { this.setState({activeComponent: 'ManagerMainComponent'}); },
         ...this.alertProps[this.state.activeComponent],
