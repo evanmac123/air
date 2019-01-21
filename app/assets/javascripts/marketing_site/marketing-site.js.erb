@@ -369,9 +369,17 @@ Airbo.MarketingSite.Base = (function() {
 
 
   function requestAccount(e) {
-    e.preventDefault();
+    if (e) { e.preventDefault(); }
     $("#login").toggle();
     $("#request_account").toggle();
+  }
+
+  function uriTriggeredEvents() {
+    if (window.location.pathname === "/request_account") {
+      requestAccount();
+    } else if (locationParamsInclude("sign_in", "true")) {
+      triggerLoginModal();
+    }
   }
 
   function init() {
@@ -397,9 +405,7 @@ Airbo.MarketingSite.Base = (function() {
 
     $(".js-request-demo").click(triggerDemoRequestModal);
     $(".js-login").click(triggerLoginModal);
-    if (locationParamsInclude("sign_in", "true")) {
-      triggerLoginModal();
-    }
+    uriTriggeredEvents();
   }
   return {
     init: init
