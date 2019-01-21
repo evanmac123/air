@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
+import RibbonTagComponent from '../../../shared/RibbonTagComponent';
+
 import { htmlSanitizer } from '../../../lib/helpers';
 
 const determineIfMarkedComplete = (tileOrigin, tileComplete) => (
@@ -13,6 +15,15 @@ const TileImageComponent = props => (
       props.tile.embedVideo &&
       <div className="video_section" style={{display: 'block'}}>
         <span dangerouslySetInnerHTML={htmlSanitizer(props.tile.embedVideo)} />
+        {props.tile.ribbonTagName &&
+          <RibbonTagComponent
+            ribbonTagName={props.tile.ribbonTagName}
+            ribbonTagColor={props.tile.ribbonTagColor}
+            height="44"
+            hideRibbonTag="true"
+            fullSizeTile="true"
+          />
+        }
       </div>
     }
 
@@ -29,6 +40,14 @@ const TileImageComponent = props => (
               </div>
             }
           </div>
+          {props.tile.ribbonTagName &&
+            <RibbonTagComponent
+              ribbonTagName={props.tile.ribbonTagName}
+              ribbonTagColor={props.tile.ribbonTagColor}
+              height="44"
+              fullSizeTile="true"
+            />
+          }
         </div>
       </div>
     }
@@ -43,6 +62,8 @@ TileImageComponent.propTypes = {
     imagePath: PropTypes.string,
     headline: PropTypes.string,
     imageCredit: PropTypes.string,
+    ribbonTagName: PropTypes.string,
+    ribbonTagColor: PropTypes.string,
     complete: PropTypes.bool,
   }),
   loading: PropTypes.bool,

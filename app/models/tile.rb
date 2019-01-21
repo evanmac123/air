@@ -20,6 +20,7 @@ class Tile < ActiveRecord::Base
 
   belongs_to :demo
   belongs_to :campaign
+  belongs_to :ribbon_tag
   belongs_to :creator, class_name: "User"
   belongs_to :original_creator, class_name: "User"
 
@@ -63,11 +64,14 @@ class Tile < ActiveRecord::Base
   searchkick word_start: [:headline], callbacks: false
 
   def self.display_explore_campaigns(current_board = nil)
-    joins(:campaign).select(
+    joins(:campaign)
+    .joins("LEFT JOIN ribbon_tags ON ribbon_tags.id = tiles.ribbon_tag_id").select(
       "campaigns.id AS campaign_id",
       "campaigns.name",
       "campaigns.description",
       "campaigns.ongoing",
+      "ribbon_tags.color AS ribbon_tag_color",
+      "ribbon_tags.name AS ribbon_tag_name",
       "tiles.headline",
       "tiles.created_at",
       "tiles.id",
@@ -143,10 +147,14 @@ class Tile < ActiveRecord::Base
   end
 
   def self.from_board_with_campaigns(board)
-    board.tiles.joins("LEFT JOIN campaigns ON campaigns.id = tiles.campaign_id")
+    board.tiles
+            .joins("LEFT JOIN campaigns ON campaigns.id = tiles.campaign_id")
+            .joins("LEFT JOIN ribbon_tags ON ribbon_tags.id = tiles.ribbon_tag_id")
             .select(
               "campaigns.id AS campaign_id",
               "campaigns.color AS campaign_color",
+              "ribbon_tags.color AS ribbon_tag_color",
+              "ribbon_tags.name AS ribbon_tag_name",
               "tiles.headline",
               "tiles.id",
               "tiles.thumbnail_file_name",

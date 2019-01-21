@@ -1,5 +1,6 @@
-class SingleTilePresenter < BasePresenter
+# frozen_string_literal: true
 
+class SingleTilePresenter < BasePresenter
   attr_reader :tile, :type
   delegate  :id,
             :thumbnail,
@@ -29,10 +30,10 @@ class SingleTilePresenter < BasePresenter
   end
 
   def partial
-    'client_admin/tiles/manage_tiles/single_tile'
+    "client_admin/tiles/manage_tiles/single_tile"
   end
 
-  #this method is redundant as to_param is notset for Tile, so it just returns id
+  # this method is redundant as to_param is notset for Tile, so it just returns id
   def to_param
     @to_param ||= tile.to_param
   end
@@ -77,11 +78,11 @@ class SingleTilePresenter < BasePresenter
   end
 
   def has_tile_buttons?
-    type == 'explore'
+    type == "explore"
   end
 
   def activation_dates
-    #noop
+    # noop
   end
 
   def has_tile_stats?
@@ -107,6 +108,6 @@ class SingleTilePresenter < BasePresenter
       @completed,
       @type,
       @public_slug
-    ].join('-')
+    ].join("-")
   end
 end

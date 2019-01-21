@@ -95,8 +95,6 @@ class Explore extends React.Component {
   }
 
   campaignRedirect(campaign, popstate) {
-    const explore = this.state[`campaignTiles${campaign.id}`];
-    this.props.setTiles({ explore });
     if (!popstate) {
       window.Airbo.Utils.ping("Explore page - Interaction", {
         action: "Clicked Campaign",
@@ -189,6 +187,7 @@ class Explore extends React.Component {
   }
 
   openTileModal(tileId) {
+    this.props.setTiles({ explore: [ ...this.state[`campaignTiles${this.state.selectedCampaign.id}`] ] });
     this.props.openFullSizeTile({
       id: tileId,
       from: 'explore',
