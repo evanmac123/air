@@ -5,7 +5,6 @@ Rails.application.config.assets.version = '0.0.3'
 Rails.application.config.assets.paths += Dir["#{Rails.root}/vendor/assets/stylesheets"].sort_by { |dir| -dir.size }
 Rails.application.config.assets.paths << Rails.root.join("vendor", "assets", "images", "videos")
 
-
 Rails.application.config.assets.paths << "#{Rails.root}/app/assets/videos"
 
 # Add Yarn node_modules folder to the asset load path.
@@ -19,6 +18,7 @@ Rails.application.config.assets.precompile += %w(
   app-external.css
   app-internal.css
   app-landing.css
+  app-form.css
   external/external_ie8.css
   internal/internal_ie8.css
   client_admin/client_admin_ie8.css
