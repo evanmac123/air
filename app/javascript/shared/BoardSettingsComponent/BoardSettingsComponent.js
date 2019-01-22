@@ -9,7 +9,29 @@ class BoardSettingsComponent extends React.Component {
     super(props);
     this.state = {
       loading: true,
+      settingsComponentsKeys: [],
+      activeSettingComponent: '',
     };
+    this.allSettingsComponents = [];
+  }
+
+  componentDidMount() {
+    this.renderAllSettingsComponents();
+  }
+
+  componentDidUpdate() {
+    if (this.state.loading) {this.setState({loading: false});}
+  }
+
+  renderAllSettingsComponents() {
+    const settingsComponentsKeys = Object.keys(this.props.settingsComponents).map(comp => comp);
+    this.allSettingsComponents = settingsComponentsKeys.map((comp, key) => {
+      return React.createElement(this.props.settingsComponents[comp], {
+        key,
+        ...this.props.settingsData[comp]
+      });
+    });
+    this.setState({ settingsComponentsKeys });
   }
 
   render() {
@@ -23,12 +45,11 @@ class BoardSettingsComponent extends React.Component {
         style: {
           display: 'inherit',
           width: '520px',
+          minHeight: '340px',
         },
       }, this.state.loading ?
         React.createElement(LoadingComponent) :
-        React.createElement("h1", {
-          ...this.state,
-        }),
+        this.allSettingsComponents
       )
     );
   }

@@ -215,36 +215,18 @@ class CampaignManagerComponent extends React.Component {
 
   render() {
     return (
-      React.createElement(SweetAlert, {
-        title: this.state.editCampaignId ? "Edit Audience" : "Create Audience",
-        confirmBtnText:  this.state.editCampaignId ? "Save Changes" : "Create Audience",
-        cancelBtnText: "Back to Manage",
-        onCancel: () => { this.setState({activeComponent: 'ManagerMainComponent'}); },
-        ...this.alertProps[this.state.activeComponent],
-        customClass: "airbo",
-        cancelBtnCssClass: `cancel ${this.state.loading ? 'disabled' : ''}`,
-        confirmBtnCssClass: `confirm ${this.state.loading ? 'disabled' : ''}`,
-        onConfirm: () => { this.handleConfirm(this.alertProps[this.state.activeComponent].confirmAction); },
-        style: {
-          display: 'inherit',
-          width: '520px',
-        },
-      }, this.state.loading ?
-        React.createElement(LoadingComponent) :
-        React.createElement(managerComponents[this.state.activeComponent], {
-          ...this.state,
-          setColorSelection: this.setColorSelection,
-          handleFormState: this.handleFormState,
-          deleteCampaign: this.deleteCampaign,
-          editCampaign: this.editCampaign,
-        }),
-      )
+      React.createElement(managerComponents[this.state.activeComponent], {
+        ...this.state,
+        setColorSelection: this.setColorSelection,
+        handleFormState: this.handleFormState,
+        deleteCampaign: this.deleteCampaign,
+        editCampaign: this.editCampaign,
+      })
     );
   }
 }
 
 CampaignManagerComponent.propTypes = {
-  onClose: PropTypes.func.isRequired,
   campaigns: PropTypes.array,
 };
 

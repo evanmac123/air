@@ -31,5 +31,12 @@ export default {
     {label: camp.name, className: 'campaign-option', value: camp.id, color: camp.color, population: camp.population_segment_id}
   ),
   swalModal: args => React.createElement(SweetAlert, args, args.text), // eslint-disable-line
-  campaignManager: (campaigns, onClose) => React.createElement(BoardSettingsComponent, {campaigns, onClose}), // eslint-disable-line
+  campaignManager: (campaigns, onClose) => React.createElement(
+    BoardSettingsComponent,
+    {
+      settingsComponents: { CampaignManagerComponent },
+      settingsData: { CampaignManagerComponent: { campaigns }},
+      onClose,
+    },
+  ),
 };
