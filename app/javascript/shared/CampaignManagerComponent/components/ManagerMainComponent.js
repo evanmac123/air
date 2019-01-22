@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 
 const cardStyle = {
   height: '65px',
-  marginBottom: '15px',
+  margin: '10px 0',
   padding: '10px',
+  border: '1px solid #d8d8d8',
 };
 
 const textStyle = {
@@ -52,7 +53,7 @@ const renderCampaignCards = props => (
 
 const ManagerMainComponent = props => (
   <div>
-    <div className="manage-campaign-card-container" style={{maxHeight: '340px', overflow: 'scroll'}}>
+    <div className="" style={{maxHeight: '340px', overflow: 'scroll'}}>
       {renderCampaignCards(props)}
     </div>
     {props.errorMsg &&

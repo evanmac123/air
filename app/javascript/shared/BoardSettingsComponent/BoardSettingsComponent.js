@@ -44,7 +44,8 @@ class BoardSettingsComponent extends React.Component {
         onCancel: () => { this.props.onClose({});} ,
         style: {
           display: 'inherit',
-          width: '520px',
+          width: '56vw',
+          marginLeft: '-28vw',
           minHeight: '340px',
         },
       }, this.state.loading ?

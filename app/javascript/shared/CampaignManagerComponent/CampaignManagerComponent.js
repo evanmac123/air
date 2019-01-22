@@ -1,17 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SweetAlert from 'react-bootstrap-sweetalert';
 
-import LoadingComponent from "../LoadingComponent";
 import ManagerMainComponent from "./components/ManagerMainComponent";
 import CampaignFormComponent from "./components/CampaignFormComponent";
 import constants from "./utils/constants";
 import { Fetcher } from "../../lib/helpers";
-
-const managerComponents = {
-  ManagerMainComponent,
-  CampaignFormComponent,
-};
 
 const getIndexOfCampaign = (id, campaigns) => {
   for (let index = 0; index < campaigns.length; index++) { if (campaigns[index].value === id) { return index; } }
@@ -215,13 +208,24 @@ class CampaignManagerComponent extends React.Component {
 
   render() {
     return (
-      React.createElement(managerComponents[this.state.activeComponent], {
-        ...this.state,
-        setColorSelection: this.setColorSelection,
-        handleFormState: this.handleFormState,
-        deleteCampaign: this.deleteCampaign,
-        editCampaign: this.editCampaign,
-      })
+      <div className="manage-campaign-card-container">
+        <div style={{minHeight: '35px', padding: '0 10px', marginBottom: '15px'}}>
+          <span className="campaign-manager-header" style={{float: 'left', fontSize: '24px'}}>Audiences</span>
+          <div className="campaign-manager-btns" style={{float: 'right'}}>
+            <span className="button icon" style={{marginRight: '7px'}}><span className="fa fa-plus"></span>New Audience</span>
+            <span className="button outlined icon">Close</span>
+          </div>
+        </div>
+        {
+          React.createElement(ManagerMainComponent, {
+            ...this.state,
+            setColorSelection: this.setColorSelection,
+            handleFormState: this.handleFormState,
+            deleteCampaign: this.deleteCampaign,
+            editCampaign: this.editCampaign,
+          })
+        }
+      </div>
     );
   }
 }
