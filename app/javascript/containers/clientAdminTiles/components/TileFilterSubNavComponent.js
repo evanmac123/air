@@ -26,17 +26,6 @@ const renderSortOptions = () => ([
   {label: 'Sort by Date', className: 'sortType-option', value: 'date-sort'},
 ]);
 
-const editCampaignsStyle = {
-  backgroundColor: 'transparent',
-  borderColor: 'hsl(0,0%,80%)',
-  borderRadius: '4px',
-  borderStyle: 'solid',
-  borderWidth: '1px',
-  textAlign: 'center',
-  height: '38px',
-  paddingTop: '10px',
-};
-
 const TileFilterSubNavComponent = props => (
   props.appLoaded &&
   <div className="tabs-component-full-width-sub-nav js-tiles-index-filter-bar">
@@ -85,14 +74,6 @@ const TileFilterSubNavComponent = props => (
             />
           </li>
         }
-
-        <li className="sub-nav-option" style={{width: '18%'}}>
-          <span
-            className="button edit-campaigns"
-            style={editCampaignsStyle}
-            onClick={props.openCampaignManager}
-          >Manage Audiences</span>
-        </li>
 
         <li className="sub-nav-option end" style={{width: '20%'}}>
           <Select

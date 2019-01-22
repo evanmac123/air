@@ -253,6 +253,7 @@ class ClientAdminTiles extends React.Component {
           statuses={this.state.tileStatusNav}
           activeStatus={this.state.activeStatus}
           selectStatus={this.selectStatus}
+          openCampaignManager={this.openCampaignManager}
         />
         {
           (this.state.activeStatus !== 'user_submitted' && this.state.activeStatus !== 'draft') &&
@@ -264,7 +265,6 @@ class ClientAdminTiles extends React.Component {
             campaigns={this.state.campaigns}
             populateCampaigns={this.populateCampaigns}
             campaignLoading={this.state.campaignLoading}
-            openCampaignManager={this.openCampaignManager}
             audiencesEnabled={this.props.ctrl.audiencesEnabled}
           />
         }
