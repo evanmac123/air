@@ -26,15 +26,16 @@ class CampaignManagerComponent extends React.Component {
       loading: true,
       errorStyling: {},
       campaigns: [],
-      activeComponent: 'ManagerMainComponent',
+      activeComponent: '',
       populationSegments: [],
       errorMsg: '',
+      errorId: '',
+      audiencesOpen: false,
     };
     this.handleFormState = this.handleFormState.bind(this);
     this.submitCampaign = this.submitCampaign.bind(this);
     this.applyErrors = this.applyErrors.bind(this);
     this.setColorSelection = this.setColorSelection.bind(this);
-    this.handleConfirm = this.handleConfirm.bind(this);
     this.updateCampaignState = this.updateCampaignState.bind(this);
     this.deleteCampaign = this.deleteCampaign.bind(this);
     this.editCampaign = this.editCampaign.bind(this);
@@ -43,21 +44,9 @@ class CampaignManagerComponent extends React.Component {
     this.compareChanges = this.compareChanges.bind(this);
     this.campaignAbleToSave = this.campaignAbleToSave.bind(this);
     this.getFetcherOpts = this.getFetcherOpts.bind(this);
-    this.alertProps = {
-      CampaignFormComponent: {
-        showCancel: true,
-        confirmAction: this.submitCampaign,
-      },
-      ManagerMainComponent: {
-        validationMsg: "You must enter your password!",
-        title: "Manage Audiences",
-        showCancel: true,
-        confirmBtnText: "+ Create Audience",
-        cancelBtnText: "Close",
-        confirmAction: this.newCampaign,
-        onCancel: () => { this.props.onClose(this.state.campaigns); },
-      },
-    };
+    this.toggleNewCampaignForm = this.toggleNewCampaignForm.bind(this);
+    this.toggleAudienceList = this.toggleAudienceList.bind(this);
+    this.resetForm = this.resetForm.bind(this);
   }
 
   componentDidMount() {
@@ -71,6 +60,31 @@ class CampaignManagerComponent extends React.Component {
         this.setState({ loading: false, campaigns, populationSegments });
       },
     });
+  }
+
+  componentWillUnmount() {
+    this.props.onClose(this.state.campaigns);
+  }
+
+  resetForm() {
+    this.setState({
+      name: '',
+      audience: null,
+      color: '#ffb748',
+      editCampaignId: '',
+      activeComponent: '',
+    });
+  }
+
+  toggleNewCampaignForm() {
+    const { activeComponent } = this.state;
+    this.resetForm();
+    this.setState({activeComponent: activeComponent === 'newAudience' ? '' : 'newAudience'});
+  }
+
+  toggleAudienceList() {
+    const { audiencesOpen } = this.state;
+    this.setState({ audiencesOpen: !audiencesOpen });
   }
 
   campaignAbleToSave() {
@@ -151,7 +165,7 @@ class CampaignManagerComponent extends React.Component {
       method: 'DELETE',
       path: `${constants.BASE_URL}${campId}`,
       success: this.removeCampaignFromState,
-      err: () => { this.setState({errorMsg: "Cannot delete audience while it's active"}); },
+      err: () => { this.setState({errorMsg: "Cannot delete audience while it's active", errorId: campId}); },
     });
   }
 
@@ -165,34 +179,30 @@ class CampaignManagerComponent extends React.Component {
   }
 
   editCampaign(campaign) {
-    let audience = {label: 'All Users', value: 'all'};
-    for (let index = 0; index < this.state.populationSegments.length; index++) {
-      if (this.state.populationSegments[index].value === campaign.population) {
-        audience = this.state.populationSegments[index];
-        break;
+    if (this.state.activeComponent !== campaign.value) {
+      let audience = {label: 'All Users', value: 'all'};
+      for (let index = 0; index < this.state.populationSegments.length; index++) {
+        if (this.state.populationSegments[index].value === campaign.population) {
+          audience = this.state.populationSegments[index];
+          break;
+        }
       }
+      this.setState({
+        activeComponent: campaign.value,
+        name: campaign.label,
+        editCampaignId: campaign.value,
+        audience,
+        color: campaign.color,
+        errorStyling: {},
+        errorMsg: '',
+      });
+    } else {
+      this.resetForm();
     }
-    this.setState({
-      activeComponent: 'CampaignFormComponent',
-      name: campaign.label,
-      editCampaignId: campaign.value,
-      audience,
-      color: campaign.color,
-      errorStyling: {},
-      errorMsg: '',
-    });
   }
 
   setColorSelection(colorChange) {
     this.setState(colorChange);
-  }
-
-  handleConfirm(cb) {
-    if (cb) {
-      cb();
-    } else {
-      this.props.onClose(this.state.campaigns);
-    }
   }
 
   compareChanges() {
@@ -207,31 +217,50 @@ class CampaignManagerComponent extends React.Component {
   }
 
   render() {
-    return (
-      <div className="manage-campaign-card-container">
+    return React.createElement('div', {className: "manage-campaign-card-container"},
+      (
         <div style={{minHeight: '35px', padding: '0 10px', marginBottom: '15px'}}>
           <span className="campaign-manager-header" style={{float: 'left', fontSize: '24px'}}>Audiences</span>
           <div className="campaign-manager-btns" style={{float: 'right'}}>
-            <span className="button icon" style={{marginRight: '7px'}}><span className="fa fa-plus"></span>New Audience</span>
-            <span className="button outlined icon">Close</span>
+            <span className="button icon" style={{marginRight: '7px'}}
+              onClick={this.toggleNewCampaignForm}
+            >
+              <span
+                className={`fa fa-plus ${this.state.activeComponent === 'newAudience' ? 'rotate-close' : ''}`}
+                style={{fontSize: '1em', margin: '0'}}
+              />
+            </span>
+            <span className="button outlined icon" onClick={this.toggleAudienceList}>
+              {this.state.audiencesOpen ? 'Close' : 'Edit'}
+            </span>
           </div>
         </div>
-        {
-          React.createElement(ManagerMainComponent, {
-            ...this.state,
-            setColorSelection: this.setColorSelection,
-            handleFormState: this.handleFormState,
-            deleteCampaign: this.deleteCampaign,
-            editCampaign: this.editCampaign,
-          })
-        }
-      </div>
+      ),
+      React.createElement(CampaignFormComponent, {
+        ...this.state,
+        submitCampaign: this.submitCampaign,
+        closeForm: this.toggleNewCampaignForm,
+        setColorSelection: this.setColorSelection,
+        handleFormState: this.handleFormState,
+        expanded: this.state.activeComponent === 'newAudience',
+      }),
+      React.createElement(ManagerMainComponent, {
+        ...this.state,
+        setColorSelection: this.setColorSelection,
+        handleFormState: this.handleFormState,
+        deleteCampaign: this.deleteCampaign,
+        editCampaign: this.editCampaign,
+        expanded: this.state.audiencesOpen,
+        closeForm: this.resetForm,
+        submitCampaign: this.submitCampaign,
+      })
     );
   }
 }
 
 CampaignManagerComponent.propTypes = {
   campaigns: PropTypes.array,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default CampaignManagerComponent;

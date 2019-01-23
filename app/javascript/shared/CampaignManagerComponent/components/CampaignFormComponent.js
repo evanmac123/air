@@ -23,7 +23,7 @@ const renderColorOptions = setColorSelection => ["#ffb748", "#ff687b", "#b6a9f1"
 ));
 
 const CampaignFormComponent = props => (
-    <form className="js-edit-campaign-form">
+    <form className={`edit-campaign-form ${props.expanded ? 'expand' : ''}`}>
       {props.errorStyling.name &&
         <p style={{float: 'left', color: 'red'}}>Required</p>
       }
@@ -50,7 +50,7 @@ const CampaignFormComponent = props => (
         isSearchable={true}
       />
 
-      <label style={{marginTop: '25px'}}>Audience Color</label>
+      <label style={{marginTop: '25px'}}></label>
       <div
         className="campaign-colors"
         style={{
@@ -76,6 +76,8 @@ const CampaignFormComponent = props => (
           }}
         />
       </div>
+      <span className="button icon" style={{marginRight: '7px'}} onClick={props.submitCampaign}>Save</span>
+      <span className="button outlined icon" onClick={props.closeForm}>Cancel</span>
     </form>
 );
 
@@ -102,6 +104,9 @@ CampaignFormComponent.propTypes = {
     ]).isRequired,
     label: PropTypes.string.isRequired,
   }),
+  expanded: PropTypes.bool,
+  closeForm: PropTypes.func.isRequired,
+  submitCampaign: PropTypes.func.isRequired,
 };
 
 export default CampaignFormComponent;

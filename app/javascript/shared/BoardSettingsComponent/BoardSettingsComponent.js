@@ -25,12 +25,13 @@ class BoardSettingsComponent extends React.Component {
 
   renderAllSettingsComponents() {
     const settingsComponentsKeys = Object.keys(this.props.settingsComponents).map(comp => comp);
-    this.allSettingsComponents = settingsComponentsKeys.map((comp, key) => {
-      return React.createElement(this.props.settingsComponents[comp], {
+    this.allSettingsComponents = settingsComponentsKeys.map((comp, key) => (
+      React.createElement(this.props.settingsComponents[comp], {
+        ...this.props.settingsData[comp],
         key,
-        ...this.props.settingsData[comp]
-      });
-    });
+        onClose: this.props.onClose,
+      })
+    ));
     this.setState({ settingsComponentsKeys });
   }
 
@@ -46,7 +47,9 @@ class BoardSettingsComponent extends React.Component {
           display: 'inherit',
           width: '56vw',
           marginLeft: '-28vw',
-          minHeight: '340px',
+          marginTop: '-250px',
+          height: '500px',
+          overflow: 'scroll',
         },
       }, this.state.loading ?
         React.createElement(LoadingComponent) :
@@ -55,5 +58,11 @@ class BoardSettingsComponent extends React.Component {
     );
   }
 }
+
+BoardSettingsComponent.propTypes = {
+  settingsComponents: PropTypes.object,
+  settingsData: PropTypes.object,
+  onClose: PropTypes.func.isRequired,
+};
 
 export default BoardSettingsComponent;

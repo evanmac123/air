@@ -50,4 +50,51 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 3px 3px rgba(0,0,0,0.24);
     }
   }
+
+  .fa.fa-plus {
+    transform: rotate(0deg);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+    &.rotate-close {
+      transform: rotate(135deg);
+      transition: transform 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+  }
+
+  .edit-campaign-form {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+
+    &.expand {
+      height: 235px;
+      transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+  }
+
+  .audience-list {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+
+    &.expand {
+      height: 210px;
+      overflow: scroll;
+      transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+  }
+
+  .campaign-card {
+    height: 65px;
+    transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+
+    &.expand {
+      height: 305px;
+      transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+    &:hover {
+      cursor: default;
+    }
+  }
 }
