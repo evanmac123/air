@@ -3,6 +3,14 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 
 import BoardSettingsComponent from "../../../shared/BoardSettingsComponent";
 import CampaignManagerComponent from "../../../shared/CampaignManagerComponent";
+import RibbonTagManagerComponent from "../../../shared/RibbonTagManagerComponent";
+
+const populateProps = (campaigns, ribbonTags, onClose) => {
+  const props = { onClose };
+  props.settingsComponents = campaigns ? { CampaignManagerComponent, RibbonTagManagerComponent } : { RibbonTagManagerComponent };
+  props.settingsData = campaigns ? { CampaignManagerComponent: { campaigns }, RibbonTagManagerComponent: { ribbonTags }} : { RibbonTagManagerComponent: { ribbonTags } };
+  return props;
+};
 
 export default {
   sanitizeTileData: rawTiles => {
@@ -30,13 +38,12 @@ export default {
   sanitizeCampaignResponse: camp => (
     {label: camp.name, className: 'campaign-option', value: camp.id, color: camp.color, population: camp.population_segment_id}
   ),
+  sanitizeRibbonTagResponse: tag => (
+    {label: tag.name, className: 'ribbon-tag-option', value: tag.id, color: tag.color}
+  ),
   swalModal: args => React.createElement(SweetAlert, args, args.text), // eslint-disable-line
-  campaignManager: (campaigns, onClose) => React.createElement(
+  boardSettingsManager: (campaigns, ribbonTags, onClose) => React.createElement(
     BoardSettingsComponent,
-    {
-      settingsComponents: { CampaignManagerComponent },
-      settingsData: { CampaignManagerComponent: { campaigns }},
-      onClose,
-    },
+    populateProps(campaigns, ribbonTags, onClose),
   ),
 };

@@ -47,7 +47,7 @@ const TileStatusNavComponent = props => (
           React.createElement("span",
             {
               className: "button outlined icon",
-              onClick: props.openCampaignManager,
+              onClick: props.openBoardSettings,
             },
             React.createElement('span', {className: `fa fa-gear`}),
             "Board Settings",
@@ -60,7 +60,7 @@ const TileStatusNavComponent = props => (
 
 TileStatusNavComponent.propTypes = {
   activeStatus: PropTypes.string.isRequired,
-  openCampaignManager: PropTypes.func.isRequired,
+  openBoardSettings: PropTypes.func.isRequired,
 };
 
 export default TileStatusNavComponent;

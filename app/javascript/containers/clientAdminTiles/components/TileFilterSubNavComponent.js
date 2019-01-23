@@ -62,7 +62,7 @@ const TileFilterSubNavComponent = props => (
           props.audiencesEnabled &&
           <li className="sub-nav-option" style={{width: '18%'}}>
             <Select
-              onMenuOpen={props.populateCampaigns}
+              onMenuOpen={props.populateBoardSettings}
               isLoading={props.campaignLoading}
               onChange={(val, act) => { props.handleFilterChange(val, act, 'campaign'); }}
               className="react-select campaign-filter"
