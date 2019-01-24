@@ -58,6 +58,20 @@ const TileFilterSubNavComponent = props => (
           </li>
         }
 
+        <li className="sub-nav-option" style={{width: '18%'}}>
+          <Select
+            onMenuOpen={props.populateBoardSettings}
+            isLoading={props.ribbonTagsLoading}
+            onChange={(val, act) => { props.handleFilterChange(val, act, 'ribbonTag'); }}
+            className="react-select ribbon-tag-filter"
+            placeholder="All Tags"
+            value={props.tileStatusNav[props.activeStatus].filter.ribbonTag}
+            isClearable={true}
+            options={props.ribbonTags}
+            isSearchable={true}
+          />
+        </li>
+
         {
           props.audiencesEnabled &&
           <li className="sub-nav-option" style={{width: '18%'}}>
