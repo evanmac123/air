@@ -76,16 +76,19 @@ class ClientAdminTiles extends React.Component {
           [constants.UNASSIGNED_CAMPAIGN]) : null;
         const ribbonTags = resp.ribbonTags.reduce((result, tag) => result.concat([helpers.sanitizeCampaignResponse(tag.ribbon_tag)]),
           [constants.UNASSIGNED_RIBBON_TAG]);
+        const newState = {
+          campaignLoading: false,
+          ribbonTagsLoading: false,
+          campaigns,
+          ribbonTags,
+        };
         if (openAlert) {
           this.setState({
-            campaignLoading: false,
-            ribbonTagsLoading: false,
-            campaigns,
-            ribbonTags,
+            ...newState,
             alert: helpers.boardSettingsManager(campaigns, ribbonTags, this.syncSettingsState),
           });
         } else {
-          this.setState({ campaignLoading: false, campaigns });
+          this.setState({ ...newState });
         }
       },
     });
@@ -271,8 +274,10 @@ class ClientAdminTiles extends React.Component {
             tileStatusNav={this.state.tileStatusNav}
             handleFilterChange={this.handleFilterChange}
             campaigns={this.state.campaigns}
+            ribbonTags={this.state.ribbonTags}
             populateBoardSettings={this.populateBoardSettings}
             campaignLoading={this.state.campaignLoading}
+            ribbonTagsLoading={this.state.ribbonTagsLoading}
             audiencesEnabled={this.props.ctrl.audiencesEnabled}
           />
         }

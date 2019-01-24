@@ -4,6 +4,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import BoardSettingsComponent from "../../../shared/BoardSettingsComponent";
 import CampaignManagerComponent from "../../../shared/CampaignManagerComponent";
 import RibbonTagManagerComponent from "../../../shared/RibbonTagManagerComponent";
+import { SanitizeVarForRuby } from "../../../lib/helpers";
 
 const populateProps = (campaigns, ribbonTags, onClose) => {
   const props = { onClose };
@@ -32,7 +33,7 @@ export default {
   ),
   getFilterParams: statusFilter => (
     Object.keys(statusFilter).reduce((result, status) => (
-      statusFilter[status] ? `${result}${status}%3D${statusFilter[status].value}%26` : result
+      statusFilter[status] ? `${result}${SanitizeVarForRuby(status)}%3D${statusFilter[status].value}%26` : result
     ), '').slice(0, -3)
   ),
   sanitizeCampaignResponse: camp => (
