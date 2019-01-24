@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Select from 'react-select';
 
 const colorOptionStyle = {
   cursor: 'pointer',
@@ -22,13 +21,13 @@ const renderColorOptions = setColorSelection => ["#ffb748", "#ff687b", "#b6a9f1"
   })
 ));
 
-const CampaignFormComponent = props => (
+const RibbonTagComponent = props => (
     <form className={`edit-campaign-form ${props.expanded ? 'expand' : ''}`}>
       {props.errorStyling.name &&
         <p style={{float: 'left', color: 'red'}}>Required</p>
       }
       <input
-        placeholder="Audience Name"
+        placeholder="Tag Name"
         type="text"
         name="campaign-name"
         value={props.name}
@@ -40,15 +39,6 @@ const CampaignFormComponent = props => (
       {props.errorStyling.audience &&
         <p style={{marginRight: '100%', color: 'red'}}>Required</p>
       }
-      <Select
-        onChange={(val) => { props.handleFormState('audience', val); }}
-        className={`camp-audience-select ${props.errorStyling.audience}`}
-        value={props.audience}
-        placeholder="Select Group"
-        isClearable={true}
-        options={props.populationSegments}
-        isSearchable={true}
-      />
 
       <label style={{marginTop: '25px'}}></label>
       <div
@@ -76,12 +66,12 @@ const CampaignFormComponent = props => (
           }}
         />
       </div>
-      <span className="button icon" style={{marginRight: '7px'}} onClick={props.submitCampaign}>Save</span>
+      <span className="button icon" style={{marginRight: '7px'}} onClick={props.submitRibbonTag}>Save</span>
       <span className="button outlined icon" onClick={props.closeForm}>Cancel</span>
     </form>
 );
 
-CampaignFormComponent.propTypes = {
+RibbonTagComponent.propTypes = {
   errorStyling: PropTypes.shape({
     name: PropTypes.object,
     audience: PropTypes.string,
@@ -106,7 +96,7 @@ CampaignFormComponent.propTypes = {
   }),
   expanded: PropTypes.bool,
   closeForm: PropTypes.func.isRequired,
-  submitCampaign: PropTypes.func.isRequired,
+  submitRibbonTag: PropTypes.func.isRequired,
 };
 
-export default CampaignFormComponent;
+export default RibbonTagComponent;

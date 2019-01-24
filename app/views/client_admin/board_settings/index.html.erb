@@ -5,15 +5,8 @@
         <li class="js-board-settings-component-tab tab"
           data-status="board-settings"
           data-tab-content="js-board-settings-component">
-          <a href="#">Board Settings</a>
+          <a href="#">Board Setup</a>
         </li>
-        <% if false # rollout campaign creation UI here %>
-          <li class="js-campaigns-component-tab tab"
-            data-status="campaign-settings"
-            data-tab-content="js-campaigns-component">
-            <a href="#">Campaign Settings</a>
-          </li>
-        <% end %>
         <% if current_user.is_site_admin %>
           <li class="js-population-segments-component-tab tab"
             data-status="population-segments"

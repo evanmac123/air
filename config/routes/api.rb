@@ -42,6 +42,8 @@ namespace :api, defaults: { format: :json } do
     resources :campaigns, only: [:index, :show]
     resources :tiles, only: [:show]
     post 'tiles/:id/mark_as_viewed', to: 'tiles#ping_tile_view'
+    resources :ribbon_tags, only: [:index, :create, :update, :destroy]
+    resources :board_settings, only: [:index]
   end
 
   namespace :sms_service do

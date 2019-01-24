@@ -36,6 +36,7 @@ export default {
     },
   },
   UNASSIGNED_CAMPAIGN: {label: 'Unassigned', className: 'campaign-option', value: '0', color: '#fff'},
+  UNASSIGNED_RIBBON_TAG: {label: 'Unassigned', className: 'ribbon-tag-option', value: '0', color: '#fff'},
   NAV_BUTTONS: [{
       faIcon: 'download',
       text: 'Download Stats',

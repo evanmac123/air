@@ -22,6 +22,8 @@ class ClientAdminTiles extends React.Component {
       appLoaded: false,
       campaigns: [],
       campaignLoading: false,
+      ribbonTags: [],
+      ribbonTagsLoading: false,
     };
     this.setTileStatuses = this.setTileStatuses.bind(this);
     this.selectStatus = this.selectStatus.bind(this);
@@ -31,9 +33,9 @@ class ClientAdminTiles extends React.Component {
     this.triggerModal = this.triggerModal.bind(this);
     this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
-    this.populateCampaigns = this.populateCampaigns.bind(this);
-    this.openCampaignManager = this.openCampaignManager.bind(this);
-    this.syncCampaignState = this.syncCampaignState.bind(this);
+    this.populateBoardSettings = this.populateBoardSettings.bind(this);
+    this.openBoardSettings = this.openBoardSettings.bind(this);
+    this.syncSettingsState = this.syncSettingsState.bind(this);
     this.moveTile = this.moveTile.bind(this);
     this.sortTile = this.sortTile.bind(this);
     this.tileBuilderPatch = this.tileBuilderPatch.bind(this);
@@ -63,20 +65,24 @@ class ClientAdminTiles extends React.Component {
     window.removeEventListener("popstate", this.selectStatus);
   }
 
-  populateCampaigns(openAlert) {
+  populateBoardSettings(openAlert) {
     if (this.state.campaigns.length) { return; } // eslint-disable-line
-    this.setState({ campaignLoading: true });
+    this.setState({ campaignLoading: true, ribbonTagsLoading: true });
     Fetcher.xmlHttpRequest({
-      path: '/api/client_admin/campaigns',
+      path: '/api/v1/board_settings',
       method: 'GET',
       success: resp => {
-        const campaigns = resp.reduce((result, camp) => result.concat([helpers.sanitizeCampaignResponse(camp.campaign)]),
-          [constants.UNASSIGNED_CAMPAIGN]);
+        const campaigns = this.props.ctrl.audiencesEnabled ? resp.campaigns.reduce((result, camp) => result.concat([helpers.sanitizeCampaignResponse(camp.campaign)]),
+          [constants.UNASSIGNED_CAMPAIGN]) : null;
+        const ribbonTags = resp.ribbonTags.reduce((result, tag) => result.concat([helpers.sanitizeCampaignResponse(tag.ribbon_tag)]),
+          [constants.UNASSIGNED_RIBBON_TAG]);
         if (openAlert) {
           this.setState({
             campaignLoading: false,
+            ribbonTagsLoading: false,
             campaigns,
-            alert: helpers.campaignManager(campaigns, this.syncCampaignState),
+            ribbonTags,
+            alert: helpers.boardSettingsManager(campaigns, ribbonTags, this.syncSettingsState),
           });
         } else {
           this.setState({ campaignLoading: false, campaigns });
@@ -85,16 +91,18 @@ class ClientAdminTiles extends React.Component {
     });
   }
 
-  syncCampaignState(newCampaignState) {
+  syncSettingsState(newCampaignState) {
     const campaigns = [constants.UNASSIGNED_CAMPAIGN].concat(newCampaignState);
     this.setState({alert: null, campaigns});
   }
 
-  openCampaignManager() {
-    if (this.state.campaigns.length) {
-      this.setState({ alert: helpers.campaignManager(this.state.campaigns, this.syncCampaignState) });
+  openBoardSettings() {
+    if (this.state.campaigns.length && this.state.ribbonTags.length) {
+      const campaigns = this.props.ctrl.audiencesEnabled ? this.state.campaigns : null;
+      const { ribbonTags } = this.state;
+      this.setState({ alert: helpers.boardSettingsManager(campaigns, ribbonTags, this.syncSettingsState) });
     } else {
-      this.populateCampaigns(true);
+      this.populateBoardSettings(true);
     }
   }
 
@@ -253,6 +261,7 @@ class ClientAdminTiles extends React.Component {
           statuses={this.state.tileStatusNav}
           activeStatus={this.state.activeStatus}
           selectStatus={this.selectStatus}
+          openBoardSettings={this.openBoardSettings}
         />
         {
           (this.state.activeStatus !== 'user_submitted' && this.state.activeStatus !== 'draft') &&
@@ -262,9 +271,8 @@ class ClientAdminTiles extends React.Component {
             tileStatusNav={this.state.tileStatusNav}
             handleFilterChange={this.handleFilterChange}
             campaigns={this.state.campaigns}
-            populateCampaigns={this.populateCampaigns}
+            populateBoardSettings={this.populateBoardSettings}
             campaignLoading={this.state.campaignLoading}
-            openCampaignManager={this.openCampaignManager}
             audiencesEnabled={this.props.ctrl.audiencesEnabled}
           />
         }
