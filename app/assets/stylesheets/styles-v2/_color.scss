@@ -48,8 +48,6 @@ $blue:   #50698C;
 $dark-gray:         #2e2e2c;
 $med-gray:          #a8a8a8;
 $gray:              #818385;
-/*    */
-
 
 // ------------------------ * Colors * ------------------------
 // Various grays
@@ -77,6 +75,18 @@ $form-bg:           lighten($blue, 53%);    // #f2f5f8
 $ca-subnav-color:   darken($blue, 15%);     // #34445b
 $off-blue:          #61c8ff;
 $off-green:         #e9f7f0;
+
+//gradients
+
+.purple-teal-gradient {
+  background-image: linear-gradient(75deg, $n-purple, $n-green);
+  color: $white;
+}
+
+.blue-teal-gradient {
+  background-image: linear-gradient(60deg, $n-blue, $n-green);
+  color: $blue;
+}
 
 
 .gradient-blue {

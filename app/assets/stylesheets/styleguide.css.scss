@@ -1,4 +1,5 @@
 @import "introjs.min";
+@import "./styles-v2/app.scss";
 @import "./mixins/main_styles.css.scss";
 @import "./mixins/green_paddle_switch.css.scss";
 @import "font-awesome";
@@ -13,6 +14,7 @@ section:after{@include clear;}
   padding:1em;
   img {max-width:15em;}
 }
+
 
 .dark-bg {background:$dark-gray; border-color:$dark-gray;}
 

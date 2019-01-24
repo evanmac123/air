@@ -281,7 +281,112 @@ Airbo.MarketingSite.Base = (function() {
     }
   }
 
+  function submitLogin(e, errors) {
+    var vals = getValues("session", ["email", "password", "remember_me"]);
+    if (e) {
+      e.preventDefault();
+    }
+      $.ajax({
+        headers: {
+          "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")
+        },
+        type: "POST",
+        url: "/session",
+        data: vals,
+        success: function(resp) {
+          if (resp.not_found) {
+           $(".error").show();
+          } else {
+            window.location = resp.path;
+          }
+        }
+      });
+  }
+
+  function submitAccountRequest(e, errors) {
+    var vals = getValues("account", ["name", "email", "phone_number", "company_name"]);
+    console.log(vals);
+    if (e) {
+      e.preventDefault();
+    }
+      $.ajax({
+        type: "POST",
+        url: "/api/v1/request_account",
+        data: vals,
+        success: function(resp) {
+          console.log(resp);
+          if (resp.status == "success") {
+            swal(
+              "Success",
+              resp.message,
+              "success"
+            );
+          } else {
+             swal(
+               "Uh-Oh...",
+               resp.message,
+               "warning"
+             );
+          }
+        },
+      });
+  }
+
+  function submitDemoRequest(e, errors) {
+    var vals = getValues("lead_contact", [
+      "name",
+      "email",
+      "phone",
+      "organization_name",
+      "organization_size",
+      "source"
+    ]);
+    if (allFieldsValid(vals["lead_contact"])) {
+      $.ajax({
+        type: "POST",
+        url: "/demo_requests/marketing",
+        data: vals,
+        success: function(resp) {
+          if (resp.duplicate) {
+            swal(
+              "An Airbo demo has already been requested",
+              "Someone from our team will reach out to you shortly.",
+              "success"
+            );
+          } else {
+            swal(
+              "Demo Request Sent",
+              "Someone from our team will reach out to you in the next 24 hours to schedule a time to chat.",
+              "success"
+            );
+          }
+        }
+      });
+    } else {
+      $(".error").show();;
+    }
+  }
+
+
+  function requestAccount(e) {
+    if (e) { e.preventDefault(); }
+    $("#login").toggle();
+    $("#request_account").toggle();
+  }
+
+  function uriTriggeredEvents() {
+    if (window.location.pathname === "/request_account") {
+      requestAccount();
+    } else if (locationParamsInclude("sign_in", "true")) {
+      triggerLoginModal();
+    }
+  }
+
   function init() {
+    $(document).on("click", "#set_or_reset_password", resetPassword);
+    $(document).on("click", ".u-hamburger", toggleHamburgerMenu);
+    $(document).on("click", ".request_account", requestAccount);
+
     Airbo.AiRouter.defineRoutes({
       root: { path: "/" },
       privacy: {
@@ -294,23 +399,20 @@ Airbo.MarketingSite.Base = (function() {
       }
     });
 
+    $(".login-submit").click(submitLogin);
+    $(".account-submit").click(submitAccountRequest);
+    $(".demo-submit").click(submitDemoRequest);
+
     $(".js-request-demo").click(triggerDemoRequestModal);
     $(".js-login").click(triggerLoginModal);
-    $(document).on("click", "#set_or_reset_password", resetPassword);
-    $(document).on("click", ".u-hamburger", toggleHamburgerMenu);
-    if (locationParamsInclude("sign_in", "true")) {
-      triggerLoginModal();
-    }
+    uriTriggeredEvents();
   }
-
   return {
     init: init
   };
 })();
 
 $(function() {
-  if (Airbo.Utils.nodePresent(".airbo-marketing-site")) {
     Airbo.MarketingSite.Base.init();
     window.Intercom('boot', { app_id: appId });
-  }
 });
