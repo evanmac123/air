@@ -31,13 +31,14 @@
   height: 10px;
 }
 
-.manage-campaign-card-container .campaign-card {
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+.manage-campaign-card-container {
+  padding: 14px;
+  box-shadow: 0 3px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 
   &:hover {
     cursor: default;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 10px 23px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
   }
 
   .circle-button {
@@ -47,6 +48,53 @@
     &:hover {
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 3px 3px rgba(0,0,0,0.24);
+    }
+  }
+
+  .fa.fa-plus {
+    transform: rotate(0deg);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+    &.rotate-close {
+      transform: rotate(135deg);
+      transition: transform 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+  }
+
+  .edit-campaign-form {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+
+    &.expand {
+      height: 235px;
+      transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+  }
+
+  .audience-list {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+
+    &.expand {
+      height: 210px;
+      overflow: scroll;
+      transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+  }
+
+  .campaign-card {
+    height: 65px;
+    transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+
+    &.expand {
+      height: 305px;
+      transition: height 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+    &:hover {
+      cursor: default;
     }
   }
 }

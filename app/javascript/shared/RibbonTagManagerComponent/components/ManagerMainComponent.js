@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import CampaignFormComponent from "./CampaignFormComponent";
+import RibbonTagFormComponent from "./RibbonTagFormComponent";
 
 const cardStyle = {
   margin: '10px 0',
@@ -67,19 +67,19 @@ const errorMessage = (props, campId) => props.errorMsg && props.errorId === camp
     </div>
   ) : '';
 
-const renderCampaignCards = props => (
-  props.campaigns.map(campaign => (
+const renderRibbonTagCards = props => (
+  props.ribbonTags.map(campaign => (
     React.createElement('div', {className: `campaign-card ${props.activeComponent === campaign.value ? 'expand' : ''}`, style: cardStyle, key: campaign.label},
       React.createElement('span', {style: {...colorStyle, backgroundColor: campaign.color}}),
       React.createElement('span', {style: textStyle}, campaign.label),
       errorMessage(props, campaign.value),
-      React.createElement('span', {className: 'circle-button', style: circleButtonStyle, onClick: () => { props.deleteCampaign(campaign.value); }},
+      React.createElement('span', {className: 'circle-button', style: circleButtonStyle, onClick: () => { props.deleteRibbonTag(campaign.value); }},
         React.createElement('i', {className: `fa fa-trash-o`, style: iconStyle})
       ),
-      React.createElement('span', {className: 'circle-button', style: circleButtonStyle, onClick: () => { props.editCampaign(campaign); }},
+      React.createElement('span', {className: 'circle-button', style: circleButtonStyle, onClick: () => { props.editRibbonTag(campaign); }},
         React.createElement('i', {className: `fa fa-pencil`, style: iconStyle})
       ),
-      React.createElement(CampaignFormComponent, {
+      React.createElement(RibbonTagFormComponent, {
         ...props,
         expanded: props.activeComponent === campaign.value,
       })
@@ -89,12 +89,12 @@ const renderCampaignCards = props => (
 
 const ManagerMainComponent = props => (
   <div className={`audience-list ${props.expanded ? 'expand' : ''}`}>
-    {renderCampaignCards(props)}
+    {renderRibbonTagCards(props)}
     </div>
 );
 
 ManagerMainComponent.propTypes = {
-  campaigns: PropTypes.arrayOf(PropTypes.shape({
+  ribbonTags: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
@@ -102,8 +102,8 @@ ManagerMainComponent.propTypes = {
     label: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
   })).isRequired,
-  deleteCampaign: PropTypes.func.isRequired,
-  editCampaign: PropTypes.func.isRequired,
+  deleteRibbonTag: PropTypes.func.isRequired,
+  editRibbonTag: PropTypes.func.isRequired,
   errorMsg: PropTypes.string,
   errorId: PropTypes.oneOfType([
     PropTypes.string,
