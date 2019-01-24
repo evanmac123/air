@@ -11,7 +11,7 @@ module Tile::ReactProcessing
     if (raw_statement == "year" || raw_statement == "month")
       "extract(#{raw_statement} from #{STATUS_DATE[status]})"
     else
-      "campaign_id"
+      "#{raw_statement}_id"
     end
   end
 
