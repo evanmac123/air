@@ -1,114 +1,130 @@
-#about, #careers{
-  .small-container{
+#about,
+#careers {
+  .small-container {
     max-width: 650px;
   }
 
-  h3{
+  h3 {
     text-align: center;
   }
 
-  .blue{
+  .blue {
     color: $n-blue;
     font-weight: 600;
   }
 
-  ul{
-    padding: .5em 0;
+  ul {
+    padding: 0.5em 0;
     margin-bottom: 20px;
     font-size: 18px;
     color: #77838f;
-    li{
-      padding: .8em 0;
+
+    li {
+      padding: 0.8em 0;
     }
   }
 
-  .header{
+  .header {
     min-height: 370px;
   }
 
-  .cloud-1, .cloud-2, .blue-balloon-2, .blue-balloon-1 {
+  .blue-balloon-1,
+  .blue-balloon-2,
+  .cloud-1,
+  .cloud-2 {
     animation-play-state: paused;
     left: 10%;
     z-index: -1;
   }
 
-  .cloud-3, .cloud-4,
-  .blue-balloon-3 {
+  .blue-balloon-3,
+  .cloud-3,
+  .cloud-4 {
     animation-play-state: paused;
     left: 85%;
     z-index: -1;
   }
 
-  .blue-teal-gradient{
-      padding: 110px 0 80px;
+  .blue-teal-gradient {
+    padding: 110px 0 80px;
   }
 
-
-  .blue-teal-gradient, .purple-teal-gradient{
+  .blue-teal-gradient,
+  .purple-teal-gradient {
     color: white;
     text-align: center;
-    .svg-wave-purple{
+
+    .svg-wave-purple {
       margin-top: -100px;
     }
 
-    .headline{
+    .headline {
       font-size: 2.1em;
     }
-    .subhead{
+
+    .subhead {
       font-size: 1.3em;
       margin-top: 30px;
       line-height: 1.6em;
-      a{
-        color:white;
+
+      a {
+        color: white;
       }
     }
-    p{
+
+    p {
       color: white;
     }
   }
 
- .info-section{
+  .info-section {
     margin: 2em auto 9em;
     font-size: 1.0em;
     line-height: 1.6em;
     position: relative;
   }
 
-.split-section .container{
-  padding: 2em auto 9em auto;
-  h3{
-    text-align: left;
-    margin-bottom: .5em;
-  }
-}
+  .split-section .container {
+    padding: 2em auto 9em;
 
-.leadership{
-  padding-bottom: 150px;
-  float: left;
-  width: 100%;
-    .leadership-title{
+    h3 {
+      text-align: left;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  .leadership {
+    padding-bottom: 150px;
+    float: left;
+    width: 100%;
+
+    .leadership-title {
       text-align: center;
       width: 100%;
       font-size: 1.4em;
     }
-    .leadership-team{
+
+    .leadership-team {
       max-width: 900px;
       margin: 0 auto;
     }
 
-    .leadership-team-member{
+    .leadership-team-member {
       padding: 0 70px;
-      text-align:center;
+      text-align: center;
       float: left;
-      .name{
+
+      .name {
         font-weight: 500;
         font-size: 1.2em;
         padding-bottom: 8px;
       }
-      .position{
+
+      .position {
         line-height: 1.2em;
       }
-      .profile-pic{
+
+      .profile-pic {
         border-radius: 50%;
         margin-bottom: 1em;
       }
@@ -116,142 +132,151 @@
   }
 }
 
-#careers{
-  .blue-teal-gradient{
-    .headline{
-      font-size: 3.1em
+#careers {
+  .blue-teal-gradient {
+    .headline {
+      font-size: 3.1em;
     }
-    .subhead{
+
+    .subhead {
       margin-top: 0;
-      text-align:center;
-      a{
+      text-align: center;
+
+      a {
         text-decoration: underline;
       }
     }
   }
 
-  h3{
+  h3 {
     color: $n-blue;
     text-align: left;
-    margin: 2em 0 .4em 0;
+    margin: 2em 0 0.4em;
   }
 
-  p{
-    margin-top: .4em;
+  p {
+    margin-top: 0.4em;
   }
 
-  .benefit-right{
+  .benefit-right {
     margin-top: 20px;
   }
 
-  .benefit-left{
+  .benefit-left {
     text-align: center;
   }
 
-  .purple-teal-gradient{
+  .purple-teal-gradient {
     text-align: left;
-    padding: 0em 0 9em;
-    h3{
+    padding: 0 0 9em;
+
+    h3 {
       color: white;
     }
   }
 
-  #avalible-positions{
+  #avalible-positions {
     min-height: 300px;
     margin-bottom: 4em;
-    h3, p{
+
+    h3,
+    p {
       text-align: center;
     }
   }
 
-  .job-position{
+  .job-position {
     border: 1px solid $light-gray;
     border-radius: 5px;
-    float:left;
+    float: left;
     padding: 1em;
     width: 100%;
     margin-bottom: 20px;
     background-color: white;
-    &:hover{
+
+    &:hover {
       color: $blue;
-      .title{
-        color:$blue;
-      }
-    }
-    .left-side{
-      float:left;
-      .title{
-        font-weight: 600;
-      }
-      .location{
+
+      .title {
         color: $blue;
       }
     }
-    .right-side{
-      float:right;
 
-      button{
+    .left-side {
+      float: left;
 
+      .title {
+        font-weight: 600;
       }
+
+      .location {
+        color: $blue;
+      }
+    }
+
+    .right-side {
+      float: right;
+
+      button {}
     }
   }
 }
-
 ///////////MEDIA QUERIES/////////////////
 //small laptop
-@media only screen and (max-width: 990px) {
-}
-
+@media only screen and (max-width: 990px) {}
 //tablet
 @media only screen and (max-width: 767px) {
-  .container{
+  .container {
     padding: 0 10%;
   }
-  .leadership-team-member{
+
+  .leadership-team-member {
     margin-top: 3em;
   }
 
-  .cta{
-    padding: 60px 0px 120px;
+  .cta {
+    padding: 60px 0 120px;
   }
-  #about .header{
+
+  #about .header {
     padding-top: 2em;
   }
-  #careers .split-section .container h3, p{
+
+  #careers .split-section .container h3,
+  p {
     text-align: center;
   }
 
-  #careers h3, #about h3{
+  #about h3,
+  #careers h3 {
     text-align: center;
   }
 
-  #careers .split-section .container h3{
+  #careers .split-section .container h3 {
     margin-top: 1em;
   }
 
-
-  .job-position{
-    .left-side, .right-side{
+  .job-position {
+    .left-side,
+    .right-side {
       float: left;
       width: 100%;
     }
 
-    .title, .location{
+    .location,
+    .title {
       width: 100%;
       float: left;
-      text-align:center;
+      text-align: center;
     }
-    button{
+
+    button {
       width: 70%;
       margin-left: 15%;
       float: left;
-      text-align:center;
+      text-align: center;
     }
   }
-
 }
-
 //phone
-@media only screen and (max-width: 600px) {
-
-}
+@media only screen and (max-width: 600px) {}
