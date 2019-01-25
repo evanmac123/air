@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
@@ -21,6 +22,8 @@ class ClientAdminTiles extends React.Component {
       appLoaded: false,
       campaigns: [],
       campaignLoading: false,
+      ribbonTags: [],
+      ribbonTagsLoading: false,
     };
     this.setTileStatuses = this.setTileStatuses.bind(this);
     this.selectStatus = this.selectStatus.bind(this);
@@ -28,11 +31,12 @@ class ClientAdminTiles extends React.Component {
     this.tileContainerClick = this.tileContainerClick.bind(this);
     this.handleMenuAction = this.handleMenuAction.bind(this);
     this.triggerModal = this.triggerModal.bind(this);
+    this.unmountModal = this.unmountModal.bind(this);
     this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
-    this.populateCampaigns = this.populateCampaigns.bind(this);
-    this.openCampaignManager = this.openCampaignManager.bind(this);
-    this.syncCampaignState = this.syncCampaignState.bind(this);
+    this.populateBoardSettings = this.populateBoardSettings.bind(this);
+    this.openBoardSettings = this.openBoardSettings.bind(this);
+    this.syncSettingsState = this.syncSettingsState.bind(this);
     this.moveTile = this.moveTile.bind(this);
     this.sortTile = this.sortTile.bind(this);
     this.tileBuilderPatch = this.tileBuilderPatch.bind(this);
@@ -62,39 +66,53 @@ class ClientAdminTiles extends React.Component {
     window.removeEventListener("popstate", this.selectStatus);
   }
 
-  populateCampaigns(openAlert) {
+  syncSettingsState(newSettingsState) {
+    const campaigns = [constants.UNASSIGNED_CAMPAIGN].concat(newSettingsState.campaigns);
+    const ribbonTags = [constants.UNASSIGNED_RIBBON_TAG].concat(newSettingsState.ribbonTags);
+    this.setState({ campaigns, ribbonTags });
+  }
+
+  openBoardSettings() {
+    if (this.state.campaigns.length && this.state.ribbonTags.length) {
+      const campaigns = this.props.ctrl.audiencesEnabled ? this.state.campaigns : null;
+      const { ribbonTags } = this.state;
+      this.setState({ alert: helpers.boardSettingsManager(campaigns, ribbonTags, this.unmountModal, this.syncSettingsState) });
+    } else {
+      this.populateBoardSettings(true);
+    }
+  }
+
+  unmountModal() {
+    this.setState({alert: null});
+  }
+
+  populateBoardSettings(openAlert) {
     if (this.state.campaigns.length) { return; } // eslint-disable-line
-    this.setState({ campaignLoading: true });
+    this.setState({ campaignLoading: true, ribbonTagsLoading: true });
     Fetcher.xmlHttpRequest({
-      path: '/api/client_admin/campaigns',
+      path: '/api/v1/board_settings',
       method: 'GET',
       success: resp => {
-        const campaigns = resp.reduce((result, camp) => result.concat([helpers.sanitizeCampaignResponse(camp.campaign)]),
-          [constants.UNASSIGNED_CAMPAIGN]);
+        const campaigns = this.props.ctrl.audiencesEnabled ? resp.campaigns.reduce((result, camp) => result.concat([helpers.sanitizeCampaignResponse(camp.campaign)]),
+          [constants.UNASSIGNED_CAMPAIGN]) : null;
+        const ribbonTags = resp.ribbonTags.reduce((result, tag) => result.concat([helpers.sanitizeCampaignResponse(tag.ribbon_tag)]),
+          [constants.UNASSIGNED_RIBBON_TAG]);
+        const newState = {
+          campaignLoading: false,
+          ribbonTagsLoading: false,
+          campaigns,
+          ribbonTags,
+        };
         if (openAlert) {
           this.setState({
-            campaignLoading: false,
-            campaigns,
-            alert: helpers.campaignManager(campaigns, this.syncCampaignState),
+            ...newState,
+            alert: helpers.boardSettingsManager(campaigns, ribbonTags, this.unmountModal, this.syncSettingsState),
           });
         } else {
-          this.setState({ campaignLoading: false, campaigns });
+          this.setState({ ...newState });
         }
       },
     });
-  }
-
-  syncCampaignState(newCampaignState) {
-    const campaigns = [constants.UNASSIGNED_CAMPAIGN].concat(newCampaignState);
-    this.setState({alert: null, campaigns});
-  }
-
-  openCampaignManager() {
-    if (this.state.campaigns.length) {
-      this.setState({ alert: helpers.campaignManager(this.state.campaigns, this.syncCampaignState) });
-    } else {
-      this.populateCampaigns(true);
-    }
   }
 
   getAdditionalTiles(loadingState, statusFilter) {
@@ -252,6 +270,7 @@ class ClientAdminTiles extends React.Component {
           statuses={this.state.tileStatusNav}
           activeStatus={this.state.activeStatus}
           selectStatus={this.selectStatus}
+          openBoardSettings={this.openBoardSettings}
         />
         {
           (this.state.activeStatus !== 'user_submitted' && this.state.activeStatus !== 'draft') &&
@@ -261,9 +280,11 @@ class ClientAdminTiles extends React.Component {
             tileStatusNav={this.state.tileStatusNav}
             handleFilterChange={this.handleFilterChange}
             campaigns={this.state.campaigns}
-            populateCampaigns={this.populateCampaigns}
+            ribbonTags={this.state.ribbonTags}
+            populateBoardSettings={this.populateBoardSettings}
             campaignLoading={this.state.campaignLoading}
-            openCampaignManager={this.openCampaignManager}
+            ribbonTagsLoading={this.state.ribbonTagsLoading}
+            audiencesEnabled={this.props.ctrl.audiencesEnabled}
           />
         }
         {
@@ -284,5 +305,11 @@ class ClientAdminTiles extends React.Component {
     );
   }
 }
+
+ClientAdminTiles.propTypes = {
+  ctrl: PropTypes.shape({
+    audiencesEnabled: PropTypes.bool,
+  }),
+};
 
 export default DragDropContext(HTML5Backend)(ClientAdminTiles);

@@ -105,6 +105,8 @@ class DraggableTile extends React.Component {
       tileThumblinkOnClick,
       tileStats,
       ignored,
+      ribbonTagColor,
+      ribbonTagName,
     } = this.props;
 
 		return (
@@ -131,6 +133,8 @@ class DraggableTile extends React.Component {
               draggable={true}
               tileStats={tileStats}
               ignored={ignored}
+              ribbonTagColor={ribbonTagColor}
+              ribbonTagName={ribbonTagName}
             />
           </div>
         )
@@ -160,6 +164,8 @@ DraggableTile.propTypes = {
   ignored: PropTypes.bool,
   tileThumblinkOnClick: PropTypes.func,
   tileStats: PropTypes.arrayOf(PropTypes.element),
+  ribbonTagName: PropTypes.string,
+  ribbonTagColor: PropTypes.string,
 };
 
 export default flow(

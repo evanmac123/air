@@ -1,0 +1,97 @@
+<div id="about">
+  <!-- Hero Section -->
+  <div class="position-relative blue-teal-gradient header">
+    <div class="u-bg-img-hero">
+      <div class="container small-container">
+        <h1 class="headline">
+          What if employees loved HR communications?
+        </h1>
+        <h3 class="subhead">
+          Programs and benefits would reach their full potential. Employees would live happier and healthier lives.
+        </h3>
+      </div>
+    </div>
+
+    <%= render partial: "pages/front_theme/svg/white" %>
+  </div>
+  <!-- End Hero Section -->
+
+  <div class="container small-container">
+    <div class="info-section">
+      <p>
+        Airbo was founded by Vlad Gyster in 2011 based on a simple idea: HR communications should feel like the technology employees love in their personal lives.
+      </p>
+      <p>
+        For over eight years, Airbo has been at the forefront of adapting concepts from Silicon Valley to drive engagement in benefits, wellness, and other HR programs. Our platform takes concepts from gamification, mobile, and social media and
+        adapts them to the realities of complex benefit messaging and hard-to-reach populations for employees of all generations.
+        <p>
+          Today, we work with companies from 50 to 75,000 employees, spanning a wide range of industries. We’re proud to work with some of the world’s best brands like Fujifilm.
+          At Airbo, we believe that programs & benefits can only reach their full potential when employees pay attention, learn, and take action. To drive progress, we use simplicity, analytics, and honesty.
+        </p>
+        <ul>
+          <li>
+            <span class="blue">Simplicity: </span> Our technology is as easy to use as a newsletter.
+          </li>
+          <li>
+            <span class="blue">Analytics: </span> We use data to understand how to use communications to drive behavior.
+          </li>
+          <li>
+            <span class="blue"> Honesty: </span> We're transparent about what works and what doesn't.
+          </li>
+        </ul>
+        <p> Airbo is based in Venice, Los Angeles, California.
+        </p>
+    </div>
+  </div>
+
+  <div class="position-relative purple-teal-gradient leadership">
+    <%= render partial: "pages/front_theme/svg/purple" %>
+    <h3 class="leadership-title"> Our Leadership </h3>
+    <div class="leadership-team">
+      <div class="leadership-team-member col-sm-12 col-md-4">
+        <%= image_tag 'marketing_site/team/vlad.jpg', class: "profile-pic" %>
+        <div class="name">
+          Vlad Gyster
+        </div>
+        <div class="position">
+          Founder & CEO
+        </div>
+      </div>
+      <div class="leadership-team-member col-sm-12 col-md-4"">
+        <%= image_tag 'marketing_site/team/kate.jpg', class: " profile-pic" %>
+        <div class="name">
+          Kate Bernier
+        </div>
+        <div class="position">
+          Director of Customer Success
+        </div>
+      </div>
+      <div class="leadership-team-member col-sm-12 col-md-4"">
+        <%= image_tag 'marketing_site/team/ryan.jpg', class: " profile-pic" %>
+        <div class="name">
+          Ryan Workman
+        </div>
+        <div class="position">
+          Lead Engineer
+        </div>
+      </div>
+    </div>
+    <%= render partial: "pages/front_theme/svg/white" %>
+  </div>
+
+  <div class="cta">
+
+    <div class="container u-space-3-top u-space-3-bottom" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
+      <h2>
+        Interested in Joining Us?
+      </h2>
+      <div class="opportunities">
+        <a class="btn btn-sm btn-primary" href="/careers">
+          Careers with Airbo
+        </a>
+      </div>
+    </div>
+    <%= render partial: "pages/front_theme/svg/balloons" %>
+  </div>
+  <%= render partial: "pages/drawer" %>
+</div>

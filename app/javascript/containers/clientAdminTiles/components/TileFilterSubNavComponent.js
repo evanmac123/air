@@ -26,17 +26,6 @@ const renderSortOptions = () => ([
   {label: 'Sort by Date', className: 'sortType-option', value: 'date-sort'},
 ]);
 
-const editCampaignsStyle = {
-  backgroundColor: 'transparent',
-  borderColor: 'hsl(0,0%,80%)',
-  borderRadius: '4px',
-  borderStyle: 'solid',
-  borderWidth: '1px',
-  textAlign: 'center',
-  height: '38px',
-  paddingTop: '10px',
-};
-
 const TileFilterSubNavComponent = props => (
   props.appLoaded &&
   <div className="tabs-component-full-width-sub-nav js-tiles-index-filter-bar">
@@ -71,25 +60,34 @@ const TileFilterSubNavComponent = props => (
 
         <li className="sub-nav-option" style={{width: '18%'}}>
           <Select
-            onMenuOpen={props.populateCampaigns}
-            isLoading={props.campaignLoading}
-            onChange={(val, act) => { props.handleFilterChange(val, act, 'campaign'); }}
-            className="react-select campaign-filter"
-            placeholder="All Campaigns"
-            value={props.tileStatusNav[props.activeStatus].filter.campaign}
+            onMenuOpen={props.populateBoardSettings}
+            isLoading={props.ribbonTagsLoading}
+            onChange={(val, act) => { props.handleFilterChange(val, act, 'ribbonTag'); }}
+            className="react-select ribbon-tag-filter"
+            placeholder="All Tags"
+            value={props.tileStatusNav[props.activeStatus].filter.ribbonTag}
             isClearable={true}
-            options={props.campaigns}
+            options={props.ribbonTags}
             isSearchable={true}
           />
         </li>
 
-        <li className="sub-nav-option" style={{width: '18%'}}>
-          <span
-            className="button edit-campaigns"
-            style={editCampaignsStyle}
-            onClick={props.openCampaignManager}
-          >Manage Campaigns</span>
-        </li>
+        {
+          props.audiencesEnabled &&
+          <li className="sub-nav-option" style={{width: '18%'}}>
+            <Select
+              onMenuOpen={props.populateBoardSettings}
+              isLoading={props.campaignLoading}
+              onChange={(val, act) => { props.handleFilterChange(val, act, 'campaign'); }}
+              className="react-select campaign-filter"
+              placeholder="All Audiences"
+              value={props.tileStatusNav[props.activeStatus].filter.campaign}
+              isClearable={true}
+              options={props.campaigns}
+              isSearchable={true}
+            />
+          </li>
+        }
 
         <li className="sub-nav-option end" style={{width: '20%'}}>
           <Select
@@ -108,6 +106,7 @@ const TileFilterSubNavComponent = props => (
 
 TileFilterSubNavComponent.propTypes = {
   activeStatus: PropTypes.string.isRequired,
+  audiencesEnabled: PropTypes.bool,
 };
 
 export default TileFilterSubNavComponent;

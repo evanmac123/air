@@ -77,4 +77,16 @@ class TilesDigestPresenter
   def body_for_text_message(tile_id)
     "#{demo.name}: #{subject} #{general_site_url(tile_id: tile_id, options: { from_sms: true })}"
   end
+
+  def ribbon_tag_font_color(color)
+    hex = if color.length == 7
+      color[1..-1]
+    else
+      color[1] + color[1] + color[2] + color[2] + color[3] + color[3]
+    end
+    red = Integer(hex[0..1], 16)
+    green = Integer(hex[2..3], 16)
+    blue = Integer(hex[4..5], 16)
+    (red * 0.299 + green * 0.587 + blue * 0.114) > 186 ? "#000000" : "#FFFFFF"
+  end
 end

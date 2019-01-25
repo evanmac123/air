@@ -3,10 +3,12 @@
 */
 @import "./front_theme_styles.scss";
 @import "font-awesome";
+@import "./styles-v2/app.scss";
 @import "./mixins/main_styles.css.scss";
 @import "./external/public_nav_bar.scss";
 @import "./internal/flash.css.scss";
 @import "./marketing-site/main.scss";
+
 
 @mixin button-outlined-intro{
   @include button-outlined-color($n-white);

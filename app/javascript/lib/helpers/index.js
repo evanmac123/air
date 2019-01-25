@@ -5,6 +5,7 @@ import LocalStorer from "./LocalStorer";
 import InfiniScroller from "./InfiniScroller";
 import DateMaker from "./DateMaker";
 import htmlSanitizer from "./htmlSanitizer";
+import SanitizeVarForRuby from "./SanitizeVarForRuby";
 
 const Pluck = (array, key) => array.map(result => result[key]);
 
@@ -17,6 +18,7 @@ const Helper = {
   InfiniScroller,
   DateMaker,
   htmlSanitizer,
+  SanitizeVarForRuby,
 };
 
 export default Helper;
@@ -30,4 +32,5 @@ export {
   InfiniScroller,
   DateMaker,
   htmlSanitizer,
+  SanitizeVarForRuby,
 };

@@ -3,6 +3,7 @@
 *= require medium-editor/dist/css/themes/default
 */
 /* For all */
+@import "./styles-v2/app.scss";
 @import "./mixins/main_styles.css.scss";
 @import "./mixins/placeholder_color.css.scss";
 @import "./internal/flash.css.scss";

@@ -1,0 +1,29 @@
+<div id="request_account" class="form-container">
+  <div class="swal-title" style="">Request New Account</div>
+  <div class="swal-content">
+    <div class="swal-description">
+      You will need an to create an Account. If you have one already please
+      <a class="request_account">Sign In
+          </a>
+    </div>
+    <p class="error" style="color: red;">Sorry, that's an invalid username or password.</p>
+
+    <div class="swal-inputs">
+      <label> Full name </label>
+      <input type="text" name="account[name]" id="account_name"></input>
+      <label> Email </label>
+      <input type="text" name="account[email]" id="account_email" ></input>
+      <label> Phone Number </label>
+      <input type="text" name="account[phone_number]"id="account_phone_number" ></input>
+      <label> Company Name </label>
+      <input type="text" name="account[company_name]" id="account_company_name"></input>
+    </div>
+  </div>
+  <div class="swal-footer">
+    <div class="swal-button-container">
+      <button class="swal-button swal-button--submit account-submit">Request Account</button>
+      <div class="swal-button__loader">
+      </div>
+    </div>
+  </div>
+</div>

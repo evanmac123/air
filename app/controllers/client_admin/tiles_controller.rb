@@ -6,7 +6,10 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   include ClientAdmin::TilesPingsHelper
 
   def index
-    @tiles_facade = ClientAdminTilesFacade.new(demo: current_user.demo)
+    @tiles_facade = true
+    @ctrl_data = {
+      "audiencesEnabled" => current_user.demo.population_segments.first.present?
+    }.to_json
 
     if !params[:partial_only]
       render template: "react_spa/show"
@@ -83,11 +86,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   private
 
     def tile_params
-      # TODO: Find better way to manage nil options in radio button for Tile.campaign_id
-      if params[:tile][:campaign_id].to_i == 0
-        params[:tile][:campaign_id] = nil
-      end
-
+      # TODO: Find better way to manage nil options in radio button for Tile.campaign_id && Tile.ribbon_tag_id
+      params[:tile][:campaign_id] = nil if params[:tile][:campaign_id].to_i == 0
+      params[:tile][:ribbon_tag_id] = nil if params[:tile][:ribbon_tag_id].to_i == 0
       if params[:tile][:plan_date].present?
         params[:tile][:plan_date] = Date.parse(params[:tile][:plan_date])
       end

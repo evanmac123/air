@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import CampaignFormComponent from "./CampaignFormComponent";
+
 const cardStyle = {
-  height: '65px',
-  marginBottom: '15px',
+  margin: '10px 0',
   padding: '10px',
+  border: '1px solid #d8d8d8',
 };
 
 const textStyle = {
@@ -35,60 +37,59 @@ const colorStyle = {
   float: 'left',
 };
 
+const errorMessage = (props, campId) => props.errorMsg && props.errorId === campId ?
+  (
+    <div
+    style={{
+      overflow: 'hidden',
+      maxHeight: '100px',
+      color: 'rgb(121, 121, 121)',
+      fontSize: '16px',
+      textAlign: 'center',
+      fontWeight: '300',
+      display: 'inline',
+    }}
+    >
+      <div
+        style={{
+          display: 'inline-block',
+          width: '24px',
+          height: '24px',
+          borderRadius: '50%',
+          backgroundColor: 'rgb(234, 125, 125)',
+          color: 'white',
+          lineHeight: '24px',
+          textAlign: 'center',
+          marginRight: '5px',
+        }}
+      >!</div>
+      {props.errorMsg}
+    </div>
+  ) : '';
+
 const renderCampaignCards = props => (
   props.campaigns.map(campaign => (
-    React.createElement('div', {className: 'campaign-card', style: cardStyle, key: campaign.label},
+    React.createElement('div', {className: `campaign-card ${props.activeComponent === campaign.value ? 'expand' : ''}`, style: cardStyle, key: campaign.label},
       React.createElement('span', {style: {...colorStyle, backgroundColor: campaign.color}}),
       React.createElement('span', {style: textStyle}, campaign.label),
+      errorMessage(props, campaign.value),
       React.createElement('span', {className: 'circle-button', style: circleButtonStyle, onClick: () => { props.deleteCampaign(campaign.value); }},
         React.createElement('i', {className: `fa fa-trash-o`, style: iconStyle})
       ),
       React.createElement('span', {className: 'circle-button', style: circleButtonStyle, onClick: () => { props.editCampaign(campaign); }},
         React.createElement('i', {className: `fa fa-pencil`, style: iconStyle})
       ),
+      React.createElement(CampaignFormComponent, {
+        ...props,
+        expanded: props.activeComponent === campaign.value,
+      })
     )
   ))
 );
 
 const ManagerMainComponent = props => (
-  <div>
-    <div className="manage-campaign-card-container" style={{maxHeight: '340px', overflow: 'scroll'}}>
-      {renderCampaignCards(props)}
-    </div>
-    {props.errorMsg &&
-      <div
-      style={{
-        display: 'block',
-        backgroundColor: 'rgb(241, 241, 241)',
-        marginLeft: '-17px',
-        marginRight: '-17px',
-        marginTop: '20px',
-        overflow: 'hidden',
-        padding: '10px',
-        maxHeight: '100px',
-        transition: 'padding 0.25s ease 0s, max-height 0.25s ease 0s',
-        color: 'rgb(121, 121, 121)',
-        fontSize: '16px',
-        textAlign: 'center',
-        fontWeight: '300',
-      }}
-      >
-        <div
-          style={{
-            display: 'inline-block',
-            width: '24px',
-            height: '24px',
-            borderRadius: '50%',
-            backgroundColor: 'rgb(234, 125, 125)',
-            color: 'white',
-            lineHeight: '24px',
-            textAlign: 'center',
-            marginRight: '5px',
-          }}
-        >!</div>
-        {props.errorMsg}
-      </div>
-    }
+  <div className={`audience-list ${props.expanded ? 'expand' : ''}`}>
+    {renderCampaignCards(props)}
     </div>
 );
 
@@ -104,6 +105,11 @@ ManagerMainComponent.propTypes = {
   deleteCampaign: PropTypes.func.isRequired,
   editCampaign: PropTypes.func.isRequired,
   errorMsg: PropTypes.string,
+  errorId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  expanded: PropTypes.bool,
 };
 
 export default ManagerMainComponent;

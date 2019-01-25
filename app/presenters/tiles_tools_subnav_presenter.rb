@@ -108,7 +108,7 @@ class TilesToolsSubnavPresenter
               item_id: "settings",
               link: client_admin_board_settings_path,
               icon: "cog",
-              text: "Settings",
+              text: "Setup",
               has_notification: false
             },
             {

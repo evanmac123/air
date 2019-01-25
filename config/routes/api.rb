@@ -35,12 +35,15 @@ namespace :api, defaults: { format: :json } do
   end
 
   namespace :v1 do
+    resources :request_account, only: [:create]
     resources :initialize, only: [:index]
     resources :email_info_requests, only: [:create]
     resources :cheers, only: [:create]
     resources :campaigns, only: [:index, :show]
     resources :tiles, only: [:show]
     post 'tiles/:id/mark_as_viewed', to: 'tiles#ping_tile_view'
+    resources :ribbon_tags, only: [:index, :create, :update, :destroy]
+    resources :board_settings, only: [:index]
   end
 
   namespace :sms_service do

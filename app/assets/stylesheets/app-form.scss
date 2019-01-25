@@ -1,0 +1,322 @@
+@import "./front_theme_styles.scss";
+@import "font-awesome";
+@import "./styles-v2/app.scss";
+@import "./mixins/main_styles.css.scss";
+@import "./marketing-site/main.scss";
+
+#account {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+
+  #request_account {
+    display: none;
+  }
+}
+
+#demo {
+  h3 {
+    margin-bottom: 0.5em;
+  }
+
+  .demo-back {
+    position: absolute;
+    top: 0;
+    height: 535px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: -2;
+  }
+
+  .demo-wave {
+    position: absolute;
+    top: 400px;
+    width: 100%;
+    z-index: -1;
+  }
+
+  .demo-headline {
+    font-size: 3em;
+    font-weight: 500;
+    color: white;
+    line-height: 1.4em;
+    margin: 40px 0 12px;
+  }
+
+  .demo-subhead {
+    font-size: 1.3em;
+    color: white;
+    line-height: 1.5em;
+  }
+
+  .demo-content {
+    color: $blue;
+    margin-top: 160px;
+
+    p {
+      font-size: 1em;
+      color: $blue;
+    }
+
+    ul {
+      list-style-type: disc;
+      margin-left: 18px;
+
+      li {
+        line-height: 36px;
+      }
+    }
+  }
+
+  .form-container {
+    padding: 30px;
+    text-align: left;
+    color: $blue;
+
+    .swal-title {
+      text-align: left;
+      font-weight: bold;
+      padding: 0 10px;
+      color: $blue;
+    }
+
+    .swal-text {
+      margin: 1em 0;
+      line-height: 1.8em;
+      color: $blue;
+    }
+
+    .swal-content {
+      padding: 0 10px;
+      color: $blue;
+    }
+
+    .terms {
+      margin: 0;
+    }
+
+    .swal-footer {
+      text-align: left;
+      padding: 0;
+    }
+  }
+
+  .logos {
+    margin-top: 2em;
+    color: $gray;
+    float: left;
+    width: 100%;
+
+    .logo-label {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    .logo-bar {
+      width: 100%;
+      margin-top: 1em;
+
+      img {
+        float: left;
+        width: 120px;
+      }
+    }
+  }
+
+  .copyright {
+    float: left;
+    position: relative;
+    width: 100%;
+    margin: 1em 0;
+  }
+}
+
+.logo-header {
+  width: 100%;
+  text-align: center;
+}
+
+.form-logo {
+  width: 100px;
+  margin-top: 3em;
+}
+
+.form-container {
+  z-index: 20;
+  color: $blue;
+
+  a {
+    font-weight: bold;
+  }
+
+  .swal-title {
+    margin: 0;
+    color: $blue;
+  }
+
+  .swal-content {
+    margin: 0;
+    font-size: 14px;
+
+    input,
+    label {
+      color: $blue;
+    }
+
+    .swal-description {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 1em;
+      line-height: 1.4em;
+      color: $blue;
+    }
+
+    .password {
+      float: left;
+      width: 30%;
+    }
+
+    #set_or_reset_password {
+      float: right;
+      width: 70%;
+      text-align: right;
+    }
+
+    .wrap {
+      float: left;
+    }
+  }
+
+  .swal-button {
+    padding: 10px 50px;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #15adff;
+
+    &:hover {
+      background-color: #7cd1f9;
+    }
+  }
+}
+
+.form-container {
+  padding: 30px 40px;
+  background-color: white;
+  width: 500px;
+  margin: auto;
+  position: relative;
+  margin: 25px auto;
+  -webkit-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.15);
+  -moz-box-shadow: 0 2px 4px 1px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 4px 1px rgba(0,0,0,0.15);
+
+  .error {
+    display: none;
+    font-size: 16px;
+    text-align: center;
+    margin: 0.5em;
+  }
+}
+
+figure svg {
+  height: 140px;
+}
+
+#demo-sheet {
+  display: block;
+
+  .demo-left {
+    float: left;
+    width: 46%;
+    margin-right: 8%;
+  }
+
+  .demo-right {
+    float: left;
+    width: 46%;
+  }
+
+  .form-container {
+    text-align: left;
+  }
+}
+
+.copyright {
+  margin: 0;
+
+  img {
+    display: none;
+  }
+}
+@media only screen and (max-width: 990px) {
+  body .blue-teal-gradient {
+    padding: 0;
+  }
+
+  #demo {
+    .demo-back {
+      height: 480px;
+    }
+
+    .demo-left,
+    .demo-right {
+      width: 100%;
+      float: left;
+      margin: 0;
+    }
+
+    .demo-headline {
+      font-size: 2.4em;
+      text-align: center;
+    }
+
+    .demo-subhead {
+      text-align: center;
+    }
+
+    .demo-wave {
+      top: 355px;
+    }
+
+    .demo-content {
+      display: none;
+    }
+
+    .form-container {
+      margin-top: 2em;
+    }
+  }
+}
+
+.footer {
+  float: left;
+  width: 100%;
+}
+@media only screen and (max-width: 767px) {
+  #form {
+    padding: 0;
+
+    .form-container {
+      width: 95%;
+      padding: 10px;
+    }
+  }
+
+  #demo {
+    .form-container {
+      margin-top: 4em;
+    }
+
+    .logo-bar img {
+      width: 45%;
+      margin-right: 2%;
+    }
+  }
+}
+@media only screen and (max-width: 600px) {}
