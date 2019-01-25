@@ -31,6 +31,7 @@ class ClientAdminTiles extends React.Component {
     this.tileContainerClick = this.tileContainerClick.bind(this);
     this.handleMenuAction = this.handleMenuAction.bind(this);
     this.triggerModal = this.triggerModal.bind(this);
+    this.unmountModal = this.unmountModal.bind(this);
     this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.populateBoardSettings = this.populateBoardSettings.bind(this);
@@ -65,6 +66,26 @@ class ClientAdminTiles extends React.Component {
     window.removeEventListener("popstate", this.selectStatus);
   }
 
+  syncSettingsState(newSettingsState) {
+    const campaigns = [constants.UNASSIGNED_CAMPAIGN].concat(newSettingsState.campaigns);
+    const ribbonTags = [constants.UNASSIGNED_RIBBON_TAG].concat(newSettingsState.ribbonTags);
+    this.setState({ campaigns, ribbonTags });
+  }
+
+  openBoardSettings() {
+    if (this.state.campaigns.length && this.state.ribbonTags.length) {
+      const campaigns = this.props.ctrl.audiencesEnabled ? this.state.campaigns : null;
+      const { ribbonTags } = this.state;
+      this.setState({ alert: helpers.boardSettingsManager(campaigns, ribbonTags, this.unmountModal, this.syncSettingsState) });
+    } else {
+      this.populateBoardSettings(true);
+    }
+  }
+
+  unmountModal() {
+    this.setState({alert: null});
+  }
+
   populateBoardSettings(openAlert) {
     if (this.state.campaigns.length) { return; } // eslint-disable-line
     this.setState({ campaignLoading: true, ribbonTagsLoading: true });
@@ -85,28 +106,13 @@ class ClientAdminTiles extends React.Component {
         if (openAlert) {
           this.setState({
             ...newState,
-            alert: helpers.boardSettingsManager(campaigns, ribbonTags, this.syncSettingsState),
+            alert: helpers.boardSettingsManager(campaigns, ribbonTags, this.unmountModal, this.syncSettingsState),
           });
         } else {
           this.setState({ ...newState });
         }
       },
     });
-  }
-
-  syncSettingsState(newCampaignState) {
-    const campaigns = [constants.UNASSIGNED_CAMPAIGN].concat(newCampaignState);
-    this.setState({alert: null, campaigns});
-  }
-
-  openBoardSettings() {
-    if (this.state.campaigns.length && this.state.ribbonTags.length) {
-      const campaigns = this.props.ctrl.audiencesEnabled ? this.state.campaigns : null;
-      const { ribbonTags } = this.state;
-      this.setState({ alert: helpers.boardSettingsManager(campaigns, ribbonTags, this.syncSettingsState) });
-    } else {
-      this.populateBoardSettings(true);
-    }
   }
 
   getAdditionalTiles(loadingState, statusFilter) {

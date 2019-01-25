@@ -6,8 +6,8 @@ import CampaignManagerComponent from "../../../shared/CampaignManagerComponent";
 import RibbonTagManagerComponent from "../../../shared/RibbonTagManagerComponent";
 import { SanitizeVarForRuby } from "../../../lib/helpers";
 
-const populateProps = (campaigns, ribbonTags, onClose) => {
-  const props = { onClose };
+const populateProps = (campaigns, ribbonTags, unmountModal, onClose) => {
+  const props = { onClose, unmountModal };
   props.settingsComponents = campaigns ? { CampaignManagerComponent, RibbonTagManagerComponent } : { RibbonTagManagerComponent };
   props.settingsData = campaigns ? { CampaignManagerComponent: { campaigns }, RibbonTagManagerComponent: { ribbonTags }} : { RibbonTagManagerComponent: { ribbonTags } };
   return props;
@@ -43,8 +43,8 @@ export default {
     {label: tag.name, className: 'ribbon-tag-option', value: tag.id, color: tag.color}
   ),
   swalModal: args => React.createElement(SweetAlert, args, args.text), // eslint-disable-line
-  boardSettingsManager: (campaigns, ribbonTags, onClose) => React.createElement(
+  boardSettingsManager: (campaigns, ribbonTags, unmountModal, onClose) => React.createElement(
     BoardSettingsComponent,
-    populateProps(campaigns, ribbonTags, onClose),
+    populateProps(campaigns, ribbonTags, unmountModal, onClose),
   ),
 };

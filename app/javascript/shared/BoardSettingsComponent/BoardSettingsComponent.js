@@ -12,15 +12,28 @@ class BoardSettingsComponent extends React.Component {
       settingsComponentsKeys: [],
       activeSettingComponent: '',
     };
+    this.syncSettingsState = this.syncSettingsState.bind(this);
     this.allSettingsComponents = [];
   }
 
   componentDidMount() {
     this.renderAllSettingsComponents();
+    this.settingsData = Object.keys(this.props.settingsData).reduce((result, key) => (
+      {...result, ...this.props.settingsData[key]}
+    ), {});
   }
 
   componentDidUpdate() {
     if (this.state.loading) {this.setState({loading: false});}
+  }
+
+  componentWillUnmount() {
+    this.props.onClose(this.settingsData);
+  }
+
+  syncSettingsState(data) {
+    const oldData = {...this.settingsData};
+    this.settingsData = {...oldData, ...data};
   }
 
   renderAllSettingsComponents() {
@@ -29,7 +42,7 @@ class BoardSettingsComponent extends React.Component {
       React.createElement(this.props.settingsComponents[comp], {
         ...this.props.settingsData[comp],
         key,
-        onClose: this.props.onClose,
+        onUpdate: this.syncSettingsState,
       })
     ));
     this.setState({ settingsComponentsKeys });
@@ -41,8 +54,8 @@ class BoardSettingsComponent extends React.Component {
         title: "Board Settings",
         customClass: "airbo",
         showConfirm: false,
-        onConfirm: () => { this.props.onClose({});} ,
-        onCancel: () => { this.props.onClose({});} ,
+        onConfirm: this.props.unmountModal,
+        onCancel: this.props.unmountModal,
         style: {
           display: 'inherit',
           width: '56vw',
@@ -63,6 +76,7 @@ BoardSettingsComponent.propTypes = {
   settingsComponents: PropTypes.object,
   settingsData: PropTypes.object,
   onClose: PropTypes.func.isRequired,
+  unmountModal: PropTypes.func.isRequired,
 };
 
 export default BoardSettingsComponent;
