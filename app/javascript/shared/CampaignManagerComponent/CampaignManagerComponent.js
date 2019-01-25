@@ -62,8 +62,9 @@ class CampaignManagerComponent extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-    this.props.onClose(this.state.campaigns);
+  componentDidUpdate() {
+    const {campaigns} = this.state;
+    this.props.onUpdate({ campaigns });
   }
 
   resetForm() {
@@ -260,7 +261,7 @@ class CampaignManagerComponent extends React.Component {
 
 CampaignManagerComponent.propTypes = {
   campaigns: PropTypes.array,
-  onClose: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
 
 export default CampaignManagerComponent;

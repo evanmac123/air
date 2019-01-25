@@ -53,8 +53,9 @@ class RibbonTagManagerComponent extends React.Component {
     this.setState({ loading: false, ribbonTags });
   }
 
-  componentWillUnmount() {
-    this.props.onClose(this.state.ribbonTags);
+  componentDidUpdate() {
+    const {ribbonTags} = this.state;
+    this.props.onUpdate({ ribbonTags });
   }
 
   resetForm() {
@@ -238,7 +239,7 @@ class RibbonTagManagerComponent extends React.Component {
 
 RibbonTagManagerComponent.propTypes = {
   ribbonTags: PropTypes.array,
-  onClose: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
 
 export default RibbonTagManagerComponent;
