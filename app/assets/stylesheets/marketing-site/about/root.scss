@@ -7,6 +7,21 @@
     text-align: center;
   }
 
+  .blue{
+    color: $n-blue;
+    font-weight: 600;
+  }
+
+  ul{
+    padding: .5em 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #77838f;
+    li{
+      padding: .8em 0;
+    }
+  }
+
   .header{
     min-height: 370px;
   }
@@ -91,7 +106,7 @@
         padding-bottom: 8px;
       }
       .position{
-
+        line-height: 1.2em;
       }
       .profile-pic{
         border-radius: 50%;
@@ -108,23 +123,45 @@
     }
     .subhead{
       margin-top: 0;
+      text-align:center;
       a{
         text-decoration: underline;
       }
     }
   }
+
+  h3{
+    color: $n-blue;
+    text-align: left;
+    margin: 2em 0 .4em 0;
+  }
+
+  p{
+    margin-top: .4em;
+  }
+
+  .benefit-right{
+    margin-top: 20px;
+  }
+
+  .benefit-left{
+    text-align: center;
+  }
+
   .purple-teal-gradient{
     text-align: left;
     padding: 0em 0 9em;
-
-    .left-image{
-      text-align: center;
+    h3{
+      color: white;
     }
   }
 
   #avalible-positions{
     min-height: 300px;
-    margin-bottom: 0;
+    margin-bottom: 4em;
+    h3, p{
+      text-align: center;
+    }
   }
 
   .job-position{
@@ -133,6 +170,7 @@
     float:left;
     padding: 1em;
     width: 100%;
+    margin-bottom: 20px;
     background-color: white;
     &:hover{
       color: $blue;
@@ -182,6 +220,15 @@
   #careers .split-section .container h3, p{
     text-align: center;
   }
+
+  #careers h3, #about h3{
+    text-align: center;
+  }
+
+  #careers .split-section .container h3{
+    margin-top: 1em;
+  }
+
 
   .job-position{
     .left-side, .right-side{

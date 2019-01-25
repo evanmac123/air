@@ -53,9 +53,8 @@ resources :passwords,
 get "sign_in", to: redirect('/'), as: "sign_in"
 delete "sign_out" => "sessions#destroy", as: "sign_out"
 
-# TODO: Finish content before turning on these routes
-# get "/about" => 'pages#about', as: 'about'
-# get "/careers" => 'pages#careers', as: 'careers'
+get "/about" => 'pages#about', as: 'about'
+get "/careers" => 'pages#careers', as: 'careers'
 
 #Marketing Pages
 get "marketing_site_home" => 'pages#home', as: 'marketing_site_home'
@@ -65,7 +64,7 @@ get "/terms" => 'pages#home', as: 'terms'
 #Form Pages
 get "/login" => 'pages#form', as: 'login'
 get "/request_account" => 'pages#form', as: 'request_account'
-# get "/demo" => 'pages#demo1', as: 'demo' # TODO: Finish content before turning on these routes
+get "/demo" => 'pages#demo', as: 'demo'
 
 #Example Pages
 get "/pages/gallery" => 'pages#gallery', as: 'gallery'
