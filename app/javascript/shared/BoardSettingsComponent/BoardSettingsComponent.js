@@ -50,23 +50,34 @@ class BoardSettingsComponent extends React.Component {
 
   render() {
     return (
-      React.createElement(SweetAlert, {
-        title: "Board Settings",
-        customClass: "airbo",
-        showConfirm: false,
-        onConfirm: this.props.unmountModal,
-        onCancel: this.props.unmountModal,
-        style: {
-          display: 'inherit',
-          width: '56vw',
-          marginLeft: '-28vw',
-          marginTop: '-250px',
-          height: '500px',
-          overflow: 'scroll',
-        },
-      }, this.state.loading ?
-        React.createElement(LoadingComponent) :
-        this.allSettingsComponents
+      React.createElement('div', {className: 'board-settings-modal-wrapper'},
+        React.createElement(SweetAlert, {
+          title: "Board Settings",
+          customClass: "airbo",
+          showConfirm: false,
+          onConfirm: this.props.unmountModal,
+          onCancel: this.props.unmountModal,
+          style: {
+            display: 'inherit',
+            width: '56vw',
+            marginLeft: '-28vw',
+            marginTop: '-250px',
+            height: '500px',
+            overflow: 'scroll',
+          },
+        }, this.state.loading ?
+          React.createElement(LoadingComponent) :
+          this.allSettingsComponents,
+          React.createElement('span', {
+            className: 'fa fa-times close-modal-cta',
+            style: {
+              position: 'absolute',
+              right: '1%',
+              top: '1%',
+              fontSize: '30px',
+            },
+            onClick: this.props.unmountModal})
+        )
       )
     );
   }
