@@ -68,16 +68,19 @@ class BoardSettingsComponent extends React.Component {
         }, this.state.loading ?
           React.createElement(LoadingComponent) :
           this.allSettingsComponents,
-          React.createElement('span', {
-            className: 'fa fa-times close-modal-cta',
-            style: {
-              position: 'absolute',
-              right: '1%',
-              top: '1%',
-              fontSize: '30px',
-            },
-            onClick: this.props.unmountModal})
-        )
+        ),
+        React.createElement('span', {
+          className: 'fa fa-times close-modal-cta',
+          style: {
+            position: 'fixed',
+            right: '20%',
+            top: '45%',
+            fontSize: '32px',
+            marginTop: '-250px',
+            color: '#ffffff',
+            zIndex: '5001',
+          },
+          onClick: this.props.unmountModal})
       )
     );
   }
