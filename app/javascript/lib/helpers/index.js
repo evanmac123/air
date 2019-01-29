@@ -8,9 +8,11 @@ import htmlSanitizer from "./htmlSanitizer";
 import SanitizeVarForRuby from "./SanitizeVarForRuby";
 
 const Pluck = (array, key) => array.map(result => result[key]);
+const ObjectArraysExist = (obj, arrayKeys) => arrayKeys.map(key => (obj[key] && obj[key].length));
 
 const Helper = {
   Pluck,
+  ObjectArraysExist,
   MapWithIndex,
   Fetcher,
   WindowHelper,
@@ -25,6 +27,7 @@ export default Helper;
 
 export {
   Pluck,
+  ObjectArraysExist,
   MapWithIndex,
   Fetcher,
   WindowHelper,

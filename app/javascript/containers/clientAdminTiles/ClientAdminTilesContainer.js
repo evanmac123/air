@@ -8,7 +8,7 @@ import TileStatusNavComponent from "./components/TileStatusNavComponent";
 import TileFilterSubNavComponent from "./components/TileFilterSubNavComponent";
 import EditTilesComponent from "./components/EditTilesComponent";
 import { ClientAdminTilesRouter, TileManager, constants, helpers } from "./utils";
-import { Fetcher, InfiniScroller, Pluck } from "../../lib/helpers";
+import { Fetcher, InfiniScroller, Pluck, ObjectArraysExist } from "../../lib/helpers";
 
 class ClientAdminTiles extends React.Component {
   constructor(props) {
@@ -34,6 +34,7 @@ class ClientAdminTiles extends React.Component {
     this.unmountModal = this.unmountModal.bind(this);
     this.getAdditionalTiles = this.getAdditionalTiles.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.boardSettingsPopulated = this.boardSettingsPopulated.bind(this);
     this.populateBoardSettings = this.populateBoardSettings.bind(this);
     this.openBoardSettings = this.openBoardSettings.bind(this);
     this.syncSettingsState = this.syncSettingsState.bind(this);
@@ -66,6 +67,11 @@ class ClientAdminTiles extends React.Component {
     window.removeEventListener("popstate", this.selectStatus);
   }
 
+  boardSettingsPopulated() {
+    const boardSettings = {campaigns: this.state.campaigns, ribbonTags: this.state.ribbonTags};
+    return ObjectArraysExist(boardSettings, ['campaigns', 'ribbonTags']).some((e) => e);
+  }
+
   syncSettingsState(newSettingsState) {
     const campaigns = [constants.UNASSIGNED_CAMPAIGN].concat(newSettingsState.campaigns);
     const ribbonTags = [constants.UNASSIGNED_RIBBON_TAG].concat(newSettingsState.ribbonTags);
@@ -73,7 +79,7 @@ class ClientAdminTiles extends React.Component {
   }
 
   openBoardSettings() {
-    if (this.state.campaigns.length && this.state.ribbonTags.length) {
+    if (this.boardSettingsPopulated()) {
       const campaigns = this.props.ctrl.audiencesEnabled ? this.state.campaigns : null;
       const { ribbonTags } = this.state;
       this.setState({ alert: helpers.boardSettingsManager(campaigns, ribbonTags, this.unmountModal, this.syncSettingsState) });
@@ -87,7 +93,7 @@ class ClientAdminTiles extends React.Component {
   }
 
   populateBoardSettings(openAlert) {
-    if (this.state.campaigns.length) { return; } // eslint-disable-line
+    if (this.boardSettingsPopulated()) { return; } // eslint-disable-line
     this.setState({ campaignLoading: true, ribbonTagsLoading: true });
     Fetcher.xmlHttpRequest({
       path: '/api/v1/board_settings',
