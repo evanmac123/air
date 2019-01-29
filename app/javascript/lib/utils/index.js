@@ -2,6 +2,10 @@ import AiRouter from "./AiRouter";
 import TileStateManager from "./TileStateManager";
 import csrf from "./csrf";
 
+export { AiRouter };
+export { TileStateManager };
+export { csrf };
+
 const Utils = {
   AiRouter,
   TileStateManager,
@@ -9,9 +13,3 @@ const Utils = {
 };
 
 export default Utils;
-
-export {
-  AiRouter,
-  TileStateManager,
-  csrf,
-};

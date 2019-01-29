@@ -7,8 +7,16 @@ import DateMaker from "./DateMaker";
 import htmlSanitizer from "./htmlSanitizer";
 import SanitizeVarForRuby from "./SanitizeVarForRuby";
 
-const Pluck = (array, key) => array.map(result => result[key]);
-const ObjectArraysExist = (obj, arrayKeys) => arrayKeys.map(key => (obj[key] && obj[key].length));
+export const Pluck = (array, key) => array.map(result => result[key]);
+export const ObjectArraysExist = (obj, arrayKeys) => arrayKeys.map(key => (obj[key] && obj[key].length));
+export { MapWithIndex };
+export { Fetcher };
+export { WindowHelper };
+export { LocalStorer };
+export { InfiniScroller };
+export { DateMaker };
+export { htmlSanitizer };
+export { SanitizeVarForRuby };
 
 const Helper = {
   Pluck,
@@ -24,16 +32,3 @@ const Helper = {
 };
 
 export default Helper;
-
-export {
-  Pluck,
-  ObjectArraysExist,
-  MapWithIndex,
-  Fetcher,
-  WindowHelper,
-  LocalStorer,
-  InfiniScroller,
-  DateMaker,
-  htmlSanitizer,
-  SanitizeVarForRuby,
-};
