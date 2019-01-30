@@ -68,20 +68,20 @@ const errorMessage = (props, campId) => props.errorMsg && props.errorId === camp
   ) : '';
 
 const renderRibbonTagCards = props => (
-  props.ribbonTags.map(campaign => (
-    React.createElement('div', {className: `campaign-card ${props.activeComponent === campaign.value ? 'expand' : ''}`, style: cardStyle, key: campaign.label},
-      React.createElement('span', {style: {...colorStyle, backgroundColor: campaign.color}}),
-      React.createElement('span', {style: textStyle}, campaign.label),
-      errorMessage(props, campaign.value),
-      React.createElement('span', {className: 'circle-button', style: circleButtonStyle, onClick: () => { props.deleteRibbonTag(campaign.value); }},
+  props.ribbonTags.map(ribbonTag => (
+    React.createElement('div', {className: `campaign-card ${props.activeComponent === ribbonTag.value ? 'expand' : ''}`, style: cardStyle, key: ribbonTag.label},
+      React.createElement('span', {style: {...colorStyle, backgroundColor: ribbonTag.color}}),
+      React.createElement('span', {style: textStyle}, ribbonTag.label),
+      errorMessage(props, ribbonTag.value),
+      React.createElement('span', {className: 'circle-button', style: circleButtonStyle, onClick: () => { props.deleteRibbonTag(ribbonTag.value); }},
         React.createElement('i', {className: `fa fa-trash-o`, style: iconStyle})
       ),
-      React.createElement('span', {className: 'circle-button', style: circleButtonStyle, onClick: () => { props.editRibbonTag(campaign); }},
+      React.createElement('span', {className: 'circle-button', style: circleButtonStyle, onClick: () => { props.editRibbonTag(ribbonTag); }},
         React.createElement('i', {className: `fa fa-pencil`, style: iconStyle})
       ),
       React.createElement(RibbonTagFormComponent, {
         ...props,
-        expanded: props.activeComponent === campaign.value,
+        expanded: props.activeComponent === ribbonTag.value,
       })
     )
   ))
