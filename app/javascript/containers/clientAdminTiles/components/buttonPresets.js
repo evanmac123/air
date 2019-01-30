@@ -10,15 +10,15 @@ const BaseButton = (args, key, action, status, buttonText) => (
   })
 );
 
-const ReadyToSendBtn = (args, key) => BaseButton(args, key, 'draft', 'draft', 'Move to Proof');
+export const ReadyToSendBtn = (args, key) => BaseButton(args, key, 'draft', 'draft', 'Move to Proof');
 
-const ArchiveBtn = (args, key) => BaseButton(args, key, 'archive', 'archive', 'Archive');
+export const ArchiveBtn = (args, key) => BaseButton(args, key, 'archive', 'archive', 'Archive');
 
-const UnarchiveBtn = (args, key) => BaseButton(args, key, 'unarchive', 'active', 'Post Again');
+export const UnarchiveBtn = (args, key) => BaseButton(args, key, 'unarchive', 'active', 'Post Again');
 
-const BackToPlanBtn = (args, key) => BaseButton(args, key, 'plan', 'plan', 'Back to Plan');
+export const BackToPlanBtn = (args, key) => BaseButton(args, key, 'plan', 'plan', 'Back to Plan');
 
-const IncompleteEditBtn = (args, key) => (
+export const IncompleteEditBtn = (args, key) => (
   React.createElement(ClientAdminButtonComponent, {
     key,
     liClass: 'incomplete_button',
@@ -28,7 +28,7 @@ const IncompleteEditBtn = (args, key) => (
   })
 );
 
-const DirectDestroyBtn = (args, key) => (
+export const DirectDestroyBtn = (args, key) => (
   React.createElement(ClientAdminButtonComponent, {
     key,
     liClass: 'destroy pill right',
@@ -38,7 +38,7 @@ const DirectDestroyBtn = (args, key) => (
   })
 );
 
-const AcceptBtn = (args, key) => (
+export const AcceptBtn = (args, key) => (
   React.createElement(ClientAdminButtonComponent, {
     key,
     liClass: 'accept_button',
@@ -48,7 +48,7 @@ const AcceptBtn = (args, key) => (
   })
 );
 
-const IgnoreBtn = (args, key) => (
+export const IgnoreBtn = (args, key) => (
   React.createElement(ClientAdminButtonComponent, {
     key,
     liClass: 'ignore_button',
@@ -58,7 +58,7 @@ const IgnoreBtn = (args, key) => (
   })
 );
 
-const UndoIgnoreBtn = (args, key) => (
+export const UndoIgnoreBtn = (args, key) => (
   React.createElement(ClientAdminButtonComponent, {
     key,
     liClass: 'undo_ignore_button',
@@ -68,7 +68,7 @@ const UndoIgnoreBtn = (args, key) => (
   })
 );
 
-const EditBtn = (args, key) => (
+export const EditBtn = (args, key) => (
   React.createElement(ClientAdminButtonComponent, {
     key,
     liClass: 'edit_button pill right',
@@ -92,16 +92,3 @@ const buttonPresets = {
 };
 
 export default buttonPresets;
-
-export {
-  ReadyToSendBtn,
-  IncompleteEditBtn,
-  DirectDestroyBtn,
-  ArchiveBtn,
-  UnarchiveBtn,
-  BackToPlanBtn,
-  AcceptBtn,
-  IgnoreBtn,
-  UndoIgnoreBtn,
-  EditBtn,
-};
