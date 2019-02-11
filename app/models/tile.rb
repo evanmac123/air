@@ -316,8 +316,8 @@ class Tile < ActiveRecord::Base
     TileViewing.add(self, user) if user
   end
 
-  def self.displayable_categorized_to_user(user, maximum_tiles, current_board = nil, opts = {})
-    DisplayCategorizedTiles.displayable_categorized_tiles(user, maximum_tiles, current_board, opts)
+  def self.displayable_categorized_to_user(user:, maximum_tiles:, current_board:, page: nil, offset: nil)
+    DisplayCategorizedTiles.displayable_categorized_tiles(user: user, maximum_tiles: maximum_tiles, current_board: current_board, page: page, offset: offset)
   end
 
   def prev_tile_in_board

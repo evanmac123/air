@@ -23,6 +23,9 @@ class ActivityBoard extends React.Component {
     super(props);
     this.state = {
       loading: true,
+      completeTilesPage: 0,
+      completeTilesOffset: 0,
+      incompleteTilesPage: 1,
     };
     this.loadTiles = this.loadTiles.bind(this);
     this.openTileModal = this.openTileModal.bind(this);
@@ -32,8 +35,8 @@ class ActivityBoard extends React.Component {
   componentDidMount() {
     this.loadTiles({
       perPage: 16,
-      success: tiles => {
-        this.props.setTiles(tiles);
+      success: resp => {
+        this.props.setTiles(resp.tiles);
         this.setState({loading: false});
       },
       error: resp => {
@@ -45,13 +48,16 @@ class ActivityBoard extends React.Component {
   }
 
   loadTiles(opts) {
-    const completeCount = this.props.tiles.complete.count;
-    const incompleteCount = this.props.tiles.incomplete.count;
-    const params = `maximum_tiles=${opts.perPage || '16'}&complete_count=${completeCount}&incomplete_count=${incompleteCount}`;
+    const {completeTilesPage, incompleteTilesPage, completeTilesOffset} = this.state;
+    const params = `maximum_tiles=${opts.perPage || '16'}&complete_tiles_page=${completeTilesPage}&incomplete_tiles_page=${incompleteTilesPage}&offset=${completeTilesOffset}`;
     Fetcher.xmlHttpRequest({
       method: 'GET',
       path: `/api/v1/tiles?${params}`,
-      success: resp => opts.success(resp),
+      success: resp => {
+        const {completeTilesPage, incompleteTilesPage, completeTilesOffset} = resp;
+        this.setState({completeTilesPage, incompleteTilesPage, completeTilesOffset});
+        opts.success(resp)
+      },
       err: resp => opts.error(resp),
     });
   }

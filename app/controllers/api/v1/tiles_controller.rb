@@ -4,12 +4,13 @@ class Api::V1::TilesController < Api::ApiController
   before_action :verify_origin
 
   def index
+    # binding.pry
     tiles = Tile.displayable_categorized_to_user(
-      current_user,
-      params[:maximum_tiles].to_i,
-      current_user.demo,
-        complete_count: params[:complete_count].to_i || 0,
-        incomplete_count: params[:incomplete_count].to_i || 0
+      user: current_user,
+      maximum_tiles: params[:maximum_tiles].to_i,
+      current_board: current_user.demo,
+      page: current_page,
+      offset: params[:offset].to_i
     )
     render json: sanitize_group(tiles)
   end
@@ -70,8 +71,21 @@ class Api::V1::TilesController < Api::ApiController
       complete = tiles[:completed_tiles] || []
       incomplete = tiles[:not_completed_tiles] || []
       {
-        complete: complete.map { |tile| tile.sanitize_for_tile_show.merge(fullyLoaded: true) },
-        incomplete: incomplete.map { |tile| tile.sanitize_for_tile_show.merge(fullyLoaded: true) }
+        tiles: {
+          complete:          complete.map { |tile| tile.sanitize_for_tile_show.merge(fullyLoaded: true) },
+          incomplete:        incomplete.map { |tile| tile.sanitize_for_tile_show.merge(fullyLoaded: true) },
+        },
+        completeTilesPage:   tiles[:complete_tiles_page],
+        incompleteTilesPage: tiles[:incomplete_tiles_page],
+        completeTilesOffset: tiles[:offset],
+        allTilesDisplayed:   tiles[:all_tiles_displayed]
+      }
+    end
+
+    def current_page
+      {
+        complete_tiles_page: params[:complete_tiles_page].to_i,
+        incomplete_tiles_page: params[:incomplete_tiles_page].to_i,
       }
     end
 end

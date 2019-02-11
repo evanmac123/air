@@ -28,7 +28,7 @@ const parseTilePayload = (payload, state) => (
   }, {})
 );
 
-const updateSingleTileDate = (state, payload) => {
+const updateSingleTileDate = (payload, state) => {
   const newTileData = {};
   newTileData[payload.origin] = {...state[payload.origin]};
   newTileData[payload.origin][payload.id] = {
@@ -49,14 +49,14 @@ export default function(state = initialState, action) {
       };
     }
     case UPDATE_TILE_DATA: {
-      const newTileData = updateSingleTileDate(state, action.payload);
+      const newTileData = updateSingleTileDate(action.payload, state);
       return {
         ...state,
         ...newTileData,
       };
     }
     case ADD_TILES_TO_STORE: {
-      // Will write out this logic after making backend work
+      debugger
       const newTileData = {};
       return {
         ...state,
@@ -67,3 +67,5 @@ export default function(state = initialState, action) {
       return state;
   }
 }
+
+gem install libxml-ruby -v '3.0.0' -- --with-xml2-config=/usr/local/Cellar/libxml2/2.9.9_2/bin/xml2-config --with-xml2-dir=/usr/local/Cellar/libxml2/2.9.9_2/ --with-xml2-lib=/usr/local/Cellar/libxml2/2.9.9_2/lib/ --with-xml2-include=/usr/local/Cellar/libxml2/2.9.9_2/include/
