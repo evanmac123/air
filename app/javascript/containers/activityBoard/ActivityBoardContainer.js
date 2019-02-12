@@ -54,9 +54,12 @@ class ActivityBoard extends React.Component {
       method: 'GET',
       path: `/api/v1/tiles?${params}`,
       success: resp => {
-        const {completeTilesPage, incompleteTilesPage, completeTilesOffset} = resp;
-        this.setState({completeTilesPage, incompleteTilesPage, completeTilesOffset});
-        opts.success(resp)
+        this.setState({
+          completeTilesPage: resp.completeTilesPage,
+          incompleteTilesPage: resp.incompleteTilesPage,
+          completeTilesOffset: resp.completeTilesOffset,
+        });
+        opts.success(resp);
       },
       err: resp => opts.error(resp),
     });
@@ -66,8 +69,8 @@ class ActivityBoard extends React.Component {
     toggleButtonLoadingSpinner(document.getElementsByClassName("show_more_tiles")[0]);
     this.loadTiles({
       perPage: 16,
-      success: tiles => {
-        this.props.addTiles(tiles);
+      success: resp => {
+        this.props.addTiles(resp.tiles);
         toggleButtonLoadingSpinner(document.getElementsByClassName("show_more_tiles")[0]);
       },
       error: resp => {

@@ -39,6 +39,17 @@ const updateSingleTileDate = (payload, state) => {
   return newTileData;
 };
 
+const mergeNewDataWithState = (newTiles, state) => Object.keys(newTiles).reduce((result, tileType) => {
+  const merged = {};
+  merged[tileType] = {
+    ...state[tileType],
+    ...newTiles[tileType],
+    order: state[tileType].order.concat(newTiles[tileType].order),
+    count: state[tileType].count + newTiles[tileType].count,
+  };
+  return Object.assign(merged, result);
+}, {});
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_TILES_DATA: {
@@ -56,8 +67,8 @@ export default function(state = initialState, action) {
       };
     }
     case ADD_TILES_TO_STORE: {
-      debugger
-      const newTileData = {};
+      const sanitizedTileData = parseTilePayload(action.payload, state);
+      const newTileData = mergeNewDataWithState(sanitizedTileData, state);
       return {
         ...state,
         ...newTileData,
@@ -67,5 +78,3 @@ export default function(state = initialState, action) {
       return state;
   }
 }
-
-gem install libxml-ruby -v '3.0.0' -- --with-xml2-config=/usr/local/Cellar/libxml2/2.9.9_2/bin/xml2-config --with-xml2-dir=/usr/local/Cellar/libxml2/2.9.9_2/ --with-xml2-lib=/usr/local/Cellar/libxml2/2.9.9_2/lib/ --with-xml2-include=/usr/local/Cellar/libxml2/2.9.9_2/include/
