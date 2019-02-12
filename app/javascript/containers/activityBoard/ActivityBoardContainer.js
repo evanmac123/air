@@ -5,7 +5,7 @@ import { Fetcher } from '../../lib/helpers';
 import LoadingComponent from '../../shared/LoadingComponent';
 import ProgressBarComponent from '../../shared/ProgressBarComponent';
 import TileWallComponent from './components/TileWallComponent';
-import ActsFeedComponent from './components/ActsFeedComponent';
+// import ActsFeedComponent from './components/ActsFeedComponent';
 import ConnectionsComponent from './components/ConnectionsComponent';
 import InviteUsersComponent from './components/InviteUsersComponent';
 
@@ -102,7 +102,6 @@ class ActivityBoard extends React.Component {
 
         <div className="row">
           <div className="large-4 columns">
-            <ActsFeedComponent />
           </div>
 
           <div className="large-4 columns">
