@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
+
+import RaffleProgressBarComponent from "./components/RaffleProgressBarComponent";
 
 import { getSanitizedState } from "../../lib/redux/selectors";
 import { setProgressBarData } from "../../lib/redux/actions";
 
 function calculateTileProgressWidth(completedTiles, allTiles, fullProgressBar, tileAll, completedTilesBar, fullWidth) {
-  const tileAllWidth = tileAll.offsetWidth;
   const minWidth = completedTilesBar.style.width;
   const newWidth = parseInt(fullWidth * completedTiles / allTiles, 10);
   if (completedTiles === 0 && allTiles !== 0) {
@@ -94,7 +96,7 @@ class ProgressBarComponent extends React.Component {
           loadingProgressBar() :
           <div id="user_progress">
 
-            <span className="WHERE_RAFFLE_GOES!!!" style={{display: 'none'}} />
+            <RaffleProgressBarComponent />
 
             <div id="total_section">
               <div className="progress_header" id="total_header">
@@ -140,6 +142,28 @@ class ProgressBarComponent extends React.Component {
     );
   }
 }
+
+ProgressBarComponent.propTypes = {
+  userData: PropTypes.shape({
+    name: PropTypes.string,
+    points: PropTypes.number,
+    tickets: PropTypes.number,
+    numOfIncompleteTiles: PropTypes.number,
+  }),
+  progressBarData: PropTypes.shape({
+    loaded: PropTypes.bool,
+    completedTiles: PropTypes.number,
+    incompletedTiles: PropTypes.number,
+    points: PropTypes.number,
+  }),
+  setProgressBarData: PropTypes.func,
+  organization: PropTypes.shape({
+    name: PropTypes.string,
+    pointsWording: PropTypes.string,
+    tilesWording: PropTypes.string,
+  }),
+};
+
 
 export default connect(
   getSanitizedState,
