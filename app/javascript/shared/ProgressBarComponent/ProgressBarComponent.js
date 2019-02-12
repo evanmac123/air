@@ -51,11 +51,12 @@ class ProgressBarComponent extends React.Component {
   }
 
   syncProgressBarData() {
-    if (this.props.userData.name && !this.props.progressBarData.loaded) {
+    if (this.props.organization.name && this.props.userData.name && !this.props.progressBarData.loaded) {
       const updateData = {
         points: this.props.userData.points || 0,
         raffleTickets: this.props.userData.tickets || 0,
         incompletedTiles: this.props.userData.numOfIncompleteTiles,
+        raffle: this.props.organization.raffle,
         loaded: true,
       };
       this.props.setProgressBarData(updateData);
@@ -96,7 +97,7 @@ class ProgressBarComponent extends React.Component {
           loadingProgressBar() :
           <div id="user_progress">
 
-            <RaffleProgressBarComponent />
+            <RaffleProgressBarComponent {...this.props} />
 
             <div id="total_section">
               <div className="progress_header" id="total_header">
@@ -161,6 +162,7 @@ ProgressBarComponent.propTypes = {
     name: PropTypes.string,
     pointsWording: PropTypes.string,
     tilesWording: PropTypes.string,
+    raffle: PropTypes.object,
   }),
 };
 

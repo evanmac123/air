@@ -7,7 +7,7 @@ class Api::V1::InitializeController < Api::ApiController
     user = current_user
     demo = user.try(:demo)
     render json: {
-      user: render_user_data(user) || {name: 'guest'},
+      user: render_user_data(user) || { name: "guest" },
       organization: render_organization_data(demo) || { name: "no_org" }
     }
   end
@@ -35,12 +35,13 @@ class Api::V1::InitializeController < Api::ApiController
 
     def render_organization_data(demo)
       if demo && org = demo.organization
-        {
+        org_data = {
           id: org.id,
           name: org.name,
           tilesWording: org.tiles_wording || "Tiles",
           pointsWording: org.points_wording || "Points"
         }
+        demo.raffle ? org_data.merge(JSON.parse(demo.raffle.to_json)) : org_data
       end
     end
 end
