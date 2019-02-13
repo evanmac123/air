@@ -16,7 +16,7 @@ const renderHTML = html => (
       allowedSchemesByTag: {},
       allowedSchemesAppliedToAttributes: [ "href", "src" ],
       allowProtocolRelative: true,
-      allowedIframeHostnames: ["www.youtube.com", "player.vimeo.com", "fast.wistia.net", "embed.ted.com", "www.kaltura.com"],
+      allowedIframeHostnames: ["www.youtube.com", "player.vimeo.com", "fast.wistia.net", "embed.ted.com", "www.kaltura.com", "media.hartfordhealthcare.org"],
     }),
   }
 );
