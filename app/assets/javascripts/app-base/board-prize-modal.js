@@ -6,17 +6,17 @@ Airbo.BoardPrizeModal = (function() {
   var selector = ".js-board-prize-modal";
 
   function init() {
-    $(".close_modal").click(function() {
+    $(document).on("click", ".close_modal", function() {
       closeModal();
     });
 
-    $(selector).click(function(event) {
+    $(document).on("click", selector, function(event) {
       if ($(event.target).is($(selector))) {
         closeModal();
       }
     });
 
-    $("#raffle_data").click(function() {
+    $(document).on("click", "#raffle_data", function() {
       showRaffleBox("Prize");
     });
   }

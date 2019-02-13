@@ -43,6 +43,7 @@ class ProgressBarComponent extends React.Component {
 
   componentDidMount() {
     this.syncProgressBarData();
+    window.Airbo.BoardPrizeModal.init();
   }
 
   componentDidUpdate() {
@@ -91,54 +92,61 @@ class ProgressBarComponent extends React.Component {
 
   render() {
     return (
-      <div className="user_container">
-      {
-        !this.props.organization.name || !this.props.progressBarData.loaded ?
-          loadingProgressBar() :
-          <div id="user_progress">
+      <div>
+        <div className="user_container">
+        {
+          !this.props.organization.name || !this.props.progressBarData.loaded ?
+            loadingProgressBar() :
+            <div id="user_progress">
+              {
+                (this.props.progressBarData.raffle && this.props.progressBarData.raffle.status === 'live') &&
+                <RaffleProgressBarComponent {...this.props} />
+              }
 
-            <RaffleProgressBarComponent {...this.props} />
 
-            <div id="total_section">
-              <div className="progress_header" id="total_header">
-                {this.props.organization.pointsWording}
-              </div>
-              <div id="total_points">
-                {this.props.progressBarData.points}
-              </div>
-            </div>
-            <div id="tile_section">
-              <div className="progress_header" id="tile_header">
-                {this.props.organization.tilesWording}
-              </div>
-              <div id="tile_progress_bar">
-
-                <div id="all_tiles">
-                  {this.props.progressBarData.incompletedTiles}
+              <div id="total_section">
+                <div className="progress_header" id="total_header">
+                  {this.props.organization.pointsWording}
                 </div>
+                <div id="total_points">
+                  {this.props.progressBarData.points}
+                </div>
+              </div>
+              <div id="tile_section">
+                <div className="progress_header" id="tile_header">
+                  {this.props.organization.tilesWording}
+                </div>
+                <div id="tile_progress_bar">
 
-                {(!!this.props.progressBarData.completedTiles ||
-                  this.props.progressBarData.incompletedTiles === this.props.progressBarData.completedTiles) &&
-                  <div id="completed_tiles">
-                    <div id="complete_info">
-                      <span className="fa fa-check"></span>
-                      <span id="completed_tiles_num">
-                        {this.props.progressBarData.completedTiles}
-                      </span>
-                    </div>
-                    <div id="congrat_header">
-                      <i className="fa fa-flag-checkered" style={{paddingRight: '10px'}}></i>
-                      <div id="congrat_text">
-                        {`You've finished all new ${this.props.organization.tilesWording}!`}
+                  <div id="all_tiles">
+                    {this.props.progressBarData.incompletedTiles}
+                  </div>
+
+                  {(!!this.props.progressBarData.completedTiles ||
+                    this.props.progressBarData.incompletedTiles === this.props.progressBarData.completedTiles) &&
+                    <div id="completed_tiles">
+                      <div id="complete_info">
+                        <span className="fa fa-check"></span>
+                        <span id="completed_tiles_num">
+                          {this.props.progressBarData.completedTiles}
+                        </span>
+                      </div>
+                      <div id="congrat_header">
+                        <i className="fa fa-flag-checkered" style={{paddingRight: '10px'}}></i>
+                        <div id="congrat_text">
+                          {`You've finished all new ${this.props.organization.tilesWording}!`}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                }
+                  }
 
+                </div>
               </div>
             </div>
-          </div>
-      }
+        }
+        </div>
+
+
       </div>
     );
   }
@@ -156,6 +164,7 @@ ProgressBarComponent.propTypes = {
     completedTiles: PropTypes.number,
     incompletedTiles: PropTypes.number,
     points: PropTypes.number,
+    raffle: PropTypes.object,
   }),
   setProgressBarData: PropTypes.func,
   organization: PropTypes.shape({
