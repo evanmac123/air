@@ -69,7 +69,7 @@ const RaffleProgressBarComponent = props => {
           </div>
         </div>
 
-        <div id="prize_modal" className="reveal-modal js-board-prize-modal" data-reveal="" data-raffle-show-start="false" data-raffle-show-finish="false">
+        <div id="prize_modal" className="reveal-modal js-board-prize-modal" data-reveal="">
           <div className="prize_box">
             <div className="prize_header">
               <h1 className="js-prize-header">Prize</h1>
