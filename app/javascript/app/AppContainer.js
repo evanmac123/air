@@ -34,6 +34,9 @@ class App extends React.Component {
     this.setInitialState();
   }
 
+  componentDidUpdate() {
+  }
+
   componentWillUnmount() {
     this.airouter.disconnect();
   }

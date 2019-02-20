@@ -90,6 +90,7 @@ class AiRouter {
   setBodyClass() {
     const body = document.getElementsByTagName("BODY")[0];
     const classByRoute = bodyClassByRoute[this.currentRoute];
+    body.className = "";
     classByRoute.split(' ').forEach(klass => {
       body.classList.add(klass);
     });
@@ -128,9 +129,11 @@ class AiRouter {
 
   updateCurrentRoute() {
     this.assignCurrentRoute(() => {
+      const { originId } = this.reactComponent.state;
       this.reactComponent.setState({
         currentRoute: this.currentRoute,
         routeData: this.routeData,
+        originId: (this.currentRoute !== '/tiles' && this.currentRoute !== '/explore/campaigns/:campaign') ? null : originId,
       });
       this.setBodyClass();
       window.scrollTo(0,0);
