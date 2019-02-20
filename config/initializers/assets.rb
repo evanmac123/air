@@ -19,10 +19,10 @@ Rails.application.config.assets.precompile += %w(
   app-internal.css
   app-landing.css
   app-form.css
+  app-product.css
   external/external_ie8.css
   internal/internal_ie8.css
   client_admin/client_admin_ie8.css
-
   application.js
   app-user.js
   app-admin.js

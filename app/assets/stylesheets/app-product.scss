@@ -1,0 +1,248 @@
+@import "./front_theme_styles.scss";
+@import "font-awesome";
+@import "./styles-v2/app.scss";
+@import "./mixins/main_styles.css.scss";
+@import "./marketing-site/main.scss";
+
+main {
+  padding: 0;
+}
+
+#broker {
+  h2 {
+    color: $n-blue;
+  }
+
+  .main-hero {
+    padding-bottom: 0;
+    line-height: 1.5em;
+
+    h1 {
+      font-size: 1em;
+      font-weight: bold;
+      margin: 1em 0;
+    }
+
+    h2 {
+      font-weight: 500;
+      line-height: 1.2em;
+      color: $white;
+    }
+
+    .description {
+      padding: 0 0 1em;
+    }
+
+    .hero-image {
+      bottom: 0;
+      left: 54%;
+      z-index: 10;
+      position: absolute;
+      right: -450px;
+      max-width: 980px;
+    }
+  }
+
+  section {
+    padding: 70px 0;
+    position: relative;
+  }
+
+  .interactivity {
+    .phone-holder {
+      video {
+        position: absolute;
+        top: 60px;
+        left: 140px;
+        width: 146px;
+      }
+    }
+  }
+
+  .sales-support,
+  .value-your-clients {
+    //background-image: url(image-path("marketing_site/broker/background-blue.png"));
+    color: white;
+    text-align: center;
+    margin: 100px 0 70px;
+
+    h2 {
+      color: white;
+      margin: 0 0 1em;
+    }
+
+    .container {
+      padding: 30px 0 150px;
+
+      img {
+        width: 90px;
+      }
+
+      .number-callout {
+        font-size: 5.2em;
+        font-weight: 500;
+        margin-top: -6px;
+      }
+
+      .number-callout ~ .quote {
+        margin-top: -10px;
+      }
+
+      .quote {
+        font-size: 22px;
+        font-weight: 500;
+        padding: 1em 0;
+        line-height: 1.3em;
+      }
+
+      .label {
+        font-size: 1em;
+        text-transform: uppercase;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .sales-support {
+    //background-image: url(image-path("marketing_site/broker/background-blue.png"));
+    margin: -70px 0 0;
+
+    .container {
+      img {
+        width: auto;
+        height: 120px;
+        text-align: center;
+      }
+
+      .description {
+        font-size: 1.4em;
+        margin-top: 1em;
+        line-height: 1.4em;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .cta {
+    padding: 0;
+  }
+}
+@media only screen and (max-width: 1400px) {}
+@media only screen and (max-width: 990px) {
+  #broker {
+    .main-hero .hero-banner {
+      height: auto;
+    }
+
+    .interactivity .phone-holder {
+      max-width: 400px;
+      margin: auto;
+      position: relative;
+
+      video {
+        position: absolute;
+        top: 16%;
+        left: 32%;
+        width: 36%;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 767px) {
+  #broker {
+    .main-hero {
+      padding: 0;
+
+      .blue-teal-gradient {
+        padding: 0 0 180px;
+
+        .sub-header {
+          font-size: 18px;
+          font-weight: 600;
+        }
+
+        .h1 {
+          font-size: 36px;
+          line-height: 1.5em;
+        }
+      }
+
+      .hero-image {
+        width: 80%;
+        left: 10%;
+      }
+    }
+
+    section {
+      padding: 45px 0;
+    }
+
+    .blue-teal-gradient,
+    .purple-teal-gradient {
+      padding: 0;
+      margin-bottom: 0;
+
+      .container {
+        padding-bottom: 100px;
+      }
+
+      .col-md-4 {
+        margin-bottom: 4em;
+      }
+    }
+
+    .results {
+      padding-top: 0;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    img {
+      text-align: center;
+    }
+
+    .cta {
+      padding: 0 0 120px;
+    }
+  }
+}
+@media only screen and (max-width: 600px) {
+  #broker {
+    .main-hero {
+      .blue-teal-gradient {
+        padding: 0 0 100px;
+
+        .sub-header {
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .h1 {
+          font-size: 24px;
+          line-height: 1.5em;
+        }
+
+        .hero-image {
+          width: 90%;
+          left: 5%;
+        }
+      }
+    }
+
+    section {
+      .quote {
+        font-size: 18px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+    }
+
+    .sales-support {
+      margin: -75px 0 0;
+    }
+  }
+}

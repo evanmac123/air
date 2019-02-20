@@ -11,7 +11,7 @@
     <%= render "shared/opengraph_meta_tags_marketing" %>
 
     <%= javascript_include_tag 'app-marketing-site' %>
-    <%= stylesheet_link_tag 'app-marketing-site' %>
+    <%= stylesheet_link_tag 'app-product' %>
 
     <%= render 'shared/mixpanel' %>
     <%= render 'shared/integrations/full_story' %>
@@ -20,20 +20,20 @@
 
     <%= content_for :head %>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
   </head>
   <body id="airoute-yield" class="airbo-marketing-site" style="display: none;">
-    <div class="main bootstrap-iso">
+    <div class="main bootstrap-iso product">
       <%= render partial: "pages/front_theme/navbar" %>
-
-      <%= yield %>
-  
+      <main id="root" role="main">
+        <%= yield %>
+      </main>
       <%= render partial: "pages/front_theme/footer" %>
 
       <div class="justify-content-between align-items-center my-7 copyright">
-        <%= image_tag 'airbo_logo_lightblue.png' %>
+        <%= image_tag 'logo_standard.png' %>
         <p class="small text-muted mb-0">&copy; Airbo. 2018. All rights reserved.</p>
       </div>
 

@@ -24,15 +24,10 @@
     }
   }
 
-  .header {
-    min-height: 370px;
-  }
-
   .blue-balloon-1,
   .blue-balloon-2,
   .cloud-1,
   .cloud-2 {
-    animation-play-state: paused;
     left: 10%;
     z-index: -1;
   }
@@ -40,22 +35,18 @@
   .blue-balloon-3,
   .cloud-3,
   .cloud-4 {
-    animation-play-state: paused;
     left: 85%;
     z-index: -1;
-  }
-
-  .blue-teal-gradient {
-    padding: 110px 0 80px;
   }
 
   .blue-teal-gradient,
   .purple-teal-gradient {
     color: white;
     text-align: center;
+    background-size: cover;
 
-    .svg-wave-purple {
-      margin-top: -100px;
+    .row {
+      min-height: 400px;
     }
 
     .headline {
@@ -151,7 +142,6 @@
   h3 {
     color: $n-blue;
     text-align: left;
-    margin: 2em 0 0.4em;
   }
 
   p {

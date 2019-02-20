@@ -55,6 +55,7 @@ delete "sign_out" => "sessions#destroy", as: "sign_out"
 
 get "/about" => 'pages#about', as: 'about'
 get "/careers" => 'pages#careers', as: 'careers'
+get "/broker" => 'pages#broker', as: 'broker'
 
 #Marketing Pages
 get "marketing_site_home" => 'pages#home', as: 'marketing_site_home'

@@ -1,8 +1,10 @@
+<main id="root" role="main">
 <div id="careers">
   <!-- Hero Section -->
   <div class="position-relative blue-teal-gradient header">
-    <div class="u-bg-img-hero">
       <div class="container small-container">
+        <div class="row align-items-center">
+          <div class="col-12">
         <h1 class="headline">
           Careers
         </h1>
@@ -11,8 +13,9 @@
            We Are Hiring
           </a>
           </h3>
+          </div>
       </div>
-    </div>
+  </div>
     <%= render partial: "pages/front_theme/svg/white" %>
   </div>
   <div class="info-section">
@@ -34,13 +37,13 @@
   </div>
 
   <div class="position-relative purple-teal-gradient split-section">
-    <%= render partial: "pages/front_theme/svg/purple" %>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 benefit-left">
+      <%= render partial: "pages/front_theme/svg/purple" %>
+    <div class="container small-container">
+      <div class="row align-items-center">
+        <div class="col-md-4 benefit-left">
           <%= image_tag 'marketing_site/benefits.png', class: 'profile-pic' %>
         </div>
-        <div class="col-md-6 benefit-right">
+        <div class="col-md-8 benefit-right">
           <h3> Benefits</h3>
           <p>
             Our hiring philosophy is to hire the best people. We compensate accordingly in the form of highly competitive pay and benefits.
@@ -48,7 +51,7 @@
         </div>
       </div>
     </div>
-    <%= render partial: "pages/front_theme/svg/white" %>
+      <%= render partial: "pages/front_theme/svg/white" %>
   </div>
 
   <div class="info-section" id="avalible-positions">
@@ -128,3 +131,4 @@
 
   <!-- End Hero Section -->
 </div>
+</main>
