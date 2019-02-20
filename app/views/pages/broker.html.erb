@@ -1,5 +1,4 @@
 <div id="broker" class="">
-  <main id="root" role="main">
       <!-- Hero Section -->
         <section class="position-relative main-hero">
           <div class="u-bg-img-hero blue-teal-gradient">
@@ -80,10 +79,11 @@
     </section>
 
     <section class="purple-teal-gradient value-your-clients">
+      <%= render partial: "pages/front_theme/svg/purple" %>
       <div class="container" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
-        <h2 class=""> Value for Your Clients</h2>
+        <h2 class="" data-aos-delay="" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out"> Value for Your Clients</h2>
         <div class="row align-items-center">
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos-delay="200" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
             <%= image_tag 'marketing_site/broker/profile.png' %>
             <div class="quote">
               “This is such a fun and easy to use communications vehicle. I have fun making them.”
@@ -92,28 +92,27 @@
               HR EMPLOYEE
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos-delay="400" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
             <div class="number-callout"> 91%</div>
             <div class="quote">
               of employees reported a higher appreciation of benefits
               </div>
             <div class="label">
               MANUFACTURING COMPANY
-
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos-delay="600" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
             <%= image_tag 'marketing_site/broker/profile.png' %>
             <div class="quote">
               “Love it! Of all the stuff that gets thrown at us, this is the one I like to read since it’s quick.”
             </div>
             <div class="label">
               David, Employee Feedback Survey
-
             </div>
           </div>
         </div>
       </div>
+        <%= render partial: "pages/front_theme/svg/white" %>
     </section>
 
     <section class="results ">
@@ -149,22 +148,23 @@
     </section>
 
     <section class="blue-teal-gradient sales-support">
-      <div class="container" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
-        <h2 class=""> Sales Support</h2>
+      <%= render partial: "pages/front_theme/svg/blue" %>
+      <div class="container" >
+        <h2 class="" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out"> Sales Support</h2>
         <div class="row align-items-center" >
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos-delay="200" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
             <%= image_tag 'marketing_site/broker/champion.png' %>
             <div class="description">
               Training for your Airbo Champion
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos-delay="400" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
             <%= image_tag 'marketing_site/broker/sales.png' %>
             <div class="description">
               Sales training for your Team
               </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos-delay="600" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
             <%= image_tag 'marketing_site/broker/materials.png' %>
             <div class="description">
               Co-branded sales materials
@@ -173,6 +173,7 @@
           </div>
         </div>
       </div>
+      <%= render partial: "pages/front_theme/svg/white" %>
     </section>
 
     <section class="cta position-relative">
@@ -189,7 +190,4 @@
             </a>
           </div>
     </section>
-
-  </main>
-
 </div>
