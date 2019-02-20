@@ -1,0 +1,185 @@
+@import "./front_theme_styles.scss";
+@import "font-awesome";
+@import "./styles-v2/app.scss";
+@import "./mixins/main_styles.css.scss";
+@import "./marketing-site/main.scss";
+
+#broker {
+  h2 {
+    color: $n-blue;
+  }
+
+  .main-hero {
+    padding-bottom: 0;
+
+    h1 {
+      font-size: 1em;
+      font-weight: bold;
+      margin: 1em 0;
+    }
+
+    h2 {
+      font-weight: 500;
+      line-height: 1.2em;
+      color: $white;
+    }
+
+    .description {
+      padding: 0 0 1em;
+    }
+
+    .hero-image {
+      bottom: 0;
+      left: 54%;
+      z-index: 10;
+      position: absolute;
+      right: -200px;
+      max-width: 980px;
+    }
+  }
+
+  main {
+    section {
+      padding: 70px 0;
+      position: relative;
+    }
+
+    .interactivity {
+      .phone-holder {
+        video {
+          position: absolute;
+          top: 60px;
+          left: 140px;
+          width: 146px;
+        }
+      }
+    }
+    .value-your-clients, .sales-support{
+      color: white;
+      background-image: url(image-path("marketing_site/broker/background-purple.jpg"));
+      background-size: cover;
+      padding: 0;
+      text-align: center;
+      margin: 100px 0 70px 0;
+
+      h2{
+        color: white;
+        margin: 0 0 1em 0;
+      }
+
+      .container{
+        padding: 240px 0;
+        img{
+          width: 90px;
+        }
+        .number-callout{
+          font-size: 5.2em;
+          font-weight: 500;
+          margin-top: -6px;
+        }
+
+        .number-callout ~ .quote{
+          margin-top: -10px;
+        }
+
+        .quote{
+          font-size: 22px;
+          font-weight: 500;
+          padding: 1em 0;
+          line-height: 1.3em;
+        }
+        .label{
+          font-size: 1em;
+          text-transform: uppercase;
+          font-weight: 400;
+        }
+      }
+    }
+    .sales-support{
+      background-image: url(image-path("marketing_site/broker/background-blue.png"));
+      margin: -120px  0 0 0;
+      .container {
+      padding: 200px 0 260px;
+      img{
+        width: auto;
+        height: 120px;
+        text-align: center;
+      }
+      .description{
+        font-size: 1.4em;
+        margin-top: 2em;
+        font-weight: 500;
+      }
+  }
+}
+.cta{
+  padding: 0;
+}
+}
+}
+
+@media only screen and (max-width: 990px) {
+  #broker {
+    .main-hero .hero-banner {
+      height: auto;
+    }
+
+    main {
+      .interactivity .phone-holder {
+        max-width: 400px;
+        margin: auto;
+        position: relative;
+
+        video {
+          position: absolute;
+          top: 16%;
+          left: 32%;
+          width: 36%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  #broker {
+    .blue-teal-gradient {
+      padding: 0 0 190px;
+    }
+
+    .main-hero {
+      padding-bottom: 0;
+
+      .hero-image {
+        width: 70%;
+        left: 15%;
+      }
+    }
+
+    main {
+      h2 {
+        text-align: center;
+      }
+
+      img {
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #broker {
+    .blue-teal-gradient {
+      padding: 0 0 150px;
+
+      h2 {
+        font-size: 32px;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}

@@ -11,6 +11,8 @@ class PagesController < HighVoltage::PagesController
         "form"
       when "demo"
         "demo"
+      when "broker"
+        "product"
       else
         "marketing_site"
       end
