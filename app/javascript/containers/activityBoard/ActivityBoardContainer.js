@@ -104,13 +104,17 @@ class ActivityBoard extends React.Component {
           <div className="large-4 columns">
           </div>
 
-          <div className="large-4 columns">
-            <ConnectionsComponent />
-          </div>
+          {(this.props.demo && !this.props.demo.hideSocial && !this.props.user.isGuestUser) &&
+            <span>
+              <div className="large-4 columns">
+                <ConnectionsComponent {...this.props}/>
+              </div>
 
-          <div className="large-4 columns">
-            <InviteUsersComponent />
-          </div>
+              <div className="large-4 columns">
+                <InviteUsersComponent />
+              </div>
+            </span>
+          }
         </div>
       </div>
     );
@@ -125,6 +129,8 @@ ActivityBoard.propTypes = {
     complete: PropTypes.object,
     incomplete: PropTypes.object,
   }),
+  demo: PropTypes.object,
+  user: PropTypes.object,
 };
 
 export default ActivityBoard;

@@ -20,6 +20,11 @@ export const addTilesToStore = tiles => ({
   payload: { ...tiles },
 });
 
+export const setDemoData = demo => ({
+  type: actionTypes.SET_DEMO_DATA,
+  payload: { ...demo },
+});
+
 export const setOrganizationData = organization => ({
   type: actionTypes.SET_ORGANIZATION_DATA,
   payload: { ...organization },

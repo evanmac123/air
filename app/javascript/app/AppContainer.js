@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { AiRouter, TileStateManager } from "../lib/utils";
 import { Fetcher } from "../lib/helpers";
-import { setUserData, setTilesData, setOrganizationData, addTilesToStore } from "../lib/redux/actions";
+import { setUserData, setTilesData, setOrganizationData, setDemoData, addTilesToStore } from "../lib/redux/actions";
 import { getSanitizedState } from "../lib/redux/selectors";
 import routes from '../config/routes';
 
@@ -45,6 +45,7 @@ class App extends React.Component {
       success: resp => {
         this.setUser(resp.user);
         this.setOrganization(resp.organization);
+        this.setDemo(resp.demo);
         this.setState({appLoading: false});
       },
       err: () => this.setState({appLoading: false}),
@@ -61,6 +62,10 @@ class App extends React.Component {
 
   setOrganization(data) {
     this.props.setOrganizationData(data);
+  }
+
+  setDemo(data) {
+    this.props.setDemoData(data);
   }
 
   addTiles(data) {
@@ -88,7 +93,7 @@ class App extends React.Component {
   }
 
   render() {
-    const  { userData, tiles, organization, progressBarData, initData } = this.props;
+    const  { userData, tiles, organization, demo, progressBarData, initData } = this.props;
     return React.createElement('div', {className: 'react-root'},
     this.state.originId ? React.createElement(TileStateManager, {
       originId: this.state.originId,
@@ -111,6 +116,7 @@ class App extends React.Component {
         ctrl: initData,
         user: userData,
         tiles,
+        demo,
         organization,
         progressBarData,
       }) :
@@ -125,8 +131,10 @@ App.propTypes = {
   setTilesData: PropTypes.func,
   addTilesToStore: PropTypes.func,
   setOrganizationData: PropTypes.func,
+  setDemoData: PropTypes.func,
   userData: PropTypes.object,
   organization: PropTypes.object,
+  demo: PropTypes.object,
   progressBarData: PropTypes.object,
   tiles: PropTypes.shape({
     explore: PropTypes.object,
@@ -138,5 +146,5 @@ App.propTypes = {
 
 export default connect(
   getSanitizedState,
-  { setUserData, setTilesData, setOrganizationData, addTilesToStore }
+  { setUserData, setTilesData, setOrganizationData, setDemoData, addTilesToStore }
 )(App);

@@ -8,6 +8,7 @@ class Api::V1::InitializeController < Api::ApiController
     demo = user.try(:demo)
     render json: {
       user: render_user_data(user) || { name: "guest" },
+      demo: render_demo_data(demo) || {},
       organization: render_organization_data(demo) || { name: "no_org" }
     }
   end
@@ -29,6 +30,20 @@ class Api::V1::InitializeController < Api::ApiController
           tickets: user.try(:tickets) || 0,
           email: user.try(:email),
           numOfIncompleteTiles: user.tiles_to_complete_in_demo.count
+        }
+      end
+    end
+
+    def render_demo_data(demo)
+      if demo
+        {
+          name: demo.name,
+          customWelcomeMessage: demo.custom_welcome_message,
+          email: demo.email,
+          publicSlug: demo.public_slug,
+          isPublic: demo.is_public,
+          guestUserConversionModal: demo.guest_user_conversion_modal,
+          hideSocial: demo.hide_social
         }
       end
     end
