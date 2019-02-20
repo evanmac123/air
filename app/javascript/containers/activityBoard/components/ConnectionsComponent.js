@@ -15,32 +15,39 @@ const headers = progressBarData => (
   </div>
 );
 
-const friendsList = connections => (
-  <tr className="user">
-    <td className="user-name">
-      <a href="/users/ryanworkman">Ryan Workman</a>
-    </td>
-  </tr>
-);
+const friendsList = (connections, progressBarData) => connections.map((connection, key) => (
+  React.createElement('tr', {key, className: 'user'},
+    React.createElement('td', {className: 'user-name'},
+      React.createElement('a', {href: `/users/${connection.path}`}, connection.name)
+    ),
+    React.createElement('td', {className: 'user-name', style: {display: (progressBarData.raffle && progressBarData.raffle.status === 'live') ? '' : 'none'}},
+      React.createElement('a', {href: `/users/${connection.path}`}, connection.tickets)
+    ),
+  )
+));
 
 const ConnectionsComponent = props => (
   <div className="module" id="scoreboard-module">
     <h3>Connections</h3>
     <a className="margin-left-5px link" href="/users">Add</a>
-    {
-      (props.connections && props.connections.length) ?
+    {props.connections &&
+      <span>
+      {
+        props.connections.length ?
         <span>
           {headers(props.progressBarData)}
           <div id="friends_list">
             <table className="scoreboard">
               <tbody>
-                {friendsList(props.connections)}
+                {friendsList(props.connections, props.progressBarData)}
               </tbody>
             </table>
           </div>
         </span>
-      :
-      <div>No connections yet</div>
+        :
+        <div>No connections yet</div>
+      }
+      </span>
     }
   </div>
 );

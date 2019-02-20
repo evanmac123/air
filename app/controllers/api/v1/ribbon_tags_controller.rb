@@ -33,10 +33,6 @@ class Api::V1::RibbonTagsController < Api::ApiController
   end
 
   private
-    def verify_origin
-      render json: {} unless request.xhr?
-    end
-
     def ribbon_tag_params
       params.require(:ribbon_tag).permit(:name, :color)
     end

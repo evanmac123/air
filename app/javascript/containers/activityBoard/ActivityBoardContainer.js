@@ -26,6 +26,7 @@ class ActivityBoard extends React.Component {
       completeTilesPage: 0,
       completeTilesOffset: 0,
       incompleteTilesPage: 1,
+      connections: null,
     };
     this.loadTiles = this.loadTiles.bind(this);
     this.openTileModal = this.openTileModal.bind(this);
@@ -44,7 +45,7 @@ class ActivityBoard extends React.Component {
         this.setState({loading: false});
       },
     });
-
+    this.loadUserConnections();
   }
 
   loadTiles(opts) {
@@ -84,6 +85,14 @@ class ActivityBoard extends React.Component {
     this.props.navigateTo(`/tiles?tile_id=${id}`);
   }
 
+  loadUserConnections() {
+    Fetcher.xmlHttpRequest({
+      method: 'GET',
+      path: `/api/v1/friendships`,
+      success: connections => this.setState({ connections }),
+    });
+  }
+
   render() {
     return (
       <div className="content">
@@ -107,7 +116,7 @@ class ActivityBoard extends React.Component {
           {(this.props.demo && !this.props.demo.hideSocial && !this.props.user.isGuestUser) &&
             <span>
               <div className="large-4 columns">
-                <ConnectionsComponent {...this.props}/>
+                <ConnectionsComponent {...this.props} connections={this.state.connections}/>
               </div>
 
               <div className="large-4 columns">

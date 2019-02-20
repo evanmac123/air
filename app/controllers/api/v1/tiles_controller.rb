@@ -57,10 +57,6 @@ class Api::V1::TilesController < Api::ApiController
       tile_show.merge(parsed_tile_completion)
     end
 
-    def verify_origin
-      render json: {} unless request.xhr?
-    end
-
     def schedule_viewed_tile_ping(tile)
       return unless tile.present?
       tile_type = tile.is_invite_spouse? ? "Spouse Invite" : "User"

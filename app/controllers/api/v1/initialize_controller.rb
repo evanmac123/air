@@ -14,10 +14,6 @@ class Api::V1::InitializeController < Api::ApiController
   end
 
   private
-    def verify_origin
-      render json: {} unless request.xhr?
-    end
-
     def render_user_data(user)
       if user
         {
