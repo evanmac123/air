@@ -17,7 +17,6 @@ class ActFinder
   end
 
   def display
-    return []
     if only_display_own_acts?
       display_own_acts
     elsif user.is_client_admin || user.is_site_admin
