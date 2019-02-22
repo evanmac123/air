@@ -4,9 +4,8 @@ class Api::V1::InitializeController < Api::ApiController
   before_action :verify_origin
 
   def index
-    # binding.pry
     user = current_user
-    demo = user.try(:demo) || current_board
+    demo = user.try(:demo) || find_demo_using_public_slug
     render json: {
       user: render_user_data(user) || { name: "guest" },
       demo: render_demo_data(demo) || {},
@@ -54,6 +53,13 @@ class Api::V1::InitializeController < Api::ApiController
           pointsWording: org.points_wording || "Points"
         }
         demo.raffle ? org_data.merge(JSON.parse(demo.raffle.to_json)) : org_data
+      end
+    end
+
+    def find_demo_using_public_slug
+      if params[:current_route].split('/').include?(":public_slug")
+        demo = Demo.find_by(public_slug: params[:public_slug])
+        demo && demo.is_public? ? demo : nil
       end
     end
 end

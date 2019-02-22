@@ -42,9 +42,10 @@ class App extends React.Component {
   }
 
   setInitialState() {
+    const { currentRoute, routeData } = this.airouter;
     Fetcher.xmlHttpRequest({
       method: 'GET',
-      path: `/api/v1/initialize`,
+      path: `/api/v1/initialize?current_route=${currentRoute}&public_slug=${routeData.public_slug}`,
       success: resp => {
         this.setUser(resp.user);
         this.setOrganization(resp.organization);

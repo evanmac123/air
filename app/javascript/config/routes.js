@@ -10,6 +10,6 @@ export default {
   '/tiles': TileCarousel,
   '/ard/:public_slug/tiles': TileCarousel,
   '/activity': ActivityBoard,
-  'ard/:public_slug/activity': ActivityBoard,
+  '/ard/:public_slug/activity': ActivityBoard,
   '/acts': ActivityBoard,
 };

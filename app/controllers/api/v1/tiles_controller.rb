@@ -4,7 +4,6 @@ class Api::V1::TilesController < Api::ApiController
   before_action :verify_origin
 
   def index
-    # binding.pry
     tiles = Tile.displayable_categorized_to_user(
       user: current_user,
       maximum_tiles: params[:maximum_tiles].to_i,
