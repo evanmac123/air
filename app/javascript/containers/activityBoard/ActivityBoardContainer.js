@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import '../../lib/utils/autocomplete';
 import { Fetcher } from '../../lib/helpers';
 import LoadingComponent from '../../shared/LoadingComponent';
 import ProgressBarComponent from '../../shared/ProgressBarComponent';
@@ -93,6 +94,14 @@ class ActivityBoard extends React.Component {
     });
   }
 
+  autocomplete() {
+    // Legacy functions triggering autocomplete legacy code (import '../../lib/utils/autocomplete';)
+    /* eslint-disable */
+    startWatchDog({ calling_div: "#search_for_friends_to_invite" });
+    markForSend();
+    /* eslint-enable */
+  }
+
   render() {
     return (
       <div className="content">
@@ -116,11 +125,11 @@ class ActivityBoard extends React.Component {
           {(this.props.demo && !this.props.demo.hideSocial && !this.props.user.isGuestUser) &&
             <span>
               <div className="large-4 columns">
-                <ConnectionsComponent {...this.props} connections={this.state.connections}/>
+                <ConnectionsComponent {...this.props} connections={this.state.connections} />
               </div>
 
               <div className="large-4 columns">
-                <InviteUsersComponent />
+                <InviteUsersComponent {...this.props} autocomplete={this.autocomplete} />
               </div>
             </span>
           }

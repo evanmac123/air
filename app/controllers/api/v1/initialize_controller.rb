@@ -4,8 +4,9 @@ class Api::V1::InitializeController < Api::ApiController
   before_action :verify_origin
 
   def index
+    # binding.pry
     user = current_user
-    demo = user.try(:demo)
+    demo = user.try(:demo) || current_board
     render json: {
       user: render_user_data(user) || { name: "guest" },
       demo: render_demo_data(demo) || {},
