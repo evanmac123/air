@@ -185,7 +185,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.segmented_for_user(user)
-    segment_ids = user.active_population_segments
+    segment_ids = user.try(:active_population_segments) || []
     segmented_on_population_segments(segment_ids)
   end
 

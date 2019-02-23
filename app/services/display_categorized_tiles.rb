@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DisplayCategorizedTiles
-  def self.displayable_categorized_tiles(user:, maximum_tiles:, current_board: nil, page: {incomplete_tiles_page: 1, complete_tiles_page: 1}, offset: 0)
+  def self.displayable_categorized_tiles(user:, maximum_tiles:, current_board: nil, page: { incomplete_tiles_page: 1, complete_tiles_page: 1 }, offset: 0)
     demo = current_board || user.demo
     result = satisfiable_tiles_categorized_to_user(user, demo, maximum_tiles, page, offset)
 
@@ -52,7 +52,7 @@ class DisplayCategorizedTiles
     end
 
     def self.all_completed_tiles(user, demo)
-      demo.tiles.joins(:tile_completions).where(tile_completions: { user_id: user.id, user_type: user.class.to_s })
+      user ? demo.tiles.joins(:tile_completions).where(tile_completions: { user_id: user.id, user_type: user.class.to_s }) : []
     end
 
     def self.not_completed_tiles(user, demo)

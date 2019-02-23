@@ -13,15 +13,14 @@ class ActsController < ApplicationController
   before_action :set_theme
 
   def index
-    # @demo = current_user.demo
-    #
-    # set_modals_and_intros
-    #
-    # @displayable_categorized_tiles = Tile.displayable_categorized_to_user(current_user, tile_batch_size, @demo)
-    #
-    # decide_if_tiles_can_be_done(@displayable_categorized_tiles[:not_completed_tiles])
-    #
+    @ctrl_data = {
+      currentBoard: current_user.demo.id,
+      currentUser: current_user.id,
+      isGuestUser: current_user.is_a?(GuestUser),
+      loadedActivityBoard: true
+    }.to_json
     @react_spa = true
+
     render template: "react_spa/show"
   end
 

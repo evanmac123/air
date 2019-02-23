@@ -4,10 +4,10 @@ class Api::V1::InitializeController < Api::ApiController
   before_action :verify_origin
 
   def index
-    user = current_user
-    demo = user.try(:demo) || find_demo_using_public_slug
+    user = current_user || find_user_with_params
+    demo = user.try(:demo) || find_demo_with_params
     render json: {
-      user: render_user_data(user) || { name: "guest" },
+      user: render_user_data(user) || { name: "guest", isGuestUser: true },
       demo: render_demo_data(demo) || {},
       organization: render_organization_data(demo) || { name: "no_org" }
     }
@@ -19,7 +19,7 @@ class Api::V1::InitializeController < Api::ApiController
         {
           isGuestUser: user.is_guest?,
           isEndUser: user.end_user?,
-          isClientAdmin: user.is_client_admin?,
+          isClientAdmin: user.try(:is_client_admin?) || false,
           name: user.try(:name),
           id: user.try(:id),
           points: user.try(:points) || 0,
@@ -33,6 +33,7 @@ class Api::V1::InitializeController < Api::ApiController
     def render_demo_data(demo)
       if demo
         {
+          id: demo.id,
           name: demo.name,
           customWelcomeMessage: demo.custom_welcome_message,
           email: demo.email,
@@ -56,9 +57,9 @@ class Api::V1::InitializeController < Api::ApiController
       end
     end
 
-    def find_demo_using_public_slug
-      if params[:current_route].split('/').include?(":public_slug")
-        demo = Demo.find_by(public_slug: params[:public_slug])
+    def find_demo_with_params
+      if params[:demo_id]
+        demo = Demo.find_by(id: params[:demo_id])
         demo && demo.is_public? ? demo : nil
       end
     end

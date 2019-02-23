@@ -42,10 +42,11 @@ class App extends React.Component {
   }
 
   setInitialState() {
-    const { currentRoute, routeData } = this.airouter;
+    const {loadedActivityBoard, currentBoard, currentUser, isGuestUser} = this.props.initData;
+    const params = loadedActivityBoard ? `demo_id=${currentBoard}&user_id=${currentUser}&is_guest_user=${isGuestUser}` : '';
     Fetcher.xmlHttpRequest({
       method: 'GET',
-      path: `/api/v1/initialize?current_route=${currentRoute}&public_slug=${routeData.public_slug}`,
+      path: `/api/v1/initialize?${params}`,
       success: resp => {
         this.setUser(resp.user);
         this.setOrganization(resp.organization);
@@ -107,7 +108,7 @@ class App extends React.Component {
       userData: this.props.userData,
     }) :
     null,
-    this.state.currentRoute && !this.state.originId ?
+    this.state.currentRoute && !this.state.originId && !this.state.appLoading ?
       React.createElement(routes[this.state.currentRoute], {
         routeData: this.state.routeData,
         setUser: this.setUser,

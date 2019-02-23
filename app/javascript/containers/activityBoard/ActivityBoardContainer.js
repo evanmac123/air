@@ -51,7 +51,8 @@ class ActivityBoard extends React.Component {
 
   loadTiles(opts) {
     const {completeTilesPage, incompleteTilesPage, completeTilesOffset} = this.state;
-    const params = `maximum_tiles=${opts.perPage || '16'}&complete_tiles_page=${completeTilesPage}&incomplete_tiles_page=${incompleteTilesPage}&offset=${completeTilesOffset}`;
+    const {isGuestUser, id} = this.props.user;
+    const params = `user_id=${id}&is_guest_user=${isGuestUser}&maximum_tiles=${opts.perPage || '16'}&complete_tiles_page=${completeTilesPage}&incomplete_tiles_page=${incompleteTilesPage}&offset=${completeTilesOffset}`;
     Fetcher.xmlHttpRequest({
       method: 'GET',
       path: `/api/v1/tiles?${params}`,

@@ -5,9 +5,9 @@ class Api::V1::TilesController < Api::ApiController
 
   def index
     tiles = Tile.displayable_categorized_to_user(
-      user: current_user,
+      user: current_user || find_user_with_params,
       maximum_tiles: params[:maximum_tiles].to_i,
-      current_board: current_user.demo,
+      current_board: current_user.try(:demo),
       page: current_page,
       offset: params[:offset].to_i
     )
