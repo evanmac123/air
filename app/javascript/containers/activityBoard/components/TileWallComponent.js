@@ -30,7 +30,7 @@ const TileWallComponent = props => (
     </div>
 
     {
-      ((props.tiles.complete.count + props.tiles.incomplete.count) % 16 === 0) &&
+      (!props.allTilesDisplayed) &&
       <div id="tile_links">
         <div className="more_tiles_button">
           <a className="show_more_tiles button" onClick={props.loadMoreTiles}>
@@ -50,6 +50,7 @@ TileWallComponent.propTypes = {
     complete: PropTypes.object,
     incomplete: PropTypes.object,
   }),
+  allTilesDisplayed: PropTypes.bool,
   openTileModal: PropTypes.func,
   loadMoreTiles: PropTypes.func,
 };

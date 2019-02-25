@@ -27,6 +27,7 @@ class ActivityBoard extends React.Component {
       completeTilesPage: 0,
       completeTilesOffset: 0,
       incompleteTilesPage: 1,
+      allTilesDisplayed: true,
       connections: null,
     };
     this.loadTiles = this.loadTiles.bind(this);
@@ -46,7 +47,9 @@ class ActivityBoard extends React.Component {
         this.setState({loading: false});
       },
     });
-    this.loadUserConnections();
+    if (this.props.demo && !this.props.demo.hideSocial && !this.props.user.isGuestUser) {
+      this.loadUserConnections();
+    }
   }
 
   loadTiles(opts) {
@@ -57,11 +60,8 @@ class ActivityBoard extends React.Component {
       method: 'GET',
       path: `/api/v1/tiles?${params}`,
       success: resp => {
-        this.setState({
-          completeTilesPage: resp.completeTilesPage,
-          incompleteTilesPage: resp.incompleteTilesPage,
-          completeTilesOffset: resp.completeTilesOffset,
-        });
+        const {completeTilesPage, incompleteTilesPage, completeTilesOffset, allTilesDisplayed} = resp;
+        this.setState({ completeTilesPage, incompleteTilesPage, completeTilesOffset, allTilesDisplayed });
         opts.success(resp);
       },
       err: resp => opts.error(resp),
@@ -115,6 +115,7 @@ class ActivityBoard extends React.Component {
               tiles={this.props.tiles}
               openTileModal={this.openTileModal}
               loadMoreTiles={this.loadMoreTiles}
+              allTilesDisplayed={this.state.allTilesDisplayed}
             />
           }
         </div>
