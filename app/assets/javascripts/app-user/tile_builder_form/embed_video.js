@@ -5,7 +5,8 @@ Airbo.EmbedVideo = (function() {
     "player.vimeo.com",
     "fast.wistia.net",
     "embed.ted.com",
-    "www.kalutra.com"
+    "www.kalutra.com",
+    "media.hartfordhealthcare.org"
   ];
   var timer;
 
