@@ -127,6 +127,14 @@ class ActivityBoard extends React.Component {
           {(this.props.demo && !this.props.demo.hideSocial && !this.props.user.isGuestUser) &&
             <span>
               <div className="large-4 columns">
+                <div className="module">
+                <h3 className="feeds_title">Activity</h3>
+                  <p style={{lineHeight: '2.6em'}}>
+                    <span style={{fontSize: '17px'}}>Looking for your Activity feed?</span><br />We’ve temporarily moved it to your <a href={this.props.user.path}>profile</a>.
+                  </p>
+                </div>
+              </div>
+              <div className="large-4 columns">
                 <ConnectionsComponent {...this.props} connections={this.state.connections} />
               </div>
 
