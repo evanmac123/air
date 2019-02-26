@@ -49,12 +49,12 @@ const RaffleProgressBarComponent = props => {
 
         <div className="progress_header" id="raffle_data">
           <div id="raffle_time_left">
-            <span className="fa fa-clock-o"></span>
+            <span className="fa fa-clock-o" style={{marginRight: '3px'}}></span>
             {timeLeft.complete}
           </div>
 
           <div id="raffle_info">
-            <span className="fa fa-trophy"></span>
+            <span className="fa fa-trophy" style={{marginRight: '3px'}}></span>
             Info
           </div>
         </div>
