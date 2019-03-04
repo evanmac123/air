@@ -84,7 +84,9 @@ class ActivityBoard extends React.Component {
   }
 
   openTileModal(id) {
-    this.props.navigateTo(`/tiles?tile_id=${id}`);
+    const {demo, user} = this.props;
+    const baseRoute = demo.isPublic && user.isGuestUser ? `/ard/${demo.publicSlug}/tiles` : '/tiles';
+    this.props.navigateTo(`${baseRoute}?tile_id=${id}`);
   }
 
   loadUserConnections() {
