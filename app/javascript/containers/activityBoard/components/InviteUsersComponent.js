@@ -16,7 +16,13 @@ const InviteUsersComponent = props => (
               <label>Who do you want to invite?</label>
             </li>
             <li className="form-input">
-              <input type="text" name="autocomplete" id="autocomplete" placeholder="Type Name or Email" onKeyDown={props.autocomplete} />
+              <input
+                type="text"
+                name="autocomplete"
+                id="autocomplete"
+                placeholder={props.demo.isPublic ? "Type Name or Email" : "Type Name"}
+                onKeyDown={props.autocomplete}
+              />
             </li>
           </ul>
           <div className="small_cap" id="autocomplete_status" style={{width: '99%'}} />
@@ -34,6 +40,7 @@ const InviteUsersComponent = props => (
 
 InviteUsersComponent.propTypes = {
   organization: PropTypes.object,
+  demo: PropTypes.object,
   autocomplete: PropTypes.func,
 };
 
