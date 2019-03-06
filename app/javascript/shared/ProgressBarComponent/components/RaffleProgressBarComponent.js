@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CircularProgressbar from 'react-circular-progressbar';
 
 import { DateMaker } from '../../../lib/helpers';
 
@@ -38,7 +39,7 @@ const renderPrizes = prizes => prizes.map((prize, key) => (
 ));
 
 const RaffleProgressBarComponent = props => {
-  const { progressBarData } = props;
+  const { progressBarData, percentage } = props;
   const timeLeft = calculateTimeLeft(progressBarData.raffle.ends_at);
   if (timeLeft) {
     return (
@@ -59,14 +60,11 @@ const RaffleProgressBarComponent = props => {
           </div>
         </div>
 
-        <div className="progress-radial" data-progress="0">
-          <div className="overlay" id="raffle_entries">
-            {progressBarData.raffleTickets}
-          </div>
-
-          <div className="point_container_ie">
-            <div className="point_progress_ie"></div>
-          </div>
+        <div className="progress-radial">
+          <CircularProgressbar
+            percentage={percentage}
+            text={progressBarData.raffleTickets || "0"}
+          />
         </div>
 
         <div id="prize_modal" className="reveal-modal js-board-prize-modal" data-reveal="">
@@ -148,6 +146,7 @@ RaffleProgressBarComponent.propTypes = {
     raffle: PropTypes.object,
     raffleTickets: PropTypes.number,
   }),
+  percentage: PropTypes.number,
 };
 
 export default RaffleProgressBarComponent;

@@ -252,10 +252,20 @@ body.acts-index #user_progress #raffle_section.round_bar{
   background: <%=@primary_color%>;
 }
 
+body.tiles-index #user_progress #raffle_section .CircularProgressbar .CircularProgressbar-path,
+body.acts-index #user_progress #raffle_section .CircularProgressbar .CircularProgressbar-path {
+    stroke: <%=@primary_color%>;
+}
+
 body.tiles-index #user_progress #raffle_section.round_bar .progress-radial .overlay,
 .explore-search-user #user_progress #raffle_section.round_bar .progress-radial .overlay,
 body.acts-index #user_progress #raffle_section.round_bar .progress-radial .overlay{
   color: <%=@primary_color%>;
+}
+
+body.tiles-index #user_progress #raffle_section.round_bar .progress-radial .CircularProgressbar-text,
+body.acts-index #user_progress #raffle_section.round_bar .progress-radial .CircularProgressbar-text {
+  fill: <%=@primary_color%>;
 }
 
 @media only screen and (max-width: 500px) {
