@@ -61,6 +61,14 @@ class DisplayCategorizedTiles
 
     def self.completed_tiles(user, demo, maximum_tiles, page, offset)
       page = page[:complete_tiles_page] > 0 ? page[:complete_tiles_page] : 1
-      all_completed_tiles(user, demo).order("tile_completions.id DESC").page(page).per(maximum_tiles + 1).padding(offset).to_a
+      tile_completion_attrs = ["tile_completions.answer_index", "tile_completions.free_form_response"]
+      attrs = Tile.attribute_names.map { |attr| "tiles.#{attr}" }.concat(tile_completion_attrs)
+      all_completed_tiles(user, demo)
+        .joins(:tile_completions)
+        .select(attrs)
+        .order("tile_completions.id DESC")
+        .page(page)
+        .per(maximum_tiles + 1)
+        .padding(offset).to_a
     end
 end

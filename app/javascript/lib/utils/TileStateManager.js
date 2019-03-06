@@ -15,6 +15,19 @@ const pingView = id => {
   });
 };
 
+const resetPriorSelections = () => {
+  const tileQuizSection = document.getElementsByClassName('multiple-choice-answer ');
+  if (tileQuizSection.length) {
+    for (let i = 0; i < tileQuizSection.length; i++) {
+      tileQuizSection[i].className = 'multiple-choice-answer';
+      tileQuizSection[i].style.pointerEvents = '';
+      if (tileQuizSection[i].nextElementSibling) {
+        tileQuizSection[i].nextElementSibling.className = 'answer_target';
+      }
+    }
+  }
+};
+
 class TileStateManager extends React.Component {
   constructor(props) {
     super(props);
@@ -51,6 +64,7 @@ class TileStateManager extends React.Component {
     const pingTileView = tileOrigin === 'complete' || tileOrigin === 'incomplete' ? 'true' : 'false';
     if (!this.state.loading) { this.setState({ loading: true }); }
     if (tiles[tileOrigin][id].fullyLoaded) {
+      resetPriorSelections();
       this.setState({ loading: false });
       if (pingTileView === 'true') { pingView(id); }
     } else {

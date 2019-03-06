@@ -91,7 +91,7 @@ module Tile::ReactProcessing
     end
   end
 
-  def sanitize_for_tile_show
+  def sanitize_for_tile_show(complete: nil)
     result = {
       id: id,
       headline: headline,
@@ -111,7 +111,9 @@ module Tile::ReactProcessing
       attachments: documents,
       imageCredit: image_credit,
       dependentBoardSubject: question_subtype == "invite_spouse" ? demo.dependent_board_email_subject : "",
-      dependentBoardBody: question_subtype == "invite_spouse" ? demo.dependent_board_email_body : ""
+      dependentBoardBody: question_subtype == "invite_spouse" ? demo.dependent_board_email_body : "",
+      answerIndex: complete ? answer_index : nil,
+      freeFormResponse: complete ? free_form_response : nil
     }
     ribbon_tag ? result.merge(ribbonTagColor: ribbon_tag.color, ribbonTagName: ribbon_tag.name) : result
   end

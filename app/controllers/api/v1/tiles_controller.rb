@@ -67,7 +67,7 @@ class Api::V1::TilesController < Api::ApiController
       incomplete = tiles[:not_completed_tiles] || []
       {
         tiles: {
-          complete:          complete.map { |tile| tile.sanitize_for_tile_show.merge(fullyLoaded: true) },
+          complete:          complete.map { |tile| tile.sanitize_for_tile_show(complete: true).merge(fullyLoaded: true, complete: true) },
           incomplete:        incomplete.map { |tile| tile.sanitize_for_tile_show.merge(fullyLoaded: true) },
         },
         completeTilesPage:   tiles[:complete_tiles_page],
