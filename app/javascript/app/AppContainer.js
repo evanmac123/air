@@ -42,8 +42,8 @@ class App extends React.Component {
   }
 
   setInitialState() {
-    const {loadedActivityBoard, currentBoard, currentUser, isGuestUser} = this.props.initData;
-    const params = loadedActivityBoard ? `demo_id=${currentBoard}&user_id=${currentUser}&is_guest_user=${isGuestUser}` : '';
+    const {loadedBoard, currentBoard, currentUser, isGuestUser} = this.props.initData;
+    const params = loadedBoard ? `demo_id=${currentBoard}&user_id=${currentUser}&is_guest_user=${isGuestUser}` : '';
     Fetcher.xmlHttpRequest({
       method: 'GET',
       path: `/api/v1/initialize?${params}`,

@@ -17,7 +17,7 @@ class ActsController < ApplicationController
       currentBoard: current_user.demo.id,
       currentUser: current_user.id,
       isGuestUser: current_user.is_a?(GuestUser),
-      loadedActivityBoard: true
+      loadedBoard: true
     }.to_json
     @react_spa = true
 
