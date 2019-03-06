@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CountUp from 'react-countup';
 import { connect } from "react-redux";
 
 import RaffleProgressBarComponent from "./components/RaffleProgressBarComponent";
@@ -53,10 +54,13 @@ class ProgressBarComponent extends React.Component {
 
   syncProgressBarData() {
     if (this.props.organization.name && this.props.userData.name && !this.props.progressBarData.loaded) {
+      const { points, tickets, numOfIncompleteTiles } = this.props.userData;
+      const startingPoints = this.props.progressBarData.startingPoints || 0;
       const updateData = {
-        points: this.props.userData.points || 0,
-        raffleTickets: this.props.userData.tickets || 0,
-        incompletedTiles: this.props.userData.numOfIncompleteTiles,
+        startingPoints,
+        points: points || 0,
+        raffleTickets: tickets || 0,
+        incompletedTiles: numOfIncompleteTiles,
         raffle: this.props.organization.raffle,
         loaded: true,
       };
@@ -109,7 +113,12 @@ class ProgressBarComponent extends React.Component {
                   {this.props.organization.pointsWording}
                 </div>
                 <div id="total_points">
-                  {this.props.progressBarData.points}
+                  <CountUp
+                    start={this.props.progressBarData.startingPoints || 0}
+                    end={this.props.progressBarData.points}
+                    duration={2.75}
+                    onEnd={() => this.props.setProgressBarData({startingPoints: this.props.progressBarData.points})}
+                  />
                 </div>
               </div>
               <div id="tile_section">
@@ -164,6 +173,7 @@ ProgressBarComponent.propTypes = {
     completedTiles: PropTypes.number,
     incompletedTiles: PropTypes.number,
     points: PropTypes.number,
+    startingPoints: PropTypes.number,
     raffle: PropTypes.object,
   }),
   setProgressBarData: PropTypes.func,
