@@ -64,9 +64,9 @@ class TileStateManager extends React.Component {
     const pingTileView = tileOrigin === 'complete' || tileOrigin === 'incomplete' ? 'true' : 'false';
     if (!this.state.loading) { this.setState({ loading: true }); }
     if (tiles[tileOrigin][id].fullyLoaded) {
-      resetPriorSelections();
-      this.setState({ loading: false });
+      if (tileOrigin === 'incomplete') { resetPriorSelections(); }
       if (pingTileView === 'true') { pingView(id); }
+      this.setState({ loading: false });
     } else {
       this.fetchFullSizeTileData(id, tileOrigin, pingTileView);
     }
