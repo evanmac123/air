@@ -6,6 +6,7 @@ class Api::V1::InitializeController < Api::ApiController
   def index
     user = current_user || find_user_with_params
     demo = user.try(:demo) || find_demo_with_params
+    set_modals_and_intros(user)
     render json: {
       user: render_user_data(user) || { name: "guest", isGuestUser: true },
       demo: render_demo_data(demo) || {},
@@ -27,7 +28,8 @@ class Api::V1::InitializeController < Api::ApiController
           ticketThresholdBase: user.try(:ticket_threshold_base),
           email: user.try(:email),
           numOfIncompleteTiles: user.tiles_to_complete_in_demo.count,
-          path: "/users/#{user.slug}"
+          path: "/users/#{user.slug}",
+          displayBoardWelcomeMessage: @display_board_welcome_message || false
         }
       end
     end
@@ -63,6 +65,13 @@ class Api::V1::InitializeController < Api::ApiController
       if params[:demo_id]
         demo = Demo.find_by(id: params[:demo_id])
         demo && demo.is_public? ? demo : nil
+      end
+    end
+
+    def set_modals_and_intros(user)
+      if user.display_get_started_lightbox || params[:welcome_modal].present?
+        @display_board_welcome_message = true
+        user.update_attributes(get_started_lightbox_displayed: true)
       end
     end
 end

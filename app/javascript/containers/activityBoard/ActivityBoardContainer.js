@@ -50,6 +50,9 @@ class ActivityBoard extends React.Component {
     if (this.props.demo && !this.props.demo.hideSocial && !this.props.user.isGuestUser) {
       this.loadUserConnections();
     }
+    if (this.props.user.displayBoardWelcomeMessage) {
+      window.Airbo.BoardWelcomeModal.open();
+    }
   }
 
   loadTiles(opts) {
