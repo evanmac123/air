@@ -54,12 +54,14 @@ class ProgressBarComponent extends React.Component {
 
   syncProgressBarData() {
     if (this.props.organization.name && this.props.userData.name && !this.props.progressBarData.loaded) {
-      const { points, tickets, numOfIncompleteTiles } = this.props.userData;
+      const { points, tickets, numOfIncompleteTiles, ticketThresholdBase } = this.props.userData;
       const startingPoints = points || 0;
-      const raffleBarCompletion = ((points % 20) / 20) * 100;
+      const pointsTowardsTicket = points - ticketThresholdBase;
+      const raffleBarCompletion = ((pointsTowardsTicket % 20) / 20) * 100;
       const updateData = {
         startingPoints,
         raffleBarCompletion,
+        ticketThresholdBase,
         points: points || 0,
         raffleTickets: tickets || 0,
         incompletedTiles: numOfIncompleteTiles,
@@ -170,6 +172,7 @@ ProgressBarComponent.propTypes = {
     name: PropTypes.string,
     points: PropTypes.number,
     tickets: PropTypes.number,
+    ticketThresholdBase: PropTypes.number,
     numOfIncompleteTiles: PropTypes.number,
   }),
   progressBarData: PropTypes.shape({

@@ -7,6 +7,7 @@ const initialState = {
   points: 0,
   raffleTickets: 0,
   raffleBarCompletion: 0,
+  ticketThresholdBase: 0,
   loaded: false,
 };
 
@@ -22,8 +23,9 @@ export default function(state = initialState, action) {
       const startingPoints = state.points;
       const points = state.points + action.payload.points;
       const completedTiles = state.completedTiles + action.payload.completion;
-      const raffleTickets = state.raffle ? Math.floor(points/20) : 0;
-      const raffleBarCompletion = ((points % 20) / 20) * 100;
+      const pointsTowardsTicket = points - state.ticketThresholdBase;
+      const raffleTickets = state.raffle ? Math.floor(pointsTowardsTicket/20) : 0;
+      const raffleBarCompletion = ((pointsTowardsTicket % 20) / 20) * 100;
       return {
         ...state,
         startingPoints,

@@ -24,6 +24,7 @@ class Api::V1::InitializeController < Api::ApiController
           id: user.try(:id),
           points: user.try(:points) || 0,
           tickets: user.try(:tickets) || 0,
+          ticketThresholdBase: user.try(:ticket_threshold_base),
           email: user.try(:email),
           numOfIncompleteTiles: user.tiles_to_complete_in_demo.count,
           path: "/users/#{user.slug}"
