@@ -28,8 +28,6 @@
 .CircularProgressbar .CircularProgressbar-text {
   fill: #48bfff;
   font-size: 3.5em;
-  dominant-baseline: central;
-  text-anchor: middle;
 }
 
 .CircularProgressbar .CircularProgressbar-background {
