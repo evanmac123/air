@@ -1,4 +1,4 @@
-import { SET_TILES_DATA, UPDATE_TILE_DATA } from "../actionTypes";
+import { SET_TILES_DATA, UPDATE_TILE_DATA, ADD_TILES_TO_STORE } from "../actionTypes";
 
 const initialState = {
   incomplete: { order: [], count: 0 },
@@ -28,7 +28,7 @@ const parseTilePayload = (payload, state) => (
   }, {})
 );
 
-const updateSingleTileDate = (state, payload) => {
+const updateSingleTileDate = (payload, state) => {
   const newTileData = {};
   newTileData[payload.origin] = {...state[payload.origin]};
   newTileData[payload.origin][payload.id] = {
@@ -38,6 +38,17 @@ const updateSingleTileDate = (state, payload) => {
   };
   return newTileData;
 };
+
+const mergeNewDataWithState = (newTiles, state) => Object.keys(newTiles).reduce((result, tileType) => {
+  const merged = {};
+  merged[tileType] = {
+    ...state[tileType],
+    ...newTiles[tileType],
+    order: state[tileType].order.concat(newTiles[tileType].order),
+    count: state[tileType].count + newTiles[tileType].count,
+  };
+  return Object.assign(merged, result);
+}, {});
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -49,7 +60,15 @@ export default function(state = initialState, action) {
       };
     }
     case UPDATE_TILE_DATA: {
-      const newTileData = updateSingleTileDate(state, action.payload);
+      const newTileData = updateSingleTileDate(action.payload, state);
+      return {
+        ...state,
+        ...newTileData,
+      };
+    }
+    case ADD_TILES_TO_STORE: {
+      const sanitizedTileData = parseTilePayload(action.payload, state);
+      const newTileData = mergeNewDataWithState(sanitizedTileData, state);
       return {
         ...state,
         ...newTileData,

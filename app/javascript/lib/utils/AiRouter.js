@@ -1,3 +1,5 @@
+import { bodyClassByRoute } from '../../shared/constants';
+
 const sanitizeUrl = url => (url[0] !== "/" ? `/${url}` : url);
 
 const getNewUrl = (sanitizedUrl, opts) => {
@@ -48,6 +50,7 @@ class AiRouter {
     this.connect = this.connect.bind(this);
     this.assignCurrentRoute = this.assignCurrentRoute.bind(this);
     this.updateCurrentRoute = this.updateCurrentRoute.bind(this);
+    this.navigation = this.navigation.bind(this);
   }
 
   static currentUrl() {
@@ -84,7 +87,16 @@ class AiRouter {
     window.removeEventListener("popstate", this.updateCurrentRoute);
   }
 
-  assignRouteData(route, re, cb) {
+  setBodyClass() {
+    const body = document.getElementsByTagName("BODY")[0];
+    const classByRoute = bodyClassByRoute[this.currentRoute];
+    body.className = "";
+    classByRoute.split(' ').forEach(klass => {
+      body.classList.add(klass);
+    });
+  };
+
+  assignRouteData(route, re) {
     if (this.routesList[route].variables.length) {
       let counter = 1;
       this.routeData = this.routesList[route].variables.reduce((result, variable) => {
@@ -92,9 +104,11 @@ class AiRouter {
         counter++;
         return result;
       }, {});
-      if (cb) { cb(); }
-    } else if (cb) {
-      cb();
+    }
+    if (window.location.search) {
+      window.location.search.split('?')[1].split('&').forEach(rawParam => {
+        this.routeData[rawParam.split('=')[0]] = rawParam.split('=')[1]; // eslint-disable-line
+      });
     }
   }
 
@@ -107,6 +121,7 @@ class AiRouter {
       if (url.match(routeMatcher)) {
         this.currentRoute = route;
         this.assignRouteData(route, url.match(routeMatcher), cb);
+        if (cb) { cb(); }
         break;
       }
     }
@@ -114,12 +129,25 @@ class AiRouter {
 
   updateCurrentRoute() {
     this.assignCurrentRoute(() => {
+      const { originId } = this.reactComponent.state;
       this.reactComponent.setState({
         currentRoute: this.currentRoute,
         routeData: this.routeData,
+        originId: (this.currentRoute !== '/tiles' && this.currentRoute !== '/explore/campaigns/:campaign') ? null : originId,
       });
+      this.setBodyClass();
       window.scrollTo(0,0);
     });
+  }
+
+  navigation(url, opts = {}) {
+    const sanitizedUrl = sanitizeUrl(url);
+    const stateObj = opts.stateObj || {};
+    const title = opts.title || "Airbo";
+    const newUrl = getNewUrl(sanitizedUrl, opts);
+    window.scrollTo(0,0);
+    window.history.pushState(stateObj, title, newUrl);
+    this.updateCurrentRoute();
   }
 }
 

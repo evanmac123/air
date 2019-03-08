@@ -9,9 +9,4 @@ class Api::V1::BoardSettingsController < Api::ApiController
       campaigns: current_user.demo.campaigns
     }
   end
-
-  private
-    def verify_origin
-      render json: {} unless request.xhr?
-    end
 end

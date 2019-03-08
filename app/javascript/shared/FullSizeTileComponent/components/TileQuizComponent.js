@@ -271,7 +271,7 @@ const tileQuiz = tile => {
 };
 
 const TileQuizComponent = props => (
-  <div className="tile_quiz" style={{pointerEvents: props.tile.complete || props.tileOrigin === 'complete' ? 'none' : ''}}>
+  <div id="tile-quiz-section" className="tile_quiz" style={{pointerEvents: props.tile.complete || props.tileOrigin === 'complete' ? 'none' : ''}}>
     {tilePointsBar(props.tile.points, props.organization.pointsWording)}
     <div className="tile_question content_sections">{props.tile.question}</div>
     {tileQuiz({...props.tile, submitAnswer: props.submitAnswer, origin: props.tileOrigin})}
