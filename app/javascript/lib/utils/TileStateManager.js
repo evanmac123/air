@@ -17,6 +17,7 @@ const pingView = id => {
 
 const resetPriorSelections = () => {
   const tileQuizSection = document.getElementsByClassName('multiple-choice-answer ');
+  const freeResponse = document.getElementById('free_form_response');
   if (tileQuizSection.length) {
     for (let i = 0; i < tileQuizSection.length; i++) {
       tileQuizSection[i].className = 'multiple-choice-answer';
@@ -26,6 +27,7 @@ const resetPriorSelections = () => {
       }
     }
   }
+  if (freeResponse) { freeResponse.value = ''; }
 };
 
 class TileStateManager extends React.Component {
