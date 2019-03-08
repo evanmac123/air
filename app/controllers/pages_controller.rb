@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PagesController < HighVoltage::PagesController
+  before_action :check_auth_status
   layout :layout_for_page
 
   private
@@ -20,5 +21,11 @@ class PagesController < HighVoltage::PagesController
 
     def page_name
       params[:id] || params[:action]
+    end
+
+    def check_auth_status
+      if current_user && !current_user.is_guest?
+        redirect_to activity_path
+      end
     end
 end

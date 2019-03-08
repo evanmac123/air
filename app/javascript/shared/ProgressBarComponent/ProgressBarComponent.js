@@ -1,11 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import CountUp from 'react-countup';
 import { connect } from "react-redux";
+
+import RaffleProgressBarComponent from "./components/RaffleProgressBarComponent";
 
 import { getSanitizedState } from "../../lib/redux/selectors";
 import { setProgressBarData } from "../../lib/redux/actions";
 
 function calculateTileProgressWidth(completedTiles, allTiles, fullProgressBar, tileAll, completedTilesBar, fullWidth) {
-  const tileAllWidth = tileAll.offsetWidth;
   const minWidth = completedTilesBar.style.width;
   const newWidth = parseInt(fullWidth * completedTiles / allTiles, 10);
   if (completedTiles === 0 && allTiles !== 0) {
@@ -41,6 +44,7 @@ class ProgressBarComponent extends React.Component {
 
   componentDidMount() {
     this.syncProgressBarData();
+    window.Airbo.BoardPrizeModal.init();
   }
 
   componentDidUpdate() {
@@ -49,11 +53,19 @@ class ProgressBarComponent extends React.Component {
   }
 
   syncProgressBarData() {
-    if (this.props.userData.name && !this.props.progressBarData.loaded) {
+    if (this.props.organization.name && this.props.userData.name && !this.props.progressBarData.loaded) {
+      const { points, tickets, numOfIncompleteTiles, ticketThresholdBase } = this.props.userData;
+      const startingPoints = points || 0;
+      const pointsTowardsTicket = points - ticketThresholdBase;
+      const raffleBarCompletion = ((pointsTowardsTicket % 20) / 20) * 100;
       const updateData = {
-        points: this.props.userData.points || 0,
-        raffleTickets: this.props.userData.tickets || 0,
-        incompletedTiles: this.props.userData.numOfIncompleteTiles,
+        startingPoints,
+        raffleBarCompletion,
+        ticketThresholdBase,
+        points: points || 0,
+        raffleTickets: tickets || 0,
+        incompletedTiles: numOfIncompleteTiles,
+        raffle: this.props.organization.raffle,
         loaded: true,
       };
       this.props.setProgressBarData(updateData);
@@ -87,59 +99,99 @@ class ProgressBarComponent extends React.Component {
   }
 
   render() {
+    const { progressBarData, organization } = this.props;
     return (
-      <div className="user_container">
-      {
-        !this.props.organization.name || !this.props.progressBarData.loaded ?
-          loadingProgressBar() :
-          <div id="user_progress">
+      <div>
+        <div className="user_container">
+        {
+          !organization.name || !progressBarData.loaded ?
+            loadingProgressBar() :
+            <div id="user_progress">
+              {
+                (progressBarData.raffle && progressBarData.raffle.status === 'live') &&
+                <RaffleProgressBarComponent
+                  {...this.props}
+                  percentage={progressBarData.raffleBarCompletion}
+                />
+              }
 
-            <span className="WHERE_RAFFLE_GOES!!!" style={{display: 'none'}} />
-
-            <div id="total_section">
-              <div className="progress_header" id="total_header">
-                {this.props.organization.pointsWording}
-              </div>
-              <div id="total_points">
-                {this.props.progressBarData.points}
-              </div>
-            </div>
-            <div id="tile_section">
-              <div className="progress_header" id="tile_header">
-                {this.props.organization.tilesWording}
-              </div>
-              <div id="tile_progress_bar">
-
-                <div id="all_tiles">
-                  {this.props.progressBarData.incompletedTiles}
+              <div id="total_section">
+                <div className="progress_header" id="total_header">
+                  {organization.pointsWording}
                 </div>
+                <div id="total_points">
+                  <CountUp
+                    start={progressBarData.startingPoints}
+                    end={progressBarData.points}
+                    duration={2.75}
+                  />
+                </div>
+              </div>
+              <div id="tile_section">
+                <div className="progress_header" id="tile_header">
+                  {organization.tilesWording}
+                </div>
+                <div id="tile_progress_bar">
 
-                {(!!this.props.progressBarData.completedTiles ||
-                  this.props.progressBarData.incompletedTiles === this.props.progressBarData.completedTiles) &&
-                  <div id="completed_tiles">
-                    <div id="complete_info">
-                      <span className="fa fa-check"></span>
-                      <span id="completed_tiles_num">
-                        {this.props.progressBarData.completedTiles}
-                      </span>
-                    </div>
-                    <div id="congrat_header">
-                      <i className="fa fa-flag-checkered" style={{paddingRight: '10px'}}></i>
-                      <div id="congrat_text">
-                        {`You've finished all new ${this.props.organization.tilesWording}!`}
+                  <div id="all_tiles">
+                    {progressBarData.incompletedTiles}
+                  </div>
+
+                  {(!!progressBarData.completedTiles ||
+                    progressBarData.incompletedTiles === progressBarData.completedTiles) &&
+                    <div id="completed_tiles">
+                      <div id="complete_info">
+                        <span className="fa fa-check"></span>
+                        <span id="completed_tiles_num">
+                          {progressBarData.completedTiles}
+                        </span>
+                      </div>
+                      <div id="congrat_header">
+                        <i className="fa fa-flag-checkered" style={{paddingRight: '10px'}}></i>
+                        <div id="congrat_text">
+                          {`You've finished all new ${organization.tilesWording}!`}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                }
+                  }
 
+                </div>
               </div>
             </div>
-          </div>
-      }
+        }
+        </div>
+
+
       </div>
     );
   }
 }
+
+ProgressBarComponent.propTypes = {
+  userData: PropTypes.shape({
+    name: PropTypes.string,
+    points: PropTypes.number,
+    tickets: PropTypes.number,
+    ticketThresholdBase: PropTypes.number,
+    numOfIncompleteTiles: PropTypes.number,
+  }),
+  progressBarData: PropTypes.shape({
+    loaded: PropTypes.bool,
+    completedTiles: PropTypes.number,
+    incompletedTiles: PropTypes.number,
+    points: PropTypes.number,
+    startingPoints: PropTypes.number,
+    raffle: PropTypes.object,
+  }),
+  setProgressBarData: PropTypes.func,
+  organization: PropTypes.shape({
+    name: PropTypes.string,
+    pointsWording: PropTypes.string,
+    tilesWording: PropTypes.string,
+    raffle: PropTypes.object,
+  }),
+};
+
 
 export default connect(
   getSanitizedState,

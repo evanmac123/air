@@ -185,7 +185,7 @@ class Tile < ActiveRecord::Base
   end
 
   def self.segmented_for_user(user)
-    segment_ids = user.active_population_segments
+    segment_ids = user.try(:active_population_segments) || []
     segmented_on_population_segments(segment_ids)
   end
 
@@ -316,8 +316,8 @@ class Tile < ActiveRecord::Base
     TileViewing.add(self, user) if user
   end
 
-  def self.displayable_categorized_to_user(user, maximum_tiles, current_board = nil)
-    DisplayCategorizedTiles.displayable_categorized_tiles(user, maximum_tiles, current_board)
+  def self.displayable_categorized_to_user(user:, maximum_tiles:, current_board:, page: nil, offset: nil)
+    DisplayCategorizedTiles.displayable_categorized_tiles(user: user, maximum_tiles: maximum_tiles, current_board: current_board, page: page, offset: offset)
   end
 
   def prev_tile_in_board

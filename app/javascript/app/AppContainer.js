@@ -2,21 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { AiRouter, TileStateManager } from "../../lib/utils";
-import { Fetcher } from "../../lib/helpers";
-import { setUserData, setTilesData, setOrganizationData } from "../../lib/redux/actions";
-import { getSanitizedState } from "../../lib/redux/selectors";
-import Explore from "../explore/ExploreContainer";
-import ClientAdminTiles from "../clientAdminTiles/ClientAdminTilesContainer";
-import TileCarousel from "../tileCarousel/TileCarouselContainer";
-
-const routes = {
-  '/explore': Explore,
-  '/explore/campaigns/:campaign': Explore,
-  '/client_admin/tiles': ClientAdminTiles,
-  '/tiles': TileCarousel,
-  '/ard/:public_slug/tiles': TileCarousel,
-};
+import { AiRouter, TileStateManager } from "../lib/utils";
+import { Fetcher } from "../lib/helpers";
+import { setUserData, setTilesData, setOrganizationData, setDemoData, addTilesToStore } from "../lib/redux/actions";
+import { getSanitizedState } from "../lib/redux/selectors";
+import routes from '../config/routes';
 
 class App extends React.Component {
   constructor(props) {
@@ -31,9 +21,11 @@ class App extends React.Component {
     };
     this.setUser = this.setUser.bind(this);
     this.setTiles = this.setTiles.bind(this);
+    this.addTiles = this.addTiles.bind(this);
     this.openFullSizeTile = this.openFullSizeTile.bind(this);
     this.closeTile = this.closeTile.bind(this);
     this.redirectTo = this.redirectTo.bind(this);
+    this.navigateTo = this.navigateTo.bind(this);
     this.airouter = new AiRouter(routes, this);
   }
 
@@ -42,21 +34,27 @@ class App extends React.Component {
     this.setInitialState();
   }
 
+  componentDidUpdate() {
+  }
+
   componentWillUnmount() {
     this.airouter.disconnect();
   }
 
   setInitialState() {
+    const {loadedBoard, currentBoard, currentUser, isGuestUser} = this.props.initData;
+    const params = loadedBoard ? `demo_id=${currentBoard}&user_id=${currentUser}&is_guest_user=${isGuestUser}` : '';
     Fetcher.xmlHttpRequest({
       method: 'GET',
-      path: `/api/v1/initialize`,
+      path: `/api/v1/initialize?${params}`,
       success: resp => {
         this.setUser(resp.user);
         this.setOrganization(resp.organization);
+        this.setDemo(resp.demo);
         this.setState({appLoading: false});
       },
       err: () => this.setState({appLoading: false}),
-    })
+    });
   }
 
   setUser(data) {
@@ -71,8 +69,20 @@ class App extends React.Component {
     this.props.setOrganizationData(data);
   }
 
+  setDemo(data) {
+    this.props.setDemoData(data);
+  }
+
+  addTiles(data) {
+    this.props.addTilesToStore(data);
+  }
+
   redirectTo(path) {
     window.location = path;
+  }
+
+  navigateTo(path) {
+    this.airouter.navigation(path);
   }
 
   openFullSizeTile(opts) {
@@ -88,6 +98,7 @@ class App extends React.Component {
   }
 
   render() {
+    const  { userData, tiles, organization, demo, progressBarData, initData } = this.props;
     return React.createElement('div', {className: 'react-root'},
     this.state.originId ? React.createElement(TileStateManager, {
       originId: this.state.originId,
@@ -97,16 +108,22 @@ class App extends React.Component {
       userData: this.props.userData,
     }) :
     null,
-    this.state.currentRoute && !this.state.originId ?
+    this.state.currentRoute && !this.state.originId && !this.state.appLoading ?
       React.createElement(routes[this.state.currentRoute], {
-        ctrl: this.props.initData,
         routeData: this.state.routeData,
         setUser: this.setUser,
         setTiles: this.setTiles,
+        addTiles: this.addTiles,
         openFullSizeTile: this.openFullSizeTile,
-        tiles: this.props.tiles,
         redirectTo: this.redirectTo,
+        navigateTo: this.navigateTo,
         appLoading: this.state.appLoading,
+        ctrl: initData,
+        user: userData,
+        tiles,
+        demo,
+        organization,
+        progressBarData,
       }) :
       ''
     );
@@ -117,7 +134,13 @@ App.propTypes = {
   initData: PropTypes.object,
   setUserData: PropTypes.func,
   setTilesData: PropTypes.func,
+  addTilesToStore: PropTypes.func,
+  setOrganizationData: PropTypes.func,
+  setDemoData: PropTypes.func,
   userData: PropTypes.object,
+  organization: PropTypes.object,
+  demo: PropTypes.object,
+  progressBarData: PropTypes.object,
   tiles: PropTypes.shape({
     explore: PropTypes.object,
     edit: PropTypes.object,
@@ -128,5 +151,5 @@ App.propTypes = {
 
 export default connect(
   getSanitizedState,
-  { setUserData, setTilesData, setOrganizationData }
+  { setUserData, setTilesData, setOrganizationData, setDemoData, addTilesToStore }
 )(App);

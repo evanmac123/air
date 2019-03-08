@@ -41,13 +41,18 @@ class TilesController < ApplicationController
           startTile: start_tile ? start_tile.sanitize_for_tile_show : {},
           raffle: @demo.live_raffle.try(:id),
           tileType: show_completed_tiles(start_tile) ? "complete" : "incomplete",
-          tileIds: tiles_to_be_loaded.pluck(:id)
+          tileIds: tiles_to_be_loaded.pluck(:id),
+          currentBoard: current_user.demo.id,
+          currentUser: current_user.id,
+          isGuestUser: current_user.is_a?(GuestUser),
+          loadedBoard: true
         }
 
         update_tile_data_with_completion(start_tile, ctrl_data) if ctrl_data[:tileType] == "complete"
         session.delete(:start_tile)
 
         @ctrl_data = ctrl_data.to_json
+        @react_spa = true
         render template: "react_spa/show"
       end
     end

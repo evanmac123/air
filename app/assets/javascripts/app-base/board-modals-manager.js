@@ -22,7 +22,7 @@ Airbo.BoardModalManager = (function() {
 })();
 
 $(function() {
-  if (Airbo.Utils.nodePresent("#user_progress")) {
-    Airbo.BoardModalManager.init();
-  }
+  // if (Airbo.Utils.nodePresent("#user_progress")) {
+  //   Airbo.BoardModalManager.init();
+  // }
 });
