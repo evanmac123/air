@@ -49,7 +49,6 @@ class ProgressBarComponent extends React.Component {
 
   componentDidUpdate() {
     this.syncProgressBarData();
-    this.renderCompletedTilesBar();
   }
 
   syncProgressBarData() {
@@ -70,6 +69,7 @@ class ProgressBarComponent extends React.Component {
       };
       this.props.setProgressBarData(updateData);
     }
+    this.renderCompletedTilesBar();
   }
 
   renderCompletedTilesBar() {
