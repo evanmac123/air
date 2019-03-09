@@ -17,7 +17,8 @@ class ActsController < ApplicationController
       currentBoard: current_user.demo.id,
       currentUser: current_user.id,
       isGuestUser: current_user.is_a?(GuestUser),
-      loadedBoard: true
+      loadedBoard: true,
+      activityBoard: true
     }.to_json
     @react_spa = true
 
@@ -60,3 +61,5 @@ class ActsController < ApplicationController
       user && EmailLink.validate_token(user, tile_token)
     end
 end
+
+# http://localhost:3000/acts?demo_id=920&amp;email_type=follow_up_digest&amp;subject_line=%255BTest%255D%2520Don%2527t%2520Miss%253A%2520Update%2520on%2520FSA%2520cards&amp;tile_id=42214&amp;tile_token=f536f370d35bd5ef9ddc2b7ade6e2d6adc845229&amp;tiles_digest_id=test&amp;user_id=437728
