@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Potential User Accepts Invitation" do
+xfeature "Potential User Accepts Invitation" do
   include SessionHelpers
 
   context "with no raffle" do

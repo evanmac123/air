@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'can go to different boards' do
+xfeature 'can go to different boards' do
   let (:board_1) { FactoryBot.create(:demo, :with_public_slug) }
   let (:board_2) { FactoryBot.create(:demo, :with_public_slug) }
   let! (:tile_1)  { FactoryBot.create(:multiple_choice_tile, demo: board_1, headline: "You are in board 1", status: Tile::ACTIVE) }

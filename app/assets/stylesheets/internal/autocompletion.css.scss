@@ -130,34 +130,10 @@ body #facebox .content {
   margin-top: -12px;
 }
 
-div#search_for_referrer {
-  div#autocomplete_status {
-    color:$gray;
-    margin:0;
-    padding:0;
-    top:-52px;
-    display: none;
-  }
-  div#suggestions {
-    div.single_suggestion {
-      div.image {
-        img {
-          border:1px $light-gray inset;
-          height:95px;
-          width:95px;
-        }
-      }
-    }
-  }
-}
-
-
-
-
-
 #points_per_referral{
   display: none;
 }
+
 .subtle_notice{
   font-size: 12px;
   padding: 6px 13px 0;

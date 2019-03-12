@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Admin sets up tickets for demo', :js => true do
+xfeature 'Admin sets up tickets for demo', :js => true do
   scenario "should show raffle entries(tickets)" do
     demo = FactoryBot.create(:demo, :with_tickets)
     user = FactoryBot.create(:user, :claimed, demo: demo, tickets: 25)

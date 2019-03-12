@@ -24,7 +24,6 @@ function getAutocomplete(options) {
         }, 3000);
       } else {
         $("#autocomplete_status").text("Click on the person you want to invite:");
-        $("#search_for_referrer #autocomplete_status").text("Click on the person who referred you:");
         $(".helper.autocomplete").fadeOut();
         $("#hide_me_while_selecting").hide();
         $("#bonus").fadeOut();

@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Board Welcome Modal for guest users' do
+xfeature 'Board Welcome Modal for guest users' do
   def guest_user_specific_content
     "Already a user? Sign in."
   end

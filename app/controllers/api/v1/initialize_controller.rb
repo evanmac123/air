@@ -6,7 +6,7 @@ class Api::V1::InitializeController < Api::ApiController
   def index
     user = current_user || find_user_with_params
     demo = user.try(:demo) || find_demo_with_params
-    set_modals_and_intros(user)
+    set_modals_and_intros(user) if user
     render json: {
       user: render_user_data(user) || { name: "guest", isGuestUser: true },
       demo: render_demo_data(demo) || {},
