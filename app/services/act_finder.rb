@@ -31,18 +31,22 @@ class ActFinder
   end
 
   def display_own_acts
-    user.acts.where(demo: board).order(id: :desc).page(page).per(per_page)
+    recent_acts(user).where(demo: board).order(id: :desc).page(page).per(per_page)
   end
 
   def display_all_board_acts
-    board.acts.order(id: :desc).page(page).per(per_page)
+    recent_acts(board).order(id: :desc).page(page).per(per_page)
   end
 
   def display_friends_acts
-    board.acts.user_acts.unhidden
+    recent_acts(board).user_acts.unhidden
       .where("(user_id=? OR user_id in (?) OR privacy_level='everybody')", user.id, user.displayable_accepted_friends.select(:id))
       .order(id: :desc)
       .page(page)
       .per(per_page)
+  end
+
+  def recent_acts(model)
+    model.acts.where('acts.created_at > ?', 1.year.ago)
   end
 end
