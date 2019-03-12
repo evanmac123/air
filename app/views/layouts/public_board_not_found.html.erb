@@ -17,10 +17,8 @@
   </head>
   <body class="<%= body_class %> marketing airbo-marketing-site">
     <%= render partial: "pages/front_theme/navbar" %>
-    <div class="wrapper main bootstrap-iso">
+    <div class="wrapper main bootstrap-iso" style="margin-top: 0;">
       <%= yield %>
-
-      <%= render partial: "pages/front_theme/footer" %>
 
       <div class="justify-content-between align-items-center my-7 copyright">
         <%= image_tag 'logo_standard.png' %>
