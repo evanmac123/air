@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'In multiple boards appears present in all at once' do
+xfeature 'In multiple boards appears present in all at once' do
   USER_NAME = "Mister Multiple"
 
   def create_two_boards(*args)

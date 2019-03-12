@@ -33,13 +33,6 @@ $(function() {
     $(".avatar-controls").show();
     e.preventDefault();
   });
-
-  resizeFaceboxToFitSuggestions();
-
-  $("#search_for_referrer .single_suggestion").on(
-    "click",
-    fadeOutUnclickedSuggestions
-  );
 });
 
 function autoFocusColor(field, text) {

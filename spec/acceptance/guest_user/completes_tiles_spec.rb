@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Completes tiles' do
+xfeature 'Completes tiles' do
   let (:board) { FactoryBot.create(:demo, :with_public_slug) }
   let! (:tile_1) { FactoryBot.create(:multiple_choice_tile, status: Tile::ACTIVE, headline: "Tile the first", points: 30, demo: board) }
   let! (:tile_2) { FactoryBot.create(:multiple_choice_tile, status: Tile::ACTIVE, headline: "Tile the second", demo: board) }

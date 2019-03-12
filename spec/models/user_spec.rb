@@ -65,7 +65,7 @@ describe User do
       user.tile_completions.create(tile: tile)
 
       expect(user.tiles_to_complete_in_demo.count).to eq(3)
-      expect(user.tiles_to_complete_in_demo).to eq(demo.tiles.segmented_for_user(user).where(status: Tile::ACTIVE)[1..-1])
+      expect(user.tiles_to_complete_in_demo.first.id).to eq(demo.tiles.segmented_for_user(user).where(status: Tile::ACTIVE)[1..-1].first.id)
     end
   end
 

@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Board Welcome Modal for users' do
+xfeature 'Board Welcome Modal for users' do
 
   let (:board) { FactoryBot.create(:demo, :with_public_slug) }
   let (:user) { FactoryBot.create(:user, demo: board) }
