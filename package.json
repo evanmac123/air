@@ -56,7 +56,6 @@
   },
   "scripts": {
     "lint-staged": "$(yarn bin)/lint-staged",
-    "build": "./bin/webpack",
     "start": "./bin/bundle exec foreman start -f Procfile.dev",
     "rails": "bundle exec unicorn -p 3000 -c ./config/unicorn.rb",
     "rails:test": "./bin/rails server -e test -p 5555",
