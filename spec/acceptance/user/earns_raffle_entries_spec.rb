@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'User earns tickets' do
+xfeature 'User earns tickets' do
   before(:each) do
     @demo = FactoryBot.create(:demo, :with_tickets, ticket_threshold: 10)
     @user = FactoryBot.create(:user, :claimed, :with_phone_number, demo: @demo)

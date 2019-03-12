@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'User views tile' do
+xfeature 'User views tile' do
   def click_next_button
     page.find('#next').click
   end

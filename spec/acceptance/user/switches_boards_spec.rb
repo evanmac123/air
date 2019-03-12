@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Switches boards' do
+xfeature 'Switches boards' do
   def expect_only_tile_headlines_in(board)
     expected_tiles = board.tiles
     unexpected_tiles = Tile.all - expected_tiles

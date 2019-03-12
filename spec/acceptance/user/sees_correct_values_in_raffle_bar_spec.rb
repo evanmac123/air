@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "User sees correct values in rafle bar" do
+xfeature "User sees correct values in rafle bar" do
 
   def self.user_information
     [
