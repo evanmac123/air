@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PublicBoardsController < ApplicationController
   include AllowGuestUsersConcern
 
@@ -11,7 +13,7 @@ class PublicBoardsController < ApplicationController
         redirect_to public_activity_path(public_slug: params[:public_slug])
       end
     else
-      render 'shared/public_board_not_found', layout: 'public_board_not_found'
+      render "shared/public_board_not_found", layout: "marketing_site"
     end
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthorizePublicBoardsConcern
   def guest_user?
     guest_user if find_board_for_guest || single_tile_request || more_tiles_request
@@ -10,7 +12,7 @@ module AuthorizePublicBoardsConcern
   def authorize!
     unless skip_authorize_for_public
       if params[:public_slug] && !current_user
-        render 'shared/public_board_not_found', layout: 'public_board_not_found'
+        render "shared/public_board_not_found", layout: "marketing_site"
       else
         require_login
       end
