@@ -7,7 +7,7 @@ feature "Guest user visits airbo" do
     @slug_tiles_path = "#{@slug_path}/tiles"
   end
 
-  scenario 'successfully via any valid public link', js:true do
+  scenario 'successfully via any valid public link', js: true do
     {
       @slug_path =>  @slug_activity_path,
       @slug_activity_path =>  @slug_activity_path,
@@ -18,7 +18,7 @@ feature "Guest user visits airbo" do
     end
   end
 
-  scenario "sees error when arriving via invalid board link" do
+  scenario "sees error when arriving via invalid board link", js: true do
 
     %w(/ard/derp /ard/derp/activity /ard/derp/tiles)
       .each do|bad_path|
@@ -27,7 +27,7 @@ feature "Guest user visits airbo" do
     end
   end
 
-  scenario "sees error when arriving via non public link" do
+  scenario "sees error when arriving via non public link", js: true do
     board = FactoryBot.create(:demo, is_public: false)
 
     visit public_board_path(board.public_slug)
