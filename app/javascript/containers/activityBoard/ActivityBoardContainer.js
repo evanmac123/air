@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import '../../lib/utils/autocomplete';
+import Autocomplete from '../../lib/utils/autocomplete';
 import { Fetcher } from '../../lib/helpers';
 import LoadingComponent from '../../shared/LoadingComponent';
 import ProgressBarComponent from '../../shared/ProgressBarComponent';
@@ -106,8 +106,8 @@ class ActivityBoard extends React.Component {
   autocomplete() {
     // Legacy functions triggering autocomplete legacy code (import '../../lib/utils/autocomplete';)
     /* eslint-disable */
-    startWatchDog({ calling_div: "#search_for_friends_to_invite" });
-    markForSend();
+    Autocomplete.startWatchDog();
+    Autocomplete.markForSend();
     /* eslint-enable */
   }
 
