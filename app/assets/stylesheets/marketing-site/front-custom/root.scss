@@ -29,6 +29,7 @@ p {
   }
 }
 //button
+
 .btn {
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -84,6 +85,7 @@ p {
   }
 }
 //svg
+
 .position-absolute-top {
   position: absolute;
   top: -130px;
@@ -91,6 +93,7 @@ p {
   right: 0;
 }
 //Navigation
+
 #header {
   background-color: $white;
 }
@@ -163,6 +166,7 @@ main {
   padding-top: 52px;
 }
 // 1.Hero
+
 .main-hero {
   padding-bottom: 60px;
 
@@ -236,10 +240,12 @@ main {
     padding-top: 11%;
   }
 
-  p {
+  .description {
     color: $dark-blue;
     text-align: left;
     line-height: 1em;
+    padding: 1em 0;
+    font-size: 1.2em;
   }
 
   .hero-bottom {
@@ -275,7 +281,7 @@ main {
   position: relative;
 
   .u-bg-img-hero {
-    padding: 80px 0 175px;
+    padding: 110px 0 140px;
   }
 
   .row {
@@ -490,6 +496,7 @@ main {
   animation: float 25s ease-in 0s infinite alternate;
 }
 //Footer
+
 .footer {
   background-color: $dark-blue;
   margin-bottom: 15px;
