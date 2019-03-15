@@ -13,6 +13,7 @@ h1 {
 h2 {
   font-size: 42px;
   font-weight: 500;
+  margin-bottom: 0;
 }
 
 h3 {
@@ -22,7 +23,7 @@ h3 {
 
 p {
   font-size: 18px;
-  margin: 1.2rem 0;
+  margin: .5rem 0 1.4rem;
 
   &.disclaimer {
     font-size: 12px;
@@ -243,9 +244,9 @@ main {
   .description {
     color: $dark-blue;
     text-align: left;
-    line-height: 1em;
+    line-height: 1.3em;
     padding: 1em 0;
-    font-size: 1.2em;
+    font-size: 1.3em;
   }
 
   .hero-bottom {
@@ -648,6 +649,9 @@ main {
 //tablet
 @media only screen and (max-width: 767px) {
   body {
+    main{
+      padding-top: 0;
+    }
     .navbar-toggler.btn {
       display: inherit;
     }
@@ -665,6 +669,9 @@ main {
     }
 
     .main-hero {
+      .description{
+        text-align: center;
+      }
       .hero-banner {
         padding: 12vw 0;
         text-align: center;
