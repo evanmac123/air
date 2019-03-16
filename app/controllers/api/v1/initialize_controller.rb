@@ -19,8 +19,9 @@ class Api::V1::InitializeController < Api::ApiController
       if user
         {
           isGuestUser: user.is_guest?,
-          isEndUser: user.end_user?,
+          isEndUser: user.try(:end_user?) || false,
           isClientAdmin: user.try(:is_client_admin?) || false,
+          isPotentialUser: user.try(:is_potential_user?) || false,
           name: user.try(:name),
           id: user.try(:id),
           points: user.try(:points) || 0,

@@ -12,6 +12,6 @@ class Api::ApiController < ApplicationController
   end
 
   def find_user_with_params
-    relevant_user.find_by(id: params[:user_id])
+    relevant_user.find_by(id: params[:user_id]) || PotentialUser.find_by(id: params[:user_id])
   end
 end
