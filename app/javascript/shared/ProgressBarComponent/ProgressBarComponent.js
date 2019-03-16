@@ -52,7 +52,7 @@ class ProgressBarComponent extends React.Component {
   }
 
   syncProgressBarData() {
-    if (this.props.organization.name && this.props.userData.name && !this.props.progressBarData.loaded) {
+    if (this.props.organization.name && this.props.userData.id && !this.props.progressBarData.loaded) {
       const { points, tickets, numOfIncompleteTiles, ticketThresholdBase } = this.props.userData;
       const startingPoints = points || 0;
       const pointsTowardsTicket = points - ticketThresholdBase;
@@ -169,6 +169,7 @@ class ProgressBarComponent extends React.Component {
 
 ProgressBarComponent.propTypes = {
   userData: PropTypes.shape({
+    id: PropTypes.number,
     name: PropTypes.string,
     points: PropTypes.number,
     tickets: PropTypes.number,
