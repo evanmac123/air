@@ -105,7 +105,8 @@ class App extends React.Component {
       tileOrigin: this.state.tileOrigin,
       tileActions: this.state.tileActions,
       closeTile: this.closeTile,
-      userData: this.props.userData,
+      navigateTo: this.navigateTo,
+      userData,
     }) :
     null,
     this.state.currentRoute && !this.state.originId && !this.state.appLoading ?

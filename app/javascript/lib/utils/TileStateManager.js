@@ -113,9 +113,14 @@ class TileStateManager extends React.Component {
           method: 'POST',
           path: `/api/tile_completions?tile_id=${id}&answer_index=${answerIndex}&free_form_response=${freeFormResponse}`,
           success: () => {
+            const { progressBarData, demo, userData } = this.props;
             this.props.updateTileData({origin, id, resp: {answerIndex, freeFormResponse, complete: true}});
             this.props.addCompletionAndPointsToProgressBar({ points, completion: 1 });
-            this.populateNewTileContentByIndex(1, true);
+            if (progressBarData && progressBarData.completedTiles + 1 === progressBarData.incompletedTiles) {
+              this.props.navigateTo(demo.isPublic && userData.isGuestUser ? `/ard/${demo.publicSlug}/activity` : '/activity');
+            } else {
+              this.populateNewTileContentByIndex(1, true);
+            }
             // Patch sign up modal to communicate with React for every 2nd tile answered
             if (document.getElementById('guest-conversion-modal')) { window.Airbo.PubSub.publish("tileAnswered"); }
           },
@@ -174,7 +179,10 @@ TileStateManager.propTypes = {
     origin: PropTypes.object,
   }),
   closeTile: PropTypes.func,
+  navigateTo: PropTypes.func,
   userData: PropTypes.object,
+  demo: PropTypes.object,
+  progressBarData: PropTypes.object,
   tileActions: PropTypes.object,
   organization: PropTypes.object,
 };
