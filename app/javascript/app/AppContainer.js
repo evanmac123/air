@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import SweetAlert from 'react-bootstrap-sweetalert';
 import { connect } from "react-redux";
 
 import { AiRouter, TileStateManager } from "../lib/utils";
@@ -81,7 +82,7 @@ class App extends React.Component {
     window.location = path;
   }
 
-  navigateTo(path) {
+  navigateTo(path, opts) {
     this.airouter.navigation(path);
   }
 
