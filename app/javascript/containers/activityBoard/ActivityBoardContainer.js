@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import '../../lib/utils/autocomplete';
+import Autocomplete from '../../lib/utils/autocomplete';
 import { Fetcher } from '../../lib/helpers';
 import LoadingComponent from '../../shared/LoadingComponent';
 import ProgressBarComponent from '../../shared/ProgressBarComponent';
@@ -9,6 +9,7 @@ import TileWallComponent from './components/TileWallComponent';
 // import ActsFeedComponent from './components/ActsFeedComponent';
 import ConnectionsComponent from './components/ConnectionsComponent';
 import InviteUsersComponent from './components/InviteUsersComponent';
+import PotentialUserModal from './components/PotentialUserModal';
 
 const toggleButtonLoadingSpinner = el => {
   /* eslint-disable no-param-reassign */
@@ -29,6 +30,7 @@ class ActivityBoard extends React.Component {
       incompleteTilesPage: 1,
       allTilesDisplayed: true,
       connections: null,
+      potentialUserModal: null,
     };
     this.loadTiles = this.loadTiles.bind(this);
     this.openTileModal = this.openTileModal.bind(this);
@@ -50,10 +52,7 @@ class ActivityBoard extends React.Component {
     if (this.props.demo && !this.props.demo.hideSocial && !this.props.user.isGuestUser) {
       this.loadUserConnections();
     }
-    window.Airbo.BoardWelcomeModal.init();
-    if (this.props.user.displayBoardWelcomeMessage) {
-      window.Airbo.BoardWelcomeModal.open();
-    }
+    this.launchWelcomeModals();
   }
 
   loadTiles(opts) {
@@ -106,9 +105,28 @@ class ActivityBoard extends React.Component {
   autocomplete() {
     // Legacy functions triggering autocomplete legacy code (import '../../lib/utils/autocomplete';)
     /* eslint-disable */
-    startWatchDog({ calling_div: "#search_for_friends_to_invite" });
-    markForSend();
+    Autocomplete.startWatchDog();
+    Autocomplete.markForSend();
     /* eslint-enable */
+  }
+
+  launchWelcomeModals() {
+    window.Airbo.BoardWelcomeModal.init();
+    if (this.props.user.displayBoardWelcomeMessage) {
+      window.Airbo.BoardWelcomeModal.open();
+    }
+    if (this.props.user.isPotentialUser) {
+      this.openPotentialUserModal();
+    }
+  }
+
+  openPotentialUserModal() {
+    const potentialUserModal = React.createElement(PotentialUserModal, {
+      onClose: () => this.setState({potentialUserModal: null}),
+      demoName: this.props.demo.name,
+      setUser: this.props.setUser,
+    });
+    this.setState({ potentialUserModal });
   }
 
   render() {
@@ -152,6 +170,7 @@ class ActivityBoard extends React.Component {
             </span>
           }
         </div>
+        { this.state.potentialUserModal }
       </div>
     );
   }
@@ -160,6 +179,7 @@ class ActivityBoard extends React.Component {
 ActivityBoard.propTypes = {
   setTiles: PropTypes.func,
   addTiles: PropTypes.func,
+  setUser: PropTypes.func,
   navigateTo: PropTypes.func,
   tiles: PropTypes.shape({
     complete: PropTypes.object,

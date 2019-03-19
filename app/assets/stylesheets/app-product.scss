@@ -13,6 +13,10 @@ main {
     color: $n-blue;
   }
 
+  .sub-header{
+    text-transform: uppercase;
+  }
+
   .main-hero {
     padding-bottom: 0;
     line-height: 1.5em;
@@ -31,6 +35,9 @@ main {
 
     .description {
       padding: 0 0 1em;
+      font-size: 1.3em;
+      line-height: 1.3em;
+      color: white;
     }
 
     .hero-image {
@@ -165,6 +172,9 @@ main {
           font-size: 36px;
           line-height: 1.5em;
         }
+        .description {
+          text-align: center;
+        }
       }
 
       .hero-image {
@@ -236,9 +246,6 @@ main {
         font-size: 18px;
       }
 
-      h2 {
-        font-size: 28px;
-      }
     }
 
     .sales-support {

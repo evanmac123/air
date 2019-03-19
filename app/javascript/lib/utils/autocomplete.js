@@ -7,13 +7,11 @@ let newCharsEntered = 0;
 let watchdogRunning = 0;
 let lastKeypress = 0;
 
-function getAutocomplete(options) {
-  const enteredText = $(`${options.callingDiv} #autocomplete`).val();
+function getAutocomplete() {
+  const enteredText = $('#search_for_friends_to_invite #autocomplete').val();
   if (enteredText.length > 2) {
-    options.enteredText = enteredText; // eslint-disable-line
     $("#autocomplete_status").text("Searching ...");
-    $.get("/invitation/autocompletion#index", options, (data) => {
-      options = {}; // eslint-disable-line
+    $.get("/invitation/autocompletion#index", {entered_text: enteredText}, (data) => {
       if (data === "") {
         $("#autocomplete_status").text("Hmmm...no match");
         $("#suggestions").hide();
@@ -88,18 +86,19 @@ function watchDogSender(options) {
   }
 }
 
-function startWatchDog(options) {
-  if (!watchdogRunning) {
-    watchdogRunning = 1;
-    watchDogSender(options);
-  }
-}
-
 function stopWatchDog() {
   watchdogRunning = 0;
 }
 
-function markForSend() {
-  newCharsEntered = 1;
-  lastKeypress = new Date().getTime();
-}
+export default {
+  startWatchDog: (options) => {
+    if (!watchdogRunning) {
+      watchdogRunning = 1;
+      watchDogSender(options);
+    }
+  },
+  markForSend: () => {
+    newCharsEntered = 1;
+    lastKeypress = new Date().getTime();
+  },
+};
