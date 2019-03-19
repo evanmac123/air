@@ -19,6 +19,7 @@ class App extends React.Component {
       tileOrigin: null,
       tileActions: null,
       appLoading: true,
+      alert: null,
     };
     this.setUser = this.setUser.bind(this);
     this.setTiles = this.setTiles.bind(this);
@@ -27,15 +28,13 @@ class App extends React.Component {
     this.closeTile = this.closeTile.bind(this);
     this.redirectTo = this.redirectTo.bind(this);
     this.navigateTo = this.navigateTo.bind(this);
+    this.setFlashMsg = this.setFlashMsg.bind(this);
     this.airouter = new AiRouter(routes, this);
   }
 
   componentDidMount() {
     this.airouter.connect();
     this.setInitialState();
-  }
-
-  componentDidUpdate() {
   }
 
   componentWillUnmount() {
@@ -56,6 +55,26 @@ class App extends React.Component {
       },
       err: () => this.setState({appLoading: false}),
     });
+  }
+
+  setFlashMsg(opts) {
+    const { success, danger, warning, title, child } = opts;
+    const alert = React.createElement(SweetAlert, {
+      success,
+      danger,
+      warning,
+      title,
+      onConfirm: () => this.setState({ alert: null }),
+      style: {
+        display: 'inherit',
+        width: '38vw',
+        marginLeft: '-19vw',
+        marginTop: '-250px',
+        height: '325px',
+        overflow: 'scroll',
+      },
+    }, child);
+    this.setState({ alert });
   }
 
   setUser(data) {
@@ -83,6 +102,7 @@ class App extends React.Component {
   }
 
   navigateTo(path, opts) {
+    if (opts && opts.flash) { this.setFlashMsg(opts.flash); }
     this.airouter.navigation(path);
   }
 
@@ -127,7 +147,8 @@ class App extends React.Component {
         organization,
         progressBarData,
       }) :
-      ''
+      '',
+    this.state.alert
     );
   }
 }

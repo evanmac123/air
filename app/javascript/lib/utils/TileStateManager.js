@@ -117,7 +117,14 @@ class TileStateManager extends React.Component {
             this.props.updateTileData({origin, id, resp: {answerIndex, freeFormResponse, complete: true}});
             this.props.addCompletionAndPointsToProgressBar({ points, completion: 1 });
             if (progressBarData && progressBarData.completedTiles + 1 === progressBarData.incompletedTiles) {
-              this.props.navigateTo(demo.isPublic && userData.isGuestUser ? `/ard/${demo.publicSlug}/activity` : '/activity');
+              const uri = demo.isPublic && userData.isGuestUser ? `/ard/${demo.publicSlug}/activity` : '/activity';
+              this.props.navigateTo(uri, {
+                flash: {
+                  success: true,
+                  title: 'Congratulations!',
+                  child: "You've finished all new tiles!",
+                },
+              });
             } else {
               this.populateNewTileContentByIndex(1, true);
             }
