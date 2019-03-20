@@ -85,13 +85,13 @@ class ProgressBarComponent extends React.Component {
       window.setTimeout(() => {
         if (cur < end) {
           if (end === fullWidth && document.getElementById("all_tiles").style.display !== 'none') {
-            document.getElementById("all_tiles").setAttribute("style", "display: none;");
-            document.getElementById('complete_info').setAttribute("style", "display: none;");
+            document.getElementById("all_tiles").style.display = "none";
+            document.getElementById('complete_info').style.display = "none";
           }
-          completedTilesBar.setAttribute("style", `width: ${cur + 5}px;`);
+          completedTilesBar.style.width = `${cur + 5}px`;
           fillBar();
         } else if (cur >= end && end === fullWidth) {
-          document.getElementById('congrat_header').setAttribute("style", "display: block;");
+          document.getElementById('congrat_header').style.display = 'block';
         }
       }, 10);
     };
@@ -146,7 +146,7 @@ class ProgressBarComponent extends React.Component {
                           {progressBarData.completedTiles}
                         </span>
                       </div>
-                      <div id="congrat_header">
+                      <div id="congrat_header" style={{fontSize: '0.75em'}}>
                         <i className="fa fa-flag-checkered" style={{paddingRight: '10px'}}></i>
                         <div id="congrat_text">
                           {`You've finished all new ${organization.tilesWording}!`}
