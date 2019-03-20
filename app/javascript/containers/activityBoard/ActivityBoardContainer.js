@@ -9,6 +9,7 @@ import TileWallComponent from './components/TileWallComponent';
 // import ActsFeedComponent from './components/ActsFeedComponent';
 import ConnectionsComponent from './components/ConnectionsComponent';
 import InviteUsersComponent from './components/InviteUsersComponent';
+import PotentialUserModal from './components/PotentialUserModal';
 
 const toggleButtonLoadingSpinner = el => {
   /* eslint-disable no-param-reassign */
@@ -29,6 +30,7 @@ class ActivityBoard extends React.Component {
       incompleteTilesPage: 1,
       allTilesDisplayed: true,
       connections: null,
+      potentialUserModal: null,
     };
     this.loadTiles = this.loadTiles.bind(this);
     this.openTileModal = this.openTileModal.bind(this);
@@ -50,10 +52,7 @@ class ActivityBoard extends React.Component {
     if (this.props.demo && !this.props.demo.hideSocial && !this.props.user.isGuestUser) {
       this.loadUserConnections();
     }
-    window.Airbo.BoardWelcomeModal.init();
-    if (this.props.user.displayBoardWelcomeMessage) {
-      window.Airbo.BoardWelcomeModal.open();
-    }
+    this.launchWelcomeModals();
   }
 
   loadTiles(opts) {
@@ -111,6 +110,25 @@ class ActivityBoard extends React.Component {
     /* eslint-enable */
   }
 
+  launchWelcomeModals() {
+    window.Airbo.BoardWelcomeModal.init();
+    if (this.props.user.displayBoardWelcomeMessage) {
+      window.Airbo.BoardWelcomeModal.open();
+    }
+    if (this.props.user.isPotentialUser) {
+      this.openPotentialUserModal();
+    }
+  }
+
+  openPotentialUserModal() {
+    const potentialUserModal = React.createElement(PotentialUserModal, {
+      onClose: () => this.setState({potentialUserModal: null}),
+      demoName: this.props.demo.name,
+      setUser: this.props.setUser,
+    });
+    this.setState({ potentialUserModal });
+  }
+
   render() {
     return (
       <div className="content">
@@ -152,6 +170,7 @@ class ActivityBoard extends React.Component {
             </span>
           }
         </div>
+        { this.state.potentialUserModal }
       </div>
     );
   }
@@ -160,6 +179,7 @@ class ActivityBoard extends React.Component {
 ActivityBoard.propTypes = {
   setTiles: PropTypes.func,
   addTiles: PropTypes.func,
+  setUser: PropTypes.func,
   navigateTo: PropTypes.func,
   tiles: PropTypes.shape({
     complete: PropTypes.object,
