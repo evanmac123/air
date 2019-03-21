@@ -146,10 +146,10 @@ class ProgressBarComponent extends React.Component {
                           {progressBarData.completedTiles}
                         </span>
                       </div>
-                      <div id="congrat_header" style={{fontSize: '0.75em'}}>
+                      <div id="congrat_header" style={{fontSize: '0.85em'}}>
                         <i className="fa fa-flag-checkered" style={{paddingRight: '10px'}}></i>
                         <div id="congrat_text">
-                          {`You've finished all new ${organization.tilesWording}!`}
+                          {`${organization.tilesWording} Complete!`}
                         </div>
                       </div>
                     </div>
