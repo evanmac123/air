@@ -170,10 +170,6 @@ body.tiles-index, body.acts-index, .explore-search-user{
             text-align: center;
             #congrat_text{
               display: inline;
-
-              @media (max-width: 480px) {
-                font-size: 0.8em;
-              }
             }
           }
         }
