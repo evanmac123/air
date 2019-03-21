@@ -70,7 +70,7 @@ class App extends React.Component {
         width: '38vw',
         marginLeft: '-19vw',
         marginTop: '-250px',
-        height: '325px',
+        height: '370px',
         overflow: 'scroll',
       },
     }, child);
