@@ -67,8 +67,6 @@ class App extends React.Component {
       onConfirm: () => this.setState({ alert: null }),
       style: {
         display: 'inherit',
-        width: '38vw',
-        marginLeft: '-19vw',
         marginTop: '-250px',
         height: '370px',
         overflow: 'scroll',
