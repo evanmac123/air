@@ -13,6 +13,7 @@ h1 {
 h2 {
   font-size: 42px;
   font-weight: 500;
+  margin-bottom: 0;
 }
 
 h3 {
@@ -22,13 +23,14 @@ h3 {
 
 p {
   font-size: 18px;
-  margin: 1.2rem 0;
+  margin: .5rem 0 1.4rem;
 
   &.disclaimer {
     font-size: 12px;
   }
 }
 //button
+
 .btn {
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -84,6 +86,7 @@ p {
   }
 }
 //svg
+
 .position-absolute-top {
   position: absolute;
   top: -130px;
@@ -91,6 +94,7 @@ p {
   right: 0;
 }
 //Navigation
+
 #header {
   background-color: $white;
 }
@@ -122,7 +126,7 @@ p {
 #navBar {
   position: absolute;
   right: 0;
-  top: 9px;
+  top: 17px;
   padding: 0;
 
   .navbar-item {
@@ -163,6 +167,7 @@ main {
   padding-top: 52px;
 }
 // 1.Hero
+
 .main-hero {
   padding-bottom: 60px;
 
@@ -236,10 +241,12 @@ main {
     padding-top: 11%;
   }
 
-  p {
+  .description {
     color: $dark-blue;
     text-align: left;
-    line-height: 1em;
+    line-height: 1.3em;
+    padding: 1em 0;
+    font-size: 1.3em;
   }
 
   .hero-bottom {
@@ -275,7 +282,7 @@ main {
   position: relative;
 
   .u-bg-img-hero {
-    padding: 80px 0 175px;
+    padding: 110px 0 140px;
   }
 
   .row {
@@ -490,6 +497,7 @@ main {
   animation: float 25s ease-in 0s infinite alternate;
 }
 //Footer
+
 .footer {
   background-color: $dark-blue;
   margin-bottom: 15px;
@@ -641,6 +649,9 @@ main {
 //tablet
 @media only screen and (max-width: 767px) {
   body {
+    main{
+      padding-top: 0;
+    }
     .navbar-toggler.btn {
       display: inherit;
     }
@@ -658,6 +669,9 @@ main {
     }
 
     .main-hero {
+      .description{
+        text-align: center;
+      }
       .hero-banner {
         padding: 12vw 0;
         text-align: center;

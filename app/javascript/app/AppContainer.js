@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import SweetAlert from 'react-bootstrap-sweetalert';
 import { connect } from "react-redux";
 
 import { AiRouter, TileStateManager } from "../lib/utils";
@@ -18,6 +19,7 @@ class App extends React.Component {
       tileOrigin: null,
       tileActions: null,
       appLoading: true,
+      alert: null,
     };
     this.setUser = this.setUser.bind(this);
     this.setTiles = this.setTiles.bind(this);
@@ -26,15 +28,13 @@ class App extends React.Component {
     this.closeTile = this.closeTile.bind(this);
     this.redirectTo = this.redirectTo.bind(this);
     this.navigateTo = this.navigateTo.bind(this);
+    this.setFlashMsg = this.setFlashMsg.bind(this);
     this.airouter = new AiRouter(routes, this);
   }
 
   componentDidMount() {
     this.airouter.connect();
     this.setInitialState();
-  }
-
-  componentDidUpdate() {
   }
 
   componentWillUnmount() {
@@ -55,6 +55,24 @@ class App extends React.Component {
       },
       err: () => this.setState({appLoading: false}),
     });
+  }
+
+  setFlashMsg(opts) {
+    const { success, danger, warning, title, child } = opts;
+    const alert = React.createElement(SweetAlert, {
+      success,
+      danger,
+      warning,
+      title,
+      onConfirm: () => this.setState({ alert: null }),
+      style: {
+        display: 'inherit',
+        marginTop: '-250px',
+        height: '370px',
+        overflow: 'scroll',
+      },
+    }, child);
+    this.setState({ alert });
   }
 
   setUser(data) {
@@ -81,7 +99,8 @@ class App extends React.Component {
     window.location = path;
   }
 
-  navigateTo(path) {
+  navigateTo(path, opts) {
+    if (opts && opts.flash) { this.setFlashMsg(opts.flash); }
     this.airouter.navigation(path);
   }
 
@@ -105,7 +124,8 @@ class App extends React.Component {
       tileOrigin: this.state.tileOrigin,
       tileActions: this.state.tileActions,
       closeTile: this.closeTile,
-      userData: this.props.userData,
+      navigateTo: this.navigateTo,
+      userData,
     }) :
     null,
     this.state.currentRoute && !this.state.originId && !this.state.appLoading ?
@@ -125,7 +145,8 @@ class App extends React.Component {
         organization,
         progressBarData,
       }) :
-      ''
+      '',
+    this.state.alert
     );
   }
 }

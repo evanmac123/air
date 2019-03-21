@@ -13,6 +13,10 @@ main {
     color: $n-blue;
   }
 
+  .sub-header{
+    text-transform: uppercase;
+  }
+
   .main-hero {
     padding-bottom: 0;
     line-height: 1.5em;
@@ -31,6 +35,9 @@ main {
 
     .description {
       padding: 0 0 1em;
+      font-size: 1.3em;
+      line-height: 1.3em;
+      color: white;
     }
 
     .hero-image {
@@ -50,11 +57,14 @@ main {
 
   .interactivity {
     .phone-holder {
+      img{
+        width: 90%;
+      }
       video {
         position: absolute;
-        top: 60px;
-        left: 140px;
-        width: 146px;
+        top: 67px;
+        left: 167px;
+        width: 173px;
       }
     }
   }
@@ -138,6 +148,9 @@ main {
       max-width: 400px;
       margin: auto;
       position: relative;
+      img{
+        width: 100%
+      }
 
       video {
         position: absolute;
@@ -164,6 +177,9 @@ main {
         .h1 {
           font-size: 36px;
           line-height: 1.5em;
+        }
+        .description {
+          text-align: center;
         }
       }
 
@@ -236,9 +252,6 @@ main {
         font-size: 18px;
       }
 
-      h2 {
-        font-size: 28px;
-      }
     }
 
     .sales-support {
