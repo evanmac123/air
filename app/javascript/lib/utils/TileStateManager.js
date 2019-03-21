@@ -113,7 +113,7 @@ class TileStateManager extends React.Component {
           method: 'POST',
           path: `/api/tile_completions?tile_id=${id}&answer_index=${answerIndex}&free_form_response=${freeFormResponse}`,
           success: () => {
-            const { progressBarData, demo, userData } = this.props;
+            const { progressBarData, demo, userData, organization } = this.props;
             this.props.updateTileData({origin, id, resp: {answerIndex, freeFormResponse, complete: true}});
             this.props.addCompletionAndPointsToProgressBar({ points, completion: 1 });
             if (progressBarData && progressBarData.completedTiles + 1 === progressBarData.incompletedTiles) {
@@ -122,7 +122,7 @@ class TileStateManager extends React.Component {
                 flash: {
                   success: true,
                   title: 'Congratulations!',
-                  child: "You've finished all new tiles!",
+                  child: `You've finished all new ${organization.tilesWording}!`,
                 },
               });
             } else {
