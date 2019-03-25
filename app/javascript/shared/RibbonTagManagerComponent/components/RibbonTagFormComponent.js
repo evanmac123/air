@@ -27,7 +27,7 @@ const RibbonTagComponent = props => (
         <p style={{float: 'left', color: 'red'}}>Required</p>
       }
       <input
-        placeholder="Tag Name"
+        placeholder="Topic Name"
         type="text"
         name="campaign-name"
         value={props.name}

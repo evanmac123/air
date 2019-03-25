@@ -64,7 +64,7 @@ const TileFilterSubNavComponent = props => (
             isLoading={props.ribbonTagsLoading}
             onChange={(val, act) => { props.handleFilterChange(val, act, 'ribbonTag'); }}
             className="react-select ribbon-tag-filter"
-            placeholder="All Tags"
+            placeholder="All Topics"
             value={props.tileStatusNav[props.activeStatus].filter.ribbonTag}
             isClearable={true}
             options={props.ribbonTags}
