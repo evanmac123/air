@@ -1,6 +1,6 @@
 class Time
-  def pretty
-    self.strftime("%B %d, %Y at %I:%M %p Eastern")
+  def pretty(timezone = 'Eastern')
+    self.strftime("%B %d, %Y at %I:%M %p #{timezone.split(' ').first}")
   end
 
   def pretty_succinct
