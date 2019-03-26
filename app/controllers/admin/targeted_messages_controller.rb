@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::TargetedMessagesController < AdminBaseController
   include SegmentationConcern
 
@@ -25,9 +27,9 @@ class Admin::TargetedMessagesController < AdminBaseController
     @html_text = params[:html_text]
     @sms_text = params[:sms_text]
     @respect_notification_method = params[:respect_notification_method].present?
-    @send_at = Chronic.parse(params[:send_at])
+    @send_at = set_time_respecting_board_timezone
 
-    @html_text = '' unless sendable_html?(@html_text)
+    @html_text = "" unless sendable_html?(@html_text)
 
     user_ids = @segmentation_results.found_user_ids
 
@@ -54,48 +56,57 @@ class Admin::TargetedMessagesController < AdminBaseController
     )
 
     set_flashes!(email_recipient_ids, sms_recipient_ids)
-    render :action => 'show'
+    render action: "show"
   end
 
   protected
 
-  def find_segmentation_results
-    @segmentation_results = current_user.segmentation_results
-  end
-
-  def sendable_html?(html)
-    return false unless html.present?
-    # Don't send HTML that's all tags, no text, unless one of those tags is an
-    # <img> tag (which presumably contains the information we want to convey)
-
-    parsed_html = Nokogiri::HTML(html)
-    parsed_html.css('img').present? || parsed_html.text.gsub(/[[:space:]]/, '').present?
-  end
-
-  def set_flashes!(email_recipient_ids, sms_recipient_ids)
-    successes = []
-    notices   = []
-
-    if @plain_text.present? || @html_text.present?
-      successes << "Scheduled email to #{email_recipient_ids.length} users."
-    else
-      notices << "Email text blank, no emails sent."
+    def find_segmentation_results
+      @segmentation_results = current_user.segmentation_results
     end
 
-    if @sms_text.present?
-      successes << "Scheduled SMS to #{sms_recipient_ids.length} users."
-    else
-      notices << "SMS text blank, no SMSes sent."
+    def sendable_html?(html)
+      return false unless html.present?
+      # Don't send HTML that's all tags, no text, unless one of those tags is an
+      # <img> tag (which presumably contains the information we want to convey)
+
+      parsed_html = Nokogiri::HTML(html)
+      parsed_html.css("img").present? || parsed_html.text.gsub(/[[:space:]]/, "").present?
     end
 
-    flash[:success] ||= ''
-    flash[:notice] ||= ''
+    def set_flashes!(email_recipient_ids, sms_recipient_ids)
+      successes = []
+      notices   = []
 
-    flash.now[:success] = ([flash[:success]] + successes).join(' ')
-    flash.now[:notice] = ([flash[:notice]] + notices).join(' ')
+      if @plain_text.present? || @html_text.present?
+        successes << "Scheduled email to #{email_recipient_ids.length} users."
+      else
+        notices << "Email text blank, no emails sent."
+      end
 
-    flash.delete(:success) if flash[:success].blank?
-    flash.delete(:notice) if flash[:notice].blank?
+      if @sms_text.present?
+        successes << "Scheduled SMS to #{sms_recipient_ids.length} users."
+      else
+        notices << "SMS text blank, no SMSes sent."
+      end
 
-  end
+      flash[:success] ||= ""
+      flash[:notice] ||= ""
+
+      flash.now[:success] = ([flash[:success]] + successes).join(" ")
+      flash.now[:notice] = ([flash[:notice]] + notices).join(" ")
+
+      flash.delete(:success) if flash[:success].blank?
+      flash.delete(:notice) if flash[:notice].blank?
+    end
+
+    def set_time_respecting_board_timezone
+      original_timezone = Time.zone.name
+      Time.zone = @demo.timezone
+      Chronic.time_class = Time.zone
+      send_at = Chronic.parse(params[:send_at])
+      Time.zone = original_timezone
+      Chronic.time_class = Time.zone
+      send_at
+    end
 end
