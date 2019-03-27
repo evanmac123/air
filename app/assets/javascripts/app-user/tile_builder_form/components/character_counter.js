@@ -3,6 +3,7 @@ var Airbo = window.Airbo || {};
 Airbo.TileBuilderComponentCharacterCounter = {
   msg: "",
 
+  // CHARACTER COUNTER JS
   init: function(max, remaining) {
     this.uniqueId = "counter" + Math.round(Math.random() * 10000000);
     this.remaining = remaining;
