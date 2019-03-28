@@ -25,6 +25,7 @@ class App extends React.Component {
     this.setTiles = this.setTiles.bind(this);
     this.setTilesPaginationState = this.setTilesPaginationState.bind(this);
     this.addTiles = this.addTiles.bind(this);
+    this.loadTiles = this.loadTiles.bind(this);
     this.openFullSizeTile = this.openFullSizeTile.bind(this);
     this.closeTile = this.closeTile.bind(this);
     this.redirectTo = this.redirectTo.bind(this);
@@ -121,6 +122,28 @@ class App extends React.Component {
     this.setState({ originId: null, tileOrigin: null, tileActions: null });
   }
 
+  loadTiles(opts) {
+    const {completeTilesPage, incompleteTilesPage, completeTilesOffset} = this.props.tiles.paginateState;
+    const {isGuestUser, id} = this.props.userData;
+    const params = `user_id=${id}&is_guest_user=${isGuestUser}&maximum_tiles=${opts.perPage || '16'}&complete_tiles_page=${completeTilesPage}&incomplete_tiles_page=${incompleteTilesPage}&offset=${completeTilesOffset}`;
+    if (id) {
+      Fetcher.xmlHttpRequest({
+        method: 'GET',
+        path: `/api/v1/tiles?${params}`,
+        success: resp => {
+          this.setTilesPaginationState({
+            completeTilesPage: resp.completeTilesPage,
+            incompleteTilesPage: resp.incompleteTilesPage,
+            completeTilesOffset: resp.completeTilesOffset,
+            allTilesDisplayed: resp.allTilesDisplayed,
+          });
+          opts.success(resp);
+        },
+        err: resp => opts.error(resp),
+      });
+    }
+  }
+
   render() {
     const  { userData, tiles, organization, demo, progressBarData, initData } = this.props;
     return React.createElement('div', {className: 'react-root'},
@@ -130,6 +153,8 @@ class App extends React.Component {
       tileActions: this.state.tileActions,
       closeTile: this.closeTile,
       navigateTo: this.navigateTo,
+      addTiles: this.addTiles,
+      loadTiles: this.loadTiles,
       userData,
     }) :
     null,
@@ -144,6 +169,7 @@ class App extends React.Component {
         redirectTo: this.redirectTo,
         navigateTo: this.navigateTo,
         appLoading: this.state.appLoading,
+        loadTiles: this.loadTiles,
         ctrl: initData,
         user: userData,
         tiles,
@@ -174,6 +200,7 @@ App.propTypes = {
     edit: PropTypes.object,
     complete: PropTypes.object,
     incomplete: PropTypes.object,
+    paginateState: PropTypes.object,
   }),
 };
 

@@ -76,7 +76,7 @@ class TileStateManager extends React.Component {
 
   calculateRolloverIndex(differenceIndex) {
     const {tiles, tileOrigin} = this.props;
-    if (differenceIndex >= tiles[tileOrigin].count) {
+    if (differenceIndex >= tiles[tileOrigin].count && tiles.paginateState.allTilesDisplayed) {
       return 0;
     } else if (differenceIndex < 0) {
       return tiles[tileOrigin].count - 1;
@@ -90,8 +90,20 @@ class TileStateManager extends React.Component {
       const {tiles, tileOrigin} = this.props;
       const newIndex = this.calculateRolloverIndex(this.state.currentTileIndex + indexDifference);
       this.setState({ loading: true });
-      this.renderTileFullTileData(tiles[tileOrigin].order[newIndex]);
-      this.setState({ currentTileIndex: newIndex });
+      if (newIndex >= tiles[tileOrigin].order.length) {
+        this.props.loadTiles({
+          perPage: 16,
+          success: resp => {
+            this.props.addTiles(resp.tiles);
+            this.renderTileFullTileData(this.props.tiles[tileOrigin].order[newIndex]);
+            this.setState({ currentTileIndex: newIndex });
+          },
+          error: err => console.error(err),
+        });
+      } else {
+        this.renderTileFullTileData(tiles[tileOrigin].order[newIndex]);
+        this.setState({ currentTileIndex: newIndex });
+      }
     }
   }
 
@@ -177,6 +189,8 @@ TileStateManager.propTypes = {
   tileOrigin: PropTypes.string,
   originId: PropTypes.number,
   updateTileData: PropTypes.func,
+  loadTiles: PropTypes.func,
+  addTiles: PropTypes.func,
   addCompletionAndPointsToProgressBar: PropTypes.func,
   tiles: PropTypes.shape({
     explore: PropTypes.object,
