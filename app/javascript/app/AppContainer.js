@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import { AiRouter, TileStateManager } from "../lib/utils";
 import { Fetcher } from "../lib/helpers";
-import { setUserData, setTilesData, setOrganizationData, setDemoData, addTilesToStore } from "../lib/redux/actions";
+import { setUserData, setTilesData, setTilesState, setOrganizationData, setDemoData, addTilesToStore } from "../lib/redux/actions";
 import { getSanitizedState } from "../lib/redux/selectors";
 import routes from '../config/routes';
 
@@ -23,6 +23,7 @@ class App extends React.Component {
     };
     this.setUser = this.setUser.bind(this);
     this.setTiles = this.setTiles.bind(this);
+    this.setTilesPaginationState = this.setTilesPaginationState.bind(this);
     this.addTiles = this.addTiles.bind(this);
     this.openFullSizeTile = this.openFullSizeTile.bind(this);
     this.closeTile = this.closeTile.bind(this);
@@ -83,6 +84,10 @@ class App extends React.Component {
     this.props.setTilesData(data);
   }
 
+  setTilesPaginationState(data) {
+    this.props.setTilesState(data);
+  }
+
   setOrganization(data) {
     this.props.setOrganizationData(data);
   }
@@ -133,6 +138,7 @@ class App extends React.Component {
         routeData: this.state.routeData,
         setUser: this.setUser,
         setTiles: this.setTiles,
+        setTilesPaginationState: this.setTilesPaginationState,
         addTiles: this.addTiles,
         openFullSizeTile: this.openFullSizeTile,
         redirectTo: this.redirectTo,
@@ -155,6 +161,7 @@ App.propTypes = {
   initData: PropTypes.object,
   setUserData: PropTypes.func,
   setTilesData: PropTypes.func,
+  setTilesState: PropTypes.func,
   addTilesToStore: PropTypes.func,
   setOrganizationData: PropTypes.func,
   setDemoData: PropTypes.func,
@@ -172,5 +179,5 @@ App.propTypes = {
 
 export default connect(
   getSanitizedState,
-  { setUserData, setTilesData, setOrganizationData, setDemoData, addTilesToStore }
+  { setUserData, setTilesData, setTilesState, setOrganizationData, setDemoData, addTilesToStore }
 )(App);

@@ -10,6 +10,11 @@ export const setTilesData = tiles => ({
   payload: { ...tiles },
 });
 
+export const setTilesState = data => ({
+  type: actionTypes.SET_TILES_STATE,
+  payload: { ...data },
+});
+
 export const updateTileData = tile => ({
   type: actionTypes.UPDATE_TILE_DATA,
   payload: { ...tile },
