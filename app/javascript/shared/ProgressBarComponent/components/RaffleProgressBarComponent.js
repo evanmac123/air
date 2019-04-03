@@ -64,6 +64,7 @@ const RaffleProgressBarComponent = props => {
           <CircularProgressbar
             percentage={percentage}
             text={progressBarData.raffleTickets || "0"}
+            textXVal={progressBarData.raffleTickets > 9 ? 30 : 40}
           />
         </div>
 
