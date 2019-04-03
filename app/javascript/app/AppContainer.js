@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import { AiRouter, TileStateManager } from "../lib/utils";
 import { Fetcher } from "../lib/helpers";
-import { setUserData, setTilesData, setOrganizationData, setDemoData, addTilesToStore } from "../lib/redux/actions";
+import { setUserData, setTilesData, setTilesState, setOrganizationData, setDemoData, addTilesToStore } from "../lib/redux/actions";
 import { getSanitizedState } from "../lib/redux/selectors";
 import routes from '../config/routes';
 
@@ -23,7 +23,9 @@ class App extends React.Component {
     };
     this.setUser = this.setUser.bind(this);
     this.setTiles = this.setTiles.bind(this);
+    this.setTilesPaginationState = this.setTilesPaginationState.bind(this);
     this.addTiles = this.addTiles.bind(this);
+    this.loadTiles = this.loadTiles.bind(this);
     this.openFullSizeTile = this.openFullSizeTile.bind(this);
     this.closeTile = this.closeTile.bind(this);
     this.redirectTo = this.redirectTo.bind(this);
@@ -83,6 +85,10 @@ class App extends React.Component {
     this.props.setTilesData(data);
   }
 
+  setTilesPaginationState(data) {
+    this.props.setTilesState(data);
+  }
+
   setOrganization(data) {
     this.props.setOrganizationData(data);
   }
@@ -116,6 +122,29 @@ class App extends React.Component {
     this.setState({ originId: null, tileOrigin: null, tileActions: null });
   }
 
+  loadTiles(opts) {
+    const tileOrigin = opts.loadAll ? null : this.state.tileOrigin;
+    const {completeTilesPage, incompleteTilesPage, completeTilesOffset} = this.props.tiles.paginateState;
+    const {isGuestUser, id} = this.props.userData;
+    const params = `tile_origin=${tileOrigin}&user_id=${id}&is_guest_user=${isGuestUser}&maximum_tiles=${opts.perPage || '16'}&complete_tiles_page=${completeTilesPage}&incomplete_tiles_page=${incompleteTilesPage}&offset=${completeTilesOffset}`;
+    if (id) {
+      Fetcher.xmlHttpRequest({
+        method: 'GET',
+        path: `/api/v1/tiles?${params}`,
+        success: resp => {
+          this.setTilesPaginationState({
+            completeTilesPage: resp.completeTilesPage,
+            incompleteTilesPage: resp.incompleteTilesPage,
+            completeTilesOffset: resp.completeTilesOffset,
+            allTilesDisplayed: resp.allTilesDisplayed,
+          });
+          opts.success(resp);
+        },
+        err: resp => opts.error(resp),
+      });
+    }
+  }
+
   render() {
     const  { userData, tiles, organization, demo, progressBarData, initData } = this.props;
     return React.createElement('div', {className: 'react-root'},
@@ -125,6 +154,8 @@ class App extends React.Component {
       tileActions: this.state.tileActions,
       closeTile: this.closeTile,
       navigateTo: this.navigateTo,
+      addTiles: this.addTiles,
+      loadTiles: this.loadTiles,
       userData,
     }) :
     null,
@@ -133,11 +164,13 @@ class App extends React.Component {
         routeData: this.state.routeData,
         setUser: this.setUser,
         setTiles: this.setTiles,
+        setTilesPaginationState: this.setTilesPaginationState,
         addTiles: this.addTiles,
         openFullSizeTile: this.openFullSizeTile,
         redirectTo: this.redirectTo,
         navigateTo: this.navigateTo,
         appLoading: this.state.appLoading,
+        loadTiles: this.loadTiles,
         ctrl: initData,
         user: userData,
         tiles,
@@ -155,6 +188,7 @@ App.propTypes = {
   initData: PropTypes.object,
   setUserData: PropTypes.func,
   setTilesData: PropTypes.func,
+  setTilesState: PropTypes.func,
   addTilesToStore: PropTypes.func,
   setOrganizationData: PropTypes.func,
   setDemoData: PropTypes.func,
@@ -167,10 +201,11 @@ App.propTypes = {
     edit: PropTypes.object,
     complete: PropTypes.object,
     incomplete: PropTypes.object,
+    paginateState: PropTypes.object,
   }),
 };
 
 export default connect(
   getSanitizedState,
-  { setUserData, setTilesData, setOrganizationData, setDemoData, addTilesToStore }
+  { setUserData, setTilesData, setTilesState, setOrganizationData, setDemoData, addTilesToStore }
 )(App);
