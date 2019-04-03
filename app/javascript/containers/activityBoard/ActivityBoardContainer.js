@@ -34,6 +34,7 @@ class ActivityBoard extends React.Component {
 
   componentDidMount() {
     this.props.loadTiles({
+      loadAll: true,
       perPage: 16,
       success: resp => {
         this.props.setTiles(resp.tiles);

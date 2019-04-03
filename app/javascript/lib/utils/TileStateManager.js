@@ -95,7 +95,8 @@ class TileStateManager extends React.Component {
           perPage: 16,
           success: resp => {
             this.props.addTiles(resp.tiles);
-            this.renderTileFullTileData(this.props.tiles[tileOrigin].order[newIndex]);
+            const tileId = this.props.tiles[tileOrigin].order[newIndex] ? this.props.tiles[tileOrigin].order[newIndex] : this.props.tiles[tileOrigin].order[0];
+            this.renderTileFullTileData(tileId);
             this.setState({ currentTileIndex: newIndex });
           },
           error: err => console.error(err),

@@ -123,9 +123,10 @@ class App extends React.Component {
   }
 
   loadTiles(opts) {
+    const tileOrigin = opts.loadAll ? null : this.state.tileOrigin;
     const {completeTilesPage, incompleteTilesPage, completeTilesOffset} = this.props.tiles.paginateState;
     const {isGuestUser, id} = this.props.userData;
-    const params = `user_id=${id}&is_guest_user=${isGuestUser}&maximum_tiles=${opts.perPage || '16'}&complete_tiles_page=${completeTilesPage}&incomplete_tiles_page=${incompleteTilesPage}&offset=${completeTilesOffset}`;
+    const params = `tile_origin=${tileOrigin}&user_id=${id}&is_guest_user=${isGuestUser}&maximum_tiles=${opts.perPage || '16'}&complete_tiles_page=${completeTilesPage}&incomplete_tiles_page=${incompleteTilesPage}&offset=${completeTilesOffset}`;
     if (id) {
       Fetcher.xmlHttpRequest({
         method: 'GET',
