@@ -1,6 +1,12 @@
-import { SET_TILES_DATA, UPDATE_TILE_DATA, ADD_TILES_TO_STORE } from "../actionTypes";
+import { SET_TILES_DATA, SET_TILES_STATE, UPDATE_TILE_DATA, ADD_TILES_TO_STORE } from "../actionTypes";
 
 const initialState = {
+  paginateState: {
+    completeTilesPage: 0,
+    completeTilesOffset: 0,
+    incompleteTilesPage: 1,
+    allTilesDisplayed: true,
+  },
   incomplete: { order: [], count: 0 },
   complete: { order: [], count: 0 },
   explore: { order: [], count: 0 },
@@ -57,6 +63,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         ...newTileState,
+      };
+    }
+    case SET_TILES_STATE: {
+      return {
+        ...state,
+        paginateState: { ...action.payload },
       };
     }
     case UPDATE_TILE_DATA: {

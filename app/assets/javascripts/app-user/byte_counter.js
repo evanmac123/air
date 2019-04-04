@@ -29,9 +29,19 @@ function canExceedMaxlength(element) {
 function exceededMaxLength(locator, counter, leftLength) {
   if (!canExceedMaxlength(locator)) return;
   if (leftLength < 0) {
+    if ($(locator)[0].classList.contains("with_counter")) {
+      $(locator)
+        .parent()
+        .css("border", "1px solid red");
+    }
     $(locator).addClass("exceeded_maxlength_field");
     $(counter).addClass("exceeded_maxlength_counter");
   } else {
+    if ($(locator)[0].classList.contains("with_counter")) {
+      $(locator)
+        .parent()
+        .css("border", "");
+    }
     $(locator).removeClass("exceeded_maxlength_field");
     $(counter).removeClass("exceeded_maxlength_counter");
   }

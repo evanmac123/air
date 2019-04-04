@@ -138,11 +138,11 @@ class RibbonTagManagerComponent extends React.Component {
         params,
         success: this.updateRibbonTagState,
         err: () => {
-          this.setState({...constants.DEFAULT_STATE, errorMsg: 'Tag could not be created'});
+          this.setState({...constants.DEFAULT_STATE, errorMsg: 'Topic could not be created'});
         },
       });
     } else if (!this.compareChanges()) {
-      this.setState({...constants.DEFAULT_STATE, errorMsg: 'No changes made to tag'});
+      this.setState({...constants.DEFAULT_STATE, errorMsg: 'No changes made to topic'});
     } else {
       this.applyErrors();
     }
@@ -154,7 +154,7 @@ class RibbonTagManagerComponent extends React.Component {
       method: 'DELETE',
       path: `${constants.BASE_URL}${campId}`,
       success: this.removeRibbonTagFromState,
-      err: () => { this.setState({errorMsg: "Cannot delete tag while it's active", errorId: campId}); },
+      err: () => { this.setState({errorMsg: "Cannot delete topic while it's active", errorId: campId}); },
     });
   }
 
@@ -199,7 +199,7 @@ class RibbonTagManagerComponent extends React.Component {
     return React.createElement('div', {className: "manage-campaign-card-container", style: {marginTop: '30px'}},
       (
         <div style={{minHeight: '35px', padding: '0 10px', marginBottom: '15px'}}>
-          <span className="campaign-manager-header" style={{float: 'left', fontSize: '24px'}}>Tags</span>
+          <span className="campaign-manager-header" style={{float: 'left', fontSize: '24px'}}>Topics</span>
           <div className="campaign-manager-btns" style={{float: 'right'}}>
             <span className="button icon" style={{marginRight: '7px'}}
               onClick={this.toggleNewRibbonTagForm}

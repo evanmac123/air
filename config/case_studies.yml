@@ -1,0 +1,42 @@
+alta_california:
+  name: Alta California
+  logo: asha_logo.jpg
+  headline: Learning How to Save Time and Communication
+  section:
+    -
+      subheader: Alta California Regional Center
+      body:
+        - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      quote:
+        body: 450 diverse remote employees who could not communicate
+        attribute: Jennifer Crick
+    -
+      subheader: Big Staff, Big Challenges
+      body:
+        - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  featured_quote:
+    body: Airbo has made is quicker and easier, and we're able to offer that prize element, which can really motivate people.
+    attribute: HR Employee
+    image: kate.jpg
+fujifilm:
+  name: FujiFilm
+  logo: Fujifilm-logo-small.png
+  headline: FujiFilm Loves Airbo
+  section:
+    -
+      subheader: FujiFilm and Airbo
+      body:
+        - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      quote:
+        body: 450 diverse remote employees who could not communicate
+        attribute: Jennifer Crick
+    -
+      subheader: Big Staff, Big Challenges
+      body:
+        - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  featured_quote:
+    body: Airbo has made is quicker and easier, and we're able to offer that prize element, which can really motivate people.
+    attribute: HR Employee
+    image: userpic.png

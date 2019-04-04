@@ -25,20 +25,16 @@ class ActivityBoard extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      completeTilesPage: 0,
-      completeTilesOffset: 0,
-      incompleteTilesPage: 1,
-      allTilesDisplayed: true,
       connections: null,
       potentialUserModal: null,
     };
-    this.loadTiles = this.loadTiles.bind(this);
     this.openTileModal = this.openTileModal.bind(this);
     this.loadMoreTiles = this.loadMoreTiles.bind(this);
   }
 
   componentDidMount() {
-    this.loadTiles({
+    this.props.loadTiles({
+      loadAll: true,
       perPage: 16,
       success: resp => {
         this.props.setTiles(resp.tiles);
@@ -55,27 +51,9 @@ class ActivityBoard extends React.Component {
     this.launchWelcomeModals();
   }
 
-  loadTiles(opts) {
-    const {completeTilesPage, incompleteTilesPage, completeTilesOffset} = this.state;
-    const {isGuestUser, id} = this.props.user;
-    const params = `user_id=${id}&is_guest_user=${isGuestUser}&maximum_tiles=${opts.perPage || '16'}&complete_tiles_page=${completeTilesPage}&incomplete_tiles_page=${incompleteTilesPage}&offset=${completeTilesOffset}`;
-    if (id) {
-      Fetcher.xmlHttpRequest({
-        method: 'GET',
-        path: `/api/v1/tiles?${params}`,
-        success: resp => {
-          const {completeTilesPage, incompleteTilesPage, completeTilesOffset, allTilesDisplayed} = resp;
-          this.setState({ completeTilesPage, incompleteTilesPage, completeTilesOffset, allTilesDisplayed });
-          opts.success(resp);
-        },
-        err: resp => opts.error(resp),
-      });
-    }
-  }
-
   loadMoreTiles() {
     toggleButtonLoadingSpinner(document.getElementsByClassName("show_more_tiles")[0]);
-    this.loadTiles({
+    this.props.loadTiles({
       perPage: 16,
       success: resp => {
         this.props.addTiles(resp.tiles);
@@ -141,7 +119,7 @@ class ActivityBoard extends React.Component {
               tiles={this.props.tiles}
               openTileModal={this.openTileModal}
               loadMoreTiles={this.loadMoreTiles}
-              allTilesDisplayed={this.state.allTilesDisplayed}
+              allTilesDisplayed={this.props.tiles.paginateState.allTilesDisplayed}
             />
           }
         </div>
@@ -177,13 +155,16 @@ class ActivityBoard extends React.Component {
 }
 
 ActivityBoard.propTypes = {
+  loadTiles: PropTypes.func,
   setTiles: PropTypes.func,
+  setTilesPaginationState: PropTypes.func,
   addTiles: PropTypes.func,
   setUser: PropTypes.func,
   navigateTo: PropTypes.func,
   tiles: PropTypes.shape({
     complete: PropTypes.object,
     incomplete: PropTypes.object,
+    paginateState: PropTypes.object,
   }),
   demo: PropTypes.object,
   user: PropTypes.object,

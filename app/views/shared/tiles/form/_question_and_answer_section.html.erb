@@ -9,6 +9,7 @@
     </div>
     <div class="quiz_content" id="js-interaction-container">
       <section id="quiz-question">
+<!-- HERE IS THE FORM -->
         <textarea cols="40" id="tile_question" name="tile[question]" rows="2"></textarea>
       </section>
       <section id="quiz-answer"></section>
@@ -48,7 +49,7 @@
 
     <% if @tile.demo.ribbon_tags.present? %>
       <div class="tile-builder-settings">
-        <p class="header">Tag</p>
+        <p class="header">Topic</p>
         <div class="settings-input-group">
           <%= form.collection_radio_buttons(:ribbon_tag_id, @tile.demo.ribbon_tags.order(:name), :id, :name) do |ribbon_tag_radio_button| %>
             <p class="settings-input"><%= ribbon_tag_radio_button.radio_button %> <%= ribbon_tag_radio_button.label(class: "d-inline") %></p>

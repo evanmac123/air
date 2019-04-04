@@ -8,6 +8,7 @@ class Api::V1::TilesController < Api::ApiController
       user: current_user || find_user_with_params,
       maximum_tiles: params[:maximum_tiles].to_i,
       current_board: current_user.try(:demo),
+      tile_origin: params[:tile_origin],
       page: current_page,
       offset: params[:offset].to_i
     )
