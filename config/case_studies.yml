@@ -21,7 +21,7 @@ alta_california:
     image: kate.jpg
 fujifilm:
   name: FujiFilm
-  logo: Fujifilm-logo-small.jpg
+  logo: Fujifilm-logo-small.png
   headline: FujiFilm Loves Airbo
   section:
     -
