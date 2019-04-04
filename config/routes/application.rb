@@ -51,7 +51,7 @@ resources :passwords,
 get "sign_in", to: redirect('/'), as: "sign_in"
 delete "sign_out" => "sessions#destroy", as: "sign_out"
 
-resources :case_studies, only: [:show, :index]
+# resources :case_studies, only: [:show, :index]
 
 get "/about" => 'pages#about', as: 'about'
 get "/careers" => 'pages#careers', as: 'careers'
