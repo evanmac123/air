@@ -29,8 +29,6 @@ namespace :invitation do
   resource :dependent_user_invitation, only: [:new, :create]
 end
 
-resources :case_studies, only: [:index]
-
 resources :acts,        :only => [:index, :create]
 resources :users,       :only => [:new, :index, :show] do
   resource :password,
@@ -52,6 +50,8 @@ resources :passwords,
 
 get "sign_in", to: redirect('/'), as: "sign_in"
 delete "sign_out" => "sessions#destroy", as: "sign_out"
+
+# resources :case_studies, only: [:show, :index]
 
 get "/about" => 'pages#about', as: 'about'
 get "/careers" => 'pages#careers', as: 'careers'
