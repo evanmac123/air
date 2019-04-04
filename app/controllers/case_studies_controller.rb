@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 class CaseStudiesController < ApplicationController
   layout "marketing_site"
 
-  def index
-    @case_studies = CaseStudy.order_by_position
+  def show
   end
 end
