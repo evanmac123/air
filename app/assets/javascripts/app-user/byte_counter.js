@@ -37,10 +37,7 @@ function exceededMaxLength(locator, counter, leftLength) {
     $(locator).addClass("exceeded_maxlength_field");
     $(counter).addClass("exceeded_maxlength_counter");
   } else {
-    if (
-      $(locator)[0].classList.value ===
-      "medium-editable text-input no_outline no_inline_span_styling with_counter medium-editor-element"
-    ) {
+    if ($(locator)[0].classList.contains("with_counter")) {
       $(locator)
         .parent()
         .css("border", "");
