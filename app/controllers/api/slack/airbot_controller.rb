@@ -4,36 +4,7 @@ class Api::Slack::AirbotController < Api::ApiController
   before_action :confirm_token
 
   def cheer
-    cheer = Cheer.new(body: params[:text])
-    response = if cheer.save
-      {
-        response_type: "in_channel",
-        attachments: [
-          {
-            title: "#{params[:user_name].upcase} submitted a new cheer!",
-            text: "\"#{params[:text]}\"",
-            fallback: params[:text],
-            color: "#48BFFF",
-            image_url: random_giphy("cheer")
-          }
-        ]
-      }
-    else
-      {
-        response_type: "ephemeral",
-        attachments: [
-          {
-            title: "An error occurred",
-            text: "You're cheer did not save. Please try again later.",
-            fallback: "You're cheer did not save. Please try again later.",
-            color: "#C90404",
-            image_url: random_giphy("error")
-          }
-        ]
-      }
-    end
-
-    render json: response
+    render json: render_cheer_response
   end
 
   private
@@ -41,6 +12,21 @@ class Api::Slack::AirbotController < Api::ApiController
       unless ENV["SLACK_APP_TOKEN"] == params[:token]
         raise ActionController::RoutingError.new("Not Found")
       end
+    end
+
+    def slack_cheer_response(error: false, text: "", title: "Random Cheer from the Airbo Archives")
+      {
+        response_type: error ? "ephemeral" : "in_channel",
+        attachments: [
+          {
+            title: error ? "An error occurred" : title,
+            text: error ? "You're cheer did not save. Please try again later." : "\"#{text}\"",
+            fallback: error ? "You're cheer did not save. Please try again later." : "\"#{text}\"",
+            color: error ? "#C90404" : "#48BFFF",
+            image_url: random_giphy(error ? "fail" : "cheer")
+          }
+        ]
+      }
     end
 
     def giphy_api_endpoint(type)
@@ -54,6 +40,15 @@ class Api::Slack::AirbotController < Api::ApiController
         resp[:data][:images][:fixed_width][:url]
       rescue
         "https://media0.giphy.com/media/l41lNeVPFM7LH9X7q/200w.gif"
+      end
+    end
+
+    def render_cheer_response
+      if params[:text].empty?
+        slack_cheer_response(text: Cheer.sample)
+      else
+        cheer = Cheer.new(body: params[:text])
+        cheer.save ? slack_cheer_response(text: cheer.body, title: "#{params[:user_name].upcase} submitted a new cheer!") : slack_cheer_response(error: true)
       end
     end
 end
