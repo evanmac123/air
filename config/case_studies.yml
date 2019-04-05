@@ -1,6 +1,7 @@
 alta_california:
   name: Alta California
   logo: asha_logo.jpg
+  colorless_logo: asha_logo_colorless.jpg
   headline: Learning How to Save Time and Communication
   section:
     -
@@ -19,9 +20,11 @@ alta_california:
     body: Airbo has made is quicker and easier, and we're able to offer that prize element, which can really motivate people.
     attribute: HR Employee
     image: kate.jpg
+    index: 2
 fujifilm:
   name: FujiFilm
   logo: Fujifilm-logo-small.png
+  colorless_logo: asha_logo_colorless.jpg
   headline: FujiFilm Loves Airbo
   section:
     -
