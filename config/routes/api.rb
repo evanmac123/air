@@ -50,4 +50,9 @@ namespace :api, defaults: { format: :json } do
   namespace :sms_service do
     resources :handling, only: [:create]
   end
+
+  namespace :slack do
+    post 'airbot/cheer', to: 'airbot#cheer'
+    post 'airbot/cheer_interaction', to: 'airbot#cheer_interaction'
+  end
 end
