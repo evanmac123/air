@@ -1,0 +1,32 @@
+@import "./front_theme_styles.scss";
+@import "font-awesome";
+@import "./styles-v2/app.scss";
+@import "./mixins/main_styles.css.scss";
+@import "./marketing-site/main.scss";
+
+main {
+  padding: 0;
+}
+
+#case_studies {
+background-color: blue;
+  .case_header{
+    margin-top: 200px;
+    float:left;
+  }
+
+}
+@media only screen and (max-width: 1400px) {}
+@media only screen and (max-width: 990px) {
+  #case_studies {
+  }
+}
+@media only screen and (max-width: 767px) {
+  #case_studies {
+}
+}
+@media only screen and (max-width: 600px) {
+  #case_studies {
+
+  }
+}
