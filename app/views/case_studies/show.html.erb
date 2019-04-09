@@ -13,6 +13,7 @@
   <h3><%= section['subheader'] %></h3>
 
   <!-- case study section body -->
+
   <% section['body'].each_with_index do |paragragh, i| %>
     <p><%= paragragh %></p>
   <% end %>
@@ -26,7 +27,7 @@
     <p>- <%= section['quote']['attribute'] %></p>
   <% end %>
 
-  <% if i == @case_study['featured_quote']['index'] %>
+  <% if 1 == @case_study['featured_quote']['index'] %>
     <!-- case study featured_quote body -->
     <h4>"<%= @case_study['featured_quote']['body'] %>"</h4>
 
