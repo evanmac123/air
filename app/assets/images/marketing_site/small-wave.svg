@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="268px" height="72px" viewBox="0 0 268 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>wave1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="1.72254642e-14%" x2="100%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#48BFFF" offset="0%"></stop>
+            <stop stop-color="#4ED2C6" offset="90.4251305%"></stop>
+            <stop stop-color="#4FD4C0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Case-Study-Card" transform="translate(0.000000, -234.000000)" fill="url(#linearGradient-1)">
+            <path d="M0,268.43999 C39.1230237,286.008085 85.6147674,284.827004 139.475231,264.896749 C220.265926,235.001366 238.342263,228.043261 268,238.692551 C268,295.65406 268,318.003872 268,305.741987 L0,305 L0,268.43999 Z" id="wave1"></path>
+        </g>
+    </g>
+</svg>

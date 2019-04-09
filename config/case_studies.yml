@@ -7,7 +7,7 @@ fujifilm:
   link: fujifilm
   section:
     -
-      subheader: FujiFilm and Airbo
+      subheader: Learning How to Save Time and Communication
       body:
         - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -35,20 +35,46 @@ alta:
     -
       subheader: Alta California Regional Center
       body:
-        - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        - Alta California Regional Center (ACRC) is a private, nonprofit agency that serves the developmentally disabled persons, ages three and above. In addition, they provide Early Intervention services for infants and toddlers who meet eligibility criteria. The Northern California-based agency is composed of over 450 diverse employees,working both remotely and in offices.
       quote:
         body: 450 diverse remote employees who could not communicate
         attribute: Jennifer Crick
     -
       subheader: Big Staff, Big Challenges
       body:
-        - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        - Jennifer Crick, ACRC’s Director of Human Resources, and Nicole Adrian-Dacus, ACRC’s HR Generalist, needed every employee to participate in signing a Conflict of Interest form each year. However, the task always proved to be a struggle. Though the HR duo set clear deadlines, an average of just 65% of employees would actually manage to get the form back to them by the requested date. Jennifer, Nicole and others on the HR Team had to spend hours repeatedly following up with each employee via email and in person.
+
+        - With over 450 employees to support scattered over a large geographic area, Jennifer knew she needed a tool to save time on employee communications. Then, she discovered Airbo. As soon it was implemented, Jennifer and Nicole started to notice a dramatic difference in the way ACRC’s workforce responded to communication.
+      quote:
+        body: It used to take us forever to get people to fill out their forms
+        attribute: Jennifer Crick
+    -
+      subheader: After the first Airbo Tiles, an incredible 90% of employees signed the Conflict of Interest form in first three weeks.
+      body:
+        - Within four weeks, all employees had signed the form, and follow-up was necessary with only a select few, saving Jennifer’s team countless work hours. “It used to take us forever to get people to fill out their forms,” said Nicole. “Airbo has made it quicker and easier, and we’re able to offer that prize element, which can really motivate people.”
+
+      quote:
+        body: We’re able to communicate more often, about a wider variety of things.
+        attribute: Jennifer Crick
+    -
+      subheader: With Airbo, Jennifer and Nicole were able to reach out to ACRC’s employees with greater frequency,
+      body:
+        - They didn’t feel the need to limit themselves to sharing only the most necessary information. “Communications used to happen on an as-needed basis,” said Nicole. “We didn’t have a newsletter or anything. Now I feel like we’re able to communicate more often about a wider variety of things.”
+
+      subheader: Currently, 97% of employees participate in Airbo, and regularly read and respond to the posted Tiles
+      body:
+        - Meanwhile, Nicole has experienced a side effect from Airbo that she wasn’t expecting. “Airbo makes it easier and more fun for me to put this information together,” she said. “It’s just so much more enjoyable.”
+      quote:
+        body: Airbo makes it easier and more fun for me to put this information together.
+        attribute: Jennifer Crick
+
+
   featured_quote:
     body: Airbo has made is quicker and easier, and we're able to offer that prize element, which can really motivate people.
     attribute: HR Employee
+    background: alta_background
     image: kate.jpg
-    index: 2
+    index: 1
 
 asha:
   name: Asha California

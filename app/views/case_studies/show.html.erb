@@ -1,40 +1,137 @@
-<!-- case study company logo -->
-<%= image_tag "case_studies/#{params[:id]}/#{@case_study['logo']}" %>
+<div id="case_study">
 
-<!-- case study company name -->
-<h1><%= @case_study['name'] %></h1>
+  <div class="case_header blue-teal-gradient">
+    <!-- case study company logo -->
+    <%= image_tag "case_studies/#{params[:id]}/#{@case_study['colorless_logo']}" %>
 
-<!-- case study headline -->
-<h2><%= @case_study['headline'] %></h2>
+    <!-- case study headline -->
+    <h2><%= @case_study['headline'] %></h2>
+    <!-- case study company name -->
+    <div class="subline">
+      Case Studies |
+      <h1>
+        <%= @case_study['name'] %>
+      </h1>
+    </div>
+    <%= render partial: "pages/front_theme/svg/white" %>
+  </div>
 
-<!-- case study body -->
-<% @case_study['section'].each do |section| %>
-  <!-- case study section subheader -->
-  <h3><%= section['subheader'] %></h3>
+  <div class="case_body">
+    <!-- case study body -->
+    <% @case_study['section'].each_with_index do |section,i| %>
+      <!-- case study section subheader -->
+      <div class="section container">
+        <div class="row">
+          <div class="col-lg-7">
+            <h3><%= section['subheader'] %></h3>
 
-  <!-- case study section body -->
+            <!-- case study section body -->
+            <% section['body'].each_with_index do |paragragh, i| %>
+              <p><%= paragragh %></p>
+            <% end %>
+          </div>
+          <div class="offset-lg-1 col-lg-4">
+            <!-- IF case study section quote -->
+            <% if section['quote'] %>
+              <div class="quote">
+                <!-- case study section quote body -->
+                <div class="body">
+                  <%= section['quote']['body'] %>
+                  <%= image_tag "case_studies/left-quote.png", class:"left_quote" %>
+                  <%= image_tag "case_studies/right-quote.png", class:"right_quote"%></div>
 
-  <% section['body'].each_with_index do |paragragh, i| %>
-    <p><%= paragragh %></p>
-  <% end %>
+                <!-- case study section quote attribute -->
+                <div class="attribute">
+                  <%= section['quote']['attribute'] %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <% if i == @case_study['featured_quote']['index'] %>
+        <div class="featured-quote blue-teal-gradient">
+          <div class="container">
+          <!-- case study featured_quote body -->
+          <h3>
+            "<%= @case_study['featured_quote']['body'] %>"
+          </h3>
 
-  <!-- IF case study section quote -->
-  <% if section['quote'] %>
-    <!-- case study section quote body -->
-    <p>"<%= section['quote']['body'] %>"</p>
+          <!-- case study featured_quote photo -->
+          <%= image_tag "case_studies/#{params[:id]}/#{@case_study['featured_quote']['image']}", class:"quoter" %>
 
-    <!-- case study section quote attribute -->
-    <p>- <%= section['quote']['attribute'] %></p>
-  <% end %>
+          <!-- case study featured_quote attribute -->
+          <div><%= @case_study['featured_quote']['attribute'] %></div>
 
-  <% if 1 == @case_study['featured_quote']['index'] %>
-    <!-- case study featured_quote body -->
-    <h4>"<%= @case_study['featured_quote']['body'] %>"</h4>
-
-    <!-- case study featured_quote attribute -->
-    <h4>- <%= @case_study['featured_quote']['attribute'] %></h4>
-
-    <!-- case study featured_quote photo -->
-    <%= image_tag "case_studies/#{params[:id]}/#{@case_study['featured_quote']['image']}" %>
-  <% end %>
-<% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="cta position-relative blue-teal-gradient">
+    <%= render partial: "pages/front_theme/svg/blue" %>
+    <div class="container " data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
+      <h2>
+        Offer Your Clients More
+      </h2>
+      <p>Schedule a 30 minute demo to learn more about Airbo
+      </p>
+      <div class="request-demo">
+        <a class="btn btn-sm btn-invert js-request-demo">
+          Request Demo
+        </a>
+      </div>
+    </div>
+    <%= render partial: "pages/front_theme/svg/white" %>
+  </div>
+  <div class="other_case_studies position-relative">
+    <div class="container">
+      <div class="row header">
+        <h3 class="col-lg-6">
+          Our Case Studies
+        </h3>
+        <a class="col-lg-6 see-all" href="">
+          See all Case Studies
+        </a>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">
+          <a href="" class="card">
+            <%= image_tag "case_studies/alta/alta_logo.png", class:"logo" %>
+          <div class="headline">
+            Making Commuication for Everyone
+          </div>
+          <%= render partial: "pages/front_theme/svg/blue_bottom" %>
+        </a>
+        </div>
+        <div class="col-lg-3">
+          <a href="" class="card">
+            <%= image_tag "case_studies/alta/alta_logo.png", class:"logo" %>
+          <div class="headline">
+            Making Commuication for Everyone
+          </div>
+          <%= render partial: "pages/front_theme/svg/blue_bottom" %>
+        </a>
+        </div>
+        <div class="col-lg-3">
+          <a href="" class="card">
+            <%= image_tag "case_studies/alta/alta_logo.png", class:"logo" %>
+          <div class="headline">
+            Making Commuication for Everyone
+          </div>
+          <%= render partial: "pages/front_theme/svg/blue_bottom" %>
+        </a>
+        </div>
+        <div class="col-lg-3">
+          <a href="" class="card">
+            <%= image_tag "case_studies/alta/alta_logo.png", class:"logo" %>
+          <div class="headline">
+            Making Commuication for Everyone
+          </div>
+          <%= render partial: "pages/front_theme/svg/blue_bottom" %>
+        </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
