@@ -4,6 +4,7 @@ fujifilm:
   colorless_logo: fujifilm_logo_colorless.png
   headline: FujiFilm Loves Airbo
   background: fujifilm_wave.png
+  background2: fuji_wave2.png
   link: fujifilm
   section:
     -
@@ -30,6 +31,7 @@ alta:
   colorless_logo: alta_logo_colorless.png
   headline: Learning How to Save Time and Communication
   background: alta_wave.png
+  background2: alta_wave2.png
   link: alta
   section:
     -
@@ -76,13 +78,14 @@ alta:
     image: kate.jpg
     index: 1
 
-asha:
-  name: Asha California
-  logo: asha_logo.png
-  colorless_logo: asha_logo_colorless.png
+youthbuild:
+  name: Youth Build
+  logo: youthbuild_logo.png
+  colorless_logo: youthbuild_logo_colorless.png
   headline: Learning How to Save Time and Communication
-  background: asha_wave.png
-  link: asha
+  background: youthbuild_wave.png
+  background2: youthbuild_wave2.png
+  link: youthbuild
   section:
     -
       subheader: Alta California Regional Center
@@ -102,13 +105,14 @@ asha:
     image: kate.jpg
     index: 2
 
-youthbuild:
-  name: Youth Build
-  logo: youthbuild_logo.png
-  colorless_logo: youthbuild_logo_colorless.png
+asha:
+  name: Asha California
+  logo: asha_logo.png
+  colorless_logo: asha_logo_colorless.png
   headline: Learning How to Save Time and Communication
-  background: youthbuild_wave.png
-  link: youthbuild
+  background: asha_wave.png
+  background2: asha_wave2.png
+  link: asha
   section:
     -
       subheader: Alta California Regional Center
@@ -134,6 +138,7 @@ rle:
   colorless_logo: rle_logo_colorless.png
   headline: Learning How to Save Time and Communication
   background: rle_wave.png
+  background2: rle_wave2.png
   link: rle
   section:
     -

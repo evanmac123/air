@@ -3,14 +3,15 @@
   <div class="case_header">
     <div class="small-container">
       <h1> Case Studies </h1>
-      <h4> Find out how leading brands are using Airbo’s technologies to get real results. Read our case studies below </h4>
+      <h4> Find out how leading brands are using Airbo’s technologies to get real results.</h4>
     </div>
   </div>
   <div class="case_body">
   <!-- list of all case studies -->
   <% @case_studies.keys.each do |key| %>
     <div class="case_study">
-      <%= image_tag "case_studies/#{key}/#{@case_studies[key]['background']}",  class: "case_back" %>
+       <%#  image_tag "case_studies/#{key}/#{@case_studies[key]['background2']}",  class: "case_back" %>
+       <div class="case_back"></div>
       <!-- case study logo -->
       <div class="container">
         <div class="row">
