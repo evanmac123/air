@@ -44,6 +44,6 @@ module Tile::TileImageable
   end
 
   def processing_image_fallback
-    IMAGE_PROCESSING_URL
+    remote_media_url || IMAGE_PROCESSING_URL
   end
 end
