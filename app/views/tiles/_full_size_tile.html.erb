@@ -24,8 +24,7 @@
     <% end %>
       <div class="image_section" style="<%= 'height: 0px' if tile.show_video? %>">
         <div class="tile_full_image <%= image_is_loading ? 'loading' : '' %>">
-          <span id="source-url" class="hidden"><%= tile.image.url %></span>
-          <img id="tile_img_preview" class="tile_image" alt="<%= tile.headline %>">
+          <img id="tile_img_preview" class="tile_image" alt="<%= tile.headline %>" src="<%= tile.image.url %>">
           <div class="shadow_overlay non-landing"></div>
           <div class="image_credit">
             <div class="image_credit_view">
