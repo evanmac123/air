@@ -1,59 +1,11 @@
-<% content_for :page_title, 'Airbo - Success Stories' %>
+<!-- list of all case studies -->
+<% @case_studies.keys.each do |key| %>
+  <!-- case study logo -->
+  <%= image_tag "case_studies/#{key}/#{@case_studies[key]['logo']}" %>
 
-<div class="marketing-site-case-studies">
-  <div class="main-hero">
-    <div class="wrap">
-      <div class="copy">
-        <h1 class="main-hero-header"><%= t('.header') %></h1>
-        <h4 class="main-hero-subheader"><%= t('.subheader') %></h4>
-      </div>
-    </div>
-  </div>
+  <!-- case study name -->
+  <h3><%= @case_studies[key]['name'] %></h3>
 
-  <!-- <div class="case-studies-index-header">
-    <div class="wrap">
-      <h4 class="pre-header"><%= t('.pre_header') %></h4>
-      <h4 class="header mx-auto"><%= t('.header') %></h4>
-    </div>
-  </div> -->
-
-  <!-- <div class="case-studies-industry-select">
-    <div class="wrap">
-      <div class="industry-select">
-        <select class="nice-select-init .nice-select dropdown-button-component dropdown-button-component-init">
-          <option data-industry="all">All Industries</option>
-          <%# @case_studies.pluck(:client_name).each do |industry| %>
-          <option data-industry="<%#= industry %>"><%#= industry.capitalize %></option>
-          <%# end %>
-        </select>
-      </div>
-    </div>
-  </div> -->
-
-  <div class="case-studies-index">
-    <div class="wrap">
-      <% @case_studies.each do |case_study| %>
-        <div class="case-study-card">
-          <div class="case-study-logo">
-            <%= image_tag(case_study.logo, alt: case_study.client_name) %>
-          </div>
-          <div class="case-study-quote">
-            "<%= case_study.quote %>"
-          </div>
-          <div class="case-study-cite">
-            <p class="cite-name"><%= case_study.quote_cite %></p>
-            <p class="cite-title"><%= case_study.quote_cite_title %></p>
-          </div>
-          <div class="case-study-view-button-wrapper">
-            <%= link_to "View Case Study", case_study.display_path, target: :blank, class: "button outlined js-case-study-view-button", data: { case_study: case_study.client_name } %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-  <div class="case-study-cta">
-    <div class="wrap">
-      <%= link_to t('.final_cta_button'), new_demo_request_path, class:"button pink case-study-cta-link js-marketing-site-cta", data: { path: new_demo_request_path, cta: "case-study-final-cta" } %>
-    </div>
-  </div>
-</div>
+  <!-- case study headline -->
+  <p><%= @case_studies[key]['headline'] %></p>
+<% end %>

@@ -1,0 +1,39 @@
+<!-- case study company logo -->
+<%= image_tag "case_studies/#{params[:id]}/#{@case_study['logo']}" %>
+
+<!-- case study company name -->
+<h1><%= @case_study['name'] %></h1>
+
+<!-- case study headline -->
+<h2><%= @case_study['headline'] %></h2>
+
+<!-- case study body -->
+<% @case_study['section'].each do |section| %>
+  <!-- case study section subheader -->
+  <h3><%= section['subheader'] %></h3>
+
+  <!-- case study section body -->
+  <% section['body'].each_with_index do |paragragh, i| %>
+    <p><%= paragragh %></p>
+  <% end %>
+
+  <!-- IF case study section quote -->
+  <% if section['quote'] %>
+    <!-- case study section quote body -->
+    <p>"<%= section['quote']['body'] %>"</p>
+
+    <!-- case study section quote attribute -->
+    <p>- <%= section['quote']['attribute'] %></p>
+  <% end %>
+
+  <% if i == @case_study['featured_quote']['index'] %>
+    <!-- case study featured_quote body -->
+    <h4>"<%= @case_study['featured_quote']['body'] %>"</h4>
+
+    <!-- case study featured_quote attribute -->
+    <h4>- <%= @case_study['featured_quote']['attribute'] %></h4>
+
+    <!-- case study featured_quote photo -->
+    <%= image_tag "case_studies/#{params[:id]}/#{@case_study['featured_quote']['image']}" %>
+  <% end %>
+<% end %>
