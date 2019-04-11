@@ -1,6 +1,6 @@
 fujifilm:
   name: FujiFilm
-  logo: fuji_logo.png
+  logo: fujifilm_logo.png
   colorless_logo: fujifilm_logo_colorless.png
   headline: FujiFilm Loves Airbo
   background: fujifilm_wave.png
@@ -107,7 +107,7 @@ youthbuild:
 
 asha:
   name: Asha California
-  logo: asha_logo.png
+  logo: asha_logo.jpg
   colorless_logo: asha_logo_colorless.png
   headline: Learning How to Save Time and Communication
   background: asha_wave.png

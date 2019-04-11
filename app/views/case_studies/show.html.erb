@@ -95,42 +95,15 @@
         </a>
       </div>
       <div class="row">
-        <div class="col-lg-3">
-          <a href="" class="card">
-            <%= image_tag "case_studies/alta/alta_logo.png", class:"logo" %>
-          <div class="headline">
-            Making Commuication for Everyone
+        <% @adjacent_case_studies.each do |acs| %>
+          <div class="col-lg-3">
+            <a href="<%= "/case_studies/#{acs['key']}" %>" class="card">
+              <%= image_tag "case_studies/#{acs['key']}/#{acs['logo']}", class:"logo" %>
+              <div class="headline"><%= acs['headline'] %></div>
+              <%= render partial: "pages/front_theme/svg/blue_bottom" %>
+            </a>
           </div>
-          <%= render partial: "pages/front_theme/svg/blue_bottom" %>
-        </a>
-        </div>
-        <div class="col-lg-3">
-          <a href="" class="card">
-            <%= image_tag "case_studies/alta/alta_logo.png", class:"logo" %>
-          <div class="headline">
-            Making Commuication for Everyone
-          </div>
-          <%= render partial: "pages/front_theme/svg/blue_bottom" %>
-        </a>
-        </div>
-        <div class="col-lg-3">
-          <a href="" class="card">
-            <%= image_tag "case_studies/alta/alta_logo.png", class:"logo" %>
-          <div class="headline">
-            Making Commuication for Everyone
-          </div>
-          <%= render partial: "pages/front_theme/svg/blue_bottom" %>
-        </a>
-        </div>
-        <div class="col-lg-3">
-          <a href="" class="card">
-            <%= image_tag "case_studies/alta/alta_logo.png", class:"logo" %>
-          <div class="headline">
-            Making Commuication for Everyone
-          </div>
-          <%= render partial: "pages/front_theme/svg/blue_bottom" %>
-        </a>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
