@@ -7,11 +7,6 @@ Airbo.ImageLoadingPlaceholder = (function() {
       .css("min-height", "");
   }
   function loadImage() {
-    var $tileImgPreview = $(document.getElementById("tile_img_preview"));
-
-    $tileImgPreview.attr("crossOrigin", "");
-    $tileImgPreview.attr("src", $("#source-url").text());
-
     if ($("#tile_img_preview")[0].complete) {
       removeLoadingPlaceholder();
     } else {
