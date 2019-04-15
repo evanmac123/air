@@ -15,6 +15,7 @@ Rails.application.config.assets.precompile += %w(
   app-marketing-site.css
   app-admin.css
   app-client-admin.css
+  app-casestudies.css
   app-external.css
   app-internal.css
   app-landing.css
