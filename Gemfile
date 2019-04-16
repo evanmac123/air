@@ -89,6 +89,7 @@ gem "coffee-rails", "~> 4.0.0"
 gem "uglifier", ">= 1.3.0"
 gem "handlebars_assets", "~> 0.22.0"
 gem 'jquery-datetimepicker-rails'
+gem 'faraday'
 
 group :development, :test do
   gem "dotenv-rails"
