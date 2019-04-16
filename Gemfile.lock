@@ -747,6 +747,7 @@ DEPENDENCIES
   dotenv-rails
   email_spec (~> 1.6.0)
   factory_bot_rails
+  faraday
   flutie (~> 2.0)
   font-awesome-rails (>= 4.7)
   foreman
