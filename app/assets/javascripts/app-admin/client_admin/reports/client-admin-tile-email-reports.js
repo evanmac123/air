@@ -114,14 +114,14 @@ Airbo.ClientAdminTileEmailReports = (function() {
     if (tilesToBeSent > 0) {
       var sharePath = $(".js-sidenav-share-tab a").attr("href");
       return {
-        message: "Send a Tile Email to use these reports.",
+        message: "Send a Tile Digest to use these reports.",
         linkText: "See how",
         path: sharePath
       };
     } else {
       var editPath = $(".js-sidenav-edit-tab a").attr("href");
       return {
-        message: "Post some Tiles and send a Tile Email to use these reports.",
+        message: "Post some Tiles and send a Tile Digest to use these reports.",
         linkText: "Post Tiles",
         path: editPath
       };

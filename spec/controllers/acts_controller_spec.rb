@@ -9,7 +9,7 @@ describe ActsController do
 
   describe "pings" do
     let(:user) { FactoryBot.create :user }
-    it "should send tile email tracking ping when there is a user and the params specify email type and a tile email id" do
+    it "should send tile digest tracking ping when there is a user and the params specify email type and a tile digest id" do
       TileEmailTrackerJob.expects(:perform_later).with({
         user: user,
         email_type: "tile_digest",
@@ -31,7 +31,7 @@ describe ActsController do
       }
     end
 
-    it "should NOT send tile email tracking ping when the params do not specify email type and a tile email id" do
+    it "should NOT send tile digest tracking ping when the params do not specify email type and a tile digest id" do
       TileEmailTrackerJob.expects(:perform_later).never
 
       sign_in_as(user)

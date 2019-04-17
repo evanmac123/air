@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Client admin automates tile email', js: true do
+feature 'Client admin automates tile digest', js: true do
   let!(:demo)  { FactoryBot.create :demo, email: 'foobar@playhengage.com' }
   let!(:admin) { FactoryBot.create :client_admin, email: 'client-admin@hengage.com', demo: demo, phone_number: "+3333333333" }
 

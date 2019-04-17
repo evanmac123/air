@@ -6,7 +6,7 @@
     <ul>
       <li>
         <%= f.label :subject do %>
-          Custom Subject <i class="fa fa-question-circle has-tip" data-tooltip="fuCustomSubject" data-allow-html="true" title="The subject for this communication defaults to the highest performing subject line of its related Tile Email. You can override this behavior by entering a custom subject."></i>
+          Custom Subject <i class="fa fa-question-circle has-tip" data-tooltip="fuCustomSubject" data-allow-html="true" title="The subject for this communication defaults to the highest performing subject line of its related Tile Digest. You can override this behavior by entering a custom subject."></i>
         <% end %>
         <%= f.text_field :subject, maxlength: 80, placeholder: @follow_up_email.subject_before_sent, style: "margin-bottom:10px;" %>
         <script>
