@@ -26,7 +26,7 @@ class CaseStudiesController < ApplicationController
       end
     end
 
-    def load_yaml_from_ s3
+    def load_yaml_from_s3
       s3 = AWS::S3.new(access_key_id: ENV["AWS_ACCESS_KEY_ID"], secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"], region: ENV["AWS_REGION"])
       begin
         raw = s3.buckets["airbo-production"].objects["static/case_studies.yml"].read
