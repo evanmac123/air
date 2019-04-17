@@ -16,6 +16,22 @@ class Api::Slack::AirbotController < Api::ApiController
     render json: result
   end
 
+  def event_subscription
+    event = params[:event]
+    Airbot.new.slack_method("chat.postMessage",
+      channel: event[:channel],
+      as_user: "false",
+      text: "Beep boop. Hi <@#{event[:user]}>! Nice to meet you. I'm AirBot and here to help!",
+      attachments: [
+        Airbot.msg_attachment(
+          color: "#48BFFF",
+          random_giphy: "hello world!"
+        )
+      ]
+    )
+    render json: { ok: true }
+  end
+
   private
 
     def submit_cheer
@@ -37,3 +53,18 @@ class Api::Slack::AirbotController < Api::ApiController
       end
     end
 end
+
+# http://19d411d7.ngrok.io/api/slack/airbot/event_subscription
+# {
+#   "token"=>"3e2RasO41aeO9cIpvgDW4LM3",
+#   "team_id"=>"T02FKMPAZ",
+#   "api_app_id"=>"AHA1KQ28K",
+#   "event"=>{
+#     "client_msg_id"=>"ba655dff-e417-4900-b308-8307a1a40dd0",
+#     "type"=>"app_mention",
+#     "text"=>"Hello <@UHYNM254L>",
+#     "user"=>"UAHC3R48Y",
+#     "ts"=>"1555521394.002600",
+#     "channel"=>"G5A74FQ4W",
+#     "event_ts"=>"1555521394.002600"
+#   },
