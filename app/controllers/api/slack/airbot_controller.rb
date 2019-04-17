@@ -59,7 +59,7 @@ class Api::Slack::AirbotController < Api::ApiController
     end
 
     def confirm_token
-      unless ENV["SLACK_APP_TOKEN"] == params[:token]
+      unless ENV["SLACK_APP_TOKEN"] == params[:token] || params[:challenge]
         raise ActionController::RoutingError.new("Not Found")
       end
     end
