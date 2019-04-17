@@ -11,37 +11,39 @@ Airbo.TileThumbnailMenu = (function() {
   }
 
   function initTileActions() {
-    $("body").on(
-      "click",
-      ".tile_thumbnail_menu .delete_tile, .tile_buttons .delete_tile",
-      function(event) {
+    if (!$("#root").length) {
+      $("body").on(
+        "click",
+        ".tile_thumbnail_menu .delete_tile, .tile_buttons .delete_tile",
+        function(event) {
+          event.preventDefault();
+          closeToolTips();
+          Airbo.TileAction.confirmDeletion($(this));
+        }
+      );
+
+      $("body").on("click", ".tile_thumbnail_menu .duplicate_tile", function(
+        event
+      ) {
         event.preventDefault();
         closeToolTips();
-        Airbo.TileAction.confirmDeletion($(this));
-      }
-    );
+        Airbo.TileAction.makeDuplication($(this));
+      });
 
-    $("body").on("click", ".tile_thumbnail_menu .duplicate_tile", function(
-      event
-    ) {
-      event.preventDefault();
-      closeToolTips();
-      Airbo.TileAction.makeDuplication($(this));
-    });
+      $("body").on("click", ".tile_thumbnail_menu .js-edit-campaign", function(
+        event
+      ) {
+        event.preventDefault();
+        closeToolTips();
+        Airbo.CampaignManager.loadEditModal($(this).data());
+      });
 
-    $("body").on("click", ".tile_thumbnail_menu .js-edit-campaign", function(
-      event
-    ) {
-      event.preventDefault();
-      closeToolTips();
-      Airbo.CampaignManager.loadEditModal($(this).data());
-    });
-
-    $("body").on("click", ".tile_thumbnail_menu .post_tile", function(event) {
-      event.preventDefault();
-      closeToolTips();
-      Airbo.TileAction.updateStatus($(this));
-    });
+      $("body").on("click", ".tile_thumbnail_menu .post_tile", function(event) {
+        event.preventDefault();
+        closeToolTips();
+        Airbo.TileAction.updateStatus($(this));
+      });
+    }
   }
 
   function setMenuActiveState(origin, active) {
