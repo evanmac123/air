@@ -5,7 +5,7 @@
       <table width="100%" cellspacing="0" cellpadding="0" border="0">
         <% if @tiles.present? %>
           <% @tiles.each_slice(2) do |tiles| %>
-            <%= render partial: "tiles_digest_mailer/v2/tiles_digest/tiles_row", locals: { tiles: tiles } %>
+            <%= render partial: "tiles_digest_mailer/v2/tiles_digest/tiles_row", locals: { tiles: tiles, ribbon_presence: @tiles.any? { |tile| tile.ribbon_tag.present? } } %>
           <% end %>
         <% else %>
           <%= render partial: "tiles_digest_mailer/v2/tiles_digest/placeholders" %>
