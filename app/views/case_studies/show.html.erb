@@ -1,6 +1,7 @@
 <div id="case_study">
 
   <div class="case_header blue-teal-gradient">
+    <div class="container">
     <!-- case study company logo -->
     <%= image_tag "case_studies/#{params[:id]}/#{@case_study['colorless_logo']}" %>
 
@@ -12,6 +13,7 @@
       <h1>
         <%= @case_study['name'] %>
       </h1>
+    </div>
     </div>
     <%= render partial: "pages/front_theme/svg/white" %>
   </div>
@@ -41,14 +43,19 @@
                   <%= image_tag "case_studies/right-quote.png", class:"right_quote"%></div>
 
                 <!-- case study section quote attribute -->
-                <div class="attribute">
+                <div class="person">
                   <%= section['quote']['attribute'] %>
                 </div>
+                <div class="position">
+                  <%= section['quote']['position'] %>
+                </div>
               </div>
+              <% end %>
             </div>
-          <% end %>
         </div>
-      </div>
+        </div>
+
+
       <% if i == @case_study['featured_quote']['index'] %>
         <div class="featured-quote blue-teal-gradient">
           <div class="container">
@@ -61,10 +68,10 @@
           <%= image_tag "case_studies/#{params[:id]}/#{@case_study['featured_quote']['image']}", class:"quoter" %>
 
           <!-- case study featured_quote attribute -->
-          <div><%= @case_study['featured_quote']['attribute'] %></div>
-
+          <div class="person"><%= @case_study['featured_quote']['attribute'] %></div>
+          <div class="position"><%= @case_study['featured_quote']['position'] %></div>
           </div>
-        </div>
+          </div>
       <% end %>
     <% end %>
   </div>

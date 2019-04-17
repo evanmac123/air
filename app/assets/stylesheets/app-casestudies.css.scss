@@ -15,7 +15,8 @@ main {
     padding: 200px 0;
 
     img {
-      width: 200px;
+      max-height: 60px;
+      max-width: 160px;
     }
 
     h2 {
@@ -30,7 +31,7 @@ main {
   }
 
   .case_body {
-    margin-top: 1em;
+    margin-top: 2em;
 
     .section {
       margin-bottom: 4em;
@@ -66,14 +67,19 @@ main {
 
         .right_quote {
           position: relative;
-          margin-top: -10px;
-          margin-left: 2px;
           width: 14px;
+          right: -12px;
+          bottom: .5em;
         }
       }
 
-      .attribute {
+      .person {
         font-size: 0.8em;
+        font-style: normal;
+        margin-top: 0.7em;
+      }
+      .position {
+        font-size: 0.7em;
         font-style: normal;
         margin-top: 0.5em;
       }
@@ -97,6 +103,23 @@ main {
         margin-bottom: 1em;
         border-radius: 50%;
       }
+      .quoter {
+        text-align: center;
+        width: 60px;
+        margin-bottom: .4em;
+        border-radius: 50%;
+      }
+      .person {
+        font-size: 1.2em;
+        font-weight: 500;
+        font-style: normal;
+        margin-top: 0.4em;
+      }
+      .position {
+        font-size: 0.9em;
+        font-style: normal;
+        margin-top: 0.5em;
+      }
     }
   }
 
@@ -114,7 +137,8 @@ main {
     margin: 60px 0 120px;
 
     .header {
-      margin: 2em 0;
+      margin: 3em 0 2em;
+      float: left;
     }
 
     .see-all {
@@ -125,7 +149,6 @@ main {
     h3 {
       font-size: 2em;
       margin: 0;
-      padding: 0;
     }
 
     .card {
@@ -203,7 +226,7 @@ main {
 
       &:first-child {
         .container {
-          margin-top: 140px;
+          margin-top: 170px;
         }
 
         .case_back {
@@ -230,7 +253,7 @@ main {
       }
 
       .container {
-        margin-top: 120px;
+        margin-top: 130px;
       }
 
       h3 {
@@ -267,7 +290,10 @@ main {
 }
 @media only screen and (max-width: 1400px) {}
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1000px) {
+  .body .person{
+    display: block;
+  }
 
   #case_studies {
     .case_header {
@@ -282,6 +308,7 @@ main {
         .logo {
           text-align: left;
           margin-top: 6px;
+          margin-bottom: 1em;
 
           img {
             max-width: 200px;
@@ -290,7 +317,6 @@ main {
         }
         &:first-child {
           .logo {
-            margin-top: 40px;
           }
         }
       }
@@ -313,7 +339,7 @@ main {
         position:relative;
         text-align: left;
         margin-top: 1.7em;
-        .attribute {
+        .person {
           display: block;
         }
       }
