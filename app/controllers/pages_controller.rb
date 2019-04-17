@@ -8,6 +8,8 @@ class PagesController < HighVoltage::PagesController
 
     def layout_for_page
       case page_name
+      when "case_studies"
+        "case_studies"
       when "form"
         "form"
       when "demo"

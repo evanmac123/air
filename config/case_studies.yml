@@ -1,45 +1,255 @@
-alta_california:
+fujifilm:
+  name: Fujifilm
+  logo: fujifilm_logo.png
+  colorless_logo: fujifilm_logo_colorless.png
+  headline: Engaging a Diverse Workforce
+  background: fujifilm_wave.png
+  background2: fuji_wave2.png
+  link: fujifilm
+  section:
+    -
+      subheader: Fujifilm is a decentralized and diverse company.
+      body:
+        - It employs 5,000 employees across more than 60 locations. Its employees represent a socio-economic cross-section of America, from remote sales people to hourly manufacturing employees.
+        - Fujifilm uses Airbo to drive year-round engagement in Benefits and Wellness Programs. With 86% of employees participating, Airbo helped Fujifilm decrease health care trend to 0% and increase Health Risk Assessment participation rates by 217%.
+        - “We were doing everything we should have been doing,” Carolyn said. Fujifilm had a wellness program as well as lots of well-designed communications and incentives in place. Even so, employees were ignoring the newsletters and posters that were the entryway into the programs that Fujifilm invested in."
+      subheader: Carolyn Gordon, Director of Benefits at Fujifilm, was looking for new ways to engage.
+      body:
+        - With a geographically dispersed, multigenerational workforce she was struggling to communicate the company’s benefits and wellness programs.
+        - She found herself facing some big challenges, including low participation in Health Risk Assessments (HRAs) and the Incentive Rewards Program.
+      quote:
+        body: “We were doing everything we should have been doing”
+        attribute: Carolyn Gordon
+        position: Director of Benefits
+    -
+      subheader: In search of increased engagement and more helpful data, Carolyn discovered Airbo.
+      body:
+        - She decided to try a pilot at one location, a plant outside of Boston with an enthusiastic local HR manager. Carolyn believed that “if Julie can’t get people to do something, it can’t be done.”
+        - As soon as Carolyn and her team rolled out the Airbo pilot, she noticed a dramatic difference. Nearly 70% of the employees at the plant joined. 'We’ve never gotten that type of success before,' Carolyn said. 'We’re usually happy with 30%.'"
+      quote:
+        body: '70% of the employees at the plant joined, we’re usually happy with 30% engagement'
+        attribute: Carolyn Gordon
+        position: Director of Benefits
+    -
+      subheader: Within the first year, Health Assessment completion rates increased from 17% to 54%.
+      body:
+        - After rolling out to the entire employee population, incentive reward program participation jumped, and health care trend decreased from 12% in 2011 to 0% in 2012. By 2017, 86% of eligible Fujifilm employees had joined Airbo. “We interacted with people in an entirely different way, and they appreciated it,” Carolyn said.
+      quote:
+        body: 'We interacted with people in an entirely different way, and they appreciated it'
+        attribute: Carolyn Gordon
+        position: Director of Benefits
+    -
+      subheader: Employee response continues to be overwhelmingly positive.
+      body:
+        - A Fujifilm survey found that 96% of employees said that Airbo gave them a greater appreciation for their retirement and financial planning benefits, and 93% said they like to learn about their benefits through Airbo. “It’s a great incentive to motivate employees,” one employee commented. “I feel like Fujifilm really cares about us.”
+      quote:
+        body: 'It’s a great incentive to motivate employees, I feel like Fujifilm really cares about us.'
+        attribute: Fujifilm Employee
+        position:
+
+  featured_quote:
+    body: "We have never got that type of success before."
+    attribute: Carolyn Gordon
+    position: Director of Benefits
+    image: carolyn.png
+    index: 2
+
+
+alta:
   name: Alta California
-  logo: asha_logo.jpg
-  colorless_logo: asha_logo_colorless.jpg
-  headline: Learning How to Save Time and Communication
+  logo: alta_logo.png
+  colorless_logo: alta_logo_colorless.png
+  headline:  Saving Time on Employee Communications
+  background: alta_wave.png
+  background2: alta_wave2.png
+  link: alta
   section:
     -
       subheader: Alta California Regional Center
       body:
-        - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        - Alta California Regional Center (ACRC) is a private, nonprofit agency that serves the developmentally disabled persons, ages three and above. In addition, they provide Early Intervention services for infants and toddlers who meet eligibility criteria. The Northern California-based agency is composed of over 450 diverse employees,working both remotely and in offices.
       quote:
         body: 450 diverse remote employees who could not communicate
         attribute: Jennifer Crick
+        position: Director of Human Resources
     -
       subheader: Big Staff, Big Challenges
       body:
-        - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        - Jennifer Crick, ACRC’s Director of Human Resources, and Nicole Adrian-Dacus, ACRC’s HR Generalist, needed every employee to participate in signing a Conflict of Interest form each year. However, the task always proved to be a struggle. Though the HR duo set clear deadlines, an average of just 65% of employees would actually manage to get the form back to them by the requested date. Jennifer, Nicole and others on the HR Team had to spend hours repeatedly following up with each employee via email and in person.
+
+        - With over 450 employees to support scattered over a large geographic area, Jennifer knew she needed a tool to save time on employee communications. Then, she discovered Airbo. As soon it was implemented, Jennifer and Nicole started to notice a dramatic difference in the way ACRC’s workforce responded to communication.
+      quote:
+        body: It used to take us forever to get people to fill out their forms
+        attribute: Jennifer Crick
+        position: Director of Human Resources
+    -
+      subheader: Changing Employee Behavior
+      body:
+        - After the first Airbo Tiles, an incredible 90% of employees signed the Conflict of Interest form in first three weeks.
+        - Within four weeks, all employees had signed the form, and follow-up was necessary with only a select few, saving Jennifer’s team countless work hours. “It used to take us forever to get people to fill out their forms,” said Nicole. “Airbo has made it quicker and easier, and we’re able to offer that prize element, which can really motivate people.”
+      quote:
+        body: We’re able to communicate more often, about a wider variety of things.
+        attribute: Jennifer Crick
+        position: Director of Human Resources
+    -
+      subheader: Increased Connection with an Increase in Frequency
+      body:
+        - With Airbo, Jennifer and Nicole were able to reach out to ACRC’s employees with greater frequency, they didn’t feel the need to limit themselves to sharing only the most necessary information. “Communications used to happen on an as-needed basis,” said Nicole. “We didn’t have a newsletter or anything. Now I feel like we’re able to communicate more often about a wider variety of things.”
+
+      subheader: Currently, 97% of employees participate in Airbo, and regularly read and respond to the posted Tiles
+      body:
+        - Meanwhile, Nicole has experienced a side effect from Airbo that she wasn’t expecting. “Airbo makes it easier and more fun for me to put this information together,” she said. “It’s just so much more enjoyable.”
+      quote:
+        body: Airbo makes it easier and more fun for me to put this information together.
+        attribute: Jennifer Crick
+        position: Director of Human Resources
+
   featured_quote:
     body: Airbo has made is quicker and easier, and we're able to offer that prize element, which can really motivate people.
-    attribute: HR Employee
-    image: kate.jpg
-    index: 2
-fujifilm:
-  name: FujiFilm
-  logo: Fujifilm-logo-small.png
-  colorless_logo: asha_logo_colorless.jpg
-  headline: FujiFilm Loves Airbo
+    attribute: Nicole Adrian-Dacus
+    position: HR Generalist
+    background: alta_background.jpeg
+    image: nicole.jpeg
+    index: 1
+
+youthbuild:
+  name: Youth Build
+  logo: youthbuild_logo.png
+  colorless_logo: youthbuild_logo_colorless.png
+  headline: Tracking Engagement with Analytics
+  background: youthbuild_wave.png
+  background2: youthbuild_wave2.png
+  link: youthbuild
   section:
     -
-      subheader: FujiFilm and Airbo
+      subheader: YouthBuild is a 501(c)3 nonprofit organization and their mission is to unleash the intelligence and positive energy of low-income young people to rebuild their communities and their lives.
       body:
-        - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      quote:
-        body: 450 diverse remote employees who could not communicate
-        attribute: Jennifer Crick
+        - YouthBuild seeks to join with others to help build a movement toward a more just society in which respect, love, responsibility, and cooperation are the dominant unifying values, and sufficient opportunities are available for all people in all communities to fulfill their own potential and contribute to the well-being of others.
+        - YouthBuild programs provide pathways by unleashing the positive energy of low-income young people to rebuild their communities and their lives, breaking the cycle of poverty with a commitment to work, education, community, and family.
     -
-      subheader: Big Staff, Big Challenges
+      subheader: A struggle that YouthBuild faced, however, was their own employee communication and engagement.
       body:
-        - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        - The Human Resources Team wanted to elevate how the Human Resources Department communicated with staff.   A monthly HR newsletter did not allow for tracking of engagement or knowing who was actually reading the material.  If the team wanted to reach staff members effectively, they knew it was time for a new approach.
+    -
+      subheader: Before joining YouthBuild, the HR Manager, Patty Wilkinson had worked with Airbo in a previous organization where she had seen its effectiveness in action.
+      body:
+        - Even in a new role with many new programs to launch, Patty saw Airbo as an essential tool, and--just as importantly-- easy to launch. It wasn’t long after implementation that Patty saw the positive change she experienced with her last organization. “[Airbo] helps to hold people accountable in a fun way. It makes it easy to say, ‘Hey, you’re responsible for this. I can provide the information, but you need to engage.’ I think that’s a great thing, and a lot of staff have mentioned how much they love Airbo.”
+      quote:
+        body: Airbo helps to hold people accountable in a fun way
+        attribute: Patty Wilkinson
+        position: HR Manager
+    -
+      subheader: Besides driving higher employee engagement, Airbo has also saved time for Patty and her staff.
+      body:
+        - “It’s this quick snapshot of information, and it doesn’t tie up your entire day,” she said. “It’s there for you at your leisure, but it’s not draining. When you see a big email, you think, ‘Ugh, too many words!’ And you just don’t get that feeling from Airbo.”
+        - Airbo’s analytics have moved YouthBuild beyond the guesswork that usually goes along with employee communications. “There’s much more engagement with Airbo, and we can actually see it with the metrics they provide,” Patty said. “Plus, Airbo encourages engagement with its points system. It’s very helpful.”
+        - Today, Patty continues to notify employees of important information on a weekly basis, and uses Airbo to pinpoint any difficulties with engagement. “From an HR perspective, you reinforce that other staff already knows the information, and that it’s already been communicated. It’s a great thing.”
+      quote:
+        body: There’s much more engagement with Airbo, and we can actually see it with the metrics they provide
+        attribute: Patty Wilkinson, HR Manager
+        position:
+
   featured_quote:
-    body: Airbo has made is quicker and easier, and we're able to offer that prize element, which can really motivate people.
-    attribute: HR Employee
-    image: userpic.png
+    body: A lot of staff have mentioned how much they love Airbo
+    attribute: Patty Wilkinson
+    position: HR Manager
+    background: alta_background.jpeg
+    image: patty.jpeg
+    index: 2
+
+asha:
+  name: Asha California
+  logo: asha_logo.jpg
+  colorless_logo: asha_logo_colorless.png
+  headline: Capturing the Attention of Employees
+  background: asha_wave.png
+  background2: asha_wave2.png
+  link: asha
+  section:
+    -
+      subheader: The American Speech-Language-Hearing Association
+      body:
+        - The American Speech-Language-Hearing Association (ASHA) is a nonprofit scientific and professional association in Maryland with over 280 diverse employees. In 2015, ASHA was recognized as one of Greater Washington’s "Great Place to Work" by Washingtonian Magazine and the Washington Post.
+        - ASHA started using Airbo to motivate employees to share job openings onsocial networks. Today, ASHA uses Airbo to support a variety of HR activities like introducing new hires, sharing organizational performance, and other news and announcements.
+    -
+      subheader: Finding New Ways to Capture Attention
+      body:
+        - Janet McNichol, ASHA’s Director of Human Resources, needed to find new ways to capture employees’ attention. Communications were already being posted to ASHA’s intranet, Facebook, and blog, as well as being sent in weekly emails.
+        - Even with such broad distribution, Janet still felt like something was missing. “I wanted to get people the information they needed to do their jobs, make good decisions, and feel good about being a member of the ASHA staff,” Janet said. Her challenge was to find a way to do this effectively, and within her budget.
+      quote:
+        body: “I wanted to get people the information they needed to do their jobs, make good decisions, and feel good about being a member of the ASHA staff,”
+        attribute: Janet McNichol
+        position: Director of Human Resources
+    -
+      subheader: Getting Employees to Share Job Postings
+      body:
+        - She believed that a social recruiting system that incorporates new technologies, such as mobile access and gamification, would be a good way to drive engagement. However, she quickly realized that social recruiting systems were too expensive.
+        - While searching for a better solution, Janet found Airbo. She felt that she could accomplish her original social recruiting goals, and support many other priorities, all within her limited recruiting budget.
+    -
+      subheader: Fast Effective Results
+      body:
+        - Using Airbo’s analytics functions, she was able to see that in the first 8 weeks, 13 jobs were shared 289 times, reaching more than 10,000 potential recruits. “People thought we were going through a big growth spurt, when in fact these jobs were posted for months,” said Janet.
+        - Now, Janet regularly sends out Tiles on a variety of topics, from introducing new hires, to driving consumerism in ASHA’s self-insured health plans. Every few months, she rewards employee participation by giving out a prize like a Kindle Paperwhite.
+      quote:
+        body: “People thought we were going through a big growth spurt, when in fact these jobs were posted for months,”
+        attribute: Janet McNichol
+        position: Director of Human Resources
+    -
+      subheader: Award Winning Innovation
+      body:
+        - In September of 2015, ASHA was recognized as an adopter of innovative communication strategies by Employee Benefit News. As EBN puts it “In a world of constant distraction, the barrage of emails and ever increasing social media chatter, employers are finding it harder than ever to connect with employees. But one thing is clear When it comes to benefits, historical means of communication no longer cut it.”
+      quote:
+        body: When it comes to benefits, historical means of communication no longer cut it.”
+        attribute: Employee Benefit News
+        position:
+
+  featured_quote:
+    body: Employers are finding it harder than ever to connect
+    attribute: Janet McNichol
+    position: Director of Human Resources
+    image: janet.jpeg
+    index: 2
+
+rle:
+  name: RLE Technologies
+  logo: rle_logo.png
+  colorless_logo: rle_logo_colorless.png
+  headline: Maximizing Time and Budget
+  background: rle_wave.png
+  background2: rle_wave2.png
+  link: rle
+  section:
+    -
+      subheader: RLE Technologies
+      body:
+        - RLE Technologies, a manufacturer of leak detection and facility monitoring equipment, has always been a step ahead of the business world. In 1984 when RLE was founded, many companies were opting to manufacture internationally. RLE, however, chose to keep its operations close to home in an effort to support its community and provide jobs to the local economy. RLE still maintains that home-grown philosophy, manufacturing 95% of its product line in Fort Collins, Colorado.
+    -
+      subheader: Supporting a Small Employee Communinty
+      body:
+        - RLE’s Human Resources Director, Kendra Kelly, knew it was imperative to support RLE’s employee community as well. As a small company RLE didn’t have the time or resources to build an intranet or create weekly newsletters, and long company meetings were missing the mark.
+        - “As the HR Director for a small company, I have to be prepared to tackle a variety of tasks and really maximize my time in the office,” Kendra said, “I couldn’t afford to put a lot of time into  creating a newsletter that may or may not be read by our employees.”
+      quote:
+        body: I couldn’t afford to put a lot of time into creating a newsletter that may or may not be read by our employees.
+        attribute: Kendra Kelly
+        position: Human Resources Director
+    -
+     subheader: Saving Time and Reaching Employees
+     body:
+       - That’s when Airbo entered the picture. “Airbo was such an easy solution,” said Kendra. “And such a time-saver--it only takes about an hour each week.”
+       - Not only did Airbo fit into Kendra’s busy schedule, it was phenomenally successful in reaching RLE’s employees, 95% of whom have activated their accounts in the year since Airbo’s initial implementation.
+    -
+     subheader: Enjoyable Year Round Communication
+     body:
+       - Now Kendra is able to make sure RLE’s staff has all the information they need, when they need it. “It’s a great way to keep wellness, benefits, and important company information front and center throughout the year,” she said. “I hadn’t been able to do that before.”
+       - In addition, Airbo added a new element that had been missing in her previous communications, fun. “Sometimes I have to stop myself from getting too into it,” she said. “It’s not a ‘task’ the way newsletters can be. I don’t know how to say it other than it’s just enjoyable to use.”
+     quote:
+        body: It’s a great way to keep wellness, benefits, and important company information front and center throughout the year
+        attribute: Kendra Kelly
+        position: Human Resources Director
+
+  featured_quote:
+    body: Airbo is just enjoyable to use.
+    attribute: Kendra Kelly
+    position: Human Resources Director
+    image: kendra.jpeg
+    index: 2
