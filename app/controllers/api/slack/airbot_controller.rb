@@ -40,7 +40,7 @@ class Api::Slack::AirbotController < Api::ApiController
         )
       ]
     )
-    render json: { ok: true }
+    render json: { ok: true, challenge: params[:challenge] }
   end
 
   private
