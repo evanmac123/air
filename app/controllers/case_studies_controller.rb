@@ -14,8 +14,8 @@ class CaseStudiesController < ApplicationController
 
   private
     def load_case_studies
-      #load_yaml_from_s3 || YAML.load(File.open("#{Rails.root}/config/case_studies.yml", "r"))
-      YAML.load(File.open("#{Rails.root}/config/case_studies.yml", "r"))
+      # Tries to load static text from S3 first and falls back on local data if that fails
+      load_yaml_from_s3 || YAML.load(File.open("#{Rails.root}/config/case_studies.yml", "r"))
     end
 
     def get_adjacent_case_studies
