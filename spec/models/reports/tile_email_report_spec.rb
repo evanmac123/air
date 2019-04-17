@@ -26,14 +26,14 @@ describe Reports::TileEmailReport do
       expect(attributes[:type]).to eq("Reports::TileEmailReport")
     end
 
-    it "returns the correct tile email id" do
+    it "returns the correct tile digest id" do
       report = new_tile_email_report(tile_email)
       attributes = report.attributes
 
       expect(attributes[:tileEmailId]).to eq(tile_email.id)
     end
 
-    it "returns the tile email sent at in utc" do
+    it "returns the tile digest sent at in utc" do
       report = new_tile_email_report(tile_email)
       attributes = report.attributes
 
@@ -124,7 +124,7 @@ describe Reports::TileEmailReport do
       end
 
       describe "when there are logins" do
-        it "returns a hash of subject lines and total logins ordered by login count if the Tile Email was created before Reports::TileEmailReport::UNIQUE_LOGIN_SUPPORTED_DATE" do
+        it "returns a hash of subject lines and total logins ordered by login count if the Tile Digest was created before Reports::TileEmailReport::UNIQUE_LOGIN_SUPPORTED_DATE" do
           3.times do
             tile_email.increment_logins_by_subject_line(tile_email.subject)
           end
@@ -143,7 +143,7 @@ describe Reports::TileEmailReport do
           })
         end
 
-        it "returns a hash of subject lines and unique logins ordered by login count if the Tile Email was created after Reports::TileEmailReport::UNIQUE_LOGIN_SUPPORTED_DATE" do
+        it "returns a hash of subject lines and unique logins ordered by login count if the Tile Digest was created after Reports::TileEmailReport::UNIQUE_LOGIN_SUPPORTED_DATE" do
           7.times do
             tile_email.increment_unique_logins_by_subject_line(tile_email.subject)
           end
