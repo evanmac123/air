@@ -8,8 +8,8 @@ import LoadingComponent from '../../shared/LoadingComponent';
 import ProgressBarComponent from '../../shared/ProgressBarComponent';
 import { htmlSanitizer } from '../../lib/helpers';
 
-const copyTile = (copyTileAction, tile, e) => {
-  e.target.innerText = "Copied";
+const copyTile = (copyTileAction, tile) => {
+  document.getElementsByClassName('header_text')[0].innerText = 'Copied';
   copyTileAction(tile);
 };
 
@@ -43,7 +43,7 @@ const tileOptsBar = opts => (
     {(opts.tileOrigin === 'explore' && !(opts.userData.isGuestUser || opts.userData.isEndUser)) &&
       <ul className="tile_preview_menu explore_menu">
         <li className="preview_menu_item">
-          <a className="copy_to_board" onClick={(e) => copyTile(opts.tileActions.copyTile, opts.tile, e)}>
+          <a className="copy_to_board" onClick={() => copyTile(opts.tileActions.copyTile, opts.tile)}>
             <i className="fa fa-copy fa-1x"></i>
             <span className="header_text">Copy to Board</span>
           </a>
