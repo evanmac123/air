@@ -66,7 +66,7 @@
         <% @scheduled_pushes.each do |scheduled_push| %>
           <tr>
             <td>
-              <%= scheduled_push.scheduled_for.in_time_zone(@demo.timezone)&.pretty(@demo.timezone) || "ASAP" %>
+              <%= scheduled_push.scheduled_for ? scheduled_push.scheduled_for.in_time_zone(@demo.timezone)&.pretty(@demo.timezone) : "ASAP" %>
             </td>
             <td>
               <%= scheduled_push.segment_description %>
