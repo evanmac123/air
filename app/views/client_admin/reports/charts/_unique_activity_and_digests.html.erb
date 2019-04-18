@@ -8,11 +8,11 @@
         data_path: api_client_admin_charts_path,
         series_list: ["unique_login_activity", "digests_sent", "follow_up_digests_sent"],
         title: "Number of people who visited #{current_user.demo.name}",
-        subtitle: "This graphs show the number of people who visited #{current_user.demo.name} compared to the number of Tile Emails sent.",
+        subtitle: "This graphs show the number of people who visited #{current_user.demo.name} compared to the number of Tile Digests sent.",
         no_data_message: nil,
         intervals: ["quarter", "month", "week"],
         chart_template: "loginActivityTilesDigest",
-        series_names: ["People Who Visited", "Tile Emails Sent", "Follow Up Emails Sent"],
+        series_names: ["People Who Visited", "Tile Digests Sent", "Follow Up Emails Sent"],
         chart_types: ["line", "column", "column"],
         color_list: ["#48bfff", "#33445c", "#ffb748"]
       }
