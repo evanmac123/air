@@ -11,6 +11,7 @@ class Api::V1::RibbonTagsController < Api::ApiController
     ribbon_tag = current_user.demo.ribbon_tags.new(ribbon_tag_params)
 
     if ribbon_tag.save
+      ribbon_tag.schedule_mixpanel_ping("RibbonTag - Created")
       render json: ribbon_tag
     else
       render json: ribbon_tag.errors
@@ -21,6 +22,7 @@ class Api::V1::RibbonTagsController < Api::ApiController
     ribbon_tag = current_user.demo.ribbon_tags.find(params[:id])
 
     if ribbon_tag.update_attributes(ribbon_tag_params)
+      ribbon_tag.schedule_mixpanel_ping("RibbonTag - Updated")
       render json: ribbon_tag
     else
       render json: ribbon_tag.errors

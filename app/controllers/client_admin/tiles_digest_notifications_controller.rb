@@ -1,5 +1,6 @@
-class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseController
+# frozen_string_literal: true
 
+class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseController
   before_action :authorize_digest
 
   def create
@@ -25,7 +26,7 @@ class ClientAdmin::TilesDigestNotificationsController < ClientAdminBaseControlle
 
     def authorize_digest
       unless current_user.demo_id == params[:digest][:demo_id].to_i
-        flash[:failure] = "Oops, looks like you tried to save or send a Tile Email in a board with an expired session. Please try again by switching into the right board."
+        flash[:failure] = "Oops, looks like you tried to save or send a Tile Digest in a board with an expired session. Please try again by switching into the right board."
 
         respond_to do |format|
           format.html { redirect_to :back }

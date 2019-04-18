@@ -166,9 +166,12 @@
     @include button-color($n-pink);
   }
   &.white {
-    font-size: 12px;
     font-weight: bold;
     padding: 11px 20px;
+    &:hover{
+      @include button-color($n-blue);
+      color: white;
+    }
 
     &, &[disabled], &[disabled]:hover, &[disabled]:active {
       color: $n-blue;

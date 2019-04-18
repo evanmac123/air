@@ -12,28 +12,28 @@ describe ClientAdmin::SharesHelper do
 
     it "calls the correct template 'test_digest' type" do
       helper.expects(:sms_sent_template_message).never
-      helper.expects(:test_email_sent_message_template).with("Tiles Email")
+      helper.expects(:test_email_sent_message_template).with("Tiles Digest")
 
       helper.digest_sent_modal_text("test_digest")
     end
 
     it "calls the correct template 'test_digest_with_sms' type" do
       helper.expects(:sms_sent_template_message).returns("SMS TEMPLATE")
-      helper.expects(:test_email_sent_message_template).with("Tiles Email", "SMS TEMPLATE")
+      helper.expects(:test_email_sent_message_template).with("Tiles Digest", "SMS TEMPLATE")
 
       helper.digest_sent_modal_text("test_digest_with_sms")
     end
 
     it "calls the correct template 'test_digest_and_follow_up' type" do
       helper.expects(:sms_sent_template_message).never
-      helper.expects(:test_email_sent_message_template).with("Tiles Email and Follow-up Email")
+      helper.expects(:test_email_sent_message_template).with("Tiles Digest and Follow-up Email")
 
       helper.digest_sent_modal_text("test_digest_and_follow_up")
     end
 
     it "calls the correct template 'test_digest_and_follow_up_with_sms' type" do
       helper.expects(:sms_sent_template_message).returns("SMS TEMPLATE")
-      helper.expects(:test_email_sent_message_template).with("Tiles Email and Follow-up Email", "SMS TEMPLATE")
+      helper.expects(:test_email_sent_message_template).with("Tiles Digest and Follow-up Email", "SMS TEMPLATE")
 
       helper.digest_sent_modal_text("test_digest_and_follow_up_with_sms")
     end

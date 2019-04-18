@@ -52,6 +52,7 @@ namespace :api, defaults: { format: :json } do
   end
 
   namespace :slack do
+    post 'airbot/event_subscription', to: 'airbot#event_subscription'
     post 'airbot/cheer', to: 'airbot#cheer'
     post 'airbot/cheer_interaction', to: 'airbot#cheer_interaction'
   end

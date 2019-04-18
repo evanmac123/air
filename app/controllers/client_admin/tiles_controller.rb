@@ -46,8 +46,9 @@ class ClientAdmin::TilesController < ClientAdminBaseController
 
   def update
     @tile = find_tile
-
+    init_ribbon_tag = @tile.ribbon_tag
     if @tile.update_attributes(tile_params)
+      ping_ribbon_tag_change(init_ribbon_tag) if @tile.ribbon_tag && @tile.ribbon_tag != init_ribbon_tag
       render_preview_and_single
     else
       tile_error(@tile)
@@ -58,6 +59,7 @@ class ClientAdmin::TilesController < ClientAdminBaseController
     @tile = current_board.tiles.build(tile_params.merge(creator_id: current_user.id))
 
     if @tile.save
+      @tile.ribbon_tag.schedule_mixpanel_ping("RibbonTag - Added to New Tile") if @tile.ribbon_tag
       schedule_tile_creation_ping(@tile, "Self Created")
       render_preview_and_single
     else
@@ -85,6 +87,13 @@ class ClientAdmin::TilesController < ClientAdminBaseController
   end
 
   private
+    def ping_ribbon_tag_change(init_ribbon_tag)
+      if init_ribbon_tag
+        @tile.ribbon_tag.schedule_mixpanel_ping("RibbonTag - Changed on Tile")
+      else
+        @tile.ribbon_tag.schedule_mixpanel_ping("RibbonTag - Added to Existing Tile")
+      end
+    end
 
     def tile_params
       # TODO: Find better way to manage nil options in radio button for Tile.campaign_id && Tile.ribbon_tag_id

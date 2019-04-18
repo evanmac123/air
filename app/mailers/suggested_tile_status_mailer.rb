@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SuggestedTileStatusMailer < BaseTilesDigestMailer
-  EMAIL_TYPE = "Suggested Tile Email"
+  EMAIL_TYPE = "Suggested Tile Digest"
   ACCEPTED_SUBJECT = "Your Tile Has Been Accepted!"
   POSTED_SUBJECT = "Your Tile Has Been Posted!"
 

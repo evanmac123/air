@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ClientAdmin::SharesHelper
   def digest_sent_modal_title(digest_type)
     if digest_type == "digest_delivered"
@@ -18,17 +20,17 @@ module ClientAdmin::SharesHelper
   def test_digest_modal_message(digest_type)
     case digest_type
     when "test_digest"
-      test_email_sent_message_template("Tiles Email")
+      test_email_sent_message_template("Tiles Digest")
     when "test_digest_with_sms"
-      test_email_sent_message_template("Tiles Email", sms_sent_template_message)
+      test_email_sent_message_template("Tiles Digest", sms_sent_template_message)
     when "test_digest_and_follow_up"
-      test_email_sent_message_template("Tiles Email and Follow-up Email")
+      test_email_sent_message_template("Tiles Digest and Follow-up Email")
     when "test_digest_and_follow_up_with_sms"
-      test_email_sent_message_template("Tiles Email and Follow-up Email", sms_sent_template_message)
+      test_email_sent_message_template("Tiles Digest and Follow-up Email", sms_sent_template_message)
     end
   end
 
-  def test_email_sent_message_template(emails_sent, sms_sent_message=nil)
+  def test_email_sent_message_template(emails_sent, sms_sent_message = nil)
     "A test #{emails_sent} has been sent to #{current_user.email}. #{sms_sent_message}."
   end
 

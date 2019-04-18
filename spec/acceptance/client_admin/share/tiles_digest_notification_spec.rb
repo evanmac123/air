@@ -445,7 +445,7 @@ feature 'Client admin and the digest email for tiles' do
     end
   end
 
-  context "when sending a tiles email with an alternate subject", js: true do
+  context "when sending a tiles digest with an alternate subject", js: true do
     before do
       visit client_admin_share_path(as: admin)
 

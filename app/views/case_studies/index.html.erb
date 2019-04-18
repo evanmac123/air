@@ -1,11 +1,38 @@
-<!-- list of all case studies -->
-<% @case_studies.keys.each do |key| %>
-  <!-- case study logo -->
-  <%= image_tag "case_studies/#{key}/#{@case_studies[key]['logo']}" %>
 
-  <!-- case study name -->
-  <h3><%= @case_studies[key]['name'] %></h3>
+<div id="case_studies">
+  <div class="case_header">
+    <div class="container">
+      <h1> Case Studies </h1>
+      <h4> Find out how leading brands are using Airbo’s technologies to get real results.</h4>
+    </div>
+  </div>
+  <div class="case_body">
+  <!-- list of all case studies -->
+  <% @case_studies.keys.each do |key| %>
+    <div class="case_study">
+       <%#  image_tag "case_studies/#{key}/#{@case_studies[key]['background2']}",  class: "case_back" %>
+       <div class="case_back"></div>
+      <!-- case study logo -->
+      <div class="container">
+        <div class="row">
+        <div class="col-sm-6 logo">
+        <%= image_tag "case_studies/#{key}/#{@case_studies[key]['colorless_logo']}" %>
+        </div>
+        <div class="col-sm-6 description">
+          <!-- case study name -->
+          <h3><%= @case_studies[key]['name'] %></h3>
 
-  <!-- case study headline -->
-  <p><%= @case_studies[key]['headline'] %></p>
-<% end %>
+          <!-- case study headline -->
+          <div class="headline"><%= @case_studies[key]['headline'] %></div>
+          <a href="/case_studies/<%= @case_studies[key]['link'] %>">
+            <div class="button white">
+              Read Case Study
+            </div>
+          </a>
+        </div>
+      </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
