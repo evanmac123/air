@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190114183634) do
+ActiveRecord::Schema.define(version: 20190423185958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -500,6 +500,7 @@ ActiveRecord::Schema.define(version: 20190114183634) do
     t.string   "timezone",                              limit: 255, default: "Eastern Time (US & Canada)"
     t.boolean  "allow_unsubscribes",                                default: false
     t.integer  "email_version",                                     default: 2
+    t.boolean  "localization_enabled"
   end
 
   add_index "demos", ["dependent_board_id"], name: "index_demos_on_dependent_board_id", using: :btree
@@ -1162,6 +1163,15 @@ ActiveRecord::Schema.define(version: 20190114183634) do
   add_index "tile_completions", ["user_id"], name: "index_task_suggestions_on_user_id", using: :btree
   add_index "tile_completions", ["user_type"], name: "index_tile_completions_on_user_type", using: :btree
 
+  create_table "tile_digests", force: :cascade do |t|
+    t.integer  "demo_id"
+    t.date     "planned"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tile_digests", ["demo_id"], name: "index_tile_digests_on_demo_id", using: :btree
+
   create_table "tile_features", force: :cascade do |t|
     t.integer  "rank"
     t.string   "name",                      limit: 255
@@ -1316,6 +1326,8 @@ ActiveRecord::Schema.define(version: 20190114183634) do
     t.date     "plan_date"
     t.integer  "campaign_id"
     t.integer  "ribbon_tag_id"
+    t.string   "language"
+    t.integer  "tile_digest_id"
   end
 
   add_index "tiles", ["activated_at"], name: "index_tiles_on_activated_at", using: :btree
@@ -1327,6 +1339,7 @@ ActiveRecord::Schema.define(version: 20190114183634) do
   add_index "tiles", ["is_public"], name: "index_tiles_on_is_public", using: :btree
   add_index "tiles", ["ribbon_tag_id"], name: "index_tiles_on_ribbon_tag_id", using: :btree
   add_index "tiles", ["status"], name: "index_tiles_on_status", using: :btree
+  add_index "tiles", ["tile_digest_id"], name: "index_tiles_on_tile_digest_id", using: :btree
 
   create_table "tiles_digest_automators", force: :cascade do |t|
     t.integer  "demo_id"
@@ -1613,6 +1626,7 @@ ActiveRecord::Schema.define(version: 20190114183634) do
     t.integer  "organization_id"
     t.boolean  "receives_sms",                                 default: true
     t.boolean  "receives_explore_email",                       default: true
+    t.string   "langunage_pref",                               default: "eng",       null: false
   end
 
   add_index "users", ["cancel_account_token"], name: "index_users_on_cancel_account_token", using: :btree
@@ -1648,8 +1662,10 @@ ActiveRecord::Schema.define(version: 20190114183634) do
   add_foreign_key "campaigns", "population_segments"
   add_foreign_key "population_segments", "demos"
   add_foreign_key "ribbon_tags", "demos"
+  add_foreign_key "tile_digests", "demos"
   add_foreign_key "tiles", "campaigns"
   add_foreign_key "tiles", "ribbon_tags"
+  add_foreign_key "tiles", "tile_digests"
   add_foreign_key "user_population_segments", "population_segments"
   add_foreign_key "user_population_segments", "users"
 end
