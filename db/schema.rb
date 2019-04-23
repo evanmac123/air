@@ -1163,15 +1163,6 @@ ActiveRecord::Schema.define(version: 20190423185958) do
   add_index "tile_completions", ["user_id"], name: "index_task_suggestions_on_user_id", using: :btree
   add_index "tile_completions", ["user_type"], name: "index_tile_completions_on_user_type", using: :btree
 
-  create_table "tile_digests", force: :cascade do |t|
-    t.integer  "demo_id"
-    t.date     "planned"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "tile_digests", ["demo_id"], name: "index_tile_digests_on_demo_id", using: :btree
-
   create_table "tile_features", force: :cascade do |t|
     t.integer  "rank"
     t.string   "name",                      limit: 255
@@ -1327,7 +1318,7 @@ ActiveRecord::Schema.define(version: 20190423185958) do
     t.integer  "campaign_id"
     t.integer  "ribbon_tag_id"
     t.string   "language"
-    t.integer  "tile_digest_id"
+    t.integer  "tiles_digest_bucket_id"
   end
 
   add_index "tiles", ["activated_at"], name: "index_tiles_on_activated_at", using: :btree
@@ -1339,7 +1330,7 @@ ActiveRecord::Schema.define(version: 20190423185958) do
   add_index "tiles", ["is_public"], name: "index_tiles_on_is_public", using: :btree
   add_index "tiles", ["ribbon_tag_id"], name: "index_tiles_on_ribbon_tag_id", using: :btree
   add_index "tiles", ["status"], name: "index_tiles_on_status", using: :btree
-  add_index "tiles", ["tile_digest_id"], name: "index_tiles_on_tile_digest_id", using: :btree
+  add_index "tiles", ["tiles_digest_bucket_id"], name: "index_tiles_on_tiles_digest_bucket_id", using: :btree
 
   create_table "tiles_digest_automators", force: :cascade do |t|
     t.integer  "demo_id"
@@ -1356,6 +1347,17 @@ ActiveRecord::Schema.define(version: 20190423185958) do
   end
 
   add_index "tiles_digest_automators", ["demo_id"], name: "index_tiles_digest_automators_on_demo_id", using: :btree
+
+  create_table "tiles_digest_buckets", force: :cascade do |t|
+    t.integer  "demo_id"
+    t.integer  "tiles_digest_id"
+    t.date     "planned"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "tiles_digest_buckets", ["demo_id"], name: "index_tiles_digest_buckets_on_demo_id", using: :btree
+  add_index "tiles_digest_buckets", ["tiles_digest_id"], name: "index_tiles_digest_buckets_on_tiles_digest_id", using: :btree
 
   create_table "tiles_digest_tiles", force: :cascade do |t|
     t.integer  "tile_id"
@@ -1662,10 +1664,11 @@ ActiveRecord::Schema.define(version: 20190423185958) do
   add_foreign_key "campaigns", "population_segments"
   add_foreign_key "population_segments", "demos"
   add_foreign_key "ribbon_tags", "demos"
-  add_foreign_key "tile_digests", "demos"
   add_foreign_key "tiles", "campaigns"
   add_foreign_key "tiles", "ribbon_tags"
-  add_foreign_key "tiles", "tile_digests"
+  add_foreign_key "tiles", "tiles_digest_buckets"
+  add_foreign_key "tiles_digest_buckets", "demos"
+  add_foreign_key "tiles_digest_buckets", "tiles_digests"
   add_foreign_key "user_population_segments", "population_segments"
   add_foreign_key "user_population_segments", "users"
 end

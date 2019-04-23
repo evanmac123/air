@@ -21,6 +21,7 @@ class Tile < ActiveRecord::Base
   belongs_to :demo
   belongs_to :campaign
   belongs_to :ribbon_tag
+  belongs_to :tiles_digest_bucket
   belongs_to :creator, class_name: "User"
   belongs_to :original_creator, class_name: "User"
 
