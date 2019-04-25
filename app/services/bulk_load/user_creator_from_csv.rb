@@ -23,7 +23,6 @@ class BulkLoad::UserCreatorFromCsv
     user = find_existing_user(user_data[@unique_id_index])
 
     if user
-      user.user_population_segments.joins(:population_segment).where(population_segments: { demo_id: @demo_id }).delete_all
       user.attributes = clean_attributes_for_existing_user(user, new_user_attributes)
       user.save
       user.add_board(@demo_id)
@@ -32,7 +31,6 @@ class BulkLoad::UserCreatorFromCsv
       user = User.create(new_user_attributes)
       user.add_board(@demo_id, is_current: true) if user.persisted?
     end
-
     user
   end
 
@@ -63,11 +61,9 @@ class BulkLoad::UserCreatorFromCsv
     end
 
     def add_population_segment!(column_name, value, new_user_attributes)
-      unless value =~ /(false)/i || value.to_s.strip.empty?
-        population_segment_id = column_name.gsub(/^segment_/, "").to_i
+      return unless value =~ /(false)/i || value.to_s.strip.empty?
 
-        new_user_attributes[:population_segment_ids] << population_segment_id
-      end
+      new_user_attributes[:population_segment_ids] << column_name.gsub(/^segment_/, "").to_i
     end
 
     def add_regular_field!(column_name, value, new_user_attributes)
@@ -118,6 +114,10 @@ class BulkLoad::UserCreatorFromCsv
       result[:characteristics].reverse_merge!(existing_characteristics)
       result[:characteristics].keys.each do |key|
         result[:characteristics][key] = result[:characteristics][key].to_s
+      end
+
+      if result[:population_segment_ids]
+        result[:population_segment_ids].concat(user.population_segments.pluck(:id))
       end
 
       if result["email"].present? && result["email"] == user.overflow_email
