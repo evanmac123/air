@@ -16,6 +16,7 @@ describe BulkLoad::UserCreatorFromCsv do
   let(:attributes_with_characteristics) {basic_attributes + ["bar", "1945", "2013-02-07", "2013-02-07 18:12:51 -0500", "false"]}
 
   let(:basic_creator) {BulkLoad::UserCreatorFromCsv.new(demo.id, basic_schema, :email, 1)}
+  let(:population_segment)      {FactoryBot.create(:population_segment, demo: demo)}
   let(:discrete_characteristic) {FactoryBot.create(:characteristic, demo: demo, datatype: Characteristic::DiscreteType, allowed_values: %w(foo bar baz))}
   let(:number_characteristic)   {FactoryBot.create(:characteristic, demo: demo, datatype: Characteristic::NumberType)}
   let(:date_characteristic)     {FactoryBot.create(:characteristic, demo: demo, datatype: Characteristic::DateType)}
@@ -239,14 +240,44 @@ describe BulkLoad::UserCreatorFromCsv do
       end
     end
 
-    def expect_attribute_flexibility(attribute_name, attribute_value, expected_model_value)
+    def create_attribute_flexibility(attribute_name, attribute_value)
       schema = basic_schema + [attribute_name]
       attributes = basic_attributes + [attribute_value]
 
-      creator = BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1)
-      creator.create_user(CSV.generate_line(attributes))
+      BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1).create_user(CSV.generate_line(attributes))
+    end
+
+    def expect_attribute_flexibility(attribute_name, attribute_value, expected_model_value)
+      create_attribute_flexibility(attribute_name, attribute_value)
 
       expect(demo.users.first[attribute_name]).to eq(expected_model_value)
+    end
+
+    context "should add a population_segment" do
+      it "by adding an segment_id to a user schema" do
+        create_attribute_flexibility("segment_#{population_segment.id}", '')
+
+        expect(demo.users.first.population_segments.first).to eq(population_segment)
+      end
+
+      it "to a user that already belongs to popluation_segments" do
+        original_pop = FactoryBot.create(:population_segment, demo: demo)
+        create_attribute_flexibility("segment_#{original_pop.id}", '')
+        create_attribute_flexibility("segment_#{population_segment.id}", '')
+        user = demo.users.first
+
+        expect(demo.users.first.population_segments.count).to eq(2)
+      end
+
+      it "to a user who needs more than one per EF" do
+        pop_1 = FactoryBot.create(:population_segment, demo: demo)
+        pop_2 = FactoryBot.create(:population_segment, demo: demo)
+        schema = basic_schema + ["segment_#{pop_1.id}", "segment_#{pop_2.id}"]
+        attributes = basic_attributes + ['', '']
+        BulkLoad::UserCreatorFromCsv.new(demo.id, schema, :email, 1).create_user(CSV.generate_line(attributes))
+
+        expect(demo.users.first.population_segments.count).to eq(2)
+      end
     end
 
     context "should parse date of birth with some flexibility" do
