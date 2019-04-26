@@ -11,6 +11,7 @@ class TilesDigest < ActiveRecord::Base
   validates_presence_of :demo
 
   has_one :follow_up_digest_email, dependent: :destroy
+  has_one :tiles_digest_bucket, dependent: :destroy
   has_many :tiles_digest_tiles
   has_many :tiles, through: :tiles_digest_tiles
 

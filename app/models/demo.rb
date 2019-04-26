@@ -26,6 +26,7 @@ class Demo < ActiveRecord::Base
   has_many :characteristics, dependent: :delete_all
   has_many :push_messages, dependent: :delete_all
   has_many :acts, dependent: :delete_all
+  has_many :tiles_digest_buckets, dependent: :delete_all
   has_many :tiles_digests, dependent: :delete_all
   has_many :follow_up_digest_emails, through: :tiles_digests
 
