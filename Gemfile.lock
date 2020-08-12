@@ -129,7 +129,7 @@ GEM
       carrierwave
       fog
       uuidtools
-    chartkick (2.2.5)
+    chartkick (3.4.0)
     chartmogul-ruby (1.1.5)
       faraday (~> 0.9)
     childprocess (0.9.0)
