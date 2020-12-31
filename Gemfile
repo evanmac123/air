@@ -79,7 +79,7 @@ gem "acts_as_singleton", "~> 0.0.8"
 gem "mixpanel", "~> 4.1.1" # Migrate to official gem
 gem "chronic", "~> 0.10.2"
 gem "haml-rails", "~> 1.0.0"
-gem "nokogiri", "~> 1.8.1"
+gem "nokogiri", "~> 1.10.10"
 gem "carrierwave_direct", "~> 0.0.15"
 gem "aws-sdk-v1", "~> 1.59.0" # V1 used for bulk upload and Tile attachments (migrate to v3 in rewrites)
 ###
