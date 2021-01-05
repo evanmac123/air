@@ -3,7 +3,7 @@
   "dependencies": {
     "@rails/webpacker": "^3.3.1",
     "autosize": "^4.0.1",
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "babel-core": "6",
     "babel-loader": "^7.1.4",
     "babel-polyfill": "^6.26.0",
