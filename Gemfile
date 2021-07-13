@@ -74,7 +74,7 @@ gem "wice_grid", git: "https://github.com/theairbo/wice_grid", branch: "rails_4_
 ### Plan to Remove
 gem "acts-as-taggable-on", "~> 3.5.0"
 gem "rolify", "~> 5.1.0"
-gem "addressable", "~> 2.5.2"
+gem "addressable", "~> 2.8.0"
 gem "acts_as_singleton", "~> 0.0.8"
 gem "mixpanel", "~> 4.1.1" # Migrate to official gem
 gem "chronic", "~> 0.10.2"
